@@ -125,9 +125,11 @@ public:
     plString(const wchar_t *wstr) { IConvertFromWchar(wstr, kSizeAuto); }
     plString(const plString &copy) : fUtf8Buffer(copy.fUtf8Buffer) { }
 
-    plString &operator=(const char *utf8) { IConvertFromUtf8(utf8, kSizeAuto, false); }
-    plString &operator=(const wchar_t *wstr) { IConvertFromWchar(wstr, kSizeAuto); }
-    plString &operator=(const plString &copy) { fUtf8Buffer = copy.fUtf8Buffer; }
+    plString &operator=(const char *utf8) { IConvertFromUtf8(utf8, kSizeAuto, false); return *this; }
+    plString &operator=(const wchar_t *wstr) { IConvertFromWchar(wstr, kSizeAuto); return *this; }
+    plString &operator=(const plString &copy) { fUtf8Buffer = copy.fUtf8Buffer; return *this; }
+
+    plString &operator+=(const plString &str);
 
     static inline plString FromUtf8(const char *utf8, size_t size = kSizeAuto)
     {
@@ -191,6 +193,37 @@ public:
     bool operator!=(const plString &str) const { return Compare() != 0; }
     */
 
+    int Find(char ch) const
+    {
+        const char *cp = strchr(s_str(), ch);
+        return cp ? (cp - c_str()) : -1;
+    }
+
+    int Find_r(char ch) const
+    {
+        const char *cp = strrchr(s_str(), ch);
+        return cp ? (cp - c_str()) : -1;
+    }
+
+    int Find_i(char ch) const;
+    int Find_ri(char ch) const;
+
+    plString TrimLeft(const char *charset = " \t\n\r") const;
+    plString TrimRight(const char *charset = " \t\n\r") const;
+    plString Trim(const char *charset = " \t\n\r") const;
+
+    plString Substr(int start, size_t size = kSizeAuto) const;
+
+    plString Left(size_t size) const
+    {
+        return Substr(0, size);
+    }
+
+    plString Right(size_t size) const
+    {
+        return Substr(GetSize() - size, size);
+    }
+
 public:
     struct less : public std::binary_function<plString, plString, bool>
     {
@@ -216,5 +249,7 @@ public:
         { return _L.Compare_i(_R) == 0; }
     };
 };
+
+plString operator+(const plString &left, const plString &right);
 
 #endif //plString_Defined

@@ -447,3 +447,129 @@ plString plString::Format(const char *fmt, ...)
     va_end(vptr);
     return str;
 }
+
+int plString::Find_i(char ch) const
+{
+    // No need to check for null, since s_str() will return { 0 } if it is null
+    const char *cp = s_str();
+    while (*cp) {
+        if (tolower(*cp) == tolower(ch))
+            return cp - c_str();
+    }
+    return -1;
+}
+
+int plString::Find_ri(char ch) const
+{
+    if (IsEmpty())
+        return -1;
+
+    const char *cp = c_str();
+    cp += strlen(cp);
+
+    while (--cp >= c_str()) {
+        if (tolower(*cp) == tolower(ch))
+            return cp - c_str();
+    }
+    return -1;
+}
+
+static bool in_set(char key, const char *charset)
+{
+    for (const char *cs = charset; *cs; ++cs) {
+        if (*cs == key)
+            return true;
+    }
+    return false;
+}
+
+plString plString::TrimLeft(const char *charset = " \t\n\r") const
+{
+    if (IsEmpty())
+        return plString();
+
+    const char *cp = c_str();
+    while (*cp && in_set(*cp, charset))
+        ++cp;
+
+    return Substr(cp - c_str());
+}
+
+plString plString::TrimRight(const char *charset = " \t\n\r") const
+{
+    if (IsEmpty())
+        return plString();
+
+    const char *cp = c_str();
+    cp += strlen(cp);
+
+    while (--cp >= c_str() && in_set(*cp, charset))
+        ;
+
+    return Substr(0, cp - c_str() + 1);
+}
+
+plString plString::Trim(const char *charset = " \t\n\r") const
+{
+    if (IsEmpty())
+        return plString();
+
+    const char *lp = c_str();
+    const char *rp = lp + strlen(lp);
+
+    while (*lp && in_set(*lp, charset))
+        ++lp;
+    while (--rp >= lp && in_set(*rp, charset))
+        ;
+
+    return Substr(lp - c_str(), rp - lp + 1);
+}
+
+plString plString::Substr(int start, size_t size = kSizeAuto) const
+{
+    size_t maxSize = GetSize();
+
+    if (start > maxSize)
+        return plString();
+    if (start < 0)
+        start = 0;
+    if (start + size > maxSize)
+        size = maxSize - start;
+
+    if (start == 0 && size == maxSize)
+        return *this;
+
+    char *substr = TRACKED_NEW char[size + 1];
+    memcpy(substr, c_str() + start, size);
+    substr[size] = 0;
+
+    // Don't re-check UTF-8 on this
+    plString str;
+    str.fUtf8Buffer.Steal(substr, size);
+    return str;
+}
+
+plString &plString::operator+=(const plString &str)
+{
+    size_t catsize = GetSize() + str.GetSize();
+    char *catstr = TRACKED_NEW char[catsize + 1];
+    memcpy(catstr, s_str(), GetSize());
+    memcpy(catstr + GetSize(), str.s_str(), str.GetSize());
+    catstr[catsize] = 0;
+    fUtf8Buffer.Steal(catstr, catsize);
+    return *this;
+}
+
+plString operator+(const plString &left, const plString &right)
+{
+    size_t catsize = left.GetSize() + right.GetSize();
+    char *catstr = TRACKED_NEW char[catsize + 1];
+    memcpy(catstr, left.s_str(), left.GetSize());
+    memcpy(catstr + left.GetSize(), right.s_str(), right.GetSize());
+    catstr[catsize] = 0;
+
+    // Don't re-check UTF-8 on this
+    plString str;
+    str.fUtf8Buffer.Steal(catstr, catsize);
+    return str;
+}
