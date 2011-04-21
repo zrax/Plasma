@@ -46,7 +46,7 @@ static inline size_t u16slen(const UInt16 *ustr)
 
 #define BADCHAR_REPLACEMENT (0xFFFDul)
 
-void plString::IConvertFromUtf8(const char *utf8, size_t size)
+void plString::IConvertFromUtf8(const char *utf8, size_t size, bool steal)
 {
     if (size == kSizeAuto)
         size = strlen(utf8);
@@ -76,7 +76,8 @@ void plString::IConvertFromUtf8(const char *utf8, size_t size)
     }
 #endif
 
-    fUtf8Buffer = plStringBuffer<char>(utf8, size);
+    fUtf8Buffer = steal ? plStringBuffer<char>::Steal(utf8, size)
+                        : plStringBuffer<char>(utf8, size);
 }
 
 void plString::IConvertFromUtf16(const UInt16 *utf16, size_t size)

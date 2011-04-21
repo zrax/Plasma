@@ -111,7 +111,7 @@ class plString
 private:
     plStringBuffer<char> fUtf8Buffer;
 
-    void IConvertFromUtf8(const char *utf8, size_t size);
+    void IConvertFromUtf8(const char *utf8, size_t size, bool steal);
     void IConvertFromUtf16(const UInt16 *utf16, size_t size);
     void IConvertFromWchar(const wchar_t *wstr, size_t size);
     void IConvertFromAscii(const char *astr, size_t size);
@@ -119,13 +119,18 @@ private:
 public:
     plString() { }
 
-    plString(const char *utf8) { IConvertFromUtf8(utf8, kSizeAuto); }
+    plString(const char *utf8) { IConvertFromUtf8(utf8, kSizeAuto, false); }
     plString(const wchar_t *wstr) { IConvertFromWchar(wstr, kSizeAuto); }
+    plString(const plString &copy) : fUtf8Buffer(copy.fUtf8Buffer) { }
+
+    plString &operator=(const char *utf8) { IConvertFromUtf8(utf8, kSizeAuto, false); }
+    plString &operator=(const wchar_t *wstr) { IConvertFromWchar(wstr, kSizeAuto); }
+    plString &operator=(const plString &copy) { fUtf8Buffer = copy.fUtf8Buffer; }
 
     static inline plString FromUtf8(const char *utf8, size_t size = kSizeAuto)
     {
         plString str;
-        str.IConvertFromUtf8(utf8, size);
+        str.IConvertFromUtf8(utf8, size, false);
         return str;
     }
 
@@ -151,6 +156,7 @@ public:
     }
 
     const char *c_str() const { return fUtf8Buffer.GetData(); }
+    const char *s_str() const { return c_str() ? c_str() : ""; }
     plStringBuffer<char> ToUtf8() const { return fUtf8Buffer; }
     plStringBuffer<UInt16> ToUtf16() const;
     plStringBuffer<wchar_t> ToWchar() const;
@@ -159,6 +165,14 @@ public:
     size_t GetSize() const { return fUtf8Buffer.GetSize(); }
     bool IsEmpty() const { return fUtf8Buffer.GetSize() == 0; }
     bool IsNull() const { return fUtf8Buffer.GetData() == 0; }
+
+    static plString Format(const char *fmt, ...);
+    static plString Steal(const char *utf8, size_t size = kSizeAuto)
+    {
+        plString str;
+        str.IConvertFromUtf8(utf8, size, true);
+        return str;
+    }
 };
 
 #endif //plString_Defined
