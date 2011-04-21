@@ -67,11 +67,11 @@ public:
     
     plStringBuffer(const _Ch *data, size_t size)
     {
-        _Ch *copyData = new _Ch[size + 1];
+        _Ch *copyData = TRACKED_NEW _Ch[size + 1];
         memcpy(copyData, data, size);
         copyData[size] = 0;
 
-        fData = new StringRef(copyData, size);
+        fData = TRACKED_NEW StringRef(copyData, size);
     }
 
     ~plStringBuffer<_Ch>()
@@ -83,7 +83,7 @@ public:
     static plStringBuffer<_Ch> Steal(const _Ch *data, size_t size)
     {
         plStringBuffer<_Ch> string;
-        string.fData = new StringRef(data, size);
+        string.fData = TRACKED_NEW StringRef(data, size);
         return string;
     }
 

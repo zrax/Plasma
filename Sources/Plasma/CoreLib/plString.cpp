@@ -104,7 +104,7 @@ void plString::IConvertFromUtf16(const UInt16 *utf16, size_t size)
     }
 
     // And perform the actual conversion
-    char *utf8 = new char[convlen + 1];
+    char *utf8 = TRACKED_NEW char[convlen + 1];
     char *dp = utf8;
     sp = utf16;
     while (sp < utf16 + size) {
@@ -176,7 +176,7 @@ void plString::IConvertFromWchar(const wchar_t *wstr, size_t size)
     }
 
     // And perform the actual conversion
-    char *utf8 = new char[convlen + 1];
+    char *utf8 = TRACKED_NEW char[convlen + 1];
     char *dp = utf8;
     sp = wstr;
     while (sp < wstr + size) {
@@ -224,7 +224,7 @@ void plString::IConvertFromAscii(const char *astr, size_t size)
     }
 
     // And perform the actual conversion
-    char *utf8 = new char[convlen + 1];
+    char *utf8 = TRACKED_NEW char[convlen + 1];
     char *dp = utf8;
     sp = astr;
     while (sp < astr + size) {
@@ -267,7 +267,7 @@ plStringBuffer<UInt16> plString::ToUtf16() const
     }
 
     // And perform the actual conversion
-    UInt16 *ustr = new UInt16[convlen + 1];
+    UInt16 *ustr = TRACKED_NEW UInt16[convlen + 1];
     UInt16 *dp = ustr;
     sp = utf8;
     while (sp < utf8 + srcSize) {
@@ -326,7 +326,7 @@ plStringBuffer<wchar_t> plString::ToWchar() const
     }
 
     // And perform the actual conversion
-    wchar_t *wstr = new wchar_t[convlen + 1];
+    wchar_t *wstr = TRACKED_NEW wchar_t[convlen + 1];
     wchar_t *dp = wstr;
     sp = utf8;
     while (sp < utf8 + srcSize) {
@@ -377,7 +377,7 @@ plStringBuffer<char> plString::ToAscii() const
     }
 
     // And perform the actual conversion
-    char *astr = new char[convlen + 1];
+    char *astr = TRACKED_NEW char[convlen + 1];
     char *dp = astr;
     sp = utf8;
     while (sp < utf8 + srcSize) {
