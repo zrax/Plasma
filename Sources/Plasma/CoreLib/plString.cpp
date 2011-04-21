@@ -403,3 +403,47 @@ plStringBuffer<char> plString::ToAscii() const
 
     return plStringBuffer<char>::Steal(astr, convlen);
 }
+
+// Microsoft doesn't provide this for us
+#ifdef _MSC_VER
+#define va_copy(dest, src)  (dest) = (src)
+#endif
+
+static plString IFormat(const char *fmt, va_list vptr)
+{
+    char buffer[256];
+    va_list vptr_save;
+    va_copy(vptr_save, vptr);
+
+    int chars = vsnprintf(buffer, 256, fmt, vptr);
+    if (chars < 0) {
+        // We will need to try this multiple times until we get a
+        // large enough buffer :(
+        int size = 4096;
+        for ( ;; ) {
+            va_copy(vptr, vptr_save);
+            char *bigbuffer = TRACKED_NEW char[size];
+            chars = vsnprintf(bigbuffer, size, fmt, vptr);
+            if (chars >= 0)
+                return plString::Steal(bigbuffer);
+
+            delete [] bigbuffer;
+            size *= 2;
+        }
+    } else if (chars >= 256) {
+        va_copy(vptr, vptr_save);
+        char *bigbuffer = TRACKED_NEW char[chars+1];
+        vsnprintf(bigbuffer, chars+1, fmt, vptr);
+        return plString::Steal(bigbuffer);
+    }
+    return plString(buffer);
+}
+
+plString plString::Format(const char *fmt, ...)
+{
+    va_list vptr;
+    va_start(vptr, fmt);
+    plString str = IFormat(fmt, vptr);
+    va_end(vptr);
+    return str;
+}

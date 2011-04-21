@@ -28,7 +28,9 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #define plString_Defined
 
 #include "hsTypes.h"
+#include "hsUtils.h"
 #include <stddef.h>
+#include <functional>
 
 template <typename _Ch>
 class plStringBuffer
@@ -173,6 +175,46 @@ public:
         str.IConvertFromUtf8(utf8, size, true);
         return str;
     }
+
+    int Compare(const plString &str) const
+    {
+        return strcmp(s_str(), str.s_str());
+    }
+
+    int Compare_i(const plString &str) const
+    {
+        return stricmp(s_str(), str.s_str());
+    }
+
+    /*
+    bool operator==(const plString &str) const { return Compare() == 0; }
+    bool operator!=(const plString &str) const { return Compare() != 0; }
+    */
+
+public:
+    struct less : public std::binary_function<plString, plString, bool>
+    {
+        bool operator()(const plString &_L, const plString &_R) const
+        { return _L.Compare(_R) < 0; }
+    };
+
+    struct less_i : public std::binary_function<plString, plString, bool>
+    {
+        bool operator()(const plString &_L, const plString &_R) const
+        { return _L.Compare_i(_R) < 0; }
+    };
+
+    struct equal : public std::binary_function<plString, plString, bool>
+    {
+        bool operator()(const plString &_L, const plString &_R) const
+        { return _L.Compare(_R) == 0; }
+    };
+
+    struct equal_i : public std::binary_function<plString, plString, bool>
+    {
+        bool operator()(const plString &_L, const plString &_R) const
+        { return _L.Compare_i(_R) == 0; }
+    };
 };
 
 #endif //plString_Defined
