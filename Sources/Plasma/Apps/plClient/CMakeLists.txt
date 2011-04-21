@@ -93,6 +93,9 @@ set(plClient_RESOURCES
 
 add_executable(plClient WIN32 ${plClient_SOURCES} ${plClient_HEADERS}
                               ${plClient_TEXT} ${plClient_RESOURCES})
+if(PLASMA_EXTERNAL_RELEASE)
+    set_target_properties(plClient PROPERTIES OUTPUT_NAME "UruExplorer")
+endif(PLASMA_EXTERNAL_RELEASE)
 target_link_libraries(plClient CoreLib)
 target_link_libraries(plClient CoreLibExe)
 target_link_libraries(plClient pfAnimation)
@@ -102,6 +105,7 @@ target_link_libraries(plClient pfCCR)
 target_link_libraries(plClient pfCharacter)
 target_link_libraries(plClient pfConditional)
 target_link_libraries(plClient pfConsole)
+target_link_libraries(plClient pfConsoleCore)
 target_link_libraries(plClient pfCsrSrv)
 target_link_libraries(plClient pfGameGUIMgr)
 target_link_libraries(plClient pfGameMgr)

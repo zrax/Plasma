@@ -1,5 +1,6 @@
 include_directories("../../Apps")
 include_directories("../../CoreLib")
+include_directories("../../FeatureLib")
 include_directories("../../NucleusLib/inc")
 include_directories("../../NucleusLib")
 include_directories("../../PubUtilLib")
@@ -28,8 +29,12 @@ set(plUruLauncher_RESOURCES
 
 add_executable(plUruLauncher WIN32 ${plUruLauncher_SOURCES} ${plUruLauncher_HEADERS}
                                    ${plUruLauncher_RESOURCES})
+if(PLASMA_EXTERNAL_RELEASE)
+    set_target_properties(plUruLauncher PROPERTIES OUTPUT_NAME UruLauncher)
+endif(PLASMA_EXTERNAL_RELEASE)
 target_link_libraries(plUruLauncher CoreLib)
 target_link_libraries(plUruLauncher CoreLibExe)
+target_link_libraries(plUruLauncher pfConsoleCore)
 target_link_libraries(plUruLauncher plAudioCore)
 target_link_libraries(plUruLauncher plClientPatcher)
 target_link_libraries(plUruLauncher plCompression)
