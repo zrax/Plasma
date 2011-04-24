@@ -9,7 +9,7 @@ find_package(OpenAL REQUIRED)
 find_package(PythonLibs REQUIRED)
 find_package(EXPAT REQUIRED)
 find_package(ZLIB REQUIRED)
-find_package(PHYSX REQUIRED)  #TODO: Not required if we aren't building the client
+find_package(PhysX REQUIRED)  #TODO: Not required if we aren't building the client
 find_package(Ogg REQUIRED)    #TODO: Not required if we aren't building the client
 find_package(Vorbis REQUIRED) #TODO: Not required if we aren't building the client
 find_package(Speex REQUIRED)  #TODO: Not required if we aren't building the client
@@ -68,6 +68,14 @@ endif(PLASMA_TARGETS STREQUAL "NoAvMsgs")
 if(PLASMA_TARGETS STREQUAL "Ethereal")
     add_definitions(-DSTREAM_LOGGER)
 endif(PLASMA_TARGETS STREQUAL "Ethereal")
+
+INCLUDE(TestBigEndian)
+TEST_BIG_ENDIAN(BIG_ENDIAN)
+IF(BIG_ENDIAN)
+     ADD_DEFINITIONS(-DBIG_ENDIAN)
+ELSE()
+     ADD_DEFINITIONS(-DLITTLE_ENDIAN)
+ENDIF()
 
 if(MSVC)
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)
