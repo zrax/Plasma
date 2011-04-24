@@ -121,12 +121,16 @@ private:
 public:
     plString() { }
 
+    /*
     plString(const char *utf8) { IConvertFromUtf8(utf8, kSizeAuto, false); }
     plString(const wchar_t *wstr) { IConvertFromWchar(wstr, kSizeAuto); }
+    */
     plString(const plString &copy) : fUtf8Buffer(copy.fUtf8Buffer) { }
 
+    /*
     plString &operator=(const char *utf8) { IConvertFromUtf8(utf8, kSizeAuto, false); return *this; }
     plString &operator=(const wchar_t *wstr) { IConvertFromWchar(wstr, kSizeAuto); return *this; }
+    */
     plString &operator=(const plString &copy) { fUtf8Buffer = copy.fUtf8Buffer; return *this; }
 
     plString &operator+=(const plString &str);
@@ -178,15 +182,10 @@ public:
         return str;
     }
 
-    int Compare(const plString &str) const
-    {
-        return strcmp(s_str(), str.s_str());
-    }
-
-    int Compare_i(const plString &str) const
-    {
-        return stricmp(s_str(), str.s_str());
-    }
+    int Compare(const plString &str) const { return strcmp(s_str(), str.s_str()); }
+    int Compare(const char *str) const { return strcmp(s_str(), str); }
+    int Compare_i(const plString &str) const { return stricmp(s_str(), str.s_str()); }
+    int Compare_i(const char *str) const { return stricmp(s_str(), str); }
 
     /*
     bool operator==(const plString &str) const { return Compare() == 0; }
@@ -213,16 +212,8 @@ public:
     plString Trim(const char *charset = " \t\n\r") const;
 
     plString Substr(int start, size_t size = kSizeAuto) const;
-
-    plString Left(size_t size) const
-    {
-        return Substr(0, size);
-    }
-
-    plString Right(size_t size) const
-    {
-        return Substr(GetSize() - size, size);
-    }
+    plString Left(size_t size) const { return Substr(0, size); }
+    plString Right(size_t size) const { return Substr(GetSize() - size, size); }
 
 public:
     struct less : public std::binary_function<plString, plString, bool>
