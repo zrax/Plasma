@@ -49,9 +49,9 @@ class pfKIMsg : public plMessage
         UInt32  fFlags;
 
         // for the hack chat message thingy
-        char    *fUser;
-        UInt32  fPlayerID;
-        std::wstring    fString;
+        plString    fUser;
+        UInt32      fPlayerID;
+        plString    fString;
 
         // for the SetChatFadeDelay
         hsScalar fDelay;
@@ -165,7 +165,6 @@ class pfKIMsg : public plMessage
         pfKIMsg() : plMessage( nil, nil, nil ) { SetBCastFlag( kBCastByExactType ); IInit(); }
         pfKIMsg( UInt8 command ) : plMessage( nil, nil, nil ) { SetBCastFlag( kBCastByExactType ); IInit(); fCommand = command; }
         pfKIMsg( plKey &receiver, UInt8 command ) : plMessage( nil, nil, nil ) { AddReceiver( receiver ); IInit(); fCommand = command; }
-        ~pfKIMsg() { delete [] fUser; }
 
         CLASSNAME_REGISTER( pfKIMsg );
         GETINTERFACE_ANY( pfKIMsg, plMessage );
@@ -177,12 +176,7 @@ class pfKIMsg : public plMessage
             fUser = s->ReadSafeString();
             fPlayerID = s->ReadSwap32();
 
-            wchar_t *temp = s->ReadSafeWString();
-            if (temp) // apparently ReadSafeWString can return null, which std::wstring doesn't like being assigned
-                fString = temp;
-            else
-                fString = L"";
-            delete [] temp;
+            fString = s->ReadSafeWString();
 
             fFlags = s->ReadSwap32();
             fDelay = s->ReadSwapScalar();
@@ -193,9 +187,9 @@ class pfKIMsg : public plMessage
         { 
             plMessage::IMsgWrite( s, mgr ); 
             s->WriteSwap( fCommand );
-            s->WriteSafeString( fUser );
+            s->WriteSafeString( fUser.c_str() );
             s->WriteSwap32( fPlayerID );
-            s->WriteSafeWString( fString.c_str() );
+            s->WriteSafeWString( fString.ToWchar().GetData() );
             s->WriteSwap32( fFlags );
             s->WriteSwapScalar(fDelay);
             s->WriteSwap32( fValue );
@@ -203,13 +197,11 @@ class pfKIMsg : public plMessage
 
         UInt8       GetCommand( void ) const { return fCommand; }
 
-        void        SetString( const char *str );
-        void        SetString( const wchar_t *str ) { fString = str; }
-        std::string GetString( void );
-        std::wstring GetStringU( void ) { return fString; }
+        void        SetString( const plString &str ) { fString = str; }
+        plString    GetString( void ) { return fString; }
 
-        void        SetUser( const char *str, UInt32 pid=0 ) { fUser = hsStrcpy( str ); fPlayerID = pid; }
-        const char  *GetUser( void ) { return fUser; }
+        void        SetUser( const plString &str, UInt32 pid=0 ) { fUser = str; fPlayerID = pid; }
+        plString    GetUser( void ) { return fUser; }
         UInt32      GetPlayerID( void ) { return fPlayerID; }
 
         void        SetFlags( UInt32 flags ) { fFlags = flags; }

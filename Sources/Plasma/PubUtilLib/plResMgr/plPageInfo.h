@@ -45,8 +45,8 @@ public:
 
 protected:
     plLocation  fLocation;
-    char*       fAge;
-    char*       fPage;
+    plString    fAge;
+    plString    fPage;
     UInt16      fMajorVersion;
     ClassVerVec fClassVersions;
     UInt32      fChecksum;                  

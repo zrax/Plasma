@@ -46,7 +46,7 @@ private:
     bool            fBoolVal;
     int             fIntVal;
     double          fFloatVal;
-    std::wstring    fStringVal;
+    plString        fStringVal;
 
     void IReset();
 
@@ -56,18 +56,16 @@ public:
     plGeneric(const int& val);
     plGeneric(const double& val);
     plGeneric(const char* val);
-    plGeneric(const std::string& val);
     plGeneric(const wchar_t* val);
-    plGeneric(const std::wstring& val);
+    plGeneric(const plString& val);
 
     void SetToNull() {IReset();}
     plGeneric& operator=(const bool& val);
     plGeneric& operator=(const int& val);
     plGeneric& operator=(const double& val);
     plGeneric& operator=(const char* val);
-    plGeneric& operator=(const std::string& val);
     plGeneric& operator=(const wchar_t* val);
-    plGeneric& operator=(const std::wstring& val);
+    plGeneric& operator=(const plString& val);
 
     // the cast functions will NOT cast from one type to another, use
     // GetType() to determine the type of parameter, then cast it to that type
@@ -75,8 +73,8 @@ public:
     operator const bool() const {return fBoolVal;}
     operator const int() const {return fIntVal;}
     operator const double() const {return fFloatVal;}
-    operator const wchar_t*() const {return fStringVal.c_str();}
-    operator const std::wstring() const {return fStringVal;}
+    operator const wchar_t*() const {return fStringVal.ToWchar().GetData();}
+    operator const plString() const {return fStringVal;}
 
     int Write(hsStream* stream);
     int Read(hsStream* stream);

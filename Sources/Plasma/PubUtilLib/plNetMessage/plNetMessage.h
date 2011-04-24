@@ -546,12 +546,10 @@ public:
 
 
     // debug
-    std::string AsStdString() const
+    plString AsString() const
     {
-        std::string s;
-        char tmp[256];
-        xtl::format(s,"object=%s initial=%d, %s",fObjectHelper.GetUoid().StringIze(tmp), fIsInitialState,
-            plNetMsgGameMessage::AsStdString().c_str());
+        plString::Format("object=%s initial=%d, %s",fObjectHelper.GetUoid().StringIze().c_str(),
+            fIsInitialState,plNetMsgGameMessage::AsString().c_str());
         return s;
     }
 };
@@ -640,13 +638,11 @@ public:
     hsBool GetRequestingState() const { return (fPageFlags & kRequestState) != 0; } 
 
     // debug
-    std::string AsStdString() const
+    plString AsString() const
     {
-        std::string s;
-        xtl::format(s,"pageFlags:%02X, paging %s, requestingState:%s, resetting=%d",fPageFlags,
+        return plString::Format("pageFlags:%02X, paging %s, requestingState:%s, resetting=%d",fPageFlags,
             (fPageFlags&kPagingOut)?"out":"in", (fPageFlags&kRequestState)?"yes":"no",
             (fPageFlags & kResetList)!=0);
-        return s;
     }
 };
 
@@ -749,11 +745,9 @@ public:
     void WriteVersion(hsStream* s, hsResMgr* mgr);
 
     // debug
-    std::string AsStdString() const
+    plString AsString() const
     {
-        std::string s;
-        xtl::format(s,"len=%d",fVoiceData.size());
-        return s;
+        return plString::Format("len=%d",fVoiceData.size());
     }
 };
 
@@ -789,11 +783,9 @@ public:
     void WriteVersion(hsStream* s, hsResMgr* mgr);
 
     // debug
-    std::string AsStdString() const
+    plString AsString() const
     {
-        std::string s;
-        xtl::format(s,"lockReq=%d, %s",fLockRequest, plNetMsgStreamedObject::AsStdString().c_str());
-        return s;
+        return plString::Format("lockReq=%d, %s",fLockRequest, plNetMsgStreamedObject::AsString().c_str());
     }
 };
 
@@ -975,18 +967,16 @@ public:
     const hsBitVector& GetRegionsICareAbout() const { return fRegionsICareAbout;    }
     const hsBitVector& GetRegionsImIn() const       { return fRegionsImIn;  }
 
-    std::string AsStdString() const
+    plString AsString() const
     {
-        std::string s;
-        std::string b1, b2;
+        plString b1, b2;
         int i;
         for(i=0;i<fRegionsImIn.GetNumBitVectors(); i++)
-            b1 += xtl::format("0x%x ", fRegionsImIn.GetBitVector(i)).c_str();
+            b1 += plString::Format("0x%x ", fRegionsImIn.GetBitVector(i));
         for(i=0;i<fRegionsICareAbout.GetNumBitVectors(); i++)
-            b2 += xtl::format("0x%x ", fRegionsICareAbout.GetBitVector(i)).c_str();
-        xtl::format( s, "rgnsImIn:%s, rgnsICareAbout:%s, %s",
-            b1.c_str(), b2.c_str(), plNetMessage::AsStdString().c_str() );
-        return s;
+            b2 += plString::Format("0x%x ", fRegionsICareAbout.GetBitVector(i));
+        return plString::Format( "rgnsImIn:%s, rgnsICareAbout:%s, %s",
+            b1.c_str(), b2.c_str(), plNetMessage::AsString().c_str() );
     }
 };
 

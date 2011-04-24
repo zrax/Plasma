@@ -288,30 +288,31 @@ int plMsgStdStringHelper::PeekBig(std::string  & stringref, hsStream* stream, co
 /////////////////////////////////////////////////////////////////
 
 // STATIC
-int plMsgXtlStringHelper::Poke(const xtl::istring & stringref, hsStream* stream, const UInt32 peekOptions)
+int plMsgPlStringHelper::Poke(const plString & stringref, hsStream* stream, const UInt32 peekOptions)
 {
-    plMessage::plStrLen strlen;
-    strlen = stringref.length();
+    plMessage::plStrLen strlen = stringref.GetSize();
     stream->WriteSwap(strlen);
     if (strlen)
-        stream->Write(strlen,stringref.data());
+        stream->Write(strlen,stringref.c_str());
     return stream->GetPosition();
 }
 
 // STATIC
-int plMsgXtlStringHelper::Peek(xtl::istring & stringref, hsStream* stream, const UInt32 peekOptions)
+int plMsgPlStringHelper::Peek(plString & stringref, hsStream* stream, const UInt32 peekOptions)
 {
     plMessage::plStrLen strlen;
     stream->LogSubStreamStart("push me");
     stream->LogReadSwap(&strlen,"StrLen");
-    stringref.erase();
+    stringref = plString();
     if (strlen <= stream->GetSizeLeft())
     {
-        stringref.resize(strlen);
+        char *data = TRACKED_NEW char[strlen + 1];
+        data[strlen] = 0;
         if (strlen){
-            stream->LogRead(strlen,(void*)stringref.data(),"XtlString");
-            stream->LogStringString(xtl::format("Value: %s", stringref.data()).c_str());
+            stream->LogRead(strlen,(void*)data,"plString");
+            stream->LogStringString(plString::Format("Value: %s", stringref.c_str()).c_str());
         }
+        stringref = plString::Steal(data, strlen);
     }
     stream->LogSubStreamEnd();
     return stream->GetPosition();

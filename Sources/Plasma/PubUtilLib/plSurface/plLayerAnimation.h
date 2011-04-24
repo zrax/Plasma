@@ -173,7 +173,7 @@ class plLayerSDLAnimation : public plLayerAnimationBase
 {
 protected:
     plSimpleStateVariable *fVar;
-    char *fVarName;
+    plString fVarName;
 
 public:
     plLayerSDLAnimation();

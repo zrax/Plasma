@@ -48,8 +48,8 @@ class plCCRPetitionMsg : public plCCRMessage
 {
 private:
     UInt8 fPetitionType;
-    std::string fNote;
-    std::string fTitle;
+    plString fNote;
+    plString fTitle;
 public:
     plCCRPetitionMsg() : fPetitionType(plNetCommon::PetitionTypes::kGeneralHelp) { fBCastFlags |= kBCastByType; }
     ~plCCRPetitionMsg() {}
@@ -58,12 +58,12 @@ public:
     GETINTERFACE_ANY( plCCRPetitionMsg, plCCRMessage ); 
 
     // petition text
-    void SetNote(const char* n) { fNote=n;  }
-    const char* GetNote() const { return fNote.c_str(); }
+    void SetNote(const plString &n) { fNote=n;  }
+    plString GetNote() const { return fNote; }
 
     // title
-    void SetTitle(const char* n) { fTitle=n;    }
-    const char* GetTitle() const { return fTitle.c_str();   }
+    void SetTitle(const plString &n) { fTitle=n;    }
+    plString GetTitle() const { return fTitle; }
 
     // petition type
     void SetType(const UInt8 t) { fPetitionType=t;  }

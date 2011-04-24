@@ -1257,17 +1257,6 @@ void proControlKeyEventData::IWriteVersion(hsStream* s, hsResMgr* mgr)
 }
 
 
-void proVariableEventData::IInit()
-{
-    fName = nil;
-}
-void proVariableEventData::IDestruct()
-{
-    if ( fName != nil )
-        delete [] fName;
-    fName = nil;
-}
-
 void proVariableEventData::IRead(hsStream* stream, hsResMgr* mgr)
 {
     fName = stream->ReadSafeString();
@@ -1278,7 +1267,7 @@ void proVariableEventData::IRead(hsStream* stream, hsResMgr* mgr)
 
 void proVariableEventData::IWrite(hsStream* stream, hsResMgr* mgr)
 {
-    stream->WriteSafeString(fName);
+    stream->WriteSafeString(fName.c_str());
     stream->WriteSwap32(fDataType);
     stream->WriteSwapScalar(fNumber);
     mgr->WriteKey(stream, fKey);

@@ -38,9 +38,6 @@ class hsStream;
 //
 class plGenericType
 {
-public:
-    typedef char*   CharPtr;
-
 protected:
     union
     {
@@ -49,9 +46,9 @@ protected:
         float           fF;
         double          fD;
         bool            fB;
-        CharPtr         fS;
         char            fC;
     };
+    plString            fS;
     
 public:
     
@@ -74,17 +71,16 @@ protected:
     const Int32     &IToInt( void ) const;
     const UInt32    &IToUInt( void ) const;
     const float     &IToFloat( void ) const;
-    const double        &IToDouble( void ) const;
+    const double    &IToDouble( void ) const;
     const bool      &IToBool( void ) const;
-    const CharPtr   &IToString( void ) const;
+    const plString  &IToString( void ) const;
     const char      &IToChar( void ) const;
 
-    void IDeallocString() { if (fType==kString || fType==kAny) {delete [] fS; fS=nil;} }
 public:
 
     plGenericType() : fType(kNone) { Reset(); }
     plGenericType(const plGenericType& c) { CopyFrom(c);    }
-    virtual ~plGenericType() { IDeallocString(); }
+    virtual ~plGenericType() { }
 
     plGenericType& operator=(const plGenericType& c) { CopyFrom(c); return *this;   }
 
@@ -95,7 +91,7 @@ public:
     operator double() const { return IToDouble(); }
     operator float() const { return IToFloat(); }
     operator bool() const { return IToBool(); }
-    operator const CharPtr() const { return IToString(); }
+    operator plString() const { return IToString(); }
     operator char() const { return IToChar(); }
     operator unsigned int() const { return IToUInt(); }
     operator int() const { return IToInt(); }
@@ -103,7 +99,7 @@ public:
     void    SetType(Types t)        { fType=t; }
     UInt8   GetType( void ) const   { return fType; }
     
-    std::string GetAsStdString() const;
+    plString GetAsString() const;
 
     // implicit set
     void    Set( Int32 i )      { fI = i; fType = kInt; }
@@ -111,7 +107,7 @@ public:
     void    Set( float f )      { fF = f; fType = kFloat; }
     void    Set( double d )     { fD = d; fType = kDouble; }
     void    Set( bool b )       { fB = b; fType = kBool; }
-    void    Set( CharPtr s )    { IDeallocString(); fS = hsStrcpy(s); fType = kString; }
+    void    Set( const plString &s )    { fS = s; fType = kString; }
     void    Set( char c )       { fC = c; fType = kChar; }
 
     // explicit set
@@ -120,9 +116,9 @@ public:
     void    SetFloat( float f )     { fF = f; fType = kFloat; }
     void    SetDouble( double d )   { fD = d; fType = kDouble; }
     void    SetBool( bool b )       { fB = b; fType = kBool; }
-    void    SetString( CharPtr s )  { IDeallocString(); fS = hsStrcpy(s); fType = kString; }
+    void    SetString( const plString &s )  { fS = s; fType = kString; }
     void    SetChar( char c )       { fC = c; fType = kChar; }
-    void    SetAny( CharPtr s )     { IDeallocString(); fS = hsStrcpy(s); fType = kAny; }
+    void    SetAny( const plString &s )     { fS = s; fType = kAny; }
     void    SetNone( void )         { fType = kNone; }
     void    SetVar(Types t, unsigned int size, void* val);
 
@@ -137,17 +133,17 @@ class plGenericVar
 {
 protected:
     plGenericType fValue;
-    char*   fName;
+    plString      fName;
 public:
-    plGenericVar(const plGenericVar &c) : fName(nil) { CopyFrom(c); }
-    plGenericVar(const char* name=nil) : fName(nil) { SetName(name); }
-    virtual ~plGenericVar() { delete [] fName;  }
+    plGenericVar(const plGenericVar &c) { CopyFrom(c); }
+    plGenericVar(const plString &name=plString()) { SetName(name); }
+    virtual ~plGenericVar() { }
 
     virtual void Reset() { Value().Reset(); }   // reset runtime state, not inherent state
     plGenericVar& operator=(const plGenericVar &c) { CopyFrom(c); return *this; }
-    void CopyFrom(const plGenericVar &c) { delete [] fName; fName=hsStrcpy(c.GetName()); fValue=c.Value();  }
-    const char* GetName()   const       { return fName; }
-    void    SetName(const char* n)      { delete [] fName; fName = hsStrcpy(n); }
+    void CopyFrom(const plGenericVar &c) { fName=c.GetName(); fValue=c.Value();  }
+    plString GetName()   const          { return fName; }
+    void     SetName(const plString& n) { fName = n; }
     plGenericType& Value() { return fValue; }
     const plGenericType& Value() const { return fValue; }
 
@@ -173,7 +169,7 @@ public:
     operator float() const { return (float)fValue; }
     operator double() const { return (double)fValue; }
     operator bool() const { return (bool)fValue; }
-    operator const char *() const { return (const char *)fValue; }
+    operator plString() const { return (plString)fValue; }
     operator char() const { return (char)fValue; }
 };
 

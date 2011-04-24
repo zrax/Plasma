@@ -376,7 +376,7 @@ void plStateDataRecord::Write(hsStream* s, float timeConvert, UInt32 writeOption
 //
 // STATIC - read prefix header.  returns true on success 
 //
-bool plStateDataRecord::ReadStreamHeader(hsStream* s, char** name, int* version, plUoid* objUoid)
+bool plStateDataRecord::ReadStreamHeader(hsStream* s, plString* name, int* version, plUoid* objUoid)
 {
     UInt16 savFlags;
     s->ReadSwap(&savFlags);

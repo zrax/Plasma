@@ -46,9 +46,9 @@ class plInputIfaceMgrMsg : public plMessage
         UInt8   fCommand;
         plInputInterface    *fInterface;
         UInt32  fPageID;
-        const char* ageName;
-        const char* ageFileName;
-        const char* spawnPoint;
+        plString ageName;
+        plString ageFileName;
+        plString spawnPoint;
         Uuid ageInstanceGuid;
         plKey fAvKey;
     public:
@@ -72,10 +72,10 @@ class plInputIfaceMgrMsg : public plMessage
             kSetShareAgeInstanceGuid,
         };
 
-        plInputIfaceMgrMsg() : plMessage( nil, nil, nil ) { SetBCastFlag( kBCastByExactType ); fInterface = nil; ageName = ageFileName = spawnPoint = 0; fAvKey = nil; }
-        plInputIfaceMgrMsg( plKey &receiver, UInt8 command ) : plMessage( nil, nil, nil ) { AddReceiver( receiver ); fCommand = command; fInterface = nil; fAvKey = nil; ageName = ageFileName = spawnPoint =  0;}
-        plInputIfaceMgrMsg( UInt8 command ) : plMessage( nil, nil, nil ) { SetBCastFlag( kBCastByExactType ); fCommand = command; fInterface = nil; fAvKey = nil; ageName = ageFileName = spawnPoint =  0;}
-        plInputIfaceMgrMsg( UInt8 command, UInt32 pageID ) : plMessage( nil, nil, nil ) { SetBCastFlag( kBCastByExactType ); fCommand = command; fPageID = pageID; fInterface = nil; fAvKey = nil; ageName = ageFileName = spawnPoint =  0;}
+        plInputIfaceMgrMsg() : plMessage( nil, nil, nil ) { SetBCastFlag( kBCastByExactType ); fInterface = nil; fAvKey = nil; }
+        plInputIfaceMgrMsg( plKey &receiver, UInt8 command ) : plMessage( nil, nil, nil ) { AddReceiver( receiver ); fCommand = command; fInterface = nil; fAvKey = nil;}
+        plInputIfaceMgrMsg( UInt8 command ) : plMessage( nil, nil, nil ) { SetBCastFlag( kBCastByExactType ); fCommand = command; fInterface = nil; fAvKey = nil;}
+        plInputIfaceMgrMsg( UInt8 command, UInt32 pageID ) : plMessage( nil, nil, nil ) { SetBCastFlag( kBCastByExactType ); fCommand = command; fPageID = pageID; fInterface = nil; fAvKey = nil;}
         ~plInputIfaceMgrMsg();
 
         CLASSNAME_REGISTER( plInputIfaceMgrMsg );
@@ -97,18 +97,18 @@ class plInputIfaceMgrMsg : public plMessage
             plMessage::IMsgWrite( s, mgr ); 
             s->WriteSwap( fCommand );
             s->WriteSwap( fPageID );
-            s->WriteSafeString(ageName);
-            s->WriteSafeString(ageFileName);
-            s->WriteSafeString(spawnPoint);
+            s->WriteSafeString(ageName.c_str());
+            s->WriteSafeString(ageFileName.c_str());
+            s->WriteSafeString(spawnPoint.c_str());
             mgr->WriteKey(s,fAvKey);
         }
 
         void        SetAgeName(const char* s) { ageName = s;    }
-        const char* GetAgeName() { return ageName; }
+        plString    GetAgeName() { return ageName; }
         void        SetAgeFileName(const char* s) { ageFileName = s;    }
-        const char* GetAgeFileName() { return ageFileName; }
+        plString    GetAgeFileName() { return ageFileName; }
         void        SetSpawnPoint(const char* s) { spawnPoint = s; }
-        const char* GetSpawnPoint() { return spawnPoint; }
+        plString    GetSpawnPoint() { return spawnPoint; }
         void        SetAgeInstanceGuid(const Uuid& guid) { ageInstanceGuid = guid; }
         const Uuid& GetAgeInstanceGuid() { return ageInstanceGuid; }
         UInt8       GetCommand( void ) { return fCommand; }

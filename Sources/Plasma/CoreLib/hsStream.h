@@ -30,6 +30,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "hsTypes.h"
 #include "hsMemory.h"
+#include "plString.h"
 
 namespace hsPackFileSys {
 struct FileEntry;
@@ -118,13 +119,13 @@ public:
 
     UInt32      WriteSafeStringLong(const char *string);    // uses 4 bytes for length
     UInt32      WriteSafeWStringLong(const wchar_t *string);
-    char *      ReadSafeStringLong();
-    wchar_t *   ReadSafeWStringLong();
+    plString    ReadSafeStringLong();
+    plString    ReadSafeWStringLong();
 
     UInt32      WriteSafeString(const char *string);        // uses 2 bytes for length
     UInt32      WriteSafeWString(const wchar_t *string);
-    char *      ReadSafeString();
-    wchar_t *   ReadSafeWString();
+    plString    ReadSafeString();
+    plString    ReadSafeWString();
 
     hsBool      GetToken(char *s, UInt32 maxLen=UInt32(-1), const char beginComment=kComment, const char endComment=kEolnCode);
     hsBool      ReadLn(char* s, UInt32 maxLen=UInt32(-1), const char beginComment=kComment, const char endComment=kEolnCode);

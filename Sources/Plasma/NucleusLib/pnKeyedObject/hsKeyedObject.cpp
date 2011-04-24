@@ -131,8 +131,8 @@ void hsKeyedObject::UnRegisterAsManual(plUoid& inUoid)
             inUoid.StringIze(inStr);
             myUoid.StringIze(myStr);
             hsAssert(false,
-                xtl::format("Request to Unregister wrong FixedKey, keyName=%s, inUoid=%s, myUoid=%s",
-                fpKey->GetName() ? fpKey->GetName() : "?", inStr, myStr).c_str());
+                plString::Format("Request to Unregister wrong FixedKey, keyName=%s, inUoid=%s, myUoid=%s",
+                fpKey->GetName().IsNull() ? "?" : fpKey->GetName().c_str(), inStr, myStr).c_str());
 #endif
         }
         ((plKeyImp*)fpKey)->UnRegister();

@@ -31,6 +31,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "pnKeyedObject/plKey.h"
 #include "hsTemplates.h"
 #include "hsStlUtils.h"
+#include "plString.h"
 
 class plKey;
 class hsStream;
@@ -160,12 +161,12 @@ struct plMsgStdStringHelper
 };
 
 /////////////////////////////////////////////////////////////////
-// reads/writes your xtl::istring field
+// reads/writes your plString field
 
-struct plMsgXtlStringHelper
+struct plMsgPlStringHelper
 {
-    static int Poke(const xtl::istring & stringref, hsStream* stream, const UInt32 peekOptions=0);
-    static int Peek(xtl::istring & stringref, hsStream* stream, const UInt32 peekOptions=0);
+    static int Poke(const plString & stringref, hsStream* stream, const UInt32 peekOptions=0);
+    static int Peek(plString & stringref, hsStream* stream, const UInt32 peekOptions=0);
 };
 
 /////////////////////////////////////////////////////////////////

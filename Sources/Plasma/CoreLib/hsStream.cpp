@@ -250,7 +250,7 @@ UInt32 hsStream::WriteSafeWStringLong(const wchar_t *string)
     return 0;
 }
 
-char *hsStream::ReadSafeStringLong()
+plString hsStream::ReadSafeStringLong()
 {
     char *name = nil;
     UInt32 numChars = ReadSwap32();
@@ -269,20 +269,21 @@ char *hsStream::ReadSafeStringLong()
         }       
     }
 
-    return name;
+    return plString::Steal(name, numChars);
 }
 
-wchar_t *hsStream::ReadSafeWStringLong()
+plString hsStream::ReadSafeWStringLong()
 {
-    wchar_t *retVal = nil;
+    UInt16 *retVal = nil;
     UInt32 numChars = ReadSwap32();
     if (numChars > 0 && numChars <= (GetSizeLeft()/2)) // divide by two because each char is two bytes
     {
-        retVal = TRACKED_NEW wchar_t[numChars+1];
+        retVal = TRACKED_NEW UInt16[numChars+1];
         int i;
         for (i=0; i<numChars; i++)
-            retVal[i] = (wchar_t)ReadSwap16();
-        retVal[numChars] = (wchar_t)ReadSwap16(); // we wrote the null out, read it back in
+            retVal[i] = ReadSwap16();
+        ReadSwap16(); // we wrote the null out, read it back in
+        retVal[numChars] = 0; // Safer
 
         if (retVal[0]* 0x80)
         {
@@ -292,7 +293,9 @@ wchar_t *hsStream::ReadSafeWStringLong()
         }
     }
 
-    return retVal;
+    plString str = plString::FromUtf16(retVal, numChars);
+    delete [] retVal;
+    return str;
 }
 
 UInt32 hsStream::WriteSafeString(const char *string)
@@ -339,7 +342,7 @@ UInt32 hsStream::WriteSafeWString(const wchar_t *string)
     return 0;
 }
 
-char *hsStream::ReadSafeString()
+plString hsStream::ReadSafeString()
 {
     char *name = nil;
     UInt16 numChars = ReadSwap16();
@@ -368,23 +371,24 @@ char *hsStream::ReadSafeString()
         }
     }
 
-    return name;
+    return plString::Steal(name, numChars);
 }
 
-wchar_t *hsStream::ReadSafeWString()
+plString hsStream::ReadSafeWString()
 {
-    wchar_t *retVal = nil;
+    UInt16 *retVal = nil;
     UInt32 numChars = ReadSwap16();
     
     numChars &= ~0xf000;
     hsAssert(numChars <= GetSizeLeft()/2, "Bad string");
     if (numChars > 0 && numChars <= (GetSizeLeft()/2)) // divide by two because each char is two bytes
     {
-        retVal = TRACKED_NEW wchar_t[numChars+1];
+        retVal = TRACKED_NEW UInt16[numChars+1];
         int i;
         for (i=0; i<numChars; i++)
-            retVal[i] = (wchar_t)ReadSwap16();
-        retVal[numChars] = (wchar_t)ReadSwap16(); // we wrote the null out, read it back in
+            retVal[i] = ReadSwap16();
+        ReadSwap16(); // we wrote the null out, read it back in
+        retVal[numChars] = 0; // Safer
 
         if (retVal[0]* 0x80)
         {
@@ -394,7 +398,9 @@ wchar_t *hsStream::ReadSafeWString()
         }
     }
 
-    return retVal;
+    plString wstr = plString::FromUtf16(retVal, numChars);
+    delete [] retVal;
+    return wstr;
 }
 
 hsBool  hsStream::Read4Bytes(void *pv)  // Virtual, faster version in sub classes

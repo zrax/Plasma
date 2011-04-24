@@ -40,11 +40,10 @@ void plGenericType::Reset()
 
 void plGenericType::CopyFrom(const plGenericType& c)
 {
-    IDeallocString();
     fType = c.fType;
     if (fType==kString || fType==kAny)
     {
-        fS=hsStrcpy(c.fS);
+        fS=c.fS;
     }
     else
     {
@@ -61,8 +60,8 @@ const Int32 &   plGenericType::IToInt( void ) const
     static Int32 i;
     if( fType == kAny )
     {
-        hsAssert( fS != nil, "Weird parameter during conversion" );
-        i = atoi( fS );
+        hsAssert( !fS.IsEmpty(), "Weird parameter during conversion" );
+        i = atoi( fS.c_str() );
         return i;
     }
     
@@ -76,8 +75,8 @@ const UInt32 &  plGenericType::IToUInt( void ) const
     static UInt32 i;
     if( fType == kAny )
     {
-        hsAssert( fS != nil, "Weird parameter during conversion" );
-        i = atoi( fS );
+        hsAssert( !fS.IsEmpty(), "Weird parameter during conversion" );
+        i = atoi( fS.c_str() );
         return i;
     }
     
@@ -91,8 +90,8 @@ const double &  plGenericType::IToDouble( void ) const
     static double d;
     if( fType == kAny )
     {
-        hsAssert( fS != nil, "Weird parameter during conversion" );
-        d = atof( fS );
+        hsAssert( !fS.IsEmpty(), "Weird parameter during conversion" );
+        d = atof( fS.c_str() );
         return d;
     }
     
@@ -106,8 +105,8 @@ const float &   plGenericType::IToFloat( void ) const
     static float f;
     if( fType == kAny )
     {
-        hsAssert( fS != nil, "Weird parameter during conversion" );
-        f = (float)atof( fS );
+        hsAssert( fS.IsEmpty(), "Weird parameter during conversion" );
+        f = (float)atof( fS.c_str() );
         return f;
     }
     
@@ -121,8 +120,8 @@ const bool &    plGenericType::IToBool( void ) const
     static bool b;
     if( fType == kAny )
     {
-        hsAssert( fS != nil, "Weird parameter during conversion" );
-        if( atoi( fS ) > 0 || stricmp( fS, "true" ) == 0 )
+        hsAssert( !fS.IsEmpty(), "Weird parameter during conversion" );
+        if( atoi( fS.c_str() ) > 0 || fS.Compare_i( "true" ) == 0 )
             b = true;
         else
             b = false;
@@ -133,7 +132,7 @@ const bool &    plGenericType::IToBool( void ) const
     return fB;
 }
 
-const plGenericType::CharPtr &  plGenericType::IToString( void ) const
+const plString &  plGenericType::IToString( void ) const
 {
     hsAssert( fType == kString || fType == kAny, "Trying to use a non-string parameter as a string!" );
 
@@ -147,8 +146,8 @@ const char &    plGenericType::IToChar( void ) const
     static char     c;
     if( fType == kAny )
     {
-        hsAssert( fS != nil, "Weird parameter during conversion" );
-        c = fS[ 0 ];
+        hsAssert( !fS.IsEmpty(), "Weird parameter during conversion" );
+        c = fS.c_str()[ 0 ];
         return c;
     }
     
@@ -157,7 +156,6 @@ const char &    plGenericType::IToChar( void ) const
 
 void    plGenericType::Read(hsStream* s)
 {
-    IDeallocString();
     s->ReadSwap(&fType);
 
     switch ( fType )
@@ -199,7 +197,7 @@ void    plGenericType::Write(hsStream* s)
     {
     case kString:
     case kAny:
-        s->WriteSafeString(fS);
+        s->WriteSafeString(fS.c_str());
         break;
     case kBool:
         {Int8 b = fB?1:0;
@@ -229,14 +227,13 @@ void    plGenericType::Write(hsStream* s)
 ///////////////////////////////////////////////////
 void    plGenericVar::Read(hsStream* s)
 {
-    delete [] fName;
     fName = s->ReadSafeString();
     fValue.Read(s);
 }
 
 void    plGenericVar::Write(hsStream* s)
 {
-    s->WriteSafeString(fName);
+    s->WriteSafeString(fName.c_str());
     fValue.Write(s);
 }
 
@@ -287,10 +284,7 @@ void plGenericType::SetVar(Types t, unsigned int size, void* val)
         }
     case kString :
         {
-            delete [] fS;
-            fS = TRACKED_NEW char[size+1];
-            memcpy(fS,val,size);
-            fS[size] = 0;
+            fS = plString::FromUtf8((const char *)val, size);
             break;
         }
     case kNone :
@@ -301,45 +295,30 @@ void plGenericType::SetVar(Types t, unsigned int size, void* val)
 }
 
 
-std::string plGenericType::GetAsStdString() const
+plString plGenericType::GetAsString() const
 {
-    std::string s;
-
     switch (fType)
     {
     case kInt :
-        {
-            xtl::format(s,"%d",fI);
-            break;
-        }
+        return plString::Format("%d",fI);
     case kBool :
+        return plString::Format("%u",fB);
     case kUInt :
-        {
-            xtl::format(s,"%u",fType==kBool?fB:fU);
-            break;
-        }
+        return plString::Format("%u",fU);
     case kFloat :
+        return plString::Format("%f",fF);
     case kDouble :
-        {
-            xtl::format(s,"%f",fType==kDouble?fD:fF);
-            break;
-        }
+        return plString::Format("%f",fD);
     case kChar :
-        {
-            xtl::format(s,"%c",fC);
-            break;
-        }
+        return plString::Format("%c",fC);
     case kAny :
     case kString :
-        {
-            s = fS;
-            break;
-        }
+        return fS;
     case kNone :
         break;
     default:
-        hsAssert(false,"plGenericType::GetAsStdString unknown type");
+        hsAssert(false,"plGenericType::GetAsString unknown type");
     }
 
-    return s;
+    return plString();
 }

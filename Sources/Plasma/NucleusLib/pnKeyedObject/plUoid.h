@@ -108,7 +108,7 @@ public:
     bool operator<(const plLocation& loc ) const { return fSequenceNumber < loc.fSequenceNumber; }
 
     // THIS SHOULD BE FOR DEBUGGING ONLY <hint hint>
-    char* StringIze(char* str) const;  // Format to displayable string. Returns the same string for convenience
+    plString StringIze() const;  // Format to displayable string. Returns the same string for convenience
 
     static plLocation MakeReserved(UInt32 number);
     static plLocation MakeNormal(UInt32 number);
@@ -128,14 +128,14 @@ class plUoid
 {
 public:
     plUoid() { fObjectName = nil; Invalidate(); }
-    plUoid(const plLocation& location, UInt16 classType, const char* objectName, const plLoadMask& m=plLoadMask::kAlways);
+    plUoid(const plLocation& location, UInt16 classType, const plString& objectName, const plLoadMask& m=plLoadMask::kAlways);
     plUoid(plFixedKeyId fixedKey);
     plUoid(const plUoid& src);
     ~plUoid();
 
     const plLocation&   GetLocation() const { return fLocation; }
     UInt16              GetClassType() const { return fClassType; }
-    const char*         GetObjectName() const { return fObjectName; }
+    const plString&     GetObjectName() const { return fObjectName; }
     const plLoadMask&   GetLoadMask() const { return fLoadMask; }
 
     void Read(hsStream* s);
@@ -158,7 +158,7 @@ public:
     void SetObjectID(UInt32 id) { fObjectID = id; }
 
     // THIS SHOULD BE FOR DEBUGGING ONLY <hint hint>
-    char* StringIze(char* str) const;  // Format to displayable string
+    plString StringIze() const;  // Format to displayable string
 
 protected:
     enum ContentsFlags  // for read/write functions
@@ -171,7 +171,7 @@ protected:
     UInt32      fClonePlayerID; // The ID of the player who made this clone
     UInt16      fCloneID;       // The ID of this clone (unique per client)
     UInt16      fClassType;
-    char*       fObjectName;
+    plString    fObjectName;
     plLocation  fLocation;
     plLoadMask  fLoadMask;
 };

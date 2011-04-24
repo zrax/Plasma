@@ -161,8 +161,8 @@ protected:
 };
 
 proEventType(Variable)
-    char*   fName;          // name of variable
-    Int32   fDataType;      // type of data
+    plString fName;         // name of variable
+    Int32    fDataType;     // type of data
 
     // Can't be a union, sadly, but it isn't that much of a waste of space...
     hsScalar    fNumber;    // if its a number
@@ -170,8 +170,8 @@ proEventType(Variable)
 
 
 protected:
-    virtual void IInit();
-    virtual void IDestruct();
+    virtual void IInit() { }
+    virtual void IDestruct() { }
     virtual void IRead(hsStream* stream, hsResMgr* mgr);
     virtual void IWrite(hsStream* stream, hsResMgr* mgr);
 

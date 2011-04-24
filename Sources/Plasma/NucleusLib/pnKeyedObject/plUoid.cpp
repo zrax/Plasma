@@ -102,10 +102,9 @@ hsBool plLocation::IsVirtual() const
 }
 
 // THIS SHOULD BE FOR DEBUGGING ONLY <hint hint>
-char* plLocation::StringIze(char* str)  const // Format to displayable string
+plString plLocation::StringIze()  const // Format to displayable string
 {
-    sprintf(str, "S0x%xF0x%x", fSequenceNumber, int(fFlags));
-    return str;
+    return plString::Format("S0x%xF0x%x", fSequenceNumber, int(fFlags));
 }
 
 plLocation plLocation::MakeReserved(UInt32 number)
@@ -120,14 +119,14 @@ plLocation plLocation::MakeNormal(UInt32 number)
 
 //// plUoid //////////////////////////////////////////////////////////////////
 
-plUoid::plUoid(const plLocation& location, UInt16 classType, const char* objectName, const plLoadMask& m)
+plUoid::plUoid(const plLocation& location, UInt16 classType, const plString& objectName, const plLoadMask& m)
 {
     fObjectName = nil;
     Invalidate();
 
     fLocation = location;
     fClassType = classType;
-    fObjectName = hsStrcpy(objectName);
+    fObjectName = objectName;
     fLoadMask = m;
     fClonePlayerID = 0;
 }
@@ -256,13 +255,12 @@ plUoid& plUoid::operator=(const plUoid& rhs)
 }
 
 // THIS SHOULD BE FOR DEBUGGING ONLY <hint hint>
-char* plUoid::StringIze(char* str) const // Format to displayable string
+plString plUoid::StringIze() const // Format to displayable string
 {
-    sprintf(str, "(0x%x:0x%x:%s:C:[%lu,%lu])", 
+    return plString::Format("(0x%x:0x%x:%s:C:[%lu,%lu])", 
         fLocation.GetSequenceNumber(), 
         int(fLocation.GetFlags()), 
-        fObjectName, 
+        fObjectName.c_str(), 
         GetClonePlayerID(), 
         GetCloneID());
-    return str;
 }
