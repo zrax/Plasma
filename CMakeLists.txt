@@ -69,18 +69,21 @@ if(PLASMA_TARGETS STREQUAL "Ethereal")
     add_definitions(-DSTREAM_LOGGER)
 endif(PLASMA_TARGETS STREQUAL "Ethereal")
 
-INCLUDE(TestBigEndian)
-TEST_BIG_ENDIAN(BIG_ENDIAN)
-IF(BIG_ENDIAN)
-     ADD_DEFINITIONS(-DBIG_ENDIAN)
-ELSE()
-     ADD_DEFINITIONS(-DLITTLE_ENDIAN)
-ENDIF()
+include(TestBigEndian)
+test_big_endian(BIG_ENDIAN)
+if(BIG_ENDIAN)
+    add_definitions(-DBIG_ENDIAN)
+else()
+    add_definitions(-DLITTLE_ENDIAN)
+endif()
 
 if(MSVC)
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)
     add_definitions(-D_SCL_SECURE_NO_WARNINGS)
 endif(MSVC)
+
+#TODO: Make the OpenSSL includes less promiscuous so this isn't needed
+include_directories(${OPENSSL_INCLUDE_DIR})
 
 add_subdirectory(Sources/Plasma)
 add_subdirectory(Sources/Tools)
