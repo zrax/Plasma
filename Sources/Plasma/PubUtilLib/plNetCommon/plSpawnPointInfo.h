@@ -28,6 +28,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "hsConfig.h"
 #include "hsStlUtils.h"
+#include "plString.h"
 
 ///////////////////////////////////////////////////////////////////
 
@@ -45,7 +46,7 @@ struct plSpawnPointInfo
     plString fCameraStack;
     plSpawnPointInfo(){}
     plSpawnPointInfo( const plSpawnPointInfo & other ) { (*this)=other; }
-    plSpawnPointInfo( const char * title, const char * spawnPt )
+    plSpawnPointInfo( const plString & title, const plString & spawnPt )
         : fTitle( title ), fSpawnPt( spawnPt ) {}
     plString GetTitle() const { return fTitle; }
     void    SetTitle( const plString & v ) { fTitle=v; }

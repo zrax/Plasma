@@ -566,12 +566,11 @@ void plNotifyMsg::AddControlKeyEvent( Int32 key, hsBool down )
 //
 //  PURPOSE    : Add a variable event record to this notify message
 //
-void plNotifyMsg::AddVariableEvent( const char* name, hsScalar number )
+void plNotifyMsg::AddVariableEvent( const plString &name, hsScalar number )
 {
     // create the control key event record
     proVariableEventData* pED = TRACKED_NEW proVariableEventData;
-    pED->fName = hsStrcpy(nil,name);
-//  pED->fName = (char*)name;
+    pED->fName = name;
     pED->fDataType = proEventData::kNumber;
     pED->fNumber = number;
     fEvents.Append(pED);    // then add it to the list of event records
@@ -586,12 +585,11 @@ void plNotifyMsg::AddVariableEvent( const char* name, hsScalar number )
 //
 //  PURPOSE    : Add a variable event record to this notify message
 //
-void plNotifyMsg::AddVariableEvent( const char* name, const plKey &key )
+void plNotifyMsg::AddVariableEvent( const plString &name, const plKey &key )
 {
     // create the control key event record
     proVariableEventData* pED = TRACKED_NEW proVariableEventData;
-    pED->fName = hsStrcpy(nil,name);
-//  pED->fName = (char*)name;
+    pED->fName = name;
     pED->fDataType = proEventData::kKey;
     pED->fKey = key;
     fEvents.Append(pED);    // then add it to the list of event records
@@ -1306,7 +1304,7 @@ void proVariableEventData::IWriteVersion(hsStream* s, hsResMgr* mgr)
     contentFlags.Write(s);
 
     // kProVariableName
-    s->WriteSafeString(fName);
+    s->WriteSafeString(fName.c_str());
     // kProVariableDataType
     s->WriteSwap32(fDataType);
     // kProVariableNumber

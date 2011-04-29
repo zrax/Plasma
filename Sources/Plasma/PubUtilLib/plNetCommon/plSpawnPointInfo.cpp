@@ -29,7 +29,8 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "hsBitVector.h"
 
 
-const plSpawnPointInfo kDefaultSpawnPoint( kDefaultSpawnPtTitle, kDefaultSpawnPtName );
+const plSpawnPointInfo kDefaultSpawnPoint( plString::FromUtf8(kDefaultSpawnPtTitle),
+                                           plString::FromUtf8(kDefaultSpawnPtName) );
 
 
 namespace SpawnPointInfoStreamFlags
@@ -46,9 +47,9 @@ void plSpawnPointInfo::ReadOld( hsStream * s )
 {
     s->LogSubStreamStart("push me");
     s->LogSubStreamPushDesc("Title");
-    plMsgStdStringHelper::Peek( fTitle, s );
+    plMsgPlStringHelper::Peek( fTitle, s );
     s->LogSubStreamPushDesc("Name");
-    plMsgStdStringHelper::Peek( fSpawnPt, s );
+    plMsgPlStringHelper::Peek( fSpawnPt, s );
     fCameraStack = "";
     s->LogSubStreamEnd();
 }
@@ -62,17 +63,17 @@ void plSpawnPointInfo::Read( hsStream * s )
     if ( flags.IsBitSet( SpawnPointInfoStreamFlags::kHasTitle ) )
     {
         s->LogSubStreamPushDesc("Title");
-        plMsgStdStringHelper::Peek( fTitle, s );
+        plMsgPlStringHelper::Peek( fTitle, s );
     }
     if ( flags.IsBitSet( SpawnPointInfoStreamFlags::kHasName ) )
     {
         s->LogSubStreamPushDesc("Name");
-        plMsgStdStringHelper::Peek( fSpawnPt, s );
+        plMsgPlStringHelper::Peek( fSpawnPt, s );
     }
     if ( flags.IsBitSet( SpawnPointInfoStreamFlags::kHasCameraStack ) )
     {
         s->LogSubStreamPushDesc("CameraStack");
-        plMsgStdStringHelper::Peek( fCameraStack, s );
+        plMsgPlStringHelper::Peek( fCameraStack, s );
     }
     s->LogSubStreamEnd();
 }
@@ -87,15 +88,15 @@ void plSpawnPointInfo::Write( hsStream * s ) const
 
     if ( flags.IsBitSet( SpawnPointInfoStreamFlags::kHasTitle ) )
     {
-        plMsgStdStringHelper::Poke( fTitle, s );
+        plMsgPlStringHelper::Poke( fTitle, s );
     }
     if ( flags.IsBitSet( SpawnPointInfoStreamFlags::kHasName ) )
     {
-        plMsgStdStringHelper::Poke( fSpawnPt, s );
+        plMsgPlStringHelper::Poke( fSpawnPt, s );
     }
     if ( flags.IsBitSet( SpawnPointInfoStreamFlags::kHasCameraStack ) )
     {
-        plMsgStdStringHelper::Poke( fCameraStack, s );
+        plMsgPlStringHelper::Poke( fCameraStack, s );
     }
 }
 

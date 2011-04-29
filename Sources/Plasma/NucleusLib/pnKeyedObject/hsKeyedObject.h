@@ -46,7 +46,7 @@ public:
     GETINTERFACE_ANY(hsKeyedObject, plReceiver);
 
     const plKey&    GetKey() const { return fpKey; }
-    const char*     GetKeyName() const;
+    plString        GetKeyName() const;
 
     virtual void Validate();
     virtual hsBool  IsFinal() { return true; };     // experimental; currently "is ready to process Loads"

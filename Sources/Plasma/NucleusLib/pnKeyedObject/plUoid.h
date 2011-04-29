@@ -41,6 +41,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "hsTypes.h"
 #include "plFixedKey.h"
 #include "plLoadMask.h"
+#include "plString.h"
 
 class hsStream;
 
@@ -127,7 +128,7 @@ public:
 class plUoid
 {
 public:
-    plUoid() { fObjectName = nil; Invalidate(); }
+    plUoid() { Invalidate(); }
     plUoid(const plLocation& location, UInt16 classType, const plString& objectName, const plLoadMask& m=plLoadMask::kAlways);
     plUoid(plFixedKeyId fixedKey);
     plUoid(const plUoid& src);

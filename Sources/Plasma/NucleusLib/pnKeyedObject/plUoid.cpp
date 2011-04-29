@@ -145,7 +145,7 @@ plUoid::~plUoid()
 
 void plUoid::Read(hsStream* s)
 {
-    hsAssert(fObjectName == nil, "Reading over an old uoid? You're just asking for trouble, aren't you?");
+    hsAssert(fObjectName.IsNull(), "Reading over an old uoid? You're just asking for trouble, aren't you?");
 
     // first read contents flags
     UInt8 contents = s->ReadByte();
@@ -194,7 +194,7 @@ void plUoid::Write(hsStream* s) const
 
     s->WriteSwap( fClassType );
     s->WriteSwap( fObjectID );
-    s->WriteSafeString( fObjectName );
+    s->WriteSafeString( fObjectName.c_str() );
 
     // conditional cloneIDs write
     if (contents & kHasCloneIDs)
@@ -212,9 +212,7 @@ void plUoid::Invalidate()
     fCloneID = 0;
     fClonePlayerID = 0;
     fClassType = 0;
-    if (fObjectName)
-        delete [] fObjectName;
-    fObjectName = nil;
+    fObjectName = plString();
     fLocation.Invalidate();
     fLoadMask = plLoadMask::kAlways;
 
@@ -222,7 +220,7 @@ void plUoid::Invalidate()
 
 hsBool plUoid::IsValid() const
 {
-    if (!fLocation.IsValid() || fObjectName == nil)
+    if (!fLocation.IsValid() || fObjectName.IsNull())
         return false;
 
     return true;
@@ -233,7 +231,7 @@ hsBool plUoid::operator==(const plUoid& u) const
     return  fLocation == u.fLocation
             && fLoadMask == u.fLoadMask
             && fClassType == u.fClassType
-            && hsStrEQ(fObjectName, u.fObjectName)
+            && fObjectName.Compare(u.fObjectName) == 0
             && fObjectID == u.fObjectID
             && fCloneID == u.fCloneID
             && fClonePlayerID == u.fClonePlayerID;
@@ -245,9 +243,7 @@ plUoid& plUoid::operator=(const plUoid& rhs)
     fCloneID = rhs.fCloneID;
     fClonePlayerID = rhs.fClonePlayerID;
     fClassType = rhs.fClassType;
-    if (fObjectName)
-        delete [] fObjectName;
-    fObjectName = hsStrcpy(rhs.fObjectName);
+    fObjectName = rhs.fObjectName;
     fLocation = rhs.fLocation;
     fLoadMask = rhs.fLoadMask;
 

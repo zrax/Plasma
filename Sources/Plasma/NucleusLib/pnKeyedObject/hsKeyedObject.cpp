@@ -49,12 +49,12 @@ hsBool hsKeyedObject::SendRef(plRefMsg* refMsg, plRefFlags::Type flags)
     return hsgResMgr::SendRef(key, refMsg, flags);
 }
 
-const char* hsKeyedObject::GetKeyName() const
+plString hsKeyedObject::GetKeyName() const
 {
     if (fpKey)
         return fpKey->GetName();
     else
-        return "(unknown)";
+        return plString::FromUtf8("(unknown)");
 }
 
 hsKeyedObject::~hsKeyedObject()
@@ -127,12 +127,10 @@ void hsKeyedObject::UnRegisterAsManual(plUoid& inUoid)
         if (!(inUoid == myUoid))
         {
 #if !HS_BUILD_FOR_UNIX      // disable for unix servers
-            char inStr[255], myStr[255];
-            inUoid.StringIze(inStr);
-            myUoid.StringIze(myStr);
             hsAssert(false,
                 plString::Format("Request to Unregister wrong FixedKey, keyName=%s, inUoid=%s, myUoid=%s",
-                fpKey->GetName().IsNull() ? "?" : fpKey->GetName().c_str(), inStr, myStr).c_str());
+                fpKey->GetName().IsNull() ? "?" : fpKey->GetName().c_str(),
+                inUoid.StringIze().c_str(), myUoid.StringIze().c_str()).c_str());
 #endif
         }
         ((plKeyImp*)fpKey)->UnRegister();

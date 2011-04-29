@@ -351,8 +351,8 @@ public:
     void AddCollisionEvent( hsBool enter, const plKey &other, const plKey &self, hsBool onlyOneCollision=true );
     void AddPickEvent( const plKey &other, const plKey& self, hsBool enabled, hsPoint3 hitPoint );
     void AddControlKeyEvent( Int32 key, hsBool down );
-    void AddVariableEvent( const char* name, hsScalar number );
-    void AddVariableEvent( const char *name, const plKey &key);
+    void AddVariableEvent( const plString &name, hsScalar number );
+    void AddVariableEvent( const plString &name, const plKey &key);
     void AddFacingEvent( const plKey &other, const plKey &self, hsScalar dot, hsBool enabled);
     void AddContainerEvent( const plKey &container, const plKey &contained, hsBool entering);
     void AddActivateEvent( hsBool activate );

@@ -230,7 +230,7 @@ public:
     void InitReplyFieldsFrom(plNetMessage * msg);
 
     // debug
-    virtual std::string AsStdString() const
+    virtual plString AsString() const
     {
         char * delim = "";
 
@@ -256,7 +256,7 @@ public:
             delim = ",";
         }
 
-        return ss.str().c_str();
+        return plString::FromUtf8(ss.str().c_str());
     }
 };
 
@@ -315,12 +315,10 @@ public:
     void WriteVersion(hsStream* s, hsResMgr* mgr);
 
     // debug
-    std::string AsStdString() const
+    plString AsString() const
     {
-        std::string s;
-        char tmp[256];
-        xtl::format(s,"object=%s, %s",fObjectHelper.GetUoid().StringIze(tmp), plNetMessage::AsStdString().c_str());
-        return s;
+        return plString::Format("object=%s, %s",fObjectHelper.GetUoid().StringIze().c_str(),
+                                plNetMessage::AsString().c_str());
     }
 
 };
@@ -393,7 +391,7 @@ public:
     void SetIsAvatarState(bool b) { fIsAvatarState = b; }
     
     // debug
-    std::string AsStdString() const;
+    plString AsString() const;
     bool IsInitialState() const {return fIsInitialState!=0; }
     void SetIsInitialState( bool v ) { fIsInitialState=v; }
 
@@ -493,12 +491,10 @@ public:
     void WriteVersion(hsStream* s, hsResMgr* mgr);
 
     // debug
-    std::string AsStdString() const
+    plString AsString() const
     {
-        std::string s;
         const char* noc=plFactory::GetTheFactory()->GetNameOfClass(StreamInfo()->GetStreamType());
-        xtl::format(s,"%s %s",plNetMsgStream::AsStdString().c_str(), noc ? noc : "?");
-        return s;
+        return plString::Format("%s %s",plNetMsgStream::AsString().c_str(), noc ? noc : "?");
     }
 };
 
