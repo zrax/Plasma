@@ -985,8 +985,8 @@ void NetCommConnect () {
 
     if (!gDataServerLocal) {
 
-        // if a cmdline override was specified for a filesrv, connect directly to the fileserver rather than going through the gatekeeper
-        if(GetFileSrvHostnames(&addrs) && FileSrvHostnameOverride())
+        // if a console override was specified for a filesrv, connect directly to the fileserver rather than going through the gatekeeper
+        if(GetFileSrvHostnames(&addrs) && wcslen(addrs[0]))
         {
             NetCliFileStartConnect(addrs, count);
         }
