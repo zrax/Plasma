@@ -98,7 +98,7 @@ public:
 
     void    SetType(Types t)        { fType=t; }
     UInt8   GetType( void ) const   { return fType; }
-    
+
     plString GetAsString() const;
 
     // implicit set
@@ -136,7 +136,7 @@ protected:
     plString      fName;
 public:
     plGenericVar(const plGenericVar &c) { CopyFrom(c); }
-    plGenericVar(const plString &name=plString()) { SetName(name); }
+    plGenericVar(const plString &name=plString::Null) { SetName(name); }
     virtual ~plGenericVar() { }
 
     virtual void Reset() { Value().Reset(); }   // reset runtime state, not inherent state

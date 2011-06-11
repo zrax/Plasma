@@ -121,7 +121,7 @@ plLocation plLocation::MakeNormal(UInt32 number)
 
 plUoid::plUoid(const plLocation& location, UInt16 classType, const plString& objectName, const plLoadMask& m)
 {
-    fObjectName = nil;
+    fObjectName = plString::Null;
     Invalidate();
 
     fLocation = location;
@@ -133,7 +133,7 @@ plUoid::plUoid(const plLocation& location, UInt16 classType, const plString& obj
 
 plUoid::plUoid(const plUoid& src)
 {
-    fObjectName = nil;
+    fObjectName = plString::Null;
     Invalidate();
     *this = src;
 }
@@ -212,7 +212,7 @@ void plUoid::Invalidate()
     fCloneID = 0;
     fClonePlayerID = 0;
     fClassType = 0;
-    fObjectName = plString();
+    fObjectName = plString::Null;
     fLocation.Invalidate();
     fLoadMask = plLoadMask::kAlways;
 

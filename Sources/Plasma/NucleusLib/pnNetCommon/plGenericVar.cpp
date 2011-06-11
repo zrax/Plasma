@@ -320,5 +320,5 @@ plString plGenericType::GetAsString() const
         hsAssert(false,"plGenericType::GetAsString unknown type");
     }
 
-    return plString();
+    return plString::Null;
 }

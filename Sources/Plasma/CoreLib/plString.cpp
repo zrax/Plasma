@@ -28,6 +28,8 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include <cstring>
 
+const plString plString::Null;
+
 #if !defined(WCHAR_BYTES) || (WCHAR_BYTES != 2) && (WCHAR_BYTES != 4)
 #error "WCHAR_BYTES must be either 2 (16-bit) or 4 (32-bit)!"
 #endif
@@ -487,7 +489,7 @@ static bool in_set(char key, const char *charset)
 plString plString::TrimLeft(const char *charset) const
 {
     if (IsEmpty())
-        return plString();
+        return Null;
 
     const char *cp = c_str();
     while (*cp && in_set(*cp, charset))
@@ -499,7 +501,7 @@ plString plString::TrimLeft(const char *charset) const
 plString plString::TrimRight(const char *charset) const
 {
     if (IsEmpty())
-        return plString();
+        return Null;
 
     const char *cp = c_str();
     cp += strlen(cp);
@@ -513,7 +515,7 @@ plString plString::TrimRight(const char *charset) const
 plString plString::Trim(const char *charset) const
 {
     if (IsEmpty())
-        return plString();
+        return Null;
 
     const char *lp = c_str();
     const char *rp = lp + strlen(lp);
@@ -531,7 +533,7 @@ plString plString::Substr(int start, size_t size) const
     size_t maxSize = GetSize();
 
     if (start > maxSize)
-        return plString();
+        return Null;
     if (start < 0)
         start = 0;
     if (start + size > maxSize)

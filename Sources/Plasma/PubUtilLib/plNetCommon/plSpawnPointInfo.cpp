@@ -50,7 +50,7 @@ void plSpawnPointInfo::ReadOld( hsStream * s )
     plMsgPlStringHelper::Peek( fTitle, s );
     s->LogSubStreamPushDesc("Name");
     plMsgPlStringHelper::Peek( fSpawnPt, s );
-    fCameraStack = "";
+    fCameraStack = plString::Null;
     s->LogSubStreamEnd();
 }
 

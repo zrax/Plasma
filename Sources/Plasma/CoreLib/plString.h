@@ -110,6 +110,9 @@ class plString
         kSizeAuto = (size_t)(-1)
     };
 
+public:
+    static const plString Null;
+
 private:
     plStringBuffer<char> fUtf8Buffer;
 

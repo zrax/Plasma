@@ -303,7 +303,7 @@ int plMsgPlStringHelper::Peek(plString & stringref, hsStream* stream, const UInt
     plMessage::plStrLen strlen;
     stream->LogSubStreamStart("push me");
     stream->LogReadSwap(&strlen,"StrLen");
-    stringref = plString();
+    stringref = plString::Null;
     if (strlen <= stream->GetSizeLeft())
     {
         char *data = TRACKED_NEW char[strlen + 1];
