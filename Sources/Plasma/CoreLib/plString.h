@@ -249,4 +249,31 @@ private:
 
 plString operator+(const plString &left, const plString &right);
 
+
+class plStringStream
+{
+public:
+    plStringStream() : fBufSize(256), fLength(0)
+    {
+        fBuffer = new char[fBufSize];
+    }
+    ~plStringStream() { delete [] fBuffer; }
+
+    plStringStream& Add(const char *text);
+    plStringStream& Add(Int32 num);
+    plStringStream& Add(UInt32 num);
+
+    size_t GetLength() const { return fLength; }
+    const char *GetString()
+    {
+        fBuffer[fLength] = 0;
+        return fBuffer;
+    }
+
+private:
+    char *fBuffer;
+    size_t fBufSize;
+    size_t fLength;
+};
+
 #endif //plString_Defined

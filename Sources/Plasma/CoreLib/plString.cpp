@@ -576,3 +576,32 @@ plString operator+(const plString &left, const plString &right)
     str.fUtf8Buffer.Steal(catstr, catsize);
     return str;
 }
+
+plStringStream& plStringStream::Add(const char *text)
+{
+    size_t length = strlen(text);
+    if (fLength + length + 1 > fBufSize) {
+        char *bigger = new char[fBufSize * 2];
+        memcpy(bigger, fBuffer, fBufSize);
+        delete [] fBuffer;
+        fBuffer = bigger;
+        fBufSize *= 2;
+    }
+    memcpy(fBuffer + fLength, text, length);
+    fLength += length;
+    return *this;
+}
+
+plStringStream& plStringStream::Add(Int32 num)
+{
+    char buffer[12];
+    snprintf(buffer, 12, "%ld", num);
+    return Add(buffer);
+}
+
+plStringStream& plStringStream::Add(UInt32 num)
+{
+    char buffer[12];
+    snprintf(buffer, 12, "%lu", num);
+    return Add(buffer);
+}

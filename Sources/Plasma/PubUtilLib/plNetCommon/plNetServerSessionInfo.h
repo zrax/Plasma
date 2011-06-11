@@ -47,19 +47,19 @@ class plAgeInfoStruct : public plCreatable
     mutable UInt8           fFlags;
 
     // Age dataset name "Neighborhood"
-    std::string     fAgeFilename;
+    plString        fAgeFilename;
 
     // Age string ID "Bevin"
-    std::string     fAgeInstanceName;
+    plString        fAgeInstanceName;
 
     // Age guid. Same as game server guid.
-    plUUID  fAgeInstanceGuid;
+    plUUID          fAgeInstanceGuid;
 
     // User-defined age name: "My Teledahn"
-    std::string     fAgeUserDefinedName;
+    plString        fAgeUserDefinedName;
 
     // User-defined age description "This is Joe's Neighborhood"
-    std::string     fAgeDescription;
+    plString        fAgeDescription;
 
     // A modifier to user-defined name to make it unique in gui lists.
     // Assigned by vault server.
@@ -67,8 +67,6 @@ class plAgeInfoStruct : public plCreatable
     
     // The language of the client that created this age
     Int32           fAgeLanguage;
-
-    mutable std::string     fDisplayName;
 
     enum
     {
@@ -102,19 +100,19 @@ public:
     void    CopyFrom(const struct NetAgeInfo & info);
     bool    IsEqualTo( const plAgeInfoStruct * other ) const;
 
-    const char * GetAgeFilename() const { return fAgeFilename.c_str(); }
-    const char * GetAgeInstanceName() const { return fAgeInstanceName.c_str(); }
+    plString GetAgeFilename() const { return fAgeFilename; }
+    plString GetAgeInstanceName() const { return fAgeInstanceName; }
     const plUUID * GetAgeInstanceGuid() const { return &fAgeInstanceGuid; }
-    const char * GetAgeUserDefinedName() const { return fAgeUserDefinedName.c_str(); }
-    const char * GetAgeDescription() const { return fAgeDescription.c_str(); }
+    plString GetAgeUserDefinedName() const { return fAgeUserDefinedName; }
+    plString GetAgeDescription() const { return fAgeDescription; }
     UInt32  GetAgeSequenceNumber() const { return fAgeSequenceNumber; }
     UInt32  GetAgeLanguage() const { return fAgeLanguage; }
 
-    void    SetAgeFilename( const char * v );
-    void    SetAgeInstanceName( const char * v );
+    void    SetAgeFilename( const plString & v );
+    void    SetAgeInstanceName( const plString & v );
     void    SetAgeInstanceGuid( const plUUID * v );
-    void    SetAgeUserDefinedName( const char * v );
-    void    SetAgeDescription( const char * v );
+    void    SetAgeUserDefinedName( const plString & v );
+    void    SetAgeDescription( const plString & v );
     void    SetAgeSequenceNumber( UInt32 v );
     void    SetAgeLanguage( UInt32 v );
 
@@ -129,9 +127,8 @@ public:
     void    Read( hsStream * s, hsResMgr* );
     void    Write( hsStream * s, hsResMgr* );
 
-    const char * GetDisplayName() const;
-
-    std::string AsStdString() const;
+    plString GetDisplayName() const;
+    plString AsStdString() const;
 };
 
 ////////////////////////////////////////////////////////////////////
@@ -154,7 +151,7 @@ class plAgeLinkStruct : public plCreatable
 
     // If this is a child age link, who is the parent
     //    ...Age dataset name  like "Neighborhood"
-    std::string         fParentAgeFilename;
+    plString            fParentAgeFilename;
 
     enum
     {
@@ -179,8 +176,8 @@ public:
     plAgeInfoStruct * GetAgeInfo() { return &fAgeInfo; }
     const plAgeInfoStruct * GetAgeInfo() const { return &fAgeInfo; }
 
-    const char * GetParentAgeFilename() const { return fParentAgeFilename.c_str(); }
-    void    SetParentAgeFilename( const char * v );
+    plString GetParentAgeFilename() const { return fParentAgeFilename; }
+    void    SetParentAgeFilename( const plString & v );
 
     void    CopyFrom( const plAgeLinkStruct * other );
     void    CopyFrom( const plVaultAgeLinkNode * node );
@@ -204,7 +201,7 @@ public:
     void    Read( hsStream * s, hsResMgr* );
     void    Write( hsStream * s, hsResMgr* );
 
-    std::string AsStdString() const;
+    plString AsString() const;
 };
 
 
@@ -215,11 +212,11 @@ public:
 class plNetServerSessionInfo : public plCreatable
 {
     UInt8           fFlags;
-    std::string     fServerName;
+    plString        fServerName;
     UInt8           fServerType;
-    std::string     fServerAddr;
+    plString        fServerAddr;
     UInt16          fServerPort;
-    plUUID  fServerGuid;
+    plUUID          fServerGuid;
 
     enum
     {
@@ -243,16 +240,16 @@ public:
     CLASSNAME_REGISTER( plNetServerSessionInfo );
     GETINTERFACE_ANY( plNetServerSessionInfo, plCreatable );
 
-    void SetServerName(const char * val);
+    void SetServerName(const plString & val);
     void SetServerType(UInt8 val);
-    void SetServerAddr(const char * val);
+    void SetServerAddr(const plString & val);
     void SetServerPort(UInt16 val);
     void SetServerGuid(const plUUID * val);
     void CopyServerGuid(const plUUID & val);
 
-    const char *    GetServerName() const { return fServerName.c_str();}
+    plString        GetServerName() const { return fServerName;}
     UInt8           GetServerType() const { return fServerType;}
-    const char *    GetServerAddr() const { return fServerAddr.c_str(); }
+    plString        GetServerAddr() const { return fServerAddr; }
     UInt16          GetServerPort() const { return fServerPort; }
     const plUUID *GetServerGuid() const { return &fServerGuid; }
     plUUID *    GetServerGuid() { return &fServerGuid; }
@@ -275,8 +272,8 @@ public:
     void Clear();
     void CopyFrom(const plNetServerSessionInfo * other);
     bool IsEqualTo(const plNetServerSessionInfo * other) const;
-    virtual std::string AsStdString() const;
-    virtual std::string AsLogString() const;
+    virtual plString AsString() const;
+    virtual plString AsLogString() const;
 
     void Read(hsStream* s, hsResMgr* mgr=nil);
     void Write(hsStream* s, hsResMgr* mgr=nil);
