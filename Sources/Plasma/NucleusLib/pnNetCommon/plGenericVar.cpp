@@ -197,7 +197,7 @@ void    plGenericType::Write(hsStream* s)
     {
     case kString:
     case kAny:
-        s->WriteSafeString(fS.c_str());
+        s->WriteSafeString( fS );
         break;
     case kBool:
         {Int8 b = fB?1:0;
@@ -233,7 +233,7 @@ void    plGenericVar::Read(hsStream* s)
 
 void    plGenericVar::Write(hsStream* s)
 {
-    s->WriteSafeString(fName.c_str());
+    s->WriteSafeString(fName);
     fValue.Write(s);
 }
 

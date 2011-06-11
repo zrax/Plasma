@@ -201,17 +201,6 @@ void plMessage::AddNetReceivers( const std::vector<UInt32> & plrIDs )
 /////////////////////////////////////////////////////////////////
 
 // STATIC
-int plMsgStdStringHelper::Poke(const std::string & stringref, hsStream* stream, const UInt32 peekOptions)
-{
-    plMessage::plStrLen strlen;
-    hsAssert( stringref.length()<0xFFFF, "buf too big for plMsgStdStringHelper" );
-    strlen = stringref.length();
-    stream->WriteSwap(strlen);
-    if (strlen)
-        stream->Write(strlen,stringref.data());
-    return stream->GetPosition();
-}
-
 int plMsgStdStringHelper::PokeBig(const std::string & stringref, hsStream* stream, const UInt32 peekOptions)
 {
     UInt32 strlen = stringref.length();
@@ -221,45 +210,11 @@ int plMsgStdStringHelper::PokeBig(const std::string & stringref, hsStream* strea
     return stream->GetPosition();
 }
 
-int plMsgStdStringHelper::Poke(const char * buf, UInt32 bufsz, hsStream* stream, const UInt32 peekOptions)
-{
-    plMessage::plStrLen strlen;
-    hsAssert( bufsz<0xFFFF, "buf too big for plMsgStdStringHelper" );
-    strlen = (plMessage::plStrLen)bufsz;
-    stream->WriteSwap(strlen);
-    if (strlen)
-        stream->Write(strlen,buf);
-    return stream->GetPosition();
-}
-
 int plMsgStdStringHelper::PokeBig(const char * buf, UInt32 bufsz, hsStream* stream, const UInt32 peekOptions)
 {
     stream->WriteSwap(bufsz);
     if (bufsz)
         stream->Write(bufsz,buf);
-    return stream->GetPosition();
-}
-
-// STATIC
-int plMsgStdStringHelper::Peek(std::string  & stringref, hsStream* stream, const UInt32 peekOptions)
-{
-    plMessage::plStrLen strlen;
-    stream->LogSubStreamStart("push this");
-    stream->LogReadSwap(&strlen,"StrLen");
-    stringref.erase();
-    if (strlen <= stream->GetSizeLeft())
-    {
-        stringref.resize(strlen);
-        if (strlen){
-            stream->LogRead(strlen,(void*)stringref.data(),"StdString");
-            stream->LogStringString(xtl::format("Value: %s", stringref.data()).c_str());
-        }
-    }
-    else
-    {
-        hsAssert( false, "plMsgStdStringHelper::Peek: overflow peeking string." );
-    }
-    stream->LogSubStreamEnd();
     return stream->GetPosition();
 }
 
@@ -290,6 +245,7 @@ int plMsgStdStringHelper::PeekBig(std::string  & stringref, hsStream* stream, co
 // STATIC
 int plMsgPlStringHelper::Poke(const plString & stringref, hsStream* stream, const UInt32 peekOptions)
 {
+    hsAssert( stringref.GetSize()<0xFFFF, "buf too big for plMsgPlStringHelper" );
     plMessage::plStrLen strlen = stringref.GetSize();
     stream->WriteSwap(strlen);
     if (strlen)

@@ -544,9 +544,8 @@ public:
     // debug
     plString AsString() const
     {
-        plString::Format("object=%s initial=%d, %s",fObjectHelper.GetUoid().StringIze().c_str(),
+        return plString::Format("object=%s initial=%d, %s",fObjectHelper.GetUoid().StringIze().c_str(),
             fIsInitialState,plNetMsgGameMessage::AsString().c_str());
-        return s;
     }
 };
 
