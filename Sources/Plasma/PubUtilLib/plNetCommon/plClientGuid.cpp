@@ -139,150 +139,150 @@ void plClientGuid::SetReserved(bool b)
     fFlags |= kReserved;
 }
 
-void plClientGuid::SetClientKey(const std::string& key)
+void plClientGuid::SetClientKey(const plString& key)
 {
     fClientKey = key;
-    if ( fClientKey.size() )
+    if ( !fClientKey.IsEmpty() )
         fFlags|=kClientKey;
     else
         fFlags&=~kClientKey;
 }
 
-const char * plClientGuid::GetSrcAddrStr() const
+plString plClientGuid::GetSrcAddrStr() const
 {
     hsAssert(false, "eric, port me");
     static const char foo[] = "";
-    return foo;
+    return plString::FromUtf8(foo);
 }
 
-std::string plClientGuid::AsStdString() const
+plString plClientGuid::AsStdString() const
 {
 #define kComma  ","
 #define kEmpty  ""
     const char * spacer = kEmpty;
 
-    std::stringstream ss;
+    plStringStream ss;
 
-    ss << "[";
+    ss.Add("[");
 
     if (IsFlagSet(kPlayerID))
     {
-        ss << spacer << "Pid:" << fPlayerID;
+        ss.Add(spacer).Add("Pid:").Add(fPlayerID);
         spacer = kComma;
     }
     else if (IsFlagSet(kTempPlayerID))
     {
-        ss << spacer << "tPd:" << fPlayerID;
+        ss.Add(spacer).Add("tPd:").Add(fPlayerID);
         spacer = kComma;
     }
     if (IsFlagSet(kPlayerName))
     {
-        ss << spacer << "Plr:" << fPlayerName;
+        ss.Add(spacer).Add("Plr:").Add(fPlayerName.s_str());
     }
     if (IsFlagSet(kCCRLevel))
     {
-        ss << spacer << "CCR:" << (int)fCCRLevel;
+        ss.Add(spacer).Add("CCR:").Add((int)fCCRLevel);
         spacer = kComma;
     }
     if (IsFlagSet(kProtectedLogin))
     {
-        ss << spacer << "Pro:" << (int)fProtectedLogin;
+        ss.Add(spacer).Add("Pro:").Add((int)fProtectedLogin);
         spacer = kComma;
     }
     if (IsFlagSet(kBuildType))
     {
-        ss << spacer << "Bld:" << plNetCommon::BuildType::BuildTypeStr(fBuildType);
+        ss.Add(spacer).Add("Bld:").Add(plNetCommon::BuildType::BuildTypeStr(fBuildType));
         spacer = kComma;
     }
     if ( IsFlagSet(kSrcAddr) )
     {
-        ss << spacer << "Addr:" << GetSrcAddrStr();
+        ss.Add(spacer).Add("Addr:").Add(GetSrcAddrStr().c_str());
         spacer = kComma;
     }
     if ( IsFlagSet(kSrcPort) )
     {
-        ss << spacer << "Port:" << (int)fSrcPort;
+        ss.Add(spacer).Add("Port:").Add((int)fSrcPort);
         spacer = kComma;
     }
     if (IsFlagSet(kAccountUUID))
     {
-        ss << spacer << "plUUID:" << fAccountUUID.AsStdString();
+        ss.Add(spacer).Add("plUUID:").Add(fAccountUUID.AsString().s_str());
         spacer = kComma;
     }
     if ( IsFlagSet(kReserved))
     {
-        ss << spacer << "Res:" << (int)fReserved;
+        ss.Add(spacer).Add("Res:").Add((int)fReserved);
         spacer = kComma;
     }
     if (IsFlagSet(kClientKey))
     {
-        ss << spacer << "ClientKey:" << fClientKey;
+        ss.Add(spacer).Add("ClientKey:").Add(fClientKey.c_str());
         spacer = kComma;
     }
-    ss  << "]";
+    ss.Add("]");
 
-    return ss.str().c_str();
+    return ss.GetString();
 }
 
-std::string plClientGuid::AsLogString() const
+plString plClientGuid::AsLogString() const
 {
 #define kSemicolon  ";"
     const char* spacer = kSemicolon;
 
-    std::stringstream ss;
+    plStringStream ss;
 
     if (IsFlagSet(kAccountUUID))
     {
-        ss << "AcctUUID=" << fAccountUUID.AsStdString();
-        ss << spacer;
+        ss.Add("AcctUUID=").Add(fAccountUUID.AsString().c_str());
+        ss.Add(spacer);
     }
     if (IsFlagSet(kPlayerID))
     {
-        ss << "PlayerID=" << fPlayerID;
-        ss << spacer;
+        ss.Add("PlayerID=").Add(fPlayerID);
+        ss.Add(spacer);
     }
 //  else if (IsFlagSet(kTempPlayerID))
 //  {
-//      ss << "tempPlayerID:" << fPlayerID;
-//      ss << spacer;
+//      ss.Add("tempPlayerID:").Add(fPlayerID);
+//      ss.Add(spacer);
 //  }
     if ( IsFlagSet(kSrcAddr) )
     {
-        ss << "SrcAddr=" << GetSrcAddrStr();
-        ss << spacer;
+        ss.Add("SrcAddr=").Add(GetSrcAddrStr().c_str());
+        ss.Add(spacer;
     }
     if ( IsFlagSet(kSrcPort) )
     {
-        ss << "SrcPort=" << (int)fSrcPort;
-        ss << spacer;
+        ss.Add("SrcPort=").Add((int)fSrcPort);
+        ss.Add(spacer);
     }
     if (IsFlagSet(kCCRLevel))
     {
-        ss << "CCRLevel=" << (int)fCCRLevel;
-        ss << spacer;
+        ss.Add("CCRLevel=").Add((int)fCCRLevel);
+        ss.Add(spacer);
     }
     if (IsFlagSet(kProtectedLogin))
     {
-        ss << "Protected=" << (int)fProtectedLogin;
-        ss << spacer;
+        ss.Add("Protected=").Add((int)fProtectedLogin);
+        ss.Add(spacer);
     }
     if (IsFlagSet(kBuildType))
     {
-        ss << "Build=" << plNetCommon::BuildType::BuildTypeStr(fBuildType);
-        ss << spacer;
+        ss.Add("Build=").Add(plNetCommon::BuildType::BuildTypeStr(fBuildType));
+        ss.Add(spacer);
     }
     if (IsFlagSet(kReserved))
     {
-        ss << "Reserved=" << (int)fReserved;
-        ss << spacer;
+        ss.Add("Reserved=").Add((int)fReserved);
+        ss.Add(spacer);
     }
     if (IsFlagSet(kClientKey))
     {
-        ss << "ClientKey=" << fClientKey;
-        ss << spacer;
+        ss.Add("ClientKey=").Add(fClientKey.s_str());
+        ss.Add(spacer);
     }
 
-    return ss.str().c_str();
+    return ss.GetString();
 }
 
 void plClientGuid::Read(hsStream * s, hsResMgr* mgr)

@@ -106,9 +106,12 @@ public:
 
 class plString
 {
+#pragma warning(push)
+#pragma warning(disable : 4146)
     enum {
-        kSizeAuto = (size_t)(-1)
+        kSizeAuto = (size_t)(-2147483648L)
     };
+#pragma warning(pop)
 
 public:
     static const plString Null;
@@ -262,13 +265,12 @@ public:
     plStringStream& Add(const char *text);
     plStringStream& Add(Int32 num);
     plStringStream& Add(UInt32 num);
+    plStringStream& Add(int num) { return Add((Int32)num); }
+    plStringStream& Add(unsigned num) { return Add((UInt32)num); }
+    plStringStream& Add(char ch);
 
     size_t GetLength() const { return fLength; }
-    const char *GetString()
-    {
-        fBuffer[fLength] = 0;
-        return fBuffer;
-    }
+    plString GetString() { return plString::FromUtf8(fBuffer, fLength); }
 
 private:
     char *fBuffer;

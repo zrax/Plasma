@@ -65,7 +65,7 @@ plUUID::operator Uuid () const {
     return uuid;
 }
 
-const char * plUUID::AsString() const {
+plString plUUID::AsString() const {
     static std::string str;
     ToStdString(str);
     return str.c_str();

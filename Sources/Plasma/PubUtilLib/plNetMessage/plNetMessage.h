@@ -234,29 +234,29 @@ public:
     {
         char * delim = "";
 
-        std::stringstream ss;
+        plStringStream ss;
         if ( GetHasPlayerID() )
         {
-            ss << delim << "p:" << GetPlayerID();
+            ss.Add(delim).Add("p:").Add(GetPlayerID());
             delim = ",";
         }
         if ( GetHasTransactionID() )
         {
-            ss << delim << "x:" << GetTransactionID();
+            ss.Add(delim).Add("x:").Add(GetTransactionID());
             delim = ",";
         }
         if ( GetHasAcctUUID() )
         {
-            ss << delim << "a:" << GetAcctUUID()->AsStdString();
+            ss.Add(delim).Add("a:").Add(GetAcctUUID()->AsString().c_str());
             delim = ",";
         }
         if ( IsBitSet(kHasVersion) )
         {
-            ss << delim << "v:" << (int)fProtocolVerMajor << "." << (int)fProtocolVerMinor;
+            ss.Add(delim).Add("v:").Add((int)fProtocolVerMajor).Add(".").Add((int)fProtocolVerMinor);
             delim = ",";
         }
 
-        return plString::FromUtf8(ss.str().c_str());
+        return ss.GetString();
     }
 };
 

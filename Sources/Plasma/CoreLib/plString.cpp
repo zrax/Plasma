@@ -35,12 +35,12 @@ const plString plString::Null;
 #endif
 
 #if WCHAR_BYTES == 2
-#define u16slen(str) wcslen((const wchar_t *)(str))
+#define u16slen(str, max) wcsnlen((const wchar_t *)(str), (max))
 #else
-static inline size_t u16slen(const UInt16 *ustr)
+static inline size_t u16slen(const UInt16 *ustr, size_t max)
 {
     size_t length = 0;
-    for ( ; *ustr++; ++length)
+    for ( ; *ustr++ && max--; ++length)
         ;
     return length;
 }
@@ -50,8 +50,8 @@ static inline size_t u16slen(const UInt16 *ustr)
 
 void plString::IConvertFromUtf8(const char *utf8, size_t size, bool steal)
 {
-    if (size == kSizeAuto)
-        size = strlen(utf8);
+    if ((long)size < 0)
+        size = strnlen(utf8, -size);
 
 #ifdef _DEBUG
     // Check to make sure the string is actually valid UTF-8
@@ -84,8 +84,8 @@ void plString::IConvertFromUtf8(const char *utf8, size_t size, bool steal)
 
 void plString::IConvertFromUtf16(const UInt16 *utf16, size_t size)
 {
-    if (size == kSizeAuto)
-        size = u16slen(utf16);
+    if ((long)size < 0)
+        size = u16slen(utf16, -size);
 
     // Calculate the UTF-8 size
     size_t convlen = 0;
@@ -155,8 +155,8 @@ void plString::IConvertFromWchar(const wchar_t *wstr, size_t size)
     // We assume that if sizeof(wchar_t) == 2, the data is UTF-16 already
     IConvertFromUtf16((const UInt16 *)wstr, size);
 #else
-    if (size == kSizeAuto)
-        size = wcslen(wstr);
+    if ((long)size < 0)
+        size = wcsnlen(wstr, -size);
 
     // Calculate the UTF-8 size
     size_t convlen = 0;
@@ -212,8 +212,8 @@ void plString::IConvertFromWchar(const wchar_t *wstr, size_t size)
 
 void plString::IConvertFromAscii(const char *astr, size_t size)
 {
-    if (size == kSizeAuto)
-        size = strlen(astr);
+    if ((long)size < 0)
+        size = strnlen(astr, -size);
 
     // Calculate the UTF-8 size
     size_t convlen = 0;
@@ -580,7 +580,7 @@ plString operator+(const plString &left, const plString &right)
 plStringStream& plStringStream::Add(const char *text)
 {
     size_t length = strlen(text);
-    if (fLength + length + 1 > fBufSize) {
+    if (fLength + length > fBufSize) {
         char *bigger = new char[fBufSize * 2];
         memcpy(bigger, fBuffer, fBufSize);
         delete [] fBuffer;
@@ -603,5 +603,11 @@ plStringStream& plStringStream::Add(UInt32 num)
 {
     char buffer[12];
     snprintf(buffer, 12, "%lu", num);
+    return Add(buffer);
+}
+
+plStringStream& plStringStream::Add(char ch)
+{
+    char buffer[2] = { ch, 0 };
     return Add(buffer);
 }
