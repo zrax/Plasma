@@ -239,6 +239,9 @@ public:
         bool operator()(const plString &_L, const plString &_R) const
         { return _L.Compare_i(_R) == 0; }
     };
+
+private:
+    friend plString operator+(const plString &left, const plString &right);
 };
 
 plString operator+(const plString &left, const plString &right);

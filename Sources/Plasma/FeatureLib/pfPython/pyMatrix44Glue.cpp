@@ -315,9 +315,9 @@ PYTHON_METHOD_DEFINITION(ptMatrix44, setData, args)
         PyErr_SetString(PyExc_TypeError, "setData expects a 4x4 tuple of floats");
         PYTHON_RETURN_ERROR;
     }
-   
+
     self->fThis->SetData(mat);
-   
+
     if (PyErr_Occurred())
         PYTHON_RETURN_ERROR;
     PYTHON_RETURN_NONE;

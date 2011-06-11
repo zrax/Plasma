@@ -89,7 +89,7 @@ if (3dsm_FOUND)
     endif()
     
     option(3dsm_BUILD_PLUGIN "Do we want to build the 3ds Max plugin?" OFF)
-    if (3dsm_BUILD_PLUGIN)
+    if(3dsm_BUILD_PLUGIN)
         add_definitions(-DBUILDING_MAXPLUGIN)
     endif()
 endif()

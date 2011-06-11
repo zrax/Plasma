@@ -436,7 +436,8 @@ static plString IFormat(const char *fmt, va_list vptr)
         vsnprintf(bigbuffer, chars+1, fmt, vptr);
         return plString::Steal(bigbuffer);
     }
-    return plString(buffer);
+
+    return plString::FromUtf8(buffer);
 }
 
 plString plString::Format(const char *fmt, ...)
@@ -483,7 +484,7 @@ static bool in_set(char key, const char *charset)
     return false;
 }
 
-plString plString::TrimLeft(const char *charset = " \t\n\r") const
+plString plString::TrimLeft(const char *charset) const
 {
     if (IsEmpty())
         return plString();
@@ -495,7 +496,7 @@ plString plString::TrimLeft(const char *charset = " \t\n\r") const
     return Substr(cp - c_str());
 }
 
-plString plString::TrimRight(const char *charset = " \t\n\r") const
+plString plString::TrimRight(const char *charset) const
 {
     if (IsEmpty())
         return plString();
@@ -509,7 +510,7 @@ plString plString::TrimRight(const char *charset = " \t\n\r") const
     return Substr(0, cp - c_str() + 1);
 }
 
-plString plString::Trim(const char *charset = " \t\n\r") const
+plString plString::Trim(const char *charset) const
 {
     if (IsEmpty())
         return plString();
@@ -525,7 +526,7 @@ plString plString::Trim(const char *charset = " \t\n\r") const
     return Substr(lp - c_str(), rp - lp + 1);
 }
 
-plString plString::Substr(int start, size_t size = kSizeAuto) const
+plString plString::Substr(int start, size_t size) const
 {
     size_t maxSize = GetSize();
 
