@@ -212,9 +212,10 @@ UInt32 hsStream::WriteFmtV(const char * fmt, va_list av)
     return Write( buf.length(), buf.data() );
 }
 
-UInt32 hsStream::WriteSafeStringLong(const char *string)
+UInt32 hsStream::WriteSafeStringLong(const plString &string)
 {
-    UInt32 len = hsStrlen(string);      
+    plStringBuffer<char> sbuf = string.ToUtf8();
+    UInt32 len = sbuf.GetSize();
     WriteSwap32(len);
     if (len > 0)
     {   
@@ -222,7 +223,7 @@ UInt32 hsStream::WriteSafeStringLong(const char *string)
         int i;
         for (i = 0; i < len; i++)
         {
-            buff[i] = ~string[i];
+            buff[i] = ~sbuf.GetData()[i];
         }
         buff[len] = '\0';
         UInt32 result = Write(len, buff);
@@ -233,16 +234,17 @@ UInt32 hsStream::WriteSafeStringLong(const char *string)
         return 0;
 }
 
-UInt32 hsStream::WriteSafeWStringLong(const wchar_t *string)
+UInt32 hsStream::WriteSafeWStringLong(const plString &string)
 {
-    UInt32 len = wcslen(string);
+    plStringBuffer<UInt16> sbuf = string.ToUtf16();
+    UInt32 len = sbuf.GetSize();
     WriteSwap32(len);
     if (len > 0)
     {
         int i;
         for (i=0; i<len; i++)
         {
-            wchar_t buff = ~string[i];
+            wchar_t buff = ~sbuf.GetData()[i];
             WriteSwap16((UInt16)buff);
         }
         WriteSwap16((UInt16)L'\0');
@@ -298,9 +300,10 @@ plString hsStream::ReadSafeWStringLong()
     return str;
 }
 
-UInt32 hsStream::WriteSafeString(const char *string)
+UInt32 hsStream::WriteSafeString(const plString &string)
 {
-    int len = hsStrlen(string);
+    plStringBuffer<char> sbuf = string.ToUtf8();
+    int len = sbuf.GetSize();
     hsAssert(len<0xf000, xtl::format("string len of %d is too long for WriteSafeString %s, use WriteSafeStringLong", 
         string, len).c_str() );
 
@@ -311,7 +314,7 @@ UInt32 hsStream::WriteSafeString(const char *string)
         int i;
         for (i = 0; i < len; i++)
         {
-            buff[i] = ~string[i];
+            buff[i] = ~sbuf.GetData()[i];
         }
         buff[len] = '\0';
         UInt32 result = Write(len, buff);
@@ -322,9 +325,10 @@ UInt32 hsStream::WriteSafeString(const char *string)
         return 0;
 }
 
-UInt32 hsStream::WriteSafeWString(const wchar_t *string)
+UInt32 hsStream::WriteSafeWString(const plString &string)
 {
-    int len = wcslen(string);
+    plStringBuffer<UInt16> sbuf = string.ToUtf16();
+    int len = sbuf.GetSize();
     hsAssert(len<0xf000, xtl::format("string len of %d is too long for WriteSafeWString, use WriteSafeWStringLong",
         len).c_str() );
 
@@ -334,7 +338,7 @@ UInt32 hsStream::WriteSafeWString(const wchar_t *string)
         int i;
         for (i=0; i<len; i++)
         {
-            wchar_t buff = ~string[i];
+            wchar_t buff = ~sbuf.GetData()[i];
             WriteSwap16((UInt16)buff);
         }
         WriteSwap16((UInt16)L'\0');
@@ -774,31 +778,7 @@ UInt32 hsStream::ReadSwapAtom(UInt32* sizePtr)
 
 #define kFileStream_Uninitialized       ~0
 
-hsBool hsFileStream::Open(const char *name, const char *mode)
-{
-#ifdef HS_BUILD_FOR_PS2
-    hsAssert(fRef == kFileStream_Uninitialized, "hsFileStream:Open  Stream already opened");
-
-    Int32 ref = hsPS2Open(name, mode);
-    if (ref == -1)
-        return false;
-
-    fRef = (UInt32) ref;
-    fFileSize = sceLseek(fRef, 0, SCE_SEEK_END);
-    sceLseek(fRef, 0, SCE_SEEK_SET);
-    fBufferIsEmpty = true;
-    fWriteBufferUsed = false;
-    fVirtualFilePointer = 0;
-    fBufferBase = 0;
-
-    return true;
-#else
-    hsAssert(0, "hsFileStream::Open  NotImplemented");
-    return false;
-#endif
-}
-
-hsBool hsFileStream::Open(const wchar *name, const wchar *mode)
+hsBool hsFileStream::Open(const plString &name, const char *mode)
 {
     hsAssert(0, "hsFileStream::Open  NotImplemented");
     return false;
@@ -1075,17 +1055,10 @@ hsUNIXStream::~hsUNIXStream()
     // Don't Close here, because Sub classes Don't always want that behaviour!
 }
 
-hsBool hsUNIXStream::Open(const char *name, const char *mode)
+hsBool hsUNIXStream::Open(const plString &name, const char *mode)
 {
     fPosition = 0;
-    fRef = hsFopen(name, mode);
-    return (fRef) ? true : false;
-}
-
-hsBool hsUNIXStream::Open(const wchar *name, const wchar *mode)
-{
-    fPosition = 0;
-    fRef = _wfopen(name, mode);
+    fRef = hsFopen(name.c_str(), mode);
     return (fRef) ? true : false;
 }
 
@@ -1646,10 +1619,10 @@ hsBufferedStream::~hsBufferedStream()
 #endif // LOG_BUFFERED
 }
 
-hsBool hsBufferedStream::Open(const char* name, const char* mode)
+hsBool hsBufferedStream::Open(const plString& name, const char* mode)
 {
     hsAssert(!fRef, "hsBufferedStream:Open Stream already opened");
-    fRef = hsFopen(name, mode);
+    fRef = hsFopen(name.c_str(), mode);
     if (!fRef)
         return false;
 
@@ -1658,18 +1631,11 @@ hsBool hsBufferedStream::Open(const char* name, const char* mode)
 #ifdef LOG_BUFFERED
     fBufferHits = fBufferMisses = 0;
     fBufferReadIn = fBufferReadOut = fReadDirect = fLastReadPos = 0;
-    delete [] fFilename;
-    fFilename = hsStrdup(name);
+    fFilename = name;
     fCloseReason = nil;
 #endif // LOG_BUFFERED
 
     return true;
-}
-
-hsBool hsBufferedStream::Open(const wchar *name, const wchar *mode)
-{
-    hsAssert(0, "hsFileStream::Open  NotImplemented for wchar");
-    return false;
 }
 
 hsBool hsBufferedStream::Close()

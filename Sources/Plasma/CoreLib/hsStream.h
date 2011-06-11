@@ -73,8 +73,7 @@ public:
                 hsStream() : fBytesRead(0), fPosition(0) {}
     virtual     ~hsStream();
 
-    virtual hsBool  Open(const char *, const char * = "rb")=0;
-    virtual hsBool  Open(const wchar *, const wchar * = L"rb")=0;
+    virtual hsBool  Open(const plString &, const char * = "rb")=0;
     virtual hsBool  Close()=0;
     virtual hsBool  AtEnd();
     virtual UInt32  Read(UInt32 byteCount, void * buffer) = 0;
@@ -90,8 +89,8 @@ public:
 #ifdef STREAM_LOGGER
     // Logging Reads & Skips
     virtual UInt32  LogRead(UInt32 byteCount, void * buffer, const char* desc) { return Read(byteCount,buffer); }
-    virtual char*   LogReadSafeString() { return ReadSafeString(); }
-    virtual char*   LogReadSafeStringLong() { return ReadSafeStringLong(); }
+    virtual plString   LogReadSafeString() { return ReadSafeString(); }
+    virtual plString   LogReadSafeStringLong() { return ReadSafeStringLong(); }
     virtual void    LogSkip(UInt32 deltaByteCount, const char* desc) { Skip(deltaByteCount); }
 
     // Stream Notes for Logging 
@@ -117,13 +116,13 @@ public:
     UInt32          WriteFmt(const char * fmt, ...);
     UInt32          WriteFmtV(const char * fmt, va_list av);
 
-    UInt32      WriteSafeStringLong(const char *string);    // uses 4 bytes for length
-    UInt32      WriteSafeWStringLong(const wchar_t *string);
+    UInt32      WriteSafeStringLong(const plString &string);    // uses 4 bytes for length
+    UInt32      WriteSafeWStringLong(const plString &string);
     plString    ReadSafeStringLong();
     plString    ReadSafeWStringLong();
 
-    UInt32      WriteSafeString(const char *string);        // uses 2 bytes for length
-    UInt32      WriteSafeWString(const wchar_t *string);
+    UInt32      WriteSafeString(const plString &string);        // uses 2 bytes for length
+    UInt32      WriteSafeWString(const plString &string);
     plString    ReadSafeString();
     plString    ReadSafeWString();
 
@@ -139,15 +138,15 @@ public:
     void        ReadSwap32(int count, UInt32 values[]);
     UInt32      ReadUnswap32();
 
-    void            Writebool(bool value);
-    void            WriteBool(hsBool value);
-    void            WriteBool(int count, const hsBool values[]);
-    void            WriteByte(UInt8 value);
-    void            WriteSwap16(UInt16 value);
-    void            WriteSwap16(int count, const UInt16 values[]);
-    void            WriteSwap32(UInt32 value);
-    void            WriteSwap32(int count, const  UInt32 values[]);
-    void            WriteUnswap32(UInt32 value);
+    void        Writebool(bool value);
+    void        WriteBool(hsBool value);
+    void        WriteBool(int count, const hsBool values[]);
+    void        WriteByte(UInt8 value);
+    void        WriteSwap16(UInt16 value);
+    void        WriteSwap16(int count, const UInt16 values[]);
+    void        WriteSwap32(UInt32 value);
+    void        WriteSwap32(int count, const  UInt32 values[]);
+    void        WriteUnswap32(UInt32 value);
 
 
     /* Overloaded  Begin (8 & 16 & 32 int)*/
@@ -324,8 +323,7 @@ class hsFileStream: public hsStream
 public:
                 hsFileStream();
     virtual     ~hsFileStream();
-    virtual hsBool  Open(const char *name, const char *mode = "rb");
-    virtual hsBool  Open(const wchar *name, const wchar *mode = L"rb");
+    virtual hsBool  Open(const plString &name, const char *mode = "rb");
     virtual hsBool  Close();
 
     virtual hsBool  AtEnd();
@@ -350,8 +348,7 @@ class hsUNIXStream: public hsStream
 public:
     hsUNIXStream(): fRef(0), fBuff(nil) {}
     ~hsUNIXStream();
-    virtual hsBool  Open(const char* name, const char* mode = "rb");
-    virtual hsBool  Open(const wchar *name, const wchar *mode = L"rb");
+    virtual hsBool  Open(const plString& name, const char* mode = "rb");
     virtual hsBool  Close();
 
     virtual hsBool  AtEnd();
@@ -385,8 +382,7 @@ public:
     plReadOnlySubStream(): fBase( nil ), fOffset( 0 ), fLength( 0 ) {}
     ~plReadOnlySubStream();
 
-    virtual hsBool  Open(const char *, const char *)    { hsAssert(0, "plReadOnlySubStream::Open  NotImplemented"); return false; }
-    virtual hsBool  Open(const wchar *, const wchar *)  { hsAssert(0, "plReadOnlySubStream::Open  NotImplemented"); return false; }
+    virtual hsBool  Open(const plString &, const char *)    { hsAssert(0, "plReadOnlySubStream::Open  NotImplemented"); return false; }
     void    Open( hsStream *base, UInt32 offset, UInt32 length );
     virtual hsBool  Close() { fBase = nil; fOffset = 0; fLength = 0; return true; }
     virtual hsBool  AtEnd();
@@ -411,8 +407,7 @@ public:
                 hsRAMStream(UInt32 chunkSize);
     virtual     ~hsRAMStream();
 
-    virtual hsBool  Open(const char *, const char *)    { hsAssert(0, "hsRAMStream::Open  NotImplemented"); return false; }
-    virtual hsBool  Open(const wchar *, const wchar *)  { hsAssert(0, "hsRAMStream::Open  NotImplemented"); return false; }
+    virtual hsBool  Open(const plString &, const char *)    { hsAssert(0, "hsRAMStream::Open  NotImplemented"); return false; }
     virtual hsBool  Close()             { hsAssert(0, "hsRAMStream::Close  NotImplemented"); return false; }
 
     
@@ -432,8 +427,7 @@ public:
 class hsNullStream : public hsStream {
 public:
 
-    virtual hsBool  Open(const char *, const char *)    { return true; }
-    virtual hsBool  Open(const wchar *, const wchar *)  { return true; }
+    virtual hsBool  Open(const plString &, const char *)    { return true; }
     virtual hsBool  Close()             { return true; }
 
     virtual UInt32  Read(UInt32 byteCount, void * buffer);  // throw's exception
@@ -457,8 +451,7 @@ public:
     hsReadOnlyStream() {}
 
     virtual void    Init(int size, const void* data) { fStart=((char*)data); fData=((char*)data); fStop=((char*)data + size); }
-    virtual hsBool  Open(const char *, const char *)    { hsAssert(0, "hsReadOnlyStream::Open  NotImplemented"); return false; }
-    virtual hsBool  Open(const wchar *, const wchar *)  { hsAssert(0, "hsReadOnlyStream::Open  NotImplemented"); return false; }
+    virtual hsBool  Open(const plString &, const char *)    { hsAssert(0, "hsReadOnlyStream::Open  NotImplemented"); return false; }
     virtual hsBool  Close()             { hsAssert(0, "hsReadOnlyStream::Close  NotImplemented"); return false; }
     virtual hsBool  AtEnd();
     virtual UInt32  Read(UInt32 byteCount, void * buffer);
@@ -477,8 +470,7 @@ public:
     hsWriteOnlyStream(int size, const void* data) : hsReadOnlyStream(size, data) {}
     hsWriteOnlyStream() {}
 
-    virtual hsBool  Open(const char *, const char *)    { hsAssert(0, "hsWriteOnlyStream::Open  NotImplemented"); return false; }
-    virtual hsBool  Open(const wchar *, const wchar *)  { hsAssert(0, "hsWriteOnlyStream::Open  NotImplemented"); return false; }
+    virtual hsBool  Open(const plString &, const char *)    { hsAssert(0, "hsWriteOnlyStream::Open  NotImplemented"); return false; }
     virtual hsBool  Close()             { hsAssert(0, "hsWriteOnlyStream::Close  NotImplemented"); return false; }
     virtual UInt32  Read(UInt32 byteCount, void * buffer);  // throws exception
     virtual UInt32  Write(UInt32 byteCount, const void* buffer);    
@@ -498,8 +490,7 @@ public:
     hsQueueStream(Int32 size);
     ~hsQueueStream();
 
-    virtual hsBool  Open(const char *, const char *)    { hsAssert(0, "hsQueueStream::Open  NotImplemented"); return false; }
-    virtual hsBool  Open(const wchar *, const wchar *)  { hsAssert(0, "hsQueueStream::Open  NotImplemented"); return false; }
+    virtual hsBool  Open(const plString &, const char *)    { hsAssert(0, "hsQueueStream::Open  NotImplemented"); return false; }
     virtual hsBool  Close()             { hsAssert(0, "hsQueueStream::Close  NotImplemented"); return false; }
 
     virtual UInt32  Read(UInt32 byteCount, void * buffer);
@@ -533,7 +524,7 @@ class hsBufferedStream : public hsStream
     // For doing statistics on how efficient we are
     int fBufferHits, fBufferMisses;
     UInt32 fBufferReadIn, fBufferReadOut, fReadDirect, fLastReadPos;
-    char* fFilename;
+    plString fFilename;
     const char* fCloseReason;
 #endif
 
@@ -541,8 +532,7 @@ public:
     hsBufferedStream();
     virtual ~hsBufferedStream();
 
-    virtual hsBool  Open(const char* name, const char* mode = "rb");
-    virtual hsBool  Open(const wchar* name, const wchar* mode = L"rb");
+    virtual hsBool  Open(const plString& name, const char* mode = "rb");
     virtual hsBool  Close();
 
     virtual hsBool  AtEnd();
