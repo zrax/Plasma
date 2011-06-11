@@ -80,17 +80,17 @@ void plAgeInfoStruct::Write( hsStream * s, hsResMgr* )
     UpdateFlags();
     s->WriteSwap( fFlags );
     if ( IsFlagSet( kHasAgeFilename ) )
-        plMsgStdStringHelper::Poke(fAgeFilename,s);
+        plMsgPlStringHelper::Poke(fAgeFilename,s);
     if ( IsFlagSet( kHasAgeInstanceName ) )
-        plMsgStdStringHelper::Poke(fAgeInstanceName,s);
+        plMsgPlStringHelper::Poke(fAgeInstanceName,s);
     if ( IsFlagSet( kHasAgeInstanceGuid ) )
         fAgeInstanceGuid.Write( s );
     if ( IsFlagSet( kHasAgeUserDefinedName ) )
-        plMsgStdStringHelper::Poke(fAgeUserDefinedName,s);
+        plMsgPlStringHelper::Poke(fAgeUserDefinedName,s);
     if ( IsFlagSet( kHasAgeSequenceNumber ) )
         s->WriteSwap( fAgeSequenceNumber );
     if ( IsFlagSet( kHasAgeDescription ) )
-        plMsgStdStringHelper::Poke(fAgeDescription,s);
+        plMsgPlStringHelper::Poke(fAgeDescription,s);
     if ( IsFlagSet( kHasAgeLanguage ) )
         s->WriteSwap( fAgeLanguage );
 }

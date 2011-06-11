@@ -181,6 +181,7 @@ public:
     bool IsNull() const { return fUtf8Buffer.GetData() == 0; }
 
     static plString Format(const char *fmt, ...);
+    static plString IFormat(const char *fmt, va_list vptr);
     static plString Steal(const char *utf8, size_t size = kSizeAuto)
     {
         plString str;

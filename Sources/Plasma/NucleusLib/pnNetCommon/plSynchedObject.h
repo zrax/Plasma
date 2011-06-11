@@ -76,15 +76,15 @@ public:
     {
         plKey   fObjKey;
         UInt32  fSendFlags;
-        std::string fSDLName;
+        plString fSDLName;
 
         plSynchedObject* GetObject() const { return plSynchedObject::ConvertNoRef(fObjKey->ObjectIsLoaded()); }
         StateDefn() : fObjKey(nil),fSendFlags(0) {}
-        StateDefn(plKey k, UInt32 f, const char* sdlName) : fObjKey(k),fSendFlags(f) { fSDLName=sdlName; }
+        StateDefn(plKey k, UInt32 f, const plString& sdlName) : fObjKey(k),fSendFlags(f) { fSDLName=sdlName; }
     };
 
 private:
-    typedef std::vector<std::string> SDLStateList;
+    typedef std::vector<plString> SDLStateList;
     SDLStateList fSDLExcludeList;
     SDLStateList fSDLVolatileList;
     UInt32 fSynchFlags;
@@ -95,12 +95,12 @@ private:
     static plSynchedObject* fStaticSynchedObj;      // static which temporarily holds address of each object's synchMgr
     static std::vector<StateDefn>   fDirtyStates;
 
-    static void IRemoveDirtyState(plKey o, const char* sdlName);
-    static void IAddDirtyState(plKey o, const char* sdlName, UInt32 sendFlags);
-    bool IOKToDirty(const char* SDLStateName) const;
-    SDLStateList::const_iterator IFindInSDLStateList(const SDLStateList& list, const char* sdlName) const;
+    static void IRemoveDirtyState(plKey o, const plString& sdlName);
+    static void IAddDirtyState(plKey o, const plString& sdlName, UInt32 sendFlags);
+    bool IOKToDirty(const plString& SDLStateName) const;
+    SDLStateList::const_iterator IFindInSDLStateList(const SDLStateList& list, const plString& sdlName) const;
 protected:
-    bool IOKToNetwork(const char* sdlName, UInt32* synchFlags) const;   
+    bool IOKToNetwork(const plString& sdlName, UInt32* synchFlags) const;
 public:
     plSynchedObject();
     virtual ~plSynchedObject();
@@ -118,11 +118,11 @@ public:
     // setters
     void SetSynchFlagsBit(UInt32 f) { fSynchFlags |= f; }
     virtual void SetNetGroupConstant(plNetGroupId netGroup);
-    virtual void SetNetGroup(plNetGroupId netGroup) { fNetGroup = netGroup; }   
+    virtual void SetNetGroup(plNetGroupId netGroup) { fNetGroup = netGroup; }
     plNetGroupId SelectNetGroup(plKey groupKey);
 
-    virtual hsBool DirtySynchState(const char* sdlName, UInt32 sendFlags);      
-    void SendSDLStateMsg(const char* SDLStateName, UInt32 synchFlags);  // don't use, only for net code
+    virtual hsBool DirtySynchState(const plString& sdlName, UInt32 sendFlags);
+    void SendSDLStateMsg(const plString& SDLStateName, UInt32 synchFlags);  // don't use, only for net code
 
     void ClearSynchFlagsBit(UInt32 f) { fSynchFlags &= ~f; }
 
@@ -153,14 +153,14 @@ public:
     void SetLocalOnly(bool b) { if (b) fSynchFlags |= kLocalOnly; else fSynchFlags &= ~kLocalOnly;  }
 
     // disable particular types of persistence
-    void AddToSDLExcludeList(const char*);
-    void RemoveFromSDLExcludeList(const char*);
-    bool IsInSDLExcludeList(const char*) const;
+    void AddToSDLExcludeList(const plString&);
+    void RemoveFromSDLExcludeList(const plString&);
+    bool IsInSDLExcludeList(const plString&) const;
 
     // make volatile particular types of state
-    void AddToSDLVolatileList(const char*);
-    void RemoveFromSDLVolatileList(const char*);
-    bool IsInSDLVolatileList(const char*) const;
+    void AddToSDLVolatileList(const plString&);
+    void RemoveFromSDLVolatileList(const plString&);
+    bool IsInSDLVolatileList(const plString&) const;
 
     //
     // synched value stuff, currently unused

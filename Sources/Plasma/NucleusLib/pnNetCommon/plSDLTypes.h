@@ -26,17 +26,19 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #ifndef plSDLTypes_inc
 #define plSDLTypes_inc
 
-extern const char kSDLPhysical[];
-extern const char kSDLAGMaster[];
-extern const char kSDLResponder[];
-extern const char kSDLClothing[];
-extern const char kSDLAvatar[];
-extern const char kSDLAvatarPhysical[];
-extern const char kSDLLayer[];
-extern const char kSDLSound[];
-extern const char kSDLXRegion[];
-extern const char kSDLMorphSequence[];
-extern const char kSDLParticleSystem[];
-extern const char kSDLCloneMessage[];
+#include "plString.h"
+
+extern const plString kSDLPhysical;
+extern const plString kSDLAGMaster;
+extern const plString kSDLResponder;
+extern const plString kSDLClothing;
+extern const plString kSDLAvatar;
+extern const plString kSDLAvatarPhysical;
+extern const plString kSDLLayer;
+extern const plString kSDLSound;
+extern const plString kSDLXRegion;
+extern const plString kSDLMorphSequence;
+extern const plString kSDLParticleSystem;
+extern const plString kSDLCloneMessage;
 
 #endif  // plSDLTypes_inc

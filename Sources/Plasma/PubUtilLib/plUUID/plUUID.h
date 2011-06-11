@@ -58,11 +58,10 @@ public:
     bool    IsEqualTo( const plUUID * v ) const;
     bool    FromString( const char * str );
     bool    ToStdString( std::string & out ) const;
-    inline std::string AsStdString() const { return AsString(); }
-    const char * AsString() const; // returns static buffer
+    plString AsString() const;
     void    Read( hsStream * s );
     void    Write( hsStream * s );
-    operator std::string ( void ) const { return AsStdString();}
+    operator plString ( void ) const { return AsString();}
     bool    operator==( const plUUID & other ) const { return IsEqualTo( &other ); }
     bool    operator!=( const plUUID & other ) const { return !IsEqualTo( &other ); }
     int     operator <( const plUUID & other ) const { return CompareTo( &other ); }

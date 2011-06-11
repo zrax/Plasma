@@ -97,7 +97,7 @@ void plLogicModBase::RegisterForMessageType(UInt16 hClass)
 void plLogicModBase::IUpdateSharedState(bool triggered) const
 {
     plNetSharedState ss("TrigState");
-    plGenericVar* sv = TRACKED_NEW plGenericVar("Triggered");
+    plGenericVar* sv = TRACKED_NEW plGenericVar(plString::FromUtf8("Triggered"));
     sv->Value().SetBool(triggered); // attempting to set trig state to true
     ss.AddVar(sv);
     

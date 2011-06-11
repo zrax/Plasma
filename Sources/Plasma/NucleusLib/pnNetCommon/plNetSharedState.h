@@ -39,12 +39,12 @@ class plGenericVar;
 class plNetSharedState
 {
 protected:
-    std::string fName;
+    plString fName;
     std::vector<plGenericVar*> fVars;
     bool    fServerMayDelete;   // ok to delete (don't save) since this state is equivalent to the default state
 public:
     
-    plNetSharedState(char* name=nil);
+    plNetSharedState(const plString& name=plString::Null);
     virtual ~plNetSharedState();
 
     virtual void Copy(plNetSharedState* ss);
@@ -56,8 +56,8 @@ public:
     void RemoveVar(int i) { fVars.erase(fVars.begin()+i); }
     void AddVar(plGenericVar* v)    { fVars.push_back(v); }
     
-    const char* GetName() const     { return fName.c_str(); }
-    void  SetName(const char* n)    { if (n) fName=n; }
+    plString GetName() const     { return fName; }
+    void  SetName(const plString& n)    { fName=n; }
 
     bool GetServerMayDelete() const { return fServerMayDelete;  }
     void SetServerMayDelete(bool d) { fServerMayDelete=d;   }

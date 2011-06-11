@@ -411,7 +411,7 @@ plStringBuffer<char> plString::ToAscii() const
 #define va_copy(dest, src)  (dest) = (src)
 #endif
 
-static plString IFormat(const char *fmt, va_list vptr)
+plString plString::IFormat(const char *fmt, va_list vptr)
 {
     char buffer[256];
     va_list vptr_save;

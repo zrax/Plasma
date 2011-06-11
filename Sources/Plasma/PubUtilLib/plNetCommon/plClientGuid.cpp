@@ -89,10 +89,10 @@ void plClientGuid::SetTempPlayerID(UInt32 id)
     }
 }
 
-void plClientGuid::SetPlayerName( const char * v )
+void plClientGuid::SetPlayerName( const plString & v )
 {
-    fPlayerName = v?v:"";
-    if ( fPlayerName.size() )
+    fPlayerName = v;
+    if ( !fPlayerName.IsEmpty() )
         fFlags|=kPlayerName;
     else
         fFlags&=~kPlayerName;
@@ -119,7 +119,7 @@ void plClientGuid::SetSrcAddr( UInt32 v )
         fFlags&=~kSrcAddr;
 }
 
-void plClientGuid::SetSrcAddrFromStr( const char * s )
+void plClientGuid::SetSrcAddrFromStr( const plString & s )
 {
     hsAssert(false, "eric, port me");
 }
@@ -301,7 +301,7 @@ void plClientGuid::Read(hsStream * s, hsResMgr* mgr)
     if (IsFlagSet(kPlayerName))
     {
         s->LogSubStreamPushDesc("PlayerName");
-        plMsgStdStringHelper::Peek( fPlayerName, s );
+        plMsgPlStringHelper::Peek( fPlayerName, s );
     }
     if (IsFlagSet(kCCRLevel))
         s->LogReadSwap(&fCCRLevel,"CCRLevel");
@@ -318,7 +318,7 @@ void plClientGuid::Read(hsStream * s, hsResMgr* mgr)
     if (IsFlagSet(kClientKey))
     {
         s->LogSubStreamPushDesc("ClientKey");
-        plMsgStdStringHelper::Peek( fClientKey, s );
+        plMsgPlStringHelper::Peek( fClientKey, s );
     }
     s->LogSubStreamEnd();
 }
@@ -333,7 +333,7 @@ void plClientGuid::Write(hsStream * s, hsResMgr* mgr)
     else if (IsFlagSet(kTempPlayerID))
         s->WriteSwap(fPlayerID);
     if (IsFlagSet(kPlayerName))
-        plMsgStdStringHelper::Poke( fPlayerName, s );
+        plMsgPlStringHelper::Poke( fPlayerName, s );
     if (IsFlagSet(kCCRLevel))
         s->WriteSwap(fCCRLevel);
     if (IsFlagSet(kProtectedLogin))
@@ -347,7 +347,7 @@ void plClientGuid::Write(hsStream * s, hsResMgr* mgr)
     if (IsFlagSet(kReserved))
         s->WriteSwap(fReserved);
     if (IsFlagSet(kClientKey))
-        plMsgStdStringHelper::Poke( fClientKey, s );
+        plMsgPlStringHelper::Poke( fClientKey, s );
 }
 
 void plClientGuid::CopyFrom(const plClientGuid * other)

@@ -207,9 +207,8 @@ UInt32 hsStream::WriteFmt(const char * fmt, ...)
 
 UInt32 hsStream::WriteFmtV(const char * fmt, va_list av)
 {
-    std::string buf;
-    xtl::formatv( buf, fmt, av );
-    return Write( buf.length(), buf.data() );
+    plString buf = plString::IFormat( fmt, av );
+    return Write( buf.GetSize(), buf.c_str() );
 }
 
 UInt32 hsStream::WriteSafeStringLong(const plString &string)
@@ -304,7 +303,7 @@ UInt32 hsStream::WriteSafeString(const plString &string)
 {
     plStringBuffer<char> sbuf = string.ToUtf8();
     int len = sbuf.GetSize();
-    hsAssert(len<0xf000, xtl::format("string len of %d is too long for WriteSafeString %s, use WriteSafeStringLong", 
+    hsAssert(len<0xf000, plString::Format("string len of %d is too long for WriteSafeString %s, use WriteSafeStringLong",
         string, len).c_str() );
 
     WriteSwap16(len | 0xf000);
@@ -329,7 +328,7 @@ UInt32 hsStream::WriteSafeWString(const plString &string)
 {
     plStringBuffer<UInt16> sbuf = string.ToUtf16();
     int len = sbuf.GetSize();
-    hsAssert(len<0xf000, xtl::format("string len of %d is too long for WriteSafeWString, use WriteSafeWStringLong",
+    hsAssert(len<0xf000, plString::Format("string len of %d is too long for WriteSafeWString, use WriteSafeWStringLong",
         len).c_str() );
 
     WriteSwap16(len | 0xf000);
@@ -1606,7 +1605,6 @@ hsBufferedStream::hsBufferedStream()
 , fBufferReadOut(0)
 , fReadDirect(0)
 , fLastReadPos(0)
-, fFilename(nil)
 , fCloseReason(nil)
 #endif
 {

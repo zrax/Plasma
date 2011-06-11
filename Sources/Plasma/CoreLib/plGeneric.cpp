@@ -34,12 +34,6 @@ plGeneric::plGeneric(const int& val): fType(kInt), fBoolVal(false), fIntVal(val)
 
 plGeneric::plGeneric(const double& val): fType(kFloat), fBoolVal(false), fIntVal(0), fFloatVal(val) {}
 
-plGeneric::plGeneric(const char* val): fType(kString), fBoolVal(false), fIntVal(0), fFloatVal(0.0),
-fStringVal(val) {}
-
-plGeneric::plGeneric(const wchar_t* val): fType(kString), fBoolVal(false), fIntVal(0), fFloatVal(0.0),
-fStringVal(val) {}
-
 plGeneric::plGeneric(const plString& val): fType(kString), fBoolVal(false), fIntVal(0), fFloatVal(0.0),
 fStringVal(val) {}
 
@@ -49,7 +43,7 @@ void plGeneric::IReset()
     fBoolVal = false;
     fIntVal = 0;
     fFloatVal = 0.0;
-    fStringVal = L"";
+    fStringVal = plString::Null;
 }
 
 plGeneric& plGeneric::operator=(const bool& val)
@@ -73,22 +67,6 @@ plGeneric& plGeneric::operator=(const double& val)
     IReset();
     fType = kFloat;
     fFloatVal = val;
-    return *this;
-}
-
-plGeneric& plGeneric::operator=(const char* val)
-{
-    IReset();
-    fType = kString;
-    fStringVal = val;
-    return *this;
-}
-
-plGeneric& plGeneric::operator=(const wchar_t* val)
-{
-    IReset();
-    fType = kString;
-    fStringVal = val;
     return *this;
 }
 
@@ -122,7 +100,7 @@ int plGeneric::Write(hsStream* stream)
         break;
 
     case kString:
-        stream->WriteSafeWString(fStringVal.ToWchar().GetData());
+        stream->WriteSafeWString(fStringVal);
         break;
     }
     return stream->GetPosition();

@@ -1265,7 +1265,7 @@ void proVariableEventData::IRead(hsStream* stream, hsResMgr* mgr)
 
 void proVariableEventData::IWrite(hsStream* stream, hsResMgr* mgr)
 {
-    stream->WriteSafeString(fName.c_str());
+    stream->WriteSafeString(fName);
     stream->WriteSwap32(fDataType);
     stream->WriteSwapScalar(fNumber);
     mgr->WriteKey(stream, fKey);
@@ -1304,7 +1304,7 @@ void proVariableEventData::IWriteVersion(hsStream* s, hsResMgr* mgr)
     contentFlags.Write(s);
 
     // kProVariableName
-    s->WriteSafeString(fName.c_str());
+    s->WriteSafeString(fName);
     // kProVariableDataType
     s->WriteSwap32(fDataType);
     // kProVariableNumber
