@@ -30,6 +30,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "hsTypes.h"
 #include "hsUtils.h"
 #include <stddef.h>
+#include <vector>
 #include <functional>
 
 template <typename _Ch>
@@ -127,16 +128,12 @@ private:
 public:
     plString() { }
 
-    /*
-    plString(const char *utf8) { IConvertFromUtf8(utf8, kSizeAuto, false); }
-    plString(const wchar_t *wstr) { IConvertFromWchar(wstr, kSizeAuto); }
-    */
+    //plString(const char *utf8) { IConvertFromUtf8(utf8, kSizeAuto, false); }
+    //plString(const wchar_t *wstr) { IConvertFromWchar(wstr, kSizeAuto); }
     plString(const plString &copy) : fUtf8Buffer(copy.fUtf8Buffer) { }
 
-    /*
-    plString &operator=(const char *utf8) { IConvertFromUtf8(utf8, kSizeAuto, false); return *this; }
-    plString &operator=(const wchar_t *wstr) { IConvertFromWchar(wstr, kSizeAuto); return *this; }
-    */
+    //plString &operator=(const char *utf8) { IConvertFromUtf8(utf8, kSizeAuto, false); return *this; }
+    //plString &operator=(const wchar_t *wstr) { IConvertFromWchar(wstr, kSizeAuto); return *this; }
     plString &operator=(const plString &copy) { fUtf8Buffer = copy.fUtf8Buffer; return *this; }
 
     plString &operator+=(const plString &str);
@@ -176,9 +173,17 @@ public:
     plStringBuffer<wchar_t> ToWchar() const;
     plStringBuffer<char> ToAscii() const;
 
+    // For use in displaying characters in a GUI
+    std::vector<UInt32> GetUnicodeArray() const;
+
     size_t GetSize() const { return fUtf8Buffer.GetSize(); }
     bool IsEmpty() const { return fUtf8Buffer.GetSize() == 0; }
     bool IsNull() const { return fUtf8Buffer.GetData() == 0; }
+
+    long ToInt(int base = 0) const;
+    unsigned long ToUInt(int base = 0) const;
+    float ToFloat() const;
+    double ToDouble() const;
 
     static plString Format(const char *fmt, ...);
     static plString IFormat(const char *fmt, va_list vptr);
@@ -190,14 +195,9 @@ public:
     }
 
     int Compare(const plString &str) const { return strcmp(s_str(), str.s_str()); }
-    int Compare(const char *str) const { return strcmp(s_str(), str); }
+    //int Compare(const char *str) const { return strcmp(s_str(), str); }
     int Compare_i(const plString &str) const { return stricmp(s_str(), str.s_str()); }
-    int Compare_i(const char *str) const { return stricmp(s_str(), str); }
-
-    /*
-    bool operator==(const plString &str) const { return Compare() == 0; }
-    bool operator!=(const plString &str) const { return Compare() != 0; }
-    */
+    //int Compare_i(const char *str) const { return stricmp(s_str(), str); }
 
     int Find(char ch) const
     {

@@ -121,7 +121,7 @@ const bool &    plGenericType::IToBool( void ) const
     if( fType == kAny )
     {
         hsAssert( !fS.IsEmpty(), "Weird parameter during conversion" );
-        if( atoi( fS.c_str() ) > 0 || fS.Compare_i( "true" ) == 0 )
+        if( fS.ToInt() > 0 || fS.Compare_i( "true" ) == 0 )
             b = true;
         else
             b = false;

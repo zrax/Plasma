@@ -669,15 +669,15 @@ bool VaultImageNode::ExtractImage (plMipmap ** dst) {
 #ifdef CLIENT
 struct MatchesSpawnPointTitle
 {
-    std::string fTitle;
-    MatchesSpawnPointTitle( const char * title ):fTitle( title ){}
-    bool operator ()( const plSpawnPointInfo & p ) const { return ( p.fTitle==fTitle ); }
+    plString fTitle;
+    MatchesSpawnPointTitle( const plString & title ):fTitle( title ){}
+    bool operator ()( const plSpawnPointInfo & p ) const { return ( p.fTitle.Compare(fTitle) == 0 ); }
 };
 struct MatchesSpawnPointName
 {
-    std::string fName;
-    MatchesSpawnPointName( const char * name ):fName( name ){}
-    bool operator ()( const plSpawnPointInfo & p ) const { return ( p.fSpawnPt==fName ); }
+    plString fName;
+    MatchesSpawnPointName( const plString & name ):fName( name ){}
+    bool operator ()( const plSpawnPointInfo & p ) const { return ( p.fSpawnPt.Compare(fName) == 0 ); }
 };
 #endif
 

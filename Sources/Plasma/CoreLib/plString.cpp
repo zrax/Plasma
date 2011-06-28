@@ -27,6 +27,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plString.h"
 
 #include <cstring>
+#include <cstdlib>
 
 const plString plString::Null;
 
@@ -404,6 +405,77 @@ plStringBuffer<char> plString::ToAscii() const
     astr[convlen] = 0;
 
     return plStringBuffer<char>::Steal(astr, convlen);
+}
+
+std::vector<UInt32> plString::GetUnicodeArray() const
+{
+    if (IsNull())
+        return std::vector<UInt32>();
+
+    // Calculate the number of characters
+    size_t convlen = 0;
+    const char *utf8 = fUtf8Buffer.GetData();
+    const char *sp = utf8;
+    size_t srcSize = fUtf8Buffer.GetSize();
+    while (sp < utf8 + srcSize) {
+        if ((*sp & 0xF8) == 0xF0)
+            sp += 4;
+        else if ((*sp & 0xF0) == 0xE0)
+            sp += 3;
+        else if ((*sp & 0xE0) == 0xC0)
+            sp += 2;
+        else
+            sp += 1;
+        ++convlen;
+    }
+
+    // And perform the actual conversion
+    std::vector<UInt32> ustr;
+    ustr.resize(convlen);
+    sp = utf8;
+    size_t dp = 0;
+    while (sp < utf8 + srcSize) {
+        UInt32 unichar;
+        if ((*sp & 0xF8) == 0xF0) {
+            unichar  = (*sp++ & 0x07) << 18;
+            unichar |= (*sp++ & 0x3F) << 12;
+            unichar |= (*sp++ & 0x3F) << 6;
+            unichar |= (*sp++ & 0x3F);
+        } else if ((*sp & 0xF0) == 0xE0) {
+            unichar  = (*sp++ & 0x0F) << 12;
+            unichar |= (*sp++ & 0x3F) << 6;
+            unichar |= (*sp++ & 0x3F);
+        } else if ((*sp & 0xE0) == 0xC0) {
+            unichar  = (*sp++ & 0x1F) << 6;
+            unichar |= (*sp++ & 0x3F);
+        } else {
+            unichar = *sp++;
+        }
+        ustr[dp++] = unichar;
+    }
+
+    return ustr;
+}
+
+long plString::ToInt(int base) const
+{
+    return strtol(s_str(), nil, base);
+}
+
+unsigned long plString::ToUInt(int base) const
+{
+    return strtoul(s_str(), nil, base);
+}
+
+float plString::ToFloat() const
+{
+    // strtof is C99, which MS doesn't support...
+    return (float)strtod(s_str(), nil);
+}
+
+double plString::ToDouble() const
+{
+    return strtod(s_str(), nil);
 }
 
 // Microsoft doesn't provide this for us
