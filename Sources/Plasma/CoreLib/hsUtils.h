@@ -32,17 +32,8 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include <ctype.h>
 #include <stdarg.h>
 
-int     hsStrlen(const char src[]);
-char*   hsStrcpy(char dstOrNil[], const char src[]);
-void    hsStrcat(char dst[], const char src[]);
-hsBool  hsStrEQ(const char s1[], const char s2[]);
-hsBool  hsStrCaseEQ(const char* s1, const char* s2);
-char*   hsScalarToStr(hsScalar);
 int     hsRemove(const char* filename);
 void    hsCPathToMacPath(char* dst, char* fname);   
-void    hsStrLower(char *s);
-char *  hsFormatStr(const char * fmt, ...); // You are responsible for returned memory.
-char *  hsFormatStrV(const char * fmt, va_list args);   // You are responsible for returned memory.
 
 // Use "correct" stricmp based on the selected compiler / library
 #ifdef _MSC_VER
@@ -60,23 +51,8 @@ char *  hsFormatStrV(const char * fmt, va_list args);   // You are responsible f
 
 
 //  A pstring has a length byte at the beginning, and no trailing 0
-char*   hsP2CString(const UInt8 pstring[], char cstring[]);
-UInt8*  hsC2PString(const char cstring[], UInt8 pstring[]);
-
-inline char* hsStrcpy(const char src[])
-{
-    return hsStrcpy(nil, src);
-}
-
-inline char *hsStrncpy(char *strDest, const char *strSource, size_t count)
-{
-    char *temp = strncpy(strDest, strSource, count-1);
-    strDest[count-1] = 0;
-    return temp;
-}
-
-wchar_t *hsStringToWString( const char *str );
-char    *hsWStringToString( const wchar_t *str );
+//char*   hsP2CString(const UInt8 pstring[], char cstring[]);
+//UInt8*  hsC2PString(const char cstring[], UInt8 pstring[]);
 
 enum {              // Kind of MessageBox...passed to hsMessageBox
     hsMessageBoxAbortRetyIgnore,

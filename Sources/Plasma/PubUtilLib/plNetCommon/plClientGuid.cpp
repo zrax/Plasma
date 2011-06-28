@@ -249,7 +249,7 @@ plString plClientGuid::AsLogString() const
     if ( IsFlagSet(kSrcAddr) )
     {
         ss.Add("SrcAddr=").Add(GetSrcAddrStr().c_str());
-        ss.Add(spacer;
+        ss.Add(spacer);
     }
     if ( IsFlagSet(kSrcPort) )
     {
@@ -401,12 +401,12 @@ bool plClientGuid::IsEqualTo(const plClientGuid * other) const
         fFlags == other->fFlags &&
         fAccountUUID.IsEqualTo( &other->fAccountUUID ) &&
         fPlayerID == other->fPlayerID &&
-        fPlayerName == other->fPlayerName &&
+        fPlayerName.Compare( other->fPlayerName ) == 0 &&
         fCCRLevel == other->fCCRLevel &&
         fProtectedLogin == other->fProtectedLogin &&
         fBuildType == other->fBuildType &&
         fReserved == other->fReserved &&
-        fClientKey == other->fClientKey;
+        fClientKey.Compare( other->fClientKey ) == 0;
 }
 
 bool operator==(const plClientGuid & X, const plClientGuid & Y)

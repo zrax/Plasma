@@ -52,39 +52,6 @@ extern "C" {
 #include "hsTemplates.h"
 
 
-char * hsFormatStr(const char * fmt, ...)
-{
-    va_list args;
-    va_start(args,fmt);
-    char * result = hsFormatStrV(fmt,args);
-    va_end(args);
-    return result;
-}
-
-char * hsFormatStrV(const char * fmt, va_list args)
-{
-    std::string buf;
-    xtl::formatv(buf,fmt,args);
-    return hsStrcpy(buf.c_str());
-}
-
-static char hsStrBuf[100];
-
-char *hsScalarToStr(hsScalar s)
-{
-#if !(HS_BUILD_FOR_REFERENCE)
-    if (s == hsIntToScalar(hsScalarToInt(s)))
-        sprintf(hsStrBuf, "%d", hsScalarToInt(s));
-    else
-    #if HS_CAN_USE_FLOAT
-        sprintf(hsStrBuf, "%f", hsScalarToFloat(s));
-    #else
-        sprintf(hsStrBuf, "%d:%lu", hsFixedToInt(s), (UInt16)s);
-    #endif
-#endif
-    return hsStrBuf;
-}
-
 bool hsMessageBox_SuppressPrompts = false;
 
 int hsMessageBoxWithOwner(void * owner, const char message[], const char caption[], int kind, int icon)
@@ -240,86 +207,6 @@ void hsRandSeed(int seed)
 {
     SEED = seed;
 }
-/**************************************/
-int hsStrlen(const char src[])
-{
-    if (src==nil)
-        return 0;
-
-    int i = 0;
-    while (src[i])
-        i++;
-    return i;
-}
-
-char* hsStrcpy(char dst[], const char src[])
-{
-    if (src)
-    {
-        if (dst == nil)
-        {
-            int count = hsStrlen(src);
-            dst = (char *)ALLOC(count + 1);
-            memcpy(dst, src, count);
-            dst[count] = 0;
-            return dst;
-        }
-
-        Int32 i;
-        for (i = 0; src[i] != 0; i++)
-            dst[i] = src[i];
-        dst[i] = 0;
-    }
-
-    return dst;
-}
-
-hsBool hsStrEQ(const char s1[], const char s2[])
-{
-    if (s1 && s2)
-    {
-        while (*s1)
-            if(*s1++ != *s2++)
-                return false;
-        return *s2 == 0;
-    }
-
-    return (!s1 && !s2);
-}
-
-hsBool hsStrCaseEQ(const char* s1, const char* s2)
-{
-    if (s1 && s2)
-    {
-        while (*s1)
-            if(tolower(*s1++) != tolower(*s2++))
-                return false;
-        return *s2 == 0;
-    }
-
-    return (!s1 && !s2);
-}
-
-void hsStrcat(char dst[], const char src[])
-{
-    if (src && dst)
-    {
-        dst += hsStrlen(dst);
-        while(*src)
-            *dst++ = *src++;
-        *dst = 0;
-    }
-}
-
-void hsStrLower(char *s)
-{
-    if (s)
-    {
-        int i;
-        for (i = 0; i < hsStrlen(s); i++)
-            s[i] = tolower(s[i]); 
-    }
-}
 
 char* hsP2CString(const UInt8 pstring[], char cstring[])
 {
@@ -341,46 +228,6 @@ UInt8* hsC2PString(const char cstring[], UInt8 pstring[])
         pstring[i] = *cstring++;
     pstring[0] = i - 1;
     return pstring;
-}
-
-//// IStringToWString /////////////////////////////////////////////////////////
-// Converts a char * string to a wchar_t * string
-
-wchar_t *hsStringToWString( const char *str )
-{
-    // convert the char string to a wchar_t string
-    int len = strlen(str);
-    wchar_t *wideString = TRACKED_NEW wchar_t[len+1];
-    for (int i=0; i<len; i++)
-        wideString[i] = btowc(str[i]);
-    wideString[len] = L'\0';
-    return wideString;
-}
-
-//// IWStringToString /////////////////////////////////////////////////////////
-// Converts a wchar_t * string to a char * string
-
-char    *hsWStringToString( const wchar_t *str )
-{
-    // convert the wchar_t string to a char string
-    int len = wcslen(str);
-    char *sStr = TRACKED_NEW char[len+1];
-
-    int i;
-    for (i = 0; i < len; i++)
-    {
-        char temp = wctob(str[i]);
-        if (temp == WEOF)
-        {
-            sStr[i] = '\0';
-            i = len;
-        }
-        else
-            sStr[i] = temp;
-    }
-    sStr[len] = '\0';
-
-    return sStr;
 }
 
 void hsCPathToMacPath(char* dst, char* fname)
@@ -606,7 +453,7 @@ char** DisplaySystemVersion()
 #ifndef VER_SUITE_PERSONAL
 #define VER_SUITE_PERSONAL 0x200
 #endif
-    hsTArray<char*> versionStrs;
+    hsTArray<plString> versionStrs;
     OSVERSIONINFOEX osvi;
     BOOL bOsVersionInfoEx;
     
@@ -687,17 +534,17 @@ char** DisplaySystemVersion()
         
         if ( osvi.dwMajorVersion <= 4 )
         {
-            versionStrs.Append(hsStrcpy (xtl::format("version %d.%d %s (Build %d)\n",
+            versionStrs.Append(plString::Format("version %d.%d %s (Build %d)\n",
                 osvi.dwMajorVersion,
                 osvi.dwMinorVersion,
                 osvi.szCSDVersion,
-                osvi.dwBuildNumber & 0xFFFF).c_str()));
+                osvi.dwBuildNumber & 0xFFFF));
         }
         else
         { 
-            versionStrs.Append(hsStrcpy (xtl::format("%s (Build %d)\n",
+            versionStrs.Append(plString::Format("%s (Build %d)\n",
                 osvi.szCSDVersion,
-                osvi.dwBuildNumber & 0xFFFF).c_str()));
+                osvi.dwBuildNumber & 0xFFFF));
         }
         break;
         
@@ -705,7 +552,7 @@ char** DisplaySystemVersion()
         
         if (osvi.dwMajorVersion == 4 && osvi.dwMinorVersion == 0)
         {
-            versionStrs.Append(hsStrcpy ("Microsoft Windows 95 "));
+            versionStrs.Append("Microsoft Windows 95 ");
             if ( osvi.szCSDVersion[1] == 'C' || osvi.szCSDVersion[1] == 'B' )
                 versionStrs.Append(hsStrcpy("OSR2 " ));
         } 
