@@ -59,12 +59,12 @@ PYTHON_GLOBAL_METHOD_DEFINITION_NOARGS(PtGetPrevAgeInfo, "Returns ptAgeInfoStruc
 
 PYTHON_GLOBAL_METHOD_DEFINITION_NOARGS(PtGetDniTime, "Returns current D'Ni time")
 {
-    return PyLong_FromUnsignedLong(cyMisc::GetDniTime());
+    return PyLong_FromUnsignedLong((unsigned long)cyMisc::GetDniTime());
 }
 
 PYTHON_GLOBAL_METHOD_DEFINITION_NOARGS(PtGetServerTime, "Returns the current time on the server (which is GMT)")
 {
-    return PyLong_FromUnsignedLong(cyMisc::GetServerTime());
+    return PyLong_FromUnsignedLong((unsigned long)cyMisc::GetServerTime());
 }
 
 PYTHON_GLOBAL_METHOD_DEFINITION(PtGMTtoDniTime, args, "Params: gtime\nConverts GMT time (passed in) to D'Ni time")
@@ -75,7 +75,7 @@ PYTHON_GLOBAL_METHOD_DEFINITION(PtGMTtoDniTime, args, "Params: gtime\nConverts G
         PyErr_SetString(PyExc_TypeError, "PtGMTtoDniTime expects a long");
         PYTHON_RETURN_ERROR;
     }
-    return PyLong_FromUnsignedLong(cyMisc::ConvertGMTtoDni(gtime));
+    return PyLong_FromUnsignedLong((unsigned long)cyMisc::ConvertGMTtoDni(gtime));
 }
 
 PYTHON_GLOBAL_METHOD_DEFINITION(PtGetClientName, args, "Params: avatarKey=None\nThis will return the name of the client that is owned by the avatar\n"
@@ -196,9 +196,9 @@ PYTHON_GLOBAL_METHOD_DEFINITION(PtSendRTChat, args, "Params: fromPlayer,toPlayer
 {
     PyObject* fromPlayerObj = NULL;
     PyObject* toPlayerListObj = NULL;
-    char* message = NULL;
+    PyObject* message = NULL;
     unsigned long msgFlags;
-    if (!PyArg_ParseTuple(args, "OOsl", &fromPlayerObj, &toPlayerListObj, &message, &msgFlags))
+    if (!PyArg_ParseTuple(args, "OOOl", &fromPlayerObj, &toPlayerListObj, &message, &msgFlags))
     {
         PyErr_SetString(PyExc_TypeError, "PtSendRTChat expects a ptPlayer, a list of ptPlayers, a string, and a long");
         PYTHON_RETURN_ERROR;
@@ -232,7 +232,25 @@ PYTHON_GLOBAL_METHOD_DEFINITION(PtSendRTChat, args, "Params: fromPlayer,toPlayer
         PYTHON_RETURN_ERROR;
     }
 
-    return PyLong_FromUnsignedLong(cyMisc::SendRTChat(*fromPlayer, toPlayerList, message, msgFlags));
+    if (PyString_Check(message))
+    {
+        char* msg = PyString_AsString(message);
+        return PyLong_FromUnsignedLong(cyMisc::SendRTChat(*fromPlayer, toPlayerList, msg, msgFlags));
+    }
+    else if (PyUnicode_Check(message))
+    {
+        Py_ssize_t size = PyUnicode_GetSize(message);
+        wchar_t* msg = TRACKED_NEW wchar_t[size + 1]; msg[size] = 0;
+        PyUnicode_AsWideChar((PyUnicodeObject*)message, msg, size);
+        UInt32 retval = cyMisc::SendRTChat(*fromPlayer, toPlayerList, msg, msgFlags);
+        DEL(msg);
+        return PyLong_FromUnsignedLong(retval);
+    }
+    else
+    {
+        PyErr_SetString(PyExc_TypeError, "PtSendRTChat expects a ptPlayer, a list of ptPlayers, a string, and a long");
+        PYTHON_RETURN_ERROR;
+    }
 }
 
 PYTHON_GLOBAL_METHOD_DEFINITION(PtSendKIMessage, args, "Params: command,value\nSends a command message to the KI frontend.\n"
