@@ -151,13 +151,13 @@ public:
     operator struct tm() const;
 
     // formatting (ala strftime)
-    std::string Format(const char * fmt) const;
+    plString Format(const char * fmt) const;
 
     // parsing
     bool FromString(const char * buf, const char * fmt);
     
-    const char* Print() const;  // print as simple string
-    const char* PrintWMillis() const;   // print as simple string w/ millis
+    plString Print() const;  // print as simple string
+    plString PrintWMillis() const;   // print as simple string w/ millis
 /*
 FromString: (from glibc's strptime() man page)
      Converts the character string pointed to by buf to values which are

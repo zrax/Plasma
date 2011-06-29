@@ -66,9 +66,9 @@ plUUID::operator Uuid () const {
 }
 
 plString plUUID::AsString() const {
-    static std::string str;
-    ToStdString(str);
-    return str.c_str();
+    plString str;
+    ToPlString(str);
+    return str;
 }
 
 void plUUID::CopyFrom( const plUUID * v ) {

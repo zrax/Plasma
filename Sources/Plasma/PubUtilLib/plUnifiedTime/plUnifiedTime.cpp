@@ -286,23 +286,20 @@ hsBool plUnifiedTime::GetTime(short &year, short &month, short &day, short &hour
     return true;
 }
 
-const char* plUnifiedTime::Print() const
+plString plUnifiedTime::Print() const
 {
-    static std::string s;
 //  short year, month, day, hour, minute, second;
 //  GetTime(year, month, day, hour, minute, second);
 //
 //  xtl::format(s,"yr %d mo %d day %d hour %d min %d sec %d",
 //      year, month, day, hour, minute, second);
 
-    s = Format("%c");
-    return s.c_str();
+    return Format("%c");
 }
 
-const char* plUnifiedTime::PrintWMillis() const
+plString plUnifiedTime::PrintWMillis() const
 {
-    static std::string s;
-    xtl::format(s,"%s,s:%lu,ms:%d",
+    return plString::Format("%s,s:%lu,ms:%d",
         Print(), (unsigned long)GetSecs(), GetMillis() );
     return s.c_str();
 }
@@ -449,14 +446,14 @@ plUnifiedTime::operator struct tm() const
 }
 
 
-std::string plUnifiedTime::Format(const char * fmt) const
+plString plUnifiedTime::Format(const char * fmt) const
 {
     char buf[128];
     struct tm * t = IGetTime(&fSecs);
     if (t == nil ||
         !strftime(buf, sizeof(buf), fmt, t))
         buf[0] = '\0';
-    return std::string(buf);
+    return plString::FromUtf8(buf);
 }
 
 

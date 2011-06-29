@@ -283,9 +283,9 @@ public:
     plAnimDebugList *fAnimDebugList;
 
 #if 0
-    std::string fUsername;
-    std::string fPasswordDigest;
-    std::string fServer;
+    plString    fUsername;
+    plString    fPasswordDigest;
+    plString    fServer;
     int         fPlayerID;
     bool        fRecreatePlayer;
     bool        fAuthPassed;

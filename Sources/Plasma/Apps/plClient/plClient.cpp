@@ -1372,7 +1372,7 @@ public:
             {
                 UInt32 numPlayers = fCbArgs.GetInt(0);
                 UInt32 pId = -1;
-                std::string pName;
+                plString pName;
 
                 for (UInt32 i = 0; i < numPlayers; i++)
                 {

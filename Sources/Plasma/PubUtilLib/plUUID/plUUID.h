@@ -57,7 +57,7 @@ public:
     int     CompareTo( const plUUID * v ) const;
     bool    IsEqualTo( const plUUID * v ) const;
     bool    FromString( const char * str );
-    bool    ToStdString( std::string & out ) const;
+    bool    ToPlString( plString & out ) const;
     plString AsString() const;
     void    Read( hsStream * s );
     void    Write( hsStream * s );

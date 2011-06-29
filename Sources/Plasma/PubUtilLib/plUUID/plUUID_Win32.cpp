@@ -61,7 +61,7 @@ bool plUUID::FromString( const char * str )
     return RPC_S_OK == UuidFromString( (unsigned char *)str, (GUID *)this );
 }
 
-bool plUUID::ToStdString( std::string & out ) const
+bool plUUID::ToPlString( plString & out ) const
 {
     out = "";
     unsigned char * ubuf;
@@ -69,7 +69,7 @@ bool plUUID::ToStdString( std::string & out ) const
     s = UuidToString( (GUID *) this, &ubuf );
     bool success = ( s==RPC_S_OK );
     if ( success )
-        out = (char*)ubuf;
+        out = plString::FromUtf8( (const char *)ubuf );
     RpcStringFree( &ubuf );
     return success;
 }
