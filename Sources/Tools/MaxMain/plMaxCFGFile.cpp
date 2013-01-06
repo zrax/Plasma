@@ -53,7 +53,11 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 plFileName plMaxConfig::GetPluginIni()
 {
     // Get the plugin CFG dir
-    return plFileName::Join(GetCOREInterface()->GetDir(APP_PLUGCFG_DIR), "PlasmaMAX2.ini");
+    static plFileName plugDir;
+    if (!plugDir.IsValid())
+        plugDir = plFileName::Join(GetCOREInterface()->GetDir(APP_PLUGCFG_DIR), "PlasmaMAX2.ini");
+
+    return plugDir;
 }
 
 plFileName plMaxConfig::GetClientPath(bool getNew, bool quiet)

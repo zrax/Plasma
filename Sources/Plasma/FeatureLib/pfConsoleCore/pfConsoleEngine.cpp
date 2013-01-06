@@ -501,14 +501,14 @@ bool    pfConsoleEngine::FindPartialCmd( char *line, bool findAgain, bool preser
         {
             lastParentGroup = group;
             group = subGrp;
-            strcat( newStr, group->GetName() );
+            strsafecat( newStr, group->GetName(), arrsize(newStr) );
             insertLoc += strlen( group->GetName() );
         }
         else
             break;
 
         ptr = console_strtok( line, false );
-        strcat( newStr, "." );
+        strsafecat( newStr, ".", arrsize(newStr) );
         insertLoc++;
     }
 
@@ -520,8 +520,8 @@ bool    pfConsoleEngine::FindPartialCmd( char *line, bool findAgain, bool preser
         {
             lastParentGroup = group;
             lastGroup = group = subGrp;
-            strcat( newStr, group->GetName() );
-            strcat( newStr, "." );
+            strsafecat( newStr, group->GetName(), arrsize(newStr) );
+            strsafecat( newStr, ".", arrsize(newStr) );
         }
         else 
         {
@@ -529,8 +529,8 @@ bool    pfConsoleEngine::FindPartialCmd( char *line, bool findAgain, bool preser
             if( cmd == nil )
                 return false;
 
-            strcat( newStr, cmd->GetName() );
-            strcat( newStr, " " );
+            strsafecat( newStr, cmd->GetName(), arrsize(newStr) );
+            strsafecat( newStr, " ", arrsize(newStr) );
             lastCmd = cmd;
         }
     }
@@ -539,7 +539,7 @@ bool    pfConsoleEngine::FindPartialCmd( char *line, bool findAgain, bool preser
     {
         /// Preserve the rest of the string after the matched command
         if( line != nil )
-            strcat( newStr, line );
+            strsafecat( newStr, line, arrsize(newStr) );
     }
 
     // Copy back!

@@ -252,10 +252,7 @@ void plMerge()
         plMaxNode *node = IFindComponentRecur((plMaxNode*)ip->GetRootNode(), nodeNames[i]);
         if (node)
         {
-            char buf[256];
-            strcpy(buf, node->GetName());
-            strcat(buf, "Merged");
-            node->SetName(buf);
+            node->SetName(const_cast<char *>(plString::Format("%sMerged", node->GetName()).c_str()));
 
             renamedNodes.push_back(node);
         }
@@ -325,17 +322,12 @@ void plMerge()
         size += strlen(nodeNames[i]) + 1;
 
     // Put all the component names in a list and show it to the user
-    char *buf = new char[size+25];
-    strcpy(buf, "Components Merged:\n\n");
+    plStringStream buf;
+    buf << "Components Merged:\n\n";
 
     for (i = 0; i < nodeNames.Count(); i++)
-    {
-        strcat(buf, nodeNames[i]);
-        strcat(buf, "\n");
-    }
+        buf << nodeNames[i] << "\n";
 
-    MessageBox(ip->GetMAXHWnd(), buf, "Components Merged", MB_OK);
-    
-    delete [] buf;
+    MessageBox(ip->GetMAXHWnd(), buf.GetString().c_str(), "Components Merged", MB_OK);
 #endif
 }

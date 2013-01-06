@@ -731,8 +731,8 @@ public:
                 pfConsoleCmdGroup *parentGrp;
                 parentGrp = g->GetParent();	
                 strcpy(fGrpName, parentGrp->GetName());
-                strcat(fGrpName,".");
-                strcat(fGrpName,g->GetName());
+                strsafecat(fGrpName, ".", arrsize(fGrpName));
+                strsafecat(fGrpName, g->GetName(), arrsize(fGrpName));
             }
 
         }
@@ -2178,7 +2178,7 @@ PF_CONSOLE_CMD( App,
     plSceneObject* obj = plSceneObject::ConvertNoRef(key->GetObjectPtr());
     if( !obj )
     {
-        strcat(str, " - Not Found!");
+        strsafecat(str, " - Not Found!", arrsize(str));
         PrintString(str);
         return;
     }
@@ -2197,7 +2197,7 @@ PF_CONSOLE_CMD( App,
     }
     if( !receiver )
     {
-        strcat(str, " - Modifier Not Found!");
+        strsafecat(str, " - Modifier Not Found!", arrsize(str));
         PrintString(str);
         return;
     }
@@ -2255,7 +2255,7 @@ PF_CONSOLE_CMD( App,
     plSceneObject* obj = plSceneObject::ConvertNoRef(key->GetObjectPtr());
     if( !obj )
     {
-        strcat(str, " - Not Found!");
+        strsafecat(str, " - Not Found!", arrsize(str));
         PrintString(str);
         return;
     }
@@ -2343,18 +2343,18 @@ PF_CONSOLE_CMD( App,
         if( on )
         {
             cmd->SetCmd(plAnimCmdMsg::kContinue);
-            strcat(str, " - Enabled");
+            strsafecat(str, " - Enabled", arrsize(str));
         }
         else
         {
             cmd->SetCmd(plAnimCmdMsg::kStop);
-            strcat(str, " - Disabled");
+            strsafecat(str, " - Disabled", arrsize(str));
         }
     }
     else
     {
         cmd->SetCmd(plAnimCmdMsg::kToggleState);
-        strcat(str, " - Toggled");
+        strsafecat(str, " - Toggled", arrsize(str));
     }
     plgDispatch::MsgSend(cmd);
     PrintString(str);

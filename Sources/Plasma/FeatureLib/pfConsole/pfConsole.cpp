@@ -538,7 +538,7 @@ void    pfConsole::IHandleKey( plKeyEventMsg *msg )
     wchar_t         key;
     int             i,eol;
     static bool     findAgain = false;
-    static uint32_t   findCounter = 0;
+    static uint32_t findCounter = 0;
 
     // filter out keyUps and ascii control characters
     // as the control functions are handled on the keyDown event
@@ -562,7 +562,8 @@ void    pfConsole::IHandleKey( plKeyEventMsg *msg )
             // if we are in Python mode, then just add two spaces, tab over, sorta
             if ( strlen(fWorkingLine) < kWorkingLineSize+2 )
             {
-                strcat(&fWorkingLine[fWorkingCursor], "  ");
+                strsafecat(&fWorkingLine[fWorkingCursor], "  ",
+                           arrsize(fWorkingLine) - fWorkingCursor);
                 fWorkingCursor += 2;
             }
         }
@@ -775,8 +776,8 @@ void    pfConsole::IHandleKey( plKeyEventMsg *msg )
                         int recall = fHistory[ fPythonMode ].fCursor - i;
                         if ( recall < 0 )
                             recall += kNumHistoryItems;
-                        strcat(biglines,fHistory[ fPythonMode ].fData[ recall ]);
-                        strcat(biglines,"\n");
+                        strsafecat(biglines, fHistory[ fPythonMode ].fData[ recall ], arrsize(biglines));
+                        strsafecat(biglines, "\n", arrsize(biglines));
                     }
                     // now evaluate this mess they made
                     PyObject* mymod = PythonInterface::FindModule("__main__");

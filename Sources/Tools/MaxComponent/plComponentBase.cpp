@@ -668,16 +668,13 @@ static void ComponentNotify(void *param, NotifyInfo *info)
 
             if (obsoleteComps.size() > 0)
             {
-                char buf[1024];
-                strcpy(buf, "Components of the following obsolete types\nwere found in this scene.  Please delete them.\n\n");
+                plStringStream buf;
+                buf << "Components of the following obsolete types\nwere found in this scene.  Please delete them.\n\n";
                 std::set<const char *>::iterator it = names.begin();
                 for (; it != names.end(); it++)
-                {
-                    strcat(buf, (*it));
-                    strcat(buf, "\n");
-                }
+                    buf << *it << "\n";
 
-                hsMessageBox(buf, "Obsolete Components", hsMBoxOk);
+                hsMessageBox(buf.GetString().c_str(), "Obsolete Components", hsMBoxOk);
             }
         }
     }

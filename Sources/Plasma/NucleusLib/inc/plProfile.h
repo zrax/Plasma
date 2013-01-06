@@ -134,6 +134,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #endif
 
 class plProfileLaps;
+class plString;
 
 class plProfileBase
 {
@@ -168,7 +169,7 @@ protected:
 
     void IAddAvg();
 
-    void IPrintValue(uint32_t value, char* buf, bool printType);
+    plString IPrintValue(uint32_t value, bool printType);
 
 public:
     plProfileBase();
@@ -181,9 +182,9 @@ public:
 
     uint32_t GetValue();
 
-    void PrintValue(char* buf, bool printType=true);
-    void PrintAvg(char* buf, bool printType=true);
-    void PrintMax(char* buf, bool printType=true);
+    plString PrintValue(bool printType=true);
+    plString PrintAvg(bool printType=true);
+    plString PrintMax(bool printType=true);
 
     uint32_t GetTimerSamples() const { return fTimerSamples; }
 

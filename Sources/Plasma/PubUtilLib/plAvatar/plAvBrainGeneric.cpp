@@ -947,7 +947,7 @@ void plAvBrainGeneric::SetBodyUsage(plAGAnim::BodyUsage bodyUsage)
 
 // DumpToDebugDisplay ----------------------------------------------------------------------------------------
 // -------------------
-void plAvBrainGeneric::DumpToDebugDisplay(int &x, int &y, int lineHeight, char *strBuf, plDebugText &debugTxt)
+void plAvBrainGeneric::DumpToDebugDisplay(int &x, int &y, int lineHeight, plDebugText &debugTxt)
 {
     debugTxt.DrawString(x, y, "Brain type: Generic AKA Multistage");
     y += lineHeight;
@@ -956,10 +956,6 @@ void plAvBrainGeneric::DumpToDebugDisplay(int &x, int &y, int lineHeight, char *
     for(int i = 0; i < stageCount; i++)
     {
         plAnimStage *stage = (*fStages)[i];
-        stage->DumpDebug(i == fCurStage, x, y, lineHeight, strBuf, debugTxt);
+        stage->DumpDebug(i == fCurStage, x, y, lineHeight, debugTxt);
     }
 }
-
-
-
-

@@ -127,7 +127,7 @@ protected:
     void IRemoveCmdRollups();
     IParamMap2 *ICreateMap(IParamBlock2 *pb);   // Helper
 
-    const char* GetCommandName(int cmdIdx);
+    plString GetCommandName(int cmdIdx);
     void LoadList();
 
     BOOL DragListProc(HWND hWnd, DRAGLISTINFO *info);
@@ -633,17 +633,15 @@ plResponderProc::plResponderProc() : fCmdMap(nil), fCmdIdx(-1), fCurState(0), fh
 {
 }
 
-const char* plResponderProc::GetCommandName(int cmdIdx)
+plString plResponderProc::GetCommandName(int cmdIdx)
 {
-    static char buf[256];
+    plString buf;
 
     if (fStatePB->Count(kStateCmdParams) > cmdIdx)
     {
-        buf[0] = '\0';
-
         BOOL enabled = fStatePB->GetInt(kStateCmdEnabled, 0, cmdIdx);
         if (!enabled)
-            strcat(buf, "[D]");
+            buf += "[D]";
 
         IParamBlock2 *cmdPB = (IParamBlock2*)fStatePB->GetReferenceTarget(kStateCmdParams, 0, cmdIdx);
         plResponderCmd *cmd = plResponderCmd::Find(cmdPB);
@@ -651,19 +649,15 @@ const char* plResponderProc::GetCommandName(int cmdIdx)
         IParamBlock2 *waitPB = (IParamBlock2*)fStatePB->GetReferenceTarget(kStateCmdWait, 0, cmdIdx);
         int waitingOn = ResponderWait::GetWaitingOn(waitPB);
         if (waitingOn != -1)
-        {
-            char num[10];
-            sprintf(num, "(%d)", waitingOn+1);
-            strcat(buf, num);
-        }
+            buf += plString::Format("(%d)", waitingOn+1);
 
-        strcat(buf, cmd->GetInstanceName(cmdPB));
+        buf += cmd->GetInstanceName(cmdPB);
 
         return buf;
     }
 
     hsAssert(0, "Bad index to GetCommandName");
-    return nil;
+    return plString::Null;
 }
 
 void plResponderProc::LoadList()
@@ -671,10 +665,7 @@ void plResponderProc::LoadList()
     ListBox_ResetContent(fhList);
 
     for (int i = 0; i < fStatePB->Count(kStateCmdParams); i++)
-    {
-        const char* name = GetCommandName(i);
-        ListBox_AddString(fhList, name);
-    }
+        ListBox_AddString(fhList, GetCommandName(i).c_str());
 
     ListBox_SetCurSel(fhList, -1);
 }
@@ -705,8 +696,8 @@ void plResponderProc::AddCommand()
     BOOL enabled = TRUE;
     fStatePB->Append(kStateCmdEnabled, 1, &enabled);
 
-    const char* name = GetCommandName(fStatePB->Count(kStateCmdParams)-1);
-    int idx = ListBox_AddString(fhList, name);
+    int idx = ListBox_AddString(fhList,
+                GetCommandName(fStatePB->Count(kStateCmdParams)-1).c_str());
     ListBox_SetCurSel(fhList, idx);
 
     ICreateCmdRollups();
@@ -1288,7 +1279,7 @@ void plResponderProc::ICmdRightClick(HWND hCmdList)
             fStatePB->SetValue(kStateCmdEnabled, 0, !enabled, index);
 
             ListBox_DeleteString(hCmdList, index);
-            ListBox_InsertString(hCmdList, index, GetCommandName(index));
+            ListBox_InsertString(hCmdList, index, GetCommandName(index).c_str());
         }
 
         DestroyMenu(hMenu);

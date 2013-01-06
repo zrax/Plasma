@@ -71,9 +71,9 @@ const char* pyKeyMap::ConvertVKeyToChar( uint32_t vk, uint32_t flags )
     static char newKey[ 16 ];
     strcpy( newKey, key );
     if( flags & kShift )
-        strcat( newKey, "_S" );
+        strsafecat( newKey, "_S", arrsize(newKey) );
     if( flags & kCtrl )
-        strcat( newKey, "_C" );
+        strsafecat( newKey, "_C", arrsize(newKey) );
 
     return newKey;
 }

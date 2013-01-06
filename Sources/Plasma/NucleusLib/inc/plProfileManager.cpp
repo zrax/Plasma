@@ -43,7 +43,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plProfile.h"
 #include "hsTimer.h"
 #include "hsWindows.h"
-
+#include "plString.h"
 
 static uint32_t gCyclesPerMS = 0;
 
@@ -309,12 +309,12 @@ uint32_t plProfileBase::GetValue()
 }
 
 // Stolen from plMemTracker.cpp
-static  const char  *insertCommas(unsigned int value)
+static plString insertCommas(unsigned int value)
 {
-    static char str[30];
-    memset(str, 0, sizeof(str));
+    // "4,294,967,296"
+    static char str[16];
+    snprintf(str, 16, "%u", value);
 
-    sprintf(str, "%u", value);
     if (strlen(str) > 3)
     {
         memmove(&str[strlen(str)-3], &str[strlen(str)-4], 4);
@@ -334,57 +334,49 @@ static  const char  *insertCommas(unsigned int value)
     return str;
 }
 
-void plProfileBase::IPrintValue(uint32_t value, char* buf, bool printType)
+plString plProfileBase::IPrintValue(uint32_t value, bool printType)
 {
     if (hsCheckBits(fDisplayFlags, kDisplayCount))
     {
         if (printType)
-        {
-            const char* valueStr = insertCommas(value);
-            strcpy(buf, valueStr);
-        }
-        else
-            sprintf(buf, "%u", value);
+            return insertCommas(value);
     }
     else if (hsCheckBits(fDisplayFlags, kDisplayFPS))
     {
-        sprintf(buf, "%.1f", 1000.0f / TicksToMSec(value));
+        return plString::Format("%.1f", 1000.0f / TicksToMSec(value));
     }
     else if (hsCheckBits(fDisplayFlags, kDisplayTime))
     {
-        sprintf(buf, "%.1f", TicksToMSec(value));
-        if (printType)
-            strcat(buf, " ms");
+        return plString::Format("%.1f%s", TicksToMSec(value), printType ? " ms" : "");
     }
     else if (hsCheckBits(fDisplayFlags, kDisplayMem))
     {
         if (printType)
         {
             if (value > (1024*1000))
-                sprintf(buf, "%.1f MB", float(value) / (1024.f * 1024.f));
+                return plString::Format("%.1f MB", float(value) / (1024.f * 1024.f));
             else if (value > 1024)
-                sprintf(buf, "%d KB", value / 1024);
+                return plString::Format("%d KB", value / 1024);
             else
-                sprintf(buf, "%d b", value);
+                return plString::Format("%d b", value);
         }
-        else
-            sprintf(buf, "%u", value);
     }
+    return plString::Format("%u", value);
 }
 
-void plProfileBase::PrintValue(char* buf, bool printType)
+plString plProfileBase::PrintValue(bool printType)
 {
-    IPrintValue(fValue, buf, printType);
+    return IPrintValue(fValue, printType);
 }
 
-void plProfileBase::PrintAvg(char* buf, bool printType)
+plString plProfileBase::PrintAvg(bool printType)
 {
-    IPrintValue(fLastAvg, buf, printType);
+    return IPrintValue(fLastAvg, printType);
 }
 
-void plProfileBase::PrintMax(char* buf, bool printType)
+plString plProfileBase::PrintMax(bool printType)
 {
-    IPrintValue(fMax, buf, printType);
+    return IPrintValue(fMax, printType);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

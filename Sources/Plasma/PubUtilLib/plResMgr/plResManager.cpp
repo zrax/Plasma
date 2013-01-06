@@ -1368,26 +1368,21 @@ bool plResManager::VerifyPages()
 //  Given an array of pages that are invalid (major version out-of-date or
 //  whatnot), asks the user what we should do about them.
 
-static void ICatPageNames(hsTArray<plRegistryPageNode*>& pages, char* buf, int bufSize)
+static plString ICatPageNames(hsTArray<plRegistryPageNode*>& pages)
 {
+    plStringStream buf;
     for (int i = 0; i < pages.GetCount(); i++)
     {
         if (i >= 25)
         {
-            strcat(buf, "...\n");
+            buf << "...\n";
             break;
         }
 
         plString pageFile = pages[i]->GetPagePath().GetFileName();
-        if (strlen(buf) + pageFile.GetSize() > bufSize - 5)
-        {
-            strcat(buf, "...\n");
-            break;
-        }
-
-        strcat(buf, pageFile.c_str());
-        strcat(buf, "\n");
+        buf << pageFile << "\n";
     }
+    return buf.GetString();
 }
 
 bool plResManager::IDeleteBadPages(hsTArray<plRegistryPageNode*>& invalidPages, bool conflictingSeqNums)
@@ -1395,19 +1390,15 @@ bool plResManager::IDeleteBadPages(hsTArray<plRegistryPageNode*>& invalidPages, 
 #ifndef PLASMA_EXTERNAL_RELEASE
     if (!hsMessageBox_SuppressPrompts)
     {
-        char msg[4096];
+        const char* msg = (conflictingSeqNums)
+                        ? "The following pages have conflicting sequence numbers. This usually happens when "
+                          "you copy data files between machines that had random sequence numbers assigned at "
+                          "export. To avoid crashing, these pages will be deleted:"
+                        : "The following pages are out of date and will be deleted:";
 
-        // Prompt what to do
-        if (conflictingSeqNums)
-            strcpy(msg, "The following pages have conflicting sequence numbers. This usually happens when "
-                        "you copy data files between machines that had random sequence numbers assigned at "
-                        "export. To avoid crashing, these pages will be deleted:\n\n");
-        else
-            strcpy(msg, "The following pages are out of date and will be deleted:\n\n");
+        plString text = plString::Format("%s\n\n%s", msg, ICatPageNames(invalidPages).c_str());
 
-        ICatPageNames(invalidPages, msg, sizeof(msg));
-
-        hsMessageBox(msg, "Warning", hsMessageBoxNormal);
+        hsMessageBox(text.c_str(), "Warning", hsMessageBoxNormal);
     }
 #endif // PLASMA_EXTERNAL_RELEASE
 
@@ -1434,14 +1425,12 @@ bool plResManager::IWarnNewerPages(hsTArray<plRegistryPageNode*> &newerPages)
 #ifndef PLASMA_EXTERNAL_RELEASE
     if (!hsMessageBox_SuppressPrompts)
     {
-        char msg[4096];
         // Prompt what to do
-        strcpy(msg, "The following pages have newer version numbers than this client and cannot be \nloaded. "
-                    "They will be ignored but their files will NOT be deleted:\n\n");
+        plString msg = "The following pages have newer version numbers than this client and cannot be \nloaded. "
+                       "They will be ignored but their files will NOT be deleted:\n\n"
+                     + ICatPageNames(newerPages);
 
-        ICatPageNames(newerPages, msg, sizeof(msg));
-
-        hsMessageBox(msg, "Warning", hsMessageBoxNormal);
+        hsMessageBox(msg.c_str(), "Warning", hsMessageBoxNormal);
     }
 #endif // PLASMA_EXTERNAL_RELEASE
 

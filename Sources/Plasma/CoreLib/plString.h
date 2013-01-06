@@ -668,4 +668,32 @@ private:
 /** \p strlen implementation for UniChar based C-style string buffers. */
 size_t ustrlen(const UniChar *ustr, size_t max = plString::kSizeAuto);
 
+/* It pains me to add this, but there are still places where a
+   strncat-like function is needed, including:
+     - Unknown performance impact of porting to plString
+     - Complexity of porting
+     - Code that can't be easily compiled or tested (e.g. MaxSceneViewer)
+   Until those are resolved, we have strsafecat. */
+#define _STR_SAFE_CAT_ALGO(_strnlen, _strlen, _strncat) \
+    size_t dlen = _strnlen(dest, destsize); \
+    if (dlen == destsize) { \
+        dest[destsize - 1] = 0; \
+        return; \
+    } \
+    \
+    size_t slen = _strlen(src); \
+    if (dlen + slen >= destsize) \
+        slen = destsize - dlen - 1; \
+    _strncat(dest, src, slen)
+
+inline void strsafecat(char *dest, const char *src, size_t destsize)
+{
+    _STR_SAFE_CAT_ALGO(strnlen, strlen, strncat);
+}
+
+inline void wcssafecat(wchar_t *dest, const wchar_t *src, size_t destsize)
+{
+    _STR_SAFE_CAT_ALGO(wcsnlen, wcslen, wcsncat);
+}
+
 #endif //plString_Defined

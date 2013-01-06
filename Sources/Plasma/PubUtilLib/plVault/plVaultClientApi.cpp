@@ -1526,12 +1526,12 @@ void RelVaultNode::Print (const wchar_t tag[], FStateDump dumpProc, unsigned lev
             break;
 
         #define STPRINT(flag, func) case k##flag: { \
-                wcsncat(str, L", " L ## #flag L"=", arrsize(str) - wcslen(str) - 1); \
+                wcssafecat(str, L", " L ## #flag L"=", arrsize(str)); \
                 const size_t chars = wcslen(str); \
                 func(Get##flag(), str + chars, arrsize(str) - chars * sizeof(str[0])); \
             }; break
         #define STNAME(flag) case k##flag: { \
-                wcsncat(str, L", " L ## #flag, arrsize(str) - wcslen(str) - 1); \
+                wcssafecat(str, L", " L ## #flag, arrsize(str)); \
             }; break
         switch (bit) {
             STPRINT(NodeId,         IGetUintFieldValue);

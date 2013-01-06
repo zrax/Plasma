@@ -128,7 +128,7 @@ bool SceneViewer::ISetRunning(bool running)
 
         char path[MAX_PATH];
         SceneSync::Instance().GetOutputDir(path);
-        strcat(path, "dat\\");
+        strsafecat(path, "dat\\", arrsize(path));
 
         // Start the client
         char *options = new char[strlen(path)+2+strlen(kSemaphoreName)+strlen(kPipeName)+6];

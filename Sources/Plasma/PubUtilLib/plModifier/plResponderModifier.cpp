@@ -755,7 +755,7 @@ void plResponderModifier::IDebugPlayMsg(plAnimCmdMsg* msg)
 
 #ifdef STATUS_LOG
 static plStatusLog *gLog = nil;
-static std::vector<std::string> gNoLogStrings;
+static std::vector<plString> gNoLogStrings;
 #endif // STATUS_LOG
 
 void plResponderModifier::NoLogString(const char* str)
@@ -774,12 +774,12 @@ void plResponderModifier::ILog(uint32_t color, const char* format, ...)
     if (!format || *format == '\0')
         return;
 
-    const char* keyName = GetKeyName().c_str();
+    plString keyName = GetKeyName();
 
     // Make sure this key isn't in our list of keys to deny
     for (int i = 0; i < gNoLogStrings.size(); i++)
     {
-        if (strncmp(gNoLogStrings[i].c_str(), keyName, gNoLogStrings[i].length()) == 0)
+        if (gNoLogStrings[i] == keyName)
             return;
     }
 
@@ -793,14 +793,14 @@ void plResponderModifier::ILog(uint32_t color, const char* format, ...)
 
     // Strip the redundant part off the key name
     char logLine[512];
-    const char* modPos = strstr("_ResponderModifier", keyName);
+    const char* modPos = strstr("_ResponderModifier", keyName.c_str());
     if (modPos)
-        strncpy(logLine, keyName, modPos - keyName);
+        strncpy(logLine, keyName.c_str(), modPos - keyName.c_str());
     else
-        strcpy(logLine, keyName);
+        strcpy(logLine, keyName.c_str());
 
-    strcat(logLine, ": ");
-    strcat(logLine, buf);
+    strsafecat(logLine, ": ", arrsize(logLine));
+    strsafecat(logLine, buf, arrsize(logLine));
 
     gLog->AddLine(logLine, color);
 #endif // STATUS_LOG

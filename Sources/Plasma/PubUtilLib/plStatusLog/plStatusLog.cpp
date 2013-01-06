@@ -643,8 +643,6 @@ bool plStatusLog::IPrintLineToFile( const char *line, uint32_t count )
 
     if( fFileHandle != nil )
     {
-        char work[256];
-
         //build line to encrypt
         plStringStream buf;
 

@@ -728,27 +728,22 @@ int plAnimStage::GetPrevStage(int curStage)
 }
 
 // DUMPDEBUG
-void plAnimStage::DumpDebug(bool active, int &x, int &y, int lineHeight, char *strBuf, plDebugText &debugTxt)
+void plAnimStage::DumpDebug(bool active, int &x, int &y, int lineHeight, plDebugText &debugTxt)
 {
-    std::string str;
+    plStringStream str;
+    str << fAnimName << " ";
 
-    str += fAnimName;
-    str += " ";
+    if (fLoops)
+        str << plString::Format("loop(%d/%d)", fCurLoop, fLoops);
 
-    if(fLoops) {
-        sprintf(strBuf, "loop(%d/%d)", fCurLoop, fLoops);
-        str += strBuf;
-    }
+    str << plString::Format("time: (%f/%f)", fLocalTime, fLength);
 
-    sprintf(strBuf, "time: (%f/%f)", fLocalTime, fLength);
-    str += strBuf;
-
-    if(active)
-        debugTxt.DrawString(x, y, str.c_str(), 0, 255, 0);
-    else if(fAnimInstance)
-        debugTxt.DrawString(x, y, str.c_str());
+    if (active)
+        debugTxt.DrawString(x, y, str.GetString(), 0, 255, 0);
+    else if (fAnimInstance)
+        debugTxt.DrawString(x, y, str.GetString());
     else
-        debugTxt.DrawString(x, y, str.c_str(), 255, 255, 0);
+        debugTxt.DrawString(x, y, str.GetString(), 255, 255, 0);
 
     y += lineHeight;
 }

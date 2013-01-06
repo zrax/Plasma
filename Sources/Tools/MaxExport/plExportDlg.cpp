@@ -85,7 +85,7 @@ protected:
 
     void IDestroy();
 
-    void IExportCurrentFile(const char* exportPath);
+    void IExportCurrentFile(const plFileName& exportPath);
     void IDoExport();
 
     void IInitDlg(HWND hDlg);
@@ -323,12 +323,12 @@ BOOL plExportDlgImp::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam)
     return FALSE;
 }
 
-void plExportDlgImp::IExportCurrentFile(const char* exportPath)
+void plExportDlgImp::IExportCurrentFile(const plFileName& exportPath)
 {
     // Delete the old prd so we don't get the stupid overwrite warning
-    DeleteFile(exportPath);
+    plFileSystem::Unlink(exportPath);
 
-    GetCOREInterface()->ExportToFile(exportPath);
+    GetCOREInterface()->ExportToFile(exportPath.AsString().c_str());
 }
 
 void plExportDlgImp::IDoExport()
@@ -339,9 +339,9 @@ void plExportDlgImp::IDoExport()
     ShowWindow(fDlg, SW_HIDE);
 
     // Do the export
-    char exportPath[MAX_PATH];
-    GetDlgItemText(fDlg, IDC_CLIENT_PATH, exportPath, sizeof(exportPath));
-    strcat(exportPath, "Export.prd");
+    char buffer[MAX_PATH];
+    GetDlgItemText(fDlg, IDC_CLIENT_PATH, buffer, arrsize(buffer));
+    plFileName exportPath = plFileName::Join(buffer, "Export.prd");
 
     // For export time stats
     DWORD exportTime = timeGetTime();
@@ -463,10 +463,10 @@ static void ShutdownMax()
     PostMessage(GetCOREInterface()->GetMAXHWnd(), WM_CLOSE, 0, 0);
 }
 
-static void GetFileNameSection(const char* configFile, const char* keyName, std::vector<plFileName>& strings)
+static void GetFileNameSection(const plFileName& configFile, const char* keyName, std::vector<plFileName>& strings)
 {
     char source[256];
-    GetPrivateProfileString("Settings", keyName, "", source, sizeof(source), configFile);
+    GetPrivateProfileString("Settings", keyName, "", source, sizeof(source), configFile.AsString().c_str());
 
     char* seps = ",";
     char* token = strtok(source, seps);
@@ -479,15 +479,13 @@ static void GetFileNameSection(const char* configFile, const char* keyName, std:
 
 void plExportDlgImp::StartAutoExport()
 {
-    char configFile[MAX_PATH];
-    strcpy(configFile, GetCOREInterface()->GetDir(APP_PLUGCFG_DIR));
-    strcat(configFile, "\\AutoExport.ini");
+    plFileName configFile = plFileName::Join(GetCOREInterface()->GetDir(APP_PLUGCFG_DIR), "AutoExport.ini");
 
     char inputDir[MAX_PATH];
-    GetPrivateProfileString("Settings", "MaxInputDir", "", inputDir, sizeof(inputDir), configFile);
+    GetPrivateProfileString("Settings", "MaxInputDir", "", inputDir, sizeof(inputDir), configFile.AsString().c_str());
 
     char outputDir[MAX_PATH];
-    GetPrivateProfileString("Settings", "MaxOutputDir", "", outputDir, sizeof(outputDir), configFile);
+    GetPrivateProfileString("Settings", "MaxOutputDir", "", outputDir, sizeof(outputDir), configFile.AsString().c_str());
 
     if (inputDir[0] == '\0' || outputDir == '\0')
         return;
@@ -524,7 +522,7 @@ void plExportDlgImp::StartAutoExport()
         return;
     }
 
-    DeleteFile(configFile);
+    plFileSystem::Unlink(configFile);
 
     fAutoExporting = false;
     ShutdownMax();

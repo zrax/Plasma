@@ -42,6 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "HeadSpin.h"
 #include "hsWindows.h"
+#include "plFileSystem.h"
 
 #include <set>
 
@@ -65,10 +66,6 @@ void plResCollector::Collect()
     if (!strcmp(path, ""))
         return;
 
-    // Make sure the directory ends with a slash
-    if (path[strlen(path)-1] != '\\' && path[strlen(path)-1] != '/')
-        strcat(path, "\\");
-
     // Make a list of all the textures
     TexNameSet texNames;
     plMtlCollector::GetAllTextures(texNames);
@@ -80,19 +77,12 @@ void plResCollector::Collect()
     TexNameSet::iterator it = texNames.begin();
     for (; it != texNames.end(); it++)
     {
-        plString texName = *it;
+        plString name = plFileName(*it).GetFileName();
 
-        char outpath[MAX_PATH], name[_MAX_FNAME+_MAX_EXT], ext[_MAX_EXT];
-        _splitpath(texName.c_str(), NULL, NULL, name, ext);
-        strcat(name, ext);
-
-        if (bar.Update(name))
+        if (bar.Update(name.c_str()))
             return;
 
-        strcpy(outpath, path);
-        strcat(outpath, name);
-
-        CopyFile(texName.c_str(), outpath, TRUE);
+        plFileSystem::Copy(*it, plFileName::Join(path, name));
     }
 
     // Get the filename to save to
@@ -110,6 +100,5 @@ void plResCollector::Collect()
         ip->SaveToFile(filePath);
 
     // Copy the max file to the output directory
-    strcat(path, maxFile);
-    CopyFile(filePath, path, TRUE);
+    plFileSystem::Copy(filePath.data(),  plFileName::Join(path, maxFile.data()));
 }

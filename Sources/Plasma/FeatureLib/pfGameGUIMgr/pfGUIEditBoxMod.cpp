@@ -276,7 +276,7 @@ bool    pfGUIEditBoxMod::HandleKeyEvent( pfGameGUIMgr::EventType event, plKeyDef
             fSavedModifiers = modifiers;
 
             // turn key event into string
-            char keyStr[30];
+            char keyStr[32];
             if (plKeyMap::ConvertVKeyToChar( key ))
                 strcpy(keyStr, plKeyMap::ConvertVKeyToChar( key ));
             else
@@ -303,18 +303,16 @@ bool    pfGUIEditBoxMod::HandleKeyEvent( pfGameGUIMgr::EventType event, plKeyDef
                 }
             }
 
-            static char newKey[ 16 ];
+            static char newKey[32];
             newKey[0] = 0;
-            if( modifiers & kShift )
-                strcat( newKey, plKeyMap::GetStringShift() );
-            if( modifiers & kCtrl )
-                strcat( newKey, plKeyMap::GetStringCtrl() );
-            strcat( newKey, keyStr );
+            if (modifiers & kShift)
+                strsafecat(newKey, plKeyMap::GetStringShift(), arrsize(newKey));
+            if (modifiers & kCtrl)
+                strsafecat(newKey, plKeyMap::GetStringCtrl(), arrsize(newKey));
+            strsafecat(newKey, keyStr, arrsize(newKey));
 
             // set something in the buffer to be displayed
-            wchar_t* temp = hsStringToWString(newKey);
-            wcsncpy( fBuffer, temp , fBufferSize - 1 );
-            delete [] temp;
+            wcsncpy(fBuffer, plString(newKey).ToWchar(), fBufferSize - 1);
             fCursorPos = 0;
             SetCursorToEnd();
             IUpdate();
@@ -521,7 +519,7 @@ void pfGUIEditBoxMod::SetLastKeyCapture(uint32_t key, uint8_t modifiers)
     fSavedModifiers = modifiers;
 
     // turn key event into string
-    char keyStr[30];
+    char keyStr[32];
     if (plKeyMap::ConvertVKeyToChar( key ))
         strcpy(keyStr, plKeyMap::ConvertVKeyToChar( key ));
     else
@@ -548,18 +546,16 @@ void pfGUIEditBoxMod::SetLastKeyCapture(uint32_t key, uint8_t modifiers)
         }
     }
 
-    static char newKey[ 16 ];
+    static char newKey[32];
     newKey[0] = 0;
-    if( modifiers & kShift )
-        strcat( newKey, plKeyMap::GetStringShift() );
-    if( modifiers & kCtrl )
-        strcat( newKey, plKeyMap::GetStringCtrl() );
-    strcat( newKey, keyStr );
+    if (modifiers & kShift)
+        strsafecat(newKey, plKeyMap::GetStringShift(), arrsize(newKey));
+    if (modifiers & kCtrl)
+        strsafecat(newKey, plKeyMap::GetStringCtrl(), arrsize(newKey));
+    strsafecat(newKey, keyStr, arrsize(newKey));
 
     // set something in the buffer to be displayed
-    wchar_t* temp = hsStringToWString(newKey);
-    wcsncpy( fBuffer, temp , fBufferSize - 1 );
-    delete [] temp;
+    wcsncpy(fBuffer, plString(newKey).ToWchar(), fBufferSize - 1);
 
     fCursorPos = 0;
     SetCursorToEnd();

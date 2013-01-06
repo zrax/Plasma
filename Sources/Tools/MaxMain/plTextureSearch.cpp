@@ -42,6 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "HeadSpin.h"
 #include "hsWindows.h"
+#include "plFileSystem.h"
 
 #include "resource.h"
 #include <set>
@@ -399,11 +400,8 @@ void plTextureSearch::IPickReplaceTexture()
     }
     else
     {
-        char fname[_MAX_FNAME+_MAX_EXT], ext[_MAX_EXT];
-        _splitpath(fFileName, NULL, NULL, fname, ext);
-        strcat(fname, ext);
-
-        SetDlgItemText(fDlg, IDC_REPLACE_BUTTON, fname);
+        plFileName fname = fFileName;
+        SetDlgItemText(fDlg, IDC_REPLACE_BUTTON, fname.GetFileName().c_str());
         EnableWindow(GetDlgItem(fDlg, IDC_REPLACE_ALL_BUTTON), TRUE);
     }
 }

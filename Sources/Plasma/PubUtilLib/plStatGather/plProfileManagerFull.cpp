@@ -197,45 +197,41 @@ static void PrintColumn(ProfileGroup& group, const char* groupName, int column, 
 
     for (int i = 0; i < group.size(); i++)
     {
-        char str[1024];
+        plString str;
 
         switch (column)
         {
         case kColName:
-            strcpy(str, group[i]->GetName());
+            str = group[i]->GetName();
 
             // Since we don't draw the samples text for stats that only have 1 sample, 
             // if the stat with the longest name is fluctuating between 1 and more than
             // 1 sample the width of the column will jump around.  So we calculate the
             // width based on the stat name plus the width of the widest sample we should
             // get
-            width = hsMaximum(width, txt.CalcStringWidth(str) + samplesWidth + 1);
+            width = hsMaximum(width, txt.CalcStringWidth_TEMP(str) + samplesWidth + 1);
 
             // Now add on the samples text, if we have any
             if (group[i]->GetTimerSamples())
-            {
-                char cnt[20];
-                sprintf(cnt, "[%d]", group[i]->GetTimerSamples());
-                strcat(str, cnt);
-            }
+                str += plString::Format("[%d]", group[i]->GetTimerSamples());
             break;
         case kColValue:
-            group[i]->PrintValue(str);
+            str = group[i]->PrintValue();
             break;
         case kColAvg:
-            group[i]->PrintAvg(str);
+            str = group[i]->PrintAvg();
             break;
         case kColMax:
-            group[i]->PrintMax(str);
+            str = group[i]->PrintMax();
             break;
         case kColIndex:
-            sprintf(str,"[%3d]",i+off);
+            str = plString::Format("[%3d]", i+off);
             break;
         }
 
         txt.DrawString(x, y+height, str);
         if (column != kColName)
-            width = hsMaximum(width, txt.CalcStringWidth(str) + 1);
+            width = hsMaximum(width, txt.CalcStringWidth_TEMP(str) + 1);
         height += yInc;
     }
 
@@ -399,7 +395,7 @@ void plProfileManagerFull::ActivateAllStats()
 
 void plProfileManagerFull::IPrintGroup(hsStream* s, const char* groupName, bool printTitle)
 {
-    char buf[256];
+    plString buf;
 
     for (int i = 0; i < fVars.size(); i++)
     {
@@ -407,11 +403,11 @@ void plProfileManagerFull::IPrintGroup(hsStream* s, const char* groupName, bool 
         if (strcmp(var->GetGroup(), groupName) == 0)
         {
             if (printTitle)
-                sprintf(buf, "%s:%s", var->GetGroup(), var->GetName());
+                buf = plString::Format("%s:%s", var->GetGroup(), var->GetName());
             else
-                var->PrintAvg(buf, false);
+                buf = var->PrintAvg(false);
 
-            s->Write(strlen(buf), buf);
+            s->Write(buf.GetSize(), buf.c_str());
             s->WriteByte(',');
         }
     }

@@ -69,13 +69,13 @@ plExportProgressBar::~plExportProgressBar()
    fInterface->ProgressEnd();
 }
 
-void plExportProgressBar::Start(char *name, uint32_t steps)
+void plExportProgressBar::Start(const char *name, uint32_t steps)
 {
     fTotalSteps = steps;
     fCurStep = 0;
 
     fInterface->ProgressEnd();
-    fInterface->ProgressStart(name, TRUE, ProgressDummyFunc, nil);
+    fInterface->ProgressStart(const_cast<char *>(name), TRUE, ProgressDummyFunc, nil);
    
    GUP* exportServerGup = OpenGupPlugIn(Class_ID(470000004,99));
    if(exportServerGup && name)
@@ -85,7 +85,7 @@ void plExportProgressBar::Start(char *name, uint32_t steps)
    }   
 }
 
-bool plExportProgressBar::Update(char *name, uint32_t inc)
+bool plExportProgressBar::Update(const char *name, uint32_t inc)
 {
     fCurStep += inc;
 
@@ -104,7 +104,8 @@ bool plExportProgressBar::Update(char *name, uint32_t inc)
       exportServerGup->Control(-6); // signal that we're done sending this update sequence
    }   
    
-   fInterface->ProgressUpdate((int)((fCurStep * 100) / fTotalSteps), FALSE, name);
+   fInterface->ProgressUpdate((int)((fCurStep * 100) / fTotalSteps), FALSE,
+                              const_cast<char *>(name));
 
     if (fInterface->GetCancel()) 
     {

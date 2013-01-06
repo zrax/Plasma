@@ -228,20 +228,21 @@ static void NotifyProc(void *param, NotifyInfo *info)
 
                 char timeBuf[128];
                 PrintTime(data->fCodeBuildTime, timeBuf);
-                strcat(buf, timeBuf);
-                strcat(buf, "\n");
-                strcat(buf, data->fBranch);
+                strsafecat(buf, timeBuf, arrsize(buf));
+                strsafecat(buf, "\n", arrsize(buf));
+                strsafecat(buf, data->fBranch, arrsize(buf));
 
-                strcat(buf, "\n\nThese plugins are stamped:\n\n");
+                strsafecat(buf, "\n\nThese plugins are stamped:\n\n", arrsize(buf));
 
                 PrintTime(gThisCodeBuildTime, timeBuf);
-                strcat(buf, timeBuf);
-                strcat(buf, "\n");
-                strcat(buf, gThisBranch);
+                strsafecat(buf, timeBuf, arrsize(buf));
+                strsafecat(buf, "\n", arrsize(buf));
+                strsafecat(buf, gThisBranch, arrsize(buf));
 
-                strcat(buf,
+                strsafecat(buf,
                     "\n\nNew features may have been added to the newer plugins,\n"
-                    "so saving this file could cause data to be lost.");
+                    "so saving this file could cause data to be lost.",
+                    arrsize(buf));
 
                 MessageBox(GetCOREInterface()->GetMAXHWnd(), buf, "Plugin Warning", MB_OK | MB_ICONEXCLAMATION);
             }

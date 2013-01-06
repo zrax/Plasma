@@ -46,7 +46,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 //////////////////////////////////////////////////////////////////////////////
 
 #include "pfConsoleCmd.h"
-
+#include "plString.h"
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -579,9 +579,9 @@ const char  *pfConsoleCmd::GetSignature( void )
             sprintf( pStr, "%s %s", fSigTypes[ fSignature[ i ] ], fSigLabels[ i ] );
 
         hsAssert( strlen( string ) + strlen( pStr ) + 2 < sizeof( string ), "Not enough room for signature string" );
-        strcat( string, ( i > 0 ) ? ", " : " " );
+        strsafecat( string, ( i > 0 ) ? ", " : " ", arrsize(string) );
 
-        strcat( string, pStr );
+        strsafecat( string, pStr, arrsize(string) );
     }
 
     return string;

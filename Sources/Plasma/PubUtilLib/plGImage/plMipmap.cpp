@@ -2166,39 +2166,43 @@ void    plMipmap::IRemoveFromMemRecord( uint8_t *image )
     }
 }
 
-void    plMipmap::IReportLeaks()
+void plMipmap::IReportLeaks()
 {
-    plRecord    *record, *next;
-    static char msg[ 512 ], m2[ 128 ];
-    uint32_t      size;
-
+    plRecord       *record = fRecords, *next;
+    uint32_t        size;
+    plStringStream  msg;
 
     hsStatusMessage( "--- plMipmap Leaks ---\n" );
-    for( record = fRecords; record != nil;  )
+    while (record != nil)
     {
+        msg.Truncate();
         size = record->fHeight * record->fRowBytes;
-        if( size >= 1024 )
-            sprintf( msg, "%s, %4.1f kB: \t%dx%d, %d levels, %d bpr", record->fKeyName, size / 1024.f, record->fWidth, record->fHeight, record->fNumLevels, record->fRowBytes );
+        if (size >= 1024)
+            msg << plString::Format("%s, %4.1f kB: \t%dx%d, %d levels, %d bpr",
+                    record->fKeyName.c_str(), size / 1024.f, record->fWidth, record->fHeight,
+                    record->fNumLevels, record->fRowBytes);
         else
-            sprintf( msg, "%s, %u bytes: \t%dx%d, %d levels, %d bpr", record->fKeyName, size, record->fWidth, record->fHeight, record->fNumLevels, record->fRowBytes );
+            msg << plString::Format("%s, %u bytes: \t%dx%d, %d levels, %d bpr",
+                    record->fKeyName.c_str(), size, record->fWidth, record->fHeight,
+                    record->fNumLevels, record->fRowBytes);
 
-        if( record->fCompressionType != kDirectXCompression )
-            sprintf( m2, " UType: %d", record->fUncompressedInfo.fType );
+        if (record->fCompressionType != kDirectXCompression)
+            msg << plString::Format(" UType: %d", record->fUncompressedInfo.fType);
         else
-            sprintf( m2, " DXT%d BSz: %d", record->fDirectXInfo.fCompressionType, record->fDirectXInfo.fBlockSize );
-        strcat( msg, m2 );
+            msg << plString::Format(" DXT%d BSz: %d", record->fDirectXInfo.fCompressionType,
+                    record->fDirectXInfo.fBlockSize);
 
         switch( record->fCreationMethod )
         {
-            case plRecord::kViaCreate: strcat( msg, " via Create\n" ); break;
-            case plRecord::kViaRead: strcat( msg, " via Read\n" ); break;
-            case plRecord::kViaClipToMaxSize: strcat( msg, " via ClipToMaxSize\n" ); break;
-            case plRecord::kViaDetailMapConstructor: strcat( msg, " via DetailMapConstructor\n" ); break;
-            case plRecord::kViaCopyFrom: strcat( msg, " via CopyFrom\n" ); break;
-            case plRecord::kViaResize: strcat( msg, " via Resize\n" ); break;
+            case plRecord::kViaCreate: msg << " via Create\n"; break;
+            case plRecord::kViaRead: msg << " via Read\n"; break;
+            case plRecord::kViaClipToMaxSize: msg << " via ClipToMaxSize\n"; break;
+            case plRecord::kViaDetailMapConstructor: msg << " via DetailMapConstructor\n"; break;
+            case plRecord::kViaCopyFrom: msg << " via CopyFrom\n"; break;
+            case plRecord::kViaResize: msg << " via Resize\n"; break;
         }
 
-        hsStatusMessage( msg );
+        hsStatusMessage(msg.GetString().c_str());
 
         next = record->fNext;
         record->Unlink();

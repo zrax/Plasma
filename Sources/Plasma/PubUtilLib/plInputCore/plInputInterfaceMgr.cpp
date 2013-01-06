@@ -872,12 +872,12 @@ const char  *plInputInterfaceMgr::IKeyComboToString( const plKeyCombo &combo )
 
 
     if( combo == plKeyCombo::kUnmapped )
-        sprintf( str, "(unmapped)" );
+        strncpy( str, "(unmapped)", arrsize(str) );
     else
     {
         const char *c = plKeyMap::ConvertVKeyToChar( combo.fKey );
         if( c != nil )
-            strncpy( str, c, sizeof( str ) );
+            strncpy( str, c, arrsize( str ) );
         else
         {
             if( isalnum( combo.fKey ) )
@@ -887,16 +887,16 @@ const char  *plInputInterfaceMgr::IKeyComboToString( const plKeyCombo &combo )
             }
             else
             {
-                strcpy( str, "(unmapped)" );
+                strncpy( str, "(unmapped)", arrsize(str) );
                 unmapped = true;
             }
         }
         if( !unmapped )
         {
             if( combo.fFlags & plKeyCombo::kCtrl )
-                strcat( str, "_C" );
+                strsafecat( str, "_C", arrsize(str) );
             if( combo.fFlags & plKeyCombo::kShift )
-                strcat( str, "_S" );
+                strsafecat( str, "_S", arrsize(str) );
         }
     }
 
