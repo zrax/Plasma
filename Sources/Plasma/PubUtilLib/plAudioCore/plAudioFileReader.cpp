@@ -64,6 +64,26 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #define kCacheDirName   "temp"
 
+static plFileName IGetCachedPath(const plFileName& path, plAudioCore::ChannelSelect whichChan)
+{
+    // Get the file's path and add our streaming cache folder to it
+    plFileName cachedPath = plFileName::Join(path.StripFileName(), kCacheDirName);
+
+    // Create the directory first
+    plFileSystem::CreateDir(cachedPath);
+
+    const char *suffix = "";
+    if (whichChan == plAudioCore::kLeft)
+        suffix = "-Left.tmp";
+    else if (whichChan == plAudioCore::kRight)
+        suffix = "-Right.tmp";
+    else if (whichChan == plAudioCore::kAll)
+        suffix = ".tmp";
+
+    // Get the path to the cached version of the file, without the extension
+    return plFileName::Join(cachedPath, path.GetFileNameNoExt() + suffix);
+}
+
 plAudioFileReader* plAudioFileReader::CreateReader(const plFileName& path, plAudioCore::ChannelSelect whichChan, StreamType type)
 {
     plString ext = path.GetFileExt();
@@ -77,7 +97,7 @@ plAudioFileReader* plAudioFileReader::CreateReader(const plFileName& path, plAud
         if (!isWav)
         {
             plFileName cachedPath = IGetCachedPath(path, whichChan);
-            plAudioFileReader *r =  new plCachedFileReader(cachedPath, plAudioCore::kAll);
+            plAudioFileReader *r = new plCachedFileReader(cachedPath, plAudioCore::kAll);
             if (!r->IsValid()) {
                 // So we tried to play a cached file and it didn't exist
                 // Oops... we should cache it now
@@ -104,26 +124,6 @@ plAudioFileReader* plAudioFileReader::CreateWriter(const plFileName& path, plWAV
     plAudioFileReader* writer = new plCachedFileReader(path, plAudioCore::kAll);
     writer->OpenForWriting(path, header);
     return writer;
-}
-
-plFileName plAudioFileReader::IGetCachedPath(const plFileName& path, plAudioCore::ChannelSelect whichChan)
-{
-    // Get the file's path and add our streaming cache folder to it
-    plFileName cachedPath = plFileName::Join(path.StripFileName(), kCacheDirName);
-
-    // Create the directory first
-    plFileSystem::CreateDir(cachedPath);
-
-    const char *suffix = "";
-    if (whichChan == plAudioCore::kLeft)
-        suffix = "-Left.tmp";
-    else if (whichChan == plAudioCore::kRight)
-        suffix = "-Right.tmp";
-    else if (whichChan == plAudioCore::kAll)
-        suffix = ".tmp";
-
-    // Get the path to the cached version of the file, without the extension
-    return plFileName::Join(cachedPath, path.GetFileNameNoExt() + suffix);
 }
 
 void plAudioFileReader::ICacheFile(const plFileName& path, bool noOverwrite, plAudioCore::ChannelSelect whichChan)

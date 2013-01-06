@@ -56,6 +56,14 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "plStatusLog/plStatusLog.h"
 
+#define RECORDINGS_DIR "Recordings"
+static plFileName IMakeFilename(const plFileName& recName)
+{
+    plFileSystem::CreateDir(RECORDINGS_DIR);
+
+    return plFileName::Join(RECORDINGS_DIR, recName.StripFileExt() + ".rec");
+}
+
 plNetClientStreamRecorder::plNetClientStreamRecorder(TimeWrapper* timeWrapper) :
     plNetClientLoggingRecorder(timeWrapper),
     fRecordStream(nil),
@@ -99,8 +107,7 @@ bool plNetClientStreamRecorder::BeginRecording(const char* recName)
     if (!fRecordStream)
     {
         fRecordStream = new hsUNIXStream;
-        char path[256];
-        IMakeFilename(recName, path);
+        plFileName path = IMakeFilename(recName);
 
         if (!fRecordStream->Open(path, "wb"))
         {
@@ -126,8 +133,7 @@ bool plNetClientStreamRecorder::BeginPlayback(const char* recName)
     if (!fRecordStream)
     {
         fRecordStream = new hsUNIXStream;
-        char path[256];
-        IMakeFilename(recName, path);
+        plFileName path = IMakeFilename(recName);
 
         if (fRecordStream->Open(path, "rb"))
         {

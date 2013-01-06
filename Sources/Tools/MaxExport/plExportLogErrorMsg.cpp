@@ -51,6 +51,16 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "plExportLogErrorMsg.h"
 
+plExportLogErrorMsg::plExportLogErrorMsg(const char* efile, bool bogus, const plString &label, const char *fmt, ...)
+{
+    va_list vptr;
+    va_start(vptr, fmt);
+    ISet(bogus, label, fmt, vptr);
+    va_end(vptr);
+
+    strncpy(fErrfile_name, efile, ERROR_LOGFILE_NAME_LEN-1);
+    fErrfile = nil;
+}
 
 //
 // On our way out, be sure to close the error file
@@ -85,36 +95,36 @@ plExportLogErrorMsg::~plExportLogErrorMsg()
 
 bool plExportLogErrorMsg::Show()
 {
-    if( GetBogus() )
+    if (GetBogus())
     {
-        IWriteErrorFile(GetLabel(),GetMsg());
+        IWriteErrorFile(GetLabel().c_str(), GetMsg().c_str());
     }
     return GetBogus();
 }
 bool plExportLogErrorMsg::Ask()
 {
-    if( GetBogus() )
+    if (GetBogus())
     {
-        IWriteErrorFile(GetLabel(),GetMsg());
+        IWriteErrorFile(GetLabel().c_str(), GetMsg().c_str());
     }
     return false;
 }
 
 bool plExportLogErrorMsg::CheckAndAsk()
 {
-    if( GetBogus() )
+    if (GetBogus())
     {
-        strncat(GetMsg(), " - File corruption possible!", 255);
-        IWriteErrorFile(GetLabel(),GetMsg());
+        fMsg += " - File corruption possible!";
+        IWriteErrorFile(GetLabel().c_str(), GetMsg().c_str());
     }
     return GetBogus();
 }
 
 bool plExportLogErrorMsg::CheckAskOrCancel()
 {
-    if( GetBogus() )
+    if (GetBogus())
     {
-        IWriteErrorFile(GetLabel(),GetMsg());
+        IWriteErrorFile(GetLabel().c_str(), GetMsg().c_str());
     }
     return false;
 }
@@ -136,8 +146,8 @@ bool plExportLogErrorMsg::Check()
     if( GetBogus() )
     {
         // ... how many ways can you say something is bad?
-        strncat(GetMsg(), " !Output File Corrupt!", 255);
-        IWriteErrorFile(GetLabel(),GetMsg());
+        fMsg += " !Output File Corrupt!";
+        IWriteErrorFile(GetLabel().c_str(), GetMsg().c_str());
         IDebugThrow();
     }
 
@@ -151,10 +161,10 @@ void plExportLogErrorMsg::Quit()
 {
     if( GetBogus() )
     {
-        strncat(GetMsg(), " -- Quit! (must be real bad!)", 255);
-        IWriteErrorFile(GetLabel(),GetMsg());
+        fMsg += " -- Quit! (must be real bad!)";
+        IWriteErrorFile(GetLabel().c_str(), GetMsg().c_str());
         SetBogus(false);
-        hsThrow( *this );
+        hsThrow(*this);
     }
 }
 
@@ -202,4 +212,13 @@ void plExportLogErrorMsg::IDebugThrow()
     {
         hsThrow( *this );
     }
+}
+
+plExportLogErrorDbg::plExportLogErrorDbg(bool bogus, const plString &label, const char *fmt, ...)
+    : plExportLogErrorMsg("")
+{
+    va_list vptr;
+    va_start(vptr, fmt);
+    ISet(bogus, label, fmt, vptr);
+    va_end(vptr);
 }

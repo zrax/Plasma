@@ -42,31 +42,23 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #ifndef __plErrorMsg_h
 #define __plErrorMsg_h
 
-#define PL_ERR_MSG_MAX_MSG 2048
+#include "plString.h"
 
 class plErrorMsg
 {
 public:
     static plErrorMsg *GetNull();
 
-    plErrorMsg(const char* label, const char* msg);
+    plErrorMsg(const plString &label, const plString &msg);
     plErrorMsg(bool bogus = false);
-    plErrorMsg(bool bogus, const char* label, const char* msg);
-    plErrorMsg(bool bogus, const char* label, const char* format, const char* str);
-    plErrorMsg(bool bogus, const char* label, const char* format, const char* str1, const char* str2);
-    plErrorMsg(bool bogus, const char* label, const char* format, int n);
-    plErrorMsg(bool bogus, const char* label, const char* format, int n, int m);
-    plErrorMsg(bool bogus, const char* label, const char* format, float f);
+    plErrorMsg(bool bogus, const plString &label, const plString &msg);
+    plErrorMsg(bool bogus, const plString &label, const char *fmt, ...);
     virtual ~plErrorMsg() { }
 
-    plErrorMsg &Set(const char* label, const char* msg);
+    plErrorMsg &Set(const plString &label, const plString &msg);
     plErrorMsg &Set(bool bogus = false);
-    plErrorMsg &Set(bool bogus, const char* label, const char* msg);
-    plErrorMsg &Set(bool bogus, const char* label, const char* format, const char* str);
-    plErrorMsg &Set(bool bogus, const char* label, const char* format, const char* str1, const char* str2);
-    plErrorMsg &Set(bool bogus, const char* label, const char* format, int n);
-    plErrorMsg &Set(bool bogus, const char* label, const char* format, int n, int m);
-    plErrorMsg &Set(bool bogus, const char* label, const char* format, float f);
+    plErrorMsg &Set(bool bogus, const plString &label, const plString &msg);
+    plErrorMsg &Set(bool bogus, const plString &label, const char *fmt, ...);
 
     bool IsBogus() { return GetBogus(); }
     // Ask - If condition is true and user says yes to displayed query, return true, else false
@@ -94,18 +86,19 @@ public:
 protected:
     void SetBogus(bool b)   { fBogus = b; }
 
-    bool GetBogus()         { return fBogus; }
-    char *GetLabel()            { if (!fBogus) *fLabel = 0; return fLabel; }
-    char *GetMsg()              { if (!fBogus) *fMsg = 0; return fMsg; }
+    bool GetBogus() const             { return fBogus; }
+    const plString &GetLabel() const  { return (!fBogus) ? plString::Null : fLabel; }
+    const plString &GetMsg() const    { return (!fBogus) ? plString::Null : fMsg; }
 
-private:
+    void ISet(bool bogus, const plString &label, const char *fmt, va_list vptr);
+
     bool        fBogus;
-    char        fLabel[256];
-    char        fMsg[PL_ERR_MSG_MAX_MSG];
+    plString    fLabel;
+    plString    fMsg;
 
 private:
     // No assignment operator
-    plErrorMsg &operator=(const plErrorMsg &msg);
+    plErrorMsg &operator=(const plErrorMsg &msg) { }
 };
 
 #endif

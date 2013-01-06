@@ -1506,7 +1506,7 @@ static void IGetIntFieldValue (
 
 void RelVaultNode::Print (const wchar_t tag[], FStateDump dumpProc, unsigned level) {
     wchar_t str[1024];
-    StrPrintf(
+    swprintf(
         str,
         arrsize(str),
         L"%s%*s%*s%u, %S",
@@ -1526,12 +1526,12 @@ void RelVaultNode::Print (const wchar_t tag[], FStateDump dumpProc, unsigned lev
             break;
 
         #define STPRINT(flag, func) case k##flag: { \
-                wcsncat(str, L", " L ## #flag L"=", arrsize(str)); \
+                wcsncat(str, L", " L ## #flag L"=", arrsize(str) - wcslen(str) - 1); \
                 const size_t chars = wcslen(str); \
                 func(Get##flag(), str + chars, arrsize(str) - chars * sizeof(str[0])); \
             }; break
         #define STNAME(flag) case k##flag: { \
-                wcsncat(str, L", " L ## #flag, arrsize(str)); \
+                wcsncat(str, L", " L ## #flag, arrsize(str) - wcslen(str) - 1); \
             }; break
         switch (bit) {
             STPRINT(NodeId,         IGetUintFieldValue);

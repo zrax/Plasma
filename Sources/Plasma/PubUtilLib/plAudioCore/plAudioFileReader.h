@@ -93,7 +93,6 @@ public:
     static void CacheFile(const plFileName& path, bool splitChannels=false, bool noOverwrite=false);
 
 protected:
-    static plFileName IGetCachedPath(const plFileName& path, plAudioCore::ChannelSelect whichChan);
     static void ICacheFile(const plFileName& path, bool noOverwrite, plAudioCore::ChannelSelect whichChan);
 };
 

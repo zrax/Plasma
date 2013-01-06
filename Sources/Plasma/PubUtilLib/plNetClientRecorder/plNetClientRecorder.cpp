@@ -39,7 +39,6 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
       Mead, WA   99021
 
 *==LICENSE==*/
-#include "hsWindows.h"
 #include "plNetClientRecorder.h"
 #include "hsStream.h"
 #include "hsTimer.h"
@@ -73,22 +72,6 @@ double plNetClientRecorder::GetTime()
         return fTimeWrapper->GetWrappedTime();
     else
         return hsTimer::GetSysSeconds();
-}
-
-void plNetClientRecorder::IMakeFilename(const char* recName, char* path)
-{
-    strcpy(path, "Recordings" PATH_SEPARATOR_STR);
-#if HS_BUILD_FOR_WIN32
-    CreateDirectory(path, NULL);
-#endif
-
-    const char* lastDot = strrchr(recName, '.');
-    if (lastDot)
-        strncat(path, recName, lastDot-recName);
-    else
-        strcat(path, recName);
-
-    strcat(path, ".rec");
 }
 
 bool plNetClientRecorder::IsRecordableMsg(plNetMessage* msg) const

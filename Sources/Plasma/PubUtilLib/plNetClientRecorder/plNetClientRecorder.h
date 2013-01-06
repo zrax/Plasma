@@ -61,9 +61,7 @@ public:
     };
 protected:
     TimeWrapper *fTimeWrapper;
-    
-    // Puts the full path to recName in path
-    virtual void IMakeFilename(const char* recName, char* path);
+
 public:
 
     plNetClientRecorder(TimeWrapper* timeWrapper);

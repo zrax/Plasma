@@ -772,8 +772,9 @@ hsMaterialConverter::CreateMaterialArray(Mtl *maxMaterial, plMaxNode *node, uint
     bool isMultiMat = IsMultiMat( maxMaterial );
     if (isMultiMat)
     {
-        if (fErrorMsg->Set(!(fWarned & kWarnedSubMulti), node->GetName(), "Multi-material in CreateMaterialArray (Multi child of multi?) on mat %s. Using the first sub-material instead.", 
-            maxMaterial->GetName()).CheckAskOrCancel() )
+        if (fErrorMsg->Set(!(fWarned & kWarnedSubMulti), node->GetName(),
+                "Multi-material in CreateMaterialArray (Multi child of multi?) on mat %s. Using the first sub-material instead.",
+                maxMaterial->GetName().data()).CheckAskOrCancel() )
             fWarned |= kWarnedSubMulti;
         maxMaterial = maxMaterial->GetSubMtl(0);
     }
@@ -839,7 +840,7 @@ hsMaterialConverter::CreateMaterialArray(Mtl *maxMaterial, plMaxNode *node, uint
     }
 
     // We've already handled it... just letting them know.
-    if (fErrorMsg->Set( (numUVChannels + numBlendChannels > plGeometrySpan::kMaxNumUVChannels) && !(fWarned & kWarnedTooManyUVs), node->GetName(), 
+    if (fErrorMsg->Set( (numUVChannels + numBlendChannels > plGeometrySpan::kMaxNumUVChannels) && !(fWarned & kWarnedTooManyUVs), node->GetName(),
                         "Material wants %d UV channels for textures and blending, but only %d are available."
                         " Some layers will have incorrect channels assigned.",
                         numUVChannels + numBlendChannels, plGeometrySpan::kMaxNumUVChannels).CheckAskOrCancel() )
@@ -1144,8 +1145,9 @@ hsGMaterial *hsMaterialConverter::IProcessMaterial(Mtl *mtl, plMaxNode *node, co
 
     if (IsMultiMat(mtl))
     {
-        if (fErrorMsg->Set(!(fWarned & kWarnedSubMulti), dbgNodeName, "Multi-material in ProcessMaterial (Multi child of multi?) on mat %s.", 
-            mtl->GetName()).CheckAskOrCancel() )
+        if (fErrorMsg->Set(!(fWarned & kWarnedSubMulti), dbgNodeName,
+                "Multi-material in ProcessMaterial (Multi child of multi?) on mat %s.",
+                mtl->GetName().data()).CheckAskOrCancel() )
             fWarned |= kWarnedSubMulti;
         hMat = IProcessMaterial(mtl->GetSubMtl(0), node, name, UVChan);
     }
@@ -1180,9 +1182,10 @@ hsGMaterial *hsMaterialConverter::IProcessMaterial(Mtl *mtl, plMaxNode *node, co
         }
         if (hMat->GetNumLayers() == 0)
         {
-            if (fErrorMsg->Set((fWarned & kWarnedNoLayers) == 0, node->GetName(), "Material has no layers. (%s)", mtl->GetName()).CheckAndAsk())
+            if (fErrorMsg->Set((fWarned & kWarnedNoLayers) == 0, node->GetName(),
+                    "Material has no layers. (%s)", mtl->GetName().data()).CheckAndAsk())
                 fWarned |= kWarnedNoLayers;
-            
+
             plLayer* hLay = new plLayer;
             hLay->InitToDefault();
             hsgResMgr::ResMgr()->NewKey(name + "_DefLay", hLay, nodeLoc);
@@ -1440,19 +1443,18 @@ void hsMaterialConverter::IInsertAlphaBlendingLayers(Mtl *mtl, plMaxNode *node, 
 
     if (!(UVChan < plGeometrySpan::kMaxNumUVChannels))
     {
-        if (fErrorMsg->Set(!(fWarned & kWarnedTooManyUVs), node->GetName(), 
+        if (fErrorMsg->Set(!(fWarned & kWarnedTooManyUVs), node->GetName(),
                         "Material is already using all available UV channels and thus doesn't have one for alpha "
-                        "blending. Some layers will have incorrect channels assigned. (%s)", 
-                        mtl->GetName()).CheckAskOrCancel() )
-        fWarned |= kWarnedTooManyUVs; 
+                        "blending. Some layers will have incorrect channels assigned. (%s)",
+                        mtl->GetName().data()).CheckAskOrCancel() )
+            fWarned |= kWarnedTooManyUVs;
         UVChan = plGeometrySpan::kMaxNumUVChannels - 1;
     }
-    int i;  
 
     hsGMaterial *objMat = mat;
     plMipmap *texture = IGetUVTransTexture(node);
     int origLayers = objMat->GetNumLayers();
-    for (i = 0; i < origLayers; i++)
+    for (int i = 0; i < origLayers; i++)
     {
         IInsertSingleBlendLayer(texture, objMat, node, 2 * i + 1, UVChan);
     }
@@ -1466,20 +1468,19 @@ void hsMaterialConverter::IInsertMultipassBlendingLayers(Mtl *mtl, plMaxNode *no
 
     if (!(UVChan < plGeometrySpan::kMaxNumUVChannels))
     {
-        if (fErrorMsg->Set(!(fWarned & kWarnedTooManyUVs), node->GetName(), 
+        if (fErrorMsg->Set(!(fWarned & kWarnedTooManyUVs), node->GetName(),
                         "Material is already using all available UV channels and thus doesn't have one for alpha "
-                        "blending. Some layers will have incorrect channels assigned. (%s)", 
-                        mtl->GetName()).CheckAskOrCancel() )
-        fWarned |= kWarnedTooManyUVs; 
+                        "blending. Some layers will have incorrect channels assigned. (%s)",
+                        mtl->GetName().data()).CheckAskOrCancel() )
+            fWarned |= kWarnedTooManyUVs;
         UVChan = plGeometrySpan::kMaxNumUVChannels - 1;
     }
 
-    int i;
     hsGMaterial *objMat = mat;
     IParamBlock2 *pb = mtl->GetParamBlockByID(plMultipassMtl::kBlkPasses);
     plMipmap *texture = IGetUVTransTexture(node);
     int currLayerNum = 0;
-    for (i = 0; i < mtl->NumSubMtls(); i++)
+    for (int i = 0; i < mtl->NumSubMtls(); i++)
     {
         if (!pb->GetInt(kMultOn, 0, i)) // Is the box for this submtl checked?
             continue; // No, skip it!
@@ -1489,9 +1490,8 @@ void hsMaterialConverter::IInsertMultipassBlendingLayers(Mtl *mtl, plMaxNode *no
             currLayerNum += pb->GetInt(kMultLayerCounts, 0, i);
             continue;
         }
-        int j;
 
-        for (j = 0; j < pb->GetInt(kMultLayerCounts, 0, i); j++)
+        for (int j = 0; j < pb->GetInt(kMultLayerCounts, 0, i); j++)
         {
             IInsertSingleBlendLayer(texture, objMat, node, currLayerNum + 1, UVChan);
             currLayerNum += 2;
@@ -1613,7 +1613,7 @@ hsGMaterial *hsMaterialConverter::IProcessCompositeMtl(Mtl *mtl, plMaxNode *node
                             "For composite materials, all multi-layered submaterials (except the base)"
                             " must choose 'alpha' for 'output blending'. %s, which is a sub-material"
                             " of %s, doesn't and will not be included in the composite material.",
-                            subMtl->GetName(), mtl->GetName()).CheckAskOrCancel();
+                            subMtl->GetName().data(), mtl->GetName().data()).CheckAskOrCancel();
                         
                         materialIsBad = true;
                         if (ignore)
@@ -4574,9 +4574,9 @@ plClothingItem *hsMaterialConverter::GenerateClothingItem(plClothingMtl *mtl, co
             plMipmap *tex = plMipmap::ConvertNoRef(plLayerConverter::Instance().CreateSimpleTexture(texName, loc, clipLevels));
             if (tex == nil)
             {
-                if (fErrorMsg->Set(!(fWarned & kWarnedMissingClothingTexture), mtl->GetName(), 
-                    "Unable to create texture %s. This clothing item won't look right.", 
-                    texName).CheckAskOrCancel() )
+                if (fErrorMsg->Set(!(fWarned & kWarnedMissingClothingTexture), mtl->GetName().data(),
+                                   "Unable to create texture %s. This clothing item won't look right.",
+                                   texName).CheckAskOrCancel() )
                 {
                     fWarned |= kWarnedMissingClothingTexture;
                 }

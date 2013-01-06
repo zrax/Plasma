@@ -1651,7 +1651,7 @@ bool hsControlConverter::GetControllerByName(Animatable* anim, TSTR &name, Contr
             TSTR subName = anim->SubAnimName(i);
             if( subName == name )
             {
-                fErrorMsg->Set(!anim->SubAnim(i), name, "Found controller by name, but nobody home").Check();
+                fErrorMsg->Set(!anim->SubAnim(i), name.data(), "Found controller by name, but nobody home").Check();
                 ctl = GetControlInterface(anim->SubAnim(i));
                 return true;
             }
@@ -2026,7 +2026,7 @@ bool    hsControlConverter::IGetSubAnimByName( Animatable *anim, TSTR &name, Ani
             TSTR subName = anim->SubAnimName(i);
             if( subName == name )
             {
-                fErrorMsg->Set(!anim->SubAnim(i), name, "Found controller by name, but nobody home").Check();
+                fErrorMsg->Set(!anim->SubAnim(i), name.data(), "Found controller by name, but nobody home").Check();
                 subAnim = anim->SubAnim(i);
                 return true;
             }

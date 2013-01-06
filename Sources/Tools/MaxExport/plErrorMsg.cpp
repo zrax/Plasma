@@ -60,165 +60,73 @@ plErrorMsg *plErrorMsg::GetNull()
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Non-destructive error handling
 //////////////////////////////////////////////////////////////////////////////////////////////////
-plErrorMsg::plErrorMsg(const char* label, const char* msg)
+plErrorMsg::plErrorMsg(const plString &label, const plString &msg)
 {
     Set(label, msg);
 }
 
-plErrorMsg::plErrorMsg(bool bogus) 
-{ 
+plErrorMsg::plErrorMsg(bool bogus)
+{
     Set(bogus);
 }
 
-plErrorMsg::plErrorMsg(bool bogus, const char* label, const char* msg) 
-{ 
+plErrorMsg::plErrorMsg(bool bogus, const plString &label, const plString &msg)
+{
     Set(bogus, label, msg);
 }
 
-plErrorMsg::plErrorMsg(bool bogus, const char* label, const char* format, const char* str) 
-{ 
-    Set(bogus, label, format, str);
+plErrorMsg::plErrorMsg(bool bogus, const plString &label, const char *fmt, ...)
+{
+    va_list vptr;
+    va_start(vptr, fmt);
+    ISet(bogus, label, fmt, vptr);
+    va_end(vptr);
 }
 
-plErrorMsg::plErrorMsg(bool bogus, const char* label, const char* format, const char* str1, const char* str2) 
-{ 
-    Set(bogus, label, format, str1, str2);
-}
-
-plErrorMsg::plErrorMsg(bool bogus, const char* label, const char* format, int n) 
-{ 
-    Set(bogus, label, format, n);
-}
-
-plErrorMsg::plErrorMsg(bool bogus, const char* label, const char* format, int n, int m) 
-{ 
-    Set(bogus, label, format, n, m);
-}
-
-plErrorMsg::plErrorMsg(bool bogus, const char* label, const char* format, float f) 
-{ 
-    Set(bogus, label, format, f);
-}
-
-plErrorMsg &plErrorMsg::Set(const char* label, const char* msg)
+plErrorMsg &plErrorMsg::Set(const plString &label, const plString &msg)
 {
     fBogus = true;
-    if( label )
-        hsStrncpy(fLabel, label, 256);
-    else
-        *fLabel = 0;
-    if( msg )
-    {
-        hsAssert(strlen(msg) < PL_ERR_MSG_MAX_MSG, "Too long of an error message for plErrorMsg.");
-        hsStrncpy(fMsg, msg, PL_ERR_MSG_MAX_MSG);
-    }
-    else
-        *fMsg = 0;
-    hsThrow( *this );
+    fLabel = label;
+    fMsg = msg;
+    hsThrow (*this);
 
     return *this;
 }
 
 plErrorMsg &plErrorMsg::Set(bool bogus) 
-{ 
+{
     fBogus = bogus;
-    fLabel[0] = 0; 
-    fMsg[0] = 0; 
+    fLabel = "";
+    fMsg = "";
 
     return *this;
 }
 
-plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* msg) 
-{ 
-    if( fBogus = bogus )
+plErrorMsg &plErrorMsg::Set(bool bogus, const plString &label, const plString &msg)
+{
+    if (fBogus = bogus)
     {
-        if( label )
-            hsStrncpy(fLabel, label, 256);
-        else
-            *fLabel = 0;
-        if( msg )
-        {
-            hsAssert(strlen(msg) < PL_ERR_MSG_MAX_MSG, "Too long of an error message for plErrorMsg.");
-            hsStrncpy(fMsg, msg, PL_ERR_MSG_MAX_MSG); 
-        }
-        else
-            *fMsg = 0;
+        fLabel = label;
+        fMsg = msg;
     }
 
     return *this;
 }
 
-plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, const char* str) 
-{ 
-    if( fBogus = bogus )
-    {
-        if( label )
-            hsStrncpy(fLabel, label, 256);
-        else
-            *fLabel = 0;
-        int length = sprintf(fMsg, format, str); 
-        hsAssert(length < PL_ERR_MSG_MAX_MSG, "Too long of an error message for plErrorMsg.");
-    }
-
+plErrorMsg &plErrorMsg::Set(bool bogus, const plString &label, const char *fmt, ...)
+{
+    va_list vptr;
+    va_start(vptr, fmt);
+    ISet(bogus, label, fmt, vptr);
+    va_end(vptr);
     return *this;
 }
 
-plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, const char* str1, const char* str2) 
-{ 
-    if( fBogus = bogus )
+void plErrorMsg::ISet(bool bogus, const plString &label, const char *fmt, va_list vptr)
+{
+    if (fBogus = bogus)
     {
-        if( label )
-            hsStrncpy(fLabel, label, 256);
-        else
-            *fLabel = 0;
-        int length = sprintf(fMsg, format, str1, str2); 
-        hsAssert(length < PL_ERR_MSG_MAX_MSG, "Too long of an error message for plErrorMsg.");
+        fLabel = label;
+        fMsg = plString::IFormat(fmt, vptr);
     }
-
-    return *this;
-}
-
-plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, int n) 
-{ 
-    if( fBogus = bogus )
-    {
-        if( label )
-            hsStrncpy(fLabel, label, 256);
-        else
-            *fLabel = 0;
-        int length = sprintf(fMsg, format, n); 
-        hsAssert(length < PL_ERR_MSG_MAX_MSG, "Too long of an error message for plErrorMsg.");
-    }
-
-    return *this;
-}
-
-plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, int n, int m) 
-{ 
-    if( fBogus = bogus )
-    {
-        if( label )
-            hsStrncpy(fLabel, label, 256);
-        else
-            *fLabel = 0;
-        int length = sprintf(fMsg, format, n, m); 
-        hsAssert(length < PL_ERR_MSG_MAX_MSG, "Too long of an error message for plErrorMsg.");
-    }
-
-    return *this;
-}
-
-plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, float f) 
-{ 
-    if( fBogus = bogus )
-    {
-        if( label )
-            hsStrncpy(fLabel, label, 256);
-        else
-            *fLabel = 0;
-        int length = sprintf(fMsg, format, f); 
-        hsAssert(length < PL_ERR_MSG_MAX_MSG, "Too long of an error message for plErrorMsg.");
-    }
-
-    return *this;
 }

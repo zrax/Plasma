@@ -644,60 +644,33 @@ bool plStatusLog::IPrintLineToFile( const char *line, uint32_t count )
     if( fFileHandle != nil )
     {
         char work[256];
-        char buf[2000];
-        buf[0] = 0;
 
         //build line to encrypt
+        plStringStream buf;
 
         if( count != 0 )
         {
+            plUnifiedTime now(kNow);
+
             if ( fFlags & kTimestamp )
-            {
-                snprintf(work, arrsize(work), "(%s) ", plUnifiedTime(kNow).Format("%m/%d %H:%M:%S").c_str());
-                strncat(buf, work, arrsize(work));
-            }
+                buf << plString::Format("(%s) ", now.Format("%m/%d %H:%M:%S").c_str());
             if ( fFlags & kTimestampGMT )
-            {
-                snprintf(work, arrsize(work), "(%s) ", plUnifiedTime::GetCurrent().Format("%m/%d %H:%M:%S UTC").c_str());
-                strncat(buf, work, arrsize(work));
-            }
+                buf << plString::Format("(%s) ", plUnifiedTime::GetCurrent().Format("%m/%d %H:%M:%S UTC").c_str());
             if ( fFlags & kTimeInSeconds )
-            {
-                snprintf(work, arrsize(work), "(%lu) ", (unsigned long)plUnifiedTime(kNow).GetSecs());
-                strncat(buf, work, arrsize(work));
-            }
+                buf << plString::Format("(%lu) ", static_cast<unsigned long>(now.GetSecs()));
             if ( fFlags & kTimeAsDouble )
-            {
-                snprintf(work, arrsize(work), "(%f) ", plUnifiedTime(kNow).GetSecsDouble());
-                strncat(buf, work, arrsize(work));
-            }
+                buf << plString::Format("(%f) ", now.GetSecsDouble());
             if (fFlags & kRawTimeStamp)
-            {
-                snprintf(work, arrsize(work), "[t=%10f] ", hsTimer::GetSeconds());
-                strncat(buf, work, arrsize(work));
-            }
+                buf << plString::Format("[t=%10f] ", hsTimer::GetSeconds());
             if (fFlags & kThreadID)
-            {
-                snprintf(work, arrsize(work), "[t=%lu] ", hsThread::GetMyThreadId());
-                strncat(buf, work, arrsize(work));
-            }
+                buf << plString::Format("[t=%lu] ", hsThread::GetMyThreadId());
 
-            size_t remaining = arrsize(buf) - strlen(buf) - 1;
-            remaining -= 1;
-            if (count <= remaining) {
-                strncat(buf, line, count);
-            } else {
-                strncat(buf, line, remaining);
-            }
-
-            strncat(buf, "\n", 1);
+            buf << line << "\n";
         }
-
-        unsigned length = strlen(buf);
 
         {
             int err;
-            err = fwrite(buf,1,length,fFileHandle);
+            err = fwrite(buf.GetRawBuffer(), 1, buf.GetLength(), fFileHandle);
             ret = ( ferror( fFileHandle )==0 );
 
             if ( ret )
