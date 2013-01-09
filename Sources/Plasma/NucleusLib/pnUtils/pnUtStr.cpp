@@ -47,6 +47,10 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "pnUtStr.h"
 
+/* Removed declarations from pnUtStr.h */
+static char  CharLowerFast (char  ch) { return ((ch >=  'A') && (ch <=  'Z')) ? (char )(ch +  'a' -  'A') : ch; }
+static wchar_t CharLowerFast (wchar_t ch) { return ((ch >= L'A') && (ch <= L'Z')) ? (wchar_t)(ch + L'a' - L'A') : ch; }
+
 
 /*****************************************************************************
 *
@@ -216,39 +220,6 @@ static int IStrCmpI (const chartype str1[], const chartype str2[], unsigned char
 
 //===========================================================================
 template<class chartype>
-static void IStrPack (chartype * dest, const chartype source[], unsigned chars) {
-    while ((chars > 1) && *dest) {
-        --chars;
-        ++dest;
-    }
-    while ((chars > 1) && ((*dest = *source++) != 0)) {
-        --chars;
-        ++dest;
-    }
-    if (chars)
-        *dest = 0;
-}
-
-//===========================================================================
-template<class chartype>
-static chartype * IStrStr (chartype source[], const chartype match[]) {
-    if (!*match)
-        return source;
-
-    for (chartype * curr = source; *curr; ++curr) {
-        chartype * s1       = curr;
-        const chartype * s2 = match;
-        while (*s1 && *s2 && *s1 == *s2)
-            s1++, s2++;
-        if (!*s2)
-            return curr;
-    }
-
-    return nil;
-}
-
-//===========================================================================
-template<class chartype>
 static uint32_t IStrHash (const chartype str[], unsigned chars) {
     uint32_t temp0  = 0xE2C15C9D;
     uint32_t temp1  = 0x2170A28A;
@@ -386,7 +357,7 @@ wchar_t * StrDupLen (const wchar_t str[], unsigned chars) {
 
 //============================================================================
 wchar_t * StrDupToUnicode (const char str[]) {
-    unsigned bytes = StrBytes(str) * sizeof(wchar_t);
+    unsigned bytes = (strlen(str) + 1) * sizeof(wchar_t);
     wchar_t * dst = (wchar_t*)malloc(bytes);
     StrToUnicode(dst, str, bytes / sizeof(wchar_t));
     return dst;
@@ -394,40 +365,10 @@ wchar_t * StrDupToUnicode (const char str[]) {
 
 //============================================================================
 char * StrDupToAnsi (const wchar_t str[]) {
-    unsigned bytes = StrBytes(str) / sizeof(wchar_t);
+    unsigned bytes = wcslen(str) + 1;
     char * dst = (char*)malloc(bytes);
     StrToAnsi(dst, str, bytes);
     return dst;
-}
-
-//===========================================================================
-unsigned StrBytes (const char str[]) {  // includes space for terminator
-    return (IStrLen(str) + 1) * sizeof(str[0]);
-}
-
-//===========================================================================
-unsigned StrBytes (const wchar_t str[]) { // includes space for terminator
-    return (IStrLen(str) + 1) * sizeof(str[0]);
-}
-
-//===========================================================================
-char * StrChr (char * str, char ch, unsigned chars) {
-    return IStrChr(str, ch, chars);
-}
-
-//===========================================================================
-wchar_t * StrChr (wchar_t * str, wchar_t ch, unsigned chars) {
-    return IStrChr(str, ch, chars);
-}
-
-//===========================================================================
-const char * StrChr (const char str[], char ch, unsigned chars) {
-    return IStrChr(str, ch, chars);
-}
-
-//===========================================================================
-const wchar_t * StrChr (const wchar_t str[], wchar_t ch, unsigned chars) {
-    return IStrChr(str, ch, chars);
 }
 
 //===========================================================================
@@ -488,86 +429,6 @@ void StrCopy (char * dest, const char source[], unsigned chars) {
 //===========================================================================
 void StrCopy (wchar_t * dest, const wchar_t source[], unsigned chars) {
     IStrCopy(dest, source, chars);
-}
-
-//===========================================================================
-void StrPack (char * dest, const char source[], unsigned chars) {
-    IStrPack(dest, source, chars);
-}
-
-//===========================================================================
-void StrPack (wchar_t * dest, const wchar_t source[], unsigned chars) {
-    IStrPack(dest, source, chars);
-}
-
-//===========================================================================
-char * StrStr (char * source, const char match[]) {
-    return IStrStr(source, match);
-}
-
-//===========================================================================
-const char * StrStr (const char source[], const char match[]) {
-    return IStrStr<const char>(source, match);
-}
-
-//===========================================================================
-wchar_t * StrStr (wchar_t * source, const wchar_t match[]) {
-    return IStrStr(source, match);
-}
-
-//===========================================================================
-const wchar_t * StrStr (const wchar_t source[], const wchar_t match[]) {
-    return IStrStr<const wchar_t>(source, match);
-}
-
-//===========================================================================
-unsigned StrLen (const char str[]) {
-    return IStrLen(str);
-}
-
-//===========================================================================
-unsigned StrLen (const wchar_t str[]) {
-    return IStrLen(str);
-}
-
-//===========================================================================
-float StrToFloat (const char source[], const char ** endptr) {
-    return (float) strtod(source, const_cast<char **>(endptr));
-}
-
-//===========================================================================
-float StrToFloat (const wchar_t source[], const wchar_t ** endptr) {
-    return (float) wcstod(source, const_cast<wchar_t **>(endptr));
-}
-
-//===========================================================================
-int StrToInt (const char source[], const char ** endptr) {
-    return strtol(source, const_cast<char **>(endptr), 0);
-}
-
-//===========================================================================
-int StrToInt (const wchar_t source[], const wchar_t ** endptr) {
-    return wcstol(source, const_cast<wchar_t **>(endptr), 0);
-}
-
-//===========================================================================
-unsigned StrToUnsigned (char source[], char ** endptr, int radix) {
-    return strtoul(source, const_cast<char **>(endptr), radix);
-}
-
-//===========================================================================
-unsigned StrToUnsigned (wchar_t source[], wchar_t ** endptr, int radix) {
-    return wcstoul(source, const_cast<wchar_t **>(endptr), radix);
-}
-
-//===========================================================================
-unsigned StrToUnsigned (const char source[], const char ** endptr, int radix) {
-    return strtoul(source, const_cast<char **>(endptr), radix);
-}
-
-//===========================================================================
-unsigned StrToUnsigned (const wchar_t source[], const wchar_t ** endptr, int radix) {
-    return wcstoul(source, const_cast<wchar_t **>(endptr), radix);
 }
 
 //===========================================================================

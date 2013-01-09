@@ -272,19 +272,16 @@ void AsyncAddressLookupName (
     PerfAddCounter(kAsyncPerfNameLookupAttemptsTotal, 1);
 
     // Get name/port
-    char* ansiName = strdup(name);
-    if (char* portStr = StrChr(ansiName, ':')) {
-        if (unsigned newPort = StrToUnsigned(portStr + 1, nil, 10))
-            port = newPort;
-        *portStr = 0;
-    }
+    std::vector<plString> parts = plString(name).Split(":", 1);
+    if (parts.size() == 2)
+        port = parts[1].ToUInt(10);
 
     // Initialize lookup
     Lookup * lookup         = new Lookup;
     lookup->lookupProc      = lookupProc;
     lookup->port            = port;
     lookup->param           = param;
-    strncpy(lookup->name, name, arrsize(lookup->name));
+    strncpy(lookup->name, parts[0].c_str(), arrsize(lookup->name));
 
     s_critsect.Enter();
     {
@@ -299,9 +296,9 @@ void AsyncAddressLookupName (
 
         // Perform async lookup
         lookup->cancelHandle = WSAAsyncGetHostByName(
-            s_lookupWindow, 
+            s_lookupWindow,
             WM_LOOKUP_FOUND_HOST,
-            name,
+            parts[0].c_str(),
             &lookup->buffer[0],
             sizeof(lookup->buffer)
         );

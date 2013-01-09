@@ -393,7 +393,7 @@ static void INetCliAuthLoginRequestCallback (
     s_players.Clear();
     
     bool wantsStartUpAge = (
-        !StrLen(s_startupAge.ageDatasetName) ||
+        !strlen(s_startupAge.ageDatasetName) ||
         0 == StrCmpI(s_startupAge.ageDatasetName, "StartUp")
     );
 

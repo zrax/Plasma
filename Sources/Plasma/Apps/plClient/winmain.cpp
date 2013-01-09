@@ -820,7 +820,7 @@ static void SaveUserPass (LoginDialogParam *pLoginParam, char *password)
         std::vector<plString> match = theUser.RESearch("[^@]+@([^.]+\\.)*([^.]+)\\.[^.]+");
 
         if (match.empty() || match[2].CompareI("gametap") == 0) {
-            plSHA1Checksum shasum(StrLen(password) * sizeof(password[0]), (uint8_t*)password);
+            plSHA1Checksum shasum(strlen(password) * sizeof(password[0]), (uint8_t*)password);
             uint32_t* dest = reinterpret_cast<uint32_t*>(pLoginParam->namePassHash);
             const uint32_t* from = reinterpret_cast<const uint32_t*>(shasum.GetValue());
 
@@ -1087,7 +1087,7 @@ BOOL CALLBACK UruLoginDialogProc( HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM
                 char username[kMaxAccountNameLength];
                 GetDlgItemText(hwndDlg, IDC_URULOGIN_USERNAME, username, kMaxAccountNameLength);
 
-                if (StrLen(username) == 0)
+                if (strlen(username) == 0)
                     EnableWindow(GetDlgItem(hwndDlg, IDOK), FALSE);
                 else
                     EnableWindow(GetDlgItem(hwndDlg, IDOK), TRUE);

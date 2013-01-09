@@ -3518,7 +3518,7 @@ bool FileListRequestTrans::Recv (
             StrCopy(filename, curChar, arrsize(filename));
             filename[arrsize(filename) - 1] = L'\0'; // make sure it's terminated
 
-            unsigned filenameLen = StrLen(filename);
+            unsigned filenameLen = wcslen(filename);
             curChar += filenameLen; // advance the pointer
             wchar_tCount -= filenameLen; // keep track of the amount remaining
             if ((*curChar != L'\0') || (wchar_tCount <= 0))
@@ -3825,10 +3825,10 @@ VaultInitAgeTrans::VaultInitAgeTrans (
 ,   m_param(param)
 ,   m_ageInstId(ageInstId)
 ,   m_parentAgeInstId(parentAgeInstId)
-,   m_ageFilename(StrDup(ageFilename ? ageFilename : L""))
-,   m_ageInstName(StrDup(ageInstName ? ageInstName : L""))
-,   m_ageUserName(StrDup(ageUserName ? ageUserName : L""))
-,   m_ageDesc(StrDup(ageDesc ? ageDesc : L""))
+,   m_ageFilename(wcsdup(ageFilename ? ageFilename : L""))
+,   m_ageInstName(wcsdup(ageInstName ? ageInstName : L""))
+,   m_ageUserName(wcsdup(ageUserName ? ageUserName : L""))
+,   m_ageDesc(wcsdup(ageDesc ? ageDesc : L""))
 ,   m_ageSequenceNumber(ageSequenceNumber)
 ,   m_ageLanguage(ageLanguage)
 ,   m_ageId(0)

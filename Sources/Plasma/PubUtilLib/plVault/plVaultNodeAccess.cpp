@@ -107,7 +107,7 @@ void VaultTextNoteNode::SetVisitInfo (const plAgeInfoStruct & info) {
             case kAgeFilename: {
                 wchar_t src[128];
                 StrToUnicode(src, info.GetAgeFilename(), arrsize(src));
-                unsigned len = StrLen(src);
+                unsigned len = wcslen(src);
                 wchar_t * dst = buf.New(len);
                 memcpy(dst, src, len * sizeof(src[0]));
             }
@@ -116,7 +116,7 @@ void VaultTextNoteNode::SetVisitInfo (const plAgeInfoStruct & info) {
             case kAgeInstName: {
                 wchar_t src[128];
                 StrToUnicode(src, info.GetAgeInstanceName(), arrsize(src));
-                unsigned len = StrLen(src);
+                unsigned len = wcslen(src);
                 wchar_t * dst = buf.New(len);
                 memcpy(dst, src, len * sizeof(src[0]));
             }
@@ -125,7 +125,7 @@ void VaultTextNoteNode::SetVisitInfo (const plAgeInfoStruct & info) {
             case kAgeUserName: {
                 wchar_t src[128];
                 StrToUnicode(src, info.GetAgeUserDefinedName(), arrsize(src));
-                unsigned len = StrLen(src);
+                unsigned len = wcslen(src);
                 wchar_t * dst = buf.New(len);
                 memcpy(dst, src, len * sizeof(src[0]));
             }
@@ -134,7 +134,7 @@ void VaultTextNoteNode::SetVisitInfo (const plAgeInfoStruct & info) {
             case kAgeDesc: {
                 wchar_t src[128];
                 StrToUnicode(src, info.GetAgeDescription(), arrsize(src));
-                unsigned len = StrLen(src);
+                unsigned len = wcslen(src);
                 wchar_t * dst = buf.New(len);
                 memcpy(dst, src, len * sizeof(src[0]));
             }
@@ -144,7 +144,7 @@ void VaultTextNoteNode::SetVisitInfo (const plAgeInfoStruct & info) {
                 plUUID guid = *info.GetAgeInstanceGuid();
                 wchar_t src[64];
                 wcsncpy(src, guid.AsString().ToWchar(), 64);
-                unsigned len = StrLen(src);
+                unsigned len = wcslen(src);
                 wchar_t * dst = buf.New(len);
                 memcpy(dst, src, len * sizeof(src[0]));
             }
@@ -153,7 +153,7 @@ void VaultTextNoteNode::SetVisitInfo (const plAgeInfoStruct & info) {
             case kAgeLanguage: {
                 wchar_t src[32];
                 StrPrintf(src, arrsize(src), L"%u", info.GetAgeLanguage());
-                unsigned len = StrLen(src);
+                unsigned len = wcslen(src);
                 wchar_t * dst = buf.New(len);
                 memcpy(dst, src, len * sizeof(src[0]));
             }
@@ -162,7 +162,7 @@ void VaultTextNoteNode::SetVisitInfo (const plAgeInfoStruct & info) {
             case kAgeSequence: {
                 wchar_t src[32];
                 StrPrintf(src, arrsize(src), L"%u", info.GetAgeSequenceNumber());
-                unsigned len = StrLen(src);
+                unsigned len = wcslen(src);
                 wchar_t * dst = buf.New(len);
                 memcpy(dst, src, len * sizeof(src[0]));
             }
@@ -186,6 +186,7 @@ void VaultTextNoteNode::SetVisitInfo (const plAgeInfoStruct & info) {
 #ifdef CLIENT
 bool VaultTextNoteNode::GetVisitInfo (plAgeInfoStruct * info) {
 
+    // TODO: Use plString::Tokenize or plString::Split
     wchar_t * mem;
     const wchar_t * str = mem = wcsdup(GetNoteText());
     
@@ -195,7 +196,7 @@ bool VaultTextNoteNode::GetVisitInfo (plAgeInfoStruct * info) {
         switch (i) {
             case kAgeFilename: {
                 StrTokenize(&str, token, arrsize(token), L"|", 1);
-                if (StrLen(token) > 0) {
+                if (wcslen(token) > 0) {
                     char ansi[1024];
                     StrToAnsi(ansi, token, arrsize(ansi));
                     info->SetAgeFilename(ansi);
@@ -205,7 +206,7 @@ bool VaultTextNoteNode::GetVisitInfo (plAgeInfoStruct * info) {
             
             case kAgeInstName: {
                 StrTokenize(&str, token, arrsize(token), L"|", 1);
-                if (StrLen(token) > 0) {
+                if (wcslen(token) > 0) {
                     char ansi[1024];
                     StrToAnsi(ansi, token, arrsize(ansi));
                     info->SetAgeInstanceName(ansi);
@@ -215,7 +216,7 @@ bool VaultTextNoteNode::GetVisitInfo (plAgeInfoStruct * info) {
             
             case kAgeUserName: {
                 StrTokenize(&str, token, arrsize(token), L"|", 1);
-                if (StrLen(token) > 0) {
+                if (wcslen(token) > 0) {
                     char ansi[1024];
                     StrToAnsi(ansi, token, arrsize(ansi));
                     info->SetAgeUserDefinedName(ansi);
@@ -225,7 +226,7 @@ bool VaultTextNoteNode::GetVisitInfo (plAgeInfoStruct * info) {
             
             case kAgeDesc: {
                 StrTokenize(&str, token, arrsize(token), L"|", 1);
-                if (StrLen(token) > 0) {
+                if (wcslen(token) > 0) {
                     char ansi[1024];
                     StrToAnsi(ansi, token, arrsize(ansi));
                     info->SetAgeDescription(ansi);
@@ -235,7 +236,7 @@ bool VaultTextNoteNode::GetVisitInfo (plAgeInfoStruct * info) {
             
             case kAgeInstGuid: {
                 StrTokenize(&str, token, arrsize(token), L"|", 1);
-                if (StrLen(token) > 0) {
+                if (wcslen(token) > 0) {
                     plUUID uuid(plString::FromWchar(token));
                     info->SetAgeInstanceGuid(&uuid);
                 }
@@ -244,16 +245,16 @@ bool VaultTextNoteNode::GetVisitInfo (plAgeInfoStruct * info) {
             
             case kAgeLanguage: {
                 StrTokenize(&str, token, arrsize(token), L"|", 1);
-                if (StrLen(token) > 0) {
-                    info->SetAgeLanguage(StrToUnsigned(token, nil, 10));
+                if (wcslen(token) > 0) {
+                    info->SetAgeLanguage(plString::FromWchar(token).ToUInt(10));
                 }
             }
             break;
             
             case kAgeSequence: {
                 StrTokenize(&str, token, arrsize(token), L"|", 1);
-                if (StrLen(token) > 0) {
-                    info->SetAgeSequenceNumber(StrToUnsigned(token, nil, 10));
+                if (wcslen(token) > 0) {
+                    info->SetAgeSequenceNumber(plString::FromWchar(token).ToUInt(10));
                 }
             }
             break;

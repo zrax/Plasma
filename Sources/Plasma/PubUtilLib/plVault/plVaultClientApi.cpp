@@ -1431,12 +1431,11 @@ void RelVaultNode::SetSeen (unsigned parentId, bool seen) {
 }
 
 //============================================================================
-template <typename T>
-static bool IStrSqlEscape (const T src[], T * dst, unsigned dstChars) {
+static bool IStrSqlEscape (const wchar_t src[], wchar_t * dst, unsigned dstChars) {
     // count the number of ' chars
     unsigned ticks = 0;
     {
-        const T * cur = src;
+        const wchar_t * cur = src;
         while (*cur) {
             if (*cur == L'\'')
                 ++ticks;
@@ -1444,13 +1443,13 @@ static bool IStrSqlEscape (const T src[], T * dst, unsigned dstChars) {
         }
     }
 
-    unsigned reqChars = StrLen(src) + ticks + 1;
+    unsigned reqChars = wcslen(src) + ticks + 1;
 
     if (dstChars < reqChars)
         // failure!
         return false;
 
-    T * cur = dst;
+    wchar_t * cur = dst;
 
     // copy src to dst, escaping ' chars
     while (*src) {
@@ -4169,7 +4168,7 @@ RelVaultNode * VaultAgeSetDeviceInboxAndWaitIncRef (const wchar_t deviceName[], 
     // if we found the inbox or its a global inbox then return here, otherwise if its the default inbox and
     // it wasn't found then continue on and create the inbox
     RelVaultNode * existing = VaultAgeGetDeviceInboxIncRef(deviceName);
-    if (existing || StrCmp(inboxName, DEFAULT_DEVICE_INBOX) != 0)
+    if (existing || wcscmp(inboxName, DEFAULT_DEVICE_INBOX) != 0)
         return existing;
 
     RelVaultNode * device = nil;
@@ -4206,7 +4205,7 @@ RelVaultNode * VaultAgeGetDeviceInboxIncRef (const wchar_t deviceName[]) {
         RelVaultNode * parentNode = nil;
         const wchar_t * inboxName = nil;
 
-        if (StrCmp(devInbox->inboxName, DEFAULT_DEVICE_INBOX) == 0) {
+        if (wcscmp(devInbox->inboxName, DEFAULT_DEVICE_INBOX) == 0) {
             parentNode = VaultAgeGetDeviceIncRef(deviceName);
         }
         else {

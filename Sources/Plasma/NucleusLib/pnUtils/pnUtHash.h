@@ -699,8 +699,6 @@ class THashKeyStr : public T {
 public:
     THashKeyStr () { }
     THashKeyStr (const C str[]) { SetString(str); }
-    THashKeyStr (const THashKeyStr &);              // intentionally unimplemented
-    THashKeyStr & operator= (const THashKeyStr &);  // intentionally unimplemented
     ~THashKeyStr () {
         SetString(nil);
     }
@@ -712,6 +710,10 @@ public:
         else
             this->m_str = nil;
     }
+
+private:
+    THashKeyStr (const THashKeyStr &) { }               // intentionally unimplemented
+    THashKeyStr & operator= (const THashKeyStr &) { }   // intentionally unimplemented
 };
 
 typedef THashKeyStr< wchar_t, THashKeyStrCmp<wchar_t> >  CHashKeyStr;

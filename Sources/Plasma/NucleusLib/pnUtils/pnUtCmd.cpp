@@ -155,7 +155,7 @@ CICmdParser::CICmdParser (const CmdArgDef def[], unsigned defCount) {
         CmdArgData & arg = m_argArray[loop];
         arg.def         = def[loop];
         arg.buffer      = nil;
-        arg.nameChars   = def[loop].name ? StrLen(def[loop].name) : 0;
+        arg.nameChars   = def[loop].name ? wcslen(def[loop].name) : 0;
         arg.isSpecified = false;
         SetDefaultValue(arg);
         maxId = max(maxId, def[loop].id);
@@ -195,7 +195,7 @@ void CICmdParser::Error (const CmdTokState * state, ECmdError errorCode, const w
     // (This text is only provided as a shortcut for trivial applications that
     // don't want to compose their own text. Normally, an application would
     // compose error text using its own localized strings.)
-    unsigned chars  = 256 + (arg ? StrLen(arg) : 0) + (value ? StrLen(value) : 0);
+    unsigned chars  = 256 + (arg ? wcslen(arg) : 0) + (value ? wcslen(value) : 0);
     wchar_t *  buffer = (wchar_t *)malloc(chars * sizeof(wchar_t));
     switch (errorCode) {
 
@@ -264,7 +264,7 @@ const CmdArgData * CICmdParser::FindArgByName (const wchar_t name[]) const {
 //===========================================================================
 bool CICmdParser::LookupFlagged (const wchar_t ** name, unsigned * lastIndex) const {
     unsigned argCount  = m_argArray.Count();
-    unsigned chars     = StrLen(*name);
+    unsigned chars     = wcslen(*name);
     unsigned bestIndex = (unsigned)-1;
     unsigned bestChars = 0;
 
@@ -291,12 +291,12 @@ bool CICmdParser::LookupFlagged (const wchar_t ** name, unsigned * lastIndex) co
             bool caseSensitive = CheckFlag(arg.def.flags, kCmdCaseSensitive, kCmdCaseSensitive);
             if ( prevChars &&
                  ( (prevChars >= arg.nameChars) ||
-                   ( caseSensitive && StrCmp(arg.def.name, prev.def.name, prevChars)) ||
+                   ( caseSensitive && wcsncmp(arg.def.name, prev.def.name, prevChars)) ||
                    (!caseSensitive && StrCmpI(arg.def.name, prev.def.name, prevChars)) ) )
                 continue;
 
             // Ignore this argument if it doesn't match the suffix
-            if ( ( caseSensitive && StrCmp(*name, arg.def.name + prevChars, arg.nameChars - prevChars)) ||
+            if ( ( caseSensitive && wcsncmp(*name, arg.def.name + prevChars, arg.nameChars - prevChars)) ||
                  (!caseSensitive && StrCmpI(*name, arg.def.name + prevChars, arg.nameChars - prevChars)) )
                 continue;
 
@@ -336,18 +336,18 @@ bool CICmdParser::ProcessValue (CmdTokState * state, unsigned index, const wchar
 
         case kCmdTypeFloat:
             {
-                const wchar_t * endPtr;
-                arg.val.floatVal = StrToFloat(str, &endPtr);
-                if (*endPtr)
+                bool ok;
+                arg.val.floatVal = plString::FromWchar(str).ToFloat(&ok);
+                if (!ok)
                     Error(state, kCmdErrorInvalidValue, arg.def.name, str);
             }
         break;
 
         case kCmdTypeInt:
             {
-                const wchar_t * endPtr;
-                arg.val.intVal = StrToInt(str, &endPtr);
-                if (*endPtr)
+                bool ok;
+                arg.val.intVal = plString::FromWchar(str).ToInt(0, &ok);
+                if (!ok)
                     Error(state, kCmdErrorInvalidValue, arg.def.name, str);
             }
         break;
@@ -355,15 +355,15 @@ bool CICmdParser::ProcessValue (CmdTokState * state, unsigned index, const wchar
         case kCmdTypeString:
             if (arg.buffer)
                 free(arg.buffer);
-            arg.buffer = StrDup(str);
+            arg.buffer = wcsdup(str);
             arg.val.strVal = arg.buffer;
         break;
 
         case kCmdTypeUnsigned:
             {
-                const wchar_t * endPtr;
-                arg.val.unsignedVal = StrToUnsigned(str, &endPtr, 10);
-                if (*endPtr)
+                bool ok;
+                arg.val.unsignedVal = plString::FromWchar(str).ToUInt(10, &ok);
+                if (!ok)
                     Error(state, kCmdErrorInvalidValue, arg.def.name, str);
             }
         break;
@@ -419,7 +419,7 @@ bool CICmdParser::Tokenize (CmdTokState * state, const wchar_t str[]) {
         }
 
         // Identify and process flagged parameters
-        if (StrChr(FLAGS, buffer[0]) && TokenizeFlags(state, buffer))
+        if (wcschr(FLAGS, buffer[0]) && TokenizeFlags(state, buffer))
             continue;
 
         // Process unflagged parameters
@@ -479,7 +479,7 @@ bool CICmdParser::TokenizeFlags (CmdTokState * state, const wchar_t str[]) {
             break;
 
         // Check for an argument value provided using a separator
-        if (*str && StrChr(SEPARATORS, *str)) {
+        if (*str && wcschr(SEPARATORS, *str)) {
             result = ProcessValue(state, lastIndex, str + 1);
             break;
         }
@@ -488,7 +488,7 @@ bool CICmdParser::TokenizeFlags (CmdTokState * state, const wchar_t str[]) {
         if (CheckFlag(m_argArray[lastIndex].def.flags, kCmdTypeBool, kCmdMaskType)) {
 
             // Check for a value provided with a toggle
-            if (*str && StrChr(TOGGLES, *str)) {
+            if (*str && wcschr(TOGGLES, *str)) {
                 wchar_t tempStr[] = {*str, 0};
                 result = ProcessValue(state, lastIndex, tempStr);
                 ++str;

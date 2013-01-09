@@ -124,9 +124,8 @@ static inline void IWriteArray (const T buf[], unsigned elems, ARRAY(uint8_t) * 
 }
 
 //============================================================================
-template <typename T>
-static inline void IWriteString (const T str[], ARRAY(uint8_t) * buffer) {
-    IWriteArray(str, StrLen(str) + 1, buffer);
+static inline void IWriteString (const wchar_t str[], ARRAY(uint8_t) * buffer) {
+    IWriteArray(str, wcslen(str) + 1, buffer);
 }
 
 //============================================================================
@@ -136,13 +135,12 @@ static inline bool ICompareValue (const T & lhs, const T & rhs) {
 }
 
 //============================================================================
-template <typename T>
-static inline bool ICompareString (const T lhs[], const T rhs[]) {
+static inline bool ICompareString (const wchar_t lhs[], const wchar_t rhs[]) {
     if (!lhs && !rhs)
         return true;
     if (!lhs || !rhs)
         return false;
-    return 0 == StrCmp(lhs, rhs);
+    return 0 == wcscmp(lhs, rhs);
 }
 
 //============================================================================
@@ -164,25 +162,6 @@ static inline bool ICompareArray (const uint8_t lhs[], const uint8_t rhs[]) {
 template <typename T>
 static inline void ICopyValue (T * plhs, const T & rhs) {
     *plhs = rhs;
-}
-
-//============================================================================
-template <typename T>
-static inline void ICopyString (T ** plhs, const T rhs[]) {
-    free(*plhs);
-    if (rhs)
-        *plhs = StrDup(rhs);
-    else
-        *plhs = StrDup("");
-}
-
-//============================================================================
-static inline void ICopyString (wchar_t ** plhs, const wchar_t rhs[]) {
-    free(*plhs);
-    if (rhs)
-        *plhs = StrDup(rhs);
-    else
-        *plhs = StrDup(L"");
 }
 
 
@@ -815,7 +794,7 @@ void CSrvPackBuffer::AddData (const void * ptr, unsigned bytes) {
 
 //============================================================================
 void CSrvPackBuffer::AddString (const wchar_t str[]) {
-    AddData(str, StrBytes(str));
+    AddData(str, (wcslen(str) + 1) * sizeof(wchar_t));
 }
 
 //============================================================================

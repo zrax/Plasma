@@ -317,7 +317,7 @@ const char * pyVaultNode::GetCreateAgeName( void )
         if (fNode->GetCreateAgeName())
             fCreateAgeName = StrDupToAnsi(fNode->GetCreateAgeName());
         else
-            fCreateAgeName = StrDup("");
+            fCreateAgeName = strdup("");
     }
     
     return fCreateAgeName;

@@ -1104,7 +1104,7 @@ bool plNetClientMgr::MsgReceive( plMessage* msg )
         // if we're linking to startup we don't need (or want) a player set
         char ageName[kMaxAgeNameLength];
         StrCopy(ageName, NetCommGetStartupAge()->ageDatasetName, arrsize(ageName));
-        if (!StrLen(ageName))
+        if (!strlen(ageName))
             StrCopy(ageName, "StartUp", arrsize(ageName));
         if (0 == StrCmpI(ageName, "StartUp"))
             NetCommSetActivePlayer(0, nil);

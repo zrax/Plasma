@@ -613,7 +613,7 @@ int __stdcall WinMain (
     wchar_t token[256];
     const wchar_t *appCmdLine = AppGetCommandLine();
     StrTokenize(&appCmdLine, token, arrsize(token), WHITESPACE);
-    while(!StrStr(token, L".exe") && !StrStr(token, L".tmp"))   
+    while (!wcsstr(token, L".exe") && !wcsstr(token, L".tmp"))
     {
         StrTokenize(&appCmdLine, token, arrsize(token), WHITESPACE);
     } 
