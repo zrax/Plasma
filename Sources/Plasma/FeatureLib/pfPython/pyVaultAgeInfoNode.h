@@ -88,10 +88,10 @@ public:
 //==================================================================
 // class RelVaultNode : public plVaultNode
 //
-    PyObject *  GetCanVisitFolder() const; // returns pyVaultPlayerInfoListNode
+    PyObject * GetCanVisitFolder() const; // returns pyVaultPlayerInfoListNode
     PyObject * GetAgeOwnersFolder() const; // returns pyVaultPlayerInfoListNode
-    PyObject* GetChildAgesFolder( void ); // returns pyVaultFolderNode
-    PyObject *  GetAgeSDL() const; // returns pyVaultSDLNode
+    PyObject * GetChildAgesFolder() const; // returns pyVaultFolderNode
+    PyObject * GetAgeSDL() const; // returns pyVaultSDLNode
     PyObject * GetCzar() const; // returns pyVaultPlayerInfoNode
 
     PyObject * GetParentAgeLink () const;   // returns pyVaultAgeLinkNode, or None if not a child age.

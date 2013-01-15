@@ -154,7 +154,7 @@ PYTHON_METHOD_DEFINITION_NOARGS(ptVaultNode, getCreateAgeName)
 
 PYTHON_METHOD_DEFINITION_NOARGS(ptVaultNode, getCreateAgeGuid)
 {
-    return PyString_FromPlString(self->fThis->GetCreateAgeGuid().AsString());
+    return PyString_FromStringEx(self->fThis->GetCreateAgeGuid().AsString());
 }
 
 PYTHON_METHOD_DEFINITION_NOARGS(ptVaultNode, getCreateAgeCoords)

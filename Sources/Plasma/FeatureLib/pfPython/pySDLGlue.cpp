@@ -224,7 +224,7 @@ STATEVAR_GET(getShort, GetShort, PyInt_FromLong)
 STATEVAR_GET(getInt, GetInt, PyInt_FromLong)
 STATEVAR_GET(getFloat, GetFloat, PyFloat_FromDouble)
 STATEVAR_GET(getDouble, GetDouble, PyFloat_FromDouble)
-STATEVAR_GET(getString, GetString, PyString_FromPlString)
+STATEVAR_GET(getString, GetString, PyString_FromStringEx)
 STATEVAR_GET(getKey, GetKey, pyKey::New)
 
 // getBool is special cause of the way python represents booleans

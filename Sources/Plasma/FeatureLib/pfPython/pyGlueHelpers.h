@@ -48,12 +48,11 @@ typedef struct _object PyObject;
 typedef struct _typeobject PyTypeObject;
 typedef struct PyMethodDef PyMethodDef;
 
-// Useful string functions
+// Useful py/pl string functions
 plString PyString_AsStringEx(PyObject* obj);
 bool PyString_CheckEx(PyObject* obj);
 PyObject* PyUnicode_FromStringEx(const plString& str);
-
-#define PyString_FromPlString(x) PyString_FromString((x).c_str())
+#define PyString_FromStringEx(x) PyString_FromString((x).c_str())
 
 // A set of macros to take at least some of the tediousness out of creating straight python glue code
 
@@ -374,14 +373,14 @@ static PyObject *pythonClassName##_##methodName(pythonClassName *self) \
 }
 
 // Different basic return types
-#define PYTHON_RETURN_ERROR {return NULL;}
-#define PYTHON_RETURN_NONE {Py_INCREF(Py_None); return Py_None;}
+#define PYTHON_RETURN_ERROR return NULL
+#define PYTHON_RETURN_NONE Py_RETURN_NONE
 #define PYTHON_RETURN_BOOL(testValue) \
 { \
     if (testValue) \
-        return PyInt_FromLong((long)1); \
+        Py_RETURN_TRUE; \
     else \
-        return PyInt_FromLong((long)0); \
+        Py_RETURN_FALSE; \
 }
 #define PYTHON_RETURN_NOT_IMPLEMENTED {Py_INCREF(Py_NotImplemented); return Py_NotImplemented;}
 
@@ -420,8 +419,8 @@ static PyObject *pythonClassName##_##methodName(pythonClassName *self) \
 /////////////////////////////////////////////////////////////////////
 
 // setter defines
-#define PYTHON_RETURN_SET_ERROR return -1;
-#define PYTHON_RETURN_SET_OK return 0;
+#define PYTHON_RETURN_SET_ERROR return -1
+#define PYTHON_RETURN_SET_OK return 0
 
 // getter function definition
 #define PYTHON_GET_DEFINITION(pythonClassName, attribName) \
@@ -478,8 +477,8 @@ int pythonClassName##_set##attribName(PyObject *self, PyObject *value, void *clo
 
 // rich compare
 #define PYTHON_RICH_COMPARE_DEFINITION(pythonClassName, obj1, obj2, compareType) PyObject *pythonClassName##_richCompare(PyObject *obj1, PyObject *obj2, int compareType)
-#define PYTHON_RCOMPARE_TRUE return PyInt_FromLong((long)1)
-#define PYTHON_RCOMPARE_FALSE return PyInt_FromLong((long)0)
+#define PYTHON_RCOMPARE_TRUE Py_RETURN_TRUE
+#define PYTHON_RCOMPARE_FALSE Py_RETURN_FALSE
 #define PYTHON_RCOMPARE_ERROR return PyInt_FromLong((long)-1)
 
 /////////////////////////////////////////////////////////////////////
