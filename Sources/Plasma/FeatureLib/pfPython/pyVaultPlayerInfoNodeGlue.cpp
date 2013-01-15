@@ -123,7 +123,7 @@ PYTHON_METHOD_DEFINITION(ptVaultPlayerInfoNode, playerSetAgeGuid, args)
 
 PYTHON_METHOD_DEFINITION_NOARGS(ptVaultPlayerInfoNode, playerGetAgeGuid)
 {
-    return PyString_FromPlString(self->fThis->Player_GetAgeGuid().AsString());
+    return PyString_FromStringEx(self->fThis->Player_GetAgeGuid().AsString());
 }
 
 PYTHON_METHOD_DEFINITION(ptVaultPlayerInfoNode, playerSetOnline, args)

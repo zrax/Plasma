@@ -337,7 +337,7 @@ PYTHON_GLOBAL_METHOD_DEFINITION(PtGetCameraNumber, args, "Params: x\nReturns cam
         PyErr_SetString(PyExc_TypeError, "PtGetCameraNumber expects an int");
         PYTHON_RETURN_ERROR;
     }
-    return PyString_FromPlString(cyMisc::GetCameraNumber(x));
+    return PyString_FromStringEx(cyMisc::GetCameraNumber(x));
 }
 
 PYTHON_GLOBAL_METHOD_DEFINITION_NOARGS(PtGetNumCameras, "returns camera stack size")

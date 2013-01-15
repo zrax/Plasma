@@ -130,7 +130,7 @@ PYTHON_METHOD_DEFINITION_NOARGS(ptGameCli, gameID)
 PYTHON_METHOD_DEFINITION_NOARGS(ptGameCli, gameTypeID)
 {
     plUUID retVal = self->fThis->GameTypeID();
-    return PyString_FromPlString(retVal.AsString());
+    return PyString_FromStringEx(retVal.AsString());
 }
 
 PYTHON_METHOD_DEFINITION_NOARGS(ptGameCli, name)

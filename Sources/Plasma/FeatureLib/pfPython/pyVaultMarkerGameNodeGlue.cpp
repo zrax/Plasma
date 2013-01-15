@@ -85,7 +85,7 @@ PYTHON_METHOD_DEFINITION(ptVaultMarkerGameNode, setGameName, args)
 
 PYTHON_METHOD_DEFINITION_NOARGS(ptVaultMarkerGameNode, getGameGuid)
 {
-    return PyString_FromPlString(self->fThis->GetGameGuid().AsString());
+    return PyString_FromStringEx(self->fThis->GetGameGuid().AsString());
 }
 
 PYTHON_METHOD_DEFINITION(ptVaultMarkerGameNode, setGameGuid, args)

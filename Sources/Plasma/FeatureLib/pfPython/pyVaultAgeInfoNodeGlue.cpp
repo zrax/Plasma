@@ -148,7 +148,7 @@ PYTHON_METHOD_DEFINITION(ptVaultAgeInfoNode, setAgeUserDefinedName, args)
 
 PYTHON_METHOD_DEFINITION_NOARGS(ptVaultAgeInfoNode, getAgeInstanceGuid)
 {
-    return PyString_FromPlString(self->fThis->GetAgeInstanceGuid().AsString());
+    return PyString_FromStringEx(self->fThis->GetAgeInstanceGuid().AsString());
 }
 
 PYTHON_METHOD_DEFINITION(ptVaultAgeInfoNode, setAgeInstanceGuid, args)

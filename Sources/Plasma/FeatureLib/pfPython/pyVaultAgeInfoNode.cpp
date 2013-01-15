@@ -134,7 +134,7 @@ PyObject * pyVaultAgeInfoNode::GetCanVisitFolder() const
     PYTHON_RETURN_NONE;
 }
 
-PyObject* pyVaultAgeInfoNode::GetChildAgesFolder( void )
+PyObject* pyVaultAgeInfoNode::GetChildAgesFolder() const
 {
     if (!fNode)
         PYTHON_RETURN_NONE;
@@ -154,7 +154,7 @@ PyObject * pyVaultAgeInfoNode::GetAgeSDL() const
 
     hsAssert(false, "eric, port me");
     // just return a None object.
-    PYTHON_RETURN_NONE
+    PYTHON_RETURN_NONE;
 }
 
 PyObject * pyVaultAgeInfoNode::GetCzar() const
@@ -165,7 +165,7 @@ PyObject * pyVaultAgeInfoNode::GetCzar() const
     hsAssert(false, "eric, port me");
 
     // just return a None object.
-    PYTHON_RETURN_NONE
+    PYTHON_RETURN_NONE;
 }
 
 PyObject * pyVaultAgeInfoNode::GetParentAgeLink () const
@@ -180,7 +180,7 @@ PyObject * pyVaultAgeInfoNode::GetParentAgeLink () const
     }
 
     // just return a None object.
-    PYTHON_RETURN_NONE
+    PYTHON_RETURN_NONE;
 }
 
 
