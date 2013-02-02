@@ -384,22 +384,29 @@ public:
     /** Convert the string data to an integer in base \a base.
      *  If base is set to 0, this function behaves like strtol, which checks
      *  for hex or octal prefixes (e.g. 0777 or 0x1234), and assumes base 10
-     *  if none are found.
+     *  if none are found.  If \a ok is not null, it is used to indicate
+     *  whether the conversion was successful.
      */
-    int ToInt(int base = 0) const;
+    int ToInt(int base = 0, bool *ok = nullptr) const;
 
     /** Convert the string to an unsigned integer in base \a base.
      *  If base is set to 0, this function behaves like strtoul, which checks
      *  for hex or octal prefixes (e.g. 0777 or 0x1234), and assumes base 10
-     *  if none are found.
+     *  if none are found.  If \a ok is not null, it is used to indicate
+     *  whether the conversion was successful.
      */
-    unsigned int ToUInt(int base = 0) const;
+    unsigned int ToUInt(int base = 0, bool *ok = nullptr) const;
 
-    /** Convert the string to a floating point value. */
-    float ToFloat() const;
+    /** Convert the string to a floating point value.  If \a ok is not null,
+     *  it is used to indicate whether the conversion was successful.
+     */
+    float ToFloat(bool *ok = nullptr) const { return static_cast<float>(ToDouble(ok)); }
 
-    /** Convert the string to a double precision floating point value. */
-    double ToDouble() const;
+    /** Convert the string to a double precision floating point value.
+     *  If \a ok is not null, it is used to indicate whether the conversion
+     *  was successful.
+     */
+    double ToDouble(bool *ok = nullptr) const;
 
     /** Construct a plString using a printf-like format string. */
     static plString Format(const char *fmt, ...);

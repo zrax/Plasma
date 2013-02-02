@@ -476,25 +476,28 @@ plUnicodeBuffer plString::GetUnicodeArray() const
     return result;
 }
 
-int plString::ToInt(int base) const
+int plString::ToInt(int base, bool *ok) const
 {
-    return static_cast<int>(strtol(c_str(), nullptr, base));
+    char *eptr;
+    return static_cast<int>(strtol(c_str(), &eptr, base));
+    if (ok)
+        *ok = (*eptr == 0);
 }
 
-unsigned int plString::ToUInt(int base) const
+unsigned int plString::ToUInt(int base, bool *ok) const
 {
-    return static_cast<unsigned int>(strtoul(c_str(), nullptr, base));
+    char *eptr;
+    return static_cast<unsigned int>(strtoul(c_str(), &eptr, base));
+    if (ok)
+        *ok = (*eptr == 0);
 }
 
-float plString::ToFloat() const
+double plString::ToDouble(bool *ok) const
 {
-    // strtof is C99, which MS doesn't support...
-    return (float)strtod(c_str(), nullptr);
-}
-
-double plString::ToDouble() const
-{
-    return strtod(c_str(), nullptr);
+    char *eptr;
+    return strtod(c_str(), &eptr);
+    if (ok)
+        *ok = (*eptr == 0);
 }
 
 // Microsoft doesn't provide this for us
