@@ -78,8 +78,8 @@ public:
 
     plAGMasterSDLModifier() {}
     ~plAGMasterSDLModifier() {}
-        
-    const char* GetSDLName() const { return kSDLAGMaster; }
+
+    plString GetSDLName() const { return kSDLAGMaster; }
 };
 
 #endif  // plAGMasterSDLModifier_inc

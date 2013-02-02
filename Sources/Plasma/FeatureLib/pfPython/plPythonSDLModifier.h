@@ -98,10 +98,10 @@ public:
     CLASSNAME_REGISTER(plPythonSDLModifier);
     GETINTERFACE_ANY(plPythonSDLModifier, plSDLModifier);
 
-    virtual const char* GetSDLName() const;
+    virtual plString GetSDLName() const;
     virtual void SetItemFromSDLVar(plSimpleStateVariable* var);
 
-    static bool HasSDL(const char* pythonFile);
+    static bool HasSDL(const plString& pythonFile);
     // find the Age global SDL guy... if there is one
     static const plPythonSDLModifier* FindAgeSDL();
     static plKey FindAgeSDLTarget();

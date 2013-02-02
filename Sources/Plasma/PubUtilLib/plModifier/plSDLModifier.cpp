@@ -222,7 +222,7 @@ void plSDLModifier::ReceiveState(const plStateDataRecord* srcState)
     else
     {
         plNetClientApp::GetInstance()->DebugMsg("\tReceiving and ignoring unused SDL state msg: type %s, object %s",
-            GetSDLName(), GetStateOwnerKey()->GetName().c_str());
+            GetSDLName().c_str(), GetStateOwnerKey()->GetName().c_str());
     }
 
     if (plNetObjectDebugger::GetInstance())

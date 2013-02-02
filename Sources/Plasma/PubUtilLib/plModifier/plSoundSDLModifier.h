@@ -63,8 +63,8 @@ protected:
 public:
     CLASSNAME_REGISTER( plSoundSDLModifier );
     GETINTERFACE_ANY( plSoundSDLModifier, plSDLModifier);
-        
-    const char* GetSDLName() const { return kSDLSound; }
+
+    plString GetSDLName() const { return kSDLSound; }
 };
 
 #endif  // plSoundSDLModifier_inc

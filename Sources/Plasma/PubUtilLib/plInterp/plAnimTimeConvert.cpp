@@ -376,11 +376,10 @@ plAnimTimeConvert& plAnimTimeConvert::IProcessStateChange(double worldTime, floa
     fStates.push_front(state);
     IFlushOldStates();
 
-    const char* sdlName=nil;
+    plString sdlName;
     if (plLayerAnimation::ConvertNoRef(fOwner))
         sdlName=kSDLLayer;
-    else
-    if (plAGMasterMod::ConvertNoRef(fOwner))
+    else if (plAGMasterMod::ConvertNoRef(fOwner))
         sdlName=kSDLAGMaster;
     else
     {

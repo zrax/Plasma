@@ -110,7 +110,7 @@ public:
     CLASSNAME_REGISTER(plExcludeRegionSDLModifier);
     GETINTERFACE_ANY(plExcludeRegionSDLModifier, plSDLModifier);
 
-    const char* GetSDLName() const { return kSDLXRegion; }
+    plString GetSDLName() const { return kSDLXRegion; }
 };
 
 #endif // plExcludeRegionModifier_inc

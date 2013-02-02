@@ -72,8 +72,8 @@ protected:
 public:
     CLASSNAME_REGISTER( plAvatarPhysicalSDLModifier );
     GETINTERFACE_ANY( plAvatarPhysicalSDLModifier, plSDLModifier);
-        
-    const char* GetSDLName() const { return kSDLAvatarPhysical; }
+
+    plString GetSDLName() const { return kSDLAvatarPhysical; }
 
 };
 
@@ -154,8 +154,8 @@ protected:
 public:
     CLASSNAME_REGISTER( plAvatarSDLModifier );
     GETINTERFACE_ANY( plAvatarSDLModifier, plSDLModifier);
-        
-    const char* GetSDLName() const { return kSDLAvatar; }
+
+    plString GetSDLName() const { return kSDLAvatar; }
 
     // trying a new approach, which is to let the climb brain read its own SDL.
     // this allows us to synch protected data members with either creating a friend

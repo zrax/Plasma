@@ -74,7 +74,7 @@ public:
     bool MsgReceive(plMessage* msg);
     void SendState(uint32_t sendFlags);       // send a state update
     void ReceiveState(const plStateDataRecord* srcState);   // recv a state update
-    virtual const char* GetSDLName() const = 0; // return the string name of the type of state descriptor you handle
+    virtual plString GetSDLName() const = 0; // return the string name of the type of state descriptor you handle
     virtual plKey GetStateOwnerKey() const;
     
     plStateDataRecord* GetStateCache() const { return fStateCache; }

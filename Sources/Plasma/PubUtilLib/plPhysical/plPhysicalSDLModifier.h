@@ -58,7 +58,7 @@ public:
     CLASSNAME_REGISTER( plPhysicalSDLModifier );
     GETINTERFACE_ANY( plPhysicalSDLModifier, plSDLModifier);
 
-    const char* GetSDLName() const { return kSDLPhysical; }
+    plString GetSDLName() const { return kSDLPhysical; }
 
     // For the console
     static void SetLogLevel(int level) { fLogLevel = level; }

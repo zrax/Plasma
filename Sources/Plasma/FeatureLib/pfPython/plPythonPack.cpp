@@ -43,7 +43,6 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include <Python.h>
 #include <marshal.h>
 #include <ctime>
-#include <string>
 
 #include "HeadSpin.h"
 #include "hsStream.h"
@@ -68,7 +67,7 @@ protected:
     std::vector<hsStream*> fPackStreams;
     bool fPackNotFound;     // No pack file, don't keep trying
 
-    typedef std::map<std::string, plPackOffsetInfo> FileOffset;
+    typedef std::map<plFileName, plPackOffsetInfo> FileOffset;
     FileOffset fFileOffsets;
 
     plPythonPack();
@@ -81,16 +80,16 @@ public:
     bool Open();
     void Close();
 
-    PyObject* OpenPacked(const char *fileName);
-    bool IsPackedFile(const char* fileName);
+    PyObject* OpenPacked(const plFileName& fileName);
+    bool IsPackedFile(const plFileName& fileName);
 };
 
-PyObject* PythonPack::OpenPythonPacked(const char* fileName)
+PyObject* PythonPack::OpenPythonPacked(const plFileName& fileName)
 {
     return plPythonPack::Instance().OpenPacked(fileName);
 }
 
-bool PythonPack::IsItPythonPacked(const char* fileName)
+bool PythonPack::IsItPythonPacked(const plFileName& fileName)
 {
     return plPythonPack::Instance().IsPackedFile(fileName);
 }
@@ -148,9 +147,7 @@ bool plPythonPack::Open()
             for (int i = 0; i < numFiles; i++)
             {
                 // and pack the index into our own data structure
-                char* buf = fPackStream->ReadSafeString();
-                std::string pythonName = buf; // reading a "string" from a hsStream directly into a stl string causes memory loss
-                delete [] buf;
+                plFileName pythonName = fPackStream->ReadSafeString_TEMP();
                 uint32_t offset = fPackStream->ReadLE32();
 
                 plPackOffsetInfo offsetInfo;
@@ -191,13 +188,12 @@ void plPythonPack::Close()
     fFileOffsets.clear();
 }
 
-PyObject* plPythonPack::OpenPacked(const char* fileName)
+PyObject* plPythonPack::OpenPacked(const plFileName& fileName)
 {
     if (!Open())
         return nil;
 
-    std::string pythonName = fileName;
-    pythonName += ".py";
+    plFileName pythonName = fileName + ".py";
 
     FileOffset::iterator it = fFileOffsets.find(pythonName);
     if (it != fFileOffsets.end())
@@ -213,7 +209,7 @@ PyObject* plPythonPack::OpenPacked(const char* fileName)
             char *buf = new char[size];
             uint32_t readSize = fPackStream->Read(size, buf);
             hsAssert(readSize <= size, plString::Format("Python PackFile %s: Incorrect amount of data, read %d instead of %d",
-                fileName, readSize, size).c_str());
+                fileName.AsString().c_str(), readSize, size).c_str());
 
             // let the python marshal make it back into a code object
             PyObject *pythonCode = PyMarshal_ReadObjectFromString(buf, size);
@@ -227,13 +223,12 @@ PyObject* plPythonPack::OpenPacked(const char* fileName)
     return nil;
 }
 
-bool plPythonPack::IsPackedFile(const char* fileName)
+bool plPythonPack::IsPackedFile(const plFileName& fileName)
 {
     if (!Open())
         return nil;
 
-    std::string pythonName = fileName;
-    pythonName += ".py";
+    plFileName pythonName = fileName + ".py";
 
     FileOffset:: iterator it = fFileOffsets.find(pythonName);
     if (it != fFileOffsets.end())

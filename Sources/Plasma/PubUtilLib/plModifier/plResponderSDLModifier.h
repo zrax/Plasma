@@ -68,10 +68,10 @@ protected:
 public:
     CLASSNAME_REGISTER( plResponderSDLModifier );
     GETINTERFACE_ANY( plResponderSDLModifier, plSDLModifier);
-        
+
     plResponderSDLModifier() : fResponder(nil) {}
 
-    const char* GetSDLName() const { return kSDLResponder; }
+    plString GetSDLName() const { return kSDLResponder; }
     plKey GetStateOwnerKey() const;
     
     plResponderModifier* GetResponder() const { return fResponder; }

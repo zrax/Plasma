@@ -70,11 +70,11 @@ protected:
 public:
     CLASSNAME_REGISTER( plLayerSDLModifier);
     GETINTERFACE_ANY( plLayerSDLModifier, plAnimTimeConvertSDLModifier);
-        
+
     plLayerSDLModifier() : fLayerAnimation(nil) {}
-    
-    const char* GetSDLName() const { return kSDLLayer; }
-    
+
+    plString GetSDLName() const { return kSDLLayer; }
+
     plLayerAnimation* GetLayerAnimation() const { return fLayerAnimation; }
     void SetLayerAnimation(plLayerAnimation* l) { fLayerAnimation=l; AddTarget(nil); }
     plKey GetStateOwnerKey() const;

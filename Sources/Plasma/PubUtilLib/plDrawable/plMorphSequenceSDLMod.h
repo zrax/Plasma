@@ -87,7 +87,7 @@ public:
     
     void SetCurrentStateFrom(const plStateDataRecord* srcState);
     void PutCurrentStateIn(plStateDataRecord* dstState);
-    const char* GetSDLName() const { return kSDLMorphSequence; }
+    plString GetSDLName() const { return kSDLMorphSequence; }
 
     void SetIsAvatar(bool avatar) { fIsAvatar = avatar; }
 };

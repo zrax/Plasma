@@ -263,7 +263,7 @@ void plPythonSDLModifier::SetItemIdx(const plString& key, int idx, PyObject* val
 }
 
 
-const char* plPythonSDLModifier::GetSDLName() const
+plString plPythonSDLModifier::GetSDLName() const
 {
     return fOwner->fPythonFile;
 }
@@ -566,7 +566,7 @@ PyObject* plPythonSDLModifier::ISDLVarToPython(plSimpleStateVariable* var)
     return pyTuple;
 }
 
-bool plPythonSDLModifier::HasSDL(const char* pythonFile)
+bool plPythonSDLModifier::HasSDL(const plString& pythonFile)
 {
     return (plSDLMgr::GetInstance()->FindDescriptor(pythonFile, plSDL::kLatestVersion) != nil);
 }

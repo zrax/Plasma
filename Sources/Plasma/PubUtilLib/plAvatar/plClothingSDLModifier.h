@@ -88,9 +88,9 @@ public:
     
     plClothingOutfit* GetClothingOutfit();
     void SetClothingOutfit(plClothingOutfit* c) { fClothingOutfit=c; }
-    
+
     void PutCurrentStateIn(plStateDataRecord* dstState);
-    const char* GetSDLName() const { return kSDLClothing; }
+    plString GetSDLName() const { return kSDLClothing; }
     static const char* GetClothingItemSDRName() { return kStrClothingDescName; }
 
     // Pass in a clothing outfit if you want to apply the clothing item. Pass in a closet item if you're just

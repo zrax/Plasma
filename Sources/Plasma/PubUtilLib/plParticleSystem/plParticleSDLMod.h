@@ -66,9 +66,9 @@ public:
     GETINTERFACE_ANY( plParticleSDLMod, plSDLModifier);
     
     plParticleSDLMod(bool attachedToAvatar = false): fAttachedToAvatar(attachedToAvatar) {}
-    
+
     void PutCurrentStateIn(plStateDataRecord* dstState);
-    const char* GetSDLName() const { return kSDLParticleSystem; }
+    plString GetSDLName() const { return kSDLParticleSystem; }
 
     void SetAttachedToAvatar(bool attached) {fAttachedToAvatar = attached;}
 };

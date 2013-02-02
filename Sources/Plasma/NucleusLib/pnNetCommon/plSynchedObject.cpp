@@ -190,7 +190,7 @@ void plSynchedObject::RegisterSynchedValueFriend(plSynchedValueBase* v)
 //
 // send sdl state msg immediately
 //
-void plSynchedObject::SendSDLStateMsg(const char* SDLStateName, uint32_t synchFlags /*SendSDLStateFlags*/)
+void plSynchedObject::SendSDLStateMsg(const plString& SDLStateName, uint32_t synchFlags /*SendSDLStateFlags*/)
 {
     plSDLModifierMsg* sdlMsg = new plSDLModifierMsg(SDLStateName,
         (synchFlags & kBCastToClients) ? plSDLModifierMsg::kSendToServerAndClients : plSDLModifierMsg::kSendToServer /* action */);
@@ -203,27 +203,13 @@ void plSynchedObject::SendSDLStateMsg(const char* SDLStateName, uint32_t synchFl
 // Tell an object to send an sdl state update.
 // The request will get queued (returns true)
 //
-bool plSynchedObject::DirtySynchState(const char* SDLStateName, uint32_t synchFlags /*SendSDLStateFlags*/)
+bool plSynchedObject::DirtySynchState(const plString& SDLStateName, uint32_t synchFlags /*SendSDLStateFlags*/)
 {
     if (!IOKToDirty(SDLStateName))
-    {
-#if 0
-        if (plNetClientApp::GetInstance())
-            plNetClientApp::GetInstance()->DebugMsg("NotOKToDirty - Not queueing SDL state, obj %s, sdl %s",
-                    GetKeyName(), SDLStateName);
-#endif
         return false;
-    }
-    
+
     if (!IOKToNetwork(SDLStateName, &synchFlags))
-    {
-#if 0
-        if (plNetClientApp::GetInstance())
-            plNetClientApp::GetInstance()->DebugMsg("LocalOnly Object - Not queueing SDL msg, obj %s, sdl %s",
-                    GetKeyName(), SDLStateName);
-#endif
         return false;
-    }
 
     if (!(synchFlags & kSkipLocalOwnershipCheck))
     {
@@ -236,7 +222,7 @@ bool plSynchedObject::DirtySynchState(const char* SDLStateName, uint32_t synchFl
         {
             if (plNetClientApp::GetInstance())
                 plNetClientApp::GetInstance()->DebugMsg("Queueing SDL state with 'maybe' ownership, obj %s, sdl %s",
-                    GetKeyName().c_str(), SDLStateName);
+                    GetKeyName().c_str(), SDLStateName.c_str());
         }
     }
     
@@ -256,18 +242,18 @@ bool plSynchedObject::DirtySynchState(const char* SDLStateName, uint32_t synchFl
 // add state defn if not already there.
 // if there adjust flags if necessary
 //
-void plSynchedObject::IAddDirtyState(plKey objKey, const char* sdlName, uint32_t sendFlags)
+void plSynchedObject::IAddDirtyState(plKey objKey, const plString& sdlName, uint32_t sendFlags)
 {
     bool found=false;
     std::vector<StateDefn>::iterator it=fDirtyStates.begin();
     for( ; it != fDirtyStates.end(); it++)
     {
-        if ((*it).fObjKey==objKey && !stricmp((*it).fSDLName.c_str(), sdlName))
+        if (it->fObjKey==objKey && !it->fSDLName.CompareI(sdlName))
         {
             if (sendFlags & kForceFullSend)
-                (*it).fSendFlags |= kForceFullSend;
+                it->fSendFlags |= kForceFullSend;
             if (sendFlags & kBCastToClients)
-                (*it).fSendFlags |= kBCastToClients;            
+                it->fSendFlags |= kBCastToClients;
             found=true;
             break;
         }
@@ -277,25 +263,18 @@ void plSynchedObject::IAddDirtyState(plKey objKey, const char* sdlName, uint32_t
     {
         StateDefn state(objKey, sendFlags, sdlName);
         fDirtyStates.push_back(state);
-    }   
-    else
-    {
-#if 0
-        plNetClientApp::GetInstance()->DebugMsg("Not queueing diplicate request for SDL state, obj %s, sdl %s",
-                    objKey->GetName(), sdlName);
-#endif
     }
 }
 
 //
 // STATIC
 //
-void plSynchedObject::IRemoveDirtyState(plKey objKey, const char* sdlName)
+void plSynchedObject::IRemoveDirtyState(plKey objKey, const plString& sdlName)
 { 
     std::vector<StateDefn>::iterator it=fDirtyStates.begin();
     for( ; it != fDirtyStates.end(); it++)
     {
-        if ((*it).fObjKey==objKey && !stricmp((*it).fSDLName.c_str(), sdlName))
+        if (it->fObjKey==objKey && !it->fSDLName.CompareI(sdlName))
         {
             fDirtyStates.erase(it);
             break;
@@ -342,7 +321,7 @@ void    plSynchedObject::Read(hsStream* stream, hsResMgr* mgr)
         int i;
         for(i=0;i<num;i++)
         {
-            std::string s;
+            plString s;
             plMsgStdStringHelper::Peek(s, stream);
             fSDLExcludeList.push_back(s);
         }
@@ -356,7 +335,7 @@ void    plSynchedObject::Read(hsStream* stream, hsResMgr* mgr)
         int i;
         for(i=0;i<num;i++)
         {
-            std::string s;
+            plString s;
             plMsgStdStringHelper::Peek(s, stream);
             fSDLVolatileList.push_back(s);
         }
@@ -449,7 +428,7 @@ void plSynchedObject::CallDirtyNotifiers() {}
 //
 // return true if it's ok to dirty this object
 //
-bool plSynchedObject::IOKToDirty(const char* SDLStateName) const
+bool plSynchedObject::IOKToDirty(const plString& SDLStateName) const
 {   
     // is synching disabled?
     bool synchDisabled = (GetSynchDisabled()!=0);
@@ -471,7 +450,7 @@ bool plSynchedObject::IOKToDirty(const char* SDLStateName) const
 //
 // return true if this object should send his SDL msg (for persistence or synch) over the net
 //
-bool plSynchedObject::IOKToNetwork(const char* sdlName, uint32_t* synchFlags) const
+bool plSynchedObject::IOKToNetwork(const plString& sdlName, uint32_t* synchFlags) const
 {
     // determine destination
     bool dstServerOnly=false, dstClientsOnly=false, dstClientsAndServer=false;  
@@ -523,14 +502,14 @@ bool plSynchedObject::IOKToNetwork(const char* sdlName, uint32_t* synchFlags) co
     return false;
 }
  
-plSynchedObject::SDLStateList::const_iterator plSynchedObject::IFindInSDLStateList(const SDLStateList& list, const char* sdlName) const
+plSynchedObject::SDLStateList::const_iterator plSynchedObject::IFindInSDLStateList(const SDLStateList& list, const plString& sdlName) const
 {
-    if (!sdlName)
+    if (sdlName.IsNull())
         return list.end();  // false
 
     SDLStateList::const_iterator it = list.begin();
     for(; it != list.end(); it++)
-        if (!stricmp((*it).c_str(), sdlName))
+        if (!it->CompareI(sdlName))
             return it;
 
     return it;  // .end(), false
@@ -540,9 +519,9 @@ plSynchedObject::SDLStateList::const_iterator plSynchedObject::IFindInSDLStateLi
 // EXCLUDE LIST
 ///////////////////////////
 
-void plSynchedObject::AddToSDLExcludeList(const char* sdlName)
+void plSynchedObject::AddToSDLExcludeList(const plString& sdlName)
 {
-    if (sdlName)
+    if (!sdlName.IsNull())
     {
         if (IFindInSDLStateList(fSDLExcludeList, sdlName)==fSDLExcludeList.end())
         {
@@ -552,7 +531,7 @@ void plSynchedObject::AddToSDLExcludeList(const char* sdlName)
     }
 }
 
-void plSynchedObject::RemoveFromSDLExcludeList(const char* sdlName)
+void plSynchedObject::RemoveFromSDLExcludeList(const plString& sdlName)
 {
     SDLStateList::const_iterator it=IFindInSDLStateList(fSDLExcludeList, sdlName);
     if (it != fSDLExcludeList.end())
@@ -563,7 +542,7 @@ void plSynchedObject::RemoveFromSDLExcludeList(const char* sdlName)
     }
 }
 
-bool plSynchedObject::IsInSDLExcludeList(const char* sdlName) const
+bool plSynchedObject::IsInSDLExcludeList(const plString& sdlName) const
 {
     if ((fSynchFlags & kExcludeAllPersistentState) != 0)
         return true;
@@ -579,9 +558,9 @@ bool plSynchedObject::IsInSDLExcludeList(const char* sdlName) const
 // VOLATILE LIST
 ///////////////////////////
 
-void plSynchedObject::AddToSDLVolatileList(const char* sdlName)
+void plSynchedObject::AddToSDLVolatileList(const plString& sdlName)
 {
-    if (sdlName)
+    if (!sdlName.IsNull())
     {
         if (IFindInSDLStateList(fSDLVolatileList,sdlName)==fSDLVolatileList.end())
         {
@@ -591,7 +570,7 @@ void plSynchedObject::AddToSDLVolatileList(const char* sdlName)
     }
 }
 
-void plSynchedObject::RemoveFromSDLVolatileList(const char* sdlName)
+void plSynchedObject::RemoveFromSDLVolatileList(const plString& sdlName)
 {
     SDLStateList::const_iterator it=IFindInSDLStateList(fSDLVolatileList,sdlName);
     if (it != fSDLVolatileList.end())
@@ -602,7 +581,7 @@ void plSynchedObject::RemoveFromSDLVolatileList(const char* sdlName)
     }
 }
 
-bool plSynchedObject::IsInSDLVolatileList(const char* sdlName) const
+bool plSynchedObject::IsInSDLVolatileList(const plString& sdlName) const
 {
     if ((fSynchFlags & kAllStateIsVolatile) != 0)
         return true;
