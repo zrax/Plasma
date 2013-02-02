@@ -126,16 +126,14 @@ public:
 
     uint32_t        WriteSafeStringLong(const plString &string);    // uses 4 bytes for length
     uint32_t        WriteSafeWStringLong(const plString &string);
-    char *          ReadSafeStringLong();
-    wchar_t *       ReadSafeWStringLong();
+    plString        ReadSafeStringLong();
+    plString        ReadSafeWStringLong();
 
     uint32_t        WriteSafeString(const plString &string);        // uses 2 bytes for length
     uint32_t        WriteSafeWString(const plString &string);
     char *          ReadSafeString();
     wchar_t *       ReadSafeWString();
 
-    plString        ReadSafeStringLong_TEMP();
-    plString        ReadSafeWStringLong_TEMP();
     plString        ReadSafeString_TEMP();
     plString        ReadSafeWString_TEMP();
 
