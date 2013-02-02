@@ -119,8 +119,7 @@ public:
     virtual void UnsetClipping();
     virtual void SetWrapping( uint16_t wrapWidth, uint16_t wrapHeight );
     virtual void UnsetWrapping();
-    virtual void DrawText( int16_t x, int16_t y, const char *text );
-    virtual void DrawTextW( int16_t x, int16_t y, std::wstring text );
+    virtual void DrawText( int16_t x, int16_t y, const plString &text );
     virtual void DrawImage( uint16_t x, uint16_t y, pyImage& image, bool respectAlpha );
     virtual void DrawImageClipped( uint16_t x, uint16_t y, pyImage& image, uint16_t cx, uint16_t cy, uint16_t cw, uint16_t ch,
                                         bool respectAlpha );

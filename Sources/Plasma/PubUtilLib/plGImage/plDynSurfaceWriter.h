@@ -104,7 +104,7 @@ class plDynSurfaceWriter
         /// Operations to perform on the text block
         
         void    ClearToColor( hsColorRGBA &color );
-        void    SetFont( const char *face, uint16_t size, uint8_t fontFlags = 0, bool antiAliasRGB = true );
+        void    SetFont( const plString &face, uint16_t size, uint8_t fontFlags = 0, bool antiAliasRGB = true );
         void    SetTextColor( hsColorRGBA &color, bool blockRGB = false );
         void    SetJustify( Justify j );
 
@@ -148,16 +148,16 @@ class plDynSurfaceWriter
         void        IRefreshOSJustify( void );
         void        ISetTextColor( hsColorRGBA &color, bool blockRGB );
 
-        void        ISetFont( const char *face, uint16_t size, uint8_t fontFlags = 0, bool antiAliasRGB = true );
+        void        ISetFont( const plString &face, uint16_t size, uint8_t fontFlags = 0, bool antiAliasRGB = true );
 
         plDynamicTextMap    *fCurrTarget;
-        uint32_t              fFlags;
+        uint32_t            fFlags;
         Justify             fJustify;
         bool                fFlushed;
 
-        char        *fFontFace;
-        uint16_t      fFontSize;
-        uint8_t       fFontFlags;
+        plString    fFontFace;
+        uint16_t    fFontSize;
+        uint8_t     fFontFlags;
         bool        fFontAntiAliasRGB;
         bool        fFontBlockedRGB;
 
@@ -180,11 +180,11 @@ class plDynSurfaceWriter
                 COLORREF    fTextColor;
                 int         fSaveNum;
 
-                uint16_t      fWidth, fHeight;
+                uint16_t    fWidth, fHeight;
 
-                char        *fFontFace;
-                uint16_t      fFontSize;
-                uint8_t       fFontFlags;
+                plString    fFontFace;
+                uint16_t    fFontSize;
+                uint8_t     fFontFlags;
                 bool        fFontAntiAliasRGB, fFontBlockedRGB;
 
                 plWinSurface();
@@ -194,8 +194,8 @@ class plDynSurfaceWriter
                 void    Release( void );
 
                 bool    WillFit( uint16_t w, uint16_t h );
-                bool    FontMatches( const char *face, uint16_t size, uint8_t flags, bool aaRGB );
-                void    SetFont( const char *face, uint16_t size, uint8_t flags, bool aaRGB );
+                bool    FontMatches( const plString &face, uint16_t size, uint8_t flags, bool aaRGB );
+                void    SetFont( const plString &face, uint16_t size, uint8_t flags, bool aaRGB );
         };
 
         class plWinRGBSurface : public plWinSurface

@@ -135,7 +135,7 @@ void    IUpdateInfo( HWND hDlg )
         return;
     }
 
-    SetDlgItemText( hDlg, IDC_FACE, gFont->GetFace() );
+    SetDlgItemText( hDlg, IDC_FACE, gFont->GetFace().c_str() );
     SetDlgItemInt( hDlg, IDC_FSIZE, gFont->GetSize(), false );
     SetDlgItemInt( hDlg, IDC_STARTG, gFont->GetFirstChar(), false );
     SetDlgItemInt( hDlg, IDC_GCOUNT, gFont->GetNumChars(), false );

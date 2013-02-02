@@ -279,7 +279,7 @@ PYTHON_METHOD_DEFINITION(ptDynamicMap, drawTextW, args)
         PyErr_SetString(PyExc_TypeError, "drawTextW expects two short ints and a unicode string");
         PYTHON_RETURN_ERROR;
     }
-    self->fThis->DrawTextW(x, y, text);
+    self->fThis->DrawText(x, y, plString::FromWchar(text));
     PYTHON_RETURN_NONE;
 }
 

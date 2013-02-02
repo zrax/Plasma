@@ -89,23 +89,15 @@ void    plFontCache::Clear( void )
 {
 }
 
-plFont  *plFontCache::GetFont( const char *face, uint8_t size, uint32_t fontFlags )
+plFont  *plFontCache::GetFont( const plString &face, uint8_t size, uint32_t fontFlags )
 {
-    uint32_t  i, currIdx = (uint32_t)-1;
+    uint32_t  currIdx = (uint32_t)-1;
     int     currDeltaSize = 100000;
-    char    toFind[ 256 ];
 
-
-    strcpy( toFind, face );
-    strlwr( toFind );
-    for( i = 0; i < fCache.GetCount(); i++ )
+    for (uint32_t i = 0; i < fCache.GetCount(); i++)
     {
-        char thisOne[ 256 ];
-        strcpy( thisOne, fCache[ i ]->GetFace() );
-        strlwr( thisOne );
-
-        if( strncmp( thisOne, toFind, strlen( toFind ) ) == 0 &&
-            ( fCache[ i ]->GetFlags() == fontFlags ) )
+        if (fCache[i]->GetFace().CompareI(face) == 0 &&
+            fCache[i]->GetFlags() == fontFlags)
         {
             int delta = fCache[ i ]->GetSize() - size;
             if( delta < 0 )
@@ -127,16 +119,15 @@ plFont  *plFontCache::GetFont( const char *face, uint8_t size, uint32_t fontFlag
 
     // If we failed, it's possible we have a face saved as "Times", for example, and someone's 
     // asking for "Times New Roman", so strip all but the first uint16_t from our font and try the search again
-    char *c = strchr( toFind, ' ' );
-    if( c != nil )
+    int sp = face.Find(' ');
+    if (sp >= 0)
     {
-        *c = 0;
-        return GetFont( toFind, size, fontFlags );
+        return GetFont( face.Left(sp), size, fontFlags );
     }
     else if( fontFlags != 0 )
     {
         // Hmm, well ok, just to be nice, try without our flags
-        plFont *f = GetFont( toFind, size, 0 );
+        plFont *f = GetFont( face, size, 0 );
         if( f != nil )
         {
             //plStatusLog::AddLineS( "pipeline.log", "Warning: plFontCache is substituting %s %d regular (flags 0x%x could not be matched)", f->GetFace(), f->GetSize(), fontFlags );
@@ -171,7 +162,7 @@ void plFontCache::ILoadCustomFonts( void )
             plString keyName;
             if (font->GetKey() == nil)
             {
-                keyName = plString::Format( "%s-%d", font->GetFace(), font->GetSize() );
+                keyName = plString::Format( "%s-%d", font->GetFace().c_str(), font->GetSize() );
                 hsgResMgr::ResMgr()->NewKey( keyName, font, plLocation::kGlobalFixedLoc );
             }
 

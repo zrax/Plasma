@@ -80,11 +80,11 @@ class plWinFontCache
             public:
                 HFONT   fFont;
 
-                char    *fFace;     // Pointer is owned by fFontNameCache
-                int     fHeight;
-                int     fWeight;
-                bool    fItalic;
-                uint32_t  fQuality;
+                plString    fFace;
+                int         fHeight;
+                int         fWeight;
+                bool        fItalic;
+                uint32_t    fQuality;
         };
 
         class plCustFont
@@ -98,15 +98,14 @@ class plWinFontCache
         bool    fInShutdown;
 
         hsTArray<plFontRecord>  fFontCache;
-        hsTArray<char *>        fFontNameCache;
 
         char                    *fCustFontDir;
         hsTArray<plCustFont *>  fCustFonts;
 
         plWinFontCache();
 
-        HFONT   IFindFont( const char *face, int height, int weight, bool italic, uint32_t quality );
-        HFONT   IMakeFont( const char *face, int height, int weight, bool italic, uint32_t quality );
+        HFONT   IFindFont( const plString &face, int height, int weight, bool italic, uint32_t quality );
+        HFONT   IMakeFont( const plString &face, int height, int weight, bool italic, uint32_t quality );
 
         void    ILoadCustomFonts( void );
 
@@ -115,7 +114,7 @@ class plWinFontCache
         virtual ~plWinFontCache();
         static plWinFontCache   &GetInstance( void );
 
-        HFONT   GetMeAFont( const char *face, int height, int weight, bool italic, uint32_t quality );
+        HFONT   GetMeAFont( const plString &face, int height, int weight, bool italic, uint32_t quality );
         void    FreeFont( HFONT font );
         void    Clear( void );
 

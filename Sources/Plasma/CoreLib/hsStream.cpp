@@ -281,7 +281,7 @@ char *hsStream::ReadSafeString()
     return buff;
 }
 
-plString hsStream::ReadSafeWString_TEMP()
+plString hsStream::ReadSafeWString()
 {
     plStringBuffer<uint16_t> retVal;
     uint32_t numChars = ReadLE16();
@@ -304,17 +304,6 @@ plString hsStream::ReadSafeWString_TEMP()
     }
 
     return plString::FromUtf16(retVal);
-}
-
-wchar_t *hsStream::ReadSafeWString()
-{
-    // Horribly inefficient (convert to UTF-8 and then back to UTF-16), which
-    // is why this should go away completely after plString has taken over
-    // the world^H^H^H^H^HPlasma
-    plStringBuffer<wchar_t> retVal = ReadSafeWString_TEMP().ToWchar();
-    wchar_t *buff = new wchar_t[retVal.GetSize() + 1];
-    memcpy(buff, retVal.GetData(), retVal.GetSize() + 1);
-    return buff;
 }
 
 bool  hsStream::Read4Bytes(void *pv)  // Virtual, faster version in sub classes

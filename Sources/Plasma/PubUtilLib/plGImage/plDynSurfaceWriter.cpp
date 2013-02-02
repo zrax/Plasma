@@ -86,7 +86,6 @@ plDynSurfaceWriter::plWinSurface::plWinSurface()
     fWidth = fHeight = 0;
 
     fSaveNum = 0;
-    fFontFace = nil;
     fFontSize = 0;
     fFontFlags = 0;
     fFontAntiAliasRGB = false;
@@ -207,8 +206,7 @@ void    plDynSurfaceWriter::plWinSurface::Release( void )
     fBits = nil;
     fWidth = fHeight = 0;
 
-    delete [] fFontFace;
-    fFontFace = nil;
+    fFontFace = plString::Null;
     fFontSize = 0;
     fFontFlags = 0;
     fFontAntiAliasRGB = false;
@@ -222,28 +220,18 @@ bool    plDynSurfaceWriter::plWinSurface::WillFit( uint16_t w, uint16_t h )
     return false;
 }
 
-static int      SafeStrCmp( const char *str1, const char *str2 )
+bool    plDynSurfaceWriter::plWinSurface::FontMatches( const plString &face, uint16_t size, uint8_t flags, bool aaRGB )
 {
-    if( str1 == nil && str2 == nil )
-        return -1;
-    if( str1 != nil && str2 != nil )
-        return strcmp( str1, str2 );
-    return -1;
-}
-
-bool    plDynSurfaceWriter::plWinSurface::FontMatches( const char *face, uint16_t size, uint8_t flags, bool aaRGB )
-{
-    if( SafeStrCmp( face, fFontFace ) == 0 && fFontSize == size && 
-        fFontFlags == flags && fFontAntiAliasRGB == aaRGB )
+    if (face == fFontFace && fFontSize == size &&
+        fFontFlags == flags && fFontAntiAliasRGB == aaRGB)
         return true;
-    
+
     return false;
 }
 
-void    plDynSurfaceWriter::plWinSurface::SetFont( const char *face, uint16_t size, uint8_t flags, bool aaRGB )
+void    plDynSurfaceWriter::plWinSurface::SetFont( const plString &face, uint16_t size, uint8_t flags, bool aaRGB )
 {
-    delete [] fFontFace;
-    fFontFace = ( face != nil ) ? hsStrcpy( face ) : nil;
+    fFontFace = face;
     fFontSize = size;
     fFontFlags = flags;
     fFontAntiAliasRGB = aaRGB;
@@ -256,7 +244,7 @@ void    plDynSurfaceWriter::plWinSurface::SetFont( const char *face, uint16_t si
         fFont = nil;
     }
 
-    if( face == nil )
+    if (face.IsNull())
         return;
 
     bool    bold = ( fFontFlags & plDynSurfaceWriter::kFontBold ) ? true : false;
@@ -285,8 +273,7 @@ void    plDynSurfaceWriter::plWinSurface::SetFont( const char *face, uint16_t si
         hsAssert( false, "Cannot create Windows font for plDynSurfaceWriter" );
         plStatusLog::AddLineS( "pipeline.log", "ERROR: Cannot allocate font for RGB surface! (face: %s, size: %d %s %s)", face, nHeight, bold ? "bold" : "", italic ? "italic" : "" );
 
-        delete [] fFontFace;
-        fFontFace = nil;
+        fFontFace = plString::Null;
         fFontSize = 0;
         return;
     }
@@ -385,7 +372,7 @@ void    plDynSurfaceWriter::IInit( void )
     fJustify = kLeftJustify;
     fFlags = 0;
     fFlushed = true;
-    fFontFace = nil;
+    fFontFace = plString::Null;
     fFontSize = 0;
     fFontBlockedRGB = false;
 }
@@ -401,8 +388,7 @@ void    plDynSurfaceWriter::Reset( void )
     fCurrTarget = nil;
     fFlushed = true;
 
-    delete [] fFontFace;
-    fFontFace = nil;
+    fFontFace = plString::Null;
     fFontSize = 0;
 }
 
@@ -514,8 +500,7 @@ void    plDynSurfaceWriter::SwitchTarget( plDynamicTextMap *target )
 
     if( hadToAllocate )
     {
-        delete [] fFontFace;
-        fFontFace = nil;
+        fFontFace = plString::Null;
         fFontSize = 0;
         fFontFlags = 0;
     }
@@ -689,7 +674,7 @@ void    plDynSurfaceWriter::ClearToColor( hsColorRGBA &color )
 //// SetFont //////////////////////////////////////////////////////////////////
 //  OS-specific. Load the given font for drawing the text with.
 
-void    plDynSurfaceWriter::SetFont( const char *face, uint16_t size, uint8_t fontFlags, bool antiAliasRGB )
+void    plDynSurfaceWriter::SetFont( const plString &face, uint16_t size, uint8_t fontFlags, bool antiAliasRGB )
 {
     if( !IsValid() )
         return;
@@ -701,7 +686,7 @@ void    plDynSurfaceWriter::SetFont( const char *face, uint16_t size, uint8_t fo
 
 //// ISetFont /////////////////////////////////////////////////////////////////
 
-void    plDynSurfaceWriter::ISetFont( const char *face, uint16_t size, uint8_t fontFlags, bool antiAliasRGB )
+void    plDynSurfaceWriter::ISetFont( const plString &face, uint16_t size, uint8_t fontFlags, bool antiAliasRGB )
 {
     fFlags = ( fFlags & ~kFontShadowed ) | ( fontFlags & kFontShadowed );
 

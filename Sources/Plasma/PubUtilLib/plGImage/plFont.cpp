@@ -117,7 +117,7 @@ void    plFont::IClear( bool onConstruct )
     if( !onConstruct )
         delete [] fBMapData;
 
-    memset( fFace, 0, sizeof( fFace ) );
+    fFace = plString::Null;
     fSize = 0;
     fFlags = 0;
 
@@ -141,9 +141,9 @@ void    plFont::IClear( bool onConstruct )
     fRenderInfo.fLineSpacing = 0;
 }
 
-void    plFont::SetFace( const char *face )
+void    plFont::SetFace( const plString &face )
 {
-    strncpy( fFace, face, sizeof( fFace ) );
+    fFace = face;
 }
 
 void    plFont::SetSize( uint8_t size )
@@ -1201,23 +1201,15 @@ bool    plFont::LoadFromFNTStream( hsStream *stream )
         if( fntInfo.face != 0 )
         {
             stream->SetPosition( fntInfo.face );
-            for( i = 0; i < 256; i++ )
-            {
-                faceName[ i ] = stream->ReadByte();
-                if( faceName[ i ] == 0 )
-                    break;
-            }
-            strncpy( fFace, faceName, sizeof( fFace ) );
+            stream->Read(sizeof(faceName), faceName);
+            faceName[arrsize(faceName) - 1] = 0;
+            fFace = plString::FromIso8859_1(faceName);
         }
         if( fntInfo.device != 0 )
         {
             stream->SetPosition( fntInfo.device );
-            for( i = 0; i < 256; i++ )
-            {
-                deviceName[ i ] = stream->ReadByte();
-                if( deviceName[ i ] == 0 )
-                    break;
-            }
+            stream->Read(sizeof(deviceName), deviceName);
+            deviceName[arrsize(deviceName) - 1] = 0;
         }
         fSize = (uint8_t)(fntInfo.points);
 
@@ -1926,7 +1918,11 @@ bool    plFont::LoadFromBDF( const char *path, plBDFConvertCallback *callback )
 
 bool    plFont::ReadRaw( hsStream *s )
 {
-    s->Read( sizeof( fFace ), fFace );
+    char face[256];
+    s->Read(sizeof(face), face);
+    face[arrsize(face) - 1] = 0;
+    fFace = plString::FromIso8859_1(face);
+
     fSize = s->ReadByte();
     s->ReadLE( &fFlags );
 
@@ -1959,7 +1955,9 @@ bool    plFont::ReadRaw( hsStream *s )
 
 bool    plFont::WriteRaw( hsStream *s )
 {
-    s->Write( sizeof( fFace ), fFace );
+    char face[256];
+    strncpy(face, fFace.c_str(), 256);
+    s->Write( sizeof( face ), face );
     s->WriteByte( fSize );
     s->WriteLE( fFlags );
 

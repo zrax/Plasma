@@ -152,8 +152,7 @@ class plDynamicTextMap : public plMipmap
             kFontShadowed   = 0x04
         };
 
-        void    SetFont( const char *face, uint16_t size, uint8_t fontFlags = 0, bool antiAliasRGB = true );
-        void    SetFont( const wchar_t *face, uint16_t size, uint8_t fontFlags = 0, bool antiAliasRGB = true );
+        void    SetFont( const plString &face, uint16_t size, uint8_t fontFlags = 0, bool antiAliasRGB = true );
         void    SetLineSpacing( int16_t spacing );
         void    SetTextColor( hsColorRGBA &color, bool blockRGB = false );
         void    SetJustify( Justify j );
@@ -173,6 +172,14 @@ class plDynamicTextMap : public plMipmap
         void    FillRect( uint16_t x, uint16_t y, uint16_t width, uint16_t height, hsColorRGBA &color );
         void    FrameRect( uint16_t x, uint16_t y, uint16_t width, uint16_t height, hsColorRGBA &color );
         void    SetFirstLineIndent( int16_t indent );
+
+        // Ugh
+        void    DrawString_TEMP(uint16_t x, uint16_t y, const plString &text) { DrawString(x, y, text.ToWchar()); }
+        void    DrawClippedString_TEMP(int16_t x, int16_t y, const plString &text, uint16_t width, uint16_t height) { DrawClippedString(x, y, text.ToWchar(), width, height); }
+        void    DrawClippedString_TEMP(int16_t x, int16_t y, const plString &text, uint16_t clipX, uint16_t clipY, uint16_t width, uint16_t height) { DrawClippedString(x, y, text.ToWchar(), clipX, clipY, width, height); }
+        void    DrawWrappedString_TEMP(uint16_t x, uint16_t y, const plString &text, uint16_t width, uint16_t height, uint16_t *lastX = nil, uint16_t *lastY = nil ) { DrawWrappedString(x, y, text.ToWchar(), width, height, lastX, lastY); }
+        uint16_t  CalcStringWidth_TEMP(const plString &text, uint16_t *height = nil) { return CalcStringWidth(text.ToWchar(), height); }
+        void    CalcWrappedStringSize_TEMP(const plString &text, uint16_t *width, uint16_t *height, uint32_t *firstClippedChar = nil, uint16_t *maxAscent = nil, uint16_t *lastX = nil, uint16_t *lastY = nil ) { CalcWrappedStringSize(text.ToWchar(), width, height, firstClippedChar, maxAscent, lastX, lastY); }
 
         enum DrawMethods
         {
@@ -201,14 +208,14 @@ class plDynamicTextMap : public plMipmap
 
         // Gets for font values
         Justify     GetFontJustify( void ) const { return fJustify; }
-        const char  *GetFontFace( void ) const { return fFontFace; }
-        uint16_t      GetFontSize( void ) const { return fFontSize; }
+        plString    GetFontFace( void ) const { return fFontFace; }
+        uint16_t    GetFontSize( void ) const { return fFontSize; }
         bool        GetFontAARGB( void ) const { return fFontAntiAliasRGB; }
         hsColorRGBA GetFontColor( void ) const { return fFontColor; }
         bool        GetFontBlockRGB( void ) const { return fFontBlockRGB; }
-        int16_t       GetLineSpacing( void ) const { return fLineSpacing; }
+        int16_t     GetLineSpacing( void ) const { return fLineSpacing; }
 
-        plFont      *GetCurrFont( void ) const { return fCurrFont; }
+        plFont     *GetCurrFont( void ) const { return fCurrFont; }
 
         virtual void    Swap( plDynamicTextMap *other );
 
@@ -225,17 +232,17 @@ class plDynamicTextMap : public plMipmap
         bool        fHasAlpha, fShadowed;
 
         Justify     fJustify;
-        char        *fFontFace;
-        uint16_t      fFontSize;
-        uint8_t       fFontFlags;
+        plString    fFontFace;
+        uint16_t    fFontSize;
+        uint8_t     fFontFlags;
         bool        fFontAntiAliasRGB;
         hsColorRGBA fFontColor;
         bool        fFontBlockRGB;
-        int16_t       fLineSpacing;
+        int16_t     fLineSpacing;
 
-        plFont      *fCurrFont;
+        plFont     *fCurrFont;
 
-        uint32_t      *fInitBuffer;
+        uint32_t   *fInitBuffer;
         
         bool        fHasCreateBeenCalled;
 };

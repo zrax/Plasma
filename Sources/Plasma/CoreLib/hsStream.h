@@ -132,10 +132,9 @@ public:
     uint32_t        WriteSafeString(const plString &string);        // uses 2 bytes for length
     uint32_t        WriteSafeWString(const plString &string);
     char *          ReadSafeString();
-    wchar_t *       ReadSafeWString();
+    plString        ReadSafeWString();
 
     plString        ReadSafeString_TEMP();
-    plString        ReadSafeWString_TEMP();
 
     bool            GetToken(char *s, uint32_t maxLen=uint32_t(-1), const char beginComment=kComment, const char endComment=kEolnCode);
     bool            ReadLn(char* s, uint32_t maxLen=uint32_t(-1), const char beginComment=kComment, const char endComment=kEolnCode);

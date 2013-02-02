@@ -191,7 +191,7 @@ class pfKIMsg : public plMessage
             s->ReadLE( &fCommand );
             fUser = s->ReadSafeString();
             fPlayerID = s->ReadLE32();
-            fString = s->ReadSafeWString_TEMP();
+            fString = s->ReadSafeWString();
             fFlags = s->ReadLE32();
             fDelay = s->ReadLEScalar();
             fValue = s->ReadLE32();

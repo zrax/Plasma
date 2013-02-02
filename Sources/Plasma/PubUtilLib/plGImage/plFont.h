@@ -131,9 +131,9 @@ class plFont : public hsKeyedObject
         friend class plBDFCharsParser;
 
         // Font face and size. This is just used for IDing purposes, not for rendering
-        char    fFace[ 256 ];
-        uint8_t   fSize;
-        uint32_t  fFlags;
+        plString    fFace;
+        uint8_t     fSize;
+        uint32_t    fFlags;
 
         // Size of the whole font bitmap. Fonts are stored vertically, one
         // character at a time, so fWidth is really the max width of any one
@@ -197,18 +197,18 @@ class plFont : public hsKeyedObject
         class plRenderInfo
         {
             public:
-                int16_t       fFirstLineIndent;
-                int16_t       fX, fY, fNumCols, fFarthestX, fLastX, fLastY;
-                int16_t       fMaxWidth, fMaxHeight, fMaxAscent, fMaxDescent;
-                int16_t       fLineSpacing;
-                uint8_t       *fDestPtr;
-                uint32_t      fDestStride;
-                uint8_t       fDestBPP;
-                uint32_t      fColor;
-                plMipmap    *fMipmap;
-                uint32_t      fFlags;
+                int16_t     fFirstLineIndent;
+                int16_t     fX, fY, fNumCols, fFarthestX, fLastX, fLastY;
+                int16_t     fMaxWidth, fMaxHeight, fMaxAscent, fMaxDescent;
+                int16_t     fLineSpacing;
+                uint8_t    *fDestPtr;
+                uint32_t    fDestStride;
+                uint8_t     fDestBPP;
+                uint32_t    fColor;
+                plMipmap   *fMipmap;
+                uint32_t    fFlags;
                 pcSmallRect fClipRect;
-                float    fFloatWidth;
+                float       fFloatWidth;
 
                 const wchar_t   *fVolatileStringPtr;    // Just so we know where we clipped
 
@@ -244,19 +244,19 @@ class plFont : public hsKeyedObject
         virtual void    Read( hsStream *s, hsResMgr *mgr );
         virtual void    Write( hsStream *s, hsResMgr *mgr );
 
-        const char  *GetFace( void ) const { return fFace; }
-        uint8_t       GetSize( void ) const { return fSize; }
-        uint16_t      GetFirstChar( void ) const { return fFirstChar; }
-        uint16_t      GetNumChars( void ) const { return fCharacters.GetCount(); }
-        uint32_t      GetFlags( void ) const { return fFlags; }
-        float    GetDescent( void ) const { return (float)fFontDescent; }
-        float    GetAscent( void ) const { return (float)fFontAscent; }
+        plString    GetFace( void ) const { return fFace; }
+        uint8_t     GetSize( void ) const { return fSize; }
+        uint16_t    GetFirstChar( void ) const { return fFirstChar; }
+        uint16_t    GetNumChars( void ) const { return fCharacters.GetCount(); }
+        uint32_t    GetFlags( void ) const { return fFlags; }
+        float       GetDescent( void ) const { return (float)fFontDescent; }
+        float       GetAscent( void ) const { return (float)fFontAscent; }
 
         uint32_t      GetBitmapWidth( void ) const { return fWidth; }
         uint32_t      GetBitmapHeight( void ) const { return fHeight; }
         uint8_t       GetBitmapBPP( void ) const { return fBPP; }
 
-        void    SetFace( const char *face );
+        void    SetFace( const plString &face );
         void    SetSize( uint8_t size );
         void    SetFlags( uint32_t flags ) { fFlags = flags; }
         void    SetFlag( uint32_t flag, bool on ) { if( on ) fFlags |= flag; else fFlags &= ~flag; }
