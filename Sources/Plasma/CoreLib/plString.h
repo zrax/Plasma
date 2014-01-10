@@ -413,7 +413,33 @@ public:
     double ToDouble() const;
 
     /** Construct a plString using a printf-like format string. */
+#ifdef CHECK_FORMAT_STRINGS
+    #define FORMAT_TEMPLATE(_type) \
+    template <typename... _Args> \
+    static plString Format(const char *fmt, _type, _Args... args) \
+    { return Format(fmt, args...); }
+
+    FORMAT_TEMPLATE(char)
+    FORMAT_TEMPLATE(signed char)
+    FORMAT_TEMPLATE(unsigned char)
+    FORMAT_TEMPLATE(short)
+    FORMAT_TEMPLATE(unsigned short)
+    FORMAT_TEMPLATE(int)
+    FORMAT_TEMPLATE(unsigned)
+    FORMAT_TEMPLATE(long)
+    FORMAT_TEMPLATE(unsigned long)
+    FORMAT_TEMPLATE(int64_t)
+    FORMAT_TEMPLATE(uint64_t)
+    FORMAT_TEMPLATE(float)
+    FORMAT_TEMPLATE(double)
+    FORMAT_TEMPLATE(const char *)
+    FORMAT_TEMPLATE(const wchar_t *)
+    #undef FORMAT_TEMPLATE
+
+    static plString Format(const char *fmt) { return plString(); }
+#else
     static plString Format(const char *fmt, ...);
+#endif
 
     /** Construct a plString using a printf-like format string.
      *  This function should be called inside of vararg functions, such as

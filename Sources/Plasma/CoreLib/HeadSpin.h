@@ -399,12 +399,17 @@ int hsMessageBoxWithOwner(hsWindowHndl owner, const wchar_t message[], const wch
      // This is for Windows
 #    define hsVsnprintf     _vsnprintf
 #    define hsVsnwprintf    _vsnwprintf
+#  ifdef CHECK_FORMAT_STRINGS
+#    define hsSnprintf      __chk__snprintf
+#    define hsSnwprintf     __chk__swprintf
+#  else
 #    define hsSnprintf      _snprintf
 #    define hsSnwprintf     _snwprintf
 
 #    define snprintf        _snprintf
 #    define snwprintf       _snwprintf
 #    define swprintf        _snwprintf
+#  endif
 
 #    ifndef fileno
 #        define fileno(__F)       _fileno(__F)
@@ -502,6 +507,71 @@ void DebugMsg(const char fmt[], ...);
 #elif __GNUC__
 #   define AtomicAdd(value, increment) __sync_fetch_and_add(value, increment)
 #   define AtomicSet(value, set) __sync_lock_test_and_set(value, set)
+#endif
+
+
+
+#ifdef CHECK_FORMAT_STRINGS
+#ifdef snprintf
+    #undef snprintf
+#endif
+
+#define printf __chk__printf
+#define wprintf __chk__wprintf
+#define fprintf __chk__fprintf
+#define fwprintf __chk__fwprintf
+#define sprintf __chk__sprintf
+#define snprintf __chk__snprintf
+#define swprintf __chk__swprintf
+#define snwprintf __chk__swprintf
+
+#define FORMAT_TEMPLATE(_type) \
+    template <typename... _Args> \
+    int __chk__printf(const char *fmt, _type, _Args... args) \
+    { return __chk__printf(fmt, args...); } \
+    template <typename... _Args> \
+    int __chk__wprintf(const wchar_t *fmt, _type, _Args... args) \
+    { return __chk__wprintf(fmt, args...); } \
+    template <typename... _Args> \
+    int __chk__fprintf(FILE *f, const char *fmt, _type, _Args... args) \
+    { return __chk__fprintf(f, fmt, args...); } \
+    template <typename... _Args> \
+    int __chk__fwprintf(FILE *f, const wchar_t *fmt, _type, _Args... args) \
+    { return __chk__fwprintf(f, fmt, args...); } \
+    template <typename... _Args> \
+    int __chk__sprintf(char *str, const char *fmt, _type, _Args... args) \
+    { return __chk__sprintf(str, fmt, args...); } \
+    template <typename... _Args> \
+    int __chk__snprintf(char *str, size_t size, const char *fmt, _type, _Args... args) \
+    { return __chk__snprintf(str, size, fmt, args...); } \
+    template <typename... _Args> \
+    int __chk__swprintf(wchar_t *str, size_t size, const wchar_t *fmt, _type, _Args... args) \
+    { return __chk__swprintf(str, size, fmt, args...); }
+
+FORMAT_TEMPLATE(char)
+FORMAT_TEMPLATE(signed char)
+FORMAT_TEMPLATE(unsigned char)
+FORMAT_TEMPLATE(short)
+FORMAT_TEMPLATE(unsigned short)
+FORMAT_TEMPLATE(int)
+FORMAT_TEMPLATE(unsigned)
+FORMAT_TEMPLATE(long)
+FORMAT_TEMPLATE(unsigned long)
+FORMAT_TEMPLATE(int64_t)
+FORMAT_TEMPLATE(uint64_t)
+FORMAT_TEMPLATE(float)
+FORMAT_TEMPLATE(double)
+FORMAT_TEMPLATE(const char *)
+FORMAT_TEMPLATE(const wchar_t *)
+#undef FORMAT_TEMPLATE
+
+static inline int __chk__printf(const char *fmt) { return 0; }
+static inline int __chk__wprintf(const wchar_t *fmt) { return 0; }
+static inline int __chk__fprintf(FILE *f, const char *fmt)  { return 0; }
+static inline int __chk__fwprintf(FILE *f, const wchar_t *fmt)  { return 0; }
+static inline int __chk__sprintf(char *str, const char *fmt) { return 0; }
+static inline int __chk__snprintf(char *str, size_t size, const char *fmt) { return 0; }
+static inline int __chk__swprintf(wchar_t *str, size_t size, const wchar_t *fmt) { return 0; }
 #endif
 
 #endif

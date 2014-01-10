@@ -21,6 +21,13 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_COMPILER_IS_CLANGXX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 endif()
 
+option(CHECK_FORMAT_STRINGS "Perform compile-time checks of format string types
+(Don't use for running/debugging, or with compilers
+that don't support C++11 vararg templates)" OFF)
+if(CHECK_FORMAT_STRINGS)
+    add_definitions(-DCHECK_FORMAT_STRINGS)
+endif()
+
 # HeadSpin Configuration
 if(WIN32 AND NOT CYGWIN)
     add_definitions(-DHS_BUILD_FOR_WIN32)
