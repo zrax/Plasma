@@ -563,7 +563,6 @@ FORMAT_TEMPLATE(float)
 FORMAT_TEMPLATE(double)
 FORMAT_TEMPLATE(const char *)
 FORMAT_TEMPLATE(const wchar_t *)
-#undef FORMAT_TEMPLATE
 
 static inline int __chk__printf(const char *fmt) { return 0; }
 static inline int __chk__wprintf(const wchar_t *fmt) { return 0; }
@@ -572,6 +571,77 @@ static inline int __chk__fwprintf(FILE *f, const wchar_t *fmt)  { return 0; }
 static inline int __chk__sprintf(char *str, const char *fmt) { return 0; }
 static inline int __chk__snprintf(char *str, size_t size, const char *fmt) { return 0; }
 static inline int __chk__swprintf(wchar_t *str, size_t size, const wchar_t *fmt) { return 0; }
-#endif
+#undef FORMAT_TEMPLATE
 
-#endif
+
+struct _object; typedef _object PyObject;
+#define PyObject_CallFunction __chk__PyObject_CallFunction
+#define PyObject_CallMethod __chk__PyObject_CallMethod
+#define PyArg_Parse __chk__PyArg_ParseTuple
+#define PyArg_ParseTuple __chk__PyArg_ParseTuple
+#define PyArg_ParseTupleAndKeywords __chk__PyArg_ParseTupleAndKeywords
+#define Py_BuildValue __chk__Py_BuildValue
+
+#define FORMAT_TEMPLATE(_type) \
+    template <typename... _Args> \
+    PyObject *__chk__PyObject_CallFunction(PyObject *c, char *fmt, _type, _Args... args) \
+    { return __chk__PyObject_CallFunction(c, fmt, args...); } \
+    template <typename... _Args> \
+    PyObject *__chk__PyObject_CallMethod(PyObject *o, char *m, char *fmt, _type, _Args... args) \
+    { return __chk__PyObject_CallMethod(o, m, fmt, args...); } \
+    template <typename... _Args> \
+    PyObject *__chk__Py_BuildValue(const char *fmt, _type, _Args... args) \
+    { return __chk__Py_BuildValue(fmt, args...); }
+
+#define FORMAT_TEMPLATE_IN(_type) \
+    FORMAT_TEMPLATE(_type) \
+    template <typename... _Args> \
+    int __chk__PyArg_ParseTuple(PyObject *a, const char *fmt, _type, _Args... args) \
+    { return __chk__PyArg_ParseTuple(a, fmt, args...); } \
+    template <typename... _Args> \
+    int __chk__PyArg_ParseTupleAndKeywords(PyObject *a, PyObject *kw, const char *fmt, char *kws[], _type, _Args... args) \
+    { return __chk__PyArg_ParseTupleAndKeywords(a, kw, fmt, kws, args...); } \
+
+FORMAT_TEMPLATE(char)
+FORMAT_TEMPLATE(signed char)
+FORMAT_TEMPLATE(unsigned char)
+FORMAT_TEMPLATE(short)
+FORMAT_TEMPLATE(unsigned short)
+FORMAT_TEMPLATE(int)
+FORMAT_TEMPLATE(unsigned)
+FORMAT_TEMPLATE(long)
+FORMAT_TEMPLATE(unsigned long)
+FORMAT_TEMPLATE(int64_t)
+FORMAT_TEMPLATE(uint64_t)
+FORMAT_TEMPLATE(float)
+FORMAT_TEMPLATE(double)
+FORMAT_TEMPLATE(const char *)
+FORMAT_TEMPLATE(const wchar_t *)
+FORMAT_TEMPLATE(const PyObject *)
+
+FORMAT_TEMPLATE_IN(char *)          // Not a string
+FORMAT_TEMPLATE_IN(signed char *)
+FORMAT_TEMPLATE_IN(unsigned char *)
+FORMAT_TEMPLATE_IN(short *)
+FORMAT_TEMPLATE_IN(unsigned short *)
+FORMAT_TEMPLATE_IN(int *)
+FORMAT_TEMPLATE_IN(unsigned *)
+FORMAT_TEMPLATE_IN(long *)
+FORMAT_TEMPLATE_IN(unsigned long *)
+FORMAT_TEMPLATE_IN(float *)
+FORMAT_TEMPLATE_IN(double *)
+FORMAT_TEMPLATE_IN(char **)
+FORMAT_TEMPLATE_IN(wchar_t **)
+FORMAT_TEMPLATE_IN(PyObject **)
+
+static inline PyObject *__chk__PyObject_CallFunction(PyObject *c, char *fmt) { return nullptr; }
+static inline PyObject *__chk__PyObject_CallMethod(PyObject *o, char *m, char *fmt) { return nullptr; }
+static inline PyObject *__chk__Py_BuildValue(const char *fmt) { return nullptr; }
+static inline int __chk__PyArg_ParseTuple(PyObject *a, const char *fmt) { return 0; }
+static inline int __chk__PyArg_ParseTupleAndKeywords(PyObject *a, PyObject *kw, const char *fmt, char *kws[]) { return 0; }
+#undef FORMAT_TEMPLATE
+#undef FORMAT_TEMPLATE_IN
+
+#endif // CHECK_FORMAT_STRINGS
+
+#endif // HeadSpinHDefined
