@@ -160,10 +160,10 @@ void pyVaultNode::pyVaultNodeOperationCallback::VaultOperationComplete( uint32_t
 
 void pyVaultNode::pyVaultNodeOperationCallback::SetNode (RelVaultNode * rvn) {
     if (rvn)
-        rvn->IncRef();
+        rvn->Ref();
     SWAP(rvn, fNode);
     if (rvn)
-        rvn->DecRef();
+        rvn->UnRef();
 }
 
 RelVaultNode * pyVaultNode::pyVaultNodeOperationCallback::GetNode () {
@@ -183,13 +183,13 @@ pyVaultNode::pyVaultNode( RelVaultNode* nfsNode )
 ,   fCreateAgeName(nil)
 {
     if (fNode)
-        fNode->IncRef("pyVaultNode");
+        fNode->Ref("pyVaultNode");
 }
 
 pyVaultNode::~pyVaultNode()
 {
     if (fNode)
-        fNode->DecRef("pyVaultNode");
+        fNode->UnRef("pyVaultNode");
     free(fCreateAgeName);
 }
 
@@ -272,16 +272,16 @@ PyObject* pyVaultNode::GetCreatorNode( void )
     if (fNode)
     {
         RelVaultNode * templateNode = new RelVaultNode;
-        templateNode->IncRef();
+        templateNode->Ref();
         templateNode->SetNodeType(plVault::kNodeType_PlayerInfo);
         VaultPlayerInfoNode plrInfo(templateNode);
         plrInfo.SetPlayerId(fNode->GetCreatorId());
         
         if (RelVaultNode * rvn = VaultGetNodeIncRef(templateNode)) {
             result = pyVaultPlayerInfoNode::New(rvn);
-            rvn->DecRef();
+            rvn->UnRef();
         }
-        templateNode->DecRef();         
+        templateNode->UnRef();
     }
     
     if (result)
@@ -424,8 +424,8 @@ PyObject* pyVaultNode::AddNode(pyVaultNode* pynode, PyObject* cbObject, uint32_t
             );
             
             if (newNode) {
-                newNode->IncRef();
-                pynode->fNode->DecRef();
+                newNode->Ref();
+                pynode->fNode->UnRef();
                 pynode->fNode = newNode;
             }
             else {
@@ -472,7 +472,7 @@ void pyVaultNode::LinkToNode(int nodeID, PyObject* cbObject, uint32_t cbContext)
         if (RelVaultNode * rvn = VaultGetNodeIncRef(nodeID)) {
             cb->SetNode(rvn);
             cb->fPyNodeRef = pyVaultNodeRef::New(fNode, rvn);
-            rvn->DecRef();
+            rvn->UnRef();
         }
 
         VaultAddChildNode(fNode->GetNodeId(),
@@ -537,7 +537,7 @@ void pyVaultNode::Save(PyObject* cbObject, uint32_t cbContext)
     if (!fNode->GetNodeId() && fNode->GetNodeType()) {
         ENetError result;
         if (RelVaultNode * node = VaultCreateNodeAndWaitIncRef(fNode, &result)) {
-            fNode->DecRef();
+            fNode->UnRef();
             fNode = node;
         }
     }
@@ -561,7 +561,7 @@ void pyVaultNode::ForceSave()
     if (!fNode->GetNodeId() && fNode->GetNodeType()) {
         ENetError result;
         if (RelVaultNode * node = VaultCreateNodeAndWaitIncRef(fNode, &result)) {
-            fNode->DecRef();
+            fNode->UnRef();
             fNode = node;
         }
     }
@@ -580,7 +580,7 @@ void pyVaultNode::SendTo(uint32_t destClientNodeID, PyObject* cbObject, uint32_t
         if (!fNode->GetNodeId() && fNode->GetNodeType()) {
             ENetError result;
             if (RelVaultNode * node = VaultCreateNodeAndWaitIncRef(fNode, &result)) {
-                fNode->DecRef();
+                fNode->UnRef();
                 fNode = node;
             }
         }   
@@ -619,7 +619,7 @@ PyObject* pyVaultNode::GetChildNodeRefList()
             PyObject* elementObj = pyVaultNodeRef::New(fNode, nodes[i]);
             PyList_Append(pyEL, elementObj);
             Py_DECREF(elementObj);
-            nodes[i]->DecRef();
+            nodes[i]->UnRef();
         }
     }
 
@@ -658,13 +658,13 @@ PyObject * pyVaultNode::GetNode2( uint32_t nodeID ) const
     if ( fNode )
     {
         RelVaultNode * templateNode = new RelVaultNode;
-        templateNode->IncRef();
+        templateNode->Ref();
         templateNode->SetNodeId(nodeID);
         if (RelVaultNode * rvn = fNode->GetChildNodeIncRef(templateNode, 1)) {
             result = pyVaultNodeRef::New(fNode, rvn);
-            rvn->DecRef();
+            rvn->UnRef();
         }
-        templateNode->DecRef();
+        templateNode->UnRef();
     }
     
     if (result)
@@ -680,7 +680,7 @@ PyObject* pyVaultNode::FindNode( pyVaultNode * templateNode )
     {
         if (RelVaultNode * rvn = fNode->GetChildNodeIncRef(templateNode->fNode, 1)) {
             result = pyVaultNode::New(rvn);
-            rvn->DecRef();
+            rvn->UnRef();
         }
     }
     
@@ -696,14 +696,14 @@ PyObject * pyVaultNode::GetChildNode (unsigned nodeId) {
         PYTHON_RETURN_NONE;
         
     RelVaultNode * templateNode = new RelVaultNode;
-    templateNode->IncRef();
+    templateNode->Ref();
     templateNode->SetNodeId(nodeId);
     RelVaultNode * rvn = fNode->GetChildNodeIncRef(templateNode, 1);
-    templateNode->DecRef();
+    templateNode->UnRef();
     
     if (rvn) {
         PyObject * result = pyVaultNode::New(rvn);
-        rvn->DecRef();
+        rvn->UnRef();
         return result;
     }
 
