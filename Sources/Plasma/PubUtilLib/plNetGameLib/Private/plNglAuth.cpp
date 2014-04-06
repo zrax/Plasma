@@ -60,7 +60,7 @@ namespace Ngl { namespace Auth {
 *
 ***/
 
-struct CliAuConn : AtomicRef {
+struct CliAuConn : hsAtomicRefCnt {
     CliAuConn ();
     ~CliAuConn ();
 
@@ -1283,7 +1283,7 @@ static unsigned GetNonZeroTimeMs () {
 //============================================================================
 static CliAuConn * GetConnIncRef_CS (const char tag[]) {
     if (CliAuConn * conn = s_active) {
-        conn->IncRef(tag);
+        conn->Ref(tag);
         return conn;
     }
     return nil;
@@ -1308,7 +1308,7 @@ static void UnlinkAndAbandonConn_CS (CliAuConn * conn) {
         conn->sock->Disconnect(true);
     }
     else {
-        conn->DecRef("Lifetime");
+        conn->UnRef("Lifetime");
     }
 }
 
@@ -1365,7 +1365,7 @@ static void CheckedReconnect (CliAuConn * conn, ENetError error) {
         // Cancel all transactions in progress on this connection.
         NetTransCancelByConnId(conn->seq, kNetErrTimeout);
         // conn is dead.
-        conn->DecRef("Lifetime");
+        conn->UnRef("Lifetime");
         ReportNetError(kNetProtocolCli2Auth, error);
     }
     else {
@@ -1400,7 +1400,7 @@ static void NotifyConnSocketConnectFailed (CliAuConn * conn) {
     
     CheckedReconnect(conn, kNetErrConnectFailed);
     
-    conn->DecRef("Connecting");
+    conn->UnRef("Connecting");
 }
 
 //============================================================================
@@ -1420,7 +1420,7 @@ static void NotifyConnSocketDisconnect (CliAuConn * conn) {
 
     CheckedReconnect(conn, kNetErrDisconnected);
 
-    conn->DecRef("Connected");
+    conn->UnRef("Connected");
 }
 
 //============================================================================
@@ -1531,7 +1531,7 @@ static void Connect (
     conn->lastHeardTimeMs   = GetNonZeroTimeMs();   // used in connect timeout, and ping timeout
     strncpy(conn->name, name, arrsize(conn->name));
 
-    conn->IncRef("Lifetime");
+    conn->Ref("Lifetime");
     conn->AutoReconnect();
 }
 
@@ -1562,7 +1562,7 @@ static void AsyncLookupCallback (
 //===========================================================================
 static unsigned CliAuConnTimerDestroyed (void * param) {
     CliAuConn * conn = (CliAuConn *) param;
-    conn->DecRef("TimerDestroyed");
+    conn->UnRef("TimerDestroyed");
     return kPosInfinity32;
 }
 
@@ -1607,7 +1607,7 @@ void CliAuConn::TimerReconnect () {
         UnlinkAndAbandonConn_CS(this);
     }
     else {
-        IncRef("Connecting");
+        Ref("Connecting");
 
         // Remember the time we started the reconnect attempt, guarding against
         // TimeGetMs() returning zero (unlikely), as a value of zero indicates
@@ -1646,7 +1646,7 @@ void CliAuConn::StartAutoReconnect () {
 void CliAuConn::AutoReconnect () {
         
     ASSERT(!reconnectTimer);
-    IncRef("ReconnectTimer");
+    Ref("ReconnectTimer");
 
     std::lock_guard<std::mutex> lock(critsect);
 
@@ -1675,7 +1675,7 @@ bool CliAuConn::AutoReconnectEnabled () {
 //============================================================================
 void CliAuConn::AutoPing () {
     ASSERT(!pingTimer);
-    IncRef("PingTimer");
+    Ref("PingTimer");
 
     std::lock_guard<std::mutex> lock(critsect);
 
@@ -3912,7 +3912,7 @@ void VaultFetchNodeTrans::Post () {
         m_node
     );
     if (m_node)
-        m_node->DecRef("Recv");
+        m_node->UnRef("Recv");
 }
 
 //============================================================================
@@ -3925,7 +3925,7 @@ bool VaultFetchNodeTrans::Recv (
     if (IS_NET_SUCCESS(reply.result)) {
         m_node = new NetVaultNode;
         m_node->Read_LCS(reply.nodeBuffer, reply.nodeBytes, 0);
-        m_node->IncRef("Recv");
+        m_node->Ref("Recv");
     }
 
     m_result = reply.result;
@@ -3951,12 +3951,12 @@ VaultFindNodeTrans::VaultFindNodeTrans (
 ,   m_param(param)
 ,   m_node(templateNode)
 {
-    m_node->IncRef();
+    m_node->Ref();
 }
 
 //============================================================================
 VaultFindNodeTrans::~VaultFindNodeTrans () {
-    m_node->DecRef();
+    m_node->UnRef();
 }
 
 //============================================================================
@@ -4028,7 +4028,7 @@ VaultCreateNodeTrans::VaultCreateNodeTrans (
 ,   m_param(param)
 ,   m_nodeId(0)
 {
-    m_templateNode->IncRef();
+    m_templateNode->Ref();
 }
 
 //============================================================================
@@ -4058,7 +4058,7 @@ void VaultCreateNodeTrans::Post () {
         m_param,
         m_nodeId
     );
-    m_templateNode->DecRef();
+    m_templateNode->UnRef();
 }
 
 //============================================================================
@@ -4996,7 +4996,7 @@ bool NetAuthTrans::AcquireConn () {
 //============================================================================
 void NetAuthTrans::ReleaseConn () {
     if (m_conn) {
-        m_conn->DecRef("AcquireConn");
+        m_conn->UnRef("AcquireConn");
         m_conn = nil;
     }
 }
@@ -5354,7 +5354,7 @@ void NetCliAuthSetCCRLevel (
     };
     
     conn->Send(msg, arrsize(msg));
-    conn->DecRef("SetCCRLevel");
+    conn->UnRef("SetCCRLevel");
 }
 
 //============================================================================
@@ -5388,7 +5388,7 @@ void NetCliAuthSetAgePublic (
     
     conn->Send(msg, arrsize(msg));
 
-    conn->DecRef("SetAgePublic");
+    conn->UnRef("SetAgePublic");
 }
 
 //============================================================================
@@ -5688,7 +5688,7 @@ void NetCliAuthVaultSetSeen (
     
     conn->Send(msg, arrsize(msg));
 
-    conn->DecRef("SetSeen");
+    conn->UnRef("SetSeen");
 }
 
 //============================================================================
@@ -5708,7 +5708,7 @@ void NetCliAuthVaultSendNode (
     
     conn->Send(msg, arrsize(msg));
 
-    conn->DecRef("SendNode");
+    conn->UnRef("SendNode");
 }
 
 //============================================================================
@@ -5772,7 +5772,7 @@ void NetCliAuthPropagateBuffer (
 
     conn->Send(msg, arrsize(msg));
 
-    conn->DecRef("PropBuffer");
+    conn->UnRef("PropBuffer");
 
 }
 
@@ -5789,7 +5789,7 @@ void NetCliAuthLogPythonTraceback (const wchar_t traceback[]) {
 
     conn->Send(msg, arrsize(msg));
 
-    conn->DecRef("LogTraceback");
+    conn->UnRef("LogTraceback");
 }
 
 
@@ -5806,7 +5806,7 @@ void NetCliAuthLogStackDump (const wchar_t stackdump[]) {
 
     conn->Send(msg, arrsize(msg));
 
-    conn->DecRef("LogStackDump");
+    conn->UnRef("LogStackDump");
 }
 
 //============================================================================
@@ -5824,7 +5824,7 @@ void NetCliAuthLogClientDebuggerConnect () {
 
     conn->Send(msg, arrsize(msg));
 
-    conn->DecRef();
+    conn->UnRef();
 }
 
 //============================================================================
@@ -5863,7 +5863,7 @@ void NetCliAuthKickPlayer (
     };
 
     conn->Send(msg, arrsize(msg));
-    conn->DecRef("KickPlayer");
+    conn->UnRef("KickPlayer");
 }
 
 //============================================================================
