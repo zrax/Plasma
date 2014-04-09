@@ -227,7 +227,7 @@ static bool                         s_running;
 static std::mutex                   s_critsect;
 static LISTDECL(CliFileConn, link)  s_conns;
 static CliFileConn *                s_active;
-static long                         s_perf[kNumPerf];
+static std::atomic<long>            s_perf[kNumPerf];
 static unsigned                     s_connectBuildId;
 static unsigned                     s_serverType;
 
@@ -580,7 +580,7 @@ CliFileConn::CliFileConn ()
     , pingSendTimeMs(0), lastHeardTimeMs(0)
 {
     memset(name, 0, sizeof(name));
-    AtomicAdd(&s_perf[kPerfConnCount], 1);
+    ++s_perf[kPerfConnCount];
 }
 
 //============================================================================
@@ -588,7 +588,7 @@ CliFileConn::~CliFileConn () {
     ASSERT(!cancelId);
     ASSERT(!reconnectTimer);
     Destroy();
-    AtomicAdd(&s_perf[kPerfConnCount], -1);
+    --s_perf[kPerfConnCount];
 }
 
 //===========================================================================

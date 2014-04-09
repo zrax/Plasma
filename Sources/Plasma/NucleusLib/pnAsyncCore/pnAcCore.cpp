@@ -47,9 +47,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "pnAcInt.h"
 #include "HeadSpin.h"
-#if HS_BUILD_FOR_WIN32
-#   include <windows.h>
-#endif
+#include <atomic>
 
 #pragma hdrstop
 
@@ -60,7 +58,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 *
 ***/
 
-static long s_perf[kNumAsyncPerfCounters];
+static std::atomic<long> s_perf[kNumAsyncPerfCounters];
 
 
 /*****************************************************************************
@@ -72,19 +70,19 @@ static long s_perf[kNumAsyncPerfCounters];
 //============================================================================
 long PerfAddCounter (EAsyncPerfCounter id, unsigned n) {
     ASSERT(id < kNumAsyncPerfCounters);
-    return AtomicAdd(&s_perf[id], n);
+    return s_perf[id].fetch_add(n);
 }
 
 //============================================================================
 long PerfSubCounter (EAsyncPerfCounter id, unsigned n) {
     ASSERT(id < kNumAsyncPerfCounters);
-    return AtomicAdd(&s_perf[id], -(signed)n);
+    return s_perf[id].fetch_sub(n);
 }
 
 //============================================================================
 long PerfSetCounter (EAsyncPerfCounter id, unsigned n) {
     ASSERT(id < kNumAsyncPerfCounters);
-    return AtomicSet(&s_perf[id], n);
+    return s_perf[id].exchange(n);
 }
 
 

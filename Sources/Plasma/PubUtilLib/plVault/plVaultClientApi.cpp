@@ -251,7 +251,7 @@ struct AddChildNodeFetchTrans {
     FVaultAddChildNodeCallback  callback;
     void *                      cbParam;
     ENetError                   result;
-    long                        opCount;
+    std::atomic<long>           opCount;
 
     AddChildNodeFetchTrans()
         : callback(nil), cbParam(nil), result(kNetSuccess), opCount(0) { }
@@ -1020,12 +1020,11 @@ void AddChildNodeFetchTrans::VaultNodeRefsFetched (
             param,
             &incFetchCount
         );
-        AtomicAdd(&trans->opCount, incFetchCount);
+        trans->opCount += incFetchCount;
     }
 
     // Make the callback now if there are no nodes to fetch, or if error
-    AtomicAdd(&trans->opCount, -1); 
-    if (!trans->opCount) {
+    if (!(--trans->opCount)) {
         if (trans->callback)
             trans->callback(
                 trans->result,
@@ -1047,9 +1046,8 @@ void AddChildNodeFetchTrans::VaultNodeFetched (
     
     if (IS_NET_ERROR(result))
         trans->result = result;
-        
-    AtomicAdd(&trans->opCount, -1); 
-    if (!trans->opCount) {
+
+    if (!(--trans->opCount)) {
         if (trans->callback)
             trans->callback(
                 trans->result,
@@ -1794,13 +1792,13 @@ void VaultAddChildNode (
                 // One or more nodes need to be fetched before the callback is made
                 AddChildNodeFetchTrans * trans = new AddChildNodeFetchTrans(callback, param);
                 if (!childLink->node->GetNodeType()) {
-                    AtomicAdd(&trans->opCount, 1);
+                    ++trans->opCount;
                     NetCliAuthVaultNodeFetch(
                         childId,
                         AddChildNodeFetchTrans::VaultNodeFetched,
                         trans
                     );
-                    AtomicAdd(&trans->opCount, 1);
+                    ++trans->opCount;
                     NetCliAuthVaultFetchNodeRefs(
                         childId,
                         AddChildNodeFetchTrans::VaultNodeRefsFetched,
@@ -1808,13 +1806,13 @@ void VaultAddChildNode (
                     );
                 }
                 if (!parentLink->node->GetNodeType()) {
-                    AtomicAdd(&trans->opCount, 1);
+                    ++trans->opCount;
                     NetCliAuthVaultNodeFetch(
                         parentId,
                         AddChildNodeFetchTrans::VaultNodeFetched,
                         trans
                     );
-                    AtomicAdd(&trans->opCount, 1);
+                    ++trans->opCount;
                     NetCliAuthVaultFetchNodeRefs(
                         parentId,
                         AddChildNodeFetchTrans::VaultNodeRefsFetched,
@@ -2219,8 +2217,7 @@ namespace _VaultFetchNodesAndWait {
     ) {
         ::VaultNodeFetched(result, nil, node);
         
-        long * nodeCount = (long *)param;
-        AtomicAdd(nodeCount, -1);
+        --(*reinterpret_cast<std::atomic<unsigned>*>(param));
     }
 
 } // namespace _VaultFetchNodesAndWait
@@ -2232,20 +2229,21 @@ void VaultFetchNodesAndWait (
 ) {
     using namespace _VaultFetchNodesAndWait;
     
-    long nodeCount = (long)count;
+    std::atomic<unsigned> nodeCount(count);
     
     for (unsigned i = 0; i < count; ++i) {
         
         if (!force) {
             // See if we already have this node
             if (RelVaultNodeLink * link = s_nodes.Find(nodeIds[i])) {
-                AtomicAdd(&nodeCount, -1);
+                --nodeCount;
                 continue;
             }
         }
 
-        // Start fetching the node          
-        NetCliAuthVaultNodeFetch(nodeIds[i], _VaultNodeFetched, (void *)&nodeCount);
+        // Start fetching the node
+        NetCliAuthVaultNodeFetch(nodeIds[i], _VaultNodeFetched,
+                                 reinterpret_cast<void *>(&nodeCount));
     }
 
     while (nodeCount) {
