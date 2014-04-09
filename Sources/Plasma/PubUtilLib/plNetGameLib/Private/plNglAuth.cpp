@@ -1580,7 +1580,7 @@ static unsigned CliAuConnPingTimerProc (void * param) {
 
 //============================================================================
 CliAuConn::CliAuConn ()
-    : reconnectStartMs(0)
+    : hsAtomicRefCnt(0), reconnectStartMs(0)
     , pingSendTimeMs(0), lastHeardTimeMs(0)
     , sock(nil), cli(nil), seq(0), serverChallenge(0)
     , abandoned(false)

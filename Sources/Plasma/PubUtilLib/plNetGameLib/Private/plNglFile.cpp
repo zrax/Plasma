@@ -573,7 +573,8 @@ static void AsyncLookupCallback (
 
 //============================================================================
 CliFileConn::CliFileConn ()
-    : sock(nil), seq(0), abandoned(false), buildId(0), serverType(0)
+    : hsAtomicRefCnt(0), sock(nil), seq(0), abandoned(false)
+    , buildId(0), serverType(0)
     , reconnectStartMs(0), connectStartMs(0)
     , numImmediateDisconnects(0), numFailedConnects(0)
     , pingSendTimeMs(0), lastHeardTimeMs(0)
