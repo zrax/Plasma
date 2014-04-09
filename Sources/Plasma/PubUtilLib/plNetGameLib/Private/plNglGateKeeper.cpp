@@ -191,7 +191,7 @@ static std::mutex                   s_critsect;
 static LISTDECL(CliGkConn, link)    s_conns;
 static CliGkConn *                  s_active;
 
-static long                         s_perf[kNumPerf];
+static std::atomic<long>            s_perf[kNumPerf];
 
 
 
@@ -522,14 +522,14 @@ CliGkConn::CliGkConn ()
 {
     memset(name, 0, sizeof(name));
 
-    AtomicAdd(&s_perf[kPerfConnCount], 1);
+    ++s_perf[kPerfConnCount];
 }
 
 //============================================================================
 CliGkConn::~CliGkConn () {
     if (cli)
         NetCliDelete(cli, true);
-    AtomicAdd(&s_perf[kPerfConnCount], -1);
+    --s_perf[kPerfConnCount];
 }
 
 //===========================================================================
