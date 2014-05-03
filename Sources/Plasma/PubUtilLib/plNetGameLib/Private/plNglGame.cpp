@@ -47,7 +47,6 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "../Pch.h"
 #include "pnAsyncCore/pnAcTimer.h"
-#include "hsThread.h"
 #pragma hdrstop
 
 namespace Ngl { namespace Game {
@@ -740,7 +739,7 @@ void GameDestroy (bool wait) {
 
     while (s_perf[kPerfConnCount]) {
         NetTransUpdate();
-        hsSleep::Sleep(10);
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 }
 
