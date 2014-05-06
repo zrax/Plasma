@@ -145,7 +145,7 @@ inline unsigned AsyncTimer::P::Run () {
         if (sleepMs != kPosInfinity32)
             t->priority.Set(sleepMs + currTimeMs);
         else {
-            std::lock_guard<std::mutex> lock(lock);
+            std::lock_guard<std::mutex> lock_(lock);
             s_thread->procsList.Dequeue();
         }
     }
