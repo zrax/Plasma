@@ -221,8 +221,10 @@ void TimerDestroy (unsigned exitThreadWaitMs) {
         }
     }
 
-    if (AsyncTimer::Private * timer = AsyncTimer::Private::s_thread->procsList.Root())
-        ErrorAssert(__LINE__, __FILE__, "TimerProc not destroyed: %p", timer->proc);
+    hsAssert(
+        AsyncTimer::Private * timer = AsyncTimer::Private::s_thread->procsList.Root(),
+        "TimerProc not destroyed: %p", timer->proc
+    );
 
     delete AsyncTimer::Private::s_thread;
     AsyncTimer::Private::s_thread = nullptr;
