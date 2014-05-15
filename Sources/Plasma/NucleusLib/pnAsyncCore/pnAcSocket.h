@@ -88,7 +88,6 @@ enum EConnType : uint8_t {
     kNumConnTypes
 };
 static_assert(sizeof(EConnType) == sizeof(uint8_t), "typed enum not supported!");
-//static_assert(kNumConnTypes <= 0xFF, "EConnType overflows uint8");
 
 #define IS_TEXT_CONNTYPE(c) ((EConnType)c == kConnTypeAdminInterface)
 
@@ -137,14 +136,12 @@ public:
         kNotifyConnectFailed,   /**< notified when \ref Connect() fail with \ref NotifyConnect. */
         kNotifyConnectSuccess,  /**< notified when \ref Connect() success with \ref NotifyConnect. */
         kNotifyDisconnect,      /**< notified when \ref Delete() can be safly called after a \ref Disconnect() with \p notify = nil. */
-        kNotifyListenSuccess,   
         kNotifyRead,            /**< notified when data come from outside with \ref NotifyRead. */
         kNotifyWrite            /**< notified when \ref Write() terminate (on success and fail) with \ref NotifyWrite. */
     };
     
     struct Notify;
     struct NotifyConnect;
-    struct NotifyListen;
     struct NotifyRead;
     struct NotifyWrite;
     
@@ -212,7 +209,7 @@ public:
         const void *            sendData = nullptr,
         unsigned                sendBytes = 0,
         unsigned                connectMs = kPosInfinity32,      // 0 => use default value
-        unsigned                localPort = 0       // 0 => don't bind local port
+        uint16_t                localPort = 0       // 0 => don't bind local port
     );
 
     /** Cancel all connection operation using a specific notifyProc.
@@ -260,29 +257,6 @@ public:
     // on send fail
     //void SetBacklogAlloc (unsigned bufferSize); // TODO?
 
-    // On failure, returns 0
-    // On success, returns bound port (if port number was zero, returns assigned port)
-    // For connections that will use kConnType* connections, set notifyProc = nil;
-    // the handler will be found when connection packet is received.
-    // for connections with hard-coded behavior, set the notifyProc here (e.g. for use
-    // protocols like SNMP on port 25)
-    /** Create a socket and wait connection from outside.
-     *  \param listenAddr Local address to listen.
-     *  \param notifyProc function that will be notified when event append on this socket.
-     *  If nil, function returned by \ref FindNotifyProc() (after necesary data are receive) is used.
-     *  \see \ref kNotifyListenSuccess
-     *  \todo implement me!
-     */
-    static unsigned StartListening (
-        const plNetAddress&     listenAddr,
-        FNotifyProc             notifyProc = nullptr
-    );
-    /** \todo implement me! */
-    static void StopListening (
-        const plNetAddress&     listenAddr,
-        FNotifyProc             notifyProc = nullptr
-    );
-    
     /** set usage of nagling algorithm.
      *  \param enable true to enable.
      *  \note by default, nagling algorithm is enable.
@@ -340,8 +314,8 @@ public:
     
     
     
-    struct P; // private data
-    friend struct P;
+    struct Private; // private fields of AsyncSocket
+    friend struct Private;
 };
 
 /****************************************************************************
@@ -352,9 +326,8 @@ public:
 
 struct AsyncSocket::Notify {
     void *          param; /**< user defined param, nil by default. */
-    //AsyncId         asyncId;
 
-    Notify() : param(nullptr) { }
+    Notify(void * p = nullptr) : param(p) {}
 };
 
 struct AsyncSocket::NotifyConnect : AsyncSocket::Notify {
@@ -362,22 +335,7 @@ struct AsyncSocket::NotifyConnect : AsyncSocket::Notify {
     plNetAddress    remoteAddr;
     EConnType       connType;   
 
-    NotifyConnect() : connType(kConnTypeNil) { }
-};
-
-struct AsyncSocket::NotifyListen : AsyncSocket::NotifyConnect {
-    unsigned        buildId;
-    unsigned        buildType;
-    unsigned        branchId;
-    plUUID          productId;
-    plNetAddress    addr;
-    uint8_t *       buffer;
-    unsigned        bytes;
-    unsigned        bytesProcessed;
-
-    NotifyListen()
-        : buildId(0), buildType(0), branchId(0), buffer(nullptr), bytes(0),
-          bytesProcessed(0) { }
+    NotifyConnect(void * p, EConnType t) : Notify(p), connType(t) {}
 };
 
 struct AsyncSocket::NotifyRead : AsyncSocket::Notify {
@@ -385,15 +343,17 @@ struct AsyncSocket::NotifyRead : AsyncSocket::Notify {
     unsigned        bytes;          /**< size readed. */
     unsigned        bytesProcessed; /**< must be set by notifyProc to the size of proccessed data from buffer. Remain data will be placed at the start of the next read notification. */
 
-    NotifyRead() : buffer(nullptr), bytes(0), bytesProcessed(0) { }
+    NotifyRead(uint8_t * b, unsigned l) : buffer(b), bytes(l), bytesProcessed(0) { }
 };
 
-/** \b buffer is the data passed to \ref Write(). \n
- *  \b bytes is the total size of the buffer (sended and to send). \n
- *  \b byteProcessed is the total size of the buffer send to the peer.
- *  \note buffer can be modified/delete when \b bytes == \b byteProcessed.
- */
-struct AsyncSocket::NotifyWrite : AsyncSocket::NotifyRead {};
+struct AsyncSocket::NotifyWrite : AsyncSocket::Notify {
+    const void *    buffer;         /**< data passed to \ref Write(). \warning buffer is not deleted, and is no longer used after \b bytes == \b byteProcessed. */
+    unsigned        bytes;          /**< total size of the buffer (sended and to send). */
+    unsigned        bytesProcessed; /**< total size of the buffer send to the peer. */
+
+    NotifyWrite(void * p, const void * b, unsigned l, unsigned lp)
+     : Notify(p), buffer(b), bytes(l), bytesProcessed(lp) {}
+};
 
 #endif
 

@@ -54,9 +54,6 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plSockets/plNet.h"
 #include "plSockets/plTcpSocket.h"
 #include "inc/hsTimer.h"
-#if ! HS_BUILD_FOR_WIN32
-    #include <netinet/tcp.h> // TCP_NODELAY
-#endif
 
 /*****************************************************************************
 *
@@ -64,7 +61,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 *   
 ***/
 
-struct AsyncSocket::P : AsyncSocket {
+struct AsyncSocket::Private : AsyncSocket {
     struct Thread;
     struct Operation;
     struct SendBaseOp;
@@ -88,15 +85,15 @@ struct AsyncSocket::P : AsyncSocket {
 
     static void Add (Operation * op);
     
-    P ();
-    ~P ();
+    Private (plTcpSocket, FNotifyProc);
+    ~Private ();
     
     void ReadEnd ();
     void SendEnd ();
 };
-AsyncSocket::P::Thread *  AsyncSocket::P::fThread = nullptr;
+AsyncSocket::Private::Thread *  AsyncSocket::Private::fThread = nullptr;
 
-struct AsyncSocket::P::Operation : IWorkerThreads::Operation {
+struct AsyncSocket::Private::Operation : IWorkerThreads::Operation {
     enum Mode {
         kRead     = 0,
         kWrite    = 1,
@@ -106,16 +103,18 @@ struct AsyncSocket::P::Operation : IWorkerThreads::Operation {
     SOCKET                  hSocket;
     Mode                    sockMode;
     uint32_t                timeout; // set to 0 to cancel
+    
+    Operation(SOCKET s, Mode m, uint32_t t) : hSocket(s), sockMode(m), timeout(t) {}
 };
 
 //===========================================================================
-AsyncSocket::P::P () : notifyProc(nullptr), close(), hardClose(), lastSend(), reading() {
+AsyncSocket::Private::Private (plTcpSocket s, FNotifyProc p) : notifyProc(p), close(false), hardClose(false), lastSend(nullptr), reading() {
     PerfAddCounter(kAsyncPerfSocketsCurr, 1);
     PerfAddCounter(kAsyncPerfSocketsTotal, 1);
 }
 
 //===========================================================================
-AsyncSocket::P::~P () {
+AsyncSocket::Private::~Private () {
     PerfSubCounter(kAsyncPerfSocketsCurr, 1);
 }
 
@@ -127,7 +126,7 @@ AsyncSocket::P::~P () {
 ***/
 
 // thread that wait for I/O operation to be non-blocking.
-struct AsyncSocket::P::Thread : hsThread {
+struct AsyncSocket::Private::Thread : hsThread {
     Operation *         opList; // chained operation list on IWorkerThreads::Operation::next
     std::mutex          listLock;
     hsBinarySemaphore   listSem;
@@ -144,13 +143,12 @@ struct AsyncSocket::P::Thread : hsThread {
 };
 
 //===========================================================================
-void AsyncSocket::P::Thread::Run() {
+void AsyncSocket::Private::Thread::Run() {
     while (!GetQuit()) {
         fd_set fds[2];
         ListFds(fds);
         
         // wait for connection or timeout
-        // TODO: move code to plSocket/plNet
         struct timeval timeout = { 0, 250*1000 }; // seconds, microseconds
         switch (select(0, &fds[0], &fds[1], 0, &timeout)) {
         case -1: LogMsg(kLogError, "socket select failed");
@@ -179,7 +177,7 @@ void AsyncSocket::P::Thread::Run() {
 
 
 //===========================================================================
-void AsyncSocket::P::Thread::ListFds (fd_set (& fds)[2]) {
+void AsyncSocket::Private::Thread::ListFds (fd_set (& fds)[2]) {
     FD_ZERO(fds+0);
     FD_ZERO(fds+1);
 
@@ -214,7 +212,7 @@ void AsyncSocket::P::Thread::ListFds (fd_set (& fds)[2]) {
 }
 
 //===========================================================================
-void AsyncSocket::P::Add (Operation * op) {
+void AsyncSocket::Private::Add (Operation * op) {
     ASSERT(fThread);
     
     if (op->timeout != kPosInfinity32)
@@ -230,7 +228,7 @@ void AsyncSocket::P::Add (Operation * op) {
 }
 
 //===========================================================================
-void AsyncSocket::P::Thread::Stop () {
+void AsyncSocket::Private::Thread::Stop () {
     SetQuit(true);
     listSem.Signal();
     hsThread::Stop();
@@ -243,17 +241,17 @@ void AsyncSocket::P::Thread::Stop () {
 *
 ***/
 
-struct AsyncSocket::P::ReadOp : AsyncSocket::P::Operation {
-    AsyncSocket::P *            sock;
-    uint8_t                     buffer[kBufferSize];
-    unsigned                    bytesUsed;
+struct AsyncSocket::Private::ReadOp : AsyncSocket::Private::Operation {
+    Private *   sock;
+    uint8_t     buffer[kBufferSize];
+    unsigned    bytesUsed;
 
-    ReadOp () : sock(), bytesUsed(0) {}
+    ReadOp (Private * s) : Operation(s->socket.GetSocket(), Mode::kRead, kPosInfinity32), sock(s), bytesUsed(0) {}
     void Callback ();
 };
 
 //===========================================================================
-void AsyncSocket::P::ReadOp::Callback() {
+void AsyncSocket::Private::ReadOp::Callback() {
     ssize_t size;
     bool active;
     {
@@ -265,30 +263,28 @@ void AsyncSocket::P::ReadOp::Callback() {
         }
     }
     
-    if (!active) { // closing
+    // socket closed: stop reading
+    if (!active) {
         sock->ReadEnd();
         delete this;
         return;
     }
 
-    if (size == 0) { // pending
-        P::Add(this);
+    // nothing have been readded: re-add the operation to the pendding list
+    if (size == 0) {
+        Private::Add(this);
         return;
     }
-    if (size == -1) { // error
+    // error append: stop reading and close socket
+    if (size == -1) {
         sock->reading = false;
         sock->Disconnect();
         delete this;
         return;
     }
 
-    NotifyRead notify;
+    NotifyRead notify(buffer, size + bytesUsed);
 
-    notify.param            = nullptr;
-    //notify.asyncId          = 0;
-    notify.buffer           = buffer;
-    notify.bytes            = size + bytesUsed;
-    notify.bytesProcessed   = 0;
     if (!sock->notifyProc(sock, kNotifyRead, &notify))
         sock->Disconnect();
 
@@ -297,9 +293,8 @@ void AsyncSocket::P::ReadOp::Callback() {
         if (sock->Active()) {
             if (notify.bytesProcessed < notify.bytes)
                 memmove(buffer, buffer + notify.bytesProcessed, bytesUsed = notify.bytes - notify.bytesProcessed);
-            if (bytesUsed >= sizeof(buffer))
-                ; //TODO
-            P::Add(this);
+            hsAssert(bytesUsed < sizeof(buffer), "async read buffer is full!");
+            Private::Add(this);
             return;
         }
     }
@@ -316,12 +311,11 @@ void AsyncSocket::P::ReadOp::Callback() {
 *
 ***/
 
-struct AsyncSocket::P::ConnectOp : AsyncSocket::P::Operation {
+struct AsyncSocket::Private::ConnectOp : AsyncSocket::Private::Operation {
     ConnectOp *             next;
     ConnectOp *             prev;
     plTcpSocket             socket;
     
-    //unsigned                localPort;
     plNetAddress            remoteAddr;
     
     FNotifyProc             notifyProc;
@@ -331,6 +325,11 @@ struct AsyncSocket::P::ConnectOp : AsyncSocket::P::Operation {
 
     void Callback ();
     void operator delete (void * ptr) throw() { free(ptr); }
+    
+    ConnectOp(const plNetAddress& a, FNotifyProc n, void* p, unsigned s, unsigned t)
+     : Operation(plNet::NewTCP(), Private::Operation::kWrite, t ? hsTimer::PrecSecsToTicks(t * 1.e3f) : kPosInfinity32),
+       next(), prev(nullptr), socket(), remoteAddr(a), notifyProc(n),
+       param(p), sendBytes(s) {}
 };
 
 //===========================================================================
@@ -341,33 +340,24 @@ AsyncSocket::Cancel AsyncSocket::Connect (
     const void *            sendData,
     unsigned                sendBytes,
     unsigned                connectMs,
-    unsigned                localPort
+    uint16_t                localPort
 ) {
     ASSERT(notifyProc);
 
     // create async connection record with enough extra bytes for sendData
-    P::ConnectOp * op;
+    Private::ConnectOp * op;
     if (sendBytes) {
-        op = new(malloc(sizeof(P::ConnectOp) + sendBytes - 1)) P::ConnectOp;
+        op = new(malloc(sizeof(Private::ConnectOp) + sendBytes - 1)) Private::ConnectOp(
+            netAddr, notifyProc, param, sendBytes, connectMs
+        );
         memcpy(op->sendData, sendData, sendBytes);
     } else {
-        op = new(malloc(sizeof(P::ConnectOp))) P::ConnectOp; // All ConnectOp must be allocated with malloc!
+         // All ConnectOp must be allocated with malloc!
+        op = new(malloc(sizeof(Private::ConnectOp))) Private::ConnectOp(
+            netAddr, notifyProc, param, sendBytes, connectMs
+        );
         op->sendData[0] = kConnTypeNil;
     }
-
-    // init ConnectOp fields
-    op->prev                    = nullptr;
-    //op->localPort               = localPort;
-    op->remoteAddr              = netAddr;
-    op->notifyProc              = notifyProc;
-    op->param                   = param;
-    op->sendBytes               = sendBytes;
-    
-    // init Operation fields
-    op->hSocket                 = plNet::NewTCP();
-    op->sockMode                = P::Operation::kWrite;
-    op->timeout                 = connectMs ? hsTimer::PrecSecsToTicks(connectMs * 1.e3f) : kPosInfinity32;
-
 
     // check created socket
     if (op->hSocket == kBadSocket) {
@@ -379,18 +369,10 @@ AsyncSocket::Cancel AsyncSocket::Connect (
     // bind socket to local port
     op->socket.CloseOnDestroy(true);
     op->socket.SetSocket(op->hSocket);
-    if (localPort) {
-        // TODO: move this to plSocket
-        sockaddr_in addr;
-        addr.sin_family = AF_INET;
-        addr.sin_port   = htons((uint16_t) localPort);
-        addr.sin_addr.s_addr = INADDR_ANY;
-        memset(addr.sin_zero, 0, sizeof(addr.sin_zero));
-        if (bind(op->hSocket, (sockaddr *) &addr, sizeof(addr))) {
-            LogMsg(kLogError, "bind(port %u) failed: %s", (unsigned)localPort, plNet::GetErrorMsg(plNet::GetError()));
-            delete op;
-            return Cancel(nullptr);
-        }
+    if (localPort && plNet::Bind(op->hSocket, &plNetAddress(localPort).GetAddressInfo())) {
+        LogMsg(kLogError, "bind(port %u) failed: %s", (unsigned)localPort, plNet::GetErrorMsg(plNet::GetError()));
+        delete op;
+        return Cancel(nullptr);
     }
 
     // connect
@@ -403,38 +385,38 @@ AsyncSocket::Cancel AsyncSocket::Connect (
     op->socket.CloseOnDestroy(false);
     
     // ioThread initialisation
-    if (!P::fThread) {
-        P::fThread = new P::Thread();
-        P::fThread->Start();
+    if (!Private::fThread) {
+        Private::fThread = new Private::Thread();
+        Private::fThread->Start();
     }
     
     // coList update
     {
-        std::lock_guard<std::mutex> lock(P::fThread->coLock);
-        op->next = P::fThread->coList;
+        std::lock_guard<std::mutex> lock(Private::fThread->coLock);
+        op->next = Private::fThread->coList;
         if (op->next)
             op->next->prev = op;
-        P::fThread->coList = op;
+        Private::fThread->coList = op;
     }
 
     // counters update
     PerfAddCounter(kAsyncPerfSocketConnAttemptsOutCurr, 1);
     PerfAddCounter(kAsyncPerfSocketConnAttemptsOutTotal, 1);
 
-    P::Add(op);
+    Private::Add(op);
     
     return Cancel(op);
 }
 
 //===========================================================================
 bool AsyncSocket::Cancel::ConnectCancel () {
-    std::lock_guard<std::mutex> lock(P::fThread->coLock);
+    std::lock_guard<std::mutex> lock(Private::fThread->coLock);
     
-    for (P::ConnectOp * op = P::fThread->coList; op; op = op->next) {
+    for (Private::ConnectOp * op = Private::fThread->coList; op; op = op->next) {
         if (ptr == op) {
             ptr = nullptr;
             op->timeout = 0;
-            P::fThread->listSem.Signal();
+            Private::fThread->listSem.Signal();
             return true; // cancelId can be found only once!
         }
     }
@@ -444,56 +426,51 @@ bool AsyncSocket::Cancel::ConnectCancel () {
 
 //===========================================================================
 void AsyncSocket::ConnectCancel(FNotifyProc notifyProc) {
-    std::lock_guard<std::mutex> lock(P::fThread->coLock);
+    std::lock_guard<std::mutex> lock(Private::fThread->coLock);
     
-    for (P::ConnectOp * op = P::fThread->coList; op; op = op->next)
+    for (Private::ConnectOp * op = Private::fThread->coList; op; op = op->next)
         if (op->notifyProc == notifyProc)
             op->timeout = 0;
-    P::fThread->listSem.Signal();
+    Private::fThread->listSem.Signal();
 }
 
 //===========================================================================
 bool AsyncSocket::Active() {
-    return !((P*)this)->close && ((P*)this)->socket.Active();
+    Private * sock = static_cast<Private *>(this);
+    return !sock->close && sock->socket.Active();
 }
 
 //===========================================================================
-void AsyncSocket::P::ConnectOp::Callback () {
+void AsyncSocket::Private::ConnectOp::Callback () {
     {
         std::lock_guard<std::mutex> lock(fThread->coLock);
-        // revmove this from coList
+        // remove this operation from coList
         prev ? prev->next : fThread->coList = next;
         if (next)
             next->prev = prev;
     }
 
-    //ASSERT(!op->signalComplete);
     PerfSubCounter(kAsyncPerfSocketConnAttemptsOutCurr, 1);
 
-    AsyncSocket::NotifyConnect notify;
-    notify.param        = param;
-    notify.connType     = (EConnType) sendData[0];
+    AsyncSocket::NotifyConnect notify(param, (EConnType) sendData[0]);
 
     do {
         if (sockMode == kCancel)
             break;
-        P * sock            = new P;
-        sock->socket        = socket;
-        sock->notifyProc    = notifyProc;
-        sock->socket.CloseOnDestroy(true);
-
+        
+        Private * sock = new Private(socket, notifyProc);
+        
+        socket.CloseOnDestroy(true);
         if (sendBytes)
             if (!sock->Send(sendData, sendBytes)) {
                 delete sock;
                 break;
             }
 
-        // TODO: move this to plSocket
         socklen_t len = sizeof(AddressType);
-        if (getsockname(sock->socket.GetSocket(), (sockaddr *) &notify.localAddr, &len))
+        if (getsockname(sock->socket.GetSocket(), (sockaddr *) &notify.localAddr, &len) || len != sizeof(AddressType))
             LogMsg(kLogError, "getsockname failed");
-        len = sizeof(AddressType);
-        if (getpeername(sock->socket.GetSocket(), (sockaddr *) &notify.remoteAddr, &len))
+        if (getpeername(sock->socket.GetSocket(), (sockaddr *) &notify.remoteAddr, &len) || len != sizeof(AddressType))
             LogMsg(kLogError, "getsockname failed");
 
         sock->reading = true; // block socket deletion
@@ -501,18 +478,15 @@ void AsyncSocket::P::ConnectOp::Callback () {
             sock->Disconnect();
             sock->ReadEnd();
         } else {
-            ReadOp * read = new ReadOp;
-            sock->reading = true;
-            read->sock = sock;
+            ReadOp * read = new ReadOp(sock);
             
-            read->hSocket = hSocket;
-            read->sockMode = kRead;
-            read->timeout = kPosInfinity32;
-            
-            std::lock_guard<std::mutex> lock(sock->sockLock);
-            if (*sock)
-                P::Add(read);
-            else {
+            bool readAdded;
+            {
+                std::lock_guard<std::mutex> lock(sock->sockLock);
+                if (readAdded = *sock)
+                    Private::Add(read);
+            }
+            if (!readAdded) {
                 delete read;
                 sock->ReadEnd();
             }
@@ -523,7 +497,7 @@ void AsyncSocket::P::ConnectOp::Callback () {
     } while (0);
 
     // handle connection failure
-    notify.remoteAddr   = remoteAddr;
+    notify.remoteAddr = remoteAddr;
     notify.localAddr.Clear();
     notifyProc(nullptr, kNotifyConnectFailed, &notify);
 
@@ -538,28 +512,33 @@ void AsyncSocket::P::ConnectOp::Callback () {
 *
 ***/
 
-struct AsyncSocket::P::SendBaseOp : AsyncSocket::P::Operation {
+struct AsyncSocket::Private::SendBaseOp : AsyncSocket::Private::Operation {
     SendBaseOp *                next;
-    AsyncSocket::P *            sock;
+    Private *                   sock;
     unsigned                    sendBytes;
-    uint8_t *                   sendData;
+    const uint8_t *             sendData;
 
-    SendBaseOp() : next(), sock(), sendBytes(0), sendData() {}
+    SendBaseOp(Private * s, unsigned l, const uint8_t* d)
+     : Operation(s->socket.GetSocket(), kWrite, -1),
+       next(nullptr), sock(s), sendBytes(l), sendData(d) {}
+    
     void Callback();
     virtual bool Notify() = 0;
 };
-struct AsyncSocket::P::SendOp : AsyncSocket::P::SendBaseOp {
+struct AsyncSocket::Private::SendOp : AsyncSocket::Private::SendBaseOp {
     uint8_t                     data[1]; // must be the last field
 
-    SendOp() { sendData = data; }
+    SendOp(Private * s, unsigned l) : SendBaseOp(s, l, data) {}
     bool Notify() { return true; }
     void operator delete (void * ptr) throw() { free(ptr); }
 };
-struct AsyncSocket::P::WriteOp : AsyncSocket::P::SendBaseOp {
+struct AsyncSocket::Private::WriteOp : AsyncSocket::Private::SendBaseOp {
     void *                      param;
     unsigned                    bytes;
-    uint8_t *                   buffer;
+    const uint8_t *             buffer;
 
+    WriteOp(Private * s, void * p, unsigned l, const uint8_t* b)
+     : SendBaseOp(s, l, b), param(p), bytes(l), buffer(b) {}
     bool Notify();
 };
 
@@ -573,25 +552,19 @@ bool AsyncSocket::Send (
     if (!Active())
         return false;
 
-    P::SendOp * op;
-    op = new(malloc(sizeof(P::SendOp) + bytes - 1)) P::SendOp;
-
-    op->hSocket     = ((P*)this)->socket.GetSocket();
-    op->sockMode    = P::Operation::kWrite;
-    op->timeout     = -1;
-
-    op->sock        = (P*)this;
-    op->sendBytes   = bytes;
+    Private * sock = static_cast<Private *>(this);
+    Private::SendOp * op;
+    op = new(malloc(sizeof(Private::SendOp) + bytes - 1)) Private::SendOp(sock, bytes);
 
     memcpy(op->data, data, bytes);
 
     bool pending;
     {
-        std::lock_guard<std::mutex> lock(((P*)this)->lastSendLock);
-        pending = ((P*)this)->lastSend;
+        std::lock_guard<std::mutex> lock(sock->lastSendLock);
+        pending = sock->lastSend;
         if (pending)
-            ((P*)this)->lastSend->next = op;
-        ((P*)this)->lastSend = op;
+            sock->lastSend->next = op;
+        sock->lastSend = op;
     }
 
     if (pending)
@@ -614,27 +587,20 @@ bool AsyncSocket::Write (
     ASSERT(bytes);
     if (!Active())
         return false;
-    P::WriteOp * op = new P::WriteOp;
-    op->hSocket     = ((P*)this)->socket.GetSocket();
-    op->sockMode    = P::Operation::kWrite;
-    op->timeout     = -1;
-
-    op->sock        = (P*)this;
-    op->sendBytes   = bytes;
-    op->sendData    = (uint8_t *) buffer;
-
-    op->param       = param;
-    op->bytes       = bytes;
-    op->buffer      = (uint8_t *) buffer;
-
+    
+    Private * sock = static_cast<Private *>(this);
+    Private::WriteOp * op = new Private::WriteOp(
+        sock, param, bytes, static_cast<const uint8_t*>(buffer)
+    );
+    
     bool pending;
     {
-        std::lock_guard<std::mutex> lock(((P*)this)->lastSendLock);
-        pending = ((P*)this)->lastSend;
+        std::lock_guard<std::mutex> lock(sock->lastSendLock);
+        pending = sock->lastSend;
 
         if (pending)
-            ((P*)this)->lastSend->next = op;
-        ((P*)this)->lastSend = op;
+            sock->lastSend->next = op;
+        sock->lastSend = op;
     }
 
     if (pending)
@@ -648,7 +614,7 @@ bool AsyncSocket::Write (
 }
 
 //===========================================================================
-void AsyncSocket::P::SendBaseOp::Callback() {
+void AsyncSocket::Private::SendBaseOp::Callback() {
     size_t size = static_cast<size_t>(-1);
     {
         std::lock_guard<std::mutex> lock(sock->sockLock);
@@ -657,11 +623,12 @@ void AsyncSocket::P::SendBaseOp::Callback() {
         else if (sendData) {
             size = sock->socket.SendData((const char*)sendData, sendBytes);
             if (size == -1 && plNet::GetError() == kBlockingError)
-                size = 0; // not an error
+                size = 0; // blocking is not an fatal error
         }
     }
 
-    if (sockMode == kCancel) { // cancelled
+    // operation cancelled
+    if (sockMode == kCancel) {
         if (*sock) {
             {
                 std::lock_guard<std::mutex> lock(sock->lastSendLock);
@@ -669,7 +636,7 @@ void AsyncSocket::P::SendBaseOp::Callback() {
                     sock->lastSend = nullptr;
             }
             if (next)
-                P::Add(next);
+                Private::Add(next);
         }
         else if (next)
             IWorkerThreads::Add(next);
@@ -681,13 +648,14 @@ void AsyncSocket::P::SendBaseOp::Callback() {
         return;
     }
 
-    if (size == 0) { // delayed
-        //Notify();
-        P::Add(this);
+    // operation is delayed
+    if (size == 0) {
+        Private::Add(this);
         return;
     }
 
-    if (size == -1) { // error
+    // fatal error handling
+    if (size == -1) {
         if (*sock)
             sock->Disconnect();
         {
@@ -731,17 +699,13 @@ void AsyncSocket::P::SendBaseOp::Callback() {
     sendData += size;
     sendBytes -= size;
 
-    P::Add(this);
+    Private::Add(this);
 }
 
 //===========================================================================
-bool AsyncSocket::P::WriteOp::Notify() {
-    AsyncSocket::NotifyWrite notify;
-    notify.param             = param;
-    //notify.asyncId           = op->asyncId;
-    notify.buffer            = buffer;
-    notify.bytes             = bytes;
-    notify.bytesProcessed    = bytes - sendBytes;
+bool AsyncSocket::Private::WriteOp::Notify() {
+    AsyncSocket::NotifyWrite notify(param, buffer, bytes, bytes - sendBytes);
+    
     return sock->notifyProc(sock, kNotifyWrite, &notify);
 }
 
@@ -755,26 +719,19 @@ bool AsyncSocket::P::WriteOp::Notify() {
 //===========================================================================
 void AsyncSocket::SetNotifyProc (FNotifyProc  notifyProc) {
     ASSERT(notifyProc);
-    ((P*)this)->notifyProc = notifyProc;
+    static_cast<Private*>(this)->notifyProc = notifyProc;
 }
 
 //===========================================================================
 void AsyncSocket::EnableNagling(bool nagling) {
     int result;
+    Private * sock = static_cast<Private*>(this);
     {
-        std::lock_guard<std::mutex> lock(((P*)this)->sockLock);
+        std::lock_guard<std::mutex> lock(sock->sockLock);
         if (!Active())
             return;
-        int noDelay = !nagling;
         
-        // TODO: move to plSocket/plNet
-        result = setsockopt(
-            ((P*)this)->socket.GetSocket(),
-            IPPROTO_TCP,
-            TCP_NODELAY,
-            (const char*) &noDelay,
-            sizeof(noDelay)
-        );
+        sock->socket.SetNoDelay(!nagling);
     }
     if (result)
         LogMsg(kLogError, "setsockptr failed (nagling): %s", plNet::GetErrorMsg(plNet::GetError()));
@@ -782,35 +739,36 @@ void AsyncSocket::EnableNagling(bool nagling) {
 
 //===========================================================================
 void AsyncSocket::Disconnect (bool hardClose) {
+    Private * sock = static_cast<Private*>(this);
     {
-        std::lock_guard<std::mutex> lock(((P*)this)->sockLock);
-        if (!Active() && (!hardClose || ((P*)this)->hardClose))
+        std::lock_guard<std::mutex> lock(sock->sockLock);
+        if (!Active() && (!hardClose || sock->hardClose))
             return; // already closed...
-        ((P*)this)->close = true;
-        ((P*)this)->hardClose = hardClose;
+        sock->close = true;
+        sock->hardClose = hardClose;
     }
     
-    SOCKET handle = ((P*)this)->socket.GetSocket();
-    if (((P*)this)->hardClose)
-        ((P*)this)->socket.Close();
+    SOCKET handle = sock->socket.GetSocket();
+    if (sock->hardClose)
+        sock->socket.Close();
 
     // cancel pending operations
-    std::lock_guard<std::mutex> lock(P::fThread->listLock);
-    for (P::Operation * op = P::fThread->opList; op; op = (P::Operation *) op->next) {
+    std::lock_guard<std::mutex> lock(Private::fThread->listLock);
+    for (Private::Operation * op = Private::fThread->opList; op; op = (Private::Operation *) op->next) {
         if (op->hSocket == handle)
             op->timeout = 0;
     }
     
-    P::fThread->listSem.Signal();
+    Private::fThread->listSem.Signal();
 }
 
 //===========================================================================
 void AsyncSocket::Delete () {
-    delete (P*)this;
+    delete static_cast<Private*>(this);
 }
 
 //===========================================================================
-void AsyncSocket::P::SendEnd() {
+void AsyncSocket::Private::SendEnd() {
     if (reading) {
         lastSend = nullptr;
         return;
@@ -826,7 +784,7 @@ void AsyncSocket::P::SendEnd() {
 }
 
 //===========================================================================
-void AsyncSocket::P::ReadEnd() {
+void AsyncSocket::Private::ReadEnd() {
     if (lastSend) {
         reading = false;
         return;
@@ -843,8 +801,6 @@ void AsyncSocket::P::ReadEnd() {
 
 //===========================================================================
 void SocketDestroy() {
-    if (AsyncSocket::P::fThread)
-        AsyncSocket::P::fThread->Stop();
+    if (AsyncSocket::Private::fThread)
+        AsyncSocket::Private::fThread->Stop();
 }
-
-// TODO: listen operations!
