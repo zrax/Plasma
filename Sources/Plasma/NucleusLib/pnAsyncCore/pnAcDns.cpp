@@ -183,7 +183,9 @@ AsyncDns::Cancel AsyncDns::LookupName (
     {
         std::lock_guard<std::mutex> lock(P::listLock);
         op->next = P::last;
-        P::last = P::last->prev = op;
+        if (P::last)
+            P::last->prev = op;
+        P::last = op;
     }
     op->name =          name;
     op->port =          port;
@@ -246,7 +248,9 @@ AsyncDns::Cancel AsyncDns::LookupAddr (
     {
         std::lock_guard<std::mutex> lock(P::listLock);
         op->next = P::last;
-        P::last = P::last->prev = op;
+        if (P::last)
+            P::last->prev = op;
+        P::last = op;
     }
     op->addr =          address;
     op->lookupProc =    lookupProc;
