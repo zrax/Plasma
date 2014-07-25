@@ -5,7 +5,20 @@ endif()
 
 # Require C++11
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_COMPILER_IS_CLANGXX)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+    if(MSVC)
+        # This case can occur via clang-cl -- fall back to "real cl.exe"
+        # when we encounter something we can't compile (e.g. exceptions)
+        # Note that you can still find diagnostics about why clang couldn't
+        # compile a particular file by looking at the output log.
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fallback")
+
+        # Disable exceptions in VC++ standard headers.  This may break
+        # some behavior, but it's necessary until clang supports the SEH
+        # exception ABI from MSVC
+        add_definitions("-D_HAS_EXCEPTIONS=0")
+    else()
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+    endif()
 endif()
 
 
