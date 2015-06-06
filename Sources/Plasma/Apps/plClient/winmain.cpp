@@ -902,7 +902,7 @@ BOOL CALLBACK UruLoginDialogProc( HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM
 #ifdef USE_VLD
                 VLDEnable();
 #endif
-                const char* statusUrl = GetServerStatusUrl();
+                plString statusUrl = GetServerStatusUrl();
                 CURL* hCurl = curl_easy_init();
 
                 // For reporting errors
@@ -910,7 +910,7 @@ BOOL CALLBACK UruLoginDialogProc( HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM
                 curl_easy_setopt(hCurl, CURLOPT_ERRORBUFFER, curlError);
 
                 while (s_loginDlgRunning) {
-                    curl_easy_setopt(hCurl, CURLOPT_URL, statusUrl);
+                    curl_easy_setopt(hCurl, CURLOPT_URL, statusUrl.c_str());
                     curl_easy_setopt(hCurl, CURLOPT_USERAGENT, "UruClient/1.0");
                     curl_easy_setopt(hCurl, CURLOPT_WRITEFUNCTION, &CurlCallback);
                     curl_easy_setopt(hCurl, CURLOPT_WRITEDATA, hwndDlg);
