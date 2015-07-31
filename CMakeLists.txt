@@ -20,6 +20,22 @@ set(PRODUCT_UUID        "ea489821-6c35-4bd0-9dae-bb17c585e680"
 # Configure compile-time compiler-specific flags
 include(cmake/CompilerChecks.cmake)
 
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_COMPILER_IS_CLANGXX)
+    option(PLASMA_EXCESSIVE_WARNINGS "Enable lots of extra compiler warnings" OFF)
+    set(warn_flags "-Wall -Wextra")
+    if(PLASMA_EXCESSIVE_WARNINGS)
+        set(warn_flags "${warn_flags} -Wredundant-decls -Wctor-dtor-privacy -Wnon-virtual-dtor")
+        set(warn_flags "${warn_flags} -Woverloaded-virtual -Wsign-promo -Wunused-parameter")
+        set(warn_flags "${warn_flags} -Wreturn-type -Wsuggest-override -Wshadow")
+        set(warn_flags "${warn_flags} -Wformat-security -Wformat-nonliteral")
+        set(warn_flags "${warn_flags} -Wunreachable-code -Wcast-align -Wpacked")
+    else()
+        set(warn_flags "${warn_flags} -Wno-reorder -Wno-unused-parameter")
+    endif()
+    set(warn_flags "${warn_flags} -Wno-unknown-pragmas -Wno-sign-compare")
+    set(CMAKE_CXX_FLAGS "${warn_flags} ${CMAKE_CXX_FLAGS}")
+endif()
+
 # HeadSpin Configuration
 if(WIN32 AND NOT CYGWIN)
     add_definitions(-DHS_BUILD_FOR_WIN32)
