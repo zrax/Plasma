@@ -69,7 +69,7 @@ void CryptCreateRandomSeed(size_t length, uint8_t* data)
     ((uint32_t*)fSeed)[4] ^= (uint32_t)((uintptr_t)data);
 
     // Hash seed
-    plSHAChecksum sum(sizeof(ShaDigest), (uint8_t*)fSeed);
+    plSHA0Checksum sum(sizeof(ShaDigest), (uint8_t*)fSeed);
     ShaDigest digest;
     memcpy(digest, sum.GetValue(), sizeof(ShaDigest));
 
@@ -99,14 +99,14 @@ void CryptHashPassword(const ST::string& username, const ST::string& password, S
     buf << password.left(password.size() - 1) << '\0';
     buf << username.to_lower().left(username.size() - 1) << '\0';
     ST::utf16_buffer result = buf.to_string().to_utf16();
-    plSHAChecksum sum(result.size() * sizeof(char16_t), (uint8_t*)result.data());
+    plSHA0Checksum sum(result.size() * sizeof(char16_t), (uint8_t*)result.data());
 
     memcpy(dest, sum.GetValue(), sizeof(ShaDigest));
 }
 
 void CryptHashPasswordChallenge(uint32_t clientChallenge, uint32_t serverChallenge, ShaDigest namePassHash, ShaDigest challengeHash)
 {
-    plSHAChecksum sum;
+    plSHA0Checksum sum;
 
     sum.Start();
     sum.AddTo(sizeof(uint32_t), (uint8_t*)&clientChallenge);

@@ -105,8 +105,9 @@ class plMD5Checksum
  * them a way to store the checksum itself, rather than a union of the classes.
  */
 typedef uint8_t ShaDigest[SHA_DIGEST_LENGTH];
+typedef uint8_t Sha256Digest[SHA256_DIGEST_LENGTH];
 
-class plSHAChecksum
+class plSHA0Checksum
 {
     protected:
         bool      fValid;
@@ -114,11 +115,11 @@ class plSHAChecksum
         ShaDigest fChecksum;
 
     public:
-        plSHAChecksum(size_t size, uint8_t* buffer);
-        plSHAChecksum();
-        plSHAChecksum(const plSHAChecksum& rhs);
-        plSHAChecksum(const plFileName& fileName);
-        plSHAChecksum(hsStream* stream);
+        plSHA0Checksum(size_t size, uint8_t* buffer);
+        plSHA0Checksum();
+        plSHA0Checksum(const plSHA0Checksum& rhs);
+        plSHA0Checksum(const plFileName& fileName);
+        plSHA0Checksum(hsStream* stream);
 
         bool IsValid() const { return fValid; }
         void Clear();
@@ -141,8 +142,8 @@ class plSHAChecksum
         const char* GetAsHexString() const;
         void SetFromHexString(const char* string);
 
-        bool operator==(const plSHAChecksum& rhs) const;
-        bool operator!=(const plSHAChecksum& rhs) const { return !operator==(rhs); }
+        bool operator==(const plSHA0Checksum& rhs) const;
+        bool operator!=(const plSHA0Checksum& rhs) const { return !operator==(rhs); }
 };
 
 class plSHA1Checksum
@@ -182,6 +183,40 @@ class plSHA1Checksum
 
         bool operator==(const plSHA1Checksum& rhs) const;
         bool operator!=(const plSHA1Checksum& rhs) const { return !operator==(rhs); }
+};
+
+class plSHA256Checksum
+{
+protected:
+    bool            fValid;
+    SHA256_CTX      fContext;
+    Sha256Digest    fChecksum;
+
+public:
+    plSHA256Checksum(size_t size, const uint8_t* buffer);
+    plSHA256Checksum();
+    plSHA256Checksum(const plSHA256Checksum& rhs);
+
+    bool IsValid() const { return fValid; }
+    void Clear();
+
+    void Start();
+    void AddTo(size_t size, const uint8_t* buffer);
+    void Finish();
+
+    const uint8_t* GetValue() const { return fChecksum; }
+    size_t GetSize() const { return sizeof(fChecksum); }
+
+    // Backdoor for cached checksums (ie, if you loaded it off disk)
+    void SetValue(uint8_t* checksum);
+
+    // Note: GetAsHexString() returns a pointer to a static string;
+    // do not rely on the contents of this string between calls!
+    const char* GetAsHexString() const;
+    void SetFromHexString(const char* string);
+
+    bool operator==(const plSHA256Checksum& rhs) const;
+    bool operator!=(const plSHA256Checksum& rhs) const { return !operator==(rhs); }
 };
 
 #endif // PL_CHECKSUM_H
