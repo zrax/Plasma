@@ -76,7 +76,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 
 //// Derived Types List ///////////////////////////////////////////////////////
-//  If you create a new Plasma layer type, add a define for the class ID in 
+//  If you create a new Plasma layer type, add a define for the class ID in
 //  the header and add it to the list here.
 
 const Class_ID  plPlasmaMAXLayer::fDerivedTypes[] =
@@ -101,7 +101,7 @@ plPlasmaMAXLayer::~plPlasmaMAXLayer()
 }
 
 //// GetPlasmaMAXLayer ////////////////////////////////////////////////////////
-//  Static function that checks the classID of the given texMap and, if it's a 
+//  Static function that checks the classID of the given texMap and, if it's a
 //  valid Plasma MAX Layer, returns a pointer to such.
 
 plPlasmaMAXLayer    *plPlasmaMAXLayer::GetPlasmaMAXLayer( Texmap *map )
@@ -175,8 +175,8 @@ void    plPlasmaMAXLayer::IAddConversionTarget( plLayerInterface *target )
     }
 
     fConversionTargets->fLayers.Append( target );
-    hsgResMgr::ResMgr()->AddViaNotify( target->GetKey(), 
-                                        new plGenRefMsg( fConversionTargets->GetKey(), plRefMsg::kOnCreate, 
+    hsgResMgr::ResMgr()->AddViaNotify( target->GetKey(),
+                                        new plGenRefMsg( fConversionTargets->GetKey(), plRefMsg::kOnCreate,
                                                         fConversionTargets->fLayers.GetCount() - 1, 0 ),
                                         plRefFlags::kPassiveRef );
 }
@@ -273,7 +273,7 @@ void plPlasmaMAXLayer::SetBitmap(BitmapInfo *bi, int index)
             // asset database and make sure we have the latest version
             // of the texture file before loading it
             MaxAssInterface* assInterface = GetMaxAssInterface();
-            if (assInterface) 
+            if (assInterface)
             {
                 char buf[20];
                 assInterface->UniqueIdToString(targetAssetId, buf);
@@ -328,7 +328,7 @@ void plPlasmaMAXLayer::SetBitmap(BitmapInfo *bi, int index)
         if (assetId && !assetId->IsEmpty())
         {
             MaxAssInterface* maxAssInterface = GetMaxAssInterface();
-            if (maxAssInterface) 
+            if (maxAssInterface)
             {
                 // Download the latest version and retrieve the filename
                 char newfilename[MAX_PATH];
@@ -367,7 +367,7 @@ void plPlasmaMAXLayer::SetBitmap(BitmapInfo *bi, int index)
 
 void plPlasmaMAXLayer::RefreshBitmaps()
 {
-    int i, count = GetNumBitmaps(); 
+    int i, count = GetNumBitmaps();
 
     for( i = 0; i < count; i++ )
     {
@@ -390,7 +390,7 @@ bool    plPlasmaMAXLayer::GetBitmapFileName( char *destFilename, int maxLength, 
     GetBitmapAssetId(targetAssetId, index);
 
     MaxAssInterface* maxAssInterface = GetMaxAssInterface();
-    if (maxAssInterface != nil && !targetAssetId.IsEmpty()) 
+    if (maxAssInterface != nil && !targetAssetId.IsEmpty())
     {
         // Download the latest version and retrieve the filename
         if (maxAssInterface->GetLatestVersionFile(targetAssetId, destFilename, maxLength))

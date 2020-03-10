@@ -64,7 +64,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 /*--- Minor Version Log ---
     #   Date    Who     Comment
-    5   9/28/01 MT      Added senderClientNum to GameMessages (mostly for debugging)    
+    5   9/28/01 MT      Added senderClientNum to GameMessages (mostly for debugging)
     0  10/05/01 eap     Reset on Major Version change
     1  10/26/01 eap     Upon sending join ack, the game server now sends a set of initial local unique ids to client.
     2  10/31/01 eap     Added (Un)RegisterServer msgs (actually renamed from ServerStarted family msgs). Changed StartProcess msg a little.

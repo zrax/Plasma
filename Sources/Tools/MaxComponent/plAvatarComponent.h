@@ -167,9 +167,9 @@ private:
 
 protected:
     virtual void ISetupClothes(plMaxNode *node, plArmatureMod *mod, plErrorMsg *pErrMsg);
-    // Create a single shadowcaster modifier, and apply it to the 
+    // Create a single shadowcaster modifier, and apply it to the
     // sceneobject hierarchies for each LOD.
-    virtual void IAttachShadowCastToLODs(plMaxNode* rootNode); 
+    virtual void IAttachShadowCastToLODs(plMaxNode* rootNode);
     virtual void IAttachShadowCastModifiersRecur(plMaxNode* node, plShadowCaster* caster);
 
     hsGMaterial *fMaterial;
@@ -196,7 +196,7 @@ public:
             kMeshNodeTab,       //Insert in v1,
             kRootNodeAddBtn,    //Insert in v1,
             kMeshNodeAddBtn,    //Insert in v1,
-            kClothingGroup,     //Insert in v2, 
+            kClothingGroup,     //Insert in v2,
             kBrainType,         //Insert in v3,
             kGroupIdx,          //Insert in v4,
             kBoneList,          //Insert in v4,

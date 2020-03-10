@@ -67,9 +67,9 @@ bool plLightProxy::Init(plLightInfo* liInfo)
     return fOwner != nil;
 }
 
-plKey plLightProxy::IGetNode() const 
-{ 
-    return fOwner ? fOwner->GetSceneNode() : nil; 
+plKey plLightProxy::IGetNode() const
+{
+    return fOwner ? fOwner->GetSceneNode() : nil;
 }
 
 plDrawableSpans* plLightProxy::ICreateProxy(hsGMaterial* mat, hsTArray<uint32_t>& idx, plDrawableSpans* addTo)

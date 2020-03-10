@@ -216,7 +216,7 @@ bool plAudioInterface::MsgReceive(plMessage* msg)
 
     plSoundMsg* pSoundMsg = plSoundMsg::ConvertNoRef( msg );
     if (pSoundMsg)
-    {   
+    {
         if (!fAudible)
             return false;
         if (pSoundMsg->Cmd( plSoundMsg::kAddCallbacks))
@@ -256,7 +256,7 @@ bool plAudioInterface::MsgReceive(plMessage* msg)
         }
         if( pSoundMsg->Cmd( plSoundMsg::kSetVolume ) )
         {
-            fAudible->SetVolume( pSoundMsg->fVolume, pSoundMsg->fIndex ); 
+            fAudible->SetVolume( pSoundMsg->fVolume, pSoundMsg->fIndex );
         }
         if ( pSoundMsg->Cmd( plSoundMsg::kSetTalkIcon ) )
         {
@@ -291,7 +291,7 @@ bool plAudioInterface::MsgReceive(plMessage* msg)
     if (pASMsg)
     {
         if (pASMsg->GetAudFlag() == plAudioSysMsg::kActivate)
-        {   
+        {
             if( fAudible )
             {
                 if( !fAudibleInited )

@@ -151,7 +151,7 @@ public:
     TCHAR* GetObjectName()      { return (TCHAR*)fClassDesc->ClassName(); }
     void InitNodeName(TSTR& s)  { s = fClassDesc->InternalName(); }
     void GetClassName(TSTR& s)  { s = fClassDesc->ClassName(); }
-    Class_ID ClassID()          { return ANIMSTEALTH_CLASSID; }      
+    Class_ID ClassID()          { return ANIMSTEALTH_CLASSID; }
 
     RefTargetHandle Clone(RemapDir &remap);
     
@@ -252,8 +252,8 @@ class plStealthNodeAccessor : public PBAccessor
         static plStealthNodeAccessor    &GetInstance();
         
         virtual void    Set( PB2Value &v, ReferenceMaker *owner, ParamID id, int tabIndex, TimeValue t );
-        virtual void    TabChanged( tab_changes changeCode, Tab<PB2Value> *tab, ReferenceMaker *owner, 
+        virtual void    TabChanged( tab_changes changeCode, Tab<PB2Value> *tab, ReferenceMaker *owner,
                                             ParamID id, int tabIndex, int count );
 };
 
-#endif //_plAnimStealthNode_h 
+#endif //_plAnimStealthNode_h

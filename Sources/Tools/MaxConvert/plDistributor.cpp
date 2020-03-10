@@ -50,7 +50,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include <stdmat.h>
 #include <bmmlib.h>
 #include <iparamb2.h>
-#include <meshdlib.h> 
+#include <meshdlib.h>
 #pragma hdrstop
 
 #include "MaxExport/plExportProgressBar.h"
@@ -75,7 +75,7 @@ static const float kMaxHeight = 10.f;
 //  rnd pos radius  - replicants spread uniformly about nominal spacing by +- radius
 //  alignment vector- preferred up direction for replicants
 //  alignment weight- weight between alignment vector and interpolated face normal
-//  normal range    - amount to randomize the weighted normal 
+//  normal range    - amount to randomize the weighted normal
 //  normal bunch    - amount randomized normals bunch around input normal
 //  rotation range  - amount to randomize the azimuthal rotation about the randomized normal
 //  prob bitmap     - describes probability that a seed planted here on the surface will sprout
@@ -814,7 +814,7 @@ BOOL plDistributor::ISetupNormals(plMaxNode* node, Mesh* mesh, BOOL radiateNorm)
 {
     const char* dbgNodeName = node->GetName();
 
-    UVVert *normMap = mesh->mapVerts(kNormMapChan); 
+    UVVert *normMap = mesh->mapVerts(kNormMapChan);
     int numNormVerts = mesh->getNumMapVerts(kNormMapChan);
     if( !mesh->mapSupport(kNormMapChan) || !mesh->mapVerts(kNormMapChan) || !mesh->mapFaces(kNormMapChan) )
     {
@@ -879,7 +879,7 @@ BOOL plDistributor::ISetupSkinWeights(plMaxNode* node, Mesh* mesh, const Point3&
 
     float flexibility = flex[0];
 
-    UVVert *wgtMap = mesh->mapVerts(kWgtMapChan);   
+    UVVert *wgtMap = mesh->mapVerts(kWgtMapChan);
     int numWgtVerts = mesh->getNumMapVerts(kWgtMapChan);
     if( !mesh->mapSupport(kWgtMapChan) || !mesh->mapVerts(kWgtMapChan) || !mesh->mapFaces(kWgtMapChan) )
     {
@@ -995,14 +995,14 @@ BOOL plDistributor::IReadyRepNodes(plMeshCacheTab& cache) const
     return fRepNodes.Count() > 0;
 }
 
-void plDistributor::ClearReplicateNodes() 
-{ 
-    fRepNodes.ZeroCount(); 
+void plDistributor::ClearReplicateNodes()
+{
+    fRepNodes.ZeroCount();
 }
 
-void plDistributor::AddReplicateNode(INode* node) 
-{ 
-    fRepNodes.Append(1, &node); 
+void plDistributor::AddReplicateNode(INode* node)
+{
+    fRepNodes.Append(1, &node);
 }
 
 BOOL plDistributor::IProjectVertex(const Point3& pt, const Point3& dir, float maxDist, Tab<int32_t>&faces, Point3& projPt) const
@@ -1438,7 +1438,7 @@ BOOL plDistributor::ISpaceClear(int iRepNode, const Matrix3& l2w, Box3& clearBox
             Matrix3 objectTM = repNode->GetObjectTM(TimeValue(0));
             Matrix3 nodeTM = repNode->GetNodeTM(TimeValue(0));
             Matrix3 invOTM = nodeTM * Inverse(objectTM);
-            clearBox = Box3(Point3(-kSmallSpace, -kSmallSpace, 0.f), Point3(kSmallSpace, kSmallSpace, kSmallSpace)); 
+            clearBox = Box3(Point3(-kSmallSpace, -kSmallSpace, 0.f), Point3(kSmallSpace, kSmallSpace, kSmallSpace));
             clearBox = clearBox * invOTM;
         }
         break;
@@ -1466,10 +1466,10 @@ void plDistributor::SetRandSeed(int seed)
     fRand.SetSeed(seed);
 }
 
-void plDistributor::SetPolarRange(float deg) 
-{ 
-    fPolarRange = hsDegreesToRadians(deg); 
-    fTanPolarRange = tan(fPolarRange); 
+void plDistributor::SetPolarRange(float deg)
+{
+    fPolarRange = hsDegreesToRadians(deg);
+    fTanPolarRange = tan(fPolarRange);
 }
 
 void plDistributor::SetProbabilityBitmapTex(BitmapTex* t)

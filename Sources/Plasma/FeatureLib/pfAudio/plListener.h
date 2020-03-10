@@ -67,7 +67,7 @@ public:
     uint8_t GetAttachedFacingType() { return (uint8_t)fFacingRatio; }
     uint8_t GetAttachedVelType() { return (uint8_t)fVelRatio; }
     
-    enum 
+    enum
     {
         kCamera = 0,
         kAvatar = 1

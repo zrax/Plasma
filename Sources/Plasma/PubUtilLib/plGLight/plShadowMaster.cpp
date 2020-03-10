@@ -67,8 +67,8 @@ float plShadowMaster::fGlobalMaxDist = 160.f; // PERSPTEST
 // float plShadowMaster::fGlobalMaxDist = 100000.f; // PERSPTEST
 float plShadowMaster::fGlobalVisParm = 1.f;
 
-void plShadowMaster::SetGlobalShadowQuality(float s) 
-{ 
+void plShadowMaster::SetGlobalShadowQuality(float s)
+{
     if( s < 0 )
         s = 0;
     else if( s > 1.f )
@@ -76,8 +76,8 @@ void plShadowMaster::SetGlobalShadowQuality(float s)
     fGlobalVisParm = s;
 }
 
-void plShadowMaster::SetGlobalMaxSize(uint32_t s) 
-{ 
+void plShadowMaster::SetGlobalMaxSize(uint32_t s)
+{
     const uint32_t kMaxMaxGlobalSize = 512;
     const uint32_t kMinMaxGlobalSize = 32;
 
@@ -98,7 +98,7 @@ void plShadowMaster::SetGlobalMaxSize(uint32_t s)
     if( s < kMinMaxGlobalSize )
         s = kMinMaxGlobalSize;
 
-    fGlobalMaxSize = s; 
+    fGlobalMaxSize = s;
 }
 
 plShadowMaster::plShadowMaster()
@@ -199,7 +199,7 @@ bool plShadowMaster::MsgReceive(plMessage* msg)
 void plShadowMaster::IBeginRender()
 {
     fSlavePool.SetCount(0);
-    if( ISetLightInfo() ) 
+    if( ISetLightInfo() )
         fLightInfo->ClearSlaveBits();
 }
 
@@ -256,7 +256,7 @@ bool plShadowMaster::IOnCastMsg(plShadowCastMsg* castMsg)
     //      (NOT FROM SHADOW SOURCE) over which the shadow attenuates to zero
     // The effective yon for the ShadowSlave is ShadowSlaveYon + DistanceToFarthestPointOnShadowCasterBound
     //      That's the distance used for culling ShadowReceivers
-    // The ShadowSlaveYon is used directly in the 
+    // The ShadowSlaveYon is used directly in the
 
     slave->fIndex = uint32_t(-1);
     castMsg->Pipeline()->SubmitShadowSlave(slave);
@@ -391,7 +391,7 @@ plShadowSlave* plShadowMaster::ILastChanceToBail(plShadowCastMsg* castMsg, plSha
     float minDist = maxDist * fadeFrac;
 
     // So we want to fade out the shadow as it gets farther away, hopefully
-    // pitching it in the distance when we couldn't see it anyway. 
+    // pitching it in the distance when we couldn't see it anyway.
     hsPoint2 depth;
     // We've been testing based on the view direction, which shows unfortunate
     // camera facing dependency (because it is camera facing dependent) with
@@ -512,7 +512,7 @@ void plShadowMaster::IComputeLUT(plShadowCastMsg* castMsg, plShadowSlave* slave)
 
     // Shouldn't this always be negated?
     static hsMatrix44 lightToLut; // Static ensures initialized to all zeros.
-    lightToLut.fMap[0][2] = 1/(farthest - closest); 
+    lightToLut.fMap[0][2] = 1/(farthest - closest);
     lightToLut.fMap[0][3] = -closest / (farthest - closest);
 
     // This full matrix multiply is a little overkill. Could simplify it quite a bit...
@@ -520,7 +520,7 @@ void plShadowMaster::IComputeLUT(plShadowCastMsg* castMsg, plShadowSlave* slave)
 
     // For caster, we'll be rendering in light space, so we just need to lut off
     // cameraspace z
-    // Can put bias here if needed (probably) by adding small 
+    // Can put bias here if needed (probably) by adding small
     // bias to ShadowSlave.LUTXfm.fMap[0][3]. Bias magnitude would probably be at
     // least 0.5f/256.f to compensate for quantization.
 

@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/NucleusLib/pnUtils/Private/pnUtHash.h
-*   
+*
 ***/
 
 #ifndef PLASMA20_SOURCES_PLASMA_NUCLEUSLIB_PNUTILS_PRIVATE_PNUTHASH_H
@@ -452,7 +452,7 @@ void TBaseHashTable<T>::SetSlotCount (unsigned count) {
         m_slotListArray[loop].SetLinkOffset(m_linkOffset + offsetof(THashLink<T>, m_linkToSlot));
 
     for (T * curr = Head(); curr; curr = Next(curr))
-        GetSlotList(GetHash(curr)).Link(curr);           
+        GetSlotList(GetHash(curr)).Link(curr);
 }
 
 //===========================================================================

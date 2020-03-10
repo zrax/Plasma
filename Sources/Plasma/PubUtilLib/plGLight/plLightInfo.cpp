@@ -129,7 +129,7 @@ plLightInfo::~plLightInfo()
 
 void plLightInfo::SetDeviceRef( hsGDeviceRef *ref )
 {
-    hsRefCnt_SafeAssign( fDeviceRef, ref ); 
+    hsRefCnt_SafeAssign( fDeviceRef, ref );
 }
 
 void plLightInfo::IRefresh()
@@ -144,8 +144,8 @@ void plLightInfo::ICheckMaxStrength()
     float r = GetDiffuse().r >= 0 ? GetDiffuse().r : -GetDiffuse().r;
     float g = GetDiffuse().g >= 0 ? GetDiffuse().g : -GetDiffuse().g;
     float b = GetDiffuse().b >= 0 ? GetDiffuse().b : -GetDiffuse().b;
-    fMaxStrength = 
-        r > g 
+    fMaxStrength =
+        r > g
         ?   (
             r > b
                 ? r
@@ -178,7 +178,7 @@ void plLightInfo::GetStrengthAndScale(const hsBounds3Ext& bnd, float& strength, 
         strength *= scale;
 
     }
-    return;     
+    return;
 }
 
 void plLightInfo::GetAffectedForced(const plSpaceTree* space, hsBitVector& list, bool charac)
@@ -245,8 +245,8 @@ const hsTArray<int16_t>& plLightInfo::GetAffected(plSpaceTree* space, const hsTA
 }
 
 //// Set/GetProperty /////////////////////////////////////////////////////////
-//  Sets/gets a property just like the normal Set/GetNativeProperty, but the 
-//  flag taken in is from plDrawInterface, not our props flags. So we have to 
+//  Sets/gets a property just like the normal Set/GetNativeProperty, but the
+//  flag taken in is from plDrawInterface, not our props flags. So we have to
 //  translate...
 
 void plLightInfo::SetProperty( int prop, bool on )
@@ -260,16 +260,16 @@ void plLightInfo::SetProperty( int prop, bool on )
 //  A bit more complicated here--make sure we set/clear the kLPHasSpecular
 //  flag so we can test more easily for such a condition.
 
-void plLightInfo::SetSpecular( const hsColorRGBA& c ) 
-{ 
-    fSpecular = c; 
+void plLightInfo::SetSpecular( const hsColorRGBA& c )
+{
+    fSpecular = c;
 
     if( fSpecular.r == 0.f && fSpecular.g == 0.f && fSpecular.b == 0.f )
         SetProperty( kLPHasSpecular, false );
     else
         SetProperty( kLPHasSpecular, true );
 
-    SetDirty(); 
+    SetDirty();
 }
 
 void plLightInfo::SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l)
@@ -277,8 +277,8 @@ void plLightInfo::SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l)
     fLocalToWorld = l2w;
     fWorldToLocal = w2l;
 
-    fLightToWorld = l2w * fLightToLocal; 
-    fWorldToLight = fLocalToLight * w2l; 
+    fLightToWorld = l2w * fLightToLocal;
+    fWorldToLight = fLocalToLight * w2l;
 
     if( IGetIsect() )
         IGetIsect()->SetTransform(fLightToWorld, fWorldToLight);
@@ -609,7 +609,7 @@ void plDirectionalLightInfo::Write(hsStream* s, hsResMgr* mgr)
 
 
 hsVector3 plDirectionalLightInfo::GetWorldDirection() const
-{ 
+{
     return -fLightToWorld.GetAxis( hsMatrix44::kUp );
 }
 
@@ -721,12 +721,12 @@ plDrawableSpans* plLimitedDirLightInfo::CreateProxy(hsGMaterial* mat, hsTArray<u
     vecs[1].Set(0, fHeight, 0);
     vecs[2].Set(0, 0, fDepth);
         // Generate a rectangular drawable based on a corner and three vectors
-    plDrawableSpans* draw = plDrawableGenerator::GenerateBoxDrawable( corner, vecs[0], vecs[1], vecs[2], 
-                                                            mat, 
-                                                            fLightToWorld, 
+    plDrawableSpans* draw = plDrawableGenerator::GenerateBoxDrawable( corner, vecs[0], vecs[1], vecs[2],
+                                                            mat,
+                                                            fLightToWorld,
                                                             true,
                                                             nil,
-                                                            &idx, 
+                                                            &idx,
                                                             addTo );
 
     return draw;
@@ -870,10 +870,10 @@ plDrawableSpans* plOmniLightInfo::CreateProxy(hsGMaterial* mat, hsTArray<uint32_
     if( rad == 0 )
         rad = 50;
 
-    plDrawableSpans* draw = plDrawableGenerator::GenerateSphericalDrawable(hsPoint3(0,0,0), 
-                                                        rad, 
-                                                        mat, 
-                                                        fLightToWorld, 
+    plDrawableSpans* draw = plDrawableGenerator::GenerateSphericalDrawable(hsPoint3(0,0,0),
+                                                        rad,
+                                                        mat,
+                                                        fLightToWorld,
                                                         true,
                                                         nil,
                                                         &idx,
@@ -992,7 +992,7 @@ void plSpotLightInfo::Write(hsStream* s, hsResMgr* mgr)
 
 
 hsVector3 plSpotLightInfo::GetWorldDirection() const
-{ 
+{
     return -fLightToWorld.GetAxis( hsMatrix44::kUp );
 }
 
@@ -1011,9 +1011,9 @@ plDrawableSpans* plSpotLightInfo::CreateProxy(hsGMaterial* mat, hsTArray<uint32_
 
     hsFastMath::SinCosAppr( GetSpotOuter(), x, y );
 
-    plDrawableSpans* draw = plDrawableGenerator::GenerateConicalDrawable(rad * x / y, -rad, 
-                                                        mat, 
-                                                        fLightToWorld, 
+    plDrawableSpans* draw = plDrawableGenerator::GenerateConicalDrawable(rad * x / y, -rad,
+                                                        mat,
+                                                        fLightToWorld,
                                                         true,
                                                         nil,
                                                         &idx,

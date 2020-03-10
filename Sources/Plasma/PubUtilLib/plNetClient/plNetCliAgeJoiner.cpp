@@ -44,7 +44,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 *   $/Plasma20/Sources/Plasma/PubUtilLib/plNetClient/plNetCliAgeJoiner.cpp
 *
 *   Encapsulates all of the horrible ugliness that the age load process has become
-*   
+*
 ***/
 
 #include "plNetCliAgeJoiner.h"

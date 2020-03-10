@@ -45,7 +45,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plAnimTimeConvertSDLModifier.h"
 
 //
-// This modifier is responsible for sending and recving 
+// This modifier is responsible for sending and recving
 // an object's animation state
 //
 class plAGMasterMod;
@@ -55,7 +55,7 @@ class plStateDataRecord;
 class plAGMasterSDLModifier : public plAnimTimeConvertSDLModifier
 {
 protected:
-    // var labels 
+    // var labels
     struct AGMasterVarNames
     {
         static char kStrAtcs[];     // animTimeConverts

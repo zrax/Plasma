@@ -118,17 +118,17 @@ void plCameraModifier1::AddTarget(plSceneObject* so)
             fUpdateBrainTarget = true; // update the brain later
     }
     if (GetKey())
-    {   
+    {
         plgDispatch::Dispatch()->RegisterForExactType(plEvalMsg::Index(), GetKey());
     }
 }
 
 void plCameraModifier1::SetSubject(plSceneObject* pObj)
-{ 
+{
     if (GetBrain())
-        GetBrain()->SetSubject(pObj); 
-    else 
-        fSubObj = pObj; 
+        GetBrain()->SetSubject(pObj);
+    else
+        fSubObj = pObj;
 }
 
 plSceneObject* plCameraModifier1::GetSubject()
@@ -137,28 +137,28 @@ plSceneObject* plCameraModifier1::GetSubject()
         return GetBrain()->GetSubject();
     else
         return fSubObj;
-} 
+}
 
-void plCameraModifier1::SetFOV(float w, float h, bool fUpdateVCam) 
-{ 
+void plCameraModifier1::SetFOV(float w, float h, bool fUpdateVCam)
+{
     fFOVw = w;
     fFOVh = h;
     if (plVirtualCam1::Instance() && fUpdateVCam)
-        plVirtualCam1::SetFOV(this); 
+        plVirtualCam1::SetFOV(this);
 }
 
-void plCameraModifier1::SetFOVw(float f, bool fUpdateVCam) 
-{ 
-    fFOVw = f; 
+void plCameraModifier1::SetFOVw(float f, bool fUpdateVCam)
+{
+    fFOVw = f;
     if (plVirtualCam1::Instance() && fUpdateVCam)
-        plVirtualCam1::SetFOV(this); 
+        plVirtualCam1::SetFOV(this);
 }
 
-void plCameraModifier1::SetFOVh(float f, bool fUpdateVCam) 
-{ 
-    fFOVh = f; 
+void plCameraModifier1::SetFOVh(float f, bool fUpdateVCam)
+{
+    fFOVh = f;
     if (plVirtualCam1::Instance() && fUpdateVCam)
-        plVirtualCam1::SetFOV(this); 
+        plVirtualCam1::SetFOV(this);
 }
 
 bool plCameraModifier1::SetFaded(bool b)
@@ -256,7 +256,7 @@ void plCameraModifier1::Update()
 {
     // update the brain
 
-    // this freeze thing is a useful debugging tool...  
+    // this freeze thing is a useful debugging tool...
     if (plVirtualCam1::Instance()->freeze)
         return;
     
@@ -328,7 +328,7 @@ void plCameraModifier1::Update()
         fLastSubPos = GetTargetPos();
         fLastSubPOA = GetTargetPOA();
     }
-}   
+}
 
 void plCameraModifier1::Read(hsStream* stream, hsResMgr* mgr)
 {
@@ -369,19 +369,19 @@ void plCameraModifier1::Read(hsStream* stream, hsResMgr* mgr)
     int n = stream->ReadLE32();
     fMessageQueue.SetCountAndZero(n);
     for(i = 0; i < n; i++ )
-    {   
+    {
         plMessage* pMsg =  plMessage::ConvertNoRef(mgr->ReadCreatable(stream));
         fMessageQueue[i] = pMsg;
     }
     for(i = 0; i < n; i++ )
-    {   
+    {
         mgr->ReadKeyNotifyMe(stream, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, i, kRefCallbackMsg), plRefFlags::kActiveRef);
     }
 
     n = stream->ReadLE32();
     fFOVInstructions.SetCountAndZero(n);
     for(i = 0; i < n; i++ )
-    {   
+    {
         plCameraMsg* pMsg =  plCameraMsg::ConvertNoRef(mgr->ReadCreatable(stream));
         fFOVInstructions[i] = pMsg;
     }
@@ -401,7 +401,7 @@ void plCameraModifier1::Write(hsStream* stream, hsResMgr* mgr)
     int i = fTrans.Count();
     stream->WriteLE32(i);
     for (i = 0; i < fTrans.Count(); i++)
-    {   
+    {
         mgr->WriteKey(stream, fTrans[i]->fTransTo);
         stream->WriteBool(fTrans[i]->fCutPos);
         stream->WriteBool(fTrans[i]->fCutPOA);
@@ -455,7 +455,7 @@ void plCameraModifier1::Push(bool recenter)
 
 
     if (GetKey())
-    {   
+    {
         plgDispatch::Dispatch()->RegisterForExactType(plMouseEventMsg::Index(), GetKey());
     }
 }
@@ -472,7 +472,7 @@ void plCameraModifier1::Pop()
             pMsg->AddReceiver(GetTarget()->GetKey());
             if (GetBrain() && GetBrain()->GetSubject())
                 pMsg->AddReceiver(GetBrain()->GetSubject()->GetKey());
-            pMsg->Send();       
+            pMsg->Send();
         }
         if (fResetAnimOnPop)
         {
@@ -488,10 +488,10 @@ void plCameraModifier1::Pop()
     if (fBrain)
         fBrain->Pop();
     if (GetKey()) // the reason we might not have a key is a special run-time POA which doesn't need to receive messages...
-    {       
+    {
         plgDispatch::Dispatch()->UnRegisterForExactType(plMouseEventMsg::Index(), GetKey());
     }
-}   
+}
 
 void plCameraModifier1::SetTransform(hsPoint3 at)
 {

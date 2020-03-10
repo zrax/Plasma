@@ -71,7 +71,7 @@ bool plShadowSlave::ISetupOrthoViewTransform()
     proj.NotIdentity();
 
     // First the LightToTexture, which uses the above pretty much as is.
-    // Note the remapping to range [0.5..width-0.5] etc. 
+    // Note the remapping to range [0.5..width-0.5] etc.
     // About this kAdjustBias. According to the docs, it should be 0.5,
     // and on the perspective projection 0.5 works great. But on the
     // directional (ortho) projection, it just makes the mapping wrong,
@@ -89,7 +89,7 @@ bool plShadowSlave::ISetupOrthoViewTransform()
     fWorldToTexture = proj * fWorldToLight;
 
     // Now the LightToNDC. This one's a little trickier, because we want to compensate for
-    // having brought in the viewport to keep our border constant, so we can clamp the 
+    // having brought in the viewport to keep our border constant, so we can clamp the
     // projected texture and not have the edges smear off to infinity.
     // Like the adjust bias above, this part is correct in theory, but only
     // screws things up (increases Z-acne).
@@ -100,7 +100,7 @@ bool plShadowSlave::ISetupOrthoViewTransform()
     float delY = maxY - minY;
     minY += delY / (fHeight * 0.5f);
     maxY -= delY / (fHeight * 0.5f);
-#endif 
+#endif
 
 
     fView.SetView(hsPoint3(minX, minY, minZ), hsPoint3(maxX, maxY, maxZ));
@@ -197,7 +197,7 @@ bool plShadowSlave::ISetupPerspViewTransform()
     fWorldToTexture = proj * fWorldToLight;
 
     // Now the LightToNDC. This one's a little trickier, because we want to compensate for
-    // having brought in the viewport to keep our border constant, so we can clamp the 
+    // having brought in the viewport to keep our border constant, so we can clamp the
     // projected texture and not have the edges smear off to infinity.
     cotX -= cotX / (fWidth * 0.5f);
     cotY -= cotY / (fHeight * 0.5f);

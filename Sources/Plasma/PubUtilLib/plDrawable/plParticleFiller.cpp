@@ -92,13 +92,13 @@ static float sCurrMinWidth = 0;
 ///////////////////////////////////////////////////////////////////////////////
 
 //// Particle Processing Inlines //////////////////////////////////////////////
-//  Thanks to the <cough> beauty of C++, the internal loop of 
+//  Thanks to the <cough> beauty of C++, the internal loop of
 //  IFillParticlePolys would be horrendous without these inlines (with them,
 //  it's just slightly annoying). The goal is to make the code easier to
 //  maintain without loosing speed (hence the inlines, which will *hopefully*
 //  remove the function call overhead....)
 
-void inline IInlSetParticlePathFollow( const plParticleCore &particle, const hsMatrix44& viewToWorld, 
+void inline IInlSetParticlePathFollow( const plParticleCore &particle, const hsMatrix44& viewToWorld,
                                       hsVector3 &xVec, hsVector3 &yVec, hsVector3 &zVec )
 {
 
@@ -121,7 +121,7 @@ void inline IInlSetParticlePathFollow( const plParticleCore &particle, const hsM
     yVec *= particle.fVSize;
 }
 
-void inline IInlSetParticlePathStretch( const plParticleCore &particle, const hsMatrix44& viewToWorld, 
+void inline IInlSetParticlePathStretch( const plParticleCore &particle, const hsMatrix44& viewToWorld,
                                       hsVector3 &xVec, hsVector3 &yVec, hsVector3 &zVec )
 {
 
@@ -133,7 +133,7 @@ void inline IInlSetParticlePathStretch( const plParticleCore &particle, const hs
     // you in the math class you slept through.
     // So what we want is for the tail of the particle this frame to be where the head of
     // the particle was last frame.
-    // First thing changed was the orientation passed in is now the change in position for 
+    // First thing changed was the orientation passed in is now the change in position for
     // this frame (was the last frame's velocity).
     // zVec will still be the normalized vector from the eye to the particle (in world space).
     // Does zVec ever get used? Hmm, only gets used for the normal facing the camera.
@@ -180,12 +180,12 @@ void inline IInlSetParticlePathStretch( const plParticleCore &particle, const hs
     float len = yVec.InnerProduct(orientation);
     // Might want to give it a little boost to overlap itself (and compensate for the massive
     // transparent border the artists love). But they can do that themselves with the VSize.
-//  len *= 1.5f; 
+//  len *= 1.5f;
     len += particle.fVSize;
     yVec *= len * -1.f;
 }
 
-void inline IInlSetParticlePathFlow( const plParticleCore &particle, const hsMatrix44& viewToWorld, 
+void inline IInlSetParticlePathFlow( const plParticleCore &particle, const hsMatrix44& viewToWorld,
                                       hsVector3 &xVec, hsVector3 &yVec, hsVector3 &zVec )
 {
 
@@ -297,7 +297,7 @@ void inline IInlStuffParticle1UV( uint8_t *&destPtr, const hsPoint3 *partPts, co
         STUFF_UINT32( destPtr, partColor );
         STUFF_UINT32( destPtr, 0 );
         STUFF_POINT( destPtr, particle.fUVCoords[ j ] );
-    }           
+    }
 }
 
 void inline IInlStuffParticleNoUVs( uint8_t *&destPtr, const hsPoint3 *partPts, const hsVector3 &partNorm,
@@ -312,7 +312,7 @@ void inline IInlStuffParticleNoUVs( uint8_t *&destPtr, const hsPoint3 *partPts, 
         STUFF_POINT( destPtr, partNorm );
         STUFF_UINT32( destPtr, partColor );
         STUFF_UINT32( destPtr, 0 );
-    }           
+    }
 }
 
 void inline IInlSetNormalViewFace( hsVector3 &partNorm, const hsVector3 &zVec )
@@ -320,7 +320,7 @@ void inline IInlSetNormalViewFace( hsVector3 &partNorm, const hsVector3 &zVec )
     partNorm = -zVec;
 }
 
-void inline IInlSetNormalStrongestLight( hsVector3 &partNorm, const plParticleCore &particle, 
+void inline IInlSetNormalStrongestLight( hsVector3 &partNorm, const plParticleCore &particle,
                                         const plOmniLightInfo *omniLight, const plDirectionalLightInfo *directionLight, const hsVector3 &zVec )
 {
     if( omniLight != nil )

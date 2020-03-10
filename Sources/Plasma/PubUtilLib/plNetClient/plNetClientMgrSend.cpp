@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "hsTimer.h"
 #include "hsResMgr.h"
 #include "plNetClientMgr.h"
-#include "plCreatableIndex.h"   
+#include "plCreatableIndex.h"
 #include "plNetCommon/plNetObjectDebugger.h"
 
 #include "pnNetCommon/plSynchedObject.h"
@@ -126,7 +126,7 @@ int plNetClientMgr::ISendDirtyState(double secs)
         }
 
         obj->CallDirtyNotifiers();
-        obj->SendSDLStateMsg(state->fSDLName.c_str(), state->fSendFlags);       
+        obj->SendSDLStateMsg(state->fSDLName.c_str(), state->fSendFlags);
     }
 
     plSynchedObject::ClearDirtyState(carryOvers);
@@ -178,13 +178,13 @@ void plNetClientMgr::ISendCCRPetition(plCCRPetitionMsg* petMsg)
 // send a msg to reset the camera in a new age
 //
 void plNetClientMgr::ISendCameraReset(bool bEnteringAge)
-{   
+{
     plCameraMsg* pCamMsg = new plCameraMsg;
     if (bEnteringAge)
         pCamMsg->SetCmd(plCameraMsg::kResetOnEnter);
     else
         pCamMsg->SetCmd(plCameraMsg::kResetOnExit);
-    pCamMsg->SetBCastFlag(plMessage::kBCastByExactType, false);     
+    pCamMsg->SetBCastFlag(plMessage::kBCastByExactType, false);
     plUoid U2(kVirtualCamera1_KEY);
     plKey pCamKey = hsgResMgr::ResMgr()->FindKey(U2);
     if (pCamKey)
@@ -297,9 +297,9 @@ int plNetClientMgr::ISendGameMessage(plMessage* msg)
 
     // check delivery timestamp
     if (msg->GetTimeStamp()<=hsTimer::GetSysSeconds())
-        msg->SetTimeStamp(0);   
+        msg->SetTimeStamp(0);
     else
-        netMsgWrap->GetDeliveryTime().SetFromGameTime(msg->GetTimeStamp(), hsTimer::GetSysSeconds());   
+        netMsgWrap->GetDeliveryTime().SetFromGameTime(msg->GetTimeStamp(), hsTimer::GetSysSeconds());
 
     // write message (and label) to ram stream
     hsRAMStream stream;
@@ -346,7 +346,7 @@ int plNetClientMgr::ISendGameMessage(plMessage* msg)
     //
     // check for net propagated plasma msgs which should be filtered by relevance regions.
     // currently only avatar control messages.
-    // 
+    //
     if (msg->HasBCastFlag(plMessage::kNetUseRelevanceRegions))
     {
         netMsgWrap->SetBit(plNetMessage::kUseRelevanceRegions);
@@ -374,7 +374,7 @@ int plNetClientMgr::ISendGameMessage(plMessage* msg)
     }
 
     // check for reliable send
-    if (msg->HasBCastFlag(plMessage::kNetSendUnreliable) && 
+    if (msg->HasBCastFlag(plMessage::kNetSendUnreliable) &&
         !(synchedObj && (synchedObj->GetSynchFlags() & plSynchedObject::kSendReliably)) )
         netMsgWrap->SetBit(plNetMessage::kNeedsReliableSend, 0);    // clear reliable net send bit
 

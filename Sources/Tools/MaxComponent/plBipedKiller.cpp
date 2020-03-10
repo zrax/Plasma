@@ -118,7 +118,7 @@ void FreeMotionSamples(plSampleVec *samples);
 // REMOVEBIPED
 void RemoveBiped(INode *bipRoot, Interface *theInterface)
 {
-    SuspendAnimate();   
+    SuspendAnimate();
     AnimateOn();
     
     // remember Max's default controllers (for the user)
@@ -193,7 +193,7 @@ void ProcessBipedNodeRecurse(INode *bipNode, INode *parent, Interface *theInterf
             replacement->Detach(0);
 
             // attach the node to the biped's parent.
-            parent->AttachChild(replacement);   
+            parent->AttachChild(replacement);
 
             ReapplyAnimation(child, samples);
             FreeMotionSamples(samples);
@@ -379,7 +379,7 @@ bool HasBipController(INode* node)
         return false;
     Control* c = node->GetTMController();
     if (c && ((c->ClassID()== BIPSLAVE_CONTROL_CLASS_ID) ||
-        (c->ClassID()== BIPBODY_CONTROL_CLASS_ID) || 
+        (c->ClassID()== BIPBODY_CONTROL_CLASS_ID) ||
         (c->ClassID()== FOOTPRINT_CLASS_ID)) )
         return true;
     return false;
@@ -490,7 +490,7 @@ int LimitTransform(INode* node, Matrix3* nodeTM)
         noTransZ=gUserPropMgr.UserPropExists(node,"BEHNoTransZ") || MatWrite::HasToken(node->GetName(), "notransz");
     }
 
-    if (noRot || noTrans || 
+    if (noRot || noTrans ||
         noRotX || noRotY || noRotZ ||
         noTransX || noTransY || noTransZ)
     {

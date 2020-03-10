@@ -324,7 +324,7 @@ void    plResManagerHelper::EnableDebugScreen( bool enable )
 
 #ifdef MCN_RESMGR_DEBUGGING
 class plDebugPrintIterator : public plRegistryPageIterator, plRegistryKeyIterator
-{   
+{
     public:
         plStatusLog *fLog;
         uint8_t       fStep, fLines;
@@ -334,7 +334,7 @@ class plDebugPrintIterator : public plRegistryPageIterator, plRegistryKeyIterato
 
         plResManagerHelper  *fParent;
 
-        plDebugPrintIterator( plResManagerHelper *parent, plStatusLog *log, uint32_t &loadedCount, uint32_t &holdingCount ) 
+        plDebugPrintIterator( plResManagerHelper *parent, plStatusLog *log, uint32_t &loadedCount, uint32_t &holdingCount )
                     : fParent( parent ), fLog( log ), fStep( 0 ), fLines( 0 ), fLoadedCount( loadedCount ), fHoldingCount( holdingCount )
         {
             fLoadedCount = fHoldingCount = 0;
@@ -399,7 +399,7 @@ class plDebugPrintIterator : public plRegistryPageIterator, plRegistryKeyIterato
                     // Print header now, since we won't be printing a footer
                     if( fLines < kLogSize - 4 )
                     {
-                        fLog->AddLineF( plStatusLog::kYellow, " {}>", fCurrAge );   
+                        fLog->AddLineF( plStatusLog::kYellow, " {}>", fCurrAge );
                         fLines++;
                     }
                     else if( fLines == kLogSize - 4 )
@@ -468,7 +468,7 @@ class plDebugPrintIterator : public plRegistryPageIterator, plRegistryKeyIterato
                 {
                     fLog->AddLine( plStatusLog::kWhite, " ..." );
                     fLines++;
-                }   
+                }
             }
 
             return true;
@@ -589,7 +589,7 @@ bool plResManager::IVerifyKeyUnloadedRecur(const char* logFile, const plKey& bas
         }
     }
 
-    // if the age of this key is different from the age on the baseKey, 
+    // if the age of this key is different from the age on the baseKey,
     // we've got a cross age active ref, which is illegal.
     if( stricmp(upAge, baseAge) )
     {

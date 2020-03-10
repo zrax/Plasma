@@ -62,7 +62,7 @@ public:
         kYes=true
     };
 
-    enum Flags  
+    enum Flags
     {
         kDontDirty              = 0x1,
         kSendReliably           = 0x2,      // object wants reliable send
@@ -75,7 +75,7 @@ public:
         kAllStateIsVolatile      = 0x80
     };
 
-    enum SDLSendFlags   
+    enum SDLSendFlags
     {
         kBCastToClients         = 0x1,
         kForceFullSend          = 0x2,
@@ -134,7 +134,7 @@ public:
     // setters
     void SetSynchFlagsBit(uint32_t f) { fSynchFlags |= f; }
     virtual void SetNetGroupConstant(plNetGroupId netGroup);
-    virtual void SetNetGroup(plNetGroupId netGroup) { fNetGroup = netGroup; }   
+    virtual void SetNetGroup(plNetGroupId netGroup) { fNetGroup = netGroup; }
     plNetGroupId SelectNetGroup(plKey groupKey);
 
     virtual bool DirtySynchState(const ST::string& sdlName, uint32_t sendFlags);
@@ -142,16 +142,16 @@ public:
 
     void ClearSynchFlagsBit(uint32_t f) { fSynchFlags &= ~f; }
 
-    // static 
+    // static
     static bool GetSynchDisabled() { return fSynchStateStack.size() ? fSynchStateStack.back() : true; }
     static void PushSynchDisabled(bool b) { fSynchStateStack.push_back(b); }
     static bool PopSynchDisabled();
     static plSynchedObject* GetStaticSynchedObject() { return fStaticSynchedObj; }
     static int32_t GetNumDirtyStates() { return fDirtyStates.size(); }
     static plSynchedObject::StateDefn* GetDirtyState(int32_t i) { return &fDirtyStates[i]; }
-    static void ClearDirtyState(std::vector<StateDefn>& carryOver) { fDirtyStates=carryOver; } 
+    static void ClearDirtyState(std::vector<StateDefn>& carryOver) { fDirtyStates=carryOver; }
 
-    // IO 
+    // IO
 //  void SendCreationMsg(double secs);
 //  void SendDestructionMsg(double secs) ;
 
@@ -194,7 +194,7 @@ private:
     NumSynchedValuesType fNumSynchedValues;
 
     // array of friends
-    plSynchedValueBase** fSynchedValueFriends;  
+    plSynchedValueBase** fSynchedValueFriends;
     NumSynchedValuesType fNumSynchedValueFriends;
 
     // dirty callback notifiers
@@ -211,9 +211,9 @@ public:
     int32_t GetNumSynchedValues() const { return fNumSynchedValues+fNumSynchedValueFriends; }
     plSynchedValueBase* GetSynchedValue(int i) const;
 
-    uint8_t RegisterSynchedValue(plSynchedValueBase* v); 
+    uint8_t RegisterSynchedValue(plSynchedValueBase* v);
     bool RemoveSynchedValue(plSynchedValueBase* v);       // handles SVFriends too
-    void RegisterSynchedValueFriend(plSynchedValueBase* v); 
+    void RegisterSynchedValueFriend(plSynchedValueBase* v);
 #endif
 
 #ifdef USE_DIRTY_NOTIFIERS
@@ -236,7 +236,7 @@ public:
 
 #ifdef USE_DIRTY_NOTIFIERS
 ///////////////////////////////////
-// plDirtyNotifier - When a synchedObj 
+// plDirtyNotifier - When a synchedObj
 // gets dirty, this callback will be called.
 ///////////////////////////////////
 class plDirtyNotifier
@@ -244,7 +244,7 @@ class plDirtyNotifier
 protected:
     plKey fSynchedObjKey;
     void* fUserData;
-public: 
+public:
     plDirtyNotifier() : fSynchedObjKey(nil),fUserData(nil) {}
     virtual ~plDirtyNotifier()
     {
@@ -257,7 +257,7 @@ public:
     }
     
     void SetSynchedObjKey(plKey k) { fSynchedObjKey=k; }    // should be set
-    void SetUserData(void* v) { fUserData=v;}               // optional 
+    void SetUserData(void* v) { fUserData=v;}               // optional
 
     plKey   GetSynchedObjKey() { return fSynchedObjKey; }
     void*   GetUserData() { return fUserData;}
@@ -272,10 +272,10 @@ public:
 //
 
 #ifdef USE_SYNCHED_VALUES
-#define SYNCHED_VALUE(type)             plSynchedValue<type>    
-#define SYNCHED_TARRAY(type)            plSynchedTArray<type>   
-#define SYNCHED_VALUE_FRIEND(type)      plSynchedValueFriend<type>  
-#define SYNCHED_TARRAY_FRIEND(type)     plSynchedTArrayFriend<type> 
+#define SYNCHED_VALUE(type)             plSynchedValue<type>
+#define SYNCHED_TARRAY(type)            plSynchedTArray<type>
+#define SYNCHED_VALUE_FRIEND(type)      plSynchedValueFriend<type>
+#define SYNCHED_TARRAY_FRIEND(type)     plSynchedTArrayFriend<type>
 #else
 #define SYNCHED_VALUE(type)             type
 #define SYNCHED_TARRAY(type)            hsTArray<type>

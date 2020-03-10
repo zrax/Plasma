@@ -119,7 +119,7 @@ public:
     bool HasSameMeshes(plClothingItem *other);
 
     virtual void Read(hsStream* s, hsResMgr* mgr);
-    virtual void Write(hsStream* s, hsResMgr* mgr); 
+    virtual void Write(hsStream* s, hsResMgr* mgr);
 
     virtual bool MsgReceive(plMessage* msg);
 };
@@ -180,14 +180,14 @@ public:
     void SaveCustomizations(bool retry = true);
     void AddItem(plClothingItem *item, bool update = true, bool broadcast = true, bool netForce=false);
     void RemoveItem(plClothingItem *item, bool update = true, bool netForce=false);
-    void TintItem(plClothingItem *item, float red, float green, float blue, bool update = true, bool broadcast = true, 
+    void TintItem(plClothingItem *item, float red, float green, float blue, bool update = true, bool broadcast = true,
                   bool netForce = false, bool retry = true, uint8_t fLayer = plClothingElement::kLayerTint1);
     void TintSkin(float red, float green, float blue,
                   bool update = true, bool broadcast = true);
     void MorphItem(plClothingItem *item, uint8_t layer, uint8_t delta, float weight, bool retry = true);
     void SetAge(float age, bool update = true, bool broadcast = true);
     void SetSkinBlend(float blend, uint8_t layer, bool update = true, bool broadcast = true);
-    float GetSkinBlend(uint8_t layer);     
+    float GetSkinBlend(uint8_t layer);
     hsColorRGBA GetItemTint(plClothingItem *item, uint8_t layer = 2) const;
     float GetAge() const { return fSkinBlends[0]; }
     hsTArray<plClothingItem*> &GetItemList() { return fItems; }
@@ -306,7 +306,7 @@ public:
 
     static void ChangeAvatar(const ST::string& name, const plFileName &clothingFile = ST::null);
     
-    static plClothingMgr *GetClothingMgr() { return fInstance; }    
+    static plClothingMgr *GetClothingMgr() { return fInstance; }
     static void Init();
     static void DeInit();
 

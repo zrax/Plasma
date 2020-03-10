@@ -128,7 +128,7 @@ void plWin32Sound::IActuallyPlay()
 
             // Sometimes base/derived classes can be annoying
             IDerivedActuallyPlay();
-            RefreshVolume();        
+            RefreshVolume();
         }
         else
         {
@@ -212,7 +212,7 @@ void    plWin32Sound::SetMax( const int m )
 }
 
 void plWin32Sound::SetOuterVolume( const int v )
-{   
+{
     plSound::SetOuterVolume(v);
     if(fDSoundBuffer)
     {

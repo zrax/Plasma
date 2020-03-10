@@ -108,7 +108,7 @@ static const plCmdArgDef s_cmdLineArgs[] = {
     { kCmdArgFlagged  | kCmdTypeString,     "Age",             kArgStartUpAgeName },
 };
 
-/// Made globals now, so we can set them to zero if we take the border and 
+/// Made globals now, so we can set them to zero if we take the border and
 /// caption styles out ala fullscreen (8.11.2000 mcn)
 int gWinBorderDX    = GetSystemMetrics( SM_CXSIZEFRAME );
 int gWinBorderDY    = GetSystemMetrics( SM_CYSIZEFRAME );
@@ -1052,7 +1052,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nC
 #ifdef PLASMA_EXTERNAL_RELEASE
     // if the client was started directly, run the patcher, and shutdown
     STARTUPINFOW si;
-    PROCESS_INFORMATION pi; 
+    PROCESS_INFORMATION pi;
     memset(&si, 0, sizeof(si));
     memset(&pi, 0, sizeof(pi));
     si.cb = sizeof(si);

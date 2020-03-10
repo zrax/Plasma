@@ -43,7 +43,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #define plKeyFinder_h_inc
 
 //----------------------------
-// plKeyFinder 
+// plKeyFinder
 //----------------------------
 // provides a way to look up an object (via its plKey)
 // Using strings.  The should only be used at Program Init time or console use (cause its not fast)
@@ -73,7 +73,7 @@ class plPageInfo;
 
 class plKeyFinder
 {
-public: 
+public:
     enum eErrCodes
     {
         kOk,

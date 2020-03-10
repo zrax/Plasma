@@ -48,7 +48,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 //  The plProgressMgr is a method by which any part of the client can       //
 //  display a progress bar indicating a lengthy operation.                  //
 //  Basically, a function/class/whatnot registers an operation with the     //
-//  plProgressMgr. 
+//  plProgressMgr.
 //                                                                          //
 //////////////////////////////////////////////////////////////////////////////
 

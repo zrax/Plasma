@@ -99,7 +99,7 @@ plLayerTex::plLayerTex() :
 #endif
 
     plLayerTexDesc.MakeAutoParamBlocks(this);
-    ReplaceReference(kRefUVGen, GetNewDefaultUVGen());  
+    ReplaceReference(kRefUVGen, GetNewDefaultUVGen());
 }
 
 plLayerTex::~plLayerTex()
@@ -111,7 +111,7 @@ plLayerTex::~plLayerTex()
 }
 
 //From MtlBase
-void plLayerTex::Reset() 
+void plLayerTex::Reset()
 {
     GetLayerTexDesc()->Reset(this, TRUE);   // reset all pb2's
     SetBitmap(NULL);
@@ -119,7 +119,7 @@ void plLayerTex::Reset()
     fIValid.SetEmpty();
 }
 
-void plLayerTex::Update(TimeValue t, Interval& valid) 
+void plLayerTex::Update(TimeValue t, Interval& valid)
 {
     if (!fIValid.InInterval(t))
     {
@@ -161,7 +161,7 @@ Interval plLayerTex::Validity(TimeValue t)
     return v;
 }
 
-ParamDlg* plLayerTex::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp) 
+ParamDlg* plLayerTex::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp)
 {
     fMtlParams = imp;
 
@@ -170,11 +170,11 @@ ParamDlg* plLayerTex::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp)
     fUVGenDlg = fUVGen->CreateParamDlg(hwMtlEdit, imp);
     masterDlg->AddDlg(fUVGenDlg);
 
-    return masterDlg;   
+    return masterDlg;
 }
 
 BOOL plLayerTex::SetDlgThing(ParamDlg* dlg)
-{   
+{
     if (dlg == fUVGenDlg)
     {
         fUVGenDlg->SetThing(fUVGen);
@@ -190,7 +190,7 @@ int plLayerTex::NumRefs()
 }
 
 //From ReferenceMaker
-RefTargetHandle plLayerTex::GetReference(int i) 
+RefTargetHandle plLayerTex::GetReference(int i)
 {
     switch (i)
     {
@@ -200,14 +200,14 @@ RefTargetHandle plLayerTex::GetReference(int i)
     }
 }
 
-void plLayerTex::SetReference(int i, RefTargetHandle rtarg) 
+void plLayerTex::SetReference(int i, RefTargetHandle rtarg)
 {
     Interval    garbage;
 
     switch (i)
     {
-        case kRefUVGen:  
-            fUVGen = (UVGen *)rtarg; 
+        case kRefUVGen:
+            fUVGen = (UVGen *)rtarg;
             if( fUVGen )
                 fUVGen->Update( TimeValue( 0 ), garbage );
             break;
@@ -247,8 +247,8 @@ IParamBlock2* plLayerTex::GetParamBlockByID(BlockID id)
         return NULL;
 }
 
-//From ReferenceTarget 
-RefTargetHandle plLayerTex::Clone(RemapDir &remap) 
+//From ReferenceTarget
+RefTargetHandle plLayerTex::Clone(RemapDir &remap)
 {
     plLayerTex *mnew = new plLayerTex();
     *((MtlBase*)mnew) = *((MtlBase*)this); // copy superclass stuff
@@ -263,7 +263,7 @@ int plLayerTex::NumSubs()
     return 3;
 }
 
-Animatable* plLayerTex::SubAnim(int i) 
+Animatable* plLayerTex::SubAnim(int i)
 {
     //TODO: Return 'i-th' sub-anim
     switch (i)
@@ -274,7 +274,7 @@ Animatable* plLayerTex::SubAnim(int i)
     }
 }
 
-TSTR plLayerTex::SubAnimName(int i) 
+TSTR plLayerTex::SubAnimName(int i)
 {
     switch (i)
     {
@@ -284,8 +284,8 @@ TSTR plLayerTex::SubAnimName(int i)
     }
 }
 
-RefResult plLayerTex::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, 
-   PartID& partID, RefMessage message) 
+RefResult plLayerTex::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
+   PartID& partID, RefMessage message)
 {
     switch (message)
     {
@@ -307,21 +307,21 @@ RefResult plLayerTex::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarg
         break;
 
     case REFMSG_UV_SYM_CHANGE:
-        IDiscardTexHandle();  
+        IDiscardTexHandle();
         break;
     }
 
     return REF_SUCCEED;
 }
 
-BOOL plLayerTex::DiscardColor() 
-{ 
-    return fBitmapPB->GetInt(kBmpDiscardColor); 
+BOOL plLayerTex::DiscardColor()
+{
+    return fBitmapPB->GetInt(kBmpDiscardColor);
 }
 
-BOOL plLayerTex::DiscardAlpha() 
-{ 
-    return fBitmapPB->GetInt(kBmpDiscardAlpha); 
+BOOL plLayerTex::DiscardAlpha()
+{
+    return fBitmapPB->GetInt(kBmpDiscardAlpha);
 }
 
 void plLayerTex::IChanged()
@@ -339,7 +339,7 @@ void plLayerTex::IChanged()
 #define TEX_HDR_CHUNK 0x5000
 #define MAX_ASS_CHUNK 0x5500
 
-IOResult plLayerTex::Save(ISave *isave) 
+IOResult plLayerTex::Save(ISave *isave)
 {
     IOResult res;
     isave->BeginChunk(TEX_HDR_CHUNK);
@@ -349,9 +349,9 @@ IOResult plLayerTex::Save(ISave *isave)
     isave->EndChunk();
 
     return IO_OK;
-}   
+}
 
-IOResult plLayerTex::Load(ILoad *iload) 
+IOResult plLayerTex::Load(ILoad *iload)
 {
     IOResult res;
     while (IO_OK == (res = iload->OpenChunk()))
@@ -361,7 +361,7 @@ IOResult plLayerTex::Load(ILoad *iload)
             res = MtlBase::Load(iload);
         }
         iload->CloseChunk();
-        if (res != IO_OK) 
+        if (res != IO_OK)
             return res;
     }
 
@@ -380,14 +380,14 @@ Bitmap* plLayerTex::GetBitmap(TimeValue t)
 
 AColor plLayerTex::EvalColor(ShadeContext& sc)
 {
-    if (!sc.doMaps) 
+    if (!sc.doMaps)
         return AColor(0.0f, 0.0f, 0.0f, 1.0f);
 
     AColor color;
-    if (sc.GetCache(this, color)) 
+    if (sc.GetCache(this, color))
         return color;
 
-    if (gbufID) 
+    if (gbufID)
         sc.SetGBufferID(gbufID);
 
     //
@@ -425,7 +425,7 @@ AColor plLayerTex::EvalColor(ShadeContext& sc)
     if (fBitmapPB->GetInt(kBmpRGBOutput) == 1)
         color = AColor(color.a, color.a, color.a, 1.0f);
 
-    sc.PutCache(this, color); 
+    sc.PutCache(this, color);
     return color;
 }
 
@@ -445,11 +445,11 @@ Point3 plLayerTex::EvalNormalPerturb(ShadeContext& sc)
 
 ULONG plLayerTex::LocalRequirements(int subMtlNum)
 {
-    return fUVGen->Requirements(subMtlNum); 
+    return fUVGen->Requirements(subMtlNum);
 }
 
 #if 0
-int plLayerTex::ICalcFrame(TimeValue t) 
+int plLayerTex::ICalcFrame(TimeValue t)
 {
     PBBitmap *pbbm = fBitmapPB->GetBitmap(kBmpBitmap);
     if (!pbbm || !pbbm->bi)
@@ -488,7 +488,7 @@ int plLayerTex::ICalcFrame(TimeValue t)
 }
 #endif
 
-void plLayerTex::IDiscardTexHandle() 
+void plLayerTex::IDiscardTexHandle()
 {
     if (fTexHandle)
     {
@@ -552,7 +552,7 @@ BITMAPINFO *plLayerTex::GetVPDisplayDIB(TimeValue t, TexHandleMaker& thmaker, In
             bif2.SetName(_T("xxxx67878"));
             bif2.SetType(BMM_TRUE_32);
             bif2.SetFlags(MAP_HAS_ALPHA);
-            bif2.SetWidth(nw);              
+            bif2.SetWidth(nw);
             bif2.SetHeight(nh);
             tmpBM = TheManager->Create(&bif2);
             tmpBM->CopyImage(fBM, COPY_IMAGE_RESIZE_LO_QUALITY, 0);
@@ -562,12 +562,12 @@ BITMAPINFO *plLayerTex::GetVPDisplayDIB(TimeValue t, TexHandleMaker& thmaker, In
                 tmpBM->GetLinearPixels(0,y, nw, p1);
                 if (alphaAsRGB)
                 {
-                    for (int ix =0; ix<nw; ix++) 
+                    for (int ix =0; ix<nw; ix++)
                         p1[ix].r = p1[ix].g = p1[ix].b = p1[ix].a;
                 }
                 if (discardAlpha)
                 {
-                    for (int ix = 0; ix < nw; ix++) 
+                    for (int ix = 0; ix < nw; ix++)
                         p1[ix].a = 0xffff;
                 }
                 newBM->PutPixels(x0, y+y0, nw, p1);
@@ -595,12 +595,12 @@ BITMAPINFO *plLayerTex::GetVPDisplayDIB(TimeValue t, TexHandleMaker& thmaker, In
                 fBM->GetLinearPixels(x0,y+y0, nw, p1);
                 if (alphaAsRGB)
                 {
-                    for (int ix = 0; ix < nw; ix++) 
+                    for (int ix = 0; ix < nw; ix++)
                         p1[ix].r = p1[ix].g = p1[ix].b = p1[ix].a;
                 }
                 if (discardAlpha)
                 {
-                    for (int ix = 0; ix < nw; ix++) 
+                    for (int ix = 0; ix < nw; ix++)
                         p1[ix].a = 0xffff;
                 }
                 newBM->PutPixels(0, y, nw, p1);
@@ -619,10 +619,10 @@ BITMAPINFO *plLayerTex::GetVPDisplayDIB(TimeValue t, TexHandleMaker& thmaker, In
     return bmi;
 }
 
-DWORD plLayerTex::GetActiveTexHandle(TimeValue t, TexHandleMaker& thmaker) 
+DWORD plLayerTex::GetActiveTexHandle(TimeValue t, TexHandleMaker& thmaker)
 {
     // FIXME: ignore validity for now
-    if (fTexHandle && fIValid.InInterval(t))// && texTime == CalcFrame(t)) 
+    if (fTexHandle && fIValid.InInterval(t))// && texTime == CalcFrame(t))
         return fTexHandle->GetHandle();
     else
     {
@@ -650,17 +650,17 @@ const char *plLayerTex::GetTextureName()
 }
 
 void plLayerTex::ISetPBBitmap(PBBitmap *pbbm, int index /* = 0 */)
-{ 
-    fBitmapPB->SetValue(ParamID(kBmpBitmap), 0, pbbm, index); 
+{
+    fBitmapPB->SetValue(ParamID(kBmpBitmap), 0, pbbm, index);
 }
 
 PBBitmap *plLayerTex::GetPBBitmap(int index /* = 0 */)
-{ 
-    return fBitmapPB->GetBitmap(ParamID(kBmpBitmap)); 
+{
+    return fBitmapPB->GetBitmap(ParamID(kBmpBitmap));
 }
 
 //// GetSamplerInfo ///////////////////////////////////////////////////////////
-//  Virtual function called by plBMSampler to get various things while sampling 
+//  Virtual function called by plBMSampler to get various things while sampling
 //  the layer's image
 
 bool    plLayerTex::GetSamplerInfo( plBMSamplerData *samplerData )

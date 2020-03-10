@@ -175,12 +175,12 @@ uint32_t hsReadOnlyLoggingStream::LogRead(uint32_t byteCount, void * buffer, con
 char *hsReadOnlyLoggingStream::LogReadSafeString()
 {
     LogSubStreamStart("push me");
-    uint16_t numChars; 
+    uint16_t numChars;
     LogReadLE(&numChars,"NumChars");
 
     numChars &= ~0xf000; // XXX: remove when hsStream no longer does this.
     if (numChars > 0)
-    {       
+    {
         char *name = new char[numChars+1];
         ILogEntryWaiting();
         uint32_t ret = Read(numChars, name);
@@ -199,7 +199,7 @@ char *hsReadOnlyLoggingStream::LogReadSafeString()
 char *hsReadOnlyLoggingStream::LogReadSafeStringLong()
 {
     LogSubStreamStart("push me");
-    uint32_t numChars; 
+    uint32_t numChars;
     LogReadLE(&numChars,"NumChars");
     if (numChars > 0)
     {

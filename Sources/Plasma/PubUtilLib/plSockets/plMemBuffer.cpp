@@ -78,7 +78,7 @@ void plMemBuffer::SetBuffer(char * data, int len)
     ClearBuffer();
     fBufferLocal = false;
     fBufferLen = len;
-    fBuffer = data;        
+    fBuffer = data;
 }
 
 
@@ -115,15 +115,15 @@ void plMemBuffer::GrowBuffer(int newLen)
 }
 
 
-int plMemBuffer::GetBufferSize()  
+int plMemBuffer::GetBufferSize()
 {
-    return  fBufferLen; 
+    return  fBufferLen;
 };
 
 
-char * plMemBuffer::GetBuffer() 
+char * plMemBuffer::GetBuffer()
 {
-    return  fBuffer; 
+    return  fBuffer;
 };
 
 
@@ -139,11 +139,11 @@ void plMemBuffer::ClearBuffer()
         if(fBuffer != nil)
             delete [] fBuffer;
         fBuffer = nil;
-    }        
+    }
 }
 
 void plMemBuffer::AllocBuffer(int len)
-{        
+{
     fBuffer = new char[len];
     fBufferLocal = true;
     fBufferLen = len;

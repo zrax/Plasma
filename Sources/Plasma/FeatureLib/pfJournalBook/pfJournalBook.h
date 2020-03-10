@@ -401,7 +401,7 @@ class pfJournalBook : public hsKeyedObject
         /// in unusual circumstances.
 
 
-        // Book handles hiding itself once someone clicks away. 
+        // Book handles hiding itself once someone clicks away.
         void    Hide();
 
         // Opens the book, optionally to the given page

@@ -97,9 +97,9 @@ void    pfGUITextBoxMod::IPostSetUpDynTextMap()
 {
     pfGUIColorScheme *scheme = GetColorScheme();
 
-    fDynTextMap->SetFont( scheme->fFontFace, scheme->fFontSize, scheme->fFontFlags, 
+    fDynTextMap->SetFont( scheme->fFontFace, scheme->fFontSize, scheme->fFontFlags,
                             HasFlag( kXparentBgnd ) ? false : true );
-    fDynTextMap->SetTextColor( scheme->fForeColor, 
+    fDynTextMap->SetTextColor( scheme->fForeColor,
                             ( HasFlag( kXparentBgnd ) && scheme->fBackColor.a == 0.f ) ? true : false );
 }
 

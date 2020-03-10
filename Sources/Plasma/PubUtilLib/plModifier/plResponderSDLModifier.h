@@ -52,10 +52,10 @@ class plStateDataRecord;
 class plResponderSDLModifier : public plSDLModifier
 {
 protected:
-    // var labels 
-    static char kStrCurState[]; 
-    static char kStrCurCommand[];   
-    static char kStrNetRequest[];   
+    // var labels
+    static char kStrCurState[];
+    static char kStrCurCommand[];
+    static char kStrNetRequest[];
     static char kStrCompletedEvents[];
     static char kStrEnabled[];
     static char kStrPlayerKey[];

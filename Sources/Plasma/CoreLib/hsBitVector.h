@@ -69,7 +69,7 @@ public:
     hsBitVector& Clear(); // everyone clear, but no dealloc
     hsBitVector& Set(int upToBit=-1); // WARNING - see comments at function
 
-    bool operator==(const hsBitVector& other) const; // unset (ie uninitialized) bits are clear, 
+    bool operator==(const hsBitVector& other) const; // unset (ie uninitialized) bits are clear,
     bool operator!=(const hsBitVector& other) const { return !(*this == other); }
     hsBitVector& operator=(const hsBitVector& other); // will wind up identical
 

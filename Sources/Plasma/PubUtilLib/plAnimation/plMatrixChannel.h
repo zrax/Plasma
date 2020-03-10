@@ -222,7 +222,7 @@ public:
 
     // AG PROTOCOL
     virtual const hsAffineParts & AffineValue(double time, bool peek = false);
-    virtual const hsAffineParts & AffineValue(double time, bool peek, plControllerCacheInfo *cache);    
+    virtual const hsAffineParts & AffineValue(double time, bool peek, plControllerCacheInfo *cache);
     virtual const hsMatrix44 & Value(double time, bool peek = false);
     virtual const hsMatrix44 & Value(double time, bool peek, plControllerCacheInfo *cache);
     
@@ -348,7 +348,7 @@ public:
     virtual bool CanBlend(plAGApplicator *app);
 
     bool fIgnoreNextCorrection;
-    static const float fDelayLength; // static var for now.  
+    static const float fDelayLength; // static var for now.
 };
 
 // PLMATRIXDIFFERENCEAPP

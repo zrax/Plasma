@@ -83,7 +83,7 @@ public:
     void AddCommand(uint32_t command) { fCommands |= command; }
     bool ResendUpdate() { return fCommands != kUpdateTexture; }
 
-    // IO 
+    // IO
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);
     
@@ -117,7 +117,7 @@ public:
     ~plClothingUpdateBCMsg() {}
 
     CLASSNAME_REGISTER( plClothingUpdateBCMsg );
-    GETINTERFACE_ANY( plClothingUpdateBCMsg, plMessage );   
+    GETINTERFACE_ANY( plClothingUpdateBCMsg, plMessage );
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

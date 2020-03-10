@@ -76,7 +76,7 @@ void pyVaultPlayerInfoNode::Player_SetPlayerID( uint32_t plyrid )
     if (!fNode)
         return;
 
-    VaultPlayerInfoNode playerInfo(fNode);      
+    VaultPlayerInfoNode playerInfo(fNode);
     playerInfo.SetPlayerId(plyrid);
 }
 
@@ -85,7 +85,7 @@ uint32_t pyVaultPlayerInfoNode::Player_GetPlayerID()
     if (!fNode)
         return 0;
 
-    VaultPlayerInfoNode playerInfo(fNode);      
+    VaultPlayerInfoNode playerInfo(fNode);
     return playerInfo.GetPlayerId();
 }
 

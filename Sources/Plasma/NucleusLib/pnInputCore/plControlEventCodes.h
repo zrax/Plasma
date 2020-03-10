@@ -44,7 +44,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 
 // list of all controls that could potentially
-// be mapped to a key, a mouse button, etc 
+// be mapped to a key, a mouse button, etc
 
 // NOTE:
 // NOTE:
@@ -159,4 +159,4 @@ enum ControlEventCode
 
 
 
-#endif // plControlEventCodes_inc 
+#endif // plControlEventCodes_inc

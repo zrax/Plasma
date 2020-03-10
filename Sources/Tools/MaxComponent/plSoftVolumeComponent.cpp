@@ -160,7 +160,7 @@ void plVolumeHitCallback::proc(INodeTab &nodeTab)
 //// plSingleCompSelProc Functions //////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-plSingleCompSelProc::plSingleCompSelProc(ParamID nodeID, int dlgItem, TCHAR *title) : fNodeID(nodeID), fDlgItem(dlgItem) 
+plSingleCompSelProc::plSingleCompSelProc(ParamID nodeID, int dlgItem, TCHAR *title) : fNodeID(nodeID), fDlgItem(dlgItem)
 {
     strcpy( fTitle, title );
 }
@@ -206,18 +206,18 @@ BOOL plSingleCompSelProc::DlgProc(TimeValue t, IParamMap2 *paramMap, HWND hWnd, 
 // Moved class declaration to .h -mcn
 
 
-bool plSoftVolBaseComponent::SetupProperties(plMaxNode* pNode, plErrorMsg* errMsg) 
-{ 
-    fSoftKey = nil; 
-    fValid = false; 
-    return true; 
+bool plSoftVolBaseComponent::SetupProperties(plMaxNode* pNode, plErrorMsg* errMsg)
+{
+    fSoftKey = nil;
+    fValid = false;
+    return true;
 }
 
 plKey plSoftVolBaseComponent::GetSoftVolume()
-{ 
+{
     if( !fSoftKey )
-        ICreateSoftVolume(); 
-    return fSoftKey; 
+        ICreateSoftVolume();
+    return fSoftKey;
 }
 
 plSoftVolBaseComponent* plSoftVolBaseComponent::GetSoftComponent(INode* node)
@@ -234,7 +234,7 @@ plSoftVolBaseComponent* plSoftVolBaseComponent::GetSoftComponent(INode* node)
 
 plSoftVolBaseComponent* plSoftVolBaseComponent::GetSoftComponent(plComponentBase *comp)
 {
-    if( comp != nil && 
+    if( comp != nil &&
            (comp->ClassID() == SOFTVOLUME_CID)
         || (comp->ClassID() == SOFTVOLUME_UNION_CID)
         || (comp->ClassID() == SOFTVOLUME_ISECT_CID)
@@ -367,10 +367,10 @@ ParamBlockDesc2 gSoftVolBk
 
     IDD_COMP_SOFTVOLUME, IDS_COMP_SOFTVOLUMES,  0, 0, &gSoftVolProc,
 
-    plSoftVolComponent::kSoftDistance,      _T("Soft Distance"),        TYPE_FLOAT,     0, 0,   
+    plSoftVolComponent::kSoftDistance,      _T("Soft Distance"),        TYPE_FLOAT,     0, 0,
         p_default, 0.0,
         p_range, 0.0, 500.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_SOFTVOL_SOFT, IDC_COMP_SOFTVOL_SOFT_SPIN, 1.0,
         end,
 
@@ -380,17 +380,17 @@ ParamBlockDesc2 gSoftVolBk
         p_enable_ctrls,     2, plSoftVolComponent::kInsidePower, plSoftVolComponent::kOutsidePower,
         end,
 
-    plSoftVolComponent::kInsidePower,       _T("PowerInside"),      TYPE_FLOAT,     0, 0,   
+    plSoftVolComponent::kInsidePower,       _T("PowerInside"),      TYPE_FLOAT,     0, 0,
         p_default, 100.0,
         p_range, 0.0, 100.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_SOFTVOL_INSIDE, IDC_COMP_SOFTVOL_INSIDE_SPIN, 1.0,
         end,
 
-    plSoftVolComponent::kOutsidePower,      _T("PowerOutside"),     TYPE_FLOAT,     0, 0,   
+    plSoftVolComponent::kOutsidePower,      _T("PowerOutside"),     TYPE_FLOAT,     0, 0,
         p_default, 0.0,
         p_range, 0.0, 100.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_SOFTVOL_OUTSIDE, IDC_COMP_SOFTVOL_OUTSIDE_SPIN, 1.0,
         end,
 
@@ -413,7 +413,7 @@ bool plSoftVolComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *errMsg)
     for( i = 0; i < pNode->NumAttachedComponents(); i++ )
     {
         plComponentBase* comp = pNode->GetAttachedComponent(i);
-        if( comp 
+        if( comp
             && (comp != this)
             && (comp->ClassID() == ClassID()) )
         {
@@ -699,17 +699,17 @@ ParamBlockDesc2 gSoftVolUnionBk
         p_enable_ctrls,     2, plSoftVolUnionComponent::kInsidePower, plSoftVolUnionComponent::kOutsidePower,
         end,
 
-    plSoftVolUnionComponent::kInsidePower,      _T("PowerInside"),      TYPE_FLOAT,     0, 0,   
+    plSoftVolUnionComponent::kInsidePower,      _T("PowerInside"),      TYPE_FLOAT,     0, 0,
         p_default, 100.0,
         p_range, 0.0, 100.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_SOFTUNION_INSIDE, IDC_COMP_SOFTUNION_INSIDE_SPIN, 1.0,
         end,
 
-    plSoftVolComponent::kOutsidePower,      _T("PowerOutside"),     TYPE_FLOAT,     0, 0,   
+    plSoftVolComponent::kOutsidePower,      _T("PowerOutside"),     TYPE_FLOAT,     0, 0,
         p_default, 0.0,
         p_range, 0.0, 100.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_SOFTUNION_OUTSIDE, IDC_COMP_SOFTUNION_OUTSIDE_SPIN, 1.0,
         end,
 
@@ -860,17 +860,17 @@ ParamBlockDesc2 gSoftVolIsectBk
         p_enable_ctrls,     2, plSoftVolIsectComponent::kInsidePower, plSoftVolIsectComponent::kOutsidePower,
         end,
 
-    plSoftVolIsectComponent::kInsidePower,      _T("PowerInside"),      TYPE_FLOAT,     0, 0,   
+    plSoftVolIsectComponent::kInsidePower,      _T("PowerInside"),      TYPE_FLOAT,     0, 0,
         p_default, 100.0,
         p_range, 0.0, 100.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_SOFTISECT_INSIDE, IDC_COMP_SOFTISECT_INSIDE_SPIN, 1.0,
         end,
 
-    plSoftVolIsectComponent::kOutsidePower,     _T("PowerOutside"),     TYPE_FLOAT,     0, 0,   
+    plSoftVolIsectComponent::kOutsidePower,     _T("PowerOutside"),     TYPE_FLOAT,     0, 0,
         p_default, 0.0,
         p_range, 0.0, 100.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_SOFTISECT_OUTSIDE, IDC_COMP_SOFTISECT_OUTSIDE_SPIN, 1.0,
         end,
 
@@ -973,7 +973,7 @@ ParamBlockDesc2 gSoftVolNegateBk
 (
     plComponent::kBlkComp, _T("SoftRegionNegate"), 0, &gSoftVolNegateDesc, P_AUTO_CONSTRUCT+P_AUTO_UI, plComponent::kRefComp,
 
-    IDD_COMP_SOFTVOLUME_NEGATE, IDS_COMP_SOFTVOLUME_NEGATE,  0, 0, &gSoftVolNegateSingleSel, 
+    IDD_COMP_SOFTVOLUME_NEGATE, IDS_COMP_SOFTVOLUME_NEGATE,  0, 0, &gSoftVolNegateSingleSel,
 
     plSoftVolNegateComponent::kSubVolume, _T("SubRegion"),  TYPE_INODE,     0, 0,
         p_prompt, IDS_COMP_SOFTVOLUME_NEGATE,
@@ -986,17 +986,17 @@ ParamBlockDesc2 gSoftVolNegateBk
         p_enable_ctrls,     2, plSoftVolComponent::kInsidePower, plSoftVolComponent::kOutsidePower,
         end,
 
-    plSoftVolNegateComponent::kInsidePower,     _T("PowerInside"),      TYPE_FLOAT,     0, 0,   
+    plSoftVolNegateComponent::kInsidePower,     _T("PowerInside"),      TYPE_FLOAT,     0, 0,
         p_default, 100.0,
         p_range, 0.0, 100.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_SOFTNEGATE_INSIDE, IDC_COMP_SOFTNEGATE_INSIDE_SPIN, 1.0,
         end,
 
-    plSoftVolNegateComponent::kOutsidePower,        _T("PowerOutside"),     TYPE_FLOAT,     0, 0,   
+    plSoftVolNegateComponent::kOutsidePower,        _T("PowerOutside"),     TYPE_FLOAT,     0, 0,
         p_default, 0.0,
         p_range, 0.0, 100.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_SOFTNEGATE_OUTSIDE, IDC_COMP_SOFTNEGATE_OUTSIDE_SPIN, 1.0,
         end,
 

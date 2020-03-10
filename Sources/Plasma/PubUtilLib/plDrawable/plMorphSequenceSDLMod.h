@@ -47,7 +47,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "HeadSpin.h"
 
 //
-// This modifier is responsible for sending and recving 
+// This modifier is responsible for sending and recving
 // state for morphed objects.
 //
 
@@ -68,9 +68,9 @@ protected:
     bool fIsAvatar;
 
 public:
-    // var labels   
+    // var labels
     static char kStrMorphArrayDescName[];
-    static char kStrWeights[];  
+    static char kStrWeights[];
     
     static char kStrMorphSetDescName[];
     static char kStrMesh[];

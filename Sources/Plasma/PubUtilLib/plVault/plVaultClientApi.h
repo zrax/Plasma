@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/PubUtilLib/plVault/plVaultClientApi.h
-*   
+*
 ***/
 
 #ifdef CLIENT
@@ -157,7 +157,7 @@ struct RelVaultNode : NetVaultNode {
         unsigned            maxDepth
     );
 
-    // returns all matching nodes found 
+    // returns all matching nodes found
     void GetChildNodes (
         unsigned                maxDepth,
         RefList *               nodes

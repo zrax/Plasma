@@ -71,16 +71,16 @@ class pfBackdoorMsg : public plMessage
         CLASSNAME_REGISTER( pfBackdoorMsg );
         GETINTERFACE_ANY( pfBackdoorMsg, plMessage );
 
-        virtual void Read(hsStream* s, hsResMgr* mgr) 
-        { 
-            plMessage::IMsgRead( s, mgr ); 
+        virtual void Read(hsStream* s, hsResMgr* mgr)
+        {
+            plMessage::IMsgRead( s, mgr );
             fTarget = s->ReadSafeString();
             fString = s->ReadSafeString();
         }
         
-        virtual void Write(hsStream* s, hsResMgr* mgr) 
-        { 
-            plMessage::IMsgWrite( s, mgr ); 
+        virtual void Write(hsStream* s, hsResMgr* mgr)
+        {
+            plMessage::IMsgWrite( s, mgr );
             s->WriteSafeString(fTarget);
             s->WriteSafeString(fString);
         }

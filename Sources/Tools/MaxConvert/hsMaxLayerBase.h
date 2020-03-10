@@ -167,7 +167,7 @@ public:
 
     // For exporter
     virtual Color GetAmbient(TimeValue t) const = 0;
-    virtual Color GetColor(TimeValue t) const = 0;        
+    virtual Color GetColor(TimeValue t) const = 0;
     
     virtual float GetShininess(TimeValue t) const = 0;
     virtual float GetShinStr(TimeValue t) const = 0;

@@ -55,7 +55,7 @@ class plLightGrpComponent;
 // stuff for plParticleComponent
 
 class ParticleStats
-{   
+{
 
 public:
     float    fConeAngle;
@@ -82,10 +82,10 @@ public:
     bool        fImmortal;
     
     ParticleStats() : fConeAngle(0.5), fVelocityMin(30.0), fVelocityMax(50.0), fLifeMin(5.0), fLifeMax(10.0), fPPS(20.0),
-                      fScaleMin(80), fScaleMax(120), fGravity(100), fDrag(0), fWindMult(1.f), fMassRange(0), fRotRange(0), 
-                      fPreSim(0), fGenType(0), 
+                      fScaleMin(80), fScaleMax(120), fGravity(100), fDrag(0), fWindMult(1.f), fMassRange(0), fRotRange(0),
+                      fPreSim(0), fGenType(0),
                       fXTiles(1), fYTiles(1), fHSize(1), fVSize(1), fImmortal(false) {}
-};  
+};
 
 class plParticleCoreComponent : public plComponent
 {
@@ -124,7 +124,7 @@ public:
     virtual void DeleteThis() { delete this; }
     static bool IsParticleSystemComponent(plComponentBase *comp);
     static bool NodeHasSystem(plMaxNode *pNode);
-    virtual bool PreConvert(plMaxNode *node, plErrorMsg *pErrMsg); 
+    virtual bool PreConvert(plMaxNode *node, plErrorMsg *pErrMsg);
     virtual bool Convert(plMaxNode *node, plErrorMsg *pErrMsg);
     virtual bool AddToAnim(plAGAnim *anim, plMaxNode *node);
     virtual bool GetParamVals(plMaxNode *pNode) = 0;
@@ -173,8 +173,8 @@ public:
     virtual void DeleteThis() { delete this; }
 
     virtual bool SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg);
-    virtual bool PreConvert(plMaxNode *node, plErrorMsg *pErrMsg); 
-    virtual bool Convert(plMaxNode *node, plErrorMsg *pErrMsg) { return TRUE; }; 
+    virtual bool PreConvert(plMaxNode *node, plErrorMsg *pErrMsg);
+    virtual bool Convert(plMaxNode *node, plErrorMsg *pErrMsg) { return TRUE; };
     
     virtual void AddToParticleSystem(plParticleSystem *sys, plMaxNode *node) = 0;
     static bool IsParticleEffectComponent(plComponentBase *comp);
@@ -225,7 +225,7 @@ public:
 
     plParticleVolumeComponent();
     virtual void DeleteThis() { delete this; }
-    virtual bool PreConvert(plMaxNode *node, plErrorMsg *pErrMsg); 
+    virtual bool PreConvert(plMaxNode *node, plErrorMsg *pErrMsg);
     virtual void AddToParticleSystem(plParticleSystem *sys, plMaxNode *node);
     void BuildVolume(plMaxNode *node);
 

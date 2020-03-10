@@ -95,14 +95,14 @@ hsPlane3::hsPlane3(const hsPoint3* pt1, const hsPoint3* pt2, const hsPoint3* pt3
 }
 
 
-void hsPlane3::Read(hsStream *stream) 
-{ 
-    fN.Read(stream); 
-    fD=stream->ReadLEScalar(); 
+void hsPlane3::Read(hsStream *stream)
+{
+    fN.Read(stream);
+    fD=stream->ReadLEScalar();
 }
 
-void hsPlane3::Write(hsStream *stream) const 
-{ 
-    fN.Write(stream); 
-    stream->WriteLEScalar(fD); 
+void hsPlane3::Write(hsStream *stream) const
+{
+    fN.Write(stream);
+    stream->WriteLEScalar(fD);
 }

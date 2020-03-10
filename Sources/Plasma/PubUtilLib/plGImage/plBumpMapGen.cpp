@@ -89,7 +89,7 @@ plMipmap* plBumpMapGen::QikBumpMap(plMipmap* dst, const plMipmap* origSrc, uint3
         plMipmap* newSrc = src->Clone();
         // Note here that ResizeNicely currently does a point sample if scaling up (and about
         // as expensive a point sample as possible without using transcendental functions).
-        // This might be correctable by calling plMipmap::Filter after the upscale. Or I 
+        // This might be correctable by calling plMipmap::Filter after the upscale. Or I
         // could just assert that dst dimensions match src dimensions.
         newSrc->ResizeNicely((uint16_t)(dst->GetWidth()), (uint16_t)(dst->GetHeight()), plMipmap::kDefaultFilter);
 
@@ -279,7 +279,7 @@ plMipmap* plBumpMapGen::QikNormalMap(plMipmap* dst, const plMipmap* src, uint32_
         }
         else
         {
-            nZ = uint32_t(smooth * 127.5f); 
+            nZ = uint32_t(smooth * 127.5f);
         }
         int8_t* pDst = (int8_t*)dst->GetAddr32(0, 0);
 

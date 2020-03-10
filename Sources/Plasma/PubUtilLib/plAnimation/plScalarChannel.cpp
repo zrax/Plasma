@@ -362,7 +362,7 @@ const float & plScalarControllerChannel::Value(double time, bool peek)
 // ------
 const float & plScalarControllerChannel::Value(double time, bool peek,
                                                   plControllerCacheInfo *cache)
-{       
+{
     fController->Interp((float)time, &fResult, cache);
     return fResult;
 }
@@ -501,13 +501,13 @@ const float & plATCChannel::Value(double time, bool peek)
 // ctor --------------------------------
 // -----
 plScalarSDLChannel::plScalarSDLChannel()
-: fLength(1), fVar(nil) 
+: fLength(1), fVar(nil)
 {
     fResult = 0;
 }
 
 plScalarSDLChannel::plScalarSDLChannel(float length)
-: fLength(length), fVar(nil) 
+: fLength(length), fVar(nil)
 {
     fResult = 0;
 }
@@ -519,9 +519,9 @@ plScalarSDLChannel::~plScalarSDLChannel()
 
 // IsStoppedAt ------------------------------------
 // ------------
-bool plScalarSDLChannel::IsStoppedAt(double time) 
-{ 
-    return false; 
+bool plScalarSDLChannel::IsStoppedAt(double time)
+{
+    return false;
 }
 
 // Value -----------------------------------------------------------

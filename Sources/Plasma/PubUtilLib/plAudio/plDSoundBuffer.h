@@ -64,7 +64,7 @@ class plAudioFileReader;
 
 
 // Ported to OpenAL from DirectSound May 2006. Idealy the openal sources would be seperate from this class.
-// OpenAl sound buffer, and source. 
+// OpenAl sound buffer, and source.
 class plDSoundBuffer
 {
 public:
@@ -146,7 +146,7 @@ protected:
 
     unsigned            buffer;                                 // used if this is not a streaming buffer
     unsigned            streamingBuffers[STREAMING_BUFFERS];    // used if this is a streaming buffer
-    std::list<unsigned> mAvailableBuffers;                      // used for doing our own buffer management. Specifically voice chat, since we dont want old buffers queued 
+    std::list<unsigned> mAvailableBuffers;                      // used for doing our own buffer management. Specifically voice chat, since we dont want old buffers queued
 
     unsigned            source;
     unsigned int        fStreamingBufferSize;

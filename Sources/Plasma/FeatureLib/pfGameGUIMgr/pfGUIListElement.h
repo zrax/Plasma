@@ -153,7 +153,7 @@ class pfGUIListPicture : public pfGUIListElement
 
         pfGUIListPicture();
         pfGUIListPicture( plKey mipKey, bool respectAlpha );
-        virtual ~pfGUIListPicture(); 
+        virtual ~pfGUIListPicture();
         
         virtual void    Read( hsStream *s, hsResMgr *mgr );
         virtual void    Write( hsStream *s, hsResMgr *mgr );
@@ -209,7 +209,7 @@ class pfGUIListTreeRoot : public pfGUIListElement
 
 //// pfGUIDropTargetProc /////////////////////////////////////////////////////
 //  A little proc object you create if you want a control to be a potential
-//  target for drag & drop operations. It has two functions: one takes a 
+//  target for drag & drop operations. It has two functions: one takes a
 //  listElement and returns whether it can accept that type, and the other
 //  actually gets called when a listElement is "dropped" onto the associated
 //  control. Any control can be a dropTarget; just attach the right proc
@@ -217,7 +217,7 @@ class pfGUIListTreeRoot : public pfGUIListElement
 //  If you are dragging multiple elements, both CanEat() and Eat() will get
 //  called for each element that is being dragged.
 
-class pfGUIDropTargetProc 
+class pfGUIDropTargetProc
 {
     protected:
 

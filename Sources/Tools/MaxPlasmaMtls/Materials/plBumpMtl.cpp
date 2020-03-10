@@ -98,12 +98,12 @@ void plBumpMtl::GetClassName(TSTR& s)
     s = GetString(IDS_BUMP_MTL);
 }
 
-ParamDlg* plBumpMtl::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp) 
+ParamDlg* plBumpMtl::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp)
 {
     fIMtlParams = imp;
     IAutoMParamDlg* masterDlg = plBumpMtlDesc.CreateParamDlgs(hwMtlEdit, imp, this);
 
-    return (ParamDlg*)masterDlg;    
+    return (ParamDlg*)masterDlg;
 }
 
 BOOL plBumpMtl::SetDlgThing(ParamDlg* dlg)
@@ -114,14 +114,14 @@ BOOL plBumpMtl::SetDlgThing(ParamDlg* dlg)
 Interval plBumpMtl::Validity(TimeValue t)
 {
 #if 0 // mf horse
-    Interval valid = FOREVER;       
+    Interval valid = FOREVER;
 
-/*  for (int i = 0; i < fSubTexmap.Count(); i++) 
+/*  for (int i = 0; i < fSubTexmap.Count(); i++)
     {
-        if (fSubTexmap[i]) 
+        if (fSubTexmap[i])
             valid &= fSubTexmap[i]->Validity(t);
     }
-*/  
+*/
 //  float u;
 //  fPBlock->GetValue(pb_spin,t,u,valid);
     return valid;
@@ -178,7 +178,7 @@ int plBumpMtl::NumSubs()
     return 3;
 }
 
-TSTR plBumpMtl::SubAnimName(int i) 
+TSTR plBumpMtl::SubAnimName(int i)
 {
     switch (i)
     {
@@ -223,7 +223,7 @@ IParamBlock2* plBumpMtl::GetParamBlockByID(BlockID id)
     return NULL;
 }
 
-RefResult plBumpMtl::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message) 
+RefResult plBumpMtl::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message)
 {
     return plPassMtlBase::NotifyRefChanged( changeInt, hTarget, partID, message );
 }
@@ -280,13 +280,13 @@ void        plBumpMtl::ICloneRefs( plPassMtlBase *target, RemapDir &remap )
     target->ReplaceReference(kRefAnim, remap.CloneRef(fAnimPB));
 }
 
-void plBumpMtl::NotifyChanged() 
+void plBumpMtl::NotifyChanged()
 {
     NotifyDependents(FOREVER, PART_ALL, REFMSG_CHANGE);
 }
 
-void plBumpMtl::Update(TimeValue t, Interval& valid) 
-{   
+void plBumpMtl::Update(TimeValue t, Interval& valid)
+{
     // mf horse - Hacking in something like real validity checking
     // to get material animations working. No warranty, this is just
     // better than nothing.
@@ -300,7 +300,7 @@ void plBumpMtl::Update(TimeValue t, Interval& valid)
 /*
         for (int i = 0; i < fSubTexmap.Count(); i++)
         {
-            if (fSubTexmap[i]) 
+            if (fSubTexmap[i])
                 fSubTexmap[i]->Update(t,fIValid);
         }
 */
@@ -313,8 +313,8 @@ void plBumpMtl::Update(TimeValue t, Interval& valid)
  |  Determine the characteristics of the material
 \*===========================================================================*/
 
-void plBumpMtl::SetAmbient(Color c, TimeValue t) {}     
-void plBumpMtl::SetDiffuse(Color c, TimeValue t) {}     
+void plBumpMtl::SetAmbient(Color c, TimeValue t) {}
+void plBumpMtl::SetDiffuse(Color c, TimeValue t) {}
 void plBumpMtl::SetSpecular(Color c, TimeValue t) {}
 void plBumpMtl::SetShininess(float v, TimeValue t) {}
                 
@@ -342,7 +342,7 @@ void plBumpMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback &
             if (texHandle[i]) {
                 mtl->texture[i].textHandle = texHandle[i]->GetHandle();
                 Texmap *tx = (*maps)[useSubForTex[i]].map;
-                cb.GetGfxTexInfoFromTexmap(t, mtl->texture[i], tx );        
+                cb.GetGfxTexInfoFromTexmap(t, mtl->texture[i], tx );
                 SetTexOps(mtl,i,texOpsType[i]);
                 }
             }
@@ -368,7 +368,7 @@ void plBumpMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback &
         bmi[i] = NULL;
         }
     mtl->texture.SetCount(nmaps);
-    if (nmaps==0) 
+    if (nmaps==0)
         return;
     for (i=0; i<nmaps; i++)
         mtl->texture[i].textHandle = NULL;
@@ -376,17 +376,17 @@ void plBumpMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback &
     Interval  valid;
     BOOL needDecal = FALSE;
     int ntx = 0;
-    int op; 
+    int op;
 
     int forceW = 0;
     int forceH = 0;
     if (tx[0]) {
-        cb.GetGfxTexInfoFromTexmap(t, mtl->texture[0], tx[0]);      
+        cb.GetGfxTexInfoFromTexmap(t, mtl->texture[0], tx[0]);
         TextureInfo &ti = mtl->texture[0];
         if (ti.tiling[0]==GW_TEX_NO_TILING||ti.tiling[1]==GW_TEX_NO_TILING)
             needDecal = TRUE;
         op = needDecal?TXOP_ALPHABLEND:TXOP_MODULATE;
-        bmi[0] = tx[0]->GetVPDisplayDIB(t,cb,valid,FALSE); 
+        bmi[0] = tx[0]->GetVPDisplayDIB(t,cb,valid,FALSE);
         if (bmi[0]) {
             texHandleValid &= valid;
             useSubForTex[0] = diffChan;
@@ -396,14 +396,14 @@ void plBumpMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback &
             }
         }
     if (tx[1]) {
-        cb.GetGfxTexInfoFromTexmap(t, mtl->texture[ntx], tx[1]);        
+        cb.GetGfxTexInfoFromTexmap(t, mtl->texture[ntx], tx[1]);
         if (nsupport>ntx) {
-            bmi[1] = tx[1]->GetVPDisplayDIB(t,cb,valid,TRUE); 
+            bmi[1] = tx[1]->GetVPDisplayDIB(t,cb,valid,TRUE);
             if (bmi[1]) {
                 texHandleValid &= valid;
                 StuffAlpha(bmi[1], (*maps)[opacChan].amount, GetOpacity(t),ntx?whiteCol:pShader->GetDiffuseClr(t));
-                texHandle[ntx] = cb.MakeHandle(bmi[1]); 
-                bmi[1] = NULL; 
+                texHandle[ntx] = cb.MakeHandle(bmi[1]);
+                bmi[1] = NULL;
                 mtl->texture[ntx].textHandle = texHandle[ntx]->GetHandle();
                 SetTexOps(mtl,ntx,TXOP_OPACITY);
                 useSubForTex[ntx] = opacChan;
@@ -415,7 +415,7 @@ void plBumpMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback &
                 TextureInfo ti;
 //              if (SameUV(mtl->texture[0],mtl->texture[1])) {
                     // Not really correct to combine channels for different UV's but what the heck.
-                    bmi[1] = tx[1]->GetVPDisplayDIB(t,cb,valid,TRUE, forceW, forceH); 
+                    bmi[1] = tx[1]->GetVPDisplayDIB(t,cb,valid,TRUE, forceW, forceH);
                     if (bmi[1]) {
                         texHandleValid &= valid;
                         StuffAlphaInto(bmi[1], bmi[0], (*maps)[opacChan].amount, GetOpacity(t));
@@ -428,8 +428,8 @@ void plBumpMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback &
             }
         }
     if (bmi[0]) {
-        texHandle[0] = cb.MakeHandle(bmi[0]); 
-        bmi[0] = NULL; 
+        texHandle[0] = cb.MakeHandle(bmi[0]);
+        bmi[0] = NULL;
         mtl->texture[0].textHandle = texHandle[0]->GetHandle();
         SetTexOps(mtl,0,op);
         }
@@ -469,7 +469,7 @@ void plBumpMtl::GetInterpVtxValue(int channel, ShadeContext &sc, Point3 &val)
         val.x = val.y = val.z = 1.0f;
 }
 
-void plBumpMtl::Shade(ShadeContext& sc) 
+void plBumpMtl::Shade(ShadeContext& sc)
 {
     // Get the background color
     Color backColor, backTrans;
@@ -482,7 +482,7 @@ void plBumpMtl::Shade(ShadeContext& sc)
 //  Tells MAX what we need to render ourselves properly, such as translucency,
 //  two-sidedness, etc. Flags are in imtl.h in the MAX SDK.
 
-ULONG   plBumpMtl::Requirements( int subMtlNum ) 
+ULONG   plBumpMtl::Requirements( int subMtlNum )
 {
     ULONG       req = 0;
 
@@ -514,7 +514,7 @@ void plBumpMtl::ShadeWithBackground(ShadeContext &sc, Color background, bool use
     BOOL bumped = FALSE;
     int i;
 
-    if (gbufID) 
+    if (gbufID)
         sc.SetGBufferID(gbufID);
     
     if (sc.mode == SCMODE_SHADOW) {
@@ -541,7 +541,7 @@ void plBumpMtl::ShadeWithBackground(ShadeContext &sc, Color background, bool use
 
     // Evaluate Base layer
     Texmap *map = fBasicPB->GetTexmap(kBumpBasLayer);
-    if (map && ( map->ClassID() == LAYER_TEX_CLASS_ID 
+    if (map && ( map->ClassID() == LAYER_TEX_CLASS_ID
                 || map->ClassID() == STATIC_ENV_LAYER_CLASS_ID ) )
     {
         plLayerTex *layer = (plLayerTex*)map;
@@ -628,7 +628,7 @@ Interval plBumpMtl::DisplacementValidity(TimeValue t)
     Interval iv;
     iv.SetInfinite();
 
-    return iv;  
+    return iv;
 }
 
 bool plBumpMtl::HasAlpha()

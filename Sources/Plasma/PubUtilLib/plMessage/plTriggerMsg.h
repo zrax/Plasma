@@ -53,15 +53,15 @@ protected:
 public:
     
     plTriggerMsg(){SetBCastFlag(plMessage::kBCastByExactType | plMessage::kPropagateToModifiers);}
-    plTriggerMsg(const plKey &s, 
-                    const plKey &r, 
+    plTriggerMsg(const plKey &s,
+                    const plKey &r,
                     const double* t){SetBCastFlag(plMessage::kBCastByExactType | plMessage::kPropagateToModifiers);}
     ~plTriggerMsg() { }
 
     CLASSNAME_REGISTER( plTriggerMsg );
     GETINTERFACE_ANY( plTriggerMsg, plMessage );
 
-    // IO 
+    // IO
     void Read(hsStream* stream, hsResMgr* mgr) {    plMessage::IMsgRead(stream, mgr);   }
     void Write(hsStream* stream, hsResMgr* mgr) {   plMessage::IMsgWrite(stream, mgr);  }
 };

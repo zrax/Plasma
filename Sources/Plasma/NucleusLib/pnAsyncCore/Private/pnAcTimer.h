@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/NucleusLib/pnAsyncCore/Private/pnAcTimer.h
-*   
+*
 ***/
 
 #ifdef PLASMA20_SOURCES_PLASMA_NUCLEUSLIB_PNASYNCCORE_PRIVATE_PNACTIMER_H
@@ -73,7 +73,7 @@ typedef unsigned (* FAsyncTimerProc)(void * param);
 // 2) Timer procs will never be called by multiple threads simultaneously.
 void AsyncTimerCreate (
     AsyncTimer **   timer,
-    FAsyncTimerProc timerProc, 
+    FAsyncTimerProc timerProc,
     unsigned        callbackMs,
     void *          param = nil
 );

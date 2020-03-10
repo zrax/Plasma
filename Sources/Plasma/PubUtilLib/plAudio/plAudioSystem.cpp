@@ -202,7 +202,7 @@ void plAudioSystem::IEnumerateDevices()
     while (*devices)
     {
         ALCdevice *device = alcOpenDevice(devices);
-        if (device) 
+        if (device)
         {
             ALCcontext *context = alcCreateContext(device, NULL);
             if (context)
@@ -210,14 +210,14 @@ void plAudioSystem::IEnumerateDevices()
                 alcMakeContextCurrent(context);
                 // if new actual device name isn't already in the list, then add it...
                 bool bNewName = true;
-                for (DeviceIter i = fDeviceList.begin(); i != fDeviceList.end(); i++) 
+                for (DeviceIter i = fDeviceList.begin(); i != fDeviceList.end(); i++)
                 {
-                    if (strcmp((*i).GetDeviceName(), devices) == 0) 
+                    if (strcmp((*i).GetDeviceName(), devices) == 0)
                     {
                         bNewName = false;
                     }
                 }
-                if ((bNewName)) 
+                if ((bNewName))
                 {
                     alcGetIntegerv(device, ALC_MAJOR_VERSION, sizeof(int), &major);
                     alcGetIntegerv(device, ALC_MINOR_VERSION, sizeof(int), &minor);
@@ -228,7 +228,7 @@ void plAudioSystem::IEnumerateDevices()
                     {
                         bool supportsEAX = false;
 #ifdef EAX_SDK_AVAILABLE
-                        if(alIsExtensionPresent((ALchar *)"EAX4.0") || alIsExtensionPresent((ALchar *) "EAX4.0Emulated"))       
+                        if(alIsExtensionPresent((ALchar *)"EAX4.0") || alIsExtensionPresent((ALchar *) "EAX4.0Emulated"))
                         {
                             supportsEAX = true;
                         }
@@ -256,7 +256,7 @@ void plAudioSystem::IEnumerateDevices()
             fDeviceList[0] = temp;
         }
         if(strstr(fDeviceList[i].GetDeviceName(), "Hardware"))
-        {   
+        {
             temp = fDeviceList[i];
             fDeviceList[i] = fDeviceList[1];
             fDeviceList[1] = temp;
@@ -268,7 +268,7 @@ void plAudioSystem::IEnumerateDevices()
 bool    plAudioSystem::Init()
 {
     plgAudioSys::fRestarting = false;
-    static bool firstTimeInit = true; 
+    static bool firstTimeInit = true;
     plStatusLog::AddLineS( "audio.log", plStatusLog::kBlue, "ASYS: -- Init --" );
     
     fMaxNumSources = 0;
@@ -352,7 +352,7 @@ bool    plAudioSystem::Init()
     plStatusLog::AddLineSF("audio.log", "OpenAL extensions: {}", alGetString(AL_EXTENSIONS));
     plAudioCaps caps = plAudioCapsDetector::Detect();
 
-    if(strcmp(deviceName, DEFAULT_AUDIO_DEVICE_NAME))       
+    if(strcmp(deviceName, DEFAULT_AUDIO_DEVICE_NAME))
     {
         // we are using a hardware device, set priority based on number of hardware voices
         unsigned int numVoices = caps.GetMaxNumVoices();
@@ -365,7 +365,7 @@ bool    plAudioSystem::Init()
 
     fMaxNumSources = caps.GetMaxNumVoices();
 
-    // attempt to init the EAX listener. 
+    // attempt to init the EAX listener.
     if( plgAudioSys::fEnableEAX )
     {
         fUsingEAX = plEAXListener::GetInstance().Init();
@@ -383,7 +383,7 @@ bool    plAudioSystem::Init()
     
     plProfile_Set(SoundMaxNum, fMaxNumSounds);
 
-    alDistanceModel(AL_INVERSE_DISTANCE_CLAMPED);   
+    alDistanceModel(AL_INVERSE_DISTANCE_CLAMPED);
     
     error = alGetError();
 
@@ -516,7 +516,7 @@ void plAudioSystem::SetMaxNumberOfActiveSounds()
         maxNumSounds = fMaxNumSources / 2;
 
     // Allow a certain number of sounds based on a user specified setting.
-    // Above that limit, we want 1/2 more sounds (8 for the max of 16) for a slop buffer, 
+    // Above that limit, we want 1/2 more sounds (8 for the max of 16) for a slop buffer,
     // if they fit, so that sounds that shouldn't be playing can still play in case they suddenly pop
     // back into priority range (so we don't incur performance hits when sounds hover on
     // the edge of being high enough priority to play)
@@ -543,7 +543,7 @@ void plAudioSystem::SetListenerOrientation(const hsVector3 view, const hsVector3
     alListenerfv(AL_ORIENTATION, orientation);
 }
 
-void    plAudioSystem::SetActive( bool b ) 
+void    plAudioSystem::SetActive( bool b )
 {
     fActive = b;
     if( fActive )
@@ -598,19 +598,19 @@ void    plAudioSystem::UnregisterSoftSound( const plKey soundKey )
 }
 
 //// IUpdateSoftSounds ///////////////////////////////////////////////////////
-//  OK, so the listener moved. Since our sound soft volumes are all based on 
-//  the listener's position, we have to update all sounds with soft volumes 
+//  OK, so the listener moved. Since our sound soft volumes are all based on
+//  the listener's position, we have to update all sounds with soft volumes
 //  now. This involves some steps:
 //      - Determining what volumes the listener has moved out of
 //      - Determining what volumes the listener has changed position in
 //      - Determining what volumes the listener has entered
-//      - Updating the levels of all sounds associated with all of the above 
+//      - Updating the levels of all sounds associated with all of the above
 //          volumes
-//  The first two tests are easy, since we'll have kept track of what volumes 
-//  the listener was in last time. The last part is the tricky one and the 
-//  one that will kill us in performance if we're not careful. However, we 
+//  The first two tests are easy, since we'll have kept track of what volumes
+//  the listener was in last time. The last part is the tricky one and the
+//  one that will kill us in performance if we're not careful. However, we
 //  can first check the bounding box of the sounds in question, since outside
-//  of them the soft volume won't have any effect. The last part is simply a 
+//  of them the soft volume won't have any effect. The last part is simply a
 //  matter of querying the sound volumes based on the listener's position and
 //  setting the soft volume attenuation on the sound to that level.
 //
@@ -671,7 +671,7 @@ void    plAudioSystem::IUpdateSoftSounds( const hsPoint3 &newPosition )
                     node->SortedLink( &sortedList, (10.0f - sound->GetPriority()) * rank );
                 else
                     sortedList->AddToSortedLink( node, (10.0f - sound->GetPriority()) * rank );
-                /// Still in radius, so consider it still "active". 
+                /// Still in radius, so consider it still "active".
                 node = node->fNext;
             }
         }
@@ -700,9 +700,9 @@ void    plAudioSystem::IUpdateSoftSounds( const hsPoint3 &newPosition )
             continue;
         }
     
-        plSound *sound = plSound::ConvertNoRef( node->fSoundKey->ObjectIsLoaded() ); 
+        plSound *sound = plSound::ConvertNoRef( node->fSoundKey->ObjectIsLoaded() );
         if( !sound || sound->GetPriority() > plgAudioSys::GetPriorityCutoff() )
-        {   
+        {
             node = node->fNext;
             continue;
         }
@@ -720,7 +720,7 @@ void    plAudioSystem::IUpdateSoftSounds( const hsPoint3 &newPosition )
             rank = sound->GetVolumeRank();
 
             if( rank > 0.f )
-            {           
+            {
                 /// We just moved into its range, so move it to our active list and start the sucker
                 myNode = node;
                 node = node->fNext;
@@ -746,7 +746,7 @@ void    plAudioSystem::IUpdateSoftSounds( const hsPoint3 &newPosition )
         else
         {
             /// Do NOT notify sound, since we were outside of its range and still are
-            node = node->fNext;     
+            node = node->fNext;
             sound->Disable();       // ensure that dist attenuation is set to zero so we don't accidentally play
         }
     }
@@ -789,7 +789,7 @@ void    plAudioSystem::IUpdateSoftSounds( const hsPoint3 &newPosition )
         if( fUsingEAX && sound->GetEAXSettings().IsEnabled() )
         {
             fDebugActiveSoundDisplay->AddLineF(
-                color, 
+                color,
                 "{} {1.2f} {1.2f} ({} occ) {}",
                 sound->GetPriority(),
                 sortedList->fRank,
@@ -797,7 +797,7 @@ void    plAudioSystem::IUpdateSoftSounds( const hsPoint3 &newPosition )
                 sound->GetEAXSettings().GetCurrSofts().GetOcclusion(),
                 sound->GetKeyName());
         }
-        else 
+        else
         {
             fDebugActiveSoundDisplay->AddLineF(
                 color,
@@ -851,7 +851,7 @@ void    plAudioSystem::NextDebugSound()
             {
                 if( fCurrDebugSound == node )   // Was in first list, move to 2nd
                 {
-                    fCurrDebugSound = fActiveSofts;     
+                    fCurrDebugSound = fActiveSofts;
                     break;
                 }
             }
@@ -881,12 +881,12 @@ bool plAudioSystem::MsgReceive(plMessage* msg)
             {
                 plStatusLog::AddLineSF("audio.log", "Starting Fade {f}", currTime);
             }
-            if((currTime - fStartFade) > fFadeLength) 
+            if((currTime - fStartFade) > fFadeLength)
             {
                 fStartFade = 0;
                 plgDispatch::Dispatch()->UnRegisterForExactType( plTimeMsg::Index(), GetKey() );
                 plStatusLog::AddLineSF("audio.log", "Stopping Fade {f}", currTime);
-                plgAudioSys::SetGlobalFadeVolume( 1.0 ); 
+                plgAudioSys::SetGlobalFadeVolume( 1.0 );
             }
             else
             {
@@ -1189,7 +1189,7 @@ void plgAudioSys::Shutdown()
 }
 
 void plgAudioSys::Activate(bool b)
-{ 
+{
     if( fSys == nil )
     {
         fDelayedActivate = true;
@@ -1206,7 +1206,7 @@ void plgAudioSys::Activate(bool b)
         if( !fSys->Init() )
         {
             // Cannot init audio system. Don't activate
-            return; 
+            return;
         }
         fInit = true;
         fSys->SetActive( true );

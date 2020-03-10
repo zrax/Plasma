@@ -1031,7 +1031,7 @@ plMessage *plResponderCmdXRegion::CreateMsg(plMaxNode* node, plErrorMsg *pErrMsg
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-enum 
+enum
 {   kCameraObj,
     kPopCamera,
 };
@@ -1107,7 +1107,7 @@ plMessage *plResponderCmdCamTransition::CreateMsg(plMaxNode* node, plErrorMsg *p
     pMsg->SetBCastFlag(plMessage::kBCastByType);
 
     if(pCamNode->CanConvert())
-    {           
+    {
         if (!pb->GetInt(kPopCamera))
             pMsg->SetCmd(plCameraMsg::kResponderTrigger);
         
@@ -1132,7 +1132,7 @@ plMessage *plResponderCmdCamTransition::CreateMsg(plMaxNode* node, plErrorMsg *p
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-enum 
+enum
 {
     kCamForce,
 };
@@ -1144,7 +1144,7 @@ ParamBlockDesc2 gResponderCameraForceBlock
     IDD_COMP_RESPOND_CAM_FORCE, IDS_COMP_CMD_PARAMS, 0, 0, NULL,
 
     kCamForce,  _T("force"),    TYPE_INT,       0, 0,
-        p_ui,       TYPE_RADIO, 2,  IDC_RADIO_THIRD, IDC_RADIO_FIRST,   
+        p_ui,       TYPE_RADIO, 2,  IDC_RADIO_THIRD, IDC_RADIO_FIRST,
         p_vals,     plResponderCmdCamForce::kForce3rd, plResponderCmdCamForce::kResume1st,
         p_default,  plResponderCmdCamForce::kForce3rd,
         end,
@@ -1549,8 +1549,8 @@ plMessage *plResponderCmdSubWorld::CreateMsg(plMaxNode* node, plErrorMsg *pErrMs
 #include "pfMessage/plArmatureEffectMsg.h"
 #include "plAvatar/plArmatureEffects.h"
 
-enum 
-{   
+enum
+{
     kSurface,
 };
 
@@ -1575,7 +1575,7 @@ public:
 
         case WM_COMMAND:
             if (HIWORD(wParam) == CBN_SELCHANGE && LOWORD(wParam) == IDC_COMP_RESPOND_FOOT_SURFACE)
-                pb->SetValue(ParamID(kSurface), 0, ComboBox_GetCurSel(hCB));                
+                pb->SetValue(ParamID(kSurface), 0, ComboBox_GetCurSel(hCB));
         }
         return FALSE;
     }

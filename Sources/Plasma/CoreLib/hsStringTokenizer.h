@@ -50,7 +50,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include <wctype.h>
 #endif
 
-class hsStringTokenizer 
+class hsStringTokenizer
 {
 private:
     char *fSeps;
@@ -81,7 +81,7 @@ private:
     bool IsSep(char c);
 };
 
-class hsWStringTokenizer 
+class hsWStringTokenizer
 {
 private:
     wchar_t *fSeps;

@@ -190,13 +190,13 @@ void    plSpan::AddLight( plLightInfo *li, float strength, float scale, bool pro
     scales.Insert(i, float(uint32_t(scale * 127.9f)) / 127.f);
 }
 
-void    plSpan::ClearLights() const 
-{ 
-    fLights.SetCount(0); 
-    fLightStrengths.SetCount(0); 
+void    plSpan::ClearLights() const
+{
+    fLights.SetCount(0);
+    fLightStrengths.SetCount(0);
     fLightScales.SetCount(0);
-    fProjectors.SetCount(0); 
-    fProjStrengths.SetCount(0); 
+    fProjectors.SetCount(0);
+    fProjStrengths.SetCount(0);
     fProjScales.SetCount(0);
 
     int i;

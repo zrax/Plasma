@@ -73,7 +73,7 @@ static const float kQuanta[plVertCoder::kNumFloatFields] =
 };
 
 
-inline void plVertCoder::ICountFloats(const uint8_t* src, uint16_t maxCnt, const float quant, const uint32_t stride, 
+inline void plVertCoder::ICountFloats(const uint8_t* src, uint16_t maxCnt, const float quant, const uint32_t stride,
                                       float& lo, bool &allSame, uint16_t& count)
 {
     lo = *(float*)src;
@@ -222,7 +222,7 @@ inline void plVertCoder::ICountBytes(const uint32_t vertsLeft, const uint8_t* sr
     // We want to run length encode this. So we're looking here for either
     // the number of consecutive bytes of the same value,
     // or the number of consective bytes of different values.
-    // The latter is so we don't wind up getting larger when there aren't any 
+    // The latter is so we don't wind up getting larger when there aren't any
     // runs of the same value (count=1 and val=c1, count=1 and val=c2, etc.).
     // The break-even point is a run of 3, so we'll look for a minimum run of 4.
 
@@ -251,7 +251,7 @@ inline void plVertCoder::ICountBytes(const uint32_t vertsLeft, const uint8_t* sr
         return;
     }
 
-    // Okay, we're in a section of varying values. How far to the next 
+    // Okay, we're in a section of varying values. How far to the next
     // section of sameness?
     same = false;
     for( ; i < vertsLeft-4; i++ )

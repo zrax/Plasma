@@ -61,14 +61,14 @@ class plRegistryPageNode;
 
 //// Little Iterator Class Defs //////////////////////////////////////////////
 
-class plRegistryKeyIterator 
+class plRegistryKeyIterator
 {
 public:
     virtual ~plRegistryKeyIterator() {}
     virtual bool EatKey(const plKey& key) = 0;
 };
 
-class plRegistryPageIterator 
+class plRegistryPageIterator
 {
 public:
     virtual ~plRegistryPageIterator() {}

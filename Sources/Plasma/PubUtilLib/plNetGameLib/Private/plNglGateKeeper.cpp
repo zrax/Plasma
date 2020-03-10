@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/PubUtilLib/plNetGateKeeperLib/Private/plNglGateKeeper.cpp
-*   
+*
 ***/
 
 #include "../Pch.h"
@@ -962,7 +962,7 @@ void GateKeeperDestroy (bool wait) {
     NetTransCancelByProtocol(
         kNetProtocolCli2GateKeeper,
         kNetErrRemoteShutdown
-    );    
+    );
     NetMsgProtocolDestroy(
         kNetProtocolCli2GateKeeper,
         false
@@ -1056,7 +1056,7 @@ void NetCliGateKeeperPingRequest (
     PingRequestTrans * trans = new PingRequestTrans(
         callback,
         param,
-        pingTimeMs, 
+        pingTimeMs,
         payloadBytes,
         payload
     );

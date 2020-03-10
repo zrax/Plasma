@@ -149,7 +149,7 @@ public:
     plArmatureMod *GetFirstRemoteAvatar();
 
     // \{
-    /** Spawn points are potential entry points for the 
+    /** Spawn points are potential entry points for the
         avatar. They're selected pretty randomly right now;
         eventually they'll be selected by script based
         on the book used to enter the scene. */
@@ -172,7 +172,7 @@ public:
     bool HandleNotifyMsg(plNotifyMsg *msg);
     bool IPassMessageToActiveCoop(plMessage *msg, uint32_t id, uint16_t serial);
 
-    // similar to a spawn point, maintainers markers are used 
+    // similar to a spawn point, maintainers markers are used
     // to generate your position in Dni coordinates
     void AddMaintainersMarker(plMaintainersMarkerModifier *mm);
     void RemoveMaintainersMarker(plMaintainersMarkerModifier *mm);
@@ -198,7 +198,7 @@ protected:
     
     /** When an armature modifier attached to the given scene object is loaded,
         send it the given message.
-        We get notified when the avatar's scene object is loaded, but we also need to 
+        We get notified when the avatar's scene object is loaded, but we also need to
         set some information up for the avatar modifier when it comes in.
         We'll get that notification via the AddAvatar call later. In this function
         we're going to squirrel away an initialization message to pass to the armature
@@ -238,7 +238,7 @@ protected:
     plCoopMap fActiveCoops;
 
     hsTArray<plLoadCloneMsg*> fCloneMsgQueue;
-    plStatusLog *fLog;  
+    plStatusLog *fLog;
 };
 
 

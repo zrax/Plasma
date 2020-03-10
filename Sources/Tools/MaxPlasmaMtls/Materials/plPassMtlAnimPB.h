@@ -96,6 +96,6 @@ public:
     }
 
     virtual void DeleteThis() {}
-};  
+};
 
 #endif

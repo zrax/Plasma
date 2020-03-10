@@ -100,12 +100,12 @@ void plAGMasterSDLModifier::IPutCurrentStateIn(plStateDataRecord* dstState)
     {
         IPutBlends(dstState, agMaster);
 
-        int numAnims = agMaster->GetNumATCAnimations();     
+        int numAnims = agMaster->GetNumATCAnimations();
         plSDStateVariable* atcsVar = dstState->FindSDVar(AGMasterVarNames::kStrAtcs);
         if (atcsVar->GetCount() != numAnims)
             atcsVar->Resize(numAnims);
 
-        // copy atcs to sdl 
+        // copy atcs to sdl
         int i;
         for(i=0;i<numAnims; i++)
         {
@@ -135,14 +135,14 @@ plAGMasterMod* plAGMasterSDLModifier::IGetObjectsAGMasterMod(plSceneObject* obj)
 }
 
 //
-// Apply state in SDL record to current animation state 
+// Apply state in SDL record to current animation state
 //
 void plAGMasterSDLModifier::ISetCurrentBlends(const plStateDataRecord* state, plAGMasterMod* objAGMaster)
 {
     // Check Blends
     plSimpleStateVariable* blendsVar = state->FindVar(AGMasterVarNames::kStrBlends);
     if (blendsVar->IsUsed())
-    {       
+    {
         int i;
         if (blendsVar->GetCount() != objAGMaster->GetNumPrivateAnimations())
             return; // bogus state
@@ -157,7 +157,7 @@ void plAGMasterSDLModifier::ISetCurrentBlends(const plStateDataRecord* state, pl
 }
 
 //
-// Change the object's animation state to reflect what is specified in the 
+// Change the object's animation state to reflect what is specified in the
 // stateDataRecord.
 //
 void plAGMasterSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcState)
@@ -180,7 +180,7 @@ void plAGMasterSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcSta
         for(i=0;i<atcsVar->GetCount(); i++)
         {
             plStateDataRecord* atcStateDataRec = atcsVar->GetStateDataRecord(i);
-            plAnimTimeConvert* objAtc = objAGMaster->GetATCAnimInstance(i)->GetTimeConvert();   // dst                  
+            plAnimTimeConvert* objAtc = objAGMaster->GetATCAnimInstance(i)->GetTimeConvert();   // dst
             ISetCurrentATC(atcStateDataRec, objAtc);
             objAtc->EnableCallbacks(false);
         }

@@ -134,7 +134,7 @@ void plDistOpacityMod::ISetOpacity()
     const int num = fFadeLays.GetCount();
     int i;
     for( i = 0; i < num; i++ )
-        fFadeLays[i]->SetOpacity(opacity);  
+        fFadeLays[i]->SetOpacity(opacity);
 
 }
 

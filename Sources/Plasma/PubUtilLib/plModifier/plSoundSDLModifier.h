@@ -45,18 +45,18 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plModifier/plSDLModifier.h"
 
 //
-// This modifier is responsible for sending and recving 
+// This modifier is responsible for sending and recving
 // an object's audio state.
 //
 class plStateDataRecord;
 class plSoundSDLModifier : public plSDLModifier
 {
 protected:
-    // var labels 
-    static char kStrVolume[];   
-    static char kStrTime[]; 
-    static char kStrPlaying[];  
-    static char kStrSounds[];   
+    // var labels
+    static char kStrVolume[];
+    static char kStrTime[];
+    static char kStrPlaying[];
+    static char kStrSounds[];
 
     void IPutCurrentStateIn(plStateDataRecord* dstState);
     void ISetCurrentStateFrom(const plStateDataRecord* srcState);

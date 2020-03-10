@@ -164,7 +164,7 @@ public:
             }
             break;
         }
-        return false;   
+        return false;
     }
 
     void DeleteThis()
@@ -186,10 +186,10 @@ ParamBlockDesc2 gClickDragBlock
         p_ui,               TYPE_SINGLECHEKBOX, IDC_COMP_CLICK_DRAG_OMNI,
         end,
 
-    kClickDragDegrees, _T("degrees"),   TYPE_INT,   P_ANIMATABLE, 0,    
+    kClickDragDegrees, _T("degrees"),   TYPE_INT,   P_ANIMATABLE, 0,
         p_range, 1, 180,
         p_default, 180,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_INT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_INT,
         IDC_COMP_CLICK_DRAG_DEG,    IDC_COMP_CLICK_DRAG_DEGSPIN, SPIN_AUTOSCALE,
         end,
 
@@ -315,7 +315,7 @@ bool plClickDragComponent::SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg)
                 pErrMsg->Set(false);
         }
     else
-    {   
+    {
         
         plPhysicalProps *physProps = node->GetPhysicalProps();
         // only if movable will it have mass (then it will keep track of movements in PhysX)
@@ -434,7 +434,7 @@ bool plClickDragComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         if (fCompPB->GetInt(kClickDragUseX))
         {
             pAxis->SetXAnim( pAnim->GetModKey(node) );
-        }   
+        }
         else // take out this else when we support multiple channels
         if (fCompPB->GetInt(kClickDragUseY))
         {
@@ -569,7 +569,7 @@ bool plClickDragComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
             logic->AddCondition(boxCond);
         }
         else
-        {       
+        {
             pErrMsg->Set(true, "Problem with region", "Can't convert region component on  %s.  This component will not be exported.\n", ((INode*)pProxyRegNode)->GetName()).Show();
             pErrMsg->Set(false);
             return false;
@@ -620,5 +620,5 @@ bool plClickDragComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 bool plClickDragComponent::DeInit( plMaxNode *node, plErrorMsg *pErrMsg )
 {
     fAxisKeys.clear();
-    return plActivatorBaseComponent::DeInit( node, pErrMsg ); 
+    return plActivatorBaseComponent::DeInit( node, pErrMsg );
 }

@@ -82,15 +82,15 @@ protected:
     plComponentTools() {}
 
 public:
-    plComponentTools(PAddModFunc addMod, 
-                    PGetNewKeyFunc NewKey, 
-                    PSetActivatorKeyFunc activator, 
+    plComponentTools(PAddModFunc addMod,
+                    PGetNewKeyFunc NewKey,
+                    PSetActivatorKeyFunc activator,
                     PGetAnimModKeyFunc animKey,
 //                  PGetAnimModKeyFunc animLightKey,
                     PGetAnimNameFunc animName,
                     PGetMaterialAnimModKeyFunc matMod,
                     PGetSoundNameAndIndex sndNameAndIdx)
-        : fAddModFunc(addMod), 
+        : fAddModFunc(addMod),
           fNewKey(NewKey),
           fActivator(activator),
           fAnimKey(animKey),

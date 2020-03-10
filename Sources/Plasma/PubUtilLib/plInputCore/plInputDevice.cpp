@@ -59,7 +59,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "plPipeline.h"
 
-// The resolution that uses the base size of the cursor. 
+// The resolution that uses the base size of the cursor.
 // All other resolutions will scale the cursor size to keep the same physical size.
 #define BASE_WIDTH 1024
 #define BASE_HEIGHT 768
@@ -327,7 +327,7 @@ void plMouseDevice::SetCursorX(float x)
         CreateCursor( fCursorID );
     
     if (fCursor)
-        fCursor->SetPosition( ( x * 2.0f ) - 1.0f, 
+        fCursor->SetPosition( ( x * 2.0f ) - 1.0f,
                           ( fYPos * 2.0f ) - 1.0f );
 
 //  plDebugText     &txt = plDebugText::Instance();
@@ -341,7 +341,7 @@ void plMouseDevice::SetCursorY(float y)
         CreateCursor( fCursorID );
     
     if (fCursor)
-        fCursor->SetPosition( ( fXPos * 2.0f ) - 1.0f, 
+        fCursor->SetPosition( ( fXPos * 2.0f ) - 1.0f,
                           ( y * 2.0f ) - 1.0f );
 
 //  plDebugText     &txt = plDebugText::Instance();
@@ -396,7 +396,7 @@ void    plMouseDevice::SetCursorOpacity( float opacity )
 }
 
 bool plMouseDevice::MsgReceive(plMessage* msg)
-{   
+{
     plEvalMsg* pEMsg = plEvalMsg::ConvertNoRef(msg);
     if (pEMsg)
     {
@@ -481,7 +481,7 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
         pMsg->SetDY(0);
         
         if (pMsg->GetDX() == 0.0f && !plMouseDevice::bMsgAlways)
-        {   
+        {
             delete pMsg;
             return true;
         }
@@ -519,7 +519,7 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
         pMsg->SetDY(fYPos  - pMsg->GetYPos());
         
         if (pMsg->GetDY() == 0.0f && !plMouseDevice::bMsgAlways)
-        {   
+        {
             delete pMsg;
             return true;
         }

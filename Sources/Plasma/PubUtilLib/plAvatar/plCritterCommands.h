@@ -72,7 +72,7 @@ public:
     //Vector is used because the []operator is handy for filling
     //the dialog boxes for implementation Components. -RXA
     // KEEP THIS SYNCHRONIZED with the enum above.
-    plCritterCommands() 
+    plCritterCommands()
     {
         fAnimNameTypes.push_back("Idle");
         fAnimNameTypes.push_back("TurnLeft");
@@ -132,7 +132,7 @@ public:
     //Vector is used because the []operator is handy for filling
     //the dialog boxes for implementation Components. -RXA
     // KEEP THIS SYNCHRONIZED with the enum above.
-    plCritterCommands() 
+    plCritterCommands()
     {
         fAnimNameTypes.push_back("Torso Straighten Out");
         fAnimNameTypes.push_back("Torso Spastic Rotate");

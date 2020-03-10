@@ -51,8 +51,8 @@ class plMatrixUpdateMsg : public plMessage
 
 public:
     plMatrixUpdateMsg(){SetBCastFlag(plMessage::kPropagateToModifiers);}
-    plMatrixUpdateMsg(const plKey &s, 
-                    const plKey &r, 
+    plMatrixUpdateMsg(const plKey &s,
+                    const plKey &r,
                     const double* t){SetBCastFlag(plMessage::kPropagateToModifiers);}
     ~plMatrixUpdateMsg() { }
 

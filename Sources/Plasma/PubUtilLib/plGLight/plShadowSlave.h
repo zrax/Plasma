@@ -121,7 +121,7 @@ public:
     int                         fLightIndex;
     int                         fLightRefIdx;
     int                         fSelfShadowOn;
-    void*                       fPipeData; 
+    void*                       fPipeData;
 
     bool                ISetupOrthoViewTransform();
     bool                ISetupPerspViewTransform();

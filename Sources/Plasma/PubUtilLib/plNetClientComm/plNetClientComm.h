@@ -46,7 +46,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 *   This module is the translation layer between simple network types
 *   such as uint8_t arrays, and higher-level Plasma-specific types such
 *   as the plFactory-managed types.
-*   
+*
 ***/
 
 #ifndef PLASMA20_SOURCES_PLASMA_PUBUTILLIB_PLNETCLIENTCOMM_PLNETCLIENTCOMM_H

@@ -75,7 +75,7 @@ class plOneShotCallbacks;
 /** \class plAGAnimInstance
     Whenever we attach an animation to a scene object hierarchy, we
     create an activation record -- a plAGAnimInstance -- that remembers
-    all the ephemeral state associated with animation 
+    all the ephemeral state associated with animation
     Since animations have many channels and may involve blend operations,
     one of the primary responsibilities of this class is to keep track of
     all the animation node graphs that were created by the invocation of
@@ -160,7 +160,7 @@ public:
         that occur between the current time and the target time. */
     void SetCurrentTime(float newLocalTime, bool jump = false);
 
-    /** Move the playback head by the specified relative amount within 
+    /** Move the playback head by the specified relative amount within
         the animation. This may cause looping. If the beginning or end
         of the animation is reached an looping is not on, the movement
         will pin.
@@ -177,12 +177,12 @@ public:
         Extremely useful for situations where the controlling logic
         is terminating immediately but you want the animation to fade
         out gradually.
-        \deprecated 
+        \deprecated
     */
     void FadeAndDetach(float goal, float rate);
 
     /** Has the animation terminated of natural causes?
-        Primarily used to see if an animation has played all the 
+        Primarily used to see if an animation has played all the
         way to the end, but will also return true if the animation
         was stopped with a stop command */
     bool IsFinished();
@@ -202,7 +202,7 @@ public:
         Typically called by the master mod prior to destructing the instance. */
     void DetachChannels();
 
-    /** Prune any unused branches out of the animation graph; add any 
+    /** Prune any unused branches out of the animation graph; add any
         newly active branches back in. */
     void Optimize();
 
@@ -217,7 +217,7 @@ public:
         in the animation and will be sent when playback passes that time. */
     void AttachCallbacks(plOneShotCallbacks *callbacks);
     
-    void ProcessFade(float elapsed);             // process any outstanding fades    
+    void ProcessFade(float elapsed);             // process any outstanding fades
     void SearchForGlobals(); // Util function to setup SDL channels
 protected:
     /** Set up bookkeeping for a fade. */
@@ -250,7 +250,7 @@ protected:
     bool                fFadeDetach;        /// detach after fade is finished? (only used for blend fades)
     
     bool                fFadeAmp;           /// we are fading the amplitude
-    float            fFadeAmpGoal;       /// amplitude we're trying to reach 
+    float            fFadeAmpGoal;       /// amplitude we're trying to reach
     float            fFadeAmpRate;       /// how faster we're fading in blend units per second
 
     float ICalcFade(bool &fade, float curVal, float goal, float rate, float elapsed);

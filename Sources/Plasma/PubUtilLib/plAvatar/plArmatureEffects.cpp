@@ -53,7 +53,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "hsResMgr.h"
 #include "plgDispatch.h"
 
-const char *plArmatureEffectsMgr::SurfaceStrings[] = 
+const char *plArmatureEffectsMgr::SurfaceStrings[] =
 {
     "Dirt",
     "Puddle",
@@ -135,7 +135,7 @@ bool plArmatureEffectsMgr::MsgReceive(plMessage* msg)
         {
             if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
                 fEffects.Append(effect);
-            else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )    
+            else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
                 fEffects.RemoveItem(effect);
 
             return true;
@@ -193,7 +193,7 @@ plArmatureEffectFootSound::plArmatureEffectFootSound()
     SetFootType(kFootTypeShoe);
 }
 
-plArmatureEffectFootSound::~plArmatureEffectFootSound() 
+plArmatureEffectFootSound::~plArmatureEffectFootSound()
 {
     int i;
     for (i = 0; i < fSurfaces.GetCount(); i++)
@@ -249,7 +249,7 @@ bool plArmatureEffectFootSound::MsgReceive(plMessage* msg)
             {
                 fMods[refMsg->fWhich] = rsMod;
             }
-            else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )    
+            else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
                 fMods[refMsg->fWhich] = nil;
 
             return true;
@@ -291,13 +291,13 @@ bool plArmatureEffectFootSound::HandleTrigger(plMessage* msg)
         {
             if (IFindSurfaceByTrigger(sMsg->GetSender()) == -1) // Check that it's not a repeat msg
             {
-                plStatusLog::AddLineSF("audio.log", "FTSP: Switching to surface - {}", 
+                plStatusLog::AddLineSF("audio.log", "FTSP: Switching to surface - {}",
                                        plArmatureEffectsMgr::SurfaceStrings[sMsg->fSurface]);
                 plArmatureEffectFootSurface *surface = new plArmatureEffectFootSurface;
                 surface->fID = sMsg->fSurface;
                 surface->fTrigger = sMsg->GetSender();
                 fSurfaces.Append(surface);
-            }   
+            }
         }
         else
         {
@@ -305,7 +305,7 @@ bool plArmatureEffectFootSound::HandleTrigger(plMessage* msg)
             if (index != -1)
             {
                 if (index == fSurfaces.GetCount() - 1) // It's the top on the stack
-                    plStatusLog::AddLineSF("audio.log", "FTSP: Switching to surface - {}", 
+                    plStatusLog::AddLineSF("audio.log", "FTSP: Switching to surface - {}",
                                            plArmatureEffectsMgr::SurfaceStrings[fSurfaces[index - 1]->fID]);
                 delete fSurfaces[index];
                 fSurfaces.Remove(index);

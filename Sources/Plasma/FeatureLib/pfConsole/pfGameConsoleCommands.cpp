@@ -197,15 +197,15 @@ PF_CONSOLE_CMD( Game_GUI, SetDynamicCtrlColor, "float bgRed, float bgGreen, floa
 PF_CONSOLE_CMD( Game_GUI, CreateRectButton, "string title, float x, float y, float width, float height, string command", "" )
 {
     pfGUICtrlGenerator::Instance().GenerateRectButton( params[ 0 ], params[ 1 ], params[ 2 ],
-                                            params[ 3 ], params[ 4 ], 
-                                            params[ 5 ], 
+                                            params[ 3 ], params[ 4 ],
+                                            params[ 5 ],
                                             sDynCtrlColor, sDynCtrlTextColor );
 }
 
 PF_CONSOLE_CMD( Game_GUI, CreateRoundButton, "float x, float y, float radius, string command", "" )
 {
-    pfGUICtrlGenerator::Instance().GenerateSphereButton( params[ 0 ], params[ 1 ], params[ 2 ], 
-                                            params[ 3 ], 
+    pfGUICtrlGenerator::Instance().GenerateSphereButton( params[ 0 ], params[ 1 ], params[ 2 ],
+                                            params[ 3 ],
                                             sDynCtrlColor );
 }
 

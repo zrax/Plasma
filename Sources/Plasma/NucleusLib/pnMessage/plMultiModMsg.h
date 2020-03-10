@@ -55,8 +55,8 @@ class plMultiModMsg : public plMessage
 public:
     plMultiModMsg()
         : plMessage(nil, nil, nil) {}
-    plMultiModMsg(const plKey &s, 
-                const plKey &r, 
+    plMultiModMsg(const plKey &s,
+                const plKey &r,
                 const double* t)
         : plMessage(s, r, t) {}
     ~plMultiModMsg() {}

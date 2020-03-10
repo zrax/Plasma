@@ -628,7 +628,7 @@ plSpaceTree* plSpaceTreeMaker::IMakeSpaceTree()
     return tree;
 }
 
-// The following goofy cache-friendly tree set up slows down the tree build by 10%, but speeds up the runtime by 9%. 
+// The following goofy cache-friendly tree set up slows down the tree build by 10%, but speeds up the runtime by 9%.
 // Sounds fair.
 #if 0 // Leaves first
 int16_t plSpaceTreeMaker::IMakeSpaceTreeRecur(plSpacePrepNode* sub, plSpaceTree* tree, const int targetLevel, int currLevel)

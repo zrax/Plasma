@@ -194,9 +194,9 @@ void plLineFollowMod::Write(hsStream* stream, hsResMgr* mgr)
 
     mgr->WriteCreatable(stream, fPath);
 
-    mgr->WriteKey(stream, fPathParent); 
+    mgr->WriteKey(stream, fPathParent);
 
-    mgr->WriteKey(stream, fRefObj); 
+    mgr->WriteKey(stream, fRefObj);
 
     stream->WriteLE32(fStereizers.GetCount());
     int i;
@@ -287,10 +287,10 @@ bool plLineFollowMod::MsgReceive(plMessage* msg)
     return plMultiModifier::MsgReceive(msg);
 }
 
-void plLineFollowMod::SetFollowMode(FollowMode f) 
-{ 
+void plLineFollowMod::SetFollowMode(FollowMode f)
+{
     IUnRegister();
-    fFollowMode = f; 
+    fFollowMode = f;
     IRegister();
 
     plgDispatch::Dispatch()->RegisterForExactType(plEvalMsg::Index(), GetKey());
@@ -328,7 +328,7 @@ void plLineFollowMod::IRegister()
         plgDispatch::Dispatch()->RegisterForExactType(plRenderMsg::Index(), GetKey());
         break;
     case kFollowLocalAvatar:
-        {   
+        {
             if (plNetClientApp::GetInstance() && plNetClientApp::GetInstance()->GetLocalPlayer())
                 fRefObj = ((plSceneObject*)plNetClientApp::GetInstance()->GetLocalPlayer());
             plgDispatch::Dispatch()->RegisterForExactType(plPlayerPageMsg::Index(), GetKey());
@@ -375,7 +375,7 @@ bool plLineFollowMod::IOffsetTargetTransform(hsMatrix44& tgtXfm)
     if( fFollowFlags & kOffsetAng )
     {
         float del = t2sLen * fTanOffset;
-        if( fFollowFlags & kOffsetClamp ) 
+        if( fFollowFlags & kOffsetClamp )
         {
             if( del > fOffsetClamp )
                 del = fOffsetClamp;
@@ -475,9 +475,9 @@ bool plLineFollowMod::IGetSearchPos()
         }
         return false;
     }
-    else 
+    else
     if (fFollowMode == kFollowLocalAvatar)
-    {   
+    {
         if (!fRefObj)
             return false;
         if( fRefObj->GetCoordinateInterface() )
@@ -625,7 +625,7 @@ void plLineFollowMod::RemoveStereizer(const plKey& key)
 }
 
 // derived version of this class for rail cameras
-// the difference is the rail camera just calculates 
+// the difference is the rail camera just calculates
 // the desired position but does not move the target to
 // it.
 
@@ -645,7 +645,7 @@ plRailCameraMod::~plRailCameraMod()
 bool  plRailCameraMod::IGetTargetTransform(hsPoint3& searchPos, hsMatrix44& tgtXfm)
 {
     if (fPath->GetFarthest())
-    {   
+    {
         fFarthest = true;
         fPath->SetFarthest(false);
     }
@@ -666,12 +666,12 @@ hsPoint3 plRailCameraMod::GetGoal(double secs, float speed)
         return fGoal;
 
     if (fTargetTime > fCurrentTime)
-    {   
+    {
         dir = 1;
         delTime = fTargetTime - fCurrentTime;
     }
     else
-    {   
+    {
         dir = -1;
         delTime = fCurrentTime - fTargetTime;
     }

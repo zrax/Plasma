@@ -68,22 +68,22 @@ public:
     void NotifyChanged();
 
     // From MtlBase and Mtl
-    void SetAmbient(Color c, TimeValue t);      
-    void SetDiffuse(Color c, TimeValue t);      
+    void SetAmbient(Color c, TimeValue t);
+    void SetDiffuse(Color c, TimeValue t);
     void SetSpecular(Color c, TimeValue t);
     void SetShininess(float v, TimeValue t);
     Color GetAmbient(int mtlNum=0, BOOL backFace=FALSE);
     Color GetDiffuse(int mtlNum=0, BOOL backFace=FALSE);
     Color GetSpecular(int mtlNum=0, BOOL backFace=FALSE);
     float GetXParency(int mtlNum=0, BOOL backFace=FALSE);
-    float GetShininess(int mtlNum=0, BOOL backFace=FALSE);      
+    float GetShininess(int mtlNum=0, BOOL backFace=FALSE);
     float GetShinStr(int mtlNum=0, BOOL backFace=FALSE);
     float WireSize(int mtlNum=0, BOOL backFace=FALSE);
 
     // Shade and displacement calculation
     void Shade(ShadeContext& sc);
-    float EvalDisplacement(ShadeContext& sc); 
-    Interval DisplacementValidity(TimeValue t);     
+    float EvalDisplacement(ShadeContext& sc);
+    Interval DisplacementValidity(TimeValue t);
 
     // SubTexmap access methods
     int NumSubMtls();
@@ -100,16 +100,16 @@ public:
     IOResult Save(ISave *isave);
 
     //From Animatable
-    Class_ID ClassID() { return MULTIMTL_CLASS_ID; }        
+    Class_ID ClassID() { return MULTIMTL_CLASS_ID; }
     SClass_ID SuperClassID() { return MATERIAL_CLASS_ID; }
     void GetClassName(TSTR& s);
 
     RefTargetHandle Clone(RemapDir &remap);
-    RefResult NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, 
+    RefResult NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
         PartID& partID, RefMessage message);
 
     int NumSubs();
-    Animatable* SubAnim(int i); 
+    Animatable* SubAnim(int i);
     TSTR SubAnimName(int i);
 
     int NumRefs();

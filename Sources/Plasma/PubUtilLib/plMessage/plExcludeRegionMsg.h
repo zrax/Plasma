@@ -72,7 +72,7 @@ public:
     uint8_t GetCmd() const { return fCmd; }
 
     uint32_t fSynchFlags;
-    // IO 
+    // IO
     void Read(hsStream* stream, hsResMgr* mgr)
     {
         plMessage::IMsgRead(stream, mgr);

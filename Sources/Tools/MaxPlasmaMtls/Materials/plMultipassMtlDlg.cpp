@@ -105,7 +105,7 @@ plMultipassMtlDlg::~plMultipassMtlDlg()
     for (int i = 0; i < NSUBMTLS; i++)
     {
         ReleaseICustButton(fLayerBtns[i]);
-        fLayerBtns[i] = NULL; 
+        fLayerBtns[i] = NULL;
     }
 
     SetWindowLong(fhRollup, GWL_USERDATA, NULL);
@@ -124,7 +124,7 @@ void plMultipassMtlDlg::SetThing(ReferenceTarget *m)
     assert(m->ClassID() == MULTIMTL_CLASS_ID);
 
     // Bad?
-    if (fMtl) 
+    if (fMtl)
         fMtl->SetParamDlg(NULL);
     fMtl = (plMultipassMtl *)m;
     if (fMtl)
@@ -161,14 +161,14 @@ int plMultipassMtlDlg::FindSubMtlFromHWND(HWND hwnd)
 {
     for (int i = 0; i < NSUBMTLS; i++)
     {
-        if (hwnd == fLayerBtns[i]->GetHwnd()) 
+        if (hwnd == fLayerBtns[i]->GetHwnd())
             return i;
     }
 
     return -1;
 }
 
-BOOL plMultipassMtlDlg::ForwardProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam) 
+BOOL plMultipassMtlDlg::ForwardProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     plMultipassMtlDlg *theDlg;
     if (msg == WM_INITDIALOG)
@@ -180,7 +180,7 @@ BOOL plMultipassMtlDlg::ForwardProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM l
     else
     {
         if ((theDlg = (plMultipassMtlDlg *)GetWindowLong(hDlg, GWL_USERDATA)) == NULL)
-            return FALSE; 
+            return FALSE;
     }
 
     return theDlg->LayerPanelProc(hDlg,msg,wParam,lParam);
@@ -248,7 +248,7 @@ BOOL plMultipassMtlDlg::LayerPanelProc(HWND hDlg, UINT msg, WPARAM wParam, LPARA
         }
         break;
 
-    case WM_COMMAND:  
+    case WM_COMMAND:
         {
             for (i = 0; i < NSUBMTLS; i++)
             {
@@ -274,7 +274,7 @@ BOOL plMultipassMtlDlg::LayerPanelProc(HWND hDlg, UINT msg, WPARAM wParam, LPARA
     return FALSE;
 }
 
-void plMultipassMtlDlg::UpdateLayerDisplay() 
+void plMultipassMtlDlg::UpdateLayerDisplay()
 {
     int numlayers = fPBlock->GetInt(kMultCount);
 
@@ -285,15 +285,15 @@ void plMultipassMtlDlg::UpdateLayerDisplay()
     {
         Mtl *m = fPBlock->GetMtl(kMultPasses, curTime, i);
         TSTR nm;
-        if (m) 
+        if (m)
             nm = m->GetName();
-        else 
+        else
             nm = "None";
         fLayerBtns[i]->SetText(nm.data());
         
         ShowWindow(GetDlgItem(fhRollup, kLayerID[i].layerID), SW_SHOW);
         ShowWindow(GetDlgItem(fhRollup, kLayerID[i].activeID), SW_SHOW);
-        SetCheckBox(fhRollup, kLayerID[i].activeID, fPBlock->GetInt(kMultOn, curTime, i));  
+        SetCheckBox(fhRollup, kLayerID[i].activeID, fPBlock->GetInt(kMultOn, curTime, i));
     }
 
     for (i = numlayers; i < NSUBMTLS; i++)

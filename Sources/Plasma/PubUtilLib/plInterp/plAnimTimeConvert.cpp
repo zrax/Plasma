@@ -153,7 +153,7 @@ void plAnimTimeConvert::ResizeStates(int cnt)
 }
 
 void plAnimTimeConvert::ResetWrap()
-{ 
+{
     fBegin = fInitialBegin;
     fEnd = fInitialEnd;
     Forewards();
@@ -176,7 +176,7 @@ float plAnimTimeConvert::ICalcEaseTime(const plATCEaseCurve *curve, double start
     float delSecs = 0;
 
     if (start < curve->fLength)
-    {   
+    {
         // Redundant eval... but only when easing.
         delSecs = curve->PositionGivenTime((float)end) - curve->PositionGivenTime((float)start);
     }
@@ -318,7 +318,7 @@ plAnimTimeConvert& plAnimTimeConvert::IProcessStateChange(double worldTime, floa
     state->fLoopEnd = fLoopEnd;
     state->fSpeed = fSpeed;
     state->fWrapTime = fWrapTime;
-    state->fEaseCurve = (fCurrentEaseCurve == nil ? nil : fCurrentEaseCurve->Clone());  
+    state->fEaseCurve = (fCurrentEaseCurve == nil ? nil : fCurrentEaseCurve->Clone());
 
     fStates.push_front(state);
     IFlushOldStates();
@@ -392,13 +392,13 @@ plATCState *plAnimTimeConvert::IGetLatestState() const
     return fStates.front();
 }
 
-void plAnimTimeConvert::SetOwner(plSynchedObject* o) 
-{ 
-    fOwner = o; 
+void plAnimTimeConvert::SetOwner(plSynchedObject* o)
+{
+    fOwner = o;
 }
 
-bool plAnimTimeConvert::IIsStoppedAt(const double &wSecs, const uint32_t &flags, 
-                                       const plATCEaseCurve *curve) const       
+bool plAnimTimeConvert::IIsStoppedAt(const double &wSecs, const uint32_t &flags,
+                                       const plATCEaseCurve *curve) const
 {
     if (flags & kStopped)
         return !(flags & kForcedMove); // If someone called SetCurrentAnimTime(), we need to say we moved.
@@ -449,7 +449,7 @@ float plAnimTimeConvert::WorldToAnimTime(double wSecs)
                 {
                     ISendCallback(i);
                 }
-            }   
+            }
         }
         fFlags &= ~kForcedMove;
         fLastEvalWorldTime = wSecs;
@@ -472,7 +472,7 @@ float plAnimTimeConvert::WorldToAnimTime(double wSecs)
             fCurrentEaseCurve = nil;
         }
     }
-    else 
+    else
     {
         // The easy case... playing the animation at a constant speed.
         delSecs = float(wSecs - fLastEvalWorldTime) * fSpeed;
@@ -482,7 +482,7 @@ float plAnimTimeConvert::WorldToAnimTime(double wSecs)
         delSecs = -delSecs;
     
     secs = fCurrentAnimTime + delSecs;
-    // At this point, "secs" is the pre-wrapped (before looping) anim time. 
+    // At this point, "secs" is the pre-wrapped (before looping) anim time.
     // "delSecs" is the change in anim time
     
     // if our speed is < 0, then checking for the kBackwards flag isn't enough
@@ -516,7 +516,7 @@ float plAnimTimeConvert::WorldToAnimTime(double wSecs)
                         wrapped = true;
                     }
                 }
-            }   
+            }
         }
         else
         {
@@ -557,8 +557,8 @@ float plAnimTimeConvert::WorldToAnimTime(double wSecs)
             {
                 secs = fWrapTime;
                 IStop(wSecs, secs);
-            }               
-        }       
+            }
+        }
     }
     else // Not looping
     {
@@ -603,7 +603,7 @@ float plAnimTimeConvert::IWorldToAnimTimeNoUpdate(double wSecs, plATCState *stat
                 delSecs += float(wSecs - state->fEaseCurve->GetEndWorldTime()) * state->fSpeed;
         }
     }
-    else 
+    else
     {
         // The easy case... playing the animation at a constant speed.
         delSecs = float(wSecs - state->fStartWorldTime) * state->fSpeed;
@@ -613,7 +613,7 @@ float plAnimTimeConvert::IWorldToAnimTimeNoUpdate(double wSecs, plATCState *stat
         delSecs = -delSecs;
     
     secs = state->fStartAnimTime + delSecs;
-    // At this point, "secs" is the pre-wrapped (before looping) anim time. 
+    // At this point, "secs" is the pre-wrapped (before looping) anim time.
     // "delSecs" is the change in anim time
     bool forewards = delSecs >= 0;
 
@@ -638,7 +638,7 @@ float plAnimTimeConvert::IWorldToAnimTimeNoUpdate(double wSecs, plATCState *stat
                     secs = fmodf(secs - state->fLoopBegin, state->fLoopEnd - state->fLoopBegin) + state->fLoopBegin;
                     wrapped = true;
                 }
-            }   
+            }
         }
         else
         {
@@ -656,7 +656,7 @@ float plAnimTimeConvert::IWorldToAnimTimeNoUpdate(double wSecs, plATCState *stat
                     secs = state->fLoopEnd - fmodf(state->fLoopEnd - secs, state->fLoopEnd - state->fLoopBegin);
                     wrapped = true;
                 }
-            }               
+            }
         }
 
         if (state->fFlags & kWrap)
@@ -667,8 +667,8 @@ float plAnimTimeConvert::IWorldToAnimTimeNoUpdate(double wSecs, plATCState *stat
                 (!forewards && state->fStartAnimTime > state->fWrapTime && secs <= state->fWrapTime))
             {
                 secs = state->fWrapTime;
-            }                   
-        }       
+            }
+        }
     }
     else
     {
@@ -700,12 +700,12 @@ void plAnimTimeConvert::SetCurrentAnimTime(float s, bool jump /* = false */)
         {
             ISendCallback(i);
         }
-    }   
+    }
     IProcessStateChange(hsTimer::GetSysSeconds(), fCurrentAnimTime);
 }
 
-void plAnimTimeConvert::SetEase(bool easeIn, uint8_t type, float minLength, float maxLength, float normLength) 
-{ 
+void plAnimTimeConvert::SetEase(bool easeIn, uint8_t type, float minLength, float maxLength, float normLength)
+{
     if (easeIn)
     {
         delete fEaseInCurve;
@@ -815,7 +815,7 @@ void plAnimTimeConvert::SetSpeed(float goal, float rate /* = 0 */)
 
     }
     // Skip if we're either stopped or stopping. We'll take the new speed into account next time we start up.
-    else if ((fFlags & kEasingIn)) 
+    else if ((fFlags & kEasingIn))
     {
         double curTime = hsTimer::GetSysSeconds();
         if (fCurrentEaseCurve != nil)
@@ -835,7 +835,7 @@ void plAnimTimeConvert::SetSpeed(float goal, float rate /* = 0 */)
             if (length < 0)
                 length = -length;
 
-            fSpeedEaseCurve = plATCEaseCurve::CreateEaseCurve(plAnimEaseTypes::kConstAccel, length, length, length, 
+            fSpeedEaseCurve = plATCEaseCurve::CreateEaseCurve(plAnimEaseTypes::kConstAccel, length, length, length,
                                                               curSpeed, goal);
         }
 
@@ -916,21 +916,21 @@ void plAnimTimeConvert::Write(hsStream* s, hsResMgr* mgr)
     }
 }
 
-plAnimTimeConvert& plAnimTimeConvert::InitStop() 
-{ 
+plAnimTimeConvert& plAnimTimeConvert::InitStop()
+{
     return IStop(hsTimer::GetSysSeconds(), fCurrentAnimTime);
 }
 
-plAnimTimeConvert& plAnimTimeConvert::Stop(bool on) 
-{ 
+plAnimTimeConvert& plAnimTimeConvert::Stop(bool on)
+{
     if( on )
         return Stop();
     else
         return Start();
 }
 
-plAnimTimeConvert& plAnimTimeConvert::Stop(double stopTime) 
-{   
+plAnimTimeConvert& plAnimTimeConvert::Stop(double stopTime)
+{
     if( IsStopped() || (fEaseOutCurve != nil && !(fFlags & kEasingIn)) )
         return *this;
 
@@ -961,13 +961,13 @@ plAnimTimeConvert& plAnimTimeConvert::Stop(double stopTime)
     return IProcessStateChange(stopTime);
 }
 
-plAnimTimeConvert& plAnimTimeConvert::Start(double startTime) 
-{ 
-    // If start has not been called since the last stop, kEasingIn will not be set 
+plAnimTimeConvert& plAnimTimeConvert::Start(double startTime)
+{
+    // If start has not been called since the last stop, kEasingIn will not be set
     if( (fFlags & kEasingIn) && (startTime == fLastStateChange) )
         return *this;
 
-    SetFlag(kEasingIn, true);   
+    SetFlag(kEasingIn, true);
 
     if (startTime < 0)
         startTime = hsTimer::GetSysSeconds();
@@ -1019,13 +1019,13 @@ plAnimTimeConvert& plAnimTimeConvert::Start(double startTime)
     return IProcessStateChange(startTime);
 }
 
-plAnimTimeConvert& plAnimTimeConvert::Backwards(bool on) 
+plAnimTimeConvert& plAnimTimeConvert::Backwards(bool on)
 {
     return on ? Backwards() : Forewards();
 }
 
-plAnimTimeConvert& plAnimTimeConvert::Backwards() 
-{ 
+plAnimTimeConvert& plAnimTimeConvert::Backwards()
+{
     if( IsBackwards() )
         return *this;
 
@@ -1047,8 +1047,8 @@ plAnimTimeConvert& plAnimTimeConvert::Backwards()
     return *this;
 }
 
-plAnimTimeConvert& plAnimTimeConvert::Forewards() 
-{ 
+plAnimTimeConvert& plAnimTimeConvert::Forewards()
+{
     if( !IsBackwards() )
         return *this;
     
@@ -1062,7 +1062,7 @@ plAnimTimeConvert& plAnimTimeConvert::Forewards()
         }
     }
     
-    SetFlag(kBackwards, false); 
+    SetFlag(kBackwards, false);
     
     // Record state changes
     IProcessStateChange(hsTimer::GetSysSeconds(), fCurrentAnimTime);
@@ -1070,9 +1070,9 @@ plAnimTimeConvert& plAnimTimeConvert::Forewards()
     return *this;
 }
 
-plAnimTimeConvert& plAnimTimeConvert::Loop(bool on) 
-{ 
-    SetFlag(kLoop, on); 
+plAnimTimeConvert& plAnimTimeConvert::Loop(bool on)
+{
+    SetFlag(kLoop, on);
     
     // Record state changes
     IProcessStateChange(hsTimer::GetSysSeconds(), fCurrentAnimTime);
@@ -1152,7 +1152,7 @@ bool plAnimTimeConvert::HandleCmd(plAnimCmdMsg* modMsg)
         Backwards();
     }
     if( modMsg->Cmd(plAnimCmdMsg::kSetForewards) )
-    {   
+    {
         Forewards();
     }
     
@@ -1203,7 +1203,7 @@ bool plAnimTimeConvert::HandleCmd(plAnimCmdMsg* modMsg)
         else if (modMsg->fTime > fEnd)
             SetCurrentAnimTime(fEnd, true);
         else
-            SetCurrentAnimTime(modMsg->fTime, true);    
+            SetCurrentAnimTime(modMsg->fTime, true);
     }
 
     if ( modMsg->Cmd(plAnimCmdMsg::kGoToPercent) )

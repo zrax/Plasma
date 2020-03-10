@@ -225,7 +225,7 @@ void plFastWAV::Open()
         return;
 
     fFileHandle = plFileSystem::Open(fFilename, "rb");
-    if(!fFileHandle) 
+    if(!fFileHandle)
         return;
 
     fCurrDataPos = 0;
@@ -325,7 +325,7 @@ bool    plFastWAV::Read( uint32_t numBytes, void *buffer )
         hsAssert( fCurrDataPos <= fDataSize, "Invalid new position while reading WAV file" );
     }
     else
-    {   
+    {
         size_t numRead = fread( buffer, 1, numBytes, fFileHandle );
         
         fCurrDataPos += numRead;

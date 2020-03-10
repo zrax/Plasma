@@ -112,7 +112,7 @@ void plAvTaskSeek::IInitDefaults()
     fShuffleRange = kDefaultShuffleRange;
     fMaxSidleRange = kDefaultMaxSidleRange;
     fMaxSidleAngle = kDefaultMaxSidleAngle;
-    fFlags = kSeekFlagForce3rdPersonOnStart;  
+    fFlags = kSeekFlagForce3rdPersonOnStart;
     fState = kSeekRunNormal;
     fNotifyFinishedKey = nullptr;
     fFinishMsg = nullptr;
@@ -233,7 +233,7 @@ bool plAvTaskSeek::Start(plArmatureMod *avatar, plArmatureBrain *brain, double t
             pMsg->SetBCastFlag(plMessage::kNetPropagate, false);
             pMsg->SetCmd(plCameraMsg::kResponderSetThirdPerson);
             plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
-        }       
+        }
 
         huBrain->IdleOnly(); // Makes sure to kill jumps too. Just calling ClearInputFlags isn't enough
         IUpdateObjective(avatar);
@@ -279,7 +279,7 @@ void plAvTaskSeek::Finish(plArmatureMod *avatar, plArmatureBrain *brain, double 
     if(huBrain)
     {
         // this will process any queued input messages so if the user pressed or released a key while we were busy, we'll note it now.
-        avatar->ResumeInput();  
+        avatar->ResumeInput();
         IUndoLimitPlayersInput(avatar);
         
         if (plAvOneShotTask::fForce3rdPerson && avatar->IsLocalAvatar() && (fFlags & plAvSeekMsg::kSeekFlagUnForce3rdPersonOnFinish))
@@ -301,7 +301,7 @@ void plAvTaskSeek::Finish(plArmatureMod *avatar, plArmatureBrain *brain, double 
         msg->fAborted = (fState == kSeekAbort);
         msg->Send();
     }
-    plAvatarMgr::GetInstance()->GetLog()->AddLine("Finished SMART SEEK");   
+    plAvatarMgr::GetInstance()->GetLog()->AddLine("Finished SMART SEEK");
     //inform controller we are done seeking
     if (avatar->GetController())
         avatar->GetController()->SetSeek(false);
@@ -417,7 +417,7 @@ bool plAvTaskSeek::IMoveTowardsGoal(plArmatureMod *avatar, plAvBrainHuman *brain
             }
         }
     }
-    else 
+    else
     {
         if (!(QuatAngleDiff(fRotation, fSeekRot) > .1))
             fRotGoalHit = true;
@@ -433,7 +433,7 @@ bool plAvTaskSeek::IMoveTowardsGoal(plArmatureMod *avatar, plAvBrainHuman *brain
             else
                 avatar->SetTurnLeftKeyDown();
         }
-    }       
+    }
 
     if (fPosGoalHit && fRotGoalHit)
         stillRunning = ITryFinish(avatar, brain, time, elapsed);
@@ -618,7 +618,7 @@ float QuatAngleDiff(const hsQuat &a, const hsQuat &b)
     if (cos_t < 0.0)
     {
         cos_t = -cos_t;
-    } 
+    }
 
     // Calling acos on 1.0 is returning an undefined value. Need to check for it.
     float epsilon = 0.00001;

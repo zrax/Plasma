@@ -151,7 +151,7 @@ bool    plDebugInputInterface::MsgReceive( plMessage *msg )
 //// cursorinbox /////////////////////////////////////////////////////
 bool plDebugInputInterface::CursorInBox(plMouseEventMsg* pMsg, hsPoint4 box)
 {
-    return ( pMsg->GetXPos() >= box.fX && pMsg->GetXPos() <= box.fY && pMsg->GetYPos() >= box.fZ && pMsg->GetYPos() <= box.fW ); 
+    return ( pMsg->GetXPos() >= box.fX && pMsg->GetXPos() <= box.fY && pMsg->GetYPos() >= box.fZ && pMsg->GetYPos() <= box.fW );
 }
 
 
@@ -249,7 +249,7 @@ bool    plDebugInputInterface::InterpretInputEvent( plInputEventMsg *pMsg )
                         else
                             pct = fabs((fMouseMap.fMap[i]->fBox.fZ - pMouseMsg->GetYPos()) / (fMouseMap.fMap[i]->fBox.fW - fMouseMap.fMap[i]->fBox.fZ));
                     }
-                    else 
+                    else
                     if (fMouseMap.fMap[i]->fControlFlags & kControlFlagRangeNeg)
                     {
                         if (fMouseMap.fMap[i]->fControlFlags & kControlFlagXAxisEvent)
@@ -269,7 +269,7 @@ bool    plDebugInputInterface::InterpretInputEvent( plInputEventMsg *pMsg )
             }
             else // if it is an 'always if in box' command see if it's not in the box
             if ( (fMouseMap.fMap[i]->fControlFlags & kControlFlagInBox) && (!CursorInBox(pMouseMsg, fMouseMap.fMap[i]->fBox)) )
-            {   
+            {
                 plCtrlCmd* pCmd = new plCtrlCmd( this );
                 pCmd->fControlActivated = false;
                 pCmd->fControlCode = fMouseMap.fMap[i]->fCode;
@@ -281,7 +281,7 @@ bool    plDebugInputInterface::InterpretInputEvent( plInputEventMsg *pMsg )
             {
                 // is the cursor in the appropriate box?
                 if (CursorInBox(pMouseMsg, fMouseMap.fMap[i]->fBox))
-                {   
+                {
                     // do we require a button?
                     if (fMouseMap.fMap[i]->fControlFlags & kControlFlagLeftButton && !(fButtonState & kLeftButtonDown))
                         continue;
@@ -305,7 +305,7 @@ bool    plDebugInputInterface::InterpretInputEvent( plInputEventMsg *pMsg )
                         continue;
 
                     // okay, we're in the box and either we don't require a button or our button is pressed.
-                    // so set the command as 'enabled' 
+                    // so set the command as 'enabled'
                     // UNLESS it has kControlFlagInBox, which means we want it sent every frame it is in the box
                     if (!(fMouseMap.fMap[i]->fControlFlags & kControlFlagInBox))
                         fControlFlags.SetBit(fMouseMap.fMap[i]->fCode);
@@ -324,7 +324,7 @@ bool    plDebugInputInterface::InterpretInputEvent( plInputEventMsg *pMsg )
                         else
                             pct = fabs((fMouseMap.fMap[i]->fBox.fZ - pMouseMsg->GetYPos()) / (fMouseMap.fMap[i]->fBox.fW - fMouseMap.fMap[i]->fBox.fZ));
                     }
-                    else 
+                    else
                     if (fMouseMap.fMap[i]->fControlFlags & kControlFlagRangeNeg)
                     {
                         if (fMouseMap.fMap[i]->fControlFlags & kControlFlagXAxisEvent)
@@ -351,4 +351,4 @@ bool    plDebugInputInterface::InterpretInputEvent( plInputEventMsg *pMsg )
     }
 
     return false;
-}   
+}

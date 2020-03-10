@@ -53,7 +53,7 @@ float plNetListenList::kUpdateInterval=0.5f;
 int plNetListenList::kMaxListenListSize=-1;     // -1 is unlimited
 float plNetListenList::kMaxListenDistSq=75.0f*75.0f;
 
-int plNetVoiceList::FindMember(plNetTransportMember* e) 
+int plNetVoiceList::FindMember(plNetTransportMember* e)
 {
     VoiceListType::iterator result = std::find(fMembers.begin(), fMembers.end(), e);
     return result!=fMembers.end() ? result-fMembers.begin() : -1;
@@ -84,31 +84,31 @@ void plNetTalkList::UpdateTransportGroup(plNetClientMgr* nc)
     }
 }
 
-void plNetTalkList::AddMember(plNetTransportMember* e) 
-{ 
+void plNetTalkList::AddMember(plNetTransportMember* e)
+{
     if (FindMember(e)==-1)
     {
         plStatusLog::AddLineSF("voice.log", "Adding {} to talk list", e->AsString());
         fMembers.push_back(e);
     }
-    fFlags |= kDirty;   
+    fFlags |= kDirty;
 }
     
-void plNetTalkList::RemoveMember(plNetTransportMember* e) 
-{ 
+void plNetTalkList::RemoveMember(plNetTransportMember* e)
+{
     int idx=FindMember(e);
     if (idx!=-1)
     {
         plStatusLog::AddLineSF("voice.log", "Removing {} from talklist", e->AsString());
         fMembers.erase(fMembers.begin()+idx);
     }
-    fFlags |= kDirty; 
+    fFlags |= kDirty;
 }
     
-void plNetTalkList::Clear() 
-{ 
-    plNetVoiceList::Clear(); 
-    fFlags |= kDirty; 
+void plNetTalkList::Clear()
+{
+    plNetVoiceList::Clear();
+    fFlags |= kDirty;
 }
 
 
@@ -125,7 +125,7 @@ void plNetListenList::AddMember(plNetTransportMember* e)
         plStatusLog::AddLineSF("voice.log", "Adding {} to listen list ", e->AsString());
         fMembers.push_back(e);
     
-#if 0   
+#if 0
         // call the new member's win audible and set talk icon parameters
 
         plSoundMsg* pMsg = new plSoundMsg;
@@ -136,7 +136,7 @@ void plNetListenList::AddMember(plNetTransportMember* e)
         pMsg->fIndex = GetNumMembers();
         pMsg->fNameStr = (uint32_t)e->GetName();
         plgDispatch::MsgSend(pMsg);
-#endif  
+#endif
     }
 }
 
@@ -156,6 +156,6 @@ void plNetListenList::RemoveMember(plNetTransportMember* e)
             pMsg->AddReceiver(pMod->GetTarget(0)->GetKey());
         pMsg->SetCmd(plSoundMsg::kClearTalkIcon);
         plgDispatch::MsgSend(pMsg);
-#endif  
+#endif
     }
 }

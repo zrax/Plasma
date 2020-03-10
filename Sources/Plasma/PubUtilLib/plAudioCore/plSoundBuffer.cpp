@@ -159,8 +159,8 @@ void plSoundBuffer::Shutdown()
 
 //// Constructor/Destructor //////////////////////////////////////////////////
 
-plSoundBuffer::plSoundBuffer() 
-{   
+plSoundBuffer::plSoundBuffer()
+{
     IInitBuffer();
 }
 
@@ -173,7 +173,7 @@ plSoundBuffer::plSoundBuffer( const plFileName &fileName, uint32_t flags )
 }
 
 plSoundBuffer::~plSoundBuffer()
-{ 
+{
     // if we are loading a sound we need to wait for the loading thread to be completely done processing this buffer.
     // otherwise it may try to access this buffer after it's been deleted
     if(fLoading)
@@ -350,8 +350,8 @@ plSoundBuffer::ELoadReturnVal plSoundBuffer::AsyncLoad(plAudioFileReader::Stream
         gLoaderThread.AddBuffer(this);
         fLoading = true;
     }
-    if(fLoaded) 
-    {   
+    if(fLoaded)
+    {
         if(fLoading)    // ensures we only do this stuff one time
         {
             ELoadReturnVal retVal = kSuccess;
@@ -382,7 +382,7 @@ void    plSoundBuffer::UnLoad()
 {
     if(fLoaded)
         int i = 0;
-    if(fLoading) 
+    if(fLoading)
         return;
 
     if(fReader)
@@ -407,15 +407,15 @@ void    plSoundBuffer::RoundDataPos( uint32_t &pos )
 }
 
 // transfers ownership to caller
-plAudioFileReader *plSoundBuffer::GetAudioReader() 
-{ 
+plAudioFileReader *plSoundBuffer::GetAudioReader()
+{
     plAudioFileReader * reader = fReader;
-    fReader = nil; 
-    return reader; 
-}       
+    fReader = nil;
+    return reader;
+}
     
-// WARNING:  called by the loader thread(only) 
-// the reader will be handed off for later use. This is useful for streaming sound if we want to load the first chunk of data 
+// WARNING:  called by the loader thread(only)
+// the reader will be handed off for later use. This is useful for streaming sound if we want to load the first chunk of data
 //  and the continue streaming the file from disk.
 void plSoundBuffer::SetAudioReader(plAudioFileReader *reader)
 {
@@ -457,7 +457,7 @@ void    plSoundBuffer::SetInternalData( plWAVHeader &header, uint32_t length, ui
 //// EnsureInternal //////////////////////////////////////////////////////////
 // for plugins only
 plSoundBuffer::ELoadReturnVal plSoundBuffer::EnsureInternal()
-{   
+{
     if( fData == nil )
     {
         fData = new uint8_t[fDataLength ];
@@ -472,7 +472,7 @@ plSoundBuffer::ELoadReturnVal plSoundBuffer::EnsureInternal()
     if( fReader == nil )
         return kError;
     
-    unsigned readLen = fDataLength; 
+    unsigned readLen = fDataLength;
     if( !fReader->Read( readLen, fData ) )
     {
         delete [] fData;

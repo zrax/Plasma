@@ -54,10 +54,10 @@ protected:
     hsTArray<plLinkEffectsTriggerMsg *> fLinks;
 
     // Players we know exist, but aren't ready to link yet
-    hsTArray<plLinkEffectsTriggerMsg *> fWaitlist; 
+    hsTArray<plLinkEffectsTriggerMsg *> fWaitlist;
 
-    // Queue of delayed messages from people linking in that 
-    // we haven't received yet but are no longer necessary, 
+    // Queue of delayed messages from people linking in that
+    // we haven't received yet but are no longer necessary,
     // because we either received the trigger from them, or
     // they're no longer in the age.
     hsTArray<plLinkEffectsTriggerMsg *> fDeadlist;

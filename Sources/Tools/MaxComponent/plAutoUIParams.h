@@ -177,7 +177,7 @@ protected:
     HWND fhList;
     HWND fhAdd;
     HWND fhRemove;
-    std::vector<Class_ID> fCIDs;    
+    std::vector<Class_ID> fCIDs;
     
 public:
     plPickListParam(ParamID id, const char *name, std::vector<Class_ID>* filter);
@@ -392,7 +392,7 @@ class plDropDownListParam : public plAutoUIParam
 {
 protected:
     HWND fhList;
-    std::vector<std::string> fOptions;  
+    std::vector<std::string> fOptions;
     
 public:
     plDropDownListParam(ParamID id, const char *name, std::vector<std::string>* options);

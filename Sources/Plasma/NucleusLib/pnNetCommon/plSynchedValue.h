@@ -70,7 +70,7 @@ class plSynchedValueBase
 public:
     enum Flags  // 16 bits
     {
-        kValueIsDirty       = 0x1,      
+        kValueIsDirty       = 0x1,
         kValueSendOnlyOnce  = 0x2,      // perm flag
         kValueHasBeenSent   = 0x4,      // perm flag
         kRegistered         = 0x8,      // perm flag
@@ -79,25 +79,25 @@ public:
 
 protected:
     int16_t   fSynchedObjectAddrOffset;   // this could represent uint32_ts instead of uint8_t offsets
-    uint16_t  fFlags;     
+    uint16_t  fFlags;
 
     void IConstruct()   // too bad this can't be virtual (because it's called from ctor)
-    { 
+    {
         // The synchMgr for the class that owns us is constructed first and the staticMgr
         // is set to his address so we can automatically get at it during construction.
         fFlags=0;
-        int32_t off = (int32_t)plSynchedObject::GetStaticSynchedObject() - (int32_t)this; 
+        int32_t off = (int32_t)plSynchedObject::GetStaticSynchedObject() - (int32_t)this;
         if ( abs(off) <  (1<<(sizeof(fSynchedObjectAddrOffset)<<3)) )
             fSynchedObjectAddrOffset = (int16_t)off;
         else
             fSynchedObjectAddrOffset=-1;
     }
 
-    bool32    IOKToDirty() 
-    { 
+    bool32    IOKToDirty()
+    {
         if (fFlags & (kDontDirty | kValueIsDirty))
             return false;
-        return GetSynchedObject() ? GetSynchedObject()->IOKToDirty() : false; 
+        return GetSynchedObject() ? GetSynchedObject()->IOKToDirty() : false;
     }
     virtual void ISaveOrLoad(bool32 save, hsStream* stream, hsResMgr* mgr) = 0;
 
@@ -114,15 +114,15 @@ protected:
     double ISaveOrLoad(double v, bool32 save, hsStream* stream, hsResMgr* mgr);
     hsBitVector ISaveOrLoad(hsBitVector& v, bool32 save, hsStream* stream, hsResMgr* mgr);
     plCoordinateInterface* ISaveOrLoad(const plCoordinateInterface* cInt, bool32 save, hsStream* stream, hsResMgr* mgr);
-public:     
+public:
     plSynchedValueBase()  { IConstruct();  }
     virtual ~plSynchedValueBase() {}
 
     // getters
-    virtual plSynchedObject* GetSynchedObject() 
-    { 
+    virtual plSynchedObject* GetSynchedObject()
+    {
         hsAssert(fSynchedObjectAddrOffset!=-1, "invalid synchedObject address offset");
-        plSynchedObject* so = fSynchedObjectAddrOffset == -1 ? nil : (plSynchedObject*)((int32_t)this+fSynchedObjectAddrOffset); 
+        plSynchedObject* so = fSynchedObjectAddrOffset == -1 ? nil : (plSynchedObject*)((int32_t)this+fSynchedObjectAddrOffset);
         if (!(fFlags & kRegistered) && so)
         {
             so->RegisterSynchedValue(this);
@@ -138,9 +138,9 @@ public:
     void MakeDirty() { SetFlags(GetFlags() | kValueIsDirty); }
     void MakeClean() { SetFlags(GetFlags() & ~kValueIsDirty); }
 
-    void DirtyIfNecessary() 
-    { 
-        if (IOKToDirty())   
+    void DirtyIfNecessary()
+    {
+        if (IOKToDirty())
         {
             MakeDirty();                        // dirty value
             if (GetSynchedObject())
@@ -158,16 +158,16 @@ public:
 // SYNCHED VALUE TEMPLATE
 // -----------------------------------
 //
-template <class T> 
+template <class T>
 class plSynchedValue : public plSynchedValueBase
 {
 protected:
     T fValue;
 
-    void ISaveOrLoad(bool32 save, hsStream* stream, hsResMgr* mgr) 
+    void ISaveOrLoad(bool32 save, hsStream* stream, hsResMgr* mgr)
     { fValue=(T)plSynchedValueBase::ISaveOrLoad(fValue, save, stream, mgr); }       // default method
 
-public: 
+public:
 
     plSynchedValue() {}
     plSynchedValue(const T& v) : plSynchedValueBase() { fValue=v; }
@@ -189,7 +189,7 @@ public:
     T operator--(int)   { DirtyIfNecessary(); return fValue--; }    // postfix
     T operator+=(const T& other) { return SetValue(fValue+other); }
     T operator*=(const T& other) { return SetValue(fValue*other);  }
-    T operator/=(const T& other) { return SetValue(fValue/other);  }    
+    T operator/=(const T& other) { return SetValue(fValue/other);  }
 
     // these return reference in the event they are bitvector types
     T& operator&=(const T& other) { return SetValue(fValue&other); }
@@ -206,8 +206,8 @@ public:
     // for pointer types, which are allowed to change the object pointed to
     T operator->() { return fValue; }
 #if HS_BUILD_FOR_WIN32
-#pragma warning( pop ) 
-#endif    
+#pragma warning( pop )
+#endif
     // asignment, can use instead of setvalue
     const T& operator=(const plSynchedValue<T>& pRHS )  { return SetValue(pRHS.GetValue()); }
 
@@ -231,7 +231,7 @@ public:
     {   bool32 bitSet = IsBitSet(which);
         if ( (on && !bitSet) || (!on && bitSet) )
             DirtyIfNecessary();
-        return fValue.SetBit(which, on); 
+        return fValue.SetBit(which, on);
     }
     void Read(hsStream* s) { fValue.Read(s); }
     void Write(hsStream* s) const { fValue.Write(s); }
@@ -248,7 +248,7 @@ public:
 // of an computer the addr offset of it's associated synchedObject.
 // This one is 4 bytes bigger than regular synched values.
 //////////////////////////////////////
-template <class T> 
+template <class T>
 class plSynchedValueFriend : public plSynchedValue<T>
 {
 protected:
@@ -257,9 +257,9 @@ public:
     plSynchedValueFriend() : fSynchedObject(nil) { }
     // this is explicit so it won't be invoked instead of operator()=
     explicit plSynchedValueFriend(const T& v) : plSynchedValue<T>(v),fSynchedObject(nil)  { }
-    plSynchedValueFriend(const plSynchedValueFriend<T>& pRHS) : plSynchedValue<T>(pRHS) 
+    plSynchedValueFriend(const plSynchedValueFriend<T>& pRHS) : plSynchedValue<T>(pRHS)
     { fSynchedObject = pRHS.fSynchedObject; }
-    ~plSynchedValueFriend() 
+    ~plSynchedValueFriend()
     {
         if (GetSynchedObject())
             GetSynchedObject()->RemoveSynchedValue(this);
@@ -268,22 +268,22 @@ public:
     // this isn't inherited for some reason
     const T& operator=(const T& v) { return SetValue(v); }
 
-    plSynchedObject* GetSynchedObject() 
-    { 
-        hsAssert(fSynchedObject, "nil synched object, need to SetSynchedObjectPtrAddr?"); 
+    plSynchedObject* GetSynchedObject()
+    {
+        hsAssert(fSynchedObject, "nil synched object, need to SetSynchedObjectPtrAddr?");
 
         if (*fSynchedObject && !(fFlags & kRegistered))
         {
             (*fSynchedObject)->RegisterSynchedValueFriend(this);
             fFlags |= kRegistered;
         }
-        return *fSynchedObject; 
+        return *fSynchedObject;
     }
 
-    void SetSynchedObjectPtrAddr(plSynchedObject** so) 
-    { 
+    void SetSynchedObjectPtrAddr(plSynchedObject** so)
+    {
         hsAssert(!(fFlags & kRegistered), "SynchedValueFriend already registered?");
-        fSynchedObject=so; 
+        fSynchedObject=so;
     }
 };
 
@@ -291,13 +291,13 @@ public:
 // Synched TArray Template
 /////////////////////////////////////
 #include "hsTemplates.h"
-template <class T> 
+template <class T>
 class plSynchedTArray : public plSynchedValueBase
 {
 private:
     hsTArray<T> fValueList;
 
-    void ISaveOrLoad(bool32 save, hsStream* stream, hsResMgr* mgr); 
+    void ISaveOrLoad(bool32 save, hsStream* stream, hsResMgr* mgr);
 public:
     enum {  kMissingIndex = hsTArray<T>::kMissingIndex  };
     plSynchedTArray() {}
@@ -367,7 +367,7 @@ void plSynchedTArray<T>::ISaveOrLoad(bool32 save, hsStream* stream, hsResMgr* mg
 //////////////////////////////////////
 // Variation on synchedTArray.  See plSynchedValueFriend above for more info
 //////////////////////////////////////
-template <class T> 
+template <class T>
 class plSynchedTArrayFriend : public plSynchedTArray<T>
 {
 protected:
@@ -375,22 +375,22 @@ protected:
 public:
     plSynchedTArrayFriend() : fSynchedObject(nil) { }
 
-    plSynchedObject* GetSynchedObject() 
-    { 
-        hsAssert(fSynchedObject, "nil synched object, need to SetSynchedObjectPtrAddr?"); 
+    plSynchedObject* GetSynchedObject()
+    {
+        hsAssert(fSynchedObject, "nil synched object, need to SetSynchedObjectPtrAddr?");
 
         if (*fSynchedObject && !(fFlags & kRegistered))
         {
             (*fSynchedObject)->RegisterSynchedValueFriend(this);
             fFlags |= kRegistered;
         }
-        return *fSynchedObject; 
+        return *fSynchedObject;
     }
 
-    void SetSynchedObjectPtrAddr(plSynchedObject** so) 
-    { 
+    void SetSynchedObjectPtrAddr(plSynchedObject** so)
+    {
         hsAssert(!(fFlags & kRegistered), "SynchedValueTArrayFriend already registered?");
-        fSynchedObject=so; 
+        fSynchedObject=so;
     }
 
 

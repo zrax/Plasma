@@ -72,8 +72,8 @@ public:
 //      kParamInitVelRange,
         kParamVelMin,
         kParamVelMax,
-        kParamXSize, 
-        kParamYSize, 
+        kParamXSize,
+        kParamYSize,
 //      kParamSizeRange,
         kParamScaleMin,
         kParamScaleMax,
@@ -123,7 +123,7 @@ public:
     plParticleTransferMsg() : plMessage(nil, nil, nil), fSysSOKey(nil), fNumToTransfer(0) {}
     plParticleTransferMsg(const plKey &s, const plKey &r, const double* t, plKey sysSOKey, uint16_t numParticles )
         : plMessage(s, r, t) { fSysSOKey = sysSOKey; fNumToTransfer = numParticles; }
-    virtual ~plParticleTransferMsg() {} 
+    virtual ~plParticleTransferMsg() {}
 
     CLASSNAME_REGISTER( plParticleTransferMsg );
     GETINTERFACE_ANY( plParticleTransferMsg, plMessage );
@@ -168,13 +168,13 @@ public:
     plParticleKillMsg() : plMessage(nil, nil, nil), fNumToKill(0.f), fTimeLeft(0.f), fFlags(kParticleKillImmortalOnly) {}
     plParticleKillMsg(const plKey &s, const plKey &r, const double* t, float numToKill, float timeLeft, uint8_t flags = kParticleKillImmortalOnly )
         : plMessage(s, r, t) { fNumToKill = numToKill; fTimeLeft = timeLeft; fFlags = flags; }
-    virtual ~plParticleKillMsg() {} 
+    virtual ~plParticleKillMsg() {}
     
     CLASSNAME_REGISTER( plParticleKillMsg );
     GETINTERFACE_ANY( plParticleKillMsg, plMessage );
 
-    // Local only 
-    virtual void Read(hsStream *stream, hsResMgr *mgr) 
+    // Local only
+    virtual void Read(hsStream *stream, hsResMgr *mgr)
     {
         plMessage::IMsgRead(stream,mgr);
         fNumToKill = stream->ReadLEScalar();
@@ -212,10 +212,10 @@ public:
     CLASSNAME_REGISTER( plParticleFlockMsg );
     GETINTERFACE_ANY( plParticleFlockMsg, plMessage );
 
-    // Local only 
+    // Local only
     virtual void Read(hsStream *stream, hsResMgr *mgr) {}
     virtual void Write(hsStream *stream, hsResMgr *mgr) {}
-};  
+};
     
 
 

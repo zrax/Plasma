@@ -123,7 +123,7 @@ void    pfGUIDragBarCtrl::HandleMouseDown( hsPoint3 &mousePt, uint8_t modifiers 
 
     SetObjectCenter( mousePt.fX + fDragOffset.fX, mousePt.fY + fDragOffset.fY );
 
-    // We know that the entire dialog is going to move, so we better make 
+    // We know that the entire dialog is going to move, so we better make
     // sure to update the bounds on all the controls
     fDialog->UpdateAllBounds();
 }

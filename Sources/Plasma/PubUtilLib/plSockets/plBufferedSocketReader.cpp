@@ -46,7 +46,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 plBufferedSocketReader::plBufferedSocketReader(int size)
 :   plRingBuffer(size)
-{    
+{
 }
 
 int plBufferedSocketReader::ReadBlock(char * buf, int buflen, plTcpSocket & sck)
@@ -104,13 +104,13 @@ int plBufferedSocketReader::ReadStringInPlace(char ** buf, char * termChars, plT
     return ans;
 }
 
-void plBufferedSocketReader::Reset() 
+void plBufferedSocketReader::Reset()
 {
     plRingBuffer::Reset();
 }
 
 int plBufferedSocketReader::ReadFrom(plTcpSocket & sck) // this is where things get ugly.
-{        
+{
     int ans = kSuccessNoData;
     int readSize = BufferAvailable();
     
@@ -126,7 +126,7 @@ int plBufferedSocketReader::ReadFrom(plTcpSocket & sck) // this is where things 
         int nBytesRead = sck.RecvData(dst, readSize);
         if(nBytesRead < 0)
         {
-            int err = plNet::GetError(); 
+            int err = plNet::GetError();
             if(err != kBlockingError)
             {
                 ans = kFailedReadError;
@@ -141,7 +141,7 @@ int plBufferedSocketReader::ReadFrom(plTcpSocket & sck) // this is where things 
         {
             ans = kFailedSocketClosed;
         }
-    }        
+    }
     else
     {
         ans = kFailedNoBufferSpace;
@@ -181,11 +181,11 @@ bool plBufferedSocketReader::GetString(char * buf, int buflen, char * termChars)
         {
             memcpy(buf,wrk,i);
             buf[i] = '\0';
-            fStartPos += i+1;                
+            fStartPos += i+1;
             Compress();
             ans = true;
             break;
-        }            
+        }
     }
     return ans;
 }
@@ -201,11 +201,11 @@ bool plBufferedSocketReader::GetStringInPlace(char ** buf, char * termChars)
         if(strchr(termChars,(*buf)[i])!=0)
         {
             (*buf)[i] = '\0';
-            fStartPos += i+1;                
+            fStartPos += i+1;
             Compress();
             ans = true;
             break;
-        }            
+        }
     }
     return ans;
 }

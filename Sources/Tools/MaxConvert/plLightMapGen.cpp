@@ -136,10 +136,10 @@ plLightMapGen& plLightMapGen::Instance()
 
 #ifdef MF_NEW_RGC
 // Don't call this ever ever ever. I mean really. Never.
-void plLightMapGen::SetRGC(RenderGlobalContext* rgc) 
-{ 
-    fRGC = rgc; 
-} 
+void plLightMapGen::SetRGC(RenderGlobalContext* rgc)
+{
+    fRGC = rgc;
+}
 #endif // MF_NEW_RGC
 
 plLightMapGen::plLightMapGen()
@@ -180,8 +180,8 @@ bool plLightMapGen::Open(Interface* ip, TimeValue t, bool forceRegen)
 
 #ifdef MF_NEW_RGC
         RegisterNotification(
-            getRGC, 
-            this, 
+            getRGC,
+            this,
             NOTIFY_PRE_RENDERFRAME
             );
 
@@ -199,10 +199,10 @@ bool plLightMapGen::Open(Interface* ip, TimeValue t, bool forceRegen)
         vp.nearRange = 1.f;
         vp.farRange = 30.f;
 
-        fRenderer->Open(fInterface->GetRootNode(), 
+        fRenderer->Open(fInterface->GetRootNode(),
             nil,
             &vp,
-            *fRP, 
+            *fRP,
             fInterface->GetMAXHWnd());
 
         FrameRendParams frp;
@@ -233,9 +233,9 @@ bool plLightMapGen::Open(Interface* ip, TimeValue t, bool forceRegen)
         Bitmap* tobm = TheManager->Create(&bminfo);
 
 
-        fRenderer->Render(fTime, 
-            tobm, 
-            frp, 
+        fRenderer->Render(fTime,
+            tobm,
+            frp,
             fInterface->GetMAXHWnd()
             );
 
@@ -410,8 +410,8 @@ bool plLightMapGen::MakeMaps(plMaxNode* node, const hsMatrix44& l2w, const hsMat
 
     // Okay, we're going to do it. The lights are
     // set up for this guy so we just need some geometry.
-    // Find the drawable and which spans correspond 
-    // to this node, and feed them through. 
+    // Find the drawable and which spans correspond
+    // to this node, and feed them through.
     //
     // IShadeGeometrySpans() and lower return whether any light was actually found.
     if( !IShadeGeometrySpans(node, l2w, w2l, spans) )
@@ -624,7 +624,7 @@ bool plLightMapGen::IShadeFace(plMaxNode* node, const hsMatrix44& l2w, const hsM
 
     // First, get the face info we'll be using.
 
-    // This will look for a suitable lightmap layer and return that. 
+    // This will look for a suitable lightmap layer and return that.
     // There should be one there already, because we called this
     // in IShadeSpan
     plLayerInterface* lay = IGetLightMapLayer(node, span);
@@ -780,7 +780,7 @@ bool plLightMapGen::IGetLight(INode* node)
 
     Object *obj = node->EvalWorldState(fTime).obj;
 
-    if (obj && (obj->SuperClassID() == SClass_ID(LIGHT_CLASS_ID))) 
+    if (obj && (obj->SuperClassID() == SClass_ID(LIGHT_CLASS_ID)))
     {
         plLightMapInfo* liInfo = fAllLights.Push();
 

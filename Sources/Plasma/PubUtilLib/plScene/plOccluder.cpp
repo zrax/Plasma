@@ -183,7 +183,7 @@ plDrawableSpans* plOccluder::CreateProxy(hsGMaterial* mat, hsTArray<uint32_t>& i
         }
 #endif
     }
-    return plDrawableGenerator::GenerateDrawable(pos.GetCount(), 
+    return plDrawableGenerator::GenerateDrawable(pos.GetCount(),
                                         pos.AcquireArray(),
                                         norm.AcquireArray(),
                                         nil, 0,
@@ -201,7 +201,7 @@ plDrawableSpans* plOccluder::CreateProxy(hsGMaterial* mat, hsTArray<uint32_t>& i
 
 void plOccluder::SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l)
 {
-// Commenting out the following asserts. Although they are fundamentally correct, 
+// Commenting out the following asserts. Although they are fundamentally correct,
 //essentially identity matrices which aren't so flagged (because of numerical
 // precision) are triggering bogus asserts. mf
 //  hsAssert(l2w.fFlags & hsMatrix44::kIsIdent, "Non-identity transform to non-movable Occluder");

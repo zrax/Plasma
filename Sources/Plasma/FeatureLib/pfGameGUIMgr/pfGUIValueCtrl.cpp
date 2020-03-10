@@ -79,8 +79,8 @@ void    pfGUIValueCtrl::SetCurrValue( float v )
 
 void    pfGUIValueCtrl::SetRange( float min, float max )
 {
-    fMin = min; 
-    fMax = max; 
+    fMin = min;
+    fMax = max;
     if( fValue < fMin )
         SetCurrValue( fMin );
     else if( fValue > fMax )

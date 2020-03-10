@@ -153,7 +153,7 @@ uint32_t plLayerMovie::Eval(double wSecs, uint32_t frame, uint32_t ignore)
     if( !IGetFault() && !(ignore & kTexture) )
     {
         if( ICurrentFrameDirty(wSecs) )
-        {           
+        {
             if( IGetCurrentFrame() )
                 ISetFault("Getting current frame");
 
@@ -203,7 +203,7 @@ void plLayerMovie::Write(hsStream* s, hsResMgr* mgr)
 }
 
 bool plLayerMovie::MsgReceive(plMessage* msg)
-{   
+{
     return plLayerAnimation::MsgReceive(msg);
 }
 

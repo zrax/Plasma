@@ -134,14 +134,14 @@ void plPhysicsSoundMgr::IStopCollision(const CollidePair& cp)
         {
             if(sndA->IsSliding())
             {
-                sndA->StopSlideSound(sndB->GetGroup()); 
+                sndA->StopSlideSound(sndB->GetGroup());
             }
         }
         if (sndB->HasSlideSound(sndA->GetGroup()))
         {
             if(sndB->IsSliding())
             {
-                sndB->StopSlideSound(sndA->GetGroup());     
+                sndB->StopSlideSound(sndA->GetGroup());
             }
         }
     }
@@ -210,7 +210,7 @@ plPhysicsSoundMgr::CollidePair::CollidePair(const plKey& firstPhys, const plKey&
 
 bool plPhysicsSoundMgr::CollidePair::operator<(const CollidePair& rhs) const
 {
-    return (firstPhysKey->GetObjectPtr() < rhs.firstPhysKey->GetObjectPtr() 
+    return (firstPhysKey->GetObjectPtr() < rhs.firstPhysKey->GetObjectPtr()
         || (rhs.firstPhysKey->GetObjectPtr() == firstPhysKey->GetObjectPtr() && secondPhysKey->GetObjectPtr() < rhs.secondPhysKey->GetObjectPtr()));
 }
 

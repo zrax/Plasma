@@ -66,16 +66,16 @@ protected:
 
 public:
     float           fEventTime; // the time for time events
-    CallbackEvent   fEvent;     // the event    
+    CallbackEvent   fEvent;     // the event
     int16_t         fIndex;     // the index of the object we want the event to come from
                                 // (where applicable, required for sounds)
     int16_t         fRepeats;   // -1 for infinite repeats, 0 for one call, no repeats
     int16_t         fUser;      // User defined data, useful for keeping track of multiple callbacks
 
     plEventCallbackMsg() : fEventTime(0.0f), fEvent((CallbackEvent)0), fRepeats(-1), fUser(0), fIndex(0) { }
-    plEventCallbackMsg (const plKey &s, 
-                    const plKey &r, 
-                    const double* t) : 
+    plEventCallbackMsg (const plKey &s,
+                    const plKey &r,
+                    const double* t) :
                         plMessage(s, r, t),
                         fEventTime(0.0f), fEvent((CallbackEvent)0), fRepeats(-1), fUser(0), fIndex(0) { }
 

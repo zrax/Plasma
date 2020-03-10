@@ -56,7 +56,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////
 hsG3DDeviceMode::hsG3DDeviceMode()
-:   fWidth(0), fHeight(0), 
+:   fWidth(0), fHeight(0),
     fDepth(0),
     fFlags(kNone)
 {
@@ -116,7 +116,7 @@ hsG3DDeviceRecord::hsG3DDeviceRecord(const hsG3DDeviceRecord& src)
     fG3DDeviceType(hsG3DDeviceSelector::kDevTypeUnknown),
     fG3DHALorHEL(hsG3DDeviceSelector::kHHTypeUnknown),
     fZBiasRating( src.fZBiasRating ), fLODBiasRating( 0 ),
-    fFogExpApproxStart( src.fFogExpApproxStart ), fFogExp2ApproxStart( src.fFogExp2ApproxStart ), 
+    fFogExpApproxStart( src.fFogExpApproxStart ), fFogExp2ApproxStart( src.fFogExp2ApproxStart ),
     fFogEndBias( src.fFogEndBias ), fMaxAnisotropicSamples( src.fMaxAnisotropicSamples )
 {
     *this = src;
@@ -391,7 +391,7 @@ bool hsG3DDeviceSelector::GetDefault (hsG3DDeviceModeRecord *dmr)
             case kDevTypeDirect3D:
                 if (fRecords[i].GetG3DHALorHEL() == kHHD3DTnLHalDev)
                 {
-                    if (iTnL == -1 
+                    if (iTnL == -1
 #ifndef PLASMA_EXTERNAL_RELEASE
                         || plPipeline::fInitialPipeParams.ForceSecondMonitor
 #endif // PLASMA_EXTERNAL_RELEASE
@@ -414,10 +414,10 @@ bool hsG3DDeviceSelector::GetDefault (hsG3DDeviceModeRecord *dmr)
                 break;
 
             case kDevTypeOpenGL:
-                if (iOpenGL == -1 
-#ifndef PLASMA_EXTERNAL_RELEASE                 
+                if (iOpenGL == -1
+#ifndef PLASMA_EXTERNAL_RELEASE
                     || plPipeline::fInitialPipeParams.ForceSecondMonitor
-#endif // PLASMA_EXTERNAL_RELEASE                   
+#endif // PLASMA_EXTERNAL_RELEASE
                     )
                 {
                     iOpenGL = i;
@@ -479,10 +479,10 @@ namespace
     /// plus, flags to be forced set and flags to be forced cleared. Also included
     /// is a Z-buffer suckiness rating, which represents how badly we need to bias
     /// the z and w values to avoid z-buffer artifacts, stored as an float (i.e
-    /// a float). A rating of 0 means very good/default (read: Nvidia), while, say, 
-    /// a 9.0 (i.e. shift the scale 9 times above normal) means s****y, like, say, 
-    /// a Savage4. Also also included is a forced value for max # of layers (0 means 
-    /// to use default). Also also also included is an LOD rating indicating how much 
+    /// a float). A rating of 0 means very good/default (read: Nvidia), while, say,
+    /// a 9.0 (i.e. shift the scale 9 times above normal) means s****y, like, say,
+    /// a Savage4. Also also included is a forced value for max # of layers (0 means
+    /// to use default). Also also also included is an LOD rating indicating how much
     /// (and in which direction) to alter the base LOD bias value for this device. General
     /// interpretation of this value is to add (-lodRating) to the LOD bias value.
     /// This is because the LOD bias starts out negative and typically goes in 0.25
@@ -527,7 +527,7 @@ namespace
 
     typedef struct {
         uint8_t           fType;              // Our chipset ID
-        uint32_t          *fFlagsToSet;       
+        uint32_t          *fFlagsToSet;
         uint32_t          *fFlagsToClear;
         float        fZSuckiness;        // See above
         uint32_t          fForceMaxLayers;    // The max # of layers we REALLY want (0 to not force)
@@ -560,7 +560,7 @@ namespace
                     1,              // First integer is always the length
                     hsG3DDeviceSelector::kCapsDoesSmallTextures };
 
-    CFTable dsCFTable[] = 
+    CFTable dsCFTable[] =
         {
             // Chipset ID              // F2Set             // F2Clear          // ZSuck    // MaxLayers    // LODBias    // Fog Value Tables
             { kDefaultChipset,         nullptr,             dsDefaultCapsClr,   0,          0,              0,            &dsDefaultFogVals },
@@ -572,7 +572,7 @@ namespace
 };
 
 //// IFudgeDirectXDevice //////////////////////////////////////////////////////
-//  Checks this DirectX device against all our known types and fudges our caps 
+//  Checks this DirectX device against all our known types and fudges our caps
 //  flags and bias values, etc, accordingly
 
 #ifdef PLASMA_PIPELINE_DX
@@ -602,7 +602,7 @@ void    hsG3DDeviceSelector::IFudgeDirectXDevice( hsG3DDeviceRecord &record,
     ST::string desc = ST::string::from_latin_1(szDesc).to_lower();
 
     /// Detect ATI Radeon chipset
-    // We will probably need to differentiate between different Radeons at some point in 
+    // We will probably need to differentiate between different Radeons at some point in
     // the future, but not now.
     ST_ssize_t radeon = desc.find("radeon");
     if (stricmp(szDriver, "ati2dvag.dll") == 0 || radeon >= 0)
@@ -639,7 +639,7 @@ void    hsG3DDeviceSelector::IFudgeDirectXDevice( hsG3DDeviceRecord &record,
     //// Other Cards //////////////////////////////////////////////////////////
     /// Detect Intel i810 chipset
     else if( deviceID == 0x00007125 &&
-                ( stricmp( szDriver, "i81xdd.dll" ) == 0 
+                ( stricmp( szDriver, "i81xdd.dll" ) == 0
                   || ( desc.find("intel") >= 0 && desc.find("810") >= 0 ) ) )
     {
         hsStatusMessage( "== Using fudge factors for an Intel i810 chipset ==\n" );

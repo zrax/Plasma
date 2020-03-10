@@ -61,11 +61,11 @@ plDrawInterface::~plDrawInterface()
 
 }
 
-void plDrawInterface::SetDrawableMeshIndex( uint8_t which, uint32_t index ) 
+void plDrawInterface::SetDrawableMeshIndex( uint8_t which, uint32_t index )
 {
     ICheckDrawableIndex(which);
 
-    fDrawableIndices[which] = index; 
+    fDrawableIndices[which] = index;
 }
 
 void plDrawInterface::SetProperty(int prop, bool on)
@@ -147,7 +147,7 @@ void plDrawInterface::Read(hsStream* s, hsResMgr* mgr)
     plObjInterface::Read(s, mgr);
 
     int nDrawables = s->ReadLE32();
-    if (nDrawables > 0) 
+    if (nDrawables > 0)
         ICheckDrawableIndex(nDrawables-1);
     int i;
     for( i = 0; i < fDrawables.GetCount(); i++ )

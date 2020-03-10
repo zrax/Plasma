@@ -153,7 +153,7 @@ bool plSittingModifier::MsgReceive(plMessage *msg)
             {
                 // a notify message with a state of 1 tells us to fire.
                 // we'll copy any events from this notify and use them when we send our
-                // own notify messages -- 
+                // own notify messages --
                 plKey avatarKey = notifyMsg->GetAvatarKey();
                 plSceneObject * obj = plSceneObject::ConvertNoRef(avatarKey->ObjectIsLoaded());
                 if (obj) {
@@ -248,7 +248,7 @@ void plSittingModifier::Trigger(const plArmatureMod *avMod, plNotifyMsg *enterNo
                 pCam2->SetBCastFlag(plMessage::kBCastByExactType);
                 pCam2->SetCmd(plCameraMsg::kPythonSetFirstPersonOverrideEnable);
                 pCam2->SetActivated(false);
-                pCam2->Send();  
+                pCam2->Send();
     
                 plCameraMsg* pCam3 = new plCameraMsg;
                 pCam3->SetBCastFlag(plMessage::kBCastByExactType);
@@ -345,7 +345,7 @@ plAvBrainGeneric *plSittingModifier::IBuildSitBrain(plKey avModKey, plKey seekKe
         if(sitAnimName)
         {
             uint32_t exitFlags = plAvBrainGeneric::kExitNormal;   // SOME stages can be interrupted, but not the brain itself
-            brain = new plAvBrainGeneric(nil, enterNotify, exitNotify, nil, exitFlags, plAvBrainGeneric::kDefaultFadeIn, 
+            brain = new plAvBrainGeneric(nil, enterNotify, exitNotify, nil, exitFlags, plAvBrainGeneric::kDefaultFadeIn,
                                          plAvBrainGeneric::kDefaultFadeOut, plAvBrainGeneric::kMoveRelative);
 
             plAnimStage *sitStage = new plAnimStage(sitAnimName, 0, plAnimStage::kForwardAuto, plAnimStage::kBackNone,
@@ -382,7 +382,7 @@ void plSittingModifier::UnTrigger()
         pCam2->SetBCastFlag(plMessage::kBCastByExactType);
         pCam2->SetCmd(plCameraMsg::kPythonSetFirstPersonOverrideEnable);
         pCam2->SetActivated(true);
-        pCam2->Send();  
+        pCam2->Send();
 
         // The flag means we disabled it, so re-enable on UnTrigger.
         if (fMiscFlags & kDisableForward)

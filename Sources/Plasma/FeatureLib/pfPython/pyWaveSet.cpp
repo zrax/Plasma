@@ -187,7 +187,7 @@ void pyWaveSet::SetTexAngleDev(float s, float secs)
     }
 }
 // --------------------------------------------------------------------------------
-// The size in feet of one tile of the ripple texture. If you change this (I don't 
+// The size in feet of one tile of the ripple texture. If you change this (I don't
 // recommend it), you need to change it very slowly or it will look very stupid.
 
 void pyWaveSet::SetRippleScale(float s, float secs)

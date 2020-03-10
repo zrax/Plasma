@@ -64,7 +64,7 @@ public:
     void SetNetApp(plNetApp* na) { fNetApp=na; }
     plNetApp* GetNetApp() { return fNetApp; }
 
-    // return -1 on error, 0 if ok. 
+    // return -1 on error, 0 if ok.
     virtual int ReceiveMsg(plNetMessage*& netMsg) = 0;
 };
 
@@ -74,7 +74,7 @@ public:
 // Use to declare msg handler fxns in your MsgHandler .h class header
 //
 #define MSG_HANDLER_DECL(msgClassName) \
-virtual int MSG_HANDLER(msgClassName)(plNetMessage*& netMsg); 
+virtual int MSG_HANDLER(msgClassName)(plNetMessage*& netMsg);
 
 //
 // Use to define msg handler fxns in your MsgHandler .cpp file
@@ -89,7 +89,7 @@ int handlerClassName::MSG_HANDLER(msgClassName)(plNetMessage*& netMsg)
 case CLASS_INDEX_SCOPED(msgClassName): \
     { \
         return MSG_HANDLER(msgClassName)(netMsg); \
-    } 
+    }
 
 
 #endif  //  plNetMsgHandler_inc

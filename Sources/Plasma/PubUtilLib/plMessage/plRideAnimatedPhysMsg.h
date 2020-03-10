@@ -50,7 +50,7 @@ public:
     plRideAnimatedPhysMsg();
     plRideAnimatedPhysMsg(const plKey &sender, const plKey &receiver, bool entering, plKey regionKey);
     bool Entering(){return fEntering;}
-//PLASMA 
+//PLASMA
     CLASSNAME_REGISTER( plRideAnimatedPhysMsg );
     GETINTERFACE_ANY( plRideAnimatedPhysMsg, plMessage );
 

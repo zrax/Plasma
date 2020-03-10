@@ -74,7 +74,7 @@ class BitmapDlgProc : public ParamMap2UserDlgProc
     
 public:
     /// Called to update the controls of the dialog
-    /// Note: we're bad that we use a static here, but 
+    /// Note: we're bad that we use a static here, but
     virtual void    Update( TimeValue t, Interval &valid, IParamMap2 *map )
     {
         ICustButton     *bmSelectBtn;
@@ -162,8 +162,8 @@ public:
             break;
             
             /// Note: the following *could* be done in the accessor, except that you end up in an
-            /// infinite loop updating the values. Not good. 
-        case CC_SPINNER_CHANGE: 
+            /// infinite loop updating the values. Not good.
+        case CC_SPINNER_CHANGE:
             
             if( LOWORD( wParam ) == IDC_EXPORTWIDTH_SPINNER )
                 IClampTexSizeSpinner( t, map, true );
@@ -286,7 +286,7 @@ public:
                         pblock->SetValue( kBmpExportLastHeight, t, height );
                         
                         IClampTexSizeSpinner( t, map, true );
-                    }   
+                    }
                     return TRUE;
                 }
                 else
@@ -367,7 +367,7 @@ public:
             int realHeight = pbbm->bi.Height();
             
             float aspect;
-            if( clampWidth )            
+            if( clampWidth )
                 aspect = (float)realHeight / (float)realWidth;
             else
                 aspect = (float)realWidth / (float)realHeight;
@@ -594,9 +594,9 @@ public:
 
             case kBmpFiltering:
                 bmt->filterType = val.i;
-                if (bmt->thebm) 
+                if (bmt->thebm)
                     bmt->thebm->SetFilter(bmFilterType(val.i));
-                break;  
+                break;
 */
             case kBmpClipU:
             {
@@ -710,7 +710,7 @@ static BMTexPBAccessor bmtex_accessor;
 // BMCropper
 //=========================================================================================
 
-void BMCropper::SetValues(float u, float v, float w, float h, BOOL md) 
+void BMCropper::SetValues(float u, float v, float w, float h, BOOL md)
 {
     TimeValue t = GetCOREInterface()->GetTime();
 

@@ -93,8 +93,8 @@ void plCluster::Write(hsStream* s) const
     }
 }
 
-inline void inlTESTPOINT(const hsPoint3& destP, 
-                         float& minX, float& minY, float& minZ, 
+inline void inlTESTPOINT(const hsPoint3& destP,
+                         float& minX, float& minY, float& minZ,
                          float& maxX, float& maxY, float& maxZ)
 {
     if( destP.fX < minX )

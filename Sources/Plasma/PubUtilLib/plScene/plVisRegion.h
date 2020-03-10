@@ -78,7 +78,7 @@ protected:
 
     friend class plVisMgr;
 public:
-    plVisRegion(); 
+    plVisRegion();
     virtual ~plVisRegion();
 
     CLASSNAME_REGISTER( plVisRegion );

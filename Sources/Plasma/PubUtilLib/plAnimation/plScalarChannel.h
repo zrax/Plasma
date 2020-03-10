@@ -295,7 +295,7 @@ public:
 
 
 ////////////////////////////
-// 
+//
 // Channel Applicator classes
 
 class plScalarChannelApplicator : public plAGApplicator

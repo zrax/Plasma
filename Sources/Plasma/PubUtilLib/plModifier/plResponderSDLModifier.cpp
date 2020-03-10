@@ -68,7 +68,7 @@ void plResponderSDLModifier::IPutCurrentStateIn(plStateDataRecord* dstState)
     dstState->FindVar(kStrCurState)->Set((int)fResponder->fCurState);
     dstState->FindVar(kStrEnabled)->Set(fResponder->fEnabled);
     
-    dstState->FindVar(kStrCurCommand)->Set((int)fResponder->fCurCommand);   
+    dstState->FindVar(kStrCurCommand)->Set((int)fResponder->fCurCommand);
     dstState->FindVar(kStrNetRequest)->Set(fResponder->fNetRequest);
 
     int i;
@@ -118,7 +118,7 @@ void plResponderSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcSt
         }
         else if (vars[i]->IsNamed(kStrNetRequest))
         {
-            vars[i]->Get(&netRequest);          
+            vars[i]->Get(&netRequest);
         }
         else if (vars[i]->IsNamed(kStrCompletedEvents))
         {

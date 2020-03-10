@@ -119,7 +119,7 @@ void cyAnimation::SetAnimName(const char* name)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : Play
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Play animation from start to end (whatever is already set)
 //
@@ -162,7 +162,7 @@ void cyAnimation::Play()
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : Stop
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Stop an animation
 //
@@ -200,7 +200,7 @@ void cyAnimation::Stop()
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : Resume
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Continue playing animation from wherever it last stopped
 //
@@ -330,7 +330,7 @@ void cyAnimation::PlayToPercentage(float zeroToOne)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : SkipToTime
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Jump the animation to the specified time
 //             : Doesn't start or stop playing of animation

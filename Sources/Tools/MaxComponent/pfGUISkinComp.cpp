@@ -61,9 +61,9 @@ int                 pfGUISkinEditProc::fZoom = 3;       // So re-opening the dia
 
 extern HINSTANCE hInstance;
 
-pfGUISkinEditProc::pfGUISkinEditProc( plGUISkinComp *comp ) 
+pfGUISkinEditProc::pfGUISkinEditProc( plGUISkinComp *comp )
 {
-    fInstance = this; 
+    fInstance = this;
     fComp = comp;
 
     fDblDC = nil;
@@ -84,14 +84,14 @@ pfGUISkinEditProc::pfGUISkinEditProc( plGUISkinComp *comp )
     for( int i = 0; i < pfGUISkin::kNumElements; i++ )
     {
         int id = i * 4 + plGUISkinComp::kRefUpLeftCorner;
-        fBackups[ i ].fX = pb->GetInt( id + 0 ); 
-        fBackups[ i ].fY = pb->GetInt( id + 1 ); 
-        fBackups[ i ].fWidth = pb->GetInt( id + 2 ); 
-        fBackups[ i ].fHeight = pb->GetInt( id + 3 ); 
+        fBackups[ i ].fX = pb->GetInt( id + 0 );
+        fBackups[ i ].fY = pb->GetInt( id + 1 );
+        fBackups[ i ].fWidth = pb->GetInt( id + 2 );
+        fBackups[ i ].fHeight = pb->GetInt( id + 3 );
     }
 }
 
-pfGUISkinEditProc::~pfGUISkinEditProc() 
+pfGUISkinEditProc::~pfGUISkinEditProc()
 {
     fInstance = nil;
     DeleteObject( fDefPen );
@@ -428,9 +428,9 @@ INT_PTR CALLBACK    pfGUISkinEditProc::DialogProc( HWND hDlg, UINT msg, WPARAM w
             GetClientRect( GetDlgItem( hDlg, IDC_GUI_PREVIEW ), &fPreviewRect );
             MapWindowPoints( GetDlgItem( hDlg, IDC_GUI_PREVIEW ), hDlg, (POINT *)&fPreviewRect, 2 );
 
-            SendDlgItemMessage( hDlg, IDC_GUI_ZIN, BM_SETIMAGE, (WPARAM)IMAGE_ICON, 
+            SendDlgItemMessage( hDlg, IDC_GUI_ZIN, BM_SETIMAGE, (WPARAM)IMAGE_ICON,
                                         (LPARAM)LoadImage( hInstance, MAKEINTRESOURCE( IDI_ZOOMIN ), IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR ) );
-            SendDlgItemMessage( hDlg, IDC_GUI_ZOUT, BM_SETIMAGE, (WPARAM)IMAGE_ICON, 
+            SendDlgItemMessage( hDlg, IDC_GUI_ZOUT, BM_SETIMAGE, (WPARAM)IMAGE_ICON,
                                         (LPARAM)LoadImage( hInstance, MAKEINTRESOURCE( IDI_ZOOMOUT ), IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR ) );
 
             // Fill element list
@@ -458,7 +458,7 @@ INT_PTR CALLBACK    pfGUISkinEditProc::DialogProc( HWND hDlg, UINT msg, WPARAM w
                 {
                     int id = i * 4 + plGUISkinComp::kRefUpLeftCorner;
                     pb->SetValue( id + 0, 0, (int)fBackups[ i ].fX );
-                    pb->SetValue( id + 1, 0, (int)fBackups[ i ].fY ); 
+                    pb->SetValue( id + 1, 0, (int)fBackups[ i ].fY );
                     pb->SetValue( id + 2, 0, (int)fBackups[ i ].fWidth );
                     pb->SetValue( id + 3, 0, (int)fBackups[ i ].fHeight );
                 }
@@ -653,7 +653,7 @@ INT_PTR CALLBACK    pfGUISkinEditProc::DialogProc( HWND hDlg, UINT msg, WPARAM w
                         {
                             if( fDragType & kRight )
                                 pb->SetValue( fCurrPBRefSet + 0, 0, (int)x );
-                            else 
+                            else
                             {
                                 int old = pb->GetInt( fCurrPBRefSet + 0 ) + pb->GetInt( fCurrPBRefSet + 2 );
 
@@ -668,7 +668,7 @@ INT_PTR CALLBACK    pfGUISkinEditProc::DialogProc( HWND hDlg, UINT msg, WPARAM w
                         {
                             if( fDragType & kBottom )
                                 pb->SetValue( fCurrPBRefSet + 1, 0, (int)y );
-                            else 
+                            else
                             {
                                 int old = pb->GetInt( fCurrPBRefSet + 1 ) + pb->GetInt( fCurrPBRefSet + 3 );
 
@@ -703,7 +703,7 @@ INT_PTR CALLBACK    pfGUISkinEditProc::DialogProc( HWND hDlg, UINT msg, WPARAM w
                         int dY = ( y < fPreviewRect.top ) ? y - fPreviewRect.top : ( y > fPreviewRect.bottom ) ? y - fPreviewRect.bottom : 0;
 
                         fXOffset += dX;
-                        fYOffset += dY;         
+                        fYOffset += dY;
                         OffsetRect( &fCurrElemRect, -dX, -dY );
 
                         ISetScrollRanges(); // Will clamp origin for us
@@ -728,23 +728,23 @@ INT_PTR CALLBACK    pfGUISkinEditProc::DialogProc( HWND hDlg, UINT msg, WPARAM w
                 HCURSOR cursor;
                 switch( dragType )
                 {
-                    case kLeft | kTop:      
+                    case kLeft | kTop:
                     case kRight | kBottom:
                         cursor = LoadCursor( nil, IDC_SIZENWSE );
                         break;
-                    case kLeft | kBottom:       
+                    case kLeft | kBottom:
                     case kRight | kTop:
                         cursor = LoadCursor( nil, IDC_SIZENESW );
                         break;
-                    case kLeft:     
+                    case kLeft:
                     case kRight:
                         cursor = LoadCursor( nil, IDC_SIZEWE );
                         break;
-                    case kTop:      
+                    case kTop:
                     case kBottom:
                         cursor = LoadCursor( nil, IDC_SIZENS );
                         break;
-                    case kLeft | kTop | kRight | kBottom:       
+                    case kLeft | kTop | kRight | kBottom:
                         cursor = LoadCursor( nil, IDC_SIZEALL );
                         break;
                     default:

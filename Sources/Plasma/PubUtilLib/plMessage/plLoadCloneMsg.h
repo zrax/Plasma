@@ -47,7 +47,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 
 #include "pnMessage/plMessage.h"
-// 
+//
 #include "pnKeyedObject/plUoid.h"
 
 /** \class plLoadCloneMsg
@@ -99,7 +99,7 @@ public:
     CLASSNAME_REGISTER(plLoadCloneMsg);
     GETINTERFACE_ANY(plLoadCloneMsg, plMessage);
 
-    // IO 
+    // IO
     void Read(hsStream* stream, hsResMgr* mgr);
     void Write(hsStream* stream, hsResMgr* mgr);
 

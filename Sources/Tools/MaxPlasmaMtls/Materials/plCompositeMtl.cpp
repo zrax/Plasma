@@ -84,7 +84,7 @@ plCompositeMtl::plCompositeMtl(BOOL loading) : fPassesPB(NULL)
 {
     plCompositeMtlDesc.MakeAutoParamBlocks(this);
 
-    if (!loading) 
+    if (!loading)
         Reset();
 
     int i;
@@ -101,16 +101,16 @@ void plCompositeMtl::GetClassName(TSTR& s)
     s = GetString(IDS_COMP_MTL);
 }
 
-void plCompositeMtl::Reset() 
+void plCompositeMtl::Reset()
 {
     fIValid.SetEmpty();
 }
 
-ParamDlg* plCompositeMtl::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp) 
+ParamDlg* plCompositeMtl::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp)
 {
     fMtlDlg = new plCompositeMtlDlg(hwMtlEdit, imp, this);
 
-    return fMtlDlg; 
+    return fMtlDlg;
 }
 
 void plCompositeMtl::SetParamDlg(ParamDlg *dlg)
@@ -131,14 +131,14 @@ BOOL plCompositeMtl::SetDlgThing(ParamDlg* dlg)
 
 Interval plCompositeMtl::Validity(TimeValue t)
 {
-    Interval valid = FOREVER;       
+    Interval valid = FOREVER;
 
-/*  for (int i = 0; i < fSubTexmap.Count(); i++) 
+/*  for (int i = 0; i < fSubTexmap.Count(); i++)
     {
-        if (fSubTexmap[i]) 
+        if (fSubTexmap[i])
             valid &= fSubTexmap[i]->Validity(t);
     }
-*/  
+*/
 //  float u;
 //  fPBlock->GetValue(pb_spin,t,u,valid);
     return valid;
@@ -203,15 +203,15 @@ int plCompositeMtl::CanWriteAlpha()
     int i;
     for (i = 1; i < 3; i++)
     {
-        if (source < 0) 
+        if (source < 0)
         {
             source = blend[i];
             continue;
         }
-        if (source >= 0 && blend[i] >= 0 && blend[i] != source) 
+        if (source >= 0 && blend[i] >= 0 && blend[i] != source)
             return -1;
     }
-    return source; 
+    return source;
 }
 
 /*===========================================================================*\
@@ -223,7 +223,7 @@ int plCompositeMtl::NumSubs()
     return NumSubMtls();
 }
 
-TSTR plCompositeMtl::SubAnimName(int i) 
+TSTR plCompositeMtl::SubAnimName(int i)
 {
     return GetSubMtlSlotName(i);
 }
@@ -273,8 +273,8 @@ IParamBlock2 *plCompositeMtl::GetParamBlockByID(BlockID id)
     return NULL;
 }
 
-RefResult plCompositeMtl::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, 
-   PartID& partID, RefMessage message ) 
+RefResult plCompositeMtl::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
+   PartID& partID, RefMessage message )
 {
     switch (message)
     {
@@ -334,7 +334,7 @@ TSTR plCompositeMtl::GetSubMtlTVName(int i)
 #define MTL_HDR_CHUNK 0x4000
 
 IOResult plCompositeMtl::Save(ISave *isave)
-{ 
+{
     IOResult res;
     isave->BeginChunk(MTL_HDR_CHUNK);
     res = MtlBase::Save(isave);
@@ -342,7 +342,7 @@ IOResult plCompositeMtl::Save(ISave *isave)
     isave->EndChunk();
 
     return IO_OK;
-}   
+}
 
 IOResult plCompositeMtl::Load(ILoad *iload)
 {
@@ -357,7 +357,7 @@ IOResult plCompositeMtl::Load(ILoad *iload)
                 break;
         }
         iload->CloseChunk();
-        if (res!=IO_OK) 
+        if (res!=IO_OK)
             return res;
     }
 
@@ -372,22 +372,22 @@ IOResult plCompositeMtl::Load(ILoad *iload)
 RefTargetHandle plCompositeMtl::Clone(RemapDir &remap)
 {
     plCompositeMtl *mnew = new plCompositeMtl(FALSE);
-    *((MtlBase*)mnew) = *((MtlBase*)this); 
+    *((MtlBase*)mnew) = *((MtlBase*)this);
     mnew->ReplaceReference(kRefPasses, remap.CloneRef(fPassesPB));
 
-    mnew->fIValid.SetEmpty();   
+    mnew->fIValid.SetEmpty();
     BaseClone(this, mnew, remap);
 
     return (RefTargetHandle)mnew;
 }
 
-void plCompositeMtl::NotifyChanged() 
+void plCompositeMtl::NotifyChanged()
 {
     NotifyDependents(FOREVER, PART_ALL, REFMSG_CHANGE);
 }
 
-void plCompositeMtl::Update(TimeValue t, Interval& valid) 
-{   
+void plCompositeMtl::Update(TimeValue t, Interval& valid)
+{
     if (!fIValid.InInterval(t))
     {
         fIValid.SetInfinite();
@@ -406,8 +406,8 @@ void plCompositeMtl::Update(TimeValue t, Interval& valid)
 /*===========================================================================*\
  |  Determine the characteristics of the material
 \*===========================================================================*/
-void plCompositeMtl::SetAmbient(Color c, TimeValue t) {}        
-void plCompositeMtl::SetDiffuse(Color c, TimeValue t) {}        
+void plCompositeMtl::SetAmbient(Color c, TimeValue t) {}
+void plCompositeMtl::SetDiffuse(Color c, TimeValue t) {}
 void plCompositeMtl::SetSpecular(Color c, TimeValue t) {}
 void plCompositeMtl::SetShininess(float v, TimeValue t) {}
                 
@@ -423,7 +423,7 @@ float plCompositeMtl::WireSize(int mtlNum, BOOL backFace)       { return 0.0f; }
  |  Actual shading takes place
 \*===========================================================================*/
 
-void plCompositeMtl::Shade(ShadeContext& sc) 
+void plCompositeMtl::Shade(ShadeContext& sc)
 {
     // Get the background color
     Color backColor, backTrans;
@@ -482,7 +482,7 @@ void plCompositeMtl::Shade(ShadeContext& sc)
         passMtl->ShadeWithBackground(sc, backColor, false); // Don't include the vtx alpha, that's OUR job
         float currTrans = (1 - (1 - sc.out.t.r) * opacity);
         backTrans *= currTrans;
-        backColor = backColor * currTrans + sc.out.c * opacity; 
+        backColor = backColor * currTrans + sc.out.c * opacity;
     }
 
     sc.out.t = backTrans;
@@ -499,7 +499,7 @@ Interval plCompositeMtl::DisplacementValidity(TimeValue t)
     Interval iv;
     iv.SetInfinite();
 
-    return iv;  
+    return iv;
 }
 
 /*

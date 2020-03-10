@@ -56,8 +56,8 @@ class plSpawnModMsg : public plMessage
 
 public:
     plSpawnModMsg() { }
-    plSpawnModMsg(const plKey &s, 
-                    const plKey &r, 
+    plSpawnModMsg(const plKey &s,
+                    const plKey &r,
                     const double* t) { }
     ~plSpawnModMsg() { }
 
@@ -67,7 +67,7 @@ public:
     hsPoint3    fPos;
     plUoid      fObj;
 
-    // IO 
+    // IO
     void Read(hsStream* stream, hsResMgr* mgr)
     {
         plMessage::IMsgRead(stream, mgr);

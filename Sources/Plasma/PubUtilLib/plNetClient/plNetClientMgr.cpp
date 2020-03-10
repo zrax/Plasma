@@ -104,7 +104,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "pfMessage/pfKIMsg.h"  // Move this to PubUtil level
 
 #if 1   // for debugging
-#include "plCreatableIndex.h"   
+#include "plCreatableIndex.h"
 #include "plModifier/plResponderModifier.h"
 #include "plSurface/plLayerAnimation.h"
 #endif
@@ -127,7 +127,7 @@ plNetClientMgr::PendingLoad::~PendingLoad()
 // CONSTRUCT
 //
 #pragma warning(disable:4355)   // this used in initializer list
-plNetClientMgr::plNetClientMgr() : 
+plNetClientMgr::plNetClientMgr() :
         fLocalPlayerKey(nil),
         fMsgHandler(this),
         fJoinOrder(0),
@@ -144,7 +144,7 @@ plNetClientMgr::plNetClientMgr() :
         fRequiredNumInitialSDLStates(0),
         fDisableMsg(nil),
         fIsOwner(true)
-{   
+{
 #ifndef HS_DEBUGGING
     // release code will timeout inactive players on servers by default
     SetFlagsBit(kAllowTimeOut);
@@ -152,7 +152,7 @@ plNetClientMgr::plNetClientMgr() :
     SetFlagsBit(kAllowAuthTimeOut);
 
 //  fPlayerVault.SetPlayerName("SinglePlayer"); // in a MP game, this will be replaced with a player name like 'Atrus'
-    fTransport.SetNumChannels(kNetNumChannels); 
+    fTransport.SetNumChannels(kNetNumChannels);
 }
 #pragma warning(default:4355)
 
@@ -163,7 +163,7 @@ plNetClientMgr::~plNetClientMgr()
 {
     plSynchedObject::PushSynchDisabled(true);       // disable dirty tracking
 
-    IDeInitNetClientComm(); 
+    IDeInitNetClientComm();
 
     if (this==GetInstance())
         SetInstance(nil);       // we're going down boys
@@ -240,12 +240,12 @@ void plNetClientMgr::IRemoveCloneRoom()
         cloneRoom->UnRegisterAs(kNetClientCloneRoom_KEY);
         cloneRoom = nil;
     }
-}       
+}
 
 //
 // turn null send on/off.  Null send does everything except actually send the msg out on the socket
 //
-void plNetClientMgr::SetNullSend(bool on) 
+void plNetClientMgr::SetNullSend(bool on)
 {
 }
 
@@ -282,7 +282,7 @@ void plNetClientMgr::ICreateStatusLog() const
     if (!fStatusLog)
     {
         fStatusLog = plStatusLogMgr::GetInstance().CreateStatusLog(40, "network.log",
-            plStatusLog::kTimestamp | plStatusLog::kFilledBackground | plStatusLog::kAlignToTop | 
+            plStatusLog::kTimestamp | plStatusLog::kFilledBackground | plStatusLog::kAlignToTop |
             plStatusLog::kServerTimestamp);
     }
 }
@@ -345,10 +345,10 @@ int plNetClientMgr::Init()
 
     fNetGroups.Reset();
 
-    plgDispatch::Dispatch()->RegisterForExactType(plNetClientMgrMsg::Index(), GetKey());    
-    plgDispatch::Dispatch()->RegisterForExactType(plAgeLoadedMsg::Index(), GetKey());   
-    plgDispatch::Dispatch()->RegisterForExactType(plAgeLoaded2Msg::Index(), GetKey());  
-    plgDispatch::Dispatch()->RegisterForExactType(plCCRPetitionMsg::Index(), GetKey()); 
+    plgDispatch::Dispatch()->RegisterForExactType(plNetClientMgrMsg::Index(), GetKey());
+    plgDispatch::Dispatch()->RegisterForExactType(plAgeLoadedMsg::Index(), GetKey());
+    plgDispatch::Dispatch()->RegisterForExactType(plAgeLoaded2Msg::Index(), GetKey());
+    plgDispatch::Dispatch()->RegisterForExactType(plCCRPetitionMsg::Index(), GetKey());
     plgDispatch::Dispatch()->RegisterForExactType(plPlayerPageMsg::Index(), GetKey());
     plgDispatch::Dispatch()->RegisterForExactType(plInitialAgeStateLoadedMsg::Index(), GetKey());
     plgDispatch::Dispatch()->RegisterForExactType(plNetVoiceListMsg::Index(), GetKey());
@@ -365,7 +365,7 @@ int plNetClientMgr::Init()
 
     IInitNetClientComm();
 
-    return ret; 
+    return ret;
 }
 
 //
@@ -383,7 +383,7 @@ int plNetClientMgr::IPrepMsg(plNetMessage* msg)
         channel=kNetChanVoice;
         
         // compute new transport group (from talkList) if necessary
-        GetTalkList()->UpdateTransportGroup(this);  
+        GetTalkList()->UpdateTransportGroup(this);
         
         // update receivers list in voice msg based on talk list
         v->Receivers()->Clear();
@@ -483,8 +483,8 @@ void plNetClientMgr::ResetServerTimeOffset(bool delayed)
 //
 // return the gameservers time
 //
-plUnifiedTime plNetClientMgr::GetServerTime() const 
-{ 
+plUnifiedTime plNetClientMgr::GetServerTime() const
+{
     if ( fServerTimeOffset==0 )     // offline mode or before connecting/calibrating to a server
         return plUnifiedTime::GetCurrent();
     
@@ -645,20 +645,20 @@ plNetGroupId plNetClientMgr::SelectNetGroup(plSynchedObject* objIn, plKey roomKe
 plNetGroupId plNetClientMgr::GetEffectiveNetGroup(const plSynchedObject*& obj) const
 {
    plNetGroupId netGroup = plNetGroup::kNetGroupUnknown;
-    // the object is an interface, so consider the owner instead 
+    // the object is an interface, so consider the owner instead
     const plObjInterface* oInt=plObjInterface::ConvertNoRef(obj);
     if (oInt)
     {
-        // the object is an interface, so consider the owner instead 
+        // the object is an interface, so consider the owner instead
         if (oInt->GetOwner())
             obj = oInt->GetOwner();
-    }   
+    }
     else
     {
         const plModifier* mod=plModifier::ConvertNoRef(obj);
         if (mod)
         {
-            // the object is a modifier, so consider the first target instead 
+            // the object is a modifier, so consider the first target instead
             if (mod->GetNumTargets() && mod->GetTarget(0))
                 obj = mod->GetTarget(0);
         }
@@ -704,13 +704,13 @@ plNetGroupId plNetClientMgr::GetEffectiveNetGroup(const plSynchedObject*& obj) c
     }
     
     if (obj)
-        netGroup = obj->GetNetGroup();  
+        netGroup = obj->GetNetGroup();
     
     return netGroup;
 }
 
 //
-// If we don't know for sure if something is locallyOwned, check if it' related to the remote or 
+// If we don't know for sure if something is locallyOwned, check if it' related to the remote or
 // local avatar.  if not, fallback to join order.
 //
 int plNetClientMgr::IDeduceLocallyOwned(const plUoid& uoid) const
@@ -782,19 +782,19 @@ int plNetClientMgr::IsLocallyOwned(const plSynchedObject* obj) const
 // return localPlayer ptr
 //
 plSynchedObject* plNetClientMgr::GetLocalPlayer(bool forceLoad) const
-{ 
+{
     if (forceLoad)
-        return fLocalPlayerKey ? plSynchedObject::ConvertNoRef(fLocalPlayerKey->GetObjectPtr()) : nil; 
+        return fLocalPlayerKey ? plSynchedObject::ConvertNoRef(fLocalPlayerKey->GetObjectPtr()) : nil;
     else
         return fLocalPlayerKey ?
-            plSynchedObject::ConvertNoRef(fLocalPlayerKey->ObjectIsLoaded()) : nil; 
+            plSynchedObject::ConvertNoRef(fLocalPlayerKey->ObjectIsLoaded()) : nil;
 }
 
 plSynchedObject* plNetClientMgr::GetNPC(uint32_t i) const
 {
     if (i >= fNPCKeys.size())
         return nullptr;
-    return plSynchedObject::ConvertNoRef(fNPCKeys[i]->ObjectIsLoaded()); 
+    return plSynchedObject::ConvertNoRef(fNPCKeys[i]->ObjectIsLoaded());
 }
 
 void plNetClientMgr::AddNPCKey(const plKey& npc)
@@ -821,8 +821,8 @@ bool plNetClientMgr::IsNPCKey(const plKey& npc, int* idx) const
 // return a ptr to a remote player
 //
 plSynchedObject* plNetClientMgr::GetRemotePlayer(int i) const
-{ 
-    return fRemotePlayerKeys[i] ? plSynchedObject::ConvertNoRef(fRemotePlayerKeys[i]->ObjectIsLoaded()) : nil; 
+{
+    return fRemotePlayerKeys[i] ? plSynchedObject::ConvertNoRef(fRemotePlayerKeys[i]->ObjectIsLoaded()) : nil;
 }
 
 //
@@ -1013,7 +1013,7 @@ bool plNetClientMgr::MsgReceive( plMessage* msg )
         // add 1 debug object for age sdl
         if (plNetObjectDebugger::GetInstance())
         {
-            plNetObjectDebugger::GetInstance()->RemoveDebugObject("AgeSDLHook");    
+            plNetObjectDebugger::GetInstance()->RemoveDebugObject("AgeSDLHook");
             plNetObjectDebugger::GetInstance()->AddDebugObject("AgeSDLHook");
         }
 
@@ -1159,7 +1159,7 @@ bool plNetClientMgr::ObjectInLocalAge(const plSynchedObject* obj) const
 // the next age we are going to
 //
 ST::string plNetClientMgr::GetNextAgeFilename() const
-{ 
+{
     // set when we start linking to an age.
     plNetLinkingMgr * lm = plNetLinkingMgr::GetInstance();
     return lm->GetAgeLink()->GetAgeInfo()->GetAgeFilename();
@@ -1193,7 +1193,7 @@ void plNetClientMgr::MakeCCRInvisible(plKey avKey, int level)
     msg->fLevel = level;
 
     if (GetCCRLevel()<level)    // I'm a lower level than him, so he's invisible to me
-        msg->fMode = plAvatarStealthModeMsg::kStealthCloaked;       
+        msg->fMode = plAvatarStealthModeMsg::kStealthCloaked;
     else
     {
         // he's visible to me
@@ -1210,7 +1210,7 @@ void plNetClientMgr::MakeCCRInvisible(plKey avKey, int level)
     // That means that the avatar linkSound won't receive it, since the linkSound
     // is set as localOnly.
     // So, terminate the remote cascade and start a new (local) cascade.
-    msg->SetBCastFlag(plMessage::kNetStartCascade); 
+    msg->SetBCastFlag(plMessage::kNetStartCascade);
     
     msg->Send();
 }
@@ -1306,7 +1306,7 @@ bool plNetClientMgr::IHandlePlayerPageMsg(plPlayerPageMsg *playerMsg)
                 playerSO->SetNetGroupConstant(plNetGroup::kNetGroupLocalPlayer);
 
                 // don't save avatar state permanently on server
-                playerSO->SetSynchFlagsBit(plSynchedObject::kAllStateIsVolatile);               
+                playerSO->SetSynchFlagsBit(plSynchedObject::kAllStateIsVolatile);
                 const plCoordinateInterface* co = playerSO->GetCoordinateInterface();
                 if (co)
                 {
@@ -1401,7 +1401,7 @@ plUoid plNetClientMgr::GetAgeSDLObjectUoid(const ST::string& ageName) const
                 ad.Read(stream);
                 loc=ad.CalcPageLocation("BuiltIn");
                 stream->Close();
-            }           
+            }
             delete stream;
         }
     }
@@ -1412,8 +1412,8 @@ plUoid plNetClientMgr::GetAgeSDLObjectUoid(const ST::string& ageName) const
 //
 // Add a state update to the pending queue
 //
-void plNetClientMgr::AddPendingLoad(PendingLoad *pl) 
-{ 
+void plNetClientMgr::AddPendingLoad(PendingLoad *pl)
+{
     // find corresponding key
     pl->fKey = hsgResMgr::ResMgr()->FindKey(pl->fUoid);
 

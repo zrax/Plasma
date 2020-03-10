@@ -233,10 +233,10 @@ ParamBlockDesc2 gVolumeGadgetBlock
         p_default, TRUE,
         end,
 
-    kVolumeDegrees, _T("degrees"),  TYPE_INT,   0, 0,   
+    kVolumeDegrees, _T("degrees"),  TYPE_INT,   0, 0,
         p_range, 1, 180,
         p_default, 45,
-        p_ui,   kVolumeMain,    TYPE_SPINNER,   EDITTYPE_POS_INT, 
+        p_ui,   kVolumeMain,    TYPE_SPINNER,   EDITTYPE_POS_INT,
         IDC_COMP_CLICK_DEG, IDC_COMP_CLICK_DEGSPIN, SPIN_AUTOSCALE,
         end,
 
@@ -273,8 +273,8 @@ plKey plVolumeGadgetComponent::GetLogicOutKey(plMaxNode* node)
     return nil;
 }
 
-void plVolumeGadgetComponent::CollectNonDrawables(INodeTab& nonDrawables) 
-{ 
+void plVolumeGadgetComponent::CollectNonDrawables(INodeTab& nonDrawables)
+{
     if(fCompPB->GetInt(kUseVolumeNode))
     {
         INode* boundsNode = fCompPB->GetINode(kVolumeNode);
@@ -282,7 +282,7 @@ void plVolumeGadgetComponent::CollectNonDrawables(INodeTab& nonDrawables)
             nonDrawables.Append(1, &boundsNode);
     }
 
-    AddTargetsToList(nonDrawables); 
+    AddTargetsToList(nonDrawables);
 }
 
 // Internal setup and write-only set properties on the MaxNode. No reading
@@ -333,7 +333,7 @@ bool plVolumeGadgetComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
 
     // Create and register the VolumeGadget's logic component
     if(fCompPB->GetInt(kVolumeGadgetEnter) || fCompPB->GetInt(kVolumeTriggerOnFacing))
-    {   
+    {
         plLogicModifier *logic = new plLogicModifier;
         ST::string tmpName = ST::format("{}_Enter", IGetUniqueName(node));
         plKey logicKey = hsgResMgr::ResMgr()->NewKey(tmpName, logic, node->GetLocation());
@@ -347,7 +347,7 @@ bool plVolumeGadgetComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
 
     
     if(fCompPB->GetInt(kVolumeGadgetExit))
-    {   
+    {
         plLogicModifier *logic = new plLogicModifier;
         ST::string tmpName = ST::format("{}_Exit", IGetUniqueName(node));
         plKey logicKey = hsgResMgr::ResMgr()->NewKey(tmpName, logic, node->GetLocation());
@@ -491,7 +491,7 @@ bool plVolumeGadgetComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 bool plVolumeGadgetComponent::DeInit( plMaxNode *node, plErrorMsg *pErrMsg )
 {
     fLogicModOutKeys.clear();
-    return plActivatorBaseComponent::DeInit( node, pErrMsg ); 
+    return plActivatorBaseComponent::DeInit( node, pErrMsg );
 }
 
 

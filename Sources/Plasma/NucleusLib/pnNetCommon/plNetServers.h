@@ -59,7 +59,7 @@ class plNetServerConstants
 {
 public:
     enum ServerTypes  // Changing the order WILL affect Data including Databases!!!
-    {               
+    {
         kInvalidLo,
         kAgent,
         kLobby,

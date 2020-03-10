@@ -148,7 +148,7 @@ bool plResManager::IInit()
     hsAssert(!fDispatch, "Dispatch already set");
     fDispatch = new plDispatch;
     
-    plgTimerCallbackMgr::Init(); 
+    plgTimerCallbackMgr::Init();
 
     // Init our helper
     fMyHelper = new plResManagerHelper(this);
@@ -157,7 +157,7 @@ bool plResManager::IInit()
 
     kResMgrLog(1, ILog(1, "   ...Init was successful!"));
 
-    return true; 
+    return true;
 }
 
 bool plResManager::IReset()   // Used to Re-Export (number of times)
@@ -201,7 +201,7 @@ void plResManager::IShutdown()
     fMyHelper = nil;
 
     // TimerCallbackMgr is a fixed-keyed object, so needs to shut down before the registry
-    plgTimerCallbackMgr::Shutdown(); 
+    plgTimerCallbackMgr::Shutdown();
 
     // Formerly, we destroyed the Dispatcher here to clean up keys for leak reporting.
     // However, if there are *real* leaked keys, then they will want to unload after this step.
@@ -314,7 +314,7 @@ bool plResManager::ReadObject(plKeyImp* key)
     //
     // Also, we find the pageNode and open its stream here. We close the
     // stream when child reads are done. If a child load is using the same stream,
-    // it will just inc/dec the open/close count during its read, and not actually 
+    // it will just inc/dec the open/close count during its read, and not actually
     // close the stream, so we don't lose our place, lose our file handle, and thrash.
 
     kResMgrLog(4, ILog(4, "   ...Opening page data stream for location {}...", key->GetUoid().GetLocation().StringIze()));
@@ -420,7 +420,7 @@ bool plResManager::IReadObject(plKeyImp* pKey, hsStream *stream)
         plCreatable* cre = ReadCreatable(stream);
         hsAssert(cre, "Could not Create Object");
         if (cre)
-        {   
+        {
             ko = hsKeyedObject::ConvertNoRef(cre);
 
             if (ko != nil)
@@ -549,8 +549,8 @@ plKey plResManager::FindOriginalKey(const plUoid& uoid)
         // them to keys in the registry, but we will NOT force a load on the page
         // to find the keys. If the key isn't already in the registry to match,
         // we create what we call a "passive key", i.e. it's a key with no real
-        // info apart from the uoid. Used when you want to read in a object that 
-        // contains keys but don't want to actually use those keys (only write 
+        // info apart from the uoid. Used when you want to read in a object that
+        // contains keys but don't want to actually use those keys (only write
         // them back out).
 
         // Note: startPos of -1 means we didn't read it from disk, but 0 length
@@ -752,7 +752,7 @@ plKey plResManager::ReRegister(const ST::string& nm, const plUoid& oid)
 
     bool canClone = false;
     if (fCurCloneID != 0)
-    {   
+    {
         // Not allowed to clone these things
         int oidType = oid.GetClassType();
         if (oidType  != CLASS_INDEX_SCOPED(plSceneNode) &&
@@ -776,9 +776,9 @@ plKey plResManager::ReRegister(const ST::string& nm, const plUoid& oid)
          
     plKey pOrigKey = FindOriginalKey(oid);
     if (!canClone)
-    {   
+    {
         if (pOrigKey)
-        {   
+        {
             return pOrigKey;
         }
         // the clone doesn't exist
@@ -799,7 +799,7 @@ plKey plResManager::ReRegister(const ST::string& nm, const plUoid& oid)
 
     plKeyImp* pKey = new plKeyImp;
     if (canClone && pOrigKey)
-    {   
+    {
         pKey->CopyForClone((plKeyImp*)pOrigKey, fCurClonePlayerID, fCurCloneID);
         ((plKeyImp*)pOrigKey)->AddClone(pKey);
     }
@@ -908,7 +908,7 @@ plKey plResManager::ICloneKey(const plUoid& objUoid, uint32_t playerID, uint32_t
 
     // Then notify NetClientMgr when object loads
     plObjRefMsg* refMsg = new plObjRefMsg(plNetClientApp::GetInstance()->GetKey(), plRefMsg::kOnCreate, 0, 0);
-    AddViaNotify(cloneKey, refMsg, plRefFlags::kPassiveRef);    
+    AddViaNotify(cloneKey, refMsg, plRefFlags::kPassiveRef);
 
     return cloneKey;
 }
@@ -988,7 +988,7 @@ void plResManager::SetProgressBarProc(plProgressProc proc)
 
 //// plResAgeHolder //////////////////////////////////////////////////////////
 //  Helper object that stores all the keys for an age, to optimize the load
-//  process. 
+//  process.
 
 class plResAgeHolder : public hsRefCnt
 {
@@ -1102,7 +1102,7 @@ void plResManager::IDropAllAgeKeys()
 //  The only reason we abstract it is so we can keep plResManager from being
 //  dependent on any particular class type.
 //
-//  This function is not guaranteed to be synchronous, so you better wait for 
+//  This function is not guaranteed to be synchronous, so you better wait for
 //  the refMsg to be sent before you assume it's done.
 
 class plOurRefferAndFinder : public plRegistryKeyIterator
@@ -1113,7 +1113,7 @@ class plOurRefferAndFinder : public plRegistryKeyIterator
 
     public:
 
-        plOurRefferAndFinder( hsTArray<plKey> &refArray, uint16_t classToFind, plKey &foundKey ) 
+        plOurRefferAndFinder( hsTArray<plKey> &refArray, uint16_t classToFind, plKey &foundKey )
                 : fRefArray( refArray ), fClassToFind( classToFind ), fFoundKey( foundKey ) { }
 
         virtual bool EatKey( const plKey& key )
@@ -1180,7 +1180,7 @@ void plResManager::PageInRoom(const plLocation& page, uint16_t objClassToRef, pl
     kResMgrLog(2, ILog(2, "...Loading page keys..."));
     LoadPageKeys(pageNode);
 
-    // Step 2: Now ref all the keys in that page, every single one. This lets us unref 
+    // Step 2: Now ref all the keys in that page, every single one. This lets us unref
     // (and thus potentially delete) them later. Note that we also use this for our find.
     kResMgrLog(2, ILog(2, "...Reffing keys..."));
     plKey objKey;
@@ -1561,7 +1561,7 @@ static void sIReportLeak(plKeyImp* key, plRegistryPageNode* page)
 }
 
 //// UnloadPageObjects ///////////////////////////////////////////////////////
-//  Unloads all the objects in a given page. Once this is complete, all 
+//  Unloads all the objects in a given page. Once this is complete, all
 //  object pointers for every key in the page *should* be nil. Note that we're
 //  given a hint class index to start with (like plSceneNode) that should do
 //  most of the work for us via unreffing.

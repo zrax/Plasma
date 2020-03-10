@@ -76,7 +76,7 @@ class plCompoundController;
 class plControllerCacheInfo
 {
 public:
-    uint8_t fNumSubControllers;   
+    uint8_t fNumSubControllers;
     plControllerCacheInfo **fSubControllers;
 
     uint32_t fKeyIndex;
@@ -121,7 +121,7 @@ public:
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
 
-class plLeafController : public plController 
+class plLeafController : public plController
 {
     friend class plCompoundController;
 

@@ -85,7 +85,7 @@ public:
 
     virtual void Blend() = 0;
 
-    virtual void Restore() = 0; 
+    virtual void Restore() = 0;
 
     virtual void Read(hsStream *stream, hsResMgr* mgr) = 0;
     virtual void Write(hsStream *stream, hsResMgr* mgr) = 0;
@@ -106,7 +106,7 @@ public:
 
     virtual void Blend();
 
-    virtual void Restore(); 
+    virtual void Restore();
 
     virtual void Read(hsStream *stream);
     virtual void Write(hsStream *stream);

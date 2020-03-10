@@ -50,16 +50,16 @@ plSynchEnableMsg::plSynchEnableMsg(bool push, bool enable) : fPush(push), fEnabl
     AddReceiver(plNetApp::GetInstance()->GetKey());
 }
 
-void plSynchEnableMsg::Read(hsStream* stream, hsResMgr* mgr) 
-{ 
-    plMessage::IMsgRead( stream, mgr ); 
+void plSynchEnableMsg::Read(hsStream* stream, hsResMgr* mgr)
+{
+    plMessage::IMsgRead( stream, mgr );
     stream->WriteLE(fEnable);
     stream->WriteLE(fPush);
 }
 
 void plSynchEnableMsg::Write(hsStream* stream, hsResMgr* mgr)
-{ 
-    plMessage::IMsgWrite( stream, mgr ); 
+{
+    plMessage::IMsgWrite( stream, mgr );
     stream->ReadLE(&fEnable);
     stream->ReadLE(&fPush);
 }

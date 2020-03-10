@@ -171,33 +171,33 @@ public:
         case kPosition:
             return base;
         case kWeight:
-            return base 
+            return base
                 + NumPos() * sizeof(hsPoint3)
                 + j * sizeof(float);
         case kWgtIdx:
-            return base 
+            return base
                 + NumPos() * sizeof(hsPoint3)
                 + NumWeights() * sizeof(float);
         case kNormal:
-            return base 
+            return base
                 + NumPos() * sizeof(hsPoint3)
                 + NumWeights() * sizeof(float)
                 + NumWgtIdx() * sizeof(uint32_t);
         case kColor:
-            return base 
+            return base
                 + NumPos() * sizeof(hsPoint3)
                 + NumWeights() * sizeof(float)
                 + NumWgtIdx() * sizeof(uint32_t)
                 + NumNorm() * sizeof(hsVector3);
         case kColor2:
-            return base 
+            return base
                 + NumPos() * sizeof(hsPoint3)
                 + NumWeights() * sizeof(float)
                 + NumWgtIdx() * sizeof(uint32_t)
                 + NumNorm() * sizeof(hsVector3)
                 + NumColor() * sizeof(uint32_t);
         case kUVW:
-            return base 
+            return base
                 + NumPos() * sizeof(hsPoint3)
                 + NumWeights() * sizeof(float)
                 + NumWgtIdx() * sizeof(uint32_t)

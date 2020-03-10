@@ -54,7 +54,7 @@ extern TCHAR *GetString(int id);
 // Header file for headSpin 3dsMax exporter
 //
 
-class HSExport2 : public SceneExport 
+class HSExport2 : public SceneExport
 {
 public:
                     HSExport2();
@@ -75,14 +75,14 @@ public:
 
 private:
     static bool         IProgressCallback(float percent);
-    static DWORD WINAPI IProgressDummyFunc(LPVOID arg); 
+    static DWORD WINAPI IProgressDummyFunc(LPVOID arg);
 
     char                fName[128];
 };
 
 //------------------------------------------------------
 
-class HSClassDesc2 : public ClassDesc 
+class HSClassDesc2 : public ClassDesc
 {
 public:
     int             IsPublic() { return 1; }

@@ -53,7 +53,7 @@ class plCCRMessage : public plMessage
 {
 public:
     CLASSNAME_REGISTER( plCCRMessage);
-    GETINTERFACE_ANY( plCCRMessage, plMessage );    
+    GETINTERFACE_ANY( plCCRMessage, plMessage );
 };
 
 
@@ -71,7 +71,7 @@ public:
     ~plCCRPetitionMsg() {}
 
     CLASSNAME_REGISTER( plCCRPetitionMsg);
-    GETINTERFACE_ANY( plCCRPetitionMsg, plCCRMessage ); 
+    GETINTERFACE_ANY( plCCRPetitionMsg, plCCRMessage );
 
     // petition text
     void SetNote(const char* n) { fNote=n;  }
@@ -102,7 +102,7 @@ public:
     ~plCCRInvisibleMsg() {}
 
     CLASSNAME_REGISTER( plCCRInvisibleMsg);
-    GETINTERFACE_ANY( plCCRInvisibleMsg, plCCRMessage );    
+    GETINTERFACE_ANY( plCCRInvisibleMsg, plCCRMessage );
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);
@@ -130,7 +130,7 @@ public:
     ~plCCRCommunicationMsg() {}
 
     CLASSNAME_REGISTER( plCCRCommunicationMsg);
-    GETINTERFACE_ANY( plCCRCommunicationMsg, plCCRMessage );    
+    GETINTERFACE_ANY( plCCRCommunicationMsg, plCCRMessage );
 
     // getters and setters
     void SetMessage(const char* n) { fString=n; }
@@ -158,7 +158,7 @@ public:
     ~plCCRBanLinkingMsg() {}
 
     CLASSNAME_REGISTER( plCCRBanLinkingMsg);
-    GETINTERFACE_ANY( plCCRBanLinkingMsg, plCCRMessage );   
+    GETINTERFACE_ANY( plCCRBanLinkingMsg, plCCRMessage );
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);
@@ -176,7 +176,7 @@ public:
     ~plCCRSilencePlayerMsg() {}
 
     CLASSNAME_REGISTER( plCCRSilencePlayerMsg);
-    GETINTERFACE_ANY( plCCRSilencePlayerMsg, plCCRMessage );    
+    GETINTERFACE_ANY( plCCRSilencePlayerMsg, plCCRMessage );
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

@@ -111,7 +111,7 @@ TARG_BLOCK(classname, varname)
 // OBSOLETE_CLASS macro
 //  Usually, when you're making a component obsolete, you don't want to bother with any
 //  class defs or paramBlock defs anymore, you just want them to all be empty. This
-//  macro simplifies that process greatly: just delete everything about your class 
+//  macro simplifies that process greatly: just delete everything about your class
 //  EXCEPT the CLASS_DESC line, then change CLASS_DESC to OBSOLETE_CLASS. This macro
 //  will handle the rest for you! -mcn
 //

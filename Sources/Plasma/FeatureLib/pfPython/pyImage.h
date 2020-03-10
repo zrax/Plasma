@@ -74,7 +74,7 @@ protected:
 #ifndef BUILDING_PYPLASMA
         fMipmap = nil;
 #endif
-    } 
+    }
 
     // Constructor from C++
     pyImage(plKey mipmapKey)

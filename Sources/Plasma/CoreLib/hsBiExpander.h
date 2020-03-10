@@ -53,7 +53,7 @@ template <class T> class hsExpander {
 private:
     int32_t       fNumPost;
     int32_t       fNumPostAlloc;
-    T*            fArray; 
+    T*            fArray;
 
     int32_t       fGrowBy; // default = 0, to double
     int32_t       fMinSize; // default = 1, min == 1
@@ -157,19 +157,19 @@ hsExpander<T>::~hsExpander()
     delete [] fArray;
 }
 
-template <class T> 
+template <class T>
 void hsExpander<T>::First()
-{ 
-    fCurrent = 0; 
+{
+    fCurrent = 0;
 }
 
-template <class T> 
+template <class T>
 void hsExpander<T>::Last()
-{ 
-    fCurrent = fNumPost-1; 
+{
+    fCurrent = fNumPost-1;
 }
 
-template <class T> 
+template <class T>
 T& hsExpander<T>::operator[]( int32_t index )
 {
     hsDebugCode(hsThrowIfBadParam((index < 0)||(index >= fNumPost));)
@@ -177,7 +177,7 @@ T& hsExpander<T>::operator[]( int32_t index )
     return fArray[index];
 }
 
-template <class T> 
+template <class T>
 const T& hsExpander<T>::Get( int32_t index ) const
 {
     hsDebugCode(hsThrowIfBadParam((index < 0)||(index >= fNumPost));)
@@ -261,7 +261,7 @@ private:
     int32_t       fNumPost;
     int32_t       fNumPreAlloc;
     int32_t       fNumPostAlloc;
-    T*            fArray; 
+    T*            fArray;
 
     int32_t       fGrowBy; // default = 0, to double
     int32_t       fMinSize; // default = 1, min == 1
@@ -344,7 +344,7 @@ void hsBiExpander<T>::IExpand(int newSize, bool towardEnd)
     int i;
     for( i = -fNumPre; i < fNumPost; i++ )
         newArray[i] = fArray[i];
-//  HSMemory::BlockMove(fArray-fNumPre, newArray-fNumPre, 
+//  HSMemory::BlockMove(fArray-fNumPre, newArray-fNumPre,
 //      (fNumPre+fNumPost)*sizeof(*fArray));
     delete [] (fArray-fNumPreAlloc);
     fArray = newArray;
@@ -374,19 +374,19 @@ hsBiExpander<T>::~hsBiExpander()
     delete [] (fArray - fNumPreAlloc);
 }
 
-template <class T> 
+template <class T>
 void hsBiExpander<T>::First()
-{ 
-    fCurrent = -fNumPre; 
+{
+    fCurrent = -fNumPre;
 }
 
-template <class T> 
+template <class T>
 void hsBiExpander<T>::Last()
-{ 
-    fCurrent = fNumPost-1; 
+{
+    fCurrent = fNumPost-1;
 }
 
-template <class T> 
+template <class T>
 T& hsBiExpander<T>::operator[]( int32_t index )
 {
     hsDebugCode(hsThrowIfBadParam((index < -fNumPre)||(index >= fNumPost));)
@@ -394,7 +394,7 @@ T& hsBiExpander<T>::operator[]( int32_t index )
     return fArray[index];
 }
 
-template <class T> 
+template <class T>
 const T& hsBiExpander<T>::Get( int32_t index ) const
 {
     hsDebugCode(hsThrowIfBadParam((index < -fNumPre)||(index >= fNumPost));)

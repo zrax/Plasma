@@ -114,7 +114,7 @@ public:
         kStringCmds         = kSetFont | kDrawString | kDrawClippedString | kDrawWrappedString,
         kRectCmds           = kFillRect | kFrameRect | kDrawClippedString | kDrawWrappedString | kDrawClippedImage,
         kPosCmds            = kSetFont | kDrawClippedString | kDrawWrappedString | kDrawImage | kDrawClippedImage,
-        kFlagCmds           = kSetFont | kDrawImage | kSetJustify | kDrawClippedImage 
+        kFlagCmds           = kSetFont | kDrawImage | kSetJustify | kDrawClippedImage
     };
 
     // Commands

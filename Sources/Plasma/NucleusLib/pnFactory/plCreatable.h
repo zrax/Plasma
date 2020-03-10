@@ -101,9 +101,9 @@ public:
 //  Insert into public section of class definition.
 //
 //  Normally one of the next 3 macros should follow CLASSNAME_REGISTER
-//  GETINTERFACE_ANY - allows an interface to an object as plClassName if an object 
+//  GETINTERFACE_ANY - allows an interface to an object as plClassName if an object
 //      is or is derived from plClassName.
-//  GETINTERFACE_EXACT - allows an interface as plClassName only if the type is 
+//  GETINTERFACE_EXACT - allows an interface as plClassName only if the type is
 //      exactly of type plClassName
 //  GETINTERFACE_NONE - Never provide an interface as plClassName.
 //  Instead of using these macros, the class can provide a method
@@ -119,20 +119,20 @@ public:
 //  - This line is the only exposure to the plCreator.
 //  This will define a Creator for class plClassName, instantiate it as a static, and register
 //  it with the Factory. The registration also sets the class index value in the plCreator
-//  subclass, as well as in the class being registered. 
+//  subclass, as well as in the class being registered.
 //  Put after includes in the *Creatable.h file for the library the class belongs to..
 //
 //  USAGE:
 //  There is a method of identifying an object's type. You should rarely need it,
 //  using Create() and Convert() instead.
-//  ClassIndex() the class handle is an immutable index to this class. It provides an 
+//  ClassIndex() the class handle is an immutable index to this class. It provides an
 //      instantaneous lookup. It may be stored, loaded, sent over the wire, etc.
 //
 //  Create()
 //  If you know what type object you want to create at compile time, use
 //      <ObjectType>::Create()
 //  But if you have a class index at run-time (e.g. loaded from file), use
-//      plCreatable* plFactory::Create(hClass); 
+//      plCreatable* plFactory::Create(hClass);
 //  The ultra-safe way to do this is:
 //      plCreatable* tmp = plFactory::Create(idx);
 //      plWantClassName* p = plWantClassName::Convert(tmp);
@@ -143,7 +143,7 @@ public:
 //      wilma* w = wilma::Convert(f)
 //  NOTE that two strange things may be true here:
 //      1) f != nil, w == nil
-//          either fred's not really derived from wilma, 
+//          either fred's not really derived from wilma,
 //          or fred doesn't like to be cast down,
 //          or wilma just doesn't want to expose an interface.
 //      2) f != nil, w != nil, and f != w
@@ -155,7 +155,7 @@ public:
 // EAp - 01/10/2003
 // Added macros to support multiple AUX interfaces primarily,
 // but they are not limited to that. Usage example:
-// 
+//
 //  plBeginInterfaceMap( plMyClass, plBaseClass );
 //      plAddInterfaceAux( plFooClass, fFooMember );
 //      plAddInterfaceAux( plBarClass, fBarMember );

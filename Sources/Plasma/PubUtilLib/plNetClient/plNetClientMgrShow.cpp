@@ -110,7 +110,7 @@ void plNetClientMgr::IShowLists()
             mbr->GetDistSq() != FLT_MAX ? sqrt(mbr->GetDistSq()) :-1.f);
         txt.DrawString(x,y,str);
         y+=yOff;
-        mbr->SetTransportFlags(mbr->GetTransportFlags() & 
+        mbr->SetTransportFlags(mbr->GetTransportFlags() &
             ~(plNetTransportMember::kSendingVoice|plNetTransportMember::kSendingActions));
     }
 
@@ -296,7 +296,7 @@ void plNetClientMgr::IShowRelevanceRegions()
         }
     }
 
-    delete [] members;  
+    delete [] members;
 }
 
 void plNetClientMgr::IShowAvatars()

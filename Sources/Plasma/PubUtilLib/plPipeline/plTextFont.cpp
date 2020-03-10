@@ -227,7 +227,7 @@ void    plTextFont::IInitObjects()
 
 //// DrawString ///////////////////////////////////////////////////////////////
 
-void    plTextFont::DrawString( const char *string, int sX, int sY, uint32_t hexColor, 
+void    plTextFont::DrawString( const char *string, int sX, int sY, uint32_t hexColor,
                                 uint8_t style, uint32_t rightEdge )
 {
     static hsTArray<plFontVertex>   verts;

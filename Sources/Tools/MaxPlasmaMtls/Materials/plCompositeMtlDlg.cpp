@@ -97,7 +97,7 @@ plCompositeMtlDlg::~plCompositeMtlDlg()
     for (int i = 0; i < NSUBMTLS; i++)
     {
         ReleaseICustButton(fLayerBtns[i]);
-        fLayerBtns[i] = NULL; 
+        fLayerBtns[i] = NULL;
     }
 
     SetWindowLong(fhRollup, GWL_USERDATA, NULL);
@@ -116,7 +116,7 @@ void plCompositeMtlDlg::SetThing(ReferenceTarget *m)
     assert(m->ClassID() == COMP_MTL_CLASS_ID);
 
     // Bad?
-    if (fMtl) 
+    if (fMtl)
         fMtl->SetParamDlg(NULL);
     fMtl = (plCompositeMtl *)m;
     if (fMtl)
@@ -153,14 +153,14 @@ int plCompositeMtlDlg::FindSubMtlFromHWND(HWND hwnd)
 {
     for (int i = 0; i < NSUBMTLS; i++)
     {
-        if (hwnd == fLayerBtns[i]->GetHwnd()) 
+        if (hwnd == fLayerBtns[i]->GetHwnd())
             return i;
     }
 
     return -1;
 }
 
-BOOL plCompositeMtlDlg::ForwardProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam) 
+BOOL plCompositeMtlDlg::ForwardProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     plCompositeMtlDlg *theDlg;
     if (msg == WM_INITDIALOG)
@@ -172,7 +172,7 @@ BOOL plCompositeMtlDlg::ForwardProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM l
     else
     {
         if ((theDlg = (plCompositeMtlDlg *)GetWindowLong(hDlg, GWL_USERDATA)) == NULL)
-            return FALSE; 
+            return FALSE;
     }
 
     return theDlg->LayerPanelProc(hDlg,msg,wParam,lParam);
@@ -226,12 +226,12 @@ BOOL plCompositeMtlDlg::LayerPanelProc(HWND hDlg, UINT msg, WPARAM wParam, LPARA
         }
         break;
 
-    case WM_COMMAND:  
+    case WM_COMMAND:
         {
             for (i = 0; i < NSUBMTLS; i++)
             {
                 if (id == kLayerID[i].activeID)
-                {   
+                {
                     bool checked = SendMessage(GetDlgItem(hDlg, id), BM_GETCHECK, 0, 0) == BST_CHECKED;
                     fPBlock->SetValue(plCompositeMtl::kCompOn, curTime, checked, i - 1);
                     return TRUE;
@@ -256,16 +256,16 @@ BOOL plCompositeMtlDlg::LayerPanelProc(HWND hDlg, UINT msg, WPARAM wParam, LPARA
     return FALSE;
 }
 
-void plCompositeMtlDlg::UpdateLayerDisplay() 
+void plCompositeMtlDlg::UpdateLayerDisplay()
 {
     int i;
     for (i = 0; i < NSUBMTLS; i++)
     {
         Mtl *m = fPBlock->GetMtl(plCompositeMtl::kCompPasses, curTime, i);
         TSTR nm;
-        if (m) 
+        if (m)
             nm = m->GetName();
-        else 
+        else
             nm = "None";
         fLayerBtns[i]->SetText(nm.data());
         

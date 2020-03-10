@@ -47,8 +47,8 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 //////////////////////////////////////////////////////
 
 // reset runtime state, not inherent state
-void plGenericType::Reset() 
-{ 
+void plGenericType::Reset()
+{
     fI=0;
 }
 

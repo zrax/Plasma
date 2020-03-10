@@ -412,7 +412,7 @@ void cyMisc::DetachObjectSO(pySceneObject& cobj, pySceneObject& pobj, bool netFo
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : LinkToAge
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : LinkToAge
 //
@@ -439,7 +439,7 @@ void cyMisc::DetachObjectSO(pySceneObject& cobj, pySceneObject& pobj, bool netFo
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : SetDirtySyncStateServer
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : set the Python modifier to be dirty and asked to be saved out
 //
@@ -451,7 +451,7 @@ void cyMisc::SetDirtySyncState(pyKey &selfkey, const ST::string& SDLStateName, u
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : SetDirtySyncStateClients
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : set the Python modifier to be dirty and asked to be saved out
 //
@@ -523,7 +523,7 @@ PyObject* cyMisc::GetAvatarKeyFromClientID(int clientID)
             {
                 plNetTransportMember *mbr = members[ i ];
                 if( mbr != nil && mbr->GetAvatarKey() != nil && mbr->GetPlayerID() == clientID)
-                {   
+                {
                     keyObj = pyKey::New(mbr->GetAvatarKey());
                     break;
                 }
@@ -557,7 +557,7 @@ int cyMisc::GetClientIDFromAvatarKey(pyKey& avatar)
             plNetTransportMember *mbr = members[ i ];
 
             if( mbr != nil && mbr->GetAvatarKey() == avatar.getKey())
-            {   
+            {
                 ret = mbr->GetPlayerID();
                 break;
             }
@@ -588,7 +588,7 @@ bool cyMisc::ValidateKey(pyKey& key)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : GetClientName
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Return the local net client (account) name
 //
@@ -606,7 +606,7 @@ ST::string cyMisc::GetLocalClientName()
 //  Function   : GetAgeName
 //  Function   : GetAgeTime
 //  Function   : GetAgeGuid
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Return the age name of the current age the local player is in
 //             : Return the current coordinates of the player within this age
@@ -779,7 +779,7 @@ void cyMisc::FlashWindow()
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : GetSeconds
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Return the nunber of seconds elapsed
 //
@@ -792,7 +792,7 @@ double cyMisc::GetSeconds()
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : GetSysSeconds
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Return the number of system seconds elapsed
 //
@@ -805,7 +805,7 @@ double cyMisc::GetSysSeconds()
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : GetDelSysSeconds
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Return the frame delta seconds
 //
@@ -817,7 +817,7 @@ float cyMisc::GetDelSysSeconds()
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : LoadDialog
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Return the frame delta seconds
 //
@@ -866,7 +866,7 @@ void cyMisc::LoadDialogKA(const char* name, pyKey& rKey, const char* ageName)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : UnLoadDialog
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : UnLoads the dialog by name
 //             : optionally sets the receiver key for the GUINotifyMsg
@@ -884,7 +884,7 @@ void cyMisc::UnloadDialog(const char* name)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : IsDialogLoaded
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Test to see if a dialog is loaded (according to the dialog manager)
 //
@@ -900,7 +900,7 @@ bool cyMisc::IsDialogLoaded(const char* name)
 //
 //  Function   : ShowDialog
 //  Function   : HideDialog
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Show or Hide a dialog by name
 //
@@ -920,7 +920,7 @@ void cyMisc::HideDialog(const char* name)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : GetDialogFromTagID
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Return the frame delta seconds
 //
@@ -959,7 +959,7 @@ PyObject* cyMisc::GetDialogFromString(const char* name)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : IsGUIModal
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Returns true if the GUI is currently modal (and therefore blocking input)
 //
@@ -976,7 +976,7 @@ bool cyMisc::IsGUIModal()
 //
 //  Function   : GetLocalAvatar
 //  Function   : GetLocalPlayer
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Return a pySceneobject of the local Avatar
 //             : Player - returns ptPlayer object
@@ -1031,7 +1031,7 @@ void cyMisc::PrintToScreen(const char* msg)
     static plStatusLog* gStatusLog=nil;
     if (gStatusLog==nil)
     {
-        gStatusLog = plStatusLogMgr::GetInstance().CreateStatusLog( 32, "", 
+        gStatusLog = plStatusLogMgr::GetInstance().CreateStatusLog( 32, "",
             plStatusLog::kDontWriteFile | plStatusLog::kDeleteForMe | plStatusLog::kFilledBackground );
         plStatusLogMgr::GetInstance().ToggleStatusLog(gStatusLog);
     }
@@ -1046,7 +1046,7 @@ void cyMisc::PrintToScreen(const char* msg)
 //
 //  Function   : GetPlayerList
 //  Function   : GetPlayerListDistanceSorted
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Get a list of players (other than self) that are playing the game
 //             : optionally get it sorted by distance
@@ -1430,7 +1430,7 @@ void cyMisc::SendChatToCCR(const char* message,int32_t CCRPlayerID)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : GetNumRemotePlayers
-//  
+//
 //  PURPOSE    : return the number of remote players connected
 //
 int cyMisc::GetNumRemotePlayers()
@@ -1442,7 +1442,7 @@ int cyMisc::GetNumRemotePlayers()
 //
 //  Function   : Paging functions
 //  PARAMETERS : nodeName  - name of the page to load
-//  
+//
 //  PURPOSE    : page in, hold or out a particular node
 //
 
@@ -1492,7 +1492,7 @@ void cyMisc::PageOutNode(const char* nodeName, bool netForce)
 //
 //  Function   : LimitAvatarLOD
 //  PARAMETERS : LODlimit - number of to limit the LOD to
-//  
+//
 //  PURPOSE    : sets the avatar LOD limit
 //
 void cyMisc::LimitAvatarLOD(int LODlimit)
@@ -1509,7 +1509,7 @@ void cyMisc::LimitAvatarLOD(int LODlimit)
 //
 //  Function   : Set fog default functions
 //  PARAMETERS : floats  - the parameters
-//  
+//
 //  PURPOSE    : sets the fog defaults
 //
 void cyMisc::FogSetDefColor(pyColor& color)
@@ -1529,7 +1529,7 @@ void cyMisc::FogSetDefLinear(float start, float end, float density)
     if ( fPipeline )
     {
         plFogEnvironment env = fPipeline->GetDefaultFogEnviron();
-        env.Set( start, end, density ); 
+        env.Set( start, end, density );
         fPipeline->SetDefaultFogEnviron( &env );
     }
 }
@@ -1539,7 +1539,7 @@ void cyMisc::FogSetDefExp(float end, float density)
     if ( fPipeline )
     {
         plFogEnvironment env = fPipeline->GetDefaultFogEnviron();
-        env.SetExp( plFogEnvironment::kExpFog, end, density ); 
+        env.SetExp( plFogEnvironment::kExpFog, end, density );
         fPipeline->SetDefaultFogEnviron( &env );
     }
 }
@@ -1549,7 +1549,7 @@ void cyMisc::FogSetDefExp2(float end, float density)
     if ( fPipeline )
     {
         plFogEnvironment env = fPipeline->GetDefaultFogEnviron();
-        env.SetExp( plFogEnvironment::kExp2Fog, end, density ); 
+        env.SetExp( plFogEnvironment::kExp2Fog, end, density );
         fPipeline->SetDefaultFogEnviron( &env );
     }
 }
@@ -1572,9 +1572,9 @@ void cyMisc::SetClearColor(float red, float green, float blue)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : Enable / disable cursor fade for avatar
-//  PARAMETERS : 
+//  PARAMETERS :
 //
-//  PURPOSE    : turns avatar fade out on / off 
+//  PURPOSE    : turns avatar fade out on / off
 //
 
 void cyMisc::EnableAvatarCursorFade()
@@ -1623,7 +1623,7 @@ void cyMisc::FadeLocalPlayer(bool fade)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : offer linking book functions
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : manage offering public (pedestal) books
 //
@@ -1633,7 +1633,7 @@ void cyMisc::EnableOfferBookMode(pyKey& selfkey, const char* ageFilename, const 
     plInputIfaceMgrMsg* pMsg = new plInputIfaceMgrMsg(plInputIfaceMgrMsg::kSetOfferBookMode);
     pMsg->SetSender(selfkey.getKey());
     pMsg->SetAgeFileName(ageFilename);
-    pMsg->SetAgeName(ageInstanceName);  
+    pMsg->SetAgeName(ageInstanceName);
     pMsg->Send();
 }
 
@@ -1811,7 +1811,7 @@ void cyMisc::TransferParticlesToKey(pyKey& fromKey, pyKey& toKey, int numParticl
 {
     plKey frKey = fromKey.getKey();
     plSceneObject* so = plSceneObject::ConvertNoRef(toKey.getKey()->ObjectIsLoaded());
-    if (so == nil) 
+    if (so == nil)
         return;
     
     plArmatureMod *avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();
@@ -1829,7 +1829,7 @@ void cyMisc::SetParticleDissentPoint(float x, float y, float z, pyKey& particles
     if (!pObj)
         return;
     const plParticleSystem *sys = plParticleSystem::ConvertNoRef(pObj->GetModifierByType(plParticleSystem::Index()));
-    if (sys == nil) 
+    if (sys == nil)
     {
         const plModifier* pArm = pObj->GetModifierByType(plArmatureMod::Index());
         if (pArm)
@@ -1862,7 +1862,7 @@ void cyMisc::SetParticleOffset(float x, float y, float z, pyKey& particles)
     if (!pObj)
         return;
     const plParticleSystem *sys = plParticleSystem::ConvertNoRef(pObj->GetModifierByType(plParticleSystem::Index()));
-    if (sys == nil) 
+    if (sys == nil)
     {
         const plModifier* pArm = pObj->GetModifierByType(plArmatureMod::Index());
         if (pArm)
@@ -1896,7 +1896,7 @@ void cyMisc::KillParticles(float time, float pct, pyKey& particles)
     if (!pObj)
         return;
     const plParticleSystem *sys = plParticleSystem::ConvertNoRef(pObj->GetModifierByType(plParticleSystem::Index()));
-    if (sys == nil) 
+    if (sys == nil)
     {
         const plModifier* pArm = pObj->GetModifierByType(plArmatureMod::Index());
         if (pArm)
@@ -2536,7 +2536,7 @@ void cyMisc::RebuildCameraStack(const ST::string& name, const char* ageName)
                     break;
             }
             if (pMod)
-            {   
+            {
                 plVirtualCam1::Instance()->RebuildStack(pMod->GetKey());
                 return;
             }
@@ -2940,7 +2940,7 @@ PyObject* cyMisc::CloneKey(pyKey* object, bool loading) {
     plLoadCloneMsg* cloneMsg;
     if (uoid.IsClone())
         cloneMsg = new plLoadCloneMsg(obj, plNetClientMgr::GetInstance()->GetKey(), 0, loading);
-    else 
+    else
         cloneMsg = new plLoadCloneMsg(uoid, plNetClientMgr::GetInstance()->GetKey(), 0);
 
     cloneMsg->SetBCastFlag(plMessage::kNetPropagate);

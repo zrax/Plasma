@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/PubUtilLib/plVault/plVaultClientApi.cpp
-*   
+*
 ***/
 
 
@@ -504,7 +504,7 @@ static void VaultNodeFound (
         if (RelVaultNodeLink * link = s_nodes.Find(nodeIds[i]))
             return;
 
-        // Start fetching the node          
+        // Start fetching the node
         NetCliAuthVaultNodeFetch(nodeIds[i], VaultNodeFetched, nil);
     }
 }
@@ -1447,7 +1447,7 @@ hsRef<RelVaultNode> RelVaultNode::GetParentAgeLink () {
     hsRef<NetVaultNode> templateNode = new NetVaultNode;
     templateNode->SetNodeType(plVault::kNodeType_AgeLink);
 
-    // Get our parent AgeLink node  
+    // Get our parent AgeLink node
     if (hsRef<RelVaultNode> rvnLink = GetParentNode(templateNode, 1)) {
         // Get the next AgeLink node in our parent tree
         result = rvnLink->GetParentNode(templateNode, 3);
@@ -1563,7 +1563,7 @@ void VaultAddChildNode (
     // Too much of the client relies on the assumption that the node will be immediately
     // associated with its parent.  THIS SUCKS, because there's no way to guarantee the
     // association won't be circular (the db checks this in a comprehensive way).
-    // Because the client depends on this so much, we just link 'em together here if 
+    // Because the client depends on this so much, we just link 'em together here if
     // we have both of them present locally.
     // This directly affects: New clothing items added to the avatar outfit folder,
     // new chronicle entries in some ages, and I'm sure several other situations.
@@ -1766,7 +1766,7 @@ void VaultDeleteNode (
     unsigned    nodeId
 ) {
     // Send request up to vault.  We will remove it locally upon notification of deletion.
-    NetCliAuthVaultNodeDelete(nodeId);  
+    NetCliAuthVaultNodeDelete(nodeId);
 }
 
 //============================================================================
@@ -1950,7 +1950,7 @@ void VaultFindNodes (
         templateNode,
         VaultFindNodeTrans::VaultNodeFound,
         trans
-    );  
+    );
 }
 
 //============================================================================
@@ -2054,7 +2054,7 @@ void VaultFetchNodesAndWait (
     while (nodeCount) {
         NetClientUpdate();
         AsyncSleep(10);
-    }   
+    }
 }
 
 
@@ -2339,8 +2339,8 @@ bool VaultAddOwnedAgeSpawnPoint (const plUUID& ageInstId, const plSpawnPointInfo
             }
         }
 
-        break;  
-    }       
+        break;
+    }
 
     return true;
 }
@@ -2492,7 +2492,7 @@ bool VaultRegisterOwnedAgeAndWait (const plAgeLinkStruct * link) {
             break;
         }
 
-        // Check for existing link to this age  
+        // Check for existing link to this age
         plAgeLinkStruct existing;
         if (VaultGetOwnedAgeLink(link->GetAgeInfo(), &existing)) {
             result = true;
@@ -2523,7 +2523,7 @@ bool VaultRegisterOwnedAgeAndWait (const plAgeLinkStruct * link) {
             }
                 
             ageInfoId = param.ageInfoId;
-        }       
+        }
         
         {   // Create age link
             _CreateNodeParam    param;
@@ -2548,7 +2548,7 @@ bool VaultRegisterOwnedAgeAndWait (const plAgeLinkStruct * link) {
             }
                 
             ageLinkId = param.nodeId;
-        }       
+        }
 
         {   // Fetch age info node tree
             _FetchVaultParam    param;
@@ -2586,7 +2586,7 @@ bool VaultRegisterOwnedAgeAndWait (const plAgeLinkStruct * link) {
             memset(&param2, 0, sizeof(param2));
             memset(&param3, 0, sizeof(param3));
 
-            unsigned ageOwnersId = 0;       
+            unsigned ageOwnersId = 0;
             if (hsRef<RelVaultNode> rvnAgeInfo = VaultGetNode(ageInfoId)) {
                 if (hsRef<RelVaultNode> rvnAgeOwners = rvnAgeInfo->GetChildPlayerInfoListNode(plVault::kAgeOwnersFolder, 1))
                     ageOwnersId = rvnAgeOwners->GetNodeId();
@@ -2640,7 +2640,7 @@ bool VaultRegisterOwnedAgeAndWait (const plAgeLinkStruct * link) {
             }
         }
 
-        // Copy the link spawn point to the link node       
+        // Copy the link spawn point to the link node
         if (hsRef<RelVaultNode> node = VaultGetNode(ageLinkId)) {
             VaultAgeLinkNode access(node);
             access.AddSpawnPoint(link->SpawnPoint());
@@ -2702,7 +2702,7 @@ namespace _VaultRegisterOwnedAge {
         // Make some refs
         hsRef<RelVaultNode> agesIOwn = VaultGetAgesIOwnFolder();
         hsRef<RelVaultNode> plyrInfo = VaultGetPlayerInfoNode();
-        VaultAddChildNode(agesIOwn->GetNodeId(), node->GetNodeId(), 0, (FVaultAddChildNodeCallback)_AddAgeLinkNode, nil); 
+        VaultAddChildNode(agesIOwn->GetNodeId(), node->GetNodeId(), 0, (FVaultAddChildNodeCallback)_AddAgeLinkNode, nil);
         VaultAddChildNode(node->GetNodeId(), (uint32_t)((uintptr_t)p->fAgeInfoId), 0, (FVaultAddChildNodeCallback)_AddAgeInfoNode, nil);
 
         // Add our PlayerInfo to important places
@@ -2763,9 +2763,9 @@ void VaultRegisterOwnedAge(const plAgeLinkStruct* link) {
         return;
 
     // Let's go async, my friend :)
-    VaultInitAge(link->GetAgeInfo(), 
-        kNilUuid, 
-        (FVaultInitAgeCallback)_InitAgeCallback, 
+    VaultInitAge(link->GetAgeInfo(),
+        kNilUuid,
+        (FVaultInitAgeCallback)_InitAgeCallback,
         nil,
         new plSpawnPointInfo(link->SpawnPoint()));
 }
@@ -2851,7 +2851,7 @@ bool VaultRegisterVisitAgeAndWait (const plAgeLinkStruct * link) {
             break;
         }
 
-        // Check for existing link to this age  
+        // Check for existing link to this age
         plAgeLinkStruct existing;
         if (VaultGetVisitAgeLink(link->GetAgeInfo(), &existing)) {
             result = true;
@@ -2883,7 +2883,7 @@ bool VaultRegisterVisitAgeAndWait (const plAgeLinkStruct * link) {
             }
                 
             ageInfoId = param.ageInfoId;
-        }       
+        }
         
         {   // Create age link
             _CreateNodeParam    param;
@@ -2908,7 +2908,7 @@ bool VaultRegisterVisitAgeAndWait (const plAgeLinkStruct * link) {
             }
                 
             ageLinkId = param.nodeId;
-        }       
+        }
 
         {   // Fetch age info node tree
             _FetchVaultParam    param;
@@ -2945,7 +2945,7 @@ bool VaultRegisterVisitAgeAndWait (const plAgeLinkStruct * link) {
             memset(&param2, 0, sizeof(param2));
             memset(&param3, 0, sizeof(param3));
 
-            unsigned ageVisitorsId = 0;     
+            unsigned ageVisitorsId = 0;
             if (hsRef<RelVaultNode> rvnAgeInfo = VaultGetNode(ageInfoId)) {
                 if (hsRef<RelVaultNode> rvnAgeVisitors = rvnAgeInfo->GetChildPlayerInfoListNode(plVault::kCanVisitFolder, 1))
                     ageVisitorsId = rvnAgeVisitors->GetNodeId();
@@ -2999,7 +2999,7 @@ bool VaultRegisterVisitAgeAndWait (const plAgeLinkStruct * link) {
             }
         }
 
-        // Copy the link spawn point to the link node       
+        // Copy the link spawn point to the link node
         if (hsRef<RelVaultNode> node = VaultGetNode(ageLinkId)) {
             VaultAgeLinkNode access(node);
             access.AddSpawnPoint(link->SpawnPoint());
@@ -3074,7 +3074,7 @@ namespace _VaultRegisterVisitAge {
             return;
         }
 
-        // Create the AgeLink node 
+        // Create the AgeLink node
         VaultCreateNode(plVault::kNodeType_AgeLink, (FVaultCreateNodeCallback)_CreateAgeLinkNode, nil, param);
     }
     
@@ -3128,7 +3128,7 @@ bool VaultUnregisterOwnedAgeAndWait (const plAgeInfoStruct * info) {
     unsigned agesIOwnId;
 
     bool result = false;
-    for (;;) {  
+    for (;;) {
         hsRef<RelVaultNode> rvnLink = VaultGetOwnedAgeLink(info);
         if (!rvnLink) {
             result = true;
@@ -3157,7 +3157,7 @@ bool VaultUnregisterOwnedAgeAndWait (const plAgeInfoStruct * info) {
         // remove our playerInfo from the ageOwners folder
         VaultRemoveChildNode(ageOwnersId, playerInfoId, nil, nil);
         
-        // remove the link from AgesIOwn folder 
+        // remove the link from AgesIOwn folder
         VaultRemoveChildNode(agesIOwnId, ageLinkId, nil, nil);
 
         // delete the link node since link nodes aren't shared with anyone else
@@ -3212,7 +3212,7 @@ bool VaultUnregisterVisitAgeAndWait (const plAgeInfoStruct * info) {
         // remove our playerInfo from the ageVisitors folder
         VaultRemoveChildNode(ageVisitorsId, playerInfoId, nil, nil);
 
-        // remove the link from AgesICanVisit folder    
+        // remove the link from AgesICanVisit folder
         VaultRemoveChildNode(agesICanVisitId, ageLinkId, nil, nil);
         
         // delete the link node since link nodes aren't shared with anyone else
@@ -3988,7 +3988,7 @@ bool VaultAgeFindOrCreateSubAgeLinkAndWait (
         }
             
         ageInfoId = param.ageInfoId;
-    }       
+    }
     
     {   // Create age link
         _CreateNodeParam    param;
@@ -4013,7 +4013,7 @@ bool VaultAgeFindOrCreateSubAgeLinkAndWait (
         }
             
         ageLinkId = param.nodeId;
-    }       
+    }
 
     {   // Fetch age info node tree
         _FetchVaultParam    param;
@@ -4268,7 +4268,7 @@ bool VaultAgeFindOrCreateChildAgeLinkAndWait (
         hsRef<RelVaultNode> rvnChildAges;
         if (rvnChildAges = rvnAgeInfo->GetChildAgeInfoListNode(plVault::kChildAgesFolder, 1)) {
             childAgesId = rvnChildAges->GetNodeId();
-        }       
+        }
         else {
             LogMsg(kLogError, "CreateChildAge: Failed to get ages's ChildAges folder");
             return false;
@@ -4293,7 +4293,7 @@ bool VaultAgeFindOrCreateChildAgeLinkAndWait (
             access.CopyTo(link);
             return true;
         }
-    }   
+    }
 
     {   // Init age vault
         _InitAgeParam   param;
@@ -4325,7 +4325,7 @@ bool VaultAgeFindOrCreateChildAgeLinkAndWait (
         }
             
         ageInfoId = param.ageInfoId;
-    }       
+    }
     
     {   // Create age link
         _CreateNodeParam    param;
@@ -4350,7 +4350,7 @@ bool VaultAgeFindOrCreateChildAgeLinkAndWait (
         }
             
         ageLinkId = param.nodeId;
-    }       
+    }
 
     {   // Fetch age info node tree
         _FetchVaultParam    param;
@@ -4499,7 +4499,7 @@ namespace _VaultCreateChildAge {
 uint8_t VaultAgeFindOrCreateChildAgeLink(
     const ST::string&      parentAgeName,
     const plAgeInfoStruct* info,
-    plAgeLinkStruct*       link) 
+    plAgeLinkStruct*       link)
 {
     using namespace _VaultCreateChildAge;
 
@@ -4663,7 +4663,7 @@ void VaultCull (unsigned vaultId) {
             link->node->state->UnlinkFromRelatives();
             delete link;
         }
-    }   
+    }
 }
 
 /*****************************************************************************

@@ -53,8 +53,8 @@ plNetMember::plNetMember(plNetApp* na)
 
 plNetMember::plNetMember()
 : fNetApp(nil)
-{ 
-    Reset(); 
+{
+    Reset();
 }
 
 //

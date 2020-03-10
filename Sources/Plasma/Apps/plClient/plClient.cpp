@@ -259,7 +259,7 @@ static void IUnRegisterAs(T*& ko, plFixedKeyId id)
 
 bool plClient::Shutdown()
 {
-    plSynchEnabler ps(false);   // disable dirty state tracking during shutdown 
+    plSynchEnabler ps(false);   // disable dirty state tracking during shutdown
     delete fProgressBar;
 
     // Just in case, clear this out (trying to fix a crash bug where this is still active at shutdown)
@@ -288,7 +288,7 @@ bool plClient::Shutdown()
         plInputInterfaceMgr::GetInstance()->WriteKeyMap();
 
     // tell Python that its ok to shutdown
-    PythonInterface::WeAreInShutdown(); 
+    PythonInterface::WeAreInShutdown();
 
     // Shutdown the journalBook API
     pfJournalBook::SingletonShutdown();
@@ -358,7 +358,7 @@ bool plClient::Shutdown()
     plUoid lu(kListenerMod_KEY);
     plKey pLKey = hsgResMgr::ResMgr()->FindKey(lu);
     if (pLKey)
-    {   
+    {
         plListener* pLMod = plListener::ConvertNoRef(pLKey->GetObjectPtr());
         if (pLMod)
             pLMod->UnRegisterAs(kListenerMod_KEY);
@@ -608,7 +608,7 @@ bool plClient::MsgReceive(plMessage* msg)
                     pRefMsg->GetContext() & plRefMsg::kOnRequest)
                 {
                     bool found=false;
-                    plSceneNode *pNode = plSceneNode::ConvertNoRef(pRefMsg->GetRef()); 
+                    plSceneNode *pNode = plSceneNode::ConvertNoRef(pRefMsg->GetRef());
                     int i;
                     for (i = 0; i < fRooms.Count(); i++)
                     {
@@ -619,7 +619,7 @@ bool plClient::MsgReceive(plMessage* msg)
                         }
                     }
                     if (!found)
-                    {                   
+                    {
                         if (pNode)
                         {
                             fRooms.Append( plRoomRec( pNode, 0 ) );
@@ -1091,13 +1091,13 @@ void plClient::IUnloadRooms(const std::vector<plLocation>& locs)
 
 void plClient::IRoomLoaded(plSceneNode* node, bool hold)
 {
-    fCurrentNode = node; 
+    fCurrentNode = node;
     // make sure we don't already have this room in the list:
     bool bAppend = true;
     for (int i = 0; i < fRooms.Count(); i++)
     {
         if (fRooms[i].fNode == fCurrentNode)
-        {   
+        {
             bAppend = false;
             break;
         }
@@ -1212,7 +1212,7 @@ void plClient::IRoomUnloaded(plSceneNode* node)
     plStatusLog::AddLineS("pageouts.log", "..    refMsg is onDestroy");
     #endif
 
-    fCurrentNode = node; 
+    fCurrentNode = node;
     hsRefCnt_SafeUnRef(fCurrentNode);
     plKey pRmKey = fCurrentNode->GetKey();
     if (plAgeLoader::GetInstance())
@@ -1335,7 +1335,7 @@ void    plClient::IStopProgress()
 
         plPipeResReq::Request();
 
-        fFlags.SetBit(kFlagGlobalDataLoaded);       
+        fFlags.SetBit(kFlagGlobalDataLoaded);
         if (fFlags.IsBitSet(kFlagAsyncInitComplete))
             ICompleteInit();
     }
@@ -1343,7 +1343,7 @@ void    plClient::IStopProgress()
 
 /*****************************************************************************
 *
-*   
+*
 *
 ***/
 
@@ -1364,7 +1364,7 @@ bool plClient::StartInit()
     if( (GetClampCap() >= 0) && (GetClampCap() < plQuality::GetCapability()) )
         plQuality::SetCapability(GetClampCap());
 
-    /// 2.16.2001 mcn - Moved console engine init to constructor, 
+    /// 2.16.2001 mcn - Moved console engine init to constructor,
     /// so we could use console commands even before the pipeline init
 
     plDTProgressMgr::DeclareThyself();
@@ -1447,7 +1447,7 @@ bool plClient::StartInit()
 
     // create new virtual camera
     fNewCamera = new plVirtualCam1;
-    fNewCamera->RegisterAs( kVirtualCamera1_KEY ); 
+    fNewCamera->RegisterAs( kVirtualCamera1_KEY );
     fNewCamera->Init();
     fNewCamera->SetPipeline( GetPipeline() );
 
@@ -1631,7 +1631,7 @@ bool plClient::IUpdate()
     plNetClientMgr::GetInstance()->Update(currTime);
     plProfile_EndTiming(UpdateNetTime);
 
-    // update python 
+    // update python
     //plCaptureRender::Update(fPipeline);
     plCaptureRender::Update();
     cyMisc::Update(currTime);
@@ -1640,7 +1640,7 @@ bool plClient::IUpdate()
     // after the NetClientMgr updates, delivering any SelfDestruct messages in the
     // queue. This is important to prevent objects that are about to go away from
     // starting trouble during their update. So to get rid of this message, some
-    // other way of flushing the dispatch after NegClientMgr's update is needed. mf 
+    // other way of flushing the dispatch after NegClientMgr's update is needed. mf
     plProfile_BeginTiming(TimeMsg);
     plTimeMsg* msg = new plTimeMsg(nil, nil, nil, nil);
     plgDispatch::MsgSend(msg);
@@ -1657,7 +1657,7 @@ bool plClient::IUpdate()
     plgDispatch::MsgSend(xform);
     plProfile_EndLap(TransformMsg, xFormLap1);
 
-    plCoordinateInterface::SetTransformPhase(plCoordinateInterface::kTransformPhaseDelayed);    
+    plCoordinateInterface::SetTransformPhase(plCoordinateInterface::kTransformPhaseDelayed);
 
     if (fAnimDebugList)
         fAnimDebugList->ShowReport();
@@ -1726,7 +1726,7 @@ bool plClient::IDrawProgress() {
 bool plClient::IDraw()
 {
     // If we're shutting down, don't attempt to draw.  Doing so
-    // tends to cause a device reload each frame.   
+    // tends to cause a device reload each frame.
     if (fDone)
         return true;
 
@@ -1746,7 +1746,7 @@ bool plClient::IDraw()
     plPreResourceMsg* preMsg = new plPreResourceMsg(fPipeline);
     plgDispatch::MsgSend(preMsg);
 
-    // This might not be the ideal place for this, but it 
+    // This might not be the ideal place for this, but it
     // needs to be AFTER the plRenderMsg is sent, and
     // BEFORE BeginRender. (plRenderMsg causes construction of
     // Dynamic objects (e.g. RT's), BeginRender uses them (e.g. shadows).
@@ -1814,7 +1814,7 @@ bool plClient::IDraw()
     fPipeline->EndRender();
     plProfile_EndTiming(EndRender);
 
-    plProfile_EndTiming(DrawTime); 
+    plProfile_EndTiming(DrawTime);
 
     return false;
 }

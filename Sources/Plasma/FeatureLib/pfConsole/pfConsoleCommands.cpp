@@ -205,9 +205,9 @@ PF_CONSOLE_FILE_DUMMY(Main)
 //        isn't used, but will be used in the future when implementing help
 //        (could you have guessed it? :) Please fill it in when the function
 //        name isn't obvious (i.e. SetFogColor doesn't really need one)
-//  
+//
 //  The actual C code prototype looks like:
-//      void    pfConsoleCmd_groupName_functionName( uint32_t numParams, pfConsoleCmdParam *params, 
+//      void    pfConsoleCmd_groupName_functionName( uint32_t numParams, pfConsoleCmdParam *params,
 //                                                      void (*PrintString)( char * ) );
 //
 //  numParams is exactly what it sounds like. params is an array of console
@@ -252,7 +252,7 @@ PF_CONSOLE_FILE_DUMMY(Main)
 //
 //  to create the Graphics_Render_Drawing subgroup. All groups must be
 //  defined before any commands that are in that group. Note that although
-//  the 
+//  the
 //
 //////////////////////////////////////////////////////////////////////////////
 
@@ -657,7 +657,7 @@ PF_CONSOLE_CMD( Console, EnableFX, "bool enable", "Enables flashy console effect
         PrintString( "Console effects disabled" );
 }
 
-PF_CONSOLE_CMD( Console, SetTextColor, "int r, int g, int b", 
+PF_CONSOLE_CMD( Console, SetTextColor, "int r, int g, int b",
                 "Sets the color of normal console text" )
 {
     uint32_t      color = 0xff000000 | ( (int)params[ 0 ] << 16 ) | ( (int)params[ 1 ] << 8 ) | ( (int)params[ 2 ] );
@@ -667,11 +667,11 @@ PF_CONSOLE_CMD( Console, SetTextColor, "int r, int g, int b",
 
 class DocGenIterator : public pfConsoleCmdIterator
 {
-    FILE *fFile;    
+    FILE *fFile;
 
 public:
     DocGenIterator(FILE *f) { fFile = f; }
-    virtual void ProcessCmd(pfConsoleCmd* c, int depth) 
+    virtual void ProcessCmd(pfConsoleCmd* c, int depth)
     {
 
         if(strncmp("SampleCmd",c->GetName(), 9) != 0)
@@ -680,7 +680,7 @@ public:
                     c->GetHelp());
         }
     }
-    virtual bool ProcessGroup(pfConsoleCmdGroup *g, int depth) 
+    virtual bool ProcessGroup(pfConsoleCmdGroup *g, int depth)
     {
     //  if(g->GetFirstCommand() != nil)
         {
@@ -696,12 +696,12 @@ public:
 
 class BriefDocGenIterator : public pfConsoleCmdIterator
 {
-    FILE *fFile;    
+    FILE *fFile;
     char fGrpName[200];
 
 public:
     BriefDocGenIterator(FILE *f) { fFile = f; strcpy(fGrpName,"");}
-    virtual void ProcessCmd(pfConsoleCmd* c, int depth) 
+    virtual void ProcessCmd(pfConsoleCmd* c, int depth)
     {
 
         if(strncmp("SampleCmd",c->GetName(), 9) != 0)
@@ -710,17 +710,17 @@ public:
                         c->GetHelp());
         }
     }
-    virtual bool ProcessGroup(pfConsoleCmdGroup *g, int depth) 
+    virtual bool ProcessGroup(pfConsoleCmdGroup *g, int depth)
     {
     //  if(g->GetFirstCommand() != nil)
         {
             fprintf(fFile, "<br />\n");
             if(depth <1)
                 strcpy(fGrpName, g->GetName());
-            else 
+            else
             {
                 pfConsoleCmdGroup *parentGrp;
-                parentGrp = g->GetParent();	
+                parentGrp = g->GetParent();
                 strcpy(fGrpName, parentGrp->GetName());
                 strcat(fGrpName,".");
                 strcat(fGrpName,g->GetName());
@@ -731,7 +731,7 @@ public:
     }
 };
 
-PF_CONSOLE_CMD( Console, CreateDocumentation, "string fileName", 
+PF_CONSOLE_CMD( Console, CreateDocumentation, "string fileName",
                 "Writes HTML documentation for the current console commands" )
 {
 
@@ -750,7 +750,7 @@ PF_CONSOLE_CMD( Console, CreateDocumentation, "string fileName",
     }
     
 
-    fprintf(f, "<span style=\"text-align: center;\"> <h2> Console Commands for Plasma 2.0 Client </h2> <em>Built %s on %s.</em></span><br />", 
+    fprintf(f, "<span style=\"text-align: center;\"> <h2> Console Commands for Plasma 2.0 Client </h2> <em>Built %s on %s.</em></span><br />",
         pnBuildDates::fBuildTime, pnBuildDates::fBuildDate );
 
     DocGenIterator iter(f);
@@ -762,7 +762,7 @@ PF_CONSOLE_CMD( Console, CreateDocumentation, "string fileName",
 }
 
 
-PF_CONSOLE_CMD( Console, CreateBriefDocumentation, "string fileName", 
+PF_CONSOLE_CMD( Console, CreateBriefDocumentation, "string fileName",
                 "Writes brief HTML documentation for the current console commands" )
 {
 
@@ -780,7 +780,7 @@ PF_CONSOLE_CMD( Console, CreateBriefDocumentation, "string fileName",
         return;
     }
 
-    fprintf(f, "<span style=\"text-align: center;\"> <h3> Console Commands for Plasma 2.0 Client </h3> <em>Built %s on %s.</em></span><br />", 
+    fprintf(f, "<span style=\"text-align: center;\"> <h3> Console Commands for Plasma 2.0 Client </h3> <em>Built %s on %s.</em></span><br />",
         pnBuildDates::fBuildTime, pnBuildDates::fBuildDate );
     BriefDocGenIterator iter(f);
     group = pfConsoleCmdGroup::GetBaseGroup();
@@ -790,7 +790,7 @@ PF_CONSOLE_CMD( Console, CreateBriefDocumentation, "string fileName",
     
 }
 
-PF_CONSOLE_CMD( Console, SetVar, "string name, string value", 
+PF_CONSOLE_CMD( Console, SetVar, "string name, string value",
                 "Sets the value of a given global console variable" )
 {
     pfConsoleContext &ctx = pfConsoleContext::GetRootContext();
@@ -904,9 +904,9 @@ PF_CONSOLE_CMD( Graphics,           // Group name
     char        name[ 64 ];
     int         i;
 
-    struct 
-    { 
-        char name[ 64 ]; uint32_t flag; 
+    struct
+    {
+        char name[ 64 ]; uint32_t flag;
     } flags[] = { { "reloadTextures", plPipeDbg::kFlagReload },
                     { "noPreShade", plPipeDbg::kFlagNoPreShade},
                     { "noMultitexture", plPipeDbg::kFlagNoMultitexture },
@@ -1065,27 +1065,27 @@ PF_CONSOLE_CMD( Graphics_Shadow,
     }
 }
 
-PF_CONSOLE_CMD( Graphics_Shadow, 
+PF_CONSOLE_CMD( Graphics_Shadow,
                Disable,
-               "", 
+               "",
                "Disable shadows." )
 {
     plShadowCaster::DisableShadowCast();
     PrintString("Shadows Disabled");
 }
 
-PF_CONSOLE_CMD( Graphics_Shadow, 
+PF_CONSOLE_CMD( Graphics_Shadow,
                Toggle,
-               "", 
+               "",
                "Toggle shadows." )
 {
     plShadowCaster::ToggleShadowCast();
     PrintString(plShadowCaster::ShadowCastDisabled() ? "Shadows Disabled" : "Shadows Enabled");
 }
 
-PF_CONSOLE_CMD( Graphics_Shadow, 
+PF_CONSOLE_CMD( Graphics_Shadow,
                Show,
-               "", 
+               "",
                "Show shadows." )
 {
     bool on = !pfConsole::GetPipeline()->IsDebugFlagSet(plPipeDbg::kFlagShowShadowBounds);
@@ -1094,9 +1094,9 @@ PF_CONSOLE_CMD( Graphics_Shadow,
     pfConsolePrintF(PrintString, "Shadow bounds now {}", on ? "visible" : "invisible");
 }
 
-PF_CONSOLE_CMD( Graphics_Shadow, 
+PF_CONSOLE_CMD( Graphics_Shadow,
                Apply,
-               "", 
+               "",
                "Toggles applying shadows (they are still computed)." )
 {
     bool on = !pfConsole::GetPipeline()->IsDebugFlagSet(plPipeDbg::kFlagNoShadowApply);
@@ -1105,9 +1105,9 @@ PF_CONSOLE_CMD( Graphics_Shadow,
     pfConsolePrintF(PrintString, "Shadow apply now {}", on ? "disabled" : "enabled");
 }
 
-PF_CONSOLE_CMD( Graphics_Shadow, 
+PF_CONSOLE_CMD( Graphics_Shadow,
                MaxSize,
-               "...", 
+               "...",
                "Max shadowmap size." )
 {
     int size;
@@ -1124,9 +1124,9 @@ PF_CONSOLE_CMD( Graphics_Shadow,
     pfConsolePrintF(PrintString, "Max shadowmap size {}", size);
 }
 
-PF_CONSOLE_CMD( Graphics_Shadow, 
+PF_CONSOLE_CMD( Graphics_Shadow,
                MaxDist,
-               "...", 
+               "...",
                "Max shadowmap vis distance." )
 {
     float dist;
@@ -1143,9 +1143,9 @@ PF_CONSOLE_CMD( Graphics_Shadow,
     pfConsolePrintF(PrintString, "Max shadowmap vis dist {f}", dist);
 }
 
-PF_CONSOLE_CMD( Graphics_Shadow, 
+PF_CONSOLE_CMD( Graphics_Shadow,
                VisibleDistance,
-               "...", 
+               "...",
                "Shadow quality (0 to 1)." )
 {
     float parm;
@@ -1162,9 +1162,9 @@ PF_CONSOLE_CMD( Graphics_Shadow,
     pfConsolePrintF(PrintString, "Shadow quality {f}", parm);
 }
 
-PF_CONSOLE_CMD( Graphics_Shadow, 
+PF_CONSOLE_CMD( Graphics_Shadow,
                Blur,
-               "...", 
+               "...",
                "Max shadowmap blur size." )
 {
     extern float blurScale;
@@ -1488,8 +1488,8 @@ static bool MakeUniqueFileName(const char* prefix, const char* ext, char* fileNa
 
 #include "pfSurface/plGrabCubeMap.h"
 
-PF_CONSOLE_CMD( Graphics_Renderer, GrabCubeMap, 
-               "string sceneObject, string prefix", 
+PF_CONSOLE_CMD( Graphics_Renderer, GrabCubeMap,
+               "string sceneObject, string prefix",
                "Take cubemap from sceneObject's position and name it prefix_XX.jpg")
 {
     const char *status = "";
@@ -1508,8 +1508,8 @@ PF_CONSOLE_CMD( Graphics_Renderer, GrabCubeMap,
     grabCube.GrabCube(pfConsole::GetPipeline(), obj, pref, clearColor);
 }
 
-PF_CONSOLE_CMD( Graphics_Renderer, GrabCubeCam, 
-               "string prefix", 
+PF_CONSOLE_CMD( Graphics_Renderer, GrabCubeCam,
+               "string prefix",
                "Take cubemap from camera's position and name it prefix_XX.jpg")
 {
     hsPoint3 pos = pfConsole::GetPipeline()->GetViewPositionWorld();
@@ -1561,7 +1561,7 @@ PF_CONSOLE_CMD( Graphics_Renderer, GenerateReflectMaps, "string baseObject, stri
     hsAssert( pfConsole::GetPipeline() != nil, "Cannot use this command before pipeline initialization" );
 
     // First, create the renderTarget for the renderRequests
-    plRenderTarget *target = new plRenderTarget( plRenderTarget::kIsProjected | plRenderTarget::kIsTexture, 
+    plRenderTarget *target = new plRenderTarget( plRenderTarget::kIsProjected | plRenderTarget::kIsTexture,
                                                 params[ 2 ], params[ 2 ], 32, 24, 0 );
 
 //  plMipmap *newMip = new plMipmap( size, size, plMipmap::kARGB32Config, 1 );
@@ -1640,7 +1640,7 @@ PF_CONSOLE_CMD( Graphics_Renderer_Fog, SetDefLinear, "float start, float end, fl
     plFogEnvironment    env;
 
     env = pfConsole::GetPipeline()->GetDefaultFogEnviron();
-    env.Set( params[ 0 ], params[ 1 ], params[ 2 ] ); 
+    env.Set( params[ 0 ], params[ 1 ], params[ 2 ] );
     pfConsole::GetPipeline()->SetDefaultFogEnviron( &env );
 }
 
@@ -1652,7 +1652,7 @@ PF_CONSOLE_CMD( Graphics_Renderer_Fog, SetDefExp, "float end, float density", "S
     plFogEnvironment    env;
 
     env = pfConsole::GetPipeline()->GetDefaultFogEnviron();
-    env.SetExp( plFogEnvironment::kExpFog, params[ 0 ], params[ 1 ] ); 
+    env.SetExp( plFogEnvironment::kExpFog, params[ 0 ], params[ 1 ] );
     pfConsole::GetPipeline()->SetDefaultFogEnviron( &env );
 }
 
@@ -1664,7 +1664,7 @@ PF_CONSOLE_CMD( Graphics_Renderer_Fog, SetDefExp2, "float end, float density", "
     plFogEnvironment    env;
 
     env = pfConsole::GetPipeline()->GetDefaultFogEnviron();
-    env.SetExp( plFogEnvironment::kExp2Fog, params[ 0 ], params[ 1 ] ); 
+    env.SetExp( plFogEnvironment::kExp2Fog, params[ 0 ], params[ 1 ] );
     pfConsole::GetPipeline()->SetDefaultFogEnviron( &env );
 }
 
@@ -2299,7 +2299,7 @@ PF_CONSOLE_CMD(App,
                "string pathName",
                "Set an auxiliary init directory to read")
 {
-    if( plClient::GetInstance() )   
+    if( plClient::GetInstance() )
         plClient::GetInstance()->SetAuxInitDir(params[0]);
 }
 
@@ -3115,13 +3115,13 @@ PF_CONSOLE_CMD( Audio, UseEAX, "bool on", "Enable EAX sound acceleration (requir
 }
 
 PF_CONSOLE_CMD( Audio, Initialize, "bool on", "Set to false to completely disable audio playback in plasma")
-{ 
+{
     bool on = params[0];
     plgAudioSys::SetActive(on);
 }
 
 PF_CONSOLE_CMD( Audio, Restart, "", "Restarts the audio system" )
-{ 
+{
     plgAudioSys::Restart();
 }
 
@@ -3563,7 +3563,7 @@ PF_CONSOLE_CMD( Listener, XMode, "bool b", "Sets velocity and position to avatar
         plUoid lu(kListenerMod_KEY);
         plKey pLKey = hsgResMgr::ResMgr()->FindKey(lu);
         if (pLKey)
-        {   
+        {
             pListener = plListener::ConvertNoRef(pLKey->GetObjectPtr());
         }
 
@@ -3587,7 +3587,7 @@ PF_CONSOLE_CMD( Listener, XMode, "bool b", "Sets velocity and position to avatar
             set->Send();
         }
     }
-    else 
+    else
     {
         if(oldPosType == plListener::kCamera)
         {
@@ -4255,7 +4255,7 @@ PF_CONSOLE_CMD( Access,
     {
         PrintString("Layer index too high");
         return;
-    }   
+    }
 
     float wgtPlus;
     float wgtMinus;
@@ -4749,15 +4749,15 @@ static void IDisplayWaveVal(PrintFunk PrintString, plWaveSet7* wave, plWaveCmd::
     case kWaterTint:
         col = wave->GetWaterTint();
         msg = ST::format("Water tint ({}, {}, {})",
-            int(col.r * 255.9f), 
-            int(col.g * 255.9f), 
+            int(col.r * 255.9f),
+            int(col.g * 255.9f),
             int(col.b * 255.9f));
         break;
     case kSpecularTint:
         col = wave->GetSpecularTint();
         msg = ST::format("Specular tint ({}, {}, {})",
-            int(col.r * 255.9f), 
-            int(col.g * 255.9f), 
+            int(col.r * 255.9f),
+            int(col.g * 255.9f),
             int(col.b * 255.9f));
         break;
     case kSpecularMute:
@@ -5034,7 +5034,7 @@ PF_CONSOLE_CMD( Wave, Graph,    // Group name, Function name
     }
 }
 
-// Geometric wave param block 
+// Geometric wave param block
 PF_CONSOLE_CMD( Wave_Set, GeoLen,   // Group name, Function name
                 "string waveSet, ...",          // Params none
                 "Set <min> and <max> geometric wavelengths in feet" )   // Help string
@@ -5383,9 +5383,9 @@ PF_CONSOLE_CMD( SceneObject, Detach,            // Group name, Function name
         return;
     }
 
-    if( child 
-        && child->GetCoordinateInterface() 
-        && child->GetCoordinateInterface()->GetParent() 
+    if( child
+        && child->GetCoordinateInterface()
+        && child->GetCoordinateInterface()->GetParent()
         && child->GetCoordinateInterface()->GetParent()->GetOwner() )
     {
         plKey parentKey = child->GetCoordinateInterface()->GetParent()->GetOwner()->GetKey();
@@ -5486,7 +5486,7 @@ PF_CONSOLE_CMD( Physics, ApplyForce, "string Object, float x, float y, float z",
 {
     plKey key = FindSceneObjectByName(params[0], nil, nil);
 
-    if(key) 
+    if(key)
     {
         hsVector3 force(params[1], params[2], params[3]);
         plForceMsg *m = new plForceMsg(nil, key, force);
@@ -5498,7 +5498,7 @@ PF_CONSOLE_CMD( Physics, ApplyForceAtPoint, "string Object, float forceX, float 
 {
     plKey key = FindSceneObjectByName(params[0], nil, nil, nil);
 
-    if(key) 
+    if(key)
     {
         hsVector3 force(params[1], params[2], params[3]);
         hsPoint3 point(params[4], params[5], params[6]);
@@ -5697,16 +5697,16 @@ PF_CONSOLE_CMD(Physics, ClampingOnStep, "", "Toggle whether to clamp the step si
     PrintString(str);
 }
 
-PF_CONSOLE_CMD(Physics, 
+PF_CONSOLE_CMD(Physics,
                ShowControllerDebugDisplay,
-               "", 
+               "",
                "Toggle the physics controller debug display")
 {
     plPXPhysicalControllerCore::fDebugDisplay = !plPXPhysicalControllerCore::fDebugDisplay;
 }
-PF_CONSOLE_CMD(Physics, 
+PF_CONSOLE_CMD(Physics,
                ListAwakeActors,
-               "", 
+               "",
                "Toggles displaying the list of awake actors")
 {
     plSimulationMgr::fDisplayAwakeActors= !plSimulationMgr::fDisplayAwakeActors;
@@ -5818,7 +5818,7 @@ PF_CONSOLE_CMD(Age, ShowSDL, "", "Prints the age SDL values")
             PrintString(line.c_str());
             plStatusLog::AddLineS("ShowSDL.log", line);
         }
-    }   
+    }
     
     delete rec;
 }
@@ -6018,11 +6018,11 @@ PF_CONSOLE_CMD( ParticleSystem,
                "Creates a system (if necessary) on the avatar, and transfers particles" )
 {
     plKey key = FindSceneObjectByName(static_cast<const char *>(params[0]), "", nullptr);
-    if (key == nil) 
+    if (key == nil)
         return;
     
     plSceneObject* so = plSceneObject::ConvertNoRef(key->GetObjectPtr());
-    if (so == nil) 
+    if (so == nil)
         return;
     
     plArmatureMod *avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();
@@ -6036,11 +6036,11 @@ PF_CONSOLE_CMD( ParticleSystem,
                "Flag some particles for death." )
 {
     plKey key = FindSceneObjectByName(static_cast<const char *>(params[0]), "", nullptr);
-    if (key == nil) 
+    if (key == nil)
         return;
     
     plSceneObject* so = plSceneObject::ConvertNoRef(key->GetObjectPtr());
-    if (so == nil) 
+    if (so == nil)
         return;
     
     const plParticleSystem *sys = plParticleSystem::ConvertNoRef(so->GetModifierByType(plParticleSystem::Index()));
@@ -6062,7 +6062,7 @@ static plParticleFlockEffect *FindFlock(const ST::string &objName)
         return nil;
     
     plSceneObject *so = plSceneObject::ConvertNoRef(key->GetObjectPtr());
-    if (so == nil) 
+    if (so == nil)
         return nil;
     
     const plParticleSystem *sys = plParticleSystem::ConvertNoRef(so->GetModifierByType(plParticleSystem::Index()));
@@ -6086,7 +6086,7 @@ PF_CONSOLE_CMD( ParticleSystem_Flock,
     {
         (new plParticleFlockMsg(nil, flock->GetKey(), 0, plParticleFlockMsg::kFlockCmdSetOffset, params[1], params[2], params[3]))->Send();
     }
-}   
+}
 
 PF_CONSOLE_CMD( ParticleSystem_Flock,
                SetDissentTarget,
@@ -6110,7 +6110,7 @@ PF_CONSOLE_CMD( ParticleSystem_Flock,
         flock->SetInfluenceAvgRadius(params[1]);
     else
         PrintString("Can't find flock effect");
-}   
+}
 
 PF_CONSOLE_CMD( ParticleSystem_Flock,
                SetRepelDistance,
@@ -6122,7 +6122,7 @@ PF_CONSOLE_CMD( ParticleSystem_Flock,
         flock->SetInfluenceRepelRadius(params[1]);
     else
         PrintString("Can't find flock effect");
-}   
+}
 
 PF_CONSOLE_CMD( ParticleSystem_Flock,
                SetGoalDistance,
@@ -6134,7 +6134,7 @@ PF_CONSOLE_CMD( ParticleSystem_Flock,
         flock->SetGoalRadius(params[1]);
     else
         PrintString("Can't find flock effect");
-}   
+}
 
 PF_CONSOLE_CMD( ParticleSystem_Flock,
                SetFullChaseDistance,
@@ -6146,7 +6146,7 @@ PF_CONSOLE_CMD( ParticleSystem_Flock,
         flock->SetFullChaseRadius(params[1]);
     else
         PrintString("Can't find flock effect");
-}   
+}
 
 PF_CONSOLE_CMD( ParticleSystem_Flock,
                SetConformStr,
@@ -6158,7 +6158,7 @@ PF_CONSOLE_CMD( ParticleSystem_Flock,
         flock->SetConformStr(params[1]);
     else
         PrintString("Can't find flock effect");
-}   
+}
 
 PF_CONSOLE_CMD( ParticleSystem_Flock,
                SetRepelStr,
@@ -6170,7 +6170,7 @@ PF_CONSOLE_CMD( ParticleSystem_Flock,
         flock->SetRepelStr(params[1]);
     else
         PrintString("Can't find flock effect");
-}   
+}
 
 PF_CONSOLE_CMD( ParticleSystem_Flock,
                SetGoalOrbitStr,
@@ -6182,7 +6182,7 @@ PF_CONSOLE_CMD( ParticleSystem_Flock,
         flock->SetGoalOrbitStr(params[1]);
     else
         PrintString("Can't find flock effect");
-}   
+}
 
 PF_CONSOLE_CMD( ParticleSystem_Flock,
                SetGoalChaseStr,
@@ -6194,7 +6194,7 @@ PF_CONSOLE_CMD( ParticleSystem_Flock,
         flock->SetGoalChaseStr(params[1]);
     else
         PrintString("Can't find flock effect");
-}   
+}
 
 PF_CONSOLE_CMD( ParticleSystem_Flock,
                SetMaxOrbitSpeed,
@@ -6206,7 +6206,7 @@ PF_CONSOLE_CMD( ParticleSystem_Flock,
         flock->SetMaxOrbitSpeed(params[1]);
     else
         PrintString("Can't find flock effect");
-}   
+}
 
 PF_CONSOLE_CMD( ParticleSystem_Flock,
                SetMaxChaseSpeed,
@@ -6218,7 +6218,7 @@ PF_CONSOLE_CMD( ParticleSystem_Flock,
         flock->SetMaxChaseSpeed(params[1]);
     else
         PrintString("Can't find flock effect");
-}   
+}
 
 #endif // LIMIT_CONSOLE_COMMANDS
 
@@ -6316,7 +6316,7 @@ PF_CONSOLE_CMD( Animation,
                "Add keys with the given name (substrings ok) to our report list" )
 {
     plAnimDebugList *adl = plClient::GetInstance()->fAnimDebugList;
-    if (adl) 
+    if (adl)
         adl->AddObjects(ST::string::from_utf8(params[0]));
 }
 
@@ -6387,7 +6387,7 @@ PF_CONSOLE_CMD( Clothing,                           // Group name
                 "string itemName",                  // Params
                 "Has your avatar wear the item of clothing specified" )     // Help string
 {
-    plArmatureMod *avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();    
+    plArmatureMod *avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();
     plClothingItem *item = plClothingMgr::GetClothingMgr()->FindItemByName((const char *)params[0]);
 
     if (avMod && item)
@@ -6401,7 +6401,7 @@ PF_CONSOLE_CMD( Clothing,                           // Group name
                 "string itemName",                  // Params
                 "Has your avatar remove the item of clothing specified" )       // Help string
 {
-    plArmatureMod *avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();    
+    plArmatureMod *avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();
     plClothingItem *item = plClothingMgr::GetClothingMgr()->FindItemByName((const char *)params[0]);
     
     if (avMod && item)
@@ -6415,7 +6415,7 @@ PF_CONSOLE_CMD( Clothing,                           // Group name
                 "string itemName, float red, float green, float blue, int layer",   // Params
                 "Change the color of an item of clothing you're wearing" )      // Help string
 {
-    plArmatureMod *avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();    
+    plArmatureMod *avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();
     plClothingItem *item = plClothingMgr::GetClothingMgr()->FindItemByName((const char *)params[0]);
     uint8_t layer;
     if ((int)params[4] == 2)
@@ -6434,7 +6434,7 @@ PF_CONSOLE_CMD( Clothing,                           // Group name
                 "float red, float green, float blue",                   // Params
                 "Change your avatar's skin color" )     // Help string
 {
-    plArmatureMod *avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();    
+    plArmatureMod *avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();
     if (avMod)
     {
         avMod->GetClothingOutfit()->TintSkin(params[0], params[1], params[2]);
@@ -6446,7 +6446,7 @@ PF_CONSOLE_CMD( Clothing,                           // Group name
                 "float age",                    // Params
                 "Blend (0 to 1) between young and old skin." )      // Help string
 {
-    plArmatureMod *avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();    
+    plArmatureMod *avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();
     if (avMod)
     {
         avMod->GetClothingOutfit()->SetAge(params[0]);
@@ -6458,7 +6458,7 @@ PF_CONSOLE_CMD( Clothing,                           // Group name
                "float blend, int layer",                    // Params
                "Set the blend (0 to 1) for a specific skin layer (1 to 6)." )       // Help string
 {
-    plArmatureMod *avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();    
+    plArmatureMod *avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();
     if (avMod)
     {
         avMod->GetClothingOutfit()->SetSkinBlend(params[0], (int)params[1] + plClothingElement::kLayerSkinBlend1 - 1);
@@ -6478,7 +6478,7 @@ PF_CONSOLE_CMD( Clothing,                           // Group name
                "",                  // Params
                "Save your customizations to the vault." )       // Help string
 {
-    plArmatureMod *avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();    
+    plArmatureMod *avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();
     if (avMod)
     {
         avMod->GetClothingOutfit()->WriteToVault();
@@ -6498,7 +6498,7 @@ PF_CONSOLE_CMD( Clothing,
         if (numParams > 0)
             avMod = plAvatarMgr::GetInstance()->FindAvatarByPlayerID((int)params[0]);
         else
-            avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();           
+            avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();
         if (avMod)
         {
             plPlateManager::Instance().CreatePlate( &avatarTargetTexturePlate );
@@ -6519,7 +6519,7 @@ PF_CONSOLE_CMD( Clothing,
                "",
                "Wear the Maintainer outfit" )
 {
-    plArmatureMod *avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();    
+    plArmatureMod *avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();
     if (avMod)
     {
         avMod->GetClothingOutfit()->WearMaintainerOutfit();
@@ -6531,7 +6531,7 @@ PF_CONSOLE_CMD( Clothing,
                "",
                "Return to your normal outfit" )
 {
-    plArmatureMod *avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();    
+    plArmatureMod *avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();
     if (avMod)
     {
         avMod->GetClothingOutfit()->RemoveMaintainerOutfit();
@@ -6675,7 +6675,7 @@ PF_CONSOLE_CMD( Python,
                 "Run a cheat command" )
 {
     ST::string args;
-    if (numParams > 1) 
+    if (numParams > 1)
     {
         args = ST::format("({},)", (char*)params[1]);
     }

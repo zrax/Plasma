@@ -163,7 +163,7 @@ public:
     CLASSNAME_REGISTER(plResponderEnableMsg);
     GETINTERFACE_ANY(plResponderEnableMsg, plMessage);
 
-    // IO 
+    // IO
     void Read(hsStream* stream, hsResMgr* mgr);
     void Write(hsStream* stream, hsResMgr* mgr);
 };

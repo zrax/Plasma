@@ -136,7 +136,7 @@ public:
     //                  optionally propagate over the net
     //
     static void Console(const char* command);
-    static void ConsoleNet(const char* command, bool netForce); 
+    static void ConsoleNet(const char* command, bool netForce);
 
     /////////////////////////////////////////////////////////////////////////////
     //
@@ -203,7 +203,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : LinkToAge
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : LinkToAge
     //
@@ -214,7 +214,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : SetDirtySyncStateServer
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : set the Python modifier to be dirty and asked to be saved out
     //
@@ -223,7 +223,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : SetDirtySyncStateClients
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : set the Python modifier to be dirty and asked to be saved out
     //                  specifies that state should be sent to other clients as well as server
@@ -253,7 +253,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : FlashWindow
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Flashes the client window if it is not focused
     //
@@ -279,7 +279,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : GetClientName
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Return the local net client (account) name
     //
@@ -293,7 +293,7 @@ public:
     //
     //  Function   : GetAgeName
     //  Function   : GetAgeTime
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Return the age name of the current age the local player is in
     //             : Return the current coordinates of the player within this age
@@ -330,7 +330,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : GetSeconds
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Return the nunber of seconds elapsed
     //
@@ -338,7 +338,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : GetSysSeconds
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Return the number of system seconds elapsed
     //
@@ -346,7 +346,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : GetDelSysSeconds
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Return the frame delta seconds
     //
@@ -356,7 +356,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : LoadDialog
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Loads the dialog by name
     //             : optionally sets the receiver key for the GUINotifyMsg
@@ -368,7 +368,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : UnLoadDialog
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : UnLoads the dialog by name
     //             : optionally sets the receiver key for the GUINotifyMsg
@@ -378,7 +378,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : IsDialogLoaded
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Test to see if a dialog is loaded (according to the dialog manager)
     //
@@ -388,7 +388,7 @@ public:
     //
     //  Function   : ShowDialog
     //  Function   : HideDialog
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Show or Hide a dialog by name
     //
@@ -398,7 +398,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : GetDialogFromTagID
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Return the frame delta seconds
     //
@@ -408,7 +408,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : IsGUIModal
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Returns true if the GUI is currently modal (and therefore blocking input)
     //
@@ -417,7 +417,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : GetLocalAvatar
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Return a pySceneobject of the local Avatar
     //
@@ -428,7 +428,7 @@ public:
     //
     //  Function   : GetPlayerList
     //  Function   : GetPlayerListDistanceSorted
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Get a list of players (other than self) that are playing the game
     //             : optionally get it sorted by distance
@@ -554,7 +554,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : ClearCameraStack
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : knocks all the cameras off the current stack
     //
@@ -582,7 +582,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : GetNumRemotePlayers
-    //  
+    //
     //  PURPOSE    : return the number of remote players connected
     //
     static int GetNumRemotePlayers();
@@ -591,7 +591,7 @@ public:
     //
     //  Function   : Paging functions
     //  PARAMETERS : nodeName  - name of the page to load
-    //  
+    //
     //  PURPOSE    : page in, or out a paritcular node
     //
     static void PageInNodes(const std::vector<std::string> & nodeNames, const char* age, bool netForce);
@@ -601,7 +601,7 @@ public:
     //
     //  Function   : LimitAvatarLOD
     //  PARAMETERS : LODlimit - number of to limit the LOD to
-    //  
+    //
     //  PURPOSE    : sets the avatar LOD limit
     //
     static void LimitAvatarLOD(int LODlimit);
@@ -610,7 +610,7 @@ public:
     //
     //  Function   : Set fog default functions
     //  PARAMETERS : floats  - the parameters
-    //  
+    //
     //  PURPOSE    : sets the fog defaults
     //
     static void FogSetDefColor(pyColor& color);
@@ -622,9 +622,9 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : Enable / disable cursor fade for avatar
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
-    //  PURPOSE    : turns avatar fade out on / off 
+    //  PURPOSE    : turns avatar fade out on / off
     //
     static void EnableAvatarCursorFade();
     static void DisableAvatarCursorFade();
@@ -634,9 +634,9 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : Put the interface into 'offer book mode'
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
-    //  PURPOSE    :  
+    //  PURPOSE    :
     //
     static void EnableOfferBookMode(pyKey& selfkey, const char* ageFileName, const char* ageInstanceName);
     static void DisableOfferBookMode();
@@ -816,7 +816,7 @@ public:
 
     //////////////////////////////////////////////////////////////////////////////
     //
-    // 
+    //
     // PURPOSE    : these functions are for saving / restoring the camera stack
     //
 

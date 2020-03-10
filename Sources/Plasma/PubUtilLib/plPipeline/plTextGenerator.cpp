@@ -86,7 +86,7 @@ plTextGenerator::plTextGenerator( plMipmap *host, uint16_t width, uint16_t heigh
 
 plTextGenerator::~plTextGenerator()
 {
-    // This also won't work until tempKeys work, since the mipmap will be gone by 
+    // This also won't work until tempKeys work, since the mipmap will be gone by
     // this time, in which case, calling Detach() crashes
 #ifdef MCN_DO_REFS
     Detach();
@@ -95,7 +95,7 @@ plTextGenerator::~plTextGenerator()
 
 //// Attach ///////////////////////////////////////////////////////////////////
 //  Grab onto a plMipmap, suck the texture out of it and replace it with our
-//  own.        
+//  own.
 
 void    plTextGenerator::Attach( plMipmap *host, uint16_t width, uint16_t height )
 {
@@ -231,7 +231,7 @@ void    plTextGenerator::Detach()
     fHost = nil;
 
 #ifdef MCN_DO_REFS
-    // Now send ourselves a unref msg, just in case we were called directly (if this was done by 
+    // Now send ourselves a unref msg, just in case we were called directly (if this was done by
     // message, we'll get called a few times, but that's ok, we're set up to handle that, and it
     // won't happen 'cept on destruction so the speed penalty shouldn't be a problem)
     GetKey()->Release( oldHost->GetKey() );
@@ -421,9 +421,9 @@ void    plTextGenerator::DrawWrappedString( uint16_t x, uint16_t y, const wchar_
 //  HBRUSH brush = ::CreateSolidBrush( RGB( 255, 255, 255 ) );
 //  ::FillRect( fWinRGBDC, &r, brush );
 //  ::DeleteObject( brush );
-    ::DrawTextW( fWinRGBDC, text, wcslen( text ), &r, 
+    ::DrawTextW( fWinRGBDC, text, wcslen( text ), &r,
                 DT_TOP | DT_LEFT | DT_NOPREFIX | DT_WORDBREAK );
-    ::DrawTextW( fWinAlphaDC, text, wcslen( text ), &r, 
+    ::DrawTextW( fWinAlphaDC, text, wcslen( text ), &r,
                 DT_TOP | DT_LEFT | DT_NOPREFIX | DT_WORDBREAK );
 
 #endif
@@ -584,7 +584,7 @@ hsMatrix44  plTextGenerator::GetLayerTransform()
     hsMatrix44  xform;
     hsVector3   scale;
 
-    scale.Set( (float)GetWidth() / (float)GetTextWidth(), 
+    scale.Set( (float)GetWidth() / (float)GetTextWidth(),
                (float)GetHeight() / (float)GetTextHeight(), 1.f );
 
     xform.MakeScaleMat( &scale );

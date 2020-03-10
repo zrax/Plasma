@@ -352,7 +352,7 @@ void    pfGUIMenuItem::IUpdate()
                     y = 0;
 
                 fDynTextMap->DrawClippedImage( x + fDynTextMap->GetVisibleWidth() - 2 - element.fWidth
-                                                - fSkin->GetElement( pfGUISkin::kRightSpan ).fWidth, 
+                                                - fSkin->GetElement( pfGUISkin::kRightSpan ).fWidth,
                                                 y,
                                                 fSkin->GetTexture(), element.fX, element.fY, element.fWidth, element.fHeight, plDynamicTextMap::kImgBlend );
             }
@@ -448,7 +448,7 @@ void    pfGUIMenuItem::HandleMouseHover( hsPoint3 &mousePt, uint8_t modifiers )
     {
         if( PointInBounds( mousePt ) )
         {
-            if( !fReportingHover && ( fDialog->GetControlOfInterest() == nil || 
+            if( !fReportingHover && ( fDialog->GetControlOfInterest() == nil ||
                                       fDialog->GetControlOfInterest() == this ) )
             {
                 fReportingHover = true;

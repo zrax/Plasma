@@ -76,7 +76,7 @@ plArmatureBrain::~plArmatureBrain()
         fTaskQueue.pop_front();
     }
     if (fCurTask)
-        delete fCurTask;    
+        delete fCurTask;
 }
 
 bool plArmatureBrain::Apply(double timeNow, float elapsed)
@@ -88,7 +88,7 @@ bool plArmatureBrain::Apply(double timeNow, float elapsed)
 }
 
 void plArmatureBrain::Activate(plArmatureModBase *armature)
-{ 
+{
     fArmature = armature;
     fAvMod = plArmatureMod::ConvertNoRef(armature);
 }
@@ -138,7 +138,7 @@ void plArmatureBrain::Write(hsStream *stream, hsResMgr *mgr)
     // plAvBrainUser
     stream->WriteLE32(0);
     stream->WriteLEScalar(0.f);
-    stream->WriteLEDouble(0.f);   
+    stream->WriteLEDouble(0.f);
 }
 
 void plArmatureBrain::Read(hsStream *stream, hsResMgr *mgr)
@@ -147,7 +147,7 @@ void plArmatureBrain::Read(hsStream *stream, hsResMgr *mgr)
 
     // plAvBrain
     stream->ReadLE32();
-    if (stream->ReadBool()) 
+    if (stream->ReadBool())
         mgr->ReadKey(stream);
 
     // plAvBrainUser

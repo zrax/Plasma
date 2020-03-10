@@ -49,7 +49,7 @@ plSDLModifierMsg::plSDLModifierMsg(const ST::string& sdlName, Action a) :
     fPlayerID(0),
     fManageStateMem(false),
     fFlags(0)
-{ 
+{
     SetBCastFlag(plMessage::kPropagateToModifiers);
 }
 

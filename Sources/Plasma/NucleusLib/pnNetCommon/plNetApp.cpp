@@ -122,7 +122,7 @@ void plNetClientApp::InheritNetMsgFlags(const plMessage* parentMsg, plMessage* c
 //
 // STATIC FXN
 // Inherit net cascade state.  Flags version
-// Set startCasCascade=true if called from outside the dispatcher, so that 
+// Set startCasCascade=true if called from outside the dispatcher, so that
 // the dispatcher won't mess with the flags when it goes to send out the msg.
 //
 void plNetClientApp::InheritNetMsgFlags(uint32_t parentMsgFlags, uint32_t* childMsgFlags, bool startCascade)
@@ -135,9 +135,9 @@ void plNetClientApp::InheritNetMsgFlags(uint32_t parentMsgFlags, uint32_t* child
             *childMsgFlags &= ~plMessage::kNetSent;
 
         if (parentMsgFlags & plMessage::kNetNonLocal)
-            *childMsgFlags |= plMessage::kNetNonLocal;      
+            *childMsgFlags |= plMessage::kNetNonLocal;
         else
-            *childMsgFlags &= ~plMessage::kNetNonLocal;     
+            *childMsgFlags &= ~plMessage::kNetNonLocal;
 
         if (startCascade)
             *childMsgFlags |= plMessage::kNetStartCascade;
@@ -158,12 +158,12 @@ void plNetClientApp::UnInheritNetMsgFlags(plMessage* msg)
         // This msg (and all it's responses) should not be resent, since we just recvd it.
         // Make sure it's marked for localPropagation now that it has arrived.
         // Also flag it as a remote (non-local) msg
-        msg->SetBCastFlag(plMessage::kNetSent | 
-            plMessage::kNetNonLocal | 
-            plMessage::kLocalPropagate | 
+        msg->SetBCastFlag(plMessage::kNetSent |
+            plMessage::kNetNonLocal |
+            plMessage::kLocalPropagate |
             plMessage::kNetStartCascade);
         
         // clear the 'force' option, so it doesn't get sent out again
-        msg->SetBCastFlag(plMessage::kNetForce | plMessage::kNetNonDeterministic, 0);       
-    }   
+        msg->SetBCastFlag(plMessage::kNetForce | plMessage::kNetNonDeterministic, 0);
+    }
 }

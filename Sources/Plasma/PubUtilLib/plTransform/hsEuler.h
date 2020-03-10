@@ -112,7 +112,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 struct hsMatrix44;
 class hsQuat;
-class hsEuler 
+class hsEuler
 {
 public:
     float fX,fY,fZ;

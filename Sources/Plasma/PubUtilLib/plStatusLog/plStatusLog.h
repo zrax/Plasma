@@ -66,7 +66,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 class plPipeline;
 
 //// plStatusLog Definition //////////////////////////////////////////////////
-//  Currently, they all display in the same location, so only one should 
+//  Currently, they all display in the same location, so only one should
 //  really be visible at any given time.
 
 class plStatusLogMgr;
@@ -126,10 +126,10 @@ class plStatusLog : public plLog
                                                 // Because of this, it's safe to use this so long as you'll
                                                 // never reference it at the very end of shutdown (as an
                                                 // object is deleted by the resManager, for example, is
-                                                // okay because that's done in plClient::Shutdown(), not 
+                                                // okay because that's done in plClient::Shutdown(), not
                                                 // at the very end of app destruction). If you use this
                                                 // and your log is deleted before you, your pointer will
-                                                // NOT reflect this; it's up to you 
+                                                // NOT reflect this; it's up to you
             kAlignToTop         = 0x00000010,
             kDebugOutput        = 0x00000020,   // Also write string to debug console
             kTimestamp          = 0x00000040,   // Write a timestamp in Local time with each entry.

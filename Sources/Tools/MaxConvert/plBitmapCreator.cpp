@@ -143,7 +143,7 @@ plMipmap *plBitmapCreator::ICreateBitmap(plBitmapData *bd)
         // Allow to continue, But make it painful
         char errStr[256];
         sprintf(errStr, "File name longer than %d, won't burn to CD (%s)", kMaxFileNameLength, bi.Filename());//bitmapTex->GetName());
-        MessageBox(GetActiveWindow(), errStr, bd->fileName, MB_OK|MB_ICONEXCLAMATION);  
+        MessageBox(GetActiveWindow(), errStr, bd->fileName, MB_OK|MB_ICONEXCLAMATION);
     }
 #endif
 
@@ -156,7 +156,7 @@ plMipmap *plBitmapCreator::ICreateBitmap(plBitmapData *bd)
     {
         // FIXME
         /*
-        if (fErrorMsg->Set(!(fWarned & kWarnedNoMoreBitmapLoadErr), 
+        if (fErrorMsg->Set(!(fWarned & kWarnedNoMoreBitmapLoadErr),
             "Error loading bitmap", pathName).CheckAskOrCancel())
         {
             fWarned |= kWarnedNoMoreBitmapLoadErr;
@@ -170,7 +170,7 @@ plMipmap *plBitmapCreator::ICreateBitmap(plBitmapData *bd)
     ICheckOutBitmap(bInfo, bm, bd->fileName);
 
     //
-    // Create a plMipmap 
+    // Create a plMipmap
     //
     plMipmap *hBitmap = new plMipmap;
     if( (bm->Width() ^ (bm->Width() & -bm->Width()))
@@ -195,12 +195,12 @@ plMipmap *plBitmapCreator::ICreateBitmap(plBitmapData *bd)
     plMipmap *hMipmap = nil;
     if (sigma > 0.f)
     {
-        hMipmap = new plMipmap(hBitmap, sigma, bd->createFlags, bd->detailDropoffStart, 
+        hMipmap = new plMipmap(hBitmap, sigma, bd->createFlags, bd->detailDropoffStart,
                                 bd->detailDropoffStop, bd->detailMax, bd->detailMin);
     }
     else
     {
-        hMipmap = new plMipmap(hBitmap, -1.f, bd->createFlags, bd->detailDropoffStart, 
+        hMipmap = new plMipmap(hBitmap, -1.f, bd->createFlags, bd->detailDropoffStart,
                                 bd->detailDropoffStop, bd->detailMax, bd->detailMin);
     }
     delete hBitmap;
@@ -218,7 +218,7 @@ plMipmap *plBitmapCreator::ICreateBitmap(plBitmapData *bd)
 
     if( notMipped )
     {
-        // Done AFTER ClipToMaxSize() so we still get the export size specified 
+        // Done AFTER ClipToMaxSize() so we still get the export size specified
         hMipmap->RemoveMipping();
     }
 
@@ -250,7 +250,7 @@ plMipmap *plBitmapCreator::ICreateBitmap(plBitmapData *bd)
         }
 
     return hBitmap;
-    hsGuardEnd; 
+    hsGuardEnd;
 }
 
 
@@ -380,7 +380,7 @@ int plBitmapCreator::IResampBitmap(Bitmap *bm, plMipmap &hBitmap)
         hBitmap.fFlags &= ~plMipmap::kAlphaBitFlag;
 
     return 0;
-    hsGuardEnd; 
+    hsGuardEnd;
 }
 
 int plBitmapCreator::ICopyBitmap(Bitmap *bm, plMipmap &hBitmap)
@@ -442,7 +442,7 @@ int plBitmapCreator::ICopyBitmap(Bitmap *bm, plMipmap &hBitmap)
         hBitmap.fFlags &= ~plMipmap::kAlphaBitFlag;
 
     return 0;
-    hsGuardEnd; 
+    hsGuardEnd;
 }
 
 int plBitmapCreator::IInvertAlpha(plMipmap& hBitmap)
@@ -463,7 +463,7 @@ int plBitmapCreator::IInvertAlpha(plMipmap& hBitmap)
     }
 
     return 0;
-    hsGuardEnd; 
+    hsGuardEnd;
 }
 
 plBitmap *plBitmapCreator::CreateTexture(plBitmapData *bd, const plLocation &loc, int clipID)
@@ -486,11 +486,11 @@ plBitmap *plBitmapCreator::CreateTexture(plBitmapData *bd, const plLocation &loc
 }
 
 //// ICreateTexture ////////////////////////////////////////////////////////////
-//  Plasma texture creator.  Pass it a completed bitmapdata structure and it 
+//  Plasma texture creator.  Pass it a completed bitmapdata structure and it
 //  returns a registered texture pointer, or nil if something goes wrong.
 //
-//  9.14.2001 mcn - clipID added to uniquely identify mipmaps that have been 
-//  rescaled differently (approximately represents how many powers of 2 it was 
+//  9.14.2001 mcn - clipID added to uniquely identify mipmaps that have been
+//  rescaled differently (approximately represents how many powers of 2 it was
 //  scaled down from the original source).
 //
 //  3.29.2002 mcn - Moved to plBitmapCreator, where it really belongs, and
@@ -527,7 +527,7 @@ plBitmap *plBitmapCreator::ICreateTexture( plBitmapData *bd, const plLocation &l
 
     /// Mangle name for detail textures, so we don't end up overwriting settings elsewhere
     if( bd->createFlags & plMipmap::kCreateDetailMask )
-    {   
+    {
         // Mangle of the form: name@dropStart&dropStop&max&min
         if( clipID != -1 )
             name = ST::format("{}*{x}#{}@{}&{3.2f}&{3.2f}&{3.2f}&{3.2f}", temp, bd->texFlags, clipID,
@@ -611,7 +611,7 @@ plBitmap *plBitmapCreator::ICreateTexture( plBitmapData *bd, const plLocation &l
             /// NOTE: For whatever reason, MAX decided that the front and back faces should be'
             /// switched, literally. It's as if the cube for the cube map starts at the back face
             /// and then wraps around, instead of starting at the front face. Since we do things
-            /// the RIGHT way (or rather, the front way :) on client-side, we need to flip the 
+            /// the RIGHT way (or rather, the front way :) on client-side, we need to flip the
             /// two here. If you convert this to the real MAX UI, make sure the faces are still
             /// flipped!!!!!!!!
 
@@ -667,7 +667,7 @@ void    plBitmapCreator::IAddBitmap( plBitmap *bitmap, bool dontRef )
 //  Simple mipmap creator, but importantly, it also adds the mipmap to the list
 //  of "converted" maps to clean up at the end of export.
 
-plMipmap    *plBitmapCreator::CreateBlankMipmap( uint32_t width, uint32_t height, unsigned config, uint8_t numLevels, 
+plMipmap    *plBitmapCreator::CreateBlankMipmap( uint32_t width, uint32_t height, unsigned config, uint8_t numLevels,
                                                  const ST::string &keyName, const plLocation &keyLocation )
 {
     hsGuardBegin( "plBitmapCreator::CreateBlankMipmap" );

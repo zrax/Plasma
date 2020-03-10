@@ -124,11 +124,11 @@ public:
 
     hsBitVector*    fBitVector;
 
-    DataBF()                                            
-    { 
-        fBitVector = new hsBitVector;   
-        fBitVector->SetBit(kDrawable); 
-        fBitVector->SetBit(kPhysical); 
+    DataBF()
+    {
+        fBitVector = new hsBitVector;
+        fBitVector->SetBit(kDrawable);
+        fBitVector->SetBit(kPhysical);
     }
     virtual ~DataBF()                                   { delete fBitVector; }
 
@@ -143,11 +143,11 @@ public:
         *fBitVector = *ot.fBitVector;
     }
 
-    void Init()                                         
-    { 
-        fBitVector = new hsBitVector; 
-        fBitVector->SetBit(kDrawable); 
-        fBitVector->SetBit(kPhysical); 
+    void Init()
+    {
+        fBitVector = new hsBitVector;
+        fBitVector->SetBit(kDrawable);
+        fBitVector->SetBit(kPhysical);
     }
     void DeInit()                                       { delete fBitVector; fBitVector = nil; }
 
@@ -159,14 +159,14 @@ public:
 class plMaxNodeData
 {
 public:
-    plMaxNodeData() : 
-        fpKey(nil), 
-        fpSO(nil) , 
+    plMaxNodeData() :
+        fpKey(nil),
+        fpSO(nil) ,
         fDecalLevel(0),
-        fpMesh(nil), 
-        fpRoomKey(nil), 
-        fSoundIdxCounter( 0 ), 
-        fAvatarSO(nil), 
+        fpMesh(nil),
+        fpRoomKey(nil),
+        fSoundIdxCounter( 0 ),
+        fAvatarSO(nil),
         fFade(Point3(0,0,0), Point3(0,0,0)),
         fNormalChan(0),
         fWaterHeight(0),
@@ -179,35 +179,35 @@ public:
                              // but I don't want to include the entire header.
         fKeyReduceThreshold(0.0002)
     { }
-    ~plMaxNodeData() 
-    { 
-        fpKey = nil; 
+    ~plMaxNodeData()
+    {
+        fpKey = nil;
         fpRoomKey = nil;
-        fpSO = 0; 
-        fAvatarSO = nil; 
-        delete fCachedAlphaHackLayerCounts; 
+        fpSO = 0;
+        fAvatarSO = nil;
+        delete fCachedAlphaHackLayerCounts;
         MaxDatBF.DeInit();
     }
 
     // Call init on MaxNodeData whose constructor was never called, e.g. if it was malloc'd.
-    plMaxNodeData&  Init() 
+    plMaxNodeData&  Init()
     {
-        memset( &fpKey, 0, sizeof( plKey ) ); 
-        memset( &fpRoomKey, 0, sizeof( plKey ) ); 
-        fRenderDependencies.Init(); 
-        fBones.Init(); 
-        fCachedAlphaHackLayerCounts = nil; 
+        memset( &fpKey, 0, sizeof( plKey ) );
+        memset( &fpRoomKey, 0, sizeof( plKey ) );
+        fRenderDependencies.Init();
+        fBones.Init();
+        fCachedAlphaHackLayerCounts = nil;
         MaxDatBF.Init();
-        return *this; 
+        return *this;
     }
     // Ditto
     void            DeInit()
-    { 
-        fpKey = nil; 
+    {
+        fpKey = nil;
         fpRoomKey = nil;
-        fpSO = 0; fAvatarSO = nil; 
-        delete fCachedAlphaHackLayerCounts; 
-        fCachedAlphaHackLayerCounts = nil; 
+        fpSO = 0; fAvatarSO = nil;
+        delete fCachedAlphaHackLayerCounts;
+        fCachedAlphaHackLayerCounts = nil;
         MaxDatBF.DeInit();
     }
 
@@ -223,7 +223,7 @@ public:
     void            SetForceLocal(bool b)             { MaxDatBF.SetBF(b, MaxDatBF.kForceLocal);      }
 
     void *          GetMesh()                           { return fpMesh;    }   // void pointer for header simplicity
-    void            SetMesh(hsGMesh *p)                 { fpMesh = p;       }       
+    void            SetMesh(hsGMesh *p)                 { fpMesh = p;       }
 
     bool            GetDrawable()                       {return MaxDatBF.CanBF(MaxDatBF.kDrawable);     }
     void            SetDrawable(bool b)               { MaxDatBF.SetBF(b, MaxDatBF.kDrawable);        }

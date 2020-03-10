@@ -117,9 +117,9 @@ void plViewTransform::ISetCameraToNDC() const
 }
 
 void plViewTransform::SetViewPort(const hsPoint2& mins, const hsPoint2& maxs, bool relative)
-{ 
-    fViewPortX.Set(mins.fX, maxs.fX, 1.f / (maxs.fX - mins.fX)); 
-    fViewPortY.Set(mins.fY, maxs.fY, 1.f / (maxs.fY - mins.fY)); 
+{
+    fViewPortX.Set(mins.fX, maxs.fX, 1.f / (maxs.fX - mins.fX));
+    fViewPortY.Set(mins.fY, maxs.fY, 1.f / (maxs.fY - mins.fY));
     ISetFlag(kViewPortRelative, relative);
 }
 
@@ -179,13 +179,13 @@ hsScalarTriple plViewTransform::CameraToNDC(const hsScalarTriple& camP) const
     hsPoint3 ndc;
     if( GetOrthogonal() )
     {
-        ndc.fX = c2NDC.fMap[0][0] * camP.fX 
+        ndc.fX = c2NDC.fMap[0][0] * camP.fX
             + c2NDC.fMap[0][2];
 
-        ndc.fY = c2NDC.fMap[1][1] * camP.fY 
+        ndc.fY = c2NDC.fMap[1][1] * camP.fY
             + c2NDC.fMap[1][2];
 
-        ndc.fZ = c2NDC.fMap[2][2] * camP.fZ 
+        ndc.fZ = c2NDC.fMap[2][2] * camP.fZ
             + c2NDC.fMap[2][3];
     }
     else
@@ -197,7 +197,7 @@ hsScalarTriple plViewTransform::CameraToNDC(const hsScalarTriple& camP) const
         ndc.fY = c2NDC.fMap[1][1] * camP.fY * invW
             + c2NDC.fMap[1][2];
 
-        ndc.fZ = c2NDC.fMap[2][2] * camP.fZ 
+        ndc.fZ = c2NDC.fMap[2][2] * camP.fZ
             + c2NDC.fMap[2][3];
         ndc.fZ *= invW;
     }
@@ -253,7 +253,7 @@ bool plViewTransform::IGetMaxMinsFromBnd(const hsBounds3& bnd, hsPoint3& mins, h
     // off.
     if( minBnd.fZ < kMinHither )
     {
-        minBnd.fZ = kMinHither;     
+        minBnd.fZ = kMinHither;
     }
     mins.Set(minBnd.fX / minBnd.fZ, minBnd.fY / minBnd.fZ, minBnd.fZ);
     maxs.Set(maxBnd.fX / minBnd.fZ, maxBnd.fY / minBnd.fZ, maxBnd.fZ);
@@ -317,35 +317,35 @@ float plViewTransform::GetFovY() const
     return maxAng - minAng;
 }
 
-void plViewTransform::GetViewPort(hsPoint2& mins, hsPoint2& maxs) const 
-{ 
+void plViewTransform::GetViewPort(hsPoint2& mins, hsPoint2& maxs) const
+{
     if( GetViewPortRelative() )
     {
-        mins.Set(fViewPortX.fX * fWidth, fViewPortY.fX * fHeight); 
-        maxs.Set(fViewPortX.fY * fWidth, fViewPortY.fY * fHeight); 
+        mins.Set(fViewPortX.fX * fWidth, fViewPortY.fX * fHeight);
+        maxs.Set(fViewPortX.fY * fWidth, fViewPortY.fY * fHeight);
     }
     else
     {
-        mins.Set(fViewPortX.fX, fViewPortY.fX); 
-        maxs.Set(fViewPortX.fY, fViewPortY.fY); 
+        mins.Set(fViewPortX.fX, fViewPortY.fX);
+        maxs.Set(fViewPortX.fY, fViewPortY.fY);
     }
 }
 
-void plViewTransform::GetViewPort(int& loX, int& loY, int& hiX, int& hiY) const 
-{ 
+void plViewTransform::GetViewPort(int& loX, int& loY, int& hiX, int& hiY) const
+{
     if( GetViewPortRelative() )
     {
-        loX = int(fViewPortX.fX * fWidth); 
-        loY = int(fViewPortY.fX * fHeight); 
-        hiX = int(fViewPortX.fY * fHeight); 
-        hiY = int(fViewPortY.fY * fWidth); 
+        loX = int(fViewPortX.fX * fWidth);
+        loY = int(fViewPortY.fX * fHeight);
+        hiX = int(fViewPortX.fY * fHeight);
+        hiY = int(fViewPortY.fY * fWidth);
     }
     else
     {
-        loX = int(fViewPortX.fX); 
-        loY = int(fViewPortY.fX); 
-        hiX = int(fViewPortX.fY); 
-        hiY = int(fViewPortY.fY); 
+        loX = int(fViewPortX.fX);
+        loY = int(fViewPortY.fX);
+        hiX = int(fViewPortX.fY);
+        hiY = int(fViewPortY.fY);
     }
 }
 

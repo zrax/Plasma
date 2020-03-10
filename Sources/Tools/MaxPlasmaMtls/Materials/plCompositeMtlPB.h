@@ -64,7 +64,7 @@ enum BlendMethod // These should match up in order with the blend strings
     kCompBlendVertexIllumBlue,
     kCompBlendInverseVtxIllumBlue,
     kCompNumBlendMethods
-};  
+};
 
 static char *BlendStrings[] = // Make sure these match up in order with the Blend enum
 {

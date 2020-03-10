@@ -144,7 +144,7 @@ int plNetMsgCreatableHelper::Peek(hsStream * s, uint32_t peekOptions)
 // NOT A MSG
 // PL STREAM MSG - HELPER class
 /////////////////////////////////////////////////////////
-plNetMsgStreamHelper::plNetMsgStreamHelper() :  fStreamBuf(nil), fStreamType(-1), fStreamLen(0), 
+plNetMsgStreamHelper::plNetMsgStreamHelper() :  fStreamBuf(nil), fStreamType(-1), fStreamLen(0),
         fCompressionType(plNetMessage::kCompressionNone), fUncompressedSize(0),
         fCompressionThreshold( kDefaultCompressionThreshold )
 {
@@ -397,7 +397,7 @@ void plNetMsgObjectHelper::WriteVersion(hsStream* s, hsResMgr* mgr)
 ////////////////////////////////////////////////////////
 plNetMsgObjectListHelper::~plNetMsgObjectListHelper()
 {
-    Reset();         
+    Reset();
 }
 
 void plNetMsgObjectListHelper::Reset()
@@ -407,7 +407,7 @@ void plNetMsgObjectListHelper::Reset()
     {
         delete GetObject(i);
         fObjects[i] = nil;
-    } // for    
+    } // for
     fObjects.clear();
 }
 
@@ -419,7 +419,7 @@ int plNetMsgObjectListHelper::Poke(hsStream* stream, uint32_t peekOptions)
     for( i=0 ;i<num  ;i++  )
     {
         GetObject(i)->Poke(stream, peekOptions);
-    } // for         
+    } // for
 
     return stream->GetPosition();
 }
@@ -437,7 +437,7 @@ int plNetMsgObjectListHelper::Peek(hsStream* stream, const uint32_t peekOptions)
     {
         fObjects.push_back(new plNetMsgObjectHelper);
         GetObject(i)->Peek(stream, peekOptions);
-    } // for         
+    } // for
     stream->LogSubStreamEnd();
     return stream->GetPosition();
 }
@@ -493,7 +493,7 @@ int plNetMsgMemberListHelper::Peek(hsStream* stream, const uint32_t peekOptions)
         addr->Peek(stream, peekOptions);
         AddMember(addr);
     }
-    stream->LogSubStreamEnd();  
+    stream->LogSubStreamEnd();
     return stream->GetPosition();
 }
 
@@ -530,10 +530,10 @@ int plNetMsgReceiversListHelper::Peek(hsStream* stream, const uint32_t peekOptio
     for(i=0;i<numIDs;i++)
     {
         uint32_t ID;
-        stream->LogReadLE(&ID,"ReceiversListHelper ID");      
+        stream->LogReadLE(&ID,"ReceiversListHelper ID");
         AddReceiverPlayerID(ID);
     }
-    stream->LogSubStreamEnd();  
+    stream->LogSubStreamEnd();
     return stream->GetPosition();
 }
 

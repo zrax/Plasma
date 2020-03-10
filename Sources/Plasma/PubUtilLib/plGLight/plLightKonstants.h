@@ -50,7 +50,7 @@ public:
     {
         // arbitrary const, make light drop to 1/kFarPower at attenEnd. 15 just looked good to me. mf
         // Done as a function so we don't have to worry about a separate .cpp file
-        return 15.f; 
+        return 15.f;
     }
 };
 

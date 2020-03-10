@@ -85,7 +85,7 @@ public:
     GETINTERFACE_ANY( plMorphDataSet, hsKeyedObject );
     
     virtual void Read(hsStream* s, hsResMgr* mgr);
-    virtual void Write(hsStream* s, hsResMgr* mgr);     
+    virtual void Write(hsStream* s, hsResMgr* mgr);
 };
 
 // A place to hold incoming state while we're still waiting for the
@@ -159,7 +159,7 @@ public:
     virtual void AddTarget(plSceneObject* so);
     virtual void RemoveTarget(plSceneObject* so);
     virtual void Read(hsStream* s, hsResMgr* mgr);
-    virtual void Write(hsStream* s, hsResMgr* mgr); 
+    virtual void Write(hsStream* s, hsResMgr* mgr);
 
     void Init();
     void Activate();
@@ -169,7 +169,7 @@ public:
     void Apply() const;
     void Reset(const plDrawInterface* di=nil) const;
 
-    int GetNumLayers(plKey meshKey = nil) const; 
+    int GetNumLayers(plKey meshKey = nil) const;
     void AddLayer(const plMorphArray& ma) { fMorphs.Append(ma); }
 
     int GetNumDeltas(int iLay, plKey meshKey = nil) const;

@@ -50,7 +50,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 // abstracted so that we can switch to a different container structure if necessary
 //
 class plNetClientGroups
-{   
+{
     friend class plNetClientMgr;
 private:
     struct OwnedGroup
@@ -95,8 +95,8 @@ public:
         SetGroup(plNetGroup::kNetGroupRemotePhysicals, false /*ownit*/);
     }
     
-    void SetGroup(plNetGroupId& grpId, bool ownIt) 
-    { 
+    void SetGroup(plNetGroupId& grpId, bool ownIt)
+    {
         std::set<OwnedGroup>::iterator it=IFind(grpId);
         if (it != fGroups.end())
         {
@@ -112,8 +112,8 @@ public:
     }
     
 #if 0
-    void RemoveGroup(const plNetGroupId& grpId) 
-    { 
+    void RemoveGroup(const plNetGroupId& grpId)
+    {
         std::set<OwnedGroup>::iterator it=IFind(grpId);
         if (it != fGroups.end())
             fGroups.erase(it);
@@ -125,11 +125,11 @@ public:
     }
 #endif
     int IsGroupLocal(const plNetGroupId& grpId) const
-    { 
+    {
         std::set<OwnedGroup>::const_iterator it=IFind(grpId);
         if (it != fGroups.end())
         {
-            if ((*it).fOwnIt) 
+            if ((*it).fOwnIt)
                 return 1;   // yes
             return 0;       // no
         }

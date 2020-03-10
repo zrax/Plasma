@@ -115,7 +115,7 @@ hsVertexShader& hsVertexShader::Instance()
     hsGuardBegin("hsVertexShader::Instance");
     static hsVertexShader instance;
     return instance;
-    hsGuardEnd; 
+    hsGuardEnd;
 }
 
 void hsVertexShader::Open()
@@ -153,7 +153,7 @@ void hsVertexShader::ShadeNode(INode* node, hsMatrix44& l2w, hsMatrix44& w2l, hs
 
     fLocalToWorld = l2w;
     hsMatrix44 tempMatrix = w2l; // l2w's inverse
-    tempMatrix.GetTranspose( &fNormalToWorld ); // Inverse-transpose of the fLocalToWorld matrix, 
+    tempMatrix.GetTranspose( &fNormalToWorld ); // Inverse-transpose of the fLocalToWorld matrix,
     
     int         i;
     for( i = 0; i < spans.GetCount(); i++ )
@@ -180,13 +180,13 @@ void hsVertexShader::IShadeSpan( plGeometrySpan *span, INode* node )
 
     hsGuardBegin("hsVertexShader::ShadeSpan");
     
-    const char* dbgNodeName = node->GetName(); 
+    const char* dbgNodeName = node->GetName();
 
     if( span->fNumVerts == 0 )
         return;
 
-    fShadeColorTable = new hsColorRGBA[ span->fNumVerts ];  
-    fIllumColorTable = new hsColorRGBA[ span->fNumVerts ];  
+    fShadeColorTable = new hsColorRGBA[ span->fNumVerts ];
+    fIllumColorTable = new hsColorRGBA[ span->fNumVerts ];
     
     translucent = IsTranslucent( span->fMaterial );
 
@@ -209,7 +209,7 @@ void hsVertexShader::IShadeSpan( plGeometrySpan *span, INode* node )
         if( (lay->GetBlendFlags() & hsGMatState::kBlendAlpha)
             &&
             (
-                !i  
+                !i
                 ||
                 (lay->GetMiscFlags() & hsGMatState::kMiscRestartPassHere)
             )
@@ -224,7 +224,7 @@ void hsVertexShader::IShadeSpan( plGeometrySpan *span, INode* node )
         IShadeVertices( span, &dirtyVector, node, translucent );
     else
     {
-        for( i = 0; i < span->fNumVerts; i++ )  
+        for( i = 0; i < span->fNumVerts; i++ )
         {
             /// This is good for the old way, but not sure about the new way. Test once new way is in again -mcn
 //          fShadeColorTable[ i ].Set( 1, 1, 1, 1 );
@@ -290,7 +290,7 @@ void hsVertexShader::IShadeSpan( plGeometrySpan *span, INode* node )
     /// Combine shade and illum together into the diffuse color
     if( ( span->fProps & plGeometrySpan::kLiteMask ) != plGeometrySpan::kLiteMaterial )
     {
-        /// The two vertex lighting formulas take in a vetex color pre-processed, i.e. in 
+        /// The two vertex lighting formulas take in a vetex color pre-processed, i.e. in
         /// the form of: vtxColor = ( maxVtxColor * materialDiffuse + maxIllumColor )
         span->fProps |= plGeometrySpan::kDiffuseFoldedIn;
         if( !shadeIt )
@@ -341,8 +341,8 @@ void hsVertexShader::IShadeSpan( plGeometrySpan *span, INode* node )
     for( i = 0; i < span->fNumVerts; i++ )
         span->StuffVertex( i, fShadeColorTable + i, fIllumColorTable + i );
 
-    delete [] fShadeColorTable;       
-    delete [] fIllumColorTable;       
+    delete [] fShadeColorTable;
+    delete [] fIllumColorTable;
 
     hsGuardEnd;
 }
@@ -353,7 +353,7 @@ void hsVertexShader::IShadeSpan( plGeometrySpan *span, INode* node )
 //                 want the following properties on each vertex:
 //                  diffuseColor = vertexColor * matDiffuse + matAmbient (including alpha)
 //                  specularColor = ( illumniation + pre-shading ) * matDiffuse + matAmbient
-//                 We do the mat modulation outside of this function, so we 
+//                 We do the mat modulation outside of this function, so we
 //                 just gotta make sure the two arrays get the right values.
 
 void hsVertexShader::IShadeVertices( plGeometrySpan *span, hsBitVector *dirtyVector, INode* node, bool translucent )
@@ -452,7 +452,7 @@ bool hsVertexShader::IsTranslucent( hsGMaterial *material )
     }
 
     return false;
-    hsGuardEnd; 
+    hsGuardEnd;
 }
 
 

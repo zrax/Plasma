@@ -43,7 +43,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "HeadSpin.h"
 
 void plClientMsg::IReset()
-{ 
+{
     fMsgFlag = 0;
     fAgeName = "";
 }

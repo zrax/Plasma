@@ -62,7 +62,7 @@ enum KAddValueMode
 //  A multimap class. Stores multiple values per key.
 class plKeysAndValues : public hsStreamable
 {
-public:    
+public:
     typedef std::list<ST::string>
         Values;
     typedef std::map<ST::string, Values, ST::less_i>

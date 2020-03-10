@@ -63,7 +63,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #define _plPlasmaMAXLayer_h
 
 //// Derived Type Class IDs ///////////////////////////////////////////////////
-//  If you create a new Plasma layer type, add a define for the class ID here 
+//  If you create a new Plasma layer type, add a define for the class ID here
 //  and also add the ID to the list in plPlasmaMAXLayer.cpp.
 
 const Class_ID LAYER_TEX_CLASS_ID( 0x4223c620, 0x183c4868 );
@@ -110,7 +110,7 @@ class plPlasmaMAXLayer : public Texmap
         plPlasmaMAXLayer();
         virtual ~plPlasmaMAXLayer();
 
-        void    DeleteThis() { delete this; }       
+        void    DeleteThis() { delete this; }
 
 
         // Static that checks the classID of the given texMap and, if it's a valid Plasma MAX Layer, returns a pointer to such

@@ -67,9 +67,9 @@ bool plWinAudibleProxy::Init(plWinAudible* aud)
     return fOwner != nil;
 }
 
-plKey plWinAudibleProxy::IGetNode() const 
-{ 
-    return fOwner ? fOwner->GetSceneNode() : nil; 
+plKey plWinAudibleProxy::IGetNode() const
+{
+    return fOwner ? fOwner->GetSceneNode() : nil;
 }
 
 plDrawableSpans* plWinAudibleProxy::ICreateProxy(hsGMaterial* mat, hsTArray<uint32_t>& idx, plDrawableSpans* addTo)

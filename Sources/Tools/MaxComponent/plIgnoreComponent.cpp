@@ -212,7 +212,7 @@ static plIgnoreLiteProc gIgnoreLiteProc;
 CLASS_DESC(plIgnoreLiteComponent, gIgnoreLiteDesc, "Control Max Light", "ControlLite", COMP_TYPE_IGNORE, IGNORELITE_CID)
 
 ParamBlockDesc2 gIgnoreLiteBk
-(   
+(
  plComponent::kBlkComp, _T("IgnoreLite"), 0, &gIgnoreLiteDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_IGNORELITE, IDS_COMP_IGNORELITES, 0, 0, &gIgnoreLiteProc,
@@ -246,7 +246,7 @@ void plIgnoreLiteComponent::SetState(LightState s)
                 continue;
 
             Object *obj = targ->EvalWorldState(TimeValue(0)).obj;
-            if (obj && (obj->SuperClassID() == SClass_ID(LIGHT_CLASS_ID))) 
+            if (obj && (obj->SuperClassID() == SClass_ID(LIGHT_CLASS_ID)))
             {
                 LightObject* liObj = (LightObject*)obj;
                 switch( s )
@@ -420,7 +420,7 @@ bool plNoShowComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         }
 #if 0
         plDrawInterface* di = node->GetDrawInterface();
-        if( di && 
+        if( di &&
         {
             di->SetProperty(plDrawInterface::kDisable, true);
         }
@@ -428,9 +428,9 @@ bool plNoShowComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     }
     return true;
 }
-void plNoShowComponent::CollectNonDrawables(INodeTab& nonDrawables) 
-{ 
+void plNoShowComponent::CollectNonDrawables(INodeTab& nonDrawables)
+{
     if( fCompPB->GetInt(kAffectDraw) )
-        AddTargetsToList(nonDrawables); 
+        AddTargetsToList(nonDrawables);
 }
 

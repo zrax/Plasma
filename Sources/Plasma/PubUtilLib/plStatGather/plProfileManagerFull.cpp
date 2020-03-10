@@ -204,7 +204,7 @@ static void PrintColumn(ProfileGroup& group, const char* groupName, int column, 
         case kColName:
             strcpy(str, group[i]->GetName());
 
-            // Since we don't draw the samples text for stats that only have 1 sample, 
+            // Since we don't draw the samples text for stats that only have 1 sample,
             // if the stat with the longest name is fluctuating between 1 and more than
             // 1 sample the width of the column will jump around.  So we calculate the
             // width based on the stat name plus the width of the widest sample we should
@@ -520,7 +520,7 @@ void plProfileManagerFull::ShowLaps(const char* groupName, const char* varName)
     
             fShowLaps = nil;
         }
-        else 
+        else
         {
             fShowLaps = var;
         }

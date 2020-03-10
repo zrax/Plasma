@@ -44,7 +44,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plgDispatch.h"
 #include "hsResMgr.h"
 
-#include "plComponentReg.h" 
+#include "plComponentReg.h"
 #include "plAnimComponent.h"
 #include "plCameraComponents.h"
 #include "plMiscComponents.h"
@@ -70,7 +70,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plPhysical/plSimDefs.h"
 
 #include "pnMessage/plObjRefMsg.h"           //  Ibid
-#include "pnMessage/plIntRefMsg.h"           //  Ibid    
+#include "pnMessage/plIntRefMsg.h"           //  Ibid
 #include "pnMessage/plNodeRefMsg.h"          //  Ibid
 #include "pnMessage/plCameraMsg.h"           //  Ibid
 #include "MaxMain/plPlasmaRefMsgs.h"         //  Ibid
@@ -164,7 +164,7 @@ enum
 
 //Max paramblock2 stuff below.
 ParamBlockDesc2 gLimitPaneraBk
-(   
+(
     1, _T("camera"), 0, &gLimitPaneraDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_CAMERAPAN, IDS_COMP_ALLOW_PAN,  0, 0, NULL,
@@ -246,7 +246,7 @@ enum
 
 //Max paramblock2 stuff below.
 ParamBlockDesc2 gCameraZoomeraBk
-(   
+(
     1, _T("camera"), 0, &gCameraZoomeraDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_CAMERAZOOM, IDS_COMP_CAMERAZOOM,  0, 0, NULL,
@@ -333,7 +333,7 @@ enum
     kTransPOAAccel,
     kTransDecel,
     kTransPOADecel,
-    kTransVelocity, 
+    kTransVelocity,
     kTrans,
     kIgnoreTrans,
     kTransPOAVelocity,
@@ -341,7 +341,7 @@ enum
 
 //Max paramblock2 stuff below.
 ParamBlockDesc2 gTransOverrideeraBk
-(   
+(
     1, _T("camera"), 0, &gTransOverrideeraDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_CAMERA_TRANS, IDS_COMP_CAMERATRANS,  0, 0, NULL,
@@ -515,7 +515,7 @@ bool plTransOverrideComponent::DeInit(plMaxNode *node, plErrorMsg *pErrMsg)
 //Max desc stuff necessary.
 CLASS_DESC(plPOAAvatarComponent, gPOAAvatareraDesc, "Avatar POA",  "Avatar POA", COMP_TYPE_CAMERA, AVATAR_POA_CID)
 
-enum 
+enum
 {
     kAvPOAOffX,
     kAvPOAOffY,
@@ -525,7 +525,7 @@ enum
 };
 //Max paramblock2 stuff below.
 ParamBlockDesc2 gPOAAvatareraBk
-(   
+(
     1, _T("camera"), 0, &gPOAAvatareraDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_AVATAR_POA, IDS_AVATARPOA, 0, 0, NULL,
@@ -591,7 +591,7 @@ enum
 
 //Max paramblock2 stuff below.
 ParamBlockDesc2 gPOAObjecteraBk
-(   
+(
     1, _T("camera"), 0, &gPOAObjecteraDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_OBJECT_POA, IDS_COMP_OBJECTPOA,  0, 0, NULL,
@@ -644,7 +644,7 @@ bool plPOAObjectComponent::SetupProperties(plMaxNode* pNode, plErrorMsg *pErrMsg
     {
         plMaxNode *pPOA = ((plMaxNode*)fCompPB->GetINode(kPOAObject));
         if (pPOA)
-        {   
+        {
             pPOA->SetForceLocal(true);
             return true;
         }
@@ -693,7 +693,7 @@ enum
 
 //Max paramblock2 stuff below.
 ParamBlockDesc2 gMakeDefaultCameraBk
-(   
+(
     1, _T("camera"), 0, &gMakeDefaultCameraDesc, P_AUTO_CONSTRUCT, plComponent::kRefComp,
 
         
@@ -808,7 +808,7 @@ bool plCameraBaseComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                 camTrans->fCutPos = trans->fCutPos;
                 camTrans->fIgnore = trans->fIgnore;
 
-                fModKeys[node]->AddTrans(camTrans); 
+                fModKeys[node]->AddTrans(camTrans);
                 idx++;
             }
     
@@ -845,7 +845,7 @@ plCameraModifier1* plCameraBaseComponent::ICreateCameraModifier(plMaxNode* pNode
     
     obj = pNode->EvalWorldState(hsConverterUtils::Instance().GetTime(pNode->GetInterface())).obj;
     
-    hsVector3 pt;   
+    hsVector3 pt;
     
     float FOVvalue= 0.0;            //Currently in Radians
     // radians
@@ -981,7 +981,7 @@ bool plCameraBaseComponent::ISetPOA(plMaxNode* pNode, plCameraBrain1* pBrain, pl
     {
         plComponentBase *comp = pNode->GetAttachedComponent(x);
         if (comp->ClassID() == OBJECT_POA_CID)
-        {   
+        {
             if (objPOAComp != 0 || POAComp != 0)
             {
                 pErrMsg->Set(true, "Export Error - Cameras",
@@ -1013,7 +1013,7 @@ bool plCameraBaseComponent::ISetPOA(plMaxNode* pNode, plCameraBrain1* pBrain, pl
         if (!pBlk)
             return false;
 
-        plKey fCamKey = ((plPOAObjectComponent*)objPOAComp)->GetObjectKey(); 
+        plKey fCamKey = ((plPOAObjectComponent*)objPOAComp)->GetObjectKey();
         if (fCamKey)
         {
             pBrain->SetSubject(plSceneObject::ConvertNoRef(fCamKey->GetObjectPtr()));
@@ -1084,7 +1084,7 @@ CLASS_DESC(plCamera1Component, gCamera1Desc, "FixedCamera",  "Fixed Camera", COM
 
 //Max paramblock2 stuff below.
 ParamBlockDesc2 gCamera1Bk
-(   
+(
     1, _T("camera"), 0, &gCamera1Desc, P_AUTO_CONSTRUCT, plComponent::kRefComp,
 
     end
@@ -1116,7 +1116,7 @@ bool plCamera1Component::PreConvert(plMaxNode *pNode, plErrorMsg *pErrMsg)
     pBrain->SetFlags(plCameraBrain1::kCutPos);
 
     if (!ISetPOA(pNode, pBrain, pErrMsg))
-        pBrain->SetTargetPoint(ICreateFocalPointObject(pNode, pErrMsg));        
+        pBrain->SetTargetPoint(ICreateFocalPointObject(pNode, pErrMsg));
         
     ISetLimitPan(pNode, pBrain);
     ISetLimitZoom(pNode, pBrain);
@@ -1151,7 +1151,7 @@ CLASS_DESC(plCameraIgnoreSub, gCameraIgnoreSubDesc, "IgnoreSubworldMovement",  "
 
 //Max paramblock2 stuff below.
 ParamBlockDesc2 gCameraIgnoreSubBk
-(   
+(
     1, _T("camera"), 0, &gCameraIgnoreSubDesc, P_AUTO_CONSTRUCT, plComponent::kRefComp,
 
     end
@@ -1195,7 +1195,7 @@ enum
     kAutoCamOffZ,
     kAutoCamWorldspace,
     kAutoCamLOS,
-    kAutoCamSpeed, 
+    kAutoCamSpeed,
     kAutoCamAccel,
     kAutoPOAOffX,
     kAutoPOAOffY,
@@ -1214,7 +1214,7 @@ enum
 };
 //Max paramblock2 stuff below.
 ParamBlockDesc2 gAutoCameraBk
-(   
+(
     1, _T("camera"), 0, &gAutoCameraDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_AUTOCAM, IDS_COMP_AUTOCAM,  0, 0, NULL,
@@ -1359,10 +1359,10 @@ bool plAutoCamComponent::PreConvert(plMaxNode *pNode, plErrorMsg *pErrMsg)
     pBrain->SetOffset(pt);
     pt.Set(fCompPB->GetFloat(kAutoPOAOffX),fCompPB->GetFloat(kAutoPOAOffY),fCompPB->GetFloat(kAutoPOAOffZ));
     pBrain->SetPOAOffset(pt);
-    if (fCompPB->GetInt(kAutoCamPosWorldspace)) 
+    if (fCompPB->GetInt(kAutoCamPosWorldspace))
         pBrain->SetFlags(plCameraBrain1::kWorldspacePos);
 
-    if (fCompPB->GetInt(kAutoCamPOAWorldspace)) 
+    if (fCompPB->GetInt(kAutoCamPOAWorldspace))
         pBrain->SetFlags(plCameraBrain1::kWorldspacePOA);
 
     if (fCompPB->GetInt(kAutoCamLOS))
@@ -1438,7 +1438,7 @@ enum
 };
 //Max paramblock2 stuff below.
 ParamBlockDesc2 gFPCameraBk
-(   
+(
     1, _T("camera"), 0, &gFPCameraDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_FIRSTPERSON_CAM, IDS_COMP_FIRST_PERSONCAM,  0, 0, NULL,
@@ -1682,7 +1682,7 @@ bool plRailCameraComponent::IMakeLineMod(plMaxNode* pNode, plErrorMsg* pErrMsg)
     hsMatrix44 loc2Par = pathNode->Matrix3ToMatrix44(l2w * w2p);
 
     gemAffineParts ap;
-    decomp_affine(loc2Par.fMap, &ap); 
+    decomp_affine(loc2Par.fMap, &ap);
     hsAffineParts initParts;
     AP_SET(initParts, ap);
 
@@ -1786,8 +1786,8 @@ bool plRailCameraComponent::PreConvert(plMaxNode* pNode, plErrorMsg* pErrMsg)
     pBrain->SetPOAAccel(fCompPB->GetFloat(kRailPOAAccel));
     pBrain->SetPOADecel(fCompPB->GetFloat(kRailPOADecel));
 
-    if (!ISetPOA(pNode, pBrain, pErrMsg))       
-        pBrain->SetTargetPoint(ICreateFocalPointObject(pNode, pErrMsg));        
+    if (!ISetPOA(pNode, pBrain, pErrMsg))
+        pBrain->SetTargetPoint(ICreateFocalPointObject(pNode, pErrMsg));
     
     ISetLimitPan(pNode, pBrain);
     ISetLimitZoom(pNode, pBrain);
@@ -1935,8 +1935,8 @@ bool plCircleCameraComponent::PreConvert(plMaxNode* pNode, plErrorMsg* pErrMsg)
     if (fCompPB->GetFloat(kCircleSpeed))
         pBrain->SetCircumferencePerSec(fCompPB->GetFloat(kCircleSpeed));
 
-    if (!ISetPOA(pNode, pBrain, pErrMsg))       
-        pBrain->SetTargetPoint(ICreateFocalPointObject(pNode, pErrMsg));        
+    if (!ISetPOA(pNode, pBrain, pErrMsg))
+        pBrain->SetTargetPoint(ICreateFocalPointObject(pNode, pErrMsg));
     else
         pBrain->SetCircleFlags(plCameraBrain1_Circle::kCircleLocalAvatar);
 
@@ -1946,16 +1946,16 @@ bool plCircleCameraComponent::PreConvert(plMaxNode* pNode, plErrorMsg* pErrMsg)
     Matrix3 ReturnMatrix = pNode->GetTarget()->GetNodeTM(Now);
     Point3  ReturnVal = ReturnMatrix.GetRow(3);
 
-    point.fX = ReturnVal.x;     
-    point.fY = ReturnVal.y;     
-    point.fZ = ReturnVal.z;     
+    point.fX = ReturnVal.x;
+    point.fY = ReturnVal.y;
+    point.fZ = ReturnVal.z;
     
     ReturnMatrix = pNode->GetLocalToWorld(Now);
     ReturnVal = ReturnMatrix.GetRow(3);
     
-    point2.fX = ReturnVal.x;    
-    point2.fY = ReturnVal.y;    
-    point2.fZ = ReturnVal.z;    
+    point2.fX = ReturnVal.x;
+    point2.fY = ReturnVal.y;
+    point2.fZ = ReturnVal.z;
     
     hsVector3 vec(point - point2);
     pBrain->SetRadius(vec.Magnitude());
@@ -2002,9 +2002,9 @@ public:
     plCameraDetectorComponent();
     void DeleteThis() { delete this; }
 
-    bool SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg); 
+    bool SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg);
     bool Convert(plMaxNode *node, plErrorMsg *pErrMsg);
-    bool PreConvert(plMaxNode *node, plErrorMsg *pErrMsg); 
+    bool PreConvert(plMaxNode *node, plErrorMsg *pErrMsg);
 
     virtual void CollectNonDrawables(INodeTab& nonDrawables) { AddTargetsToList(nonDrawables); }
 };
@@ -2090,9 +2090,9 @@ bool plCameraDetectorComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     // need to get the key for the camera here...
     plMaxNode* pCamNode = (plMaxNode*)fCompPB->GetINode(kCameraTarget);
     if (pCamNode)
-    {   
+    {
         if(pCamNode->CanConvert())
-        {           
+        {
             pMsg->SetCmd(plCameraMsg::kRegionPushCamera);
             pMsg->SetNewCam(((plMaxNode*)pCamNode)->GetSceneObject()->GetKey());
 
@@ -2159,7 +2159,7 @@ enum
     kFollowCamOffZ,
     kFollowCamWorldspace,
     kFollowCamLOS,
-    kFollowCamSpeed, 
+    kFollowCamSpeed,
     kFollowCamAccel,
     kFollowPOAOffX,
     kFollowPOAOffY,
@@ -2176,7 +2176,7 @@ enum
 };
 //Max paramblock2 stuff below.
 ParamBlockDesc2 gFollowCameraBk
-(   
+(
     1, _T("camera"), 0, &gFollowCameraDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_OBJECT_FOLLOWCAM, IDS_COMP_OBJECT_FOLLOWCAM,  0, 0, NULL,
@@ -2313,10 +2313,10 @@ bool plFollowCamComponent::PreConvert(plMaxNode *pNode, plErrorMsg *pErrMsg)
     pBrain->SetOffset(pt);
     pt.Set(fCompPB->GetFloat(kFollowPOAOffX),fCompPB->GetFloat(kFollowPOAOffY),fCompPB->GetFloat(kFollowPOAOffZ));
     pBrain->SetPOAOffset(pt);
-    if (fCompPB->GetInt(kFollowCamPosWorldspace))   
+    if (fCompPB->GetInt(kFollowCamPosWorldspace))
         pBrain->SetFlags(plCameraBrain1::kWorldspacePos);
 
-    if (fCompPB->GetInt(kFollowCamPOAWorldspace))   
+    if (fCompPB->GetInt(kFollowCamPOAWorldspace))
         pBrain->SetFlags(plCameraBrain1::kWorldspacePOA);
 
     if (fCompPB->GetInt(kFollowCamLOS))
@@ -2342,7 +2342,7 @@ bool plFollowCamComponent::PreConvert(plMaxNode *pNode, plErrorMsg *pErrMsg)
 
     ISetLimitPan(pNode, pBrain);
     ISetLimitZoom(pNode, pBrain);
-    ISetIgnoreSubworld(pNode, pBrain);      
+    ISetIgnoreSubworld(pNode, pBrain);
 
     pBrain->SetAccel(fCompPB->GetFloat(kFollowCamAccel));
     pBrain->SetDecel(fCompPB->GetFloat(kFollowCamDecel));
@@ -2435,7 +2435,7 @@ bool plCameraAnimCmdComponent::Convert(plMaxNode* pNode, plErrorMsg* pErrMsg)
             return false;
         // forgive me oh const-ness gods.  it is only the exporter, after all...
         const_cast<plCameraModifier1*>(pCamMod)->SetAnimCommands( fCompPB->GetInt(kAnimateOnPush), fCompPB->GetInt(kStopOnPop), fCompPB->GetInt(kResetOnPop) );
-    }   
+    }
     return true;
 }
 

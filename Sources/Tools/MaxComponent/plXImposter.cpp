@@ -74,7 +74,7 @@ void DummyCodeIncludeFuncXImposter()
 CLASS_DESC(plXImposterComp, gXImposterDesc, "X-Form",  "X-Form", COMP_TYPE_DISTRIBUTOR, XIMPOSTER_COMP_CID)
 
 ParamBlockDesc2 gXImposterBk
-(   
+(
     plComponent::kBlkComp, _T("X-Form"), 0, &gXImposterDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_XFORM, IDS_COMP_XFORMS, 0, 0, NULL,
@@ -115,7 +115,7 @@ public:
 CLASS_DESC(plForceCTTComp, gForceCTTDesc, "ForceClick2Turn",  "ForceCTT", COMP_TYPE_MISC, FORCE_CTT_COMP_CID)
 
 ParamBlockDesc2 gForceCTTBk
-(   
+(
     plComponent::kBlkComp, _T("ForceCTT"), 0, &gForceCTTDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_FORCE_CTT, IDS_COMP_FORCE_CTT, 0, 0, NULL,
@@ -204,7 +204,7 @@ public:
         case WM_INITDIALOG:
             ISetTransEnable(map);
             break;
-        case WM_COMMAND: 
+        case WM_COMMAND:
             ISetTransEnable(map);
             break;
         }
@@ -219,7 +219,7 @@ static FilterInheritCompDlgProc gFilterInheritCompDlgProc;
 CLASS_DESC(plFilterInheritComp, gFilterInheritDesc, "Filter Inherit",  "FiltInherit", COMP_TYPE_MISC, FILTERINHERIT_COMP_CID)
 
 ParamBlockDesc2 gFilterInheritBk
-(   
+(
     plComponent::kBlkComp, _T("FilterInherit"), 0, &gFilterInheritDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_FILTERINHERIT, IDS_COMP_FILTER, 0, 0, &gFilterInheritCompDlgProc,

@@ -231,7 +231,7 @@ PYTHON_METHOD_DEFINITION(ptNotify, addVarNumber, args)
         PyObject* f = PyNumber_Float(number);
         self->fThis->AddVarNumber(name, (float)PyFloat_AsDouble(f));
         Py_DECREF(f);
-    } 
+    }
     else
     {
         PyErr_SetString(PyExc_TypeError, "addVarNumber expects a string and optional number");

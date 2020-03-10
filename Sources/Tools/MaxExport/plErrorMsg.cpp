@@ -65,38 +65,38 @@ plErrorMsg::plErrorMsg(const char* label, const char* msg)
     Set(label, msg);
 }
 
-plErrorMsg::plErrorMsg(bool bogus) 
-{ 
+plErrorMsg::plErrorMsg(bool bogus)
+{
     Set(bogus);
 }
 
-plErrorMsg::plErrorMsg(bool bogus, const char* label, const char* msg) 
-{ 
+plErrorMsg::plErrorMsg(bool bogus, const char* label, const char* msg)
+{
     Set(bogus, label, msg);
 }
 
-plErrorMsg::plErrorMsg(bool bogus, const char* label, const char* format, const char* str) 
-{ 
+plErrorMsg::plErrorMsg(bool bogus, const char* label, const char* format, const char* str)
+{
     Set(bogus, label, format, str);
 }
 
-plErrorMsg::plErrorMsg(bool bogus, const char* label, const char* format, const char* str1, const char* str2) 
-{ 
+plErrorMsg::plErrorMsg(bool bogus, const char* label, const char* format, const char* str1, const char* str2)
+{
     Set(bogus, label, format, str1, str2);
 }
 
-plErrorMsg::plErrorMsg(bool bogus, const char* label, const char* format, int n) 
-{ 
+plErrorMsg::plErrorMsg(bool bogus, const char* label, const char* format, int n)
+{
     Set(bogus, label, format, n);
 }
 
-plErrorMsg::plErrorMsg(bool bogus, const char* label, const char* format, int n, int m) 
-{ 
+plErrorMsg::plErrorMsg(bool bogus, const char* label, const char* format, int n, int m)
+{
     Set(bogus, label, format, n, m);
 }
 
-plErrorMsg::plErrorMsg(bool bogus, const char* label, const char* format, float f) 
-{ 
+plErrorMsg::plErrorMsg(bool bogus, const char* label, const char* format, float f)
+{
     Set(bogus, label, format, f);
 }
 
@@ -119,17 +119,17 @@ plErrorMsg &plErrorMsg::Set(const char* label, const char* msg)
     return *this;
 }
 
-plErrorMsg &plErrorMsg::Set(bool bogus) 
-{ 
+plErrorMsg &plErrorMsg::Set(bool bogus)
+{
     fBogus = bogus;
-    fLabel[0] = 0; 
-    fMsg[0] = 0; 
+    fLabel[0] = 0;
+    fMsg[0] = 0;
 
     return *this;
 }
 
-plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* msg) 
-{ 
+plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* msg)
+{
     if( fBogus = bogus )
     {
         if( label )
@@ -139,7 +139,7 @@ plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* msg)
         if( msg )
         {
             hsAssert(strlen(msg) < PL_ERR_MSG_MAX_MSG, "Too long of an error message for plErrorMsg.");
-            hsStrncpy(fMsg, msg, PL_ERR_MSG_MAX_MSG); 
+            hsStrncpy(fMsg, msg, PL_ERR_MSG_MAX_MSG);
         }
         else
             *fMsg = 0;
@@ -148,75 +148,75 @@ plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* msg)
     return *this;
 }
 
-plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, const char* str) 
-{ 
+plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, const char* str)
+{
     if( fBogus = bogus )
     {
         if( label )
             hsStrncpy(fLabel, label, 256);
         else
             *fLabel = 0;
-        int length = sprintf(fMsg, format, str); 
+        int length = sprintf(fMsg, format, str);
         hsAssert(length < PL_ERR_MSG_MAX_MSG, "Too long of an error message for plErrorMsg.");
     }
 
     return *this;
 }
 
-plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, const char* str1, const char* str2) 
-{ 
+plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, const char* str1, const char* str2)
+{
     if( fBogus = bogus )
     {
         if( label )
             hsStrncpy(fLabel, label, 256);
         else
             *fLabel = 0;
-        int length = sprintf(fMsg, format, str1, str2); 
+        int length = sprintf(fMsg, format, str1, str2);
         hsAssert(length < PL_ERR_MSG_MAX_MSG, "Too long of an error message for plErrorMsg.");
     }
 
     return *this;
 }
 
-plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, int n) 
-{ 
+plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, int n)
+{
     if( fBogus = bogus )
     {
         if( label )
             hsStrncpy(fLabel, label, 256);
         else
             *fLabel = 0;
-        int length = sprintf(fMsg, format, n); 
+        int length = sprintf(fMsg, format, n);
         hsAssert(length < PL_ERR_MSG_MAX_MSG, "Too long of an error message for plErrorMsg.");
     }
 
     return *this;
 }
 
-plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, int n, int m) 
-{ 
+plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, int n, int m)
+{
     if( fBogus = bogus )
     {
         if( label )
             hsStrncpy(fLabel, label, 256);
         else
             *fLabel = 0;
-        int length = sprintf(fMsg, format, n, m); 
+        int length = sprintf(fMsg, format, n, m);
         hsAssert(length < PL_ERR_MSG_MAX_MSG, "Too long of an error message for plErrorMsg.");
     }
 
     return *this;
 }
 
-plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, float f) 
-{ 
+plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, float f)
+{
     if( fBogus = bogus )
     {
         if( label )
             hsStrncpy(fLabel, label, 256);
         else
             *fLabel = 0;
-        int length = sprintf(fMsg, format, f); 
+        int length = sprintf(fMsg, format, f);
         hsAssert(length < PL_ERR_MSG_MAX_MSG, "Too long of an error message for plErrorMsg.");
     }
 

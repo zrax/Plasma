@@ -104,10 +104,10 @@ const char  *plJPEG::GetLastError()
 }
 
 //// IRead ////////////////////////////////////////////////////////////////////
-//  Given an open hsStream (or a filename), reads the JPEG data off of the 
-//  stream and decodes it into a new plMipmap. The mipmap's buffer ends up 
-//  being a packed RGBx buffer, where x is 8 bits of unused alpha (go figure 
-//  that JPEG images can't store alpha, or even if they can, IJL certainly 
+//  Given an open hsStream (or a filename), reads the JPEG data off of the
+//  stream and decodes it into a new plMipmap. The mipmap's buffer ends up
+//  being a packed RGBx buffer, where x is 8 bits of unused alpha (go figure
+//  that JPEG images can't store alpha, or even if they can, IJL certainly
 //  doesn't know about it).
 //  Returns a pointer to the new mipmap if successful, nil otherwise.
 //  Note: more or less lifted straight out of the IJL documentation, with

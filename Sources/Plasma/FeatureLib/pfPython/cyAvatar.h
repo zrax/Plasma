@@ -103,7 +103,7 @@ public:
     virtual void OneShot(pyKey &seekKey, float duration, bool usePhysics,
                    const ST::string &animName, bool drivable, bool reversible);
 
-    // oneShot Avatar 
+    // oneShot Avatar
     virtual void RunBehavior(pyKey &behKey, bool netForce, bool netProp);
     virtual void RunBehaviorAndReply(pyKey& behKey, pyKey& replyKey, bool netForce, bool netProp);
     virtual bool RunCoopAnim(pyKey& targetKey, ST::string activeAvatarAnim, ST::string targetAvatarAnim, float range, float dist, bool move);
@@ -127,7 +127,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : GetAvatarClothingGroup
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Return what clothing group the avatar is in
     //
@@ -136,7 +136,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : GetEntireClothingList
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Return a list of the wearable items for this avatar of that clothing_type
     //
@@ -145,7 +145,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : GetClosetClothingList
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Return a list of the wearable items for this avatar of that clothing_type
     //
@@ -154,7 +154,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : GetAvatarClothingList
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Return a list of items being worn by this avatar
     //
@@ -163,7 +163,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : GetWardrobeClothingList
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Return a list of items that are in the avatars closet
     //
@@ -203,7 +203,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : GetMatchingClothingItem
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Return the clothing item that matches this one
     //
@@ -212,7 +212,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : WearClothingItem
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Wear a particular piece of clothing based on name of clothing item
     //             : returns 0, if clothing item was not found
@@ -222,7 +222,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : RemoveClothingItem
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Remove (take off) a particular piece of clothing based on name of clothing item
     //             : returns 0, if clothing item was not found
@@ -232,7 +232,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : TintClothingItem
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Tint a clothing item, i.e. change the color of it
     //
@@ -252,7 +252,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : WearClothingItem
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Wear a particular piece of clothing based on name of clothing item
     //             : returns 0, if clothing item was not found
@@ -262,7 +262,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : RemoveClothingItem
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Remove (take off) a particular piece of clothing based on name of clothing item
     //             : returns 0, if clothing item was not found
@@ -272,7 +272,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : TintClothingItem
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Tint a clothing item, i.e. change the color of it
     //
@@ -292,7 +292,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : GetClothingItemParameterString
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Get the custom parameter string for a clothing item
     //
@@ -301,7 +301,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : GetTintClothingItem
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Get the tint a clothing item, i.e. change the color of it
     //
@@ -310,7 +310,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : GetTintClothingItem
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Get the tint a clothing item, i.e. change the color of it
     //
@@ -319,7 +319,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : TintSkin
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Tint the skin of the player's avatar
     //
@@ -327,7 +327,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : TintSkinU
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Tint the skin of the player's avatar with optional update flag
     //
@@ -336,7 +336,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////
     //
     //  Function   : GetTintSkin
-    //  PARAMETERS : 
+    //  PARAMETERS :
     //
     //  PURPOSE    : Get the tint of the skin of the player's avatar
     //
@@ -540,7 +540,7 @@ public:
     //  PARAMETERS : none
     //
     //  PURPOSE    : Suspend input on the local avatar
-    //            
+    //
     static void EnableMovementControls();
     static void DisableMovementControls();
     static void EnableMouseMovement();

@@ -50,7 +50,7 @@ plNet   plNet::_;
 #if HS_BUILD_FOR_WIN32
 
 plNet::plNet()
-{        
+{
     static struct WSAData wsa;
     WSAStartup(0x0101, &wsa);
 }

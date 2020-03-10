@@ -54,17 +54,17 @@ class plExportErrorMsg : public plErrorMsg {
 public:
     plExportErrorMsg(const char* label, const char* msg) : plErrorMsg(label, msg) { }
     plExportErrorMsg(bool bogus = false) : plErrorMsg(bogus) { }
-    plExportErrorMsg(bool bogus, const char* label, const char* msg) 
+    plExportErrorMsg(bool bogus, const char* label, const char* msg)
         : plErrorMsg(bogus, label, msg) { }
-    plExportErrorMsg(bool bogus, const char* label, const char* format, const char* str) 
+    plExportErrorMsg(bool bogus, const char* label, const char* format, const char* str)
         : plErrorMsg(bogus, label, format, str) { }
-    plExportErrorMsg(bool bogus, const char* label, const char* format, const char* str1, const char* str2) 
+    plExportErrorMsg(bool bogus, const char* label, const char* format, const char* str1, const char* str2)
         : plErrorMsg(bogus, label, format, str1, str2) { }
-    plExportErrorMsg(bool bogus, const char* label, const char* format, int n) 
+    plExportErrorMsg(bool bogus, const char* label, const char* format, int n)
         : plErrorMsg(bogus, label, format, n) { }
-    plExportErrorMsg(bool bogus, const char* label, const char* format, int n, int m) 
+    plExportErrorMsg(bool bogus, const char* label, const char* format, int n, int m)
         : plErrorMsg(bogus, label, format, n, m) { }
-    plExportErrorMsg(bool bogus, const char* label, const char* format, float f) 
+    plExportErrorMsg(bool bogus, const char* label, const char* format, float f)
         : plErrorMsg(bogus, label, format, f) { }
 
     virtual bool Ask(); // if b is true and user says yes to displayed query, return true, else false
@@ -84,17 +84,17 @@ class plExportErrorMsg : public plErrorMsg {
 public:
     plExportErrorMsg(const char* label, const char* msg) : plErrorMsg() { }
     plExportErrorMsg(bool bogus = false) : plErrorMsg() { }
-    plExportErrorMsg(bool bogus, const char* label, const char* msg) 
+    plExportErrorMsg(bool bogus, const char* label, const char* msg)
         : plErrorMsg() { }
-    plExportErrorMsg(bool bogus, const char* label, const char* format, const char* str) 
+    plExportErrorMsg(bool bogus, const char* label, const char* format, const char* str)
         : plErrorMsg() { }
-    plExportErrorMsg(bool bogus, const char* label, const char* format, const char* str1, const char* str2) 
+    plExportErrorMsg(bool bogus, const char* label, const char* format, const char* str1, const char* str2)
         : plErrorMsg() { }
-    plExportErrorMsg(bool bogus, const char* label, const char* format, int n) 
+    plExportErrorMsg(bool bogus, const char* label, const char* format, int n)
         : plErrorMsg() { }
-    plExportErrorMsg(bool bogus, const char* label, const char* format, int n, int m) 
+    plExportErrorMsg(bool bogus, const char* label, const char* format, int n, int m)
         : plErrorMsg() { }
-    plExportErrorMsg(bool bogus, const char* label, const char* format, float f) 
+    plExportErrorMsg(bool bogus, const char* label, const char* format, float f)
         : plErrorMsg() { }
 };
 #endif // PL_NULL_ERRMSG
@@ -129,17 +129,17 @@ class plExportErrorDbg : public plExportErrorMsg {
 public:
     plExportErrorDbg(const char* label, const char* msg) : plExportErrorMsg(label, msg) { }
     plExportErrorDbg(bool bogus = true) : plExportErrorMsg(bogus) { }
-    plExportErrorDbg(bool bogus, const char* label, const char* msg) 
+    plExportErrorDbg(bool bogus, const char* label, const char* msg)
         : plExportErrorMsg(bogus, label, msg) { }
-    plExportErrorDbg(bool bogus, const char* label, const char* format, const char* str) 
+    plExportErrorDbg(bool bogus, const char* label, const char* format, const char* str)
         : plExportErrorMsg(bogus, label, format, str) { }
-    plExportErrorDbg(bool bogus, const char* label, const char* format, const char* str1, const char* str2) 
+    plExportErrorDbg(bool bogus, const char* label, const char* format, const char* str1, const char* str2)
         : plExportErrorMsg(bogus, label, format, str1, str2) { }
-    plExportErrorDbg(bool bogus, const char* label, const char* format, int n) 
+    plExportErrorDbg(bool bogus, const char* label, const char* format, int n)
         : plExportErrorMsg(bogus, label, format, n) { }
-    plExportErrorDbg(bool bogus, const char* label, const char* format, int n, int m) 
+    plExportErrorDbg(bool bogus, const char* label, const char* format, int n, int m)
         : plExportErrorMsg(bogus, label, format, n, m) { }
-    plExportErrorDbg(bool bogus, const char* label, const char* format, float f) 
+    plExportErrorDbg(bool bogus, const char* label, const char* format, float f)
         : plExportErrorMsg(bogus, label, format, f) { }
 };
 

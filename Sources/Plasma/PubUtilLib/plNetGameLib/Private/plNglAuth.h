@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/PubUtilLib/plNetGameLib/Private/plNglAuth.h
-*   
+*
 ***/
 
 #ifdef PLASMA20_SOURCES_PLASMA_PUBUTILLIB_PLNETGAMELIB_PRIVATE_PLNGLAUTH_H
@@ -119,7 +119,7 @@ void NetCliAuthAccountExistsRequest (
     const wchar_t                                 accountName[],
     FNetCliAuthAccountExistsRequestCallback     callback,
     void *                                      param
-);  
+);
 
 //============================================================================
 // Login

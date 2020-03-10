@@ -98,7 +98,7 @@ public:
 
     plDynamicEnvLayer();
     ~plDynamicEnvLayer();
-    void DeleteThis() { delete this; }      
+    void DeleteThis() { delete this; }
 
     //From MtlBase
     ParamDlg    *CreateParamDlg( HWND hwMtlEdit, IMtlParams *imp );
@@ -108,7 +108,7 @@ public:
     Interval    Validity( TimeValue t );
     ULONG       LocalRequirements( int subMtlNum );
 
-    //From Texmap 
+    //From Texmap
     RGBA        EvalColor( ShadeContext& sc );
     float       EvalMono( ShadeContext& sc );
     Point3      EvalNormalPerturb( ShadeContext& sc );
@@ -139,7 +139,7 @@ public:
     IOResult Save(ISave *isave);
 
     //From Animatable
-    Class_ID    ClassID() { return DYNAMIC_ENV_LAYER_CLASS_ID; }        
+    Class_ID    ClassID() { return DYNAMIC_ENV_LAYER_CLASS_ID; }
     SClass_ID   SuperClassID() { return TEXMAP_CLASS_ID; }
     void        GetClassName( TSTR& s );
 
@@ -147,7 +147,7 @@ public:
     RefResult       NotifyRefChanged( Interval changeInt, RefTargetHandle hTarget, PartID& partID,  RefMessage message );
 
     int             NumSubs();
-    Animatable      *SubAnim(int i); 
+    Animatable      *SubAnim(int i);
     TSTR            SubAnimName(int i);
 
     int             NumRefs();

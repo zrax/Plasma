@@ -153,7 +153,7 @@ bool plCaptureRender::Capture(const plKey& ack, uint16_t width, uint16_t height)
 
     req->SetRenderTarget(rt);
 
-    const uint32_t renderState 
+    const uint32_t renderState
         = plPipeline::kRenderNormal
         | plPipeline::kRenderClearColor
         | plPipeline::kRenderClearDepth;

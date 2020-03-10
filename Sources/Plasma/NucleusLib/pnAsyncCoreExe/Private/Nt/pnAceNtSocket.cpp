@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/NucleusLib/pnAsyncCoreExe/Private/Nt/pnAceNtSocket.cpp
-*   
+*
 ***/
 
 #include "../../Pch.h"
@@ -261,7 +261,7 @@ static bool SocketDispatchRead (NtSock * sock) {
         sock->opRead.read.buffer,
         sock->opRead.read.bytes,
         &bytesProcessed,
-        &notify.connType, 
+        &notify.connType,
         &notify.buildId,
         &notify.buildType,
         &notify.branchId,
@@ -395,20 +395,20 @@ static NtSock * SocketInitCommon (SOCKET hSocket) {
 
     // set socket buffer sizes
     int result = setsockopt(
-        hSocket, 
-        SOL_SOCKET, 
-        SO_SNDBUF, 
-        (const char *) &kTcpSndBufSize, 
+        hSocket,
+        SOL_SOCKET,
+        SO_SNDBUF,
+        (const char *) &kTcpSndBufSize,
         sizeof(kTcpSndBufSize)
     );
     if (result)
         LogMsg(kLogError, "setsockopt(send) failed (set send buffer size)");
 
     result = setsockopt(
-        hSocket, 
-        SOL_SOCKET, 
-        SO_RCVBUF, 
-        (const char *) &kTcpRcvBufSize, 
+        hSocket,
+        SOL_SOCKET,
+        SO_RCVBUF,
+        (const char *) &kTcpRcvBufSize,
         sizeof(kTcpRcvBufSize)
     );
     if (result)
@@ -532,18 +532,18 @@ static SOCKET ListenSocket(plNetAddress* listenAddr) {
        has already opened the port).
         static const BOOL s_reuseAddr = true;
         setsockopt(
-            s, 
-            SOL_SOCKET, 
-            SO_REUSEADDR, 
-            (const char *) &s_reuseAddr, 
+            s,
+            SOL_SOCKET,
+            SO_REUSEADDR,
+            (const char *) &s_reuseAddr,
             sizeof(s_reuseAddr)
         );
         static const LINGER s_linger = { true, 0 };
         setsockopt(
-            s, 
-            SOL_SOCKET, 
-            SO_LINGER, 
-            (const char *) &s_linger, 
+            s,
+            SOL_SOCKET,
+            SO_LINGER,
+            (const char *) &s_linger,
             sizeof(s_linger)
         );
     */
@@ -828,10 +828,10 @@ static void __cdecl DumpInvalidData (
 static void HardCloseSocket (SOCKET sock) {
     static const LINGER s_linger = { true, 0 };
     setsockopt(
-        sock, 
-        SOL_SOCKET, 
-        SO_LINGER, 
-        (const char *) &s_linger, 
+        sock,
+        SOL_SOCKET,
+        SO_LINGER,
+        (const char *) &s_linger,
         sizeof(s_linger)
     );
     closesocket(sock);
@@ -1050,13 +1050,13 @@ void INtSocketOpCompleteSocketRead (
 
             if (sock->opRead.read.bytesProcessed) {
                 memmove(
-                    sock->buffer, 
-                    sock->buffer + sock->opRead.read.bytesProcessed, 
+                    sock->buffer,
+                    sock->buffer + sock->opRead.read.bytesProcessed,
                     sock->bytesLeft
                 );
             }
 
-            // make sure there's enough space left in the buffer for another read  
+            // make sure there's enough space left in the buffer for another read
             if (sock->bytesLeft >= sizeof(sock->buffer))
                 break;
         }
@@ -1069,7 +1069,7 @@ void INtSocketOpCompleteSocketRead (
 
 //===========================================================================
 void INtSocketOpCompleteSocketWrite (
-    NtSock *            sock, 
+    NtSock *            sock,
     NtOpSocketWrite *   op
 ) {
     PerfSubCounter(kAsyncPerfSocketBytesWriteQueued, op->write.bytes);
@@ -1083,7 +1083,7 @@ void INtSocketOpCompleteSocketWrite (
 
 //===========================================================================
 bool INtSocketOpCompleteQueuedSocketWrite (
-    NtSock *            sock, 
+    NtSock *            sock,
     NtOpSocketWrite *   op
 ) {
     PerfSubCounter(kAsyncPerfSocketBytesWaitQueued, op->write.bytes);
@@ -1188,7 +1188,7 @@ void NtSocketConnect (
     ASSERT(notifyProc);
 
     // create async connection record with enough extra bytes for sendData
-    NtOpConnAttempt * op = 
+    NtOpConnAttempt * op =
      new(malloc(sizeof(NtOpConnAttempt) - sizeof(op->sendData) + sendBytes)) NtOpConnAttempt;
 
     // init Operation
@@ -1444,10 +1444,10 @@ void NtSocketEnableNagling (AsyncSocket conn, bool enable) {
     if (sock->handle != INVALID_HANDLE_VALUE) {
         BOOL noDelay = !enable;
         const int result = setsockopt(
-            (SOCKET) sock->handle, 
-            IPPROTO_TCP, 
-            TCP_NODELAY, 
-            (const char *) &noDelay, 
+            (SOCKET) sock->handle,
+            IPPROTO_TCP,
+            TCP_NODELAY,
+            (const char *) &noDelay,
             sizeof(noDelay)
         );
         if (result)

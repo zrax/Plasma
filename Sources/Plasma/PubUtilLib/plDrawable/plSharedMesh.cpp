@@ -60,10 +60,10 @@ plSharedMesh::~plSharedMesh()
 }
 /*
 void plSharedMesh::CreateInstance(plSceneObject *so, uint8_t boneIndex)
-{   
+{
 plDrawInterface *di = so->GetVolatileDrawInterface();
 
-  //    hsAssert((fActiveInstances.GetCount == 0) || 
+  //    hsAssert((fActiveInstances.GetCount == 0) ||
   //             (di->GetDrawable() == fActiveInstances[0]->GetDrawInterface()->GetDrawable()),
   //             "Trying to share a mesh between two seperate drawables. No can do.");
   

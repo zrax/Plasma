@@ -69,7 +69,7 @@ class hsGDeviceRef;
 // and we keep a base pointer and an advance just adds the (single) stride to the base
 // pointer. That's probably your position, and we've just saved a bunch of adds in advancing
 // it. Now you want to access your normal, well, you still have to do an add on the base pointer
-// to get to your normal, and another to get to your color, etc. So if you really want to 
+// to get to your normal, and another to get to your color, etc. So if you really want to
 // eliminate those extra adds, go ahead and use the iterator, just make sure you use
 // the most focused iterator available. Like if you're just looking at position and
 // normal, use the plAccPosNormIterator.
@@ -142,7 +142,7 @@ public:
     hsColorRGBA     DiffuseRGBA(int i) const { return hsColorRGBA().FromARGB32(Diffuse32(i)); }
     hsColorRGBA     SpecularRGBA(int i) const { return hsColorRGBA().FromARGB32(Specular32(i)); }
 
-        // Two versions of UVW, first to get the iVtx'th vertex's iUVW'th uvw. 
+        // Two versions of UVW, first to get the iVtx'th vertex's iUVW'th uvw.
         // Second just gets the vertex's uvw array, which is hopefully stored contiguously or we're screwed.
     hsPoint3&       UVW(int iVtx, int iUVW) const { return *(hsPoint3*)(fChannels[kUVW] + iVtx*fStrides[kUVW] + iUVW*sizeof(hsPoint3)); }
     hsPoint3*       UVWs(int i) const { return (hsPoint3*)(fChannels[kUVW] + i*fStrides[kUVW]); }
@@ -164,7 +164,7 @@ public:
     hsColorRGBA     DiffuseRGBAOff(int i) const { return hsColorRGBA().FromARGB32(Diffuse32Off(i)); }
     hsColorRGBA     SpecularRGBAOff(int i) const { return hsColorRGBA().FromARGB32(Specular32Off(i)); }
 
-        // Two versions of UVW, first to get the iVtx'th vertex's iUVW'th uvw. 
+        // Two versions of UVW, first to get the iVtx'th vertex's iUVW'th uvw.
         // Second just gets the vertex's uvw array, which is hopefully stored contiguously or we're screwed.
     hsPoint3&       UVWOff(int iVtx, int iUVW) const { return *(hsPoint3*)(fChannels[kUVW] + iVtx*fStrides[kUVW] + fOffsets[kUVW] + iUVW*sizeof(hsPoint3)); }
     hsPoint3*       UVWsOff(int i) const { return (hsPoint3*)(fChannels[kUVW] + i*fStrides[kUVW] + fOffsets[kUVW]); }
@@ -255,15 +255,15 @@ protected:
     plAccIterator<hsPoint3>     fPosition;
 
 public:
-    plAccPositionIterator(plAccessVtxSpan* acc) 
+    plAccPositionIterator(plAccessVtxSpan* acc)
         :   fPosition(acc, plAccessVtxSpan::kPosition) {}
 
     plAccPositionIterator() {}
 
-    plAccPositionIterator& Set(plAccessVtxSpan* acc) 
-    { 
-        fPosition.Set(acc, plAccessVtxSpan::kPosition); 
-        return *this; 
+    plAccPositionIterator& Set(plAccessVtxSpan* acc)
+    {
+        fPosition.Set(acc, plAccessVtxSpan::kPosition);
+        return *this;
     }
 
     hsPoint3*           Position() const { return fPosition.Value(); }
@@ -279,17 +279,17 @@ protected:
     plAccIterator<hsPoint3>     fPosition;
     plAccIterator<hsVector3>    fNormal;
 public:
-    plAccPosNormIterator(plAccessVtxSpan* acc) 
-        :   fPosition(acc, plAccessVtxSpan::kPosition), 
+    plAccPosNormIterator(plAccessVtxSpan* acc)
+        :   fPosition(acc, plAccessVtxSpan::kPosition),
             fNormal(acc, plAccessVtxSpan::kNormal) {}
 
     plAccPosNormIterator() {}
 
-    plAccPosNormIterator& Set(plAccessVtxSpan* acc) 
-    { 
-        fPosition.Set(acc, plAccessVtxSpan::kPosition); 
-        fNormal.Set(acc, plAccessVtxSpan::kNormal); 
-        return *this; 
+    plAccPosNormIterator& Set(plAccessVtxSpan* acc)
+    {
+        fPosition.Set(acc, plAccessVtxSpan::kPosition);
+        fNormal.Set(acc, plAccessVtxSpan::kNormal);
+        return *this;
     }
 
     hsPoint3*           Position() const { return fPosition.Value(); }
@@ -307,18 +307,18 @@ protected:
     plAccIterator<hsVector3>    fNormal;
     plAccIterator<hsPoint3>     fUVW;
 public:
-    plAccPosNormUVWIterator(plAccessVtxSpan* acc) 
-        :   fPosition(acc, plAccessVtxSpan::kPosition), 
-            fNormal(acc, plAccessVtxSpan::kNormal), 
+    plAccPosNormUVWIterator(plAccessVtxSpan* acc)
+        :   fPosition(acc, plAccessVtxSpan::kPosition),
+            fNormal(acc, plAccessVtxSpan::kNormal),
             fUVW(acc, plAccessVtxSpan::kUVW) {}
     plAccPosNormUVWIterator() {}
 
-    plAccPosNormUVWIterator& Set(plAccessVtxSpan* acc) 
-    { 
-        fPosition.Set(acc, plAccessVtxSpan::kPosition); 
-        fNormal.Set(acc, plAccessVtxSpan::kNormal); 
-        fUVW.Set(acc, plAccessVtxSpan::kUVW); 
-        return *this; 
+    plAccPosNormUVWIterator& Set(plAccessVtxSpan* acc)
+    {
+        fPosition.Set(acc, plAccessVtxSpan::kPosition);
+        fNormal.Set(acc, plAccessVtxSpan::kNormal);
+        fUVW.Set(acc, plAccessVtxSpan::kUVW);
+        return *this;
     }
 
     hsPoint3*           Position() const { return fPosition.Value(); }
@@ -335,14 +335,14 @@ class plAccUVWIterator
 {
     plAccIterator<hsPoint3>     fUVW;
 public:
-    plAccUVWIterator(plAccessVtxSpan* acc) 
+    plAccUVWIterator(plAccessVtxSpan* acc)
         :   fUVW(acc, plAccessVtxSpan::kUVW) {}
     plAccUVWIterator() {}
 
-    plAccUVWIterator& Set(plAccessVtxSpan* acc) 
-    { 
-        fUVW.Set(acc, plAccessVtxSpan::kUVW); 
-        return *this; 
+    plAccUVWIterator& Set(plAccessVtxSpan* acc)
+    {
+        fUVW.Set(acc, plAccessVtxSpan::kUVW);
+        return *this;
     }
 
     hsPoint3*           UVWs() const { return fUVW.Value(); }
@@ -357,14 +357,14 @@ class plAccDiffuseIterator
 {
     plAccIterator<uint32_t>       fDiffuse;
 public:
-    plAccDiffuseIterator(plAccessVtxSpan* acc) 
+    plAccDiffuseIterator(plAccessVtxSpan* acc)
         :   fDiffuse(acc, plAccessVtxSpan::kDiffuse) {}
     plAccDiffuseIterator() {}
 
-    plAccDiffuseIterator& Set(plAccessVtxSpan* acc) 
-    { 
+    plAccDiffuseIterator& Set(plAccessVtxSpan* acc)
+    {
         fDiffuse.Set(acc, plAccessVtxSpan::kDiffuse);
-        return *this; 
+        return *this;
     }
 
     uint32_t*             Diffuse32() const { return fDiffuse.Value(); }
@@ -382,16 +382,16 @@ protected:
     plAccIterator<uint32_t>       fDiffuse;
     plAccIterator<uint32_t>       fSpecular;
 public:
-    plAccDiffSpecIterator(plAccessVtxSpan* acc) 
+    plAccDiffSpecIterator(plAccessVtxSpan* acc)
         :   fDiffuse(acc, plAccessVtxSpan::kDiffuse),
             fSpecular(acc, plAccessVtxSpan::kSpecular) {}
     plAccDiffSpecIterator() {}
 
-    plAccDiffSpecIterator& Set(plAccessVtxSpan* acc) 
-    { 
+    plAccDiffSpecIterator& Set(plAccessVtxSpan* acc)
+    {
         fDiffuse.Set(acc, plAccessVtxSpan::kDiffuse);
         fSpecular.Set(acc, plAccessVtxSpan::kSpecular);
-        return *this; 
+        return *this;
     }
 
     uint32_t*             Diffuse32() const { return fDiffuse.Value(); }
@@ -417,26 +417,26 @@ protected:
     plAccIterator<uint32_t>       fSpecular;
     plAccIterator<hsPoint3>     fUVW;
 public:
-    plAccVertexIterator(plAccessVtxSpan* acc) 
-        :   fPosition(acc, plAccessVtxSpan::kPosition), 
+    plAccVertexIterator(plAccessVtxSpan* acc)
+        :   fPosition(acc, plAccessVtxSpan::kPosition),
             fWeight(acc, plAccessVtxSpan::kWeight),
             fWgtIndex(acc, plAccessVtxSpan::kWgtIndex),
-            fNormal(acc, plAccessVtxSpan::kNormal), 
+            fNormal(acc, plAccessVtxSpan::kNormal),
             fDiffuse(acc, plAccessVtxSpan::kDiffuse),
             fSpecular(acc, plAccessVtxSpan::kSpecular),
             fUVW(acc, plAccessVtxSpan::kUVW) {}
     plAccVertexIterator() {}
 
-    plAccVertexIterator& Set(plAccessVtxSpan* acc) 
-    { 
-        fPosition.Set(acc, plAccessVtxSpan::kPosition); 
+    plAccVertexIterator& Set(plAccessVtxSpan* acc)
+    {
+        fPosition.Set(acc, plAccessVtxSpan::kPosition);
         fWeight.Set(acc, plAccessVtxSpan::kWeight);
         fWgtIndex.Set(acc, plAccessVtxSpan::kWgtIndex);
-        fNormal.Set(acc, plAccessVtxSpan::kNormal); 
+        fNormal.Set(acc, plAccessVtxSpan::kNormal);
         fDiffuse.Set(acc, plAccessVtxSpan::kDiffuse);
         fSpecular.Set(acc, plAccessVtxSpan::kSpecular);
-        fUVW.Set(acc, plAccessVtxSpan::kUVW); 
-        return *this; 
+        fUVW.Set(acc, plAccessVtxSpan::kUVW);
+        return *this;
     }
 
     hsPoint3*           Position() const { return fPosition.Value(); }

@@ -80,12 +80,12 @@ struct plDInput
     fDInput(nil),
     fActionFormat(nil)
     { }
-    IDirectInput8*          fDInput; 
+    IDirectInput8*          fDInput;
     hsTArray<plDIDevice*>   fSticks;
     DIACTIONFORMAT*         fActionFormat;
 };
 
-class plDInputMgr 
+class plDInputMgr
 {
 public:
     plDInputMgr();
@@ -113,7 +113,7 @@ protected:
 typedef int (__stdcall * Pfunc1) (const DIDEVICEINSTANCE* device, void* pRef);
 // I should need these...
 //typedef int (__stdcall * Pfunc2) (const DIDEVICEOBJECTINSTANCE* device, void* pRef);
-//typedef int (__stdcall * Pfunc3) (const struct DIDEVICEINSTANCEA* devInst, struct IDirectInputDevice8* dev, unsigned long why, unsigned long devRemaining, void* pRef); 
+//typedef int (__stdcall * Pfunc3) (const struct DIDEVICEINSTANCEA* devInst, struct IDirectInputDevice8* dev, unsigned long why, unsigned long devRemaining, void* pRef);
 
 
 plInputManager* plInputManager::fInstance = nil;
@@ -140,7 +140,7 @@ fInterfaceMgr(nil)
     fMouseScale = 1.f;
 }
 
-plInputManager::~plInputManager() 
+plInputManager::~plInputManager()
 {
     fInterfaceMgr->Shutdown();
     fInterfaceMgr = nil;
@@ -156,7 +156,7 @@ plInputManager::~plInputManager()
 
 //static
 void plInputManager::SetRecenterMouse(bool b)
-{ 
+{
     if (b)
         bRecenterMouse++;
     else if (bRecenterMouse > 0)
@@ -296,7 +296,7 @@ void plInputManager::HandleWin32ControlEvent(UINT message, WPARAM Wparam, LPARAM
             bExtended = Lparam >> 24 & 1;
             bool bRepeat = ((Lparam >> 29) & 0xf) != 0;
             for (int i=0; i<fInputDevices.Count(); i++)
-                fInputDevices[i]->HandleKeyEvent( KEYDOWN, UntranslateKey((plKeyDef)Wparam, bExtended), true, bRepeat ); 
+                fInputDevices[i]->HandleKeyEvent( KEYDOWN, UntranslateKey((plKeyDef)Wparam, bExtended), true, bRepeat );
         }
         break;
     case SYSKEYUP:
@@ -304,7 +304,7 @@ void plInputManager::HandleWin32ControlEvent(UINT message, WPARAM Wparam, LPARAM
         {
             bExtended = Lparam >> 24 & 1;
             for (int i=0; i<fInputDevices.Count(); i++)
-                fInputDevices[i]->HandleKeyEvent( KEYUP, UntranslateKey((plKeyDef)Wparam, bExtended), false, false ); 
+                fInputDevices[i]->HandleKeyEvent( KEYUP, UntranslateKey((plKeyDef)Wparam, bExtended), false, false );
         }
         break;
     case CHAR_MSG:
@@ -413,7 +413,7 @@ void plInputManager::HandleWin32ControlEvent(UINT message, WPARAM Wparam, LPARAM
             POINT pt;
             
             if (RecenterMouse() && (pXMsg->fX <= 0.1 || pXMsg->fX >= 0.9) )
-            {       
+            {
                 pt.x = (rect.right - rect.left) / 2;
                 pt.y = HIWORD(Lparam);
                 if (INeedsWin10CursorHack()) {
@@ -427,7 +427,7 @@ void plInputManager::HandleWin32ControlEvent(UINT message, WPARAM Wparam, LPARAM
             }
             else
             if (RecenterMouse() && (pYMsg->fY <= 0.1 || pYMsg->fY >= 0.9) )
-            {       
+            {
                 pt.y = (rect.bottom - rect.top) / 2;
                 pt.x = LOWORD(Lparam);
                 if (INeedsWin10CursorHack()) {
@@ -493,7 +493,7 @@ void    plInputManager::Activate( bool activating )
 
 void    plInputManager::AddInputDevice( plInputDevice *pDev )
 {
-    fInputDevices.Append( pDev ); 
+    fInputDevices.Append( pDev );
     if( fFirstActivated )
         pDev->HandleWindowActivate( fActive, fhWnd );
 }
@@ -516,7 +516,7 @@ plDInputMgr::~plDInputMgr()
     if (fDI)
     {
         for (int i = 0; i < fDI->fSticks.Count(); i++)
-        {   
+        {
             plDIDevice* pD = fDI->fSticks[i];
             pD->fDevice->Release();
             delete(pD->fCaps);
@@ -536,9 +536,9 @@ plDInputMgr::~plDInputMgr()
 void plDInputMgr::Init(HINSTANCE hInst, HWND hWnd)
 {
     
-    HRESULT         hr; 
-    hr = DirectInput8Create(hInst, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&fDI->fDInput, NULL); 
-    hsAssert(!hr, "failed to initialize directInput!"); 
+    HRESULT         hr;
+    hr = DirectInput8Create(hInst, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&fDI->fDInput, NULL);
+    hsAssert(!hr, "failed to initialize directInput!");
     // enumerate game controllers
     Pfunc1 fPtr = &plDInputMgr::EnumGamepadCallback;
     int i = 0;
@@ -559,9 +559,9 @@ void plDInputMgr::Init(HINSTANCE hInst, HWND hWnd)
     sprintf( fDI->fActionFormat->tszActionMap, "Plasma 2.0 Game Actions" );
 
     // this call should not work:
-    fDI->fDInput->EnumDevices(DI8DEVCLASS_GAMECTRL, fPtr, fDI, DIEDFL_ATTACHEDONLY); 
+    fDI->fDInput->EnumDevices(DI8DEVCLASS_GAMECTRL, fPtr, fDI, DIEDFL_ATTACHEDONLY);
     
-    // apply the mapping to the game controller 
+    // apply the mapping to the game controller
     // this is the correct <but broken> way to apply the action map:
 //  Pfunc3 fPtr3 = &plDInputMgr::EnumSuitableDevices;
 //  hr = fDI->fDInput->EnumDevicesBySemantics(NULL, fDI->fActionFormat, EnumSuitableDevices, fDI, NULL);
@@ -569,12 +569,12 @@ void plDInputMgr::Init(HINSTANCE hInst, HWND hWnd)
     
     for (i = 0; i < fDI->fSticks.Count(); i++)
     {
-        fDI->fSticks[i]->fCaps = new DIDEVCAPS; 
+        fDI->fSticks[i]->fCaps = new DIDEVCAPS;
         fDI->fSticks[i]->fCaps->dwSize = sizeof(DIDEVCAPS);
         hr = fDI->fSticks[i]->fDevice->GetCapabilities(fDI->fSticks[i]->fCaps);
-        hsAssert(!hr, "Unable to acquire devcaps in DInput Device!"); 
+        hsAssert(!hr, "Unable to acquire devcaps in DInput Device!");
         hr = fDI->fSticks[i]->fDevice->Acquire();
-        hsAssert(!hr, "Unable to acquire DInput Device!"); 
+        hsAssert(!hr, "Unable to acquire DInput Device!");
     }
 
     fhWnd = hWnd;
@@ -587,28 +587,28 @@ void plDInputMgr::Update()
 {
     HRESULT     hr;
  
-    if (!fDI->fSticks.Count()) 
+    if (!fDI->fSticks.Count())
         return;
 
     // Poll the devices to read the current state
     for (int i = 0; i < fDI->fSticks.Count(); i++)
     {
-        hr = fDI->fSticks[i]->fDevice->Poll(); 
-        if (FAILED(hr))  
+        hr = fDI->fSticks[i]->fDevice->Poll();
+        if (FAILED(hr))
         {
             // Attempt to reacquire joystick
-            while(hr == DIERR_INPUTLOST) 
-            {   
+            while(hr == DIERR_INPUTLOST)
+            {
                 hr = fDI->fSticks[i]->fDevice->Acquire();
                 char str[256];
                 sprintf(str, "DInput Device # %d connection lost - press Ignore to attempt to reacquire!", i);
-                hsAssert(!hr, str); 
+                hsAssert(!hr, str);
             }
         }
         
-        DIDEVICEOBJECTDATA data; 
+        DIDEVICEOBJECTDATA data;
         ULONG size = 1;
-        hr = fDI->fSticks[i]->fDevice->GetDeviceData(sizeof(DIDEVICEOBJECTDATA),&data,&size,0); 
+        hr = fDI->fSticks[i]->fDevice->GetDeviceData(sizeof(DIDEVICEOBJECTDATA),&data,&size,0);
 
         fInputDevice[i]->Update(&data);
     }
@@ -659,7 +659,7 @@ bool plDInputMgr::MsgReceive(plMessage* msg)
 
 // dinput required callback functions:
 
-// enumerate the dinput devices 
+// enumerate the dinput devices
 int __stdcall plDInputMgr::EnumGamepadCallback(const DIDEVICEINSTANCE* device, void* pRef)
 {
     HRESULT hr;
@@ -668,12 +668,12 @@ int __stdcall plDInputMgr::EnumGamepadCallback(const DIDEVICEINSTANCE* device, v
     IDirectInputDevice8* fStick = nil;
     hr = pDI->fDInput->CreateDevice(device->guidInstance, &fStick, NULL);
     
-    if(!FAILED(hr)) 
+    if(!FAILED(hr))
     {
         pDI->fSticks.Append(new plDIDevice(fStick));
         
         // the following code pertaining to the action map shouldn't be here.
-        // in fact this shouldn't work at all according to MS, but this is 
+        // in fact this shouldn't work at all according to MS, but this is
         // currently the only way this works.  Whatever - the correct
         // code is here and commented out in case this ever gets fixed by MS
         // in a future release of dinput.
@@ -682,10 +682,10 @@ int __stdcall plDInputMgr::EnumGamepadCallback(const DIDEVICEINSTANCE* device, v
         {
             hr = fStick->SetActionMap( pDI->fActionFormat, NULL, NULL );
 
-            DIPROPDWORD dipW; 
-            dipW.diph.dwSize        = sizeof(DIPROPDWORD); 
-            dipW.diph.dwHeaderSize  = sizeof(DIPROPHEADER); 
-            dipW.diph.dwHow         = DIPH_DEVICE; 
+            DIPROPDWORD dipW;
+            dipW.diph.dwSize        = sizeof(DIPROPDWORD);
+            dipW.diph.dwHeaderSize  = sizeof(DIPROPHEADER);
+            dipW.diph.dwHow         = DIPH_DEVICE;
             dipW.diph.dwObj         = 0;
             dipW.dwData             = 500; // 5% of axis range for deadzone
 
@@ -702,20 +702,20 @@ int __stdcall plDInputMgr::EnumGamepadCallback(const DIDEVICEINSTANCE* device, v
 int __stdcall plDInputMgr::SetAxisRange(const DIDEVICEOBJECTINSTANCE* obj, void* pRef)
 {
     HRESULT hr;
-    DIPROPRANGE diprg; 
+    DIPROPRANGE diprg;
 
-    diprg.diph.dwSize       = sizeof(DIPROPRANGE); 
-    diprg.diph.dwHeaderSize = sizeof(DIPROPHEADER); 
-    diprg.diph.dwHow        = DIPH_BYID; 
-    diprg.diph.dwObj        = obj->dwType; 
-    diprg.lMin              = -100; 
-    diprg.lMax              = +100; 
+    diprg.diph.dwSize       = sizeof(DIPROPRANGE);
+    diprg.diph.dwHeaderSize = sizeof(DIPROPHEADER);
+    diprg.diph.dwHow        = DIPH_BYID;
+    diprg.diph.dwObj        = obj->dwType;
+    diprg.lMin              = -100;
+    diprg.lMax              = +100;
 
     plDInput* pDI = (plDInput*)pRef;
     for (int i = 0; i < pDI->fSticks.Count(); i++)
         hr = pDI->fSticks[i]->fDevice->SetProperty(DIPROP_RANGE, &diprg.diph);
 
-    if(!FAILED(hr)) 
+    if(!FAILED(hr))
         return DIENUM_CONTINUE;
     
     return DIENUM_STOP;

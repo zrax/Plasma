@@ -225,7 +225,7 @@ uint32_t  plMipmap::Read( hsStream *s )
     totalRead += 4 * 4 + 1;
     
     if( fTotalSize == 0 )
-        fImage = nil; 
+        fImage = nil;
     else
     {
         IBuildLevelSizes();
@@ -344,7 +344,7 @@ void    plMipmap::IReadRawImage( hsStream *stream )
     {
         case 32:
             for( i = 0; i < fNumLevels; i++ )
-            {   
+            {
                 stream->ReadLE32( fLevelSizes[ i ] >> 2, (uint32_t *)data );
                 data += fLevelSizes[ i ];
             }
@@ -375,7 +375,7 @@ void    plMipmap::IWriteRawImage( hsStream *stream )
     {
         case 32:
             for( i = 0; i < fNumLevels; i++ )
-            {   
+            {
                 stream->WriteLE32( fLevelSizes[ i ] >> 2, (uint32_t *)data );
                 data += fLevelSizes[ i ];
             }
@@ -482,7 +482,7 @@ plMipmap *plMipmap::IReadRLEImage( hsStream *stream )
     // We really don't want to suddenly start calling this uncompressed now that it's read in.
     // Case in point, on export we load in all previously exported textures (like this JPEG one)
     // share those, add any textures that aren't already there, then write the whole thing back
-    // out. Viola, we just converted our nice small compressed 1024x1024 JPEG (~128k) to a 
+    // out. Viola, we just converted our nice small compressed 1024x1024 JPEG (~128k) to a
     // monster uncompressed 4Mb which it will remain for ever more.
 //  retVal->fCompressionType = kUncompressed;
     return retVal;
@@ -748,7 +748,7 @@ void    plMipmap::SetConfig( unsigned config )
 }
 
 //// ClipToMaxSize ////////////////////////////////////////////////////////////
-//  Looks for mipmap levels above the given dimension and "clips" them out, 
+//  Looks for mipmap levels above the given dimension and "clips" them out,
 //  i.e. deletes them. So if you have a 512x1024 mipmap and call this with
 //  a size of 256, when this function returns the mipmap will be 256x128 in
 //  size.
@@ -844,7 +844,7 @@ namespace {
     const uint32_t kDefaultDetailBias = 5;
 
     // Color masks (out of 0-2)
-    const uint8_t fColorMasks[ 10 ][ 3 ] = { { 2, 0, 0 }, { 0, 2, 2 }, { 2, 0, 2 }, { 0, 2, 0 },          
+    const uint8_t fColorMasks[ 10 ][ 3 ] = { { 2, 0, 0 }, { 0, 2, 2 }, { 2, 0, 2 }, { 0, 2, 0 },
                 { 0, 0, 2 }, { 2, 2, 0 }, { 2, 2, 2 }, { 2, 0, 1 }, { 0, 2, 1 }, { 1, 0, 2 } };
                                             
 }
@@ -916,8 +916,8 @@ plFilterMask::~plFilterMask()
 //// Some More Functions //////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-plMipmap::plMipmap( plMipmap *bm, float sig, uint32_t createFlags, 
-        float detailDropoffStart, float detailDropoffStop, 
+plMipmap::plMipmap( plMipmap *bm, float sig, uint32_t createFlags,
+        float detailDropoffStart, float detailDropoffStop,
         float detailMax, float detailMin)
 {
     int     i;
@@ -963,7 +963,7 @@ plMipmap::plMipmap( plMipmap *bm, float sig, uint32_t createFlags,
     for( i = 1; i < fNumLevels; i++ )
         ICreateLevelNoDetail(i, mask);
 
-    if (createFlags & kCreateDetailMask) 
+    if (createFlags & kCreateDetailMask)
     {
         // Fill in the detail levels afterwards, so we can just grab the current level's texture
         // alpha (old way did it at the same time, which accumulated the detail alpha each level down)
@@ -1026,8 +1026,8 @@ float plMipmap::IGetDetailLevelAlpha( uint8_t level, float dropStart, float drop
     return detailAlpha;
 }
 
-void plMipmap::SetBitmapAsLevel(uint8_t iDst, plMipmap *bm, float sig, uint32_t createFlags, 
-                                      float detailDropoffStart, float detailDropoffStop, 
+void plMipmap::SetBitmapAsLevel(uint8_t iDst, plMipmap *bm, float sig, uint32_t createFlags,
+                                      float detailDropoffStart, float detailDropoffStop,
                                       float detailMax, float detailMin)
 {
     SetCurrLevel( iDst );
@@ -1208,11 +1208,11 @@ void plMipmap::ICarryColor(uint8_t iDst, uint32_t col)
 }
 
 //// IBlendLevelDetailAlpha ///////////////////////////////////////////////////
-//  Blends in the detail alpha for a given level. This version assumes 
+//  Blends in the detail alpha for a given level. This version assumes
 //  standard detail map blending.
 
-void    plMipmap::IBlendLevelDetailAlpha( uint8_t iDst, const plFilterMask& mask, 
-                                          float detailDropoffStart, float detailDropoffStop, 
+void    plMipmap::IBlendLevelDetailAlpha( uint8_t iDst, const plFilterMask& mask,
+                                          float detailDropoffStart, float detailDropoffStop,
                                           float detailMax, float detailMin )
 {
     hsAssert(fPixelSize == 32, "Only 32 bit implemented");
@@ -1242,11 +1242,11 @@ void    plMipmap::IBlendLevelDetailAlpha( uint8_t iDst, const plFilterMask& mask
 }
 
 //// IBlendLevelDetailAdd /////////////////////////////////////////////////////
-//  Blends in the detail alpha for a given level. This version assumes additive 
+//  Blends in the detail alpha for a given level. This version assumes additive
 //  detail map blending. (Shesh, gotta hate C sometimes....)
 
-void    plMipmap::IBlendLevelDetailAdd( uint8_t iDst, const plFilterMask& mask, 
-                                          float detailDropoffStart, float detailDropoffStop, 
+void    plMipmap::IBlendLevelDetailAdd( uint8_t iDst, const plFilterMask& mask,
+                                          float detailDropoffStart, float detailDropoffStop,
                                           float detailMax, float detailMin )
 {
     hsAssert(fPixelSize == 32, "Only 32 bit implemented");
@@ -1281,11 +1281,11 @@ void    plMipmap::IBlendLevelDetailAdd( uint8_t iDst, const plFilterMask& mask,
 }
 
 //// IBlendLevelDetailMult ////////////////////////////////////////////////////
-//  Blends in the detail alpha for a given level. This version assumes 
+//  Blends in the detail alpha for a given level. This version assumes
 //  multiplicitive detail map blending. (Shesh, gotta hate C sometimes....)
 
-void    plMipmap::IBlendLevelDetailMult( uint8_t iDst, const plFilterMask& mask, 
-                                          float detailDropoffStart, float detailDropoffStop, 
+void    plMipmap::IBlendLevelDetailMult( uint8_t iDst, const plFilterMask& mask,
+                                          float detailDropoffStart, float detailDropoffStop,
                                           float detailMax, float detailMin )
 {
     hsAssert(fPixelSize == 32, "Only 32 bit implemented");
@@ -1507,7 +1507,7 @@ static void CopyPixels(uint32_t srcWidth, uint32_t srcHeight,void *srcPixels,
     int y;
     int xInc = skipX + 1;
     int yInc = skipY + 1;
-    int i = 0; 
+    int i = 0;
     int firstX = 0;
 
     int rowSkip = yInc * srcWidth; // Number of pixels to skip for each line
@@ -1532,14 +1532,14 @@ static void CopyPixels(uint32_t srcWidth, uint32_t srcHeight,void *srcPixels,
             break;
             case plMipmap::kPixelARGB4444:
                 for(x = 0; x < srcWidth; x += xInc)
-                    pixels16[i++]= (((srcPix[x].r>>4) & 0xf) << 8) 
-                        | (((srcPix[x].g >> 4) & 0xf) << 4) 
+                    pixels16[i++]= (((srcPix[x].r>>4) & 0xf) << 8)
+                        | (((srcPix[x].g >> 4) & 0xf) << 4)
                         | (((srcPix[x].b >> 4) & 0xf) )
                         | (((srcPix[x].a >> 4) & 0xf) << 12);
             break;
             case plMipmap::kPixelARGB1555:
                 for(x = 0; x < srcWidth; x += xInc)
-                    pixels16[i++]= (((srcPix[x].r>>3) & 0x1f) << 10) | 
+                    pixels16[i++]= (((srcPix[x].r>>3) & 0x1f) << 10) |
                         (((srcPix[x].g >> 3) & 0x1f) << 5) |
                         ((srcPix[x].b >> 3) & 0x1f) | ((srcPix[x].a == 0) ? 0 : 0x8000);
             break;
@@ -1549,7 +1549,7 @@ static void CopyPixels(uint32_t srcWidth, uint32_t srcHeight,void *srcPixels,
 }
 
 
-uint32_t plMipmap::CopyOutPixels(uint32_t destXSize, uint32_t destYSize, 
+uint32_t plMipmap::CopyOutPixels(uint32_t destXSize, uint32_t destYSize,
                     uint32_t dstFormat, void *destPixels, uint32_t copyOptions)
 {
 
@@ -1640,7 +1640,7 @@ plMipmap    *plMipmap::Clone() const
 }
 
 //// Composite ////////////////////////////////////////////////////////////////
-//  Compositing function. Take a (smaller) mipmap and composite it onto this one 
+//  Compositing function. Take a (smaller) mipmap and composite it onto this one
 //  at the given location
 
 void    plMipmap::Composite( plMipmap *source, uint16_t x, uint16_t y, plMipmap::CompositeOptions *options )
@@ -1757,7 +1757,7 @@ void    plMipmap::Composite( plMipmap *source, uint16_t x, uint16_t y, plMipmap:
                 srcHeight >>= 1;
             srcClipX >>= 1;
             srcClipY >>= 1;
-        }   
+        }
     }
     else if( options->fFlags & kCopySrcAlpha )
     {
@@ -1797,7 +1797,7 @@ void    plMipmap::Composite( plMipmap *source, uint16_t x, uint16_t y, plMipmap:
                 srcHeight >>= 1;
             srcClipX >>= 1;
             srcClipY >>= 1;
-        }   
+        }
     }
     else if( options->fFlags & kMaskSrcAlpha )
     {
@@ -1838,7 +1838,7 @@ void    plMipmap::Composite( plMipmap *source, uint16_t x, uint16_t y, plMipmap:
                 srcHeight >>= 1;
             srcClipX >>= 1;
             srcClipY >>= 1;
-        }   
+        }
     }
     else
     {
@@ -1850,7 +1850,7 @@ void    plMipmap::Composite( plMipmap *source, uint16_t x, uint16_t y, plMipmap:
             // Clipping
             srcPtr += srcClipY * ( srcRowBytes >> 2 ) + srcClipX;
 
-            for( pY = (uint16_t)srcHeight; pY > 0; pY-- )         
+            for( pY = (uint16_t)srcHeight; pY > 0; pY-- )
             {
                 // Reverse the loop so we can count downwards--slightly faster
                 pX = (uint16_t)srcWidth;
@@ -1910,7 +1910,7 @@ void    plMipmap::Composite( plMipmap *source, uint16_t x, uint16_t y, plMipmap:
                 srcHeight >>= 1;
             srcClipX >>= 1;
             srcClipY >>= 1;
-        }   
+        }
     }
 
     // All done!
@@ -1982,7 +1982,7 @@ void    plMipmap::Colorize()
 //  (percentages of r, g & b in the range of 0-2).
 
 void    plMipmap::IColorLevel( uint8_t level, const uint8_t *colorMask )
-{   
+{
     uint32_t      index, max, color, gray, grayDiv2, *data, width, height;
     uint8_t       compMasks[ 3 ][ 2 ] = { { 0, 0 }, { 0, 0xff }, { 0xff, 0 } };
     
@@ -2019,7 +2019,7 @@ void    plMipmap::IColorLevel( uint8_t level, const uint8_t *colorMask )
 ///////////////////////////////////////////////////////////////////////////////
 
 //// ScaleNicely //////////////////////////////////////////////////////////////
-//  Does a nice (smoothed) scaling of a 1-level mipmap onto another 1-level 
+//  Does a nice (smoothed) scaling of a 1-level mipmap onto another 1-level
 //  mipmap. Works only for 32-bit mipmaps.
 
 void    plMipmap::ScaleNicely( uint32_t *destPtr, uint16_t destWidth, uint16_t destHeight,
@@ -2038,8 +2038,8 @@ void    plMipmap::ScaleNicely( uint32_t *destPtr, uint16_t destWidth, uint16_t d
     destToSrcXScale = (float)fWidth / (float)destWidth;
     destToSrcYScale = (float)fHeight / (float)destHeight;
 
-    // Filter size is the radius of the area (or rather, half the box size) around the source position 
-    // that we sample from. We calculate it so that a 1:1 scale would result in a filter size of 1 (thus 
+    // Filter size is the radius of the area (or rather, half the box size) around the source position
+    // that we sample from. We calculate it so that a 1:1 scale would result in a filter size of 1 (thus
     // making a box filter at 1:1 result in a straight copy of the original)
     filterWidth = 1.f * destToSrcXScale;
     filterHeight = 1.f * destToSrcYScale;
@@ -2059,11 +2059,11 @@ void    plMipmap::ScaleNicely( uint32_t *destPtr, uint16_t destWidth, uint16_t d
         srcPosY = destY * destToSrcYScale;
 
         srcStartY = (int16_t)( srcPosY - filterHeight );
-        if( srcStartY < 0 ) 
+        if( srcStartY < 0 )
             srcStartY = 0;
 
         srcEndY = (int16_t)( srcPosY + filterHeight );
-        if( srcEndY >= fHeight ) 
+        if( srcEndY >= fHeight )
             srcEndY = (int16_t)(fHeight - 1);
 
         // Precalc the y weights
@@ -2077,11 +2077,11 @@ void    plMipmap::ScaleNicely( uint32_t *destPtr, uint16_t destWidth, uint16_t d
 
             // Range of pixels that the filter covers
             srcStartX = (int16_t)( srcPosX - filterWidth );
-            if( srcStartX < 0 ) 
+            if( srcStartX < 0 )
                 srcStartX = 0;
             
             srcEndX = (int16_t)( srcPosX + filterWidth );
-            if( srcEndX >= fWidth ) 
+            if( srcEndX >= fWidth )
                 srcEndX = (int16_t)(fWidth - 1);
 
             // Precalc the x weights
@@ -2105,7 +2105,7 @@ void    plMipmap::ScaleNicely( uint32_t *destPtr, uint16_t destWidth, uint16_t d
                 for( srcX = srcStartX; srcX <= srcEndX; srcX++, srcPtr++ )
                 {
                     // Our weight...
-                    weight = ( srcX - srcStartX < 16 ) ? xWeights[ srcX - srcStartX ] : 
+                    weight = ( srcX - srcStartX < 16 ) ? xWeights[ srcX - srcStartX ] :
                                 ( 1.f - ( fabs( (float)srcX - srcPosX ) / filterWidth ) );
                     weight *= whyWait;
 

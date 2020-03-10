@@ -132,7 +132,7 @@ public:
     const plAgeDescription  &GetCurrAgeDesc() const { return fCurAgeDescription; }
 
     // paging
-    void FinishedPagingInRoom(plKey* rmKey, int numRms);    // call when finished paging in/out a room      
+    void FinishedPagingInRoom(plKey* rmKey, int numRms);    // call when finished paging in/out a room
     void StartPagingOutRoom(plKey* rmKey, int numRms);      // call when starting to page in/out a room
     void FinishedPagingOutRoom(plKey* rmKey, int numRms);
     // Called on page-in-hold rooms, since we don't want them actually paging out in the NCM (i.e. sending info to the server)

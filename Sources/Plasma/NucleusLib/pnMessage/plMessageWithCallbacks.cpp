@@ -51,14 +51,14 @@ plMessageWithCallbacks::~plMessageWithCallbacks()
     Clear();
 }
 
-void plMessageWithCallbacks::AddCallback(plMessage* e) 
-{ 
-    hsRefCnt_SafeRef(e); 
+void plMessageWithCallbacks::AddCallback(plMessage* e)
+{
+    hsRefCnt_SafeRef(e);
 
     // make sure callback msgs have the same net propagate properties as the container msg
     e->SetBCastFlag(plMessage::kNetPropagate, HasBCastFlag(plMessage::kNetPropagate));
 
-    fCallbacks.Append(e); 
+    fCallbacks.Append(e);
 }
 
 void plMessageWithCallbacks::Read(hsStream* stream, hsResMgr* mgr)
@@ -135,8 +135,8 @@ void plMessageWithCallbacks::WriteVersion(hsStream* s, hsResMgr* mgr)
         mgr->WriteCreatableVersion(s, fCallbacks[i]);
 }
 
-void plMessageWithCallbacks::Clear() 
-{ 
+void plMessageWithCallbacks::Clear()
+{
     int i;
     for( i = 0; i < fCallbacks.GetCount(); i++ )
         hsRefCnt_SafeUnRef(fCallbacks[i]);

@@ -130,7 +130,7 @@ plCreatable* plFactory::ICreate(uint16_t hClass)
 
     if (!(hClass & 0x8000))
     {
-        hsAssert( false, "Invalid class index or nil creator : plFactory::Create()" );  
+        hsAssert( false, "Invalid class index or nil creator : plFactory::Create()" );
     }
     return nil;
 }
@@ -302,7 +302,7 @@ const char  *plFactory::GetNameOfClass(uint16_t type)
 **  Function Name:          Validate
 **  Input(s):               Void
 **  Output(s):              Void
-**  Function Description:   This function examines all the Workers in the Factory and compares their Factory 
+**  Function Description:   This function examines all the Workers in the Factory and compares their Factory
 **                              index to the Enums found in plCreatableIndex.  If they are Keyed objects, and
 **                              larger than 512 on the Factory index, or non-Keyed objects with a Factory
 **                              index of less than 512, exit with an Error Message.  Otherwise continue through
@@ -328,7 +328,7 @@ void plFactory::IValidate(uint16_t keyIndex)
                 sprintf(Buffer, "Object %s is a hsKeyedObject, Must appear before 'KEYED_OBJ_DELINEATOR' in plCreatableIndex.h\n",GetNameOfClass(iter));
                 hsStatusMessage(Buffer);
                 bogus = true;
-            } 
+            }
             
         }
         else
@@ -340,12 +340,12 @@ void plFactory::IValidate(uint16_t keyIndex)
                 hsStatusMessage(Buffer);
                 bogus = true;
             
-            } 
+            }
         }
     }
     hsAssert(!bogus,"The class(s) you just added to plCreatableIndex.h in wrong spot, see output window");
 
-}  
+}
 
 void plFactory::Validate(uint16_t keyIndex)
 {

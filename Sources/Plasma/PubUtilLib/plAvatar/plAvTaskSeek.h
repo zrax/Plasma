@@ -64,7 +64,7 @@ public:
     };
     uint8_t fState;
 
-    enum 
+    enum
     {
         kSeekFlagUnForce3rdPersonOnFinish   = 0x1,
         kSeekFlagForce3rdPersonOnStart      = 0x2,
@@ -144,7 +144,7 @@ protected:
     //
     /////////////////////////////////////////////////////////////////////////////////////
 
-    plSceneObject * fSeekObject;            // the seek target....  
+    plSceneObject * fSeekObject;            // the seek target....
     hsQuat fSeekRot;                        // The (current) orientation of our objective
     hsPoint3 fSeekPos;                      // The (current) position of our objective
     bool fMovingTarget;                     // do we check our target's position each frame?

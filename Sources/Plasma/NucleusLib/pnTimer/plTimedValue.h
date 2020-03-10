@@ -103,7 +103,7 @@ public:
     void Write(hsStream* s) const;
 };
 
-template <class T> 
+template <class T>
 plTimedValue<T>& plTimedValue<T>::Set(const T& v, float secs)
 {
     if( secs <= 0 )
@@ -121,7 +121,7 @@ plTimedValue<T>& plTimedValue<T>::Set(const T& v, float secs)
     return *this;
 }
 
-template <class T> 
+template <class T>
 T plTimedValue<T>::Value() const
 {
     if( fInvSecs > 0 )
@@ -137,7 +137,7 @@ T plTimedValue<T>::Value() const
 }
 
 
-template <class T> 
+template <class T>
 void plTimedSimple<T>::Read(hsStream* s)
 {
     T val;
@@ -145,14 +145,14 @@ void plTimedSimple<T>::Read(hsStream* s)
     Set(val, 0.f);
 }
 
-template <class T> 
+template <class T>
 void plTimedSimple<T>::Write(hsStream* s) const
 {
     T val = this->Value();
     s->WriteLE(val);
 }
 
-template <class T> 
+template <class T>
 void plTimedCompound<T>::Read(hsStream* s)
 {
     T val;
@@ -160,7 +160,7 @@ void plTimedCompound<T>::Read(hsStream* s)
     Set(val, 0.f);
 }
 
-template <class T> 
+template <class T>
 void plTimedCompound<T>::Write(hsStream* s) const
 {
     T val = this->Value();

@@ -299,11 +299,11 @@ void plKeyImp::UnRefObject(plRefFlags::Type flags)
     }
 }
 
-hsKeyedObject* plKeyImp::SetObjectPtr(hsKeyedObject* p) 
+hsKeyedObject* plKeyImp::SetObjectPtr(hsKeyedObject* p)
 {
     hsKeyedObject* retVal = nil;
 
-    // If our object is the only one with a ref to us, this function will crash, so we 
+    // If our object is the only one with a ref to us, this function will crash, so we
     // make sure we have an extra ref, just like in UnRegister().
     plKey safeRefUntilWereDone = plKey::Make(this);
 
@@ -605,7 +605,7 @@ void plKeyImp::IRelease(plKeyImp* iTargetKey)
     RemoveRef(iTargetKey);
 
     // Inspect the target key to find whether it is supposed to send a message
-    // to me on destruction, and to find out if I have an active of passive 
+    // to me on destruction, and to find out if I have an active of passive
     // ref on this key.  Not sure why I don't track my own active/passive ref states
     bool isActive = false;
     int iTarg = -1;
@@ -626,7 +626,7 @@ void plKeyImp::IRelease(plKeyImp* iTargetKey)
     {
         // If it doesn't send me a message on destruction,  I am assuming I don't have an
         // active ref on the key (seems to be always true, but should we depend on it?)
-        // Since it doesn't send me a message, and won't be destroyed by the release, no 
+        // Since it doesn't send me a message, and won't be destroyed by the release, no
         // need to do anything more here
         return;
     }

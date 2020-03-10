@@ -59,10 +59,10 @@ public:
     static plRelevanceMgr *Instance() { return fInstance; }
     
     static void Init();
-    static void DeInit();   
+    static void DeInit();
 
 protected:
-    hsTArray<plRelevanceRegion*> fRegions;  
+    hsTArray<plRelevanceRegion*> fRegions;
     bool fEnabled;
 
     void IAddRegion(plRelevanceRegion *);

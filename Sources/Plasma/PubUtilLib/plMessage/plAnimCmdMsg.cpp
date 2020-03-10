@@ -51,10 +51,10 @@ plAnimCmdMsg::~plAnimCmdMsg()
 }
 
 
-void plAnimCmdMsg::ClearCmd() 
-{ 
+void plAnimCmdMsg::ClearCmd()
+{
     plMessageWithCallbacks::Clear();
-    fCmd.Clear(); 
+    fCmd.Clear();
 }
 
 bool plAnimCmdMsg::CmdChangesAnimTime()

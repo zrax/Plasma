@@ -60,7 +60,7 @@ public:
         kRegisteredVisitAge = plNetCommon::VaultTasks::kRegisterVisitAge,
         kUnRegisteredOwnedAge = plNetCommon::VaultTasks::kUnRegisterOwnedAge,
         kUnRegisteredVisitAge = plNetCommon::VaultTasks::kUnRegisterVisitAge,
-        kPublicAgeCreated, 
+        kPublicAgeCreated,
         kPublicAgeRemoved,
         kRegisteredSubAgeLink,
         kRegisteredChildAgeLink,

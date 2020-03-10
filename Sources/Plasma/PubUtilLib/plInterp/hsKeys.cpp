@@ -173,7 +173,7 @@ bool hsCompressedQuatKey32::CompareValue(hsCompressedQuatKey32 *key)
 // To store a quat in 32 bits, we find which element is the largest and use 2 bits to
 // store which one it is. We now know the other 3 elements fall in the range
 // of [-kOneOverRootTwo, kOneOverRootTwo]. We scale that range across 10 bits
-// and store each. When extracting, we use the fact that the quat was normalized 
+// and store each. When extracting, we use the fact that the quat was normalized
 // to compute the 4th element.
 void hsCompressedQuatKey32::SetQuat(hsQuat &q)
 {
@@ -316,7 +316,7 @@ bool hsCompressedQuatKey64::CompareValue(hsCompressedQuatKey64 *key)
 // To store a quat in 64 bits, we find which element is the largest and use 2 bits to
 // store which one it is. We now know the other 3 elements fall in the range
 // of [-kOneOverRootTwo, kOneOverRootTwo]. We scale that range across 20/21/21 bits
-// and store each. When extracting, we use the fact that the quat was normalized 
+// and store each. When extracting, we use the fact that the quat was normalized
 // to compute the 4th element.
 void hsCompressedQuatKey64::SetQuat(hsQuat &q)
 {

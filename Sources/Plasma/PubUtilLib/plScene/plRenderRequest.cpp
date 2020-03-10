@@ -142,11 +142,11 @@ void plRenderRequest::Render(plPipeline* pipe, plPageTreeMgr* pageMgr)
     }
 }
 
-void plRenderRequest::SetRenderTarget(plRenderTarget* t) 
-{ 
+void plRenderRequest::SetRenderTarget(plRenderTarget* t)
+{
     if( t != fRenderTarget )
     {
-        fRenderTarget = t; 
+        fRenderTarget = t;
 
         if( fRenderTarget )
         {
@@ -164,7 +164,7 @@ void plRenderRequest::SetVisForce(const hsBitVector& b)
         fVisForce = b;
 }
 
-bool plRenderRequest::GetRenderCharacters() const 
-{ 
-    return fVisForce.IsBitSet(plVisMgr::kCharacter); 
+bool plRenderRequest::GetRenderCharacters() const
+{
+    return fVisForce.IsBitSet(plVisMgr::kCharacter);
 }

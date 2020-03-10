@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/NucleusLib/pnAsyncCoreExe/Private/Unix/pnAceUx.h
-*   
+*
 ***/
 
 #ifdef PLASMA20_SOURCES_PLASMA_NUCLEUSLIB_PNASYNCCOREEXE_PRIVATE_UNIX_PNACEUX_H

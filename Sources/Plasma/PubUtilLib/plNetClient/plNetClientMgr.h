@@ -83,7 +83,7 @@ class plNetMsgPagingRoom;
 
 
 struct plNetClientCommMsgHandler : plNetClientComm::MsgHandler {
-    int HandleMessage( plNetMessage* msg ); 
+    int HandleMessage( plNetMessage* msg );
 };
 
 class plNetClientMgr : public plNetClientApp
@@ -169,7 +169,7 @@ private:
     uint8_t               fJoinOrder;         // returned by the server
     
     // voice lists
-    int     fListenListMode;            // how we are generating our listen list    
+    int     fListenListMode;            // how we are generating our listen list
     plNetListenList fListenList;        // other players I'm listening to
     plNetTalkList fTalkList;            // other players I'm talking to
 
@@ -196,7 +196,7 @@ private:
     //
     void ICheckPendingStateLoad(double secs);
     int IDeduceLocallyOwned(const plUoid& loc) const;
-    bool IHandlePlayerPageMsg(plPlayerPageMsg *playerMsg);  // *** 
+    bool IHandlePlayerPageMsg(plPlayerPageMsg *playerMsg);  // ***
 
     void IShowLists();
     void IShowRooms();
@@ -206,14 +206,14 @@ private:
     int ISendDirtyState(double secs);
     int ISendMembersListRequest();
     int ISendRoomsReset();
-    void ISendCCRPetition(plCCRPetitionMsg* petMsg);    
+    void ISendCCRPetition(plCCRPetitionMsg* petMsg);
     void ISendCameraReset(bool bEnteringAge);
     
     bool IUpdateListenList(double secs);
     void IHandleNetVoiceListMsg(plNetVoiceListMsg* msg);
     bool IApplyNewListenList(std::vector<DistSqInfo>& newListenList, bool forceSynch);
     int IPrepMsg(plNetMessage* msg);
-    void IPlayerChangeAge(bool exiting, int32_t spawnPt);   
+    void IPlayerChangeAge(bool exiting, int32_t spawnPt);
     
     void IAddCloneRoom();
     void IRemoveCloneRoom();
@@ -257,7 +257,7 @@ public:
     int SendMsg(plNetMessage* msg);
     int Update(double secs);
     int IsLocallyOwned(const plSynchedObject* obj) const;   // returns yes/no/maybe
-    int IsLocallyOwned(const plUoid&) const;        // for special cases, like sceneNodes. returns yes/no/maybe 
+    int IsLocallyOwned(const plUoid&) const;        // for special cases, like sceneNodes. returns yes/no/maybe
     plNetGroupId GetEffectiveNetGroup(const plSynchedObject*& obj) const;
     plNetGroupId SelectNetGroup(plSynchedObject* objIn, plKey groupKey);
 
@@ -330,7 +330,7 @@ public:
     // Voice Lists
     plNetListenList* GetListenList() { return &fListenList; }
     plNetTalkList* GetTalkList() { return &fTalkList; }
-    void SetListenListMode (int i); 
+    void SetListenListMode (int i);
     void SynchTalkList();
     int GetListenListMode() { return fListenListMode; }
         

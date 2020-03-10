@@ -139,14 +139,14 @@ enum hsGMatMiscFlags {
     kMiscBindMask           = 0x200,
     kMiscBindNext           = 0x400,
     kMiscLightMap           = 0x800,
-    kMiscUseReflectionXform = 0x1000,       // Use the calculated reflection environment 
+    kMiscUseReflectionXform = 0x1000,       // Use the calculated reflection environment
                                             // texture transform instead of layer->GetTransform()
     kMiscPerspProjection    = 0x2000,
     kMiscOrthoProjection    = 0x4000,
     kMiscProjection         = kMiscPerspProjection | kMiscOrthoProjection,
 
     kMiscRestartPassHere    = 0x8000,       // Tells pipeline to start a new pass beginning with this layer
-                                            // Kinda like troubledLoner, but only cuts off lower layers, not 
+                                            // Kinda like troubledLoner, but only cuts off lower layers, not
                                             // higher ones (kMiscBindNext sometimes does this by implication)
 
     kMiscBumpLayer          = 0x10000,
@@ -167,7 +167,7 @@ enum StateIdx {
     kClamp,
     kShade,
     kZ,
-    kMisc 
+    kMisc
 };
     uint32_t          fBlendFlags;
     uint32_t          fClampFlags;
@@ -255,8 +255,8 @@ enum StateIdx {
     inline void Read(hsStream* s);
     inline void Write(hsStream* s);
 
-    hsGMatState(uint32_t blend=0, uint32_t clamp=0, uint32_t shade=0, uint32_t z=0, uint32_t misc=0) 
-        :   fBlendFlags(blend), 
+    hsGMatState(uint32_t blend=0, uint32_t clamp=0, uint32_t shade=0, uint32_t z=0, uint32_t misc=0)
+        :   fBlendFlags(blend),
             fClampFlags(clamp),
             fShadeFlags(shade),
             fZFlags(z),

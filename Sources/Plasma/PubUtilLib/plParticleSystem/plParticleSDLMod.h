@@ -45,7 +45,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plModifier/plSDLModifier.h"
 
 //
-// This modifier is responsible for sending and recving 
+// This modifier is responsible for sending and recving
 // particle system state. Few need it. Little state is needed.
 //
 
@@ -59,8 +59,8 @@ protected:
     void ISetCurrentStateFrom(const plStateDataRecord* srcState);
     uint32_t IApplyModFlags(uint32_t sendFlags);
 public:
-    // var labels 
-    static char kStrNumParticles[]; 
+    // var labels
+    static char kStrNumParticles[];
     
     CLASSNAME_REGISTER( plParticleSDLMod );
     GETINTERFACE_ANY( plParticleSDLMod, plSDLModifier);

@@ -466,7 +466,7 @@ bool plSceneObject::MsgReceive(plMessage* msg)
 
 #if 0   // objects are only in the nil room when they are being paged out
     // TEMP - until we have another way to neutralize objects
-    // for an object in the 'nil' room, ignore most msgs    
+    // for an object in the 'nil' room, ignore most msgs
     if (GetSceneNode()==nil && !plNodeChangeMsg::ConvertNoRef(msg) &&
         !plRefMsg::ConvertNoRef(msg)&&
         !plSelfDestructMsg::ConvertNoRef(msg))
@@ -657,11 +657,11 @@ bool plSceneObject::IMsgHandle(plMessage* msg)
             GetVolatileAudioInterface()->MsgReceive(msg);
         
         if( pEnableMsg->Cmd( plEnableMsg::kAll ) )
-        {   
+        {
             IPropagateToGenerics(pEnableMsg);
         }
         else if( pEnableMsg->Cmd( plEnableMsg::kByType ) )
-        {   
+        {
             IPropagateToGenerics(pEnableMsg->Types(), pEnableMsg);
         }
         return true;
@@ -676,10 +676,10 @@ bool plSceneObject::IMsgHandle(plMessage* msg)
     //  if(fSimulationInterface)
     //  {
     //      fSimulationInterface->MsgReceive(msg);
-    //  } 
+    //  }
 
-        // the coordinate interface always gets the warp 
-        if (fCoordinateInterface) 
+        // the coordinate interface always gets the warp
+        if (fCoordinateInterface)
         {
             fCoordinateInterface->MsgReceive(msg);
         }
@@ -783,8 +783,8 @@ void plSceneObject::IRemoveAllGenerics()
     fGenerics.Reset();
 }
 
-void plSceneObject::ISetDrawInterface(plDrawInterface* di) 
-{ 
+void plSceneObject::ISetDrawInterface(plDrawInterface* di)
+{
     if( fDrawInterface != di )
     {
         if( fDrawInterface )
@@ -796,8 +796,8 @@ void plSceneObject::ISetDrawInterface(plDrawInterface* di)
     }
 }
 
-void plSceneObject::ISetSimulationInterface(plSimulationInterface* si) 
-{ 
+void plSceneObject::ISetSimulationInterface(plSimulationInterface* si)
+{
     if( fSimulationInterface != si )
     {
         if( fSimulationInterface )
@@ -809,8 +809,8 @@ void plSceneObject::ISetSimulationInterface(plSimulationInterface* si)
     }
 }
 
-void plSceneObject::ISetAudioInterface(plAudioInterface* ai) 
-{ 
+void plSceneObject::ISetAudioInterface(plAudioInterface* ai)
+{
     if( fAudioInterface != ai )
     {
         if( fAudioInterface )
@@ -821,8 +821,8 @@ void plSceneObject::ISetAudioInterface(plAudioInterface* ai)
     }
 }
 
-void plSceneObject::ISetCoordinateInterface(plCoordinateInterface* ci) 
-{ 
+void plSceneObject::ISetCoordinateInterface(plCoordinateInterface* ci)
+{
     if( fCoordinateInterface != ci )
     {
         if( fCoordinateInterface )
@@ -851,23 +851,23 @@ bool  plSceneObject::IsFinal()
 }
 
 // Export only. Interfaces perm on object.
-void plSceneObject::SetDrawInterface(plDrawInterface* di) 
-{ 
+void plSceneObject::SetDrawInterface(plDrawInterface* di)
+{
     ISetDrawInterface(di);
 }
 
-void plSceneObject::SetSimulationInterface(plSimulationInterface* si) 
-{ 
+void plSceneObject::SetSimulationInterface(plSimulationInterface* si)
+{
     ISetSimulationInterface(si);
 }
 
-void plSceneObject::SetAudioInterface(plAudioInterface* ai) 
-{ 
+void plSceneObject::SetAudioInterface(plAudioInterface* ai)
+{
     ISetAudioInterface(ai);
 }
 
-void plSceneObject::SetCoordinateInterface(plCoordinateInterface* ci) 
-{ 
+void plSceneObject::SetCoordinateInterface(plCoordinateInterface* ci)
+{
     ISetCoordinateInterface(ci);
 }
 

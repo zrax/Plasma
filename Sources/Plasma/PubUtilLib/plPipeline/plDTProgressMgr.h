@@ -45,7 +45,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 //                                                                          //
 //// Description /////////////////////////////////////////////////////////////
 //                                                                          //
-//  Derived class of plProgressMgr to draw the progress bars via debug text.// 
+//  Derived class of plProgressMgr to draw the progress bars via debug text.//
 //                                                                          //
 //////////////////////////////////////////////////////////////////////////////
 
@@ -70,7 +70,7 @@ class plDTProgressMgr : public plProgressMgr
         void    Activate();
         void    Deactivate();
 
-        bool    IDrawTheStupidThing( plPipeline *p, plOperationProgress *prog, 
+        bool    IDrawTheStupidThing( plPipeline *p, plOperationProgress *prog,
                                      uint16_t x, uint16_t y, uint16_t width, uint16_t height );
 
     public:

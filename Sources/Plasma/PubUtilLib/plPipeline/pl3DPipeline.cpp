@@ -163,7 +163,7 @@ pl3DPipeline::~pl3DPipeline()
     fCurrLay = nullptr;
     hsAssert(fCurrMaterial == nullptr, "Current material not unrefed properly");
 
-    // CullProxy is a debugging representation of our CullTree. See plCullTree.cpp, 
+    // CullProxy is a debugging representation of our CullTree. See plCullTree.cpp,
     // plScene/plOccluder.cpp and plScene/plOccluderProxy.cpp for more info
     if (fView.HasCullProxy())
         fView.GetCullProxy()->GetKey()->UnRefObject();

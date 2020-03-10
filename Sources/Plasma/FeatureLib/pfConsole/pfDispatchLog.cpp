@@ -149,7 +149,7 @@ void plDispatchLog::DumpMsg(plMessage* msg, int numReceivers, int sendTimeMs, in
 void plDispatchLog::AddFilterType(uint16_t hClass)
 {
     if (hClass>=plFactory::GetNumClasses())
-        return; 
+        return;
 
     int i;
     for( i = 0; i < plFactory::GetNumClasses(); i++ )
@@ -168,7 +168,7 @@ void plDispatchLog::AddFilterExactType(uint16_t type)
 void plDispatchLog::RemoveFilterType(uint16_t hClass)
 {
     if (hClass>=plFactory::GetNumClasses())
-        return; 
+        return;
 
     int i;
     for( i = 0; i < plFactory::GetNumClasses(); i++ )

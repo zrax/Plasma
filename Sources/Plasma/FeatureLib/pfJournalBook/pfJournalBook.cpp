@@ -123,7 +123,7 @@ class pfEsHTMLChunk
 
         float    fCurrOpacity;   // For SFX images
         float    fSFXTime;       // For SFX images
-        float    fMinOpacity, fMaxOpacity;   
+        float    fMinOpacity, fMaxOpacity;
 
         hsColorRGBA fCurrColor;
         hsColorRGBA fOffColor, fOnColor;
@@ -154,7 +154,7 @@ class pfEsHTMLChunk
             kCanLink    = 0x00000008,
             kFloating   = 0x00000010,
             kGlowing    = 0x00000020,
-            kActAsCB    = 0x00000040,   // Cause the image to act in a checkbox-like fashion. 
+            kActAsCB    = 0x00000040,   // Cause the image to act in a checkbox-like fashion.
                                         // Min opacity turns into "off opacity" and max opacity
                                         // is "on opacity"
             kChecked    = 0x00000080,   // Only for kActAsCB, set if it's currently "checked"
@@ -540,7 +540,7 @@ bool pfBookData::MsgReceive(plMessage *pMsg)
         else if( fCurrentlyTurning )
         {
             if( callback->fUser & 0x04 )
-                IFillUncoveringPage( (bool)( callback->fUser & 0x01 ) ? true : false ); 
+                IFillUncoveringPage( (bool)( callback->fUser & 0x01 ) ? true : false );
             else if( callback->fUser & 0x02 )
                 StartTriggeredFlip( (bool)( callback->fUser & 0x01 ) ? true : false );
             else
@@ -562,7 +562,7 @@ bool pfBookData::MsgReceive(plMessage *pMsg)
     if( time != nil && fCurrSFXPages != kNoSides && !fCurrentlyTurning && fCurrentlyOpen )
     {
         IHandleSFX( (float)time->DSeconds() );
-        return true;        
+        return true;
     }
 
     plTimerCallbackMsg* timerMsg = plTimerCallbackMsg::ConvertNoRef(pMsg);
@@ -588,7 +588,7 @@ void pfBookData::IInitTemplate(pfGUIDialogMod *templateDlg)
     hsAssert(templateDlg != nil, "Nil template in pfBookData::IInitTemplate()!");
 
     // Init and ref our fDialog pointer
-    hsgResMgr::ResMgr()->SendRef(templateDlg->GetKey(), new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, kRefDialog), plRefFlags::kPassiveRef);  
+    hsgResMgr::ResMgr()->SendRef(templateDlg->GetKey(), new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, kRefDialog), plRefFlags::kPassiveRef);
 
     // Hijack the dialog proc with our own
     templateDlg->SetHandlerForAll(new pfJournalDlgProc(this));
@@ -619,7 +619,7 @@ void pfBookData::IInitTemplate(pfGUIDialogMod *templateDlg)
     // Grab and ref the default cover mipmap
     plLayer *lay = plLayer::ConvertNoRef(fCoverLayer);
     if((lay != nil)&&(lay->GetTexture() != nil))
-        hsgResMgr::ResMgr()->AddViaNotify(lay->GetTexture()->GetKey(), new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, kRefDefaultCover), plRefFlags::kPassiveRef);  
+        hsgResMgr::ResMgr()->AddViaNotify(lay->GetTexture()->GetKey(), new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, kRefDefaultCover), plRefFlags::kPassiveRef);
 
     fLeftPageMap->SetFlag(pfGUIClickMapCtrl::kReportHovering);
     fRightPageMap->SetFlag(pfGUIClickMapCtrl::kReportHovering);
@@ -661,7 +661,7 @@ void pfBookData::IInitTemplate(pfGUIDialogMod *templateDlg)
 }
 
 //// IGetDTMap ///////////////////////////////////////////////////////////////
-// Just a quick helper 
+// Just a quick helper
 
 plDynamicTextMap *pfBookData::GetDTMap(uint32_t which)
 {
@@ -689,7 +689,7 @@ pfGUIMultiLineEditCtrl *pfBookData::GetEditCtrl(uint32_t which)
 }
 
 //// IRegisterForSFX /////////////////////////////////////////////////////////
-// Registers (or unregisters) for time messages so we can process special FX 
+// Registers (or unregisters) for time messages so we can process special FX
 // if we need to
 
 void pfBookData::RegisterForSFX(WhichSide whichPages)
@@ -918,7 +918,7 @@ void pfBookData::ITriggerPageFlip(bool flipBackwards, bool immediate)
 }
 
 //// StartTriggeredFlip /////////////////////////////////////////////////////
-// Finishes the start of the triggered page flip (once we're sure the 
+// Finishes the start of the triggered page flip (once we're sure the
 // animation is at the new frame)
 
 void pfBookData::StartTriggeredFlip(bool flipBackwards)
@@ -1200,7 +1200,7 @@ void    pfJournalBook::UnloadAllGUIs()
 // the name of the mipmap to use as the cover of the book. The callback
 // key is the keyed object to send event messages to (see <img> tag).
 
-pfJournalBook::pfJournalBook( const char *esHTMLSource, plKey coverImageKey, plKey callbackKey /*= nil*/, 
+pfJournalBook::pfJournalBook( const char *esHTMLSource, plKey coverImageKey, plKey callbackKey /*= nil*/,
                                 const plLocation &hintLoc /* = plLocation::kGlobalFixedLoc */, const ST::string &guiName /* = nil */ )
 {
     if (!guiName.empty())
@@ -1236,7 +1236,7 @@ pfJournalBook::pfJournalBook( const char *esHTMLSource, plKey coverImageKey, plK
     delete [] wESHTMLSource;
 }
 
-pfJournalBook::pfJournalBook( const wchar_t *esHTMLSource, plKey coverImageKey, plKey callbackKey /*= nil*/, 
+pfJournalBook::pfJournalBook( const wchar_t *esHTMLSource, plKey coverImageKey, plKey callbackKey /*= nil*/,
                                 const plLocation &hintLoc /* = plLocation::kGlobalFixedLoc */, const ST::string &guiName /* = nil */ )
 {
     if (!guiName.empty())
@@ -1538,7 +1538,7 @@ void    pfJournalBook::NextPage()
         fVisibleLinks.Reset();
 
         // Swap the right DT map into the turn page front DTMap, then render
-        // the new current page into turn page back and currPage+1 into 
+        // the new current page into turn page back and currPage+1 into
         // the right DTMap
         plDynamicTextMap *turnFront = fBookGUIs[fCurBookGUI]->GetDTMap( pfJournalDlgProc::kTagTurnFrontDTMap );
         plDynamicTextMap *right = fBookGUIs[fCurBookGUI]->GetDTMap( pfJournalDlgProc::kTagRightDTMap );
@@ -1606,7 +1606,7 @@ void    pfJournalBook::PreviousPage()
         fVisibleLinks.Reset();
 
         // Swap the left DT map into the turn page back DTMap, then render
-        // the new current page into the left and currPage+1 into 
+        // the new current page into the left and currPage+1 into
         // the turn page front DTMap
         plDynamicTextMap *turnBack = fBookGUIs[fCurBookGUI]->GetDTMap( pfJournalDlgProc::kTagTurnBackDTMap );
         plDynamicTextMap *left = fBookGUIs[fCurBookGUI]->GetDTMap( pfJournalDlgProc::kTagLeftDTMap );
@@ -1828,7 +1828,7 @@ bool    pfJournalBook::ICompileSource(const wchar_t *source, const plLocation &h
         // Are we on a tag?
         uint8_t type = IGetTagType( c );
         if (type != pfEsHTMLChunk::kEmpty) {
-            // First, end the current paragraph chunk, which is a special case 'cause its 
+            // First, end the current paragraph chunk, which is a special case 'cause its
             // text is defined outside the tag
             if (start == c ) {
                 // No actual text, just delete
@@ -1949,7 +1949,7 @@ bool    pfJournalBook::ICompileSource(const wchar_t *source, const plLocation &h
                     break;
 
                 case pfEsHTMLChunk::kCover:
-                    // Don't create an actual chunk for this one, just use the "src" and 
+                    // Don't create an actual chunk for this one, just use the "src" and
                     // grab the mipmap key for our cover
                     c += 6;
                     while (IGetNextOption(c, name, option)) {
@@ -2466,7 +2466,7 @@ void    pfJournalBook::IRenderPage( uint32_t page, uint32_t whichDTMap, bool sup
     }
 
     hsAssert(page < fPageStarts.GetCount() || page > fLastPage, "UnInitialized page start!");
-    if( page <= fLastPage 
+    if( page <= fLastPage
         && page < fPageStarts.GetCount())   // Added this as a crash-prevention bandaid - MT
     {
         uint32_t idx;
@@ -2494,7 +2494,7 @@ void    pfJournalBook::IRenderPage( uint32_t page, uint32_t whichDTMap, bool sup
 
             switch( chunk->fType )
             {
-                case pfEsHTMLChunk::kParagraph:             
+                case pfEsHTMLChunk::kParagraph:
                     if( ( chunk->fFlags & pfEsHTMLChunk::kAlignMask ) == pfEsHTMLChunk::kLeft )
                     {
                         dtMap->SetJustify( plDynamicTextMap::kLeftJustify );
@@ -2597,13 +2597,13 @@ void    pfJournalBook::IRenderPage( uint32_t page, uint32_t whichDTMap, bool sup
                                 {
                                     // Mipmap overlaps the bottom of this page, so forcibly break so we'll
                                     // end up marking the page break here (note that, unlike paragraphs, we
-                                    // can't really break the mipmap into two...well, OK, we could, but it 
+                                    // can't really break the mipmap into two...well, OK, we could, but it
                                     // wouldn't make much sense :)
                                     y += (uint16_t)(mip->GetHeight());
 
                                     // Wonderful, the break breaks us from the switch(), which means the for()
                                     // loops runs once more and increments idx. So this is to counter that.
-                                    // (We better check tho, just to make sure nobody feeds us an extra-large 
+                                    // (We better check tho, just to make sure nobody feeds us an extra-large
                                     // image and sends us on an infinite loop)
                                     if( idx > fPageStarts[ page ] )
                                         idx--;
@@ -2643,7 +2643,7 @@ void    pfJournalBook::IRenderPage( uint32_t page, uint32_t whichDTMap, bool sup
                     x = (uint16_t)fPageLMargin;
                     break;
 
-                case pfEsHTMLChunk::kFontChange:                
+                case pfEsHTMLChunk::kFontChange:
                     IFindFontProps( idx, fontFace, fontSize, fontFlags, fontColor, fontSpacing );
                     dtMap->SetFont( fontFace, fontSize, fontFlags, false );
                     dtMap->SetTextColor( fontColor, true );
@@ -2670,7 +2670,7 @@ void    pfJournalBook::IRenderPage( uint32_t page, uint32_t whichDTMap, bool sup
 
                                 // Wonderful, the break breaks us from the switch(), which means the for()
                                 // loops runs once more and increments idx. So this is to counter that.
-                                // (We better check tho, just to make sure nobody feeds us an extra-large 
+                                // (We better check tho, just to make sure nobody feeds us an extra-large
                                 // image and sends us on an infinite loop)
                                 if( idx > fPageStarts[ page ] )
                                     idx--;
@@ -2821,7 +2821,7 @@ void    pfJournalBook::IDrawMipmap( pfEsHTMLChunk *chunk, uint16_t x, uint16_t y
             opts.fBlueTint = chunk->fCurrColor.b;
             opts.fOpacity = (uint8_t)(chunk->fCurrColor.a * 255.f);
         }
-        else 
+        else
         {
             if( chunk->fFlags & pfEsHTMLChunk::kGlowing )
                 opts.fFlags = ( chunk->fFlags & pfEsHTMLChunk::kBlendAlpha ) ? 0 : plMipmap::kMaskSrcAlpha;
@@ -3380,7 +3380,7 @@ void    pfJournalBook::ILoadAllImages( bool unload )
                 fBookGUIs[fCurBookGUI]->GetKey()->Release( fHTMLSource[ i ]->fImageKey );
             else
             {
-                plGenRefMsg *ref = new plGenRefMsg( fBookGUIs[fCurBookGUI]->GetKey(), plRefMsg::kOnCreate, -1, kRefImage );  
+                plGenRefMsg *ref = new plGenRefMsg( fBookGUIs[fCurBookGUI]->GetKey(), plRefMsg::kOnCreate, -1, kRefImage );
                 hsgResMgr::ResMgr()->AddViaNotify( fHTMLSource[ i ]->fImageKey, ref, plRefFlags::kActiveRef );
             }
         }

@@ -70,7 +70,7 @@ plClothingSDLModifier::plClothingSDLModifier() :
 }
 
 //
-// find armature mod and cache it's clothingOutfit  
+// find armature mod and cache it's clothingOutfit
 //
 plClothingOutfit* plClothingSDLModifier::GetClothingOutfit()
 {
@@ -116,7 +116,7 @@ void plClothingSDLModifier::IPutCurrentStateIn(plStateDataRecord* dstState)
     plSDStateVariable* clothesStateDesc = dstState->FindSDVar(kStrWardrobe);    // find clothes list
     int itemCount=items.GetCount();
     int optionsCount = options.GetCount();
-    hsAssert(optionsCount==itemCount, "number of items should match number of options according to clothing.sdl"); 
+    hsAssert(optionsCount==itemCount, "number of items should match number of options according to clothing.sdl");
     
     if (clothesStateDesc->GetCount() != itemCount)
         clothesStateDesc->Alloc(itemCount);     // set appropriate list size
@@ -155,13 +155,13 @@ void plClothingSDLModifier::IPutCurrentStateIn(plStateDataRecord* dstState)
     // just this one value.
     plSimpleStateVariable *var = dstState->FindVar(kStrLinkInAnim);
     if (var)
-        var->Set(clothing->fAvatar->fLinkInAnimKey);    
+        var->Set(clothing->fAvatar->fLinkInAnimKey);
 }
 
 void plClothingSDLModifier::PutSingleItemIntoSDR(plClosetItem *item, plStateDataRecord *sdr)
 {
     plKey key = item->fItem->GetKey();
-    sdr->FindVar(kStrItem)->Set(key);           
+    sdr->FindVar(kStrItem)->Set(key);
 
     //hsColorRGBA c = item->fOptions.fTint1;
     //hsColorRGBA c2 = item->fOptions.fTint2;
@@ -220,7 +220,7 @@ void plClothingSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcSta
     plSimpleStateVariable *var;
     var = srcState->FindVar(kStrLinkInAnim);
     if (var)
-        var->Get(&clothing->fAvatar->fLinkInAnimKey);   
+        var->Get(&clothing->fAvatar->fLinkInAnimKey);
 }
 
 void plClothingSDLModifier::HandleSingleSDR(const plStateDataRecord *sdr, plClothingOutfit *clothing /* = nil */, plClosetItem *closetItem /* = nil */)
@@ -244,7 +244,7 @@ void plClothingSDLModifier::HandleSingleSDR(const plStateDataRecord *sdr, plClot
             if (clothingItem)
             {
                 if (clothing)
-                    clothing->AddItem(clothingItem, false, false /*bcast */); 
+                    clothing->AddItem(clothingItem, false, false /*bcast */);
                 if (closetItem)
                     closetItem->fItem = clothingItem;
             }
@@ -305,7 +305,7 @@ void plClothingSDLModifier::HandleSingleSDR(const plStateDataRecord *sdr, plClot
                 if (clothing)
                     clothing->fSkinBlends[i] = (float)blend / 255;
             }
-        }       
+        }
     }
 }
 

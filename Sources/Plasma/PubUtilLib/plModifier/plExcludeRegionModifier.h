@@ -57,7 +57,7 @@ class plExcludeRegionModifier : public plSingleModifier
 protected:
     enum
     {
-        kBlockCameras,  
+        kBlockCameras,
     };
     std::vector<plKey> fSafePoints; // Safe positions to move avatars to
     hsTArray<plKey> fContainedAvatars;      // Avatars inside our volume

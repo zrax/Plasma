@@ -219,7 +219,7 @@ void    pfGUIProgressCtrl::SetCurrValue( float v )
             newTime = ( ( fValue - fMin ) / ( fMax - fMin ) ) * tLength + fAnimBegin;
 
         plAnimCmdMsg *msg = new plAnimCmdMsg();
-        msg->SetCmd( plAnimCmdMsg::kGoToTime ); 
+        msg->SetCmd( plAnimCmdMsg::kGoToTime );
         msg->SetAnimName( fAnimName );
         msg->fTime = newTime;
         msg->AddReceivers( fAnimationKeys );
@@ -237,7 +237,7 @@ void pfGUIProgressCtrl::AnimateToPercentage( float percent )
         if( fAnimationKeys.GetCount() > 0 )
         {
             plAnimCmdMsg *msg = new plAnimCmdMsg();
-            msg->SetCmd( plAnimCmdMsg::kPlayToPercentage ); 
+            msg->SetCmd( plAnimCmdMsg::kPlayToPercentage );
             msg->SetAnimName( fAnimName );
             msg->fTime = percent;
             msg->AddReceivers( fAnimationKeys );

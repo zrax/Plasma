@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/PubUtilLib/plNetGameLib/Private/plNglAuth.cpp
-*   
+*
 ***/
 
 #include "../Pch.h"
@@ -135,7 +135,7 @@ struct AccountExistsRequestTrans : NetAuthTrans {
     FNetCliAuthAccountExistsRequestCallback     m_callback;
     void *                                      m_param;
 
-    // send    
+    // send
     wchar_t                                       m_accountName[kMaxAccountNameLength];
 
     // recv
@@ -225,7 +225,7 @@ struct AccountCreateRequestTrans : NetAuthTrans {
     FNetCliAuthAccountCreateRequestCallback m_callback;
     void *                                  m_param;
 
-    // send    
+    // send
     wchar_t                                   m_accountName[kMaxAccountNameLength];
     ShaDigest                               m_namePassHash;
     unsigned                                m_accountFlags;
@@ -258,7 +258,7 @@ struct AccountCreateFromKeyRequestTrans : NetAuthTrans {
     FNetCliAuthAccountCreateFromKeyRequestCallback  m_callback;
     void *                                          m_param;
 
-    // send    
+    // send
     wchar_t                                   m_accountName[kMaxAccountNameLength];
     ShaDigest                               m_namePassHash;
     plUUID                                  m_key;
@@ -455,7 +455,7 @@ struct AccountSetRolesRequestTrans : NetAuthTrans {
     FNetCliAuthAccountSetRolesRequestCallback   m_callback;
     void *                                      m_param;
 
-    // send    
+    // send
     wchar_t                                   m_accountName[kMaxAccountNameLength];
     unsigned                                m_accountFlags;
 
@@ -481,7 +481,7 @@ struct AccountSetBillingTypeRequestTrans : NetAuthTrans {
     FNetCliAuthAccountSetBillingTypeRequestCallback m_callback;
     void *                                          m_param;
 
-    // send    
+    // send
     wchar_t                                   m_accountName[kMaxAccountNameLength];
     unsigned                                m_billingType;
 
@@ -507,7 +507,7 @@ struct AccountActivateRequestTrans : NetAuthTrans {
     FNetCliAuthAccountActivateRequestCallback   m_callback;
     void *                                      m_param;
 
-    // send    
+    // send
     plUUID                                      m_activationKey;
 
     AccountActivateRequestTrans (
@@ -892,7 +892,7 @@ struct SetPlayerBanStatusRequestTrans : NetAuthTrans {
     FNetCliAuthSetPlayerBanStatusRequestCallback    m_callback;
     void *                                          m_param;
 
-    // send    
+    // send
     unsigned                                            m_playerId;
     unsigned                                            m_banned;
 
@@ -918,7 +918,7 @@ struct ChangePlayerNameRequestTrans : NetAuthTrans {
     FNetCliAuthChangePlayerNameRequestCallback  m_callback;
     void *                                      m_param;
 
-    // send    
+    // send
     unsigned                                        m_playerId;
     wchar_t                                           m_newName[kMaxPlayerNameLength];
 
@@ -982,7 +982,7 @@ struct ScoreCreateTrans : NetAuthTrans {
     FNetCliAuthCreateScoreCallback  m_callback;
     void *                          m_param;
 
-    // send    
+    // send
     unsigned                        m_ownerId;
     ST::string                      m_gameName;
     unsigned                        m_gameType;
@@ -1016,7 +1016,7 @@ struct ScoreDeleteTrans : NetAuthTrans {
     FNetCliAuthScoreUpdateCallback  m_callback;
     void *                          m_param;
 
-    // send    
+    // send
     unsigned                        m_scoreId;
 
     ScoreDeleteTrans (
@@ -1072,7 +1072,7 @@ struct ScoreAddPointsTrans : NetAuthTrans {
     FNetCliAuthScoreUpdateCallback  m_callback;
     void *                          m_param;
 
-    // send    
+    // send
     unsigned                        m_scoreId;
     int                             m_numPoints;
 
@@ -1098,7 +1098,7 @@ struct ScoreTransferPointsTrans : NetAuthTrans {
     FNetCliAuthScoreUpdateCallback  m_callback;
     void *                          m_param;
 
-    // send    
+    // send
     unsigned                        m_srcScoreId;
     unsigned                        m_destScoreId;
     int                             m_numPoints;
@@ -1126,7 +1126,7 @@ struct ScoreSetPointsTrans : NetAuthTrans {
     FNetCliAuthScoreUpdateCallback  m_callback;
     void *                          m_param;
 
-    // send    
+    // send
     unsigned                        m_scoreId;
     int                             m_numPoints;
 
@@ -3068,7 +3068,7 @@ void PlayerDeleteRequestTrans::Post () {
 //============================================================================
 bool PlayerDeleteRequestTrans::Recv (
     const uint8_t  msg[],
-    unsigned    
+    unsigned
 ) {
     const Auth2Cli_PlayerDeleteReply & reply = *(const Auth2Cli_PlayerDeleteReply *) msg;
     m_result    = reply.result;
@@ -3122,7 +3122,7 @@ void UpgradeVisitorRequestTrans::Post () {
 //============================================================================
 bool UpgradeVisitorRequestTrans::Recv (
     const uint8_t  msg[],
-    unsigned    
+    unsigned
 ) {
     const Auth2Cli_UpgradeVisitorReply & reply = *(const Auth2Cli_UpgradeVisitorReply *) msg;
     m_result    = reply.result;
@@ -3823,7 +3823,7 @@ bool VaultFetchNodeRefsTrans::Recv (
     const Auth2Cli_VaultNodeRefsFetched & reply = *(const Auth2Cli_VaultNodeRefsFetched *) msg;
 
     if (IS_NET_SUCCESS(reply.result))
-        m_refs.Set(reply.refs, reply.refCount); 
+        m_refs.Set(reply.refs, reply.refCount);
 
     m_result = reply.result;
     m_state  = kTransStateComplete;
@@ -3912,7 +3912,7 @@ void VaultInitAgeTrans::Post () {
 //============================================================================
 bool VaultInitAgeTrans::Recv (
     const uint8_t  msg[],
-    unsigned    
+    unsigned
 ) {
     const Auth2Cli_VaultInitAgeReply & reply = *(const Auth2Cli_VaultInitAgeReply *) msg;
     
@@ -5173,7 +5173,7 @@ void AuthDestroy (bool wait) {
     NetTransCancelByProtocol(
         kNetProtocolCli2Auth,
         kNetErrRemoteShutdown
-    );    
+    );
     NetMsgProtocolDestroy(
         kNetProtocolCli2Auth,
         false

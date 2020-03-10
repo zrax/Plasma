@@ -47,11 +47,11 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "hsGeometry3.h"
 
 // flags for control event codes
-enum 
+enum
 {
     kControlFlagNormal              =   0x00000001,
     kControlFlagNoRepeat            =   0x00000002,
-    kControlFlagDownEvent           =   0x00000004, 
+    kControlFlagDownEvent           =   0x00000004,
     kControlFlagUpEvent             =   0x00000008,
     kControlFlagToggle              =   0x00000010,
     kControlFlagXAxisEvent          =   0x00000020,
@@ -146,4 +146,4 @@ struct plMouseInfo
 };
 
 
-#endif // plControlDefinition_inc 
+#endif // plControlDefinition_inc

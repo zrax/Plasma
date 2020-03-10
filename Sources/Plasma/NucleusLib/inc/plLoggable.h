@@ -56,7 +56,7 @@ public:
 };
 
 
-// An abstract base class which contains a status log and simple functions 
+// An abstract base class which contains a status log and simple functions
 // for writing Debug and Error msgs to the log
 class plLoggable
 {

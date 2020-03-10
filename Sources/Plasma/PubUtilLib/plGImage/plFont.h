@@ -108,7 +108,7 @@ class plFont : public hsKeyedObject
             kRenderJustYBottom  = 0x00000400,   // Y bottom justify (baseline is default)
             kRenderJustYMask    = 0x00000700,
 
-            kRenderIntoAlpha    = 0x00000800,   // This option causes grayscale (AA) fonts to 
+            kRenderIntoAlpha    = 0x00000800,   // This option causes grayscale (AA) fonts to
                                                 // render into the alpha channel instead of the color
                                                 // channel, so that the resulting pixels touched always
                                                 // have the renderColor and the alpha = to the font pixel.
@@ -152,23 +152,23 @@ class plFont : public hsKeyedObject
         class plCharacter
         {
             public:
-                uint32_t  fBitmapOff;     // Offset in the font bitmap in bytes 
+                uint32_t  fBitmapOff;     // Offset in the font bitmap in bytes
                                         // to the first uint8_t of the character
                 uint32_t  fHeight;        // Height in pixels of this character
-                int32_t   fBaseline;      // Number of pixels down from the top of 
+                int32_t   fBaseline;      // Number of pixels down from the top of
                                         // the char bitmap to the baseline.
                 
                 float    fLeftKern;  // Kerning values for this char, in pixels
-                float    fRightKern; // Note that the right kern is relative to 
+                float    fRightKern; // Note that the right kern is relative to
                                         // the right side of the bitmap area, which
                                         // is the width of the font bitmap, so
                                         // basically each character is the same width,
                                         // just kerned back!
-                                        // (left kerning currently unsupported, just 
+                                        // (left kerning currently unsupported, just
                                         // in here in case we need to eventually)
 
-                plCharacter& operator=(const int zero) 
-                { 
+                plCharacter& operator=(const int zero)
+                {
                     fBitmapOff=0;
                     fHeight = 0;
                     fBaseline = 0;

@@ -151,7 +151,7 @@ plProfile_CreateTimer("Update", "Python", PythonUpdate);
 //
 // fFunctionNames    - the actual names of the functions for On[event] types
 //
-const char* plPythonFileMod::fFunctionNames[] = 
+const char* plPythonFileMod::fFunctionNames[] =
 {
     "OnFirstUpdate",        // kfunc_FirstUpdate
     "OnUpdate",             // kfunc_Update
@@ -1740,7 +1740,7 @@ bool plPythonFileMod::MsgReceive(plMessage* msg)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : ReportError
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Report error to somewhere
 //
@@ -1758,7 +1758,7 @@ void plPythonFileMod::ReportError()
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : DisplayPythonOutput
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : display any Python stdout or stderr to file and to screen(later)
 //

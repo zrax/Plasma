@@ -291,7 +291,7 @@ int plPageTreeMgr::IPrepForRenderSortingSpans(plPipeline* pipe, hsTArray<plDrawV
     // are appropriate to sort (and hence intermix) with the first drawable in the list.
     // The second list is the drawableIndex/spanIndex pairs convenient for sorting (where
     // drawIndex indexes into drawables and spanIndex indexes into drawVis[iDraw].fVisList.
-    // So pairs[i] resolves into 
+    // So pairs[i] resolves into
     // drawables[pairs[i].fDrawable].fDrawable->GetSpan(pairs[i].fSpan)
 
     drawables.Append(&drawVis[iDrawStart]);
@@ -303,7 +303,7 @@ int plPageTreeMgr::IPrepForRenderSortingSpans(plPipeline* pipe, hsTArray<plDrawV
     }
 
     int iDraw;
-    for( iDraw = iDrawStart+1; 
+    for( iDraw = iDrawStart+1;
         (iDraw < drawVis.GetCount())
         && (drawVis[iDraw].fDrawable->GetRenderLevel().Level() == renderLevel)
         && drawVis[iDraw].fDrawable->GetNativeProperty(plDrawable::kPropSortSpans);
@@ -396,7 +396,7 @@ bool plPageTreeMgr::IRenderSortingSpans(plPipeline* pipe, hsTArray<plDrawVisList
     // So we're going to convert our sorted list back into a list of drawable/visList
     // pairs. We could have done this with our original drawable/visList, but we've
     // hopefully trimmed out some spans because of the fades. This drawable/visList
-    // isn't appropriate for rendering (because it doesn't let us switch back and forth 
+    // isn't appropriate for rendering (because it doesn't let us switch back and forth
     // from a drawable, but it's right for the PrepForRenderCall (which does things like
     // face sorting).
     for( i = 0; i < drawList.GetCount(); i++ )

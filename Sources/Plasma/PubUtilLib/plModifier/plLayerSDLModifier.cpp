@@ -55,8 +55,8 @@ char plLayerSDLModifier::kStrChannelData[]="channelData";
 //char plLayerSDLModifier::kStrOpacity[]="opacity";
 
 plKey plLayerSDLModifier::GetStateOwnerKey() const
-{ 
-    return fLayerAnimation ? fLayerAnimation->GetKey() : nil; 
+{
+    return fLayerAnimation ? fLayerAnimation->GetKey() : nil;
 }
 
 //
@@ -115,25 +115,25 @@ void plLayerSDLModifier::IPutCurrentStateIn(plStateDataRecord* dstState)
         channelVar->Set((uint8_t)(layer->fPreshadeColor->r * 255), channelIdx++);
         channelVar->Set((uint8_t)(layer->fPreshadeColor->g * 255), channelIdx++);
         channelVar->Set((uint8_t)(layer->fPreshadeColor->b * 255), channelIdx++);
-    }       
+    }
     if (layer->fRuntimeColor && (layer->fOwnedChannels & plLayerInterface::kRuntimeColor))
     {
         channelVar->Set((uint8_t)(layer->fRuntimeColor->r * 255), channelIdx++);
         channelVar->Set((uint8_t)(layer->fRuntimeColor->g * 255), channelIdx++);
         channelVar->Set((uint8_t)(layer->fRuntimeColor->b * 255), channelIdx++);
-    }       
+    }
     if (layer->fAmbientColor && (layer->fOwnedChannels & plLayerInterface::kAmbientColor))
     {
         channelVar->Set((uint8_t)(layer->fAmbientColor->r * 255), channelIdx++);
         channelVar->Set((uint8_t)(layer->fAmbientColor->g * 255), channelIdx++);
         channelVar->Set((uint8_t)(layer->fAmbientColor->b * 255), channelIdx++);
-    }           
+    }
     if (layer->fOpacity && (layer->fOwnedChannels & plLayerInterface::kOpacity))
         channelVar->Set((uint8_t)(*layer->fOpacity * 255), channelIdx++);
 }
 
 //
-// Change the object's animation state to reflect what is specified in the 
+// Change the object's animation state to reflect what is specified in the
 // stateDataRecord.
 //
 void plLayerSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcState)
@@ -175,7 +175,7 @@ void plLayerSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcState)
         layer->fPreshadeColor->g = val / 255.f;
         channelVar->Get(&val, channelIdx++);
         layer->fPreshadeColor->b = val / 255.f;
-    }       
+    }
     if (layer->fRuntimeColor && (layer->fOwnedChannels & plLayerInterface::kRuntimeColor))
     {
         channelVar->Get(&val, channelIdx++);
@@ -184,7 +184,7 @@ void plLayerSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcState)
         layer->fRuntimeColor->g = val / 255.f;
         channelVar->Get(&val, channelIdx++);
         layer->fRuntimeColor->b = val / 255.f;
-    }       
+    }
     if (layer->fAmbientColor && (layer->fOwnedChannels & plLayerInterface::kAmbientColor))
     {
         channelVar->Get(&val, channelIdx++);
@@ -193,7 +193,7 @@ void plLayerSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcState)
         layer->fAmbientColor->g = val / 255.f;
         channelVar->Get(&val, channelIdx++);
         layer->fAmbientColor->b = val / 255.f;
-    }       
+    }
     if (layer->fOpacity && (layer->fOwnedChannels & plLayerInterface::kOpacity))
     {
         channelVar->Get(&val, channelIdx++);

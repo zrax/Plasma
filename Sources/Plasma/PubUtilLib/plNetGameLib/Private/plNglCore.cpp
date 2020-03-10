@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/PubUtilLib/plNetGameLib/Private/plNglCore.cpp
-*   
+*
 ***/
 
 #include "../Pch.h"

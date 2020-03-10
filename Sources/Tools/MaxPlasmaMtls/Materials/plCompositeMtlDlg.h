@@ -64,7 +64,7 @@ protected:
     MtlDADMgr fDADMgr;  // For drag-drop sub-materials
 public:
     // Constructor and destructor
-    plCompositeMtlDlg(HWND hwMtlEdit, IMtlParams *imp, plCompositeMtl *m); 
+    plCompositeMtlDlg(HWND hwMtlEdit, IMtlParams *imp, plCompositeMtl *m);
     ~plCompositeMtlDlg();
 
     // Functions inherited from ParamDLg:
@@ -74,7 +74,7 @@ public:
     void SetTime(TimeValue t);
     void ReloadDialog();
     void ActivateDlg(BOOL onOff);
-    void DeleteThis()                   { delete this;  }   
+    void DeleteThis()                   { delete this;  }
     int FindSubMtlFromHWND(HWND hw);
 
     static BOOL CALLBACK ForwardProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam);

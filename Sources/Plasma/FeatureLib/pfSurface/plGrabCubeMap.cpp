@@ -106,7 +106,7 @@ void plGrabCubeMap::ISetupRenderRequests(plPipeline* pipe, const hsPoint3& cente
     hsMatrix44 cameraToWorlds[6];
     hsMatrix44::MakeEnvMapMatrices(center, worldToCameras, cameraToWorlds);
 
-    uint32_t renderState 
+    uint32_t renderState
         = plPipeline::kRenderNormal
         | plPipeline::kRenderClearColor
         | plPipeline::kRenderClearDepth;

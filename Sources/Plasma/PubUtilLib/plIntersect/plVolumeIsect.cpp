@@ -470,7 +470,7 @@ plVolumeCullResult plCylinderIsect::Test(const hsBounds3Ext& bnd) const
     {
         hsPoint3 cp0;
         hsPoint3 currPt;
-        plClosest::PointsOnLines(fWorldBot, fWorldNorm, 
+        plClosest::PointsOnLines(fWorldBot, fWorldNorm,
                       cp, axes[i],
                       cp0, currPt,
                       plClosest::kClamp);
@@ -818,9 +818,9 @@ plBoundsIsect::~plBoundsIsect()
 {
 }
 
-void plBoundsIsect::SetBounds(const hsBounds3Ext& bnd) 
-{ 
-    fLocalBounds = bnd; 
+void plBoundsIsect::SetBounds(const hsBounds3Ext& bnd)
+{
+    fLocalBounds = bnd;
     fWorldBounds = bnd;
 }
 
@@ -840,7 +840,7 @@ plVolumeCullResult plBoundsIsect::Test(const hsBounds3Ext& bnd) const
 
     retVal = bnd.TestBound(fWorldBounds);
 
-    return retVal < 0 ? kVolumeCulled : kVolumeSplit;   
+    return retVal < 0 ? kVolumeCulled : kVolumeSplit;
 }
 
 float plBoundsIsect::Test(const hsPoint3& pos) const

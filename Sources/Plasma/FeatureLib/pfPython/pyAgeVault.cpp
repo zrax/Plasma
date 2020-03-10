@@ -249,7 +249,7 @@ PyObject * pyAgeVault::GetAgeSDL() const
     }
     else {
         return pySDLStateDataRecord::New( rec );
-    }   
+    }
 }
 
 void pyAgeVault::UpdateAgeSDL( pySDLStateDataRecord & pyrec )

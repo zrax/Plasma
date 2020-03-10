@@ -146,7 +146,7 @@ public:
         kMaxRedGreen                = kMax | kRed | kGreen,
         kMaxRedGreenTimesAlpha      = kMaxRedGreen | kAlpha
     };
-    enum 
+    enum
     {
         kLockNone       = 0x0,
         kLockX          = 0x1,
@@ -217,7 +217,7 @@ protected:
 
     float               fPolarBunch;
 
-    ULONG               fScaleLock;             
+    ULONG               fScaleLock;
     Point3              fScaleLo;
     Point3              fScaleHi;
 

@@ -409,7 +409,7 @@ bool plVehicleComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 
     return true;
 #endif
-}   
+}
 /////////////////////////////////////////////////////////////////////////////////////////////////
 //
 //   Maintainers Marker Component
@@ -796,7 +796,7 @@ enum
 
 //Max paramblock2 stuff below.
 ParamBlockDesc2 gCameraBk
-(   
+(
     1, _T("camera"), 0, &gCameraDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_CAMERA, IDS_COMP_CAMERAS,  0, 0, NULL,

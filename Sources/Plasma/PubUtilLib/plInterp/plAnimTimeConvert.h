@@ -47,7 +47,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "hsTemplates.h"
 #include "pnNetCommon/plSynchedValue.h"
 
-#pragma warning (disable: 4284) 
+#pragma warning (disable: 4284)
 
 class plSynchedObject;
 class plAnimCmdMsg;
@@ -240,10 +240,10 @@ public:
     float fLength;
     float fSpeed; // The anim's target ("full") speed.
 
-    static plATCEaseCurve *CreateEaseCurve(uint8_t type, float minLength, float maxLength, float normLength, 
+    static plATCEaseCurve *CreateEaseCurve(uint8_t type, float minLength, float maxLength, float normLength,
                                            float startSpeed, float goalSpeed);
 
-    double GetEndWorldTime() const { return fBeginWorldTime + fLength; } 
+    double GetEndWorldTime() const { return fBeginWorldTime + fLength; }
 
     virtual plATCEaseCurve *Clone() const = 0;
     virtual void Read(hsStream *s, hsResMgr *mgr);
@@ -264,7 +264,7 @@ class plConstAccelEaseCurve : public plATCEaseCurve
 {
 public:
     plConstAccelEaseCurve();
-    plConstAccelEaseCurve(float minLength, float maxLength, float length, 
+    plConstAccelEaseCurve(float minLength, float maxLength, float length,
                           float startSpeed, float goalSpeed);
 
     CLASSNAME_REGISTER( plConstAccelEaseCurve );
@@ -281,7 +281,7 @@ class plSplineEaseCurve : public plATCEaseCurve
 {
 public:
     plSplineEaseCurve();
-    plSplineEaseCurve(float minLength, float maxLength, float length, 
+    plSplineEaseCurve(float minLength, float maxLength, float length,
                       float startSpeed, float goalSpeed);
 
     CLASSNAME_REGISTER( plSplineEaseCurve );
@@ -291,7 +291,7 @@ public:
     virtual void Write(hsStream *s, hsResMgr *mgr);
 
     virtual plATCEaseCurve *Clone() const;
-    virtual void RecalcToSpeed(float startSpeed, float goalSpeed, bool preserveRate = false); 
+    virtual void RecalcToSpeed(float startSpeed, float goalSpeed, bool preserveRate = false);
     virtual void SetLengthOnDistance(float dist);
     virtual float PositionGivenTime(float time) const;
     virtual float VelocityGivenTime(float time) const;

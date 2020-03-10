@@ -96,7 +96,7 @@ public:
     void        SetOuterVol(const int v,int index = -1); // volume for the outer cone (if applicable)
     void        SetConeAngles(int inner, int outer,int index = -1);
     void        RemoveCallbacks(plSoundMsg* pMsg);
-    void        AddCallbacks(plSoundMsg* pMsg);     
+    void        AddCallbacks(plSoundMsg* pMsg);
     bool        AddSound(plSound *pSnd, int index,bool is3D);
     int         AddSoundFromResource(plSound *pSnd, void* addr, int32_t size, bool is3D);
     virtual void        GetStatus(plSoundMsg* pMsg);

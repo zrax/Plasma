@@ -89,7 +89,7 @@ enum
     kActionExport,
 };
 
-static ActionDescription spActions[] = 
+static ActionDescription spActions[] =
 {
     {
         kActionSaveSel,         // ActionId identifies action for callback execution (within table)

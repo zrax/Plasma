@@ -58,17 +58,17 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 int plQuality::fQuality = 0;
 int plQuality::fCapability = 0;
 
-void plQuality::SetQuality(int q) 
-{ 
-    fQuality = q; 
-    plLoadMask::SetGlobalQuality(q); 
+void plQuality::SetQuality(int q)
+{
+    fQuality = q;
+    plLoadMask::SetGlobalQuality(q);
 }
 
 // Set by the pipeline according to platform capabilities.
-void plQuality::SetCapability(int c) 
-{ 
-    fCapability = c; 
-    plLoadMask::SetGlobalCapability(c); 
+void plQuality::SetCapability(int c)
+{
+    fCapability = c;
+    plLoadMask::SetGlobalCapability(c);
 }
 
 ///////////////////////////////////////////////////////////////////
@@ -148,8 +148,8 @@ uint32_t plLoadMask::ValidateMasks(int num, plLoadMask masks[])
 
 bool plLoadMask::ComputeRepMasks(
                                    int num,
-                                   const int quals[], 
-                                   const int caps[], 
+                                   const int quals[],
+                                   const int caps[],
                                    plLoadMask masks[])
 {
     bool retVal = false; // Okay till proven otherwise.

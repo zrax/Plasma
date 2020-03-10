@@ -131,7 +131,7 @@ public:
     short   GetShort( int idx=0 ) const;
     int     GetInt( int idx=0 ) const;
     float   GetFloat( int idx=0 ) const;
-    double  GetDouble( int idx=0 ) const;           
+    double  GetDouble( int idx=0 ) const;
     bool    GetBool( int idx=0 ) const;
     ST::string GetString( int idx=0 ) const;
     plKey   GetKey( int idx=0 ) const;

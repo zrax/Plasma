@@ -102,7 +102,7 @@ plCullNode::plCullStatus plCullNode::ITestBoundsRecur(const hsBounds3Ext& bnd) c
     }
 
     // We've got both children to feed.
-    // We pass the clear ones to the inner child, culled to outer, 
+    // We pass the clear ones to the inner child, culled to outer,
     // and split to both. Remember, a both children have to agree to cull a split.
     if( retVal == kClear )
         return IGetNode(fOuterChild)->ITestBoundsRecur(bnd);
@@ -179,7 +179,7 @@ plCullNode::plCullStatus plCullNode::ITestSphereRecur(const hsPoint3& center, fl
     }
 
     // We've got both children to feed.
-    // We pass the clear ones to the inner child, culled to outer, 
+    // We pass the clear ones to the inner child, culled to outer,
     // and split to both. Remember, a both children have to agree to cull a split.
     if( retVal == kClear )
         return IGetNode(fOuterChild)->ITestSphereRecur(center, rad);
@@ -459,9 +459,9 @@ void plCullNode::IBreakPoly(const plCullPoly& poly, const hsTArray<float>& depth
     }
 }
 
-void plCullNode::ITakeHalfPoly(const plCullPoly& srcPoly, 
-                               const hsTArray<int>& vtxIdx, 
-                               const hsBitVector& onVerts, 
+void plCullNode::ITakeHalfPoly(const plCullPoly& srcPoly,
+                               const hsTArray<int>& vtxIdx,
+                               const hsBitVector& onVerts,
                                plCullPoly& outPoly) const
 {
     if( vtxIdx.GetCount() > 2 )
@@ -508,8 +508,8 @@ void plCullNode::IMarkClipped(const plCullPoly& poly, const hsBitVector& onVerts
         poly.fClipped.SetBit(0);
 }
 
-plCullNode::plCullStatus plCullNode::ISplitPoly(const plCullPoly& poly, 
-                                                plCullPoly*& innerPoly, 
+plCullNode::plCullStatus plCullNode::ISplitPoly(const plCullPoly& poly,
+                                                plCullPoly*& innerPoly,
                                                 plCullPoly*& outerPoly) const
 {
     static hsTArray<float> depths;
@@ -529,7 +529,7 @@ plCullNode::plCullStatus plCullNode::ISplitPoly(const plCullPoly& poly,
             someInner = true;
         else if( depths[i] > kTolerance )
             someOuter = true;
-        else 
+        else
         {
             someOn = true;
             onVerts.SetBit(i);
@@ -624,7 +624,7 @@ float plCullNode::IInterpVert(const hsPoint3& p0, const hsPoint3& p1, hsPoint3& 
 // We use indices so our tree can actually be an array, which may be
 // resized at any time, which would invalidate any pointers we have.
 // But debugging a large tree is hard enough when stepping through pointers,
-// it's pretty much impossible with indices. So when debugging we can 
+// it's pretty much impossible with indices. So when debugging we can
 // setup these pointers for stepping through the tree. We just need to
 // reset them every time we add a poly, because that's when the tree
 // may have been resized invalidating the old pointers.

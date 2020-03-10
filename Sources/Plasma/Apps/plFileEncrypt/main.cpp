@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
         {
             print_help();
             return 0;
-        } 
+        }
         else if (ARGCMP("-v") || ARGCMP("--version"))
         {
             print_version();

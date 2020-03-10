@@ -122,7 +122,7 @@ public:
     // the latter one will never get loaded (have a load mask of zero).
     // So, just to be a pal, we'll detect that condition and return based on it.
     // i.e. Return true on invalid input (something will never get loaded).
-    // 
+    //
     // You can also pre-validate your input with ValidateReps, and/or validate
     // the output with ValidateMasks. The return value is a bitmask of which
     // items in the list had problems, so return of zero means A-OK.

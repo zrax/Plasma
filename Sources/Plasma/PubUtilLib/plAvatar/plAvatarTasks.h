@@ -204,7 +204,7 @@ public:
     GETINTERFACE_ANY( plAvOneShotTask, plAvTask );
 
     bool fBackwards;                  // play the anim backwards
-    bool fDisableLooping;             // explicitly kill looping on this anim;    
+    bool fDisableLooping;             // explicitly kill looping on this anim;
     bool fDisablePhysics;             // disable physics when we play this oneshot
     
     // *** implement reader and writer if needed for network propagation
@@ -245,15 +245,15 @@ public:
 
     // task protocol
     virtual bool Start(plArmatureMod *avatar, plArmatureBrain *brain, double time, float elapsed);
-    virtual bool Process(plArmatureMod *avatar, plArmatureBrain *brain, double time, float elapsed);   
+    virtual bool Process(plArmatureMod *avatar, plArmatureBrain *brain, double time, float elapsed);
 
     CLASSNAME_REGISTER( plAvOneShotLinkTask );
-    GETINTERFACE_ANY( plAvOneShotLinkTask, plAvOneShotTask );   
+    GETINTERFACE_ANY( plAvOneShotLinkTask, plAvOneShotTask );
 
     // only read/writes enough to send an unstarted task across the net. Not intended for
     // use with a running task.
     virtual void Write(hsStream *stream, hsResMgr *mgr);
-    virtual void Read(hsStream *stream, hsResMgr *mgr); 
+    virtual void Read(hsStream *stream, hsResMgr *mgr);
 
     void SetMarkerName(const ST::string &name);
         

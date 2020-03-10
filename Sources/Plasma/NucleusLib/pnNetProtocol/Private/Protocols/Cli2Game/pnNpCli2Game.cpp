@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/NucleusLib/pnNetProtocol/Private/Protocols/Cli2Game/pnNpCli2Game.cpp
-*   
+*
 ***/
 
 #define USES_PROTOCOL_CLI2GAME

@@ -101,7 +101,7 @@ public:
     virtual char*   LogReadSafeStringLong() { return ReadSafeStringLong(); }
     virtual void    LogSkip(uint32_t deltaByteCount, const char* desc) { Skip(deltaByteCount); }
 
-    // Stream Notes for Logging 
+    // Stream Notes for Logging
     virtual void    LogStringString(const char* s) { }
     virtual void    LogSubStreamStart(const char* desc) { }
     virtual void    LogSubStreamEnd() { }
@@ -111,8 +111,8 @@ public:
 
     // Optimization for small Reads
     virtual uint8_t ReadByte();
-    virtual bool    Read4Bytes(void *buffer);   // Reads 4 bytes,  return true if success 
-    virtual bool    Read8Bytes(void *buffer);   // Reads 8 bytes,  return true if success 
+    virtual bool    Read4Bytes(void *buffer);   // Reads 4 bytes,  return true if success
+    virtual bool    Read8Bytes(void *buffer);   // Reads 8 bytes,  return true if success
     virtual bool    Read12Bytes(void *buffer);  // Reads 12 bytes, return true if success
 
     virtual uint32_t  GetEOF();
@@ -282,7 +282,7 @@ public:
 };
 
 class hsUNIXStream: public hsStream
-{   
+{
     FILE*       fRef;
     char*       fBuff;
 
@@ -309,11 +309,11 @@ public:
 };
 
 // Small substream class: give it a base stream, an offset and a length, and it'll
-// treat all ops as if you had a chunk from the base stream as a separate, vanilla 
+// treat all ops as if you had a chunk from the base stream as a separate, vanilla
 // stream of the given length.
 
 class plReadOnlySubStream: public hsStream
-{   
+{
     hsStream    *fBase;
     uint32_t      fOffset, fLength;
 
@@ -411,7 +411,7 @@ public:
     virtual bool      Open(const plFileName &, const char *) { hsAssert(0, "hsWriteOnlyStream::Open  NotImplemented"); return false; }
     virtual bool      Close() { hsAssert(0, "hsWriteOnlyStream::Close  NotImplemented"); return false; }
     virtual uint32_t  Read(uint32_t byteCount, void * buffer);  // throws exception
-    virtual uint32_t  Write(uint32_t byteCount, const void* buffer);    
+    virtual uint32_t  Write(uint32_t byteCount, const void* buffer);
     virtual uint32_t  GetBytesRead() const { return 0; }
     virtual uint32_t  GetBytesWritten() const { return fBytesRead; }
 };

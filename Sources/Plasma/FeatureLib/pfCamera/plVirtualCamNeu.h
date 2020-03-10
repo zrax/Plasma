@@ -120,7 +120,7 @@ public:
     CLASSNAME_REGISTER( plVirtualCam1 );
     GETINTERFACE_ANY( plVirtualCam1, hsKeyedObject );
 
-    void SetPipeline(plPipeline* p); 
+    void SetPipeline(plPipeline* p);
     void Init();
 
     virtual bool MsgReceive(plMessage* msg);
@@ -143,7 +143,7 @@ public:
     bool Is1stPersonCamera();
 
     bool    HasMovementFlag(int f) { return fMoveFlags.IsBitSet(f); }
-    void    SetMovementFlag(int f, bool on = true) { fMoveFlags.SetBit(f, on);} 
+    void    SetMovementFlag(int f, bool on = true) { fMoveFlags.SetBit(f, on);}
         
     hsPoint3 GetCameraPos() { return fOutputPos; }
     hsPoint3 GetCameraPOA() { return fOutputPOA; }
@@ -235,7 +235,7 @@ private:
     float               fRetainedFY;
 
     // built-in cameras
-    plCameraModifier1*  fDriveCamera; // for driving around 
+    plCameraModifier1*  fDriveCamera; // for driving around
     plCameraModifier1*  fTransitionCamera; // transitions between cameras placed in scenes
     plCameraModifier1*  fPythonOverride; // a special camera pushed by python
     plCameraModifier1*  fFirstPersonOverride; // the built-in first person camera
@@ -246,7 +246,7 @@ private:
     static float fAspectRatio;
     static float fHither, fYon;
     static plVirtualCam1* fInstance;
-    static bool printFOV; 
+    static bool printFOV;
     static float fPanResponseTime;
     bool fForceCutOnce;
 

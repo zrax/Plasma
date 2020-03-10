@@ -111,7 +111,7 @@ void plNetClientMsgHandler::IFillInTransportMember(const plNetMsgMemberInfoHelpe
 {
     const plNetClientMgr* nc=IGetNetClientMgr();
     uint16_t port = mbi->GetClientGuid()->GetSrcPort();
-    uint32_t addr = mbi->GetClientGuid()->GetSrcAddr();       
+    uint32_t addr = mbi->GetClientGuid()->GetSrcAddr();
     uint32_t flags = mbi->GetFlags();
     uint32_t plrID = mbi->GetClientGuid()->GetPlayerID();
     plUoid avUoid = mbi->GetAvatarUoid();
@@ -461,10 +461,10 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgMembersList)
     for( i=nc->fTransport.GetNumMembers()-1 ; i>=0; i--  )
     {
         if (!nc->fTransport.GetMember(i)->IsServer())
-        {           
-            nc->fTransport.RemoveMember(i);         
+        {
+            nc->fTransport.RemoveMember(i);
         }
-    } // for         
+    } // for
 
     // update the members list from the msg.
     // this app is not one of the members in the msg
@@ -476,7 +476,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgMembersList)
         int idx=nc->fTransport.AddMember(mbr);
         hsAssert(idx>=0, "Failed adding member?");
             
-    } // for         
+    } // for
 
     // new player has been aded send local MembersUpdate msg
     plMemberUpdateMsg* mu = new plMemberUpdateMsg;

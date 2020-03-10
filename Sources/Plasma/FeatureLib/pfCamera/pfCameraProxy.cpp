@@ -67,11 +67,11 @@ bool plCameraProxy::Init(plVirtualCam1* aud)
     return fOwner != nil;
 }
 
-plKey plCameraProxy::IGetNode() const 
+plKey plCameraProxy::IGetNode() const
 {
     if (node)
         return node->GetKey();
-    return nil; 
+    return nil;
 }
 
 plDrawableSpans* plCameraProxy::ICreateProxy(hsGMaterial* mat, hsTArray<uint32_t>& idx, plDrawableSpans* addTo)

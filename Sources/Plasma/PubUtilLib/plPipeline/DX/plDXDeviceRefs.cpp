@@ -172,7 +172,7 @@ void    plDXIndexBufferRef::Release()
 
 //// Set //////////////////////////////////////////////////////////////////////
 
-plDXTextureRef& plDXTextureRef::Set( D3DFORMAT ft, uint32_t ml, uint32_t mw, uint32_t mh, uint32_t np, 
+plDXTextureRef& plDXTextureRef::Set( D3DFORMAT ft, uint32_t ml, uint32_t mw, uint32_t mh, uint32_t np,
                                                      uint32_t sz, uint32_t manSize, uint32_t* lSz, void* pd, bool ed, bool renderTarget )
 {
     if( fDataSize > 0 )
@@ -208,11 +208,11 @@ plDXTextureRef& plDXTextureRef::Set( D3DFORMAT ft, uint32_t ml, uint32_t mw, uin
 
 //// Destructor /////////////////////////////////////////////////
 
-plDXTextureRef::~plDXTextureRef() 
+plDXTextureRef::~plDXTextureRef()
 {
     Release();
 
-    delete [] fLevelSizes; 
+    delete [] fLevelSizes;
 }
 
 //// Release //////////////////////////////////////////////////////////////////
@@ -272,10 +272,10 @@ void    plDXLightRef::UpdateD3DInfo( IDirect3DDevice9 *dev, plDXLightSettings *s
         fD3DInfo.Attenuation1 = omniOwner->GetLinearAttenuation();
         fD3DInfo.Attenuation2 = omniOwner->GetQuadraticAttenuation();
 
-        // If the light is a spot, but it has a projected texture, then 
+        // If the light is a spot, but it has a projected texture, then
         // the cone attenuation is handled by the texture. We're only using
         // the D3D light for distance attenuation and the N*L term. So
-        // we can just leave the D3D light as the cheaper and more stable 
+        // we can just leave the D3D light as the cheaper and more stable
         // Omni light. This sort of obviates the change below. - mf
         if( !omniOwner->GetProjection()
             && (spotOwner = plSpotLightInfo::ConvertNoRef(fOwner)) )
@@ -295,11 +295,11 @@ void    plDXLightRef::UpdateD3DInfo( IDirect3DDevice9 *dev, plDXLightSettings *s
             // of the light to light, with bizarreness like lighting one object but not the object
             // next to it, alternating which object it fails on each frame (or less often).
             // So, whatever. - mf
-            fD3DInfo.Phi = spotOwner->GetSpotOuter() * 2; 
+            fD3DInfo.Phi = spotOwner->GetSpotOuter() * 2;
         }
     }
     else if( ( dirOwner = plDirectionalLightInfo::ConvertNoRef( fOwner ) ) != nil )
-    {   
+    {
         fD3DInfo.Type = D3DLIGHT_DIRECTIONAL;
 
         hsVector3 direction = dirOwner->GetWorldDirection();
@@ -358,7 +358,7 @@ plDXRenderTargetRef::plDXRenderTargetRef( D3DFORMAT tp, uint32_t ml, plRenderTar
                                         owner->GetWidth() * owner->GetHeight(),
                                         owner->GetWidth() * owner->GetHeight() * ( owner->GetPixelSize() >> 3 ),
                                         0,
-                                        nil, 
+                                        nil,
                                         nil, true, true )
 {
     fD3DColorSurface = nil;
@@ -391,7 +391,7 @@ plDXRenderTargetRef& plDXRenderTargetRef::Set( D3DFORMAT tp, uint32_t ml, plRend
                                 owner->GetWidth() * owner->GetHeight(),
                                 owner->GetWidth() * owner->GetHeight() * ( owner->GetPixelSize() >> 3 ),
                                 0,
-                                nil, 
+                                nil,
                                 nil, true, true );
 
     if( owner->GetFlags() & plRenderTarget::kIsTexture )

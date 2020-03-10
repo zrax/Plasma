@@ -55,31 +55,31 @@ fLastTerminator(nil)
     Reset(string,seps);
 }
 
-hsStringTokenizer::~hsStringTokenizer() 
+hsStringTokenizer::~hsStringTokenizer()
 {
     delete[] fString;
     delete[] fSeps;
 }
 
-bool hsStringTokenizer::HasMoreTokens() 
+bool hsStringTokenizer::HasMoreTokens()
 {
     return (*fTok != 0);
 }
 
-inline bool hsStringTokenizer::IsSep(char c) 
+inline bool hsStringTokenizer::IsSep(char c)
 {
-    if (!fQAsTok || !fInQuote) 
+    if (!fQAsTok || !fInQuote)
     {
         if ( fCheckAlphaNum || !isalnum(c) )
         {
-            for (int32_t i=0; i<fNumSeps; i++) 
+            for (int32_t i=0; i<fNumSeps; i++)
             {
-                if (fSeps[i] == c) 
+                if (fSeps[i] == c)
                     return true;
             }
         }
     }
-    if (fQAsTok && c=='\"') 
+    if (fQAsTok && c=='\"')
     {
         fInQuote = !fInQuote;
         return true;
@@ -87,16 +87,16 @@ inline bool hsStringTokenizer::IsSep(char c)
     return false;
 }
 
-char *hsStringTokenizer::next() 
+char *hsStringTokenizer::next()
 {
-    if (*fTok == 0) 
+    if (*fTok == 0)
         return nil;
 
     char *cur = fTok;
-    while (*fTok != 0 && !IsSep(*fTok)) 
+    while (*fTok != 0 && !IsSep(*fTok))
         fTok++;
 
-    if (*fTok != 0) 
+    if (*fTok != 0)
     {
         fLastRep = *fTok;
         fLastTerminator = fTok;
@@ -104,7 +104,7 @@ char *hsStringTokenizer::next()
         *fTok = 0;
         fTok++;
     }
-    while (*fTok != 0 && IsSep(*fTok)) 
+    while (*fTok != 0 && IsSep(*fTok))
         fTok++;
 
     return cur;
@@ -131,7 +131,7 @@ void    hsStringTokenizer::RestoreLastTerminator()
     }
 }
 
-void hsStringTokenizer::Reset(const char *string, const char *seps) 
+void hsStringTokenizer::Reset(const char *string, const char *seps)
 {
     if (fString)
         delete[] fString;
@@ -179,31 +179,31 @@ hsWStringTokenizer::hsWStringTokenizer(const wchar_t *string, const wchar_t *sep
     Reset(string,seps);
 }
 
-hsWStringTokenizer::~hsWStringTokenizer() 
+hsWStringTokenizer::~hsWStringTokenizer()
 {
     delete[] fString;
     delete[] fSeps;
 }
 
-bool hsWStringTokenizer::HasMoreTokens() 
+bool hsWStringTokenizer::HasMoreTokens()
 {
     return (*fTok != L'\0');
 }
 
-inline bool hsWStringTokenizer::IsSep(wchar_t c) 
+inline bool hsWStringTokenizer::IsSep(wchar_t c)
 {
-    if (!fQAsTok || !fInQuote) 
+    if (!fQAsTok || !fInQuote)
     {
         if ( fCheckAlphaNum || !iswalnum(c) )
         {
-            for (int32_t i=0; i<fNumSeps; i++) 
+            for (int32_t i=0; i<fNumSeps; i++)
             {
-                if (fSeps[i] == c) 
+                if (fSeps[i] == c)
                     return true;
             }
         }
     }
-    if (fQAsTok && c==L'\"') 
+    if (fQAsTok && c==L'\"')
     {
         fInQuote = !fInQuote;
         return true;
@@ -211,16 +211,16 @@ inline bool hsWStringTokenizer::IsSep(wchar_t c)
     return false;
 }
 
-wchar_t *hsWStringTokenizer::next() 
+wchar_t *hsWStringTokenizer::next()
 {
-    if (*fTok == L'\0') 
+    if (*fTok == L'\0')
         return nil;
 
     wchar_t *cur = fTok;
-    while (*fTok != L'\0' && !IsSep(*fTok)) 
+    while (*fTok != L'\0' && !IsSep(*fTok))
         fTok++;
 
-    if (*fTok != L'\0') 
+    if (*fTok != L'\0')
     {
         fLastRep = *fTok;
         fLastTerminator = fTok;
@@ -228,7 +228,7 @@ wchar_t *hsWStringTokenizer::next()
         *fTok = L'\0';
         fTok++;
     }
-    while (*fTok != L'\0' && IsSep(*fTok)) 
+    while (*fTok != L'\0' && IsSep(*fTok))
         fTok++;
 
     return cur;
@@ -256,7 +256,7 @@ void    hsWStringTokenizer::RestoreLastTerminator()
     }
 }
 
-void hsWStringTokenizer::Reset(const wchar_t *string, const wchar_t *seps) 
+void hsWStringTokenizer::Reset(const wchar_t *string, const wchar_t *seps)
 {
     if (fString)
         delete[] fString;

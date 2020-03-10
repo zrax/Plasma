@@ -45,12 +45,12 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "pnMessage/plMessage.h"
 
 plNetSharedState::plNetSharedState(const char* name) : fServerMayDelete(false)
-{ 
+{
     SetName(name);
 }
 
-plNetSharedState::~plNetSharedState() 
-{ 
+plNetSharedState::~plNetSharedState()
+{
     Reset();
 }
 
@@ -82,7 +82,7 @@ void plNetSharedState::Copy(plNetSharedState *ss)
 }
 
 void plNetSharedState::Read(hsStream* stream)
-{   
+{
     Reset();
 
     plMsgStdStringHelper::Peek(fName, stream);
@@ -100,7 +100,7 @@ void plNetSharedState::Read(hsStream* stream)
 }
 
 void plNetSharedState::Write(hsStream* stream)
-{   
+{
     plMsgStdStringHelper::Poke(fName, stream);
     int32_t num=GetNumVars();
     stream->WriteLE32(num);

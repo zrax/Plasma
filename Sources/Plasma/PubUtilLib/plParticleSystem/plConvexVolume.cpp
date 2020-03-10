@@ -73,7 +73,7 @@ bool plConvexVolume::AddPlane(const hsPlane3 &plane)
     for (i = fNumPlanes - 1; i >= 0; i--)
     {
         const float MIN_COS_THETA = 0.99999f; // translates to < 0.25 degree angle
-        // If the angle betwen the normals is close enough, count them as equal.        
+        // If the angle betwen the normals is close enough, count them as equal.
         if (fLocalPlanes[i].fN.InnerProduct(plane.fN) >= MIN_COS_THETA)
             return false; // no need to add it
     }
@@ -103,7 +103,7 @@ void plConvexVolume::Update(const hsMatrix44 &l2w)
     for (i = 0; i < fNumPlanes; i++)
     {
         // Since fN is an hsVector3, it will only apply the rotational aspect of the transform...
-        fWorldPlanes[i].fN = l2w * fLocalPlanes[i].fN; 
+        fWorldPlanes[i].fN = l2w * fLocalPlanes[i].fN;
         hsVector3 tmp = fLocalPlanes[i].fN * fLocalPlanes[i].fD;
         planePt.Set(&tmp);
         fWorldPlanes[i].fD = -(l2w * planePt).InnerProduct(fWorldPlanes[i].fN);

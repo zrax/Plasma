@@ -49,8 +49,8 @@ plTimeMsg::plTimeMsg()
 {
 }
 
-plTimeMsg::plTimeMsg(const plKey &s, 
-                const plKey &r, 
+plTimeMsg::plTimeMsg(const plKey &s,
+                const plKey &r,
                 const double* t, const float* d)
 : plMessage(s, r, t)
 {
@@ -68,8 +68,8 @@ plEvalMsg::plEvalMsg()
 {
 }
 
-plEvalMsg::plEvalMsg(const plKey &s, 
-                const plKey &r, 
+plEvalMsg::plEvalMsg(const plKey &s,
+                const plKey &r,
                 const double* t, const float* d)
 : plTimeMsg(s, r, t, d)
 {
@@ -83,8 +83,8 @@ plTransformMsg::plTransformMsg()
 {
 }
 
-plTransformMsg::plTransformMsg(const plKey &s, 
-                const plKey &r, 
+plTransformMsg::plTransformMsg(const plKey &s,
+                const plKey &r,
                 const double* t, const float* d)
 : plTimeMsg(s, r, t, d)
 {

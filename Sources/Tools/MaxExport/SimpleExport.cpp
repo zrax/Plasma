@@ -89,22 +89,22 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 extern UserPropMgr gUserPropMgr;
 
 #ifdef HS_DEBUGGING
-#define HS_NO_TRY       
+#define HS_NO_TRY
 #endif
 
 //
 // .MSH export module functions follow:
 //
 
-HSExport2::HSExport2() 
+HSExport2::HSExport2()
 {
 }
 
-HSExport2::~HSExport2() 
+HSExport2::~HSExport2()
 {
 }
 
-int HSExport2::ExtCount() 
+int HSExport2::ExtCount()
 {
     return 2;
 }
@@ -112,10 +112,10 @@ int HSExport2::ExtCount()
 //
 // Extensions supported for import/export modules
 //
-const TCHAR *HSExport2::Ext(int n) 
+const TCHAR *HSExport2::Ext(int n)
 {
 static  char str[64];
-    switch(n) 
+    switch(n)
     {
         case 0:
             return "";
@@ -128,15 +128,15 @@ static  char str[64];
 //
 // Long ASCII description (i.e. "Targa 2.0 Image File")
 //
-const TCHAR *HSExport2::LongDesc() 
+const TCHAR *HSExport2::LongDesc()
 {
     return "Plasma 2.0";
 }
 
 //
-// Short ASCII description (i.e. "Targa")   
+// Short ASCII description (i.e. "Targa")
 //
-const TCHAR *HSExport2::ShortDesc() 
+const TCHAR *HSExport2::ShortDesc()
 {
 #ifdef HS_DEBUGGING
     return "Plasma 2.0 Debug";
@@ -148,7 +148,7 @@ const TCHAR *HSExport2::ShortDesc()
 //
 // ASCII Author name
 //
-const TCHAR *HSExport2::AuthorName() 
+const TCHAR *HSExport2::AuthorName()
 {
     return "Billy Bob";
 }
@@ -156,7 +156,7 @@ const TCHAR *HSExport2::AuthorName()
 //
 // ASCII Copyright message
 //
-const TCHAR *HSExport2::CopyrightMessage() 
+const TCHAR *HSExport2::CopyrightMessage()
 {
     return "Copyright 1997 HeadSpin Technology Inc.";
 }
@@ -164,7 +164,7 @@ const TCHAR *HSExport2::CopyrightMessage()
 //
 // Other message #1
 //
-const TCHAR *HSExport2::OtherMessage1() 
+const TCHAR *HSExport2::OtherMessage1()
 {
     return _T("");
 }
@@ -172,7 +172,7 @@ const TCHAR *HSExport2::OtherMessage1()
 //
 // Other message #2
 //
-const TCHAR *HSExport2::OtherMessage2() 
+const TCHAR *HSExport2::OtherMessage2()
 {
     return _T("");
 }
@@ -180,7 +180,7 @@ const TCHAR *HSExport2::OtherMessage2()
 //
 // Version number * 100 (i.e. v3.01 = 301)
 //
-unsigned int HSExport2::Version() 
+unsigned int HSExport2::Version()
 {
     return 100;
 }
@@ -188,7 +188,7 @@ unsigned int HSExport2::Version()
 //
 // Optional
 //
-void HSExport2::ShowAbout(HWND hWnd) 
+void HSExport2::ShowAbout(HWND hWnd)
 {
 }
 
@@ -228,7 +228,7 @@ public:
 
 //
 //
-// 
+//
 int HSExport2::DoExport(const TCHAR *name,ExpInterface *ei,Interface *gi, BOOL suppressPrompts, DWORD options)
 {
     BOOL backupEnabled = gi->AutoBackupEnabled();
@@ -256,7 +256,7 @@ int HSExport2::DoExport(const TCHAR *name,ExpInterface *ei,Interface *gi, BOOL s
     // Apparently this was implied by the open dialog, but not if you call Max's ExportToFile() func
     SetCurrentDirectoryW(out_path.WideString().data());
 
-    // 
+    //
     // Setup ErrorMsg
     //
     // Needs to be outside try/catch so it doesn't stack unwind...

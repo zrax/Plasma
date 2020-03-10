@@ -68,7 +68,7 @@ public:
     void SetActivatorKey(plKey k);
     void Reset() { SetSatisfied(false); }
 
-    virtual void Read(hsStream* stream, hsResMgr* mgr); 
+    virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);
 
 };

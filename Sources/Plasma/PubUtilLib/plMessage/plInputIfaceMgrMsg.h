@@ -68,7 +68,7 @@ class plInputIfaceMgrMsg : public plMessage
         plKey fAvKey;
     public:
 
-        enum 
+        enum
         {
             kAddInterface,
             kRemoveInterface,

@@ -59,7 +59,7 @@ public:
     ~plReplaceGeometryMsg() {}
 
     CLASSNAME_REGISTER( plReplaceGeometryMsg );
-    GETINTERFACE_ANY( plReplaceGeometryMsg, plMessage );    
+    GETINTERFACE_ANY( plReplaceGeometryMsg, plMessage );
 
     // No R/W, these shouldn't be sent over the wire
     virtual void Read(hsStream* stream, hsResMgr* mgr) {}

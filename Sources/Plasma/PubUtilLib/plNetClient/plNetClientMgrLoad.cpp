@@ -41,7 +41,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 *==LICENSE==*/
 
 #if 1   // for debugging
-#include "plCreatableIndex.h"   
+#include "plCreatableIndex.h"
 #include "plModifier/plResponderModifier.h"
 #include "plSurface/plLayerAnimation.h"
 #endif
@@ -94,11 +94,11 @@ extern  bool    gDataServerLocal;
 
 
 // Load Player object
-// a clone will be created if cloneNum>0 
+// a clone will be created if cloneNum>0
 // returns the playerKey if successful.
 //
 // Don't call this directly. Send a clone message to the NetClientManager instead.
-// Load an object, optionally cloning if necessary. 
+// Load an object, optionally cloning if necessary.
 plKey plNetClientMgr::ILoadClone(plLoadCloneMsg *pCloneMsg)
 {
     plKey cloneKey = pCloneMsg->GetCloneKey();

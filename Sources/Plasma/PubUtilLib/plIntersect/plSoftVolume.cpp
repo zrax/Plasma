@@ -48,7 +48,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plgDispatch.h"
 #include "plMessage/plListenerMsg.h"
 
-plSoftVolume::plSoftVolume() 
+plSoftVolume::plSoftVolume()
 :   fListenState(0),
     fListenStrength(0),
     fInsideStrength(1.f),
@@ -83,8 +83,8 @@ void plSoftVolume::Write(hsStream* s, hsResMgr* mgr)
     s->WriteLEScalar(fOutsideStrength);
 }
 
-float plSoftVolume::GetStrength(const hsPoint3& pos) const 
-{ 
+float plSoftVolume::GetStrength(const hsPoint3& pos) const
+{
     return IRemapStrength(IGetStrength(pos));
 }
 

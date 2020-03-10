@@ -71,7 +71,7 @@ class plAGMasterSDLModifier;
 //
 ////////////////
 /** \class plAGMasterMod
-    A modifier which can apply animations to scene objects. 
+    A modifier which can apply animations to scene objects.
     Works together with a plAGModifier, which can apply animation to a
     single scene object. A master modifier hooks up to a family of
     ag modifiers to do its job.
@@ -112,7 +112,7 @@ public:
                                              uint16_t blendPriority = kAGMedBlendPriority,
                                              bool cache = false);
 
-    /** Play a simple anim (one that doesn't affect root) once and auto detach. 
+    /** Play a simple anim (one that doesn't affect root) once and auto detach.
         Intended for Zandi's facial animations that run seperate from the behaviors. */
     void PlaySimpleAnim(const ST::string &name);
                                              
@@ -143,7 +143,7 @@ public:
 
     /** Attach the animation if it's not already attached. If
         it is attached, return the instance.
-        Note that if it's attached by this function, it 
+        Note that if it's attached by this function, it
         will be on top of the stack, but if it was already
         attached, it could be anywhere, including buried under
         a bunch of other animations. If it's important that it be
@@ -246,7 +246,7 @@ protected:
     void IRegForEval(bool val);
 
     // SDL modifier which sends/recvs dynamics state
-    plAGMasterSDLModifier *fAGMasterSDLMod; 
+    plAGMasterSDLModifier *fAGMasterSDLMod;
 
     bool fNeedCompile;
 

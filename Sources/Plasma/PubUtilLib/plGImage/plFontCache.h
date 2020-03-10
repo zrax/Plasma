@@ -67,7 +67,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 class plFont;
 class plFontCache : public hsKeyedObject
 {
-    protected:  
+    protected:
 
         hsTArray<plFont *>      fCache;
         plFileName              fCustFontDir;

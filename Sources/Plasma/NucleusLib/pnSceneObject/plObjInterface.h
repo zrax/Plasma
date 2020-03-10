@@ -59,7 +59,7 @@ class plAudioInterface;
 
 //
 // Since interfaces are keyed objects with valid uoids and
-// may have dynamic data (coordinate interface), they are 
+// may have dynamic data (coordinate interface), they are
 // synched (saved) objects
 //
 class plObjInterface : public plSynchedObject
@@ -76,10 +76,10 @@ protected:
 
     // SetSceneNode just called by owner. If we're an interface to external data,
     // we need to pass the change on. Otherwise, do nothing.
-    virtual void    ISetSceneNode(plKey node) {} 
+    virtual void    ISetSceneNode(plKey node) {}
     plSceneObject*  IGetOwner() const { return fOwner; }
     virtual void    ISetOwner(plSceneObject* owner);
-    void            ISetAllProperties(const hsBitVector& b);    
+    void            ISetAllProperties(const hsBitVector& b);
 
     plDrawInterface* IGetOwnerDrawInterface() { return fOwner ? fOwner->GetVolatileDrawInterface() : nil; }
     plSimulationInterface* IGetOwnerSimulationInterface() { return fOwner ? fOwner->GetVolatileSimulationInterface() : nil; }
@@ -98,9 +98,9 @@ public:
     const plSceneObject* GetOwner() const { return IGetOwner(); }
     plKey GetOwnerKey() const { return IGetOwner() ? IGetOwner()->GetKey() : nil; }
     
-    virtual plKey GetSceneNode() const { return IGetOwner() ? IGetOwner()->GetSceneNode() : nil; } 
+    virtual plKey GetSceneNode() const { return IGetOwner() ? IGetOwner()->GetSceneNode() : nil; }
 
-    // override SetProperty to pass the prop down to the pool objects 
+    // override SetProperty to pass the prop down to the pool objects
     virtual void    SetProperty(int prop, bool on) { fProps.SetBit(prop, on); }
     
     // shouldn't need to override GetProperty()

@@ -142,7 +142,7 @@ void plAGMasterMod::Read(hsStream * stream, hsResMgr *mgr)
 // Collect all the plAGModifiers from our children and attach private anims.
 void plAGMasterMod::AddTarget(plSceneObject * object)
 {
-    plSynchEnabler p(false);    // turn off dirty tracking while in this function   
+    plSynchEnabler p(false);    // turn off dirty tracking while in this function
     
     fTarget = object;
     int autoIdx = -1;
@@ -232,7 +232,7 @@ bool plAGMasterMod::IEval(double secs, float del, uint32_t dirty)
     ApplyAnimations(secs, del);
     
     // We might get registered for just a single eval. If we don't need to eval anymore, unregister
-    if (!fNeedEval) 
+    if (!fNeedEval)
         plgDispatch::Dispatch()->UnRegisterForExactType(plEvalMsg::Index(), GetKey());
 
 
@@ -397,7 +397,7 @@ plAGAnimInstance * plAGMasterMod::AttachAnimationBlended(plAGAnim *anim,
     if(anim)
     {
         fNeedCompile = true;    // need to recompile the graph since we're editing it...
-        for (i = fPrivateAnims.begin(); i != fPrivateAnims.end(); i++) 
+        for (i = fPrivateAnims.begin(); i != fPrivateAnims.end(); i++)
         {
             if (*i == anim)
                 break;
@@ -451,7 +451,7 @@ void plAGMasterMod::PlaySimpleAnim(const ST::string &name)
         instance->SetLoop(false);
         instance->Start();
 
-        plAGDetachCallbackMsg *msg = new plAGDetachCallbackMsg(GetKey(), kStop); 
+        plAGDetachCallbackMsg *msg = new plAGDetachCallbackMsg(GetKey(), kStop);
         msg->SetAnimName(name);
         instance->GetTimeConvert()->AddCallback(msg);
         hsRefCnt_SafeUnRef(msg);
@@ -562,7 +562,7 @@ void plAGMasterMod::DetachAnimation(plAGAnimInstance *anim)
 
             // Need to release it if it's not a private anim
             const plAGAnim *agAnim = instance->GetAnimation();
-            for (j = fPrivateAnims.begin(); j != fPrivateAnims.end(); j++) 
+            for (j = fPrivateAnims.begin(); j != fPrivateAnims.end(); j++)
             {
                 if (*j == agAnim)
                     break;
@@ -805,7 +805,7 @@ bool plAGMasterMod::DirtySynchState(const ST::string& SDLStateName, uint32_t syn
     if(GetNumTargets() > 0 && (!fIsGrouped || fIsGroupMaster))
     {
         plSceneObject *sObj = GetTarget(0);
-        if(sObj) 
+        if(sObj)
             return sObj->DirtySynchState(SDLStateName, synchFlags);
     }
     return false;

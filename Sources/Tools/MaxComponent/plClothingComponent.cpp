@@ -66,7 +66,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plPickMaterialMap.h"
 #include "MaxMain/plMtlCollector.h"
 #include "plAvatarComponent.h"
-#include "MaxMain/plPlasmaRefMsgs.h"         
+#include "MaxMain/plPlasmaRefMsgs.h"
 #include "plDrawable/plSharedMesh.h"
 #include "plDrawable/plDrawableSpans.h"
 #include "plDrawable/plMorphSequence.h"
@@ -119,14 +119,14 @@ public:
 plClothingAccessor gClothingAccessor;
 
 ParamBlockDesc2 gClothingBk
-(   
+(
 
     plComponent::kBlkComp, _T("Clothing"), 0, &gClothingDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     //Roll out
     IDD_COMP_CLOTHING, IDS_COMP_CLOTHING, 0, 0, &gClothingComponentProc,
 
-    plClothingComponent::kMaterials,    _T("ClothingMaterials"),    TYPE_MTL_TAB, 0,    0, 0,   
+    plClothingComponent::kMaterials,    _T("ClothingMaterials"),    TYPE_MTL_TAB, 0,    0, 0,
         end,
         
     plClothingComponent::kGroup,    _T("ClothingGroup"),    TYPE_INT, 0, 0,

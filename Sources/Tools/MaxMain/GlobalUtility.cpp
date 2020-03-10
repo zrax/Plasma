@@ -251,7 +251,7 @@ void PlasmaMax::Stop()
     plFontCache::GetInstance().UnRegisterAs(kFontCache_KEY);
 
     PythonInterface::WeAreInShutdown();
-    PythonInterface::finiPython();  
+    PythonInterface::finiPython();
     hsgResMgr::Shutdown();
 }
 

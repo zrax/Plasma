@@ -71,7 +71,7 @@ public:
     void DeleteThis() { delete this; }
 
     //From Animatable
-    Class_ID ClassID() { return BUMP_MTL_CLASS_ID; }        
+    Class_ID ClassID() { return BUMP_MTL_CLASS_ID; }
     SClass_ID SuperClassID() { return MATERIAL_CLASS_ID; }
     void GetClassName(TSTR& s);
 
@@ -88,8 +88,8 @@ public:
     static void GetInterpVtxValue(int channel, ShadeContext &sc, Point3 &interpVal);
     void Shade(ShadeContext& sc);
     void ShadeWithBackground(ShadeContext &sc, Color background, bool useVtxAlpha = true);
-    float EvalDisplacement(ShadeContext& sc); 
-    Interval DisplacementValidity(TimeValue t);     
+    float EvalDisplacement(ShadeContext& sc);
+    Interval DisplacementValidity(TimeValue t);
 
     virtual RefTargetHandle GetReference( int i );
     virtual void            SetReference( int i, RefTargetHandle rtarg );
@@ -104,11 +104,11 @@ public:
     BOOL SetDlgThing(ParamDlg* dlg);
 
     RefTargetHandle Clone( RemapDir &remap );
-    RefResult NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, 
+    RefResult NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
         PartID& partID,  RefMessage message);
 
     int NumSubs();
-    Animatable* SubAnim(int i); 
+    Animatable* SubAnim(int i);
     TSTR SubAnimName(int i);
 
     int NumParamBlocks();
@@ -121,15 +121,15 @@ public:
 //  void SetNumSubTexmaps(int num);
 
     // From MtlBase and Mtl
-    void SetAmbient(Color c, TimeValue t);      
-    void SetDiffuse(Color c, TimeValue t);      
+    void SetAmbient(Color c, TimeValue t);
+    void SetDiffuse(Color c, TimeValue t);
     void SetSpecular(Color c, TimeValue t);
     void SetShininess(float v, TimeValue t);
     Color GetAmbient(int mtlNum=0, BOOL backFace=FALSE);
     Color GetDiffuse(int mtlNum=0, BOOL backFace=FALSE);
     Color GetSpecular(int mtlNum=0, BOOL backFace=FALSE);
     float GetXParency(int mtlNum=0, BOOL backFace=FALSE);
-    float GetShininess(int mtlNum=0, BOOL backFace=FALSE);      
+    float GetShininess(int mtlNum=0, BOOL backFace=FALSE);
     float GetShinStr(int mtlNum=0, BOOL backFace=FALSE);
     float WireSize(int mtlNum=0, BOOL backFace=FALSE);
 

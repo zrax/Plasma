@@ -49,7 +49,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
     "mount the climbing wall with an upward/downward/leftward/rightward mount"
     "dis-/enable climbing in the up/down/left/right direction"
     "dis-/enable dismounting in the up/down/left/right direction"
-*/  
+*/
 class plClimbMsg : public plMessage
 {
 public:

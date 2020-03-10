@@ -88,7 +88,7 @@ class pfKIMsg : public plMessage
 #endif // def KI_CONSTANTS_ONLY
 
     public:
-        enum 
+        enum
         {
             kHACKChatMsg,               // send chat message via pfKIMsg
             kEnterChatMode,             // toggle chat mode
@@ -184,9 +184,9 @@ class pfKIMsg : public plMessage
         CLASSNAME_REGISTER( pfKIMsg );
         GETINTERFACE_ANY( pfKIMsg, plMessage );
 
-        virtual void Read(hsStream* s, hsResMgr* mgr) 
-        { 
-            plMessage::IMsgRead( s, mgr ); 
+        virtual void Read(hsStream* s, hsResMgr* mgr)
+        {
+            plMessage::IMsgRead( s, mgr );
             s->ReadLE( &fCommand );
             fUser = s->ReadSafeString();
             fPlayerID = s->ReadLE32();
@@ -196,9 +196,9 @@ class pfKIMsg : public plMessage
             fValue = s->ReadLE32();
         }
         
-        virtual void Write(hsStream* s, hsResMgr* mgr) 
-        { 
-            plMessage::IMsgWrite( s, mgr ); 
+        virtual void Write(hsStream* s, hsResMgr* mgr)
+        {
+            plMessage::IMsgWrite( s, mgr );
             s->WriteLE( fCommand );
             s->WriteSafeString( fUser );
             s->WriteLE32( fPlayerID );

@@ -560,7 +560,7 @@ void    pfGameGUIMgr::IActivateGUI( bool activate )
 //// IHandleMouse ////////////////////////////////////////////////////////////
 //  Distributes mouse events to the dialogs currently active
 
-bool    pfGameGUIMgr::IHandleMouse( EventType event, float mouseX, float mouseY, uint8_t modifiers, uint32_t *desiredCursor ) 
+bool    pfGameGUIMgr::IHandleMouse( EventType event, float mouseX, float mouseY, uint8_t modifiers, uint32_t *desiredCursor )
 {
     pfGUIDialogMod  *dlg;
 
@@ -591,7 +591,7 @@ bool    pfGameGUIMgr::IHandleMouse( EventType event, float mouseX, float mouseY,
 //// IHandleKeyEvt ///////////////////////////////////////////////////////////
 //  Distributes mouse events to the dialogs currently active
 
-bool    pfGameGUIMgr::IHandleKeyEvt( EventType event, plKeyDef key, uint8_t modifiers ) 
+bool    pfGameGUIMgr::IHandleKeyEvt( EventType event, plKeyDef key, uint8_t modifiers )
 {
     pfGUIDialogMod  *dlg;
 
@@ -606,10 +606,10 @@ bool    pfGameGUIMgr::IHandleKeyEvt( EventType event, plKeyDef key, uint8_t modi
 }
 
 //// IHandleKeyPress /////////////////////////////////////////////////////////
-//  Like IHandleKeyPress, but takes in a char for distributing actual 
+//  Like IHandleKeyPress, but takes in a char for distributing actual
 //  characters typed.
 
-bool    pfGameGUIMgr::IHandleKeyPress( wchar_t key, uint8_t modifiers ) 
+bool    pfGameGUIMgr::IHandleKeyPress( wchar_t key, uint8_t modifiers )
 {
     pfGUIDialogMod  *dlg;
 
@@ -682,7 +682,7 @@ bool    pfGameUIInputInterface::IControlCodeEnabled( ControlEventCode code )
 {
     if( code == B_CONTROL_EXIT_GUI_MODE )
     {
-        // Disable the exitGUIMode key binding if we don't have a modal dialog up or if 
+        // Disable the exitGUIMode key binding if we don't have a modal dialog up or if
         // the cursor is inside an edit or multiline edit control
         if( !fGUIManager->IModalBlocking() )
             return false;
@@ -834,7 +834,7 @@ bool    pfGameUIInputInterface::InterpretInputEvent( plInputEventMsg *pMsg )
     }
 
     return false;
-}   
+}
 
 uint32_t  pfGameUIInputInterface::GetCurrentCursorID() const
 {
@@ -910,7 +910,7 @@ uint32_t          pfGameGUIMgr::GetNumTags()
 
 
     for( count = 0; gGUITags[ count ].fID != 0; count++ );
-    return count;   
+    return count;
 }
 
 //// GetTag //////////////////////////////////////////////////////////////////

@@ -56,15 +56,15 @@ class plActivatorMsg : public plMessage
     void IReset() { fPickedObj=fHiteeObj=fHitterObj=nil; fTriggerType=0; fHitPoint.Set(0,0,0); }
 public:
     plActivatorMsg() { IReset(); }
-    plActivatorMsg(const plKey &s, 
-                    const plKey &r, 
+    plActivatorMsg(const plKey &s,
+                    const plKey &r,
                     const double* t) { IReset(); }
     ~plActivatorMsg() { }
 
     CLASSNAME_REGISTER( plActivatorMsg );
     GETINTERFACE_ANY( plActivatorMsg, plMessage );
     
-    // IO 
+    // IO
     void Read(hsStream* stream, hsResMgr* mgr)
     {
         plMessage::IMsgRead(stream, mgr);
@@ -82,7 +82,7 @@ public:
     bool TriggerType() { return fTriggerType; }
     void SetTriggerType(int n) { fTriggerType = n; }
 
-    enum 
+    enum
     {
         kUndefined  = 0,
         kPickedTrigger,

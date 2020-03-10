@@ -85,7 +85,7 @@ void plMorphDataSet::Write(hsStream* s, hsResMgr* mgr)
     int i;
     for( i = 0; i < fMorphs.GetCount(); i++ )
         fMorphs[i].Write(s, mgr);
-}   
+}
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -160,7 +160,7 @@ bool plMorphSequence::MsgReceive(plMessage* msg)
 
         if( !(fMorphFlags & kDirty) )
         {
-            // We went a whole frame without getting dirty, 
+            // We went a whole frame without getting dirty,
             // we can stop refreshing now.
             plgDispatch::Dispatch()->UnRegisterForExactType(plRenderMsg::Index(), GetKey());
 
@@ -186,7 +186,7 @@ bool plMorphSequence::MsgReceive(plMessage* msg)
     {
         if (IGetDrawInterface()->GetKey() == smMsg->GetSender() || IIsUsingDrawable(smMsg->fDraw))
             fMorphFlags |= kDirtyIndices;
-    }           
+    }
 
     plGenRefMsg *refMsg = plGenRefMsg::ConvertNoRef(msg);
     if (refMsg)
@@ -206,7 +206,7 @@ bool plMorphSequence::MsgReceive(plMessage* msg)
                 AddSharedMesh(mesh);
             }
             else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
-                RemoveSharedMesh(mesh);             
+                RemoveSharedMesh(mesh);
             
             return true;
         }
@@ -224,20 +224,20 @@ int plMorphSequence::GetNumLayers(plKey meshKey /* = nil */) const
         return fSharedMeshes[index].fMesh->fMorphSet->fMorphs.GetCount();
 }
 
-int plMorphSequence::GetNumDeltas(int iLay, plKey meshKey /* = nil */) const 
-{ 
+int plMorphSequence::GetNumDeltas(int iLay, plKey meshKey /* = nil */) const
+{
     int index = IFindSharedMeshIndex(meshKey);
     if (index < 0)
-        return fMorphs[iLay].GetNumDeltas(); 
+        return fMorphs[iLay].GetNumDeltas();
     else
         return fSharedMeshes[index].fMesh->fMorphSet->fMorphs[iLay].GetNumDeltas();
 }
 
-float plMorphSequence::GetWeight(int iLay, int iDel, plKey meshKey /* = nil */) const 
-{ 
+float plMorphSequence::GetWeight(int iLay, int iDel, plKey meshKey /* = nil */) const
+{
     int index = IFindSharedMeshIndex(meshKey);
     if (index == -1)
-        return fMorphs[iLay].GetWeight(iDel); 
+        return fMorphs[iLay].GetWeight(iDel);
     else
         return fSharedMeshes[index].fArrayWeights[iLay].fDeltaWeights[iDel];
 }
@@ -305,19 +305,19 @@ void plMorphSequence::SetWeight(int iLay, int iDel, float w, plKey meshKey /* = 
     }
 }
 
-void plMorphSequence::ISetDirty(bool on) 
-{ 
+void plMorphSequence::ISetDirty(bool on)
+{
     if( on )
     {
         if( !(fMorphFlags & kDirty) )
             plgDispatch::Dispatch()->RegisterForExactType(plRenderMsg::Index(), GetKey());
-        fMorphFlags |= kDirty; 
+        fMorphFlags |= kDirty;
 
         // Even if we know we're already dirty, there could be new info this frame.
         // Need to tell our scene object
         //
-        // Actually, in the case of the avatar, this sends an insane flurry of messages to the server 
-        // when we drag (or even just hold the mouse button down on) the morph scrollbars. 
+        // Actually, in the case of the avatar, this sends an insane flurry of messages to the server
+        // when we drag (or even just hold the mouse button down on) the morph scrollbars.
         // These messages are completely unneccessary. We broadcast our state when we join a new age, and that's enough.
         // Non-avatar related morphs (if they ever exist) will need to call DirtySynchState some special
         // way. Not here.
@@ -327,7 +327,7 @@ void plMorphSequence::ISetDirty(bool on)
     }
     else
     {
-        fMorphFlags &= ~kDirty; 
+        fMorphFlags &= ~kDirty;
     }
 }
 
@@ -381,7 +381,7 @@ void plMorphSequence::DeInit()
             // Release all our snapshot data
             const plDrawInterface* di = IGetDrawInterface();
 
-            if( di ) 
+            if( di )
                 plAccessGeometry::Instance()->ReleaseSnapShot(di);
 
             ISetHaveSnap(false);
@@ -476,7 +476,7 @@ void plMorphSequence::RemoveTarget(plSceneObject *so)
             so->RemoveModifier(fMorphSDLMod);
 
     delete fMorphSDLMod;
-    fMorphSDLMod = nil;     
+    fMorphSDLMod = nil;
 }
     
 void plMorphSequence::Read(hsStream* s, hsResMgr* mgr)
@@ -512,7 +512,7 @@ void plMorphSequence::Write(hsStream* s, hsResMgr* mgr)
 
 // Normal sequence of calls:
 // 1) on notification that meshes have changed (or activate)
-//      IFindIndices() - Sets up indices 
+//      IFindIndices() - Sets up indices
 //      IApplyShared() - Find which mesh is active and
 //          IResetShared(iActive);
 //          IApplyShared(iActive);
@@ -722,7 +722,7 @@ void plMorphSequence::AddSharedMesh(plSharedMesh* mesh)
         return; // We already have it.
 
     hsAssert(fSharedMeshes.GetCount() < 127, "Too many meshes for one morph sequence.");
-    SetUseSharedMesh(true); 
+    SetUseSharedMesh(true);
     int pendingIndex = IFindPendingStateIndex(mesh->GetKey());
 
     plSharedMeshInfo mInfo;
@@ -742,7 +742,7 @@ void plMorphSequence::AddSharedMesh(plSharedMesh* mesh)
         // Filter in any data that's valid
         for (i = 0; i < mInfo.fArrayWeights.GetCount() && i < fPendingStates[pendingIndex].fArrayWeights.GetCount(); i++)
         {
-            for (j = 0; j < mInfo.fArrayWeights[i].fDeltaWeights.GetCount() && 
+            for (j = 0; j < mInfo.fArrayWeights[i].fDeltaWeights.GetCount() &&
                         j < fPendingStates[pendingIndex].fArrayWeights[i].fDeltaWeights.GetCount(); j++)
             {
                 mInfo.fArrayWeights[i].fDeltaWeights[j] = fPendingStates[pendingIndex].fArrayWeights[i].fDeltaWeights[j];
@@ -763,7 +763,7 @@ void plMorphSequence::AddSharedMesh(plSharedMesh* mesh)
         fGlobalLayerRef = fSharedMeshes.GetCount() - 1;
         ISetAllSharedToGlobal();
     }
-    else 
+    else
         ISetSingleSharedToGlobal(fSharedMeshes.GetCount() - 1);
 }
 

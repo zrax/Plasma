@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/PubUtilLib/plNetGameLib/Private/plNglTrans.cpp
-*   
+*
 ***/
 
 #include "../Pch.h"
@@ -320,7 +320,7 @@ void NetTransUpdate () {
         }
     }
 
-    // Post completed transactions    
+    // Post completed transactions
     while (NetTrans * trans = completed.Head()) {
         completed.Unlink(trans);
         trans->Post();

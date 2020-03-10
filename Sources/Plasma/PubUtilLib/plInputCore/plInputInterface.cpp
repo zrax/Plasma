@@ -74,9 +74,9 @@ plInputInterface::~plInputInterface()
 }
 
 void plInputInterface::ClearKeyMap()
-{ 
-    if( fControlMap != nil ) 
-        fControlMap->ClearAll(); 
+{
+    if( fControlMap != nil )
+        fControlMap->ClearAll();
 }
 
 //// Read/Write //////////////////////////////////////////////////////////////
@@ -129,7 +129,7 @@ void plInputInterface::IDeactivateBinding(const plKeyBinding *binding)
         pCmd->SetCmdString( binding->GetExtendedString() );
         pCmd->fNetPropagateToPlayers = ( binding->GetCodeFlags() & kControlFlagNetPropagate ) ? true : false;
     
-        fMessageQueue->Append( pCmd );      
+        fMessageQueue->Append( pCmd );
     }
     IClearKeyControlFlag(binding->GetCode());
 }
@@ -148,7 +148,7 @@ bool    plInputInterface::ProcessKeyBindings( plInputEventMsg *msg )
         return false;
 
 
-    /// We might have controls that are currently enabled that are triggered in part by 
+    /// We might have controls that are currently enabled that are triggered in part by
     /// modifiers (ctrl or shift)...if that is true, then we want to disable them if either
     /// of those modifiers are up, no matter what key this message is for
     hsTArray<int16_t> enabledCtrls;
@@ -176,7 +176,7 @@ bool    plInputInterface::ProcessKeyBindings( plInputEventMsg *msg )
             if( ( wantShift && !keyMsg->GetShiftKeyDown() ) || ( wantCtrl && !keyMsg->GetCtrlKeyDown() ) )
             {
                 IDeactivateBinding(binding);
-                fKeyControlsFrom2ndKeyFlags.SetBit(enabledCtrls[i], false); 
+                fKeyControlsFrom2ndKeyFlags.SetBit(enabledCtrls[i], false);
             }
         }
     }
@@ -306,6 +306,6 @@ bool    plInputInterface::ProcessKeyBindings( plInputEventMsg *msg )
 }
 
 bool plInputInterface::IControlCodeEnabled(ControlEventCode code )
-{ 
+{
     return (!fDisabledControls.IsBitSet(code));
 }

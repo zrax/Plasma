@@ -332,35 +332,35 @@ struct tm * plUnifiedTime::GetTm(struct tm * ptm) const
 }
 
 int plUnifiedTime::GetYear() const
-{ 
-    return GetTm() ? GetTm()->tm_year + 1900 : 0; 
+{
+    return GetTm() ? GetTm()->tm_year + 1900 : 0;
 }
 int plUnifiedTime::GetMonth() const
-{ 
-    return GetTm() ? GetTm()->tm_mon + 1 : 0; 
+{
+    return GetTm() ? GetTm()->tm_mon + 1 : 0;
 }
 int plUnifiedTime::GetDay() const
-{ 
-    return GetTm() ? GetTm()->tm_mday : 0; 
+{
+    return GetTm() ? GetTm()->tm_mday : 0;
 }
 int plUnifiedTime::GetHour() const
-{ 
-    return GetTm() ? GetTm()->tm_hour : 0; 
+{
+    return GetTm() ? GetTm()->tm_hour : 0;
 }
 int plUnifiedTime::GetMinute() const
-{ 
-    return GetTm() ? GetTm()->tm_min : 0; 
+{
+    return GetTm() ? GetTm()->tm_min : 0;
 }
 int plUnifiedTime::GetSecond() const
-{ 
-    return GetTm() ? GetTm()->tm_sec : 0; 
+{
+    return GetTm() ? GetTm()->tm_sec : 0;
 }
 int plUnifiedTime::GetDayOfWeek() const
-{ 
-    return GetTm() ? GetTm()->tm_wday : 0; 
+{
+    return GetTm() ? GetTm()->tm_wday : 0;
 }
 int plUnifiedTime::GetMillis() const
-{ 
+{
     return fMicros/1000;
 }
 

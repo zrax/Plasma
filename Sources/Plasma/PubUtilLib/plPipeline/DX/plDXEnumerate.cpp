@@ -51,7 +51,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 typedef LPDIRECT3D9 (WINAPI * Direct3DCreateProc)( UINT sdkVersion );
 
 const uint8_t hsGDirect3DTnLEnumerate::kNumDisplayFormats = 6;
-const D3DFORMAT hsGDirect3DTnLEnumerate::kDisplayFormats[] = 
+const D3DFORMAT hsGDirect3DTnLEnumerate::kDisplayFormats[] =
 {
     D3DFMT_A1R5G5B5,
         D3DFMT_A2B10G10R10,
@@ -116,7 +116,7 @@ HRESULT hsGDirect3DTnLEnumerate::SelectFromDevMode(const hsG3DDeviceRecord* devR
         if( !*GetEnumeErrorStr() )
             SetEnumeErrorStr("Error finding device");
         return true;
-    }   
+    }
     D3DEnum_SelectDefaultMode(width, height, colorDepth);
     if( !GetCurrentMode() )
     {
@@ -196,7 +196,7 @@ HRESULT hsGDirect3DTnLEnumerate::D3DEnum_SelectDefaultDriver( DWORD dwFlags )
             int j;
             for( j = 0; j < pDriver->fDevices.GetCount(); j++ )
             {
-                D3DEnum_DeviceInfo* pDevice = &pDriver->fDevices[j]; 
+                D3DEnum_DeviceInfo* pDevice = &pDriver->fDevices[j];
                 BOOL bFound = FALSE;
 
                 if( pDevice->fDDType == D3DDEVTYPE_REF )
@@ -204,7 +204,7 @@ HRESULT hsGDirect3DTnLEnumerate::D3DEnum_SelectDefaultDriver( DWORD dwFlags )
                     if( dwFlags & D3DENUM_REFERENCERAST )
                         bFound = TRUE;
                 }
-                else if( pDevice->fDDType == D3DDEVTYPE_HAL && 
+                else if( pDevice->fDDType == D3DDEVTYPE_HAL &&
                     pDevice->fDDCaps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT )
                 {
                     if( dwFlags & D3DENUM_TNLHAL )
@@ -253,7 +253,7 @@ HRESULT hsGDirect3DTnLEnumerate::D3DEnum_SelectDefaultDriver( DWORD dwFlags )
         int j;
         for( j = 0; j < pDriver->fDevices.GetCount(); j++ )
         {
-            D3DEnum_DeviceInfo* pDevice = &pDriver->fDevices[j]; 
+            D3DEnum_DeviceInfo* pDevice = &pDriver->fDevices[j];
             if( !pDevice->fIsHardware )
                 continue;
 
@@ -307,7 +307,7 @@ hsGDirect3DTnLEnumerate::hsGDirect3DTnLEnumerate()
         newDriver->fMemory = 16 * 1024 * 1024;      /// Simulate 16 MB
 
         /// Do the mode and device enumeration for this adapter
-        IEnumAdapterDevices( pD3D, iAdapter, newDriver );       
+        IEnumAdapterDevices( pD3D, iAdapter, newDriver );
     }
 }
 
@@ -315,7 +315,7 @@ hsGDirect3DTnLEnumerate::hsGDirect3DTnLEnumerate()
 //
 //  DirectX: Enumerates all the modes for a given adapter, then using the
 //  two faked modes for HAL and REF, attaches the modes to each "device" that
-//  can support them. 
+//  can support them.
 
 void    hsGDirect3DTnLEnumerate::IEnumAdapterDevices( IDirect3D9 *pD3D, UINT iAdapter, D3DEnum_DriverInfo *drivInfo )
 {
@@ -353,9 +353,9 @@ void    hsGDirect3DTnLEnumerate::IEnumAdapterDevices( IDirect3D9 *pD3D, UINT iAd
                 continue;       // Don't like this mode, skip it
 
             /// Can it be used as a render target?
-            if (FAILED(pD3D->CheckDeviceType(iAdapter, deviceTypes[iDevice], 
+            if (FAILED(pD3D->CheckDeviceType(iAdapter, deviceTypes[iDevice],
                 currFormat,
-                currFormat, 
+                currFormat,
                 FALSE)))
                 continue;   // Nope--skip it
 
@@ -488,10 +488,10 @@ bool    hsGDirect3DTnLEnumerate::IFindDepthFormats( IDirect3D9 *pD3D, UINT iAdap
     for( int i = 0; formats[ i ] != D3DFMT_UNKNOWN; i++ )
     {
         if( SUCCEEDED( pD3D->CheckDeviceFormat( iAdapter, deviceType, modeInfo->fDDmode.Format,
-            D3DUSAGE_DEPTHSTENCIL, D3DRTYPE_SURFACE, 
+            D3DUSAGE_DEPTHSTENCIL, D3DRTYPE_SURFACE,
             formats[ i ] ) ) )
         {
-            if( SUCCEEDED( pD3D->CheckDepthStencilMatch( iAdapter, deviceType, 
+            if( SUCCEEDED( pD3D->CheckDepthStencilMatch( iAdapter, deviceType,
                 modeInfo->fDDmode.Format, modeInfo->fDDmode.Format, formats[ i ] ) ) )
             {
                 modeInfo->fDepthFormats.Append( formats[ i ] );
@@ -512,7 +512,7 @@ bool    hsGDirect3DTnLEnumerate::IFindFSAATypes( IDirect3D9 *pD3D, UINT iAdapter
     /// Try 'em
     for (int type = 2; type <= 16; type++)
     {
-        if (SUCCEEDED(pD3D->CheckDeviceMultiSampleType(iAdapter, deviceType, modeInfo->fDDmode.Format, 
+        if (SUCCEEDED(pD3D->CheckDeviceMultiSampleType(iAdapter, deviceType, modeInfo->fDDmode.Format,
             modeInfo->fWindowed ? TRUE : FALSE,
             (D3DMULTISAMPLE_TYPE)type, NULL)))
         {
@@ -529,7 +529,7 @@ bool    hsGDirect3DTnLEnumerate::ICheckCubicRenderTargets( IDirect3D9 *pD3D, UIN
                                                           D3DEnum_ModeInfo *modeInfo )
 {
     if( SUCCEEDED( pD3D->CheckDeviceFormat( iAdapter, deviceType, modeInfo->fDDmode.Format,
-        D3DUSAGE_RENDERTARGET, D3DRTYPE_CUBETEXTURE, 
+        D3DUSAGE_RENDERTARGET, D3DRTYPE_CUBETEXTURE,
         modeInfo->fDDmode.Format ) ) )
     {
         modeInfo->fCanRenderToCubic = true;
@@ -560,7 +560,7 @@ HRESULT hsGDirect3DTnLEnumerate::IConfirmDevice( D3DCAPS9* pCaps, DWORD dwBehavi
 
 //-----------------------------------------------------------------------------
 // Name: ~hsGDirect3DTnLEnumerate()
-// Desc: 
+// Desc:
 //-----------------------------------------------------------------------------
 hsGDirect3DTnLEnumerate::~hsGDirect3DTnLEnumerate()
 {
@@ -577,11 +577,11 @@ VOID hsGDirect3DTnLEnumerate::D3DEnum_FreeResources()
 
 //-----------------------------------------------------------------------------
 // Name: SetEnumeErrorStr()
-// Desc: 
+// Desc:
 //-----------------------------------------------------------------------------
-void hsGDirect3DTnLEnumerate::SetEnumeErrorStr(const char* s) 
-{ 
-    hsStrncpy(fEnumeErrorStr, s, 128); 
+void hsGDirect3DTnLEnumerate::SetEnumeErrorStr(const char* s)
+{
+    hsStrncpy(fEnumeErrorStr, s, 128);
 }
 
 //// IGetDXBitDepth //////////////////////////////////////////////////////////
@@ -603,7 +603,7 @@ short   hsGDirect3DTnLEnumerate::IGetDXBitDepth( D3DFORMAT format )
     ReturnDepth(D3DFMT_A1R5G5B5, 16);
 
     // Supported by DX9, but we don't currently support it. Can add support if needed.
-    //ReturnDepth(D3DFMT_A2B10G10R10, 32); 
+    //ReturnDepth(D3DFMT_A2B10G10R10, 32);
 
     // Unsupported translation format--return 0
     return 0;
@@ -705,7 +705,7 @@ void hsG3DDeviceSelector::ITryDirect3DTnLDevice(D3DEnum_DeviceInfo* devInfo, hsG
     else if( devInfo->fDDType == D3DDEVTYPE_HAL )
     {
         if( devInfo->fDDCaps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT )
-        {   
+        {
             devRec.SetG3DHALorHEL( kHHD3DTnLHalDev );
             devRec.SetCap( kCapsHWTransform );
         }
@@ -760,9 +760,9 @@ void hsG3DDeviceSelector::ITryDirect3DTnLDevice(D3DEnum_DeviceInfo* devInfo, hsG
     hsG3DDeviceMode devMode;
     int i, j;
 
-    const struct 
+    const struct
     {
-        D3DFORMAT fmt; uint16_t depth; 
+        D3DFORMAT fmt; uint16_t depth;
     } depths[] = { { D3DFMT_D16, 0x0010 }, { D3DFMT_D24X8, 0x0018 }, { D3DFMT_D32, 0x0020 },
     { D3DFMT_D15S1, 0x010f }, { D3DFMT_D24X4S4, 0x0418 }, { D3DFMT_D24S8, 0x0818 }, { D3DFMT_UNKNOWN, 0 } };
 

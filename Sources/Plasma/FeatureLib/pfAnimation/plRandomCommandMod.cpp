@@ -87,7 +87,7 @@ int plRandomCommandMod::IExcludeSelections(int ncmds)
         // If we're out of cmds, and OneCycle is set,
         // we're out of cmds until the next play.
         // Go ahead and reset for that.
-        // If we're out and OneCycle isn't set, then go ahead 
+        // If we're out and OneCycle isn't set, then go ahead
         // and set up for a new cycle.
         if( !nLeft )
         {
@@ -186,18 +186,18 @@ bool plRandomCommandMod::ISelectNext(int ncmds)
     return true;
 }
 
-void plRandomCommandMod::IStart() 
-{ 
+void plRandomCommandMod::IStart()
+{
     if( !IStopped() )
         return;
 
-    fState &= ~kStopped; 
+    fState &= ~kStopped;
     IPlayNextIfMaster();
 }
 
-void plRandomCommandMod::IStop() 
-{ 
-    fState |= kStopped; 
+void plRandomCommandMod::IStop()
+{
+    fState |= kStopped;
 }
 
 void plRandomCommandMod::IPlayNextIfMaster()
@@ -205,7 +205,7 @@ void plRandomCommandMod::IPlayNextIfMaster()
     if( !fTarget )
         IRetry(2.f);
     
-    if( fTarget->IsLocallyOwned() == plSynchedObject::kNo )     // if this object is a proxy, it should just wait for network cmds 
+    if( fTarget->IsLocallyOwned() == plSynchedObject::kNo )     // if this object is a proxy, it should just wait for network cmds
         return;
 
     if( IStopped() )
@@ -225,7 +225,7 @@ bool plRandomCommandMod::MsgReceive(plMessage* msg)
         if( anim->GetSender() != GetKey() )
         {
 #if 0
-            hsStatusMessageF("someone triggered me, remote=%d\n", 
+            hsStatusMessageF("someone triggered me, remote=%d\n",
                 msg->HasBCastFlag(plMessage::kNetNonLocal));
 #endif
             if( anim->Cmd(plAnimCmdMsg::kContinue) )
@@ -244,7 +244,7 @@ bool plRandomCommandMod::MsgReceive(plMessage* msg)
         {
             
 #if 0
-            hsStatusMessageF("play next if master, remote=%d\n", 
+            hsStatusMessageF("play next if master, remote=%d\n",
                 msg->HasBCastFlag(plMessage::kNetNonLocal));
 #endif
             IPlayNextIfMaster();

@@ -49,11 +49,11 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "hsResMgr.h"
 #include "pnNetCommon/plSDLTypes.h"
 
-plLayerInterface::plLayerInterface() 
+plLayerInterface::plLayerInterface()
 :   fUnderLay(nil),
     fOverLay(nil),
-    fState(nil), 
-    fTransform(nil), 
+    fState(nil),
+    fTransform(nil),
     fPreshadeColor(nil),
     fRuntimeColor(nil),
     fAmbientColor(nil),
@@ -283,10 +283,10 @@ plLayerInterface* plLayerInterface::Detach(plLayerInterface* li)
 
 // Remove:
 // If we are the one being removed, break our links to underlay
-//      and then just return underlay, since it doesn't even know 
+//      and then just return underlay, since it doesn't even know
 //      about our existence (so it doesn't need to know about the remove).
 // If our underlay is the one being removed, we need to unthread it from
-//      its underlay (if any), and then thread ourselves onto the underlay's 
+//      its underlay (if any), and then thread ourselves onto the underlay's
 //      former underlay.
 // If it's not us, and not our underlay, just pass it to our underlay and let
 //      it deal.
@@ -330,7 +330,7 @@ void plLayerInterface::Read(hsStream* s, hsResMgr* mgr)
 {
     plSynchedObject::Read(s, mgr);
 
-    plLayRefMsg* refMsg = new plLayRefMsg(GetKey(), plRefMsg::kOnCreate, 0, plLayRefMsg::kUnderLay);    
+    plLayRefMsg* refMsg = new plLayRefMsg(GetKey(), plRefMsg::kOnCreate, 0, plLayRefMsg::kUnderLay);
     plKey key = mgr->ReadKeyNotifyMe(s,refMsg, plRefFlags::kActiveRef);
     if( key && !fUnderLay )
         Attach(plLayer::DefaultLayer());

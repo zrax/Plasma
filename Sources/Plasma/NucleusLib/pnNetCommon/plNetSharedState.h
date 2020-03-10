@@ -77,7 +77,7 @@ public:
     bool GetServerMayDelete() const { return fServerMayDelete;  }
     void SetServerMayDelete(bool d) { fServerMayDelete=d;   }
 
-    // IO 
+    // IO
     virtual void Read(hsStream* stream);
     virtual void Write(hsStream* stream);
 };

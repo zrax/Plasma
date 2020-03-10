@@ -46,19 +46,19 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plClassIndexMacros.h"     // for CLASS_INDEX macro defn
 
 CLASS_INDEX_LIST_START
-    //---------------------------------------------------------------------         
+    //---------------------------------------------------------------------
     // hsKeyedObjects should appear in the first section of the enum list
     // And everything else in the next section
     // Otherwise you will get an Assert
-    //---------------------------------------------------------------------         
+    //---------------------------------------------------------------------
     CLASS_INDEX(plSceneNode),
-    CLASS_INDEX(plSceneObject), 
+    CLASS_INDEX(plSceneObject),
     CLASS_INDEX(hsKeyedObject),
     CLASS_INDEX(plBitmap),
     CLASS_INDEX(plMipmap),
     CLASS_INDEX(plCubicEnvironmap),
-    CLASS_INDEX(plLayer),       
-    CLASS_INDEX(hsGMaterial),       
+    CLASS_INDEX(plLayer),
+    CLASS_INDEX(hsGMaterial),
     CLASS_INDEX(plParticleSystem),
     CLASS_INDEX(plParticleEffect),
     CLASS_INDEX(plParticleCollisionEffectBeat),
@@ -74,7 +74,7 @@ CLASS_INDEX_LIST_START
     CLASS_INDEX(plWinAudible),
     CLASS_INDEX(plCoordinateInterface),
     CLASS_INDEX(plDrawInterface),
-    CLASS_INDEX(plDrawable),        
+    CLASS_INDEX(plDrawable),
     CLASS_INDEX(plDrawableMesh),
     CLASS_INDEX(plDrawableIce),
     CLASS_INDEX(plPhysical),
@@ -131,7 +131,7 @@ CLASS_INDEX_LIST_START
     CLASS_INDEX(UNUSED_plDrawablePatchSet),
     CLASS_INDEX(plInputManager),
     CLASS_INDEX(plLogicModBase),
-    CLASS_INDEX(plFogEnvironment),      
+    CLASS_INDEX(plFogEnvironment),
     CLASS_INDEX(plNetApp),
     CLASS_INDEX(plNetClientMgr),
     CLASS_INDEX(pl2WayWinAudible),
@@ -243,7 +243,7 @@ CLASS_INDEX_LIST_START
     CLASS_INDEX(pfGUIDynDisplayCtrl),
     CLASS_INDEX(UNUSED_plLayerProject),
     CLASS_INDEX(plInputInterfaceMgr),
-    CLASS_INDEX(plRailCameraMod),   
+    CLASS_INDEX(plRailCameraMod),
     CLASS_INDEX(plMultistageBehMod),
     CLASS_INDEX(plCameraBrain1_Circle),
     CLASS_INDEX(plParticleWindEffect),
@@ -373,9 +373,9 @@ CLASS_INDEX_LIST_START
 //---------------------------------------------------------
 
     CLASS_INDEX_NONKEYED_OBJ_START
-    CLASS_INDEX(plObjRefMsg),  
+    CLASS_INDEX(plObjRefMsg),
     CLASS_INDEX(plNodeRefMsg),
-    CLASS_INDEX(plMessage), 
+    CLASS_INDEX(plMessage),
     CLASS_INDEX(plRefMsg),
     CLASS_INDEX(plGenRefMsg),
     CLASS_INDEX(plTimeMsg),
@@ -411,12 +411,12 @@ CLASS_INDEX_LIST_START
     CLASS_INDEX(hsSfxObjDistFade),
     CLASS_INDEX(hsSfxObjDistShade),
     CLASS_INDEX(hsDynamicValue),
-    CLASS_INDEX(hsDynamicScalar), 
+    CLASS_INDEX(hsDynamicScalar),
     CLASS_INDEX(hsDynamicColorRGBA),
     CLASS_INDEX(hsDynamicMatrix33),
     CLASS_INDEX(hsDynamicMatrix44),
     CLASS_INDEX(plOmniSqApplicator),
-    CLASS_INDEX(plPreResourceMsg), 
+    CLASS_INDEX(plPreResourceMsg),
     CLASS_INDEX(UNUSED_hsDynamicColorRGBA),
     CLASS_INDEX(UNUSED_hsDynamicMatrix33),
     CLASS_INDEX(UNUSED_hsDynamicMatrix44),
@@ -427,7 +427,7 @@ CLASS_INDEX_LIST_START
     CLASS_INDEX(UNUSED_plPosController),
     CLASS_INDEX(UNUSED_plScalarController),
     CLASS_INDEX(UNUSED_plPoint3Controller),
-    CLASS_INDEX(UNUSED_plScaleValueController), 
+    CLASS_INDEX(UNUSED_plScaleValueController),
     CLASS_INDEX(UNUSED_plQuatController),
     CLASS_INDEX(UNUSED_plMatrix33Controller),
     CLASS_INDEX(UNUSED_plMatrix44Controller),
@@ -437,7 +437,7 @@ CLASS_INDEX_LIST_START
     CLASS_INDEX(plCompoundRotController),
     CLASS_INDEX(UNUSED_plSimplePosController),
     CLASS_INDEX(plCompoundPosController),
-    CLASS_INDEX(plTMController),        
+    CLASS_INDEX(plTMController),
     CLASS_INDEX(hsFogControl),
     CLASS_INDEX(plIntRefMsg),
     CLASS_INDEX(plCollisionReactor),
@@ -577,8 +577,8 @@ CLASS_INDEX_LIST_START
     CLASS_INDEX(plNetServerMsgPing),
     CLASS_INDEX(plNetMsgAlive),
     CLASS_INDEX(plNetMsgTerminated),
-    CLASS_INDEX(plSDLModifierMsg),          
-    CLASS_INDEX(plNetMsgSDLState),      
+    CLASS_INDEX(plSDLModifierMsg),
+    CLASS_INDEX(plNetMsgSDLState),
     CLASS_INDEX(plNetServerMsgSessionReset),
     CLASS_INDEX(plCCRBanLinkingMsg),
     CLASS_INDEX(plCCRSilencePlayerMsg),

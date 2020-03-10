@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "Pch.h"
 
-/** 
+/**
  * \file Pch.cpp
  * \brief Precompiled Header object for MaxConvert
  *

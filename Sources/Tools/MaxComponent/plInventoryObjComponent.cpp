@@ -139,12 +139,12 @@ ParamBlockDesc2 gInventoryObjBlock
         p_default,  FALSE,
         p_enable_ctrls, 1, kLifeSpan,
         p_ui,   TYPE_SINGLECHEKBOX, IDC_COMP_INV_OBJECT_CONSUMABLE,
-        end,    
+        end,
 
-    kLifeSpan,  _T("LifeSpan"), TYPE_FLOAT,     P_ANIMATABLE, 0,    
+    kLifeSpan,  _T("LifeSpan"), TYPE_FLOAT,     P_ANIMATABLE, 0,
         p_default, 0.0,
         p_range, 0.0, 100000.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_INV_OBJECT_LIFE_EDIT, IDC_COMP_INV_OBJECT_LIFE_SPIN, 1.0f,
         end,
 
@@ -230,7 +230,7 @@ public:
         {
         case WM_INITDIALOG:
 //          fPB = map->GetParamBlock();
-/*          
+/*
 //          fNoteTrackDlgX.Init(GetDlgItem(hWnd, IDC_COMP_CLICK_DRAG_ANIMX),
 //                              nil,
 ///                             kClickDragAnimX,
@@ -270,7 +270,7 @@ public:
             */
         }
 
-        return false;   
+        return false;
     }
 
     void DeleteThis()

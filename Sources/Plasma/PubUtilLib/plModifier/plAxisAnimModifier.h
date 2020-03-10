@@ -80,7 +80,7 @@ protected:
     virtual bool IEval(double secs, float del, uint32_t dirty);
 
 public:
-    plAxisAnimModifier(); 
+    plAxisAnimModifier();
     virtual ~plAxisAnimModifier();
 
     CLASSNAME_REGISTER( plAxisAnimModifier );

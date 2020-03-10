@@ -73,9 +73,9 @@ class plSimpleParticleGenerator : public plParticleGenerator
 public:
     plSimpleParticleGenerator();
     ~plSimpleParticleGenerator();
-    void Init(float genLife, float partLifeMin, float partLifeMax, float particlesPerSecond, 
+    void Init(float genLife, float partLifeMin, float partLifeMax, float particlesPerSecond,
               uint32_t numSources, hsPoint3 *pos, float *initPitch, float *initYaw, float angleRange,
-              float initVelMin, float initVelMax, float xSize, float ySize, 
+              float initVelMin, float initVelMax, float xSize, float ySize,
               float scaleMin, float scaleMax,
               float massRange, float radsPerSecRange);
 
@@ -85,7 +85,7 @@ public:
     virtual bool AddAutoParticles(plParticleEmitter *emitter, float dt, uint32_t numForced);
     virtual void UpdateParam(uint32_t paramID, float paramValue);
 
-    virtual void Read(hsStream* s, hsResMgr *mgr); 
+    virtual void Read(hsStream* s, hsResMgr *mgr);
     virtual void Write(hsStream* s, hsResMgr *mgr);
 
 protected:
@@ -125,7 +125,7 @@ public:
 
     plOneTimeParticleGenerator();
     ~plOneTimeParticleGenerator();
-    void Init(float count, hsPoint3 *pointArray, hsVector3 *dirArray, 
+    void Init(float count, hsPoint3 *pointArray, hsVector3 *dirArray,
               float xSize, float ySize, float scaleMin, float scaleMax, float radsPerSec);
 
     CLASSNAME_REGISTER( plOneTimeParticleGenerator );
@@ -134,7 +134,7 @@ public:
     virtual bool AddAutoParticles(plParticleEmitter *emitter, float dt, uint32_t numForced = 0);
     virtual void UpdateParam(uint32_t paramID, float paramValue) {}
 
-    virtual void Read(hsStream* s, hsResMgr *mgr); 
+    virtual void Read(hsStream* s, hsResMgr *mgr);
     virtual void Write(hsStream* s, hsResMgr *mgr);
 
 protected:

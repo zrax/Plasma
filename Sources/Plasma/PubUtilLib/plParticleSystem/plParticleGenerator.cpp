@@ -63,7 +63,7 @@ void plParticleGenerator::ComputeDirection(float pitch, float yaw, hsVector3 &di
     float cosPitch, sinPitch;
     float cosYaw, sinYaw;
     hsFastMath::SinCos(pitch, sinPitch, cosPitch);
-    hsFastMath::SinCos(yaw, sinYaw, cosYaw);        
+    hsFastMath::SinCos(yaw, sinYaw, cosYaw);
 
     direction.Set(-sinYaw * cosPitch, sinPitch, cosPitch * cosYaw);
 }
@@ -103,9 +103,9 @@ plSimpleParticleGenerator::~plSimpleParticleGenerator()
 
 void plSimpleParticleGenerator::Init(float genLife, float partLifeMin, float partLifeMax,
                                      float particlesPerSecond, uint32_t numSources, hsPoint3 *initPos,
-                                     float *initPitch, float *initYaw, float angleRange, 
+                                     float *initPitch, float *initYaw, float angleRange,
                                      float initVelMin, float initVelMax,
-                                     float xSize, float ySize, 
+                                     float xSize, float ySize,
                                      float scaleMin, float scaleMax,
                                      float massRange, float radsPerSecRange)
 {
@@ -156,7 +156,7 @@ bool plSimpleParticleGenerator::AddAutoParticles(plParticleEmitter *emitter, flo
         numNewParticles = numForced;
     }
 
-    uint32_t miscFlags = 0; 
+    uint32_t miscFlags = 0;
     hsPoint3 currStart;
     fParticleSum -= numNewParticles;
 
@@ -177,7 +177,7 @@ bool plSimpleParticleGenerator::AddAutoParticles(plParticleEmitter *emitter, flo
 
     const float lifeDiff = dt / numNewParticles;
     float lifeSoFar;
-    int i;  
+    int i;
     for (i = 0, lifeSoFar = 0; i < numNewParticles; i++, lifeSoFar += lifeDiff)
     {
         initLife = life + lifeRange * sRandom.RandMinusOneToOne() - lifeSoFar;
@@ -191,7 +191,7 @@ bool plSimpleParticleGenerator::AddAutoParticles(plParticleEmitter *emitter, flo
 
         sourceIndex = (uint32_t)(sRandom.RandZeroToOne() * fNumSources);
 
-        ComputeDirection(fInitPitch[sourceIndex] + fAngleRange * sRandom.RandMinusOneToOne(), 
+        ComputeDirection(fInitPitch[sourceIndex] + fAngleRange * sRandom.RandMinusOneToOne(),
                          fInitYaw[sourceIndex] + fAngleRange * sRandom.RandMinusOneToOne(), initDirection);
         initDirection = emitter->GetLocalToWorld() * initDirection;
         initVelocity = (vel + velRange * sRandom.RandMinusOneToOne());
@@ -217,7 +217,7 @@ bool plSimpleParticleGenerator::AddAutoParticles(plParticleEmitter *emitter, flo
             radsPerSec = fPartRadsPerSecRange * sRandom.RandMinusOneToOne();
 
         hsVector3 tmp = initDirection * initVelocity;
-        emitter->AddParticle(currStart, tmp, tile, fXSize, fYSize, currSizeVar, 
+        emitter->AddParticle(currStart, tmp, tile, fXSize, fYSize, currSizeVar,
                          invMass, initLife, orientation, miscFlags, radsPerSec);
     }
 
@@ -364,7 +364,7 @@ plOneTimeParticleGenerator::~plOneTimeParticleGenerator()
     delete [] fDirection;
 }
 
-void plOneTimeParticleGenerator::Init(float count, hsPoint3 *pointArray, hsVector3 *dirArray, 
+void plOneTimeParticleGenerator::Init(float count, hsPoint3 *pointArray, hsVector3 *dirArray,
                                       float xSize, float ySize, float scaleMin, float scaleMax, float radsPerSecRange)
 {
     fCount = count;
@@ -408,7 +408,7 @@ bool plOneTimeParticleGenerator::AddAutoParticles(plParticleEmitter *emitter, fl
         if( fPartRadsPerSecRange > 0 )
             radsPerSec = fPartRadsPerSecRange * sRandom.RandMinusOneToOne();
 
-        emitter->AddParticle(currStart, zeroVel, (uint32_t)tile, fXSize, fYSize, currSizeVar, 
+        emitter->AddParticle(currStart, zeroVel, (uint32_t)tile, fXSize, fYSize, currSizeVar,
                              DEFAULT_INVERSE_MASS, -1, orientation, 0, radsPerSec);
     }
     emitter->fMiscFlags &= ~plParticleEmitter::kNeedsUpdate;

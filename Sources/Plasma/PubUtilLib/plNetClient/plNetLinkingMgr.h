@@ -88,7 +88,7 @@ class plNetLinkingMgr
         kOfferLinkToPlayer,
         // Offer link to another player from a public linking book (to my instance of the age w/out going through personal age)
         kOfferLinkFromPublicBook,
-        // Sent to a player to have them link to their last age 
+        // Sent to a player to have them link to their last age
         kLinkPlayerToPrevAge
     };
 

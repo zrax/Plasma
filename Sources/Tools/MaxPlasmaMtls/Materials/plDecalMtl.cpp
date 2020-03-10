@@ -107,12 +107,12 @@ void plDecalMtl::GetClassName(TSTR& s)
     s = GetString(IDS_DECAL_MTL);
 }
 
-ParamDlg* plDecalMtl::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp) 
+ParamDlg* plDecalMtl::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp)
 {
     fIMtlParams = imp;
     IAutoMParamDlg* masterDlg = plDecalMtlDesc.CreateParamDlgs(hwMtlEdit, imp, this);
 
-    return (ParamDlg*)masterDlg;    
+    return (ParamDlg*)masterDlg;
 }
 
 BOOL plDecalMtl::SetDlgThing(ParamDlg* dlg)
@@ -123,14 +123,14 @@ BOOL plDecalMtl::SetDlgThing(ParamDlg* dlg)
 Interval plDecalMtl::Validity(TimeValue t)
 {
 #if 0 // mf horse
-    Interval valid = FOREVER;       
+    Interval valid = FOREVER;
 
-/*  for (int i = 0; i < fSubTexmap.Count(); i++) 
+/*  for (int i = 0; i < fSubTexmap.Count(); i++)
     {
-        if (fSubTexmap[i]) 
+        if (fSubTexmap[i])
             valid &= fSubTexmap[i]->Validity(t);
     }
-*/  
+*/
 //  float u;
 //  fPBlock->GetValue(pb_spin,t,u,valid);
     return valid;
@@ -197,7 +197,7 @@ int plDecalMtl::NumSubs()
     return 6;
 }
 
-TSTR plDecalMtl::SubAnimName(int i) 
+TSTR plDecalMtl::SubAnimName(int i)
 {
     switch (i)
     {
@@ -254,7 +254,7 @@ IParamBlock2* plDecalMtl::GetParamBlockByID(BlockID id)
     return NULL;
 }
 
-RefResult plDecalMtl::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message) 
+RefResult plDecalMtl::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message)
 {
     return plPassMtlBase::NotifyRefChanged( changeInt, hTarget, partID, message );
 }
@@ -330,13 +330,13 @@ void    plDecalMtl::ICloneRefs( plPassMtlBase *target, RemapDir &remap )
     target->ReplaceReference(kRefAnim, remap.CloneRef(fAnimPB));
 }
 
-void plDecalMtl::NotifyChanged() 
+void plDecalMtl::NotifyChanged()
 {
     NotifyDependents(FOREVER, PART_ALL, REFMSG_CHANGE);
 }
 
-void plDecalMtl::Update(TimeValue t, Interval& valid) 
-{   
+void plDecalMtl::Update(TimeValue t, Interval& valid)
+{
     // mf horse - Hacking in something like real validity checking
     // to get material animations working. No warranty, this is just
     // better than nothing.
@@ -352,7 +352,7 @@ void plDecalMtl::Update(TimeValue t, Interval& valid)
 /*
         for (int i = 0; i < fSubTexmap.Count(); i++)
         {
-            if (fSubTexmap[i]) 
+            if (fSubTexmap[i])
                 fSubTexmap[i]->Update(t,fIValid);
         }
 */
@@ -376,7 +376,7 @@ void plDecalMtl::Update(TimeValue t, Interval& valid)
         {
             fBasicPB->SetValue( kDecalBasSpecColor, 0, Color( (float)shine / 100.f, (float)shine / 100.f, (float)shine / 100.f ) );
             fBasicPB->SetValue( kDecalBasShineStr, 0, (int)-1 );
-        }       
+        }
     }
 
     valid &= fIValid;
@@ -386,8 +386,8 @@ void plDecalMtl::Update(TimeValue t, Interval& valid)
  |  Determine the characteristics of the material
 \*===========================================================================*/
 
-void plDecalMtl::SetAmbient(Color c, TimeValue t) {}        
-void plDecalMtl::SetDiffuse(Color c, TimeValue t) {}        
+void plDecalMtl::SetAmbient(Color c, TimeValue t) {}
+void plDecalMtl::SetDiffuse(Color c, TimeValue t) {}
 void plDecalMtl::SetSpecular(Color c, TimeValue t) {}
 void plDecalMtl::SetShininess(float v, TimeValue t) {}
                 
@@ -418,7 +418,7 @@ void plDecalMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback 
             if (texHandle[i]) {
                 mtl->texture[i].textHandle = texHandle[i]->GetHandle();
                 Texmap *tx = (*maps)[useSubForTex[i]].map;
-                cb.GetGfxTexInfoFromTexmap(t, mtl->texture[i], tx );        
+                cb.GetGfxTexInfoFromTexmap(t, mtl->texture[i], tx );
                 SetTexOps(mtl,i,texOpsType[i]);
                 }
             }
@@ -444,7 +444,7 @@ void plDecalMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback 
         bmi[i] = NULL;
         }
     mtl->texture.SetCount(nmaps);
-    if (nmaps==0) 
+    if (nmaps==0)
         return;
     for (i=0; i<nmaps; i++)
         mtl->texture[i].textHandle = NULL;
@@ -452,17 +452,17 @@ void plDecalMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback 
     Interval  valid;
     BOOL needDecal = FALSE;
     int ntx = 0;
-    int op; 
+    int op;
 
     int forceW = 0;
     int forceH = 0;
     if (tx[0]) {
-        cb.GetGfxTexInfoFromTexmap(t, mtl->texture[0], tx[0]);      
+        cb.GetGfxTexInfoFromTexmap(t, mtl->texture[0], tx[0]);
         TextureInfo &ti = mtl->texture[0];
         if (ti.tiling[0]==GW_TEX_NO_TILING||ti.tiling[1]==GW_TEX_NO_TILING)
             needDecal = TRUE;
         op = needDecal?TXOP_ALPHABLEND:TXOP_MODULATE;
-        bmi[0] = tx[0]->GetVPDisplayDIB(t,cb,valid,FALSE); 
+        bmi[0] = tx[0]->GetVPDisplayDIB(t,cb,valid,FALSE);
         if (bmi[0]) {
             texHandleValid &= valid;
             useSubForTex[0] = diffChan;
@@ -472,14 +472,14 @@ void plDecalMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback 
             }
         }
     if (tx[1]) {
-        cb.GetGfxTexInfoFromTexmap(t, mtl->texture[ntx], tx[1]);        
+        cb.GetGfxTexInfoFromTexmap(t, mtl->texture[ntx], tx[1]);
         if (nsupport>ntx) {
-            bmi[1] = tx[1]->GetVPDisplayDIB(t,cb,valid,TRUE); 
+            bmi[1] = tx[1]->GetVPDisplayDIB(t,cb,valid,TRUE);
             if (bmi[1]) {
                 texHandleValid &= valid;
                 StuffAlpha(bmi[1], (*maps)[opacChan].amount, GetOpacity(t),ntx?whiteCol:pShader->GetDiffuseClr(t));
-                texHandle[ntx] = cb.MakeHandle(bmi[1]); 
-                bmi[1] = NULL; 
+                texHandle[ntx] = cb.MakeHandle(bmi[1]);
+                bmi[1] = NULL;
                 mtl->texture[ntx].textHandle = texHandle[ntx]->GetHandle();
                 SetTexOps(mtl,ntx,TXOP_OPACITY);
                 useSubForTex[ntx] = opacChan;
@@ -491,7 +491,7 @@ void plDecalMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback 
                 TextureInfo ti;
 //              if (SameUV(mtl->texture[0],mtl->texture[1])) {
                     // Not really correct to combine channels for different UV's but what the heck.
-                    bmi[1] = tx[1]->GetVPDisplayDIB(t,cb,valid,TRUE, forceW, forceH); 
+                    bmi[1] = tx[1]->GetVPDisplayDIB(t,cb,valid,TRUE, forceW, forceH);
                     if (bmi[1]) {
                         texHandleValid &= valid;
                         StuffAlphaInto(bmi[1], bmi[0], (*maps)[opacChan].amount, GetOpacity(t));
@@ -504,8 +504,8 @@ void plDecalMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback 
             }
         }
     if (bmi[0]) {
-        texHandle[0] = cb.MakeHandle(bmi[0]); 
-        bmi[0] = NULL; 
+        texHandle[0] = cb.MakeHandle(bmi[0]);
+        bmi[0] = NULL;
         mtl->texture[0].textHandle = texHandle[0]->GetHandle();
         SetTexOps(mtl,0,op);
         }
@@ -518,7 +518,7 @@ void plDecalMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback 
  |  Actual shading takes place
 \*===========================================================================*/
 
-void plDecalMtl::Shade(ShadeContext& sc) 
+void plDecalMtl::Shade(ShadeContext& sc)
 {
     // Get the background color
     Color backColor, backTrans;
@@ -531,7 +531,7 @@ void plDecalMtl::Shade(ShadeContext& sc)
 //  Tells MAX what we need to render ourselves properly, such as translucency,
 //  two-sidedness, etc. Flags are in imtl.h in the MAX SDK.
 
-ULONG   plDecalMtl::Requirements( int subMtlNum ) 
+ULONG   plDecalMtl::Requirements( int subMtlNum )
 {
     ULONG       req = 0;
 
@@ -569,7 +569,7 @@ void plDecalMtl::ShadeWithBackground(ShadeContext &sc, Color background)
     BOOL bumped = FALSE;
     int i;
 
-    if (gbufID) 
+    if (gbufID)
         sc.SetGBufferID(gbufID);
     
     if (sc.mode == SCMODE_SHADOW) {
@@ -596,7 +596,7 @@ void plDecalMtl::ShadeWithBackground(ShadeContext &sc, Color background)
 
     // Evaluate Base layer
     Texmap *map = fLayersPB->GetTexmap(kDecalLayBase);
-    if (map && ( map->ClassID() == LAYER_TEX_CLASS_ID 
+    if (map && ( map->ClassID() == LAYER_TEX_CLASS_ID
                 || map->ClassID() == STATIC_ENV_LAYER_CLASS_ID ) )
     {
         plLayerTex *layer = (plLayerTex*)map;
@@ -610,7 +610,7 @@ void plDecalMtl::ShadeWithBackground(ShadeContext &sc, Color background)
     if (fLayersPB->GetInt(kDecalLayTopOn))
     {
         Texmap *map = fLayersPB->GetTexmap(kDecalLayTop);
-        if (map && ( map->ClassID() == LAYER_TEX_CLASS_ID 
+        if (map && ( map->ClassID() == LAYER_TEX_CLASS_ID
                     || map->ClassID() == STATIC_ENV_LAYER_CLASS_ID ) )
         {
             plLayerTex *layer = (plLayerTex*)map;
@@ -742,7 +742,7 @@ Interval plDecalMtl::DisplacementValidity(TimeValue t)
     Interval iv;
     iv.SetInfinite();
 
-    return iv;  
+    return iv;
 }
 
 bool plDecalMtl::HasAlpha()
@@ -783,7 +783,7 @@ float   plDecalMtl::GetEaseOutNormLength() { return fAnimPB->GetFloat(kPBAnimEas
 float   plDecalMtl::GetEaseOutMinLength() { return fAnimPB->GetFloat(kPBAnimEaseOutMin); }
 float   plDecalMtl::GetEaseOutMaxLength() { return fAnimPB->GetFloat(kPBAnimEaseOutMax); }
 int     plDecalMtl::GetUseGlobal() { return fAnimPB->GetInt(ParamID(kPBAnimUseGlobal)); }
-const char *  plDecalMtl::GetGlobalVarName() { return fAnimPB->GetStr(ParamID(kPBAnimGlobalName)); }  
+const char *  plDecalMtl::GetGlobalVarName() { return fAnimPB->GetStr(ParamID(kPBAnimGlobalName)); }
 
 // Basic block
 int     plDecalMtl::GetColorLock() { return fBasicPB->GetInt(kDecalBasColorLock); }

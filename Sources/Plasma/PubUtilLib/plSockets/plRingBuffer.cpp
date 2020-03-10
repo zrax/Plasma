@@ -45,7 +45,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 plRingBuffer::plRingBuffer(int size)
 :   plMemBuffer(size)
-{            
+{
     fEndPos = 0;
     fStartPos = 0;
 }
@@ -57,10 +57,10 @@ void plRingBuffer::FullCompress()
         fStartPos = 0;
         fEndPos = 0;
     }
-    else 
+    else
     {
         ForceWindowSlide();
-    }    
+    }
 }
 
 void plRingBuffer::Compress()
@@ -70,10 +70,10 @@ void plRingBuffer::Compress()
         fStartPos = 0;
         fEndPos = 0;
     }
-    else if(fStartPos >= GetBufferSize() / 2) 
+    else if(fStartPos >= GetBufferSize() / 2)
     {
         ForceWindowSlide();
-    }    
+    }
 }
 
 bool plRingBuffer::Put(const char * data, int len)
@@ -106,30 +106,30 @@ bool plRingBuffer::Get(char * data, int len)
     return ans;
 }
 
-int plRingBuffer::AmountBuffered() 
-{ 
-    return fEndPos - fStartPos; 
+int plRingBuffer::AmountBuffered()
+{
+    return fEndPos - fStartPos;
 }
 
-int plRingBuffer::BufferAvailable() 
-{ 
-    return GetBufferSize() - fEndPos; 
+int plRingBuffer::BufferAvailable()
+{
+    return GetBufferSize() - fEndPos;
 }
 
-void plRingBuffer::Reset() 
-{ 
-    fStartPos = 0; 
-    fEndPos = 0; 
+void plRingBuffer::Reset()
+{
+    fStartPos = 0;
+    fEndPos = 0;
 }
 
-char * plRingBuffer::GetBufferStart() 
-{ 
+char * plRingBuffer::GetBufferStart()
+{
     return fBuffer+fStartPos;
 }
 
-char * plRingBuffer::GetBufferOpen() 
+char * plRingBuffer::GetBufferOpen()
 {
-    return fBuffer+fEndPos; 
+    return fBuffer+fEndPos;
 }
 
 void plRingBuffer::ForceWindowSlide()
@@ -139,7 +139,7 @@ void plRingBuffer::ForceWindowSlide()
     {
         memmove(fBuffer, GetBufferStart(), len);
         fStartPos = 0;
-        fEndPos = len;        
+        fEndPos = len;
     }
 }
 

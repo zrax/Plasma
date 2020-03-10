@@ -47,7 +47,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 //
 // class based on UnifiedTime which has some specialized client code in it as well.
 // WARNING: plUnifiedTime math operators will not work correctly unless
-// you convert this object using GetAsUnifiedTIme().  I decided not to 
+// you convert this object using GetAsUnifiedTIme().  I decided not to
 // recreate all the plUnifiedTime operators in this class.
 //
 class plClientUnifiedTime : public plUnifiedTime

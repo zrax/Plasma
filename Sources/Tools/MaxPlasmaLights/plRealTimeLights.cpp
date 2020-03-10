@@ -121,7 +121,7 @@ public:
                     if( gl->ClassID() != RTOMNI_LIGHT_CLASSID )
 //                  if(pb->GetInt(plRTLightBase::kLightType) != plRTLightBase::RT_OMNI)
                     
-                    //  map->SetValue(plRTSpotLight::kProjMapTexButton, t, 
+                    //  map->SetValue(plRTSpotLight::kProjMapTexButton, t,
                         //gl->SetProjMap(
                         map->Invalidate(plRTSpotLight::kProjMapTexButton);
                     return false;
@@ -133,7 +133,7 @@ public:
                 }
                 break;
 
-            case CC_SPINNER_CHANGE:      
+            case CC_SPINNER_CHANGE:
                 if( LOWORD( wParam ) == IDC_LHOTSIZESPINNER || LOWORD( wParam ) == IDC_LFALLOFFSPINNER )
                     IValidateSpinners( t, wParam, pb, map );
                 break;
@@ -157,7 +157,7 @@ static LightDlgProc gLiteDlgProc;
 //
 //
 
-//--- Base Light Class derived from the ObjLightDesc 
+//--- Base Light Class derived from the ObjLightDesc
 
 #define COS_45 0.7071067f
 #define COS_45_2X 1.4142136f
@@ -166,12 +166,12 @@ static float stepFactor[] = {50.0f,80.0f,140.0f};
 #define MAXSTEPS 1000
 
 
-BaseObjLight::BaseObjLight(INode *n) : ObjLightDesc(n) 
+BaseObjLight::BaseObjLight(INode *n) : ObjLightDesc(n)
 {
     ObjectState os = n->EvalWorldState(TimeValue(0));
     assert(os.obj->SuperClassID()==LIGHT_CLASS_ID);
     gl = (os.obj->GetInterface(I_MAXSCRIPTPLUGIN) != NULL) ? (plRTLightBase*)os.obj->GetReference(0) : (plRTLightBase*)os.obj;  // JBW 4/7/99
-}   
+}
 
 static Color blackCol(0,0,0);
 
@@ -179,7 +179,7 @@ int BaseObjLight::Update(TimeValue t, const RendContext& rc, RenderGlobalContext
     ObjLightDesc::Update(t,rc,rgc,shadows,shadowGeomChanged);
     intensCol = ls.intens*ls.color*rc.GlobalLightLevel();
     ObjectState os = inode->EvalWorldState(t);
-    plRTLightBase* lob = (plRTLightBase *)os.obj;       
+    plRTLightBase* lob = (plRTLightBase *)os.obj;
     contrast = 0; //lob->GetParamBlock2()->GetFloat(plRTLightBase::kContrast, t);
     diffSoft = 0; //lob->GetDiffuseSoft(t)/100.0f;
 
@@ -201,13 +201,13 @@ int BaseObjLight::Update(TimeValue t, const RendContext& rc, RenderGlobalContext
 
 OmniLight::OmniLight(INode *inode, BOOL forceShadowBuf ) : BaseObjLight(inode){
 
-    //projector = /*doShadows =  shadowRay =*/  FALSE; 
+    //projector = /*doShadows =  shadowRay =*/  FALSE;
     //projMap = NULL;
     needMultiple = FALSE;
 
 }
 
-OmniLight::~OmniLight() 
+OmniLight::~OmniLight()
 {
 
 }
@@ -224,7 +224,7 @@ static Point3 MapToDir(Point3 p, int k) {
     switch(k) {
         case 0: return Point3(  p.z, p.y, -p.x); // +X
         case 1: return Point3( -p.z, p.y,  p.x); // -X
-        case 2: return Point3(  p.x, p.z, -p.y); // +Y 
+        case 2: return Point3(  p.x, p.z, -p.y); // +Y
         case 3: return Point3(  p.x,-p.z,  p.y); // -Y
         case 4: return Point3( -p.x, p.y, -p.z); // +Z
         case 5: return p;                        // -Z
@@ -235,12 +235,12 @@ static Point3 MapToDir(Point3 p, int k) {
 static void GetMatrixForDir(Matrix3 &origm, Matrix3 &tm, int k ) {
     tm = origm;
     switch(k) {
-        case 0: tm.PreRotateY(-HALFPI); break;  // Map 0: +X axis   
-        case 1: tm.PreRotateY( HALFPI); break;  // Map 1: -X axis   
-        case 2: tm.PreRotateX( HALFPI); break;  // Map 2: +Y axis   
-        case 3: tm.PreRotateX(-HALFPI); break;  // Map 3: -Y axis   
-        case 4: tm.PreRotateY(   PI  ); break;  // Map 4: +Z axis   
-        case 5:                         break;  // Map 5: -Z axis   
+        case 0: tm.PreRotateY(-HALFPI); break;  // Map 0: +X axis
+        case 1: tm.PreRotateY( HALFPI); break;  // Map 1: -X axis
+        case 2: tm.PreRotateX( HALFPI); break;  // Map 2: +Y axis
+        case 3: tm.PreRotateX(-HALFPI); break;  // Map 3: -Y axis
+        case 4: tm.PreRotateY(   PI  ); break;  // Map 4: +Z axis
+        case 5:                         break;  // Map 5: -Z axis
         }
     }
 
@@ -252,14 +252,14 @@ static int WhichDir(Point3 &p) {
 int OmniLight::Update(TimeValue t, const RendContext & rc,
         RenderGlobalContext *rgc, BOOL shadows, BOOL shadowGeomChanged)
 {
-    BaseObjLight::Update(t,rc,rgc,shadows,shadowGeomChanged);   
+    BaseObjLight::Update(t,rc,rgc,shadows,shadowGeomChanged);
 
     ObjectState os = inode->EvalWorldState(t);
-    LightObject* lob = (LightObject *)os.obj;       
+    LightObject* lob = (LightObject *)os.obj;
     assert(os.obj->SuperClassID()==LIGHT_CLASS_ID);
     plRTOmniLight* gl = (lob->GetInterface(I_MAXSCRIPTPLUGIN) != NULL) ? (plRTOmniLight*)lob->GetReference(0) : (plRTOmniLight*)lob;  // JBW 4/7/99
 
-    decayType = gl->GetDecayType(); 
+    decayType = gl->GetDecayType();
     decayRadius = gl->GetDecayRadius(t);
 
     fov = HALFPI; // 90 degree fov
@@ -278,7 +278,7 @@ int OmniLight::Update(TimeValue t, const RendContext & rc,
 
 
 ////------------------------------------------------------------------
-//      
+//
 //
 //          SpotLight descriptors.....
 //
@@ -287,7 +287,7 @@ int OmniLight::Update(TimeValue t, const RendContext & rc,
 //
 //
 
-SpotLight::SpotLight(INode *inode, BOOL forceShadowBuf ):BaseObjLight(inode) 
+SpotLight::SpotLight(INode *inode, BOOL forceShadowBuf ):BaseObjLight(inode)
 {
     projMap = NULL;
 }
@@ -304,14 +304,14 @@ int SpotLight::Update(TimeValue t, const RendContext &rc, RenderGlobalContext *r
     fall_cos =(float)cos(fs/2.0f);
     fall_sin = (float)sin(fs/2.0f);
     hotpct = ls.hotsize/ls.fallsize;
-    ihotpct = 1.0f - hotpct;        
+    ihotpct = 1.0f - hotpct;
 
     ObjectState os = inode->EvalWorldState(t);
-    LightObject* lob = (LightObject *)os.obj;       
+    LightObject* lob = (LightObject *)os.obj;
     assert(os.obj->SuperClassID()==LIGHT_CLASS_ID);
     plRTLightBase* gl = (lob->GetInterface(I_MAXSCRIPTPLUGIN) != NULL) ? (plRTLightBase*)lob->GetReference(0) : (plRTLightBase*)lob;  // JBW 4/7/99
 
-    decayType = gl->GetDecayType(); 
+    decayType = gl->GetDecayType();
     decayRadius = gl->GetDecayRadius(t);
 
     projector =  gl->GetProjector();
@@ -321,9 +321,9 @@ int SpotLight::Update(TimeValue t, const RendContext &rc, RenderGlobalContext *r
      
     fov = 2.0f* (float)atan(tan(fov*0.5f)*sqrt(aspect));
     zfac = -sz2 /(float)tan(0.5*(double)fov);
-    xscale = zfac;                              
+    xscale = zfac;
     yscale = -zfac*aspect;
-    curve =(float)fabs(1.0f/xscale); 
+    curve =(float)fabs(1.0f/xscale);
 
     rectv0.y = fall_sin * (float)sqrt(aspect);
     rectv1.y = fall_sin / (float)sqrt(aspect);
@@ -341,7 +341,7 @@ int SpotLight::Update(TimeValue t, const RendContext &rc, RenderGlobalContext *r
     return res;
 }
 
-int  SpotLight::UpdateViewDepParams(const Matrix3& worldToCam) 
+int  SpotLight::UpdateViewDepParams(const Matrix3& worldToCam)
 {
     BaseObjLight::UpdateViewDepParams(worldToCam);
     lightDir = -FNormalize(lightToCam.GetRow(2));
@@ -362,7 +362,7 @@ DirLight::DirLight(INode *inode, BOOL forceShadowBuf ) : BaseObjLight(inode)
     projMap = NULL;
 }
 
-int DirLight::Update(TimeValue t, const RendContext &rc, 
+int DirLight::Update(TimeValue t, const RendContext &rc,
         RenderGlobalContext *rgc, BOOL shadows, BOOL shadowGeomChanged)
 {
     int res = 1;
@@ -374,7 +374,7 @@ int DirLight::Update(TimeValue t, const RendContext &rc,
     ihotpct = 1.0f - hotpct;
 
     ObjectState os = inode->EvalWorldState(t);
-    LightObject* lob = (LightObject *)os.obj;       
+    LightObject* lob = (LightObject *)os.obj;
     assert(os.obj->SuperClassID()==LIGHT_CLASS_ID);
     plRTDirLight* gl = (lob->GetInterface(I_MAXSCRIPTPLUGIN) != NULL) ? (plRTDirLight*)lob->GetReference(0) : (plRTDirLight*)lob;  // JBW 4/7/99
 
@@ -413,8 +413,8 @@ int DirLight::UpdateViewDepParams(const Matrix3& worldToCam) {
 
 plRTOmniLight::plRTOmniLight()
 {
-    fIP = NULL; 
-    fLightPB = NULL; 
+    fIP = NULL;
+    fLightPB = NULL;
     fClassDesc = plRTOmniLightDesc::GetDesc();
     fClassDesc->MakeAutoParamBlocks(this);
 
@@ -423,7 +423,7 @@ plRTOmniLight::plRTOmniLight()
     
     fTex = NULL;
 
-    meshBuilt = 0; 
+    meshBuilt = 0;
     
     IBuildMeshes(true);
 }
@@ -444,7 +444,7 @@ RefTargetHandle plRTOmniLight::Clone(RemapDir &remap)
     return obj;
 }
 
-void plRTOmniLight::IBuildMeshes( BOOL isnew ) 
+void plRTOmniLight::IBuildMeshes( BOOL isnew )
 {
     BuildStaticMeshes();
     fMesh = staticMesh[ plRTLightBase::RT_OMNI ];
@@ -452,7 +452,7 @@ void plRTOmniLight::IBuildMeshes( BOOL isnew )
 
 //// DrawConeAndLine /////////////////////////////////////////////////////////
 
-int     plRTOmniLight::DrawConeAndLine( TimeValue t, INode* inode, GraphicsWindow *gw, int drawing ) 
+int     plRTOmniLight::DrawConeAndLine( TimeValue t, INode* inode, GraphicsWindow *gw, int drawing )
 {
     float   atOneHalfDist;
     Matrix3 tm = inode->GetObjectTM( t );
@@ -490,7 +490,7 @@ int     plRTOmniLight::DrawConeAndLine( TimeValue t, INode* inode, GraphicsWindo
 //  Function called by MAX to render the cone shape in the viewport for this
 //  light. Note that this is the cone, not the actual object itself!
 
-void    plRTOmniLight::DrawCone( TimeValue t, GraphicsWindow *gw, float dist ) 
+void    plRTOmniLight::DrawCone( TimeValue t, GraphicsWindow *gw, float dist )
 {
     Point3  pts[ NUM_CIRC_PTS * 3 + 1 ];
 
@@ -508,10 +508,10 @@ void    plRTOmniLight::DrawCone( TimeValue t, GraphicsWindow *gw, float dist )
 //  Renders some arrows in all directions, to show a radiating, attenuation-less
 //  omni light.
 
-void    plRTOmniLight::DrawArrows( TimeValue t, GraphicsWindow *gw, float dist ) 
+void    plRTOmniLight::DrawArrows( TimeValue t, GraphicsWindow *gw, float dist )
 {
     Point3  directions[] = { Point3( 1, 0, 0 ), Point3( -1, 0, 0 ), Point3( 0, 1, 0 ), Point3( 0, -1, 0 ),
-                             Point3( 0, 0, 1 ), Point3( 0, 0, -1 ), 
+                             Point3( 0, 0, 1 ), Point3( 0, 0, -1 ),
                              Point3( 2, 2, 0 ), Point3( 2, -2, 0 ), Point3( 2, 0, 2 ), Point3( 2, 0, -2 ),
                              Point3( -2, 2, 0 ), Point3( -2, -2, 0 ), Point3( -2, 0, 2 ), Point3( -2, 0, -2 ),
                              Point3( 0, 2, 2 ), Point3( 0, 2, -2 ), Point3( 0, -2, 2 ), Point3( 0, -2, -2 ),
@@ -562,11 +562,11 @@ void    plRTOmniLight::GetLocalBoundBox( TimeValue t, INode *node, ViewExp *vpt,
     boxCenter *= scaleFactor;
     box.Translate( boxCenter );
 
-    // Include points for the spotlight. That means either the attenuated cone or 
+    // Include points for the spotlight. That means either the attenuated cone or
     // our unattenuated cone display
     if( ( extDispFlags & EXT_DISP_ONLY_SELECTED ) )
     {
-        if( GetUseAtten() ) 
+        if( GetUseAtten() )
             width = GetAtten( t, ATTEN_END );
         else
             width = 50.f;       // Include our arrows
@@ -577,7 +577,7 @@ void    plRTOmniLight::GetLocalBoundBox( TimeValue t, INode *node, ViewExp *vpt,
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
-//  
+//
 //
 //          SpotLight Stuff
 //
@@ -588,8 +588,8 @@ void    plRTOmniLight::GetLocalBoundBox( TimeValue t, INode *node, ViewExp *vpt,
 
 plRTSpotLight::plRTSpotLight()
 {
-    fIP = NULL; 
-    fLightPB = NULL; 
+    fIP = NULL;
+    fLightPB = NULL;
     fClassDesc = plRTSpotLightDesc::GetDesc();
     fClassDesc->MakeAutoParamBlocks(this);
 
@@ -597,7 +597,7 @@ plRTSpotLight::plRTSpotLight()
     SetHSVColor(0, Point3(255, 255, 255));
     
     fTex = NULL;
-    meshBuilt = 0; 
+    meshBuilt = 0;
     
     IBuildMeshes(true);
 }
@@ -622,12 +622,12 @@ Texmap  *plRTSpotLight::GetProjMap()
     if( !fLightPB->GetInt( kUseProjectorBool ) )
         return nil;
 
-    Interval valid = Interval(0,0); 
+    Interval valid = Interval(0,0);
     if( !GetTex() )
     {
         if( fLightPB->GetInt( kUseProjectorBool ) )
         {
-            PBBitmap* bitmap = fLightPB->GetBitmap( kProjMapTexButton, 0 );         
+            PBBitmap* bitmap = fLightPB->GetBitmap( kProjMapTexButton, 0 );
             SetProjMap( &bitmap->bi );
         }
     }
@@ -648,10 +648,10 @@ Texmap  *plRTSpotLight::GetProjMap()
     return (Texmap *)GetTex();
 }
 
-void    plRTSpotLight::IBuildMeshes( BOOL isnew ) 
+void    plRTSpotLight::IBuildMeshes( BOOL isnew )
 {
     float val = fLightPB->GetFloat( kHotSpot, TimeValue(0) );       //Init val of HotSpot
-    if( isnew ) 
+    if( isnew )
     {
         val = fLightPB->GetFloat(kHotSpot, TimeValue(0));
         SetHotspot(  TimeValue(0), val);
@@ -675,7 +675,7 @@ void    plRTSpotLight::IBuildMeshes( BOOL isnew )
 
 //// DrawConeAndLine /////////////////////////////////////////////////////////
 
-int     plRTSpotLight::DrawConeAndLine( TimeValue t, INode* inode, GraphicsWindow *gw, int drawing ) 
+int     plRTSpotLight::DrawConeAndLine( TimeValue t, INode* inode, GraphicsWindow *gw, int drawing )
 {
     Matrix3 tm = inode->GetObjectTM( t );
 
@@ -693,7 +693,7 @@ int     plRTSpotLight::DrawConeAndLine( TimeValue t, INode* inode, GraphicsWindo
 //  Function called by MAX to render the cone shape in the viewport for this
 //  light. Note that this is the cone, not the actual object itself!
 
-void    plRTSpotLight::DrawCone( TimeValue t, GraphicsWindow *gw, float dist ) 
+void    plRTSpotLight::DrawCone( TimeValue t, GraphicsWindow *gw, float dist )
 {
     int     i;
     Point3  pts[ NUM_CIRC_PTS + 1 ], u[ 3 ];
@@ -772,11 +772,11 @@ void    plRTSpotLight::GetLocalBoundBox( TimeValue t, INode *node, ViewExp *vpt,
     boxCenter *= scaleFactor;
     box.Translate( boxCenter );
 
-    // Include points for the spotlight. That means either the attenuated cone or 
+    // Include points for the spotlight. That means either the attenuated cone or
     // our unattenuated cone display
     if( ( extDispFlags & EXT_DISP_ONLY_SELECTED ) )
     {
-        if( GetUseAtten() ) 
+        if( GetUseAtten() )
             depth = GetAtten( t, ATTEN_END );
         else
             depth = 100.f + 50.f;   // Include arrows
@@ -794,8 +794,8 @@ void    plRTSpotLight::GetLocalBoundBox( TimeValue t, INode *node, ViewExp *vpt,
 
 plRTDirLight::plRTDirLight()
 {
-    fIP = NULL; 
-    fLightPB = NULL; 
+    fIP = NULL;
+    fLightPB = NULL;
     fClassDesc = plRTDirLightDesc::GetDesc();
     fClassDesc->MakeAutoParamBlocks(this);
 
@@ -803,7 +803,7 @@ plRTDirLight::plRTDirLight()
     SetHSVColor(0, Point3(255, 255, 255));
     
     fTex = NULL;
-    meshBuilt = 0; 
+    meshBuilt = 0;
     
     IBuildMeshes(true);
 }
@@ -825,7 +825,7 @@ RefTargetHandle plRTDirLight::Clone(RemapDir &remap)
 
 //// IBuildMeshes ////////////////////////////////////////////////////////////
 
-void    plRTDirLight::IBuildMeshes( BOOL isnew ) 
+void    plRTDirLight::IBuildMeshes( BOOL isnew )
 {
     BuildStaticMeshes();
 
@@ -836,7 +836,7 @@ void    plRTDirLight::IBuildMeshes( BOOL isnew )
 //  Function called by MAX to render the cone shape in the viewport for this
 //  light. Note that this is the cone, not the actual object itself!
 
-void    plRTDirLight::DrawCone( TimeValue t, GraphicsWindow *gw, float dist ) 
+void    plRTDirLight::DrawCone( TimeValue t, GraphicsWindow *gw, float dist )
 {
     Point3  arrow[ 7 ];
     int     i, j, r;

@@ -301,11 +301,11 @@ protected:
     hsPoint3                fMax; // maxTanX/X, maxTanY/Y, yon
 
     // Screen (or rendertarget) dimensions in pixels.
-    uint16_t                  fWidth; 
+    uint16_t                  fWidth;
     uint16_t                  fHeight;
 
     // Viewport can be stored as fraction of screen size, so the view transform's viewport
-    // can be set up independent of the size of the window it's applied to. 
+    // can be set up independent of the size of the window it's applied to.
     hsPoint3        fViewPortX; // min, max, 1 / (max-min)
     hsPoint3        fViewPortY; // min, max, 1 / (max-min)
 

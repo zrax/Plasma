@@ -95,7 +95,7 @@ OBSOLETE_CLASS(plStrongSpringConstraintComponent, gPhysStrongSpringConstDesc, "(
 
 #include "plgDispatch.h"                     //Message Dependencies
 #include "pnMessage/plObjRefMsg.h"           //  Ibid
-#include "pnMessage/plIntRefMsg.h"           //  Ibid    
+#include "pnMessage/plIntRefMsg.h"           //  Ibid
 #include "pnMessage/plNodeRefMsg.h"          //  Ibid
 #include "MaxMain/plPlasmaRefMsgs.h"         //  Ibid
 #include "plModifier/plAliasModifier.h"
@@ -138,8 +138,8 @@ plPhysConstraintAccessor gPhysConstraintAccessor;
 
 /*!
     This Class offers the very limited functionality, specifically wheel constraint
-    Physical properties.  It relies on the Core's Convert functionality.  
-    The function GetParamVals is processed uniquely, to offer transparency into the Core 
+    Physical properties.  It relies on the Core's Convert functionality.
+    The function GetParamVals is processed uniquely, to offer transparency into the Core
     internal states found in its PhysicalStats member function, fUserInput.
       
         member functions:
@@ -204,7 +204,7 @@ public:
         bool GetParamVals(plMaxNode *pNode, plErrorMsg *pErrMsg);
         
         //! Detector PreConvert, takes in two variables and return a bool.
-        /*! 
+        /*!
             Calls the function MaybeMakeLocal() and Sets Drawable to false.
 
             Takes in two variables, being:
@@ -233,7 +233,7 @@ enum { HackVal = 1};
 
 
 ParamBlockDesc2 gPhysHingeConstraintBk
-(   
+(
     plComponent::kBlkComp, _T("Hinge Constraint"), 0, &gPhysHingeConstDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     //Roll out
@@ -248,7 +248,7 @@ ParamBlockDesc2 gPhysHingeConstraintBk
         p_default, plPhysHingeConstraintComponent::kZAxis,
         end,
 
-    plPhysHingeConstraintComponent::kUseParentBool, _T("UseParentChkBx"),   TYPE_BOOL,  P_ANIMATABLE, 0,    
+    plPhysHingeConstraintComponent::kUseParentBool, _T("UseParentChkBx"),   TYPE_BOOL,  P_ANIMATABLE, 0,
         p_ui,   TYPE_SINGLECHEKBOX, IDC_COMP_PHYS_USE_PARENT_BOOL,
         p_default, TRUE,
         p_enable_ctrls, 2, plPhysHingeConstraintComponent::kParent, plPhysHingeConstraintComponent::kParentPinnedBool,
@@ -263,50 +263,50 @@ ParamBlockDesc2 gPhysHingeConstraintBk
         end,
 
     
-    plPhysHingeConstraintComponent::kParentPinnedBool, _T("ParentPinnedChkBx"), TYPE_BOOL,  P_ANIMATABLE, 0,    
+    plPhysHingeConstraintComponent::kParentPinnedBool, _T("ParentPinnedChkBx"), TYPE_BOOL,  P_ANIMATABLE, 0,
         p_default, FALSE,
         p_ui,   TYPE_SINGLECHEKBOX, IDC_COMP_PHYS_PINNED_STATE_BOOL,
         end,
 
 
-    plPhysHingeConstraintComponent::kFriction,  _T("Friction"),     TYPE_FLOAT,     P_ANIMATABLE, 0,    
+    plPhysHingeConstraintComponent::kFriction,  _T("Friction"),     TYPE_FLOAT,     P_ANIMATABLE, 0,
         p_default, 1.0,
         p_range, 0.0, 50000.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_PHYS_FRICTION_SLIDER, IDC_COMP_PHYS_FRICTION_SPIN1, 1.0,
         end,
 
-    plPhysHingeConstraintComponent::kUpperAngle,    _T("UpperLimit"),       TYPE_FLOAT,     P_ANIMATABLE, 0,    
+    plPhysHingeConstraintComponent::kUpperAngle,    _T("UpperLimit"),       TYPE_FLOAT,     P_ANIMATABLE, 0,
         p_default, 0.0,
         p_range, -360.0, 360.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_FLOAT,
         IDC_COMP_PHYS_OPENANGLE_EDIT, IDC_COMP_PHYS_OPENANGLE_SPIN, 1.0,
         end,
 
-    plPhysHingeConstraintComponent::kLowerAngle,    _T("LowerLimit"),       TYPE_FLOAT,     P_ANIMATABLE, 0,    
+    plPhysHingeConstraintComponent::kLowerAngle,    _T("LowerLimit"),       TYPE_FLOAT,     P_ANIMATABLE, 0,
         p_default, 360.0,
         p_range, -360.0, 360.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_FLOAT,
         IDC_COMP_PHYS_CLOSEANGLE_EDIT, IDC_COMP_PHYS_CLOSEANGLE_SPIN, 1.0,
         end,
 
 
             
-    plPhysHingeConstraintComponent::kRebound,   _T("Rebound"),      TYPE_FLOAT,     P_ANIMATABLE, 0,    
+    plPhysHingeConstraintComponent::kRebound,   _T("Rebound"),      TYPE_FLOAT,     P_ANIMATABLE, 0,
         p_default, 0.1,
         p_range, 0.0, 1.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_PHYS_TAU_SLIDER, IDC_COMP_PHYS_TAU_SPIN, .01f,
         end,
 
-    plPhysHingeConstraintComponent::kStrength,  _T("Strength"),     TYPE_FLOAT,     P_ANIMATABLE, 0,    
+    plPhysHingeConstraintComponent::kStrength,  _T("Strength"),     TYPE_FLOAT,     P_ANIMATABLE, 0,
         p_default, 0.5,
         p_range, 0.0, 1.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_PHYS_STRENGTH_SLIDER, IDC_COMP_PHYS_STRENGTH_SPIN, .01f,
         end,
 
-    plPhysHingeConstraintComponent::kChildPinnedBool, _T("ChildPinnedChkBx"),   TYPE_BOOL,  P_ANIMATABLE, 0,    
+    plPhysHingeConstraintComponent::kChildPinnedBool, _T("ChildPinnedChkBx"),   TYPE_BOOL,  P_ANIMATABLE, 0,
         p_default, FALSE,
         p_ui,   TYPE_SINGLECHEKBOX, IDC_COMP_PHYS_PINNED_STATE_BOOL2,
         end,
@@ -393,7 +393,7 @@ bool plPhysHingeConstraintComponent::SetupProperties(plMaxNode *pNode, plErrorMs
                 pErrMsg->Set(true, "Ignored Parent Value", "Parent %s was set to be Ignored. No Constraint was used.", (fCompPB->GetINode(kParent)->GetName())).Show();
                 pErrMsg->Set(false);
                 return false;
-            }           
+            }
 
 
 
@@ -464,7 +464,7 @@ bool plPhysHingeConstraintComponent::Convert(plMaxNode *node, plErrorMsg *pErrMs
                 pErrMsg->Set(true, "Ignored Position Value", "Position %s was set to be Ignored. No Physical Proxy selected.", (fCompPB->GetINode(kPositionPtr)->GetName()));
                 pErrMsg->Set(false);
                 return false;
-            }           
+            }
 
         hsVector3 HingeVector;
         if(fCompPB->GetInt(kPositionPtr) == kZAxis)
@@ -474,7 +474,7 @@ bool plPhysHingeConstraintComponent::Convert(plMaxNode *node, plErrorMsg *pErrMs
             HMod->SetHCLimits(kZAxis, 0, fCompPB->GetFloat(kLowerAngle));
 
 
-        }       
+        }
         else if(fCompPB->GetInt(kPositionPtr) == kYAxis)
         {
             HingeVector = node->GetLocalToWorld44().GetAxis(hsMatrix44::kView);
@@ -557,7 +557,7 @@ static plBridgeProc gBridgeComponentProc;
 CLASS_DESC(plPhysBridgeComponent, gPhysBridgeConstDesc, "(ex)Bridge", "Bridge", COMP_TYPE_PHYS_CONSTRAINTS, PHYS_CONST_BRIDGE_CID)
 
 ParamBlockDesc2 gPhysBridgeConstraintBk
-(   
+(
     plComponent::kBlkComp, _T("Bridge"), 0, &gPhysBridgeConstDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_PHYS_BRIDGE, IDS_COMP_PHYS_BRIDGE, 0, 0, &gBridgeComponentProc,
@@ -565,28 +565,28 @@ ParamBlockDesc2 gPhysBridgeConstraintBk
     plPhysBridgeComponent::kSections,  _T("Sections"),  TYPE_INODE_TAB, 0,      0, 0,
         end,
 
-    plPhysBridgeComponent::kUpperAngle, _T("UpperLimit"),       TYPE_FLOAT,     0, 0,   
+    plPhysBridgeComponent::kUpperAngle, _T("UpperLimit"),       TYPE_FLOAT,     0, 0,
         p_default, 15.0,
         p_range, 0.0, 360.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_FLOAT,
         IDC_COMP_PHYS_OPENANGLE_EDIT, IDC_COMP_PHYS_OPENANGLE_SPIN, 1.0,
         end,
 
-    plPhysBridgeComponent::kLowerAngle, _T("LowerLimit"),       TYPE_FLOAT,     0, 0,   
+    plPhysBridgeComponent::kLowerAngle, _T("LowerLimit"),       TYPE_FLOAT,     0, 0,
         p_default, -15.0,
         p_range, -360.0, 0.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_FLOAT,
         IDC_COMP_PHYS_CLOSEANGLE_EDIT, IDC_COMP_PHYS_CLOSEANGLE_SPIN, 1.0,
         end,
 
-    plPhysBridgeComponent::kStiffness,  _T("Stiffness"),        TYPE_FLOAT,     0, 0,   
+    plPhysBridgeComponent::kStiffness,  _T("Stiffness"),        TYPE_FLOAT,     0, 0,
         p_default, 1.0,
         p_range, 0.0, 1.0,
         p_ui,   TYPE_SPINNER,   EDITTYPE_FLOAT,
         IDC_STIFFNESS_EDIT, IDC_STIFFNESS_SPIN, 0.01,
         end,
 
-    plPhysBridgeComponent::kStrength,   _T("Strength"),     TYPE_FLOAT,     0, 0,   
+    plPhysBridgeComponent::kStrength,   _T("Strength"),     TYPE_FLOAT,     0, 0,
         p_default, 0.4,
         p_range, 0.0, 1.0,
         p_ui,   TYPE_SPINNER,   EDITTYPE_FLOAT,
@@ -862,7 +862,7 @@ public:
         bool GetParamVals(plMaxNode *pNode, plErrorMsg *pErrMsg);
         
         //! Detector PreConvert, takes in two variables and return a bool.
-        /*! 
+        /*!
             Calls the function MaybeMakeLocal() and Sets Drawable to false.
 
             Takes in two variables, being:
@@ -901,7 +901,7 @@ CLASS_DESC(plStrongSpringConstraintComponent, gPhysStrongSpringConstDesc, "(ex)S
 
 
 ParamBlockDesc2 gPhysSSConstraintBk
-(   
+(
     plComponent::kBlkComp, _T("Strong Spring Constraint"), 0, &gPhysStrongSpringConstDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     //Roll out
@@ -909,24 +909,24 @@ ParamBlockDesc2 gPhysSSConstraintBk
     
     // params
 
-    plStrongSpringConstraintComponent::kLength,     _T("Length"),       TYPE_FLOAT,     P_ANIMATABLE, 0,    
+    plStrongSpringConstraintComponent::kLength,     _T("Length"),       TYPE_FLOAT,     P_ANIMATABLE, 0,
         p_default, 0.0,
         p_range, 0.0, 500.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_PHY_SS_LENGTH_EDIT, IDC_COMP_PHY_SS_LENGTH_SPIN, 1.0,
         end,
 
-    plStrongSpringConstraintComponent::kRebound,    _T("Rebound"),  TYPE_FLOAT,     P_ANIMATABLE, 0,    
+    plStrongSpringConstraintComponent::kRebound,    _T("Rebound"),  TYPE_FLOAT,     P_ANIMATABLE, 0,
         p_default, 0.0,
         p_range, 0.0, 1.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_PHYS_SS_REBOUND_EDIT, IDC_COMP_PHYS_SS_REBOUND_SPIN, 0.1,
         end,
 
-    plStrongSpringConstraintComponent::kStrength,   _T("Strength"), TYPE_FLOAT,     P_ANIMATABLE, 0,    
+    plStrongSpringConstraintComponent::kStrength,   _T("Strength"), TYPE_FLOAT,     P_ANIMATABLE, 0,
         p_default, 0.5,
         p_range, 0.0, 1.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_PHYS_SS_STRENGTH_EDIT, IDC_COMP_PHYS_SS_STRENGTH_SPIN, 0.1,
         end,
     
@@ -937,7 +937,7 @@ ParamBlockDesc2 gPhysSSConstraintBk
         p_accessor, &gPhysConstraintAccessor,
         end,
 
-    plStrongSpringConstraintComponent::kParentPinnedBool, _T("PinnedChkBx"),    TYPE_BOOL,  0, 0,   
+    plStrongSpringConstraintComponent::kParentPinnedBool, _T("PinnedChkBx"),    TYPE_BOOL,  0, 0,
         p_default, FALSE,
         p_ui,   TYPE_SINGLECHEKBOX, IDC_COMP_PHYS_USE_PARENT_BOOL,
         end,
@@ -994,7 +994,7 @@ bool plStrongSpringConstraintComponent::SetupProperties(plMaxNode *pNode, plErro
                 pErrMsg->Set(true, "Ignored Parent Value", "Parent %s was set to be Ignored. No Constraint was used.", (fCompPB->GetINode(kParent)->GetName()));
                 pErrMsg->Set(false);
                 return false;
-            }           
+            }
         else
         {
             pErrMsg->Set(true, "Bad Parent Value", " Parent %s wasn't selected, all are currently necessary.", (fCompPB->GetINode(kParent)->GetName()));
@@ -1068,7 +1068,7 @@ bool plStrongSpringConstraintComponent::Convert(plMaxNode *node, plErrorMsg *pEr
                 pErrMsg->Set(true, "Ignored Parent Node", "Parent Node %s was set to be Ignored. Bad! Bad!.", (fCompPB->GetINode(kParent)->GetName()));
                 pErrMsg->Set(false);
                 return false;
-            }           
+            }
         else
         {
 

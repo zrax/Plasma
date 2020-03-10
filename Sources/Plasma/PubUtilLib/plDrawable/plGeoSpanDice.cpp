@@ -251,7 +251,7 @@ plGeometrySpan* plGeoSpanDice::IExtractTris(plGeometrySpan* src, hsTArray<uint32
     uint8_t* vtxTrav = dst->fVertexData;
     for( i = 0; i < numVerts; i++ )
     {
-        memcpy(vtxTrav, src->fVertexData + bckLUT[i] * stride, stride);     
+        memcpy(vtxTrav, src->fVertexData + bckLUT[i] * stride, stride);
 
         hsPoint3* pos = (hsPoint3*)vtxTrav;
         localBnd.Union(pos);
@@ -300,7 +300,7 @@ plGeometrySpan* plGeoSpanDice::IExtractTris(plGeometrySpan* src, hsTArray<uint32
 plGeometrySpan* plGeoSpanDice::IAllocSpace(plGeometrySpan* src, int numVerts, int numTris) const
 {
     plGeometrySpan* dst = new plGeometrySpan;
-    // Do a structure copy here. That's okay, because we're going to immediately 
+    // Do a structure copy here. That's okay, because we're going to immediately
     // fix up the pointers and counters that shouldn't have been copied. If
     // plGeometrySpan ever gets a copy constructor, this'll blow wide open.
     *dst = *src;

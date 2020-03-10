@@ -88,7 +88,7 @@ bool plPhysicalProxy::Init(plPXPhysicalControllerCore* controller)
     return fController != nil;
 }
 
-plKey plPhysicalProxy::IGetNode() const 
+plKey plPhysicalProxy::IGetNode() const
 {
     if (fOwner)
         return fOwner->GetSceneNode();

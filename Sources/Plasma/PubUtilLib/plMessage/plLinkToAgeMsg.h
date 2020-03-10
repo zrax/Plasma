@@ -141,7 +141,7 @@ public:
     ~plLinkEffectsTriggerMsg();
 
     CLASSNAME_REGISTER( plLinkEffectsTriggerMsg );
-    GETINTERFACE_ANY( plLinkEffectsTriggerMsg, plMessage ); 
+    GETINTERFACE_ANY( plLinkEffectsTriggerMsg, plMessage );
 
     void    SetInvisLevel(int invisLevel) { fInvisLevel=invisLevel; }
     int     GetInvisLevel() { return fInvisLevel; }
@@ -176,13 +176,13 @@ protected:
 
 public:
     bool fLeavingAge;
-    plKey fLinkKey; 
+    plKey fLinkKey;
 
     plLinkEffectsTriggerPrepMsg() : fLeavingAge(false), fLinkKey(nil), fTrigger(nil) {  }
     ~plLinkEffectsTriggerPrepMsg();
     
     CLASSNAME_REGISTER( plLinkEffectsTriggerPrepMsg );
-    GETINTERFACE_ANY( plLinkEffectsTriggerPrepMsg, plMessage ); 
+    GETINTERFACE_ANY( plLinkEffectsTriggerPrepMsg, plMessage );
         
     void    SetTrigger(plLinkEffectsTriggerMsg *msg);
     plLinkEffectsTriggerMsg *GetTrigger() { return fTrigger; }
@@ -212,7 +212,7 @@ public:
     ~plLinkEffectBCMsg() { }
 
     CLASSNAME_REGISTER( plLinkEffectBCMsg );
-    GETINTERFACE_ANY( plLinkEffectBCMsg, plMessage );   
+    GETINTERFACE_ANY( plLinkEffectBCMsg, plMessage );
 
     // These messages should never be sent over the net, so I'm
     // suspicious that R/W actually does something... but if
@@ -238,7 +238,7 @@ public:
     ~plLinkEffectPrepBCMsg() { }
     
     CLASSNAME_REGISTER( plLinkEffectPrepBCMsg );
-    GETINTERFACE_ANY( plLinkEffectPrepBCMsg, plMessage );   
+    GETINTERFACE_ANY( plLinkEffectPrepBCMsg, plMessage );
     
     // runtime-local only, no I/O
     void Read(hsStream* stream, hsResMgr* mgr) {}
@@ -251,12 +251,12 @@ class plLinkCallbackMsg : public plEventCallbackMsg
 {
 public:
     plLinkCallbackMsg() { }
-    ~plLinkCallbackMsg() { } 
+    ~plLinkCallbackMsg() { }
 
     CLASSNAME_REGISTER( plLinkCallbackMsg );
     GETINTERFACE_ANY( plLinkCallbackMsg, plEventCallbackMsg );
 
-    void Read(hsStream* stream, hsResMgr* mgr); 
+    void Read(hsStream* stream, hsResMgr* mgr);
     void Write(hsStream* stream, hsResMgr* mgr);
 
     plKey fLinkKey;

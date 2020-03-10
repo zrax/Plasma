@@ -81,7 +81,7 @@ plDynamicTextLayer::plDynamicTextLayer() :
     fInitBitmap = NULL;
 
     plDynamicTextLayerDesc.MakeAutoParamBlocks(this);
-    ReplaceReference(kRefUVGen, GetNewDefaultUVGen());  
+    ReplaceReference(kRefUVGen, GetNewDefaultUVGen());
 }
 
 plDynamicTextLayer::~plDynamicTextLayer()
@@ -98,7 +98,7 @@ void plDynamicTextLayer::GetClassName(TSTR& s)
 }
 
 //From MtlBase
-void plDynamicTextLayer::Reset() 
+void plDynamicTextLayer::Reset()
 {
     GetDynamicTextLayerDesc()->Reset(this, TRUE);   // reset all pb2's
     NotifyDependents(FOREVER, PART_ALL, REFMSG_CHANGE);
@@ -106,7 +106,7 @@ void plDynamicTextLayer::Reset()
     fIValid.SetEmpty();
 }
 
-void plDynamicTextLayer::Update(TimeValue t, Interval& valid) 
+void plDynamicTextLayer::Update(TimeValue t, Interval& valid)
 {
     if (!fIValid.InInterval(t))
     {
@@ -140,7 +140,7 @@ Interval plDynamicTextLayer::Validity(TimeValue t)
     return v;
 }
 
-ParamDlg* plDynamicTextLayer::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp) 
+ParamDlg* plDynamicTextLayer::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp)
 {
     fIMtlParams = imp;
     IAutoMParamDlg* masterDlg = plDynamicTextLayerDesc.CreateParamDlgs(hwMtlEdit, imp, this);
@@ -148,11 +148,11 @@ ParamDlg* plDynamicTextLayer::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp)
     fUVGenDlg = fUVGen->CreateParamDlg(hwMtlEdit, imp);
     masterDlg->AddDlg(fUVGenDlg);
 
-    return masterDlg;   
+    return masterDlg;
 }
 
 BOOL plDynamicTextLayer::SetDlgThing(ParamDlg* dlg)
-{   
+{
     if (dlg == fUVGenDlg)
     {
         fUVGenDlg->SetThing(fUVGen);
@@ -168,7 +168,7 @@ int plDynamicTextLayer::NumRefs()
 }
 
 //From ReferenceMaker
-RefTargetHandle plDynamicTextLayer::GetReference(int i) 
+RefTargetHandle plDynamicTextLayer::GetReference(int i)
 {
     switch (i)
     {
@@ -178,14 +178,14 @@ RefTargetHandle plDynamicTextLayer::GetReference(int i)
     }
 }
 
-void plDynamicTextLayer::SetReference(int i, RefTargetHandle rtarg) 
+void plDynamicTextLayer::SetReference(int i, RefTargetHandle rtarg)
 {
     Interval    garbage;
 
     switch (i)
     {
-        case kRefUVGen:  
-            fUVGen = (UVGen *)rtarg; 
+        case kRefUVGen:
+            fUVGen = (UVGen *)rtarg;
             if( fUVGen )
                 fUVGen->Update( TimeValue( 0 ), garbage );
             break;
@@ -221,8 +221,8 @@ IParamBlock2* plDynamicTextLayer::GetParamBlockByID(BlockID id)
         return NULL;
 }
 
-//From ReferenceTarget 
-RefTargetHandle plDynamicTextLayer::Clone(RemapDir &remap) 
+//From ReferenceTarget
+RefTargetHandle plDynamicTextLayer::Clone(RemapDir &remap)
 {
     plDynamicTextLayer *mnew = new plDynamicTextLayer();
     *((MtlBase*)mnew) = *((MtlBase*)this); // copy superclass stuff
@@ -237,7 +237,7 @@ int plDynamicTextLayer::NumSubs()
     return 2;
 }
 
-Animatable* plDynamicTextLayer::SubAnim(int i) 
+Animatable* plDynamicTextLayer::SubAnim(int i)
 {
     //TODO: Return 'i-th' sub-anim
     switch (i)
@@ -248,7 +248,7 @@ Animatable* plDynamicTextLayer::SubAnim(int i)
     }
 }
 
-TSTR plDynamicTextLayer::SubAnimName(int i) 
+TSTR plDynamicTextLayer::SubAnimName(int i)
 {
     switch (i)
     {
@@ -258,8 +258,8 @@ TSTR plDynamicTextLayer::SubAnimName(int i)
     }
 }
 
-RefResult plDynamicTextLayer::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, 
-   PartID& partID, RefMessage message) 
+RefResult plDynamicTextLayer::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
+   PartID& partID, RefMessage message)
 {
     switch (message)
     {
@@ -281,7 +281,7 @@ RefResult plDynamicTextLayer::NotifyRefChanged(Interval changeInt, RefTargetHand
         break;
 
     case REFMSG_UV_SYM_CHANGE:
-        IDiscardTexHandle();  
+        IDiscardTexHandle();
         break;
     }
 
@@ -302,7 +302,7 @@ void plDynamicTextLayer::IChanged()
 
 #define TEX_HDR_CHUNK 0x5000
 
-IOResult plDynamicTextLayer::Save(ISave *isave) 
+IOResult plDynamicTextLayer::Save(ISave *isave)
 {
     IOResult res;
 
@@ -313,9 +313,9 @@ IOResult plDynamicTextLayer::Save(ISave *isave)
     isave->EndChunk();
 
     return IO_OK;
-}   
+}
 
-IOResult plDynamicTextLayer::Load(ILoad *iload) 
+IOResult plDynamicTextLayer::Load(ILoad *iload)
 {
     IOResult res;
     while (IO_OK == (res = iload->OpenChunk()))
@@ -325,14 +325,14 @@ IOResult plDynamicTextLayer::Load(ILoad *iload)
             res = MtlBase::Load(iload);
         }
         iload->CloseChunk();
-        if (res != IO_OK) 
+        if (res != IO_OK)
             return res;
     }
 
     return IO_OK;
 }
 
-inline Point2 CompUV(float x, float y, float z) 
+inline Point2 CompUV(float x, float y, float z)
 {
     return Point2( 0.5f * ( x / z + 1.0f ), 0.5f * ( y / z + 1.0f ) );
 }
@@ -344,14 +344,14 @@ Bitmap  *plDynamicTextLayer::GetBitmap( TimeValue t )
 
 AColor plDynamicTextLayer::EvalColor(ShadeContext& sc)
 {
-    if (!sc.doMaps) 
+    if (!sc.doMaps)
         return AColor(0.0f, 0.0f, 0.0f, 1.0f);
 
     AColor color;
-    if (sc.GetCache(this, color)) 
+    if (sc.GetCache(this, color))
         return color;
 
-    if (gbufID) 
+    if (gbufID)
         sc.SetGBufferID(gbufID);
 
     // Evaluate the Bitmap
@@ -381,7 +381,7 @@ AColor plDynamicTextLayer::EvalColor(ShadeContext& sc)
     if( fBitmapPB->GetInt( kBmpDiscardAlpha ) )
         color.a = 1.0f;
 
-    sc.PutCache(this, color); 
+    sc.PutCache(this, color);
     return color;
 }
 
@@ -401,7 +401,7 @@ ULONG plDynamicTextLayer::LocalRequirements(int subMtlNum)
     return fUVGen->Requirements( subMtlNum );
 }
 
-void plDynamicTextLayer::IDiscardTexHandle() 
+void plDynamicTextLayer::IDiscardTexHandle()
 {
     if (fTexHandle)
     {
@@ -500,7 +500,7 @@ BITMAPINFO *plDynamicTextLayer::GetVPDisplayDIB(TimeValue t, TexHandleMaker& thm
         BMM_Color_64 *p64 = l64.Ptr();
         for( int x = 0; x < fBitmapPB->GetInt( kBmpExportWidth ); x++, p64++ )
         {
-            COLORREF color = GetPixel( winDC, x, y );       
+            COLORREF color = GetPixel( winDC, x, y );
 
             if( color == RGB( 0, 0, 0 ) )
             {
@@ -531,10 +531,10 @@ BITMAPINFO *plDynamicTextLayer::GetVPDisplayDIB(TimeValue t, TexHandleMaker& thm
     return bmi;
 }
 
-DWORD plDynamicTextLayer::GetActiveTexHandle(TimeValue t, TexHandleMaker& thmaker) 
+DWORD plDynamicTextLayer::GetActiveTexHandle(TimeValue t, TexHandleMaker& thmaker)
 {
     // FIXME: ignore validity for now
-    if (fTexHandle && fIValid.InInterval(t))// && texTime == CalcFrame(t)) 
+    if (fTexHandle && fIValid.InInterval(t))// && texTime == CalcFrame(t))
         return fTexHandle->GetHandle();
     else
     {
@@ -558,17 +558,17 @@ const char *plDynamicTextLayer::GetTextureName( int which )
 }
 
 void plDynamicTextLayer::ISetPBBitmap(PBBitmap *pbbm, int index /* = 0 */)
-{ 
-    fBitmapPB->SetValue( (ParamID)kBmpInitBitmap, 0, pbbm ); 
+{
+    fBitmapPB->SetValue( (ParamID)kBmpInitBitmap, 0, pbbm );
 }
 
 PBBitmap *plDynamicTextLayer::GetPBBitmap(int index /* = 0 */)
-{ 
-    return fBitmapPB->GetBitmap( (ParamID)kBmpInitBitmap ); 
+{
+    return fBitmapPB->GetBitmap( (ParamID)kBmpInitBitmap );
 }
 
 //// GetSamplerInfo ///////////////////////////////////////////////////////////
-//  Virtual function called by plBMSampler to get various things while sampling 
+//  Virtual function called by plBMSampler to get various things while sampling
 //  the layer's image
 
 bool    plDynamicTextLayer::GetSamplerInfo( plBMSamplerData *samplerData )

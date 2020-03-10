@@ -67,7 +67,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #else
     #define ASSERT_PIXELSIZE(bitmap, pixelsize)
     #define ASSERT_XY(bitmap, x, y)
-    #define ASSERT_UNCOMPRESSED()               
+    #define ASSERT_UNCOMPRESSED()
 #endif
 
 //// Class Definition /////////////////////////////////////////////////////////
@@ -92,8 +92,8 @@ class plMipmap : public plBitmap
 
         plMipmap();
         plMipmap( uint32_t width, uint32_t height, unsigned config, uint8_t numLevels = 0, uint8_t compType = kUncompressed, uint8_t format = UncompressedInfo::kRGB8888 );
-        plMipmap( plMipmap *bm, float sig, uint32_t createFlags, 
-                            float detailDropoffStart, float detailDropoffStop, 
+        plMipmap( plMipmap *bm, float sig, uint32_t createFlags,
+                            float detailDropoffStart, float detailDropoffStop,
                             float detailMax, float detailMin );
         virtual ~plMipmap();
 
@@ -210,18 +210,18 @@ class plMipmap : public plBitmap
             kAlphaDataRLE   = 0x2
         };
 
-        void    SetBitmapAsLevel(uint8_t iDst, plMipmap *bm, float sig, uint32_t createFlags, 
-                                              float detailDropoffStart, float detailDropoffStop, 
+        void    SetBitmapAsLevel(uint8_t iDst, plMipmap *bm, float sig, uint32_t createFlags,
+                                              float detailDropoffStart, float detailDropoffStop,
                                               float detailMax, float detailMin);
         void    ICreateLevelNoDetail(uint8_t iDst, const plFilterMask& mask);
-        void    IBlendLevelDetailAlpha(uint8_t iDst, const plFilterMask& mask, 
-                                          float detailDropoffStart, float detailDropoffStop, 
+        void    IBlendLevelDetailAlpha(uint8_t iDst, const plFilterMask& mask,
+                                          float detailDropoffStart, float detailDropoffStop,
                                           float detailMax, float detailMin);
-        void    IBlendLevelDetailAdd(uint8_t iDst, const plFilterMask& mask, 
-                                          float detailDropoffStart, float detailDropoffStop, 
+        void    IBlendLevelDetailAdd(uint8_t iDst, const plFilterMask& mask,
+                                          float detailDropoffStart, float detailDropoffStop,
                                           float detailMax, float detailMin);
-        void    IBlendLevelDetailMult(uint8_t iDst, const plFilterMask& mask, 
-                                          float detailDropoffStart, float detailDropoffStop, 
+        void    IBlendLevelDetailMult(uint8_t iDst, const plFilterMask& mask,
+                                          float detailDropoffStart, float detailDropoffStop,
                                           float detailMax, float detailMin);
         void    Filter(float sig);
         uint32_t  CopyOutPixels(uint32_t destXSize, uint32_t destYSize, uint32_t dstFormat, void *destPixels, uint32_t copyOptions);
@@ -258,8 +258,8 @@ class plMipmap : public plBitmap
                                     fSrcClipX = fSrcClipY = fSrcClipWidth = fSrcClipHeight = 0; fOpacity = 255;}
 
                 CompositeOptions( uint16_t flags, uint8_t srcLevelsToSkip = 0, float red = 1.f, float green = 1.f,
-                                    float blue = 1.f, uint16_t srcClipX = 0, uint16_t srcClipY = 0, 
-                                    uint16_t srcClipWidth = 0, uint16_t srcClipHeight = 0, uint8_t opacity = 255 ) 
+                                    float blue = 1.f, uint16_t srcClipX = 0, uint16_t srcClipY = 0,
+                                    uint16_t srcClipWidth = 0, uint16_t srcClipHeight = 0, uint8_t opacity = 255 )
                 {
                     fFlags = flags;
                     fSrcLevelsToSkip = srcLevelsToSkip;
@@ -345,7 +345,7 @@ class plMipmap : public plBitmap
                 uint32_t    fWidth, fHeight, fRowBytes;
                 uint8_t     fNumLevels;
                 uint8_t     fCompressionType;
-                union 
+                union
                 {
                     DirectXInfo         fDirectXInfo;
                     UncompressedInfo    fUncompressedInfo;

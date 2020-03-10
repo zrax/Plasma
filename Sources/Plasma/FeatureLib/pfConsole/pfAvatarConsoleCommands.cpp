@@ -173,7 +173,7 @@ PF_CONSOLE_CMD( Avatar_Spawn, Show, "", "Print a list of spawn points.")
         {
             ST::string soName = ST_LITERAL("(none)");
 
-            if (spawn->GetNumTargets() > 0) 
+            if (spawn->GetNumTargets() > 0)
             {
                 plSceneObject* so = spawn->GetTarget(0);
                 if (so)
@@ -459,7 +459,7 @@ PF_CONSOLE_CMD( Avatar, PopBrain, "", "Remove the topmost brain from the avatar.
 
 #include "plScene/plRelevanceMgr.h"
 
-PF_CONSOLE_CMD( Avatar, 
+PF_CONSOLE_CMD( Avatar,
                MarkRelevanceRegion,
                "string regionA, string regionB, int wantsUpdate",
                "Mark whether avatars in regionA want updates on those on regionB" )
@@ -511,7 +511,7 @@ PF_CONSOLE_CMD( Avatar, SeekPoint, "string seekpoint", "Move to the given seekpo
 PF_CONSOLE_CMD( Avatar, ShowLocations, "", "Show player positions/orientations" )
 {
     bool curVal = plNetClientApp::GetInstance()->GetFlagsBit(plNetClientApp::kShowAvatars);
-    plNetClientApp::GetInstance()->SetFlagsBit(plNetClientApp::kShowAvatars, !curVal);  
+    plNetClientApp::GetInstance()->SetFlagsBit(plNetClientApp::kShowAvatars, !curVal);
 }
 
 PF_CONSOLE_CMD( Avatar,
@@ -697,7 +697,7 @@ PF_CONSOLE_CMD( Avatar_Anim, SetBlend, "string Animation, float blend", "Set the
         plAGAnimInstance *anim = avatar->FindAnimInstance(animationName);
         if(anim)
             anim->SetBlend(blend);
-        else 
+        else
             PrintString("SetBlend: Couldn't find animation.");
     }
 }

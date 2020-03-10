@@ -304,15 +304,15 @@ bool plConvert::Convert(hsTArray<plMaxNode*>& nodes)
         retVal = ConvertList(nodes, &plMaxNode::ConvertValidate,         fpErrorMsg, fSettings);
     if(IOK())
         retVal = ConvertList(nodes, &plMaxNode::SetupPropertiesPass,     fpErrorMsg, fSettings);
-    if(IOK())   
+    if(IOK())
         retVal = ConvertList(nodes, &plMaxNode::PrepareSkin,             fpErrorMsg, fSettings);
-    if(IOK())   
+    if(IOK())
         retVal = ConvertList(nodes, &plMaxNode::MakeSceneObject,         fpErrorMsg, fSettings);
-    if(IOK())   
+    if(IOK())
         retVal = ConvertList(nodes, &plMaxNode::FirstComponentPass,      fpErrorMsg, fSettings);
-    if(IOK())   
+    if(IOK())
         retVal = ConvertList(nodes, &plMaxNode::MakeController,          fpErrorMsg,fSettings);
-    if(IOK())   
+    if(IOK())
         retVal = ConvertList(nodes, &plMaxNode::MakeCoordinateInterface, fpErrorMsg, fSettings);// must be before mesh
     if(IOK())
         retVal = ConvertList(nodes, &plMaxNode::MakeParentOrRoomConnection,  fpErrorMsg, fSettings); // after coord, before mesh (or any other pool data).
@@ -321,7 +321,7 @@ bool plConvert::Convert(hsTArray<plMaxNode*>& nodes)
     plLightMapGen::Instance().Open(fInterface, fInterface->GetTime(), fSettings->fDoLightMap);
     hsVertexShader::Instance().Open();
 
-    if(IOK())   
+    if(IOK())
         retVal = ConvertList(nodes, &plMaxNode::MakeMesh, fpErrorMsg, fSettings);    // must be before simulation
 
     if(IOK())                       // doesn't matter when
@@ -330,7 +330,7 @@ bool plConvert::Convert(hsTArray<plMaxNode*>& nodes)
         retVal = ConvertList(nodes, &plMaxNode::MakeOccluder,                fpErrorMsg, fSettings);
     if(IOK())                       // must be after mesh
         retVal = ConvertList(nodes, &plMaxNode::MakeModifiers,               fpErrorMsg, fSettings);
-    if(IOK())   
+    if(IOK())
         retVal = ConvertList(nodes, &plMaxNode::ConvertComponents,           fpErrorMsg, fSettings);
     if(IOK())
         retVal = ConvertList(nodes, &plMaxNode::ShadeMesh,                   fpErrorMsg, fSettings);
@@ -343,7 +343,7 @@ bool plConvert::Convert(hsTArray<plMaxNode*>& nodes)
     plgDispatch::MsgSend(new plDelayedTransformMsg(nil, nil, nil, nil));
     DeInit();
 
-    return IOK();   
+    return IOK();
     }
 #ifndef HS_NO_TRY
     catch(plErrorMsg& err)
@@ -426,7 +426,7 @@ void plConvert::SendEnvironmentMessage(plMaxNode* pNode, plMaxNode* efxRegion, p
         msg->AddReceiver( pNode->GetSceneObject()->GetKey() );
 }
 
-plMaxNode* plConvert::GetRootNode() 
+plMaxNode* plConvert::GetRootNode()
 {
     return (plMaxNode *)fInterface->GetRootNode();
 }

@@ -63,7 +63,7 @@ plOneShotMod::plOneShotMod()
   fSmartSeek(false),
   fNoSeek(false)
 {
-    // this constructor is called from the loader. 
+    // this constructor is called from the loader.
 }
 
 // CTOR(char *)

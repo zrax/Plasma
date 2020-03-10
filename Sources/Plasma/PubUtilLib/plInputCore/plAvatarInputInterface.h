@@ -72,7 +72,7 @@ class plAvatarInputInterface;
 
 //// Little Input Map Helpers ////////////////////////////////////////////////
 
-class plAvatarInputMap 
+class plAvatarInputMap
 {
     protected:
 
@@ -242,7 +242,7 @@ class plAvatarInputInterface : public plInputInterface
         virtual void        Shutdown();
 
         virtual void        RestoreDefaultKeyMappings();
-        virtual void        ClearKeyMap(); 
+        virtual void        ClearKeyMap();
         
         // [dis/en]able mouse commands for avatar movement
         void SuspendMouseMovement();

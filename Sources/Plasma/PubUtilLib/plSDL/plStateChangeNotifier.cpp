@@ -43,7 +43,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "pnMessage/plSDLNotificationMsg.h"
 #include <algorithm>
 
-// static 
+// static
 uint32_t plStateChangeNotifier::fCurrentPlayerID = 0;
 
 plStateChangeNotifier::plStateChangeNotifier() :
@@ -133,7 +133,7 @@ void plStateChangeNotifier::SendNotificationMsg(const plSimpleStateVariable* src
 
     m->fDelta=fDelta;
     m->fVar=dstVar;
-    m->fSDLName = sdlName;  
+    m->fSDLName = sdlName;
     m->fPlayerID = GetCurrentPlayerID();
     m->fHintString = srcVar->GetNotificationInfo().GetHintString();
 

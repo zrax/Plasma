@@ -314,9 +314,9 @@ protected:
     uint32_t    IGetBufferFormatSize(uint8_t format) const;
     void        IGetVisibleSpans( plDrawableSpans* drawable, hsTArray<int16_t>& visList, plVisMgr* visMgr );
     bool        ILoopOverLayers(const plRenderPrimFunc& render, hsGMaterial* material, const plSpan& span);
-    void        IRenderBufferSpan( const plIcicle& span, 
-                                    hsGDeviceRef *vb, hsGDeviceRef *ib, 
-                                    hsGMaterial *material, 
+    void        IRenderBufferSpan( const plIcicle& span,
+                                    hsGDeviceRef *vb, hsGDeviceRef *ib,
+                                    hsGMaterial *material,
                                     uint32_t vStart, uint32_t vLength, uint32_t iStart, uint32_t iLength );
     void        IRenderAuxSpan(const plSpan& span, const plAuxSpan* aux);
     void        IRenderAuxSpans(const plSpan& span);
@@ -396,7 +396,7 @@ protected:
     void            *IGetPixelScratch( uint32_t size );
     hsGDeviceRef    *IMakeCubicTextureRef( plLayerInterface* layer, plCubicEnvironmap *cubic );
     bool            IProcessMipmapLevels( plMipmap *mipmap, uint32_t &numLevels,
-                                                uint32_t *&levelSizes, uint32_t &totalSize, 
+                                                uint32_t *&levelSizes, uint32_t &totalSize,
                                                 uint32_t &numPixels, void *&textureData, bool noMip );
     IDirect3DTexture9       *IMakeD3DTexture( plDXTextureRef *ref, D3DFORMAT formatType );
     IDirect3DCubeTexture9   *IMakeD3DCubeTexture( plDXTextureRef *ref, D3DFORMAT formatType );
@@ -405,9 +405,9 @@ protected:
     void            IMakeOcclusionSnap();
 
     bool            IAvatarSort(plDrawableSpans* d, const hsTArray<int16_t>& visList);
-    void            IBlendVertsIntoBuffer( plSpan* span, 
+    void            IBlendVertsIntoBuffer( plSpan* span,
                                             hsMatrix44* matrixPalette, int numMatrices,
-                                            const uint8_t *src, uint8_t format, uint32_t srcStride, 
+                                            const uint8_t *src, uint8_t format, uint32_t srcStride,
                                             uint8_t *dest, uint32_t destStride, uint32_t count, uint16_t localUVWChans )
                                                 { blend_vert_buffer.call(span, matrixPalette, numMatrices, src, format, srcStride, dest, destStride, count, localUVWChans); };
     bool            ISoftwareVertexBlend( plDrawableSpans* drawable, const hsTArray<int16_t>& visList );
@@ -504,7 +504,7 @@ protected:
     plRenderTarget*     IFindRenderTarget(uint32_t& w, uint32_t& h, bool ortho);
     void                IReleaseRenderTargetPools();
 
-    // Application  
+    // Application
     void    IRenderShadowsOntoSpan(const plRenderPrimFunc& render, const plSpan* span, hsGMaterial* mat);
     void    ISetupShadowRcvTextureStages(hsGMaterial* mat);
     void    ISetShadowLightState(hsGMaterial* mat);
@@ -581,7 +581,7 @@ public:
     virtual bool            OpenAccess(plAccessSpan& dst, plDrawableSpans* d, const plVertexSpan* span, bool readOnly);
     virtual bool            CloseAccess(plAccessSpan& acc);
 
-    virtual void            CheckTextureRef(plLayerInterface* lay);     
+    virtual void            CheckTextureRef(plLayerInterface* lay);
     static void             FreeManagedTexture(uint32_t sz) { hsAssert(fTexManaged >= sz, "Freeing mem we don't have"); fTexManaged -= sz; }
     static void             AllocManagedTexture(uint32_t sz) { fTexManaged += sz; }
     static void             FreeManagedVertex(uint32_t sz) { hsAssert(fVtxManaged >= sz, "Freeing mem we don't have"); fVtxManaged -= sz; }
@@ -653,7 +653,7 @@ inline DWORD    plDXPipeline::inlGetD3DColor( const hsColorRGBA &col ) const
 {
     DWORD   dr, dg, db, da;
     
-    CONVERT_FLOAT_TO_BYTE_COLOR( col.r, dr );   
+    CONVERT_FLOAT_TO_BYTE_COLOR( col.r, dr );
     CONVERT_FLOAT_TO_BYTE_COLOR( col.g, dg );
     CONVERT_FLOAT_TO_BYTE_COLOR( col.b, db );
     CONVERT_FLOAT_TO_BYTE_COLOR( col.a, da );

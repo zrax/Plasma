@@ -110,7 +110,7 @@ class classname##ClassDesc : public plAutoUIClassDesc                           
 };                                                                              \
 DECLARE_CLASS_DESC(classname, varname)
 
-// 
+//
 void ReleaseGlobals();
 
 //

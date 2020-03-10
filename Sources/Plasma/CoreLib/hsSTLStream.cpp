@@ -46,7 +46,7 @@ hsVectorStream::hsVectorStream() : fEnd(0)
 }
 
 hsVectorStream::hsVectorStream(uint32_t chunkSize)
-{   
+{
     fVector.reserve(chunkSize);
 }
 

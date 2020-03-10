@@ -54,8 +54,8 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 class plProgressBar
 {
 public:
-    plProgressBar(float min, float max) : fMin(min), fMax(max) 
-    { 
+    plProgressBar(float min, float max) : fMin(min), fMax(max)
+    {
           hsAssert(min >= 0, "Min too small.");
           hsAssert(min <= 1, "Min too big.");
           hsAssert(max >= 0, "Max too small.");

@@ -70,7 +70,7 @@ public:
     float            fHither;
     float            fYon;
     float            fFogStart;
-    hsColorRGBA         fColor;         
+    hsColorRGBA         fColor;
     float            fRefresh;
 
 public:

@@ -63,7 +63,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plPhysical/plSimDefs.h"
 
 #include "pnMessage/plObjRefMsg.h"           //  Ibid
-#include "pnMessage/plIntRefMsg.h"           //  Ibid    
+#include "pnMessage/plIntRefMsg.h"           //  Ibid
 #include "pnMessage/plNodeRefMsg.h"          //  Ibid
 #include "MaxMain/plPlasmaRefMsgs.h"         //  Ibid
 
@@ -154,7 +154,7 @@ ParamBlockDesc2 gAvLadderComponentBlock
         p_vals,                     true,           false,
         end,
 
-    kLoopsInt,  _T("BigLadderNumLoop"), TYPE_INT, 0, 0, 
+    kLoopsInt,  _T("BigLadderNumLoop"), TYPE_INT, 0, 0,
         p_default, 0,
         p_range, 0, 500,
         p_ui,   TYPE_SPINNER,   EDITTYPE_INT,

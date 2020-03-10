@@ -64,7 +64,7 @@ class plAvTaskBrain : public plAvTask
 public:
     /** Default constructor. Used as is, will function as a pop brain message. */
     plAvTaskBrain();
-    /** Constructor for a push configuration. If the brain is non, nil, it 
+    /** Constructor for a push configuration. If the brain is non, nil, it
         will be pushed onto the receiving avatar when the task is dequeued.
         If the brain is nil, the current brain will be popped. */
     plAvTaskBrain(plArmatureBrain *brain);

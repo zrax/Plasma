@@ -216,7 +216,7 @@ void    plAnimStealthNode::StuffToTimeConvert( plAnimTimeConvert &convert, float
         float loopStart, loopEnd;
         GetLoopPoints( loopStart, loopEnd );
         convert.SetLoopPoints( loopStart, loopEnd );
-    }   
+    }
     convert.Loop( GetLoop() );
 
     // Auto-start

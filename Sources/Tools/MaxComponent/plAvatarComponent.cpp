@@ -88,7 +88,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plAudio/plWin32StaticSound.h"
 #include "plAudioCore/plSoundBuffer.h"
 
-#include "MaxMain/plPlasmaRefMsgs.h"         
+#include "MaxMain/plPlasmaRefMsgs.h"
 
 #include "plAvatar/plArmatureMod.h"
 #include "plAvatar/plAvBrainHuman.h"
@@ -296,7 +296,7 @@ bool plArmatureComponent::IVerifyUsedNode(INode* thisNode, plErrorMsg* pErrMsg, 
 
         }else
         {
-            pErrMsg->Set(true, "Ignored Node Selection", "The object that Node Ptr %s refs was set to be Ignored. Avatar Component failure.", thisNode->GetName());             
+            pErrMsg->Set(true, "Ignored Node Selection", "The object that Node Ptr %s refs was set to be Ignored. Avatar Component failure.", thisNode->GetName());
             pErrMsg->Set(false);
             return false;
         }
@@ -318,9 +318,9 @@ void plArmatureComponent::IAttachShadowCastModifiersRecur(plMaxNode* node, plSha
 
     plShadowCastComponent::AddShadowCastModifier(node, caster);
 
-    int i; 
+    int i;
     for( i = 0; i < node->NumberOfChildren(); i++ )
-        IAttachShadowCastModifiersRecur((plMaxNode*)node->GetChildNode(i), caster); 
+        IAttachShadowCastModifiersRecur((plMaxNode*)node->GetChildNode(i), caster);
 }
 
 
@@ -350,7 +350,7 @@ CLASS_DESC(plAvatarComponent, gAvatarCompDesc, "Avatar",  "Avatar", COMP_TYPE_AV
 
 //Max paramblock2 stuff below.
 ParamBlockDesc2 gPAvatarBk
-(   
+(
     plComponent::kBlkComp, _T("Avatar"), 0, &gAvatarCompDesc, P_AUTO_CONSTRUCT + P_AUTO_UI + P_MULTIMAP, plComponent::kRefComp,
 
     //Roll out
@@ -507,7 +507,7 @@ void AddClothingToMod(plMaxNode *node, plArmatureMod *mod, int group, hsGMateria
         toker.Reset(sdata, hsConverterUtils::fTagSeps);
         base->SetLayoutName(toker.next());
     }
-    else 
+    else
         base->SetLayoutName("BasicHuman");
     keyName = ST::format("{}_ClothingBase", node->GetName());
     hsgResMgr::ResMgr()->NewKey(keyName, base, node->GetLocation());
@@ -554,7 +554,7 @@ void AddClothingToMod(plMaxNode *node, plArmatureMod *mod, int group, hsGMateria
     }
     else
     {
-        pErrMsg->Set(outfit->fGroup != plClothingMgr::kClothingBaseNoOptions, node->GetName(), 
+        pErrMsg->Set(outfit->fGroup != plClothingMgr::kClothingBaseNoOptions, node->GetName(),
                      "This avatar expects clothing options, but has no material on which to place them. "
                      "It will not be visable at runtime.").CheckAskOrCancel();
         outfit->fGroup = plClothingMgr::kClothingBaseNoOptions;
@@ -631,7 +631,7 @@ public:
             
             return TRUE;
 
-        case WM_COMMAND:  
+        case WM_COMMAND:
             if (id == IDC_COMP_AVATAR_CLOTHING_GROUP)
             {
                 selection = SendMessage(GetDlgItem(hWnd, id), CB_GETCURSEL, 0, 0);
@@ -646,7 +646,7 @@ public:
             }
 
             break;
-        }   
+        }
         return FALSE;
     }
     void DeleteThis() {}
@@ -804,7 +804,7 @@ public:
                     std::vector<Class_ID> cids;
                     cids.push_back(Class_ID(TRIOBJ_CLASS_ID, 0));
                     cids.push_back(Class_ID(EDITTRIOBJ_CLASS_ID, 0));
-                    if (plPick::NodeRefKludge(fPB, plLODAvatarComponent::kLastPick, &cids, true, false))            
+                    if (plPick::NodeRefKludge(fPB, plLODAvatarComponent::kLastPick, &cids, true, false))
                         fComp->AddSelectedBone();
 
                     return TRUE;
@@ -827,7 +827,7 @@ public:
                     return TRUE;
                 }
             }
-            else 
+            else
             {
                 int LodBeginState   = map->GetParamBlock()->GetInt(plLODAvatarComponent::kLODState);
                 
@@ -870,7 +870,7 @@ public:
 
 
 //! A static variable.
-/*! 
+/*!
     A static instance used in the ParamBlock2 processing of
     the physical Dialog UIs.
 
@@ -917,7 +917,7 @@ CLASS_DESC(plLODAvatarComponent, gLODAvatarCompDesc, "LODAvatar",  "LODAvatar", 
 
 //Max paramblock2 stuff below.
 ParamBlockDesc2 gPLODAvatarBk
-(   
+(
     plComponent::kBlkComp, _T("Avatar"), 0, &gLODAvatarCompDesc, P_AUTO_CONSTRUCT + P_AUTO_UI + P_MULTIMAP, plComponent::kRefComp,
 
     //Roll out
@@ -1005,7 +1005,7 @@ ParamBlockDesc2 gPLODAvatarBk
 //      p_sclassID, GEOMOBJECT_CLASS_ID,
 //      p_prompt, IDS_COMP_AVATAR_PROXYS,
         end,
-// 
+//
     plLODAvatarComponent::kPhysicsProxyHead_DEAD, _T("ProxyHead"),  TYPE_INODE,     0, 0,
 //      p_ui,   kArmMain, TYPE_PICKNODEBUTTON, IDC_COMP_AVATAR_PROXY_PICKH,
 //      p_sclassID, GEOMOBJECT_CLASS_ID,
@@ -1083,7 +1083,7 @@ void plLODAvatarComponent::IAttachModifiers(    plMaxNode *node, plErrorMsg *pEr
 
 bool plLODAvatarComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    node->SetItinerant(true);   
+    node->SetItinerant(true);
     
 //  if(!IVerifyUsedNode(fCompPB->GetINode(plLODAvatarComponent::kPhysicsProxyFeet), pErrMsg, true))
 //      return false;
@@ -1112,9 +1112,9 @@ bool plLODAvatarComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
     return plArmatureComponent::SetupProperties(node, pErrMsg);
 }
 
-bool plLODAvatarComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)           
-{ 
-    bool result = plArmatureComponent::PreConvert(node, pErrMsg); 
+bool plLODAvatarComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
+{
+    bool result = plArmatureComponent::PreConvert(node, pErrMsg);
 
     hsTArray<hsGMaterial*> mats;
     Mtl *mtl = fCompPB->GetMtl(kMaterial);
@@ -1169,9 +1169,9 @@ void plLODAvatarComponent::IAttachShadowCastModifiersRecur(plMaxNode* node, plSh
     if( !node->GetSwappableGeom() && node->GetObjectRef()->ClassID() != Class_ID(DUMMY_CLASS_ID, 0))
         plShadowCastComponent::AddShadowCastModifier(node, caster);
 
-    int i; 
+    int i;
     for( i = 0; i < node->NumberOfChildren(); i++ )
-        IAttachShadowCastModifiersRecur((plMaxNode*)node->GetChildNode(i), caster); 
+        IAttachShadowCastModifiersRecur((plMaxNode*)node->GetChildNode(i), caster);
 }
 
 void plLODAvatarComponent::IAttachShadowCastToLODs(plMaxNode* rootNode)

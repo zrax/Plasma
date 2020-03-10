@@ -107,7 +107,7 @@ bool plLayerAVI::IInit()
     ISetSize(bmi->bmiHeader.biWidth, bmi->bmiHeader.biHeight);
 
     int32_t endFrame = fAVIInfo->fAVIStreamInfo.dwLength-1;
-    float length = float(endFrame) * float(fAVIInfo->fAVIStreamInfo.dwScale) 
+    float length = float(endFrame) * float(fAVIInfo->fAVIStreamInfo.dwScale)
                         / float(fAVIInfo->fAVIStreamInfo.dwRate);
     ISetLength(length);
 #endif
@@ -177,7 +177,7 @@ static bool ICopySourceToTexture16(BITMAPINFO* bmi, plMipmap* b)
         uint32_t* tPix = pix;
         for (uint32_t j = 0; j < useWidth; j++)
         {
-            *tPix = ((*src & 0x001f) << 3) // up 3 
+            *tPix = ((*src & 0x001f) << 3) // up 3
                 | ((*src & 0x03e0) << 6) // down 5 up 3 up 8
                 | ((*src & 0x7c00) << 9) // down 10 up 3 up 16
                 | (0xff << 24); // alpha

@@ -66,8 +66,8 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 //////////////////////////////////////////////////////////////////////////////////
 // Dropping these here, because they have no place else to go except a header.
 void plAccessSpan::SetSource(plSpan* s)
-{ 
-    fLocalToWorld = &s->fLocalToWorld; 
+{
+    fLocalToWorld = &s->fLocalToWorld;
     fWorldToLocal = &s->fWorldToLocal;
     fLocalBounds = &s->fLocalBounds;
     fWorldBounds = &s->fWorldBounds;
@@ -75,8 +75,8 @@ void plAccessSpan::SetSource(plSpan* s)
     fWaterHeight = s->fProps & plSpan::kWaterHeight ? &s->fWaterHeight : nil;
 }
 void plAccessSpan::SetSource(plGeometrySpan* s)
-{ 
-    fLocalToWorld = &s->fLocalToWorld; 
+{
+    fLocalToWorld = &s->fLocalToWorld;
     fWorldToLocal = &s->fWorldToLocal;
     fLocalBounds = &s->fLocalBounds;
     fWorldBounds = &s->fWorldBounds;
@@ -566,7 +566,7 @@ void plAccessGeometry::IAccessConnectivity(plAccessSpan& dst, plDrawableSpans* d
         acc.fIdxDeviceRef = nil;
     }
     // Hmm, particle should probably go here...
-    else 
+    else
     {
         dst.SetType(plAccessSpan::kVtx);
     }

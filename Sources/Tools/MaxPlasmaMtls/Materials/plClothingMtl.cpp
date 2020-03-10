@@ -100,7 +100,7 @@ const UINT32 plClothingMtl::TextConstants[] =
     IDC_CLOTHING_TILE4_SIZE
 };
 
-const char *plClothingMtl::LayerStrings[] = 
+const char *plClothingMtl::LayerStrings[] =
 {
     "Base",
     "Skin",
@@ -147,17 +147,17 @@ void plClothingMtl::GetClassName(TSTR& s)
     s = GetString(IDS_CLOTHING_MTL);
 }
 
-void plClothingMtl::Reset() 
+void plClothingMtl::Reset()
 {
     fIValid.SetEmpty();
 }
 
-ParamDlg* plClothingMtl::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp) 
+ParamDlg* plClothingMtl::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp)
 {
     fIMtlParams = imp;
     IAutoMParamDlg* masterDlg = plClothingMtlDesc.CreateParamDlgs(hwMtlEdit, imp, this);
 
-    return (ParamDlg*)masterDlg;    
+    return (ParamDlg*)masterDlg;
 }
 
 BOOL plClothingMtl::SetDlgThing(ParamDlg* dlg)
@@ -186,7 +186,7 @@ int plClothingMtl::NumSubs()
     return 2;
 }
 
-TSTR plClothingMtl::SubAnimName(int i) 
+TSTR plClothingMtl::SubAnimName(int i)
 {
     switch (i)
     {
@@ -248,7 +248,7 @@ IParamBlock2* plClothingMtl::GetParamBlockByID(BlockID id)
     return NULL;
 }
 
-RefResult plClothingMtl::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message) 
+RefResult plClothingMtl::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message)
 {
     switch (message)
     {
@@ -316,8 +316,8 @@ TSTR plClothingMtl::GetSubTexmapTVName(int i)
 }
 
 Texmap *plClothingMtl::GetTexmap(int index, int layer)
-{ 
-    return fBasicPB->GetTexmap(ParamID(LayerToPBIdx[layer]), 0, index); 
+{
+    return fBasicPB->GetTexmap(ParamID(LayerToPBIdx[layer]), 0, index);
 }
 
 /*===========================================================================*\
@@ -327,7 +327,7 @@ Texmap *plClothingMtl::GetTexmap(int index, int layer)
 #define MTL_HDR_CHUNK 0x4000
 
 IOResult plClothingMtl::Save(ISave *isave)
-{ 
+{
     IOResult res;
     isave->BeginChunk(MTL_HDR_CHUNK);
     res = MtlBase::Save(isave);
@@ -335,7 +335,7 @@ IOResult plClothingMtl::Save(ISave *isave)
     isave->EndChunk();
 
     return IO_OK;
-}   
+}
 
 IOResult plClothingMtl::Load(ILoad *iload)
 {
@@ -350,7 +350,7 @@ IOResult plClothingMtl::Load(ILoad *iload)
                 break;
         }
         iload->CloseChunk();
-        if (res!=IO_OK) 
+        if (res!=IO_OK)
             return res;
     }
 
@@ -364,22 +364,22 @@ IOResult plClothingMtl::Load(ILoad *iload)
 RefTargetHandle plClothingMtl::Clone(RemapDir &remap)
 {
     plClothingMtl *mnew = new plClothingMtl(FALSE);
-    *((MtlBase*)mnew) = *((MtlBase*)this); 
+    *((MtlBase*)mnew) = *((MtlBase*)this);
     mnew->ReplaceReference(kRefBasic, remap.CloneRef(fBasicPB));
 
     BaseClone(this, mnew, remap);
-    mnew->fIValid.SetEmpty();   
+    mnew->fIValid.SetEmpty();
 
     return (RefTargetHandle)mnew;
 }
 
-void plClothingMtl::NotifyChanged() 
+void plClothingMtl::NotifyChanged()
 {
     NotifyDependents(FOREVER, PART_ALL, REFMSG_CHANGE);
 }
 
-void plClothingMtl::Update(TimeValue t, Interval& valid) 
-{   
+void plClothingMtl::Update(TimeValue t, Interval& valid)
+{
     //StdUVGen *gen = (StdUVGen *)fUVGen;
     //gen->SetUScl(1.0f, t);
     //gen->SetVScl(1.0f, t);
@@ -391,8 +391,8 @@ void plClothingMtl::Update(TimeValue t, Interval& valid)
  |  Determine the characteristics of the material
 \*===========================================================================*/
 
-void plClothingMtl::SetAmbient(Color c, TimeValue t) {}     
-void plClothingMtl::SetDiffuse(Color c, TimeValue t) {}     
+void plClothingMtl::SetAmbient(Color c, TimeValue t) {}
+void plClothingMtl::SetDiffuse(Color c, TimeValue t) {}
 void plClothingMtl::SetSpecular(Color c, TimeValue t) {}
 void plClothingMtl::SetShininess(float v, TimeValue t) {}
                 
@@ -425,7 +425,7 @@ void plClothingMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallba
  |  Actual shading takes place
 \*===========================================================================*/
 
-void plClothingMtl::Shade(ShadeContext& sc) 
+void plClothingMtl::Shade(ShadeContext& sc)
 {
     // Get the background color
     Color backColor, backTrans;
@@ -438,7 +438,7 @@ void plClothingMtl::Shade(ShadeContext& sc)
 //  Tells MAX what we need to render ourselves properly, such as translucency,
 //  two-sidedness, etc. Flags are in imtl.h in the MAX SDK.
 
-ULONG   plClothingMtl::Requirements( int subMtlNum ) 
+ULONG   plClothingMtl::Requirements( int subMtlNum )
 {
     ULONG       req = 0;
 
@@ -562,7 +562,7 @@ Interval plClothingMtl::DisplacementValidity(TimeValue t)
     Interval iv;
     iv.SetInfinite();
 
-    return iv;  
+    return iv;
 }
 
 plClothingElement *plClothingMtl::FindElementByName(const ST::string &name) const
@@ -573,7 +573,7 @@ plClothingElement *plClothingMtl::FindElementByName(const ST::string &name) cons
         if (fElements.Get(i)->fName == name)
             return fElements.Get(i);
     }
-    return nil; 
+    return nil;
 }
 
 void plClothingMtl::InitTilesets()
@@ -647,7 +647,7 @@ void plClothingMtl::InitTilesets()
     
     tileset = new plClothingTileset();
     tileset->SetName("Head");
-    tileset->AddElement(FindElementByName("Eye"));  
+    tileset->AddElement(FindElementByName("Eye"));
     tileset->AddElement(FindElementByName("Extra Hair"));
     tileset->AddElement(FindElementByName("Face"));
     tileset->AddElement(FindElementByName("Hat"));
@@ -683,7 +683,7 @@ void plClothingMtl::InitTilesets()
     tileset = new plClothingTileset();
     tileset->SetName("KI");
     tileset->AddElement(FindElementByName("KI"));
-    fTilesets[plClothingLayout::kSetKI] = tileset;  
+    fTilesets[plClothingLayout::kSetKI] = tileset;
 
     tileset = new plClothingTileset();
     tileset->SetName("(unused)");
@@ -691,7 +691,7 @@ void plClothingMtl::InitTilesets()
 
     tileset = new plClothingTileset();
     tileset->SetName("(unused)");
-    fTilesets[plClothingLayout::kSetBackpack] = tileset;    
+    fTilesets[plClothingLayout::kSetBackpack] = tileset;
 }
 
 void plClothingMtl::ReleaseTilesets()
@@ -704,7 +704,7 @@ void plClothingMtl::ReleaseTilesets()
 
 /////////////////////////////////////////////////////////////////////////////////
 
-plClothingTileset::plClothingTileset() : fName(nil) 
+plClothingTileset::plClothingTileset() : fName(nil)
 {
     fElements.Reset();
 }
@@ -716,7 +716,7 @@ plClothingTileset::~plClothingTileset()
 
 void plClothingTileset::AddElement(plClothingElement *element)
 {
-    fElements.Append(element);  
+    fElements.Append(element);
 }
 
 void plClothingTileset::SetName(char *name)

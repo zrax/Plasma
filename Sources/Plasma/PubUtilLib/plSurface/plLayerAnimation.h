@@ -113,7 +113,7 @@ public:
 
 class plLayerAnimation : public plLayerAnimationBase
 {
-    friend class plLayerSDLModifier;    
+    friend class plLayerSDLModifier;
 
 protected:
     plAnimTimeConvert           fTimeConvert;
@@ -140,7 +140,7 @@ public:
     void DefaultAnimation();
 };
 
-class plLayerLinkAnimation : public plLayerAnimation   
+class plLayerLinkAnimation : public plLayerAnimation
 {
 protected:
     plKey fLinkKey;
@@ -177,7 +177,7 @@ public:
 
     virtual void Read(hsStream* s, hsResMgr* mgr);
     virtual void Write(hsStream* s, hsResMgr* mgr);
-    virtual uint32_t Eval(double wSecs, uint32_t frame, uint32_t ignore); 
+    virtual uint32_t Eval(double wSecs, uint32_t frame, uint32_t ignore);
     virtual bool MsgReceive(plMessage* pMsg);
     void Enable(bool b) { fEnabled = b; }
     void SetFadeFlag(uint8_t flag, bool val);

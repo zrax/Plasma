@@ -143,7 +143,7 @@ void plManifest::IReset()
 
 //// Read and helpers ////////////////////////////////////////////////////////
 
-class plVersSection : public plInitSectionTokenReader   
+class plVersSection : public plInitSectionTokenReader
 {
 protected:
     plManifest* fDest;
@@ -162,7 +162,7 @@ public:
     plVersSection(plManifest* dest) : plInitSectionTokenReader(), fDest(dest) {}
 };
 
-class plGenericSection : public plInitSectionTokenReader    
+class plGenericSection : public plInitSectionTokenReader
 {
 protected:
     plManifest* fDest;

@@ -372,7 +372,7 @@ int  pfConsoleCmdGroup::IterateCommands(pfConsoleCmdIterator* t, int depth)
 char    pfConsoleCmd::fSigTypes[ kNumTypes ][ 8 ] = { "int", "float", "bool", "string", "char", "void", "..." };
 
 pfConsoleCmd::pfConsoleCmd(const char *group, const char *name,
-                            const char *paramList, const char *help, 
+                            const char *paramList, const char *help,
                             pfConsoleCmdPtr func, bool localOnly )
 {
     fNext = nil;
@@ -453,7 +453,7 @@ void    pfConsoleCmd::ICreateSignature(const char *paramList )
         if( tok2 != nil )
         {
             // Type and label: assume label second
-            fSigLabels.Push( hsStrcpy( tok2 ) );            
+            fSigLabels.Push( hsStrcpy( tok2 ) );
         }
         else
             fSigLabels.Push( (char *)nil );

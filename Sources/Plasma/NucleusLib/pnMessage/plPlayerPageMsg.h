@@ -55,8 +55,8 @@ protected:
 
 public:
     plPlayerPageMsg() : fPlayer(nil),fLocallyOriginated(false),fUnload(false),fLastOut(false),fClientID(-1) { }
-    plPlayerPageMsg(const plKey &s, 
-                    const plKey &r, 
+    plPlayerPageMsg(const plKey &s,
+                    const plKey &r,
                     const double* t) : fPlayer(nil),fLocallyOriginated(false),fUnload(false),fLastOut(false),fClientID(-1) { }
     
     CLASSNAME_REGISTER(plPlayerPageMsg);

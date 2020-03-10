@@ -113,7 +113,7 @@ bool plDynaTorpedoMgr::IHandleShot(plBulletMsg* bull)
 #else
         plConst(float) kMinScale(0.25f);
         plConst(float) kMaxScale(0.75f);
-        if( i ) 
+        if( i )
         {
             float scale = sRand.RandRangeF(kMinScale, kMaxScale);
             scaleX *= scale;

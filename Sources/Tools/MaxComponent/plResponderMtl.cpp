@@ -397,7 +397,7 @@ plMessage *plResponderCmdMtl::CreateMsg(plMaxNode* node, plErrorMsg *pErrMsg, IP
         // stuff that actually tries to set the begin and end points for now, so that
         // anims with a loop set in advance will actually work with this. -Colin
         //
-        // This KLUDGE has been copied from where Colin kludged it in plResponderAnim 
+        // This KLUDGE has been copied from where Colin kludged it in plResponderAnim
         // in the spirit of consistent hackage. Maybe when one gets unkludged, the
         // other one will too. -mf
 //      msg->SetCmd(plAnimCmdMsg::kSetLoopBegin);

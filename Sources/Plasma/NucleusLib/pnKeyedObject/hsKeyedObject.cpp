@@ -47,19 +47,19 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include <string_theory/format>
 
-void hsKeyedObject::SetKey(plKey k)              
+void hsKeyedObject::SetKey(plKey k)
 {
     if (fpKey != nil)
     {
         hsAssert(k == nil || k == fpKey, "Changing an object's key is not allowed");
-        ((plKeyImp*)fpKey)->SetObjectPtr(nil); 
+        ((plKeyImp*)fpKey)->SetObjectPtr(nil);
     }
 
     fpKey = k;
 
     if (fpKey != nil)
-        ((plKeyImp*)fpKey)->SetObjectPtr(this); 
-}   
+        ((plKeyImp*)fpKey)->SetObjectPtr(this);
+}
 
 bool hsKeyedObject::SendRef(plRefMsg* refMsg, plRefFlags::Type flags)
 {
@@ -76,7 +76,7 @@ ST::string hsKeyedObject::GetKeyName() const
 }
 
 hsKeyedObject::~hsKeyedObject()
-{ 
+{
     if( fpKey && fpKey->ObjectIsLoaded() )
     {
         // If our key is pointing to an object (presumably back to us),
@@ -86,7 +86,7 @@ hsKeyedObject::~hsKeyedObject()
         // destructor again. So we'll just up the RefCnt, plKey::UnRegister will dec it back to 1.
         hsRefCnt_SafeRef(fpKey->ObjectIsLoaded());
     }
-    UnRegister(); 
+    UnRegister();
 }
 
 void hsKeyedObject::UnRegister()

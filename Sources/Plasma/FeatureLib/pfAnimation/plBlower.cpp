@@ -60,7 +60,7 @@ static const float kDefaultBias = 0.25f;
 static const float kInitialMaxOffDist = 1.f;
 
 plBlower::plBlower()
-:   
+:
     fMasterPower(kDefaultMasterPower),
     fMasterFrequency(kDefaultMasterFrequency),
     fDirectRate(kDefaultDirectRate),

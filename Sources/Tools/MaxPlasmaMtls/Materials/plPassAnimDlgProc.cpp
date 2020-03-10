@@ -104,7 +104,7 @@ void plPassAnimDlgProc::Update(TimeValue t, Interval& valid, IParamMap2* pmap)
 
     HWND hWnd = pmap->GetHWnd();
     IParamBlock2 *pb = pmap->GetParamBlock();
-    plAnimComponentProc::SetBoxToAgeGlobal(GetDlgItem(hWnd, IDC_MTL_GLOBAL_NAME), pb->GetStr(ParamID(kPBAnimGlobalName)));  
+    plAnimComponentProc::SetBoxToAgeGlobal(GetDlgItem(hWnd, IDC_MTL_GLOBAL_NAME), pb->GetStr(ParamID(kPBAnimGlobalName)));
 }
 
 BOOL plPassAnimDlgProc::DlgProc(TimeValue t, IParamMap2 *pMap, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -128,7 +128,7 @@ BOOL plPassAnimDlgProc::DlgProc(TimeValue t, IParamMap2 *pMap, HWND hWnd, UINT m
 
     IParamBlock2 *pb = pMap->GetParamBlock();
     plPassMtlBase *mtl = (plPassMtlBase*)pb->GetOwner();
-    HWND gWnd = GetDlgItem(hWnd, IDC_MTL_GLOBAL_NAME);  
+    HWND gWnd = GetDlgItem(hWnd, IDC_MTL_GLOBAL_NAME);
     char buff[512];
 
     switch (msg)
@@ -148,9 +148,9 @@ BOOL plPassAnimDlgProc::DlgProc(TimeValue t, IParamMap2 *pMap, HWND hWnd, UINT m
                 fCurrStealth = nil;
                 IInitControls(mtl, pb);
 
-                plAnimComponentProc::FillAgeGlobalComboBox(gWnd, pb->GetStr(ParamID(kPBAnimGlobalName)));                           
-                plAnimComponentProc::SetBoxToAgeGlobal(gWnd, pb->GetStr(ParamID(kPBAnimGlobalName)));   
-                IEnableGlobal(hWnd, pb->GetInt( (ParamID)kPBAnimUseGlobal ) );      
+                plAnimComponentProc::FillAgeGlobalComboBox(gWnd, pb->GetStr(ParamID(kPBAnimGlobalName)));
+                plAnimComponentProc::SetBoxToAgeGlobal(gWnd, pb->GetStr(ParamID(kPBAnimGlobalName)));
+                IEnableGlobal(hWnd, pb->GetInt( (ParamID)kPBAnimUseGlobal ) );
 
                 bool stopPoints = false;
                 if( DoesHaveStopPoints( pb->GetOwner() ) )
@@ -180,7 +180,7 @@ BOOL plPassAnimDlgProc::DlgProc(TimeValue t, IParamMap2 *pMap, HWND hWnd, UINT m
             {
                 ComboBox_GetLBText(gWnd, ComboBox_GetCurSel(gWnd), buff);
                 pb->SetValue(ParamID(kPBAnimGlobalName), 0, _T(buff));
-            }           
+            }
             else if (HIWORD(wParam) == BN_CLICKED && LOWORD(wParam) == IDC_MTL_USE_GLOBAL)
             {
                 IEnableGlobal(hWnd, pb->GetInt( (ParamID)kPBAnimUseGlobal ) );
@@ -271,7 +271,7 @@ void plPassAnimDlgProc::SetThing(ReferenceTarget *m)
 void plPassAnimDlgProc::IInitControls(Animatable *anim, IParamBlock2 *pb)
 {
     ILoadNames( pb );
-    IEnableGlobal( fhWnd, pb->GetInt( ParamID( kPBAnimUseGlobal ) ) );      
+    IEnableGlobal( fhWnd, pb->GetInt( ParamID( kPBAnimUseGlobal ) ) );
 }
 
 void plPassAnimDlgProc::ILoadNames(IParamBlock2 *pb )

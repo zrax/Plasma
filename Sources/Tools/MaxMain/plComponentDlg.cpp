@@ -410,7 +410,7 @@ HTREEITEM plComponentDlg::IAddLeaf(HWND hTree, HTREEITEM hParent, const char *te
     TVITEM tvi = {0};
     tvi.mask       = TVIF_TEXT | TVIF_PARAM;
     tvi.pszText    = (char*)text;
-    tvi.cchTextMax = strlen(text);  
+    tvi.cchTextMax = strlen(text);
     tvi.lParam     = lParam;
 
     TVINSERTSTRUCT tvins = {0};

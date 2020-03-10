@@ -59,8 +59,8 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plMessage/plAvCoopMsg.h"
 #include "plMessage/plParticleUpdateMsg.h"
 
-#include "pfMessage/pfKIMsg.h"      
-#include "pfMessage/plClothingMsg.h"    
+#include "pfMessage/pfKIMsg.h"
+#include "pfMessage/plClothingMsg.h"
 
 //
 // say why the msg got rejected
@@ -104,7 +104,7 @@ plNetMsgScreener::Answer plNetMsgScreener::IAllowMessageType(int16_t classIndex,
                 IRejectLogMsg(classIndex, "Only seen in native form on client", gm);
             }
             return ans;
-        }       
+        }
         
         // definitely yes
     case CLASS_INDEX_SCOPED(pfMarkerMsg):
@@ -221,7 +221,7 @@ bool plNetMsgScreener::IValidateMessage(const plMessage* msg, const plNetGameMem
                 IRejectLogMsg(msg, "msg must refer to local avatar", gm);
             }
             return ret;
-        }   
+        }
         break;
 
     case CLASS_INDEX_SCOPED(plAnimCmdMsg):

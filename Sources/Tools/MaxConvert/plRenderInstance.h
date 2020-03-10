@@ -85,8 +85,8 @@ public:
         n[0] = GetFaceVertNormal(faceNum, 0);
         n[1] = GetFaceVertNormal(faceNum, 1);
         n[2] = GetFaceVertNormal(faceNum, 2);
-    }   
-    virtual Point3 GetCamVert(int vertnum);              // coord for vertex in camera coords       
+    }
+    virtual Point3 GetCamVert(int vertnum);              // coord for vertex in camera coords
     virtual void GetObjVerts(int fnum, Point3 obp[3]); // vertices of face in object coords
     virtual void GetCamVerts(int fnum, Point3 cp[3]); // vertices of face in camera(view) coords
 
@@ -94,7 +94,7 @@ public:
     // Objects can provide a material as a function of face number via the IChkMtlAPI interface (chkmtlapi.h).
     // This method will return RenderInstance::mtl if flag INST_MTL_BYFACE is not set. If INST_MTL_BYFACE is
     // set it will return the proper by-face mtl. // DS 4/3/00
-    virtual Mtl *GetMtl(int faceNum);  
+    virtual Mtl *GetMtl(int faceNum);
     virtual ULONG MtlRequirements(int mtlNum, int faceNum);      // node's mtl requirements. DS 3/31/00: added faceNum to support mtl-per-face objects
 };
 

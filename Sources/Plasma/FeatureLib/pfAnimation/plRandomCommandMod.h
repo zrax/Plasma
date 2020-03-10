@@ -84,12 +84,12 @@ protected:
 
     void            IReset();
     
-    float        IGetDelay(float len) const;      
+    float        IGetDelay(float len) const;
     
     int             IExcludeSelections(int ncmds);
     bool            ISelectNext(int nAnim); // return false if we should stop, else set fCurrent to next index
 
-    // Once fCurrent is set to the next animation index to play, 
+    // Once fCurrent is set to the next animation index to play,
     // IPlayNext() does whatever it takes to actually play it.
     virtual void        IPlayNext() = 0;
 

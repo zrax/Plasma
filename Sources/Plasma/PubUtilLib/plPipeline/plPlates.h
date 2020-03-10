@@ -59,10 +59,10 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 
 //// plPlate Class Definition ////////////////////////////////////////////////
-//  plPlate is the actual plate object that represents one plate on the 
+//  plPlate is the actual plate object that represents one plate on the
 //  screen. It has a transform matrix (which includes position, scale and
 //  rotation), a material, a depth value and a color that is applied to all
-//  four corners. All plates are parallelograms. 
+//  four corners. All plates are parallelograms.
 
 class plPlateManager;
 class hsGMaterial;
@@ -109,7 +109,7 @@ class plPlate
 
     public:
 
-        enum 
+        enum
         {
             kFlagVisible        = 0x00000001,
             kFlagLocalMaterial  = 0x00000002,
@@ -189,7 +189,7 @@ class plGraphPlate : public plPlate
 };
 
 //// plPlateManager Class Definition /////////////////////////////////////////
-//  This class handles all the plates--it keeps track of all the plates, 
+//  This class handles all the plates--it keeps track of all the plates,
 //  creates and destroys them, and draws them when the pipeline tells it to.
 
 class plPipeline;
@@ -208,7 +208,7 @@ class plPlateManager
         plPipeline  *fOwner;
         bool        fCreatedSucessfully;
 
-        plPlateManager( plPipeline *pipe ) 
+        plPlateManager( plPipeline *pipe )
         {
             fInstance = this;
             fPlates = nil;

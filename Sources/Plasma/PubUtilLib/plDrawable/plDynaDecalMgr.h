@@ -125,7 +125,7 @@ public:
         kRefTarget,
         kRefAvatar,
         kRefPartyObject,
-        kRefParticles, 
+        kRefParticles,
         kRefNextAvailable   = 10
     };
 protected:
@@ -169,7 +169,7 @@ protected:
     hsVector3                   fScale;
 
     // some temp calculated stuff
-    float                    fInitAtten; 
+    float                    fInitAtten;
     // These 4 are in normalized units [0..1], not feet.
     float                    fMinDepth;
     float                    fMinDepthRange;

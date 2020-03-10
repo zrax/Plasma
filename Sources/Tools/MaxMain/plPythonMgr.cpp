@@ -277,7 +277,7 @@ bool plPythonMgr::IQueryPythonFile(const char *fileName)
         int isMulti = 0;
         ICallIntFunc(dict, kIsMultiModifier, isMulti);
 
-        // Get the version 
+        // Get the version
         //======================
         //  Get version must be the last call that needs a pythonfile class instance
         //  ... because it delete the instance afterwards

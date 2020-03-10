@@ -58,7 +58,7 @@ public:
 protected:
     // These two are instanciated in plLoadMask.cpp, as well as
     // function implementations.
-    static      int         fQuality; 
+    static      int         fQuality;
     static      int         fCapability;
 
     friend class plClient;

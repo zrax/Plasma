@@ -235,7 +235,7 @@ void plPluginResManager::IPreLoadTextures(plRegistryPageNode* pageNode, int32_t 
                 texSeqNum = plPageInfoUtils::GetCommonSeqNumFromNormal(origSeqNumber, plAgeDescription::kTextures);
 
             // Note: INameToPage will turn around and call us again, so no need to do the call twice
-            plRegistryPageNode* texturePage = INameToPage(pageNode->GetPageInfo().GetAge(), 
+            plRegistryPageNode* texturePage = INameToPage(pageNode->GetPageInfo().GetAge(),
                                                             plAgeDescription::GetCommonPage(plAgeDescription::kTextures), texSeqNum);
             hsAssert(texturePage != nil, "Unable to get or create the shared textures page? Shouldn't be possible.");
 
@@ -245,7 +245,7 @@ void plPluginResManager::IPreLoadTextures(plRegistryPageNode* pageNode, int32_t 
                 commonSeqNum = plPageInfoUtils::GetCommonSeqNumFromNormal(origSeqNumber, plAgeDescription::kGlobal);
 
             // Note: INameToPage will turn around and call us again, so no need to do the call twice
-            plRegistryPageNode* commonPage = INameToPage(pageNode->GetPageInfo().GetAge(), 
+            plRegistryPageNode* commonPage = INameToPage(pageNode->GetPageInfo().GetAge(),
                                                             plAgeDescription::GetCommonPage(plAgeDescription::kGlobal),
                                                             commonSeqNum);
             hsAssert(commonPage != nil, "Unable to get or create the shared built-in page? Shouldn't be possible.");
@@ -270,7 +270,7 @@ const plLocation& plPluginResManager::GetCommonPage(const plLocation &sisterPage
     }
 
     // Find the common page in the same age as this one
-    plRegistryPageNode* commonPage = FindPage(page->GetPageInfo().GetAge(), 
+    plRegistryPageNode* commonPage = FindPage(page->GetPageInfo().GetAge(),
                                                 plAgeDescription::GetCommonPage(whichPage));
     if (commonPage == nil)
     {
@@ -331,7 +331,7 @@ plLocation plPluginResManager::ICreateLocation(const ST::string& age, const ST::
     seqNum = VerifySeqNumber(seqNum, age, page);
     if (seqNum != oldNum)
     {
-        hsAssert(false, "Conflicting page sequence number. Somebody called NameToLoc without verifying their seq# first!"); 
+        hsAssert(false, "Conflicting page sequence number. Somebody called NameToLoc without verifying their seq# first!");
     }
 
     if (seqNum < 0)
@@ -379,7 +379,7 @@ class plWritePageIterator : public plRegistryPageIterator
 {
 public:
     plWritePageIterator() {}
-    virtual bool EatPage(plRegistryPageNode *page) 
+    virtual bool EatPage(plRegistryPageNode *page)
     {
         if (page->GetPageInfo().GetLocation() != plLocation::kGlobalFixedLoc)
             page->Write();
@@ -495,8 +495,8 @@ int32_t plPluginResManager::VerifySeqNumber(int32_t sequenceNumber, const ST::st
 }
 
 //// NukeKeyAndObject ////////////////////////////////////////////////////////
-//  Given a key, will ref and unref the associated object so it goes away, 
-//  then nukes the key and sets it to nil. The key's UOID should be safe to 
+//  Given a key, will ref and unref the associated object so it goes away,
+//  then nukes the key and sets it to nil. The key's UOID should be safe to
 //  reuse at that point, unless someone else still has a ref, in which case
 //  this function returns false (returns true if successful).
 

@@ -168,13 +168,13 @@ void DummyCodeIncludeFuncAudio() {}
 
 enum
 {
-    kSoundFileName, 
+    kSoundFileName,
     kLoopingChekBx_DEAD,            //Removed in v3
     kLoopBegin_DEAD,                //Removed in v2
     kLoopEnd_DEAD,                  //Removed in v2
     kMinFallOffRad_DEAD,            // removed in v6
     kMaxFallOffRad_DEAD,            // removed in v6
-    kSoundAutoStartCkBx, 
+    kSoundAutoStartCkBx,
     kSoundLoopCkBx,
     kSoundLoopSegCkBx_DEAD,         //Removed in v3
     kSoundLoopSegBeg_DEAD,
@@ -300,7 +300,7 @@ float   plBaseSoundEmitterComponent::IGetDigitalVolume() const
 #define OLD_MAX_ASS_CHUNK 0x5500
 #define MAX_ASS_CHUNK 0x5501
 
-IOResult plBaseSoundEmitterComponent::Save(ISave *isave) 
+IOResult plBaseSoundEmitterComponent::Save(ISave *isave)
 {
     IOResult res = plComponentBase::Save(isave);
     if (res != IO_OK)
@@ -324,9 +324,9 @@ IOResult plBaseSoundEmitterComponent::Save(ISave *isave)
 #endif
 
     return IO_OK;
-}   
+}
 
-IOResult plBaseSoundEmitterComponent::Load(ILoad *iload) 
+IOResult plBaseSoundEmitterComponent::Load(ILoad *iload)
 {
     IOResult res = plComponentBase::Load(iload);
     if (res != IO_OK)
@@ -353,7 +353,7 @@ IOResult plBaseSoundEmitterComponent::Load(ILoad *iload)
             fCoverSoundAssetID = id;
         }
         iload->CloseChunk();
-        if (res != IO_OK) 
+        if (res != IO_OK)
             return res;
     }
 #endif
@@ -399,7 +399,7 @@ void    plBaseSoundEmitterComponent::IUpdateAssets()
     if( !fSoundAssetId.IsEmpty() || !fCoverSoundAssetID.IsEmpty() )
     {
         MaxAssInterface *maxAssInterface = GetMaxAssInterface();
-        if( !maxAssInterface ) 
+        if( !maxAssInterface )
             return;
         
         // Download the latest version and retrieve the filename
@@ -615,7 +615,7 @@ plSoundBuffer *plBaseSoundEmitterComponent::IGetSourceBuffer(const plFileName &f
     plKey       key;
     ST::string  keyName = fileName.GetFileName();
 
-    // TEMP HACK until we get packed sounds: 
+    // TEMP HACK until we get packed sounds:
     // Given the source filename, we check to see if it's in our plasma game directory. If not, or if
     // it's out of date, we copy it over. We'll truncate the filename inside plSoundBuffer when we're ready.
 
@@ -928,7 +928,7 @@ bool    plBaseSoundEmitterComponent::AddToAnim( plAGAnim *anim, plMaxNode *node 
         plSoundVolumeApplicator *app = new plSoundVolumeApplicator( (*i).second );
         app->SetChannelName(ST::string::from_utf8(node->GetName()));
         plAnimComponentBase::SetupCtl( anim, ctl, app, node );
-        result = true;      
+        result = true;
     }
 
     return result;
@@ -940,7 +940,7 @@ struct indexinfo
 {
     indexinfo::indexinfo() { pNode = nil; fIndex = -1; }
     plMaxNode*  pNode;
-    int         fIndex; 
+    int         fIndex;
 };
 
 int GetSoundNameAndIdx(plComponentBase *comp, plMaxNodeBase *node, const char*& name)
@@ -1219,7 +1219,7 @@ static ParamBlockDesc2 sSoundSharedPB
     kOldSoundVolumeSlider, _T(""),  TYPE_INT,       0,  0,
         end,
 
-    kSndCategory, _T("category"),   TYPE_INT,   0, 0,   
+    kSndCategory, _T("category"),   TYPE_INT,   0, 0,
         p_range, plSound::kStartType, plSound::kNumTypes - 1,
         p_default, plSound::kSoundFX,
         end,
@@ -1278,7 +1278,7 @@ static ParamBlockDesc2 sSoundSharedPB
         p_range, 0, 10,                                                                                     \
         p_ui,   kSndWaveformParams, TYPE_SPINNER, EDITTYPE_INT, IDC_SND_PRIORITY, IDC_SND_PRIORITY_SPIN, 1.f,   \
         p_default, 0,                                                                                       \
-        end                                                                                             
+        end
 
 //// Enums Source EAX Properties Rollout ////////////////////////////////////////////////////////
 
@@ -1489,16 +1489,16 @@ public:
                     return true;
                 }
                 break;
-        }   
+        }
         return plSingleCompSelProc::DlgProc( t, map, hWnd, msg, wParam, lParam );
     }
 
-};  
+};
 
 static plEAXPropsDlgProc    sEAXPropsDlgProc;
 
 //// ParamBlock for Source EAX Properties Rollout ///////////////////////////////////////////////
-//  Note: we can't make this a real ParamBlock and do P_INCLUDE_PARAMS because, in Discreet's 
+//  Note: we can't make this a real ParamBlock and do P_INCLUDE_PARAMS because, in Discreet's
 //  amazing method of doing things, we can't INCLUDE more than one ParamBlock in any other PB.
 //  So either we chain them together here (and thus make them dependent on one another, which
 //  is lame) or we just make the whole damned thing a #define, which is all P_INCLUDE_PARAMS
@@ -1508,10 +1508,10 @@ static plEAXPropsDlgProc    sEAXPropsDlgProc;
 //static ParamBlockDesc2    sSndEAXPropsParamTemplate
 //(
     /// Main def
-//  plComponent::kBlkComp + 1, _T("sndEAXProps"), 0, nil, P_AUTO_UI + P_MULTIMAP + P_AUTO_CONSTRUCT, plComponent::kRefComp, 
+//  plComponent::kBlkComp + 1, _T("sndEAXProps"), 0, nil, P_AUTO_UI + P_MULTIMAP + P_AUTO_CONSTRUCT, plComponent::kRefComp,
 
-//  1, 
-//  kSndEAXParams, IDD_COMP_EAXBUFFER, IDS_COMP_EAXBUFFER, 0, 0, nil,   
+//  1,
+//  kSndEAXParams, IDD_COMP_EAXBUFFER, IDS_COMP_EAXBUFFER, 0, 0, nil,
 
 #define sSndEAXPropsParamTemplate \
                                                                                                             \
@@ -1643,7 +1643,7 @@ static plEAXPropsDlgProc    sEAXPropsDlgProc;
     kEAXTempOcclusionDirectRatio, _T("eaxTempOccDirectRatio"),  TYPE_FLOAT,     0,  0,                                                  \
         p_ui,   kSndEAXParams, TYPE_SLIDER, EDITTYPE_FLOAT, IDC_EAX_OCCDIRECTRATIO_EDIT, IDC_EAX_OCCDIRECTRATIO, 8,         \
         p_range, 0.f, 10.f, p_default, 1.0f,                                                                \
-        end                                                                                             
+        end
 
 //  , end
 //);
@@ -1661,7 +1661,7 @@ void    plBaseSoundEmitterComponent::IGrabEAXParams( plSound *sound, plErrorMsg 
         settings.SetRoomParams( fCompPB->GetInt( (ParamID)kEAXRoom ), fCompPB->GetInt( (ParamID)kEAXRoomHF ),
                                 fCompPB->GetInt( (ParamID)kEAXRoomAuto ), fCompPB->GetInt( (ParamID)kEAXRoomHFAuto ) );
         settings.SetOutsideVolHF( fCompPB->GetInt( (ParamID)kEAXOutsideVolHF ) );
-        settings.SetFactors( fCompPB->GetFloat( (ParamID)kEAXAirAbsorptionFact ), 
+        settings.SetFactors( fCompPB->GetFloat( (ParamID)kEAXAirAbsorptionFact ),
                             fCompPB->GetFloat( (ParamID)kEAXRoomRolloffFact ),
                             fCompPB->GetFloat( (ParamID)kEAXDopplerFact ),
                             fCompPB->GetFloat( (ParamID)kEAXRolloffFact ) );
@@ -1895,7 +1895,7 @@ public:
         return plAudioBaseComponentProc::DlgProc( t, map, hWnd, msg, wParam, lParam );
     }
     
-};  
+};
 
 class plSoundFadeParamsDlgProc : public plAudioBaseComponentProc
 {
@@ -1932,7 +1932,7 @@ class plSoundFadeParamsDlgProc : public plAudioBaseComponentProc
 
                 case WM_COMMAND:
                     if( HIWORD( wParam ) == CBN_SELCHANGE )
-                    { 
+                    {
                         if( LOWORD( wParam ) == IDC_SOUND3D_INTYPE )
                             pb->SetValue( (ParamID)kSndFadeInType, 0, (int)SendDlgItemMessage( hWnd, IDC_SOUND3D_INTYPE, CB_GETCURSEL, 0, 0 ) );
                         else if( LOWORD( wParam ) == IDC_SOUND3D_OUTTYPE )
@@ -1959,7 +1959,7 @@ class plSoundFadeParamsDlgProc : public plAudioBaseComponentProc
 
             return false;
         }
-};  
+};
 
 //  For the paramblock below.
 static plSoundComponentProc     gSoundCompProc;
@@ -1993,14 +1993,14 @@ ParamBlockDesc2 gSound3DEmitterBk
         end,
     
 
-    kMinFallOffRad, _T("minFalloff"),   TYPE_INT,   0, 0,   
+    kMinFallOffRad, _T("minFalloff"),   TYPE_INT,   0, 0,
         p_range, 1, 1000000000,
         p_default, 1,
         p_ui,   kS3DBaseParams, TYPE_SPINNER,   EDITTYPE_POS_INT,
         IDC_COMP_SOUND3D_EDIT3, IDC_COMP_SOUND3D_SPIN3, SPIN_AUTOSCALE,
         end,
 
-    kMaxFallOffRad, _T("maxFalloff"),   TYPE_INT,   0, 0,   
+    kMaxFallOffRad, _T("maxFalloff"),   TYPE_INT,   0, 0,
         p_range, 1, 1000000000,
         p_default, 1000000000,
         p_ui,   kS3DBaseParams, TYPE_SPINNER,   EDITTYPE_POS_INT,
@@ -2248,7 +2248,7 @@ bool    plSound3DEmitterComponent::ConvertGrouped( plMaxNode *baseNode, hsTArray
         plSoundBuffer   *buffer = new plSoundBuffer( fileName );
         if( !buffer->IsValid() || !buffer->EnsureInternal() )
         {
-            // OK, because some *cough* machines are completely stupid and don't load AssetMan scenes with 
+            // OK, because some *cough* machines are completely stupid and don't load AssetMan scenes with
             // AssetMan plugins, we need to do a really stupid fallback search to the current exporting directory.
             plFileName plasmaDir = plMaxConfig::GetClientPath();
             bool worked = false;
@@ -2319,7 +2319,7 @@ bool    plSound3DEmitterComponent::ConvertGrouped( plMaxNode *baseNode, hsTArray
 
     keyName = ST::format("{}_MergedSound", GetINode()->GetName());
 
-    plKey buffKey = baseNode->FindPageKey( plSoundBuffer::Index(), keyName );   
+    plKey buffKey = baseNode->FindPageKey( plSoundBuffer::Index(), keyName );
     if( buffKey != nil )
         plPluginResManager::ResMgr()->NukeKeyAndObject( buffKey );
 
@@ -2674,7 +2674,7 @@ bool plGUISoundComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 class plEAXListenerComponent : public plComponent
 {
 public:
-    enum 
+    enum
     {
         kRefSoftRegion,
         kRefWhichSettings,
@@ -2781,7 +2781,7 @@ protected:
     }
 public:
 
-    plEAXListenerDlgProc() 
+    plEAXListenerDlgProc()
         : plSingleCompSelProc( plEAXListenerComponent::kRefSoftRegion, IDC_EAX_SOFTREGION, "Select the soft region to apply these EAX listener properties to" )
     {
     }
@@ -2801,7 +2801,7 @@ public:
                     ComboBox_ResetContent( comboBox );
 
 #ifdef EAX_SDK_AVAILABLE
-                    for( int i = 0; i < /*sizeof( EAX30_ORIGINAL_PRESETS ) 
+                    for( int i = 0; i < /*sizeof( EAX30_ORIGINAL_PRESETS )
                         / sizeof( EAXLISTENERPROPERTIES )*/26 ; i++ )
                         ComboBox_AddString( comboBox, EAX30_ORIGINAL_PRESET_NAMES[ i ] );
 #endif
@@ -2817,7 +2817,7 @@ public:
                 }
                 break;
 
-            case WM_COMMAND:    
+            case WM_COMMAND:
                 if( LOWORD( wParam ) == IDC_EAX_PRESET_COMBO )
                 {
                     int sel = SendDlgItemMessage( hWnd, IDC_EAX_PRESET_COMBO, CB_GETCURSEL, 0, 0 );
@@ -3010,7 +3010,7 @@ void    plEAXListenerComponent::SetCustFile( const char *path )
         char    *fKeyword;
         ParamID fParamID;
         uint8_t   fType;  // 0 is int, 1 is float for now
-    } myMap[] = { 
+    } myMap[] = {
         { "flEnvironmentSize", kRefEnvironmentSize, 1 },
         { "flEnvironmentDiffusion", kRefEnvironmentDiffusion, 1 },
         { "lRoom", kRefRoom, 0 },
@@ -3207,7 +3207,7 @@ BOOL plRandomSoundComponentProc::DlgProc(TimeValue t, IParamMap2 *pm, HWND hWnd,
             {
                 std::vector<Class_ID> cids;
                 cids.push_back(SOUND_3D_COMPONENT_ID);
-                if (plPick::NodeRefKludge(pb, kLastPick, &cids, true, false))           
+                if (plPick::NodeRefKludge(pb, kLastPick, &cids, true, false))
                     comp->AddSelectedSound();
 
                 return TRUE;
@@ -3238,7 +3238,7 @@ ParamBlockDesc2 gRandomSoundBk
 (
  plComponent::kBlkComp, _T("RandomSound"), 0, &gRandomSoundDesc, P_AUTO_CONSTRUCT + P_AUTO_UI + P_MULTIMAP, plComponent::kRefComp,
 
-    2, 
+    2,
     kRandomSoundMain, IDD_COMP_RANDOMSOUND, IDS_COMP_RANDOMSOUNDS, 0, 0, NULL,
     kRandomSoundGroup, IDD_COMP_RANDOMSOUND_GROUPS, IDS_COMP_RANDOMSOUNDS_GROUPS, 0, APPENDROLL_CLOSED, &gRandomSoundComponentProc,
 
@@ -3253,20 +3253,20 @@ ParamBlockDesc2 gRandomSoundBk
         end,
 
     kDelayMode, _T("DelayMode"),        TYPE_INT,       0, 0,
-        p_ui, kRandomSoundMain, TYPE_RADIO, 3,  IDC_RADIO_RS_DELAYSTART,    IDC_RADIO_RS_DELAYEND,  IDC_RADIO_RS_DELAYNEVER, 
+        p_ui, kRandomSoundMain, TYPE_RADIO, 3,  IDC_RADIO_RS_DELAYSTART,    IDC_RADIO_RS_DELAYEND,  IDC_RADIO_RS_DELAYNEVER,
         end,
 
-    kMinDelay,      _T("MinDelay"),     TYPE_FLOAT,     0, 0,   
+    kMinDelay,      _T("MinDelay"),     TYPE_FLOAT,     0, 0,
         p_default, 0.0,
         p_range, -500.0, 1000.0,
-        p_ui, kRandomSoundMain, TYPE_SPINNER,   EDITTYPE_FLOAT, 
+        p_ui, kRandomSoundMain, TYPE_SPINNER,   EDITTYPE_FLOAT,
         IDC_COMP_RS_DELAYMIN, IDC_COMP_RS_DELAYMIN_SPIN, 1.0,
         end,
 
-    kMaxDelay,      _T("MaxDelay"),     TYPE_FLOAT,     0, 0,   
+    kMaxDelay,      _T("MaxDelay"),     TYPE_FLOAT,     0, 0,
         p_default, 0.0,
         p_range, -500.0, 1000.0,
-        p_ui, kRandomSoundMain, TYPE_SPINNER,   EDITTYPE_FLOAT, 
+        p_ui, kRandomSoundMain, TYPE_SPINNER,   EDITTYPE_FLOAT,
         IDC_COMP_RS_DELAYMAX, IDC_COMP_RS_DELAYMAX_SPIN, 0.1,
         end,
 
@@ -3450,7 +3450,7 @@ bool plRandomSoundComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
             int numSounds = fCompPB->GetInt(ParamID(kGroupTotals), 0, i);
             if( numSounds == 0 )
             {
-                groups[i].fGroupedIdx = -1; 
+                groups[i].fGroupedIdx = -1;
                 groups[i].fNumSounds = 0;
                 groups[i].fIndices = nil;
                 continue;
@@ -3478,7 +3478,7 @@ bool plRandomSoundComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                 }
                 groups[i].fNumSounds = indices.GetCount();
                 for (j = 0; j < indices.GetCount(); j++)
-                {   
+                {
                     groups[i].fIndices[j] = indices[j];
                 }
             }
@@ -3572,7 +3572,7 @@ bool plRandomSoundComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *pErr
 {
     fSoundMods.clear();
 
-    // Tell some (all?) of the sound components we point to that they're going to be 
+    // Tell some (all?) of the sound components we point to that they're going to be
     // grouped sounds instead
     if( fCompPB->GetInt( (ParamID)kCombineSounds ) )
     {
@@ -3799,7 +3799,7 @@ BOOL plPhysicsSndGroupCompProc::DlgProc(TimeValue t, IParamMap2 *pm, HWND hWnd, 
                     idx = (int)SendMessage( hAgainst, CB_GETITEMDATA, idx, 0 );
                     if( idx == -1 )
                     {
-                        pb->Resize( (ParamID)plPhysicsSndGroupComp::kRefImpactSounds, 0 ); 
+                        pb->Resize( (ParamID)plPhysicsSndGroupComp::kRefImpactSounds, 0 );
                     }
                     else
                         ISet( pb, plPhysicsSndGroupComp::kRefImpactSounds, idx, nil );
@@ -3813,7 +3813,7 @@ BOOL plPhysicsSndGroupCompProc::DlgProc(TimeValue t, IParamMap2 *pm, HWND hWnd, 
                 {
                     idx = (int)SendMessage( hAgainst, CB_GETITEMDATA, idx, 0 );
                     if( idx == -1 )
-                        pb->Resize( (ParamID)plPhysicsSndGroupComp::kRefSlideSounds, 0 ); 
+                        pb->Resize( (ParamID)plPhysicsSndGroupComp::kRefSlideSounds, 0 );
                     else
                         ISet( pb, plPhysicsSndGroupComp::kRefSlideSounds, idx, nil );
                     IUpdateBtns( hWnd, idx, comp );
@@ -3843,7 +3843,7 @@ BOOL plPhysicsSndGroupCompProc::DlgProc(TimeValue t, IParamMap2 *pm, HWND hWnd, 
                     
                     std::vector<Class_ID> cids;
                     cids.push_back( RANDOM_SOUND_COMPONENT_ID );
-                    if( plPick::NodeRefKludge( pb, plPhysicsSndGroupComp::kRefDummyPickNode, &cids, true, false ) )             
+                    if( plPick::NodeRefKludge( pb, plPhysicsSndGroupComp::kRefDummyPickNode, &cids, true, false ) )
                         ISet( pb, plPhysicsSndGroupComp::kRefSlideSounds, idx, pb->GetINode( plPhysicsSndGroupComp::kRefDummyPickNode ) );
                         
                     IUpdateBtns( hWnd, idx, comp );
@@ -3897,7 +3897,7 @@ ParamBlockDesc2 gPhysSndGrpBk
     end
 );
 
-plPhysicsSndGroupComp::plPhysicsSndGroupComp() 
+plPhysicsSndGroupComp::plPhysicsSndGroupComp()
 {
     fClassDesc = &gPhysSndGrpDesc;
     fClassDesc->MakeAutoParamBlocks(this);

@@ -426,8 +426,8 @@ void plPassMtlBase::SetReference(int i, RefTargetHandle rtarg)
 
 //// NotifyRefChanged ////////////////////////////////////////////////////////
 
-RefResult plPassMtlBase::NotifyRefChanged( Interval changeInt, RefTargetHandle hTarget, 
-                                           PartID &partID, RefMessage message ) 
+RefResult plPassMtlBase::NotifyRefChanged( Interval changeInt, RefTargetHandle hTarget,
+                                           PartID &partID, RefMessage message )
 {
     switch( message )
     {
@@ -447,7 +447,7 @@ RefResult plPassMtlBase::NotifyRefChanged( Interval changeInt, RefTargetHandle h
                 // referenced objects changed.
                 NotifyDependents( FOREVER, PART_ALL, REFMSG_USER_MAT );
             }
-            else 
+            else
             {
                 // Was it a notetrack ref?
                 if( fNotetracks.Find( (NoteTrack *)hTarget ) != fNotetracks.kMissingIndex )
@@ -545,7 +545,7 @@ void    plPassMtlBase::PostLoadAnimPBFixup()
                                 (float)fAnimPB->GetFloat( (ParamID)kPBAnimEaseOutMin ),
                                 (float)fAnimPB->GetFloat( (ParamID)kPBAnimEaseOutMax ) );
 #pragma warning( pop )
-        }               
+        }
     }
 #endif // MCN_UPGRADE_OLD_ANIM_BLOCKS
 
@@ -581,7 +581,7 @@ IOResult plPassMtlBase::Load(ILoad *iload)
                 break;
         }
         iload->CloseChunk();
-        if (res!=IO_OK) 
+        if (res!=IO_OK)
             return res;
     }
 
@@ -592,7 +592,7 @@ IOResult plPassMtlBase::Load(ILoad *iload)
 //  The MAX flip-side
 
 IOResult plPassMtlBase::Save(ISave *isave)
-{ 
+{
     IOResult res;
     isave->BeginChunk(MTL_HDR_CHUNK);
     res = MtlBase::Save(isave);
@@ -600,13 +600,13 @@ IOResult plPassMtlBase::Save(ISave *isave)
     isave->EndChunk();
 
     return IO_OK;
-}   
+}
 
 //// ICloneBase //////////////////////////////////////////////////////////////
 
 void    plPassMtlBase::ICloneBase( plPassMtlBase *target, RemapDir &remap )
 {
-    *((MtlBase*)target) = *((MtlBase*)this); 
+    *((MtlBase*)target) = *((MtlBase*)this);
     ICloneRefs( target, remap );
 
     for( int idx = 0; idx < fAnimPB->Count( (ParamID)kPBAnimStealthNodes ); idx++ )
@@ -622,7 +622,7 @@ void    plPassMtlBase::ICloneBase( plPassMtlBase *target, RemapDir &remap )
     }
 
     BaseClone(this, target, remap);
-    target->fIValid.SetEmpty(); 
+    target->fIValid.SetEmpty();
 }
 
 //// ConvertToPassMtl ////////////////////////////////////////////////////////
@@ -633,7 +633,7 @@ plPassMtlBase   *plPassMtlBase::ConvertToPassMtl( Mtl *mtl )
     if( mtl == nil )
         return nil;
 
-    if( mtl->ClassID() == PASS_MTL_CLASS_ID 
+    if( mtl->ClassID() == PASS_MTL_CLASS_ID
         || mtl->ClassID() == BUMP_MTL_CLASS_ID
         || mtl->ClassID() == DECAL_MTL_CLASS_ID )
     {

@@ -64,7 +64,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 //// Local Stuff //////////////////////////////////////////////////////////////
 
-static const long PLD3D_FONTFVF = D3DFVF_XYZ | D3DFVF_DIFFUSE 
+static const long PLD3D_FONTFVF = D3DFVF_XYZ | D3DFVF_DIFFUSE
                                 | D3DFVF_TEX1 | D3DFVF_TEXCOORDSIZE3(0);
 
 static D3DXMATRIX d3dIdentityMatrix( 1.0f, 0.0f, 0.0f, 0.0f,
@@ -178,7 +178,7 @@ void    plDXTextFont::IInitStateBlocks()
         fDevice->SetTextureStageState( 0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2 );
         fDevice->SetTextureStageState( 1, D3DTSS_COLOROP,   D3DTOP_DISABLE );
         fDevice->SetTextureStageState( 1, D3DTSS_ALPHAOP,   D3DTOP_DISABLE );
-        fDevice->SetRenderState( D3DRS_LIGHTING, FALSE );   
+        fDevice->SetRenderState( D3DRS_LIGHTING, FALSE );
 
         if( i == 0 )
             fDevice->EndStateBlock( &fOldStateBlock );
@@ -213,7 +213,7 @@ void    plDXTextFont::IDrawPrimitive( uint32_t count, plFontVertex *array )
     if( fBufferCursor && (fBufferCursor + count * 3 < kNumVertsInBuffer) )
     {
         // We can lock part of it
-        if( FAILED( fBuffer->Lock( fBufferCursor * sizeof( plFontVertex ), 
+        if( FAILED( fBuffer->Lock( fBufferCursor * sizeof( plFontVertex ),
                                     count * 3 * sizeof( plFontVertex ),
                                     (void **)&v, D3DLOCK_NOOVERWRITE ) ) )
         {

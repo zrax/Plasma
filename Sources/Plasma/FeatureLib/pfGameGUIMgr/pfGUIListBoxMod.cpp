@@ -68,12 +68,12 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 //// plSmallRect Stuff ///////////////////////////////////////////////////////
 
-void    pfGUIListBoxMod::plSmallRect::Set( int16_t l, int16_t t, int16_t r, int16_t b ) 
+void    pfGUIListBoxMod::plSmallRect::Set( int16_t l, int16_t t, int16_t r, int16_t b )
 {
     fLeft = l;
     fTop = t;
-    fRight = r; 
-    fBottom = b; 
+    fRight = r;
+    fBottom = b;
 }
 
 bool    pfGUIListBoxMod::plSmallRect::Contains( int16_t x, int16_t y )
@@ -99,7 +99,7 @@ class pfScrollProc : public pfGUICtrlProcObject
         virtual void    DoSomething( pfGUIControlMod *ctrl )
         {
             // Do a check here to make sure we actually changed scroll
-            // positions--if not, we don't want to update, since that'll be 
+            // positions--if not, we don't want to update, since that'll be
             // slow as hell
             int newScrollPos = (int)fParent->fScrollControl->GetMax() - (int)fParent->fScrollControl->GetCurrValue();
             if( newScrollPos != fParent->fScrollPos )
@@ -181,7 +181,7 @@ bool    pfGUIListBoxMod::MsgReceive( plMessage *msg )
 void    pfGUIListBoxMod::IPostSetUpDynTextMap()
 {
     pfGUIColorScheme *scheme = GetColorScheme();
-    fDynTextMap->SetFont( scheme->fFontFace, scheme->fFontSize, scheme->fFontFlags, 
+    fDynTextMap->SetFont( scheme->fFontFace, scheme->fFontSize, scheme->fFontFlags,
                             !HasFlag( kXparentBgnd ));
 
     ICalcWrapStarts();
@@ -966,12 +966,12 @@ bool    pfGUIListBoxMod::HandleKeyEvent( pfGameGUIMgr::EventType event, plKeyDef
         else if( key == KEY_HOME )
         {
             if( fElements.GetCount() > 0 )
-                fCurrClick = 0;         
+                fCurrClick = 0;
         }
         else if( key == KEY_END )
         {
             if( fElements.GetCount() > 0 )
-                fCurrClick = fElements.GetCount() - 1;          
+                fCurrClick = fElements.GetCount() - 1;
         }
         else if( key == KEY_ENTER && HasFlag( kGrowLeavesAndProcessOxygen ) )
         {

@@ -77,7 +77,7 @@ class plAGChannel;
 class plAGAnim : public plSynchedObject
 {
 public:
-    /** How much of the body does this emote use? This is handy information for 
+    /** How much of the body does this emote use? This is handy information for
         figuring out whether you can, say, wave while sitting down. */
     enum BodyUsage {
         kBodyUnknown,
@@ -321,7 +321,7 @@ public:
     /** Returns the time value of the marker named by name. */
     float GetMarker(const ST::string &name) const;
     void CopyMarkerNames(std::vector<ST::string> &out);
-    /** Add a stop point to the animation. A stop point is a 
+    /** Add a stop point to the animation. A stop point is a
         "detent" for playback - if the animation is stopping
         near a stop point and fading out, the stop point will
         override the fade, so that the animation stops precisely
@@ -346,7 +346,7 @@ public:
     virtual void Write(hsStream* stream, hsResMgr* mgr);
 
 protected:
-    float fInitial;          /// the position of the playback head 
+    float fInitial;          /// the position of the playback head
     bool fAutoStart;            /// does the animation start automatically?
     float fLoopStart;        /// when wrapping a loop, start here
     float fLoopEnd;          /// when you reach this point, loop back
@@ -356,7 +356,7 @@ protected:
     uint8_t fEaseOutType;         /// the type (none/linear/spline) of our ease-out curve, if any
     float fEaseInLength;     /// the length of time our ease-in curve takes
     float fEaseInMin;        /// minimum (initial) value of our ease-in
-    float fEaseInMax;        /// maximum (final) value of our ease-in 
+    float fEaseInMax;        /// maximum (final) value of our ease-in
     float fEaseOutLength;    /// the length of time our ease-out curve takes
     float fEaseOutMin;       /// minimum (final) value of our ease-out
     float fEaseOutMax;       /// maximum (initial) value of our ease-out

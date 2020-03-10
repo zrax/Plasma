@@ -84,7 +84,7 @@ public:
     void IsActor(bool isActor) {fIsActor = isActor;}
 
     bool IsMovementZeroBlend();
-    void TurnToPoint(hsPoint3 point);   
+    void TurnToPoint(hsPoint3 point);
     bool RunStandardBehaviors(double timeNow, float elapsed);
     void SetStartedTurning(double when);
 
@@ -109,8 +109,8 @@ public:
         RThigh, RCalf, RFoot, RFootPrint, RToe0,
 
         // spine and head, starting at base of spine
-        Spine, TrunkPrint, Spine1, Spine2, Neck, Head, Jaw, LMouthLower, RMouthLower, 
-        LBrowInner, LBrowOuter, LCheek, LEye, LEyeLid01, LEyeLid02, LMouthCorner, LMouthUpper, 
+        Spine, TrunkPrint, Spine1, Spine2, Neck, Head, Jaw, LMouthLower, RMouthLower,
+        LBrowInner, LBrowOuter, LCheek, LEye, LEyeLid01, LEyeLid02, LMouthCorner, LMouthUpper,
         RBrowInner, RBrowOuter, RCheek, REye, REyeLid01, REyeLid02, RMouthCorner, RMouthUpper,
         
         // Left Arm
@@ -179,7 +179,7 @@ protected:
     bool IValidateAnimations();
     
     plAGModifier    *fHandleAGMod;      // the ag modifier that's attached to our top object
-    double fStartedTurning;         // when did we start turning?   
+    double fStartedTurning;         // when did we start turning?
     uint32_t fPreconditions;
     bool fIsActor; // are we an actor with special privileges?
     static float fWalkTimeToMaxTurn;

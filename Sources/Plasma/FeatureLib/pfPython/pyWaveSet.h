@@ -98,7 +98,7 @@ public:
     void SetTexChop(float s, float secs=0);
     void SetTexAngleDev(float s, float secs=0);
 
-    // The size in feet of one tile of the ripple texture. If you change this (I don't 
+    // The size in feet of one tile of the ripple texture. If you change this (I don't
     // recommend it), you need to change it very slowly or it will look very stupid.
     void SetRippleScale(float s, float secs=0);
 

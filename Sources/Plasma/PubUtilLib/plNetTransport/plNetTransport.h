@@ -49,7 +49,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 // The transport class handles the details of sending net msgs to
 // the server or to groups of clients (members).
 // It hides whether we are playing in P2P mode or C/S mode.
-// It is currently used only clientside but is general enough to 
+// It is currently used only clientside but is general enough to
 // be used by a server as well.
 //
 class plKey;

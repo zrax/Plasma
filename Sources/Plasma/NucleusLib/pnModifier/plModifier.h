@@ -83,7 +83,7 @@ public:
     virtual int GetNumTargets() const = 0;
     virtual plSceneObject* GetTarget(int iTarg) const = 0;
     virtual void AddTarget(plSceneObject* so) = 0;
-    virtual void RemoveTarget(plSceneObject* so) = 0; 
+    virtual void RemoveTarget(plSceneObject* so) = 0;
 
     virtual void SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l) {}
 

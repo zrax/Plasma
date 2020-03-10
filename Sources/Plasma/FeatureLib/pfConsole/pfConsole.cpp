@@ -119,7 +119,7 @@ class pfConsoleInputInterface : public plInputInterface
 
         pfConsoleInputInterface( pfConsole *console )
         {
-            fConsole = console; 
+            fConsole = console;
             SetEnabled( true );         // Always enabled
 
             // Add our control codes to our control map. Do NOT add the key bindings yet.
@@ -249,9 +249,9 @@ void    pfConsole::Init( pfConsoleEngine *engine )
 
 void    pfConsole::ISetMode( uint8_t mode )
 {
-    fMode = mode; 
-    fEffectCounter = ( fFXEnabled ? kEffectDivisions : 0 ); 
-    fMsgTimeoutTimer = 0; 
+    fMode = mode;
+    fEffectCounter = ( fFXEnabled ? kEffectDivisions : 0 );
+    fMsgTimeoutTimer = 0;
     fInputInterface->RefreshKeyMap();
 }
 
@@ -402,7 +402,7 @@ void    pfConsole::IHandleKey( plKeyEventMsg *msg )
                     /// Try starting over...?
                     findCounter = 0;
                     if( fEngine->FindNestedPartialCmd( search, findCounter, true ) )
-                    { 
+                    {
                         strcpy( fWorkingLine, search );
                         findCounter++;
                     }
@@ -851,7 +851,7 @@ void    pfConsole::Draw( plPipeline *p )
             eOffset = ( kEffectDivisions - fEffectCounter ) * ( height - yOff * 3 - 14 ) / kEffectDivisions;
         fEffectCounter -= numElapsed;
     }
-    else 
+    else
         eOffset = 0;
     fLastTime = thisTime;
 

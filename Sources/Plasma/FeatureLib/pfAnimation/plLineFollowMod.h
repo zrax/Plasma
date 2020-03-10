@@ -156,7 +156,7 @@ public:
     bool                MsgReceive(plMessage* msg);
 
     virtual void AddTarget(plSceneObject* so);
-    virtual void RemoveTarget(plSceneObject* so); 
+    virtual void RemoveTarget(plSceneObject* so);
 
     void        AddStereizer(const plKey& sterKey);
     void        RemoveStereizer(const plKey& sterKey);

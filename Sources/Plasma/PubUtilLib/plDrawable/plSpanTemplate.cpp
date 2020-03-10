@@ -58,7 +58,7 @@ plSpanTemplate::plSpanTemplate()
 {
 }
 
-uint32_t plSpanTemplate::CalcStride() 
+uint32_t plSpanTemplate::CalcStride()
 {
     fStride = 0;
     if( NumPos() )

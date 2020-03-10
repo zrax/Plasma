@@ -106,7 +106,7 @@ void plSoundSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcState)
         plSound* sound=ai->GetSound(i);
 
         float desiredVol;
-        soundState->FindVar(kStrVolume)->Get(&desiredVol);      
+        soundState->FindVar(kStrVolume)->Get(&desiredVol);
         //sound->ISetUnsynchedVolume(desiredVol);       // MCN CHECK
 
         bool playing;

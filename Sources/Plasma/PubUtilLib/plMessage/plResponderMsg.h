@@ -58,7 +58,7 @@ public:
     CLASSNAME_REGISTER(plResponderMsg);
     GETINTERFACE_ANY(plResponderMsg, plMessage);
 
-    // IO 
+    // IO
     void Read(hsStream* stream, hsResMgr* mgr)  { plMessage::IMsgRead(stream, mgr); }
     void Write(hsStream* stream, hsResMgr* mgr) { plMessage::IMsgWrite(stream, mgr); }
 };

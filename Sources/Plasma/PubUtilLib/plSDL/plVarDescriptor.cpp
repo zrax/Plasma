@@ -145,7 +145,7 @@ void plVarDescriptor::CopyFrom(const plVarDescriptor* other)
 //
 // Var descriptors are read and written by state descriptors
 //
-bool plVarDescriptor::Read(hsStream* s) 
+bool plVarDescriptor::Read(hsStream* s)
 {
     uint8_t version;
     s->ReadLE(&version);
@@ -192,7 +192,7 @@ void plVarDescriptor::Write(hsStream* s) const
 plSimpleVarDescriptor::plSimpleVarDescriptor() :
     fAtomicType(kNone),
     fAtomicCount(1)
-{   
+{
 
 }
 
@@ -332,7 +332,7 @@ void plSimpleVarDescriptor::CopyFrom(const plSimpleVarDescriptor* other)
 //
 // Var descriptors are read and written by state descriptors
 //
-bool plSimpleVarDescriptor::Read(hsStream* s)   
+bool plSimpleVarDescriptor::Read(hsStream* s)
 {
     if (!plVarDescriptor::Read(s))
         return false;
@@ -349,7 +349,7 @@ void plSimpleVarDescriptor::Write(hsStream* s) const
 {
     plVarDescriptor::Write(s);
 
-    s->WriteLE16((int16_t)fAtomicCount);    
+    s->WriteLE16((int16_t)fAtomicCount);
     s->WriteByte((uint8_t)fAtomicType);
 }
 
@@ -367,7 +367,7 @@ void plSDVarDescriptor::CopyFrom(const plSDVarDescriptor* other)
 //
 // Var descriptors are read and written by state descriptors
 //
-bool plSDVarDescriptor::Read(hsStream* s)   
+bool plSDVarDescriptor::Read(hsStream* s)
 {
     if (!plVarDescriptor::Read(s))
         return false;

@@ -421,7 +421,7 @@ BOOL plAgeDescInterface::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPar
                 {
                     fDirty = true;
                     return TRUE;
-                }   
+                }
             }
             else if( hdr->idFrom == IDC_AGE_LIST )
             {
@@ -445,7 +445,7 @@ BOOL plAgeDescInterface::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPar
                             // Default drawing, with default font and such
                             SetWindowLong( hDlg, DWL_MSGRESULT, CDRF_DODEFAULT );
                             return TRUE;
-                        }       
+                        }
 */
                         // Color change (only if the item isn't selected)
                         if( (HTREEITEM)treeNotify->nmcd.dwItemSpec != TreeView_GetSelection( hdr->hwndFrom ) )
@@ -1018,7 +1018,7 @@ BOOL CALLBACK NewSeqNumberProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam
 }
 
 void plAgeDescInterface::INewAge()
-{  
+{
     VARIANT assetId;
     VariantInit(&assetId);
 
@@ -1360,7 +1360,7 @@ static HTREEITEM SAddTreeItem( HWND hTree, HTREEITEM hParent, const char *label,
     TVITEM tvi = {0};
     tvi.mask       = TVIF_TEXT | TVIF_PARAM;
     tvi.pszText    = (char *)label;
-    tvi.cchTextMax = strlen( label );  
+    tvi.cchTextMax = strlen( label );
     tvi.lParam     = (LPARAM)userData;
     if( userData == -1 )
     {

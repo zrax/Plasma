@@ -126,11 +126,11 @@ namespace
     };
 
     const char  sWarnBaseTextureMissing[] = "The object \"%s\"'s material has a base layer that is assigned texture \"%s\", but the texture file is missing. "
-                                        "This can cause unwanted effects during runtime."; 
+                                        "This can cause unwanted effects during runtime.";
     const char  sWarnUpperTextureMissing[] = "The object \"%s\"'s material has an upper layer that is assigned texture \"%s\", but the texture file is missing. "
-                                        "This is not supported in the engine, so the upper layer will be ignored."; 
+                                        "This is not supported in the engine, so the upper layer will be ignored.";
     const char  sWarnNoUpperTexture[] = "The object \"%s\"'s material has an uppper layer that is not assigned a texture. "
-                                        "This is not supported in the engine, so the upper layer will be disabled."; 
+                                        "This is not supported in the engine, so the upper layer will be disabled.";
 }
 
 
@@ -183,13 +183,13 @@ void    plLayerConverter::DeInit()
 
 void    plLayerConverter::MuteWarnings()
 {
-    fSavedWarned = fWarned; 
-    fWarned |= kWarnedNoBaseTexture | kWarnedUpperTextureMissing; 
+    fSavedWarned = fWarned;
+    fWarned |= kWarnedNoBaseTexture | kWarnedUpperTextureMissing;
 }
 
 void    plLayerConverter::UnmuteWarnings()
 {
-    fWarned = fSavedWarned; 
+    fWarned = fSavedWarned;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -265,7 +265,7 @@ void    plLayerConverter::IRegisterConversion( plPlasmaMAXLayer *origLayer, plLa
         fConvertedLayers.Append( origLayer );
 
     // Now add the converted layer to that layer's list of conversion targets.
-    // (easier than us keeping a huge lookup table, since this is *acting* 
+    // (easier than us keeping a huge lookup table, since this is *acting*
     //  as that lookup table more or less)
     origLayer->IAddConversionTarget( convertedLayer );
 }
@@ -276,8 +276,8 @@ void    plLayerConverter::IRegisterConversion( plPlasmaMAXLayer *origLayer, plLa
 
 //// IConvertLayerTex /////////////////////////////////////////////////////////
                             
-plLayerInterface    *plLayerConverter::IConvertLayerTex( plPlasmaMAXLayer *layer, 
-                                                                plMaxNode *maxNode, uint32_t blendFlags, 
+plLayerInterface    *plLayerConverter::IConvertLayerTex( plPlasmaMAXLayer *layer,
+                                                                plMaxNode *maxNode, uint32_t blendFlags,
                                                                 bool preserveUVOffset, bool upperLayer )
 {
     hsGuardBegin( "plLayerConverter::IConvertLayerTex" );
@@ -317,7 +317,7 @@ plLayerInterface    *plLayerConverter::IConvertLayerTex( plPlasmaMAXLayer *layer
         if( upperLayer )
         {
             if( fErrorMsg->Set( !( fWarned & kWarnedNoUpperTexture ), "Plasma Export Error", sWarnNoUpperTexture, maxNode->GetName() ).CheckAskOrCancel() )
-                fWarned |= kWarnedNoUpperTexture; 
+                fWarned |= kWarnedNoUpperTexture;
             fErrorMsg->Set( false );
 
             delete plasmaLayer;
@@ -412,8 +412,8 @@ plLayerInterface    *plLayerConverter::IConvertLayerTex( plPlasmaMAXLayer *layer
 
 //// IConvertStaticEnvLayer ///////////////////////////////////////////////////
                             
-plLayerInterface    *plLayerConverter::IConvertStaticEnvLayer( plPlasmaMAXLayer *layer, 
-                                                                plMaxNode *maxNode, uint32_t blendFlags, 
+plLayerInterface    *plLayerConverter::IConvertStaticEnvLayer( plPlasmaMAXLayer *layer,
+                                                                plMaxNode *maxNode, uint32_t blendFlags,
                                                                 bool preserveUVOffset, bool upperLayer )
 {
     hsGuardBegin( "plLayerConverter::IConvertStaticEnvLayer" );
@@ -522,8 +522,8 @@ plLayerInterface    *plLayerConverter::IConvertStaticEnvLayer( plPlasmaMAXLayer 
 
 //// IConvertDynamicEnvLayer //////////////////////////////////////////////////
                             
-plLayerInterface    *plLayerConverter::IConvertDynamicEnvLayer( plPlasmaMAXLayer *layer, 
-                                                                plMaxNode *maxNode, uint32_t blendFlags, 
+plLayerInterface    *plLayerConverter::IConvertDynamicEnvLayer( plPlasmaMAXLayer *layer,
+                                                                plMaxNode *maxNode, uint32_t blendFlags,
                                                                 bool preserveUVOffset, bool upperLayer )
 {
     hsGuardBegin( "plLayerConverter::IConvertDynamicEnvLayer" );
@@ -589,8 +589,8 @@ plLayerInterface    *plLayerConverter::IConvertDynamicEnvLayer( plPlasmaMAXLayer
     hsGuardEnd;
 }
 
-plLayerInterface    *plLayerConverter::IConvertCameraLayer(plPlasmaMAXLayer *layer, 
-                                                           plMaxNode *maxNode, uint32_t blendFlags, 
+plLayerInterface    *plLayerConverter::IConvertCameraLayer(plPlasmaMAXLayer *layer,
+                                                           plMaxNode *maxNode, uint32_t blendFlags,
                                                            bool preserveUVOffset, bool upperLayer)
 {
     hsGuardBegin( "plLayerConverter::IConvertCameraLayer" );
@@ -658,8 +658,8 @@ plLayerInterface    *plLayerConverter::IConvertCameraLayer(plPlasmaMAXLayer *lay
 
 //// IConvertDynamicTextLayer /////////////////////////////////////////////////
                             
-plLayerInterface    *plLayerConverter::IConvertDynamicTextLayer( plPlasmaMAXLayer *layer, 
-                                                                plMaxNode *maxNode, uint32_t blendFlags, 
+plLayerInterface    *plLayerConverter::IConvertDynamicTextLayer( plPlasmaMAXLayer *layer,
+                                                                plMaxNode *maxNode, uint32_t blendFlags,
                                                                 bool preserveUVOffset, bool upperLayer )
 {
     hsGuardBegin( "plLayerConverter::IConvertDynamicTextLayer" );
@@ -687,8 +687,8 @@ plLayerInterface    *plLayerConverter::IConvertDynamicTextLayer( plPlasmaMAXLaye
     IProcessUVGen( maxLayer, plasmaLayer, nil, preserveUVOffset );
 
     // Create the "texture"
-    plDynamicTextMap *texture = ICreateDynTextMap( plasmaLayer->GetKeyName(), 
-                                                    bitmapPB->GetInt( plDynamicTextLayer::kBmpExportWidth ), 
+    plDynamicTextMap *texture = ICreateDynTextMap( plasmaLayer->GetKeyName(),
+                                                    bitmapPB->GetInt( plDynamicTextLayer::kBmpExportWidth ),
                                                     bitmapPB->GetInt( plDynamicTextLayer::kBmpExportHeight ),
                                                     bitmapPB->GetInt( plDynamicTextLayer::kBmpIncludeAlphaChannel ),
                                                     maxNode );
@@ -785,7 +785,7 @@ plBitmap* plLayerConverter::IGetAttenRamp(plMaxNode *node, BOOL isAdd, int loCla
 
     // NOTE: CreateBlankMipmap might return an old mipmap if it was already created, so in those
     // cases we wouldn't really need to re-write the texture. However, there's no harm in doing so,
-    // and since we're close to Alpha, I don't want to shake up the code any more than absolutely 
+    // and since we're close to Alpha, I don't want to shake up the code any more than absolutely
     // necessary. -mcn
     plMipmap *texture = plBitmapCreator::Instance().CreateBlankMipmap( kLUTWidth, kLUTHeight, plMipmap::kARGB32Config, 1, funkName, node->GetLocation() );
 
@@ -894,8 +894,8 @@ plLayer* plLayerConverter::ICreateAttenuationLayer(const ST::string& name, plMax
     return layer;
 }
 
-plLayerInterface* plLayerConverter::IConvertAngleAttenLayer(plPlasmaMAXLayer *layer, 
-                                                                plMaxNode *maxNode, uint32_t blendFlags, 
+plLayerInterface* plLayerConverter::IConvertAngleAttenLayer(plPlasmaMAXLayer *layer,
+                                                                plMaxNode *maxNode, uint32_t blendFlags,
                                                                 bool preserveUVOffset, bool upperLayer)
 {
     hsGuardBegin( "plPlasmaMAXLayer::IConvertAngleAttenLayer" );
@@ -941,7 +941,7 @@ plLayer     *plLayerConverter::ICreateLayer( const ST::string &name, bool upperL
 
 //// IProcessUVGen ////////////////////////////////////////////////////////////
 
-void    plLayerConverter::IProcessUVGen( plPlasmaMAXLayer *srcLayer, plLayer *destLayer, 
+void    plLayerConverter::IProcessUVGen( plPlasmaMAXLayer *srcLayer, plLayer *destLayer,
                                         plBitmapData *bitmapData, bool preserveUVOffset )
 {
     hsGuardBegin( "plPlasmaMAXLayer::IProcessUVGen" );
@@ -1028,7 +1028,7 @@ plDynamicTextMap    *plLayerConverter::ICreateDynTextMap( const ST::string &laye
 //// Texture/Bitmap Management ////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-plBitmap *plLayerConverter::CreateSimpleTexture(const char *fileName, const plLocation &loc, 
+plBitmap *plLayerConverter::CreateSimpleTexture(const char *fileName, const plLocation &loc,
                                                 uint32_t clipID /* = 0 */, uint32_t texFlags /* = 0 */, bool usePNG /* = false */)
 {
     plBitmapData bd;
@@ -1060,7 +1060,7 @@ plLayer *plLayerConverter::IAssignTexture( plBitmapData *bd, plMaxNode *maxNode,
         if( upperLayer )
         {
             if( fErrorMsg->Set( !( fWarned & kWarnedUpperTextureMissing ), "Plasma Export Error", sWarnUpperTextureMissing, maxNode->GetName(), bd->fileName.AsString().c_str() ).CheckAskOrCancel() )
-                fWarned |= kWarnedUpperTextureMissing; 
+                fWarned |= kWarnedUpperTextureMissing;
             fErrorMsg->Set( false );
 
             delete destLayer;
@@ -1069,7 +1069,7 @@ plLayer *plLayerConverter::IAssignTexture( plBitmapData *bd, plMaxNode *maxNode,
         else
         {
             if( fErrorMsg->Set( !( fWarned & kWarnedNoBaseTexture ), "Plasma Export Error", sWarnBaseTextureMissing, maxNode->GetName(), bd->fileName.AsString().c_str() ).CheckAskOrCancel() )
-                fWarned |= kWarnedNoBaseTexture; 
+                fWarned |= kWarnedNoBaseTexture;
             fErrorMsg->Set( false );
 
             return destLayer;

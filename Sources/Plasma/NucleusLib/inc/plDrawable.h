@@ -79,7 +79,7 @@ public:
         kPropSortFaces      = 0x08,
         kPropVolatile       = 0x10,     // Means that spans DEFAULT to kPropVolatile, but if this
                                         // is not set, spans can still be volatile
-        kPropNoReSort       = 0x20,     // Don't do sorting of spans for optimization. 
+        kPropNoReSort       = 0x20,     // Don't do sorting of spans for optimization.
         kPropPartialSort    = 0x40,     // Sort spans on an individual basis.
         kPropCharacter      = 0x80,     // Lights want to know if this is in the general class of "characters"
         kPropSortAsOne      = 0x100,

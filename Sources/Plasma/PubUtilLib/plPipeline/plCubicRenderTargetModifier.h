@@ -82,7 +82,7 @@ public:
     virtual void            AddTarget( plSceneObject* so );
     virtual void            RemoveTarget( plSceneObject* so );
 
-    virtual void    Read( hsStream* s, hsResMgr* mgr ); 
+    virtual void    Read( hsStream* s, hsResMgr* mgr );
     virtual void    Write( hsStream* s, hsResMgr* mgr );
     virtual bool    MsgReceive( plMessage* msg );
 

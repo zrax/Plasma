@@ -111,9 +111,9 @@ protected:
     void            IDelPosAndColor(plSpanTemplateB* templ,
                                     const plL2WTab& insts, plDeformVert* def, plShadeVert* shade,
                                     plPoint3TabTab& delPos, plColorTabTab& colors);
-    void            IAddInstsToCluster(plCluster* cluster, plSpanTemplateB* templ, 
-                                       const plL2WTab& insts, 
-                                       plPoint3TabTab& delPos, 
+    void            IAddInstsToCluster(plCluster* cluster, plSpanTemplateB* templ,
+                                       const plL2WTab& insts,
+                                       plPoint3TabTab& delPos,
                                        plColorTabTab& colors);
     void            IFreePosAndColor(plPoint3TabTab& delPos, plColorTabTab& colors) const;
 

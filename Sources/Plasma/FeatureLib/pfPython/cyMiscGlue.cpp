@@ -468,7 +468,7 @@ void cyMisc::AddPlasmaMethods(std::vector<PyMethodDef> &methods)
     PYTHON_GLOBAL_METHOD_NOARGS(methods, PtGetAgeName);
     PYTHON_GLOBAL_METHOD_NOARGS(methods, PtGetAgeInfo);
     PYTHON_GLOBAL_METHOD_NOARGS(methods, PtGetAgeTime);
-    PYTHON_GLOBAL_METHOD_NOARGS(methods, PtGetPrevAgeName); 
+    PYTHON_GLOBAL_METHOD_NOARGS(methods, PtGetPrevAgeName);
     PYTHON_GLOBAL_METHOD_NOARGS(methods, PtGetPrevAgeInfo);
     PYTHON_GLOBAL_METHOD_NOARGS(methods, PtGetDniTime);
     PYTHON_GLOBAL_METHOD_NOARGS(methods, PtGetServerTime);

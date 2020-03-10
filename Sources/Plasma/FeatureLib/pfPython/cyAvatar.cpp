@@ -164,7 +164,7 @@ plKey cyAvatar::IFindArmatureModKey(plKey avKey)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : oneShot
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : oneShot Avatar (must already be there)
 //
@@ -178,10 +178,10 @@ void cyAvatar::OneShot(pyKey &seekKey, float duration, bool usePhysics,
             (plKey )fSender,
             nil,
             seekKey.getKey(),   // Mark D told me to do it ...paulg
-            duration,  
-            usePhysics,  
+            duration,
+            usePhysics,
             animName,
-            drivable, 
+            drivable,
             reversible);
 
         // check if this needs to be network forced to all clients
@@ -208,7 +208,7 @@ void cyAvatar::OneShot(pyKey &seekKey, float duration, bool usePhysics,
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : RunBehavior
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Run Behavior, could be single or multi-stage shot
 //
@@ -283,13 +283,13 @@ void cyAvatar::RunBehavior(pyKey &behKey, bool netForce, bool netProp)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : RunBehaviorAndReply
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Run Behavior, multistage only, reply to specified key'd object
 //
 void cyAvatar::RunBehaviorAndReply(pyKey& behKey, pyKey& replyKey, bool netForce, bool netProp)
 {
-    plMultistageBehMod* pMod = plMultistageBehMod::ConvertNoRef(behKey.getKey()->GetObjectPtr());   
+    plMultistageBehMod* pMod = plMultistageBehMod::ConvertNoRef(behKey.getKey()->GetObjectPtr());
     if ( pMod )
     {
         // its a multistage thingy... need to send it a plNotifyMsg
@@ -533,13 +533,13 @@ void cyAvatar::SetLoopCount(pyKey &behKey, int32_t stage, int32_t loopCount, boo
 
         plgDispatch::MsgSend( pMsg );
     }
-} 
+}
 
 
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : seek
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : seek Avatar (must already be there)
 //
@@ -578,7 +578,7 @@ void cyAvatar::Seek(pyKey &seekKey, float duration, bool usePhysics)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : GetAvatarClothingGroup
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Return what clothing group the avatar is in
 //
@@ -607,7 +607,7 @@ int32_t cyAvatar::GetAvatarClothingGroup()
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : GetClosetClothingList
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Return a list of the wearable items for this avatar of that clothing_type
 //
@@ -629,7 +629,7 @@ std::vector<ST::string> cyAvatar::GetEntireClothingList(int32_t clothing_type)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : GetClosetClothingList
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Return a list of the wearable items for this avatar of that clothing_type
 //
@@ -696,7 +696,7 @@ std::vector<PyObject*> cyAvatar::GetClosetClothingList(int32_t clothing_type)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : GetAvatarClothingList
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Return a list of the wearable items for this avatar of that clothing_type
 //
@@ -756,7 +756,7 @@ std::vector<PyObject*> cyAvatar::GetAvatarClothingList()
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : GetWardrobeClothingList
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Return a list of items that are in the avatars closet
 //
@@ -826,7 +826,7 @@ void cyAvatar::AddWardrobeClothingItem(const ST::string& clothing_name,pyColor& 
 
         plClothingMgr::GetClothingMgr()->AddItemsToCloset(items);
     }
-}   
+}
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -964,7 +964,7 @@ std::vector<PyObject*> cyAvatar::GetAllWithSameMesh(const ST::string& clothing_n
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : GetMatchingClothingItem
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Return the clothing item that matches this one
 //             : If no match then returns the number 0
@@ -1007,7 +1007,7 @@ PyObject* cyAvatar::GetMatchingClothingItem(const ST::string& clothing_name)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : WearClothingItem
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Wear a particular piece of clothing based on name of clothing item
 //             : returns 0, if clothing item was not found
@@ -1020,7 +1020,7 @@ bool cyAvatar::WearClothingItem(const ST::string& clothing_name)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : RemoveClothingItem
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Wear a particular piece of clothing based on name of clothing item
 //             : returns false, if clothing item was not found
@@ -1033,7 +1033,7 @@ bool cyAvatar::RemoveClothingItem(const ST::string& clothing_name)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : TintClothingItem
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Tint a clothing item, i.e. change the color of it
 //
@@ -1184,7 +1184,7 @@ bool cyAvatar::TintClothingItemLayerU(const ST::string& clothing_name, pyColor& 
                 // Convert Python layer number to clothing code...
                 if (layer == 2)
                     layer = plClothingElement::kLayerTint2;
-                else 
+                else
                     layer = plClothingElement::kLayerTint1;
                 avMod->GetClothingOutfit()->TintItem(item, tint.getRed(),tint.getGreen(),tint.getBlue(),update,true,fNetForce,true,layer);
                 return true;
@@ -1198,7 +1198,7 @@ bool cyAvatar::TintClothingItemLayerU(const ST::string& clothing_name, pyColor& 
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : GetClothingItemParameterString
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Get the custom parameter string for a clothing item
 //
@@ -1229,7 +1229,7 @@ ST::string cyAvatar::GetClothingItemParameterString(const ST::string& clothing_n
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : GetTintClothingItem
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Get the tint a clothing item, i.e. change the color of it
 //
@@ -1241,7 +1241,7 @@ PyObject* cyAvatar::GetTintClothingItem(const ST::string& clothing_name)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : GetTintClothingItem
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Get the tint a clothing item, i.e. change the color of it
 //
@@ -1263,7 +1263,7 @@ PyObject* cyAvatar::GetTintClothingItemL(const ST::string& clothing_name, uint8_
                 // Convert Python layer number to clothing code...
                 if (layer == 2)
                     layer = plClothingElement::kLayerTint2;
-                else 
+                else
                     layer = plClothingElement::kLayerTint1;
                 hsColorRGBA tint = avMod->GetClothingOutfit()->GetItemTint(item,layer);
                 return pyColor::New(tint);
@@ -1280,7 +1280,7 @@ PyObject* cyAvatar::GetTintClothingItemL(const ST::string& clothing_name, uint8_
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : TintSkin
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Tint the skin of the player's avatar
 //
@@ -1293,7 +1293,7 @@ void cyAvatar::TintSkin(pyColor& tint)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : TintSkinU
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Tint the skin of the player's avatar with optional update flag
 //
@@ -1316,7 +1316,7 @@ void cyAvatar::TintSkinU(pyColor& tint, bool update)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : GetTintSkin
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Get the tint of the skin of the player's avatar
 //
@@ -1448,7 +1448,7 @@ float cyAvatar::GetMorph(const ST::string& clothing_name, uint8_t layer)
     {
         PyErr_SetString(PyExc_KeyError, "Layer index too high");
         return 0;
-    }   
+    }
 
     float wgtPlus;
     float wgtMinus;
@@ -1687,7 +1687,7 @@ void cyAvatar::ChangePlayerName(const char* playerName)
     if (rvnPlr) {
         VaultPlayerNode plr(rvnPlr);
         plr.SetPlayerName(playerName);
-    } 
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1828,7 +1828,7 @@ int cyAvatar::GetCurrentMode()
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : disable movement controls
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : something tells me python shouldn't do this this way
 //
@@ -1838,7 +1838,7 @@ void cyAvatar::DisableMovementControls()
 {
     plArmatureMod *avatar = plAvatarMgr::GetInstance()->GetLocalAvatar();
     if (avatar)
-    {   
+    {
         if (!avatar->IsInputSuspended())
             avatar->SuspendInput();
     }
@@ -1846,7 +1846,7 @@ void cyAvatar::DisableMovementControls()
 
 void cyAvatar::EnableMovementControls()
 {
-    plArmatureMod *avatar = plAvatarMgr::GetInstance()->GetLocalAvatar();   
+    plArmatureMod *avatar = plAvatarMgr::GetInstance()->GetLocalAvatar();
     if (avatar)
     {
         if (avatar->IsInputSuspended())
@@ -1985,7 +1985,7 @@ void cyAvatar::UnRegisterForBehaviorNotify(pyKey &selfKey)
 //  PURPOSE    : Three-stage multistage animations (sit down, sit, get up) are really common.
 //             : This does the basic setup.
 //
-bool IEnterGenericMode(const char *enterAnim, const char *idleAnim, const char *exitAnim, bool autoExit, plAGAnim::BodyUsage bodyUsage, 
+bool IEnterGenericMode(const char *enterAnim, const char *idleAnim, const char *exitAnim, bool autoExit, plAGAnim::BodyUsage bodyUsage,
                        plAvBrainGeneric::BrainType type /* = kGeneric */)
 {
     plArmatureMod *avatar = plAvatarMgr::GetInstance()->GetLocalAvatar();

@@ -51,7 +51,7 @@ namespace plAnimEaseTypes
         kNoEase,
         kConstAccel,
         kSpline,
-    };  
+    };
 };
 
 #define ENTIRE_ANIMATION_NAME   "(Entire Animation)"

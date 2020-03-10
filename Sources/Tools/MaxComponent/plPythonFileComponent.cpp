@@ -91,9 +91,9 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plResponderComponent.h"
 
 //// plCommonPythonLib ///////////////////////////////////////////////////////
-//  Derived class for our global python fileMods, since they go in to the 
+//  Derived class for our global python fileMods, since they go in to the
 //  BuiltIn page
-//  2.4.03 mcn - Added sceneObjects to the list, so that we can have an 
+//  2.4.03 mcn - Added sceneObjects to the list, so that we can have an
 //               associated sceneObject for our mod
 
 #include "MaxMain/plCommonObjLib.h"
@@ -176,7 +176,7 @@ public:
     virtual PythonKeys& GetKeys() { return fModKeys; }
 
     virtual bool DeInit(plMaxNode *node, plErrorMsg *pErrMsg)
-    { 
+    {
         fModKeys.clear();
         fOthersKeys.Reset();
 
@@ -291,10 +291,10 @@ bool plPythonFileComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
 
             if( !sCommonPythonLib.RemoveObjectAndKey( modKey ) )
             {
-                pErrMsg->Set( true, "Python File Component Error", 
+                pErrMsg->Set( true, "Python File Component Error",
                                     "The global Python File Component %s is attempting to export over an already "
                                     "existing component of the same name, and the exporter is unable to delete the "
-                                    "old object to replace it. This would be a good time to call mcn for help.", GetINode()->GetName() ).Show(); 
+                                    "old object to replace it. This would be a good time to call mcn for help.", GetINode()->GetName() ).Show();
                 pErrMsg->Set( false );
             }
 
@@ -309,10 +309,10 @@ bool plPythonFileComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
             plKey foo = obj->GetKey();
             if( !sCommonPythonLib.RemoveObjectAndKey( foo ) )
             {
-                pErrMsg->Set( true, "Python File Component Error", 
+                pErrMsg->Set( true, "Python File Component Error",
                                     "The global Python File Component %s is attempting to export over an already "
                                     "existing component of the same name, and the exporter is unable to delete the "
-                                    "old sceneObject to replace it. This would be a good time to call mcn for help.", GetINode()->GetName() ).Show(); 
+                                    "old sceneObject to replace it. This would be a good time to call mcn for help.", GetINode()->GetName() ).Show();
                 pErrMsg->Set( false );
             }
 
@@ -728,7 +728,7 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                     {
                         plKey waterKey = wsb->GetKey();
                         if ( waterKey != nil )
-                        {                           
+                        {
                             pyParam.SetToWaterComponent(waterKey);
                             mod->AddParameter(pyParam);
                         }
@@ -763,7 +763,7 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                     {
                         plKey swimKey = sri->GetKey();
                         if ( swimKey != nil )
-                        {                           
+                        {
                             pyParam.SetToSwimCurrentInterface(swimKey);
                             mod->AddParameter(pyParam);
                         }
@@ -947,7 +947,7 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                     {
                         plKey shaderKey = shader->GetKey();
                         if ( shaderKey != nil )
-                        {                           
+                        {
                             pyParam.SetToGrassShaderComponent(shaderKey);
                             mod->AddParameter(pyParam);
                         }
@@ -1204,7 +1204,7 @@ protected:
 
     void CreateAutoUI(plAutoUIBlock *autoUI, IParamBlock2 *pb);
     void DestroyAutoUI();
-};  
+};
 static plPythonFileComponentProc gPythonFileProc;
 
 ParamBlockDesc2 gPythonFileBlk
@@ -1304,7 +1304,7 @@ BOOL plPythonFileComponentProc::DlgProc(TimeValue t, IParamMap2 *pmap, HWND hWnd
         break;
     }
     
-    return FALSE;   
+    return FALSE;
 }
 
 void plPythonFileComponentProc::CreateAutoUI(plAutoUIBlock *autoUI, IParamBlock2 *pb)

@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/NucleusLib/pnAsyncCoreExe/pnAceTimer.cpp
-*   
+*
 ***/
 
 #include "Pch.h"
@@ -245,7 +245,7 @@ void TimerDestroy (unsigned exitThreadWaitMs) {
 // 2. Timer procs will never be called by multiple threads simultaneously.
 void AsyncTimerCreate (
     AsyncTimer **   timer,
-    FAsyncTimerProc timerProc, 
+    FAsyncTimerProc timerProc,
     unsigned        callbackMs,
     void *          param
 ) {

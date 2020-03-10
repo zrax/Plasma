@@ -61,7 +61,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include <iparamb2.h>
 #include <modstack.h>
 #include <ISkin.h>
-#include <meshdlib.h> 
+#include <meshdlib.h>
 #include <stdmat.h>
 #pragma hdrstop
 
@@ -313,10 +313,10 @@ void plMeshConverter::StuffPositionsAndNormals(plMaxNode *node, hsTArray<hsPoint
 
     /// Get transforms
     l2wMatrix = node->GetLocalToWorld44();
-    vert2LMatrix = node->GetVertToLocal44();            // vert2LMatrix is the transform we apply 
+    vert2LMatrix = node->GetVertToLocal44();            // vert2LMatrix is the transform we apply
                                                         // now to the verts, to get into *our* object-local-space
     vert2LMatrix.GetInverse( &tempMatrix );
-    tempMatrix.GetTranspose( &vertInvTransMatrix ); // Inverse-transpose of the vert2Local matrix, 
+    tempMatrix.GetTranspose( &vertInvTransMatrix ); // Inverse-transpose of the vert2Local matrix,
                                                     // for xforming the normals
     mesh->buildNormals();
 
@@ -339,7 +339,7 @@ void plMeshConverter::StuffPositionsAndNormals(plMaxNode *node, hsTArray<hsPoint
     }
 
     IDeleteTempGeometry();
-    hsGuardEnd; 
+    hsGuardEnd;
 }
 
 plConvexVolume *plMeshConverter::CreateConvexVolume(plMaxNode *node)
@@ -365,10 +365,10 @@ plConvexVolume *plMeshConverter::CreateConvexVolume(plMaxNode *node)
     /// Get transforms
     l2wMatrix = node->GetLocalToWorld44();
     vert2LMatrix = node->GetVertToLocal44();
-    flipOrder = vert2LMatrix.GetParity();               // vert2LMatrix is the transform we apply 
+    flipOrder = vert2LMatrix.GetParity();               // vert2LMatrix is the transform we apply
                                                         // now to the verts, to get into *our* object-local-space
     vert2LMatrix.GetInverse( &tempMatrix );
-    tempMatrix.GetTranspose( &vertInvTransMatrix ); // Inverse-transpose of the vert2Local matrix, 
+    tempMatrix.GetTranspose( &vertInvTransMatrix ); // Inverse-transpose of the vert2Local matrix,
                                                     // for xforming the normals
 
 
@@ -436,7 +436,7 @@ plConvexVolume *plMeshConverter::CreateConvexVolume(plMaxNode *node)
     IDeleteTempGeometry();
 
     return bounds;
-    hsGuardEnd; 
+    hsGuardEnd;
 }
 
 //
@@ -541,7 +541,7 @@ bool    plMeshConverter::CreateSpans( plMaxNode *node, hsTArray<plGeometrySpan *
     hsTArray<plMAXVertNormal>*      vertDPosDvCache = nil;
 
     //// Setup ///////////////////////////////////////////////////////////////
-    plLocation nodeLoc = node->GetLocation(); 
+    plLocation nodeLoc = node->GetLocation();
     
     TimeValue timeVal = fConverterUtils.GetTime(fInterface);
     Class_ID cid = node->EvalWorldState(timeVal).obj->ClassID();
@@ -593,10 +593,10 @@ bool    plMeshConverter::CreateSpans( plMaxNode *node, hsTArray<plGeometrySpan *
         /// Get transforms
         l2wMatrix = node->GetLocalToWorld44();
         vert2LMatrix = node->GetVertToLocal44();
-        flipOrder = vert2LMatrix.GetParity();               // vert2LMatrix is the transform we apply 
+        flipOrder = vert2LMatrix.GetParity();               // vert2LMatrix is the transform we apply
                                                             // now to the verts, to get into *our* object-local-space
         vert2LMatrix.GetInverse( &tempMatrix );
-        tempMatrix.GetTranspose( &vertInvTransMatrix ); // Inverse-transpose of the vert2Local matrix, 
+        tempMatrix.GetTranspose( &vertInvTransMatrix ); // Inverse-transpose of the vert2Local matrix,
                                                         // for xforming the normals
 
         // OTM used in generating normals.
@@ -609,7 +609,7 @@ bool    plMeshConverter::CreateSpans( plMaxNode *node, hsTArray<plGeometrySpan *
         UVVert *illumMap = mesh->mapVerts(MAP_SHADING);
         int numIllumVerts = mesh->getNumMapVerts(MAP_SHADING);
 
-        UVVert *alphaMap = mesh->mapVerts(MAP_ALPHA);   
+        UVVert *alphaMap = mesh->mapVerts(MAP_ALPHA);
         int numAlphaVerts = mesh->getNumMapVerts(MAP_ALPHA);
 
         if( node->GetRunTimeLight() )
@@ -635,7 +635,7 @@ bool    plMeshConverter::CreateSpans( plMaxNode *node, hsTArray<plGeometrySpan *
         
         //// Vertex Colors / Illumination ////////////////////////////////////////
 
-        /// If there are colors, pre-convert them 
+        /// If there are colors, pre-convert them
         hsColorRGBA white, black;
         white.Set(1.f, 1.f, 1.f, 1.f);
         black.Set(0, 0, 0, 1.f);
@@ -646,8 +646,8 @@ bool    plMeshConverter::CreateSpans( plMaxNode *node, hsTArray<plGeometrySpan *
             if (mesh->vertCol != nil)
             {
                 colorArray = new hsColorRGBA[ mesh->numCVerts ];
-                for( i = 0; i < mesh->numCVerts; i++ )  
-                {   
+                for( i = 0; i < mesh->numCVerts; i++ )
+                {
                     colorArray[i].Set(mesh->vertCol[ i ].x, mesh->vertCol[ i ].y, mesh->vertCol[ i ].z, 1.f);
                     if (colorArray[ i ] != black)
                         allBlack = false;
@@ -715,7 +715,7 @@ bool    plMeshConverter::CreateSpans( plMaxNode *node, hsTArray<plGeometrySpan *
             if (subMats == nil)
                 continue;
             for( j = 0; j < subMats->GetCount(); j++ )
-            {               
+            {
                 plExportMaterialData currData = subMats->Get(j);
                 if (currData.fMaterial == nil)
                     continue;
@@ -758,7 +758,7 @@ bool    plMeshConverter::CreateSpans( plMaxNode *node, hsTArray<plGeometrySpan *
                 }
             }
 
-            maxUVWSrc = numChannels - 1;    
+            maxUVWSrc = numChannels - 1;
         }
         
         //maxUVWSrc += maxBlendChannels;
@@ -775,7 +775,7 @@ bool    plMeshConverter::CreateSpans( plMaxNode *node, hsTArray<plGeometrySpan *
         /// NOW allocate our accumulators, since maxUVWSrc was just calculated...
         ourAccumulators.SetCount( numMaterials );
         for( i = 0; i < numMaterials; i++ )
-        {           
+        {
             if (ourMaterials[i] == nil)
             {
                 ourAccumulators[i] = nil;
@@ -833,7 +833,7 @@ bool    plMeshConverter::CreateSpans( plMaxNode *node, hsTArray<plGeometrySpan *
                 maxNumBones++;
 
             /// Change format to match
-            ourFormat |= ( maxNumBones == 2 ) ? plGeometrySpan::kSkin1Weight : 
+            ourFormat |= ( maxNumBones == 2 ) ? plGeometrySpan::kSkin1Weight :
                          ( maxNumBones == 3 ) ? plGeometrySpan::kSkin2Weights : plGeometrySpan::kSkin3Weights;
 
             if( skin->GetNumBones() > 1 || node->GetBoneMap())
@@ -911,8 +911,8 @@ bool    plMeshConverter::CreateSpans( plMaxNode *node, hsTArray<plGeometrySpan *
             // may actually create multiple materials (like composites), hence the second index, but it most cases it
             // will be zero as well.
 
-            int mainMatIndex = 0; 
-            int subMatIndex = 0; 
+            int mainMatIndex = 0;
+            int subMatIndex = 0;
 
             // Get span index
             if( isMultiMat )
@@ -921,7 +921,7 @@ bool    plMeshConverter::CreateSpans( plMaxNode *node, hsTArray<plGeometrySpan *
                 if( mainMatIndex >= numMaterials )
                     mainMatIndex = 0;
                 currMaxMtl = maxMaterial->GetSubMtl(mainMatIndex);
-            }   
+            }
             else
                 currMaxMtl = maxMaterial;
 
@@ -986,7 +986,7 @@ bool    plMeshConverter::CreateSpans( plMaxNode *node, hsTArray<plGeometrySpan *
                 // Just go ahead and always generate the opacity into the uvs, because we're
                 // going to look for it there on composites whether they actually use the
                 // alpha hack texture or not.
-                IGenerateUVs( node, currMaxMtl, mesh, i, numChannels, 
+                IGenerateUVs( node, currMaxMtl, mesh, i, numChannels,
                               1, uvs1, uvs2, uvs3 );
                 if( flipOrder )
                 {
@@ -1034,7 +1034,7 @@ bool    plMeshConverter::CreateSpans( plMaxNode *node, hsTArray<plGeometrySpan *
                 // MF_HORSE CARNAGE
             }
 
-            if (isComposite && !makeAlphaLayer) 
+            if (isComposite && !makeAlphaLayer)
             {
                 int index = ((plCompositeMtl *)currMaxMtl)->CanWriteAlpha();
                 int j;
@@ -1136,7 +1136,7 @@ bool    plMeshConverter::CreateSpans( plMaxNode *node, hsTArray<plGeometrySpan *
                 ISetBumpUvs(bumpDvChan[mainMatIndex], vertDPosDvCache[mainMatIndex], tvFace, smGroup, uvs1, uvs2, uvs3);
             }
 
-            // Do this here, cause if we do it before we calculate the normals on smoothing group #0, 
+            // Do this here, cause if we do it before we calculate the normals on smoothing group #0,
             // the normals will be wrong
             for( j = 0; j < 3; j++ )
                 pos[ j ] = vert2LMatrix * pos[ j ];
@@ -1203,8 +1203,8 @@ bool    plMeshConverter::CreateSpans( plMaxNode *node, hsTArray<plGeometrySpan *
                     span->fLocalUVWChans = (bumpDuChan[i] << 8) | bumpDvChan[i];
 
                 if( (span->fMaterial != nil)
-                    && (span->fMaterial->GetNumLayers() > 0) 
-                    && (span->fMaterial->GetLayer( 0 )->GetState().fBlendFlags & hsGMatState::kBlendMask) ) 
+                    && (span->fMaterial->GetNumLayers() > 0)
+                    && (span->fMaterial->GetLayer( 0 )->GetState().fBlendFlags & hsGMatState::kBlendMask) )
                 {
                     span->fProps |= plGeometrySpan::kRequiresBlending;
                 }
@@ -1339,7 +1339,7 @@ bool    plMeshConverter::CreateSpans( plMaxNode *node, hsTArray<plGeometrySpan *
     }
 
     return true;
-    hsGuardEnd; 
+    hsGuardEnd;
 }
 
 //// ICreateHexColor /////////////////////////////////////////////////////////
@@ -1423,7 +1423,7 @@ Mesh    *plMeshConverter::IGetNodeMesh( plMaxNode *node )
     }
 
     return mesh;
-    hsGuardEnd; 
+    hsGuardEnd;
 }
 
 Mesh* plMeshConverter::IDuplicate2Sided(plMaxNode* node, Mesh* mesh)
@@ -1473,7 +1473,7 @@ Mesh* plMeshConverter::IDuplicate2Sided(plMaxNode* node, Mesh* mesh)
 }
 
 //// IGenerateUVs ////////////////////////////////////////////////////////////
-//  Generates the UV coordinates for the three vertices of a given face. 
+//  Generates the UV coordinates for the three vertices of a given face.
 //  Returns the number of UV channels. Ripped off of SetUVs() from the old
 //  hsMeshConverter.
 
@@ -1544,7 +1544,7 @@ int     plMeshConverter::IGenerateUVs( plMaxNode *node, Mtl *maxMtl, Mesh *mesh,
 
                 // The artists set the 3rd coordinate to help create the mapping,
                 // but we never need it at runtime, so let's set it to zero on
-                // export and then the vert coder can detect that it doesn't 
+                // export and then the vert coder can detect that it doesn't
                 // even need to write it.
                 pt.Set( uv.x, 1.0f - uv.y, 0.f );
 
@@ -1556,7 +1556,7 @@ int     plMeshConverter::IGenerateUVs( plMaxNode *node, Mtl *maxMtl, Mesh *mesh,
                     case 0: uvs1[ chan ] = pt; break;
                     case 1: uvs2[ chan ] = pt; break;
                     case 2: uvs3[ chan ] = pt; break;
-                }           
+                }
             }
             
         }
@@ -1580,27 +1580,27 @@ int     plMeshConverter::IGenerateUVs( plMaxNode *node, Mtl *maxMtl, Mesh *mesh,
                 // MF_HORSE CARNAGE
 
 
-                compMtl->SetOpacityVal(&pt.x, 
-                        (alphas == nil 
-                            ? nil 
+                compMtl->SetOpacityVal(&pt.x,
+                        (alphas == nil
+                            ? nil
                             : &alphas[ alphaFace->getTVert(j) ]),
-                        (illums == nil 
-                            ? nil 
+                        (illums == nil
+                            ? nil
                             : &illums[ illumFace->getTVert(j) ]),
                         pb->GetInt(kCompBlend, 0, 0));
                 
-                compMtl->SetOpacityVal(&pt.y, 
-                    (alphas == nil 
-                        ? nil 
+                compMtl->SetOpacityVal(&pt.y,
+                    (alphas == nil
+                        ? nil
                         : &alphas[ alphaFace->getTVert(j) ]),
-                    (illums == nil 
-                        ? nil 
+                    (illums == nil
+                        ? nil
                         : &illums[ illumFace->getTVert(j) ]),
                     pb->GetInt(kCompBlend, 0, 1));
                 // MF_HORSE CARNAGE
             }
             else // all other materials
-            {       
+            {
                 pt.y = 0.0;
                 pt.z = 1.0;
                 if (alphas == nil || alphaFace == nil)
@@ -1614,7 +1614,7 @@ int     plMeshConverter::IGenerateUVs( plMaxNode *node, Mtl *maxMtl, Mesh *mesh,
                 case 0: uvs1[ k ].fX = pt.x; uvs1[ k ].fY = pt.y; uvs1[ k ].fZ = pt.z; break;
                 case 1: uvs2[ k ].fX = pt.x; uvs2[ k ].fY = pt.y; uvs2[ k ].fZ = pt.z; break;
                 case 2: uvs3[ k ].fX = pt.x; uvs3[ k ].fY = pt.y; uvs3[ k ].fZ = pt.z; break;
-            }           
+            }
         }
     }
 
@@ -1622,10 +1622,10 @@ int     plMeshConverter::IGenerateUVs( plMaxNode *node, Mtl *maxMtl, Mesh *mesh,
     hsGuardEnd;
 }
 
-void plMeshConverter::ISetWaterDecEnvUvSrcs(hsTArray<hsTArray<plExportMaterialData> *>& ourMaterials, 
-                                     hsTArray<int16_t>& bumpLayIdx, 
+void plMeshConverter::ISetWaterDecEnvUvSrcs(hsTArray<hsTArray<plExportMaterialData> *>& ourMaterials,
+                                     hsTArray<int16_t>& bumpLayIdx,
                                      hsTArray<int16_t>& bumpLayChan,
-                                     hsTArray<int16_t>& bumpDuChan, 
+                                     hsTArray<int16_t>& bumpDuChan,
                                      hsTArray<int16_t>& bumpDvChan)
 {
     bumpLayIdx.SetCount(ourMaterials.GetCount());
@@ -1643,10 +1643,10 @@ void plMeshConverter::ISetWaterDecEnvUvSrcs(hsTArray<hsTArray<plExportMaterialDa
     }
 }
 
-void plMeshConverter::ISetBumpUvSrcs(hsTArray<hsTArray<plExportMaterialData> *>& ourMaterials, 
-                                     hsTArray<int16_t>& bumpLayIdx, 
+void plMeshConverter::ISetBumpUvSrcs(hsTArray<hsTArray<plExportMaterialData> *>& ourMaterials,
+                                     hsTArray<int16_t>& bumpLayIdx,
                                      hsTArray<int16_t>& bumpLayChan,
-                                     hsTArray<int16_t>& bumpDuChan, 
+                                     hsTArray<int16_t>& bumpDuChan,
                                      hsTArray<int16_t>& bumpDvChan)
 {
     bumpLayIdx.SetCount(ourMaterials.GetCount());
@@ -1689,7 +1689,7 @@ void plMeshConverter::ISetBumpUvSrcs(hsTArray<hsTArray<plExportMaterialData> *>&
     }
 }
 
-void plMeshConverter::ISetBumpUvs(int16_t uvChan, hsTArray<plMAXVertNormal>& vertDPosDuvCache, TVFace* tvFace, uint32_t smGroup, 
+void plMeshConverter::ISetBumpUvs(int16_t uvChan, hsTArray<plMAXVertNormal>& vertDPosDuvCache, TVFace* tvFace, uint32_t smGroup,
                                   hsPoint3* uvs1, hsPoint3* uvs2, hsPoint3* uvs3)
 {
     if( uvChan < 0 )
@@ -1705,8 +1705,8 @@ void plMeshConverter::ISetBumpUvs(int16_t uvChan, hsTArray<plMAXVertNormal>& ver
 // Finally, make the gradients, smoothing according to smooth groups (just like vertex normals).
 //
 // If we decided we needed them, they are in the output arrays, otherwise the output arrays are made empty.
-void plMeshConverter::ISmoothUVGradients(plMaxNode* node, Mesh* mesh, 
-                                         hsTArray<hsTArray<plExportMaterialData> *>& ourMaterials, 
+void plMeshConverter::ISmoothUVGradients(plMaxNode* node, Mesh* mesh,
+                                         hsTArray<hsTArray<plExportMaterialData> *>& ourMaterials,
                                          hsTArray<int16_t>& bumpLayIdx, hsTArray<int16_t>& bumpLayChan,
                                          hsTArray<plMAXVertNormal>* vertDPosDuCache, hsTArray<plMAXVertNormal>* vertDPosDvCache)
 {
@@ -1762,10 +1762,10 @@ void plMeshConverter::ISmoothUVGradients(plMaxNode* node, Mesh* mesh,
             if( layer )
             {
                 Point3 dPosDu = IGetUvGradient(node, layer->GetTransform(), layer->GetUVWSrc(),
-                                mesh, i, 
+                                mesh, i,
                                 0);
                 Point3 dPosDv = IGetUvGradient(node, layer->GetTransform(), layer->GetUVWSrc(),
-                                mesh, i, 
+                                mesh, i,
                                 1);
 
 // #define MF_BUMP_CHECK_DUXDV
@@ -1784,10 +1784,10 @@ void plMeshConverter::ISmoothUVGradients(plMaxNode* node, Mesh* mesh,
                 if( doAgain )
                 {
                     dPosDu = IGetUvGradient(node, layer->GetTransform(), layer->GetUVWSrc(),
-                                    mesh, i, 
+                                    mesh, i,
                                     0);
                     dPosDv = IGetUvGradient(node, layer->GetTransform(), layer->GetUVWSrc(),
-                                    mesh, i, 
+                                    mesh, i,
                                     1);
                 }
 #endif // MF_BUMP_CHECK_DUXDV
@@ -1821,9 +1821,9 @@ void plMeshConverter::ISmoothUVGradients(plMaxNode* node, Mesh* mesh,
 }
 
 // Get dPos/du into uvws[0], and dPos/dv into uvws[1]. dPos should be in the object's local space.
-Point3 plMeshConverter::IGetUvGradient(plMaxNode* node, 
+Point3 plMeshConverter::IGetUvGradient(plMaxNode* node,
                                         const hsMatrix44& uvXform44, int16_t bmpUvwSrc, // Transform and uvwSrc of layer to gradient
-                                        Mesh *mesh, int faceIdx, 
+                                        Mesh *mesh, int faceIdx,
                                         int iUV) // 0 = uvw.x, 1 = uv2.y
 {
     Point3 uvwOut(0,0,0);
@@ -1848,7 +1848,7 @@ Point3 plMeshConverter::IGetUvGradient(plMaxNode* node,
     int vtxLast = flipOrder ? 1 : 2;
 
     // Get the three verts, v0-v2, where v0 is the corner in question.
-    Face* face = &mesh->faces[faceIdx];             
+    Face* face = &mesh->faces[faceIdx];
     Point3 v0 = v2l * mesh->verts[face->getVert(vtxIdx)];
     Point3 v1 = v2l * mesh->verts[face->getVert(vtxNext)];
     Point3 v2 = v2l * mesh->verts[face->getVert(vtxLast)];
@@ -1869,7 +1869,7 @@ Point3 plMeshConverter::IGetUvGradient(plMaxNode* node,
 
 
     const float kRealSmall = 1.e-6f;
-    // First, look for degenerate cases. 
+    // First, look for degenerate cases.
     // If (uvn - uvm)[!iUV] == 0
     //      then (vn - vm) is tangent in  iUV dimension
     // Just be careful about direction, since (vn-vm) may be opposite direction from
@@ -2092,14 +2092,14 @@ void    plMAXVertexAccumulator::AddVertex( int index, hsPoint3 *point, hsVector3
 }
 
 //// StuffMyData /////////////////////////////////////////////////////////////
-//  Stuffs the data into the given span. Assumes the span has already begun 
+//  Stuffs the data into the given span. Assumes the span has already begun
 //  creation.
 
 void    plMAXVertexAccumulator::StuffMyData( plMaxNode* maxNode, plGeometrySpan *span, Mesh* mesh, ISkinContextData* skinData )
 {
     int                     i, j, origIdx;
     plMAXVertexAccNode      *node;
-    hsPoint3                *uvs[ plGeometrySpan::kMaxNumUVChannels ];  
+    hsPoint3                *uvs[ plGeometrySpan::kMaxNumUVChannels ];
 
     const char* dbgNodeName = maxNode->GetName();
     TempWeightInfo          *weights = nil;
@@ -2140,7 +2140,7 @@ void    plMAXVertexAccumulator::StuffMyData( plMaxNode* maxNode, plGeometrySpan 
     {
         for( i = 0; i < fNumPoints; i++ )
         {
-            weights[ i ].fWeights[ 0 ] = weights[ i ].fWeights[ 1 ] = 
+            weights[ i ].fWeights[ 0 ] = weights[ i ].fWeights[ 1 ] =
                                         weights[ i ].fWeights[ 2 ] = weights[ i ].fWeights[ 3 ] = -1.0f;
             weights[ i ].fIndices = 0;
         }
@@ -2236,7 +2236,7 @@ void    plMAXVertexAccumulator::StuffMyData( plMaxNode* maxNode, plGeometrySpan 
     
                 /// Add!
                 span->AddVertex( &node->fPoint, &normal, node->fColor, node->fIllum, uvs,
-                                   weights[ origIdx ].fWeights[ 0 ], weights[ origIdx ].fWeights[ 1 ], 
+                                   weights[ origIdx ].fWeights[ 0 ], weights[ origIdx ].fWeights[ 1 ],
                                    weights[ origIdx ].fWeights[ 2 ], weights[ origIdx ].fIndices );
                 break;
             }
@@ -2266,7 +2266,7 @@ void plMAXVertexAccumulator::IFindAllUserSkinWeights( plMaxNode* node, Mesh* mes
     int iChan = 1; // FISH HACK, get this one stuffed too. Could probably or them into the same
     //thing or something, but who cares. Gotta stop with the ethers.
 
-    UVVert *wgtMap = mesh->mapVerts(iMap);  
+    UVVert *wgtMap = mesh->mapVerts(iMap);
     int numWgtVerts = mesh->getNumMapVerts(iMap);
 
     TVFace* mapFaces = mesh->mapFaces(iMap);
@@ -2311,8 +2311,8 @@ void plMAXVertexAccumulator::IFindAllUserSkinWeights( plMaxNode* node, Mesh* mes
 //  Finds the biggest weights (up to 4) for the given vertex index and returns
 //  them, along with a uint32_t specifying the indices for each.
 
-void    plMAXVertexAccumulator::IFindSkinWeights( ISkinContextData *skinData, 
-                                                  int vertex, 
+void    plMAXVertexAccumulator::IFindSkinWeights( ISkinContextData *skinData,
+                                                  int vertex,
                                                   float *weights, uint32_t *indices )
 {
     float   tempWs[ 4 ], tempW, t;
@@ -2417,7 +2417,7 @@ void    plMAXVertexAccumulator::IFindSkinWeights( ISkinContextData *skinData,
         }
     }
     
-    *indices = ( idxs[ 0 ] & 0xff ) | ( ( idxs[ 1 ] & 0xff ) << 8 ) | 
+    *indices = ( idxs[ 0 ] & 0xff ) | ( ( idxs[ 1 ] & 0xff ) << 8 ) |
                ( ( idxs[ 2 ] & 0xff ) << 16 ) | ( ( idxs[ 3 ] & 0xff ) << 24 );
 }
 
@@ -2457,7 +2457,7 @@ void SetWaterColor(plGeometrySpan* span)
         // take into account the fact that the sampling frequency is really determined
         // by the weakest link, or in this case the longest link. Experimenting
         // with alternatives.
-        // Actually, I just realized that the area way kind of sucks, because, 
+        // Actually, I just realized that the area way kind of sucks, because,
         // as a parallelogram gets less and less rectangular, the area goes down
         // even as the longest edge (the diagonal) gets longer.
         float lenSq20 = hsVector3(&triIter.Position(2), &triIter.Position(0)).MagnitudeSquared();
@@ -2526,7 +2526,7 @@ void SetWaterColor(plGeometrySpan* span)
     }
 
     plConst(float) kNumLens(4.f);
-    // Okay, we have smoothed lengths. We just need to 
+    // Okay, we have smoothed lengths. We just need to
     // iterate over the vertices and stuff 1/len into the alpha channel
     // For each vert
     plAccDiffuseIterator colIter(&tri);

@@ -92,7 +92,7 @@ public:
     void                GetLocationStrings(const plLocation& loc, ST::string* ageBuffer, ST::string* pageBuffer) const;
 
     //---------------------------
-    //  Establish reference linkage 
+    //  Establish reference linkage
     //---------------------------
     virtual bool   AddViaNotify(const plKey& key, plRefMsg* msg, plRefFlags::Type flags);
     virtual bool   AddViaNotify(plRefMsg* msg, plRefFlags::Type flags); // msg->fRef->GetKey() == sentKey
@@ -104,13 +104,13 @@ public:
     //  Reding and Writing keys
     //---------------------------
     // Read a Key in, and Notify me when the Object is loaded
-    virtual plKey ReadKeyNotifyMe(hsStream* stream, plRefMsg* retMsg, plRefFlags::Type flags); 
+    virtual plKey ReadKeyNotifyMe(hsStream* stream, plRefMsg* retMsg, plRefFlags::Type flags);
     // Just read the Key data in and find a match in the registry and return it.
-    virtual plKey ReadKey(hsStream* stream); 
+    virtual plKey ReadKey(hsStream* stream);
 
     // For convenience you can write a key using the KeyedObject or the Key...same result
-    virtual void WriteKey(hsStream* s, hsKeyedObject* obj); 
-    virtual void WriteKey(hsStream* s, const plKey& key); 
+    virtual void WriteKey(hsStream* s, hsKeyedObject* obj);
+    virtual void WriteKey(hsStream* s, const plKey& key);
 
     //---------------------------
     //  Reding and Writing Objects directly
@@ -177,7 +177,7 @@ protected:
 
     virtual plKey   ReRegister(const ST::string& nm, const plUoid& uoid);
     virtual bool    ReadObject(plKeyImp* key); // plKeys call this when needed
-    virtual bool    IReadObject(plKeyImp* pKey, hsStream *stream);  
+    virtual bool    IReadObject(plKeyImp* pKey, hsStream *stream);
 
     plCreatable*    IReadCreatable(hsStream* s) const;
     plKey           ICloneKey(const plUoid& objUoid, uint32_t playerID, uint32_t cloneID);

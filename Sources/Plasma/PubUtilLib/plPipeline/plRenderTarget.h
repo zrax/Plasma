@@ -75,11 +75,11 @@ class plRenderTarget : public plBitmap
 
         union
         {
-            struct 
+            struct
             {
                 uint16_t      fLeft, fTop, fRight, fBottom;
             } fAbsolute;
-            struct 
+            struct
             {
                 float    fLeft, fTop, fRight, fBottom;
             } fProportional;
@@ -154,18 +154,18 @@ class plRenderTarget : public plBitmap
         virtual void            SetViewport( uint16_t left, uint16_t top, uint16_t right, uint16_t bottom )
         {
             ASSERT_ABSOLUTE;
-            fViewport.fAbsolute.fLeft = left; 
-            fViewport.fAbsolute.fTop = top; 
-            fViewport.fAbsolute.fRight = right; 
+            fViewport.fAbsolute.fLeft = left;
+            fViewport.fAbsolute.fTop = top;
+            fViewport.fAbsolute.fRight = right;
             fViewport.fAbsolute.fBottom = bottom;
         }
 
         virtual void            SetViewport( float left, float top, float right, float bottom )
         {
             ASSERT_PROPORTIONAL;
-            fViewport.fProportional.fLeft = left; 
-            fViewport.fProportional.fTop = top; 
-            fViewport.fProportional.fRight = right; 
+            fViewport.fProportional.fLeft = left;
+            fViewport.fProportional.fTop = top;
+            fViewport.fProportional.fRight = right;
             fViewport.fProportional.fBottom = bottom;
         }
 

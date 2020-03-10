@@ -54,7 +54,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "hsResMgr.h"
 #include "plgDispatch.h"
 #include "plAudioSystem.h"
-#include "pnMessage/plAudioSysMsg.h" 
+#include "pnMessage/plAudioSysMsg.h"
 
 #ifdef EAX_SDK_AVAILABLE
 #include <eax-util.h>

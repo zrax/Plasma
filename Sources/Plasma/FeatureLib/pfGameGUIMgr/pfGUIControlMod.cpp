@@ -180,7 +180,7 @@ bool    pfGUIControlMod::IEval( double secs, float del, uint32_t dirty )
 const hsBounds3 &pfGUIControlMod::GetBounds()
 {
     UpdateBounds();
-    return fBounds; 
+    return fBounds;
 }
 
 //// SetTransform ////////////////////////////////////////////////////////////
@@ -207,8 +207,8 @@ static float GetVectorAngle( const hsPoint3 &basePt, const hsPoint3 &pointA, con
 
 //// CreateConvexHull ////////////////////////////////////////////////////////
 //  Algorithm is Graham's scan algorithm:
-//          R.L. Graham, "An efficient algorithm for determining the convex hull of a finite 
-//                      planar set", Info. Proc. Lett. 1, 132-133 (1972). 
+//          R.L. Graham, "An efficient algorithm for determining the convex hull of a finite
+//                      planar set", Info. Proc. Lett. 1, 132-133 (1972).
 //  Note: THIS WILL DESTROY YOUR INPOINTS ARRAY.
 
 static bool     CreateConvexHull( hsPoint3 *inPoints, int &numPoints )
@@ -315,7 +315,7 @@ static bool     CreateConvexHull( hsPoint3 *inPoints, int &numPoints )
 }
 
 //// GetObjectPoints /////////////////////////////////////////////////////////
-//  Retrieves ALL of the points of a sceneObject's meshes. And I mean ALL of 
+//  Retrieves ALL of the points of a sceneObject's meshes. And I mean ALL of
 //  'em...
 
 static void GetObjectPoints( plSceneObject *so, hsTArray<hsPoint3> &outPoints )
@@ -324,7 +324,7 @@ static void GetObjectPoints( plSceneObject *so, hsTArray<hsPoint3> &outPoints )
     if( !di )
         return;
 
-    // The following uses mf's spiffy plAccessGeometry/Spans stuff, which, in 
+    // The following uses mf's spiffy plAccessGeometry/Spans stuff, which, in
     // one uint16_t, kicksAss.
     hsTArray<plAccessSpan> spans;
     plAccessGeometry::Instance()->OpenRO( di, spans );
@@ -687,7 +687,7 @@ bool    pfGUIControlMod::ISetUpDynTextMap( plPipeline *pipe )
 
     fDynTextMap->SetFont( GetColorScheme()->fFontFace, GetColorScheme()->fFontSize, GetColorScheme()->fFontFlags,
                             HasFlag( kXparentBgnd ) ? false : true );
-    fDynTextMap->SetTextColor( GetColorScheme()->fForeColor, 
+    fDynTextMap->SetTextColor( GetColorScheme()->fForeColor,
                             ( HasFlag( kXparentBgnd ) && GetColorScheme()->fBackColor.a == 0.f ) ? true : false );
 
     // Now we gotta set the texture transform on the layer so our texture comes
@@ -891,14 +891,14 @@ void    pfGUIControlMod::Write( hsStream *s, hsResMgr *mgr )
 
 //// HandleKeyPress/Event ////////////////////////////////////////////////////
 
-bool    pfGUIControlMod::HandleKeyPress( wchar_t key, uint8_t modifiers ) 
+bool    pfGUIControlMod::HandleKeyPress( wchar_t key, uint8_t modifiers )
 {
-    return false; 
+    return false;
 }
 
-bool    pfGUIControlMod::HandleKeyEvent( pfGameGUIMgr::EventType event, plKeyDef key, uint8_t modifiers ) 
+bool    pfGUIControlMod::HandleKeyEvent( pfGameGUIMgr::EventType event, plKeyDef key, uint8_t modifiers )
 {
-    return false; 
+    return false;
 }
 
 //// IScreenToLocalPt ////////////////////////////////////////////////////////
@@ -920,7 +920,7 @@ void    pfGUIControlMod::ISetHandler( pfGUICtrlProcObject *h, bool clearInheritF
     if( fHandler && fHandler->DecRef() )
         delete fHandler;
 
-    fHandler = h; 
+    fHandler = h;
     if( fHandler )
         fHandler->IncRef();
 
@@ -951,7 +951,7 @@ void    pfGUIControlMod::SetDropTargetHdlr( pfGUIDropTargetProc *h )
     if( fDropTargetHdlr && fDropTargetHdlr->DecRef() )
         delete fDropTargetHdlr;
 
-    fDropTargetHdlr = h; 
+    fDropTargetHdlr = h;
     if( fDropTargetHdlr )
         fDropTargetHdlr->IncRef();
 }

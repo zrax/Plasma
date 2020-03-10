@@ -45,7 +45,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 // Initialize a socket for listening
 bool plTcpListenSocket::OpenForListen(plNetAddress & inAddess, int backlogSize)
-{        
+{
     ErrorClose();
     SetSocket(plNet::NewTCP());
     
@@ -63,7 +63,7 @@ bool plTcpListenSocket::OpenForListen(plNetAddress & inAddess, int backlogSize)
 
 // Initialize a socket for listening. non blocking version
 bool plTcpListenSocket::OpenForListenNonBlocking(plNetAddress & inAddess, int backlogSize)
-{        
+{
     ErrorClose();
     SetSocket(plNet::NewTCP());
     
@@ -82,7 +82,7 @@ bool plTcpListenSocket::OpenForListenNonBlocking(plNetAddress & inAddess, int ba
 
 // Accept an incoming connection
 bool  plTcpListenSocket::GetIncomingConnection(SOCKET & outNewSession, plNetAddress & outAddress)
-{        
+{
     outNewSession = plNet::Accept(fSocket, &outAddress.GetAddressInfo());
     if(outNewSession == kBadSocket)
         return false;

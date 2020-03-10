@@ -69,7 +69,7 @@ bool plTcpSocket::operator==(const plTcpSocket & rhs)
 int plTcpSocket::SetNoDelay()
 {
     int  nodel = 1;
-    int ret1;    
+    int ret1;
     ret1 = setsockopt(fSocket, IPPROTO_TCP, TCP_NODELAY,(char *)&nodel, sizeof(nodel));
     
     if(ret1 != 0)
@@ -82,12 +82,12 @@ int plTcpSocket::SetNoDelay()
 // Control the behavior of SO_LINGER
 int plTcpSocket::SetLinger(int intervalSecs)
 {
-    linger  ll;        
+    linger  ll;
     ll.l_linger = intervalSecs;
     ll.l_onoff = intervalSecs?1:0;
-    int ret1 = setsockopt(fSocket, SOL_SOCKET, SO_LINGER, (const char *)&ll,sizeof(linger));     
+    int ret1 = setsockopt(fSocket, SOL_SOCKET, SO_LINGER, (const char *)&ll,sizeof(linger));
     if(ret1 != 0)
-        return -1;        
+        return -1;
     return 0;
 }
 
@@ -95,7 +95,7 @@ int plTcpSocket::SetLinger(int intervalSecs)
 int plTcpSocket::SetSendBufferSize(int insize)
 {
     if (setsockopt(fSocket, (int) SOL_SOCKET, (int) SO_SNDBUF, (char *) &insize, sizeof(int)))
-        return -1;    
+        return -1;
     return 0;
 }
 

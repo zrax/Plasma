@@ -180,7 +180,7 @@ void plFollowMod::IMoveTarget()
         hsPoint3 oldPos = l2w.GetTranslate();
 
         // l2w = newPosMat * -oldPosMat * l2w
-        // so w2l = w2l * inv-oldPosMat * invNewPosMat 
+        // so w2l = w2l * inv-oldPosMat * invNewPosMat
         if( fMode & kPositionX )
         {
             l2w.fMap[0][3] = newPos.fX;
@@ -225,8 +225,8 @@ bool plFollowMod::IEval(double secs, float del, uint32_t dirty)
     return true;
 }
 
-void plFollowMod::SetTarget(plSceneObject* so) 
-{ 
+void plFollowMod::SetTarget(plSceneObject* so)
+{
     plSingleModifier::SetTarget(so);
     if( fTarget )
         Activate();

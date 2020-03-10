@@ -77,7 +77,7 @@ public:
     int GetNumCallbacks();
     plOneShotCallback& GetCallback(int i);
 
-    // IO 
+    // IO
     void Read(hsStream* stream, hsResMgr* mgr);
     void Write(hsStream* stream, hsResMgr* mgr);
 };

@@ -213,7 +213,7 @@ void    plDrawableSpans::Write( hsStream* s, hsResMgr* mgr )
 }
 
 //// AddDISpans //////////////////////////////////////////////////////////////
-//  Adds a drawInterface's geometry spans to the list to be collapsed into 
+//  Adds a drawInterface's geometry spans to the list to be collapsed into
 //  buffers.
 
 uint32_t  plDrawableSpans::AddDISpans( hsTArray<plGeometrySpan *> &spans, uint32_t index )
@@ -244,7 +244,7 @@ uint32_t  plDrawableSpans::AddDISpans( hsTArray<plGeometrySpan *> &spans, uint32
     {
         spanLookup->Append( fSourceSpans.GetCount() );
         spans[ i ]->fSpanRefIndex = fSourceSpans.GetCount();
-        fSourceSpans.Append( spans[ i ] );  
+        fSourceSpans.Append( spans[ i ] );
 
         spanIdx = fIcicles.GetCount();
         fIcicles.Append( plIcicle() );
@@ -481,7 +481,7 @@ void    plDrawableSpans::IPackSourceSpans()
     // So for each instance set, we make two lists of instance refs, the ones also
     // in this drawable (refsHere), and ones not (refsThere). If there are refsThere,
     // we split out the refsHere into a new instance group, removing them from the
-    // refsThere list. If refsThere still contains spans from separate drawables, 
+    // refsThere list. If refsThere still contains spans from separate drawables,
     // that will be dealt with in those drawables' Optimize calls.
     doneSpans.Clear();
     for( i = 0; i < fSourceSpans.GetCount(); i++ )
@@ -578,7 +578,7 @@ void    plDrawableSpans::IPackSourceSpans()
             else
             {
                 // Do normal, uninstanced conversion
-                IConvertGeoSpanToIcicle( fSourceSpans[ i ], (plIcicle *)fSpans[ i ], 0 );   
+                IConvertGeoSpanToIcicle( fSourceSpans[ i ], (plIcicle *)fSpans[ i ], 0 );
                 doneSpans.SetBit( i, true );
             }
         }
@@ -685,7 +685,7 @@ void    plDrawableSpans::ISortSourceSpans()
     {
         *newIcicle = *( (plIcicle *)fSpans[ i ] );
         fSpans[ i ] = newIcicle;
-        newIcicle++;    
+        newIcicle++;
     }
 
     /// Swap the two arrays out. This will basically swap the actual memory blocks, so be careful...
@@ -694,7 +694,7 @@ void    plDrawableSpans::ISortSourceSpans()
 }
 
 //// ICompareSpans ///////////////////////////////////////////////////////////
-//  Sorting function for ISortSpans(). Kinda like strcmp(): returns -1 if 
+//  Sorting function for ISortSpans(). Kinda like strcmp(): returns -1 if
 //  span1 < span2, 1 if span1 > span2, 0 if "equal".
 
 short   plDrawableSpans::ICompareSpans( plGeometrySpan *span1, plGeometrySpan *span2 )
@@ -719,13 +719,13 @@ short   plDrawableSpans::ICompareSpans( plGeometrySpan *span1, plGeometrySpan *s
 
     // Most important: is one of the materials an alpha blend? (if so, gotta
     // put at end, so it's "bigger")
-    if( span1->fMaterial->GetNumLayers() > 0 && 
+    if( span1->fMaterial->GetNumLayers() > 0 &&
         ( span1->fMaterial->GetLayer( 0 )->GetState().fBlendFlags & hsGMatState::kBlendMask ) != 0 )
         b1 = true;
     else
         b1 = false;
 
-    if( span2->fMaterial->GetNumLayers() > 0 && 
+    if( span2->fMaterial->GetNumLayers() > 0 &&
         ( span2->fMaterial->GetLayer( 0 )->GetState().fBlendFlags & hsGMatState::kBlendMask ) != 0 )
         b2 = true;
     else

@@ -79,7 +79,7 @@ class plKeyCombo
         plKeyCombo();
         plKeyCombo( plKeyDef k, uint8_t flags = 0 ) : fKey( k ), fFlags( flags ) { }
         
-        bool    IsSatisfiedBy(const plKeyCombo &combo) const;       
+        bool    IsSatisfiedBy(const plKeyCombo &combo) const;
 
         bool    operator==( const plKeyCombo &rhs ) const { return ( fKey == rhs.fKey ) && ( fFlags == rhs.fFlags ); }
         bool    operator!=( const plKeyCombo &rhs ) const { return ( fKey != rhs.fKey ) || ( fFlags != rhs.fFlags ); }

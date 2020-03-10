@@ -96,10 +96,10 @@ bool plFdSet::IsErrFor(plSocket & in)
 
 
 int plFdSet::WaitForRead(bool shouldZeroFds, unsigned long timeoutMillis)
-{        
-    int ret_val = 0;        
+{
+    int ret_val = 0;
 
-    if(timeoutMillis == kInfinite)                
+    if(timeoutMillis == kInfinite)
     {
         ret_val = select(fMaxFd+1,&fFds,NULL,&fErrFds,NULL);
     }
@@ -111,7 +111,7 @@ int plFdSet::WaitForRead(bool shouldZeroFds, unsigned long timeoutMillis)
         
         ret_val = select(fMaxFd+1,&fFds,NULL,&fErrFds,&tv);
     }
-    if (shouldZeroFds) 
+    if (shouldZeroFds)
         ZeroFds();
     
     return ret_val;
@@ -119,10 +119,10 @@ int plFdSet::WaitForRead(bool shouldZeroFds, unsigned long timeoutMillis)
 
 
 int plFdSet::WaitForWrite(bool shouldZeroFds, unsigned long timeoutMillis)
-{        
-    int ret_val = 0;        
+{
+    int ret_val = 0;
 
-    if(timeoutMillis == kInfinite)                
+    if(timeoutMillis == kInfinite)
     {
         ret_val = select(fMaxFd+1,NULL,&fFds,&fErrFds,NULL);
     }
@@ -134,7 +134,7 @@ int plFdSet::WaitForWrite(bool shouldZeroFds, unsigned long timeoutMillis)
         
         ret_val = select(fMaxFd+1,NULL,&fFds,&fErrFds,&tv);
     }
-    if (shouldZeroFds) 
+    if (shouldZeroFds)
         ZeroFds();
     
     return ret_val;
@@ -142,10 +142,10 @@ int plFdSet::WaitForWrite(bool shouldZeroFds, unsigned long timeoutMillis)
 
 
 int plFdSet::WaitForError(bool shouldZeroFds, unsigned long timeoutMillis)
-{        
-    int ret_val = 0;        
+{
+    int ret_val = 0;
 
-    if(timeoutMillis == kInfinite)                
+    if(timeoutMillis == kInfinite)
     {
         ret_val = select(fMaxFd+1,NULL,NULL,&fErrFds,NULL);
     }
@@ -157,7 +157,7 @@ int plFdSet::WaitForError(bool shouldZeroFds, unsigned long timeoutMillis)
         
         ret_val = select(fMaxFd+1,NULL,NULL,&fErrFds,&tv);
     }
-    if (shouldZeroFds) 
+    if (shouldZeroFds)
         ZeroFds();
     
     return ret_val;

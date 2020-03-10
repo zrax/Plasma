@@ -103,7 +103,7 @@ bool    pfGUIEditBoxMod::MsgReceive( plMessage *msg )
 void    pfGUIEditBoxMod::IPostSetUpDynTextMap()
 {
     pfGUIColorScheme *scheme = GetColorScheme();
-    fDynTextMap->SetFont( scheme->fFontFace, scheme->fFontSize, scheme->fFontFlags, 
+    fDynTextMap->SetFont( scheme->fFontFace, scheme->fFontSize, scheme->fFontFlags,
                             HasFlag( kXparentBgnd ) ? false : true );
 }
 
@@ -159,7 +159,7 @@ void    pfGUIEditBoxMod::IUpdate()
         else
             fDynTextMap->SetTextColor( GetColorScheme()->fForeColor, GetColorScheme()->fTransparent &&
                                                                      GetColorScheme()->fBackColor.a == 0.f );
-        fDynTextMap->DrawClippedString( (int16_t)(4 - fScrollPos), 4, fBuffer, 
+        fDynTextMap->DrawClippedString( (int16_t)(4 - fScrollPos), 4, fBuffer,
                                         4, 4, fDynTextMap->GetVisibleWidth() - 8, fDynTextMap->GetVisibleHeight() - 8 );
 
         if( fFocused && !fSpecialCaptureKeyEventMode )
@@ -364,7 +364,7 @@ bool    pfGUIEditBoxMod::HandleKeyEvent( pfGameGUIMgr::EventType event, plKeyDef
             else if( key == KEY_DELETE && fBuffer != nil )
             {
                 if( fCursorPos < wcslen( fBuffer ) )
-                    memmove( fBuffer + fCursorPos, fBuffer + fCursorPos + 1, (wcslen( fBuffer + fCursorPos + 1 ) + 1) * sizeof(wchar_t) );          
+                    memmove( fBuffer + fCursorPos, fBuffer + fCursorPos + 1, (wcslen( fBuffer + fCursorPos + 1 ) + 1) * sizeof(wchar_t) );
             }
             else if( key == KEY_ENTER )
             {
@@ -379,7 +379,7 @@ bool    pfGUIEditBoxMod::HandleKeyEvent( pfGameGUIMgr::EventType event, plKeyDef
                 DoSomething();      // Query WasEscaped() to see if it was escape vs enter
                 return true;
             }
-            else if (key == KEY_TAB) 
+            else if (key == KEY_TAB)
             {
                 // Send notify for python scripts
                 HandleExtendedEvent(kWantAutocomplete);
@@ -394,9 +394,9 @@ bool    pfGUIEditBoxMod::HandleKeyEvent( pfGameGUIMgr::EventType event, plKeyDef
                 // Send notify for python scripts
                 HandleExtendedEvent(kWantMessageHistoryDown);
             }
-            else if (modifiers & pfGameGUIMgr::kCtrlDown) 
+            else if (modifiers & pfGameGUIMgr::kCtrlDown)
             {
-                if (key == KEY_C) 
+                if (key == KEY_C)
                 {
                     plClipboard::GetInstance().SetClipboardText(ST::string::from_wchar(fBuffer));
                 }

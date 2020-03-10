@@ -78,7 +78,7 @@ public:
         int n = stream->ReadLE32();
         fReceivers.Reset();
         for(int i = 0; i < n; i++ )
-        {   
+        {
             fReceivers.Append(mgr->ReadKey(stream));
         }
         mgr->ReadKeyNotifyMe(stream, new plObjRefMsg(GetKey(), plRefMsg::kOnCreate, 0, plObjRefMsg::kModifier), plRefFlags::kActiveRef);

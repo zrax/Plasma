@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/PubUtilLib/plNetClient/plNetCliAgeJoiner.h
-*   
+*
 ***/
 
 #ifndef PLASMA20_SOURCES_PLASMA_PUBUTILLIB_PLNETCLIENT_PLNETCLIAGEJOINER_H
@@ -56,7 +56,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 /*****************************************************************************
 *
-*   
+*
 *
 ***/
 

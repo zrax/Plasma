@@ -68,7 +68,7 @@ bool plListener::IEval(double secs, float del, uint32_t dirty)
     plSceneObject *pRefObject = nil;
 
     int y = 16 + 12, x = 400;
-    if( fPrintDbgInfo ) 
+    if( fPrintDbgInfo )
         plDebugText::Instance().DrawString( x, 16, "Listener:", (uint32_t)0xffffffff, plDebugText::kStyleBold );
 
     // Get the avatar's SceneObject
@@ -79,7 +79,7 @@ bool plListener::IEval(double secs, float del, uint32_t dirty)
     if( pRefObject == nil && fVCam == nil )
     {
         // We don't have a position to init by, so do NOT eval yet!!!
-        if( fPrintDbgInfo ) 
+        if( fPrintDbgInfo )
             plDebugText::Instance().DrawString( x, y, "Not eval-ing yet", (uint32_t)0xffffffff );
         return true;
     }
@@ -98,7 +98,7 @@ bool plListener::IEval(double secs, float del, uint32_t dirty)
     hsPoint3    position;
     hsVector3   velocity, dir, up;
 
-    enum 
+    enum
     {
         kInvalid = 0,
         kVCam,
@@ -164,7 +164,7 @@ bool plListener::IEval(double secs, float del, uint32_t dirty)
 
     if( facingType == kInvalid || posType == kInvalid || velType == kInvalid )
     {
-        if( fPrintDbgInfo ) 
+        if( fPrintDbgInfo )
             plDebugText::Instance().DrawString( x, y, "Not eval-ing: missing one or more parameter bases", (uint32_t)0xff0000ff );
         return true;
     }
@@ -180,7 +180,7 @@ bool plListener::IEval(double secs, float del, uint32_t dirty)
     plgAudioSys::SetListenerPos( position );
     plgAudioSys::SetListenerVelocity( velocity );
 
-    if( fPrintDbgInfo ) 
+    if( fPrintDbgInfo )
     {
         ST::string str;
         str = ST::format("Direction: ({3.2f},{3.2f},{3.2f}) from {}", dir.fX, dir.fY, dir.fZ,
@@ -291,7 +291,7 @@ bool plListener::MsgReceive(plMessage* msg)
 
     plEvalMsg* pEMsg = plEvalMsg::ConvertNoRef(msg);
     if (pEMsg)
-    {   
+    {
         IEval(pEMsg->GetTimeStamp(), pEMsg->DelSeconds(), true);
 
         if( fInitMe )

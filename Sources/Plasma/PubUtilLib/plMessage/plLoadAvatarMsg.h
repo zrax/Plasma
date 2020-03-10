@@ -52,7 +52,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 class plAvTask;
 
 //
-// A msg which is sent to the networking system 
+// A msg which is sent to the networking system
 // to cause a player to be loaded or unloaded
 //
 class plKey;

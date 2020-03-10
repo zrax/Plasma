@@ -170,7 +170,7 @@ public:
         strcpy( fTitle, title );
     }
 
-    plGUICtrlHitCallback( INode* owner, IParamBlock2 *pb, ParamID nodeListID, TCHAR *title, 
+    plGUICtrlHitCallback( INode* owner, IParamBlock2 *pb, ParamID nodeListID, TCHAR *title,
                             hsTArray<Class_ID> &rID )
         : fOwner( owner ), fPB( pb ), fNodeListID( nodeListID ), fRestrict( true ), fSingle(TRUE)
 
@@ -244,7 +244,7 @@ public:
 
     int     GetHandledDlgItem() const { return fDlgItem; }
 
-    static const Class_ID       kEndClassList; 
+    static const Class_ID       kEndClassList;
 
     plGUISingleCtrlDlgProc( ParamID nodeID, int dlgItem, TCHAR *title, Class_ID *restrict, ParamMap2UserDlgProc *parentProc = nil )
     {
@@ -300,7 +300,7 @@ public:
     void DeleteThis() {}
 };
 
-const Class_ID      plGUISingleCtrlDlgProc::kEndClassList = Class_ID(); 
+const Class_ID      plGUISingleCtrlDlgProc::kEndClassList = Class_ID();
 
 Class_ID    sSkinClassesToSelect[] = { GUI_SKIN_CLASSID, plGUISingleCtrlDlgProc::kEndClassList };
 
@@ -558,7 +558,7 @@ BOOL plGUITagProc::DlgProc( TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT msg, 
                     }
                     else
                     {
-                        pmap->GetParamBlock()->SetValue( plGUITagComponent::kRefCurrIDSel, 0, 
+                        pmap->GetParamBlock()->SetValue( plGUITagComponent::kRefCurrIDSel, 0,
                                     SendDlgItemMessage( hWnd, IDC_GUI_TAGCOMBO, CB_GETITEMDATA, idx, 0 ) );
                     }
                 }
@@ -705,8 +705,8 @@ static ParamBlockDesc2  gGUIColorSchemeBk
     /// Main def
      plComponent::kBlkComp, _T("GUIColorScheme"), 0, &gGUIColorSchemeDesc, P_AUTO_CONSTRUCT + P_AUTO_UI + P_MULTIMAP, plComponent::kRefComp,
 
-    1, 
-    plGUIDialogComponent::kSchemeRollout, IDD_COMP_GUISCHEME, IDS_COMP_GUISCHEME, 0, 0, &gGUIColorSchemeProc,   
+    1,
+    plGUIDialogComponent::kSchemeRollout, IDD_COMP_GUISCHEME, IDS_COMP_GUISCHEME, 0, 0, &gGUIColorSchemeProc,
 
     plGUIColorSchemeComp::kRefForeColor,    _T("foreColor"),        TYPE_RGBA,      0, 0,
         p_ui, plGUIDialogComponent::kSchemeRollout, TYPE_COLORSWATCH, IDC_GUI_FGCOLOR,
@@ -757,14 +757,14 @@ static ParamBlockDesc2  gGUIColorSchemeBk
     plGUIColorSchemeComp::kRefUseAlphas, _T("useAlphas"),       TYPE_BOOL,      0, 0,
         p_default,  FALSE,
         p_ui, plGUIDialogComponent::kSchemeRollout, TYPE_SINGLECHEKBOX, IDC_GUI_USEALPHAS,
-        p_enable_ctrls, 4, plGUIColorSchemeComp::kRefForeAlpha, plGUIColorSchemeComp::kRefBackAlpha, 
+        p_enable_ctrls, 4, plGUIColorSchemeComp::kRefForeAlpha, plGUIColorSchemeComp::kRefBackAlpha,
                             plGUIColorSchemeComp::kRefSelForeAlpha, plGUIColorSchemeComp::kRefSelBackAlpha,
-        end,        
+        end,
 
 
     plGUIColorSchemeComp::kRefFontFace, _T("fontFace"),     TYPE_STRING,        0, 0,
         p_default,  _T( "Times New Roman" ),
-        end,        
+        end,
 
     plGUIColorSchemeComp::kRefFontSize, _T("fontSize"),     TYPE_INT,       0, 0,
         p_ui,   plGUIDialogComponent::kSchemeRollout, TYPE_SPINNER, EDITTYPE_POS_INT, IDC_GUI_FONTSIZE, IDC_GUI_FONTSIZE_SPIN, SPIN_AUTOSCALE,
@@ -774,17 +774,17 @@ static ParamBlockDesc2  gGUIColorSchemeBk
     plGUIColorSchemeComp::kRefFontBold, _T("fontBold"),     TYPE_BOOL,      0, 0,
         p_default,  FALSE,
         p_ui, plGUIDialogComponent::kSchemeRollout, TYPE_SINGLECHEKBOX, IDC_GUI_FONTBOLD,
-        end,        
+        end,
 
     plGUIColorSchemeComp::kRefFontItalic, _T("fontItalic"),     TYPE_BOOL,      0, 0,
         p_default,  FALSE,
         p_ui, plGUIDialogComponent::kSchemeRollout, TYPE_SINGLECHEKBOX, IDC_GUI_FONTITALIC,
-        end,        
+        end,
 
     plGUIColorSchemeComp::kRefFontShadowed, _T("fontShadowed"),     TYPE_BOOL,      0, 0,
         p_default,  FALSE,
         p_ui, plGUIDialogComponent::kSchemeRollout, TYPE_SINGLECHEKBOX, IDC_GUI_FONTSHADOWED,
-        end,        
+        end,
 
     end
 );
@@ -843,7 +843,7 @@ BOOL plGUIColorSchemeProc::DlgProc( TimeValue t, IParamMap2 *pmap, HWND hWnd, UI
     switch( msg )
     {
         case WM_INITDIALOG:
-            ILoadFonts( GetDlgItem( hWnd, IDC_GUI_FONTFACE ), pmap->GetParamBlock() );           
+            ILoadFonts( GetDlgItem( hWnd, IDC_GUI_FONTFACE ), pmap->GetParamBlock() );
             return true;
 
         case WM_DESTROY:
@@ -995,7 +995,7 @@ bool plGUIColorSchemeComp::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     {
         pErrMsg->Set( true, "GUI Color Scheme Error", "You have applied a GUI color scheme to an object (%s) without a GUI control. This scheme will be ignored.", node->GetName()).Show();
         pErrMsg->Set( false );
-        return false;   
+        return false;
     }
 
     return true;
@@ -1035,7 +1035,7 @@ void    plGUIColorSchemeComp::ConvertScheme( IParamBlock2 *pb, pfGUIColorScheme 
 //// plGUIProxy Rollout /////////////////////////////////////////////////////////////////////////
 //
 //  Defines a proxy object to be used when calculating mouse-down locations and dynamic text
-//  sizing. 
+//  sizing.
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1071,16 +1071,16 @@ public:
 //                  return true;
 //              }
                 break;
-        }   
+        }
         return false;
     }
 
-};  
+};
 
 static plGUIProxyDlgProc    sGUIProxyDlgProc;
 
 //// ParamBlock /////////////////////////////////////////////////////////////////////////////////
-//  Note: we can't make this a real ParamBlock and do P_INCLUDE_PARAMS because, in Discreet's 
+//  Note: we can't make this a real ParamBlock and do P_INCLUDE_PARAMS because, in Discreet's
 //  amazing method of doing things, we can't INCLUDE more than one ParamBlock in any other PB.
 //  So either we chain them together here (and thus make them dependent on one another, which
 //  is lame) or we just make the whole damned thing a #define, which is all P_INCLUDE_PARAMS
@@ -1090,17 +1090,17 @@ static plGUIProxyDlgProc    sGUIProxyDlgProc;
 //static ParamBlockDesc2    sSndEAXPropsParamTemplate
 //(
     /// Main def
-//  plComponent::kBlkComp + 1, _T("sndEAXProps"), 0, nil, P_AUTO_UI + P_MULTIMAP + P_AUTO_CONSTRUCT, plComponent::kRefComp, 
+//  plComponent::kBlkComp + 1, _T("sndEAXProps"), 0, nil, P_AUTO_UI + P_MULTIMAP + P_AUTO_CONSTRUCT, plComponent::kRefComp,
 
-//  1, 
-//  kSndEAXParams, IDD_COMP_EAXBUFFER, IDS_COMP_EAXBUFFER, 0, 0, nil,   
+//  1,
+//  kSndEAXParams, IDD_COMP_EAXBUFFER, IDS_COMP_EAXBUFFER, 0, 0, nil,
 
 #define sGUIProxyParamTemplate \
                                                                                                             \
     kRefBetterHitTests, _T("guiBetterHitTests"), TYPE_BOOL, 0, 0,                                                       \
         p_ui, plGUIControlBase::kRollProxy, TYPE_SINGLECHEKBOX, IDC_GUI_BETTERHIT,                          \
         p_default, false,                                                                                   \
-        end                                                                                             
+        end
 
 //  , end
 //);
@@ -1135,10 +1135,10 @@ ParamBlockDesc2 gGUIDialogBk
 (   // KLUDGE: not the defined block ID, but kept for backwards compat.
  plComponent::kBlkComp, _T("GUIDialog"), 0, &gGUIDialogDesc, P_AUTO_CONSTRUCT + P_AUTO_UI + P_MULTIMAP + P_INCLUDE_PARAMS, plComponent::kRefComp,
 
-    3, 
+    3,
     plGUIDialogComponent::kMainRollout,     IDD_COMP_GUIDIALOG, IDS_COMP_GUIDIALOG, 0, 0, &gGUIDialogProc,
     plGUIDialogComponent::kTagIDRollout,    IDD_COMP_GUITAG,    IDS_COMP_GUITAG,    0, 0, &gGUITagProc,
-    plGUIDialogComponent::kSchemeRollout,   IDD_COMP_GUISCHEME, IDS_COMP_GUISCHEME, 0, 0, &gGUIColorSchemeProc, 
+    plGUIDialogComponent::kSchemeRollout,   IDD_COMP_GUISCHEME, IDS_COMP_GUISCHEME, 0, 0, &gGUIColorSchemeProc,
 
     &gGUIColorSchemeBk,
 
@@ -1153,7 +1153,7 @@ ParamBlockDesc2 gGUIDialogBk
         plGUIDialogComponent::kRefIsModal, _T("isModal"),       TYPE_BOOL,      0, 0,
             p_default,  FALSE,
             p_ui, plGUIDialogComponent::kMainRollout, TYPE_SINGLECHEKBOX, IDC_COMP_GUI_MODAL,
-            end,        
+            end,
 
         plGUIDialogComponent::kRefVersion,  _T("version"),      TYPE_INT,       0, 0,
             p_ui,   plGUIDialogComponent::kMainRollout, TYPE_SPINNER, EDITTYPE_POS_INT, IDC_GUI_VERSION, IDC_GUI_VERSION_SPIN, SPIN_AUTOSCALE,
@@ -1210,7 +1210,7 @@ bool plGUIDialogComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg
     if( dialogName == nil || *dialogName == 0 )
     {
         pErrMsg->Set(true, "GUI Dialog Component Error", "No dialog name specified on GUI Dialog component (object: %s)", node->GetName()).Show();
-        return false;   
+        return false;
     }
 
     const char *ageName = fCompPB->GetStr(kRefAgeName);
@@ -1224,9 +1224,9 @@ bool plGUIDialogComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg
             int32_t pageSeqNum = pageLoc.GetSequenceNumber();
             char errMsg[ 512 ];
             sprintf( errMsg, "The sequence number stored by the resource manager (0x%X) for page %s, District, %s does not match\n"
-                            "the sequence number stored in the .age file (0x%X). Forcing it to use the one in the .age file", 
+                            "the sequence number stored in the .age file (0x%X). Forcing it to use the one in the .age file",
                                 pageSeqNum, ageName, dialogName, seqNum );
-            pErrMsg->Set( true, "PageInfo Convert Error", errMsg ).Show(); 
+            pErrMsg->Set( true, "PageInfo Convert Error", errMsg ).Show();
             pErrMsg->Set( false );
             fSeqNumValidated = true;
         }
@@ -1237,7 +1237,7 @@ bool plGUIDialogComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg
     plKey roomKey = plPluginResManager::ResMgr()->NameToLoc( fCompPB->GetStr( kRefAgeName ), fCompPB->GetStr( kRefDialogName ), seqNum );
     if( !roomKey )
     {
-        pErrMsg->Set( true, "GUI Dialog Component Error", "GUI Dialog Component %s has a Missing Location.  Nuke the files in the dat directory and re-export.",((INode*)node)->GetName()).Show(); 
+        pErrMsg->Set( true, "GUI Dialog Component Error", "GUI Dialog Component %s has a Missing Location.  Nuke the files in the dat directory and re-export.",((INode*)node)->GetName()).Show();
         return false;
     }
 
@@ -1258,8 +1258,8 @@ bool plGUIDialogComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     GenCamera* cam = nil;
     if( obj->CanConvertToType(Class_ID(LOOKAT_CAM_CLASS_ID, 0)) )
         cam = (GenCamera *) obj->ConvertToType(timeVal, Class_ID(LOOKAT_CAM_CLASS_ID, 0));
-    else 
-    if( obj->CanConvertToType(Class_ID(SIMPLE_CAM_CLASS_ID, 0)) ) 
+    else
+    if( obj->CanConvertToType(Class_ID(SIMPLE_CAM_CLASS_ID, 0)) )
         cam = (GenCamera *) obj->ConvertToType(timeVal, Class_ID(SIMPLE_CAM_CLASS_ID, 0));
 
     if( !cam )
@@ -1271,7 +1271,7 @@ bool plGUIDialogComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 
     plPostEffectMod* mod = new plPostEffectMod;
 
-    float hither = cam->GetEnvRange(timeVal, ENV_NEAR_RANGE); 
+    float hither = cam->GetEnvRange(timeVal, ENV_NEAR_RANGE);
     if( hither < 0.5f )
         hither = 0.5f;
     float yon = cam->GetEnvRange(timeVal, ENV_FAR_RANGE);
@@ -1305,13 +1305,13 @@ bool plGUIDialogComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 
     // Should already be created from SetupProperties...
     // Note: can't just grab the node's room key, 'cause we might not be on the right node!
-    plKey sceneNodeKey = plPluginResManager::ResMgr()->NameToLoc( fCompPB->GetStr( kRefAgeName ), 
+    plKey sceneNodeKey = plPluginResManager::ResMgr()->NameToLoc( fCompPB->GetStr( kRefAgeName ),
                                                         fCompPB->GetStr( kRefDialogName ), (uint32_t)-1 );
     mod->SetNodeKey( sceneNodeKey );
 
 //  node->AddModifier(mod);
     // Note: we do NOT add this to the sceneObject, we don't want it actually associated with
-    // a sceneObject. Instead, we just grab the LocalToWorld() off the sceneObject, since that's 
+    // a sceneObject. Instead, we just grab the LocalToWorld() off the sceneObject, since that's
     // all we want
     hsMatrix44 l2w = node->GetLocalToWorld44();
     hsMatrix44 w2l = node->GetWorldToLocal44();
@@ -1350,7 +1350,7 @@ bool plGUIDialogComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
         // Don't do this. -mf
 //      IMakeEveryoneOpaque(node);
 
-        // Make a blank dialog modifier, which will be filled in on convert. Do 
+        // Make a blank dialog modifier, which will be filled in on convert. Do
         // this as a separate step so the dialog controls can query and get the dialog
         // mod to store a ref to
 
@@ -1481,7 +1481,7 @@ BOOL plGUIDialogProc::DlgProc( TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT ms
                 ComboBox_SetCurSel( ageCombo, selIdx );
             }
 
-            ILoadPages( GetDlgItem( hWnd, IDC_GUIDLG_NAME ), pmap->GetParamBlock() );           
+            ILoadPages( GetDlgItem( hWnd, IDC_GUIDLG_NAME ), pmap->GetParamBlock() );
             return true;
 
         case WM_DESTROY:
@@ -1510,7 +1510,7 @@ BOOL plGUIDialogProc::DlgProc( TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT ms
                         pmap->GetParamBlock()->SetValue( plGUIDialogComponent::kRefAgeName, 0, name );
                     }
 
-                    ILoadPages( GetDlgItem( hWnd, IDC_GUIDLG_NAME ), pmap->GetParamBlock() );           
+                    ILoadPages( GetDlgItem( hWnd, IDC_GUIDLG_NAME ), pmap->GetParamBlock() );
                 }
             }
             break;
@@ -1609,7 +1609,7 @@ bool plGUIControlBase::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         plMaxNode *parent = (plMaxNode *)node->GetParentNode();
         if( parent->GetRoomKey() != node->GetRoomKey() )
         {
-            pErrMsg->Set( true, "GUI Control Component Error", "The object %s is assigned to a different GUI dialog than its parent. Make sure both this object and its parent belong to the same GUI dialog (this control will be ignored).", node->GetName() ).Show(); 
+            pErrMsg->Set( true, "GUI Control Component Error", "The object %s is assigned to a different GUI dialog than its parent. Make sure both this object and its parent belong to the same GUI dialog (this control will be ignored).", node->GetName() ).Show();
             pErrMsg->Set( false );
             return false;
         }
@@ -1618,7 +1618,7 @@ bool plGUIControlBase::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     pfGUIDialogMod *dialog = IGetDialogMod( node );
     if( dialog == nil )
     {
-        pErrMsg->Set( true, "GUI Control Component Error", "The object %s has a GUI control applied but not a GUI Dialog Component. Apply a GUI Dialog Component to this object.", node->GetName() ).Show(); 
+        pErrMsg->Set( true, "GUI Control Component Error", "The object %s has a GUI control applied but not a GUI Dialog Component. Apply a GUI Dialog Component to this object.", node->GetName() ).Show();
         pErrMsg->Set( false );
         return false;
     }
@@ -1628,7 +1628,7 @@ bool plGUIControlBase::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     uint32_t i = fTargetNodes.Find( node );
     if( i == fTargetNodes.kMissingIndex )
     {
-        pErrMsg->Set( true, "GUI Control Component Error", "The object %s somehow skipped the GUI control Pre-convert stage. Inform a programmer immediately and seek shelter.", node->GetName() ).Show(); 
+        pErrMsg->Set( true, "GUI Control Component Error", "The object %s somehow skipped the GUI control Pre-convert stage. Inform a programmer immediately and seek shelter.", node->GetName() ).Show();
         pErrMsg->Set( false );
         return false;
     }
@@ -1668,7 +1668,7 @@ bool plGUIControlBase::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 
     if( INeedsDynamicText() )
     {
-        // We're a control that dynamically creates text, so look for the first dynamic layer 
+        // We're a control that dynamically creates text, so look for the first dynamic layer
         // (and hopefully the ONLY one) and store it on the control
         Mtl *maxMaterial = hsMaterialConverter::Instance().GetBaseMtl( node );
         hsTArray<plExportMaterialData> *mtlArray = hsMaterialConverter::Instance().CreateMaterialArray( maxMaterial, node, 0 );
@@ -1726,7 +1726,7 @@ pfGUIControlMod *plGUIControlBase::GrabControlFromObject( INode *node )
             return ctrl;
     }
 
-    return nil; 
+    return nil;
 }
 
 // Given an INode, gives you a pointer to the GUI component if it actually is one, nil otherwise
@@ -1833,10 +1833,10 @@ const char  *plGUIControlBase::ISetSoundIndex( ParamID checkBoxID, ParamID sndCo
 static ParamBlockDesc2  sGUIControlProcParamTemplate
 (
     /// Main def
-    plGUIControlBase::kBlkProc, _T("GUIControlProc"), 0, nil, P_AUTO_UI + P_MULTIMAP + P_AUTO_CONSTRUCT, plComponent::kRefComp, 
+    plGUIControlBase::kBlkProc, _T("GUIControlProc"), 0, nil, P_AUTO_UI + P_MULTIMAP + P_AUTO_CONSTRUCT, plComponent::kRefComp,
 
-    1, 
-    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,   
+    1,
+    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,
 
     plGUIControlBase::kRefChoice,   _T("which"), TYPE_INT,      0, 0,
         p_ui,   plGUIControlBase::kRollProc, TYPE_RADIO, 4, IDC_GUI_CONRADIO, IDC_GUI_INHERITRADIO, IDC_GUI_CLOSERADIO, IDC_GUI_NILRADIO,
@@ -1854,7 +1854,7 @@ static ParamBlockDesc2  sGUIControlProcParamTemplate
 /////////////////////////////////////////////////////////////////////////////////////////////////
 //// plGUIButton Component //////////////////////////////////////////////////////////////////////
 //
-//  Defines a dialog button to be defined with the GUI manager at runtime. Belongs to exactly 
+//  Defines a dialog button to be defined with the GUI manager at runtime. Belongs to exactly
 //  one dialog, defined by parent-child relationship, also at runtime.
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1987,18 +1987,18 @@ static plGUISingleCtrlDlgProc sGUIButtonSndDProc( plGUIButtonComponent::kRefMous
 static plGUISingleCtrlDlgProc sGUIButtonDragChildProc( plGUIButtonComponent::kRefDraggableChild, IDC_GUI_DRAGCHILD,
                                             "Select the draggable to use when the mouse is dragged off of this button", sBtnDragClassesToSelect );
 
-static plGUISingleCtrlDlgProc   *sGUIButtonSubProcs[] = { &sGUIButtonSndAProc, &sGUIButtonSndBProc, 
-                                                          &sGUIButtonSndCProc, &sGUIButtonSndDProc, 
+static plGUISingleCtrlDlgProc   *sGUIButtonSubProcs[] = { &sGUIButtonSndAProc, &sGUIButtonSndBProc,
+                                                          &sGUIButtonSndCProc, &sGUIButtonSndDProc,
                                                           &sGUIButtonDragChildProc, nil };
 static ParamMap2UserDlgProc *sGUIButtonSubSubProcs[] = { &gGUIButtonProc, nil };
 
 static plGUIMultipleCtrlDlgProc sGUIButtonSels( sGUIButtonSubProcs, sGUIButtonSubSubProcs );
 
-static plPlasmaAnimSelectDlgProc    sGUIButtonAnimA( plGUIButtonComponent::kRefAnimation, IDC_GUI_COMPSELBTN, 
-                                                    plGUIButtonComponent::kRefAnimationNode, plGUIButtonComponent::kRefAnimationNodeType, IDC_GUI_ANIMNODESEL, 
+static plPlasmaAnimSelectDlgProc    sGUIButtonAnimA( plGUIButtonComponent::kRefAnimation, IDC_GUI_COMPSELBTN,
+                                                    plGUIButtonComponent::kRefAnimationNode, plGUIButtonComponent::kRefAnimationNodeType, IDC_GUI_ANIMNODESEL,
                                                     "Select the animation to play when this button is clicked", &sGUIButtonSels );
-static plPlasmaAnimSelectDlgProc    sGUIButtonProc( plGUIButtonComponent::kRefMouseOverAnimation, IDC_GUI_COMPSELBTN2, 
-                                                    plGUIButtonComponent::kRefMouseOverAnimationNode, plGUIButtonComponent::kRefMouseOverAnimationNodeType, IDC_GUI_ANIMNODESEL2, 
+static plPlasmaAnimSelectDlgProc    sGUIButtonProc( plGUIButtonComponent::kRefMouseOverAnimation, IDC_GUI_COMPSELBTN2,
+                                                    plGUIButtonComponent::kRefMouseOverAnimationNode, plGUIButtonComponent::kRefMouseOverAnimationNodeType, IDC_GUI_ANIMNODESEL2,
                                                     "Select the animation to play when the mouse moves over this button", &sGUIButtonAnimA );
 
 
@@ -2021,7 +2021,7 @@ ParamBlockDesc2 gGUIButtonBk
 
     3,
     plGUIControlBase::kRollMain, IDD_COMP_GUIBUTTON, IDS_COMP_GUIBUTTON, 0, 0, &sGUIButtonProc,
-    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,   
+    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,
     sGUIProxyParamHeader,
 
     &sGUIControlProcParamTemplate,
@@ -2102,7 +2102,7 @@ bool plGUIButtonComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg
         plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( fCompPB->GetINode( kRefAnimation ) );
         if( iface != nil && iface->MightRequireSeparateMaterial() )
         {
-            INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode ) 
+            INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode )
                                     ? fCompPB->GetINode( kRefAnimationNode )
                                     : (INode *)node;
 
@@ -2118,7 +2118,7 @@ bool plGUIButtonComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg
         plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( fCompPB->GetINode( kRefMouseOverAnimation ) );
         if( iface != nil && iface->MightRequireSeparateMaterial() )
         {
-            INode *restrict = ( fCompPB->GetInt( kRefMouseOverAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode ) 
+            INode *restrict = ( fCompPB->GetInt( kRefMouseOverAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode )
                                     ? fCompPB->GetINode( kRefMouseOverAnimationNode )
                                     : (INode *)node;
 
@@ -2152,7 +2152,7 @@ bool plGUIButtonComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( fCompPB->GetINode( kRefAnimation ) );
         if( iface != nil )
         {
-            INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode ) 
+            INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode )
                                     ? fCompPB->GetINode( kRefAnimationNode )
                                     : (INode *)node;
 
@@ -2168,7 +2168,7 @@ bool plGUIButtonComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( fCompPB->GetINode( kRefMouseOverAnimation ) );
         if( iface != nil )
         {
-            INode *restrict = ( fCompPB->GetInt( kRefMouseOverAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode ) 
+            INode *restrict = ( fCompPB->GetInt( kRefMouseOverAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode )
                                     ? fCompPB->GetINode( kRefMouseOverAnimationNode )
                                     : (INode *)node;
 
@@ -2197,7 +2197,7 @@ bool plGUIButtonComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         pfGUIDraggableMod *dragChild = pfGUIDraggableMod::ConvertNoRef( GrabControlMod( fCompPB->GetINode( kRefDraggableChild ) ) );
         if( dragChild != nil )
         {
-            hsgResMgr::ResMgr()->AddViaNotify( dragChild->GetKey(), 
+            hsgResMgr::ResMgr()->AddViaNotify( dragChild->GetKey(),
                                 new plGenRefMsg( button->GetKey(), plRefMsg::kOnCreate, -1, pfGUIButtonMod::kRefDraggable ), plRefFlags::kActiveRef );
         }
     }
@@ -2208,7 +2208,7 @@ bool plGUIButtonComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 /////////////////////////////////////////////////////////////////////////////////////////////////
 //// plGUICheckBox Component //////////////////////////////////////////////////////////////////////
 //
-//  Defines a dialog button to be defined with the GUI manager at runtime. Belongs to exactly 
+//  Defines a dialog button to be defined with the GUI manager at runtime. Belongs to exactly
 //  one dialog, defined by parent-child relationship, also at runtime.
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2280,13 +2280,13 @@ static plGUISingleCtrlDlgProc sGUICheckSndCProc( plGUICheckBoxComponent::kRefMou
 static plGUISingleCtrlDlgProc sGUICheckSndDProc( plGUICheckBoxComponent::kRefMouseOffSoundComp, IDC_GUI_MOFFSNDCOMP,
                                             "Select the sound to play when the mouse moves off of this button", sBtnSndClassesToSelect );
 
-static plGUISingleCtrlDlgProc   *sGUICheckSubProcs[] = { &sGUICheckSndAProc, &sGUICheckSndBProc, 
+static plGUISingleCtrlDlgProc   *sGUICheckSubProcs[] = { &sGUICheckSndAProc, &sGUICheckSndBProc,
                                                           &sGUICheckSndCProc, &sGUICheckSndDProc, nil };
 
 static plGUIMultipleCtrlDlgProc sGUICheckSels( sGUICheckSubProcs );
 
-static plPlasmaAnimSelectDlgProc    sGUICheckBoxProc( plGUICheckBoxComponent::kRefAnimation, IDC_GUI_COMPSELBTN, 
-                                                    plGUICheckBoxComponent::kRefAnimationNode, plGUICheckBoxComponent::kRefAnimationNodeType, IDC_GUI_ANIMNODESEL, 
+static plPlasmaAnimSelectDlgProc    sGUICheckBoxProc( plGUICheckBoxComponent::kRefAnimation, IDC_GUI_COMPSELBTN,
+                                                    plGUICheckBoxComponent::kRefAnimationNode, plGUICheckBoxComponent::kRefAnimationNodeType, IDC_GUI_ANIMNODESEL,
                                                     "Select the animation to play when this check box is clicked", &sGUICheckSels );
 
 //Max desc stuff necessary below.
@@ -2298,7 +2298,7 @@ ParamBlockDesc2 gGUICheckBoxBk
 
     3,
     plGUIControlBase::kRollMain, IDD_COMP_GUIBUTTON, IDS_COMP_GUICHECKBOX, 0, 0, &sGUICheckBoxProc,
-    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,   
+    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,
     
     sGUIProxyParamHeader,
 
@@ -2348,7 +2348,7 @@ bool plGUICheckBoxComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrM
         plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( fCompPB->GetINode( kRefAnimation ) );
         if( iface != nil && iface->MightRequireSeparateMaterial() )
         {
-            INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode ) 
+            INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode )
                                     ? fCompPB->GetINode( kRefAnimationNode )
                                     : (INode *)node;
 
@@ -2379,7 +2379,7 @@ bool plGUICheckBoxComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( fCompPB->GetINode( kRefAnimation ) );
         if( iface != nil )
         {
-            INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode ) 
+            INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode )
                                     ? fCompPB->GetINode( kRefAnimationNode )
                                     : (INode *)node;
 
@@ -2450,7 +2450,7 @@ ParamBlockDesc2 gGUIDraggableBk
 
     3,
     plGUIControlBase::kRollMain, IDD_COMP_GUIDRAGGABLE, IDS_COMP_GUIDRAGGABLE, 0, 0, NULL,
-    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,   
+    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,
     
     sGUIProxyParamHeader,
     
@@ -2559,8 +2559,8 @@ public:
     };
 };
 
-static plPlasmaAnimSelectDlgProc    sGUIKnobCtrlProc( plGUIKnobCtrlComponent::kRefAnimation, IDC_GUI_COMPSELBTN, 
-                                                    plGUIKnobCtrlComponent::kRefAnimationNode, plGUIKnobCtrlComponent::kRefAnimationNodeType, IDC_GUI_ANIMNODESEL, 
+static plPlasmaAnimSelectDlgProc    sGUIKnobCtrlProc( plGUIKnobCtrlComponent::kRefAnimation, IDC_GUI_COMPSELBTN,
+                                                    plGUIKnobCtrlComponent::kRefAnimationNode, plGUIKnobCtrlComponent::kRefAnimationNodeType, IDC_GUI_ANIMNODESEL,
                                                     "Select the animation to use when displaying this knob control", nil );
 
 //Max desc stuff necessary below.
@@ -2572,24 +2572,24 @@ ParamBlockDesc2 gGUIKnobCtrlBk
 
     3,
     plGUIControlBase::kRollMain, IDD_COMP_GUIKNOB, IDS_COMP_GUIKNOB, 0, 0, &sGUIKnobCtrlProc,
-    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,   
+    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,
     
     sGUIProxyParamHeader,
     
     &sGUIControlProcParamTemplate,
     
-    plGUIKnobCtrlComponent::kRefMinValue, _T("minValue"),   TYPE_FLOAT, 0, 0,   
+    plGUIKnobCtrlComponent::kRefMinValue, _T("minValue"),   TYPE_FLOAT, 0, 0,
         p_default, 0.0f,
         p_ui, plGUIControlBase::kRollMain, TYPE_SPINNER,    EDITTYPE_POS_FLOAT, IDC_GUI_LOWER, IDC_GUI_LOWER_SPIN, SPIN_AUTOSCALE,
         end,
 
-    plGUIKnobCtrlComponent::kRefMaxValue, _T("maxValue"),   TYPE_FLOAT, 0, 0,   
+    plGUIKnobCtrlComponent::kRefMaxValue, _T("maxValue"),   TYPE_FLOAT, 0, 0,
         p_default, 10.0f,
         p_range, -10000.f, 10000.f,         // WHY do we even need to specify this?
         p_ui, plGUIControlBase::kRollMain, TYPE_SPINNER,    EDITTYPE_POS_FLOAT, IDC_GUI_UPPER, IDC_GUI_UPPER_SPIN, SPIN_AUTOSCALE,
         end,
 
-    plGUIKnobCtrlComponent::kRefStep, _T("step"),   TYPE_FLOAT, 0, 0,   
+    plGUIKnobCtrlComponent::kRefStep, _T("step"),   TYPE_FLOAT, 0, 0,
         p_default, 1.0f,
         p_ui, plGUIControlBase::kRollMain, TYPE_SPINNER,    EDITTYPE_POS_FLOAT, IDC_GUI_STEP, IDC_GUI_STEP_SPIN, SPIN_AUTOSCALE,
         end,
@@ -2672,7 +2672,7 @@ bool plGUIKnobCtrlComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrM
     plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( fCompPB->GetINode( kRefAnimation ) );
     if( iface != nil && iface->MightRequireSeparateMaterial() )
     {
-        INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode ) 
+        INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode )
                                 ? fCompPB->GetINode( kRefAnimationNode )
                                 : (INode *)node;
 
@@ -2710,7 +2710,7 @@ bool plGUIKnobCtrlComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( fCompPB->GetINode( kRefAnimation ) );
     if( iface != nil )
     {
-        INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode ) 
+        INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode )
                                 ? fCompPB->GetINode( kRefAnimationNode )
                                 : (INode *)node;
 
@@ -2845,9 +2845,9 @@ ParamBlockDesc2 gGUIListBoxBk
 
     2,
     plGUIControlBase::kRollMain, IDD_COMP_GUILISTBOX, IDS_COMP_GUILISTBOX, 0, 0, &sGUILBSkinSelectProc,
-    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,   
+    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,
     
-    &sGUIControlProcParamTemplate,  
+    &sGUIControlProcParamTemplate,
 
     plGUIListBoxComponent::kRefUseScroll,   _T( "enableScrolling" ), TYPE_BOOL, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_SCROLLCTRL,
@@ -2947,7 +2947,7 @@ bool plGUIListBoxComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         pfGUIValueCtrl *scroll = pfGUIValueCtrl::ConvertNoRef( GrabControlMod( fCompPB->GetINode( kRefScrollCtrl ) ) );
         if( scroll != nil )
         {
-            hsgResMgr::ResMgr()->AddViaNotify( scroll->GetKey(), new plGenRefMsg( ctrl->GetKey(), 
+            hsgResMgr::ResMgr()->AddViaNotify( scroll->GetKey(), new plGenRefMsg( ctrl->GetKey(),
                                         plRefMsg::kOnCreate, -1, pfGUIListBoxMod::kRefScrollCtrl ), plRefFlags::kActiveRef );
         }
     }
@@ -3218,9 +3218,9 @@ ParamBlockDesc2 gGUITextBoxBk
 
     2,
     plGUIControlBase::kRollMain, IDD_COMP_GUITEXTBOX, IDS_COMP_GUITEXTBOX, 0, 0, &gGUITextBoxProc,
-    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,   
+    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,
     
-    &sGUIControlProcParamTemplate,  
+    &sGUIControlProcParamTemplate,
 
         plGUITextBoxComponent::kRefInitText,    _T("InitText"),     TYPE_STRING,        0, 0,
 //          p_ui,   plGUIControlBase::kRollMain, TYPE_EDITBOX, IDC_GUI_INITTEXT,
@@ -3232,7 +3232,7 @@ ParamBlockDesc2 gGUITextBoxBk
             end,
     
         plGUITextBoxComponent::kRefJustify, _T("justify"), TYPE_INT,        0, 0,
-            p_ui,   plGUIControlBase::kRollMain, TYPE_RADIO, 3, IDC_JUSTIFYRADIO, IDC_JUSTRADIO2, IDC_JUSTRADIO3, 
+            p_ui,   plGUIControlBase::kRollMain, TYPE_RADIO, 3, IDC_JUSTIFYRADIO, IDC_JUSTRADIO2, IDC_JUSTRADIO3,
             p_default, 0,
             end,
 
@@ -3339,9 +3339,9 @@ ParamBlockDesc2 gGUIEditBoxBk
 
     2,
     plGUIControlBase::kRollMain, IDD_COMP_GUIEDITBOX, IDS_COMP_GUIEDITBOX, 0, 0, NULL,
-    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,   
+    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,
     
-    &sGUIControlProcParamTemplate,  
+    &sGUIControlProcParamTemplate,
 
     plGUIEditBoxComponent::kRefXparentBgnd, _T( "xparentBgnd" ), TYPE_BOOL, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_XPARENT,
@@ -3533,9 +3533,9 @@ ParamBlockDesc2 gGUIUDPairBk
 
     2,
     plGUIControlBase::kRollMain, IDD_COMP_GUIUDSCROLL, IDS_COMP_GUIUDSCROLL, 0, 0, &sGUIUDPairDlgProc,
-    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,   
+    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,
     
-    &sGUIControlProcParamTemplate,  
+    &sGUIControlProcParamTemplate,
 
     plGUIUpDownPairComponent::kRefUpControl, _T("upControl"),   TYPE_INODE,     0, 0,
         p_prompt, IDS_COMP_GUI_SELECTUDCTRL,
@@ -3547,17 +3547,17 @@ ParamBlockDesc2 gGUIUDPairBk
         p_accessor, &sGUIUDAccessor,
         end,
 
-    plGUIUpDownPairComponent::kRefMinValue, _T("minValue"), TYPE_FLOAT, 0, 0,   
+    plGUIUpDownPairComponent::kRefMinValue, _T("minValue"), TYPE_FLOAT, 0, 0,
         p_default, 0.0f,
         p_ui, plGUIControlBase::kRollMain, TYPE_SPINNER,    EDITTYPE_POS_FLOAT, IDC_GUI_LOWER, IDC_GUI_LOWER_SPIN, SPIN_AUTOSCALE,
         end,
 
-    plGUIUpDownPairComponent::kRefMaxValue, _T("maxValue"), TYPE_FLOAT, 0, 0,   
+    plGUIUpDownPairComponent::kRefMaxValue, _T("maxValue"), TYPE_FLOAT, 0, 0,
         p_default, 10.0f,
         p_ui, plGUIControlBase::kRollMain, TYPE_SPINNER,    EDITTYPE_POS_FLOAT, IDC_GUI_UPPER, IDC_GUI_UPPER_SPIN, SPIN_AUTOSCALE,
         end,
 
-    plGUIUpDownPairComponent::kRefStep, _T("step"), TYPE_FLOAT, 0, 0,   
+    plGUIUpDownPairComponent::kRefStep, _T("step"), TYPE_FLOAT, 0, 0,
         p_default, 1.0f,
         p_ui, plGUIControlBase::kRollMain, TYPE_SPINNER,    EDITTYPE_POS_FLOAT, IDC_GUI_STEP, IDC_GUI_STEP_SPIN, SPIN_AUTOSCALE,
         end,
@@ -3640,11 +3640,11 @@ ParamBlockDesc2 gGUIDragBarBk
 
     3,
     plGUIControlBase::kRollMain, IDD_COMP_GUIDRAGBAR, IDS_COMP_GUIDRAGBAR, 0, 0, NULL,
-    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,   
+    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,
     
     sGUIProxyParamHeader,
     
-    &sGUIControlProcParamTemplate,  
+    &sGUIControlProcParamTemplate,
 
     sGUIProxyParamTemplate,
 
@@ -3766,7 +3766,7 @@ public:
                     {
                         IParamBlock2 *pb = map->GetParamBlock();
 
-                        plGUICtrlHitCallback hitCB( (INode *)pb->GetOwner(), pb, plGUIRadioGroupComponent::kRefCheckBoxes, 
+                        plGUICtrlHitCallback hitCB( (INode *)pb->GetOwner(), pb, plGUIRadioGroupComponent::kRefCheckBoxes,
                                     "Select a check box to add to this radio group", true, GUI_CHECKBOX_CLASSID, false );
 
                         GetCOREInterface()->DoHitByNameDialog( &hitCB );
@@ -3830,16 +3830,16 @@ ParamBlockDesc2 gGUIRadioGroupBk
 
     2,
     plGUIControlBase::kRollMain, IDD_COMP_GUIRADIOGROUP, IDS_COMP_GUIRADIOGROUP, 0, 0, &sGUIRadioGroupProc,
-    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,   
+    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,
     
-    &sGUIControlProcParamTemplate,  
+    &sGUIControlProcParamTemplate,
 
     plGUIRadioGroupComponent::kRefCheckBoxes,   _T("checkBoxes"),   TYPE_INODE_TAB, 0,      0, 0,
         p_ui,           plGUIControlBase::kRollMain, TYPE_NODELISTBOX, IDC_GUI_CHECKLIST, 0, 0, IDC_GUI_DELCHECK,
         p_accessor,     &sGUIRadioGroupAccessor,
         end,
 
-    plGUIRadioGroupComponent::kRefDefaultSel, _T("defaultSelection"),   TYPE_INT,   0, 0,   
+    plGUIRadioGroupComponent::kRefDefaultSel, _T("defaultSelection"),   TYPE_INT,   0, 0,
         p_default, 0,
         p_range, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SPINNER,    EDITTYPE_INT, IDC_GUI_DEFSEL, IDC_GUI_DEFSEL_SPIN, SPIN_AUTOSCALE,
@@ -4035,7 +4035,7 @@ bool plGUIDynDisplayComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     {
 
         pErrMsg->Set(true, "GUI Control Component Error", "The texmap selected for the Dynamic Display Control on object \"%s\" is not a Plasma Dynamic Text Layer. Please fix.", node->GetName() ).Show();
-        return false;   
+        return false;
     }
     
     const hsTArray<hsMaterialConverter::DoneMaterialData> &materials = hsMaterialConverter::Instance().DoneMaterials();
@@ -4122,9 +4122,9 @@ ParamBlockDesc2 gGUIMultiLineEditBoxBk
 
     2,
     plGUIControlBase::kRollMain, IDD_COMP_GUIMULTILINE, IDS_COMP_GUIMULTILINE, 0, 0, &sGUIMultiLineProc,
-    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,   
+    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,
     
-    &sGUIControlProcParamTemplate,  
+    &sGUIControlProcParamTemplate,
 
     plGUIMultiLineEditComp::kRefXparentBgnd,    _T( "xparentBgnd" ), TYPE_BOOL, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_XPARENT,
@@ -4187,7 +4187,7 @@ bool plGUIMultiLineEditComp::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         pfGUIValueCtrl *scroll = pfGUIValueCtrl::ConvertNoRef( GrabControlMod( fCompPB->GetINode( kRefScrollCtrl ) ) );
         if( scroll != nil )
         {
-            hsgResMgr::ResMgr()->AddViaNotify( scroll->GetKey(), new plGenRefMsg( ctrl->GetKey(), 
+            hsgResMgr::ResMgr()->AddViaNotify( scroll->GetKey(), new plGenRefMsg( ctrl->GetKey(),
                                         plRefMsg::kOnCreate, -1, pfGUIMultiLineEditCtrl::kRefScrollCtrl ), plRefFlags::kActiveRef );
         }
     }
@@ -4313,8 +4313,8 @@ public:
 static plGUISoundDlgProc            sGUIProgressCtrlSndProc( plGUIProgressCtrlComponent::kRefAnimateSoundComp, IDC_GUI_ANIMSNDCOMP,
                                             "Select the sound to play when this control animates" );
 
-static plPlasmaAnimSelectDlgProc    sGUIProgressCtrlProc( plGUIProgressCtrlComponent::kRefAnimation, IDC_GUI_COMPSELBTN, 
-                                                    plGUIProgressCtrlComponent::kRefAnimationNode, plGUIProgressCtrlComponent::kRefAnimationNodeType, IDC_GUI_ANIMNODESEL, 
+static plPlasmaAnimSelectDlgProc    sGUIProgressCtrlProc( plGUIProgressCtrlComponent::kRefAnimation, IDC_GUI_COMPSELBTN,
+                                                    plGUIProgressCtrlComponent::kRefAnimationNode, plGUIProgressCtrlComponent::kRefAnimationNodeType, IDC_GUI_ANIMNODESEL,
                                                     "Select the animation to use when displaying this knob control", &sGUIProgressCtrlSndProc );
 
 //Max desc stuff necessary below.
@@ -4326,22 +4326,22 @@ ParamBlockDesc2 gGUIProgressCtrlBk
 
     2,
     plGUIControlBase::kRollMain, IDD_COMP_GUIPROGRESS, IDS_COMP_GUIPROGRESS, 0, 0, &sGUIProgressCtrlProc,
-    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,   
+    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,
     
     &sGUIControlProcParamTemplate,
     
-    plGUIProgressCtrlComponent::kRefMinValue, _T("minValue"),   TYPE_FLOAT, 0, 0,   
+    plGUIProgressCtrlComponent::kRefMinValue, _T("minValue"),   TYPE_FLOAT, 0, 0,
         p_default, 0.0f,
         p_ui, plGUIControlBase::kRollMain, TYPE_SPINNER,    EDITTYPE_POS_FLOAT, IDC_GUI_LOWER, IDC_GUI_LOWER_SPIN, SPIN_AUTOSCALE,
         end,
 
-    plGUIProgressCtrlComponent::kRefMaxValue, _T("maxValue"),   TYPE_FLOAT, 0, 0,   
+    plGUIProgressCtrlComponent::kRefMaxValue, _T("maxValue"),   TYPE_FLOAT, 0, 0,
         p_default, 10.0f,
         p_range, -10000.f, 10000.f,         // WHY do we even need to specify this?
         p_ui, plGUIControlBase::kRollMain, TYPE_SPINNER,    EDITTYPE_POS_FLOAT, IDC_GUI_UPPER, IDC_GUI_UPPER_SPIN, SPIN_AUTOSCALE,
         end,
 
-    plGUIProgressCtrlComponent::kRefStep, _T("step"),   TYPE_FLOAT, 0, 0,   
+    plGUIProgressCtrlComponent::kRefStep, _T("step"),   TYPE_FLOAT, 0, 0,
         p_default, 1.0f,
         p_ui, plGUIControlBase::kRollMain, TYPE_SPINNER,    EDITTYPE_POS_FLOAT, IDC_GUI_STEP, IDC_GUI_STEP_SPIN, SPIN_AUTOSCALE,
         end,
@@ -4390,7 +4390,7 @@ bool plGUIProgressCtrlComponent::SetupProperties(plMaxNode *node,  plErrorMsg *p
     plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( fCompPB->GetINode( kRefAnimation ) );
     if( iface != nil && iface->MightRequireSeparateMaterial() )
     {
-        INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode ) 
+        INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode )
                                 ? fCompPB->GetINode( kRefAnimationNode )
                                 : (INode *)node;
 
@@ -4428,7 +4428,7 @@ bool plGUIProgressCtrlComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( fCompPB->GetINode( kRefAnimation ) );
     if( iface != nil )
     {
-        INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode ) 
+        INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode )
                                 ? fCompPB->GetINode( kRefAnimationNode )
                                 : (INode *)node;
 
@@ -4500,7 +4500,7 @@ ParamBlockDesc2 gGUIClickMapBk
 
     2,
     plGUIControlBase::kRollMain, IDD_COMP_GUICLICKMAP, IDS_COMP_GUICLICKMAP, 0, 0, NULL,
-    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,   
+    plGUIControlBase::kRollProc, IDD_COMP_GUIPROCROLLOUT, IDS_COMP_GUIPROCROLLOUT, 0, 0, nil,
     
     &sGUIControlProcParamTemplate,
 
@@ -4589,7 +4589,7 @@ static ParamBlockDesc2  gGUISkinBk
     /// Main def
      plComponent::kBlkComp, _T("GUISkin"), 0, &gGUISkinDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
-    IDD_COMP_GUISKIN, IDS_COMP_GUISKIN, 0, 0, &gGUISkinProc,    
+    IDD_COMP_GUISKIN, IDS_COMP_GUISKIN, 0, 0, &gGUISkinProc,
 
     plGUISkinComp::kRefBitmap,  _T("bitmap"),       TYPE_TEXMAP,        0, 0,
         end,
@@ -4703,7 +4703,7 @@ Texmap  *plGUISkinComp::GetMtl( uint32_t idx )
 //// GetSkinBitmap ///////////////////////////////////////////////////////////
 
 plLayerTex  *plGUISkinComp::GetSkinBitmap()
-{  
+{
     // If we don't have one, create one
     plLayerTex  *layer = (plLayerTex *)fCompPB->GetTexmap( kRefBitmap, 0 );
     if( layer == nil || layer->ClassID() != LAYER_TEX_CLASS_ID )
@@ -4746,7 +4746,7 @@ bool plGUISkinComp::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
     Texmap *texture = fCompPB->GetTexmap( kRefBitmap );
     if( texture == nil || texture->ClassID() != LAYER_TEX_CLASS_ID || ( (plLayerTex *)texture )->GetPBBitmap() == nil )
     {
-        pErrMsg->Set( true, "GUI Skin Convert Error", 
+        pErrMsg->Set( true, "GUI Skin Convert Error",
                             "The GUI skin component %s doesn't have a mipmap associated with it. This skin will not "
                             "be exported.", GetINode()->GetName() ).CheckAndAsk();
         pErrMsg->Set( false );
@@ -4773,7 +4773,7 @@ bool plGUISkinComp::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     {
         ParamID     id = ( i * 4 ) + kRefUpLeftCorner;
 
-        fConvertedSkin->SetElement( i, fCompPB->GetInt( id + 0 ), fCompPB->GetInt( id + 1 ), 
+        fConvertedSkin->SetElement( i, fCompPB->GetInt( id + 0 ), fCompPB->GetInt( id + 1 ),
                                     fCompPB->GetInt( id + 2 ), fCompPB->GetInt( id + 3 ) );
     }
 
@@ -4786,7 +4786,7 @@ bool plGUISkinComp::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
             plBitmap *bMap = plLayerConverter::Instance().CreateSimpleTexture( texture->bi.Name(), fConvertedSkin->GetKey()->GetUoid().GetLocation(), 0, plMipmap::kForceNonCompressed | plMipmap::kAlphaChannelFlag | plMipmap::kNoMaxSize );
             if( bMap != nil && plMipmap::ConvertNoRef( bMap ) != nil )
             {
-                hsgResMgr::ResMgr()->AddViaNotify( bMap->GetKey(), new plGenRefMsg( fConvertedSkin->GetKey(), 
+                hsgResMgr::ResMgr()->AddViaNotify( bMap->GetKey(), new plGenRefMsg( fConvertedSkin->GetKey(),
                                         plRefMsg::kOnCreate, -1, pfGUISkin::kRefMipmap ), plRefFlags::kActiveRef );
             }
         }
@@ -4798,7 +4798,7 @@ bool plGUISkinComp::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 bool plGUISkinComp::DeInit(plMaxNode *node, plErrorMsg *pErrMsg)
 {
     fConvertedSkin = nil;
-    return true; 
+    return true;
 }
 
 
@@ -4836,10 +4836,10 @@ ParamBlockDesc2 gGUIMenuBk
 (   // KLUDGE: not the defined block ID, but kept for backwards compat.
  plComponent::kBlkComp, _T("GUIMenu"), 0, &gGUIMenuDesc, P_AUTO_CONSTRUCT + P_AUTO_UI + P_MULTIMAP + P_INCLUDE_PARAMS, plComponent::kRefComp,
 
-    3, 
+    3,
     plGUIMenuComponent::kMainRollout,   IDD_COMP_GUIMENUANCHOR, IDS_COMP_GUIMENUANCHOR, 0, 0, &sGUISkinSelectProc,
     plGUIMenuComponent::kTagIDRollout,  IDD_COMP_GUITAG,    IDS_COMP_GUITAG,    0, 0, &gGUITagProc,
-    plGUIMenuComponent::kSchemeRollout, IDD_COMP_GUISCHEME, IDS_COMP_GUISCHEME, 0, 0, &gGUIColorSchemeProc, 
+    plGUIMenuComponent::kSchemeRollout, IDD_COMP_GUISCHEME, IDS_COMP_GUISCHEME, 0, 0, &gGUIColorSchemeProc,
 
     &gGUIColorSchemeBk,
 
@@ -4865,17 +4865,17 @@ ParamBlockDesc2 gGUIMenuBk
         plGUIMenuComponent::kRefNeverClose, _T("neverClose"),       TYPE_BOOL,      0, 0,
             p_default,  FALSE,
             p_ui, plGUIMenuComponent::kMainRollout, TYPE_SINGLECHEKBOX, IDC_GUI_NEVERCLOSE,
-            end,        
+            end,
 
         plGUIMenuComponent::kRefModalOutside, _T("modalOutside"),       TYPE_BOOL,      0, 0,
             p_default,  FALSE,
             p_ui, plGUIMenuComponent::kMainRollout, TYPE_SINGLECHEKBOX, IDC_GUI_MODALOUTSIDE,
-            end,        
+            end,
 
         plGUIMenuComponent::kRefOpenOnHover, _T("openSubsOnHover"),     TYPE_BOOL,      0, 0,
             p_default,  FALSE,
             p_ui, plGUIMenuComponent::kMainRollout, TYPE_SINGLECHEKBOX, IDC_GUI_HOVER,
-            end,        
+            end,
 
         plGUIMenuComponent::kRefAlignment, _T("alignment"), TYPE_INT, 0, 0,
             p_default, 3,
@@ -4885,7 +4885,7 @@ ParamBlockDesc2 gGUIMenuBk
         plGUIMenuComponent::kRefScaleWithScreenRes, _T("maintainSizeAcrossRes"),        TYPE_BOOL,      0, 0,
             p_default,  FALSE,
             p_ui, plGUIMenuComponent::kMainRollout, TYPE_SINGLECHEKBOX, IDC_GUI_SCALERES,
-            end,        
+            end,
 
     end
 );
@@ -4988,7 +4988,7 @@ bool plGUIMenuComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 
 
     hsgResMgr::ResMgr()->AddViaNotify( renderMod->GetKey(), new plNodeRefMsg( fConvertedNode, plRefMsg::kOnCreate, -1, plNodeRefMsg::kGeneric ), plRefFlags::kActiveRef );
-    hsgResMgr::ResMgr()->AddViaNotify( fConvertedNode, new plGenRefMsg( renderMod->GetKey(), plRefMsg::kOnCreate, 0, plPostEffectMod::kNodeRef ), plRefFlags::kPassiveRef );        
+    hsgResMgr::ResMgr()->AddViaNotify( fConvertedNode, new plGenRefMsg( renderMod->GetKey(), plRefMsg::kOnCreate, 0, plPostEffectMod::kNodeRef ), plRefFlags::kPassiveRef );
 
     menu->SetRenderMod( renderMod );
     menu->SetName( fCompPB->GetStr( kRefDialogName ) );
@@ -5002,10 +5002,10 @@ bool plGUIMenuComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     hsgResMgr::ResMgr()->NewKey( IGetUniqueName(node), newCI, loc );
 
 
-    hsgResMgr::ResMgr()->AddViaNotify( menu->GetKey(), new plObjRefMsg( newObj->GetKey(), plRefMsg::kOnCreate, -1, plObjRefMsg::kModifier ), plRefFlags::kActiveRef );      
+    hsgResMgr::ResMgr()->AddViaNotify( menu->GetKey(), new plObjRefMsg( newObj->GetKey(), plRefMsg::kOnCreate, -1, plObjRefMsg::kModifier ), plRefFlags::kActiveRef );
 
-    hsgResMgr::ResMgr()->AddViaNotify( newCI->GetKey(), new plObjRefMsg( newObj->GetKey(), plRefMsg::kOnCreate, -1, plObjRefMsg::kInterface ), plRefFlags::kActiveRef );        
-    hsgResMgr::ResMgr()->AddViaNotify( renderMod->GetKey(), new plObjRefMsg( newObj->GetKey(), plRefMsg::kOnCreate, -1, plObjRefMsg::kModifier ), plRefFlags::kActiveRef );     
+    hsgResMgr::ResMgr()->AddViaNotify( newCI->GetKey(), new plObjRefMsg( newObj->GetKey(), plRefMsg::kOnCreate, -1, plObjRefMsg::kInterface ), plRefFlags::kActiveRef );
+    hsgResMgr::ResMgr()->AddViaNotify( renderMod->GetKey(), new plObjRefMsg( newObj->GetKey(), plRefMsg::kOnCreate, -1, plObjRefMsg::kModifier ), plRefFlags::kActiveRef );
 
     newObj->SetSceneNode( fConvertedNode );
     menu->SetSceneNodeKey( fConvertedNode );
@@ -5035,9 +5035,9 @@ bool plGUIMenuComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
         if( !fSeqNumValidated )
         {
             char errMsg[ 512 ];
-            sprintf( errMsg, "GUI Menu Component %s has an invalid location sequence number (0x%X). Temporarily using a valid one (0x%X).", 
+            sprintf( errMsg, "GUI Menu Component %s has an invalid location sequence number (0x%X). Temporarily using a valid one (0x%X).",
                                 node->GetName(), seqNum, newNum );
-            pErrMsg->Set( true, "PageInfo Convert Error", errMsg ).Show(); 
+            pErrMsg->Set( true, "PageInfo Convert Error", errMsg ).Show();
             pErrMsg->Set( false );
             fSeqNumValidated = true;
         }
@@ -5047,7 +5047,7 @@ bool plGUIMenuComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
     fConvertedNode = plPluginResManager::ResMgr()->NameToLoc( fCompPB->GetStr( kRefAgeName ), fCompPB->GetStr( kRefDialogName ), seqNum );
     if( !fConvertedNode )
     {
-        pErrMsg->Set( true, "GUI Menu Component Error", "GUI MenuComponent %s has a Missing Location.  Nuke the files in the dat directory and re-export.",((INode*)node)->GetName()).Show(); 
+        pErrMsg->Set( true, "GUI Menu Component Error", "GUI MenuComponent %s has a Missing Location.  Nuke the files in the dat directory and re-export.",((INode*)node)->GetName()).Show();
         return false;
     }
 

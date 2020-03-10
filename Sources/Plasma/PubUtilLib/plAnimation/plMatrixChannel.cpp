@@ -202,7 +202,7 @@ void plMatrixConstant::Set(const hsMatrix44 &value)
     fResult = value;
 
     gemAffineParts gemParts1;
-    decomp_affine(value.fMap, &gemParts1); 
+    decomp_affine(value.fMap, &gemParts1);
     AP_SET(fAP, gemParts1);
 }
 
@@ -536,7 +536,7 @@ const hsMatrix44 & plMatrixControllerChannel::Value(double time, bool peek,
 
     plProfile_BeginTiming(AffineCompose);
     fAP.ComposeMatrix(&fResult);
-    plProfile_EndTiming(AffineCompose);     
+    plProfile_EndTiming(AffineCompose);
     return fResult;
 }
 
@@ -704,10 +704,10 @@ const hsMatrix44 & plQuatPointCombine::Value(double time)
 
 const hsAffineParts & plQuatPointCombine::AffineValue(double time)
 {
-    // XXX Lame hack to get things to compile for now. 
+    // XXX Lame hack to get things to compile for now.
     // Will fix when we actually start using this channel type.
     gemAffineParts gemParts1;
-    decomp_affine(Value(time).fMap, &gemParts1); 
+    decomp_affine(Value(time).fMap, &gemParts1);
     AP_SET(fAP, gemParts1);
 
     return fAP;
@@ -758,7 +758,7 @@ void plMatrixChannelApplicator::IApply(const plAGModifier *mod, double time)
             plProfile_BeginTiming(MatrixApplicator);
             plCoordinateInterface *CI = IGetCI(mod);
             CI->SetLocalToParent(result, inverse);
-            plProfile_EndTiming(MatrixApplicator);  
+            plProfile_EndTiming(MatrixApplicator);
         }
     }
 }
@@ -785,7 +785,7 @@ void plMatrixDelayedCorrectionApplicator::SetCorrection(hsMatrix44 &cor)
     // which looks right visually when we interp. If certain cases become
     // visually annoying, we can check and adjust things here.
     gemAffineParts gemParts1;
-    decomp_affine(cor.fMap, &gemParts1); 
+    decomp_affine(cor.fMap, &gemParts1);
     AP_SET(fCorAP, gemParts1);
 
     fDelayStart = hsTimer::GetSysSeconds();
@@ -812,7 +812,7 @@ void plMatrixDelayedCorrectionApplicator::IApply(const plAGModifier *mod, double
             hsAssert(matChan, "Invalid channel given to plMatrixChannelApplicator");
 
             plProfile_BeginTiming(MatrixApplicator);
-            plCoordinateInterface *CI = IGetCI(mod);            
+            plCoordinateInterface *CI = IGetCI(mod);
             const hsMatrix44 &animResult = matChan->Value(time);
             hsMatrix44 localResult;
             hsMatrix44 localInverse;
@@ -835,7 +835,7 @@ void plMatrixDelayedCorrectionApplicator::IApply(const plAGModifier *mod, double
             else
             {
                 animResult.GetInverse(&localInverse);
-                CI->SetLocalToParent(animResult, localInverse);     
+                CI->SetLocalToParent(animResult, localInverse);
             }
             plProfile_EndTiming(MatrixApplicator);
         }
@@ -920,7 +920,7 @@ void plMatrixDifferenceApp::IApply(const plAGModifier *mod, double time)
     ap.ComposeInverseMatrix(&A2L);
     plProfile_EndTiming(AffineCompose);
 
-    plProfile_BeginTiming(MatrixApplicator);    
+    plProfile_BeginTiming(MatrixApplicator);
     if(fNew)                    // if it's new, there's no previous frame to diff against;
     {                           // cache the current and don't do anything
         fLastA2L = A2L;
@@ -948,7 +948,7 @@ void plMatrixDifferenceApp::IApply(const plAGModifier *mod, double time)
             fLastA2L = A2L;
         }
     }
-    plProfile_EndTiming(MatrixApplicator);  
+    plProfile_EndTiming(MatrixApplicator);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////

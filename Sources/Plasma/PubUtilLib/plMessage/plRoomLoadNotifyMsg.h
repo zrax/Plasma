@@ -70,8 +70,8 @@ private:
 public:
     plRoomLoadNotifyMsg()
         : plMessage(nil, nil, nil) { IInit(); }
-    plRoomLoadNotifyMsg(const plKey &s, 
-                const plKey &r, 
+    plRoomLoadNotifyMsg(const plKey &s,
+                const plKey &r,
                 const double* t)
         : plMessage(s, r, t) { IInit(); }
     virtual ~plRoomLoadNotifyMsg() { }

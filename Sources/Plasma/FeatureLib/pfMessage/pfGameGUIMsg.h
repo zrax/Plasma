@@ -63,7 +63,7 @@ class pfGameGUIMsg : public plMessage
         ST::string  fAge;
 
     public:
-        enum 
+        enum
         {
             kShowDialog,
             kHideDialog,
@@ -76,9 +76,9 @@ class pfGameGUIMsg : public plMessage
         CLASSNAME_REGISTER( pfGameGUIMsg );
         GETINTERFACE_ANY( pfGameGUIMsg, plMessage );
 
-        virtual void Read(hsStream* s, hsResMgr* mgr) 
-        { 
-            plMessage::IMsgRead( s, mgr ); 
+        virtual void Read(hsStream* s, hsResMgr* mgr)
+        {
+            plMessage::IMsgRead( s, mgr );
             s->ReadLE( &fCommand );
             char buffer[GAME_GUI_MSG_STRING_SIZE];
             s->Read(sizeof(buffer), buffer);
@@ -87,9 +87,9 @@ class pfGameGUIMsg : public plMessage
             fAge = s->ReadSafeString();
         }
         
-        virtual void Write(hsStream* s, hsResMgr* mgr) 
-        { 
-            plMessage::IMsgWrite( s, mgr ); 
+        virtual void Write(hsStream* s, hsResMgr* mgr)
+        {
+            plMessage::IMsgWrite( s, mgr );
             s->WriteLE( fCommand );
             char buffer[GAME_GUI_MSG_STRING_SIZE];
             strncpy(buffer, fString.c_str(), GAME_GUI_MSG_STRING_SIZE);

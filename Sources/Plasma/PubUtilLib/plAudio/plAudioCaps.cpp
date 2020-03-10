@@ -130,7 +130,7 @@ plAudioCaps &plAudioCapsDetector::Detect( bool logIt, bool init )
             break;
         fCaps.fMaxNumSources++;
     }
-    alDeleteSources(i, sources); 
+    alDeleteSources(i, sources);
     LogMeF(0xffffffff, "Max Number of sources: {}", i);
     plStatusLog::AddLineSF("audio.log", "Max Number of sources: {}", i);
 
@@ -144,7 +144,7 @@ plAudioCaps &plAudioCapsDetector::Detect( bool logIt, bool init )
     fGotCaps = true; // We've got the device capabilities
 
     if(init)
-    {   
+    {
         alcMakeContextCurrent(nil);
         alcDestroyContext(context);
         alcCloseDevice(device);
@@ -154,9 +154,9 @@ plAudioCaps &plAudioCapsDetector::Detect( bool logIt, bool init )
 
 //// IDetectEAX //////////////////////////////////////////////////////////////
 //  Attempt to actually init the EAX listener.Note that we can potentially do
-//  this even if we didn't load the EAX Unified driver (we could just be 
-//  running EAX 3.0 native), so you can really just think of the EAX Unified 
-//  init code above as a way of trying to make sure this line here will 
+//  this even if we didn't load the EAX Unified driver (we could just be
+//  running EAX 3.0 native), so you can really just think of the EAX Unified
+//  init code above as a way of trying to make sure this line here will
 //  succeed as often as possible.
 
 bool    plAudioCapsDetector::IDetectEAX(  )

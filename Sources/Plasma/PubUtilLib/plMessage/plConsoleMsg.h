@@ -58,7 +58,7 @@ protected:
 
 public:
 
-    enum 
+    enum
     {
         kExecuteFile,
         kAddLine,
@@ -66,7 +66,7 @@ public:
     };
 
     plConsoleMsg() : plMessage(nil, nil, nil), fCmd( 0 ), fString( nil ) { SetBCastFlag(kBCastByExactType); }
-    plConsoleMsg( uint32_t cmd, const char *str ) : 
+    plConsoleMsg( uint32_t cmd, const char *str ) :
                 plMessage(nil, nil, nil), fCmd( cmd ), fString(hsStrcpy(str))
                 { SetBCastFlag( kBCastByExactType ); }
     
@@ -81,20 +81,20 @@ public:
     void SetCmd (uint32_t cmd) { fCmd = cmd; }
     void SetString (const char str[]) { free(fString); fString = hsStrcpy(str); }
 
-    virtual void Read(hsStream* s, hsResMgr* mgr) 
-    { 
-        plMessage::IMsgRead(s, mgr); 
+    virtual void Read(hsStream* s, hsResMgr* mgr)
+    {
+        plMessage::IMsgRead(s, mgr);
         s->ReadLE(&fCmd);
         // read string
-        plMsgCStringHelper::Peek(fString, s);               
+        plMsgCStringHelper::Peek(fString, s);
     }
     
-    virtual void Write(hsStream* s, hsResMgr* mgr) 
-    { 
+    virtual void Write(hsStream* s, hsResMgr* mgr)
+    {
         plMessage::IMsgWrite(s, mgr);
         s->WriteLE(fCmd);
         // write cmd/string
-        plMsgCStringHelper::Poke(fString, s);       
+        plMsgCStringHelper::Poke(fString, s);
     }
 };
 

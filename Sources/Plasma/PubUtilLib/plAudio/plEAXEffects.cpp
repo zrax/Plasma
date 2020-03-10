@@ -132,7 +132,7 @@ bool    plEAXListener::Init()
         plStatusLog::AddLineS("audio.log", "EAX 4 available");
     }
     
-    // EAX is supported 
+    // EAX is supported
     s_EAXGet = (EAXGet)alGetProcAddress((ALchar *)"EAXGet");
     s_EAXSet = (EAXSet)alGetProcAddress((ALchar *)"EAXSet");
     if(!s_EAXGet || ! s_EAXSet)
@@ -296,7 +296,7 @@ void    plEAXListener::ClearProcessCache()
 //  to a region iff it's the only region from the last pass that had a
 //  strength > 0. The reason we can't do our trick before is because even if
 //  we have a region w/ strength 1, another region might power up from 1 and
-//  thus suddenly alter the total reverb settings. Thus, the only time we 
+//  thus suddenly alter the total reverb settings. Thus, the only time we
 //  can wisely skip is if our current big region == fLastBigRegion *and*
 //  the total strength is the same.
 
@@ -394,7 +394,7 @@ void    plEAXListener::ProcessMods( hsTArray<plEAXListenerMod *> &modArray )
             fLastBigRegion = nil;
             fLastSingleStrength = -1.f;
         }
-        else 
+        else
         {
             fLastWasEmpty = false;
 
@@ -427,7 +427,7 @@ void    plEAXListener::ProcessMods( hsTArray<plEAXListenerMod *> &modArray )
         fLastWasEmpty = true;
     }
 
-    // if were morphing between regions, do 10th of a second check, otherwise just let it 
+    // if were morphing between regions, do 10th of a second check, otherwise just let it
     // change due to opt out(caching) feature.
     if(bMorphing)
     {
@@ -643,7 +643,7 @@ void    plEAXSourceSoftSettings::SetOcclusion( int16_t occ, float lfRatio, float
 //// Constructor/Destructor //////////////////////////////////////////////////
 
 plEAXSource::plEAXSource()
-{   
+{
     fInit = false;
     
 }
@@ -678,7 +678,7 @@ bool    plEAXSource::IsValid() const
 void    plEAXSource::SetFrom( plEAXSourceSettings *settings, unsigned source, bool force )
 {
     uint32_t dirtyParams;
-    if(source == 0 || !fInit) 
+    if(source == 0 || !fInit)
         return;
 
     if( force )
@@ -723,7 +723,7 @@ void    plEAXSource::SetFrom( plEAXSourceSettings *settings, unsigned source, bo
     DWORD   flags;
     
 
-    if( GetSourceEAXProperty( source, DSPROPSETID_EAX_BufferProperties, DSPROPERTY_EAXBUFFER_FLAGS, &flags, sizeof( DWORD )) ) 
+    if( GetSourceEAXProperty( source, DSPROPSETID_EAX_BufferProperties, DSPROPERTY_EAXBUFFER_FLAGS, &flags, sizeof( DWORD )) )
     {
         if( settings->GetRoomAuto() )
             flags |= EAXBUFFERFLAGS_ROOMAUTO;
@@ -735,10 +735,10 @@ void    plEAXSource::SetFrom( plEAXSourceSettings *settings, unsigned source, bo
         else
             flags &= ~EAXBUFFERFLAGS_ROOMHFAUTO;
 
-        if( SetSourceEAXProperty( source, DSPROPSETID_EAX_BufferProperties, DSPROPERTY_EAXBUFFER_FLAGS, &flags, sizeof( DWORD ) ) ) 
+        if( SetSourceEAXProperty( source, DSPROPSETID_EAX_BufferProperties, DSPROPERTY_EAXBUFFER_FLAGS, &flags, sizeof( DWORD ) ) )
         {
             return; // All worked, return here
-        }   
+        }
         
         // Flag setting failed somehow
         hsAssert( false, "Unable to set EAX buffer flags" );

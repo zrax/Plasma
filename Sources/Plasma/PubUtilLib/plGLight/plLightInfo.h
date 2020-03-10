@@ -167,7 +167,7 @@ public:
 
     // Dirty state is local to this machine, so shouldn't be in the network synchronized properties.
     bool    IsDirty() const { return 0 != (fVolFlags & kVolDirty); }
-    void    SetDirty(bool on=true) { if(on)fVolFlags |= kVolDirty; else fVolFlags &= ~kVolDirty; }    
+    void    SetDirty(bool on=true) { if(on)fVolFlags |= kVolDirty; else fVolFlags &= ~kVolDirty; }
 
     bool    IsEmpty() const { return 0 != (fVolFlags & kVolEmpty); }
     void    SetEmpty(bool on=true) { if(on)fVolFlags |= kVolEmpty; else fVolFlags &= ~kVolEmpty; }

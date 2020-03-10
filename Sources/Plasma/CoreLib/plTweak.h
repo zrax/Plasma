@@ -54,9 +54,9 @@ template <typename T> class plTweak
         
         plTweak& operator=(const T& v) { fVal = v; return *this; }
 
-        operator T () const 
-        { 
-            return fVal; 
+        operator T () const
+        {
+            return fVal;
         }
 
 };

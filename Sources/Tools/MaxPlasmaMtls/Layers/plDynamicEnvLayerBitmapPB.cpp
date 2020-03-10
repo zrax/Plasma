@@ -58,7 +58,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 class PickAnchorNode : public PickObjectProc
 {
-    public:             
+    public:
         plDynamicEnvLayer   *fLayer;
         HWND                fHWnd;
         int bleah;
@@ -83,11 +83,11 @@ class PickAnchorNode : public PickObjectProc
             Object  *obj = node->EvalWorldState( 0 ).obj;
             if( obj != NULL )
             {
-                if( obj->CanConvertToType( triObjectClassID ) || 
+                if( obj->CanConvertToType( triObjectClassID ) ||
                     obj->ClassID() == Class_ID( DUMMY_CLASS_ID, 0 ) )
                     return TRUE;
             }
-            return FALSE; 
+            return FALSE;
         }
 
     protected:
@@ -173,7 +173,7 @@ public:
             case WM_INITDIALOG:
                 break;
 
-            case CC_SPINNER_CHANGE:      
+            case CC_SPINNER_CHANGE:
                 if( LOWORD( wParam ) == IDC_TEXSIZE_SPIN )
                     IClampTexSizeSpinner( t, map );
                 break;

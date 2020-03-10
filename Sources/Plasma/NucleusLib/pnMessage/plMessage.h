@@ -66,12 +66,12 @@ public:
         kPropagateToModifiers   = 0x10, // Send the msg to an object and all its modifier
         kClearAfterBCast        = 0x20, // Clear registration for this type after sending this msg
         kNetPropagate           = 0x40, // Propagate this message over the network (remotely)
-        kNetSent                = 0x80, // Internal use-This msg has been sent over the network 
+        kNetSent                = 0x80, // Internal use-This msg has been sent over the network
         kNetUseRelevanceRegions = 0x100, // Used along with NetPropagate to filter the msg bcast using relevance regions
         kNetForce               = 0x200, // Used along with NetPropagate to force the msg to go out (ie. ignore cascading rules)
         kNetNonLocal            = 0x400, // Internal use-This msg came in over the network (remote msg)
         kLocalPropagate         = 0x800, // Propagate this message locally (ON BY DEFAULT)
-        kNetNonDeterministic    = kNetForce, // This msg is a non-deterministic response to another msg 
+        kNetNonDeterministic    = kNetForce, // This msg is a non-deterministic response to another msg
         kMsgWatch               = 0x1000, // Debug only - will break in dispatch before sending this msg
         kNetStartCascade        = 0x2000, // Internal use-msg is non-local and initiates a cascade of net msgs. This bit is not inherited or computed, it's a property.
         kNetAllowInterAge       = 0x4000, // If rcvr is online but not in current age, they will receive msg courtesy of pls routing.
@@ -113,7 +113,7 @@ public:
     GETINTERFACE_ANY(plMessage, plCreatable);
 
     // These must be implemented by all derived message classes (hence pure).
-    // Derived classes should call the base-class default read/write implementation, 
+    // Derived classes should call the base-class default read/write implementation,
     // so the derived Read() should call plMessage::IMsgRead().
     void Read(hsStream* stream, hsResMgr* mgr) HS_OVERRIDE = 0;
     void Write(hsStream* stream, hsResMgr* mgr) HS_OVERRIDE = 0;
@@ -146,7 +146,7 @@ public:
     void AddNetReceivers( const std::vector<uint32_t> & plrIDs );
     std::vector<uint32_t>* GetNetReceivers() const { return fNetRcvrPlayerIDs; }
 
-    // just before dispatching this message, drop into debugger 
+    // just before dispatching this message, drop into debugger
     void SetBreakBeforeDispatch (bool on) { dispatchBreak = on; }
     bool GetBreakBeforeDispatch () const { return dispatchBreak; }
 };

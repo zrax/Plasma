@@ -214,7 +214,7 @@ public:
     virtual const hsPoint3 & Value(double time);
     virtual const hsPoint3 & Value(double time, plControllerCacheInfo *cache);
     
-    virtual plAGChannel * MakeCacheChannel(plAnimTimeConvert *atc);     
+    virtual plAGChannel * MakeCacheChannel(plAnimTimeConvert *atc);
     
     // PLASMA PROTOCOL
     // rtti
@@ -253,7 +253,7 @@ public:
 };
 
 ////////////////////////////
-// 
+//
 // Channel Applicator classes
 
 class plPointChannelApplicator : public plAGApplicator

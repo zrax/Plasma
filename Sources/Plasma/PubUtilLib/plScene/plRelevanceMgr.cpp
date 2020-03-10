@@ -102,7 +102,7 @@ void plRelevanceMgr::SetRegionVectors(const hsPoint3 &pos, hsBitVector &regionsI
 
     int i;
     for (i = 0; i < fRegions.GetCount(); i++)
-    { 
+    {
         if (fRegions[i] && fRegions[i]->fRegion->IsInside(pos))
         {
             regionsImIn.SetBit(i + 1, true);
@@ -144,7 +144,7 @@ bool plRelevanceMgr::MsgReceive(plMessage* msg)
             IRemoveRegion(region);
         }
         return true;
-    }       
+    }
     
     return hsKeyedObject::MsgReceive(msg);
 }
@@ -185,7 +185,7 @@ public:
 
 /*
 *   This function expects a CSV file representing the matrix
-*   
+*
 *               name1       name2       name3
 *       name1   value       value       value
 *       name2   value       value       value
@@ -200,8 +200,8 @@ void plRelevanceMgr::ParseCsvInput(hsStream *s)
 {
     const int kBufSize = 512;
     char buff[kBufSize];
-    hsTArray<plRegionInfo*> regions;    
-    hsStringTokenizer toke; 
+    hsTArray<plRegionInfo*> regions;
+    hsStringTokenizer toke;
     bool firstLine = true;
     
     while (!s->AtEnd())

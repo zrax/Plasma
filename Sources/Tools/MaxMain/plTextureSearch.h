@@ -53,7 +53,7 @@ public:
     void Toggle();
 
 protected:
-    enum Update { kUpdateLoadList, kUpdateReplace, kUpdateSetSize };        
+    enum Update { kUpdateLoadList, kUpdateReplace, kUpdateSetSize };
     void IUpdateTextures(Update update);
     void IPickReplaceTexture();
 

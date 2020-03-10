@@ -56,7 +56,7 @@ class plShadowCaster;
 class plShadowCastComponent : public plComponent
 {
 public:
-enum    
+enum
 {
     kSelfShadow,
     kBlur,
@@ -83,7 +83,7 @@ public:
 class plShadowRcvComponent : public plComponent
 {
 public:
-enum    
+enum
 {
     kForceRadio
 };

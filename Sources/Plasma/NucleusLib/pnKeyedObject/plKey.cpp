@@ -105,9 +105,9 @@ static const char* CloneString(const plKeyData* keyData)
     static char buff[256];
     if( keyData )
     {
-        sprintf(buff, "CID:%d, CPID:%d LOC:%d", 
-            keyData->GetUoid().GetCloneID(), 
-            keyData->GetUoid().GetClonePlayerID(), 
+        sprintf(buff, "CID:%d, CPID:%d LOC:%d",
+            keyData->GetUoid().GetCloneID(),
+            keyData->GetUoid().GetClonePlayerID(),
             keyData->GetUoid().GetLocation().GetSequenceNumber());
     }
     else

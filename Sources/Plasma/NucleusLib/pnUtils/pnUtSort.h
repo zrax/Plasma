@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/NucleusLib/pnUtils/Private/pnUtSort.h
-*   
+*
 ***/
 
 #ifndef PLASMA20_SOURCES_PLASMA_NUCLEUSLIB_PNUTILS_PRIVATE_PNUTSORT_H
@@ -56,11 +56,11 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 *   This version of QuickSort is similar to the one in the C runtime library,
 *   but is implemented as a macro to allow more flexible usage.
 *
-*   With the C runtime library version, when data external to the sort array 
+*   With the C runtime library version, when data external to the sort array
 *   is needed to make sorting decisions, that data must be stored in file- or
 *   global-scope variables. This creates thread safety problems which can
 *   only be resolved through the use of synchronization objects. The version
-*   of QuickSort provided here does not require function calls to make 
+*   of QuickSort provided here does not require function calls to make
 *   sorting decisions, so all data can be kept in stack variables.
 *
 *   The expression used for making comparisons allows the same return values

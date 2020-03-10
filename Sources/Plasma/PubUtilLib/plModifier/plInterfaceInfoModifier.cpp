@@ -46,7 +46,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "pnKeyedObject/plKey.h"
 
 
-plInterfaceInfoModifier::plInterfaceInfoModifier() 
+plInterfaceInfoModifier::plInterfaceInfoModifier()
 {
 }
 plInterfaceInfoModifier::~plInterfaceInfoModifier()

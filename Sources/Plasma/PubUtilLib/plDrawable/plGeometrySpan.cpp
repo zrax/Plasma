@@ -75,7 +75,7 @@ plGeometrySpan::plGeometrySpan()
 plGeometrySpan::plGeometrySpan( const plGeometrySpan *instance )
 {
     IClearMembers();
-    MakeInstanceOf( instance ); 
+    MakeInstanceOf( instance );
 }
 
 plGeometrySpan::~plGeometrySpan()
@@ -85,10 +85,10 @@ plGeometrySpan::~plGeometrySpan()
 
 void    plGeometrySpan::IClearMembers()
 {
-    fVertexData = nil; 
-    fIndexData = nil; 
-    fMaterial = nil; 
-    fNumVerts = fNumIndices = 0; 
+    fVertexData = nil;
+    fIndexData = nil;
+    fMaterial = nil;
+    fNumVerts = fNumIndices = 0;
     fBaseMatrix = fNumMatrices = 0;
     fLocalUVWChans = 0;
     fMaxBoneIdx = 0;
@@ -333,7 +333,7 @@ void    plGeometrySpan::IClearGroupID( uint32_t groupID )
 //        sets the groupID flag, and returns a pointer to the array.
 //  - The group ID does exist:
 //      - If the array count is less than expectedCount - 1, returns the array
-//      - else sets the hash entry to nil and returns the array. 
+//      - else sets the hash entry to nil and returns the array.
 //  Since we want to clear the hash table as soon as possible, but don't want
 //  to search the entire hash table every time to make sure its empty, we
 //  keep an ID of the highest element in the hash table that's set; every time
@@ -365,7 +365,7 @@ hsTArray<plGeometrySpan *>  *plGeometrySpan::IGetInstanceGroup( uint32_t groupID
 
         return array;
     }
-    else 
+    else
     {
         // In the list...get it, but are we done with it?
         array = fInstanceGroups[ groupID ];
@@ -375,7 +375,7 @@ hsTArray<plGeometrySpan *>  *plGeometrySpan::IGetInstanceGroup( uint32_t groupID
             fInstanceGroups[ groupID ] = nil;
             
             // Find new fHighestReadInstanceGroup
-            for( ; fHighestReadInstanceGroup > 0 && fInstanceGroups[ fHighestReadInstanceGroup - 1 ] == nil; 
+            for( ; fHighestReadInstanceGroup > 0 && fInstanceGroups[ fHighestReadInstanceGroup - 1 ] == nil;
                    fHighestReadInstanceGroup-- );
 
             if( fHighestReadInstanceGroup == 0 )
@@ -427,7 +427,7 @@ void    plGeometrySpan::IDuplicateUniqueData( const plGeometrySpan *source )
         fDiffuseRGBA = new uint32_t[ fNumVerts ];
         memcpy( fDiffuseRGBA, source->fDiffuseRGBA, sizeof( uint32_t ) * fNumVerts );
     }
-    else 
+    else
         fDiffuseRGBA = nil;
 
     if( source->fSpecularRGBA )
@@ -435,7 +435,7 @@ void    plGeometrySpan::IDuplicateUniqueData( const plGeometrySpan *source )
         fSpecularRGBA = new uint32_t[ fNumVerts ];
         memcpy( fSpecularRGBA, source->fSpecularRGBA, sizeof( uint32_t ) * fNumVerts );
     }
-    else 
+    else
         fSpecularRGBA = nil;
 
     fLocalToOBB = source->fLocalToOBB;
@@ -702,10 +702,10 @@ void    plGeometrySpan::BeginCreate( hsGMaterial *material, const hsMatrix44 &l2
 
 //// AddVertex ////////////////////////////////////////////////////////////////
 //  Note: uvPtrArray is an array of pointers to hsPoint3s. If a pointer is nil,
-//  that UV channel (and all above them) are not used. The array of pointers 
+//  that UV channel (and all above them) are not used. The array of pointers
 //  MUST be of size kMaxNumUVChannels.
 
-uint16_t  plGeometrySpan::AddVertex( hsPoint3 *position, hsPoint3 *normal, hsColorRGBA& multColor, hsColorRGBA& addColor, 
+uint16_t  plGeometrySpan::AddVertex( hsPoint3 *position, hsPoint3 *normal, hsColorRGBA& multColor, hsColorRGBA& addColor,
                                     hsPoint3 **uvPtrArray, float weight1, float weight2, float weight3, uint32_t indices )
 {
     AddVertex( position, normal, 0, 0, uvPtrArray, weight1, weight2, weight3, indices );
@@ -720,7 +720,7 @@ uint16_t  plGeometrySpan::AddVertex( hsPoint3 *position, hsPoint3 *normal, hsCol
     return idx;
 }
 
-uint16_t  plGeometrySpan::AddVertex( hsPoint3 *position, hsPoint3 *normal, uint32_t hexColor, uint32_t specularColor, 
+uint16_t  plGeometrySpan::AddVertex( hsPoint3 *position, hsPoint3 *normal, uint32_t hexColor, uint32_t specularColor,
                                     hsPoint3 **uvPtrArray, float weight1, float weight2, float weight3, uint32_t indices )
 {
     TempVertex      vert;

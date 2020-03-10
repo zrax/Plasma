@@ -156,7 +156,7 @@ class plRTProjDirLight : public plRTLightBase
         virtual float           GetFallsize( TimeValue t, Interval &valid = Interval(0,0) );
         virtual int             Type() { return DIR_LIGHT; }
         virtual float           GetTDist( TimeValue t, Interval &valid = Interval(0,0) );
-        virtual void            SetFallsize( TimeValue time, float f ); 
+        virtual void            SetFallsize( TimeValue time, float f );
 
         RefResult               EvalLightState(TimeValue t, Interval& valid, LightState *ls);
 

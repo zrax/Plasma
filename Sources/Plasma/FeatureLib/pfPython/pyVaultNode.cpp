@@ -528,7 +528,7 @@ void pyVaultNode::SendTo(uint32_t destClientNodeID, PyObject* cbObject, uint32_t
             ENetError result;
             if (hsRef<RelVaultNode> node = VaultCreateNodeAndWait(fNode, &result))
                 fNode = node;
-        }   
+        }
 
         // Hack the callbacks until vault notification is in place
         cb->VaultOperationStarted( cbContext );

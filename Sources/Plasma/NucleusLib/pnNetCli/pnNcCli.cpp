@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/NucleusLib/pnNetCli/pnNcCli.cpp
-*   
+*
 ***/
 
 #include "Pch.h"
@@ -123,7 +123,7 @@ struct NetCli {
     NetMsgChannel *         channel;
     bool                    server;
 
-    // message queue    
+    // message queue
     LINK(NetCli)            link;
     NetCliQueue *           queue;
 
@@ -268,7 +268,7 @@ static void AddToSendBuffer (
 //============================================================================
 static void BufferedSendData (
     NetCli *            cli,
-    const uintptr_t  msg[], 
+    const uintptr_t  msg[],
     unsigned            fieldCount
 ) {
     #define ASSERT_MSG_VALID(expr)          \
@@ -1101,7 +1101,7 @@ void NetCliFlush (
 //============================================================================
 void NetCliSend (
     NetCli *            cli,
-    const uintptr_t  msg[], 
+    const uintptr_t  msg[],
     unsigned            count
 ) {
     BufferedSendData(cli, msg, count);

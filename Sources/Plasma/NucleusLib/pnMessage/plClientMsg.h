@@ -50,7 +50,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "pnKeyedObject/plUoid.h"
 
 //
-// Handles various types of client (app) msgs, relating 
+// Handles various types of client (app) msgs, relating
 // to loading rooms, players, camera, and progress bars
 //
 class plClientMsg : public plMessage
@@ -102,8 +102,8 @@ public:
 
 
     plClientMsg() { IReset();}
-    plClientMsg(const plKey &s) { IReset();}  
-    plClientMsg(int i) { IReset(); fMsgFlag = i; }  
+    plClientMsg(const plKey &s) { IReset();}
+    plClientMsg(int i) { IReset(); fMsgFlag = i; }
     plClientMsg(const plKey &s, const plKey &r, const double* t) { IReset(); }
 
     CLASSNAME_REGISTER(plClientMsg);

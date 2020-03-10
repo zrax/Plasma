@@ -322,7 +322,7 @@ void plRegistryPageNode::AddKey(plKeyImp* key)
     {
         //char str[512], tempStr[128];
         //sprintf(str, "Attempting to add a key with a duplicate name. Not allowed."
-        //          "\n\n(Key name: %s, Class: %s, Loc: %s)", key->GetUoid().GetObjectName(), 
+        //          "\n\n(Key name: %s, Class: %s, Loc: %s)", key->GetUoid().GetObjectName(),
         //          plFactory::GetNameOfClass(classType), key->GetUoid().GetLocation().StringIze(tempStr));
         //hsStatusMessage(str);
         bool recovered = false;

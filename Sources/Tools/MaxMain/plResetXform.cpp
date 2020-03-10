@@ -176,7 +176,7 @@ void plSelectNonRenderables::SelectNonRenderables() const
     theHold.Begin();
 
 
-    TSTR undostr; 
+    TSTR undostr;
     undostr.printf("SelNonRend");
 
     GetCOREInterface()->SelectNodeTab(unhidden, true, true);

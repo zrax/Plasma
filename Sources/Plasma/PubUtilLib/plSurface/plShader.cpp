@@ -86,9 +86,9 @@ plShader::~plShader()
     delete fDeviceRef;
 }
 
-void plShader::SetDeviceRef(hsGDeviceRef* ref) const 
-{ 
-    hsRefCnt_SafeAssign(fDeviceRef, ref); 
+void plShader::SetDeviceRef(hsGDeviceRef* ref) const
+{
+    hsRefCnt_SafeAssign(fDeviceRef, ref);
 }
 
 

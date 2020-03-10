@@ -57,7 +57,7 @@ bool plLightSpace::MsgReceive(plMessage* msg)
         // HACK - CollideMsg doesn't have sufficient info yet. Need at least object
         // which is entering and leaving, and whether it is entering or leaving.
         plKey otherKey = nil;
-        bool enter = true; 
+        bool enter = true;
         uint8_t ctx = enter ? plRefMsg::kOnRequest : plRefMsg::kOnRemove;
         plLightRefMsg* liMsg = new plLightRefMsg(GetKey(), otherKey, IGetLightInfo(), ctx);
         plgDispatch::MsgSend(liMsg);

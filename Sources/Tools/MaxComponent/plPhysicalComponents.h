@@ -50,7 +50,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #define PHYSICS_DETECTOR_CID        Class_ID(0x33b60376, 0x7e5163e0)
 #define PHYSICS_INVISIBLE_CID       Class_ID(0x11e81ee4, 0x36b81450)
 #define PHYSICS_PLAYER_CID          Class_ID(0x48703458, 0x4c3a4f39)
-#define PHYSICS_SIMPLE_CID          Class_ID(0x1e1d2ec5, 0x37f612d6)    
+#define PHYSICS_SIMPLE_CID          Class_ID(0x1e1d2ec5, 0x37f612d6)
 #define PHYSICS_BLOCKER_CID         Class_ID(0xc9a44be, 0x33c87ffb)
 #define PHYSICS_BOUND_BLOCKER_CID   Class_ID(0x1beb2bc6, 0x49cd7e64)
 #define PHYS_WALKABLE_CID           Class_ID(0xcc56fb9, 0x716e0810)
@@ -78,7 +78,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*!
  As all physical parameters are shared and accessed by the Core Component and
  its Convert() function, this class holds all the current physical parameters.
- It is accessed by the individual components via their GetParamVals() functions.  
+ It is accessed by the individual components via their GetParamVals() functions.
  \sa GetParamVals()
 */
 
@@ -94,7 +94,7 @@ public:
      Enum Global for Physical Components.  \c Append \c only!  This enum is essential
      for backward compatability issues.  Max uses it to maintain versioning for the
      ParamBlock2s that are extensively used.  As long as vals are never deleted,
-     full backward compatability is assured.  Just append your new vals to the enum 
+     full backward compatability is assured.  Just append your new vals to the enum
      as versions increase.
     */
     enum
@@ -161,8 +161,8 @@ public:
 
     virtual void DeleteThis() { delete this; }
 
-    virtual bool SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg); 
-    virtual bool PreConvert(plMaxNode *node, plErrorMsg *pErrMsg); 
+    virtual bool SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg);
+    virtual bool PreConvert(plMaxNode *node, plErrorMsg *pErrMsg);
     virtual bool Convert(plMaxNode *node, plErrorMsg *pErrMsg);
 
     int CanConvertToType(Class_ID obtype)

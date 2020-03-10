@@ -65,8 +65,8 @@ struct plKeySeed
     uint16_t    fType;
     ST::string  fObj;
    
-    bool Match( plKeySeed *p ) 
-    {  
+    bool Match( plKeySeed *p )
+    {
         if( ( fType == p->fType ) && p->fObj.compare( fObj, ST::case_insensitive ) == 0 )
         {
             return true;
@@ -146,8 +146,8 @@ class plFixedKeyValidator
             for (i= kFirst_Fixed_KEY; i < kLast_Fixed_KEY; i++)
             {
                 for (int c = i+1; c < kLast_Fixed_KEY; c++)
-                {   
-                    hsAssert(!SeedList[i].Match(&SeedList[c]), 
+                {
+                    hsAssert(!SeedList[i].Match(&SeedList[c]),
                             "The fixed key table in plFixedKey.h is invalid (there are duplicate fixed keys). Please ensure the list follows the given restrictions.");
                 }
             }

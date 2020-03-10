@@ -140,12 +140,12 @@ public:
     void    SetDisplayOptions(const ST::string& s) { fDisplayOptions=s;   }
 
     // IO
-    virtual bool    Read(hsStream* s);  
+    virtual bool    Read(hsStream* s);
     virtual void    Write(hsStream* s) const;
 };
 
 //
-// Simple, non-nested var descriptors.  These are comprised of single types, as opposed to 
+// Simple, non-nested var descriptors.  These are comprised of single types, as opposed to
 // referring to another state descriptor.
 //
 class plSimpleVarDescriptor : public plVarDescriptor
@@ -169,15 +169,15 @@ public:
     int     GetSize() const;
     int     GetAtomicSize() const;      // size of one item in bytes (regardless of count)
     Type    GetAtomicType() const       { return fAtomicType; }
-    int     GetAtomicCount() const      { return fAtomicCount; }    
+    int     GetAtomicCount() const      { return fAtomicCount; }
     
     // setters
     bool    SetType(const ST::string& type);
     void    SetType(Type t) { plVarDescriptor::SetType(t); }    // for lame compiler
-    void    SetAtomicType(Type t) { fAtomicType=t; }    
+    void    SetAtomicType(Type t) { fAtomicType=t; }
 
     // IO
-    virtual bool    Read(hsStream* s);  
+    virtual bool    Read(hsStream* s);
     virtual void    Write(hsStream* s) const;
 };
 
@@ -188,7 +188,7 @@ class plStateDescriptor;
 class plSDVarDescriptor : public plVarDescriptor
 {
 protected:
-    plStateDescriptor* fStateDesc;      
+    plStateDescriptor* fStateDesc;
 public:
     plSDVarDescriptor(plStateDescriptor* sd=nil) : fStateDesc(sd) { }
 
@@ -207,7 +207,7 @@ public:
     void CopyFrom(const plVarDescriptor* v) { plVarDescriptor::CopyFrom(v); }   // lame compiler
 
     // IO
-    bool    Read(hsStream* s);  
+    bool    Read(hsStream* s);
     void    Write(hsStream* s) const;
 };
 
@@ -221,7 +221,7 @@ class plStateDescriptor
 {
 private:
     static const uint8_t kVersion;        // for Read/Write format
-    typedef std::vector<plVarDescriptor*> VarsList; 
+    typedef std::vector<plVarDescriptor*> VarsList;
     VarsList fVarsList;
     int fVersion;
     ST::string fName;
@@ -230,7 +230,7 @@ private:
     void IDeInit();
 public:
     plStateDescriptor() : fVersion(-1) {}
-    ~plStateDescriptor(); 
+    ~plStateDescriptor();
 
     // getters
     ST::string GetName() const { return fName; }
@@ -248,7 +248,7 @@ public:
     plVarDescriptor* FindVar(const ST::string& name, int* idx=nil) const;
 
     // IO
-    bool Read(hsStream* s); 
+    bool Read(hsStream* s);
     void Write(hsStream* s) const;
 };
 

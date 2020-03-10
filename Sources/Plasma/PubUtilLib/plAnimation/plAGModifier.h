@@ -81,7 +81,7 @@ public:
     /** Default constructor, primarily for the class factory. */
     plAGModifier();
 
-    /** Construct given a name. This name will be used to match up 
+    /** Construct given a name. This name will be used to match up
         incoming channels with this modifier. You may also supply an
         autoApply parameter, which indicates whether this modifier
         should apply itself every frame, or only when explicitly asked to. */
@@ -94,7 +94,7 @@ public:
     /** Get the name of the channel controlled by this modifier. */
     ST::string GetChannelName() const;
     /** Change the channel name of the modifier. Will delete the previous
-        name. Will NOT remove any channels that are already attached, so 
+        name. Will NOT remove any channels that are already attached, so
         you could wind up with a modifier named "Fred" and a bunch of
         channels attached to it that were intended for "Lamont." */
     void SetChannelName(const ST::string & name);

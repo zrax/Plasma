@@ -79,7 +79,7 @@ class plAnimObjInterface
         // Given the optional INode to restrict to, return the list of keys to send messages to for conversion
         virtual bool    GetKeyList( INode *restrictedNode, hsTArray<plKey> &outKeys ) = 0;
 
-        // Return the name of the segment/animation that this interface references. Pass "false" to get the 
+        // Return the name of the segment/animation that this interface references. Pass "false" to get the
         // ENTIRE_ANIMATION_NAME string for entire animations, "true" for nil.
         virtual ST::string  GetIfaceSegmentName( bool allowNil ) = 0;
 

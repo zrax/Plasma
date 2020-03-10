@@ -170,7 +170,7 @@ protected:
 
 
 ////////////////////////////
-// 
+//
 // Channel Applicator classes
 
 class plQuatChannelApplicator : public plAGApplicator

@@ -97,14 +97,14 @@ static bool ISetRegKey(const QString &keyName, const QString &value, const QStri
 //////////////////////////////////////////////////////////////////////////////
 
 //// AssociateFileType ///////////////////////////////////////////////////////
-//  Associates a given file type in the Win32 registry with the given 
+//  Associates a given file type in the Win32 registry with the given
 //  application. Also assigns a default icon if iconIndex != -1
 //
 //  To do this, we create a set of keys in the registry under CLASSES_ROOT that
 //  looks like this:
 //      fileTypeID  (value = fileTypeName)
 //          |
-//          |--- DefaultIcon (value = path,index) [omit this one if you don't 
+//          |--- DefaultIcon (value = path,index) [omit this one if you don't
 //          |                                      want a default icon]
 //          |
 //          |--- shell
@@ -141,10 +141,10 @@ bool plWinRegistryTools::AssociateFileType(const QString &fileTypeID, const QStr
 }
 
 //// AssociateFileExtension //////////////////////////////////////////////////
-//  Assigns a given file extension to a previously registered Win32 file type 
+//  Assigns a given file extension to a previously registered Win32 file type
 //  (using the above function)
 //
-//  We do this by creating a key entry under CLASSES_ROOT of the following 
+//  We do this by creating a key entry under CLASSES_ROOT of the following
 //  structure:
 //
 //          fileExtension (value = fileTypeID)

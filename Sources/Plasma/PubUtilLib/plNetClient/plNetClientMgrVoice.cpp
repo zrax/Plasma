@@ -90,18 +90,18 @@ bool plNetClientMgr::IApplyNewListenList(std::vector<DistSqInfo>& newListenList,
     else
     {
         for(i=0;i<newListenList.size(); i++)
-        {           
+        {
             if (GetListenList()->FindMember(newListenList[i].fMbr)==-1)
             {
                 changed=true;
-                break;              
+                break;
             }
         }
     }
 
     // set as new listen list
     if (changed)
-    {   
+    {
         DebugMsg("ListenList changed, forceSynch={}\n", forceSynch);
 
         plNetMsgListenListUpdate llu;
@@ -117,7 +117,7 @@ bool plNetClientMgr::IApplyNewListenList(std::vector<DistSqInfo>& newListenList,
         {
             bool found=false;
             if (!forceSynch)
-            {           
+            {
                 int j;
                 for(j=0;j<newListenList.size(); j++)
                 {
@@ -136,7 +136,7 @@ bool plNetClientMgr::IApplyNewListenList(std::vector<DistSqInfo>& newListenList,
 
 #ifndef SAME_TALK_AND_LISTEN
         if (llu.Receivers()->GetNumReceivers())
-        {       
+        {
             // DEBUGGING
             int i;
             for(i=0;i<llu.Receivers()->GetNumReceivers(); i++)
@@ -199,7 +199,7 @@ bool plNetClientMgr::IApplyNewListenList(std::vector<DistSqInfo>& newListenList,
                 newListenList[i].fMbr->GetPlayerID(), newListenList[i].fDistSq);
 #endif
         }
-    }       
+    }
     return changed;
 }
 //
@@ -251,7 +251,7 @@ bool plNetClientMgr::IUpdateListenList(double secs)
                     if (fTransport.GetMember(i)->IsServer())
                         continue;
                     if(VaultAmIgnoringPlayer(fTransport.GetMember(i)->GetPlayerID()))
-                    {           
+                    {
                         continue;
                     }
                     plKey k=fTransport.GetMember(i)->GetAvatarKey();
@@ -273,7 +273,7 @@ bool plNetClientMgr::IUpdateListenList(double secs)
 
                         fTransport.GetMember(i)->SetDistSq(distSq);
                         
-                        // I can't listen to players that are more than 50 ft away 
+                        // I can't listen to players that are more than 50 ft away
                         if (distSq>plNetListenList::kMaxListenDistSq)
                             continue;
                         // if we are p2p and member isn't, skip them.
@@ -295,7 +295,7 @@ bool plNetClientMgr::IUpdateListenList(double secs)
                             if (plNetListenList::kMaxListenListSize==-1 ||
                                 newListenList.size()<plNetListenList::kMaxListenListSize)
                             {
-                                newListenList.push_back(dsi);   
+                                newListenList.push_back(dsi);
                             }
                             else
                             {
@@ -319,12 +319,12 @@ bool plNetClientMgr::IUpdateListenList(double secs)
         
         }
 
-        hsAssert(plNetListenList::kMaxListenListSize==-1 || newListenList.size()<=plNetListenList::kMaxListenListSize, 
+        hsAssert(plNetListenList::kMaxListenListSize==-1 || newListenList.size()<=plNetListenList::kMaxListenListSize,
         "illegal new listenlist size");
     
-        changed = IApplyNewListenList(newListenList, 
+        changed = IApplyNewListenList(newListenList,
 #ifdef SAME_TALK_AND_LISTEN
-            false 
+            false
 #else
             GetListenList()->CheckForceSynch()
 #endif
@@ -370,9 +370,9 @@ void plNetClientMgr::IHandleNetVoiceListMsg(plNetVoiceListMsg* msg)
         int i;
         bool included = false;
         for (i = 0; i < msg->GetClientList()->Count(); i++)
-        {   
+        {
             if (msg->GetClientList()->AcquireArray()[i] == NetCommGetPlayer()->playerInt)
-            {   
+            {
                 included = true;
                 break;
             }
@@ -406,6 +406,6 @@ void plNetClientMgr::IHandleNetVoiceListMsg(plNetVoiceListMsg* msg)
         // again, see that it is us that we care about:
         if (msg->GetRemovedKey() == GetLocalPlayerKey())
             SetListenListMode(kListenList_Distance);
-    }   
-}   
+    }
+}
 

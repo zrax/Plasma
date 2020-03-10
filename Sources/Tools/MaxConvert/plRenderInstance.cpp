@@ -48,15 +48,15 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "plRenderInstance.h"
 
-class plNilView : public View 
+class plNilView : public View
 {
     
 public:
     
     Point2 ViewToScreen(Point3 p) { return Point2(p.x,p.y); }
     
-    plNilView() 
-    {       
+    plNilView()
+    {
         projType = 1;
         fov = M_PI * 0.25f;
         pixelSize = 1.f;
@@ -112,7 +112,7 @@ BOOL plRenderInstance::Update(TimeValue& t)
     if( !fObject )
         return false;
 
-    // this shouldn't happen, we shouldn't be trying to make 
+    // this shouldn't happen, we shouldn't be trying to make
     // renderinstances from non GEOMOBJECT's
     if( fObject->SuperClassID() != GEOMOBJECT_CLASS_ID )
         return false;
@@ -128,7 +128,7 @@ BOOL plRenderInstance::Update(TimeValue& t)
         return false;
 
     vis = fNode->GetVisibility(t);
-    if( vis < 0.0f ) 
+    if( vis < 0.0f )
     {
         vis = 0.0f;
         SetFlag(INST_HIDE, 1);
@@ -189,7 +189,7 @@ BOOL plRenderInstance::CastsShadowsFrom(const ObjLightDesc& constLt)
     if( lt.GetExclList() && lt.GetExclList()->TestFlag(NT_AFFECT_SHADOWCAST) )
     {
         int idx = lt.GetExclList()->FindNode(fNode);
-        BOOL isInc = lt.GetExclList()->TestFlag(NT_INCLUDE); 
+        BOOL isInc = lt.GetExclList()->TestFlag(NT_INCLUDE);
 
         if( idx >= 0 )
         {
@@ -222,7 +222,7 @@ Point3 plRenderInstance::GetFaceVertNormal(int fnum, int vertNum)
 
     Face* f = &mesh->faces[fnum];
 
-    // Get the rendered vertex.  Don't use the device position, fPos. 
+    // Get the rendered vertex.  Don't use the device position, fPos.
     RVertex &rv = mesh->getRVert(f->v[vertNum]);
 
     // Number of normals at the vertex

@@ -71,7 +71,7 @@ plAudioFileReader* plAudioFileReader::CreateReader(const plFileName& path, plAud
     {
         bool isWav = (ext.compare_i("wav") == 0);
         // We want to stream a wav off disk, but this is a compressed file.
-        // Get the uncompressed path. Ignore the requested channel, since it 
+        // Get the uncompressed path. Ignore the requested channel, since it
         // will have already been split into two files if that is necessary.
         if (!isWav)
         {

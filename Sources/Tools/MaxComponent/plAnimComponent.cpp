@@ -87,7 +87,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 // So that the linker won't throw this code away, since it doesn't appear to be used
 void DummyCodeIncludeFunc() {}
 
-plEaseAccessor gAnimCompEaseAccessor(plComponentBase::kBlkComp, 
+plEaseAccessor gAnimCompEaseAccessor(plComponentBase::kBlkComp,
                                      kAnimEaseInMin, kAnimEaseInMax, kAnimEaseInLength,
                                      kAnimEaseOutMin, kAnimEaseOutMax, kAnimEaseOutLength);
 
@@ -170,10 +170,10 @@ void plAnimComponentProc::EnableGlobal(HWND hWnd, bool enable)
     ComboBox_Enable(GetDlgItem(hWnd, IDC_LOOP_NAMES), !enable);
     Button_Enable(GetDlgItem(hWnd, IDC_COMP_ANIM_AUTOSTART_CKBX), !enable);
     Button_Enable(GetDlgItem(hWnd, IDC_COMP_ANIM_LOOP_CKBX), !enable);
-}   
+}
 
 void plAnimComponentProc::FillAgeGlobalComboBox(HWND box, const char *varName)
-{       
+{
     plStateDescriptor *sd = plSDLMgr::GetInstance()->FindDescriptor(plPageInfoComponent::GetCurrExportAgeName(), plSDL::kLatestVersion);
     if (sd)
     {
@@ -203,13 +203,13 @@ void plAnimComponentProc::SetBoxToAgeGlobal(HWND box, const char *varName)
     ComboBox_GetLBText(box, ComboBox_GetCurSel(box), buff);
     if (strcmp(varName, buff))
     {
-        // Didn't find our variable in the age SDL file... 
+        // Didn't find our variable in the age SDL file...
         // Probably just missing the sdl file,
         // so we'll force it in there. It'll export fine.
         ComboBox_AddString(box, varName);
         ComboBox_SelectString(box, 0, varName);
     }
-}   
+}
 
 BOOL plAnimComponentProc::DlgProc(TimeValue t, IParamMap2 *pMap, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -234,7 +234,7 @@ BOOL plAnimComponentProc::DlgProc(TimeValue t, IParamMap2 *pMap, HWND hWnd, UINT
             FillAgeGlobalComboBox(gWnd, fPB->GetStr(ParamID(kAnimGlobalName)));
             SetBoxToAgeGlobal(gWnd, fPB->GetStr(ParamID(kAnimGlobalName)));
             EnableGlobal(hWnd, fPB->GetInt(ParamID(kAnimUseGlobal)));
-            Button_Enable(GetDlgItem(hWnd, IDC_COMP_ANIM_PHYSANIM), 
+            Button_Enable(GetDlgItem(hWnd, IDC_COMP_ANIM_PHYSANIM),
                 HasPhysicalComponent((plComponentBase*)fPB->GetOwner()));
         }
         return TRUE;
@@ -264,20 +264,20 @@ BOOL plAnimComponentProc::DlgProc(TimeValue t, IParamMap2 *pMap, HWND hWnd, UINT
         }
         break;
     }
-    return false;   
+    return false;
 }
 
 void plAnimComponentProc::Update( TimeValue t, Interval &valid, IParamMap2 *pmap )
 {
     HWND hWnd = pmap->GetHWnd();
     IParamBlock2 *pb = pmap->GetParamBlock();
-    SetBoxToAgeGlobal(GetDlgItem(hWnd, IDC_ANIM_GLOBAL_LIST), pb->GetStr(ParamID(kAnimGlobalName)));    
-}   
+    SetBoxToAgeGlobal(GetDlgItem(hWnd, IDC_ANIM_GLOBAL_LIST), pb->GetStr(ParamID(kAnimGlobalName)));
+}
 
 void plAnimComponentProc::DeleteThis()
 {
     fNoteTrackDlg.DeleteCache();
-}   
+}
 
 //  For the paramblock below.
 static plAnimComponentProc gAnimCompProc;
@@ -340,7 +340,7 @@ public:
     }
 
     void DeleteThis() {}
-};  
+};
 //  For the paramblock below.
 static plAnimEaseComponentProc gAnimEaseCompProc;
 
@@ -423,7 +423,7 @@ ParamBlockDesc2 gAnimBlock
     plComponent::kBlkComp, _T("animation"), 0, &gAnimDesc, P_AUTO_CONSTRUCT + P_AUTO_UI + P_MULTIMAP, plComponent::kRefComp,
 
     // map rollups
-    2, 
+    2,
     kAnimMain, IDD_COMP_ANIM, IDS_COMP_ANIM, 0, 0, &gAnimCompProc,
     kAnimEase, IDD_COMP_ANIM_EASE, IDS_COMP_ANIM_EASE, 0, APPENDROLL_CLOSED, &gAnimEaseCompProc,
 
@@ -458,24 +458,24 @@ ParamBlockDesc2 gAnimBlock
         p_vals,     plAnimEaseTypes::kNoEase, plAnimEaseTypes::kConstAccel, plAnimEaseTypes::kSpline,
         p_default,  plAnimEaseTypes::kNoEase,
         end,
-    kAnimEaseInLength,  _T("easeInLength"), TYPE_FLOAT,     0, 0,   
+    kAnimEaseInLength,  _T("easeInLength"), TYPE_FLOAT,     0, 0,
         p_default, 1.0,
         p_range, 0.1, 99.0,
-        p_ui,   kAnimEase, TYPE_SPINNER,    EDITTYPE_POS_FLOAT, 
+        p_ui,   kAnimEase, TYPE_SPINNER,    EDITTYPE_POS_FLOAT,
         IDC_COMP_ANIM_EASE_IN_TIME, IDC_COMP_ANIM_EASE_IN_TIME_SPIN, 1.0,
         p_accessor, &gAnimCompEaseAccessor,
         end,
-    kAnimEaseInMin,     _T("easeInMin"),    TYPE_FLOAT,     0, 0,   
+    kAnimEaseInMin,     _T("easeInMin"),    TYPE_FLOAT,     0, 0,
         p_default, 1.0,
         p_range, 0.1, 99.0,
-        p_ui,   kAnimEase, TYPE_SPINNER,    EDITTYPE_POS_FLOAT, 
+        p_ui,   kAnimEase, TYPE_SPINNER,    EDITTYPE_POS_FLOAT,
         IDC_COMP_ANIM_EASE_IN_MIN, IDC_COMP_ANIM_EASE_IN_MIN_SPIN, 1.0,
         p_accessor, &gAnimCompEaseAccessor,
         end,
-    kAnimEaseInMax, _T("easeInMax"),    TYPE_FLOAT,     0, 0,   
+    kAnimEaseInMax, _T("easeInMax"),    TYPE_FLOAT,     0, 0,
         p_default, 1.0,
         p_range, 0.1, 99.0,
-        p_ui,   kAnimEase, TYPE_SPINNER,    EDITTYPE_POS_FLOAT, 
+        p_ui,   kAnimEase, TYPE_SPINNER,    EDITTYPE_POS_FLOAT,
         IDC_COMP_ANIM_EASE_IN_MAX, IDC_COMP_ANIM_EASE_IN_MAX_SPIN, 1.0,
         p_accessor, &gAnimCompEaseAccessor,
         end,
@@ -485,24 +485,24 @@ ParamBlockDesc2 gAnimBlock
         p_vals,     plAnimEaseTypes::kNoEase, plAnimEaseTypes::kConstAccel, plAnimEaseTypes::kSpline,
         p_default,  plAnimEaseTypes::kNoEase,
         end,
-    kAnimEaseOutLength, _T("easeOutLength"),    TYPE_FLOAT,     0, 0,   
+    kAnimEaseOutLength, _T("easeOutLength"),    TYPE_FLOAT,     0, 0,
         p_default, 1.0,
         p_range, 0.1, 99.0,
-        p_ui,   kAnimEase, TYPE_SPINNER,    EDITTYPE_POS_FLOAT, 
+        p_ui,   kAnimEase, TYPE_SPINNER,    EDITTYPE_POS_FLOAT,
         IDC_COMP_ANIM_EASE_OUT_TIME, IDC_COMP_ANIM_EASE_OUT_TIME_SPIN, 1.0,
         p_accessor, &gAnimCompEaseAccessor,
         end,
-    kAnimEaseOutMin,        _T("easeOutMin"),   TYPE_FLOAT,     0, 0,   
+    kAnimEaseOutMin,        _T("easeOutMin"),   TYPE_FLOAT,     0, 0,
         p_default, 1.0,
         p_range, 0.1, 99.0,
-        p_ui,   kAnimEase, TYPE_SPINNER,    EDITTYPE_POS_FLOAT, 
+        p_ui,   kAnimEase, TYPE_SPINNER,    EDITTYPE_POS_FLOAT,
         IDC_COMP_ANIM_EASE_OUT_MIN, IDC_COMP_ANIM_EASE_OUT_MIN_SPIN, 1.0,
         p_accessor, &gAnimCompEaseAccessor,
         end,
-    kAnimEaseOutMax,    _T("easeOutMax"),   TYPE_FLOAT,     0, 0,   
+    kAnimEaseOutMax,    _T("easeOutMax"),   TYPE_FLOAT,     0, 0,
         p_default, 1.0,
         p_range, 0.1, 99.0,
-        p_ui,   kAnimEase, TYPE_SPINNER,    EDITTYPE_POS_FLOAT, 
+        p_ui,   kAnimEase, TYPE_SPINNER,    EDITTYPE_POS_FLOAT,
         IDC_COMP_ANIM_EASE_OUT_MAX, IDC_COMP_ANIM_EASE_OUT_MAX_SPIN, 1.0,
         p_accessor, &gAnimCompEaseAccessor,
         end,
@@ -515,7 +515,7 @@ ParamBlockDesc2 gAnimGroupedBlock
     plComponent::kBlkComp, _T("animGrouped"), 0, &gAnimGroupedDesc, P_AUTO_CONSTRUCT + P_AUTO_UI + P_MULTIMAP + P_INCLUDE_PARAMS, plComponent::kRefComp,
 
     // map rollups
-    2, 
+    2,
     kAnimMain, IDD_COMP_ANIM, IDS_COMP_ANIM_GROUPED, 0, 0, &gAnimCompProc,
     kAnimEase, IDD_COMP_ANIM_EASE, IDS_COMP_ANIM_EASE, 0, APPENDROLL_CLOSED, &gAnimEaseCompProc,
 
@@ -649,7 +649,7 @@ void SetPhysAnimRecurse(plMaxNode *node, plErrorMsg *pErrMsg)
         SetPhysAnimRecurse((plMaxNode *)node->GetChildNode(i), pErrMsg);
 }
 
-bool plAnimComponentBase::SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg)   
+bool plAnimComponentBase::SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg)
 {
     if (node->IsTMAnimated())
     {
@@ -680,7 +680,7 @@ bool plAnimComponentBase::SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg)
         SetupProperties((plMaxNode *)node->GetChildNode(i), pErrMsg);
     }
     */
-    return true; 
+    return true;
 }
 
 bool plAnimComponentBase::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
@@ -799,7 +799,7 @@ bool plAnimComponentBase::IAddTMToAnim(plMaxNode *node, plAGAnim *anim, plErrorM
 
     if (!anim->GetName().compare(ENTIRE_ANIMATION_NAME))
         tmc = hsControlConverter::Instance().ConvertTMAnim(obj, node, parts);
-    else 
+    else
         tmc = hsControlConverter::Instance().ConvertTMAnim(obj, node, parts, anim->GetStart(), anim->GetEnd());
 
     if (tmc)
@@ -928,8 +928,8 @@ bool plAnimComponentBase::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     return true;
 }
 
-bool plAnimComponentBase::DeInit(plMaxNode *node, plErrorMsg *pErrMsg)        
-{ 
+bool plAnimComponentBase::DeInit(plMaxNode *node, plErrorMsg *pErrMsg)
+{
     fMods.clear();
     fLightMods.clear();
     fAnims.clear();
@@ -1072,7 +1072,7 @@ plPlasmaAnimSelectDlgProc::plPlasmaAnimSelectDlgProc( ParamID paramID, int dlgIt
     fChain = chainedDlgProc;
 }
 
-plPlasmaAnimSelectDlgProc::plPlasmaAnimSelectDlgProc( ParamID paramID, int dlgItem, ParamID nodeParamID, ParamID typeParamID, int nodeDlgItem, 
+plPlasmaAnimSelectDlgProc::plPlasmaAnimSelectDlgProc( ParamID paramID, int dlgItem, ParamID nodeParamID, ParamID typeParamID, int nodeDlgItem,
                                                       TCHAR *promptTitle, ParamMap2UserDlgProc *chainedDlgProc )
 {
     fParamID = paramID;
@@ -1175,8 +1175,8 @@ BOOL    plPlasmaAnimSelectDlgProc::DlgProc( TimeValue t, IParamMap2 *pmap, HWND 
     return false;
 }
 
-void plPlasmaAnimSelectDlgProc::DeleteThis() 
-{ 
+void plPlasmaAnimSelectDlgProc::DeleteThis()
+{
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1185,7 +1185,7 @@ void plPlasmaAnimSelectDlgProc::DeleteThis()
 CLASS_DESC(plAnimCompressComp, gAnimCompressDesc, "Anim Compress",  "AnimCompress", COMP_TYPE_MISC, ANIM_COMPRESS_COMP_CID)
 
 ParamBlockDesc2 gAnimCompressBk
-(   
+(
     plComponent::kBlkComp, _T("AnimCompress"), 0, &gAnimCompressDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
     IDD_COMP_ANIM_COMPRESS, IDS_COMP_ANIM_COMPRESS_ROLL, 0, 0, nil,
 
@@ -1195,10 +1195,10 @@ ParamBlockDesc2 gAnimCompressBk
         p_default,  plAnimCompressComp::kCompressionLow,
         end,
 
-    plAnimCompressComp::kAnimCompressThreshold, _T("Threshold"),    TYPE_FLOAT,     0, 0,   
+    plAnimCompressComp::kAnimCompressThreshold, _T("Threshold"),    TYPE_FLOAT,     0, 0,
         p_default, 0.01,
         p_range, 0.0, 1.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_ANIM_COMPRESS_THRESHOLD, IDC_COMP_ANIM_COMPRESS_THRESHOLD_SPIN, 0.001,
         end,
 
@@ -1211,7 +1211,7 @@ plAnimCompressComp::plAnimCompressComp()
     fClassDesc->MakeAutoParamBlocks(this);
 }
 
-bool plAnimCompressComp::SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg)    
+bool plAnimCompressComp::SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg)
 {
     node->SetAnimCompress(fCompPB->GetInt(ParamID(kAnimCompressLevel)));
 

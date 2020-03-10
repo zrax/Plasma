@@ -79,7 +79,7 @@ uint32_t plClosest::PointOnLine(const hsPoint3& p0,
 }
 
 // Find closest points to each other from two lines (or segments).
-uint32_t plClosest::PointsOnLines(const hsPoint3& p0, const hsVector3& v0, 
+uint32_t plClosest::PointsOnLines(const hsPoint3& p0, const hsVector3& v0,
                   const hsPoint3& p1, const hsVector3& v1,
                   hsPoint3& cp0, hsPoint3& cp1,
                   uint32_t clamp)
@@ -126,7 +126,7 @@ uint32_t plClosest::PointsOnLines(const hsPoint3& p0, const hsVector3& v0,
     //
     //  t1 = - (CV0 dot DV0) / (DV0 dot DV0)
     //  and
-    //  t0 = ((p1 - v1 * t1 - p0) dot v0) / ||v0|| 
+    //  t0 = ((p1 - v1 * t1 - p0) dot v0) / ||v0||
     //
     // which seems kind of obvious in retrospect.
 
@@ -321,9 +321,9 @@ bool plClosest::PointOnSphere(const hsPoint3& p0, const hsVector3& v0,
     return false;
 }
 
-bool plClosest::PointOnBox(const hsPoint3& p0, const hsVector3& v0,   
-                            const hsPoint3& corner,                     
-                            const hsVector3& axis0,                     
+bool plClosest::PointOnBox(const hsPoint3& p0, const hsVector3& v0,
+                            const hsPoint3& corner,
+                            const hsVector3& axis0,
                             const hsVector3& axis1,
                             const hsVector3& axis2,
                             hsPoint3& cp,

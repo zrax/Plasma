@@ -389,7 +389,7 @@ PYTHON_START_METHODS_TABLE(ptDynamicMap)
                 "- 'size' is the point size of the font to use"),
     PYTHON_METHOD(ptDynamicMap, fillRect, "Params: left,top,right,bottom,color\nFill in the specified rectangle with a color\n"
                 "- left,top,right,bottom define the rectangle\n"
-                "- 'color' is a ptColor object"),   
+                "- 'color' is a ptColor object"),
     PYTHON_METHOD(ptDynamicMap, frameRect, "Params: left,top,right,bottom,color\nFrame a rectangle with a specified color\n"
                 "- left,top,right,bottom define the rectangle\n"
                 "- 'color' is a ptColor object"),

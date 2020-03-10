@@ -48,13 +48,13 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include <cmath>
 #include <algorithm>
 
-const float kSmallDelTime = 1.e-2f;  
+const float kSmallDelTime = 1.e-2f;
 const float kInvSmallDelTime = 1.f / kSmallDelTime;
 const float kTerminateDelTime = 1.e-3f;
 const float kTerminateDelDistSq = .1f;
 
 plAnimPath::plAnimPath()
-: fController(nil), fLength(0), fMinDistSq(0), 
+: fController(nil), fLength(0), fMinDistSq(0),
     fAnimPathFlags(0)
 {
     fLocalToWorld.Reset();
@@ -171,7 +171,7 @@ float plAnimPath::ICalcTotalLength()
     if( !(fController && fController->GetPosController()) )
         return 0;
 
-    fLength = fController->GetPosController()->GetLength(); 
+    fLength = fController->GetPosController()->GetLength();
 
     return fLength;
 }
@@ -505,7 +505,7 @@ float plAnimPath::IShiftFore(hsPoint3 &pt) const
 }
 
 //
-// wireframe debug draw method.  
+// wireframe debug draw method.
 // doesn't use any fancy subdivision or curvature measure when drawing.
 // Changes current time.
 //
@@ -743,7 +743,7 @@ float plAnimPath::GetLookAheadTime(float startTime, float arcLengthIn, bool bwd,
     GetPosition(&pos);      // startTime position
 
     hsPoint3 pos2;
-    float endTime = fArcLenDeltas[nearestIdx].fT; 
+    float endTime = fArcLenDeltas[nearestIdx].fT;
     SetCurTime(endTime, kCalcPosOnly);
     GetPosition(&pos2);     // position at nearest sample point
 
@@ -765,13 +765,13 @@ float plAnimPath::GetLookAheadTime(float startTime, float arcLengthIn, bool bwd,
                 break;
             }
             curArcLen += fArcLenDeltas[i].fArcLenDelta;
-        }   
+        }
         
         if ( (i==fArcLenDeltas.GetCount() && !bwd) || (i<0 && bwd) )
         {
             quit=true;
             timeOut = bwd ? 0 : GetLength();
-        }       
+        }
     }
     else
     {
@@ -796,7 +796,7 @@ float plAnimPath::GetLookAheadTime(float startTime, float arcLengthIn, bool bwd,
 
         float distInterval = hsVector3(&pos2, &pos).Magnitude();
         float percent = distToGoal/distInterval;
-        hsAssert(percent>=0 && percent<=1, "illegal percent value"); 
+        hsAssert(percent>=0 && percent<=1, "illegal percent value");
 
         // 3. compute interpolated time value using percent
         if (!bwd)

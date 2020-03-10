@@ -66,7 +66,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "pnKeyedObject/plFixedKey.h"
 #include "plNetClient/plNetClientMgr.h"
 #include "plResMgr/plKeyFinder.h"
-#include "pfCCR/plCCRMgr.h" // Only included for defined constants. 
+#include "pfCCR/plCCRMgr.h" // Only included for defined constants.
 #include "plNetTransport/plNetTransport.h"
 #include "plNetTransport/plNetTransportMember.h"
 #include "plModifier/plSpawnModifier.h"
@@ -95,7 +95,7 @@ plAvatarMgr     *plAvatarMgr::fInstance = nil;
 plAvatarMgr::plAvatarMgr()
 {
     fLog = plStatusLogMgr::GetInstance().CreateStatusLog(40, "Avatar.log", plStatusLog::kFilledBackground | plStatusLog::kAlignToTop | plStatusLog::kTimestamp);
-    fLog->AddLine("Initalized avatar mgr"); 
+    fLog->AddLine("Initalized avatar mgr");
 }
 
 // DTOR
@@ -188,7 +188,7 @@ plKey plAvatarMgr::LoadAvatar(ST::string name, const ST::string &accountName, bo
         netMgr->DebugMsg("Local: Loading player {}", name);
 
         // look up player by key name provided by user.
-        // this string search should be replaced with some other method of 
+        // this string search should be replaced with some other method of
         // avatar selection and key lookup.
 
         // Get the location for the player first
@@ -335,7 +335,7 @@ bool plAvatarMgr::MsgReceive(plMessage *msg)
         {
             plArmatureMod* pAvatar = FindAvatarByPlayerID(fCloneMsgQueue[i]->GetUserData());
             if (pAvatar && pAvatar->GetKey()->ObjectIsLoaded())
-            {   
+            {
                 pAvatar->MsgReceive(fCloneMsgQueue[i]);
                 fCloneMsgQueue[i]->UnRef();
                 fCloneMsgQueue.Remove(i);
@@ -465,7 +465,7 @@ void plAvatarMgr::IFinishLoadingAvatar(plLoadAvatarMsg *cloneMsg)
     if( cloneMsg->GetIsPlayer() )
     {
         // notify everyone who cares that a new player has arrived
-        // *** might want to move this to the human brain so we can make sure the 
+        // *** might want to move this to the human brain so we can make sure the
         // *** avatar is sufficiently initialized before anyone accesses him
         bool isLocal = cloneMsg->GetOriginatingPlayerID() == plNetClientMgr::GetInstance()->GetPlayerID();
         plPlayerPageMsg* pageM = new plPlayerPageMsg;
@@ -795,7 +795,7 @@ int plAvatarMgr::FindSpawnPoint( const char *name ) const
 
     for( i = 0; i < fSpawnPoints.size(); i++ )
     {
-        if( fSpawnPoints[ i ] != nil && 
+        if( fSpawnPoints[ i ] != nil &&
             ( fSpawnPoints[ i ]->GetKey()->GetUoid().GetObjectName().contains( name ) ||
               fSpawnPoints[ i ]->GetTarget(0)->GetKeyName().contains( name ) ))
             return i;
@@ -823,7 +823,7 @@ int plAvatarMgr::WarpPlayerToAnother(bool iMove, uint32_t remoteID)
     if (!localSO)
         return plCCRError::kNilLocalAvatar;
 
-    plWarpMsg *warp = new plWarpMsg(nil, (iMove ? localSO->GetKey() : remoteSO->GetKey()), 
+    plWarpMsg *warp = new plWarpMsg(nil, (iMove ? localSO->GetKey() : remoteSO->GetKey()),
         plWarpMsg::kFlushTransform, (iMove ? remoteSO->GetLocalToWorld() : localSO->GetLocalToWorld()));
     
     warp->SetBCastFlag(plMessage::kNetPropagate);
@@ -853,7 +853,7 @@ int plAvatarMgr::WarpPlayerToXYZ(int pid, float x, float y, float z)
 {
     plNetClientMgr* nc=plNetClientMgr::GetInstance();
     plNetTransportMember* mbr=nc->TransportMgr().GetMember(nc->TransportMgr().FindMember(pid));
-    plSceneObject *player = plSceneObject::ConvertNoRef(mbr && mbr->GetAvatarKey() ? 
+    plSceneObject *player = plSceneObject::ConvertNoRef(mbr && mbr->GetAvatarKey() ?
         mbr->GetAvatarKey()->ObjectIsLoaded() : nil);
     if (!player)
         return plCCRError::kNilLocalAvatar;
@@ -890,7 +890,7 @@ void plAvatarMgr::PointToDniCoordinate(hsPoint3 pt, plDniCoordinateInfo* ret)
     int count = fMaintainersMarkers.Count();
     //  plDniCoordinateInfo ret = new plDniCoordinateInfo;
     if (count > 0)
-    {   
+    {
 
         // find the closest maintainers marker
         int nearestIndex = 0;
@@ -901,7 +901,7 @@ void plAvatarMgr::PointToDniCoordinate(hsPoint3 pt, plDniCoordinateInfo* ret)
                 if (fMaintainersMarkers[i]->GetTarget(0))
                 {
                     hsVector3 testDist(fMaintainersMarkers[i]->GetTarget(0)->GetCoordinateInterface()->GetLocalToWorld().GetTranslate() - pt);
-                    hsVector3 baseDist(fMaintainersMarkers[nearestIndex]->GetTarget(0)->GetCoordinateInterface()->GetLocalToWorld().GetTranslate() - pt);  
+                    hsVector3 baseDist(fMaintainersMarkers[nearestIndex]->GetTarget(0)->GetCoordinateInterface()->GetLocalToWorld().GetTranslate() - pt);
                     if (testDist.MagnitudeSquared() < baseDist.MagnitudeSquared())
                         nearestIndex = i;
                 }
@@ -957,7 +957,7 @@ void plAvatarMgr::PointToDniCoordinate(hsPoint3 pt, plDniCoordinateInfo* ret)
                 float deg = acosf(dotView);
                 deg*=(180/3.141592);
                 // account for being > 180
-                if (dotRight < 0.0f) 
+                if (dotRight < 0.0f)
                 {
                     deg = 360.f - deg;
                 }
@@ -975,7 +975,7 @@ void plAvatarMgr::GetDniCoordinate(plDniCoordinateInfo* ret)
 {
     plSceneObject* localSO = plSceneObject::ConvertNoRef(plNetClientMgr::GetInstance()->GetLocalPlayer());
     if (localSO)
-    {   
+    {
         hsPoint3 pos = localSO->GetCoordinateInterface()->GetLocalToWorld().GetTranslate();
         PointToDniCoordinate(pos, ret);
     }

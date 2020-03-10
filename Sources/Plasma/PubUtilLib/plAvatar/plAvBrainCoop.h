@@ -91,6 +91,6 @@ private:
     bool fWaitingForClick;
 
     std::vector<plKey> fRecipients; // we have an array for a slight hack so relto book sharing works
-};  
+};
 
 #endif

@@ -142,7 +142,7 @@ void    plOGGCodec::IOpen( const plFileName &path, plAudioCore::ChannelSelect wh
         fHeader.fNumChannels = vInfo->channels;
         fHeader.fNumSamplesPerSec = vInfo->rate;
     
-        // Funny thing about the bits per sample: we get to CHOOSE. Go figure! 
+        // Funny thing about the bits per sample: we get to CHOOSE. Go figure!
         fHeader.fBitsPerSample = ( fDecodeFormat == k8bitUnsigned ) ? 8 : 16;
 
         // Why WAV files hold this info when it can be calculated is beyond me...

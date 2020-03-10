@@ -55,8 +55,8 @@ class plSingleModMsg : public plMessage
 public:
     plSingleModMsg()
         : plMessage(nil, nil, nil) {}
-    plSingleModMsg(const plKey &s, 
-                const plKey &r, 
+    plSingleModMsg(const plKey &s,
+                const plKey &r,
                 const double* t)
         : plMessage(s, r, t) {}
     ~plSingleModMsg() {}

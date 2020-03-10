@@ -65,7 +65,7 @@ void plSDLParser::DebugMsg(const ST::string& msg) const
 //
 bool plSDLParser::IParseStateDesc(const plFileName& fileName, hsStream* stream, char token[],
                                   plStateDescriptor*& curDesc) const
-{   
+{
     plSDL::DescriptorList* descList = &plSDLMgr::GetInstance()->fDescriptors;
 
     bool ok = true;
@@ -90,7 +90,7 @@ bool plSDLParser::IParseStateDesc(const plFileName& fileName, hsStream* stream, 
     //
     // VERSION
     //
-    if (stream->GetToken(token, kTokenLen)) 
+    if (stream->GetToken(token, kTokenLen))
     {
         if (!strcmp(token, "VERSION"))
         {
@@ -101,7 +101,7 @@ bool plSDLParser::IParseStateDesc(const plFileName& fileName, hsStream* stream, 
                 int v=atoi(token);
                 curDesc->SetVersion(v);
                 DebugMsg("\tVersion={}", v);
-            }               
+            }
         }
         else
         {
@@ -181,7 +181,7 @@ bool plSDLParser::IParseVarDesc(const plFileName& fileName, hsStream* stream, ch
     
     //
     // NAME (foo[1])
-    //          
+    //
     if (stream->GetToken(token, kTokenLen))
     {
         hsAssert(strstr(token, "[") != nullptr && strstr(token, "]") != nullptr,
@@ -322,7 +322,7 @@ bool plSDLParser::ILoadSDLFile(const plFileName& fileName) const
     bool parsingStateDesc=false;
     bool skip=false;
     while (1)
-    {       
+    {
         if (!skip)
         {
             if (!stream->GetToken(token, kTokenLen))
@@ -400,7 +400,7 @@ bool plSDLParser::IReadDescriptors() const
         else
             cnt++;
     }
-    DebugMsg("Done reading SDL files"); 
+    DebugMsg("Done reading SDL files");
 
     if (!cnt)
         ret=false;

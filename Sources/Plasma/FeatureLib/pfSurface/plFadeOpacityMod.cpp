@@ -176,7 +176,7 @@ void plFadeOpacityMod::IOnRenderMsg(plRenderMsg* rend)
 
         if( fFade != kImmediate )
         {
-            // If we've moved more than 3 feet in a frame, we'll consider this a 
+            // If we've moved more than 3 feet in a frame, we'll consider this a
             // camera cut. In that case, don't fade up or down, just go there.
             const float kCutMagSquared = 3.f * 3.f;
             if( hsVector3(&eyePos, &fLastEye).MagnitudeSquared() > kCutMagSquared )
@@ -277,7 +277,7 @@ void plFadeOpacityMod::ISetOpacity()
     const int num = fFadeLays.GetCount();
     int i;
     for( i = 0; i < num; i++ )
-        fFadeLays[i]->SetOpacity(fOpCurrent);   
+        fFadeLays[i]->SetOpacity(fOpCurrent);
 }
 
 void plFadeOpacityMod::IFadeUp()

@@ -62,7 +62,7 @@ enum CanIgnore
     kMemberGroup                = 0x1,
     kBounceGroup                = 0x2,
     kReportGroup                = 0x4,
-    kMass                       = 0x8,      
+    kMass                       = 0x8,
     kFriction                   = 0x10,
     kRestitution                = 0x20,
     kBoundsType                 = 0x40,
@@ -209,7 +209,7 @@ bool plPhysicalProps::GetLOSBlockUI()
 
 bool plPhysicalProps::SetLOSUIItem(bool status, plMaxNode *node, plErrorMsg *errMsg, bool canIgnore)
 {
-    return ISetFlagParam(status, kFlagLOSUIItem, kCanIgnoreLOSUIItem, canIgnore, node, errMsg); 
+    return ISetFlagParam(status, kFlagLOSUIItem, kCanIgnoreLOSUIItem, canIgnore, node, errMsg);
 }
 
 bool plPhysicalProps::GetLOSUIItem()

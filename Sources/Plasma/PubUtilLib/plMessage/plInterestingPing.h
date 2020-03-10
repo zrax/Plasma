@@ -52,8 +52,8 @@ class plInterestingModMsg : public plMessage
 
 public:
     plInterestingModMsg(){}
-    plInterestingModMsg(const plKey &s, 
-                    const plKey &r, 
+    plInterestingModMsg(const plKey &s,
+                    const plKey &r,
                     const double* t){}
     ~plInterestingModMsg() { }
 
@@ -67,7 +67,7 @@ public:
     plKey       fObj;
     uint8_t       fType;
 
-    // IO 
+    // IO
     void Read(hsStream* stream, hsResMgr* mgr)
     {
         plMessage::IMsgRead(stream, mgr);
@@ -94,16 +94,16 @@ class plInterestingPing : public plMessage
 
 public:
     plInterestingPing(){SetBCastFlag(plMessage::kBCastByExactType);}
-    plInterestingPing(const plKey &s) {SetBCastFlag(plMessage::kBCastByExactType);SetSender(s);}  
-    plInterestingPing(const plKey &s, 
-                    const plKey &r, 
+    plInterestingPing(const plKey &s) {SetBCastFlag(plMessage::kBCastByExactType);SetSender(s);}
+    plInterestingPing(const plKey &s,
+                    const plKey &r,
                     const double* t){SetBCastFlag(plMessage::kBCastByExactType);}
     ~plInterestingPing() { }
 
     CLASSNAME_REGISTER( plInterestingPing );
     GETINTERFACE_ANY( plInterestingPing, plMessage );
     
-    // IO 
+    // IO
     void Read(hsStream* stream, hsResMgr* mgr)
     {
         plMessage::IMsgRead(stream, mgr);

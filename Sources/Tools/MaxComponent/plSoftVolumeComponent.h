@@ -79,7 +79,7 @@ public:
     bool PreConvert(plMaxNode* pNode, plErrorMsg* errMsg) { return true; }
     bool Convert(plMaxNode *node, plErrorMsg *errMsg) { return true; }
 
-    plKey GetSoftVolume(); 
+    plKey GetSoftVolume();
 
     virtual bool DeInit(plMaxNode *node, plErrorMsg *pErrMsg);
 
@@ -89,7 +89,7 @@ public:
 
 //// plSingleCompSelProc Declaration ////////////////////////////////////////////////////////////
 //  Utilitiy class for any dialog that consists of a single button that is used to select
-//  a soft volume. 
+//  a soft volume.
 //  Just declare like this:
 //      static plSingleCompSelProc gSoftVolNegateSingleSel( paramID, buttonCtrlID, promptString );
 //  and use it as the dialog proc for your dialog's ParamMap.

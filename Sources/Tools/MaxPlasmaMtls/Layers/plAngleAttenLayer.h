@@ -90,7 +90,7 @@ public:
 
     plAngleAttenLayer();
     ~plAngleAttenLayer();
-    void DeleteThis() { delete this; }      
+    void DeleteThis() { delete this; }
 
     //From MtlBase
     ParamDlg* CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp);
@@ -127,19 +127,19 @@ public:
     IOResult Save(ISave *isave);
 
     //From Animatable
-    Class_ID ClassID() { return ANGLE_ATTEN_LAYER_CLASS_ID; }       
+    Class_ID ClassID() { return ANGLE_ATTEN_LAYER_CLASS_ID; }
     SClass_ID SuperClassID() { return TEXMAP_CLASS_ID; }
     void GetClassName(TSTR& s);
 
     RefTargetHandle Clone( RemapDir &remap );
-    RefResult NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, 
+    RefResult NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
         PartID& partID,  RefMessage message);
 
     int NumSubs();
-    Animatable* SubAnim(int i); 
+    Animatable* SubAnim(int i);
     TSTR SubAnimName(int i);
 
-    // TODO: Maintain the number or references here 
+    // TODO: Maintain the number or references here
     int NumRefs();
     RefTargetHandle GetReference(int i);
     void SetReference(int i, RefTargetHandle rtarg);

@@ -67,13 +67,13 @@ class pfConsoleEngine;
 class plKeyEventMsg;
 class pfConsoleInputInterface;
 
-class pfConsole : public hsKeyedObject 
+class pfConsole : public hsKeyedObject
 {
     friend class pfConsoleInputInterface;
 
     protected:
 
-        enum Konstants 
+        enum Konstants
         {
             kNumHistoryItems = 16,
             kNumHistoryTypes = 2,

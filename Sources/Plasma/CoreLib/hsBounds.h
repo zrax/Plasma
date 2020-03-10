@@ -79,7 +79,7 @@ public:
 
     //
     // These set type to kBounds Normal
-    // 
+    //
     virtual void    Reset(const hsBounds3*) = 0;
 
     virtual bool    IsInside(const hsPoint3* pos) const =0;  // Only valid for kBounds Normal
@@ -108,12 +108,12 @@ protected:
 public:
     hsBounds3() : fBounds3Flags(0) {}
     hsBounds3(const hsBounds3 &pRHS) : fBounds3Flags(0) { Reset(&pRHS); }
-    hsBounds3 &operator=(const hsBounds3 &pRHS ) 
+    hsBounds3 &operator=(const hsBounds3 &pRHS )
     {   if (&pRHS != this)  Reset(&pRHS);   return *this; }
 
     //
     // These set type to kBounds Normal
-    // 
+    //
     virtual void    Reset(const hsBounds3*);
     virtual void    Reset(const hsPoint3 *p);
     virtual void    Reset(int n, const hsPoint3 *p);
@@ -140,7 +140,7 @@ public:
 
     // Test according to my axes only, doesn't check other's axes
     // neg, pos, zero == disjoint, I contain other, overlap
-    virtual int32_t TestBound(const hsBounds3& other) const; 
+    virtual int32_t TestBound(const hsBounds3& other) const;
 
     static float ClosestPointToLine(const hsPoint3 *p, const hsPoint3 *v0, const hsPoint3 *v1, hsPoint3 *out);
     static float ClosestPointToInfiniteLine(const hsPoint3* p, const hsVector3* v, hsPoint3* out);
@@ -150,9 +150,9 @@ public:
 };
 
 inline void hsBounds3::ICalcCenter() const
-{ 
+{
     hsAssert(kBoundsNormal == fType, "Invalid type for ICalcCenter");
-    fCenter = ((fMins + fMaxs) / 2.0); 
+    fCenter = ((fMins + fMaxs) / 2.0);
     fBounds3Flags |= kCenterValid;
 }
 inline void hsBounds3::GetCorners(hsPoint3 *b) const
@@ -166,26 +166,26 @@ inline void hsBounds3::GetCorners(hsPoint3 *b) const
     }
 }
 inline const hsPoint3& hsBounds3::GetMins() const
-{   
+{
     hsAssert(kBoundsNormal == fType, "Invalid type for GetMins");
     return fMins;
 }
 inline const hsPoint3& hsBounds3::GetMaxs() const
-{   
+{
     hsAssert(kBoundsNormal == fType, "Invalid type for GetMaxs");
     return fMaxs;
 }
 
 inline const hsPoint3& hsBounds3::GetCenter() const
-{ 
+{
     hsAssert(kBoundsNormal == fType, "Invalid type for GetCenter");
     if(!(fBounds3Flags & kCenterValid))
         ICalcCenter();
-    return fCenter; 
+    return fCenter;
 }
 
 inline float hsBounds3::GetMaxDim() const
-{ 
+{
     hsAssert(kBoundsNormal == fType, "Invalid type for GetMaxDim");
     return std::max({ fMaxs.fX - fMins.fX, fMaxs.fY - fMins.fY, fMaxs.fZ - fMins.fZ });
 }
@@ -217,7 +217,7 @@ public:
 
     //
     // These set type to kBounds Normal
-    // 
+    //
     virtual void    Reset(const hsBounds3*);
     void    SetPlane(uint32_t i, hsPlane3 *p);
 
@@ -258,7 +258,7 @@ public:
     hsBounds3Ext(const hsBounds3 &b);
     hsBounds3Ext &operator=(const hsBounds3 &b);
     hsBounds3Ext(const hsBounds3Ext &pRHS) : hsBounds3() { Reset(&pRHS); }
-    hsBounds3Ext &operator=(const hsBounds3Ext &pRHS ) 
+    hsBounds3Ext &operator=(const hsBounds3Ext &pRHS )
     {   if (&pRHS != this)  Reset(&pRHS);   return *this; }
 
     virtual void Reset(const hsBounds3Ext *b);
@@ -285,15 +285,15 @@ public:
 
     virtual bool IsInside(const hsPoint3* pos) const; // ok for full/empty
 
-    virtual void TestPlane(const hsVector3 &n, hsPoint2 &depth) const; 
+    virtual void TestPlane(const hsVector3 &n, hsPoint2 &depth) const;
     virtual int32_t TestPoints(int n, const hsPoint3 *pList) const; // pos,neg,zero == allout, allin, cut
 
     // Test according to my axes only, doesn't check other's axes
     // neg, pos, zero == disjoint, I contain other, overlap
-    virtual int32_t TestBound(const hsBounds3Ext& other) const; 
+    virtual int32_t TestBound(const hsBounds3Ext& other) const;
 
-    virtual void TestPlane(const hsVector3 &n, const hsVector3 &myVel, hsPoint2 &depth) const; 
-    virtual void TestPlane(const hsPlane3 *p, const hsVector3 &myVel, hsPoint2 &depth) const; 
+    virtual void TestPlane(const hsVector3 &n, const hsVector3 &myVel, hsPoint2 &depth) const;
+    virtual void TestPlane(const hsPlane3 *p, const hsVector3 &myVel, hsPoint2 &depth) const;
     virtual int32_t TestPoints(int n, const hsPoint3 *pList, const hsVector3 &ptVel) const; // pos,neg,zero == allout, allin, cut
     virtual bool ISectBB(const hsBounds3Ext &other, const hsVector3 &myVel) const;
     virtual bool ISectBB(const hsBounds3Ext &other, const hsVector3 &myVel, hsHitInfoExt *hit) const;

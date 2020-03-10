@@ -50,7 +50,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 //      array of templates
 //      array of materials (indexed by templates)
 //      array of clusters
-//      array of LOD blend 
+//      array of LOD blend
 //      array of vis sets
 
 // plCluster
@@ -68,7 +68,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 // plSpanInstance
 //      template idx
 //      3x4 transform
-//      encoding flags 
+//      encoding flags
 //          (what components does it include, delPos? color?)
 //          (what's the encoding? 32bit RGBA? 16Bit/Chan? 10Bit/Chan? 8Bit/Chan?)
 //          (need an encoding per channel)
@@ -248,12 +248,12 @@ public:
         switch(fEncoding.fCode & plSpanEncoding::kPosMask)
         {
         case plSpanEncoding::kPos888:
-            return hsVector3(fPos888[0] * fEncoding.fPosScale, 
-                                fPos888[1] * fEncoding.fPosScale, 
+            return hsVector3(fPos888[0] * fEncoding.fPosScale,
+                                fPos888[1] * fEncoding.fPosScale,
                                 fPos888[2] * fEncoding.fPosScale);
         case plSpanEncoding::kPos161616:
-            return hsVector3(fPos161616[0] * fEncoding.fPosScale, 
-                                fPos161616[1] * fEncoding.fPosScale, 
+            return hsVector3(fPos161616[0] * fEncoding.fPosScale,
+                                fPos161616[1] * fEncoding.fPosScale,
                                 fPos161616[2] * fEncoding.fPosScale);
         case plSpanEncoding::kPos101010:
             return hsVector3(int(*fPos101010 & 0x3f) * fEncoding.fPosScale,
@@ -270,14 +270,14 @@ public:
         pos += DelPos();
         return pos;
     };
-    uint32_t      Color(uint32_t c) const 
-    { 
+    uint32_t      Color(uint32_t c) const
+    {
         switch(fEncoding.fCode & plSpanEncoding::kColMask)
         {
         case plSpanEncoding::kColA8:
             return (c & 0x00ffffff) | *fA8;
         case plSpanEncoding::kColI8:
-            return (c & 0xff000000) 
+            return (c & 0xff000000)
                 | (*fI8 << 16)
                 | (*fI8 << 8)
                 | (*fI8 << 0);
@@ -297,7 +297,7 @@ public:
         case plSpanEncoding::kColARGB8888:
             return *fARGB8888;
         }
-        return c; 
+        return c;
     };
 };
 

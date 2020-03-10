@@ -141,7 +141,7 @@ bool plMsgForwarder::IForwardCallbackMsg(plMessage *msg)
                 fCallbacks[event] = fc;
 
 #if 0
-                hsStatusMessageF("Adding CBMsg, eventSender=%s, eventRemoteMsg=%d\n",                   
+                hsStatusMessageF("Adding CBMsg, eventSender=%s, eventRemoteMsg=%d\n",
                     event->GetSender() ? event->GetSender()->GetName().c_str() : "nil", fc->fNetPropogate);
 #endif
             }

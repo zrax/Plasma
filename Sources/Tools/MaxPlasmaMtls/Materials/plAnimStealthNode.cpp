@@ -132,7 +132,7 @@ static plStealthDlgProc sStealthDlgProc;
 
 //// Stealthy ParamBlock Desc ////////////////////////////////////////////////
 
-static plEaseAccessor sEaseAccessor( plAnimStealthNode::kBlockPB, plAnimStealthNode::kPBEaseInMin, 
+static plEaseAccessor sEaseAccessor( plAnimStealthNode::kBlockPB, plAnimStealthNode::kPBEaseInMin,
                                         plAnimStealthNode::kPBEaseInMax, plAnimStealthNode::kPBEaseInLength,
                                         plAnimStealthNode::kPBEaseOutMin, plAnimStealthNode::kPBEaseOutMax,
                                         plAnimStealthNode::kPBEaseOutLength );
@@ -166,19 +166,19 @@ ParamBlockDesc2 plAnimStealthNode::sAnimStealthPB
         p_vals,     plAnimEaseTypes::kNoEase, plAnimEaseTypes::kConstAccel, plAnimEaseTypes::kSpline,
         p_default,  plAnimEaseTypes::kNoEase,
         end,
-    kPBEaseInLength,    _T("easeInLength"), TYPE_FLOAT,     0, 0,   
+    kPBEaseInLength,    _T("easeInLength"), TYPE_FLOAT,     0, 0,
         p_default, 1.0,
         p_range, 0.1, 99.0,
         p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, IDC_PASS_ANIM_EASE_IN_TIME, IDC_PASS_ANIM_EASE_IN_TIME_SPIN, 1.0,
         p_accessor, &sEaseAccessor,
         end,
-    kPBEaseInMin,       _T("easeInMin"),    TYPE_FLOAT,     0, 0,   
+    kPBEaseInMin,       _T("easeInMin"),    TYPE_FLOAT,     0, 0,
         p_default, 1.0,
         p_range, 0.1, 99.0,
         p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, IDC_PASS_ANIM_EASE_IN_MIN, IDC_PASS_ANIM_EASE_IN_MIN_SPIN, 1.0,
         p_accessor, &sEaseAccessor,
         end,
-    kPBEaseInMax,   _T("easeInMax"),    TYPE_FLOAT,     0, 0,   
+    kPBEaseInMax,   _T("easeInMax"),    TYPE_FLOAT,     0, 0,
         p_default, 1.0,
         p_range, 0.1, 99.0,
         p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, IDC_PASS_ANIM_EASE_IN_MAX, IDC_PASS_ANIM_EASE_IN_MAX_SPIN, 1.0,
@@ -190,19 +190,19 @@ ParamBlockDesc2 plAnimStealthNode::sAnimStealthPB
         p_vals,     plAnimEaseTypes::kNoEase, plAnimEaseTypes::kConstAccel, plAnimEaseTypes::kSpline,
         p_default,  plAnimEaseTypes::kNoEase,
         end,
-    kPBEaseOutLength,   _T("easeOutLength"),    TYPE_FLOAT,     0, 0,   
+    kPBEaseOutLength,   _T("easeOutLength"),    TYPE_FLOAT,     0, 0,
         p_default, 1.0,
         p_range, 0.1, 99.0,
         p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, IDC_PASS_ANIM_EASE_OUT_TIME, IDC_PASS_ANIM_EASE_OUT_TIME_SPIN, 1.0,
         p_accessor, &sEaseAccessor,
         end,
-    kPBEaseOutMin,      _T("easeOutMin"),   TYPE_FLOAT,     0, 0,   
+    kPBEaseOutMin,      _T("easeOutMin"),   TYPE_FLOAT,     0, 0,
         p_default, 1.0,
         p_range, 0.1, 99.0,
         p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, IDC_PASS_ANIM_EASE_OUT_MIN, IDC_PASS_ANIM_EASE_OUT_MIN_SPIN, 1.0,
         p_accessor, &sEaseAccessor,
         end,
-    kPBEaseOutMax,  _T("easeOutMax"),   TYPE_FLOAT,     0, 0,   
+    kPBEaseOutMax,  _T("easeOutMax"),   TYPE_FLOAT,     0, 0,
         p_default, 1.0,
         p_range, 0.1, 99.0,
         p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, IDC_PASS_ANIM_EASE_OUT_MAX, IDC_PASS_ANIM_EASE_OUT_MAX_SPIN, 1.0,
@@ -437,7 +437,7 @@ bool        plAnimStealthNode::IsParentUsedInScene()
 
     // Note: we could do the loop as a helper function, but we only do it twice,
     // so it's not *really* worth the effort...
-    //// NOTE: the following doesn't seem to work, but keeping here in case it ever does. 
+    //// NOTE: the following doesn't seem to work, but keeping here in case it ever does.
     //// What really actually finds something is the enum dependents loop below
     const char *mtlName = GetParentMtl()->GetName();
 
@@ -518,13 +518,13 @@ void plStealthDlgProc::Update(TimeValue t, Interval& valid, IParamMap2* pmap)
 //  Because of wonderful linking problems with the MAX libraries, we can't
 //  actually use CreateChildMParamMap2 like we should. So instead, we use
 //  CreateChildCPParamMap2. However, *that* function calls the wrong interface
-//  to handle untrapped mouse messages, with the result that clicking and 
+//  to handle untrapped mouse messages, with the result that clicking and
 //  dragging scrolls the command pane (where components are displayed) instead
 //  of the material editor pane.
 //  To override this, we subclass each dialog so that we can capture the mouse
 //  messages before MAX processes them and then reroute them appropriately.
 //  Note: because MAX already uses the window long of the given window, we can't
-//  store the old proc of the window. However, since we always use 
+//  store the old proc of the window. However, since we always use
 //  CreateChildCPParamMap2, and because the MAX source code shows us that it
 //  always uses the same dialog proc for all windows created with that function,
 //  we can simply store the address of that proc the first time we subclass and
@@ -593,7 +593,7 @@ BOOL plStealthDlgProc::DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg
             break;
 
         case WM_ENABLE:
-            // The entire dialog was either enabled or disabled. 
+            // The entire dialog was either enabled or disabled.
             break;
 
     case WM_COMMAND:
@@ -726,7 +726,7 @@ void plStealthDlgProc::ILoadLoops(IParamBlock2 *pb)
     SegmentSpec *animSpec = (*fSegMap)[ segName ];
     if( animSpec && fSegMap )
     {
-        // for each segment we found: 
+        // for each segment we found:
         for( SegmentMap::iterator i = fSegMap->begin(); i != fSegMap->end(); i++ )
         {
             SegmentSpec *spec = (*i).second;
@@ -740,7 +740,7 @@ void plStealthDlgProc::ILoadLoops(IParamBlock2 *pb)
                     // Add the name
                     int idx = SendMessage( hLoops, CB_ADDSTRING, 0, (LPARAM)spec->fName.c_str() );
                     SendMessage( hLoops, CB_SETITEMDATA, idx, kName );
-                }       
+                }
             }
         }
     }
@@ -786,7 +786,7 @@ void    plAnimStealthNode::SwitchDlg( plAnimStealthNode *toSwitchTo )
 }
 
 //// CreateAndEmbedDlg ///////////////////////////////////////////////////////
-//  Create the dialog for this object and place it inside the given dialog, 
+//  Create the dialog for this object and place it inside the given dialog,
 //  centering it in the given control if any.
 
 bool    plAnimStealthNode::CreateAndEmbedDlg( IParamMap2 *parentMap, IMtlParams *parentParams, HWND frameCtrl )
@@ -810,8 +810,8 @@ bool    plAnimStealthNode::CreateAndEmbedDlg( IParamMap2 *parentMap, IMtlParams 
         int childWidth = childFrame.right - childFrame.left;
         int childHeight = childFrame.bottom - childFrame.top;
 
-        ::OffsetRect( &childFrame, ( frameWidth - childWidth ) >> 1, ( frameHeight - childHeight ) >> 1 );      
-        ::OffsetRect( &childFrame, centerFrame.left, centerFrame.top );     
+        ::OffsetRect( &childFrame, ( frameWidth - childWidth ) >> 1, ( frameHeight - childHeight ) >> 1 );
+        ::OffsetRect( &childFrame, centerFrame.left, centerFrame.top );
 
         ::SetWindowPos( child, nil, childFrame.left, childFrame.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER );
     }
@@ -892,7 +892,7 @@ ST::string plAnimStealthNode::GetIfaceSegmentName( bool allowNil )
 
 //// Parameter Access Functions //////////////////////////////////////////////
 
-#pragma warning( push ) 
+#pragma warning( push )
 #pragma warning( disable:4800 ) // Forcing value to bool true or false (go figure, i'm even explicitly casting)
 bool    plAnimStealthNode::GetAutoStart() const   { return (bool)fParamBlock->GetInt( (ParamID)kPBAutoStart ); }
 void    plAnimStealthNode::SetAutoStart( bool b )       { fParamBlock->SetValue( (ParamID)kPBAutoStart, 0, (int)b ); };
@@ -946,7 +946,7 @@ void    plStealthNodeAccessor::ISetParent( ReferenceTarget *target, plPassMtlBas
     }
 }
 
-void    plStealthNodeAccessor::TabChanged( tab_changes changeCode, Tab<PB2Value> *tab, ReferenceMaker *owner, 
+void    plStealthNodeAccessor::TabChanged( tab_changes changeCode, Tab<PB2Value> *tab, ReferenceMaker *owner,
                                             ParamID id, int tabIndex, int count )
 {
     if( changeCode == tab_insert || changeCode == tab_append )
@@ -978,7 +978,7 @@ void    plStealthNodeAccessor::Set( PB2Value &v, ReferenceMaker *owner, ParamID 
 
     IParamBlock2 *pb = mtl->fAnimPB;
 
-    // A stealth node paramBlock value just got set. First make sure we 
+    // A stealth node paramBlock value just got set. First make sure we
     // un-set the old stealth's parent
     ISetParent( pb->GetReferenceTarget( id, tabIndex ), nil );
         

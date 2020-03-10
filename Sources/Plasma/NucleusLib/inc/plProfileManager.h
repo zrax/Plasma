@@ -47,7 +47,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "plProfile.h"
 
-class plProfileManager 
+class plProfileManager
 {
 protected:
     friend class plProfileManagerFull;

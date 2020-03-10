@@ -164,7 +164,7 @@ plAvBrainClimb::plAvBrainClimb(Mode nextMode)
   fRelease(nil),
   fFallOff(nil)
 {
-    IInitAnimations();  
+    IInitAnimations();
 }
 
 
@@ -338,7 +338,7 @@ bool plAvBrainClimb::IProcessExitStage(double time, float elapsed)
         fCurStage->Detach(fAvMod);  // remove the (now completely masked) underlying anim
         fCurStage = nil;
         ai->Fade(0, 2.0f);      // start fading the exit anim
-    } else if(animDone && curBlend == 0.0f) {   
+    } else if(animDone && curBlend == 0.0f) {
         return true;        // finished and faded; we're really done now
     }
     return false;
@@ -364,7 +364,7 @@ void plAvBrainClimb::IRelease(bool intentional)
         fNextMode = kFinishing;
         double time = hsTimer::GetSysSeconds();
         // attach the exit stage atop the current stage. from here on out we'll only advance
-        // the current stage. 
+        // the current stage.
         fAvMod->GetRootAnimator()->Enable(false);
         fAvMod->EnablePhysicsKinematic(false);
         fExitStage->Attach(fAvMod, this, 1.0f, time);
@@ -400,7 +400,7 @@ bool plAvBrainClimb::IAdvanceCurrentStage(double time, float elapsed, float &ove
         case kClimbingRight:
         case kClimbingDown:
         case kClimbingLeft:
-            fControlDir = 1.0f;         // these guys all auto-advance 
+            fControlDir = 1.0f;         // these guys all auto-advance
             break;
         case kInactive:
         case kUnknown:
@@ -637,7 +637,7 @@ plAvBrainClimb::Mode plAvBrainClimb::IGetModeFromStage(plAnimStage *stage)
     else if(stage == fFallOff)
         return kFallingOff;
     else
-        return kUnknown;    
+        return kUnknown;
 }
 
 // IGETDESIREDDIRECTION
@@ -666,7 +666,7 @@ void plAvBrainClimb::IGetDesiredDirection()
 void plAvBrainClimb::IProbeEnvironment()
 {
     hsMatrix44 l2w = fAvMod->GetTarget(0)->GetLocalToWorld();
-    // we're just going to pull the axes out of the 
+    // we're just going to pull the axes out of the
     
     hsPoint3 up = hsPoint3(l2w.GetAxis(hsMatrix44::kUp) * fVerticalProbeLength);
     hsPoint3 down = -up;
@@ -870,7 +870,7 @@ void plAvBrainClimb::LoadFromSDL(const plStateDataRecord *sdl)
     if(exitStageAttached)
     {
         Mode exitStageMode; // the exit stage, in mode form
-        sdl->FindVar(plAvatarSDLModifier::ClimbBrainVarNames::kStrExitStage)->Get((int *)&exitStageMode);   
+        sdl->FindVar(plAvatarSDLModifier::ClimbBrainVarNames::kStrExitStage)->Get((int *)&exitStageMode);
         plAnimStage *exitStage = this->IGetStageFromMode(exitStageMode);
         sdl->FindVar(plAvatarSDLModifier::ClimbBrainVarNames::kStrExitStageTime)->Get((int *)&fNextMode);
         sdl->FindVar(plAvatarSDLModifier::ClimbBrainVarNames::kStrExitStageStrength)->Get((int *)&fNextMode);

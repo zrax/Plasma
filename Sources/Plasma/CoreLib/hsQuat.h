@@ -49,15 +49,15 @@ struct hsMatrix44;
 //
 // Quaternion class.
 // For conversion to and from euler angles, see hsEuler.cpp,h.
-// 
+//
 class hsQuat {
 
 public:
-    float fX,fY,fZ,fW;   
+    float fX,fY,fZ,fW;
 
     // Constructors
     hsQuat(){}
-    hsQuat(float X, float Y, float Z, float W) : 
+    hsQuat(float X, float Y, float Z, float W) :
         fX(X), fY(Y), fZ(Z), fW(W) {}
     hsQuat(const hsQuat& a) = default;
     hsQuat(float af[4]) { fX = af[0]; fY = af[1]; fZ = af[2]; fW = af[3]; }
@@ -69,19 +69,19 @@ public:
     hsQuat& SetFromMatrix44(const hsMatrix44& mat);
     void SetFromMatrix(const hsMatrix44 *mat);
     void SetFromSlerp(const hsQuat &q1, const hsQuat &q2, float t, int spin=0);
-    void Set(float X, float Y, float Z, float W)  
+    void Set(float X, float Y, float Z, float W)
         { fX = X; fY = Y; fZ = Z; fW = W; }
     void GetAngleAxis(float *rad, hsVector3 *axis) const;
     void SetAngleAxis(const float rad, const hsVector3 &axis);
     hsPoint3 Rotate(const hsScalarTriple* v) const;
     
     // Access operators
-    float& operator[](int i) { return (&fX)[i]; }     
-    const float& operator[](int i) const { return (&fX)[i]; }  
+    float& operator[](int i) { return (&fX)[i]; }
+    const float& operator[](int i) const { return (&fX)[i]; }
 
     // Unary operators
-    hsQuat operator-() const { return(hsQuat(-fX,-fY,-fZ,-fW)); } 
-    hsQuat operator+() const { return *this; } 
+    hsQuat operator-() const { return(hsQuat(-fX,-fY,-fZ,-fW)); }
+    hsQuat operator+() const { return *this; }
 
     // Comparison
     int operator==(const hsQuat& a) const
@@ -89,8 +89,8 @@ public:
     void Identity() { fX = fY = fZ = (float)0.0; fW = (float) 1.0; }
     int IsIdentity() const
         { return (fX==0.0 && fY==0.0 && fZ==0.0 && fW==1.0); }
-    void Normalize();  
-    void NormalizeIfNeeded();  
+    void Normalize();
+    void NormalizeIfNeeded();
     void MakeMatrix(hsMatrix44 *mat) const;
     float Magnitude();
     float MagnitudeSquared();

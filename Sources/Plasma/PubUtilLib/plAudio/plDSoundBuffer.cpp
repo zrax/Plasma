@@ -70,7 +70,7 @@ plProfile_CreateCounterNoReset( "Allocated", "Sound", NumAllocated );
 //// Constructor/Destructor //////////////////////////////////////////////////
 
 plDSoundBuffer::plDSoundBuffer( uint32_t size, plWAVHeader &bufferDesc, bool enable3D, bool isLooping, bool tryStatic, bool streaming )
-{ 
+{
     fLooping = isLooping;
     fValid = false;
     fBufferDesc = nil;
@@ -81,7 +81,7 @@ plDSoundBuffer::plDSoundBuffer( uint32_t size, plWAVHeader &bufferDesc, bool ena
     fStreaming = streaming;
 
     buffer = 0;
-    source = 0; 
+    source = 0;
     for(int i = 0; i < STREAMING_BUFFERS; ++i)
     {
         streamingBuffers[i] = 0;
@@ -169,7 +169,7 @@ int plDSoundBuffer::IGetALFormat(unsigned bitsPerSample, unsigned int numChannel
     return format;
 }
 
-bool plDSoundBuffer::FillBuffer(void *data, unsigned bytes, plWAVHeader *header) 
+bool plDSoundBuffer::FillBuffer(void *data, unsigned bytes, plWAVHeader *header)
 {
     if(source)
     {
@@ -238,7 +238,7 @@ bool plDSoundBuffer::SetupStreamingSource(plAudioFileReader *stream)
     unsigned int size;
     ALenum error;
     
-    alGetError();   
+    alGetError();
     int numBuffersToQueue = 0;
     
     // fill buffers with data
@@ -305,9 +305,9 @@ bool plDSoundBuffer::SetupStreamingSource(void *data, unsigned bytes)
     unsigned char bufferData[STREAM_BUFFER_SIZE];
     unsigned int size;
     ALenum error;
-    char *pData = (char *)data; 
+    char *pData = (char *)data;
     
-    alGetError();   
+    alGetError();
     int numBuffersToQueue = 0;
 
     // fill buffers with data
@@ -315,7 +315,7 @@ bool plDSoundBuffer::SetupStreamingSource(void *data, unsigned bytes)
     {
         size = bytes < STREAM_BUFFER_SIZE ? bytes : STREAM_BUFFER_SIZE;
         if(!size)
-            break;  
+            break;
 
         memcpy(bufferData, pData, size);
         pData += size;
@@ -394,7 +394,7 @@ int plDSoundBuffer::BuffersQueued()
 
 }
 
-//============================================================================ 
+//============================================================================
 bool plDSoundBuffer::StreamingFillBuffer(plAudioFileReader *stream)
 {
     if(!source)
@@ -540,7 +540,7 @@ void plDSoundBuffer::UnQueueVoiceBuffers()
     }
 }
 
-//============================================================================ 
+//============================================================================
 bool plDSoundBuffer::VoiceFillBuffer(const void *data, size_t bytes, unsigned bufferId)
 {
     if(!source)
@@ -685,7 +685,7 @@ void plDSoundBuffer::SetConeOutsideVolume(int vol)
 }
 
 //============================================================================
-void plDSoundBuffer::Rewind() 
+void plDSoundBuffer::Rewind()
 {
     alSourceRewind(source);
     alGetError();
@@ -756,7 +756,7 @@ void    plDSoundBuffer::SetScalarVolume( float volume )
     if(source)
     {
         ALenum error;
-        alSourcef(source, AL_GAIN, volume); 
+        alSourcef(source, AL_GAIN, volume);
         if((error = alGetError()) != AL_NO_ERROR)
             plStatusLog::AddLineSF("audio.log", "failed to set volume on source {}", error);
     }

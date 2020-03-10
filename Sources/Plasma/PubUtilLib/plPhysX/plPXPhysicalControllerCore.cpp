@@ -227,7 +227,7 @@ void plPXPhysicalControllerCore::Enable(bool enable)
     }
 }
 
-void plPXPhysicalControllerCore::SetSubworld(plKey world) 
+void plPXPhysicalControllerCore::SetSubworld(plKey world)
 {
     if (fWorldKey != world)
     {

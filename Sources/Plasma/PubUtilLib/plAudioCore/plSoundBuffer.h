@@ -96,7 +96,7 @@ public:
 
     plWAVHeader &GetHeader()              { return fHeader; }
     uint32_t    GetDataLength() const     { return fDataLength; }
-    void        SetDataLength(unsigned length)  { fDataLength = length; } 
+    void        SetDataLength(unsigned length)  { fDataLength = length; }
     void       *GetData() const           { return fData; }
     plFileName  GetFileName() const       { return fFileName; }
     bool        IsValid() const           { return fValid; }
@@ -107,7 +107,7 @@ public:
     void                SetFlag( uint32_t flag, bool yes = true ) { if( yes ) fFlags |= flag; else fFlags &= ~flag; }
 
     // Must be called until return value is kSuccess. starts an asynchronous load first time called. returns kSuccess when finished.
-    ELoadReturnVal      AsyncLoad( plAudioFileReader::StreamType type, unsigned length = 0 );   
+    ELoadReturnVal      AsyncLoad( plAudioFileReader::StreamType type, unsigned length = 0 );
     void                UnLoad( );
 
     plAudioCore::ChannelSelect  GetReaderSelect() const;
@@ -124,7 +124,7 @@ public:
 
     // for plugins only
     void                SetInternalData( plWAVHeader &header, uint32_t length, uint8_t *data );
-    ELoadReturnVal      EnsureInternal( );  
+    ELoadReturnVal      EnsureInternal( );
     void                SetError() { fError = true; }
 
 protected:

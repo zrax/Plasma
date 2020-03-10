@@ -172,7 +172,7 @@ public:
     // synced up, so fromRoot=true.
     // fromRoot=true is always safe, just potentially wasteful, so if you don't know, use fromRoot=true or
     // preferably, don't use this function.
-    void FlushTransform(bool fromRoot=true); 
+    void FlushTransform(bool fromRoot=true);
 
     virtual const hsMatrix44& GetLocalToParent() const { return fLocalToParent; }
     virtual const hsMatrix44& GetParentToLocal() const { return fParentToLocal; }

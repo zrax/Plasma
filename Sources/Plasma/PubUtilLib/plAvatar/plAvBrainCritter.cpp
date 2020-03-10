@@ -78,7 +78,7 @@ class CritterBehavior : public plArmatureBehavior
 {
     friend class plAvBrainCritter;
 
-public: 
+public:
     CritterBehavior(const std::string& name, bool randomStart = false, float fadeInLength = 2.f, float fadeOutLength = 2.f) : plArmatureBehavior(),
         fAvMod(nil), fCritterBrain(nil), fName(name), fRandomStartPoint(randomStart), fFadeInLength(fadeInLength), fFadeOutLength(fadeOutLength) {}
     virtual ~CritterBehavior() {}
@@ -113,7 +113,7 @@ protected:
     {
         plArmatureBehavior::IStop();
         fAvMod->SynchIfLocal(hsTimer::GetSysSeconds(), false);
-    }       
+    }
 
     plArmatureMod *fAvMod;
     plAvBrainCritter *fCritterBrain;

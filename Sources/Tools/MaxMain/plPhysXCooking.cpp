@@ -67,8 +67,8 @@ bool plPhysXCooking::fSkipErrors = false;
 
 NxUtilLib* plPhysXCooking::fUtilLib =nil;
 //assumes that the Vectors are normalized
-bool ThreePlaneIntersect(const NxVec3& norm0, const NxVec3& point0, 
-                         const NxVec3& norm1, const NxVec3& point1, 
+bool ThreePlaneIntersect(const NxVec3& norm0, const NxVec3& point0,
+                         const NxVec3& norm1, const NxVec3& point1,
                          const NxVec3& norm2, const NxVec3& point2, NxVec3& loc)
 {
     //need to make sure these planes aren't parallel
@@ -124,7 +124,7 @@ hsVectorStream* plPhysXCooking::CookTrimesh(int nVerts, hsPoint3* verts, int nFa
     triDesc.numVertices         = nVerts;
     triDesc.pointStrideBytes    = sizeof(hsPoint3);
     triDesc.points              = verts;
-    triDesc.numTriangles        = nFaces;   
+    triDesc.numTriangles        = nFaces;
     triDesc.triangleStrideBytes = sizeof(uint16_t) * 3;
     triDesc.triangles           = faces;
     triDesc.flags               = NX_MF_16_BIT_INDICES;
@@ -204,7 +204,7 @@ hsVectorStream* plPhysXCooking::CookHull(int nVerts, hsPoint3* verts, bool infla
     convexDesc.points               = verts;
     convexDesc.flags                = NX_CF_COMPUTE_CONVEX;
 
-    if(inflate) 
+    if(inflate)
     {
 
         convexDesc.flags|= NX_CF_INFLATE_CONVEX ;
@@ -240,7 +240,7 @@ NxTriangleMesh* ReadExplicit(hsStream* stream)
     triDesc.numVertices         = nVertices;
     triDesc.pointStrideBytes    = sizeof(hsPoint3);
     triDesc.points              = pVertices;
-    triDesc.numTriangles        = nFaces;   
+    triDesc.numTriangles        = nFaces;
     triDesc.triangleStrideBytes = sizeof(uint16_t) * 3;
     triDesc.triangles           = pTriangles;
     triDesc.flags               = NX_MF_16_BIT_INDICES;// | NX_MF_FLIPNORMALS;
@@ -330,7 +330,7 @@ void ReadBoxFromHull(hsStream* stream, NxBoxShapeDesc& box)
 //  box.localPose.setRowMajor44(&mat.fMap[0][0]);
 }
 */
-bool ProjectPointOnToPlane(const hsVector3& planeNormal,float& d0, 
+bool ProjectPointOnToPlane(const hsVector3& planeNormal,float& d0,
         const hsVector3 pointToProject, hsPoint3& res)
 {
 
@@ -371,7 +371,7 @@ void plPhysXCooking::PCA(const NxVec3* points,int numPoints, NxMat33& out)
     {
         for(int j=0; j<3;j++)
         {
-            Covun[3*i +j]=Cov[i][j];    
+            Covun[3*i +j]=Cov[i][j];
         }
     }
 
@@ -469,7 +469,7 @@ hsVectorStream* plPhysXCooking::IMakePolytope(const plMaxMeshExtractor::NeutralM
         for(int j=0;j<26;j++)
         {
             for(int k=0;k<26;k++)
-            {   
+            {
                 NxVec3 res;
                 if(ThreePlaneIntersect(vectors[i],nxLocs2[indexMax[i]],vectors[j],nxLocs2[indexMax[j]], vectors[k],nxLocs2[indexMax[k]],res))
                 {
@@ -517,7 +517,7 @@ hsVectorStream* plPhysXCooking::IMakePolytope(const plMaxMeshExtractor::NeutralM
     for(int x=0;x<outCloud.size();x++)pointages[x]=outCloud[x];
     hsVectorStream* vectorstrm;
     vectorstrm= CookHull(outCloud.size(),pointages,true);
-    delete[] pointages; 
+    delete[] pointages;
     delete[] nxLocs;
     delete[] nxLocs2;
     return vectorstrm;

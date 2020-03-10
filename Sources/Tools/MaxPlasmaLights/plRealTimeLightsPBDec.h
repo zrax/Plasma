@@ -60,32 +60,32 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 static ParamBlockDesc2  RTSpotLightBlk
 (
     /// Main def
-    plRTSpotLight::kBlkSpotLight, _T("RT Spot Light"), 0,   plRTSpotLightDesc::GetDesc(), P_AUTO_CONSTRUCT + P_AUTO_UI + P_MULTIMAP, plRTSpotLight::kRefSpotLight, 
+    plRTSpotLight::kBlkSpotLight, _T("RT Spot Light"), 0,   plRTSpotLightDesc::GetDesc(), P_AUTO_CONSTRUCT + P_AUTO_UI + P_MULTIMAP, plRTSpotLight::kRefSpotLight,
 
     /// Rollout definitions
-    3, 
-    plRTSpotLight::kLightMap1,      IDD_LIGHT_PARAM,        IDS_LIGHT_GEN_PARAMS,       0,  0,  &gLiteDlgProc,  
+    3,
+    plRTSpotLight::kLightMap1,      IDD_LIGHT_PARAM,        IDS_LIGHT_GEN_PARAMS,       0,  0,  &gLiteDlgProc,
     plRTSpotLight::kLightMap2,      IDD_LIGHT_ATTEN,        IDS_LIGHT_ATTEN_PARAMSS,    0,  0,  &gLiteDlgProc,
     plRTSpotLight::kLightMap3,      IDD_FREE_SPOTLIGHT,     IDS_LIGHT_SPOT_PARAMS,      0,  0,  &gLiteDlgProc,
         
         /// Rollout 1 - General Parameters
         plRTSpotLight::kLightOn,        _T("on"),   TYPE_BOOL,  0, IDS_RTLIGHT_ON,
-            p_default, true,    
+            p_default, true,
             p_ui, plRTSpotLight::kLightMap1,    TYPE_SINGLECHEKBOX, IDC_LIGHT_ON,
         end,
         
         plRTSpotLight::kAffectDiffuse,      _T("AffectDiffuse"),    TYPE_BOOL,  0, IDS_RTLIGHT_ON,
-            p_default, true,    
+            p_default, true,
             p_ui, plRTSpotLight::kLightMap1,    TYPE_SINGLECHEKBOX, IDC_LIGHT_DIFFUSE,
         end,
         
         plRTSpotLight::kAmbientOnlyStub,        _T("AmbientOnly"),  TYPE_BOOL,  0, IDS_RTLIGHT_ON,
-            p_default, false,   
+            p_default, false,
             p_ui, plRTSpotLight::kLightMap1,    TYPE_SINGLECHEKBOX, IDC_AMBIENT_ONLY_STUB,
         end,
         
         plRTSpotLight::kCastShadows,        _T("CastShadows"),  TYPE_BOOL,  0, IDS_DS_CASTSHADOWSS,
-//          p_default, false,   
+//          p_default, false,
 //          p_ui, plRTSpotLight::kLightMap1,    TYPE_SINGLECHEKBOX, IDC_CAST_SHADOWS,
         end,
         
@@ -105,7 +105,7 @@ static ParamBlockDesc2  RTSpotLightBlk
             p_ui, plRTSpotLight::kLightMap1,            TYPE_COLORSWATCH,       IDC_LIGHT_COLOR_SPECULAR,
             end,
 
-        plRTSpotLight::kIntensity,      _T("IntensityEditSpinner"), TYPE_FLOAT, P_ANIMATABLE, IDS_DB_MULTIPLIER,    
+        plRTSpotLight::kIntensity,      _T("IntensityEditSpinner"), TYPE_FLOAT, P_ANIMATABLE, IDS_DB_MULTIPLIER,
             p_range, -250.0, 250.0,
             p_default, 1.0,
             p_ui, plRTSpotLight::kLightMap1,            TYPE_SPINNER,   EDITTYPE_FLOAT,
@@ -120,7 +120,7 @@ static ParamBlockDesc2  RTSpotLightBlk
             p_enable_ctrls, 2, plRTSpotLight::kAttenMaxFalloffEdit,plRTSpotLight::kAttenTypeRadio,
             end,
 
-        plRTSpotLight::kAttenMaxFalloffEdit,        _T("MaxFalloffEdit"),       TYPE_FLOAT, P_ANIMATABLE, IDS_DS_ATTENSTARTNEAR,    
+        plRTSpotLight::kAttenMaxFalloffEdit,        _T("MaxFalloffEdit"),       TYPE_FLOAT, P_ANIMATABLE, IDS_DS_ATTENSTARTNEAR,
             p_range, 0.0, 999999999.0,
             p_default, 200.0,
             p_ui, plRTSpotLight::kLightMap2,            TYPE_SPINNER,   EDITTYPE_POS_UNIVERSE,
@@ -129,7 +129,7 @@ static ParamBlockDesc2  RTSpotLightBlk
 
         plRTSpotLight::kAttenTypeRadio, _T("LightShapeRadio"),  TYPE_INT, 0,    IDS_DS_LIGHTSHAPE_RATIO,
             p_default, 0,
-            //p_vals, 1, 2, 
+            //p_vals, 1, 2,
             p_ui, plRTSpotLight::kLightMap2,        TYPE_RADIO, 3,
             IDC_LIGHT_ATTEN_LINEAR_RADIO,   IDC_LIGHT_ATTEN_QUAD_RADIO, IDC_LIGHT_ATTEN_NONE_RADIO,
             
@@ -143,14 +143,14 @@ static ParamBlockDesc2  RTSpotLightBlk
             end,
 
 
-        plRTSpotLight::kHotSpot,    _T("HotSpot"),                  TYPE_FLOAT, P_ANIMATABLE, IDS_DB_HOTSIZE,   
+        plRTSpotLight::kHotSpot,    _T("HotSpot"),                  TYPE_FLOAT, P_ANIMATABLE, IDS_DB_HOTSIZE,
             p_range, 0.0, 179.0f,
             p_default, 43.0,
             p_ui, plRTSpotLight::kLightMap3,        TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
             IDC_LHOTSIZE,       IDC_LHOTSIZESPINNER, .05f,
-            end,    
+            end,
 
-        plRTSpotLight::kFallOff,    _T("FallOff"),                  TYPE_FLOAT, P_ANIMATABLE, IDS_DB_FALLSIZE,  
+        plRTSpotLight::kFallOff,    _T("FallOff"),                  TYPE_FLOAT, P_ANIMATABLE, IDS_DB_FALLSIZE,
             p_range, 0.0, 179.0f,
             p_default, 45.0,
             p_ui, plRTSpotLight::kLightMap3,        TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
@@ -161,7 +161,7 @@ static ParamBlockDesc2  RTSpotLightBlk
             p_default, false,
             p_enable_ctrls, 1, plRTSpotLight::kProjMapTexButton,
             p_ui, plRTSpotLight::kLightMap3,        TYPE_SINGLECHEKBOX, IDC_PROJECTOR,
-            end,        
+            end,
 
         plRTSpotLight::kProjMapTexButton,   _T("ProjMapButton"),    TYPE_BITMAP,    P_SHORT_LABELS, IDS_DS_PROJMAP,
             p_ui, plRTSpotLight::kLightMap3,        TYPE_BITMAPBUTTON,  IDC_PROJ_MAPNAME,
@@ -177,12 +177,12 @@ static ParamBlockDesc2  RTSpotLightBlk
         plRTLightBase::kProjNoCompress, _T("NoCompress"),       TYPE_BOOL,  0, IDS_DS_PROJ_PARAMS,
             p_default, false,
             p_ui, plRTSpotLight::kLightMap3,        TYPE_SINGLECHEKBOX, IDC_PROJ_NOCOMPRESS,
-            end,        
+            end,
 
         plRTLightBase::kProjNoMip,  _T("NoMip"),        TYPE_BOOL,  0, IDS_DS_PROJ_PARAMS,
             p_default, false,
             p_ui, plRTSpotLight::kLightMap3,        TYPE_SINGLECHEKBOX, IDC_PROJ_NOMIP,
-            end,        
+            end,
 
 
     end
@@ -196,31 +196,31 @@ static ParamBlockDesc2  RTSpotLightBlk
 static ParamBlockDesc2  RTOmniLightBlk
 (
     /// Main def
-    plRTOmniLight::kBlkOmniLight, _T("RT Omni Light"), 0,   plRTOmniLightDesc::GetDesc(), P_AUTO_CONSTRUCT + P_AUTO_UI + P_MULTIMAP, plRTOmniLight::kRefOmniLight, 
+    plRTOmniLight::kBlkOmniLight, _T("RT Omni Light"), 0,   plRTOmniLightDesc::GetDesc(), P_AUTO_CONSTRUCT + P_AUTO_UI + P_MULTIMAP, plRTOmniLight::kRefOmniLight,
 
     /// Rollout definitions
-    2, 
-    plRTOmniLight::kLightMap1,      IDD_LIGHT_PARAM,    IDS_LIGHT_GEN_PARAMS,       0,  0,  &gLiteDlgProc,  
+    2,
+    plRTOmniLight::kLightMap1,      IDD_LIGHT_PARAM,    IDS_LIGHT_GEN_PARAMS,       0,  0,  &gLiteDlgProc,
     plRTOmniLight::kLightMap2,      IDD_LIGHT_ATTEN,    IDS_LIGHT_ATTEN_PARAMSS,    0,  0,  &gLiteDlgProc,
 
         /// Rollout 1 - General Parameters
         plRTOmniLight::kLightOn,        _T("on"),   TYPE_BOOL,  0, IDS_RTLIGHT_ON,
-            p_default, true,    
+            p_default, true,
             p_ui, plRTOmniLight::kLightMap1,    TYPE_SINGLECHEKBOX, IDC_LIGHT_ON,
         end,
         
         plRTOmniLight::kAffectDiffuse,      _T("AffectDiffuse"),    TYPE_BOOL,  0, IDS_RTLIGHT_ON,
-            p_default, true,    
+            p_default, true,
             p_ui, plRTOmniLight::kLightMap1,    TYPE_SINGLECHEKBOX, IDC_LIGHT_DIFFUSE,
         end,
         
         plRTOmniLight::kAmbientOnlyStub,        _T("AmbientOnly"),  TYPE_BOOL,  0, IDS_RTLIGHT_ON,
-            p_default, false,   
+            p_default, false,
             p_ui, plRTOmniLight::kLightMap1,    TYPE_SINGLECHEKBOX, IDC_AMBIENT_ONLY_STUB,
         end,
         
         plRTOmniLight::kCastShadows,        _T("CastShadows"),  TYPE_BOOL,  0, IDS_DS_CASTSHADOWSS,
-//          p_default, false,   
+//          p_default, false,
 //          p_ui, plRTOmniLight::kLightMap1,    TYPE_SINGLECHEKBOX, IDC_CAST_SHADOWS,
             end,
         
@@ -240,7 +240,7 @@ static ParamBlockDesc2  RTOmniLightBlk
             end,
 
 
-        plRTOmniLight::kIntensity,      _T("IntensityEditSpinner"), TYPE_FLOAT, P_ANIMATABLE, IDS_DB_MULTIPLIER,    
+        plRTOmniLight::kIntensity,      _T("IntensityEditSpinner"), TYPE_FLOAT, P_ANIMATABLE, IDS_DB_MULTIPLIER,
             p_range, -250.0, 250.0,
             p_default, 1.0,
             p_ui, plRTOmniLight::kLightMap1,            TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
@@ -256,7 +256,7 @@ static ParamBlockDesc2  RTOmniLightBlk
             p_enable_ctrls, 2, plRTOmniLight::kAttenMaxFalloffEdit, plRTOmniLight::kAttenTypeRadio,
             end,
 
-        plRTOmniLight::kAttenMaxFalloffEdit,        _T("MaxFalloffEdit"),       TYPE_FLOAT, P_ANIMATABLE, IDS_DS_ATTENSTARTNEAR,    
+        plRTOmniLight::kAttenMaxFalloffEdit,        _T("MaxFalloffEdit"),       TYPE_FLOAT, P_ANIMATABLE, IDS_DS_ATTENSTARTNEAR,
             p_range, 0.0, 999999999.0,
             p_default, 200.0,
             p_ui, plRTOmniLight::kLightMap2,            TYPE_SPINNER,   EDITTYPE_POS_UNIVERSE,
@@ -265,7 +265,7 @@ static ParamBlockDesc2  RTOmniLightBlk
 
         plRTOmniLight::kAttenTypeRadio, _T("LightShapeRadio"),  TYPE_INT, 0,    IDS_DS_LIGHTSHAPE_RATIO,
             p_default, 0,
-            //p_vals, 1, 2, 
+            //p_vals, 1, 2,
             p_ui, plRTOmniLight::kLightMap2,        TYPE_RADIO, 3,
             IDC_LIGHT_ATTEN_LINEAR_RADIO,   IDC_LIGHT_ATTEN_QUAD_RADIO, IDC_LIGHT_ATTEN_NONE_RADIO,
             end,
@@ -282,30 +282,30 @@ static ParamBlockDesc2  RTOmniLightBlk
 static ParamBlockDesc2  RTTDirLightBlk
 (
     /// Main def
-    plRTDirLight::kBlkTSpotLight, _T("RT Spot Light"), 0,   plRTDirLightDesc::GetDesc(), P_AUTO_CONSTRUCT + P_AUTO_UI + P_MULTIMAP, plRTDirLight::kRefTSpotLight, 
+    plRTDirLight::kBlkTSpotLight, _T("RT Spot Light"), 0,   plRTDirLightDesc::GetDesc(), P_AUTO_CONSTRUCT + P_AUTO_UI + P_MULTIMAP, plRTDirLight::kRefTSpotLight,
 
     /// Rollout definitions
-    1, 
-    plRTDirLight::kLightMap1,       IDD_LIGHT_PARAM,        IDS_LIGHT_GEN_PARAMS,       0,  0,  &gLiteDlgProc,  
+    1,
+    plRTDirLight::kLightMap1,       IDD_LIGHT_PARAM,        IDS_LIGHT_GEN_PARAMS,       0,  0,  &gLiteDlgProc,
 
         /// Rollout 1 - General Parameters
         plRTDirLight::kLightOn,     _T("on"),   TYPE_BOOL,  0, IDS_RTLIGHT_ON,
-            p_default, true,    
+            p_default, true,
             p_ui, plRTDirLight::kLightMap1, TYPE_SINGLECHEKBOX, IDC_LIGHT_ON,
         end,
         
         plRTDirLight::kAffectDiffuse,       _T("AffectDiffuse"),    TYPE_BOOL,  0, IDS_RTLIGHT_ON,
-            p_default, true,    
+            p_default, true,
             p_ui, plRTDirLight::kLightMap1, TYPE_SINGLECHEKBOX, IDC_LIGHT_DIFFUSE,
         end,
         
         plRTDirLight::kAmbientOnlyStub,     _T("AmbientOnly"),  TYPE_BOOL,  0, IDS_RTLIGHT_ON,
-            p_default, false,   
+            p_default, false,
             p_ui, plRTDirLight::kLightMap1, TYPE_SINGLECHEKBOX, IDC_AMBIENT_ONLY_STUB,
         end,
         
         plRTDirLight::kCastShadows,     _T("CastShadows"),  TYPE_BOOL,  0, IDS_DS_CASTSHADOWSS,
-//          p_default, false,   
+//          p_default, false,
 //          p_ui, plRTDirLight::kLightMap1, TYPE_SINGLECHEKBOX, IDC_CAST_SHADOWS,
         end,
         
@@ -324,7 +324,7 @@ static ParamBlockDesc2  RTTDirLightBlk
             p_ui, plRTDirLight::kLightMap1,         TYPE_COLORSWATCH,       IDC_LIGHT_COLOR_SPECULAR,
             end,
 
-        plRTDirLight::kIntensity,       _T("IntensityEditSpinner"), TYPE_FLOAT, P_ANIMATABLE, IDS_DB_MULTIPLIER,    
+        plRTDirLight::kIntensity,       _T("IntensityEditSpinner"), TYPE_FLOAT, P_ANIMATABLE, IDS_DB_MULTIPLIER,
             p_range, -250.0, 250.0,
             p_default, 1.0,
             p_ui, plRTDirLight::kLightMap1,         TYPE_SPINNER,   EDITTYPE_FLOAT,

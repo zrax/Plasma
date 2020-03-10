@@ -76,7 +76,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plMessage/plLoadAvatarMsg.h"
 #include "plMessage/plAgeLoadedMsg.h"
 
-// static 
+// static
 plAgeLoader* plAgeLoader::fInstance=nil;
 
 //
@@ -230,7 +230,7 @@ bool plAgeLoader::ILoadAge(const ST::string& ageName)
     fPendingAgeFniFiles.emplace_back(ST::format("dat\\{}.fni", fAgeName));
     fPendingAgeCsvFiles.emplace_back(ST::format("dat\\{}.csv", fAgeName));
 
-    plSynchEnabler p( false );  // turn off dirty tracking while in this function   
+    plSynchEnabler p( false );  // turn off dirty tracking while in this function
 
     hsStream* stream=GetAgeDescFileStream(fAgeName);
     if (!stream)
@@ -271,11 +271,11 @@ bool plAgeLoader::ILoadAge(const ST::string& ageName)
 
     //
     // Load the Age's SDL Hook object (and it's python modifier)
-    //  
+    //
     plUoid oid=nc->GetAgeSDLObjectUoid(fAgeName);
     plKey ageSDLObjectKey = hsgResMgr::ResMgr()->FindKey(oid);
     if (ageSDLObjectKey)
-        hsgResMgr::ResMgr()->AddViaNotify(ageSDLObjectKey, new plGenRefMsg(nc->GetKey(), plRefMsg::kOnCreate, -1, 
+        hsgResMgr::ResMgr()->AddViaNotify(ageSDLObjectKey, new plGenRefMsg(nc->GetKey(), plRefMsg::kOnCreate, -1,
         plNetClientMgr::kAgeSDLHook), plRefFlags::kActiveRef);
     
     int nPages = 0;
@@ -317,7 +317,7 @@ bool plAgeLoader::ILoadAge(const ST::string& ageName)
 //// plUnloadAgeCollector ////////////////////////////////////////////////////
 //  Registry page iterator to collect all the loaded pages of a given age
 //  Note: we have to do an IterateAllPages(), since we want to also catch
-//  pages that are partially loaded, which are skipped in the vanilla 
+//  pages that are partially loaded, which are skipped in the vanilla
 //  IteratePages() call.
 
 class plUnloadAgeCollector : public plRegistryPageIterator
@@ -348,7 +348,7 @@ bool    plAgeLoader::IUnloadAge()
     plNetClientApp* nc = plNetClientApp::GetInstance();
     nc->DebugMsg( "Net: Unloading age {}", fAgeName);
 
-    hsAssert( (fFlags & kLoadMask)==0, "already loading or unloading an age?"); 
+    hsAssert( (fFlags & kLoadMask)==0, "already loading or unloading an age?");
     fFlags |= kUnLoadingAge;
     
     plAgeBeginLoadingMsg* msg = new plAgeBeginLoadingMsg();

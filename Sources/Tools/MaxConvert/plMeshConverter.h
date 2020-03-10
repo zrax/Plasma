@@ -102,18 +102,18 @@ public:
 private:
     bool IValidateUVs(plMaxNode* node);
 
-    void    ISetBumpUvs(int16_t uvChan, hsTArray<plMAXVertNormal>& vertDPosDuvCache, TVFace* tvFace, uint32_t smGroup, 
+    void    ISetBumpUvs(int16_t uvChan, hsTArray<plMAXVertNormal>& vertDPosDuvCache, TVFace* tvFace, uint32_t smGroup,
                                       hsPoint3* uvs1, hsPoint3* uvs2, hsPoint3* uvs3);
-    void    ISetBumpUvSrcs(hsTArray<hsTArray<plExportMaterialData> *>& ourMaterials, 
+    void    ISetBumpUvSrcs(hsTArray<hsTArray<plExportMaterialData> *>& ourMaterials,
                                         hsTArray<int16_t>& bumpLayIdx, hsTArray<int16_t>& bumpLayChan, hsTArray<int16_t>& bumpDuChan, hsTArray<int16_t>& bumpDvChan);
-    void    ISetWaterDecEnvUvSrcs(hsTArray<hsTArray<plExportMaterialData> *>& ourMaterials, 
+    void    ISetWaterDecEnvUvSrcs(hsTArray<hsTArray<plExportMaterialData> *>& ourMaterials,
                                         hsTArray<int16_t>& bumpLayIdx, hsTArray<int16_t>& bumpLayChan, hsTArray<int16_t>& bumpDuChan, hsTArray<int16_t>& bumpDvChan);
-    void    ISmoothUVGradients(plMaxNode* node, Mesh* mesh, 
-                                        hsTArray<hsTArray<plExportMaterialData> *>& ourMaterials, 
+    void    ISmoothUVGradients(plMaxNode* node, Mesh* mesh,
+                                        hsTArray<hsTArray<plExportMaterialData> *>& ourMaterials,
                                         hsTArray<int16_t>& bumpLayIdx, hsTArray<int16_t>& bumpLayChan,
                                         hsTArray<plMAXVertNormal>* vertDPosDuCache, hsTArray<plMAXVertNormal>* vertDPosDvCache);
     Point3  IGetUvGradient(plMaxNode* node, const hsMatrix44& uvXform44, int16_t bmpUvwSrc,
-                                        Mesh *mesh, int faceIdx, 
+                                        Mesh *mesh, int faceIdx,
                                         int iUV);
 
     int     IGenerateUVs( plMaxNode *node, Mtl *maxMtl, Mesh *mesh, int faceIdx, int numChan, int numBlend,

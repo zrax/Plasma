@@ -54,10 +54,10 @@ private:
     char *fData;            // sent
 public:
     plNetCommonMessageData(char* d) : fData(d) {}
-    ~plNetCommonMessageData() 
-    { 
+    ~plNetCommonMessageData()
+    {
         hsAssert(RefCnt()==1, "illegal refcnt");
-        delete [] fData; 
+        delete [] fData;
     }
 
     char* GetData() const { return fData; }
@@ -78,20 +78,20 @@ public:
     virtual ~plNetCommonMessage() { hsRefCnt_SafeUnRef(fMsgData); }
 
     // setters
-    void SetData(char *d)       
-    {   
+    void SetData(char *d)
+    {
         plNetCommonMessageData* n = d ? new plNetCommonMessageData(d) : nil;
-        hsRefCnt_SafeAssign(fMsgData, n);       
+        hsRefCnt_SafeAssign(fMsgData, n);
         hsRefCnt_SafeUnRef(n);
     }
-    void SetMsgData(plNetCommonMessageData* d)      
-    {   
-        hsRefCnt_SafeAssign(fMsgData, d);       
+    void SetMsgData(plNetCommonMessageData* d)
+    {
+        hsRefCnt_SafeAssign(fMsgData, d);
     }
     void SetLen(uint32_t l)       { fLen=l; }
 
     // getters
-    char* GetData() const { return fMsgData ? fMsgData->GetData() : nil; } 
+    char* GetData() const { return fMsgData ? fMsgData->GetData() : nil; }
     virtual uint32_t GetDataLen() { return fLen; }
     uint32_t GetLen()         const { return fLen;  }
     plNetCommonMessageData* GetMsgData() const { return fMsgData; }

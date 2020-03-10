@@ -198,7 +198,7 @@ bool plAvLadderMod::MsgReceive(plMessage* msg)
         return true;
     }
 
-    // Avatar is inside our detector box, so every frame we check if he's ready to climb 
+    // Avatar is inside our detector box, so every frame we check if he's ready to climb
     plEvalMsg* evalMsg = plEvalMsg::ConvertNoRef(msg);
     if (evalMsg)
     {
@@ -314,7 +314,7 @@ void plAvLadderMod::EmitCommand(const plKey receiver)
 
                 uint32_t exitFlags = plAvBrainGeneric::kExitNormal;
 
-                plAvBrainGeneric *ladBrain = new plAvBrainGeneric(v, enterNotify, nil, nil, exitFlags, plAvBrainGeneric::kDefaultFadeIn, 
+                plAvBrainGeneric *ladBrain = new plAvBrainGeneric(v, enterNotify, nil, nil, exitFlags, plAvBrainGeneric::kDefaultFadeIn,
                                                                   plAvBrainGeneric::kDefaultFadeOut, plAvBrainGeneric::kMoveRelative);
                 ladBrain->SetType(plAvBrainGeneric::kLadder);
                 ladBrain->SetReverseFBControlsOnRelease(!fGoingUp);
@@ -379,7 +379,7 @@ void plAvLadderMod::SetLoops(int loops)
     fLoops = loops;
 }
 
-int plAvLadderMod::GetType() const 
+int plAvLadderMod::GetType() const
 {
     return fType;
 }

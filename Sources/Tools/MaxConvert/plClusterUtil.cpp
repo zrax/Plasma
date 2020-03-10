@@ -298,7 +298,7 @@ void plClusterUtil::ITemplateFromGeo(plSpanTemplateB* templ, plGeometrySpan* geo
         if( templ->NumColor() )
             *templ->Color(i) = color.ToARGB32();
         if( templ->NumColor2() )
-            *templ->Color2(i) = 0; 
+            *templ->Color2(i) = 0;
 
         int k;
         for( k = 0; k < templ->NumUVWs(); k++ )
@@ -357,8 +357,8 @@ void plClusterUtil::IAddTemplates(plMaxNode* templNode, plSpanTemplTab& templs)
     plLightMapGen::Instance().Open(::GetCOREInterface(), ::GetCOREInterface()->GetTime(), false);
     hsVertexShader::Instance().Open();
 
-    hsVertexShader::Instance().ShadeNode(templNode, 
-                templNode->GetLocalToWorld44(), templNode->GetWorldToLocal44(), 
+    hsVertexShader::Instance().ShadeNode(templNode,
+                templNode->GetLocalToWorld44(), templNode->GetWorldToLocal44(),
                 spanArray);
 
     plLightMapGen::Instance().Close();
@@ -410,7 +410,7 @@ int plClusterUtil::ISelectAxis(const plL2WTab& src) const
 }
 
 static int sortAxis = 0;
-static int cmp(const void *elem1, const void *elem2) 
+static int cmp(const void *elem1, const void *elem2)
 {
     Matrix3* m1 = (Matrix3*) elem1;
     Matrix3* m2 = (Matrix3*) elem2;
@@ -608,7 +608,7 @@ plSpanEncoding plClusterUtil::ISelectEncoding(plPoint3TabTab& delPosTab, plColor
     return plSpanEncoding(code, posScale);
 }
 
-static int CompTemplates(const void *elem1, const void *elem2) 
+static int CompTemplates(const void *elem1, const void *elem2)
 {
     plSpanTemplateB* templA = *((plSpanTemplateB**)elem1);
     plSpanTemplateB* templB = *((plSpanTemplateB**)elem2);
@@ -663,7 +663,7 @@ void plClusterUtil::AddClusters(plL2WTab& insts, plDeformVert* def, plShadeVert*
         // Get the delPositions and colors for all the instances
         IAllocPosAndColor(fTemplate, *clusters[j], delPos, colors);
 
-        IDelPosAndColor(fTemplate, 
+        IDelPosAndColor(fTemplate,
                             *clusters[j],
                             def, shade,
                             delPos, colors);
@@ -682,9 +682,9 @@ void plClusterUtil::AddClusters(plL2WTab& insts, plDeformVert* def, plShadeVert*
     IFreeClustersRecur(clusters);
 }
 
-void plClusterUtil::IAddInstsToCluster(plCluster* cluster, plSpanTemplateB* templ, 
-                                       const plL2WTab& insts, 
-                                       plPoint3TabTab& delPos, 
+void plClusterUtil::IAddInstsToCluster(plCluster* cluster, plSpanTemplateB* templ,
+                                       const plL2WTab& insts,
+                                       plPoint3TabTab& delPos,
                                        plColorTabTab& colors)
 {
     int i;
@@ -728,7 +728,7 @@ void plClusterUtil::IFreePosAndColor(plPoint3TabTab& delPos, plColorTabTab& colo
         delete colors[i];
 }
 
-void plClusterUtil::IDelPosAndColor(plSpanTemplateB* templ, 
+void plClusterUtil::IDelPosAndColor(plSpanTemplateB* templ,
                                     const plL2WTab& insts, plDeformVert* def, plShadeVert* shade,
                                     plPoint3TabTab& delPos, plColorTabTab& colors)
 {

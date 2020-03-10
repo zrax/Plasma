@@ -119,7 +119,7 @@ bool plObjInterface::MsgReceive(plMessage* msg)
 //
 void plObjInterface::ISetAllProperties(const hsBitVector& b)
 {
-//  if (&b != &fProps)  // don't copy if they are the same variable 
+//  if (&b != &fProps)  // don't copy if they are the same variable
 
         fProps = b;
 

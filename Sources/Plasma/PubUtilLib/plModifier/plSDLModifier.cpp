@@ -60,11 +60,11 @@ plSDLModifier::~plSDLModifier()
 }
 
 plKey plSDLModifier::GetStateOwnerKey() const
-{ 
-    return GetTarget() ? GetTarget()->GetKey() : nil; 
+{
+    return GetTarget() ? GetTarget()->GetKey() : nil;
 }
 
-void plSDLModifier::AddTarget(plSceneObject* so) 
+void plSDLModifier::AddTarget(plSceneObject* so)
 {
     if (so)
         plSingleModifier::AddTarget(so);
@@ -135,7 +135,7 @@ bool plSDLModifier::MsgReceive(plMessage* msg)
 {
     plSDLModifierMsg* sdlMsg = plSDLModifierMsg::ConvertNoRef(msg);
     if (sdlMsg && !sdlMsg->GetSDLName().compare_i(GetSDLName()))
-    {       
+    {
         uint32_t sendFlags = IApplyModFlags(sdlMsg->GetFlags());
 
         if (!fSentOrRecvdState)
@@ -144,7 +144,7 @@ bool plSDLModifier::MsgReceive(plMessage* msg)
         if (sdlMsg->GetAction()==plSDLModifierMsg::kSendToServer)
         {
             // local player is changing the state and sending it out
-            plStateChangeNotifier::SetCurrentPlayerID(plNetClientApp::GetInstance()->GetPlayerID());    
+            plStateChangeNotifier::SetCurrentPlayerID(plNetClientApp::GetInstance()->GetPlayerID());
 
             SendState(sendFlags);
         }
@@ -178,7 +178,7 @@ void plSDLModifier::SendState(uint32_t sendFlags)
 {
     hsAssert(fStateCache, "nil stateCache");
 
-    bool debugObject = (plNetObjectDebugger::GetInstance() && 
+    bool debugObject = (plNetObjectDebugger::GetInstance() &&
             plNetObjectDebugger::GetInstance()->IsDebugObject(GetStateOwnerKey()->ObjectIsLoaded()));
     
     bool force = (sendFlags & plSynchedObject::kForceFullSend) != 0;
@@ -239,7 +239,7 @@ void plSDLModifier::ReceiveState(const plStateDataRecord* srcState)
         // apply incoming state
         ISetCurrentStateFrom(srcState);         // apply incoming state to sceneObj
 
-        // cache state, send notifications if necessary 
+        // cache state, send notifications if necessary
         fStateCache->UpdateFrom(*srcState, false);  // update local copy of state
         fSentOrRecvdState = true;
     }

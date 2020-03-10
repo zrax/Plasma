@@ -49,7 +49,7 @@ class plStatusLog;
 class plPhysical;
 
 //
-// This modifier is responsible for sending and recving 
+// This modifier is responsible for sending and recving
 // an object's physical state.
 //
 class plPhysicalSDLModifier : public plSDLModifier

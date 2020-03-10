@@ -94,13 +94,13 @@ plCluster* plClusterGroup::IAddCluster()
 }
 
 plCluster* plClusterGroup::IGetCluster(int i) const
-{ 
-    return fClusters[i]; 
+{
+    return fClusters[i];
 }
 
 const plCluster* plClusterGroup::GetCluster(int i) const
-{ 
-    return fClusters[i]; 
+{
+    return fClusters[i];
 }
 
 void plClusterGroup::Read(hsStream* stream, hsResMgr* mgr)

@@ -70,38 +70,38 @@ void DummyCodeIncludeFuncBlow()
 CLASS_DESC(plBlowComponent, gBlowCompDesc, "Wind Bone",  "Blow", COMP_TYPE_DISTRIBUTOR, BLOW_COMP_CID)
 
 ParamBlockDesc2 gBlowBk
-(   
+(
     plComponent::kBlkComp, _T("Blow"), 0, &gBlowCompDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_BLOW, IDS_COMP_BLOWS, 0, 0, nil,
 
-    plBlowComponent::kStrength, _T("Strength"), TYPE_FLOAT,     0, 0,   
+    plBlowComponent::kStrength, _T("Strength"), TYPE_FLOAT,     0, 0,
         p_default, 100.0,
         p_range, 0.0, 1000.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_BLOW_STRENGTH, IDC_COMP_BLOW_STRENGTH_SPIN, 1.0,
-        end,    
+        end,
 
-    plBlowComponent::kSpeed, _T("Speed"), TYPE_FLOAT,   0, 0,   
+    plBlowComponent::kSpeed, _T("Speed"), TYPE_FLOAT,   0, 0,
         p_default, 100.0,
         p_range, 0.0, 1000.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_BLOW_SPEED, IDC_COMP_BLOW_SPEED_SPIN, 1.0,
-        end,    
+        end,
 
-    plBlowComponent::kFlutter, _T("Flutter"), TYPE_FLOAT,   0, 0,   
+    plBlowComponent::kFlutter, _T("Flutter"), TYPE_FLOAT,   0, 0,
         p_default, 100.0,
         p_range, 0.0, 1000.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_BLOW_FLUTTER, IDC_COMP_BLOW_FLUTTER_SPIN, 1.0,
-        end,    
+        end,
 
-    plBlowComponent::kConstancy, _T("Constancy"), TYPE_FLOAT,   0, 0,   
+    plBlowComponent::kConstancy, _T("Constancy"), TYPE_FLOAT,   0, 0,
         p_default, 25.0,
         p_range, 0.0, 100.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_BLOW_CONSTANCY, IDC_COMP_BLOW_CONSTANCY_SPIN, 1.0,
-        end,    
+        end,
 
     end
 );
@@ -124,8 +124,8 @@ bool plBlowComponent::SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg)
 }
 
 bool plBlowComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
-{ 
-    return true; 
+{
+    return true;
 }
 
 bool plBlowComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
@@ -163,26 +163,26 @@ ParamBlockDesc2 gFlexibilityBk
 
     IDD_COMP_FLEXIBILITY, IDS_COMP_FLEXIBILITYS, 0, 0, NULL,
 
-    plFlexibilityComponent::kFlexibility, _T("Flexibility"), TYPE_FLOAT,    0, 0,   
+    plFlexibilityComponent::kFlexibility, _T("Flexibility"), TYPE_FLOAT,    0, 0,
         p_default, 100.0,
         p_range, 0.f, 100.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_FLEX_FLEX, IDC_COMP_FLEX_FLEX_SPIN, 1.0,
-        end,    
+        end,
     
-    plFlexibilityComponent::kInterRand, _T("InterRand"), TYPE_FLOAT,    0, 0,   
+    plFlexibilityComponent::kInterRand, _T("InterRand"), TYPE_FLOAT,    0, 0,
         p_default, 0.0,
         p_range, 0.f, 100.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_FLEX_INTER, IDC_COMP_FLEX_INTER_SPIN, 1.0,
-        end,    
+        end,
     
-    plFlexibilityComponent::kIntraRand, _T("IntraRand"), TYPE_FLOAT,    0, 0,   
+    plFlexibilityComponent::kIntraRand, _T("IntraRand"), TYPE_FLOAT,    0, 0,
         p_default, 100.0,
         p_range, 0.f, 100.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_FLEX_INTRA, IDC_COMP_FLEX_INTRA_SPIN, 1.0,
-        end,    
+        end,
     
     end
 );
@@ -197,10 +197,10 @@ Point3 plFlexibilityComponent::GetFlexibility() const
 {
     // 1.e-2f scale goes from percent to fraction.
     // returns (in order),
-    //  the flexibility 
+    //  the flexibility
     //  the variation between objects (object still moves as unit)
     //  the variation within an object (different verts are more or less flexible than others).
-    return Point3(fCompPB->GetFloat(kFlexibility) * 1.e-2f, 
+    return Point3(fCompPB->GetFloat(kFlexibility) * 1.e-2f,
         fCompPB->GetFloat(kInterRand) * 1.e-2f, // From percent to fraction.
         fCompPB->GetFloat(kIntraRand) * 1.e-2f); // From percent to fraction.
 }

@@ -68,7 +68,7 @@ bool plOutgoingUdpSocket::operator==(const plOutgoingUdpSocket & rhs)
 int plOutgoingUdpSocket::SetSendBufferSize(int insize)
 {
     if (setsockopt(fSocket, (int) SOL_SOCKET, (int) SO_SNDBUF, (char *) &insize, sizeof(int)))
-        return -1;    
+        return -1;
     return 0;
 }
 

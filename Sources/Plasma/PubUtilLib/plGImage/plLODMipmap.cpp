@@ -50,8 +50,8 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "pnMessage/plRefMsg.h"
 
 
-plLODMipmap::plLODMipmap() 
-:   fBase(nil), 
+plLODMipmap::plLODMipmap()
+:   fBase(nil),
     fLOD(0)
 {
     int i;
@@ -92,9 +92,9 @@ plLODMipmap::~plLODMipmap()
     }
 }
 
-hsGDeviceRef* plLODMipmap::GetDeviceRef() const 
-{ 
-    return fDeviceRefs[GetLOD()]; 
+hsGDeviceRef* plLODMipmap::GetDeviceRef() const
+{
+    return fDeviceRefs[GetLOD()];
 }
 
 void plLODMipmap::SetDeviceRef( hsGDeviceRef *const devRef )
@@ -129,9 +129,9 @@ void plLODMipmap::ISetup()
     fBase->SetCurrLevel(GetLOD());
 
     // plBitmap
-    fPixelSize = fBase->GetPixelSize(); 
-//  fSpace = fBase->fSpace;     
-    fFlags = fBase->GetFlags();     
+    fPixelSize = fBase->GetPixelSize();
+//  fSpace = fBase->fSpace;
+    fFlags = fBase->GetFlags();
 
     fCompressionType = fBase->fCompressionType;
     if( !fBase->IsCompressed() )
@@ -258,9 +258,9 @@ void plLODMipmap::CopyFrom(const plMipmap *source)
     ISetup();
 }
 
-void plLODMipmap::Composite(plMipmap *source, uint16_t x, uint16_t y, CompositeOptions *options) 
-{ 
-    fBase->Composite(source, x, y, options); 
+void plLODMipmap::Composite(plMipmap *source, uint16_t x, uint16_t y, CompositeOptions *options)
+{
+    fBase->Composite(source, x, y, options);
     IMarkDirty();
 }
 

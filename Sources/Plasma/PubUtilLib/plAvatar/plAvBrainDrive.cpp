@@ -77,19 +77,19 @@ void plAvBrainDrive::Activate(plArmatureModBase *avMod)
     plCameraMsg* pMsg = new plCameraMsg;
     pMsg->SetCmd(plCameraMsg::kNonPhysOn);
     pMsg->SetBCastFlag(plMessage::kBCastByExactType);
-    pMsg->Send();               
+    pMsg->Send();
 }
 
 // DEACTIVATE
 void plAvBrainDrive::Deactivate()
 {
     if (fAvMod)
-    {   
+    {
         IEnablePhysics(true, fAvMod->GetTarget(0)->GetKey());
         plCameraMsg* pMsg = new plCameraMsg;
         pMsg->SetCmd(plCameraMsg::kNonPhysOff);
         pMsg->SetBCastFlag(plMessage::kBCastByExactType);
-        pMsg->Send();               
+        pMsg->Send();
     }
 }
 
@@ -159,7 +159,7 @@ bool plAvBrainDrive::Apply(double timeNow, float elapsed)
     justRot.SetTranslate(&zero);
 
     if( angle ) {
-        hsQuat q( angle, &rotUp );  
+        hsQuat q( angle, &rotUp );
         q.NormalizeIfNeeded();
         q.MakeMatrix( &rot );
 

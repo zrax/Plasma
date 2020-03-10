@@ -95,9 +95,9 @@ class plSpan
             kLiteProjection         = 0x800,
             kLiteShadowErase        = 0x1000,
             kLiteShadow             = 0x2000,
-            kLiteMask               = kLiteMaterial 
+            kLiteMask               = kLiteMaterial
                                     | kLiteVtxPreshaded
-                                    | kLiteVtxNonPreshaded 
+                                    | kLiteVtxNonPreshaded
                                     | kLiteProjection
                                     | kLiteShadowErase
                                     | kLiteShadow,  // Mask for all types
@@ -213,7 +213,7 @@ class plSpan
 };
 
 //// plVertexSpan Definition
-// All span types which are based on vertices derive from this. That's 
+// All span types which are based on vertices derive from this. That's
 // currently all span types.
 class plVertexSpan : public plSpan
 {
@@ -250,7 +250,7 @@ class plIcicle : public plVertexSpan
         // The index into the indexbuffer ref. This can be different from fIStartIdx if spans get
         // culled, then we pack the non-culled index spans into the beginning of the index buffer ref,
         // so we can still put them all out with a single DIP call.
-        mutable uint32_t  fIPackedIdx;    
+        mutable uint32_t  fIPackedIdx;
 
         // Run-time-only stuff
         plGBufferTriangle   *fSortData; // Indices & center points for sorting tris in this span (optional)
@@ -294,7 +294,7 @@ class plParticleSpan : public plIcicle
 };
 
 //// plParticleSet Class Definition //////////////////////////////////////////
-//  Represents a collection of dynamic plParticleSpans collected into one 
+//  Represents a collection of dynamic plParticleSpans collected into one
 //  space, for rendering batches of particles.
 
 class plParticleSet

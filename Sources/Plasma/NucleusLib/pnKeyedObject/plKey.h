@@ -57,7 +57,7 @@ class hsBitVector;
 class plKeyData;
 class plKeyImp;
 
-class plKey 
+class plKey
 {
 public:
     // Constructors and destructors and copy stuff

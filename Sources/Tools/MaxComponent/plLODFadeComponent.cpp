@@ -66,7 +66,7 @@ void DummyCodeIncludeFuncLODFade()
 CLASS_DESC(plLODFadeComponent, gLODFadeCompDesc, "LOD Blend",  "LODBlend", COMP_TYPE_GRAPHICS, LODFADE_COMP_CID)
 
 ParamBlockDesc2 gLODFadeBk
-(   
+(
     plComponent::kBlkComp, _T("LODFade"), 0, &gLODFadeCompDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_LODFADE, IDS_COMP_LODFADE, 0, 0, NULL,
@@ -81,19 +81,19 @@ ParamBlockDesc2 gLODFadeBk
         p_prompt, IDS_COMP_LODFADE_BASE,
         end,
 
-    plLODFadeComponent::kDistance, _T("Distance"), TYPE_FLOAT,  0, 0,   
+    plLODFadeComponent::kDistance, _T("Distance"), TYPE_FLOAT,  0, 0,
         p_default, 50.0,
         p_range, 0.0, 1000.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_LODFADE_DISTANCE, IDC_COMP_LODFADE_DISTANCE_SPIN, 1.0,
-        end,    
+        end,
 
-    plLODFadeComponent::kTransition, _T("Transition"), TYPE_FLOAT,  0, 0,   
+    plLODFadeComponent::kTransition, _T("Transition"), TYPE_FLOAT,  0, 0,
         p_default, 10.0,
         p_range, 0.0, 100.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_LODFADE_TRANSITION, IDC_COMP_LODFADE_TRANSITION_SPIN, 1.0,
-        end,    
+        end,
 
     plLODFadeComponent::kFadeBase,  _T("FadeBase"), TYPE_BOOL, 0, 0,
         p_default,  FALSE,
@@ -165,9 +165,9 @@ bool plLODFadeComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
     return true;
 }
 
-bool plLODFadeComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg) 
-{ 
-    return true; 
+bool plLODFadeComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
+{
+    return true;
 }
 
 plLODFadeComponent::plLODFadeComponent()
@@ -181,7 +181,7 @@ plLODFadeComponent::plLODFadeComponent()
 CLASS_DESC(plBlendOntoComponent, gBlendOntoCompDesc, "Blend Onto",  "BlendOnto", COMP_TYPE_GRAPHICS, BLENDONTO_COMP_CID)
 
 ParamBlockDesc2 gBlendOntoBk
-(   
+(
     plComponent::kBlkComp, _T("BlendOnto"), 0, &gBlendOntoCompDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_BLENDONTO, IDS_COMP_BLENDONTO, 0, 0, NULL,
@@ -232,9 +232,9 @@ bool plBlendOntoComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
     return true;
 }
 
-bool plBlendOntoComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg) 
-{ 
-    return true; 
+bool plBlendOntoComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
+{
+    return true;
 }
 
 plBlendOntoComponent::plBlendOntoComponent()
@@ -248,7 +248,7 @@ plBlendOntoComponent::plBlendOntoComponent()
 CLASS_DESC(plBlendOntoAdvComponent, gBlendOntoAdvCompDesc, "Blend Onto Advanced",  "BlendOntoAdv", COMP_TYPE_GRAPHICS, BLENDONTOADV_COMP_CID)
 
 ParamBlockDesc2 gBlendOntoAdvBk
-(   
+(
     plComponent::kBlkComp, _T("BlendOntoAdv"), 0, &gBlendOntoAdvCompDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_BLENDONTOADV, IDS_COMP_BLENDONTOADV, 0, 0, NULL,
@@ -310,9 +310,9 @@ bool plBlendOntoAdvComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
     return true;
 }
 
-bool plBlendOntoAdvComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg) 
-{ 
-    return true; 
+bool plBlendOntoAdvComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
+{
+    return true;
 }
 
 plBlendOntoAdvComponent::plBlendOntoAdvComponent()
@@ -343,7 +343,7 @@ public:
 CLASS_DESC(plB4AvComponent, gB4AvCompDesc, "Draw B4 Avatar",  "B4Av", COMP_TYPE_GRAPHICS, B4AV_COMP_CID)
 
 ParamBlockDesc2 gB4AvBk
-(   
+(
     plComponent::kBlkComp, _T("B4Av"), 0, &gB4AvCompDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_SORT_AS_OPAQUE, IDS_COMP_SORT_AS_OPAQUE, 0, 0, NULL,
@@ -362,9 +362,9 @@ bool plB4AvComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
     return true;
 }
 
-bool plB4AvComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg) 
-{ 
-    return true; 
+bool plB4AvComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
+{
+    return true;
 }
 
 plB4AvComponent::plB4AvComponent()
@@ -379,7 +379,7 @@ plB4AvComponent::plB4AvComponent()
 CLASS_DESC(plDistFadeComponent, gDistFadeCompDesc, "Distance Fade",  "DistFade", COMP_TYPE_GRAPHICS, DISTFADE_COMP_CID)
 
 ParamBlockDesc2 gDistFadeBk
-(   
+(
     plComponent::kBlkComp, _T("DistFade"), 0, &gDistFadeCompDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_DISTFADE, IDS_COMP_DISTFADE, 0, 0, NULL,
@@ -390,19 +390,19 @@ ParamBlockDesc2 gDistFadeBk
         p_enable_ctrls,     2, plDistFadeComponent::kFadeInStart, plDistFadeComponent::kFadeInEnd,
         end,
 
-    plDistFadeComponent::kFadeInStart, _T("FadeInStart"), TYPE_FLOAT,   0, 0,   
+    plDistFadeComponent::kFadeInStart, _T("FadeInStart"), TYPE_FLOAT,   0, 0,
         p_default, 5.0,
         p_range, 0.0, 1000.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_DISTFADE_INSTART, IDC_COMP_DISTFADE_INSTART_SPIN, 1.0,
-        end,    
+        end,
 
-    plDistFadeComponent::kFadeInEnd, _T("FadeInEnd"), TYPE_FLOAT,   0, 0,   
+    plDistFadeComponent::kFadeInEnd, _T("FadeInEnd"), TYPE_FLOAT,   0, 0,
         p_default, 10.0,
         p_range, 0.0, 1000.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_DISTFADE_INEND, IDC_COMP_DISTFADE_INEND_SPIN, 1.0,
-        end,    
+        end,
 
     plDistFadeComponent::kFadeOutActive,    _T("FadeOutActive"),    TYPE_BOOL, 0, 0,
         p_default,  FALSE,
@@ -410,19 +410,19 @@ ParamBlockDesc2 gDistFadeBk
         p_enable_ctrls,     2, plDistFadeComponent::kFadeOutStart, plDistFadeComponent::kFadeOutEnd,
         end,
 
-    plDistFadeComponent::kFadeOutStart, _T("FadeOutStart"), TYPE_FLOAT,     0, 0,   
+    plDistFadeComponent::kFadeOutStart, _T("FadeOutStart"), TYPE_FLOAT,     0, 0,
         p_default, 50.0,
         p_range, 0.0, 1000.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_DISTFADE_OUTSTART, IDC_COMP_DISTFADE_OUTSTART_SPIN, 1.0,
-        end,    
+        end,
 
-    plDistFadeComponent::kFadeOutEnd, _T("FadeOutEnd"), TYPE_FLOAT,     0, 0,   
+    plDistFadeComponent::kFadeOutEnd, _T("FadeOutEnd"), TYPE_FLOAT,     0, 0,
         p_default, 100.0,
         p_range, 0.0, 1000.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_DISTFADE_OUTEND, IDC_COMP_DISTFADE_OUTEND_SPIN, 1.0,
-        end,    
+        end,
 
 
     end
@@ -547,9 +547,9 @@ bool plDistFadeComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
     return true;
 }
 
-bool plDistFadeComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg) 
-{ 
-    return true; 
+bool plDistFadeComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
+{
+    return true;
 }
 
 plDistFadeComponent::plDistFadeComponent()
@@ -586,7 +586,7 @@ public:
 CLASS_DESC(plLOSFadeComponent, gLOSFadeCompDesc, "LOS Fade",  "LOSFade", COMP_TYPE_GRAPHICS, LOSFADE_COMP_CID)
 
 ParamBlockDesc2 gLOSFadeBk
-(   
+(
     plComponent::kBlkComp, _T("LOSFade"), 0, &gLOSFadeCompDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_LOSFADE, IDS_COMP_LOSFADE, 0, 0, NULL,
@@ -596,20 +596,20 @@ ParamBlockDesc2 gLOSFadeBk
         p_ui,   TYPE_SINGLECHEKBOX, IDC_COMP_BOUNDSCENTER,
         end,
 
-    plLOSFadeComponent::kFadeInTime, _T("kFadeInTime"), TYPE_FLOAT,     0, 0,   
+    plLOSFadeComponent::kFadeInTime, _T("kFadeInTime"), TYPE_FLOAT,     0, 0,
         p_default, 0.5,
         p_range, 0.0, 5.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_FADEINTIME, IDC_COMP_FADEINTIME_SPIN, 1.0,
-        end,    
+        end,
     
 
-    plLOSFadeComponent::kFadeOutTime, _T("kFadeOutTime"), TYPE_FLOAT,   0, 0,   
+    plLOSFadeComponent::kFadeOutTime, _T("kFadeOutTime"), TYPE_FLOAT,   0, 0,
         p_default, 1.0,
         p_range, 0.0, 5.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_FADEOUTTIME, IDC_COMP_FADEOUTTIME_SPIN, 1.0,
-        end,    
+        end,
     
 
     end
@@ -628,8 +628,8 @@ bool plLOSFadeComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
     return true;
 }
 
-bool plLOSFadeComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg) 
-{ 
+bool plLOSFadeComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
+{
     plFadeOpacityMod* fade = new plFadeOpacityMod;
     
     if( fCompPB->GetInt(kBoundsCenter) )
@@ -642,7 +642,7 @@ bool plLOSFadeComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
 
     node->AddModifier(fade, node->GetKey()->GetName());
 
-    return true; 
+    return true;
 }
 
 plLOSFadeComponent::plLOSFadeComponent()
@@ -680,24 +680,24 @@ public:
 CLASS_DESC(plGZFadeComponent, gGZFadeCompDesc, "GZ Fade",  "GZFade", COMP_TYPE_GRAPHICS, GZFADE_COMP_CID)
 
 ParamBlockDesc2 gGZFadeBk
-(   
+(
     plComponent::kBlkComp, _T("GZFade"), 0, &gGZFadeCompDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_GZFADE, IDS_COMP_GZ_FADE, 0, 0, NULL,
 
-    plGZFadeComponent::kOpaque, _T("kOpaque"), TYPE_FLOAT,  0, 0,   
+    plGZFadeComponent::kOpaque, _T("kOpaque"), TYPE_FLOAT,  0, 0,
         p_default, 15.0,
         p_range, 0.0, 100.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_GZ_OPAQUE, IDC_COMP_GZ_OPAQUE_SPIN, 1.0,
-        end,    
+        end,
     
-    plGZFadeComponent::kTransp, _T("kTransp"), TYPE_FLOAT,  0, 0,   
+    plGZFadeComponent::kTransp, _T("kTransp"), TYPE_FLOAT,  0, 0,
         p_default, 20.0,
         p_range, 0.0, 100.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_GZ_TRANSP, IDC_COMP_GZ_TRANSP_SPIN, 1.0,
-        end,    
+        end,
     
 
     end
@@ -722,8 +722,8 @@ bool plGZFadeComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
     return true;
 }
 
-bool plGZFadeComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg) 
-{ 
+bool plGZFadeComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
+{
     plDistOpacityMod* fade = new plDistOpacityMod;
 
     float opaq = fCompPB->GetFloat(kOpaque);
@@ -733,7 +733,7 @@ bool plGZFadeComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
 
     node->AddModifier(fade, node->GetKey()->GetName());
 
-    return true; 
+    return true;
 }
 
 plGZFadeComponent::plGZFadeComponent()
@@ -772,7 +772,7 @@ public:
 CLASS_DESC(plDynMatComponent, gDynMatCompDesc, "Force Dyn Mat",  "DynMat", COMP_TYPE_GRAPHICS, DYNMAT_COMP_CID)
 
 ParamBlockDesc2 gDynMatBk
-(   
+(
     plComponent::kBlkComp, _T("DynMat"), 0, &gDynMatCompDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_DYNMAT, IDS_COMP_DYNMAT, 0, 0, NULL,
@@ -791,9 +791,9 @@ bool plDynMatComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
     return true;
 }
 
-bool plDynMatComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg) 
-{ 
-    return true; 
+bool plDynMatComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
+{
+    return true;
 }
 
 plDynMatComponent::plDynMatComponent()

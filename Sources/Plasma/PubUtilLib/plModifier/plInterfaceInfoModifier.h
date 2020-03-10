@@ -55,7 +55,7 @@ protected:
     virtual bool IEval(double secs, float del, uint32_t dirty){ return true; }
 public:
 
-    plInterfaceInfoModifier(); 
+    plInterfaceInfoModifier();
     ~plInterfaceInfoModifier();
 
     CLASSNAME_REGISTER( plInterfaceInfoModifier );

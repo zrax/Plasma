@@ -75,7 +75,7 @@ void plLinkToAgeMsg::PlayLinkSfx(bool linkIn, bool linkOut)
         fFlags |= kMuteLinkOutSfx;
 }
 
-void plLinkToAgeMsg::Read(hsStream* stream, hsResMgr* mgr)  
+void plLinkToAgeMsg::Read(hsStream* stream, hsResMgr* mgr)
 {
     plMessage::IMsgRead( stream, mgr );
     fFlags = stream->ReadByte();
@@ -83,7 +83,7 @@ void plLinkToAgeMsg::Read(hsStream* stream, hsResMgr* mgr)
     fLinkInAnimName = stream->ReadSafeString();
 }
 
-void plLinkToAgeMsg::Write(hsStream* stream, hsResMgr* mgr) 
+void plLinkToAgeMsg::Write(hsStream* stream, hsResMgr* mgr)
 {
     plMessage::IMsgWrite( stream, mgr );
     stream->WriteByte( fFlags );
@@ -97,7 +97,7 @@ enum LinkToAgeFlags
     kLinkToAgeLinkAnimName,
 };
 
-void plLinkToAgeMsg::ReadVersion(hsStream* s, hsResMgr* mgr)    
+void plLinkToAgeMsg::ReadVersion(hsStream* s, hsResMgr* mgr)
 {
     plMessage::IMsgReadVersion(s, mgr);
 
@@ -110,7 +110,7 @@ void plLinkToAgeMsg::ReadVersion(hsStream* s, hsResMgr* mgr)
         fLinkInAnimName = s->ReadSafeString();
 }
 
-void plLinkToAgeMsg::WriteVersion(hsStream* s, hsResMgr* mgr)   
+void plLinkToAgeMsg::WriteVersion(hsStream* s, hsResMgr* mgr)
 {
     plMessage::IMsgWriteVersion(s, mgr);
 
@@ -275,7 +275,7 @@ void plLinkEffectsTriggerMsg::WriteVersion(hsStream* s, hsResMgr* mgr)
 
 void plLinkEffectsTriggerMsg::SetLinkKey(const plKey &key)
 {
-    fLinkKey = key; 
+    fLinkKey = key;
 }
 
 void plLinkEffectsTriggerMsg::SetLinkInAnimKey(plKey &key)

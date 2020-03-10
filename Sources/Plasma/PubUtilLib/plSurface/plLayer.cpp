@@ -106,9 +106,9 @@ plLayer::~plLayer()
 {
 }
 
-uint32_t plLayer::Eval(double secs, uint32_t frame, uint32_t ignore) 
-{ 
-    return uint32_t(0); 
+uint32_t plLayer::Eval(double secs, uint32_t frame, uint32_t ignore)
+{
+    return uint32_t(0);
 }
 
 void plLayer::Read(hsStream* s, hsResMgr* mgr)
@@ -128,14 +128,14 @@ void plLayer::Read(hsStream* s, hsResMgr* mgr)
     *fLODBias = s->ReadLEScalar();
     *fSpecularPower = s->ReadLEScalar();
 
-    plLayRefMsg* refMsg = new plLayRefMsg(GetKey(), plRefMsg::kOnCreate, 0, plLayRefMsg::kTexture); 
-    mgr->ReadKeyNotifyMe(s,refMsg, plRefFlags::kActiveRef); 
-
-#if 1 // For read/write shaders
-    refMsg = new plLayRefMsg(GetKey(), plRefMsg::kOnCreate, 0, plLayRefMsg::kVertexShader); 
+    plLayRefMsg* refMsg = new plLayRefMsg(GetKey(), plRefMsg::kOnCreate, 0, plLayRefMsg::kTexture);
     mgr->ReadKeyNotifyMe(s,refMsg, plRefFlags::kActiveRef);
 
-    refMsg = new plLayRefMsg(GetKey(), plRefMsg::kOnCreate, 0, plLayRefMsg::kPixelShader);  
+#if 1 // For read/write shaders
+    refMsg = new plLayRefMsg(GetKey(), plRefMsg::kOnCreate, 0, plLayRefMsg::kVertexShader);
+    mgr->ReadKeyNotifyMe(s,refMsg, plRefFlags::kActiveRef);
+
+    refMsg = new plLayRefMsg(GetKey(), plRefMsg::kOnCreate, 0, plLayRefMsg::kPixelShader);
     mgr->ReadKeyNotifyMe(s,refMsg, plRefFlags::kActiveRef);
 
     fBumpEnvXfm->Read(s);
@@ -234,9 +234,9 @@ void plLayer::SetState(const hsGMatState& s)
     *fState = s;
 }
 
-void plLayer::SetTransform(const hsMatrix44& xfm) 
-{ 
-    *fTransform = xfm; 
+void plLayer::SetTransform(const hsMatrix44& xfm)
+{
+    *fTransform = xfm;
 }
 
 void plLayer::SetBumpEnvMatrix(const hsMatrix44& xfm)
@@ -280,7 +280,7 @@ plLayerInterface* plLayer::DefaultLayer()
 }
 
 //// CloneNoTexture ///////////////////////////////////////////////////////////
-//  Copies all the fields from the original layer given, not including the 
+//  Copies all the fields from the original layer given, not including the
 //  texture
 
 void plLayer::CloneNoTexture( plLayerInterface *original )

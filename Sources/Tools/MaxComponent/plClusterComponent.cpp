@@ -137,7 +137,7 @@ public:
 plClusterCompAccessor gClusterCompAccessor;
 
 ParamBlockDesc2 gClusterBk
-(   
+(
     plComponent::kBlkComp, _T("Cluster"), 0, &gClusterCompDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_CLUSTER, IDS_COMP_CLUSTERS, 0, 0, &gClusterCompProc,
@@ -145,12 +145,12 @@ ParamBlockDesc2 gClusterBk
     plClusterComponent::kClusters,  _T("Clusters"), TYPE_INODE_TAB, 0,      0, 0,
         end,
 
-    plClusterComponent::kOptimization, _T("Optimization"), TYPE_FLOAT,  0, 0,   
+    plClusterComponent::kOptimization, _T("Optimization"), TYPE_FLOAT,  0, 0,
         p_default, 100.0,
         p_range, 0.0, 100.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_CLUSTERSIZE, IDC_COMP_CLUSTERSIZE_SPIN, 1.0,
-        end,    
+        end,
 
     plClusterComponent::kFadeIns, _T("FadeIns"), TYPE_POINT3_TAB, 0,    0, 0,
         end,
@@ -197,7 +197,7 @@ bool plClusterComponent::SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg)
     return true;
 }
 
-static int CompTemplNodes(const void *elem1, const void *elem2) 
+static int CompTemplNodes(const void *elem1, const void *elem2)
 {
     plDistribInstance* distA = (plDistribInstance*)elem1;
     plDistribInstance* distB = (plDistribInstance*)elem2;
@@ -327,8 +327,8 @@ bool plClusterComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
     return true;
 }
 
-bool plClusterComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg) 
-{ 
+bool plClusterComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
+{
     if( !fExported && (fCompPB->GetInt(kAutoInstance)) )
     {
         hsBitVector doneBits;
@@ -385,7 +385,7 @@ bool plClusterComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         IClearDistribTab();
         fExported = true;
     }
-    return true; 
+    return true;
 }
 
 plClusterComponent::plClusterComponent()
@@ -600,7 +600,7 @@ void plClusterComponent::Clear()
         plMaxNode* cluster = (plMaxNode*)fCompPB->GetINode(kClusters, TimeValue(0), i);
         if( cluster )
         {
-            // HACK FISH - till we get a real fix for the slowdown caused by 
+            // HACK FISH - till we get a real fix for the slowdown caused by
             // deleting things with a location component on them.
             int numComp = cluster->NumAttachedComponents();
             int j;
@@ -1178,7 +1178,7 @@ void plClusterComponent::IRandomizeSkinWeights(Mesh* mesh, const Point3& flex) c
 {
     const int iWgtMap = plDistributor::kWgtMapChan;
 
-    UVVert *wgtMap = mesh->mapVerts(iWgtMap);   
+    UVVert *wgtMap = mesh->mapVerts(iWgtMap);
     int numWgtVerts = mesh->getNumMapVerts(iWgtMap);
 
     static plRandom random;

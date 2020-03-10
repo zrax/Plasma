@@ -80,7 +80,7 @@ protected:
     bool                fIsCompressed;      // this applies only to the new sound file specified in fNewFilename, so we can play both ogg's and wav's
     plFileName          fNewFilename;       // allow the filename to be changed so we can play from a different source.
                                             // ultimately this filename will be given to fDataBuffer, but since it's not always around we'll store it here
-    bool                fStopping;  
+    bool                fStopping;
 
     double              fLastStreamingUpdate;
     bool                fPlayWhenStopped;

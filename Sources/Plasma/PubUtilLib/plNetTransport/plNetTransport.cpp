@@ -39,7 +39,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
       Mead, WA   99021
 
 *==LICENSE==*/
-#pragma warning(disable: 4786)  
+#pragma warning(disable: 4786)
 
 #include "hsTimer.h"
 #include "plNetTransport.h"
@@ -79,7 +79,7 @@ void plNetTransport::IUnSubscribeToAllChannelGrps(plNetTransportMember* mbr)
         int chan=mbr->GetSubscription(i);
         bool ok=UnSubscribeToChannelGrp(mbr, chan);
         hsAssert(ok, "can't find supposed subscription to remove");
-    } // for             
+    } // for
 }
 
 void plNetTransport::IRemoveMember(plNetTransportMember* mbr)
@@ -135,7 +135,7 @@ bool plNetTransport::RemoveMember(plNetTransportMember* mbr)
 //
 // return array index or -1
 //
-int plNetTransport::FindMember(const plNetTransportMember* mbr) 
+int plNetTransport::FindMember(const plNetTransportMember* mbr)
 {
     plMembersList::iterator it = std::find(fMembers.begin(), fMembers.end(), mbr);
     return (it==fMembers.end()) ? -1 : (it-fMembers.begin());
@@ -202,7 +202,7 @@ int plNetTransport::SendMsg(int chan, plNetMessage* netMsg) const
         // does this msg have a list of receivers
         plNetMsgReceiversListHelper* rl = plNetMsgReceiversListHelper::ConvertNoRef(netMsg);
 
-#if 0               
+#if 0
         // send msg to all subscribers to this channel
         int size=mList->size();
         for( int i=0 ; i<size; i++  )
@@ -222,13 +222,13 @@ int plNetTransport::SendMsg(int chan, plNetMessage* netMsg) const
                 bool ok=rl->RemoveReceiverPlayerID(tm->GetPlayerID());
                 hsAssert(ok, "couldn't find rcvr to remove?");
             }
-            ret=0; // sent ok   
-        } // for      
+            ret=0; // sent ok
+        } // for
 #endif
 
         // if there are rcvrs left that we couldn't send to, send via server
         if (rl && rl->GetNumReceivers())
-        {           
+        {
 //          if ((ncRet=nc->GetNetClientComm().SendMsg(netMsg, nc->GetServerPeerID(), sendFlags, msgSize)) != plNetCore::kNetOK)
             NetCommSendMsg(netMsg);
             ret=0;  // sent
@@ -251,7 +251,7 @@ void plNetTransport::ClearMembers()
         hsAssert(mbr, "nil member?");
         IUnSubscribeToAllChannelGrps(mbr);
         delete mbr;
-    } // for         
+    } // for
     
     fMembers.clear();
 }

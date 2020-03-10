@@ -56,14 +56,14 @@ protected:
 
 public:
 
-    enum 
+    enum
     {
         kForcedListenerMode,
         kDistanceMode,
     };
 
     plNetVoiceListMsg() : plMessage(nil, nil, nil), fCmd( 0 ) { SetBCastFlag(kBCastByExactType); }
-    plNetVoiceListMsg( uint32_t cmd ) : 
+    plNetVoiceListMsg( uint32_t cmd ) :
                 plMessage(nil, nil, nil), fCmd( cmd )
                 { SetBCastFlag( kBCastByExactType ); }
     
@@ -76,9 +76,9 @@ public:
     hsTArray<uint32_t>* GetClientList() { return &fClientIDs; };
     plKey GetRemovedKey() { return fRemoved; }
     void SetRemovedKey(plKey& k) { fRemoved = k; }
-    virtual void Read(hsStream* s, hsResMgr* mgr); 
+    virtual void Read(hsStream* s, hsResMgr* mgr);
     
-    virtual void Write(hsStream* s, hsResMgr* mgr); 
+    virtual void Write(hsStream* s, hsResMgr* mgr);
 };
 
 

@@ -51,7 +51,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 //
 // Quaternion class.
 // For conversion to and from euler angles, see hsEuler.cpp,h.
-// 
+//
 
 //
 // Construct quat from angle (in radians) and axis of rotation
@@ -92,7 +92,7 @@ void hsQuat::SetAngleAxis(const float rad, const hsVector3 &axis)
     float s = sin(rad*0.5f);
     fX = axis.fX*s;
     fY = axis.fY*s;
-    fZ = axis.fZ*s; 
+    fZ = axis.fZ*s;
 }
 
 //
@@ -162,7 +162,7 @@ void hsQuat::NormalizeIfNeeded()
 //
 // This is for a RHS.
 // The quat should be normalized first.
-// 
+//
 void hsQuat::MakeMatrix(hsMatrix44 *mat) const
 {
     // mf horse - this is transpose of both what
@@ -302,7 +302,7 @@ void hsQuat::SetFromSlerp(const hsQuat &a, const hsQuat &b, float alpha, int spi
     {
         cos_t = -cos_t;
         bflip = true;
-    } 
+    }
     else
         bflip = false;
 
@@ -310,10 +310,10 @@ void hsQuat::SetFromSlerp(const hsQuat &a, const hsQuat &b, float alpha, int spi
      * just linear interpolate between A and B.
      * Can't do spins, since we don't know what direction to spin.
      */
-    if (1.0 - cos_t < EPSILON) 
+    if (1.0 - cos_t < EPSILON)
     {
         beta = 1.0f - alpha;
-    } else 
+    } else
     {               /* normal case */
 //      hsAssert((cos_t >= -1) && (cos_t <= 1), "Invalid acos argument");
         theta   = acos(cos_t);
@@ -402,9 +402,9 @@ hsQuat hsQuat::QuatFromMatrix44(const hsMatrix44& mat)
         qu.fZ = (mat.fMap[Y][X] - mat.fMap[X][Y]) * s;
     } else {
         int h = X;
-        if (mat.fMap[Y][Y] > mat.fMap[X][X]) 
+        if (mat.fMap[Y][Y] > mat.fMap[X][X])
             h = Y;
-        if (mat.fMap[Z][Z] > mat.fMap[h][h]) 
+        if (mat.fMap[Z][Z] > mat.fMap[h][h])
             h = Z;
         switch (h) {
 #define caseMacro(i,j,k,I,J,K) \

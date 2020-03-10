@@ -98,7 +98,7 @@ public:
     // of properties on the MaxNode, as it's still indeterminant.
 
     //! plInventoryObjComponent PreConvert, takes in two variables and return a bool.
-    /*! 
+    /*!
         Calls the function MaybeMakeLocal() and Sets Drawable to false.
 
         Takes in two variables, being:

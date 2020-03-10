@@ -84,7 +84,7 @@ struct hsMatrix44 {
     hsMatrix44&     Scale(const hsVector3 *);
     hsMatrix44&     Rotate(int axis, float radians);
 
-    hsMatrix44&     Reset(bool asIdent=true) 
+    hsMatrix44&     Reset(bool asIdent=true)
     {
         fMap[0][0] = 1.0f; fMap[0][1] = 0.0f; fMap[0][2] = 0.0f; fMap[0][3]  = 0.0f;
         fMap[1][0] = 0.0f; fMap[1][1] = 1.0f; fMap[1][2] = 0.0f; fMap[1][3]  = 0.0f;
@@ -99,9 +99,9 @@ struct hsMatrix44 {
     hsMatrix44&     MakeTranslateMat(const hsVector3 *trans);
     hsMatrix44&     MakeScaleMat(const hsVector3 *scale);
     hsMatrix44&     MakeRotateMat(int axis, float radians);
-    hsMatrix44&     Make(const hsPoint3* from, const hsPoint3* at, 
+    hsMatrix44&     Make(const hsPoint3* from, const hsPoint3* at,
                         const hsVector3* up);   // Not a camera matrix
-    hsMatrix44&     MakeUpPreserving(const hsPoint3* from, const hsPoint3* at, 
+    hsMatrix44&     MakeUpPreserving(const hsPoint3* from, const hsPoint3* at,
                         const hsVector3* up);   // Not a camera matrix
     // Camera matrix
     hsMatrix44&     MakeCamera(const hsPoint3* from, const hsPoint3* at,
@@ -115,7 +115,7 @@ struct hsMatrix44 {
     hsMatrix44*     GetTranspose(hsMatrix44* inverse) const;
     hsMatrix44*     GetAdjoint(hsMatrix44* adjoint) const;
     hsVector3*      GetTranslate(hsVector3 *pt) const;
-    hsPoint3*       GetTranslate(hsPoint3 *pt) const 
+    hsPoint3*       GetTranslate(hsPoint3 *pt) const
         {   return (hsPoint3*)GetTranslate((hsVector3*)pt); }
     const hsPoint3  GetTranslate() const;
     void            GetAxis(hsVector3* view, hsVector3 *up, hsVector3* right);

@@ -164,8 +164,8 @@ bool plPostEffectMod::IEval(double secs, float del, uint32_t dirty)
 
 void plPostEffectMod::IUpdateRenderRequest()
 {
-    fRenderRequest->SetHither(fHither); 
-    fRenderRequest->SetYon(fYon); 
+    fRenderRequest->SetHither(fHither);
+    fRenderRequest->SetYon(fYon);
 
     fRenderRequest->SetFovX(fFovX);
     fRenderRequest->SetFovY(fFovY);

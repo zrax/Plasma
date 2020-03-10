@@ -49,7 +49,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "HeadSpin.h"
 
 //
-// This modifier is responsible for sending and recving 
+// This modifier is responsible for sending and recving
 // an avatar's clothing saveState.
 //
 class plClothingOutfit;
@@ -69,11 +69,11 @@ protected:
     uint32_t IApplyModFlags(uint32_t sendFlags) { return (sendFlags | plSynchedObject::kDontPersistOnServer | plSynchedObject::kIsAvatarState); }
 
 public:
-    // var labels 
-    static char kStrItem[]; 
-    static char kStrTint[]; 
-    static char kStrTint2[];    
-    static char kStrWardrobe[]; 
+    // var labels
+    static char kStrItem[];
+    static char kStrTint[];
+    static char kStrTint2[];
+    static char kStrWardrobe[];
     static char kStrSkinTint[];
     static char kStrFaceBlends[];
     static char kStrAppearance[];

@@ -226,7 +226,7 @@ protected:
 };
 
 proEventType(Contained)
-    plKey   fContained; // who's inside of 
+    plKey   fContained; // who's inside of
     plKey   fContainer; // this containing volume
     bool    fEntering;  // entering volume (true) or exiting (false)
 

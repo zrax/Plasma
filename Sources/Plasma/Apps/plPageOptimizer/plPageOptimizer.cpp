@@ -68,7 +68,7 @@ plPageOptimizer::plPageOptimizer(const plFileName& pagePath) :
 
 void plPageOptimizer::IFindLoc()
 {
-    class plPageIt : public plRegistryPageIterator 
+    class plPageIt : public plRegistryPageIterator
     {
     public:
         plLocation fLoc;

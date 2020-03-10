@@ -115,11 +115,11 @@ ActionTable* plActionTableMgr::GetActionTable(int i)
 
 
     ActionTable *pTab = new plActionTable(
-        pTableInfo->TableId, 
-        pTableInfo->ContextId, 
-        pTableInfo->Name, NULL, 
-        pTableInfo->Actions.size(), 
-        &pTableInfo->Actions[0], 
+        pTableInfo->TableId,
+        pTableInfo->ContextId,
+        pTableInfo->Name, NULL,
+        pTableInfo->Actions.size(),
+        &pTableInfo->Actions[0],
         hInstance
         );
 
@@ -132,7 +132,7 @@ ActionTable* plActionTableMgr::GetActionTable(int i)
 }
 
 
-void plActionTableMgr::SysStartup(void *param, NotifyInfo *info) 
+void plActionTableMgr::SysStartup(void *param, NotifyInfo *info)
 {
     plActionTableMgr* pActionTableMgr = (plActionTableMgr*)param;
 
@@ -149,7 +149,7 @@ void plActionTableMgr::SysStartup(void *param, NotifyInfo *info)
 }
 
 
-void plActionTableMgr::SysShutdown(void *param, NotifyInfo *info) 
+void plActionTableMgr::SysShutdown(void *param, NotifyInfo *info)
 {
     plActionTableMgr* pActionTableMgr = (plActionTableMgr*)param;
 

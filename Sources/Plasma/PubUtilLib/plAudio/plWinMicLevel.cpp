@@ -94,7 +94,7 @@ float    plWinMicLevel::GetLevel()
 
 #if HS_BUILD_FOR_WIN32
     DWORD   rawValue;
-    if( !IGetControlValue( rawValue ) ) 
+    if( !IGetControlValue( rawValue ) )
         return -1;
 
     return (float)( rawValue - sMinValue ) / (float)( sMaxValue - sMinValue );
@@ -236,7 +236,7 @@ bool    IGetMuxMicVolumeControl()
 }
 
 //// IGetBaseMicVolumeControl ////////////////////////////////////////////////
-//  Tries to get the volume control of the mic-in line. See 
+//  Tries to get the volume control of the mic-in line. See
 //  IGetMuxMicVolumeControl for why we don't do this one first.
 
 bool    IGetBaseMicVolumeControl()
@@ -282,7 +282,7 @@ bool    IGetControlValue( DWORD &value )
     mxcd.cbDetails = sizeof( MIXERCONTROLDETAILS_UNSIGNED );
     mxcd.paDetails = &mxcdVolume;
     
-    if( ::mixerGetControlDetails( (HMIXEROBJ)sMixerHandle, &mxcd, 
+    if( ::mixerGetControlDetails( (HMIXEROBJ)sMixerHandle, &mxcd,
             MIXER_OBJECTF_HMIXER | MIXER_GETCONTROLDETAILSF_VALUE ) != MMSYSERR_NOERROR )
         return false;
     
@@ -307,7 +307,7 @@ bool    ISetControlValue( DWORD value )
     mxcd.cbDetails = sizeof( MIXERCONTROLDETAILS_UNSIGNED );
     mxcd.paDetails = &mxcdVolume;
 
-    if( ::mixerSetControlDetails( (HMIXEROBJ)sMixerHandle, &mxcd, 
+    if( ::mixerSetControlDetails( (HMIXEROBJ)sMixerHandle, &mxcd,
             MIXER_OBJECTF_HMIXER | MIXER_SETCONTROLDETAILSF_VALUE ) != MMSYSERR_NOERROR )
         return false;
     

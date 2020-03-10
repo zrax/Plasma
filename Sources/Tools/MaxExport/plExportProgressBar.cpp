@@ -51,7 +51,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plExportProgressBar.h"
 
 namespace {
-    DWORD WINAPI ProgressDummyFunc(LPVOID arg) 
+    DWORD WINAPI ProgressDummyFunc(LPVOID arg)
     {
         return(0);
     }
@@ -82,7 +82,7 @@ void plExportProgressBar::Start(char *name, uint32_t steps)
    {
       exportServerGup->Control(-3); // means next control will be progress task
       exportServerGup->Control((DWORD)name);
-   }   
+   }
 }
 
 bool plExportProgressBar::Update(char *name, uint32_t inc)
@@ -102,11 +102,11 @@ bool plExportProgressBar::Update(char *name, uint32_t inc)
          exportServerGup->Control((DWORD)name);
       }
       exportServerGup->Control(-6); // signal that we're done sending this update sequence
-   }   
+   }
    
    fInterface->ProgressUpdate((int)((fCurStep * 100) / fTotalSteps), FALSE, name);
 
-    if (fInterface->GetCancel()) 
+    if (fInterface->GetCancel())
     {
         int retval = MessageBox(fInterface->GetMAXHWnd(), _T("Really Cancel?"),
             _T("Question"), MB_ICONQUESTION | MB_YESNO);

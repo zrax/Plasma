@@ -62,12 +62,12 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plMessage/plAvatarMsg.h"
 
 plLayerAnimationBase::plLayerAnimationBase()
-: 
-    fPreshadeColorCtl(nil), 
+:
+    fPreshadeColorCtl(nil),
     fRuntimeColorCtl(nil),
-    fAmbientColorCtl(nil), 
+    fAmbientColorCtl(nil),
     fSpecularColorCtl(nil),
-    fOpacityCtl(nil), 
+    fOpacityCtl(nil),
     fTransformCtl(nil),
     fEvalTime(-1.0),
     fCurrentTime(-1.f)
@@ -319,9 +319,9 @@ void plLayerAnimation::Read(hsStream* s, hsResMgr* mgr)
 {
     plLayerAnimationBase::Read(s, mgr);
 
-    fTimeConvert.Read(s, mgr);  
+    fTimeConvert.Read(s, mgr);
     if (!(fTimeConvert.IsStopped()))
-    {   
+    {
         plSynchEnabler ps(true);    // enable dirty tracking so that we send state about
                                     // the anim resetting to start now.
         fTimeConvert.SetCurrentAnimTime(0, true);
@@ -419,21 +419,21 @@ void plLayerAnimation::DefaultAnimation()
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-plLayerLinkAnimation::plLayerLinkAnimation() : 
-    fLinkKey(nil), 
+plLayerLinkAnimation::plLayerLinkAnimation() :
+    fLinkKey(nil),
     fLeavingAge(true),
-    fEnabled(true), 
-    fFadeFlags(0), 
+    fEnabled(true),
+    fFadeFlags(0),
     fLastFadeFlag(0),
-    fFadeFlagsDirty(false) 
-{ 
+    fFadeFlagsDirty(false)
+{
     fIFaceCallback = new plEventCallbackMsg();
     fIFaceCallback->fEvent = kTime;
-    fIFaceCallback->fRepeats = 0;           
+    fIFaceCallback->fRepeats = 0;
 }
 
-plLayerLinkAnimation::~plLayerLinkAnimation() 
-{ 
+plLayerLinkAnimation::~plLayerLinkAnimation()
+{
     hsRefCnt_SafeUnRef(fIFaceCallback);
 }
 
@@ -451,7 +451,7 @@ void plLayerLinkAnimation::Read(hsStream* s, hsResMgr* mgr)
     plgDispatch::Dispatch()->RegisterForExactType(plIfaceFadeAvatarMsg::Index(), GetKey());
     plgDispatch::Dispatch()->RegisterForExactType(plPseudoLinkAnimTriggerMsg::Index(), GetKey());
     
-    fIFaceCallback->AddReceiver(GetKey());  
+    fIFaceCallback->AddReceiver(GetKey());
 }
 
 
@@ -530,7 +530,7 @@ uint32_t plLayerLinkAnimation::Eval(double wSecs, uint32_t frame, uint32_t ignor
                 plAvatarOpacityCallbackMsg *opacityMsg = new plAvatarOpacityCallbackMsg(fLinkKey, kStop);
                 opacityMsg->SetBCastFlag(plMessage::kPropagateToModifiers);
                 opacityMsg->Send();
-            }               
+            }
             evalChans = fOwnedChannels & ~ignore & ~fPassThruChannels;
             fCurrentTime = secs;
         }
@@ -585,7 +585,7 @@ bool plLayerLinkAnimation::MsgReceive( plMessage* pMsg )
                 plLinkEffectsMgr *mgr;
                 if ((mgr = plLinkEffectsMgr::ConvertNoRef(msg->GetSender()->ObjectIsLoaded())))
                     mgr->WaitForEffect(msg->fLinkKey, fTimeConvert.GetEnd() - fTimeConvert.GetBegin());
-            }           
+            }
         }
         return true;
     }
@@ -620,7 +620,7 @@ bool plLayerLinkAnimation::MsgReceive( plMessage* pMsg )
         if (fMsg->FadeOut())
             SetFadeFlag(kFadeCamera, true);
         else
-            SetFadeFlag(kFadeCamera, false);    
+            SetFadeFlag(kFadeCamera, false);
 
         return true;
     }

@@ -187,7 +187,7 @@ int plNetMessage::PokeBuffer(char* bufIn, int bufLen, uint32_t peekOptions)
     fPeekStatus = 0;
     
     if (!bufIn)
-        return 0;   
+        return 0;
     
     if (! (peekOptions & kDontClearBuffer))
         memset(bufIn, 0, bufLen);
@@ -399,7 +399,7 @@ void plNetMessage::WriteVersion(hsStream* s, hsResMgr* mgr)
 }
 
 // Get the Packed Size
-int plNetMessage::GetPackSize() 
+int plNetMessage::GetPackSize()
 {
     hsNullStream nullStream;
     return IPokeBuffer(&nullStream);
@@ -410,13 +410,13 @@ uint32_t plNetMessage::GetNetCoreMsgLen() const
     return fNetCoreMsg ? fNetCoreMsg->GetLen() : 0;
 }
 
-void plNetMessage::ValidatePeek() const 
-{ 
+void plNetMessage::ValidatePeek() const
+{
     
 }
 
-void plNetMessage::ValidatePoke() const 
-{ 
+void plNetMessage::ValidatePoke() const
+{
     
 }
 
@@ -888,7 +888,7 @@ void plNetMsgRoomsList::AddRoomLocation(plLocation loc, const ST::string& rmName
 int plNetMsgRoomsList::FindRoomLocation(plLocation loc)
 {
     std::vector<plLocation>::iterator result = std::find(fRooms.begin(), fRooms.end(), loc);
-    return result==fRooms.end() ? -1 : result-fRooms.begin();   
+    return result==fRooms.end() ? -1 : result-fRooms.begin();
 }
 
 ////////////////////////////////////////////////////////
@@ -1269,7 +1269,7 @@ int plNetMsgLoadClone::IPokeBuffer( hsStream* stream, uint32_t peekOptions )
         stream->WriteLE( fIsInitialState );
         bytes = stream->GetPosition();
     }
-    return bytes;   
+    return bytes;
 }
 
 int plNetMsgLoadClone::IPeekBuffer( hsStream* stream, uint32_t peekOptions )

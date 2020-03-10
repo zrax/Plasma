@@ -206,7 +206,7 @@ class ErrorStream : public NxUserOutputStream
 //
 /////////////////////////////////////////////////////////////////
 
-// 
+//
 // Alloc all the sim timers here so they make a nice pretty display
 //
 //plProfile_CreateTimer(    "ClearContacts", "Simulation", ClearContacts);
@@ -515,7 +515,7 @@ void plSimulationMgr::Advance(float delSecs)
     plProfile_EndTiming(Step);
 #ifndef PLASMA_EXTERNAL_RELEASE
     if(plSimulationMgr::fDisplayAwakeActors)IDrawActiveActorList();
-#endif 
+#endif
     if (fExtraProfile)
     {
         int contacts = 0, dynActors = 0, dynShapes = 0, awake = 0, stShapes=0, actors=0, scenes=0, controllers=0 ;

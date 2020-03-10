@@ -54,7 +54,7 @@ class plConditionalObject : public hsKeyedObject
 private:
     // since 'this' is not derived from synchedObject, its synched values must be associated
     // with it's logicModifier (which is a synchedObject).  Thus it's a synched value 'friend'.
-    bool                            bSatisfied;     
+    bool                            bSatisfied;
     bool                            fToggle;
 public:
     enum

@@ -57,7 +57,7 @@ public:
     static plPluginResManager* ResMgr() { return (plPluginResManager*)hsgResMgr::ResMgr(); }
 
     //------------------------
-    // Location management 
+    // Location management
     //------------------------
 
     // Given a page string combo, returns the key of the sceneNode for that page. If the page does not exist, it creates one.

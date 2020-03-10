@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/NucleusLib/pnAsyncCoreExe/Private/Nt/pnAceNtInt.h
-*   
+*
 ***/
 
 #ifdef PLASMA20_SOURCES_PLASMA_NUCLEUSLIB_PNASYNCCOREEXE_PRIVATE_NT_PNACENTINT_H
@@ -174,11 +174,11 @@ void INtSocketOpCompleteSocketRead (
     unsigned    bytes
 );
 void INtSocketOpCompleteSocketWrite (
-    NtSock *            sock, 
+    NtSock *            sock,
     NtOpSocketWrite *   op
 );
 bool INtSocketOpCompleteQueuedSocketWrite (
-    NtSock *            sock, 
+    NtSock *            sock,
     NtOpSocketWrite *   op
 );
 

@@ -56,7 +56,7 @@ public:
     void Apply(hsTArray<plAccessSpan>& dst, hsTArray<float>* weights = nil) const;
 
     void Read(hsStream* s, hsResMgr* mgr);
-    void Write(hsStream* s, hsResMgr* mgr); 
+    void Write(hsStream* s, hsResMgr* mgr);
 
     void Reset();
     void AddDelta(const plMorphDelta& delta);

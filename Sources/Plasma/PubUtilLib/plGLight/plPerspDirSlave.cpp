@@ -50,10 +50,10 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include <cfloat>
 #include <cmath>
 
-void plPerspDirSlave::Init() 
-{ 
+void plPerspDirSlave::Init()
+{
     plShadowSlave::Init();
-    fFlags |= kCastInCameraSpace; 
+    fFlags |= kCastInCameraSpace;
 }
 
 hsPoint3 plPerspDirSlave::IProject(const hsMatrix44& world2NDC, const hsPoint3& pos, float w) const
@@ -311,7 +311,7 @@ bool plPerspDirSlave::SetupViewTransform(plPipeline* pipe)
     fWorldToTexture.fMap[2][3] = fWorldToTexture.fMap[3][3];
 
     // Now the LightToNDC. This one's a little trickier, because we want to compensate for
-    // having brought in the viewport to keep our border constant, so we can clamp the 
+    // having brought in the viewport to keep our border constant, so we can clamp the
     // projected texture and not have the edges smear off to infinity.
     cotX -= cotX / (fWidth * 0.5f);
     cotY -= cotY / (fHeight * 0.5f);

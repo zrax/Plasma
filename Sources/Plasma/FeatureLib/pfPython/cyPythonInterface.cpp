@@ -44,7 +44,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 // PythonInterface   - The Python interface to the Python dll
 //
 // NOTE: Eventually, this will be made into a separate dll, because there should
-//       only be one instance of this interface. 
+//       only be one instance of this interface.
 //
 
 #include <Python.h>
@@ -917,7 +917,7 @@ PyObject *ptImportHook_load_module_detail(ptImportHook *self, char* module_name,
                 Py_DECREF(l);
             }
             PyObject* v = PyEval_EvalCode((PyCodeObject *)pyc, d, d);
-            if(!v) 
+            if(!v)
             {
                 PyDict_DelItemString(modules, module_name);
                 return nil;
@@ -1038,7 +1038,7 @@ void PythonInterface::initPython()
 
         if (!dbgLog)
         {
-            dbgLog = plStatusLogMgr::GetInstance().CreateStatusLog( 30, "Python.log", 
+            dbgLog = plStatusLogMgr::GetInstance().CreateStatusLog( 30, "Python.log",
                 plStatusLog::kFilledBackground | plStatusLog::kAlignToTop | plStatusLog::kTimestamp );
         }
 
@@ -1276,7 +1276,7 @@ void PythonInterface::initPython()
 //  Function   : initDebugInterface
 //  PARAMETERS : none
 //
-//  PURPOSE    : Initialize the Python to Plasma 
+//  PURPOSE    : Initialize the Python to Plasma
 //
 void PythonInterface::initDebugInterface()
 {
@@ -1679,12 +1679,12 @@ void PythonInterface::WriteToStdErr(const char* text)
     }
 }
 
-PyObject* PythonInterface::ImportModule(const char* module) 
+PyObject* PythonInterface::ImportModule(const char* module)
 {
     PyObject* result = nil;
     PyObject* name = PyString_FromString(module);
 
-    if (name != nil) 
+    if (name != nil)
     {
         result = PyImport_Import(name);
         Py_DECREF(name);
@@ -2045,7 +2045,7 @@ PyObject* PythonInterface::RunFunction(PyObject* module, const char* name, PyObj
     PyObject* function = PyObject_GetAttrString(module, name);
 
     PyObject* result = NULL;
-    if (function != nil) 
+    if (function != nil)
     {
         result = PyObject_Call(function, args, NULL);
         Py_DECREF(function);
@@ -2058,7 +2058,7 @@ PyObject* PythonInterface::ParseArgs(const char* args)
 {
     PyObject* result = NULL;
     PyObject* scope = PyDict_New();
-    if (scope) 
+    if (scope)
     {
         //- Py_eval_input makes this function accept only single expresion (not statement)
         //- When using empty scope, functions and classes like 'file' or '__import__' are not visible
@@ -2069,17 +2069,17 @@ PyObject* PythonInterface::ParseArgs(const char* args)
     return result;
 }
 
-bool PythonInterface::RunFunctionSafe(const char* module, const char* function, const char* args) 
+bool PythonInterface::RunFunctionSafe(const char* module, const char* function, const char* args)
 {
     PyObject* moduleObj = ImportModule(module);
     bool result = false;
-    if (moduleObj) 
+    if (moduleObj)
     {
         PyObject* argsObj = ParseArgs(args);
-        if (argsObj) 
+        if (argsObj)
         {
             PyObject* callResult = RunFunction(moduleObj, function, argsObj);
-            if (callResult) 
+            if (callResult)
             {
                 result = true;
                 Py_DECREF(callResult);

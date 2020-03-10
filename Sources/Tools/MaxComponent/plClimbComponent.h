@@ -53,7 +53,7 @@ public:
     virtual void DeleteThis() { delete this; }
     virtual bool SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg);
     virtual bool PreConvert(plMaxNode *node, plErrorMsg *pErrMsg) { return true; }
-    virtual bool Convert(plMaxNode *node, plErrorMsg *pErrMsg); 
+    virtual bool Convert(plMaxNode *node, plErrorMsg *pErrMsg);
 
     enum // ParamBlock indices
     {

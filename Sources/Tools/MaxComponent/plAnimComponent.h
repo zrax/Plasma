@@ -217,9 +217,9 @@ public:
     static void SetBoxToAgeGlobal(HWND box, const char *varName);
 
     virtual BOOL DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-    virtual void Update(TimeValue t, Interval &valid, IParamMap2 *map); 
+    virtual void Update(TimeValue t, Interval &valid, IParamMap2 *map);
     void DeleteThis();
-};  
+};
 
 class plAnimCompressComp : public plComponent
 {

@@ -62,15 +62,15 @@ struct hsMatrix44;
 // Implement a CreateProxy() member to YourObject (see below).
 // Add DrawableType kYourObjectProxy to plDrawable.h
 // Add console commands under Graphics.Show.YourObjectProxy.
-// 
+//
 // See plLightSpace and plLightProxy for examples.
 //
 // More details.
 // ============
 // To make your own ProxyGen, you should subclass plProxyGen and override Init()
 // because you'll probably want to keep a pointer to your owner (of type only you
-// need to understand). 
-// 
+// need to understand).
+//
 // The IGetNode() function lets your owner specify which plSceneNode to place the
 // drawable in. That will normally just return your owner's GetSceneNode() call.
 //
@@ -112,8 +112,8 @@ protected:
     hsGMaterial* IFindProxyMaterial() const;
 
     virtual void                IGenerateProxy();
-    virtual void                IApplyProxy(uint32_t drawIdx) const; // called by IGenerate 
-    virtual void                IRemoveProxy(uint32_t drawIdx) const; 
+    virtual void                IApplyProxy(uint32_t drawIdx) const; // called by IGenerate
+    virtual void                IRemoveProxy(uint32_t drawIdx) const;
     virtual void                IDestroyProxy();
 public:
     plProxyGen(const hsColorRGBA& amb, const hsColorRGBA& dif, float opac);

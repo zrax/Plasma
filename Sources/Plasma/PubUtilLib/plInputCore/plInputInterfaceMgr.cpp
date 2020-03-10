@@ -205,7 +205,7 @@ void    plInputInterfaceMgr::Shutdown()
 
 //// IAdd/RemoveInterface ////////////////////////////////////////////////////
 //  Each interface has a "priority level", i.e. where in the list it should be.
-//  Doing it this way allows us to keep the manager unaware of the number or 
+//  Doing it this way allows us to keep the manager unaware of the number or
 //  types of interfaces.
 
 void    plInputInterfaceMgr::IAddInterface( plInputInterface *iface )
@@ -293,7 +293,7 @@ void    plInputInterfaceMgr::IUpdateCursor( int32_t newCursor )
 }
 
 //// IEval ///////////////////////////////////////////////////////////////////
-//  Inherited from plSingleModifier, gets called once per IUpdate() loop. 
+//  Inherited from plSingleModifier, gets called once per IUpdate() loop.
 
 bool plInputInterfaceMgr::IEval( double secs, float del, uint32_t dirty )
 {
@@ -320,8 +320,8 @@ bool plInputInterfaceMgr::IEval( double secs, float del, uint32_t dirty )
             pMsg->SetControlCode( fMessageQueue[i]->fControlCode );
             pMsg->SetControlPct(fMessageQueue[i]->fPct);
             pMsg->SetTurnToPt( fMessageQueue[i]->fPt );
-            pMsg->SetCmdString(fMessageQueue[i]->GetCmdString());       
-            pMsg->SetSender( GetKey() );    
+            pMsg->SetCmdString(fMessageQueue[i]->GetCmdString());
+            pMsg->SetSender( GetKey() );
             plgDispatch::MsgSend( pMsg );
 
             ///////////////////////////////////////////////////////
@@ -342,7 +342,7 @@ bool plInputInterfaceMgr::IEval( double secs, float del, uint32_t dirty )
                     pMsg->SetTurnToPt( fMessageQueue[i]->fPt );
                     pMsg->SetCmdString(fMessageQueue[i]->GetCmdString());
                     pMsg->SetSender( GetKey() );
-                    pMsg->SetBCastFlag(plMessage::kNetPropagate | plMessage::kPropagateToModifiers | 
+                    pMsg->SetBCastFlag(plMessage::kNetPropagate | plMessage::kPropagateToModifiers |
                         plMessage::kNetUseRelevanceRegions);    // bcast only to other players who care about the region I'm in
                     pMsg->SetBCastFlag(plMessage::kLocalPropagate, false);
 
@@ -408,7 +408,7 @@ bool plInputInterfaceMgr::ICheckCursor(plInputInterface *iFace)
         return true;
     }
     return false;
-}           
+}
 
 //// MsgReceive //////////////////////////////////////////////////////////////
 
@@ -511,7 +511,7 @@ bool    plInputInterfaceMgr::MsgReceive( plMessage *msg )
                 plMouseDevice::SetCursorOpacity( fCursorOpacity );
             }
         }
-        plProfile_EndLap(Input, inputIEM);      
+        plProfile_EndLap(Input, inputIEM);
         return true;
     }
 
@@ -555,7 +555,7 @@ bool    plInputInterfaceMgr::MsgReceive( plMessage *msg )
     if( pCMsg )
     {
         if( pCMsg->Cmd( plCmdIfaceModMsg::kAdd ) )
-        {   
+        {
             for( int i = 0; i < fReceivers.Count(); i++ )
             {
                 if( fReceivers[i] == pCMsg->GetSender() )
@@ -583,16 +583,16 @@ bool    plInputInterfaceMgr::MsgReceive( plMessage *msg )
     if (cMsg && cMsg->GetClientMsgFlag() == plClientMsg::kInitComplete)
     {
         // Backwards compatability hack:
-        // We've loaded in the user prefs for input. If they bind movement 
-        // to an arrow, or numpad, and the other binding is free, automatically 
+        // We've loaded in the user prefs for input. If they bind movement
+        // to an arrow, or numpad, and the other binding is free, automatically
         // bind the other one.
         plKeyMap *map = plAvatarInputInterface::GetInstance()->fControlMap;
         map->HandleAutoDualBinding(KEY_UP, KEY_NUMPAD8);
         map->HandleAutoDualBinding(KEY_DOWN, KEY_NUMPAD2);
         map->HandleAutoDualBinding(KEY_LEFT, KEY_NUMPAD4);
-        map->HandleAutoDualBinding(KEY_RIGHT, KEY_NUMPAD6);     
+        map->HandleAutoDualBinding(KEY_RIGHT, KEY_NUMPAD6);
 
-        plgDispatch::Dispatch()->UnRegisterForExactType( plClientMsg::Index(), GetKey() );      
+        plgDispatch::Dispatch()->UnRegisterForExactType( plClientMsg::Index(), GetKey() );
         return true;
     }
     // Wasn't one we want. Was it one that one of our interfaces wanted?
@@ -839,7 +839,7 @@ void    plInputInterfaceMgr::WriteKeyMap()
             // default is English
         }
         for (i = 0; keyConvert[i].fVKey != 0xffffffff; i++)
-        {   
+        {
 //              if (stricmp(fKeyMap->fKeyConversion[i].fKeyName, "Shift") == 0)
 //                  continue;
             fprintf(gKeyFile, "#  %s\n", keyConvert[i].fKeyName);

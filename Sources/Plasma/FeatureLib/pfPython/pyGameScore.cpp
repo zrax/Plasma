@@ -47,11 +47,11 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "pfGameScoreMgr/pfGameScoreMgr.h"
 #include "plVault/plVault.h"
 
-pyGameScore::pyGameScore() 
+pyGameScore::pyGameScore()
     : fScore(nil)
 { }
 
-pyGameScore::pyGameScore(pfGameScore * score) 
+pyGameScore::pyGameScore(pfGameScore * score)
     : fScore(score)
 {
     hsRefCnt_SafeRef(score);

@@ -75,7 +75,7 @@ class plGBufferTriangle
 
 //// plGBufferCell and plGBufferColor Definitions /////////////////////////////
 
-class plGBufferCell 
+class plGBufferCell
 {
     public:
         uint32_t  fVtxStart;      // In bytes
@@ -167,7 +167,7 @@ class plGBufferGroup
 
             kSkinIndices    = 0x40,  // 1000000
 
-            kEncoded        = 0x80  
+            kEncoded        = 0x80
         };
 
         enum
@@ -212,14 +212,14 @@ class plGBufferGroup
         void PurgeIndexBuffer(uint32_t idx);
 
         ///////////////////////////////////////////////////////////////////////////////
-        // The following group of functions is an advanced optimization, and a pretty 
+        // The following group of functions is an advanced optimization, and a pretty
         // specialized one at that. It just limits the amount of data that will get
         // uploaded to video. If you don't know you are limited by bandwidth to the
         // board, or you just don't know what your are doing, don't mess with them.
         // If you never touch them, everything will work. If you set them correcly,
         // things may work faster. If you set them incorrectly, be sure to save
         // all files before running.
-        // All of these are indices, not bytes. from the beginning of the buffer. 
+        // All of these are indices, not bytes. from the beginning of the buffer.
         uint32_t  GetVertBufferStart(uint32_t idx) const { return fVertBuffStarts[idx]; }
         uint32_t  GetVertBufferEnd(uint32_t idx) const { return fVertBuffEnds[idx] >= 0 ? uint32_t(fVertBuffEnds[idx]) : GetVertBufferCount(idx); }
         uint32_t  GetIndexBufferStart(uint32_t idx) const { return fIdxBuffStarts[idx]; }

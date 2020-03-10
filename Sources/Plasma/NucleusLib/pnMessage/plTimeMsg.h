@@ -54,8 +54,8 @@ protected:
 
 public:
     plTimeMsg();
-    plTimeMsg(const plKey &s, 
-                    const plKey &r, 
+    plTimeMsg(const plKey &s,
+                    const plKey &r,
                     const double* t, const float* del);
     ~plTimeMsg();
 
@@ -86,8 +86,8 @@ class plEvalMsg : public plTimeMsg
 {
 public:
     plEvalMsg();
-    plEvalMsg(const plKey &s, 
-                    const plKey &r, 
+    plEvalMsg(const plKey &s,
+                    const plKey &r,
                     const double* t, const float* del);
     ~plEvalMsg();
 
@@ -108,8 +108,8 @@ class plTransformMsg : public plTimeMsg
 {
 public:
     plTransformMsg();
-    plTransformMsg(const plKey &s, 
-                    const plKey &r, 
+    plTransformMsg(const plKey &s,
+                    const plKey &r,
                     const double* t, const float* del);
     ~plTransformMsg();
 

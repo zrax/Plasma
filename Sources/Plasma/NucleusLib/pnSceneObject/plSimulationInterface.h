@@ -60,7 +60,7 @@ public:
         kWarp_DEAD,                     // keep moving, no colliding (a pattern is emerging here...)
         kUpright_DEAD,                  // stand upright (mainly for the player)
         kPassive,                       // don't push new positions to sceneobject
-        kRotationForces_DEAD,           // rotate using forces 
+        kRotationForces_DEAD,           // rotate using forces
         kCameraAvoidObject_DEAD,        // camera will try and fly around this obsticle
         kPhysAnim,                      // this object is animated, and the animation can apply force
         kStartInactive,                 // deactive this object at start time. will reactivate when hit

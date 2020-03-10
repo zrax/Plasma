@@ -262,7 +262,7 @@ void hsGMaterial::Read(hsStream *stream, hsResMgr *group)
 
     Read(stream);
 
-    int iLay;    
+    int iLay;
     // Assign texture(s)
     for (iLay = 0; iLay < GetNumLayers(); iLay++)
     {
@@ -321,7 +321,7 @@ bool hsGMaterial::MsgReceive(plMessage* msg)
         if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest) )
         {
             bool insert = 0 != (refMsg->fType & plMatRefMsg::kInsert);
-            SetLayer(lay, which, 
+            SetLayer(lay, which,
                 insert,
                 piggyBack );
         }

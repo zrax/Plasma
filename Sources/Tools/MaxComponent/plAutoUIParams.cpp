@@ -330,7 +330,7 @@ int plSpinnerParam::CreateControls(HWND hDlg, IParamBlock2 *pb, int yOffset)
 
 void plSpinnerParam::Show(int yOffset)
 {
-    yOffset += ISizeControl(fhDlg, fControlVec[0], 100, 8, yOffset) + 2;    
+    yOffset += ISizeControl(fhDlg, fControlVec[0], 100, 8, yOffset) + 2;
     ISizeControl(fhDlg, fControlVec[1], 30, 10, yOffset);
     ISizeControl(fhDlg, fControlVec[2], 8, 10, yOffset, 33);
 
@@ -487,7 +487,7 @@ int plPickListParam::CreateControls(HWND hDlg, IParamBlock2 *pb, int yOffset)
 
 void plPickListParam::Show(int yOffset)
 {
-    yOffset += ISizeControl(fhDlg, fControlVec[0], 100, 8, yOffset) + 4;    
+    yOffset += ISizeControl(fhDlg, fControlVec[0], 100, 8, yOffset) + 4;
     yOffset += ISizeControl(fhDlg, fControlVec[1], 100, 5+4*8, yOffset) + 2;
     ISizeControl(fhDlg, fControlVec[2], 48, 14, yOffset, 4);
     ISizeControl(fhDlg, fControlVec[3], 48, 14, yOffset, 54);
@@ -628,7 +628,7 @@ int plPickButtonParam::CreateControls(HWND hDlg, IParamBlock2 *pb, int yOffset)
 
 void plPickButtonParam::Show(int yOffset)
 {
-    yOffset += ISizeControl(fhDlg, fControlVec[0], 100, 8, yOffset) + 4;    
+    yOffset += ISizeControl(fhDlg, fControlVec[0], 100, 8, yOffset) + 4;
     ISizeControl(fhDlg, fControlVec[1], 84, 12, yOffset);
     ISizeControl(fhDlg, fControlVec[2], 17, 12, yOffset, 89);
 
@@ -919,7 +919,7 @@ int plPickDynamicTextButtonParam::GetCount(IParamBlock2 *pb)
         {
             // It's one of our Plasma layer types, which means most likely it got converted.
  
-            // Note: if the following count is zero, it was never converted, which most likely means 
+            // Note: if the following count is zero, it was never converted, which most likely means
             // no visible geometry in the scene uses this layer. So why do you even care about it?
             return maxLayer->GetNumConversionTargets();
         }
@@ -1468,7 +1468,7 @@ int plPickMaterialButtonParam::GetCount(IParamBlock2 *pb)
         {
             // It's one of our Plasma layer types, which means most likely it got converted.
  
-            // Note: if the following count is zero, it was never converted, which most likely means 
+            // Note: if the following count is zero, it was never converted, which most likely means
             // no visible geometry in the scene uses this layer. So why do you even care about it?
             return maxLayer->GetNumConversionTargets();
         }
@@ -1596,7 +1596,7 @@ int plPickMaterialAnimationButtonParam::GetCount(IParamBlock2 *pb)
 }
 
 plKey plPickMaterialAnimationButtonParam::GetKey(IParamBlock2 *pb, int idx)
-{   
+{
     int kcount = fKeys.Count();
 
     if ( idx >= 0 && idx < kcount )

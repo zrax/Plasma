@@ -82,7 +82,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 plClothingItem::plClothingItem() : fGroup(0), fTileset(0), fType(0), fSortOrder(0),
                                    fThumbnail(nil), fAccessory(nil)
-{   
+{
     int i;
     fTextures.Reset();
     fElementNames.Reset();
@@ -103,11 +103,11 @@ plClothingItem::~plClothingItem()
 }
 
 bool plClothingItem::CanWearWith(plClothingItem *item)
-{ 
+{
     // For now, you can only wear one shirt, one pair of pants, etc.
     // Except accessories, of which you're allowed one per tileset.
-    return ((item->fType != fType) || 
-            (item->fType == plClothingMgr::kTypeAccessory && 
+    return ((item->fType != fType) ||
+            (item->fType == plClothingMgr::kTypeAccessory &&
              fType == plClothingMgr::kTypeAccessory));
              //&& item->fTileset != fTileset));
 }
@@ -195,15 +195,15 @@ void plClothingItem::Read(hsStream *s, hsResMgr *mgr)
     if (plClothingMgr::GetClothingMgr())
     {
         plGenRefMsg *msg = new plGenRefMsg(plClothingMgr::GetClothingMgr()->GetKey(), plRefMsg::kOnCreate, -1, -1);
-        hsgResMgr::ResMgr()->AddViaNotify(GetKey(), msg, plRefFlags::kActiveRef); 
+        hsgResMgr::ResMgr()->AddViaNotify(GetKey(), msg, plRefFlags::kActiveRef);
     }
-    mgr->ReadKeyNotifyMe(s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, -1), plRefFlags::kActiveRef); // forced accessory    
+    mgr->ReadKeyNotifyMe(s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, -1), plRefFlags::kActiveRef); // forced accessory
 
     for (i = 0; i < 3; i++)
     {
         fDefaultTint1[i] = s->ReadByte();
         fDefaultTint2[i] = s->ReadByte();
-    }   
+    }
 }
 
 void plClothingItem::Write(hsStream *s, hsResMgr *mgr)
@@ -354,7 +354,7 @@ bool plClothingItem::MsgReceive(plMessage* msg)
             else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
                 fAccessory = nil;
             return true;
-        }       
+        }
     }
 
     return hsKeyedObject::MsgReceive(msg);
@@ -414,7 +414,7 @@ bool plClothingBase::MsgReceive(plMessage* msg)
 
 /////////////////////////////////////////////////////////////////////////////
 
-plClothingOutfit::plClothingOutfit() : 
+plClothingOutfit::plClothingOutfit() :
     fTargetLayer(nullptr), fBase(nullptr), fGroup(0), fAvatar(nullptr), fSynchClients(false), fMaterial(nullptr),
     fVaultSaveEnabled(true), fMorphsInitDone(false)
 {
@@ -462,7 +462,7 @@ void plClothingOutfit::AddItem(plClothingItem *item, bool update /* = true */, b
 
 void plClothingOutfit::ForceUpdate(bool retry)
 {
-    plClothingMsg *msg = new plClothingMsg();   
+    plClothingMsg *msg = new plClothingMsg();
     msg->AddCommand(plClothingMsg::kUpdateTexture);
     if (retry)
         msg->AddCommand(plClothingMsg::kRetry);     // force a resend
@@ -593,7 +593,7 @@ void plClothingOutfit::IAddItem(plClothingItem *item)
                     IRemoveItem(goner->fAccessory);
                 }
                 GetKey()->Release(goner->GetKey());
-                IRemoveItem(goner); // Can't wait for the ref message to process                
+                IRemoveItem(goner); // Can't wait for the ref message to process
             }
         }
     
@@ -631,7 +631,7 @@ void plClothingOutfit::IAddItem(plClothingItem *item)
                     soundEffect->SetFootType(plArmatureEffectFootSound::kFootTypeShoe);
             }
         }
-    }   
+    }
 }
 
 void plClothingOutfit::IRemoveItem(plClothingItem *item)
@@ -670,12 +670,12 @@ bool plClothingOutfit::ITintItem(plClothingItem *item, hsColorRGBA color, uint8_
                 if (layer == plClothingElement::kLayerTint2)
                     fOptions[accIndex]->fTint2 = color;
                 fDirtyItems.SetBit(acc->fTileset);
-            }               
+            }
         }
         return true;
     }
     
-    return false;       
+    return false;
 }
 
 hsColorRGBA plClothingOutfit::GetItemTint(plClothingItem *item, uint8_t layer /* = kLayerTint1 */) const
@@ -722,7 +722,7 @@ bool plClothingOutfit::IMorphItem(plClothingItem *item, uint8_t layer, uint8_t d
         return true;
     }
     
-    return false;       
+    return false;
 }
 
 void plClothingOutfit::Read(hsStream* s, hsResMgr* mgr)
@@ -730,12 +730,12 @@ void plClothingOutfit::Read(hsStream* s, hsResMgr* mgr)
     plSynchedObject::Read(s, mgr);
 
     fGroup = s->ReadByte();
-    mgr->ReadKeyNotifyMe(s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, -1), plRefFlags::kActiveRef); // plClothingBase  
+    mgr->ReadKeyNotifyMe(s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, -1), plRefFlags::kActiveRef); // plClothingBase
 
     if (fGroup != plClothingMgr::kClothingBaseNoOptions)
     {
         mgr->ReadKeyNotifyMe(s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, -1), plRefFlags::kActiveRef); // target layer
-        mgr->ReadKeyNotifyMe(s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, -1), plRefFlags::kActiveRef); // material    
+        mgr->ReadKeyNotifyMe(s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, -1), plRefFlags::kActiveRef); // material
     }
     plgDispatch::Dispatch()->RegisterForExactType(plPreResourceMsg::Index(), GetKey());
     //ReadItems(s, mgr, false);
@@ -828,7 +828,7 @@ bool plClothingOutfit::IReadFromVault()
                     else
                         plClothingSDLModifier::HandleSingleSDR(sdlDataRec, this);
                 }
-                delete sdlDataRec;              
+                delete sdlDataRec;
             }
         }
     }
@@ -886,7 +886,7 @@ void plClothingOutfit::WriteToVault(const TArray<plStateDataRecord*> & SDRs)
         
     TArray<plStateDataRecord*>   morphs;
 
-    // Gather morph SDRs    
+    // Gather morph SDRs
     hsTArray<const plMorphSequence*> morphsSDRs;
     plMorphSequence::FindMorphMods(fAvatar->GetTarget(0), morphsSDRs);
     for (unsigned i = 0; i < morphsSDRs.GetCount(); ++i) {
@@ -1001,7 +1001,7 @@ void plClothingOutfit::WearDefaultClothing()
             {
                 AddItem(items[j], false, false);
                 if (i == plClothingMgr::kTypeHair || i == plClothingMgr::kTypeFace)
-                {   
+                {
                     // Hair tint color
                     TintItem(items[j], 0.5, 0.3, 0.2, false, false);
                 }
@@ -1013,7 +1013,7 @@ void plClothingOutfit::WearDefaultClothing()
 
                 // Everyone can tint layer 2. Go nuts!
                 TintItem(items[j], items[j]->fDefaultTint2[0] / 255.f, items[j]->fDefaultTint2[1] / 255.f,
-                         items[j]->fDefaultTint2[2] / 255.f, false, false, false, true, plClothingElement::kLayerTint2);                    
+                         items[j]->fDefaultTint2[2] / 255.f, false, false, false, true, plClothingElement::kLayerTint2);
                 break;
             }
         }
@@ -1181,7 +1181,7 @@ bool plClothingOutfit::ReadItems(hsStream* s, hsResMgr* mgr, bool broadcast /* =
         }
 
         plClothingItem *item = plClothingItem::ConvertNoRef( key->GetObjectPtr() );
-        AddItem(item, false, broadcast); 
+        AddItem(item, false, broadcast);
         TintItem(item, color.r, color.g, color.b, false, broadcast, false, true, plClothingElement::kLayerTint1);
         TintItem(item, color2.r, color2.g, color2.b, false, broadcast, false, true, plClothingElement::kLayerTint2);
     }
@@ -1213,8 +1213,8 @@ bool plClothingOutfit::MsgReceive(plMessage* msg)
             // each span's bounds (see plDrawableSpans::IUpdateMatrixPaletteBoundsHack())
             // but not the world bounds for the entire drawable. So we tell the space tree
             // to refresh. However, the pageTreeMgr would then get confused because the
-            // space tree is no longer dirty (see plPageTreeMgr::IRefreshTree()), 
-            // causing the avatar to only draw if the origin is in view. 
+            // space tree is no longer dirty (see plPageTreeMgr::IRefreshTree()),
+            // causing the avatar to only draw if the origin is in view.
             // So we just force it dirty, and everyone's happy.
             spans->GetSpaceTree()->Refresh();
             spans->GetSpaceTree()->MakeDirty();
@@ -1261,7 +1261,7 @@ bool plClothingOutfit::MsgReceive(plMessage* msg)
             else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
                 fBase = nil;
             
-            return true;        
+            return true;
         }
         
         hsGMaterial *mat = hsGMaterial::ConvertNoRef(refMsg->GetRef());
@@ -1279,7 +1279,7 @@ bool plClothingOutfit::MsgReceive(plMessage* msg)
     // trickling of chains of AddViaNotifies), so that other messages received after it (like tint
     // commands) just have to check a kRetry flag, resend the message, and be confident that the item
     // will be present by the time their resent message is handled.
-    // 
+    //
     // Should we ever handle AddViaNotify in a separate thread, this will blow up. (Ok, we'll just have
     // bugs about the characters not having the right clothings options visible. No explosions.)
 
@@ -1295,7 +1295,7 @@ bool plClothingOutfit::MsgReceive(plMessage* msg)
             {
                 plGenRefMsg *msg = new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, -1);
                 hsgResMgr::ResMgr()->AddViaNotify(accessory->GetKey(), msg, plRefFlags::kActiveRef);
-            }               
+            }
         }
         if (cMsg->GetCommand(plClothingMsg::kRemoveItem))
         {
@@ -1304,14 +1304,14 @@ bool plClothingOutfit::MsgReceive(plMessage* msg)
                 GetKey()->Release(cMsg->fItemKey);
         }
         if (cMsg->GetCommand(plClothingMsg::kTintItem))
-        {   
+        {
             if (!ITintItem(plClothingItem::ConvertNoRef(cMsg->fItemKey->GetObjectPtr()), cMsg->fColor, cMsg->fLayer) &&
                 cMsg->GetCommand(plClothingMsg::kRetry))
             {
                 // We failed to tint because we're not yet wearing the item.
                 // However, the kRetry flag is set, so we fire another tint command off
 
-                TintItem(plClothingItem::ConvertNoRef(cMsg->fItemKey->GetObjectPtr()), 
+                TintItem(plClothingItem::ConvertNoRef(cMsg->fItemKey->GetObjectPtr()),
                          cMsg->fColor.r, cMsg->fColor.g, cMsg->fColor.b,
                          cMsg->GetCommand(plClothingMsg::kUpdateTexture), false, false, false, cMsg->fLayer);
                 return true;
@@ -1421,7 +1421,7 @@ void plClothingOutfit::IInstanceSharedMeshes(plClothingItem *item)
 }
 
 void plClothingOutfit::IRemoveSharedMeshes(plClothingItem *item)
-{   
+{
     if (fAvatar == nil)
         return;
 
@@ -1433,7 +1433,7 @@ void plClothingOutfit::IRemoveSharedMeshes(plClothingItem *item)
         {
             plInstanceDrawInterface *idi = const_cast<plInstanceDrawInterface*>(plInstanceDrawInterface::ConvertNoRef(so->GetDrawInterface()));
             if (idi)
-                idi->RemoveSharedMesh(item->fMeshes[i]);            
+                idi->RemoveSharedMesh(item->fMeshes[i]);
         }
     }
 }
@@ -1545,7 +1545,7 @@ bool plClothingOutfit::IReadFromFile(const plFileName &filename)
 
 /////////////////////////////////////////////////////////////////////////////
 
-const char *plClothingMgr::GroupStrings[] = 
+const char *plClothingMgr::GroupStrings[] =
 {
     "Male Clothing",
     "Female Clothing",
@@ -1600,7 +1600,7 @@ plClothingElement *plClothingMgr::FindElementByName(const ST::string &name) cons
         if (fElements.Get(i)->fName == name)
             return fElements.Get(i);
     }
-    return nil; 
+    return nil;
 }
 
 void plClothingMgr::AddItemsToCloset(hsTArray<plClosetItem> &items)
@@ -1824,7 +1824,7 @@ void plClothingMgr::DeInit()
         fInstance->UnRegisterAs(kClothingMgr_KEY);
         fInstance = nil;
     }
-}   
+}
 
 bool plClothingMgr::MsgReceive(plMessage* msg)
 {
@@ -1856,7 +1856,7 @@ void plClothingMgr::IAddItem(plClothingItem *item)
     for (i = 0; i < item->fElementNames.GetCount(); i++)
     {
         for (j = 0; j < fElements.GetCount(); j++)
-        {   
+        {
             if (item->fElementNames.Get(i) == fElements.Get(j)->fName)
             {
                 item->fElements.Set(i, fElements.Get(j));

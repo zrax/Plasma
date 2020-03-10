@@ -110,8 +110,8 @@ public:
      */
     void PatchClient();
 
-    /** Attempt to complete a self-patch left in progress by an older launcher. Specifically, we want to rename 
-     *  the launcher to something sane (UruLauncher.exe.tmp -> UruLauncher.exe). If we complete a self-patch in 
+    /** Attempt to complete a self-patch left in progress by an older launcher. Specifically, we want to rename
+     *  the launcher to something sane (UruLauncher.exe.tmp -> UruLauncher.exe). If we complete a self-patch in
      *  here, then we need to relaunch ourselves so that the game client will look like what the server expects.
      *  \returns True if a self-patch was completed. False if not.
      */

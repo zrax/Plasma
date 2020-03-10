@@ -46,7 +46,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 /** \class plSwimMsg
     You're either entering the pool, or leaving. Those are the only swim messages right now.
-*/  
+*/
 class plSwimMsg : public plMessage
 {
 public:

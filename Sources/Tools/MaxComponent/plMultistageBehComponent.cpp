@@ -312,9 +312,9 @@ void plMultistageBehComponent::IInitDlg()
     // Make sure the column is wide enough
     ListView_SetColumnWidth(hList, 0, LVSCW_AUTOSIZE);
 
-    CheckDlgButton(fDlg, IDC_SMART_SEEK, fSmartSeek ? BST_CHECKED : BST_UNCHECKED); 
-    CheckDlgButton(fDlg, IDC_FREEZE_PHYS, fFreezePhys ? BST_CHECKED : BST_UNCHECKED); 
-    CheckDlgButton(fDlg, IDC_MULTI_REVERSE_CTL, fReverseFBOnRelease ? BST_CHECKED : BST_UNCHECKED); 
+    CheckDlgButton(fDlg, IDC_SMART_SEEK, fSmartSeek ? BST_CHECKED : BST_UNCHECKED);
+    CheckDlgButton(fDlg, IDC_FREEZE_PHYS, fFreezePhys ? BST_CHECKED : BST_UNCHECKED);
+    CheckDlgButton(fDlg, IDC_MULTI_REVERSE_CTL, fReverseFBOnRelease ? BST_CHECKED : BST_UNCHECKED);
 }
 
 // stages used to be named starting with "Stage 1", but in the code

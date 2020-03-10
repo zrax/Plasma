@@ -104,7 +104,7 @@ void plViewFaceModifier::Write(hsStream* s, hsResMgr* mgr)
     fOrigParentToLocal.Write(s);
 
     if( HasFlag(kFaceObj) )
-        mgr->WriteKey(s, fFaceObj); 
+        mgr->WriteKey(s, fFaceObj);
 
     fOffset.Write(s);
 

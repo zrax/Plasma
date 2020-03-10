@@ -392,7 +392,7 @@ bool plAnimStage::MoveRelative(double time, float delta, float &overage, plArmat
         if(delta == 0.0f)
         {
             return false;
-        }   
+        }
         else
         if(delta < 0.0f)
             result = IMoveBackward(time, delta, overage, avMod);
@@ -442,7 +442,7 @@ bool plAnimStage::IMoveBackward(double time, float delta, float &overrun, plArma
 
             avMod->GetRootAnimator()->Reset(time);          // reset the root animator at the end
             fCurLoop = infiniteLoop ? 0 : fCurLoop - 1;
-            target = fLength - (fmodf(-target, fLength));   // modularize negative number to discard 
+            target = fLength - (fmodf(-target, fLength));   // modularize negative number to discard
                                                             // extra loops (only one allowed)
         } else {
             // overrun = target + fLength;
@@ -464,7 +464,7 @@ bool plAnimStage::IMoveBackward(double time, float delta, float &overrun, plArma
 // IMoveForward ------------------------------------------------------------------------------
 // -------------
 // It's currently not supported to advance the animation by more than its length in one frame.
-// It wouldn't be too hard to add, but it clutters things up and it hasn't been shown to 
+// It wouldn't be too hard to add, but it clutters things up and it hasn't been shown to
 // be necessary.
 bool plAnimStage::IMoveForward(double time, float delta, float &overrun, plArmatureMod *avMod)
 {

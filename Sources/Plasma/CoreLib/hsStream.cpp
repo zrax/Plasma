@@ -114,7 +114,7 @@ uint32_t hsStream::WriteSafeStringLong(const ST::string &string)
     uint32_t len = string.size();
     WriteLE32(len);
     if (len > 0)
-    {   
+    {
         const char *buffp = string.c_str();
         uint32_t i;
         for (i = 0; i < len; i++)

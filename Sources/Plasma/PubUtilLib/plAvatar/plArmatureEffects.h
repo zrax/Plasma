@@ -56,7 +56,7 @@ class plRandomSoundMod;
 /** \class plArmatureEffects
     Passes key avatar events to external effects generators.
     Currently used for footstep sounds only, but should eventually
-    generalize to water splashes, etc. 
+    generalize to water splashes, etc.
     More to come...*/
 class plArmatureEffectsMgr : public hsKeyedObject
 {
@@ -73,7 +73,7 @@ public:
     GETINTERFACE_ANY( plArmatureEffectsMgr, hsKeyedObject );
 
     virtual void Read(hsStream* s, hsResMgr* mgr);
-    virtual void Write(hsStream* s, hsResMgr* mgr); 
+    virtual void Write(hsStream* s, hsResMgr* mgr);
 
     virtual bool MsgReceive(plMessage* msg);
 
@@ -106,7 +106,7 @@ public:
         kFootSwimming,
         kMaxSurface,
         kFootNoSurface = kMaxSurface,
-    };  
+    };
     static const char *SurfaceStrings[];
 };
 
@@ -147,7 +147,7 @@ public:
     GETINTERFACE_ANY( plArmatureEffectFootSound, plArmatureEffect );
 
     virtual void Read(hsStream* s, hsResMgr* mgr);
-    virtual void Write(hsStream* s, hsResMgr* mgr); 
+    virtual void Write(hsStream* s, hsResMgr* mgr);
 
     virtual bool MsgReceive(plMessage* msg);
     virtual bool HandleTrigger(plMessage* msg);

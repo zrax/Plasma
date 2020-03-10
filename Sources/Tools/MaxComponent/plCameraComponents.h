@@ -160,9 +160,9 @@ public:
     plCameraModifier1* ICreateCameraModifier(plMaxNode* pNode, plErrorMsg* pErrMsg);
     plCameraModifier1* ICreateFocalPointObject(plMaxNode* pNode, plErrorMsg* pErrMsg);
     bool IsValidNodeType(plMaxNode *pNode);
-    void ISetLimitPan(plMaxNode* pNode, plCameraBrain1* pBrain);    
-    void ISetLimitZoom(plMaxNode* pNode, plCameraBrain1* pBrain);   
-    void ISetIgnoreSubworld(plMaxNode* pNode, plCameraBrain1* pBrain);  
+    void ISetLimitPan(plMaxNode* pNode, plCameraBrain1* pBrain);
+    void ISetLimitZoom(plMaxNode* pNode, plCameraBrain1* pBrain);
+    void ISetIgnoreSubworld(plMaxNode* pNode, plCameraBrain1* pBrain);
     bool ISetPOA(plMaxNode* pNode, plCameraBrain1* pBrain, plErrorMsg* pErrMsg);
 
     typedef std::map<plMaxNode*, plCameraModifier1*> ModKeys;

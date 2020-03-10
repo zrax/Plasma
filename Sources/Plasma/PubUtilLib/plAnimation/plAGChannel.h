@@ -136,11 +136,11 @@ public:
 
     // AG PROTOCOL
     /** Combine the given channel with this channel, allocating and returning
-        a new node which does the combination. It's up to the caller to 
+        a new node which does the combination. It's up to the caller to
         manage the lifetime of the new node. */
     virtual plAGChannel * MakeCombine(plAGChannel * channelB);
 
-    /** Blend the given channel with this channel, using a third channel (which 
+    /** Blend the given channel with this channel, using a third channel (which
         must output a float/scalar value) to crossfade between the two.
         As the blendChannel varies, the blend will vary. */
     virtual plAGChannel * MakeBlend(plAGChannel * channelB, plScalarChannel * blendChannel, int blendPriority);

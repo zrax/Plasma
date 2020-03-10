@@ -136,8 +136,8 @@ private:
 
     plConfigInfo fLog;
 public:
-    plConfigInfoLogging(); 
-    ~plConfigInfoLogging(); 
+    plConfigInfoLogging();
+    ~plConfigInfoLogging();
 
     plConfigInfo* GetConfigInfo() { return &fConfigInfo; }
     plConfigInfo* GetConfigInfoLog() { return &fLog; }
@@ -352,8 +352,8 @@ struct plEvaluate
     , fEvaluateConst(evaluate)
     , fEvaluate(nil)
     {}
-    bool operator()() 
-    { 
+    bool operator()()
+    {
         if (fEvaluate)
             return (fTarget)?(fTarget->*fEvaluate)():true;
         else

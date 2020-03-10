@@ -154,7 +154,7 @@ void plLeafController::Interp(float time, hsScaleValue* result, plControllerCach
 
 void plLeafController::Interp(float time, hsQuat* result, plControllerCacheInfo *cache) const
 {
-    hsAssert(fType == hsKeyFrame::kQuatKeyFrame || 
+    hsAssert(fType == hsKeyFrame::kQuatKeyFrame ||
              fType == hsKeyFrame::kCompressedQuatKeyFrame32 ||
              fType == hsKeyFrame::kCompressedQuatKeyFrame64, kInvalidInterpString);
 
@@ -240,7 +240,7 @@ float plLeafController::GetLength() const
         return 0;
 
     uint8_t *ptr = (uint8_t *)fKeys;
-    return ((hsKeyFrame *)(ptr + (fNumKeys - 1) * stride))->fFrame / MAX_FRAMES_PER_SEC; 
+    return ((hsKeyFrame *)(ptr + (fNumKeys - 1) * stride))->fFrame / MAX_FRAMES_PER_SEC;
 }
 
 uint32_t plLeafController::GetStride() const
@@ -918,14 +918,14 @@ plControllerCacheInfo* plCompoundController::CreateCache() const
 }
 
 plController* plCompoundController::GetController(int32_t i) const
-{ 
-    return (i==0 ? fXController : (i==1 ? fYController : fZController)); 
+{
+    return (i==0 ? fXController : (i==1 ? fYController : fZController));
 }
 
-void plCompoundController::SetController(int32_t i, plController* c) 
-{ 
-    delete GetController(i); 
-    (i==0 ? fXController : (i==1 ? fYController : fZController)) = c; 
+void plCompoundController::SetController(int32_t i, plController* c)
+{
+    delete GetController(i);
+    (i==0 ? fXController : (i==1 ? fYController : fZController)) = c;
 }
 
 void plCompoundController::Read(hsStream* stream, hsResMgr *mgr)

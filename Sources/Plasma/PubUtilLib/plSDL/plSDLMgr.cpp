@@ -151,7 +151,7 @@ int plSDLMgr::Write(hsStream* s, const plSDL::DescriptorList* dl)
 
     plSDL::DescriptorList::const_iterator it;
     for(it=dl->begin(); it!= dl->end(); it++)
-        (*it)->Write(s);    
+        (*it)->Write(s);
 
     int bytes=s->GetPosition()-pos;
     if (fNetApp)
@@ -162,7 +162,7 @@ int plSDLMgr::Write(hsStream* s, const plSDL::DescriptorList* dl)
 }
 
 //
-// read descriptors into provided list 
+// read descriptors into provided list
 // return number of bytes
 //
 int plSDLMgr::Read(hsStream* s, plSDL::DescriptorList* dl)
@@ -177,7 +177,7 @@ int plSDLMgr::Read(hsStream* s, plSDL::DescriptorList* dl)
 
     uint16_t num;
     try
-    {       
+    {
         // read dtor list
         s->ReadLE(&num);
 

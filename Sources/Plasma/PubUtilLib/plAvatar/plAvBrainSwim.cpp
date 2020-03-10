@@ -84,7 +84,7 @@ class plSwimBehavior : public plArmatureBehavior
 {
     friend class plAvBrainSwim;
 
-public: 
+public:
     plSwimBehavior() : fAvMod(nil), fSwimBrain(nil) {}
     virtual ~plSwimBehavior() {}
     
@@ -108,7 +108,7 @@ protected:
     {
         plArmatureBehavior::IStop();
         fAvMod->SynchIfLocal(hsTimer::GetSysSeconds(), false);
-    }       
+    }
     
     plArmatureMod *fAvMod;
     plAvBrainSwim *fSwimBrain;
@@ -225,13 +225,13 @@ public:
     {
         return (fAvMod->TurnRightKeyDown() && !fAvMod->ForwardKeyDown() && !fAvMod->BackwardKeyDown());
     }
-};  
+};
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 const float plAvBrainSwim::kMinSwimDepth = 4.0f;
 
-plAvBrainSwim::plAvBrainSwim() : 
+plAvBrainSwim::plAvBrainSwim() :
     fSwimStrategy(nullptr),
     fMode(kWalking),
     fSurfaceDistance(0.f),
@@ -268,7 +268,7 @@ bool plAvBrainSwim::Apply(double time, float elapsed)
             plAvBrainHuman *huBrain = plAvBrainHuman::ConvertNoRef(fAvMod->GetNextBrain(this));
             if (huBrain && !huBrain->fWalkingStrategy->IsOnGround())
             {
-                // We're jumping in! Trigger splash effect (sound)              
+                // We're jumping in! Trigger splash effect (sound)
                 plArmatureEffectMsg *msg = new plArmatureEffectMsg(fAvMod->GetArmatureEffects()->GetKey(), kTime);
                 msg->fEventTime = (float)time;
                 msg->fTriggerIdx = plArmatureMod::kImpact;
@@ -286,25 +286,25 @@ bool plAvBrainSwim::Apply(double time, float elapsed)
     plArmatureBrain *nextBrain = fAvMod->GetNextBrain(this);
     if (fMode == kWading)
     {
-        if (fSurfaceDistance > kMinSwimDepth && fSurfaceDistance < 100.0f) 
+        if (fSurfaceDistance > kMinSwimDepth && fSurfaceDistance < 100.0f)
             IStartSwimming(true);
         else if (fSurfaceDistance < 0.f)
             fMode = kWalking;
-    } 
+    }
 
     int i;
     if (fMode == kWalking || fMode == kWading || nextBrain->IsRunningTask())
     {
-        nextBrain->Apply(time, elapsed); // Let brain below process for us              
+        nextBrain->Apply(time, elapsed); // Let brain below process for us
 
         for (i = 0; i < kSwimBehaviorMax; i++)
             fBehaviors[i]->SetStrength(0.f, 2.f);
     }
     else if (fMode == kAbort)
         return false;
-    else 
+    else
     {
-        if (fMode == kSwimming2D) 
+        if (fMode == kSwimming2D)
         {
             IProcessSwimming2D(time, elapsed);
 
@@ -312,8 +312,8 @@ bool plAvBrainSwim::Apply(double time, float elapsed)
             // switch to wading only to fall again.
             if (fSurfaceDistance < kMinSwimDepth-.5  && fSwimStrategy->HadContacts())
                 IStartWading();
-        } 
-        else if (fMode == kSwimming3D) 
+        }
+        else if (fMode == kSwimming3D)
             IProcessSwimming3D(time, elapsed);
     }
     return plArmatureBrain::Apply(time, elapsed);
@@ -359,10 +359,10 @@ bool plAvBrainSwim::MsgReceive(plMessage *msg)
     
     plControlEventMsg *ctrlMsg = plControlEventMsg::ConvertNoRef(msg);
     if (ctrlMsg)
-        return IHandleControlMsg(ctrlMsg);  
+        return IHandleControlMsg(ctrlMsg);
     
     if (fMode == kWalking || fMode == kWading)
-        return fAvMod->GetNextBrain(this)->MsgReceive(msg);         
+        return fAvMod->GetNextBrain(this)->MsgReceive(msg);
     
     if (plAvSeekMsg *seekM = plAvSeekMsg::ConvertNoRef(msg))
     {
@@ -383,7 +383,7 @@ bool plAvBrainSwim::MsgReceive(plMessage *msg)
             plAvOneShotTask *oneshot = new plAvOneShotTask(oneshotM, fAvMod, this);
             QueueTask(oneshot);
         }
-        return true;        
+        return true;
     }
 
     if (plArmatureBrain::MsgReceive(msg))
@@ -453,7 +453,7 @@ void plAvBrainSwim::IStartWading()
         pMsg->SetBCastFlag(plMessage::kNetPropagate, false);
         pMsg->SetCmd(plCameraMsg::kResponderUndoThirdPerson);
         pMsg->Send();
-    }   
+    }
 }
 
 void plAvBrainSwim::IStartSwimming(bool is2D)
@@ -485,7 +485,7 @@ void plAvBrainSwim::IStartSwimming(bool is2D)
         pMsg->SetBCastFlag(plMessage::kNetPropagate, false);
         pMsg->SetCmd(plCameraMsg::kResponderSetThirdPerson);
         pMsg->Send();
-    }   
+    }
 }
 
 bool plAvBrainSwim::IProcessSwimming2D(double time, float elapsed)
@@ -498,7 +498,7 @@ bool plAvBrainSwim::IProcessSwimming2D(double time, float elapsed)
         {
             behavior->SetStrength(1.f, 2.f);
             behavior->Process(time, elapsed);
-        }   
+        }
         else
             behavior->SetStrength(0.f, 2.f);
     }
@@ -523,7 +523,7 @@ bool plAvBrainSwim::IInitAnimations()
     plAGAnim *swimLeft = fAvMod->FindCustomAnim("SideSwimLeft");
     plAGAnim *swimRight = fAvMod->FindCustomAnim("SideSwimRight");
     plAGAnim *treadWaterLeft = fAvMod->FindCustomAnim("TreadWaterTurnLeft");
-    plAGAnim *treadWaterRight = fAvMod->FindCustomAnim("TreadWaterTurnRight");  
+    plAGAnim *treadWaterRight = fAvMod->FindCustomAnim("TreadWaterTurnRight");
 
     static const float defaultFade = 2.0f;
     fBehaviors.SetCountAndZero(kSwimBehaviorMax);
@@ -537,13 +537,13 @@ bool plAvBrainSwim::IInitAnimations()
     fBehaviors[kSwimForwardFast] = behavior = new SwimForwardFast;
     behavior->Init(swimForwardFast, true, this, fAvMod, kSwimForwardFast);
 
-    fBehaviors[kSwimBack] = behavior = new SwimBack;        
+    fBehaviors[kSwimBack] = behavior = new SwimBack;
     behavior->Init(swimBack, true, this, fAvMod, kSwimBack);
     
     fBehaviors[kSwimLeft] = behavior = new SwimLeft;
     behavior->Init(swimLeft, true, this, fAvMod, kSwimLeft);
     
-    fBehaviors[kSwimRight] = behavior = new SwimRight;      
+    fBehaviors[kSwimRight] = behavior = new SwimRight;
     behavior->Init(swimRight, true, this, fAvMod, kSwimRight);
     
     fBehaviors[kSwimTurnLeft] = behavior = new SwimTurnLeft;

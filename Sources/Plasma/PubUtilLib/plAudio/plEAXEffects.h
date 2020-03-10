@@ -71,8 +71,8 @@ typedef struct _EAXREVERBPROPERTIES EAXREVERBPROPERTIES;
     typedef char* GUID;
 #endif
 
-class plEAXListener 
-{   
+class plEAXListener
+{
 public:
     ~plEAXListener();
     static plEAXListener    &GetInstance();

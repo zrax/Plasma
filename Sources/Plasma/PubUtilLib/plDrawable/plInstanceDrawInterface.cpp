@@ -151,7 +151,7 @@ void plInstanceDrawInterface::AddSharedMesh(plSharedMesh *mesh, hsGMaterial *mat
     plDISpansMsg* diMsg = new plDISpansMsg(fDrawable->GetKey(), plDISpansMsg::kAddingSpan, index, plDISpansMsg::kLeaveEmptyDrawable);
     diMsg->SetSender(GetKey());
     diMsg->Send();
-#endif          
+#endif
 
     plSharedMeshBCMsg *smMsg = new plSharedMeshBCMsg;
     smMsg->SetSender(GetKey());

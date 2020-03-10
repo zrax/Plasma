@@ -156,7 +156,7 @@ void plAngleAttenLayer::GetClassName(TSTR& s)
 }
 
 //From MtlBase
-void plAngleAttenLayer::Reset() 
+void plAngleAttenLayer::Reset()
 {
     GetAngleAttenLayerDesc()->Reset(this, TRUE);    // reset all pb2's
     NotifyDependents(FOREVER, PART_ALL, REFMSG_CHANGE);
@@ -164,7 +164,7 @@ void plAngleAttenLayer::Reset()
     fIValid.SetEmpty();
 }
 
-void plAngleAttenLayer::Update(TimeValue t, Interval& valid) 
+void plAngleAttenLayer::Update(TimeValue t, Interval& valid)
 {
     if (!fIValid.InInterval(t))
     {
@@ -183,15 +183,15 @@ Interval plAngleAttenLayer::Validity(TimeValue t)
     return v;
 }
 
-ParamDlg* plAngleAttenLayer::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp) 
+ParamDlg* plAngleAttenLayer::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp)
 {
     IAutoMParamDlg* masterDlg = plAngleAttenLayerDesc.CreateParamDlgs(hwMtlEdit, imp, this);
 
-    return masterDlg;   
+    return masterDlg;
 }
 
 BOOL plAngleAttenLayer::SetDlgThing(ParamDlg* dlg)
-{   
+{
     return FALSE;
 }
 
@@ -201,7 +201,7 @@ int plAngleAttenLayer::NumRefs()
 }
 
 //From ReferenceMaker
-RefTargetHandle plAngleAttenLayer::GetReference(int i) 
+RefTargetHandle plAngleAttenLayer::GetReference(int i)
 {
     switch (i)
     {
@@ -210,7 +210,7 @@ RefTargetHandle plAngleAttenLayer::GetReference(int i)
     }
 }
 
-void plAngleAttenLayer::SetReference(int i, RefTargetHandle rtarg) 
+void plAngleAttenLayer::SetReference(int i, RefTargetHandle rtarg)
 {
     Interval    garbage;
 
@@ -244,8 +244,8 @@ IParamBlock2* plAngleAttenLayer::GetParamBlockByID(BlockID id)
         return NULL;
 }
 
-//From ReferenceTarget 
-RefTargetHandle plAngleAttenLayer::Clone(RemapDir &remap) 
+//From ReferenceTarget
+RefTargetHandle plAngleAttenLayer::Clone(RemapDir &remap)
 {
     plAngleAttenLayer *mnew = new plAngleAttenLayer();
     *((MtlBase*)mnew) = *((MtlBase*)this); // copy superclass stuff
@@ -259,7 +259,7 @@ int plAngleAttenLayer::NumSubs()
     return 1;
 }
 
-Animatable* plAngleAttenLayer::SubAnim(int i) 
+Animatable* plAngleAttenLayer::SubAnim(int i)
 {
     //TODO: Return 'i-th' sub-anim
     switch (i)
@@ -269,7 +269,7 @@ Animatable* plAngleAttenLayer::SubAnim(int i)
     }
 }
 
-TSTR plAngleAttenLayer::SubAnimName(int i) 
+TSTR plAngleAttenLayer::SubAnimName(int i)
 {
     switch (i)
     {
@@ -278,8 +278,8 @@ TSTR plAngleAttenLayer::SubAnimName(int i)
     }
 }
 
-RefResult plAngleAttenLayer::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, 
-   PartID& partID, RefMessage message) 
+RefResult plAngleAttenLayer::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
+   PartID& partID, RefMessage message)
 {
     switch (message)
     {
@@ -290,7 +290,7 @@ RefResult plAngleAttenLayer::NotifyRefChanged(Interval changeInt, RefTargetHandl
             if (hTarget == fParmsPB)
             {
                 // see if this message came from a changing parameter in the pblock,
-                // if so, limit rollout update to the changing item 
+                // if so, limit rollout update to the changing item
                 ParamID changingParam = fParmsPB->LastNotifyParamID();
                 fParmsPB->GetDesc()->InvalidateUI(changingParam);
 
@@ -338,7 +338,7 @@ void plAngleAttenLayer::ICacheCosines()
 
 #define TEX_HDR_CHUNK 0x5000
 
-IOResult plAngleAttenLayer::Save(ISave *isave) 
+IOResult plAngleAttenLayer::Save(ISave *isave)
 {
     IOResult res;
 
@@ -349,9 +349,9 @@ IOResult plAngleAttenLayer::Save(ISave *isave)
     isave->EndChunk();
 
     return IO_OK;
-}   
+}
 
-IOResult plAngleAttenLayer::Load(ILoad *iload) 
+IOResult plAngleAttenLayer::Load(ILoad *iload)
 {
     IOResult res;
     while (IO_OK == (res = iload->OpenChunk()))
@@ -361,7 +361,7 @@ IOResult plAngleAttenLayer::Load(ILoad *iload)
             res = MtlBase::Load(iload);
         }
         iload->CloseChunk();
-        if (res != IO_OK) 
+        if (res != IO_OK)
             return res;
     }
 
@@ -371,17 +371,17 @@ IOResult plAngleAttenLayer::Load(ILoad *iload)
 
 AColor plAngleAttenLayer::EvalColor(ShadeContext& sc)
 {
-    if( !sc.doMaps ) 
+    if( !sc.doMaps )
         return AColor(0.0f, 0.0f, 0.0f, 1.0f);
 
     AColor color;
-    if (sc.GetCache(this, color)) 
+    if (sc.GetCache(this, color))
         return color;
 
     if( !fCosinesCached )
         ICacheCosines();
 
-    if (gbufID) 
+    if (gbufID)
         sc.SetGBufferID(gbufID);
 
     // Evaluate the Bitmap
@@ -428,7 +428,7 @@ AColor plAngleAttenLayer::EvalColor(ShadeContext& sc)
     }
     color = AColor(1.f, 1.f, 1.f, alpha);
 
-    sc.PutCache(this, color); 
+    sc.PutCache(this, color);
     return color;
 }
 
@@ -458,7 +458,7 @@ BITMAPINFO *plAngleAttenLayer::GetVPDisplayDIB(TimeValue t, TexHandleMaker& thma
                         // FIXME
 }
 
-DWORD plAngleAttenLayer::GetActiveTexHandle(TimeValue t, TexHandleMaker& thmaker) 
+DWORD plAngleAttenLayer::GetActiveTexHandle(TimeValue t, TexHandleMaker& thmaker)
 {
     return 0;
 }

@@ -156,7 +156,7 @@ PyObject* pyVaultImageNode::Image_GetImage()
             PYTHON_RETURN_NONE;
     }
     
-    return pyImage::New(fMipmap);   
+    return pyImage::New(fMipmap);
 }
 
 void pyVaultImageNode::Image_SetImage(pyImage& image)

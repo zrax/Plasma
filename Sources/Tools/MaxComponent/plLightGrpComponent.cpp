@@ -65,7 +65,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 //
 //
 
-enum    
+enum
 {
     kIncludeChars,
     kAffectedLightSel,
@@ -116,7 +116,7 @@ public:
 
     plLightGrpPostLoadCallback(plLightGrpComponent* lg) : fLightGrp(lg) {}
 
-    void proc(ILoad *iload) 
+    void proc(ILoad *iload)
     {
         IParamBlock2* compPB = fLightGrp->GetParamBlock(plComponentBase::kBlkComp);
         INode* light = compPB->GetINode(kAffectedLightSel);

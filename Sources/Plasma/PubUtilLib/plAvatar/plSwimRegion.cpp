@@ -74,9 +74,9 @@ void plSwimRegionInterface::GetCurrent(plPhysicalControllerCore *physical, hsVec
 
 /////////////////////////////////////////////////////////////////////////
 
-plSwimCircularCurrentRegion::plSwimCircularCurrentRegion() : 
-    fCurrentSO(nil), 
-    fRotation(0.f), 
+plSwimCircularCurrentRegion::plSwimCircularCurrentRegion() :
+    fCurrentSO(nil),
+    fRotation(0.f),
     fPullNearDistSq(1.f),
     fPullNearVel(0.f),
     fPullFarDistSq(1.f),
@@ -93,7 +93,7 @@ void plSwimCircularCurrentRegion::Read(hsStream* stream, hsResMgr* mgr)
     fPullNearVel = stream->ReadLEScalar();
     fPullFarDistSq = stream->ReadLEScalar();
     fPullFarVel = stream->ReadLEScalar();
-    mgr->ReadKeyNotifyMe(stream, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, -1), plRefFlags::kActiveRef); // currentSO      
+    mgr->ReadKeyNotifyMe(stream, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, -1), plRefFlags::kActiveRef); // currentSO
 }
 
 void plSwimCircularCurrentRegion::Write(hsStream* stream, hsResMgr* mgr)
@@ -188,13 +188,13 @@ void plSwimCircularCurrentRegion::GetCurrent(plPhysicalControllerCore *physical,
 //  hsAssert(real_finite(linearResult.fX) &&
 //           real_finite(linearResult.fY) &&
 //           real_finite(linearResult.fZ) &&
-//           real_finite(angularResult), "Bad water current computation."); 
-}   
+//           real_finite(angularResult), "Bad water current computation.");
+}
 
 /////////////////////////////////////////////////////////////////////////////////////
 
-plSwimStraightCurrentRegion::plSwimStraightCurrentRegion() : 
-    fCurrentSO(nil), 
+plSwimStraightCurrentRegion::plSwimStraightCurrentRegion() :
+    fCurrentSO(nil),
     fNearDist(1.f),
     fNearVel(0.f),
     fFarDist(1.f),
@@ -210,7 +210,7 @@ void plSwimStraightCurrentRegion::Read(hsStream* stream, hsResMgr* mgr)
     fNearVel = stream->ReadLEScalar();
     fFarDist = stream->ReadLEScalar();
     fFarVel = stream->ReadLEScalar();
-    mgr->ReadKeyNotifyMe(stream, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, -1), plRefFlags::kActiveRef); // currentSO      
+    mgr->ReadKeyNotifyMe(stream, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, -1), plRefFlags::kActiveRef); // currentSO
 }
 
 void plSwimStraightCurrentRegion::Write(hsStream* stream, hsResMgr* mgr)
@@ -281,4 +281,4 @@ void plSwimStraightCurrentRegion::GetCurrent(plPhysicalControllerCore *physical,
         pullVel = fNearVel + (fFarVel - fNearVel) * (dist - fNearDist) / (fFarDist - fNearDist);
 
     linearResult = current * pullVel;
-}   
+}

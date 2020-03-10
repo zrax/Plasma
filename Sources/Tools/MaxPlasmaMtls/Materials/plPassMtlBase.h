@@ -92,7 +92,7 @@ protected:
 public:
 
     // mcn note: as far as I can tell, this is always the same pointer passed around to everyone.
-    // So since we have trouble getting it all the time, just store the first version we get and 
+    // So since we have trouble getting it all the time, just store the first version we get and
     // use that forever and ever
     static IMtlParams *fIMtlParams;
 
@@ -253,12 +253,12 @@ protected:
     }
 
 public:
-    plEaseAccessor(int blockID, int easeInMinID, int easeInMaxID, int easeInNormID, 
+    plEaseAccessor(int blockID, int easeInMinID, int easeInMaxID, int easeInNormID,
                    int easeOutMinID, int easeOutMaxID, int easeOutNormID)
     {
         fDoingUpdate = false;
         fBlockID = blockID;
-        fEaseInMinID = easeInMinID; fEaseInMaxID = easeInMaxID; fEaseInNormID = easeInNormID; 
+        fEaseInMinID = easeInMinID; fEaseInMaxID = easeInMaxID; fEaseInNormID = easeInNormID;
         fEaseOutMinID = easeOutMinID; fEaseOutMaxID = easeOutMaxID; fEaseOutNormID = easeOutNormID;
     }
 

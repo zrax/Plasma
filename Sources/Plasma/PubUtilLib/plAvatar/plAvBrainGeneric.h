@@ -139,7 +139,7 @@ public:
         \param fadeIn Rate (in blend units per second) of initial animation fade in.
         \param fadeOut Rate (in blend units per second) of final animation fade out.
         */
-    plAvBrainGeneric(uint32_t exitFlags, float fadeIn, float fadeOut, MoveMode moveMode); 
+    plAvBrainGeneric(uint32_t exitFlags, float fadeIn, float fadeOut, MoveMode moveMode);
 
     /** Virtual destructor */
     virtual ~plAvBrainGeneric();
@@ -195,12 +195,12 @@ public:
     /** How many stages are in this brain? */
     int GetStageCount();
 
-    /** Retrieve a stage via a sequence number. Returns nil if no such stage exists 
+    /** Retrieve a stage via a sequence number. Returns nil if no such stage exists
         Be extremely careful about retaining this pointer, as it may be deleted at
         any time. */
     plAnimStage * GetStage(int which);
 
-    /** Retrieve a pointer to the currently executing stage.Returns nil if no such stage exists 
+    /** Retrieve a pointer to the currently executing stage.Returns nil if no such stage exists
         Be extremely careful about retaining this pointer, as it may be deleted at
         any time. */
     plAnimStage * GetCurStage();
@@ -220,18 +220,18 @@ public:
         /deprecated Avoid. will probably be deleted. */
     bool GetForward() const { return fForward; }
     bool GetReverseFBControlsOnRelease() const { return fReverseFBControlsOnRelease; };
-    void SetReverseFBControlsOnRelease(bool val) { fReverseFBControlsOnRelease = val; };    
+    void SetReverseFBControlsOnRelease(bool val) { fReverseFBControlsOnRelease = val; };
 
     /** Returns a pointer to the message we will send when we start our brain.
         Returns nil if there is no such message *or* if it has already been sent.
-        /bug This message is destructed after being delivered, so we need to 
+        /bug This message is destructed after being delivered, so we need to
              nil this pointer after sending it.
     */
     plMessage* GetStartMessage() const { return fStartMessage; }
 
     /** Returns a pointer to the message we will send when we finish our brain.
         Returns nil if there is no such message *or* if it has already been sent.
-        /bug This message is destructed after being delivered, so we need to 
+        /bug This message is destructed after being delivered, so we need to
              nil this pointer after sending it.
     */
     plMessage* GetEndMessage() const { return fEndMessage; }

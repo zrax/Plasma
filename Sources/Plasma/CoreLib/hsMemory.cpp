@@ -591,16 +591,16 @@ void SortNDumpUnfreedMemory(const char *, bool ) // file name base, and FULL rep
 typedef struct _CrtMemBlockHeader
 {
 // Pointer to the block allocated just before this one:
-   struct _CrtMemBlockHeader *pBlockHeaderNext; 
+   struct _CrtMemBlockHeader *pBlockHeaderNext;
 // Pointer to the block allocated just after this one:
-   struct _CrtMemBlockHeader *pBlockHeaderPrev; 
+   struct _CrtMemBlockHeader *pBlockHeaderPrev;
    char *szFileName;   // File name
    int nLine;          // Line number
    size_t nDataSize;   // Size of user block
    int nBlockUse;      // Type of block
    long lRequest;      // Allocation number
 // Buffer just before (lower than) the user's memory:
-   unsigned char gap[4];  
+   unsigned char gap[4];
 } _CrtMemBlockHeader;
 
 /* In an actual memory block in the debug heap,
@@ -672,7 +672,7 @@ void SortNDumpUnfreedMemory(const char *nm, bool full) // file name base, and FU
 
     _CrtMemState heap_state;
 static  uint32_t GrandTotal =0;
-static  _CrtMemBlockHeader *cmbh_last;  // Remember this header for next incremental check DANGER this 
+static  _CrtMemBlockHeader *cmbh_last;  // Remember this header for next incremental check DANGER this
                         // could break if this is freed...(gives bad report)
     _CrtMemBlockHeader *cmbh_last_good;
     
@@ -703,28 +703,28 @@ static  _CrtMemBlockHeader *cmbh_last;  // Remember this header for next increme
             break;
         cmbh_last_good = cmbh;
         totsize += cmbh->nDataSize;
-        if (cmbh->nBlockUse == _NORMAL_BLOCK) 
+        if (cmbh->nBlockUse == _NORMAL_BLOCK)
         {
-            normsize += cmbh->nDataSize; 
+            normsize += cmbh->nDataSize;
             
             if (cmbh->szFileName != NULL)               // Shorten to just the file name, looks better, and strcmps faster
             {
                 ftrim = TrimFileName(cmbh->szFileName);
                 for (tblpos  = 1; tblpos < tblEnd; tblpos++)    // find the name in the table
-                {   
+                {
                     if (!strcmp(ftrim,ltb[tblpos].fName))
                         break;  // found it
                 }
             }
             else
-            {   
+            {
                 tblpos = 0;     // Use "NULL", first pos of table
             }
 
             if (tblpos == tblEnd)       // Did not find it...add it
             {
                 tblEnd++;
-                if (tblEnd >= LTBLMAX) 
+                if (tblEnd >= LTBLMAX)
                 {   DebugMsg("DumpUnfreedMemoryInfo: EXCEED MAX TABLE LENGTH\n");
                     tblEnd--;
                     break;
@@ -783,7 +783,7 @@ static  _CrtMemBlockHeader *cmbh_last;  // Remember this header for next increme
         }
         static int first=1;
         if (!full)          // if this is a partial mem dump, write to the ROOMS.txt file a summary
-        {   
+        {
             snprintf(fnm,arrsize(fnm),"Reports\\%s","ROOMS.txt");
  
             if (first)

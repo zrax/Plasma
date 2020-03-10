@@ -66,7 +66,7 @@ enum
 {
     kXRegionSafePoints,
     kXRegionInitiallyCleared,
-    kXRegionSmartSeek,  
+    kXRegionSmartSeek,
     kXRegionBlockCameras,
 };
 
@@ -221,8 +221,8 @@ bool plExcludeRegionComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     return true;
 }
 
-bool plExcludeRegionComponent::DeInit(plMaxNode *node, plErrorMsg *pErrMsg)       
-{ 
+bool plExcludeRegionComponent::DeInit(plMaxNode *node, plErrorMsg *pErrMsg)
+{
     fXRegionKeys.clear();
 
     return true;

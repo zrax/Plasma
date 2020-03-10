@@ -71,7 +71,7 @@ public:
     virtual int GetNumTargets() const { return fTargets.Count(); }
     virtual plSceneObject* GetTarget(int w) const { hsAssert(w < GetNumTargets(), "Bad target"); return fTargets[w]; }
     virtual void AddTarget(plSceneObject* so) {fTargets.Append(so);}
-    virtual void RemoveTarget(plSceneObject* so); 
+    virtual void RemoveTarget(plSceneObject* so);
 
     bool HasFlag(int f) const { return fFlags.IsBitSet(f); }
     plMultiModifier& SetFlag(int f) { fFlags.SetBit(f); return *this; }

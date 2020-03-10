@@ -43,7 +43,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #define PL_NET_MSG_HELPERS_inc
 
 //
-// These are not messages per se, but helper classes which are used 
+// These are not messages per se, but helper classes which are used
 // in to avoid multiple derivation by net messages.
 //
 
@@ -142,8 +142,8 @@ public:
     CLASSNAME_REGISTER( plNetMsgStreamHelper );
     GETINTERFACE_ANY(plNetMsgStreamHelper, plCreatable);
 
-    virtual int Poke(hsStream* stream, uint32_t peekOptions=0);   
-    virtual int Peek(hsStream* stream, uint32_t peekOptions=0);   
+    virtual int Poke(hsStream* stream, uint32_t peekOptions=0);
+    virtual int Peek(hsStream* stream, uint32_t peekOptions=0);
 
     // creatable ops
     virtual void Read(hsStream* s, hsResMgr* mgr) { Peek(s); }
@@ -202,7 +202,7 @@ public:
     CLASSNAME_REGISTER( plNetMsgObjectHelper );
     GETINTERFACE_ANY(plNetMsgObjectHelper, plCreatable);
 
-    virtual int Poke(hsStream* stream, uint32_t peekOptions=0);   
+    virtual int Poke(hsStream* stream, uint32_t peekOptions=0);
     virtual int Peek(hsStream* stream, uint32_t peekOptions=0);
 
     plNetMsgObjectHelper & operator =(const plNetMsgObjectHelper & other);
@@ -234,7 +234,7 @@ public:
     CLASSNAME_REGISTER( plNetMsgObjectListHelper );
     GETINTERFACE_ANY(plNetMsgObjectListHelper, plCreatable);
 
-    virtual int Poke(hsStream* stream, uint32_t peekOptions=0);   
+    virtual int Poke(hsStream* stream, uint32_t peekOptions=0);
     virtual int Peek(hsStream* stream, uint32_t peekOptions=0);
 
     void Reset();
@@ -252,7 +252,7 @@ protected:
     uint32_t fFlags;
     plUoid fAvatarUoid;
     plClientGuid    fClientGuid;
-public: 
+public:
     plNetMsgMemberInfoHelper();
 
     CLASSNAME_REGISTER( plNetMsgMemberInfoHelper );
@@ -267,7 +267,7 @@ public:
     uint32_t GetFlags() const { return fFlags; }
     plUoid GetAvatarUoid() const { return fAvatarUoid; }
 
-    void SetFlags(uint32_t v) { fFlags=v; }   
+    void SetFlags(uint32_t v) { fFlags=v; }
     void SetAvatarUoid(plUoid u) { fAvatarUoid=u; }
 };
 

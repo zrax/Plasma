@@ -242,7 +242,7 @@ uint32_t plAccessSnapShot::CopyTo(const plAccessVtxSpan& dst, uint32_t chanMask)
 {
     hsAssert(fNumVerts == dst.fNumVerts, "Vertex count mismatch, is this our real source?");
 
-    int chan; 
+    int chan;
     for( chan = 0; chan < kNumValidChans; chan++ )
     {
         if( !(fChanSize[chan] && dst.fStrides[chan]) )
@@ -262,8 +262,8 @@ uint32_t plAccessSnapShot::CopyTo(const plAccessVtxSpan& dst, uint32_t chanMask)
             if( (1 << chan) & chanMask )
             {
                 memcpy(
-                    dst.fChannels[chan] + dst.fStrides[chan] * i, 
-                    fChannels[chan] + fStrides[chan] * i, 
+                    dst.fChannels[chan] + dst.fStrides[chan] * i,
+                    fChannels[chan] + fStrides[chan] * i,
                     fChanSize[chan]);
             }
         }

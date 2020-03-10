@@ -61,29 +61,29 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 static ParamBlockDesc2  RTProjDirLightBlk
 (
     /// Main def
-    plRTProjDirLight::kBlkMain, _T("RTProjDir"), 0, plRTProjDirLightDesc::GetDesc(), P_AUTO_CONSTRUCT + P_AUTO_UI, 
-    plRTProjDirLight::kRefMainRollout, 
+    plRTProjDirLight::kBlkMain, _T("RTProjDir"), 0, plRTProjDirLightDesc::GetDesc(), P_AUTO_CONSTRUCT + P_AUTO_UI,
+    plRTProjDirLight::kRefMainRollout,
 
     /// Rollout definition
-    IDD_LIGHT_PARAM,        IDS_LIGHT_GEN_PARAMS,       0,  0,  &gPPDirLiteDlgProc, 
+    IDD_LIGHT_PARAM,        IDS_LIGHT_GEN_PARAMS,       0,  0,  &gPPDirLiteDlgProc,
 
     plRTLightBase::kLightOn,        _T("on"),   TYPE_BOOL,  0, IDS_RTLIGHT_ON,
-        p_default, true,    
+        p_default, true,
         p_ui, TYPE_SINGLECHEKBOX,   IDC_LIGHT_ON,
         end,
     
     plRTLightBase::kAffectDiffuse,      _T("AffectDiffuse"),    TYPE_BOOL,  0, IDS_RTLIGHT_ON,
-        p_default, true,    
+        p_default, true,
         p_ui, TYPE_SINGLECHEKBOX,   IDC_LIGHT_DIFFUSE,
         end,
     
     plRTLightBase::kAmbientOnlyStub,        _T("AmbientOnly"),  TYPE_BOOL,  0, IDS_RTLIGHT_ON,
-        p_default, false,   
+        p_default, false,
         p_ui, TYPE_SINGLECHEKBOX,   IDC_AMBIENT_ONLY_STUB,
         end,
     
     plRTLightBase::kCastShadows,    _T("CastShadows"),  TYPE_BOOL,  0, IDS_DS_CASTSHADOWSS,
-//      p_default, false,   
+//      p_default, false,
 //      p_ui, TYPE_SINGLECHEKBOX,   IDC_CAST_SHADOWS,
         end,
     
@@ -102,7 +102,7 @@ static ParamBlockDesc2  RTProjDirLightBlk
         p_ui, TYPE_COLORSWATCH,         IDC_LIGHT_COLOR_SPECULAR,
         end,
 
-    plRTLightBase::kIntensity,      _T("IntensityEditSpinner"), TYPE_FLOAT, P_ANIMATABLE, IDS_DB_MULTIPLIER,    
+    plRTLightBase::kIntensity,      _T("IntensityEditSpinner"), TYPE_FLOAT, P_ANIMATABLE, IDS_DB_MULTIPLIER,
         p_range, -250.0, 250.0,
         p_default, 1.0,
         p_ui, TYPE_SPINNER, EDITTYPE_FLOAT,
@@ -119,26 +119,26 @@ static ParamBlockDesc2  RTProjDirLightBlk
 static ParamBlockDesc2  plRTProjParamBlock
 (
     /// Main def
-    plRTProjDirLight::kBlkProj, _T("RTProjDir_Proj"), 0, plRTProjDirLightDesc::GetDesc(), P_AUTO_CONSTRUCT + P_AUTO_UI, 
-    plRTProjDirLight::kRefProjRollout, 
+    plRTProjDirLight::kBlkProj, _T("RTProjDir_Proj"), 0, plRTProjDirLightDesc::GetDesc(), P_AUTO_CONSTRUCT + P_AUTO_UI,
+    plRTProjDirLight::kRefProjRollout,
 
     /// Rollout definition
-    IDD_PROJ_DIRECTIONAL, IDS_PROJ_PARAMS, 0, 0, &gPPDirLiteDlgProc,    
+    IDD_PROJ_DIRECTIONAL, IDS_PROJ_PARAMS, 0, 0, &gPPDirLiteDlgProc,
 
-    plRTProjDirLight::kWidth,       _T("Width"), TYPE_FLOAT,    P_ANIMATABLE, IDS_PROJWIDTH,    
+    plRTProjDirLight::kWidth,       _T("Width"), TYPE_FLOAT,    P_ANIMATABLE, IDS_PROJWIDTH,
         p_range, 0.0, 999999999.0,
         p_default, 200.0,
         p_ui, TYPE_SPINNER, EDITTYPE_POS_UNIVERSE,  IDC_WIDTH, IDC_WIDTHSPINNER, .05f,
         end,
 
-    plRTProjDirLight::kHeight,      _T("Height"), TYPE_FLOAT,   P_ANIMATABLE, IDS_PROJHEIGHT,   
+    plRTProjDirLight::kHeight,      _T("Height"), TYPE_FLOAT,   P_ANIMATABLE, IDS_PROJHEIGHT,
         p_range, 0.0, 999999999.0,
         p_default, 200.0,
         p_ui, TYPE_SPINNER, EDITTYPE_POS_UNIVERSE,
         IDC_HEIGHT, IDC_HEIGHTSPINNER, .05f,
         end,
 
-    plRTProjDirLight::kRange,       _T("Range"), TYPE_FLOAT,    P_ANIMATABLE, IDS_PROJDEPTH,    
+    plRTProjDirLight::kRange,       _T("Range"), TYPE_FLOAT,    P_ANIMATABLE, IDS_PROJDEPTH,
         p_range, 0.0, 999999999.0,
         p_default, 200.0,
         p_ui, TYPE_SPINNER, EDITTYPE_POS_UNIVERSE,
@@ -164,12 +164,12 @@ static ParamBlockDesc2  plRTProjParamBlock
     plRTLightBase::kProjNoCompress, _T("NoCompress"),       TYPE_BOOL,  0, IDS_DS_PROJ_PARAMS,
         p_default, false,
         p_ui, TYPE_SINGLECHEKBOX,   IDC_PROJ_NOCOMPRESS,
-        end,        
+        end,
 
     plRTLightBase::kProjNoMip,  _T("NoMip"),        TYPE_BOOL,  0, IDS_DS_PROJ_PARAMS,
         p_default, false,
         p_ui, TYPE_SINGLECHEKBOX,   IDC_PROJ_NOMIP,
-        end,        
+        end,
 
     end
 );

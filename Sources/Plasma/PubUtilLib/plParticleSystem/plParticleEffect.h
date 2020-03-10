@@ -59,8 +59,8 @@ public:
     // Order is:
     //  PrepareEffect is called with a given target (including valid
     //      ParticleContext).
-    //  ApplyEffect is called some once for each particle (maybe zero times). 
-    //      It can return true to kill a particle. 
+    //  ApplyEffect is called some once for each particle (maybe zero times).
+    //      It can return true to kill a particle.
     //      Target and Context passed in with Prepare will be
     //      guaranteed to remain valid until,
     //  EndEffect marks no more particles will be processed with the above
@@ -302,7 +302,7 @@ protected:
 
     uint16_t fMaxParticles;
     float *fDistSq;          // Table of distances from particle to particle
-    plParticleInfluenceInfo *fInfluences; 
+    plParticleInfluenceInfo *fInfluences;
 
     void IUpdateDistances(const plEffectTargetInfo &target);
     void IUpdateInfluences(const plEffectTargetInfo &target);
@@ -315,7 +315,7 @@ public:
     GETINTERFACE_ANY( plParticleFlockEffect, plParticleEffect );
 
     virtual void PrepareEffect(const plEffectTargetInfo& target);
-    virtual bool ApplyEffect(const plEffectTargetInfo& target, int32_t i);  
+    virtual bool ApplyEffect(const plEffectTargetInfo& target, int32_t i);
 
     void SetTargetOffset(const hsPoint3 &offset) { fTargetOffset = offset; }
     void SetDissenterTarget(const hsPoint3 &target) { fDissenterTarget = target; }
@@ -333,8 +333,8 @@ public:
 
     virtual void Read(hsStream *s, hsResMgr *mgr);
     virtual void Write(hsStream *s, hsResMgr *mgr);
-    virtual bool MsgReceive(plMessage *msg);  
-};  
+    virtual bool MsgReceive(plMessage *msg);
+};
 
 class plParticleFollowSystemEffect : public plParticleEffect
 {

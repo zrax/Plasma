@@ -278,13 +278,13 @@ void plAvatarSDLModifier::IPutCurrentStateIn(plStateDataRecord* dstState)
                 // put the brain into the first slot in the array
                 IPutGenericBrainIn(avMod, genBrain, genStateVar->GetStateDataRecord(0));
             }
-            else 
+            else
             if (plAvBrainDrive *driveBrain = plAvBrainDrive::ConvertNoRef(brain))
             {
                 driveStateVar->Resize(1);
                 IPutDriveBrainIn(avMod, driveBrain, driveStateVar->GetStateDataRecord(0));
             }
-        }       
+        }
     }
 }
 

@@ -147,7 +147,7 @@ inline void plCutter::ISetPosNorm(float parm, const plCutoutVtx& inVtx, const pl
 }
 
 // A note on where the interpolation parameter is coming from.
-// 
+//
 // For the lower cases, we're looking for the point where Dot(pos, fDir) - fDist = 0.
 // Starting with p = outVtx + parm * (inVtx - outVtx) and Dot(p, fDir) == fDist, we get:
 // parm = (fDist - Dot(fDir,outVtx.fPos)) / (Dot(fDir, invVtx.fPos) - Dot(fDir, outVtx.fPos))
@@ -1168,7 +1168,7 @@ void TestCutter(const plKey& key, const hsVector3& size, const hsPoint3& pos)
             uvw[iv] = dst[iPoly].fVerts[iVert].fUVW;
             col[iv] = dst[iPoly].fVerts[iVert].fColor;
 
-            float opac = uvw[iv].fZ < 0.25f 
+            float opac = uvw[iv].fZ < 0.25f
                 ? uvw[iv].fZ * 4.f
                 : uvw[iv].fZ > 0.75f
                     ? (1.f - uvw[iv].fZ) * 4.f
@@ -1206,17 +1206,17 @@ void TestCutter(const plKey& key, const hsVector3& size, const hsPoint3& pos)
             base = ++next;
         }
 
-        drawable = plDrawableGenerator::GenerateDrawable( numVerts, pos.AcquireArray(), 
-                                                        haveNormal ? norm.AcquireArray() : nil, 
-                                                        uvw.AcquireArray(), 1, 
-                                                        col.AcquireArray(), 
-                                                        true, 
-                                                        nil,
-                                                        idx.GetCount(), idx.AcquireArray(), 
-                                                        src[i].GetMaterial(), 
-                                                        hsMatrix44::IdentityMatrix(), 
+        drawable = plDrawableGenerator::GenerateDrawable( numVerts, pos.AcquireArray(),
+                                                        haveNormal ? norm.AcquireArray() : nil,
+                                                        uvw.AcquireArray(), 1,
+                                                        col.AcquireArray(),
                                                         true,
-                                                        &retIndex, 
+                                                        nil,
+                                                        idx.GetCount(), idx.AcquireArray(),
+                                                        src[i].GetMaterial(),
+                                                        hsMatrix44::IdentityMatrix(),
+                                                        true,
+                                                        &retIndex,
                                                         drawable);
 
     }
@@ -1322,7 +1322,7 @@ void TestCutter2(const plKey& key, const hsVector3& size, const hsPoint3& pos, b
             uvw[iv] = dst[iPoly].fVerts[iVert].fUVW;
             col[iv] = dst[iPoly].fVerts[iVert].fColor;
 
-            float opac = uvw[iv].fZ < 0.25f 
+            float opac = uvw[iv].fZ < 0.25f
                 ? uvw[iv].fZ * 4.f
                 : uvw[iv].fZ > 0.75f
                     ? (1.f - uvw[iv].fZ) * 4.f
@@ -1361,17 +1361,17 @@ void TestCutter2(const plKey& key, const hsVector3& size, const hsPoint3& pos, b
             base = ++next;
         }
 
-        drawable = plDrawableGenerator::GenerateDrawable( numVerts, pos.AcquireArray(), 
-                                                        haveNormal ? norm.AcquireArray() : nil, 
-                                                        uvw.AcquireArray(), 1, 
-                                                        col.AcquireArray(), 
-                                                        false, 
+        drawable = plDrawableGenerator::GenerateDrawable( numVerts, pos.AcquireArray(),
+                                                        haveNormal ? norm.AcquireArray() : nil,
+                                                        uvw.AcquireArray(), 1,
+                                                        col.AcquireArray(),
+                                                        false,
                                                         nil,
-                                                        idx.GetCount(), idx.AcquireArray(), 
-                                                        src[i].GetMaterial(), 
-                                                        hsMatrix44::IdentityMatrix(), 
+                                                        idx.GetCount(), idx.AcquireArray(),
+                                                        src[i].GetMaterial(),
+                                                        hsMatrix44::IdentityMatrix(),
                                                         true,
-                                                        &retIndex, 
+                                                        &retIndex,
                                                         drawable);
 
     }

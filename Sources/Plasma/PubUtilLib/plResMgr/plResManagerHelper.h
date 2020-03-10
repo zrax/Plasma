@@ -131,7 +131,7 @@ class plResManagerHelper : public hsKeyedObject
 
 //// Reffer Class ////////////////////////////////////////////////////////////
 
-class plResPageKeyRefList : public plKeyCollector 
+class plResPageKeyRefList : public plKeyCollector
 {
     protected:
 

@@ -53,11 +53,11 @@ plDispatchBase* plgDispatch::Dispatch()
 
 bool hsgResMgr::Init(hsResMgr* m)
 {
-    hsRefCnt_SafeAssign(fResMgr, m); 
+    hsRefCnt_SafeAssign(fResMgr, m);
     hsRefCnt_SafeUnRef(m);
     if (!m->IInit())
         return false;
-    return true; 
+    return true;
 }
 
 void hsgResMgr::Shutdown()
@@ -67,8 +67,8 @@ void hsgResMgr::Shutdown()
         if (fResMgr->RefCnt() <= 1)
         {
             fResMgr->IShutdown();
-            hsRefCnt_SafeUnRef(fResMgr); 
-            fResMgr = nil; 
+            hsRefCnt_SafeUnRef(fResMgr);
+            fResMgr = nil;
         }
         else
         {
@@ -77,8 +77,8 @@ void hsgResMgr::Shutdown()
     }
 }
 
-plPipeResReq& plPipeResReq::Instance() 
-{ 
-    static  plPipeResReq r; 
-    return r; 
+plPipeResReq& plPipeResReq::Instance()
+{
+    static  plPipeResReq r;
+    return r;
 }

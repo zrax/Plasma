@@ -56,13 +56,13 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plDXPixelShader.h"
 
 //// Macros for D3D error handling
-#define INIT_ERROR_CHECK( cond, errMsg ) if( FAILED( fPipeline->fSettings.fDXError = cond ) ) { return fPipeline->ICreateFail( errMsg ); }    
+#define INIT_ERROR_CHECK( cond, errMsg ) if( FAILED( fPipeline->fSettings.fDXError = cond ) ) { return fPipeline->ICreateFail( errMsg ); }
 
 #if 1       // DEBUG
-#define STRONG_ERROR_CHECK( cond ) if( FAILED( fPipeline->fSettings.fDXError = cond ) ) { fPipeline->IGetD3DError(); fPipeline->IShowErrorMessage(); }   
+#define STRONG_ERROR_CHECK( cond ) if( FAILED( fPipeline->fSettings.fDXError = cond ) ) { fPipeline->IGetD3DError(); fPipeline->IShowErrorMessage(); }
 #define WEAK_ERROR_CHECK( cond )    STRONG_ERROR_CHECK( cond )
 #else
-#define STRONG_ERROR_CHECK( cond ) if( FAILED( fPipeline->fSettings.fDXError = cond ) ) { fPipeline->IGetD3DError(); }    
+#define STRONG_ERROR_CHECK( cond ) if( FAILED( fPipeline->fSettings.fDXError = cond ) ) { fPipeline->IGetD3DError(); }
 #define WEAK_ERROR_CHECK( cond )    cond
 #endif
 

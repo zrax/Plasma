@@ -43,7 +43,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #ifndef hsRadixSort_inc
 #define hsRadixSort_inc
 
-class hsRadixSortElem 
+class hsRadixSortElem
 {
 public:
     union {

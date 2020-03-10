@@ -63,7 +63,7 @@ class plDrawableSpans;
 class plDrawInterface;
 class Mtl;
 
-// This is responsible for creating and maintaining (allocation and update cycle) a related set of particles. 
+// This is responsible for creating and maintaining (allocation and update cycle) a related set of particles.
 // Automatic particle generation is handled by the plParticleEmitters (one for each spawning location).
 
 class plParticleSystem : public plModifier
@@ -75,7 +75,7 @@ protected:
     static const float GRAVITY_ACCEL_FEET_PER_SEC2;
     plSceneObject *fTarget;
 
-    hsGMaterial *fTexture;          // One texture per system (Tiling is your friend!)  
+    hsGMaterial *fTexture;          // One texture per system (Tiling is your friend!)
     uint32_t fXTiles, fYTiles;        // Width/height of the texture (in tiles) for determining a particle's UVs
 
     double fCurrTime;
@@ -106,7 +106,7 @@ protected:
     // Material related animations, mapped over the course of a particle's life
     plController *fAmbientCtl;
     plController *fDiffuseCtl;
-    plController *fOpacityCtl;  
+    plController *fOpacityCtl;
     plController *fWidthCtl;
     plController *fHeightCtl;
 
@@ -123,8 +123,8 @@ protected:
 public:
     plParticleSystem();
     virtual ~plParticleSystem();
-    void Init(uint32_t xTiles, uint32_t yTiles, uint32_t maxTotalParticles, uint32_t numEmitters, 
-              plController *ambientCtl, plController *diffuseCtl, plController *opacityCtl, 
+    void Init(uint32_t xTiles, uint32_t yTiles, uint32_t maxTotalParticles, uint32_t numEmitters,
+              plController *ambientCtl, plController *diffuseCtl, plController *opacityCtl,
               plController *widthCtl, plController *heightCtl);
 
     enum effectType
@@ -151,14 +151,14 @@ public:
     
     // These are just public wrappers to the equivalent plParticleEmitter functions, provided for the purpose
     // of adding particles to a system explicitly.
-    void AddParticle(hsPoint3 &pos, hsVector3 &velocity, uint32_t tileIndex, 
-        float hSize, float vSize, float scale, float invMass, float life, 
+    void AddParticle(hsPoint3 &pos, hsVector3 &velocity, uint32_t tileIndex,
+        float hSize, float vSize, float scale, float invMass, float life,
         hsPoint3 &orientation, uint32_t miscFlags, float radsPerSec=0.f);
     void GenerateParticles(uint32_t num, float dt = 0.f);
     void WipeExistingParticles(); // Instant nuke
     void KillParticles(float num, float timeToDie, uint8_t flags); // Sets a death timer. They'll get removed on the next update (if time has run out)
-    uint16_t StealParticlesFrom(plParticleSystem *victim, uint16_t num); // Returns the number of particles actually stolen     
-    void TranslateAllParticles(hsPoint3 &amount); // Used to recenter the system when linking between ages. 
+    uint16_t StealParticlesFrom(plParticleSystem *victim, uint16_t num); // Returns the number of particles actually stolen
+    void TranslateAllParticles(hsPoint3 &amount); // Used to recenter the system when linking between ages.
     
     void DisableGenerators();
     uint32_t GetNumTiles() const { return fXTiles * fYTiles; }
@@ -187,7 +187,7 @@ public:
     virtual void AddTarget(plSceneObject* so);
     virtual void RemoveTarget(plSceneObject* so);
     
-    virtual void Read(hsStream* s, hsResMgr* mgr); 
+    virtual void Read(hsStream* s, hsResMgr* mgr);
     virtual void Write(hsStream* s, hsResMgr* mgr);
     virtual bool MsgReceive(plMessage* msg);
     

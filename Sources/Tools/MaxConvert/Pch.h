@@ -43,7 +43,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #ifndef _MaxConvert_Pch_inc_
 #define _MaxConvert_Pch_inc_
 
-/** 
+/**
  * \file Pch.h
  * \brief Precompiled Header for MaxConvert
  */
@@ -87,7 +87,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include <ISkin.h>
 #include <istdplug.h>
 #include <maxversion.h>
-#include <meshdlib.h> 
+#include <meshdlib.h>
 #include <modstack.h>
 #include <notify.h>
 #include <stdmat.h>

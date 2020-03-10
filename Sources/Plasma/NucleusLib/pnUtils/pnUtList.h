@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/NucleusLib/pnUtils/Private/pnUtList.h
-*   
+*
 ***/
 
 #ifndef PLASMA20_SOURCES_PLASMA_NUCLEUSLIB_PNUTILS_PRIVATE_PNUTLIST_H
@@ -342,7 +342,7 @@ CBaseList::CBaseList () {
 
 //===========================================================================
 CBaseList::CBaseList (const CBaseList & source) {
-    m_linkOffset = LINK_OFFSET_UNINIT;   
+    m_linkOffset = LINK_OFFSET_UNINIT;
 }
 
 //===========================================================================

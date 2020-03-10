@@ -113,7 +113,7 @@ bool plCollisionDetector::MsgReceive(plMessage* msg)
         if (IIsDisabledAvatar(pCollMsg->fOtherKey))
             return false;
 
-        if (fType & kTypeBump) 
+        if (fType & kTypeBump)
         {
             if (!fBumped && !fTriggered)
             {
@@ -286,7 +286,7 @@ void plCameraRegionDetector::Read(hsStream* stream, hsResMgr* mgr)
     int n = stream->ReadLE32();
     fMessages.resize(n);
     for(size_t i = 0; i < n; i++ )
-    {   
+    {
         plCameraMsg* pMsg =  plCameraMsg::ConvertNoRef(mgr->ReadCreatable(stream));
         fMessages[i] = pMsg;
     }
@@ -606,7 +606,7 @@ bool plSubworldRegionDetector::MsgReceive(plMessage* msg)
     plCollideMsg* pCollMsg = plCollideMsg::ConvertNoRef(msg);
 
     if (pCollMsg)
-    {   
+    {
         if (plNetClientApp::GetInstance()->GetLocalPlayerKey() != pCollMsg->fOtherKey)
             return true;
 
@@ -802,7 +802,7 @@ bool plSimpleRegionSensor::MsgReceive(plMessage *msg)
                 fEnterMsg->Ref();
                 fEnterMsg->Send();
             }
-        } 
+        }
         else {
             if(fExitMsg)
             {
@@ -849,7 +849,7 @@ bool plSwimDetector::MsgReceive(plMessage *msg)
 
     if (pCollMsg)
     {
-        //removed local player check because this will apply the brain to the local 
+        //removed local player check because this will apply the brain to the local
         //controller of the foreign avatar which we still want.
         //and if we prop swim state by notify messages we still have a chance of missing it from players
         //who were in the region before we linked in
@@ -863,7 +863,7 @@ bool plSwimDetector::MsgReceive(plMessage *msg)
                 fEnterMsg->Ref();
                 fEnterMsg->Send();
             }
-        } 
+        }
         else {
         if(fExitMsg)
             {
@@ -884,7 +884,7 @@ bool    plRidingAnimatedPhysicalDetector::MsgReceive(plMessage *msg)
 
     if (pCollMsg)
     {
-        //removed local player check because this will apply the brain to the local 
+        //removed local player check because this will apply the brain to the local
         //controller of the foreign avatar which we still want.
         //and if we prop  state by notify messages we still have a chance of missing it from players
         //who were in the region before we linked in
@@ -898,7 +898,7 @@ bool    plRidingAnimatedPhysicalDetector::MsgReceive(plMessage *msg)
                 fEnterMsg->Ref();
                 fEnterMsg->Send();
             }
-        } 
+        }
         else {
         if(fExitMsg)
             {

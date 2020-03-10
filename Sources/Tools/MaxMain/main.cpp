@@ -79,17 +79,17 @@ HINSTANCE hInstance = NULL;
 //
 // return a string to be displayed if the DLL is not found
 //
-__declspec(dllexport) const TCHAR *LibDescription() 
-{ 
-    return "Plasma 2.0"; 
+__declspec(dllexport) const TCHAR *LibDescription()
+{
+    return "Plasma 2.0";
 }
 
 //
 // the number of plugin classes in the dll
 //
-__declspec(dllexport) int LibNumberClasses() 
-{ 
-    return 7 + plComponentMgr::Inst().Count() + plPlasmaMtlImport::GetNumMtlDescs(); 
+__declspec(dllexport) int LibNumberClasses()
+{
+    return 7 + plComponentMgr::Inst().Count() + plPlasmaMtlImport::GetNumMtlDescs();
 }
 
 //
@@ -101,11 +101,11 @@ class plGeneralAttribClassDesc;
 extern plGeneralAttribClassDesc theGeneralAttribClassDesc;
 // TEMP //
 
-__declspec(dllexport) ClassDesc *LibClassDesc(int i) 
+__declspec(dllexport) ClassDesc *LibClassDesc(int i)
 {
-    switch(i) 
-    { 
-        case 0: 
+    switch(i)
+    {
+        case 0:
             return &HSDesc;
         case 1:
             return GetGUPDesc();
@@ -119,7 +119,7 @@ __declspec(dllexport) ClassDesc *LibClassDesc(int i)
             return GetMaxFileDataDesc();
         case 6:
             return GetMaxUtilsDesc();
-        default: 
+        default:
             {
                 int numMtls = plPlasmaMtlImport::GetNumMtlDescs();
                 if( i - 7 < numMtls )
@@ -132,15 +132,15 @@ __declspec(dllexport) ClassDesc *LibClassDesc(int i)
 //
 // Return version so can detect obsolete DLLs
 //
-__declspec(dllexport) ULONG LibVersion() 
-{ 
-    return VERSION_3DSMAX; 
+__declspec(dllexport) ULONG LibVersion()
+{
+    return VERSION_3DSMAX;
 }
 
 //
 // DLLMAIN
 //
-BOOL WINAPI DllMain(HINSTANCE hinstDLL,ULONG fdwReason,LPVOID lpvReserved) 
+BOOL WINAPI DllMain(HINSTANCE hinstDLL,ULONG fdwReason,LPVOID lpvReserved)
 {
     hInstance = hinstDLL;
 
@@ -174,7 +174,7 @@ public:
 
     plGeneralAttrib();
 
-    virtual RefResult NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, 
+    virtual RefResult NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
                                PartID& partID,  RefMessage message){return REF_SUCCEED;}
 
     int NumParamBlocks() { return 1; }                  // return number of ParamBlocks in this instance
@@ -187,7 +187,7 @@ public:
 
     virtual int NumSubs()  { return 1; }
     virtual Animatable* SubAnim(int i) { return fPBlock; }
-    virtual TSTR SubAnimName(int i){ return fClassDesc->ClassName();} 
+    virtual TSTR SubAnimName(int i){ return fClassDesc->ClassName();}
 
 
     void BeginEditParams(IObjParam *ip,ULONG flags,Animatable *prev);
@@ -231,7 +231,7 @@ ParamBlockDesc2 generalAttribBlock
 
     // params
     kRoomName,      _T("roomName"),         TYPE_STRING,        0,  0,
-    p_default,      "", 
+    p_default,      "",
     end,
 
     end

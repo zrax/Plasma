@@ -170,7 +170,7 @@ int hsBitIterator::IAdvanceVec()
 
 int hsBitIterator::IAdvanceBit()
 {
-    do 
+    do
     {
         if( ++fCurrBit > 31 )
         {

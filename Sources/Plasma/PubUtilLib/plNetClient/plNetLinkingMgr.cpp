@@ -504,7 +504,7 @@ bool plNetLinkingMgr::IProcessLinkingMgrMsg( plLinkingMgrMsg * msg )
 
 ////////////////////////////////////////////////////////////////////
 
-bool plNetLinkingMgr::IProcessVaultNotifyMsg(plVaultNotifyMsg* msg) 
+bool plNetLinkingMgr::IProcessVaultNotifyMsg(plVaultNotifyMsg* msg)
 {
     // No deferred link? Bye bye.
     if (fDeferredLink == nil)
@@ -772,7 +772,7 @@ void plNetLinkingMgr::IPostProcessLink()
     bool hood = (info->GetAgeFilename().compare_i(kNeighborhoodAgeFilename) == 0);
     bool psnl = (info->GetAgeFilename().compare_i(kPersonalAgeFilename) == 0);
 
-    // Update our online status 
+    // Update our online status
     if (hsRef<RelVaultNode> rvnInfo = VaultGetPlayerInfoNode()) {
         VaultPlayerInfoNode accInfo(rvnInfo);
         plUUID ageInstGuid = *info->GetAgeInstanceGuid();
@@ -803,7 +803,7 @@ void plNetLinkingMgr::IPostProcessLink()
                         );
             }
         }
-        break;  
+        break;
 
         case plNetCommon::LinkingRules::kVisitBook: {
             // SPECIAL CASE: City: Every player ever created would be in the list; avoid that.
@@ -862,7 +862,7 @@ uint8_t plNetLinkingMgr::IPreProcessLink()
         accInfo.SetOnline(false);
     }
 #else
-    // Update our online status 
+    // Update our online status
     if (hsRef<RelVaultNode> rvnInfo = VaultGetPlayerInfoNode()) {
         VaultPlayerInfoNode accInfo(rvnInfo);
         const plUUID* ageInstGuid = info->GetAgeInstanceGuid();
@@ -1023,7 +1023,7 @@ uint8_t plNetLinkingMgr::IPreProcessLink()
                 plAgeLinkStruct ownedLink;
                 if (VaultGetOwnedAgeLink(info, &ownedLink)) {
                     info->CopyFrom(ownedLink.GetAgeInfo());
-                    // Remember spawn point (treasure book support)                     
+                    // Remember spawn point (treasure book support)
                     plSpawnPointInfo theSpawnPt = link->SpawnPoint();
                     VaultAddOwnedAgeSpawnPoint(*info->GetAgeInstanceGuid(), theSpawnPt);
                 }

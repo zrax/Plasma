@@ -88,7 +88,7 @@ int plAutoUIComp::GetIntSpinner(int16_t id, plComponentBase *comp)
 TSTR plAutoUIComp::GetEditBox(int16_t id, plComponentBase *comp)
 {
     IParamBlock2 *pblock = comp->GetParamBlockByID(plComponentBase::kBlkComp);
-    return pblock->GetStr(id);  
+    return pblock->GetStr(id);
 }
 
 INode *plAutoUIComp::GetPickNode(int16_t id, plComponentBase *comp, int idx)

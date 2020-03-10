@@ -191,7 +191,7 @@ struct hsScaleValue : public hsKeyFrame
 };
 
 //
-// 
+//
 //
 struct hsScaleKey : public hsKeyFrame
 {

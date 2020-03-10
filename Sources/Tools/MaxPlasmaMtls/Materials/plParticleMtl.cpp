@@ -117,17 +117,17 @@ void plParticleMtl::GetClassName(TSTR& s)
     s = GetString(IDS_PARTICLE_MTL);
 }
 
-void plParticleMtl::Reset() 
+void plParticleMtl::Reset()
 {
     fIValid.SetEmpty();
 }
 
-ParamDlg* plParticleMtl::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp) 
+ParamDlg* plParticleMtl::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp)
 {
     fIMtlParams = imp;
     IAutoMParamDlg* masterDlg = plParticleMtlDesc.CreateParamDlgs(hwMtlEdit, imp, this);
 
-    return (ParamDlg*)masterDlg;    
+    return (ParamDlg*)masterDlg;
 }
 
 BOOL plParticleMtl::SetDlgThing(ParamDlg* dlg)
@@ -138,14 +138,14 @@ BOOL plParticleMtl::SetDlgThing(ParamDlg* dlg)
 Interval plParticleMtl::Validity(TimeValue t)
 {
 #if 0 // mf horse
-    Interval valid = FOREVER;       
+    Interval valid = FOREVER;
 
-/*  for (int i = 0; i < fSubTexmap.Count(); i++) 
+/*  for (int i = 0; i < fSubTexmap.Count(); i++)
     {
-        if (fSubTexmap[i]) 
+        if (fSubTexmap[i])
             valid &= fSubTexmap[i]->Validity(t);
     }
-*/  
+*/
 //  float u;
 //  fPBlock->GetValue(pb_spin,t,u,valid);
     return valid;
@@ -171,7 +171,7 @@ int plParticleMtl::NumSubs()
     return 2;
 }
 
-TSTR plParticleMtl::SubAnimName(int i) 
+TSTR plParticleMtl::SubAnimName(int i)
 {
     switch (i)
     {
@@ -232,7 +232,7 @@ IParamBlock2* plParticleMtl::GetParamBlockByID(BlockID id)
     return NULL;
 }
 
-RefResult plParticleMtl::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message) 
+RefResult plParticleMtl::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message)
 {
     switch (message)
     {
@@ -301,7 +301,7 @@ TSTR plParticleMtl::GetSubTexmapTVName(int i)
 #define MTL_HDR_CHUNK 0x4000
 
 IOResult plParticleMtl::Save(ISave *isave)
-{ 
+{
     IOResult res;
     isave->BeginChunk(MTL_HDR_CHUNK);
     res = MtlBase::Save(isave);
@@ -309,7 +309,7 @@ IOResult plParticleMtl::Save(ISave *isave)
     isave->EndChunk();
 
     return IO_OK;
-}   
+}
 
 IOResult plParticleMtl::Load(ILoad *iload)
 {
@@ -324,7 +324,7 @@ IOResult plParticleMtl::Load(ILoad *iload)
                 break;
         }
         iload->CloseChunk();
-        if (res!=IO_OK) 
+        if (res!=IO_OK)
             return res;
     }
 
@@ -338,22 +338,22 @@ IOResult plParticleMtl::Load(ILoad *iload)
 RefTargetHandle plParticleMtl::Clone(RemapDir &remap)
 {
     plParticleMtl *mnew = new plParticleMtl(FALSE);
-    *((MtlBase*)mnew) = *((MtlBase*)this); 
+    *((MtlBase*)mnew) = *((MtlBase*)this);
     mnew->ReplaceReference(kRefBasic, remap.CloneRef(fBasicPB));
 
     BaseClone(this, mnew, remap);
-    mnew->fIValid.SetEmpty();   
+    mnew->fIValid.SetEmpty();
 
     return (RefTargetHandle)mnew;
 }
 
-void plParticleMtl::NotifyChanged() 
+void plParticleMtl::NotifyChanged()
 {
     NotifyDependents(FOREVER, PART_ALL, REFMSG_CHANGE);
 }
 
-void plParticleMtl::Update(TimeValue t, Interval& valid) 
-{   
+void plParticleMtl::Update(TimeValue t, Interval& valid)
+{
     //StdUVGen *gen = (StdUVGen *)fUVGen;
     //gen->SetUScl(1.0f, t);
     //gen->SetVScl(1.0f, t);
@@ -365,8 +365,8 @@ void plParticleMtl::Update(TimeValue t, Interval& valid)
  |  Determine the characteristics of the material
 \*===========================================================================*/
 
-void plParticleMtl::SetAmbient(Color c, TimeValue t) {}     
-void plParticleMtl::SetDiffuse(Color c, TimeValue t) {}     
+void plParticleMtl::SetAmbient(Color c, TimeValue t) {}
+void plParticleMtl::SetDiffuse(Color c, TimeValue t) {}
 void plParticleMtl::SetSpecular(Color c, TimeValue t) {}
 void plParticleMtl::SetShininess(float v, TimeValue t) {}
                 
@@ -397,7 +397,7 @@ void plParticleMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallba
             if (texHandle[i]) {
                 mtl->texture[i].textHandle = texHandle[i]->GetHandle();
                 Texmap *tx = (*maps)[useSubForTex[i]].map;
-                cb.GetGfxTexInfoFromTexmap(t, mtl->texture[i], tx );        
+                cb.GetGfxTexInfoFromTexmap(t, mtl->texture[i], tx );
                 SetTexOps(mtl,i,texOpsType[i]);
                 }
             }
@@ -423,7 +423,7 @@ void plParticleMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallba
         bmi[i] = NULL;
         }
     mtl->texture.SetCount(nmaps);
-    if (nmaps==0) 
+    if (nmaps==0)
         return;
     for (i=0; i<nmaps; i++)
         mtl->texture[i].textHandle = NULL;
@@ -431,17 +431,17 @@ void plParticleMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallba
     Interval  valid;
     BOOL needDecal = FALSE;
     int ntx = 0;
-    int op; 
+    int op;
 
     int forceW = 0;
     int forceH = 0;
     if (tx[0]) {
-        cb.GetGfxTexInfoFromTexmap(t, mtl->texture[0], tx[0]);      
+        cb.GetGfxTexInfoFromTexmap(t, mtl->texture[0], tx[0]);
         TextureInfo &ti = mtl->texture[0];
         if (ti.tiling[0]==GW_TEX_NO_TILING||ti.tiling[1]==GW_TEX_NO_TILING)
             needDecal = TRUE;
         op = needDecal?TXOP_ALPHABLEND:TXOP_MODULATE;
-        bmi[0] = tx[0]->GetVPDisplayDIB(t,cb,valid,FALSE); 
+        bmi[0] = tx[0]->GetVPDisplayDIB(t,cb,valid,FALSE);
         if (bmi[0]) {
             texHandleValid &= valid;
             useSubForTex[0] = diffChan;
@@ -451,14 +451,14 @@ void plParticleMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallba
             }
         }
     if (tx[1]) {
-        cb.GetGfxTexInfoFromTexmap(t, mtl->texture[ntx], tx[1]);        
+        cb.GetGfxTexInfoFromTexmap(t, mtl->texture[ntx], tx[1]);
         if (nsupport>ntx) {
-            bmi[1] = tx[1]->GetVPDisplayDIB(t,cb,valid,TRUE); 
+            bmi[1] = tx[1]->GetVPDisplayDIB(t,cb,valid,TRUE);
             if (bmi[1]) {
                 texHandleValid &= valid;
                 StuffAlpha(bmi[1], (*maps)[opacChan].amount, GetOpacity(t),ntx?whiteCol:pShader->GetDiffuseClr(t));
-                texHandle[ntx] = cb.MakeHandle(bmi[1]); 
-                bmi[1] = NULL; 
+                texHandle[ntx] = cb.MakeHandle(bmi[1]);
+                bmi[1] = NULL;
                 mtl->texture[ntx].textHandle = texHandle[ntx]->GetHandle();
                 SetTexOps(mtl,ntx,TXOP_OPACITY);
                 useSubForTex[ntx] = opacChan;
@@ -470,7 +470,7 @@ void plParticleMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallba
                 TextureInfo ti;
 //              if (SameUV(mtl->texture[0],mtl->texture[1])) {
                     // Not really correct to combine channels for different UV's but what the heck.
-                    bmi[1] = tx[1]->GetVPDisplayDIB(t,cb,valid,TRUE, forceW, forceH); 
+                    bmi[1] = tx[1]->GetVPDisplayDIB(t,cb,valid,TRUE, forceW, forceH);
                     if (bmi[1]) {
                         texHandleValid &= valid;
                         StuffAlphaInto(bmi[1], bmi[0], (*maps)[opacChan].amount, GetOpacity(t));
@@ -483,8 +483,8 @@ void plParticleMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallba
             }
         }
     if (bmi[0]) {
-        texHandle[0] = cb.MakeHandle(bmi[0]); 
-        bmi[0] = NULL; 
+        texHandle[0] = cb.MakeHandle(bmi[0]);
+        bmi[0] = NULL;
         mtl->texture[0].textHandle = texHandle[0]->GetHandle();
         SetTexOps(mtl,0,op);
         }
@@ -497,7 +497,7 @@ void plParticleMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallba
  |  Actual shading takes place
 \*===========================================================================*/
 
-void plParticleMtl::Shade(ShadeContext& sc) 
+void plParticleMtl::Shade(ShadeContext& sc)
 {
     // Get the background color
     Color backColor, backTrans;
@@ -510,7 +510,7 @@ void plParticleMtl::Shade(ShadeContext& sc)
 //  Tells MAX what we need to render ourselves properly, such as translucency,
 //  two-sidedness, etc. Flags are in imtl.h in the MAX SDK.
 
-ULONG   plParticleMtl::Requirements( int subMtlNum ) 
+ULONG   plParticleMtl::Requirements( int subMtlNum )
 {
     ULONG       req = 0;
 
@@ -634,7 +634,7 @@ Interval plParticleMtl::DisplacementValidity(TimeValue t)
     Interval iv;
     iv.SetInfinite();
 
-    return iv;  
+    return iv;
 }
 
 Control *plParticleMtl::GetAmbColorController() { return GetParamBlock2Controller(fBasicPB, ParamID(kColorAmb)); }

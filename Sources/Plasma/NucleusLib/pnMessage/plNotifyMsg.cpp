@@ -68,7 +68,7 @@ plNotifyMsg::plNotifyMsg(const plKey &s, const plKey &r)
 //  PURPOSE    : Initialization (called from constructors) and destructor
 //
 void plNotifyMsg::IInit()
-{ 
+{
     SetBCastFlag(plMessage::kNetPropagate);
     fType = kActivator;
     fState = 0.0f;          // start state at (completely) false
@@ -242,7 +242,7 @@ void plNotifyMsg::AddCollisionEvent( bool enter, const plKey &other, const plKey
             int i;
             for ( i=0; i<num_recs; i++ )
             {
-                // see if its the same type 
+                // see if its the same type
                 proEventData* pEDTest = fEvents.Get(i);
                 if ( pEDTest->fEventType == proEventData::kCollision )
                 {
@@ -279,7 +279,7 @@ void plNotifyMsg::AddCallbackEvent( int32_t event )
         int i;
         for ( i=0; i<num_recs; i++ )
         {
-            // see if its the same type 
+            // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
             if ( pEDTest->fEventType == proEventData::kCallback )
             {
@@ -314,7 +314,7 @@ void plNotifyMsg::AddResponderStateEvent( int32_t state )
         int i;
         for ( i=0; i<num_recs; i++ )
         {
-            // see if its the same type 
+            // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
             if ( pEDTest->fEventType == proEventData::kResponderState )
             {
@@ -389,7 +389,7 @@ void plNotifyMsg::AddActivateEvent( bool activate )
         int i;
         for ( i=0; i<num_recs; i++ )
         {
-            // see if its the same type 
+            // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
             if ( pEDTest->fEventType == proEventData::kActivate )
             {
@@ -431,7 +431,7 @@ void plNotifyMsg::AddPickEvent( const plKey &other, const plKey& self, bool enab
         int i;
         for ( i=0; i<num_recs; i++ )
         {
-            // see if its the same type 
+            // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
             if ( pEDTest->fEventType == proEventData::kPicked )
             {
@@ -457,7 +457,7 @@ void plNotifyMsg::AddPickEvent( const plKey &other, const plKey& self, bool enab
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : AddContainerEvent
-//  PARAMETERS : container  - the plKey of the object contained 
+//  PARAMETERS : container  - the plKey of the object contained
 //             : contained   - the plKey of the containing volume
 //
 //  PURPOSE    : Add a container event record to this notify message
@@ -476,7 +476,7 @@ void plNotifyMsg::AddContainerEvent( const plKey &container, const plKey &contai
         int i;
         for ( i=0; i<num_recs; i++ )
         {
-            // see if its the same type 
+            // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
             if ( pEDTest->fEventType == proEventData::kContained )
             {
@@ -522,7 +522,7 @@ void plNotifyMsg::AddFacingEvent( const plKey &other, const plKey &self, float d
         int i;
         for ( i=0; i<num_recs; i++ )
         {
-            // see if its the same type 
+            // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
             if ( pEDTest->fEventType == proEventData::kFacing )
             {
@@ -565,7 +565,7 @@ void plNotifyMsg::AddControlKeyEvent( int32_t key, bool down )
         int i;
         for ( i=0; i<num_recs; i++ )
         {
-            // see if its the same type 
+            // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
             if ( pEDTest->fEventType == proEventData::kControlKey )
             {
@@ -678,7 +678,7 @@ void plNotifyMsg::AddClickDragEvent( const plKey& dragger, const plKey& dragee, 
         int i;
         for ( i=0; i<num_recs; i++ )
         {
-            // see if its the same type 
+            // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
             if ( pEDTest->fEventType == proEventData::kClickDrag )
             {
@@ -721,7 +721,7 @@ void plNotifyMsg::AddOfferBookEvent(const plKey& offerer, int targetAge, int off
         int i;
         for ( i=0; i<num_recs; i++ )
         {
-            // see if its the same type 
+            // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
             if ( pEDTest->fEventType == proEventData::kOfferLinkingBook )
             {
@@ -763,7 +763,7 @@ void plNotifyMsg::AddBookEvent( uint32_t event, uint32_t linkID /*=0*/)
         int i;
         for ( i=0; i<num_recs; i++ )
         {
-            // see if its the same type 
+            // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
             if ( pEDTest->fEventType == proEventData::kBook )
             {
@@ -788,8 +788,8 @@ void plNotifyMsg::AddBookEvent( uint32_t event, uint32_t linkID /*=0*/)
 //  Function   : AddClimbingBlockerHit
 //  PARAMETERS : fBlockerKey - the key of the blocker we hit
 //
-//  PURPOSE    : this is to notify python we hit a specific climbing blocker 
-//             : 
+//  PURPOSE    : this is to notify python we hit a specific climbing blocker
+//             :
 //
 // NOTE: To test for duplicate record, it only checks for records of the same type
 //     : Eventually, it might be wise to check if the same 'self' key also?
@@ -803,7 +803,7 @@ void plNotifyMsg::AddHitClimbingBlockerEvent(const plKey &blocker)
         int i;
         for ( i=0; i<num_recs; i++ )
         {
-            // see if its the same type 
+            // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
             if ( pEDTest->fEventType == proEventData::kClimbingBlockerHit )
             {
@@ -841,7 +841,7 @@ proEventData* plNotifyMsg::FindEventRecord( int32_t eventtype )
         int i;
         for ( i=0; i<num_recs; i++ )
         {
-            // see if its the same type 
+            // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
             if ( pEDTest->fEventType == eventtype )
                 return pEDTest;
@@ -1332,7 +1332,7 @@ void proVariableEventData::IReadNumber(hsStream * stream) {
     case kInt:
         fNumber.i = stream->ReadLE32();
         break;
-    default: 
+    default:
         stream->ReadLE32(); //ignore
         break;
     }
@@ -1347,7 +1347,7 @@ void proVariableEventData::IWriteNumber(hsStream * stream) {
     case kInt:
         stream->WriteLE32(fNumber.i);
         break;
-    default: 
+    default:
         stream->WriteLE32(0);
         break;
     }
@@ -1461,9 +1461,9 @@ void proFacingEventData::IWriteVersion(hsStream* s, hsResMgr* mgr)
 
     // kProFacingFacer
     mgr->WriteKey(s, fFacer);
-    // kProFacingFacee  
+    // kProFacingFacee
     mgr->WriteKey(s, fFacee);
-    // kProFacingDot    
+    // kProFacingDot
     s->WriteLEScalar(dot);
     // kProFacingEnabled
     s->WriteBool(enabled);

@@ -110,5 +110,5 @@ bool plActivatorBaseComponent::DeInit( plMaxNode *node, plErrorMsg *pErrMsg )
 {
     fReceivers.clear();
     fLogicModKeys.clear();
-    return plPhysicCoreComponent::DeInit( node, pErrMsg ); 
+    return plPhysicCoreComponent::DeInit( node, pErrMsg );
 }

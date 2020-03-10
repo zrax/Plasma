@@ -172,7 +172,7 @@ hsGMaterial *pfGUICtrlGenerator::ICreateSolidMaterial( hsColorRGBA &color )
 //// ICreateTextMaterial /////////////////////////////////////////////////////
 //  Creates a material with a texture that has a string centered on it.
 
-hsGMaterial *pfGUICtrlGenerator::ICreateTextMaterial( const char *text, hsColorRGBA &bgColor, 
+hsGMaterial *pfGUICtrlGenerator::ICreateTextMaterial( const char *text, hsColorRGBA &bgColor,
                                                      hsColorRGBA &textColor, float objWidth, float objHeight )
 {
     uint16_t          pixWidth, pixHeight, strWidth, strHeight;
@@ -233,7 +233,7 @@ plSceneObject   *pfGUICtrlGenerator::IGenSceneObject( pfGUIDialogMod *dlg, plDra
     if( snKey == nil )
         snKey = fDynDlgNodes.Peek()->GetKey();
 
-    hsgResMgr::ResMgr()->SendRef( myDraw->GetKey(), new plNodeRefMsg( snKey, plRefMsg::kOnCreate, 0, plNodeRefMsg::kDrawable ), plRefFlags::kActiveRef );       
+    hsgResMgr::ResMgr()->SendRef( myDraw->GetKey(), new plNodeRefMsg( snKey, plRefMsg::kOnCreate, 0, plNodeRefMsg::kDrawable ), plRefFlags::kActiveRef );
 
     plDrawInterface *newDI = new plDrawInterface;
     IAddKey( newDI, "GUIDrawIFace" );
@@ -474,7 +474,7 @@ pfGUIDialogMod  *pfGUICtrlGenerator::IGenerateDialog( const char *name, float sc
     fDynDlgNodes.Append( node );
     fDynDragBars.Append( nil );
 
-    hsgResMgr::ResMgr()->AddViaNotify( node->GetKey(), new plGenRefMsg( renderMod->GetKey(), plRefMsg::kOnCreate, 0, plPostEffectMod::kNodeRef ), plRefFlags::kPassiveRef );        
+    hsgResMgr::ResMgr()->AddViaNotify( node->GetKey(), new plGenRefMsg( renderMod->GetKey(), plRefMsg::kOnCreate, 0, plPostEffectMod::kNodeRef ), plRefFlags::kPassiveRef );
 
     // Create the dialog
     dialog = new pfGUIDialogMod;
@@ -499,15 +499,15 @@ pfGUIDialogMod  *pfGUICtrlGenerator::IGenerateDialog( const char *name, float sc
 
     // Using SendRef here because AddViaNotify will queue the messages up, which doesn't do us any good
     // if we need these refs right away
-    hsgResMgr::ResMgr()->SendRef( dialog->GetKey(), new plObjRefMsg( newObj->GetKey(), plRefMsg::kOnCreate, 0, plObjRefMsg::kModifier ), plRefFlags::kActiveRef );      
+    hsgResMgr::ResMgr()->SendRef( dialog->GetKey(), new plObjRefMsg( newObj->GetKey(), plRefMsg::kOnCreate, 0, plObjRefMsg::kModifier ), plRefFlags::kActiveRef );
 
-    hsgResMgr::ResMgr()->AddViaNotify( newCI->GetKey(), new plObjRefMsg( newObj->GetKey(), plRefMsg::kOnCreate, 0, plObjRefMsg::kInterface ), plRefFlags::kActiveRef );     
-    hsgResMgr::ResMgr()->AddViaNotify( renderMod->GetKey(), new plObjRefMsg( newObj->GetKey(), plRefMsg::kOnCreate, 0, plObjRefMsg::kModifier ), plRefFlags::kActiveRef );      
+    hsgResMgr::ResMgr()->AddViaNotify( newCI->GetKey(), new plObjRefMsg( newObj->GetKey(), plRefMsg::kOnCreate, 0, plObjRefMsg::kInterface ), plRefFlags::kActiveRef );
+    hsgResMgr::ResMgr()->AddViaNotify( renderMod->GetKey(), new plObjRefMsg( newObj->GetKey(), plRefMsg::kOnCreate, 0, plObjRefMsg::kModifier ), plRefFlags::kActiveRef );
 
     // Add the dialog to the GUI mgr
-    plGenRefMsg *refMsg = new plGenRefMsg( pfGameGUIMgr::GetInstance()->GetKey(), 
+    plGenRefMsg *refMsg = new plGenRefMsg( pfGameGUIMgr::GetInstance()->GetKey(),
                                             plRefMsg::kOnCreate, 0, pfGameGUIMgr::kDlgModRef );
-    hsgResMgr::ResMgr()->AddViaNotify( dialog->GetKey(), refMsg, plRefFlags::kActiveRef );      
+    hsgResMgr::ResMgr()->AddViaNotify( dialog->GetKey(), refMsg, plRefFlags::kActiveRef );
 
     newObj->SetSceneNode( node->GetKey() );
 

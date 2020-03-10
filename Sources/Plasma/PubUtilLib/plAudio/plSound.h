@@ -124,17 +124,17 @@ public:
         kRefSoftOcclusionRegion
     };
 
-    enum 
+    enum
     {
         kSoftRegion = 0
     };
 
     enum StreamType
-    { 
-        kNoStream, 
-        kStreamFromRAM, 
-        kStreamFromDisk, 
-        kStreamCompressed 
+    {
+        kNoStream,
+        kStreamFromRAM,
+        kStreamFromDisk,
+        kStreamCompressed
     };
 
     class plFadeParams
@@ -300,7 +300,7 @@ protected:
 
     bool        fMuted, fFading, fRegisteredForTime, fPlayOnReactivate, fFreeData;
     bool        fNotHighEnoughPriority;     // Set whenever the audioSys calls UpdateSoftVolume() with enable=false,
-                                            // thus indicating that we slipped off the top 16 most wanted list. 
+                                            // thus indicating that we slipped off the top 16 most wanted list.
 
     // Do these need to be synched values? They weren't before...
     hsVector3   fConeOrientation;
@@ -349,8 +349,8 @@ protected:
     virtual void    IActuallyPlay() = 0;
     virtual void    IFreeBuffers() = 0;
 
-    //NOTE: if isIncidental is true the entire sound will be loaded. 
-    virtual plSoundBuffer::ELoadReturnVal   IPreLoadBuffer( bool playWhenLoaded, bool isIncidental = false );   
+    //NOTE: if isIncidental is true the entire sound will be loaded.
+    virtual plSoundBuffer::ELoadReturnVal   IPreLoadBuffer( bool playWhenLoaded, bool isIncidental = false );
     virtual void        ISetActualTime( double t ) = 0;
     
     virtual bool        IActuallyLoaded() = 0;

@@ -59,8 +59,8 @@ private:
 public:
     plAnimCmdMsg()
         : plMessageWithCallbacks(nil, nil, nil) { IInit(); }
-    plAnimCmdMsg(const plKey &s, 
-                const plKey &r, 
+    plAnimCmdMsg(const plKey &s,
+                const plKey &r,
                 const double* t)
         : plMessageWithCallbacks(s, r, t) { IInit(); }
     virtual ~plAnimCmdMsg();
@@ -140,8 +140,8 @@ private:
 public:
     plAGCmdMsg()
         : plMessage(nil, nil, nil) { IInit(); }
-    plAGCmdMsg(const plKey &s, 
-               const plKey &r, 
+    plAGCmdMsg(const plKey &s,
+               const plKey &r,
                const double* t)
         : plMessage(s, r, t) { IInit(); }
     virtual ~plAGCmdMsg();

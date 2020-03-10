@@ -61,7 +61,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 # endif
 #endif
 
-#define hsDbgLogEntry(x) 
+#define hsDbgLogEntry(x)
 #ifdef NET_LOGGING
 # ifdef HS_DEBUGGING
 #  undef hsDbgLogEntry

@@ -166,9 +166,9 @@ void hsTimedValue<T>::Read(hsStream* s, float currSecs)
 }
 
 template <class T>
-void hsTimedValue<T>::SetDuration(float duration) 
-{ 
-    fDuration = duration; 
+void hsTimedValue<T>::SetDuration(float duration)
+{
+    fDuration = duration;
     if( fDuration > 0 )
         fFlags &= ~kInstant;
     else

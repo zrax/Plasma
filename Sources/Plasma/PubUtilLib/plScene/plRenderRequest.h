@@ -187,7 +187,7 @@ public:
     // 0 => no fog == fog starts at yon
     // 1 => fog starts at camera.
     // Fog start greater than 1 is legal. Fog always linear.
-    void SetFogStart(float d) { fFogStart = d; } 
+    void SetFogStart(float d) { fFogStart = d; }
 
     void SetPriority(float p) { fPriority = p; }
 

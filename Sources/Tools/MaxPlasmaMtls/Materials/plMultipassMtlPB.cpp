@@ -47,8 +47,8 @@ ClassDesc2* GetMultiMtlDesc();
 
 static ParamBlockDesc2 gMultipassMtlPB
 (
-    plMultipassMtl::kBlkPasses, _T("multipass"), 0, GetMultiMtlDesc(), 
-    P_AUTO_CONSTRUCT, plMultipassMtl::kRefPasses, 
+    plMultipassMtl::kBlkPasses, _T("multipass"), 0, GetMultiMtlDesc(),
+    P_AUTO_CONSTRUCT, plMultipassMtl::kRefPasses,
 
     kMultCount,         _T("numPasses"),    TYPE_INT,               0, 0,
         p_default,      0,

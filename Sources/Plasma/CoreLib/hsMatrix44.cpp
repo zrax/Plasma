@@ -467,7 +467,7 @@ hsMatrix44& hsMatrix44::MakeUpPreserving(const hsPoint3* f, const hsPoint3* at, 
 void    hsMatrix44::GetAxis(hsVector3* view, hsVector3 *up, hsVector3* right)
 {
     if (view)
-        view->Set(-fMap[0][1],-fMap[1][1],-fMap[2][1]); 
+        view->Set(-fMap[0][1],-fMap[1][1],-fMap[2][1]);
     if (right)
         right->Set(-fMap[0][0],-fMap[1][0],-fMap[2][0]);
     if (up)
@@ -495,7 +495,7 @@ const hsVector3 hsMatrix44::GetAxis(int i) const
             break;
         }
     }
-    return ret; 
+    return ret;
 }
 
 
@@ -588,7 +588,7 @@ void hsMatrix44::MakeEnvMapMatrices(const hsPoint3& pos, hsMatrix44* worldToCame
 void    hsMatrix44::GetAxisFromCamera(hsVector3* view, hsVector3 *up, hsVector3* right)
 {
     if (view)
-        view->Set(fMap[2][0],fMap[2][1],fMap[2][2]);    
+        view->Set(fMap[2][0],fMap[2][1],fMap[2][2]);
     if (right)
         right->Set(fMap[0][0],fMap[0][1],fMap[0][2]);
     if (up)
@@ -657,7 +657,7 @@ float hsMatrix44::GetDeterminant() const
 {
     return (fMap[0][0]*Determinant3(fMap[1][1], fMap[2][1], fMap[3][1],
                                       fMap[1][2], fMap[2][2], fMap[3][2],
-                                      fMap[1][3], fMap[2][3], fMap[3][3]) - 
+                                      fMap[1][3], fMap[2][3], fMap[3][3]) -
             fMap[1][0]*Determinant3(fMap[0][1], fMap[2][1], fMap[3][1],
                                       fMap[0][2], fMap[2][2], fMap[3][2],
                                       fMap[0][3], fMap[2][3], fMap[3][3]) +
@@ -813,7 +813,7 @@ hsPoint3*  hsMatrix44::MapPoints(long count, hsPoint3 points[]) const
         int i;
         for(i = 0; i < count; i++)
         {
-            points[i] = *this * points[i];  
+            points[i] = *this * points[i];
         }
     }
     return points;
@@ -830,7 +830,7 @@ bool hsMatrix44::IsIdentity()
 #if 0 // IDENTITY_CRISIS
             if( i == j)
             {
-                if (fMap[i][j] != 1.f) 
+                if (fMap[i][j] != 1.f)
                 {
                     NotIdentity();
                     retVal = false;
@@ -848,7 +848,7 @@ bool hsMatrix44::IsIdentity()
             const float kEPS = 1.e-5f;
             if( i == j)
             {
-                if( (fMap[i][j] < 1.f-kEPS) || (fMap[i][j] > 1.f+kEPS) ) 
+                if( (fMap[i][j] < 1.f-kEPS) || (fMap[i][j] > 1.f+kEPS) )
                 {
                     NotIdentity();
                     retVal = false;

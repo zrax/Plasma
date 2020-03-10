@@ -113,9 +113,9 @@ void plCoordinateInterface::ISetParent(plCoordinateInterface* par)
     fReason |= kReasonUnknown;
 }
 
-plCoordinateInterface* plCoordinateInterface::GetChild(int i) const 
-{ 
-    return fChildren[i] ? fChildren[i]->GetVolatileCoordinateInterface() : nil; 
+plCoordinateInterface* plCoordinateInterface::GetChild(int i) const
+{
+    return fChildren[i] ? fChildren[i]->GetVolatileCoordinateInterface() : nil;
 }
 
 void plCoordinateInterface::IRemoveChild(int i)
@@ -205,7 +205,7 @@ void plCoordinateInterface::IDetachChild(plSceneObject* child, uint8_t flags)
     if( flags & kMaintainWorldPosition )
         childCI->WarpToWorld(l2w,w2l);
 
-    // If the child was keeping us from delaying our transform, 
+    // If the child was keeping us from delaying our transform,
     // maybe we can, now that it's gone.
     if (!childCI->GetProperty(kDelayedTransformEval))
         IUpdateDelayProp();
@@ -231,7 +231,7 @@ void plCoordinateInterface::IDetachChild(plSceneObject* child, uint8_t flags)
  *  BTW: The POINT of all this is that when we update our l2w transforms because
  *  we're animated, and then we update AGAIN after a parent node of ours involved
  *  in physics gets a slight nudge, the first update becomes pointless. The
- *  delay prop bookkeeping keeps us from doing the wasted calculations. And since 
+ *  delay prop bookkeeping keeps us from doing the wasted calculations. And since
  *  nearly all bones on the avatar are in this exact situation, it's worth doing.
  */
 void plCoordinateInterface::IUpdateDelayProp()
@@ -242,7 +242,7 @@ void plCoordinateInterface::IUpdateDelayProp()
 
     for (i = 0; i < GetNumChildren(); i++)
     {
-        // If we still have a child that needs the delay...     
+        // If we still have a child that needs the delay...
         if (!GetChild(i)->GetProperty(kDelayedTransformEval))
             return;
     }
@@ -487,7 +487,7 @@ void plCoordinateInterface::ITransformChanged(bool force, uint16_t reasons, bool
             IGetOwner()->ISetTransform(fLocalToWorld, fWorldToLocal);
         }
         plProfile_EndTiming(CISetT);
-        fState &= ~kTransformDirty;     
+        fState &= ~kTransformDirty;
     }
 
     plProfile_EndTiming(CITransT);
@@ -510,7 +510,7 @@ void plCoordinateInterface::ITransformChanged(bool force, uint16_t reasons, bool
         IDirtyTransform();
         plProfile_EndTiming(CIDirtyT);
         plProfile_EndTiming(CITransT);
-    }       
+    }
 }
 
 void plCoordinateInterface::FlushTransform(bool fromRoot)

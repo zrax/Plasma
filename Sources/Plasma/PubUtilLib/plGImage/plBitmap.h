@@ -121,7 +121,7 @@ class plBitmap : public hsKeyedObject
                 kDXT5           = 0x5
             };
 
-            uint8_t       fCompressionType;   
+            uint8_t       fCompressionType;
             uint8_t       fBlockSize;             // In bytes
         };
 
@@ -142,7 +142,7 @@ class plBitmap : public hsKeyedObject
         //// Public Data /////
 
         uint8_t       fCompressionType;
-        union 
+        union
         {
             DirectXInfo         fDirectXInfo;
             UncompressedInfo    fUncompressedInfo;

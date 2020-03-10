@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/NucleusLib/pnUtils/Private/pnUtList.cpp
-*   
+*
 ***/
 
 #include "pnUtList.h"
@@ -80,7 +80,7 @@ void CBaseList::Link (CBaseList * list, uint8_t * afterNode, uint8_t * beforeNod
     ASSERT(firstNode);
     ASSERT(lastNextNode);
 
-    // Find the previous and next nodes in the destination list which will 
+    // Find the previous and next nodes in the destination list which will
     // bound all of the nodes of the source list
     CBaseLink * existingLink = existingNode ? GetLink(existingNode) : &m_terminator;
     CBaseLink * prevLink, * nextLink;
@@ -100,7 +100,7 @@ void CBaseList::Link (CBaseList * list, uint8_t * afterNode, uint8_t * beforeNod
 
     }
 
-    // Update the first and last nodes of the moved range to point to the 
+    // Update the first and last nodes of the moved range to point to the
     // previous and next nodes in the destination list
     firstLink->m_prevLink = prevLink;
     lastLink->m_next      = prevLink->m_next;

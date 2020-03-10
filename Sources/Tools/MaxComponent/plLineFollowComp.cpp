@@ -89,7 +89,7 @@ void DummyCodeIncludeFuncLineFollow()
 //
 //
 
-enum    
+enum
 {
     kFollowModeRadio,
     kPathObjectSel,
@@ -201,8 +201,8 @@ ParamBlockDesc2 gLineFollowBk
     IDD_COMP_LINEFOLLOW, IDS_COMP_LINEFOLLOWS,  0, 0, &gLineFollowProc,
 
     kFollowModeRadio, _T("FollowMode"),     TYPE_INT,       0, 0,
-        p_ui,       TYPE_RADIO, 3,  IDC_RADIO_LISTENER,                 IDC_RADIO_CAMERA,               IDC_RADIO_OBJECT,   
-        p_vals,                     plLineFollowMod::kFollowListener,   plLineFollowMod::kFollowCamera, plLineFollowMod::kFollowObject,     
+        p_ui,       TYPE_RADIO, 3,  IDC_RADIO_LISTENER,                 IDC_RADIO_CAMERA,               IDC_RADIO_OBJECT,
+        p_vals,                     plLineFollowMod::kFollowListener,   plLineFollowMod::kFollowCamera, plLineFollowMod::kFollowObject,
         p_default, plLineFollowMod::kFollowListener,
         end,
 
@@ -224,12 +224,12 @@ ParamBlockDesc2 gLineFollowBk
         p_enable_ctrls,     4, kOffsetDegrees, kOffsetClampActive, kOffsetClamp, kForceToLine,
         end,
 
-    kOffsetDegrees, _T("OffsetDegrees"), TYPE_FLOAT,    0, 0,   
+    kOffsetDegrees, _T("OffsetDegrees"), TYPE_FLOAT,    0, 0,
         p_default, 0.0,
         p_range, -85.0, 85.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_FLOAT,
         IDC_COMP_LINE_OFFSETDEGREES, IDC_COMP_LINE_OFFSETDEGREES_SPIN, 1.0,
-        end,    
+        end,
     
     kOffsetClampActive,  _T("OffsetClampActive"), TYPE_BOOL,        0, 0,
         p_default,  FALSE,
@@ -237,12 +237,12 @@ ParamBlockDesc2 gLineFollowBk
         p_enable_ctrls,     1, kOffsetClamp,
         end,
 
-    kOffsetClamp, _T("OffsetClamp"), TYPE_FLOAT,    0, 0,   
+    kOffsetClamp, _T("OffsetClamp"), TYPE_FLOAT,    0, 0,
         p_default, 0.0,
         p_range, 0.0, 1000.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_LINE_OFFSETCLAMP, IDC_COMP_LINE_OFFSETCLAMP_SPIN, 1.0,
-        end,    
+        end,
     
     kForceToLine,  _T("ForceToLine"), TYPE_BOOL,        0, 0,
         p_default,  FALSE,
@@ -255,12 +255,12 @@ ParamBlockDesc2 gLineFollowBk
         p_enable_ctrls,     1, kSpeedClamp,
         end,
 
-    kSpeedClamp, _T("SpeedClamp"), TYPE_FLOAT,  0, 0,   
+    kSpeedClamp, _T("SpeedClamp"), TYPE_FLOAT,  0, 0,
         p_default, 30.0,
         p_range, 3.0, 1000.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_LINE_SPEEDCLAMP, IDC_COMP_LINE_SPEEDCLAMP_SPIN, 1.0,
-        end,    
+        end,
     
     end
 
@@ -326,7 +326,7 @@ bool plLineFollowComponent::IMakeLineMod(plMaxNode* pNode, plErrorMsg* pErrMsg)
     hsMatrix44 loc2Par = pathNode->Matrix3ToMatrix44(l2w * w2p);
 
     gemAffineParts ap;
-    decomp_affine(loc2Par.fMap, &ap); 
+    decomp_affine(loc2Par.fMap, &ap);
     hsAffineParts initParts;
     AP_SET(initParts, ap);
 
@@ -508,7 +508,7 @@ public:
 CLASS_DESC(plStereizeComp, gStereizeDesc, "Stereo-ize",  "Stereize", COMP_TYPE_AUDIO, STEREIZE_COMP_CID)
 
 ParamBlockDesc2 gStereizeBk
-(   
+(
     plComponent::kBlkComp, _T("Stereize"), 0, &gStereizeDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_STEREIZE, IDS_COMP_STEREIZE, 0, 0, NULL,
@@ -518,40 +518,40 @@ ParamBlockDesc2 gStereizeBk
         p_ui,   TYPE_SINGLECHEKBOX, IDC_COMP_STEREIZE_LEFT,
         end,
 
-    plStereizeComp::kAmbientDist, _T("AmbientDist"), TYPE_FLOAT,    0, 0,   
+    plStereizeComp::kAmbientDist, _T("AmbientDist"), TYPE_FLOAT,    0, 0,
         p_default, 50.0,
         p_range, 0.0, 1000.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_STEREIZE_AMB, IDC_COMP_STEREIZE_AMB_SPIN, 1.0,
-        end,    
+        end,
 
-    plStereizeComp::kTransition, _T("Transition"), TYPE_FLOAT,  0, 0,   
+    plStereizeComp::kTransition, _T("Transition"), TYPE_FLOAT,  0, 0,
         p_default, 25.0,
         p_range, 1.0, 500.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_STEREIZE_TRANS, IDC_COMP_STEREIZE_TRANS_SPIN, 1.0,
-        end,    
+        end,
 
-    plStereizeComp::kSepAngle, _T("SepAngle"), TYPE_FLOAT,  0, 0,   
+    plStereizeComp::kSepAngle, _T("SepAngle"), TYPE_FLOAT,  0, 0,
         p_default, 30.0,
         p_range, 1.0, 80.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_STEREIZE_ANG, IDC_COMP_STEREIZE_ANG_SPIN, 1.0,
-        end,    
+        end,
 
-    plStereizeComp::kMaxDist, _T("MaxDist"), TYPE_FLOAT,    0, 0,   
+    plStereizeComp::kMaxDist, _T("MaxDist"), TYPE_FLOAT,    0, 0,
         p_default, 100.0,
         p_range, 1.0, 1000.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_STEREIZE_MAXDIST, IDC_COMP_STEREIZE_MAXDIST_SPIN, 1.0,
-        end,    
+        end,
 
-    plStereizeComp::kMinDist, _T("MinDist"), TYPE_FLOAT,    0, 0,   
+    plStereizeComp::kMinDist, _T("MinDist"), TYPE_FLOAT,    0, 0,
         p_default, 5.0,
         p_range, 1.0, 50.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_STEREIZE_MINDIST, IDC_COMP_STEREIZE_MINDIST_SPIN, 1.0,
-        end,    
+        end,
 
     end
 );
@@ -723,13 +723,13 @@ static plSwivelComponentProc gSwivelProc;
 CLASS_DESC(plSwivelComp, gSwivelDesc, "Swivel",  "Swivel", COMP_TYPE_GRAPHICS, SWIVEL_COMP_CID)
 
 ParamBlockDesc2 gSwivelBk
-(   
+(
     plComponent::kBlkComp, _T("Swivel"), 0, &gSwivelDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_SWIVEL, IDS_COMP_SWIVEL, 0, 0, &gSwivelProc,
 
     plSwivelComp::kFaceTypeRadio, _T("FaceType"),       TYPE_INT,       0, 0,
-        p_ui,       TYPE_RADIO, 4,  IDC_RADIO_CAMERA, IDC_RADIO_LISTENER, IDC_RADIO_PLAYER, IDC_RADIO_OBJECT,   
+        p_ui,       TYPE_RADIO, 4,  IDC_RADIO_CAMERA, IDC_RADIO_LISTENER, IDC_RADIO_PLAYER, IDC_RADIO_OBJECT,
         p_vals,                     plSwivelComp::kFaceCamera, plSwivelComp::kFaceListener, plSwivelComp::kFacePlayer, plSwivelComp::kFaceObject,
         p_default, plSwivelComp::kFacePlayer,
         end,
@@ -750,26 +750,26 @@ ParamBlockDesc2 gSwivelBk
         p_enable_ctrls,     4, plSwivelComp::kOffsetX, plSwivelComp::kOffsetY, plSwivelComp::kOffsetZ, plSwivelComp::kOffsetLocal,
         end,
 
-    plSwivelComp::kOffsetX, _T("X"), TYPE_FLOAT,    0, 0,   
+    plSwivelComp::kOffsetX, _T("X"), TYPE_FLOAT,    0, 0,
         p_default, 0.0,
         p_range, 0.0, 100.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_OFFSETX, IDC_COMP_OFFSETX_SPIN, 1.0,
-        end,    
+        end,
 
-    plSwivelComp::kOffsetY, _T("Y"), TYPE_FLOAT,    0, 0,   
+    plSwivelComp::kOffsetY, _T("Y"), TYPE_FLOAT,    0, 0,
         p_default, 0.0,
         p_range, 0.0, 100.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_OFFSETY, IDC_COMP_OFFSETY_SPIN, 1.0,
-        end,    
+        end,
 
-    plSwivelComp::kOffsetZ, _T("Z"), TYPE_FLOAT,    0, 0,   
+    plSwivelComp::kOffsetZ, _T("Z"), TYPE_FLOAT,    0, 0,
         p_default, 0.0,
         p_range, 0.0, 100.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_OFFSETZ, IDC_COMP_OFFSETZ_SPIN, 1.0,
-        end,    
+        end,
 
     plSwivelComp::kOffsetLocal,  _T("OffsetLocal"), TYPE_BOOL,      0, 0,
         p_default,  TRUE,

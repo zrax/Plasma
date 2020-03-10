@@ -229,7 +229,7 @@ public:
     int GetPrevStage(int curStage);
     plAGAnimInstance *GetAnimInstance() const { return fAnimInstance; };
     bool GetReverseOnIdle() { return fReverseOnIdle; }
-    void SetReverseOnIdle(bool onOff) { fReverseOnIdle = onOff; }   
+    void SetReverseOnIdle(bool onOff) { fReverseOnIdle = onOff; }
     void DumpDebug(bool active, int &x, int &y, int lineHeight, plDebugText &debugTxt);
 
     // STANDARD PLASMA PROTOCOL
@@ -276,7 +276,7 @@ protected:
     uint8_t fSentNotifies;                // which notifies have we sent?
     bool fReverseOnIdle;                // reverse our key interpretation if we stop. this is a special
                                         // case for down ladders, for which the forward button means "keep going down"
-                                        // if you hold it down the whole time, but means "go up" if you press it 
+                                        // if you hold it down the whole time, but means "go up" if you press it
                                         // again after releasing it.
     bool fDone;                         // We've reached the end of the anim -- may be fading out, or paused.
 

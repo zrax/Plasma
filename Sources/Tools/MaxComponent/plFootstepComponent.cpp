@@ -74,7 +74,7 @@ CLASS_DESC(plFootstepSoundComponent, gFootstepSoundDesc, "Avatar FootstepSound",
 static plFootstepSoundComponentProc gFootstepSoundComponentProc;
 
 ParamBlockDesc2 gFootstepSoundBk
-(   
+(
 
     plComponent::kBlkComp, _T("FootstepSound"), 0, &gFootstepSoundDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
@@ -182,11 +182,11 @@ BOOL plFootstepSoundComponentProc::DlgProc(TimeValue t, IParamMap2 *pm, HWND hWn
             {
                 std::vector<Class_ID> cids;
                 cids.push_back(RANDOM_SOUND_COMPONENT_ID);
-                if (plPick::NodeRefKludge(pb, plFootstepSoundComponent::kNodePicker, &cids, true, false))           
+                if (plPick::NodeRefKludge(pb, plFootstepSoundComponent::kNodePicker, &cids, true, false))
                 {
                     curPick = pb->GetINode(ParamID(plFootstepSoundComponent::kNodePicker));
                     curSurface = pb->GetInt(ParamID(plFootstepSoundComponent::kSurface));
-                    pb->SetValue(ParamID(plFootstepSoundComponent::kSurfaceList), 0, curPick, curSurface); 
+                    pb->SetValue(ParamID(plFootstepSoundComponent::kSurfaceList), 0, curPick, curSurface);
                     Button_SetText(hPick, (curPick == nil ? "None" : curPick->GetName()));
                 }
             

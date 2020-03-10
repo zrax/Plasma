@@ -74,7 +74,7 @@ plRefMsg& plRefMsg::SetRef(hsKeyedObject* ref)
 plRefMsg& plRefMsg::SetOldRef(hsKeyedObject* oldRef)
 {
     fOldRef = oldRef;
-    // Ref here! 
+    // Ref here!
     return *this;
 }
 

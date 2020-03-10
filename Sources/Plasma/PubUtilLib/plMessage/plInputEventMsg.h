@@ -71,7 +71,7 @@ public:
 
     int fEvent;
     
-    // IO 
+    // IO
     void Read(hsStream* stream, hsResMgr* mgr);
     void Write(hsStream* stream, hsResMgr* mgr);
 
@@ -93,8 +93,8 @@ protected:
 public:
 
     plControlEventMsg();
-    plControlEventMsg(const plKey &s, 
-                    const plKey &r, 
+    plControlEventMsg(const plKey &s,
+                    const plKey &r,
                     const double* t);
     ~plControlEventMsg();
 
@@ -137,8 +137,8 @@ public:
 
     
     plKeyEventMsg();
-    plKeyEventMsg(const plKey &s, 
-                    const plKey &r, 
+    plKeyEventMsg(const plKey &s,
+                    const plKey &r,
                     const double* t);
     ~plKeyEventMsg();
 
@@ -199,8 +199,8 @@ public:
 
     
     plDebugKeyEventMsg();
-    plDebugKeyEventMsg(const plKey &s, 
-                    const plKey &r, 
+    plDebugKeyEventMsg(const plKey &s,
+                    const plKey &r,
                     const double* t);
     ~plDebugKeyEventMsg();
 
@@ -248,11 +248,11 @@ public:
     float   fX;
     int     fWx;
     
-    plIMouseXEventMsg() : 
+    plIMouseXEventMsg() :
     fX(0),fWx(0) {}
-    plIMouseXEventMsg(const plKey &s, 
-                    const plKey &r, 
-                    const double* t) : 
+    plIMouseXEventMsg(const plKey &s,
+                    const plKey &r,
+                    const double* t) :
     fX(0),fWx(0) {}
     ~plIMouseXEventMsg(){}
 
@@ -281,11 +281,11 @@ public:
     float   fY;
     int     fWy;
 
-    plIMouseYEventMsg() : 
+    plIMouseYEventMsg() :
     fY(0),fWy(0) {}
-    plIMouseYEventMsg(const plKey &s, 
-                    const plKey &r, 
-                    const double* t) : 
+    plIMouseYEventMsg(const plKey &s,
+                    const plKey &r,
+                    const double* t) :
     fY(0),fWy(0) {}
     ~plIMouseYEventMsg(){}
 
@@ -312,11 +312,11 @@ class plIMouseBEventMsg : public plInputEventMsg
 public:
     short   fButton;
 
-    plIMouseBEventMsg() : 
+    plIMouseBEventMsg() :
     fButton(0) {}
-    plIMouseBEventMsg(const plKey &s, 
-                    const plKey &r, 
-                    const double* t) : 
+    plIMouseBEventMsg(const plKey &s,
+                    const plKey &r,
+                    const double* t) :
     fButton(0) {}
     ~plIMouseBEventMsg(){}
 
@@ -353,8 +353,8 @@ protected:
 
 public:
     plMouseEventMsg();
-    plMouseEventMsg(const plKey &s, 
-                    const plKey &r, 
+    plMouseEventMsg(const plKey &s,
+                    const plKey &r,
                     const double* t);
     ~plMouseEventMsg();
 

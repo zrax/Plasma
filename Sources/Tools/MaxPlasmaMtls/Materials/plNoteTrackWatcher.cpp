@@ -122,7 +122,7 @@ RefResult plNoteTrackWatcher::NotifyRefChanged(Interval changeInt, RefTargetHand
                     if( fNoteTrackCount > oldCount )
                         // Yes, notify parent.
                         fParentMtl->NoteTrackAdded();
-                    else 
+                    else
                         // Deletion, also notify parent
                         fParentMtl->NoteTrackRemoved();
                 }

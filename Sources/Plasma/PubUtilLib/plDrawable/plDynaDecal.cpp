@@ -70,7 +70,7 @@ bool plDynaSplot::Age(double t, float ramp, float decay, float life)
     {
         fFlags &= ~kFresh;
     }
-    else 
+    else
     {
         return false;
     }
@@ -84,7 +84,7 @@ bool plDynaSplot::Age(double t, float ramp, float decay, float life)
         while( n-- )
         {
             uint32_t diff = uint32_t(origUVW->fZ * atten * 255.99f);
-            vtx->fDiffuse = 0xff000000 
+            vtx->fDiffuse = 0xff000000
                 | (diff << 16)
                 | (diff << 8)
                 | diff;
@@ -162,7 +162,7 @@ bool plDynaRipple::Age(double t, float ramp, float decay, float life)
         while( n-- )
         {
             uint32_t diff = uint32_t(origUVW->fZ * atten * 255.99f);
-            vtx->fDiffuse = 0xff000000 
+            vtx->fDiffuse = 0xff000000
                 | (diff << 16)
                 | (diff << 8)
                 | diff;
@@ -242,7 +242,7 @@ bool plDynaWake::Age(double t, float ramp, float decay, float life)
         while( n-- )
         {
             uint32_t diff = uint32_t(origUVW->fZ * atten * 255.99f);
-            vtx->fDiffuse = 0xff000000 
+            vtx->fDiffuse = 0xff000000
                 | (diff << 16)
                 | (diff << 8)
                 | diff;
@@ -322,7 +322,7 @@ bool plDynaWave::Age(double t, float ramp, float decay, float life)
         while( n-- )
         {
             uint32_t diff = uint32_t(origUVW->fZ * atten * 255.99f);
-            vtx->fDiffuse = 0xff000000 
+            vtx->fDiffuse = 0xff000000
                 | (diff << 16)
                 | (diff << 8)
                 | diff;

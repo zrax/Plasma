@@ -52,7 +52,7 @@ plClipboard& plClipboard::GetInstance()
     return theInstance;
 }
 
-bool plClipboard::IsTextInClipboard() 
+bool plClipboard::IsTextInClipboard()
 {
 #ifdef HS_BUILD_FOR_WIN32
     return ::IsClipboardFormatAvailable(CF_UNICODETEXT);
@@ -63,7 +63,7 @@ bool plClipboard::IsTextInClipboard()
 
 ST::string plClipboard::GetClipboardText()
 {
-    if (!IsTextInClipboard()) 
+    if (!IsTextInClipboard())
         return ST::null;
 
 #ifdef HS_BUILD_FOR_WIN32
@@ -76,13 +76,13 @@ ST::string plClipboard::GetClipboardText()
 
     ST::string result = ST::string::from_wchar(clipboardDataPtr, size);
 
-    ::GlobalUnlock(clipboardData);	
+    ::GlobalUnlock(clipboardData);
     ::CloseClipboard();
 
     return result;
 #else
     return ST::null;
-#endif	
+#endif
 }
 
 void plClipboard::SetClipboardText(const ST::string& text)
@@ -93,7 +93,7 @@ void plClipboard::SetClipboardText(const ST::string& text)
     ST::wchar_buffer buf = text.to_wchar();
     size_t len = buf.size();
 
-    if (len == 0) 
+    if (len == 0)
         return;
 
     std::unique_ptr<void, HGLOBAL(WINAPI*)(HGLOBAL)> copy(::GlobalAlloc(GMEM_MOVEABLE, (len + 1) * sizeof(wchar_t)), ::GlobalFree);

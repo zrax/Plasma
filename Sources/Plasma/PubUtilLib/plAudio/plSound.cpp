@@ -158,7 +158,7 @@ void plSound::IUpdateDebugPlate()
 
         fDebugPlate->SetTitle(GetKeyName().c_str());      // Bleah
         fDebugPlate->SetVisible( true );
-        fDebugPlate->AddData( (int32_t)( fDesiredVol * 100.f ), 
+        fDebugPlate->AddData( (int32_t)( fDesiredVol * 100.f ),
                               (int32_t)( fCurrVolume * 100.f ),
                               (int32_t)( fSoftVolume * 100.f ),
                               (int32_t)( fDistAttenuation * 100.f ) );
@@ -217,7 +217,7 @@ void plSound::FastForwardToggle()
 //  Our basic play function. Marks the sound as playing, and if we're actually
 //  allowed to play, will actually start the sound playing as well.
 void plSound::Play()
-{   
+{
     if(fLoading)    // if we are loading there is no reason to do this. Play will be called, by Update(), once the data is loaded and this floag is set to false
         return;
 
@@ -307,7 +307,7 @@ void plSound::SynchedPlay( float virtualStartTime )
 ////////////////////////////////////////////////////////////////
 //  Only want to do the fade hack when somebody outside synch()s us.
 void plSound::ISynchedPlay( double virtualStartTime )
-{   
+{
     if(fLoading)    // the sound is loading, it will be played when loading is finished
         return;
 
@@ -352,7 +352,7 @@ void plSound::ISynchToStartTime()
     if( deltaTime > length || deltaTime < 0 )
     {
         // Hmm, our time went past the length of sound, so handle that
-        if( IsPropertySet( kPropLooping ) ) 
+        if( IsPropertySet( kPropLooping ) )
         {
             if( length <= 0 )
                 deltaTime = 0;      // Error, attempt to recover
@@ -380,7 +380,7 @@ void plSound::ISynchToStartTime()
         //ISetActualTime( deltaTime );
         Play();
     }
-} 
+}
 
 void plSound::SetPosition(const hsPoint3 pos)
 {
@@ -486,7 +486,7 @@ void plSound::Stop()
     fPlaying = false;
 
     // if the audio data is loading while stop is called we need to make sure the sounds doesn't play, and the data is unloaded.
-    fPlayOnReactivate = false;  
+    fPlayOnReactivate = false;
     fFreeData = true;
     
     // Do we have an ending fade?
@@ -518,10 +518,10 @@ void plSound::IActuallyStop()
     }
 }
 
-void plSound::Update() 
+void plSound::Update()
 {
     if(fLoading)
-    {       
+    {
         plSoundBuffer::ELoadReturnVal retVal = IPreLoadBuffer(fPlayWhenLoaded);
         
         if(retVal == plSoundBuffer::kError)
@@ -600,7 +600,7 @@ void plSound::IStopFade( bool shuttingDown, bool SetVolEnd)
         }
 
         // This can cause problems if we've exited a soft region and are doing a soft volume fade.
-        // If the camera pops back into the region of this particular sound this will cause the soft volume to be zero, 
+        // If the camera pops back into the region of this particular sound this will cause the soft volume to be zero,
         // therefore not allowing the sound to play until the listener moves again(triggering another softsound update).
         // So if this function is called from UpdateSoftSounds this will not be performed
         if(SetVolEnd)
@@ -670,7 +670,7 @@ bool plSound::MsgReceive( plMessage* pMsg )
             // Done with this one!
             fCurrFadeParams = nil;
             fFading = false;
-        }   
+        }
         else
         {
             // Gotta interp
@@ -739,7 +739,7 @@ bool plSound::MsgReceive( plMessage* pMsg )
 
     plSoundMsg *pSoundMsg = plSoundMsg::ConvertNoRef( pMsg );
     if( pSoundMsg != nil )
-    {   
+    {
         if( pSoundMsg->Cmd( plSoundMsg::kAddCallbacks ) )
         {
             AddCallbacks( pSoundMsg );
@@ -803,7 +803,7 @@ bool plSound::ILoadDataBuffer()
     return true;
 }
 
-void plSound::FreeSoundData() 
+void plSound::FreeSoundData()
 {
     if(!fDataBufferKey) return; // for plugins
     plSoundBuffer *buffer = (plSoundBuffer *) fDataBufferKey->ObjectIsLoaded();
@@ -940,7 +940,7 @@ float plSound::CalcSoftVolume( bool enable, float distToListenerSquared )
     else
         fDistAttenuation = 1.f;
 #endif
-    // At the last 50% of our distance attenuation (squared, so it really is farther than that), 
+    // At the last 50% of our distance attenuation (squared, so it really is farther than that),
     // ramp down to 0 so we don't get annoying popping when we stop stuff
     if( IsPropertySet( kPropIs3DSound ) )
     {
@@ -999,7 +999,7 @@ float plSound::GetVolumeRank()
         if( fDistToListenerSquared > minDistSquared )
         {
             float diff = maxDistSquared - minDistSquared;
-            rank *= fabs((fDistToListenerSquared - maxDistSquared)) / diff;  
+            rank *= fabs((fDistToListenerSquared - maxDistSquared)) / diff;
         }
     }
 
@@ -1048,7 +1048,7 @@ bool plSound::IsWithinRange( const hsPoint3 &listenerPos, float *distSquared )
 
 
 //// ////////////////////////////////////////////////////////
-//  Once the soft volume is calculated and our rank is computed, we can 
+//  Once the soft volume is calculated and our rank is computed, we can
 //  decide whether to actually enable or not.
 //  Note: we might have been "enabled" by our Calc call, but the ranking
 //  still could have disabled us, so we have to specify again whether
@@ -1076,7 +1076,7 @@ void plSound::UpdateSoftVolume( bool enable, bool firstTime )
                 // Must've been stopped from being out of range. Start up again...
 
                 // Synch up to our start time.
-                // If this sound is auto starting and is background music, get the current time so we don't start 
+                // If this sound is auto starting and is background music, get the current time so we don't start
                 // with the play cursor already into the piece.
                 if(IsPropertySet(kPropAutoStart) && fType == kBackgroundMusic) fVirtualStartTime = hsTimer::GetSysSeconds();
                 ISynchedPlay( fVirtualStartTime );
@@ -1084,7 +1084,7 @@ void plSound::UpdateSoftVolume( bool enable, bool firstTime )
         }
         else if( fCurrFadeParams != &fCoolSoftVolumeTrickParams && IActuallyPlaying() )
         {
-            // Start our special trick, courtesy of Brice. Basically, we don't 
+            // Start our special trick, courtesy of Brice. Basically, we don't
             // stop the sound immediately, but rather let it get to the end of
             // the sound and loop once more. This way, if we go away and come back soon
             // enough, it will be continuing as we expect it to, but if we wait long enough,
@@ -1231,8 +1231,8 @@ void plSound::Read(hsStream* s, hsResMgr* mgr)
         // Loading on demand, but we still need the length. But that's ok, we'll get it when we get the fDataBuffer ref.
         // But we want to preload the data, so go ahead and do that
         if( !fLoadFromDiskOnDemand && !IsPropertySet( kPropLoadOnlyOnCall ) && fPriority <= plgAudioSys::GetPriorityCutoff())
-        {           
-            IPreLoadBuffer(false);          
+        {
+            IPreLoadBuffer(false);
         }
     }
 }
@@ -1413,10 +1413,10 @@ plDrawableSpans* plSound::CreateProxy(const hsMatrix44& l2w, hsGMaterial* mat, h
         if( fInnerCone < 180 )
             len = -len;
         myDraw = plDrawableGenerator::GenerateConicalDrawable(
-            radius, 
-            len, 
-            mat, 
-            l2w, 
+            radius,
+            len,
+            mat,
+            l2w,
             true,
             &hsColorRGBA().Set(1.f, 0.5f, 0.5f, 1.f),
             &idx,
@@ -1429,10 +1429,10 @@ plDrawableSpans* plSound::CreateProxy(const hsMatrix44& l2w, hsGMaterial* mat, h
             len = -len;
 
         myDraw = plDrawableGenerator::GenerateConicalDrawable(
-            radius, 
-            len, 
-            mat, 
-            l2w, 
+            radius,
+            len,
+            mat,
+            l2w,
             true,
             &hsColorRGBA().Set(0.25f, 0.25f, 0.5f, 1.f),
             &idx,
@@ -1441,20 +1441,20 @@ plDrawableSpans* plSound::CreateProxy(const hsMatrix44& l2w, hsGMaterial* mat, h
     else
     {
         myDraw = plDrawableGenerator::GenerateSphericalDrawable(
-            hsPoint3(0,0,0), 
-            (float)GetMin(), 
-            mat, 
-            l2w, 
+            hsPoint3(0,0,0),
+            (float)GetMin(),
+            mat,
+            l2w,
             true,
             &hsColorRGBA().Set(1.f, 0.5f, 0.5f, 1.f),
             &idx,
             myDraw);
 
         myDraw = plDrawableGenerator::GenerateSphericalDrawable(
-            hsPoint3(0,0,0), 
-            (float)GetMax(), 
-            mat, 
-            l2w, 
+            hsPoint3(0,0,0),
+            (float)GetMax(),
+            mat,
+            l2w,
             true,
             &hsColorRGBA().Set(0.25f, 0.25f, 0.5f, 1.f),
             &idx,

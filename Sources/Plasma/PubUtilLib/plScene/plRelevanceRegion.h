@@ -53,7 +53,7 @@ class plRelevanceRegion : public plObjInterface
 
 protected:
     plRegionBase *fRegion;
-    hsBitVector fRegionsICareAbout;     
+    hsBitVector fRegionsICareAbout;
     uint32_t fMgrIdx;
     
 public:
@@ -66,7 +66,7 @@ public:
     virtual bool MsgReceive(plMessage* msg);
     
     virtual void SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l) {}
-    virtual int32_t GetNumProperties() const { return 1; }    
+    virtual int32_t GetNumProperties() const { return 1; }
     
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

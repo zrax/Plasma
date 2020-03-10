@@ -126,7 +126,7 @@ void    pfGUIDialogMod::ScreenToWorldPoint( float x, float y, float z, hsPoint3 
 }
 
 //// WorldToScreenPoint //////////////////////////////////////////////////////
-//  Given a point in world-space, translates it into screen coordinates 
+//  Given a point in world-space, translates it into screen coordinates
 //  (with range 0-1, origin top-left).
 
 hsPoint3    pfGUIDialogMod::WorldToScreenPoint( const hsPoint3 &inPt )
@@ -307,7 +307,7 @@ void    pfGUIDialogMod::Read( hsStream *s, hsResMgr *mgr )
     if( mgrKey )
     {
         plGenRefMsg *refMsg = new plGenRefMsg( mgrKey, plRefMsg::kOnCreate, 0, pfGameGUIMgr::kDlgModRef );
-        hsgResMgr::ResMgr()->AddViaNotify( GetKey(), refMsg, plRefFlags::kPassiveRef );     
+        hsgResMgr::ResMgr()->AddViaNotify( GetKey(), refMsg, plRefFlags::kPassiveRef );
     }
 
     s->ReadLE( &fTagID );
@@ -777,11 +777,11 @@ void    pfGUIDialogMod::EnterDragMode( pfGUIControlMod *source )
 }
 
 //// IHandleDrag /////////////////////////////////////////////////////////////
-//  Oooh, we're in dragging-list-elements-around mode! So completely ignore 
-//  the normal way we do things; what we need to do is wait until the mouse 
+//  Oooh, we're in dragging-list-elements-around mode! So completely ignore
+//  the normal way we do things; what we need to do is wait until the mouse
 //  button is up, all the while testing to see if the control we're on top of
 //  is capable of receiving the elements we have. Once the mouse button is let
-//  up, if the control is indeed receptive, we call its drag handler for each 
+//  up, if the control is indeed receptive, we call its drag handler for each
 //  of our elements, and either way, exit drag mode.
 
 void    pfGUIDialogMod::IHandleDrag( hsPoint3 &mousePoint, pfGameGUIMgr::EventType event, uint8_t modifiers )
@@ -833,14 +833,14 @@ void    pfGUIDialogMod::IHandleDrag( hsPoint3 &mousePoint, pfGameGUIMgr::EventTy
             for( i = 0; i < fDragElements.GetCount(); i++ )
                 dropProc->Eat( fDragElements[ i ], fDragSource, fDragTarget );
         }
-    }   
+    }
 }
 
 //// GetDesiredCursor ////////////////////////////////////////////////////////
 
 uint32_t      pfGUIDialogMod::GetDesiredCursor() const
 {
-    if( fMousedCtrl != nil ) 
+    if( fMousedCtrl != nil )
         return fMousedCtrl->IGetDesiredCursor();
 
     return 0;

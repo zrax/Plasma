@@ -93,8 +93,8 @@ const char* plNetServerConstants::ServerPrograms[] =
 //
 // STATIC
 //
-const char* plNetServerConstants::GetServerName(int type) 
-{ 
+const char* plNetServerConstants::GetServerName(int type)
+{
     switch(type)
     {
     default:
@@ -120,7 +120,7 @@ const char* plNetServerConstants::GetServerName(int type)
 }
 
 uint16_t plNetServerConstants::GetPort(int type)
-{ 
+{
     switch(type)
     {
     default:

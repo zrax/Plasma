@@ -63,7 +63,7 @@ protected:
     bool fCanConvertToType;
     IParamBlock2 *fPB;
     int fNodeListID;
-    std::vector<Class_ID> fCIDs;    
+    std::vector<Class_ID> fCIDs;
     bool fRefKludge;
     plComponentBase *fComp;
     Mtl* fMtl;
@@ -104,7 +104,7 @@ plPickNodeMax::plPickNodeMax(IParamBlock2 *pb, int nodeListID, std::vector<Class
   fPB(pb), fNodeListID(nodeListID), fSingle(single), fCanConvertToType(canConvertToType), fRefKludge(false), fComp(nil), fMtl(nil)
 {
     if (cids)
-        fCIDs = *cids; 
+        fCIDs = *cids;
 }
 
 TCHAR *plPickNodeMax::dialogTitle()

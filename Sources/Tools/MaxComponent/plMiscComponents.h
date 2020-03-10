@@ -102,7 +102,7 @@ public:
     };
 
     static char *GetCurrExportAgeName() { return (char *)&fCurrExportedAge; }
-    static void NotifyProc(void *param, NotifyInfo *info);  
+    static void NotifyProc(void *param, NotifyInfo *info);
 };
 
 //Class that accesses the paramblock below.

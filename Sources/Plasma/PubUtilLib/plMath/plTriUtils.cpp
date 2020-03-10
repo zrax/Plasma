@@ -53,8 +53,8 @@ static const float kAlmostZeroSquared = kAlmostZero*kAlmostZero;
 
 static inline hsVector3 Cross(const hsScalarTriple& p0, const hsScalarTriple& p1)
 {
-    return hsVector3(p0.fY * p1.fZ - p0.fZ * p1.fY, 
-                    p0.fZ * p1.fX - p0.fX * p1.fZ, 
+    return hsVector3(p0.fY * p1.fZ - p0.fZ * p1.fY,
+                    p0.fZ * p1.fX - p0.fX * p1.fZ,
                     p0.fX * p1.fY - p0.fY * p1.fX);
 }
 
@@ -121,7 +121,7 @@ plTriUtils::Bary plTriUtils::IComputeBarycentric(const hsVector3& v12, float inv
     {
         out[0] = lenSq0 * invLenSq12;
         out[0] = sqrt(out[0]);
-        // 
+        //
         if( v0.InnerProduct(v12) < 0 )
         {
             out[0] = -out[0];

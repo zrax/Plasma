@@ -95,7 +95,7 @@ void plMaxNodeBase::SetMaxNodeData(plMaxNodeData * pdat)
             pDataChunk->DeInit();
         }
         RemoveAppDataChunk(PLASMA_MAX_CLASSID, GUP_CLASS_ID, kPlasmaMaxNodeDataChunk);
-        return;     
+        return;
     }
 
     if (!adc)
@@ -196,7 +196,7 @@ plMaxNodeBase*  plMaxNodeBase::GetBone(int i)                       { GetMD; ret
 // Set Data from MaxNodeData
 //------------------------------
 void            plMaxNodeBase::SetCanConvert(bool b)              { GetMD; pMD->SetCanConvert(b);         }
-void            plMaxNodeBase::SetMesh(hsGMesh *p)                  { GetMD; pMD->SetMesh(p);               }       
+void            plMaxNodeBase::SetMesh(hsGMesh *p)                  { GetMD; pMD->SetMesh(p);               }
 void            plMaxNodeBase::SetRoomKey(plKey p)                  { GetMD; pMD->SetRoomKey(p);            }
 void            plMaxNodeBase::SetDrawable(bool b)                { GetMD; pMD->SetDrawable(b);           }
 void            plMaxNodeBase::SetPhysical(bool b)                { GetMD; pMD->SetPhysical(b);           }
@@ -312,12 +312,12 @@ bool plMaxNodeBase::RenderDependsOn(plMaxNodeBase* m)
     return false;
 }
 
-bool plMaxNodeBase::AddRenderDependency(plMaxNodeBase* m) 
-{ 
+bool plMaxNodeBase::AddRenderDependency(plMaxNodeBase* m)
+{
     if( m->RenderDependsOn(this) )
         return false;
-    GetMD; 
-    pMD->AddRenderDependency(m); 
+    GetMD;
+    pMD->AddRenderDependency(m);
     return true;
 }
 
@@ -359,7 +359,7 @@ bool plMaxNodeBase::CanConvert(bool recalculate)
             || obj->ClassID() == Class_ID(UTILITY_CLASS_ID, 0)      // All Camera targets are accepted here
             || (  obj->ClassID() ==  RTOMNI_LIGHT_CLASSID
                 || obj->ClassID() == RTSPOT_LIGHT_CLASSID
-                || obj->ClassID() == RTDIR_LIGHT_CLASSID 
+                || obj->ClassID() == RTDIR_LIGHT_CLASSID
                 || obj->ClassID() == RTPDIR_LIGHT_CLASSID )
             || (  obj->SuperClassID() == LIGHT_CLASS_ID     // All run time lights are accepted here
                && UserPropExists("RunTimeLight"))
@@ -426,14 +426,14 @@ bool plMaxNodeBase::IsMovable()
 
 // Recursively set so we don't have to recursively check.
 void plMaxNodeBase::SetItinerant(bool b)
-{ 
+{
     const char* dbgNodeName = GetName();
 
     if( !CanConvert() )
         return;
 
-    GetMD; 
-    pMD->SetItinerant(b);           
+    GetMD;
+    pMD->SetItinerant(b);
 
     int i;
     for( i = 0; i < NumChildren(); i++ )
@@ -733,7 +733,7 @@ plRenderLevel plMaxNodeBase::ICalcRenderLevel(bool forBlend)
 
     int numDep = NumRenderDependencies();
     if( !numDep )
-        return forBlend 
+        return forBlend
             ? plRenderLevel(plRenderLevel::kBlendRendMajorLevel, plRenderLevel::kDefRendMinorLevel)
             : plRenderLevel(plRenderLevel::kDefRendMajorLevel, plRenderLevel::kDefRendMinorLevel);
 
@@ -1124,8 +1124,8 @@ Matrix3 plMaxNodeBase::GetVertToLocal(TimeValue t)
     // objectTM = v2l * l2p * parentL2W
     // objectTM * Inverse(parentL2W) = v2l * l2p
     // objectTM * parentW2L = v2l (w/ l2p folded in)
-    // 
-    // Objects transformation ObjectTM = OTM * nodeTM 
+    //
+    // Objects transformation ObjectTM = OTM * nodeTM
     objectTM = GetObjectTM(t);
 
     Matrix3 w2p(true);

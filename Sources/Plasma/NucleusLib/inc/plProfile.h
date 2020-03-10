@@ -211,7 +211,7 @@ protected:
     void IBeginTiming();
     void IEndTiming();
     
-    void IBeginLap(const char* lapName); 
+    void IBeginLap(const char* lapName);
     void IEndLap(const char* lapName);
 
 public:
@@ -232,7 +232,7 @@ public:
 
     void Set(uint64_t value) { fValue = value; }
 
-    // 
+    //
     // For multiple timings per frame of the same thing ie. Each particle system
     //
     // Will output to log like

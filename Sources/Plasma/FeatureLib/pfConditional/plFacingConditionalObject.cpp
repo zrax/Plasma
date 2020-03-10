@@ -82,7 +82,7 @@ bool plFacingConditionalObject::Verify(plMessage* msg)
 {
     plActivatorMsg* pActivateMsg = plActivatorMsg::ConvertNoRef(msg);
     if (pActivateMsg && pActivateMsg->fHitterObj)
-    {   
+    {
         plSceneObject* pPlayer = plSceneObject::ConvertNoRef(pActivateMsg->fHitterObj->ObjectIsLoaded());
         if (pPlayer)
         {
@@ -100,7 +100,7 @@ bool plFacingConditionalObject::Verify(plMessage* msg)
             if (dot >= fTolerance)
             {
                 fLogicMod->GetNotify()->AddFacingEvent( pActivateMsg->fHitterObj, fLogicMod->GetTarget()->GetKey(), dot, true);
-                return true;            
+                return true;
             }
             else
             {
@@ -132,7 +132,7 @@ bool plFacingConditionalObject::Verify(plMessage* msg)
             float dot = playerView * ourView;
             if (dot >= fTolerance)
             {
-                return true;            
+                return true;
             }
             else
             {

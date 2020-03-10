@@ -55,11 +55,11 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 static const float kMinMinZ = 1.f; // totally random arbitrary number (has to be > 0).
 
-static inline void QuickNorm( hsVector3& a, float& b ) 
-{ 
-    float len = hsFastMath::InvSqrtAppr((a).MagnitudeSquared()); 
-    a *= len; 
-    b *= len; 
+static inline void QuickNorm( hsVector3& a, float& b )
+{
+    float len = hsFastMath::InvSqrtAppr((a).MagnitudeSquared());
+    a *= len;
+    b *= len;
 }
 
 static inline hsVector3 CrossProd(const hsVector3& a, const hsPoint3& b)

@@ -89,7 +89,7 @@ public:
 
     plLayerTex();
     ~plLayerTex();
-    void DeleteThis() { delete this; }      
+    void DeleteThis() { delete this; }
 
     //From MtlBase
     ParamDlg* CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp);
@@ -131,19 +131,19 @@ public:
     IOResult Save(ISave *isave);
 
     //From Animatable
-    Class_ID ClassID() { return LAYER_TEX_CLASS_ID; }       
+    Class_ID ClassID() { return LAYER_TEX_CLASS_ID; }
     SClass_ID SuperClassID() { return TEXMAP_CLASS_ID; }
     void GetClassName(TSTR& s);
 
     RefTargetHandle Clone( RemapDir &remap );
-    RefResult NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, 
+    RefResult NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
         PartID& partID,  RefMessage message);
 
     int NumSubs();
-    Animatable* SubAnim(int i); 
+    Animatable* SubAnim(int i);
     TSTR SubAnimName(int i);
 
-    // TODO: Maintain the number or references here 
+    // TODO: Maintain the number or references here
     int NumRefs();
     RefTargetHandle GetReference(int i);
     void SetReference(int i, RefTargetHandle rtarg);
@@ -159,7 +159,7 @@ public:
     
     // Accessors needed by the base class for the various bitmap related elements
     virtual Bitmap *GetMaxBitmap(int index = 0) { return fBM; }
-    virtual PBBitmap *GetPBBitmap( int index = 0 ); 
+    virtual PBBitmap *GetPBBitmap( int index = 0 );
     virtual int     GetNumBitmaps() { return 1; }
 
     // Virtual function called by plBMSampler to get various things while sampling the layer's image
@@ -169,7 +169,7 @@ public:
     virtual void SetExportSize(int x, int y);
     
 protected:
-    virtual void ISetPBBitmap( PBBitmap *pbbm, int index = 0 ); 
+    virtual void ISetPBBitmap( PBBitmap *pbbm, int index = 0 );
     virtual void ISetMaxBitmap(Bitmap *bitmap, int index = 0) { fBM = bitmap; }
 
 };

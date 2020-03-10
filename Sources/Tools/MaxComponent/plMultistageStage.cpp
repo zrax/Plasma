@@ -377,14 +377,14 @@ void plStandardStage::IInitDlg()
     HWND hRegress = GetDlgItem(fDlg, IDC_REGRESS);
     LoadCombo(hRegress, gRegress, sizeof(gRegress), fStageRegress);
 
-    CheckDlgButton(fDlg, IDC_CHECK_ENTER, (fNotify & plAnimStage::kNotifyEnter) ? BST_CHECKED : BST_UNCHECKED); 
-    CheckDlgButton(fDlg, IDC_CHECK_LOOP, (fNotify & plAnimStage::kNotifyLoop) ? BST_CHECKED : BST_UNCHECKED); 
-    CheckDlgButton(fDlg, IDC_CHECK_ADVANCE, (fNotify & plAnimStage::kNotifyAdvance) ? BST_CHECKED : BST_UNCHECKED); 
-    CheckDlgButton(fDlg, IDC_CHECK_REGRESS, (fNotify & plAnimStage::kNotifyRegress) ? BST_CHECKED : BST_UNCHECKED); 
+    CheckDlgButton(fDlg, IDC_CHECK_ENTER, (fNotify & plAnimStage::kNotifyEnter) ? BST_CHECKED : BST_UNCHECKED);
+    CheckDlgButton(fDlg, IDC_CHECK_LOOP, (fNotify & plAnimStage::kNotifyLoop) ? BST_CHECKED : BST_UNCHECKED);
+    CheckDlgButton(fDlg, IDC_CHECK_ADVANCE, (fNotify & plAnimStage::kNotifyAdvance) ? BST_CHECKED : BST_UNCHECKED);
+    CheckDlgButton(fDlg, IDC_CHECK_REGRESS, (fNotify & plAnimStage::kNotifyRegress) ? BST_CHECKED : BST_UNCHECKED);
 
     ISpinnerControl *spin = SetupIntSpinner(fDlg, IDC_NUM_LOOPS_SPIN, IDC_NUM_LOOPS_EDIT, 0, 10000, fNumLoops);
 
-    CheckDlgButton(fDlg, IDC_LOOP_FOREVER, fLoopForever ? BST_CHECKED : BST_UNCHECKED); 
+    CheckDlgButton(fDlg, IDC_LOOP_FOREVER, fLoopForever ? BST_CHECKED : BST_UNCHECKED);
     if (fLoopForever)
         spin->Disable();
 
@@ -398,7 +398,7 @@ void plStandardStage::IInitDlg()
     if (! fDoRegressTo)
         spin->Disable();
 
-    CheckDlgButton(fDlg, IDC_GLOBAL_COORD, fUseGlobalCoord ? BST_CHECKED : BST_UNCHECKED); 
+    CheckDlgButton(fDlg, IDC_GLOBAL_COORD, fUseGlobalCoord ? BST_CHECKED : BST_UNCHECKED);
 }
 
 plAnimStage* plStandardStage::CreateStage()

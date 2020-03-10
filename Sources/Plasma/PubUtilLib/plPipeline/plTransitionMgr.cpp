@@ -261,7 +261,7 @@ bool    plTransitionMgr::MsgReceive( plMessage* msg )
             // Problem is the loading all happens in one really long frame, so that
             // if we record the time we started, we'll instantly be done next frame,
             // even though we triggered just at the "end" of the last frame.
-            // 
+            //
             // So instead we don't start the clock until we get our first plTimeMsg.
 
             
@@ -356,7 +356,7 @@ bool    plTransitionMgr::MsgReceive( plMessage* msg )
 
                 fHoldAtEnd = false;
                 IStartFadeIn( kScreenFadeTime );
-            }   
+            }
 
             if (link->HasLinkFlag(plLinkEffectBCMsg::kSendCallback))
             {

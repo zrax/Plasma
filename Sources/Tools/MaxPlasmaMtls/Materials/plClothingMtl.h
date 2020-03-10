@@ -94,7 +94,7 @@ public:
         kTileset,
         kTexmap,
         kDescription,
-        kThumbnail, 
+        kThumbnail,
         kLayer,
         kTexmapSkin,
         kTexmap2,
@@ -147,7 +147,7 @@ public:
     void DeleteThis() { delete this; }
 
     //From Animatable
-    Class_ID ClassID() { return CLOTHING_MTL_CLASS_ID; }        
+    Class_ID ClassID() { return CLOTHING_MTL_CLASS_ID; }
     SClass_ID SuperClassID() { return MATERIAL_CLASS_ID; }
     void GetClassName(TSTR& s);
 
@@ -164,8 +164,8 @@ public:
     // Shade and displacement calculation
     void Shade(ShadeContext& sc);
     void ShadeWithBackground(ShadeContext &sc, Color background);
-    float EvalDisplacement(ShadeContext& sc); 
-    Interval DisplacementValidity(TimeValue t);     
+    float EvalDisplacement(ShadeContext& sc);
+    Interval DisplacementValidity(TimeValue t);
 
     // SubTexmap access methods
     int NumSubTexmaps();
@@ -181,11 +181,11 @@ public:
     IOResult Save(ISave *isave);
 
     RefTargetHandle Clone( RemapDir &remap );
-    RefResult NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, 
+    RefResult NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
         PartID& partID,  RefMessage message);
 
     int NumSubs() { return 0; }
-    Animatable* SubAnim(int i) { return nil; } 
+    Animatable* SubAnim(int i) { return nil; }
     TSTR SubAnimName(int i) { return ""; }
 
     int NumRefs();
@@ -198,15 +198,15 @@ public:
 
 
     // From MtlBase and Mtl
-    void SetAmbient(Color c, TimeValue t);      
-    void SetDiffuse(Color c, TimeValue t);      
+    void SetAmbient(Color c, TimeValue t);
+    void SetDiffuse(Color c, TimeValue t);
     void SetSpecular(Color c, TimeValue t);
     void SetShininess(float v, TimeValue t);
     Color GetAmbient(int mtlNum=0, BOOL backFace=FALSE);
     Color GetDiffuse(int mtlNum=0, BOOL backFace=FALSE);
     Color GetSpecular(int mtlNum=0, BOOL backFace=FALSE);
     float GetXParency(int mtlNum=0, BOOL backFace=FALSE);
-    float GetShininess(int mtlNum=0, BOOL backFace=FALSE);      
+    float GetShininess(int mtlNum=0, BOOL backFace=FALSE);
     float GetShinStr(int mtlNum=0, BOOL backFace=FALSE);
     float WireSize(int mtlNum=0, BOOL backFace=FALSE);
 

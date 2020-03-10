@@ -174,7 +174,7 @@ plKey Responder::GetKey(plComponentBase *comp, plMaxNodeBase *node)
     if (responder->fModKeys.find((plMaxNode*)node) != responder->fModKeys.end())
         return responder->fModKeys[(plMaxNode*)node];
 
-    return nil; 
+    return nil;
 }
 
 CLASS_DESC(plResponderComponent, gResponderDesc, "Responder", "Responder", COMP_TYPE_LOGIC, RESPONDER_CID)
@@ -880,14 +880,14 @@ BOOL plResponderProc::DragListProc(HWND hWnd, DRAGLISTINFO *info)
 void plResponderProc::IDrawComboItem(DRAWITEMSTRUCT *dis)
 {
     if (dis->itemID == -1)          // empty item
-        return; 
+        return;
 
-    // The colors depend on whether the item is selected. 
-    COLORREF clrForeground = SetTextColor(dis->hDC, 
-        GetSysColor(dis->itemState & ODS_SELECTED ? COLOR_HIGHLIGHTTEXT : COLOR_WINDOWTEXT)); 
+    // The colors depend on whether the item is selected.
+    COLORREF clrForeground = SetTextColor(dis->hDC,
+        GetSysColor(dis->itemState & ODS_SELECTED ? COLOR_HIGHLIGHTTEXT : COLOR_WINDOWTEXT));
 
-    COLORREF clrBackground = SetBkColor(dis->hDC, 
-        GetSysColor(dis->itemState & ODS_SELECTED ? COLOR_HIGHLIGHT : COLOR_WINDOW)); 
+    COLORREF clrBackground = SetBkColor(dis->hDC,
+        GetSysColor(dis->itemState & ODS_SELECTED ? COLOR_HIGHLIGHT : COLOR_WINDOW));
 
     // Calculate the vertical and horizontal position.
     TEXTMETRIC tm;
@@ -918,18 +918,18 @@ void plResponderProc::IDrawComboItem(DRAWITEMSTRUCT *dis)
         strcpy(buf, buf2);
     }
 
-    ExtTextOut(dis->hDC, x, y, ETO_CLIPPED | ETO_OPAQUE, &dis->rcItem, buf, strlen(buf), NULL); 
+    ExtTextOut(dis->hDC, x, y, ETO_CLIPPED | ETO_OPAQUE, &dis->rcItem, buf, strlen(buf), NULL);
 
-    // Restore the previous colors. 
-    SetTextColor(dis->hDC, clrForeground); 
-    SetBkColor(dis->hDC, clrBackground); 
+    // Restore the previous colors.
+    SetTextColor(dis->hDC, clrForeground);
+    SetBkColor(dis->hDC, clrBackground);
 
     if (oldFont)
         DeleteFont(SelectFont(dis->hDC, oldFont));
 
-    // If the item has the focus, draw focus rectangle. 
-    if (dis->itemState & ODS_FOCUS) 
-        DrawFocusRect(dis->hDC, &dis->rcItem); 
+    // If the item has the focus, draw focus rectangle.
+    if (dis->itemState & ODS_FOCUS)
+        DrawFocusRect(dis->hDC, &dis->rcItem);
 }
 
 void plResponderProc::LoadState()

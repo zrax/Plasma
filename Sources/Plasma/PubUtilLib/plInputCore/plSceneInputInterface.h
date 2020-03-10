@@ -60,7 +60,7 @@ class plSceneObject;
 
 class plSceneInputInterface : public plInputInterface
 {
-    enum 
+    enum
     {
         kNotOffering = 0,
         kOfferBook,
@@ -73,7 +73,7 @@ class plSceneInputInterface : public plInputInterface
         
         uint32_t  fCurrentCursor;
         uint8_t   fButtonState;
-        bool    fClickability;      
+        bool    fClickability;
         plKey   fCurrentClickable, fLastClicked, fCurrentClickableLogicMod;
         hsPoint3 fCurrentClickPoint;
         bool    fCurrClickIsAvatar, fLastClickIsAvatar,fFadedLocalAvatar;

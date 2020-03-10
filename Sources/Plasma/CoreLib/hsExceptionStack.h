@@ -97,7 +97,7 @@ inline void hsExceptionStack::Push(const char* str)
 //
 // hsExceptionStackDestroyer - removes the hsExceptionStack instance
 //
-class hsExceptionStackDestroyer 
+class hsExceptionStackDestroyer
 {
 public:
     ~hsExceptionStackDestroyer()

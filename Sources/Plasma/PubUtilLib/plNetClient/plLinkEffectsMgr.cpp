@@ -97,7 +97,7 @@ void plLinkEffectsMgr::Init()
 {
     plgDispatch::Dispatch()->RegisterForExactType(plPlayerPageMsg::Index(), GetKey());
     plgDispatch::Dispatch()->RegisterForExactType(plPseudoLinkEffectMsg::Index(), GetKey());
-}   
+}
 
 plLinkEffectsTriggerMsg *plLinkEffectsMgr::IFindLinkTriggerMsg(plKey linkKey)
 {
@@ -143,9 +143,9 @@ bool plLinkEffectsMgr::IHuntWaitlist(plLinkEffectsTriggerMsg *msg)
         if (fWaitlist[i] == msg)
         {
             found = true;
-            hsRefCnt_SafeUnRef(fWaitlist[i]);           
+            hsRefCnt_SafeUnRef(fWaitlist[i]);
             fWaitlist.Remove(i);
-            plNetApp::GetInstance()->DebugMsg("Received backup LinkEffectsTriggerMsg. Never got remote trigger!\n");            
+            plNetApp::GetInstance()->DebugMsg("Received backup LinkEffectsTriggerMsg. Never got remote trigger!\n");
         }
     }
     
@@ -215,7 +215,7 @@ void plLinkEffectsMgr::ISendAllReadyCallbacks()
                 plLinkInDoneMsg* lid = new plLinkInDoneMsg;
                 lid->AddReceiver(fLinks[i]->GetLinkKey());
                 lid->SetBCastFlag(plMessage::kPropagateToModifiers);
-                lid->Send();                    
+                lid->Send();
 
                 if (fLinks[i]->GetLinkKey() == plNetClientApp::GetInstance()->GetLocalPlayerKey())
                 {
@@ -242,7 +242,7 @@ bool plLinkEffectsMgr::MsgReceive(plMessage *msg)
     if (pSeudoMsg)
     {
         // verify valid avatar and "link" objects
-        if (!pSeudoMsg->fAvatarKey) 
+        if (!pSeudoMsg->fAvatarKey)
             return true;
         if (!pSeudoMsg->fLinkObjKey)
             return true;
@@ -334,7 +334,7 @@ bool plLinkEffectsMgr::MsgReceive(plMessage *msg)
 
         // This is not the right place to catch this problem.
 //      if (IFindLinkTriggerMsg(linkKey) != nil)
-//      { 
+//      {
 //          hsAssert(false, "Trying to link an Avatar already in the process of linking.");
 //          return true;
 //      }
@@ -385,10 +385,10 @@ bool plLinkEffectsMgr::MsgReceive(plMessage *msg)
                 bool linkToACA = ageName.compare_i(kAvCustomizationFilename) == 0;
                 bool linkFromACA = prevAgeName.compare_i(kAvCustomizationFilename) == 0;
 
-                bool linkToFissureDrop = lm && 
+                bool linkToFissureDrop = lm &&
                                         lm->GetAgeLink()->HasSpawnPt() &&
                                         !lm->GetAgeLink()->SpawnPoint().GetName().compare_i(kCleftAgeLinkInPointFissureDrop);
-                bool linkToDsntFromShell = lm && 
+                bool linkToDsntFromShell = lm &&
                                         lm->GetAgeLink()->HasSpawnPt() &&
                                         !lm->GetAgeLink()->SpawnPoint().GetTitle().compare_i(kDescentLinkFromShell);
                 if ( linkToACA || linkFromACA || linkToStartup || linkFromStartup || linkToFissureDrop || linkToDsntFromShell)
@@ -401,7 +401,7 @@ bool plLinkEffectsMgr::MsgReceive(plMessage *msg)
         BCMsg->SetSender(GetKey());
         if (msg->HasBCastFlag(plMessage::kNetNonLocal))
             // terminate the remote cascade and start a new (local) cascade, since the rcvr is localOnly and will reject remote msgs
-            BCMsg->SetBCastFlag(plMessage::kNetStartCascade);   
+            BCMsg->SetBCastFlag(plMessage::kNetStartCascade);
         plgDispatch::MsgSend(BCMsg);
         
         if (!pTriggerMsg->IsLeavingAge()) // Avatar is currently entering a new age
@@ -422,7 +422,7 @@ bool plLinkEffectsMgr::MsgReceive(plMessage *msg)
             linkInAnim = plATCAnim::ConvertNoRef(linkInAnimKey ? linkInAnimKey->ObjectIsLoaded() : nil);
             
             if (avMod && linkInAnim)
-            {   
+            {
                 plAvOneShotTask *task = new plAvOneShotTask(linkInAnim->GetName(), false, false, nil);
                 task->fBackwards = true;
                 task->fDisableLooping = true;
@@ -501,7 +501,7 @@ bool plLinkEffectsMgr::MsgReceive(plMessage *msg)
 
         // If we're not loading state, we're in the age. So this avatar coming in must be linking in.
         // If the player is us, no prep is necessary.
-        if (!plNetClientApp::GetInstance()->IsLoadingInitialAgeState() && 
+        if (!plNetClientApp::GetInstance()->IsLoadingInitialAgeState() &&
             (pageMsg->fPlayer != nc->GetLocalPlayerKey()))
         {
             plLinkEffectsTriggerMsg *trigMsg = new plLinkEffectsTriggerMsg;
@@ -600,7 +600,7 @@ void plLinkEffectsMgr::IRemovePseudo(plKey avatarKey)
     for (i = 0; i < fPseudolist.GetCount(); i++)
     {
         if (fPseudolist[i]->fAvatarKey == avatarKey)
-        {   
+        {
             fPseudolist.Remove(i);
             return;
         }

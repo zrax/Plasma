@@ -84,7 +84,7 @@ enum plClosestClampFlags
 
     // Return true if p0 is inside box.
     static bool PointOnBox(const hsPoint3& p0,                        // Point
-                            const hsPoint3& corner,                     // Box defined by corner point and 3 (presumably but 
+                            const hsPoint3& corner,                     // Box defined by corner point and 3 (presumably but
                             const hsVector3& axis0,                     // not required) ortho axes.
                             const hsVector3& axis1,
                             const hsVector3& axis2,
@@ -98,7 +98,7 @@ enum plClosestClampFlags
 
     // Return true if line intersects or is inside box.
     static bool PointOnBox(const hsPoint3& p0, const hsVector3& v0,   // Line
-                            const hsPoint3& corner,                     // Box defined by corner point and 3 (presumably but 
+                            const hsPoint3& corner,                     // Box defined by corner point and 3 (presumably but
                             const hsVector3& axis0,                     // not required) ortho axes.
                             const hsVector3& axis1,
                             const hsVector3& axis2,

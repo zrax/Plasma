@@ -60,7 +60,7 @@ public:
     CLASSNAME_REGISTER(plOneShotMsg);
     GETINTERFACE_ANY(plOneShotMsg, plResponderMsg);
 
-    // IO 
+    // IO
     void Read(hsStream* stream, hsResMgr* mgr);
     void Write(hsStream* stream, hsResMgr* mgr);
 };

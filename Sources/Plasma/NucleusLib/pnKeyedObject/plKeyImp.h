@@ -44,14 +44,14 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "plKey.h"
 #include "hsTemplates.h"
-#include "plUoid.h"  
+#include "plUoid.h"
 #include "hsBitVector.h"
 #include "plRefFlags.h"
 
 //------------------------------------
 // plKey is a handle to a keyedObject
 //------------------------------------
-class plKeyImp : public plKeyData 
+class plKeyImp : public plKeyData
 {
 private:
     static hsKeyedObject* SafeGetObject(const plKeyImp* key);
@@ -163,7 +163,7 @@ protected:
 
     // These fields are the ones actually saved to disk
     plUoid fUoid;
-    uint32_t fStartPos;   // where I live in the Datafile  
+    uint32_t fStartPos;   // where I live in the Datafile
     uint32_t fDataLen;    // Length in the Datafile
 
     // Following used by hsResMgr to notify on defered load or when a passive ref is destroyed.

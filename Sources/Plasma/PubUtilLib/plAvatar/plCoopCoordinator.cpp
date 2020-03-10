@@ -303,7 +303,7 @@ void plCoopCoordinator::IStartHost()
         guestAv->GetPositionAndRotationSim(&msg->fTargetLookAt, nil);
         hostAv->GetPositionAndRotationSim(&msg->fTargetPos, nil);
         msg->Send();
-    }   
+    }
 
     // now tell the host to initiate the thing.
     plAvTaskBrain *brainT = new plAvTaskBrain(fHostBrain);

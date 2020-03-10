@@ -173,13 +173,13 @@ public:
     //  they would crash and burn, or at best just not read in). As a result,
     //  as much as it annoys me to death, we can't do a damn thing about it.
     //  Hopefully, in the future we will be able to clean all of this out somehow
-    //  (a conversion utility might come in handy, dunno). 
+    //  (a conversion utility might come in handy, dunno).
     //
     //  For reference, the setup SHOULD have separate paramBlocks for each rollout,
     //  using the P_USE_PARAMS to duplicate the shared ones, and all the rollouts
     //  should have *IDENTICAL* block and ref #s, so the shared code actually looks
-    //  sane. The final block/ref #s needed would be kBlkMain, kBlkAnim, kBlkProj 
-    //  (for spots and proj dir) and kBlkAttenuation (projMaps don't need ref #s, 
+    //  sane. The final block/ref #s needed would be kBlkMain, kBlkAnim, kBlkProj
+    //  (for spots and proj dir) and kBlkAttenuation (projMaps don't need ref #s,
     //  since they're part of the paramBlocks).
     ///////////////////////////////////////////////////////////////////////////////
 
@@ -304,9 +304,9 @@ public:
     // Projection types.
     enum
     {
-        kIlluminate, 
-        kAdd, 
-        kMult, 
+        kIlluminate,
+        kAdd,
+        kMult,
         kMADD
     };
     
@@ -371,7 +371,7 @@ public:
     void DrawSphereArcs(TimeValue t, GraphicsWindow *gw, float r, Point3 *q);
     
 //
-    void DrawX(TimeValue t, float asp, int npts, float dist, GraphicsWindow *gw, int indx); 
+    void DrawX(TimeValue t, float asp, int npts, float dist, GraphicsWindow *gw, int indx);
     void DrawCircleX(TimeValue t, GraphicsWindow *gw, float angle, float dist, Point3 *q);
     void DrawWarpRect(TimeValue t, GraphicsWindow *gw, float angle, float dist, Point3 *q);
     void DrawAttenCirOrRect(TimeValue t, GraphicsWindow *gw, float dist, BOOL froze, int uicol);
@@ -418,26 +418,26 @@ public:
     ObjLightDesc *CreateLightDesc(INode *n, BOOL forceShadowBuffer=FALSE);
     void SetUseLight(int onOff) { fLightPB->SetValue(kLightOn, 0, onOff); NotifyDependents(FOREVER, PART_OBJ, REFMSG_CHANGE); }
     BOOL GetUseLight() { BOOL v; fLightPB->GetValue(kLightOn, 0, v, FOREVER); return v; }
-    void SetHotspot(TimeValue time, float f); 
+    void SetHotspot(TimeValue time, float f);
     float GetHotspot(TimeValue t, Interval& valid = Interval(0,0));
-    void SetFallsize(TimeValue time, float f); 
+    void SetFallsize(TimeValue time, float f);
     float GetFallsize(TimeValue t, Interval& valid = Interval(0,0));
     void SetAtten(TimeValue time, int which, float f);
     float GetAtten(TimeValue t, int which, Interval& valid = Interval(0,0));
     
     // TDist funcs needs implementation  as of 31/5/01
-    void SetTDist(TimeValue time, float f); 
+    void SetTDist(TimeValue time, float f);
     float GetTDist(TimeValue t, Interval& valid = Interval(0,0));
 
     void SetConeDisplay(int s, int notify=TRUE);
     BOOL GetConeDisplay();
 
     void SetRGBColor(TimeValue t, Point3& rgb); //fLightPB->SetValue(kRGB, t, rgb); NotifyDependents(FOREVER, PART_ALL, REFMSG_CHANGE);}
-    Point3 GetRGBColor(TimeValue t, Interval &valid = Interval(0,0)); //return fLightPB->GetPoint3(kRGB, t); }        
+    Point3 GetRGBColor(TimeValue t, Interval &valid = Interval(0,0)); //return fLightPB->GetPoint3(kRGB, t); }
     void SetIntensity(TimeValue t, float f) { fLightPB->SetValue(kIntensity, t, f); NotifyDependents(FOREVER, PART_ALL, REFMSG_CHANGE);}
     float GetIntensity(TimeValue t, Interval& valid = Interval(0,0)) {return fLightPB->GetFloat(kIntensity, t); }
     void SetAspect(TimeValue t, float f) {}
-    float GetAspect(TimeValue t, Interval& valid = Interval(0,0)) { return 0.0; }    
+    float GetAspect(TimeValue t, Interval& valid = Interval(0,0)) { return 0.0; }
     void SetUseAtten(int s){ fLightPB->SetValue(kUseAttenuationBool, 0, s); NotifyDependents(FOREVER, PART_OBJ, REFMSG_CHANGE); }
     BOOL GetUseAtten() {return fLightPB->GetInt(kUseAttenuationBool, 0);}
     void SetUseAttenNear(int s) {  }
@@ -475,7 +475,7 @@ public:
     void SetShadow(int a);
     BOOL GetShadowType() { return -1; } //No Shadows generated ....
     void SetShadowType(int a) {}        //Until implemented....
-    GenLight* NewLight(int type) { return NULL;} 
+    GenLight* NewLight(int type) { return NULL;}
     int Type()  {return -1;}
     void SetSpotShape(int a) {}
     void SetHSVColor(TimeValue t, class Point3 &b);
@@ -494,7 +494,7 @@ public:
     Control* GetColorControl() {return GetParamBlock2Controller(fLightPB, ParamID(kLightColor)); }
 
     BOOL GetDecayType() { return fLightPB->GetInt(kAttenTypeRadio, 0) + 1;} //Offset for the radio.
-    void SetDecayType(BOOL onOff) {if (!onOff) return; else {fLightPB->SetValue(kAttenTypeRadio, 0, ((int) onOff - 1)); return;} } 
+    void SetDecayType(BOOL onOff) {if (!onOff) return; else {fLightPB->SetValue(kAttenTypeRadio, 0, ((int) onOff - 1)); return;} }
     void SetDecayRadius(TimeValue time, float f) { fLightPB->SetValue(kAttenMaxFalloffEdit, time, f); }
     float GetDecayRadius(TimeValue t, Interval& valid = Interval(0,0)) {return fLightPB->GetFloat(kAttenMaxFalloffEdit, t); }
 
@@ -503,7 +503,7 @@ public:
     void SetAffectDiffuse(BOOL onOff) {}//fLightPB->SetValue(kDiffOn, 0, onOff); }
     BOOL GetAffectDiffuse() {return false; } //fLightPB->GetInt(kDiffOn, 0); }
 
-    LRESULT CALLBACK TrackViewWinProc( HWND hwnd,  UINT message, 
+    LRESULT CALLBACK TrackViewWinProc( HWND hwnd,  UINT message,
             WPARAM wParam,   LPARAM lParam ){return(0);}
 };
 

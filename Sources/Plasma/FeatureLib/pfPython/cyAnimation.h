@@ -114,7 +114,7 @@ public:
 
     //  Play (continue) an animation until the specified point is reached
     //
-    virtual void PlayToPercentage(float zeroToOne);  
+    virtual void PlayToPercentage(float zeroToOne);
 
     //  Jump the animation to the specified time
     //  Doesn't start or stop playing of animation

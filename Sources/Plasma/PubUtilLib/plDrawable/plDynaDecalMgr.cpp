@@ -136,7 +136,7 @@ bool plDynaDecalMgr::fDisableAccumulate = false;
 bool plDynaDecalMgr::fDisableUpdate = false;
 
 plDynaDecalMgr::plDynaDecalMgr()
-:   
+:
     fMatPreShade(nil),
     fMatRTShade(nil),
     fMaxNumVerts(kDefMaxNumVerts),
@@ -422,7 +422,7 @@ bool plDynaDecalMgr::MsgReceive(plMessage* msg)
     }
 
     plAgeLoadedMsg* ageLoadMsg = plAgeLoadedMsg::ConvertNoRef(msg);
-    if( ageLoadMsg && ageLoadMsg->fLoaded ) 
+    if( ageLoadMsg && ageLoadMsg->fLoaded )
     {
         IGetParticles();
         return true;
@@ -588,7 +588,7 @@ float plDynaDecalMgr::IHowWet(plDynaDecalInfo& info, double t) const
     if( !fWaitOnEnable )
         return fIntensity;
 
-    // We've been notified we've entered the pool, 
+    // We've been notified we've entered the pool,
     // and haven't been notified we've left it.
     if( info.fFlags & plDynaDecalInfo::kImmersed )
     {
@@ -639,7 +639,7 @@ plAuxSpan* plDynaDecalMgr::IGetAuxSpan(plDrawableSpans* targ, int iSpan, hsGMate
     // Case a) can cause it if we share with a DynaDecalMgr with a different
     // lifespan than ours. That would allow decals in the middle of the span
     // to die out.
-    // Case b) won't have random bits dropping out of the middle, but will 
+    // Case b) won't have random bits dropping out of the middle, but will
     // create a gap in the middle (and probably end) when we wrap around.
     //
     // The simplicity in bookkeeping should make up for any space/speed advantages
@@ -724,10 +724,10 @@ void plDynaDecalMgr::IAllocAuxSpan(plAuxSpan* aux, uint32_t maxNumVerts, uint32_
     plGBufferGroup* grp = new plGBufferGroup(kDecalVtxFormat, true, false);
     fGroups.Append(grp);
 
-    grp->ReserveVertStorage(maxNumVerts, 
-        &aux->fVBufferIdx, 
-        &aux->fCellIdx, 
-        &aux->fCellOffset, 
+    grp->ReserveVertStorage(maxNumVerts,
+        &aux->fVBufferIdx,
+        &aux->fCellIdx,
+        &aux->fCellOffset,
         plGBufferGroup::kReserveInterleaved);
 
     aux->fFlags = 0;
@@ -767,7 +767,7 @@ hsGMaterial* plDynaDecalMgr::ISetAuxMaterial(plAuxSpan* aux, hsGMaterial* mat, b
     if( !mat )
         mat = fMatRTShade;
 
-    bool attenColor =  0 != (mat->GetLayer(0)->GetBlendFlags() 
+    bool attenColor =  0 != (mat->GetLayer(0)->GetBlendFlags()
                                 & (hsGMatState::kBlendAdd
                                     | hsGMatState::kBlendMult
                                     | hsGMatState::kBlendMADD));
@@ -858,7 +858,7 @@ plDynaDecal* plDynaDecalMgr::IInitDecal(plAuxSpan* aux, double t, uint16_t numVe
 void plDynaDecalMgr::IKillDecal(int i)
 {
     // Update this decal's span.
-    // Since decals die off in the same order they are created, and we always 
+    // Since decals die off in the same order they are created, and we always
     // append a decal to a span, we only need to advance the span's start indices,
     // and decrement the lengths.
     plAuxSpan* aux = fDecals[i]->fAuxSpan;
@@ -1047,7 +1047,7 @@ void plDynaDecalMgr::ISetDepthFalloff()
 }
 
 bool plDynaDecalMgr::IConvertPolys(plAuxSpan* auxSpan,
-                                   plDynaDecal* decal, 
+                                   plDynaDecal* decal,
                                    hsTArray<plCutoutPoly>& src)
 {
     ISetDepthFalloff();
@@ -1062,7 +1062,7 @@ bool plDynaDecalMgr::IConvertPolys(plAuxSpan* auxSpan,
 }
 
 bool plDynaDecalMgr::IConvertPolysAlpha(plAuxSpan* auxSpan,
-                                   plDynaDecal* decal, 
+                                   plDynaDecal* decal,
                                    hsTArray<plCutoutPoly>& src)
 {
     bool loU = false;
@@ -1090,7 +1090,7 @@ bool plDynaDecalMgr::IConvertPolysAlpha(plAuxSpan* auxSpan,
 
         if( vtx->fUVW[0].fX < 0.5f )
             loU = true;
-        else 
+        else
             hiU = true;
         if( vtx->fUVW[0].fY < 0.5f )
             loV = true;
@@ -1163,7 +1163,7 @@ bool plDynaDecalMgr::IConvertPolysAlpha(plAuxSpan* auxSpan,
 }
 
 bool plDynaDecalMgr::IConvertPolysColor(plAuxSpan* auxSpan,
-                                   plDynaDecal* decal, 
+                                   plDynaDecal* decal,
                                    hsTArray<plCutoutPoly>& src)
 {
     bool loU = false;
@@ -1190,7 +1190,7 @@ bool plDynaDecalMgr::IConvertPolysColor(plAuxSpan* auxSpan,
 
         if( vtx->fUVW[0].fX < 0.5f )
             loU = true;
-        else 
+        else
             hiU = true;
         if( vtx->fUVW[0].fY < 0.5f )
             loV = true;
@@ -1256,7 +1256,7 @@ bool plDynaDecalMgr::IConvertPolysColor(plAuxSpan* auxSpan,
 }
 
 bool plDynaDecalMgr::IConvertPolysVS(plAuxSpan* auxSpan,
-                                   plDynaDecal* decal, 
+                                   plDynaDecal* decal,
                                    hsTArray<plCutoutPoly>& src)
 {
     bool loU = false;
@@ -1282,7 +1282,7 @@ bool plDynaDecalMgr::IConvertPolysVS(plAuxSpan* auxSpan,
 
         if( vtx->fUVW[0].fX < 0.5f )
             loU = true;
-        else 
+        else
             hiU = true;
         if( vtx->fUVW[0].fY < 0.5f )
             loV = true;
@@ -1351,7 +1351,7 @@ bool plDynaDecalMgr::IHitTestPolys(hsTArray<plCutoutPoly>& src) const
 
         if( uvw.fX < 0.5f )
             loU = true;
-        else 
+        else
             hiU = true;
         if( uvw.fY < 0.5f )
             loV = true;
@@ -1380,7 +1380,7 @@ bool plDynaDecalMgr::IProcessPolys(plDrawableSpans* targ, int iSpan, double t, h
     // one if it's full up.
     plAuxSpan* auxSpan = IGetAuxSpan(targ, iSpan, nil, numVerts, numIdx);
 
-    // If we're full up, just see if we hit anything, but don't 
+    // If we're full up, just see if we hit anything, but don't
     // make any more decals. Might be nice to accelerate decay
     // here, since we definitely aren't keeping up.
     if( !auxSpan )
@@ -1400,7 +1400,7 @@ bool plDynaDecalMgr::IProcessGrid(plDrawableSpans* targ, int iSpan, hsGMaterial*
     // one if it's full up.
     plAuxSpan* auxSpan = IGetAuxSpan(targ, iSpan, mat, grid.fVerts.GetCount(), grid.fIdx.GetCount());
 
-    // If we're full up, just see if we hit anything, but don't 
+    // If we're full up, just see if we hit anything, but don't
     // make any more decals.
     if( !auxSpan )
         return IHitTestFlatGrid(grid);

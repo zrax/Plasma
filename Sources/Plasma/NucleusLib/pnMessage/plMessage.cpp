@@ -62,8 +62,8 @@ plMessage::plMessage()
 {
 }
 
-plMessage::plMessage(const plKey &s, 
-            const plKey &r, 
+plMessage::plMessage(const plKey &s,
+            const plKey &r,
             const double* t)
 :   fSender(s),
     fBCastFlags(kLocalPropagate),
@@ -119,7 +119,7 @@ void plMessage::IMsgRead(hsStream* s, hsResMgr* mgr)
 
     fSender = mgr->ReadKey(s);
     int n;
-    s->LogReadLE(&n,"NumberOfReceivers"); 
+    s->LogReadLE(&n,"NumberOfReceivers");
     fReceivers.SetCount(n);
     int i;
     for( i = 0; i < fReceivers.GetCount(); i++ )

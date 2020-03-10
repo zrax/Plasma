@@ -51,17 +51,17 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plListenerMsg.h"
 
 
-void plListenerMsg::Read(hsStream* s, hsResMgr* mgr) 
-{ 
-    plMessage::IMsgRead(s, mgr); 
+void plListenerMsg::Read(hsStream* s, hsResMgr* mgr)
+{
+    plMessage::IMsgRead(s, mgr);
     fPos.Read(s);
     fDir.Read(s);
     fUp.Read(s);
     fVel.Read(s);
 }
-void plListenerMsg::Write(hsStream* s, hsResMgr* mgr) 
-{ 
-    plMessage::IMsgWrite(s, mgr); 
+void plListenerMsg::Write(hsStream* s, hsResMgr* mgr)
+{
+    plMessage::IMsgWrite(s, mgr);
     fPos.Write(s);
     fDir.Write(s);
     fUp.Write(s);
@@ -69,7 +69,7 @@ void plListenerMsg::Write(hsStream* s, hsResMgr* mgr)
 }
 
 
-plSetListenerMsg::plSetListenerMsg( uint8_t type, const plKey &srcKey, bool binding ) : plMessage( nil, nil, nil ) 
+plSetListenerMsg::plSetListenerMsg( uint8_t type, const plKey &srcKey, bool binding ) : plMessage( nil, nil, nil )
 {
     plUoid uoid( kListenerMod_KEY );
     plKey pLKey = hsgResMgr::ResMgr()->FindKey( uoid );
@@ -79,7 +79,7 @@ plSetListenerMsg::plSetListenerMsg( uint8_t type, const plKey &srcKey, bool bind
 
 void plSetListenerMsg::Read( hsStream *s, hsResMgr *mgr )
 {
-    plMessage::IMsgRead(s, mgr); 
+    plMessage::IMsgRead(s, mgr);
     fType = s->ReadByte();
     fSrcKey = mgr->ReadKey( s );
     fBinding = s->ReadBool();
@@ -87,7 +87,7 @@ void plSetListenerMsg::Read( hsStream *s, hsResMgr *mgr )
 
 void plSetListenerMsg::Write( hsStream *s, hsResMgr *mgr )
 {
-    plMessage::IMsgWrite(s, mgr); 
+    plMessage::IMsgWrite(s, mgr);
     s->WriteByte( fType );
     mgr->WriteKey( s, fSrcKey );
     s->WriteBool( fBinding );

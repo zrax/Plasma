@@ -86,7 +86,7 @@ public:
     static void LinInterp(const hsAffineParts *k1, const hsAffineParts *k2, const float t, hsAffineParts *result, uint32_t ignoreFlags=0);
 
     // Given a time value, find the enclosing keyframes and normalize time (0-1)
-    static void GetBoundaryKeyFrames(float time, uint32_t numKeys, void *keys, 
+    static void GetBoundaryKeyFrames(float time, uint32_t numKeys, void *keys,
         uint32_t keySize, hsKeyFrame **kF1, hsKeyFrame **kF2, uint32_t *lastKeyIdx, float *p, bool forwards);
 
 };

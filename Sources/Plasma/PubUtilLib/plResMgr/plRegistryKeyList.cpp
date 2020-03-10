@@ -93,7 +93,7 @@ plKeyImp* plRegistryKeyList::FindKey(const plUoid& uoid) const
     }
 
     // If we got here it probably means we just deleted all our keys of the matching type
-    // because no one was using them. No worries. The resManager will catch this and 
+    // because no one was using them. No worries. The resManager will catch this and
     // reload our keys, then try again.
 
     return nullptr;

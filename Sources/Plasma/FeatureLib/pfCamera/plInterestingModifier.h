@@ -55,7 +55,7 @@ class plInterestingModifier : public plSingleModifier
 {
 protected:
     
-    enum 
+    enum
     {
         kTypeInteresting = 0,
         kTypeLookAtMod,

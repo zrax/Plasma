@@ -98,7 +98,7 @@ static SELBMTexPBAccessor bmtex_accessor;
 
 class PickControlNode : public PickObjectProc
 {
-    public:             
+    public:
         plStaticEnvLayer    *fLayer;
         HWND                fHWnd;
 
@@ -221,7 +221,7 @@ public:
             case WM_INITDIALOG:
              break;
 
-        case CC_SPINNER_CHANGE:      
+        case CC_SPINNER_CHANGE:
             if( LOWORD( wParam ) == IDC_TEXSIZE_SPIN )
                 IClampTexSizeSpinner( t, map );
             break;
@@ -296,7 +296,7 @@ public:
 
         /// Just store the name and set the button label as such, too
         SetDlgItemText( hWnd, IDC_BASE_FILENAME, bi.Filename() );
-        layer->SetBaseFilename( bi.Name(), t );     
+        layer->SetBaseFilename( bi.Name(), t );
         return TRUE;
     }
 
@@ -454,7 +454,7 @@ static ParamBlockDesc2 gBitmapParamBlk
     plStaticEnvLayer::kBmpUseDetail,        _T("useDetail"),    TYPE_BOOL,      0, 0,
         p_ui,           TYPE_SINGLECHEKBOX, IDC_USE_DETAIL,
         p_default,      FALSE,
-        p_enable_ctrls, 4, plStaticEnvLayer::kBmpDetailStartSize, plStaticEnvLayer::kBmpDetailStopSize, 
+        p_enable_ctrls, 4, plStaticEnvLayer::kBmpDetailStartSize, plStaticEnvLayer::kBmpDetailStopSize,
                             plStaticEnvLayer::kBmpDetailStartOpac, plStaticEnvLayer::kBmpDetailStopOpac,
         end,
 

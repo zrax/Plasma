@@ -159,14 +159,14 @@ public:
 
     // Force an immediate re-sync of the transforms in the hierarchy this object belongs to,
     // as opposed to waiting for the plTransformMsg to resync.
-    void FlushTransform(); 
+    void FlushTransform();
     void SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l);
     hsMatrix44 GetLocalToWorld() const;
     hsMatrix44 GetWorldToLocal() const;
     hsMatrix44 GetLocalToParent() const;
     hsMatrix44 GetParentToLocal() const;
 
-    virtual bool IsFinal();  // "is ready to process Loads"  
+    virtual bool IsFinal();  // "is ready to process Loads"
 
     // Export only
     virtual void SetDrawInterface(plDrawInterface* di);

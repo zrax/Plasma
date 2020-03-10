@@ -124,7 +124,7 @@ plAvBrainGeneric::plAvBrainGeneric(plAnimStageVec *stages,
 {
 }
 
-// plAvBrainGeneric 
+// plAvBrainGeneric
 plAvBrainGeneric::plAvBrainGeneric(uint32_t exitFlags, float fadeIn, float fadeOut, MoveMode moveMode)
 : fRecipient(nil),
   fStages(nil),
@@ -168,7 +168,7 @@ void plAvBrainGeneric::Activate(plArmatureModBase *avMod)
 
     int numStages = fStages->size();
     if (!numStages)
-        return; 
+        return;
     plAnimStage *stage = (*fStages)[fCurStage];
 
     bool useFadeIn = fFadeIn > 0.0f;
@@ -208,7 +208,7 @@ void plAvBrainGeneric::Activate(plArmatureModBase *avMod)
     }
 
     if (fType == kLadder && fAvMod->IsLocalAvatar())
-        plAvatarInputInterface::GetInstance()->SetLadderMode(); 
+        plAvatarInputInterface::GetInstance()->SetLadderMode();
 
     if (fReverseFBControlsOnRelease)
         fAvMod->SetReverseFBOnIdle(true);
@@ -278,12 +278,12 @@ void plAvBrainGeneric::Deactivate()
     if (fMode != kAbort)        // we're being forcibly removed...
         IExitMoveMode();
 
-    if (fMoveMode == kMoveRelative || fMoveMode == kMoveAbsolute) 
+    if (fMoveMode == kMoveRelative || fMoveMode == kMoveAbsolute)
     {
         // re-enable normal physics... outside forces affect us
         fAvMod->EnablePhysicsKinematic( false );
-    } 
-    else if (fMoveMode == kMoveStandstill) 
+    }
+    else if (fMoveMode == kMoveStandstill)
     {
         // Avatar stands still automaticaly now, so we do nothing here
     }
@@ -291,7 +291,7 @@ void plAvBrainGeneric::Deactivate()
     if (fType == plAvBrainGeneric::kLadder && fAvMod->IsLocalAvatar())
     {
         plAvatarInputInterface::GetInstance()->ClearLadderMode();
-    }           
+    }
     
     if (fReverseFBControlsOnRelease)
         fAvMod->SetReverseFBOnIdle(false);
@@ -364,7 +364,7 @@ float plAvBrainGeneric::IGetAnimDelta(double time, float elapsed)
     {
         // auto drive backward
         delta = -elapsed;
-    } 
+    }
     return delta;
 }
 
@@ -560,14 +560,14 @@ bool plAvBrainGeneric::MsgReceive(plMessage *msg)
     if(genMsg)
     {
         result = IHandleGenBrainMsg(genMsg);
-    } 
+    }
 //  else if(exitMsg) {
 //      fMode = kExit;
 //      result = true;
-//  } 
+//  }
     else if (taskMsg) {
         result =  IHandleTaskMsg(taskMsg);
-    } 
+    }
     else if (ctrlMsg && (fExitFlags & kExitAnyInput) ) {
         fMode = kExit;
     }
@@ -721,7 +721,7 @@ bool plAvBrainGeneric::IHandleTaskMsg(plAvTaskMsg *msg)
         }
     }
 
-    // RULE 4: if brain is incompatible and we're still running, ignore.    
+    // RULE 4: if brain is incompatible and we're still running, ignore.
     return false;
 }
 
@@ -770,7 +770,7 @@ void plAvBrainGeneric::Write(hsStream *stream, hsResMgr *mgr)
         plCreatable *cre = reinterpret_cast<plCreatable *>(stage);
         mgr->WriteCreatable(stream, cre);       // save base state
         // ** replace this with Write(..)
-        stage->SaveAux(stream, mgr);            // save ephemeral state 
+        stage->SaveAux(stream, mgr);            // save ephemeral state
     }
 
     stream->WriteLE32(fCurStage);

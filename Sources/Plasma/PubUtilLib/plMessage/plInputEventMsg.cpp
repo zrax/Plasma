@@ -54,8 +54,8 @@ fEvent(-1)
     SetBCastFlag(plMessage::kBCastByType);
 }
 
-plInputEventMsg::plInputEventMsg(const plKey &s, 
-            const plKey &r, 
+plInputEventMsg::plInputEventMsg(const plKey &s,
+            const plKey &r,
             const double* t) :
 fEvent(-1)
 {
@@ -108,7 +108,7 @@ void plInputEventMsg::WriteVersion(hsStream* s, hsResMgr* mgr)
     s->WriteLE(fEvent);
 }
 
-plControlEventMsg::plControlEventMsg() : 
+plControlEventMsg::plControlEventMsg() :
     fCmd(nil)
 {
     fTurnToPt.Set(0,0,0);
@@ -117,8 +117,8 @@ plControlEventMsg::plControlEventMsg() :
     SetBCastFlag(plMessage::kBCastByType, false);
 }
 
-plControlEventMsg::plControlEventMsg(const plKey &s, 
-            const plKey &r, 
+plControlEventMsg::plControlEventMsg(const plKey &s,
+            const plKey &r,
             const double* t) :
     fCmd(nil)
 {
@@ -129,7 +129,7 @@ plControlEventMsg::plControlEventMsg(const plKey &s,
 }
 
 plControlEventMsg::~plControlEventMsg()
-{   
+{
     delete [] fCmd;
 }
 
@@ -202,7 +202,7 @@ void plControlEventMsg::WriteVersion(hsStream* s, hsResMgr* mgr)
     contentFlags.SetBit(kControlEventMsgCmd);
     contentFlags.Write(s);
 
-    // kControlEventMsgCode,    
+    // kControlEventMsgCode,
     s->WriteLE((int32_t)fControlCode);
 
     // kControlEventMsgActivated,
@@ -222,8 +222,8 @@ plKeyEventMsg::plKeyEventMsg()
 {
 }
 
-plKeyEventMsg::plKeyEventMsg(const plKey &s, 
-                             const plKey &r, 
+plKeyEventMsg::plKeyEventMsg(const plKey &s,
+                             const plKey &r,
                              const double* t)
 {
 }
@@ -237,8 +237,8 @@ plDebugKeyEventMsg::plDebugKeyEventMsg()
 {
 }
 
-plDebugKeyEventMsg::plDebugKeyEventMsg(const plKey &s, 
-                                       const plKey &r, 
+plDebugKeyEventMsg::plDebugKeyEventMsg(const plKey &s,
+                                       const plKey &r,
                                        const double* t)
 {
 }
@@ -252,8 +252,8 @@ plMouseEventMsg::plMouseEventMsg() : fXPos(0.0f),fYPos(0.0f),fDX(0.0f),fDY(0.0f)
 {
 }
 
-plMouseEventMsg::plMouseEventMsg(const plKey &s, 
-                                 const plKey &r, 
+plMouseEventMsg::plMouseEventMsg(const plKey &s,
+                                 const plKey &r,
                                  const double* t)
 {
 }

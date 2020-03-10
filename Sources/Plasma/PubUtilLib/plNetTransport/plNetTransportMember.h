@@ -47,7 +47,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "pnKeyedObject/plKey.h"
 
 //
-// This represents a participant in the game, ie. another 
+// This represents a participant in the game, ie. another
 // remote user.
 // It is a basic net member with a list of channels that it subscribes to.
 //

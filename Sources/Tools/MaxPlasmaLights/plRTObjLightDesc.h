@@ -58,20 +58,20 @@ class plMaxNode;
 
 //// AttenRanges Class ////////////////////////////////////////////////////////
 
-class AttenRanges 
+class AttenRanges
 {
     public:
-        float aStart, aEnd; // Attenuation start and end and hot spot scaling for volume shading        
-        //float aNearStart, aNearEnd;   // Near Attenuation start and end and hot spot scaling for volume shading       
+        float aStart, aEnd; // Attenuation start and end and hot spot scaling for volume shading
+        //float aNearStart, aNearEnd;   // Near Attenuation start and end and hot spot scaling for volume shading
         float decayRadius;
 };
 
 //// BaseObjLight Class ///////////////////////////////////////////////////////
 
-class BaseObjLight : public ObjLightDesc 
+class BaseObjLight : public ObjLightDesc
 {
-    public:     
-        Color intensCol;    // intens*color 
+    public:
+        Color intensCol;    // intens*color
         Color shadColor;
         float contrast,kA,kB,diffSoft;
         int decayType;
@@ -82,17 +82,17 @@ class BaseObjLight : public ObjLightDesc
         void DeleteThis() {delete this;}
         int Update(TimeValue t, const RendContext& rc, RenderGlobalContext * rgc, BOOL shadows, BOOL shadowGeomChanged);
         void UpdateGlobalLightLevel(Color globLightLevel) { intensCol = ls.intens*ls.color*globLightLevel;}
-        virtual Color AttenuateIllum(ShadeContext& sc,Point3 p,Color &colStep,Point3 &dp,int filt, float ldp, float &distAtten, AttenRanges &ranges) {return Color(0,0,0);}     
+        virtual Color AttenuateIllum(ShadeContext& sc,Point3 p,Color &colStep,Point3 &dp,int filt, float ldp, float &distAtten, AttenRanges &ranges) {return Color(0,0,0);}
         virtual BOOL UseAtten()=0;
         virtual BOOL IsFacingLight(Point3 &dir) {return FALSE;}
         virtual int LightType()=0;
 
         inline float ContrastFunc(float nl) {
             if (diffSoft!=0.0f) {
-                float p = nl*nl*(2.0f-nl);  // based on Hermite interpolant 
+                float p = nl*nl*(2.0f-nl);  // based on Hermite interpolant
                 nl = diffSoft*p + (1.0f-diffSoft)*nl;
                 }
-            return (contrast==0.0f)? nl: 
+            return (contrast==0.0f)? nl:
                 nl/(kA*nl+kB);  //  the "Bias" function described in Graphics Gems IV, pp. 401ff
             }
 
@@ -100,15 +100,15 @@ class BaseObjLight : public ObjLightDesc
 
 //// OmniLight Class //////////////////////////////////////////////////////////
 
-class OmniLight : public BaseObjLight 
-{       
-    Matrix3 tmCamToLight[6]; 
+class OmniLight : public BaseObjLight
+{
+    Matrix3 tmCamToLight[6];
     BOOL shadow, doShadows, shadowRay;
     Texmap *projMap;
     BOOL needMultiple;
     BOOL genCanDoOmni;
     float zfac, xscale, yscale, fov, sz2,size,sizeClip,sampSize,sampSize2;
-    public:     
+    public:
         OmniLight(INode *inode, BOOL forceShadowBuf );
         ~OmniLight();
         int Update(TimeValue t, const RendContext& rc, RenderGlobalContext *rgc, BOOL shadows, BOOL shadowGeomChanged);
@@ -119,12 +119,12 @@ class OmniLight : public BaseObjLight
 
 //// SpotLight Class //////////////////////////////////////////////////////////
 
-class SpotLight: public BaseObjLight 
-{   
+class SpotLight: public BaseObjLight
+{
     Point3 lightDir;  // light direction in render space
     BOOL projector; //, shadowRay, overshoot;
     float hot_cos, fall_cos, fall_tan, fall_sin;
-    float hotpct, ihotpct;  
+    float hotpct, ihotpct;
     float zfac, xscale,yscale, fov, sz2, curve;
     float out_range,in_range, range_span;
     Point2 rectv0, rectv1;
@@ -141,11 +141,11 @@ class SpotLight: public BaseObjLight
 
 //// DirLight Class ///////////////////////////////////////////////////////////
 
-class DirLight : public BaseObjLight 
+class DirLight : public BaseObjLight
 {
-    Point3 lightDir;  // light direction in render space    
+    Point3 lightDir;  // light direction in render space
     //BOOL projector;//,overshoot;
-    float hotsz, fallsz, fallsq;    
+    float hotsz, fallsz, fallsq;
     float xscale, yscale, sz2, curve;
     float out_range,in_range, range_span;
     float hotpct,ihotpct;

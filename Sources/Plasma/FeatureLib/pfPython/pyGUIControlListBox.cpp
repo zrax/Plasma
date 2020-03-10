@@ -300,7 +300,7 @@ class pfListTextInBox : public pfGUIListText
             if ( *width < fMinWidth )
                 *width = (uint16_t)fMinWidth;
             if( height != nil )
-            { 
+            {
                 if( *height == 0 )
                     *height = 10;       // Never allow zero height elements
                 else
@@ -351,7 +351,7 @@ class pfListPictureInBox : public pfGUIListPicture
                 }
 // end of hack
 
-                textGen->DrawClippedImage( x + fBorderSize, y + fBorderSize, mip, (uint16_t)fSrcX, (uint16_t)fSrcY, (uint16_t)fSrcWidth, (uint16_t)fSrcHeight, 
+                textGen->DrawClippedImage( x + fBorderSize, y + fBorderSize, mip, (uint16_t)fSrcX, (uint16_t)fSrcY, (uint16_t)fSrcWidth, (uint16_t)fSrcHeight,
                                             fRespectAlpha ? plDynamicTextMap::kImgBlend : plDynamicTextMap::kImgNoAlpha );
             }
 
@@ -385,8 +385,8 @@ class pfListPictureInBoxWithSwatches : public pfListPictureInBox
 
         static uint16_t   fSwatchSize, fSwatchOffset;
 
-        pfListPictureInBoxWithSwatches( plKey mipKey, uint32_t x, uint32_t y, 
-                                                                            uint32_t width, uint32_t height, 
+        pfListPictureInBoxWithSwatches( plKey mipKey, uint32_t x, uint32_t y,
+                                                                            uint32_t width, uint32_t height,
                                                                             bool respectAlpha,
                                                                             const hsColorRGBA &primaryColor, const hsColorRGBA &secondaryColor )
                                             : pfListPictureInBox( mipKey, x, y, width, height, respectAlpha )

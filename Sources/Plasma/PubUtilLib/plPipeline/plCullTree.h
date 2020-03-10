@@ -183,9 +183,9 @@ protected:
     float                    IInterpVert(const hsPoint3& p0, const hsPoint3& p1, hsPoint3& out) const;
     plCullNode::plCullStatus    ISplitPoly(const plCullPoly& poly, plCullPoly*& innerPoly, plCullPoly*& outerPoly) const;
     void                        IMarkClipped(const plCullPoly& poly, const hsBitVector& onVerts) const;
-    void                        ITakeHalfPoly(const plCullPoly& scrPoly, 
-                                   const hsTArray<int>& vtxIdx, 
-                                   const hsBitVector& onVerts, 
+    void                        ITakeHalfPoly(const plCullPoly& scrPoly,
+                                   const hsTArray<int>& vtxIdx,
+                                   const hsBitVector& onVerts,
                                    plCullPoly& outPoly) const;
     void                        IBreakPoly(const plCullPoly& poly, const hsTArray<float>& depths,
                                     hsBitVector& inVerts,
@@ -216,8 +216,8 @@ public:
 };
 
 inline plCullNode* plCullNode::IGetNode(int16_t i) const
-{ 
-    return fTree->IGetNode(i); 
+{
+    return fTree->IGetNode(i);
 }
 
 #endif // plCullTree_inc

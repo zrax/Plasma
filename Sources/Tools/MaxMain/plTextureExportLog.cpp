@@ -152,17 +152,17 @@ void    plTextureExportLog::Write()
         if( size < 1024 )
         {
             sprintf( str, "%d bytes", size );
-            IWriteTabbedString( stream, str, 2 ); 
+            IWriteTabbedString( stream, str, 2 );
         }
         else if( size < 1024 * 1024 )
         {
             sprintf( str, "%4.1f kb", size / 1024.f );
-            IWriteTabbedString( stream, str, 2 ); 
+            IWriteTabbedString( stream, str, 2 );
         }
         else
         {
             sprintf( str, "%4.1f Mb", size / ( 1024.f * 1024.f ) );
-            IWriteTabbedString( stream, str, 2 ); 
+            IWriteTabbedString( stream, str, 2 );
         }
 
         if( dynText != nil )
@@ -176,8 +176,8 @@ void    plTextureExportLog::Write()
             sprintf( str, "%d bpp", dynText->GetPixelSize() );
             IWriteTabbedString( stream, str, 1 );
 
-            IWriteTabbedString( stream, dynText->IsCompressed() 
-                                        ? "Compressed" 
+            IWriteTabbedString( stream, dynText->IsCompressed()
+                                        ? "Compressed"
                                         : dynText->fCompressionType == plBitmap::kJPEGCompression
                                             ? "JPEG"
                                             : "Uncompressed", 2 );
@@ -192,8 +192,8 @@ void    plTextureExportLog::Write()
             sprintf( str, "%d bpp", cubic->GetPixelSize() );
             IWriteTabbedString( stream, str, 1 );
 
-            IWriteTabbedString( stream, cubic->IsCompressed() 
-                                        ? "Compressed" 
+            IWriteTabbedString( stream, cubic->IsCompressed()
+                                        ? "Compressed"
                                         : cubic->fCompressionType == plBitmap::kJPEGCompression
                                             ? "JPEG"
                                             : "Uncompressed", 2 );
@@ -212,8 +212,8 @@ void    plTextureExportLog::Write()
             sprintf( str, "%d levels", mip->GetNumLevels() );
             IWriteTabbedString( stream, str, 2 );
 
-            IWriteTabbedString( stream, mip->IsCompressed() 
-                                        ? "Compressed" 
+            IWriteTabbedString( stream, mip->IsCompressed()
+                                        ? "Compressed"
                                         : mip->fCompressionType == plBitmap::kJPEGCompression
                                             ? "JPEG"
                                             : "Uncompressed", 2 );

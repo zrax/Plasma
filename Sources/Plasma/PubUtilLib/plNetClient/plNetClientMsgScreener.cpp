@@ -66,7 +66,7 @@ plNetClientMsgScreener::plNetClientMsgScreener()
 void plNetClientMsgScreener::ICreateStatusLog() const
 {
     fStatusLog = plStatusLogMgr::GetInstance().CreateStatusLog(40, "NetScreener.log",
-            plStatusLog::kTimestamp | plStatusLog::kFilledBackground | plStatusLog::kAlignToTop);   
+            plStatusLog::kTimestamp | plStatusLog::kFilledBackground | plStatusLog::kAlignToTop);
 }
 
 //
@@ -86,10 +86,10 @@ bool plNetClientMsgScreener::IIsLocalAvatarKey(plKey key, const plNetGameMember*
     return (!key || key==plNetClientApp::GetInstance()->GetLocalPlayerKey());
 }
 
-bool plNetClientMsgScreener::IIsLocalArmatureModKey(plKey key, const plNetGameMember* gm) const 
+bool plNetClientMsgScreener::IIsLocalArmatureModKey(plKey key, const plNetGameMember* gm) const
 {
     plKey playerKey = plNetClientApp::GetInstance()->GetLocalPlayerKey();
-    plArmatureMod* aMod = playerKey ? plAvatarMgr::GetInstance()->FindAvatar(playerKey) : nil; 
+    plArmatureMod* aMod = playerKey ? plAvatarMgr::GetInstance()->FindAvatar(playerKey) : nil;
     return (!key || key==(aMod ? aMod->GetKey() : nil));
 }
 

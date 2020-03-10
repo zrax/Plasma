@@ -211,7 +211,7 @@ protected:
 
     hsTArray<plDynaDecalMgr*>       fDecalMgrs;
 
-    hsTArray<plSceneObject*>        fBuoys; 
+    hsTArray<plSceneObject*>        fBuoys;
     hsTArray<plSceneObject*>        fShores;
     hsTArray<plSceneObject*>        fDecals;
     plSceneObject*                  fRefObj;
@@ -307,7 +307,7 @@ protected:
     public:
         // fK is the number of times the sine wave repeats across the texture. Must be an integer
         // fS/fK is the base X component of the direction of the wave, with Y = 1.f - X. Note that X^2 + Y^2 != 1.
-        // fD allows the wave to get more off the Y direction 
+        // fD allows the wave to get more off the Y direction
         // So the X component will be Int(fS + fD*dispersion) / fK, because it must be an integer ratio to
         // preserve tiling. Also, (fS + fD) must be <= fK (for the Y normalization).
         // See the notes.
@@ -542,7 +542,7 @@ public:
     void SetTexChop(float s, float secs=0) { fState.fTexState.fChop.Set(s, secs); }
     void SetTexAngleDev(float s, float secs=0) { fState.fTexState.fAngleDev.Set(s, secs); }
 
-    // The size in feet of one tile of the ripple texture. If you change this (I don't 
+    // The size in feet of one tile of the ripple texture. If you change this (I don't
     // recommend it), you need to change it very slowly or it will look very stupid.
     void SetRippleScale(float s, float secs=0) { fState.fRippleScale.Set(s, secs); }
 

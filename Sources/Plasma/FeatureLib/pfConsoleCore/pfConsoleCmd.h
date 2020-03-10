@@ -60,7 +60,7 @@ class pfConsoleCmd;
 class pfConsoleCmdIterator;
 
 
-class pfConsoleCmdGroup 
+class pfConsoleCmdGroup
 {
     protected:
 

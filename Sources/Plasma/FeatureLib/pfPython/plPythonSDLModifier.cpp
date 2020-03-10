@@ -311,7 +311,7 @@ void plPythonSDLModifier::IDirtySynchState(const ST::string& name, bool sendImme
     }
 }
 
-bool plPythonSDLModifier::IPythonVarIdxToSDL(plSimpleStateVariable* var, int varIdx, int type, PyObject* pyVar, 
+bool plPythonSDLModifier::IPythonVarIdxToSDL(plSimpleStateVariable* var, int varIdx, int type, PyObject* pyVar,
                                              const ST::string& hintstring)
 {
     switch (type) {

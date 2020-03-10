@@ -85,7 +85,7 @@ public:
 //Max desc stuff necessary.
 CLASS_DESC(plSeekPointComponent, gSeekPtDesc, "Seek Point",  "Seek", COMP_TYPE_TYPE, Class_ID(0x597c7970, 0x13df349f))
 
-// MAX paramblock describing the user interface. 
+// MAX paramblock describing the user interface.
 // In this case, there isn't really a user interface.
 ParamBlockDesc2 gSeekPtBk
 (

@@ -224,7 +224,7 @@ enum {
     // All this to catch duplicate mats with same name.  Sigh.
     struct DoneMaterialData
     {
-        DoneMaterialData() : fHsMaterial(nil), fMaxMaterial(nil), fNode(nil), 
+        DoneMaterialData() : fHsMaterial(nil), fMaxMaterial(nil), fNode(nil),
             fSubMultiMat(false), fOwnedCopy(false) { }
 
         hsGMaterial         *fHsMaterial;
@@ -260,7 +260,7 @@ private:
 
     hsGMaterial *IAddDefaultMaterial(plMaxNode *node);
     plMipmap *IGetUVTransTexture(plMaxNode *node, bool useU = true);
-    void IInsertSingleBlendLayer(plMipmap *texture, hsGMaterial *mat, plMaxNode *node, 
+    void IInsertSingleBlendLayer(plMipmap *texture, hsGMaterial *mat, plMaxNode *node,
                                  int layerIdx, int UVChan);
 
     hsGMaterial *ICreateMaterial(Mtl *mtl, plMaxNode *node, const ST::string &name, int subIndex, int numUVChannels, bool makeAlphaLayer);
@@ -272,7 +272,7 @@ private:
     hsGMaterial *IProcessParticleMtl(Mtl *mtl, plMaxNode *node, const ST::string &name);
     bool IProcessPlasmaMaterial(Mtl *mtl, plMaxNode *node, hsGMaterial *mat, const ST::string& namePrefix);
 
-    hsGMaterial* IInsertDoneMaterial(Mtl *mtl, hsGMaterial *hMat, plMaxNode *node, bool isMultiMat, 
+    hsGMaterial* IInsertDoneMaterial(Mtl *mtl, hsGMaterial *hMat, plMaxNode *node, bool isMultiMat,
                              bool forceCopy, bool runtimeLit, uint32_t subMtlFlags, int numUVChannels, bool makeAlphaLayer);
 
     void        IInsertBumpLayers(plMaxNode* node, hsGMaterial* mat, int bumpLayerIdx);
@@ -283,13 +283,13 @@ private:
     bool        IHasSubMtl(Mtl* base, Mtl* sub);
     int         IFindSubIndex(plMaxNode* node, Mtl* mtl);
 
-    // NOTE: each insert function potentially modifies the layers, 
+    // NOTE: each insert function potentially modifies the layers,
     // so make sure you own the material copy before calling these
     void IInsertAlphaBlendingLayers(Mtl *mtl, plMaxNode *node, hsGMaterial *mat, int UVChan,
                                     bool makeAlphaLayer);
     void IInsertMultipassBlendingLayers(Mtl *mtl, plMaxNode *node, hsGMaterial *mat, int UVChan,
                                         bool makeAlphaLayer);
-    void IInsertCompBlendingLayers(Mtl *mtl, plMaxNode *node, hsGMaterial *mat, int subMtlFlags, 
+    void IInsertCompBlendingLayers(Mtl *mtl, plMaxNode *node, hsGMaterial *mat, int subMtlFlags,
                                    int UVChan, bool makeAlphaLayer);
 
     
@@ -343,7 +343,7 @@ private:
     DoneMaterialData            fLastMaterial;
     hsTArray<DoneMaterialData>  fDoneMaterials;
 
-    bool IsMatchingDoneMaterial(DoneMaterialData *dmd, 
+    bool IsMatchingDoneMaterial(DoneMaterialData *dmd,
                                   Mtl *mtl, bool isMultiMat, uint32_t subMtlFlags, bool forceCopy, bool runtimeLit,
                                   plMaxNode *node, int numUVChannels, bool makeAlphaLayer);
 

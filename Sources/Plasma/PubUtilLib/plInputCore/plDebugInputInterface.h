@@ -74,7 +74,7 @@ class plDebugInputInterface : public plInputInterface
         plDebugInputInterface();
         virtual ~plDebugInputInterface();
 
-        // Always return false, 
+        // Always return false,
         virtual bool    HasInterestingCursorID() const { return false; }
         virtual uint32_t  GetPriorityLevel() const { return kDebugCmdPrioity; }
         virtual void    RestoreDefaultKeyMappings();

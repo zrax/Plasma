@@ -71,7 +71,7 @@ private:
 };
 
 
-template <class T> 
+template <class T>
 class hsHashTable
 {
 public:

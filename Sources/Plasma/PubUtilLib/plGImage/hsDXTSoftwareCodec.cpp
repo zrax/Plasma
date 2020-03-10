@@ -345,7 +345,7 @@ plMipmap    *hsDXTSoftwareCodec::ICreateUncompressedMipmap( plMipmap *compressed
 
     newMap = new plMipmap( compressed->GetWidth(), compressed->GetHeight(), bitDepth,
                             compressed->GetNumLevels(), plMipmap::kUncompressed, type );
-    newMap->SetFlags( compressed->GetFlags() );                         
+    newMap->SetFlags( compressed->GetFlags() );
 
     return newMap;
 }
@@ -384,22 +384,22 @@ void hsDXTSoftwareCodec::UncompressMipmap(plMipmap *uncompressed, plMipmap *comp
                 alpha[0] = charBlock[0];
                 alpha[1] = charBlock[1];
 
-                // 8-alpha or 6-alpha block?    
-                if (alpha[0] > alpha[1]) {    
-                    // 8-alpha block:  derive the other 6 alphas.    
+                // 8-alpha or 6-alpha block?
+                if (alpha[0] > alpha[1]) {
+                    // 8-alpha block:  derive the other 6 alphas.
                     // 000 = alpha[0], 001 = alpha[1], others are interpolated
                     alpha[2] = (6 * alpha[0] + alpha[1]) / 7;      // bit code 010
-                    alpha[3] = (5 * alpha[0] + 2 * alpha[1]) / 7;  // Bit code 011    
-                    alpha[4] = (4 * alpha[0] + 3 * alpha[1]) / 7;  // Bit code 100    
+                    alpha[3] = (5 * alpha[0] + 2 * alpha[1]) / 7;  // Bit code 011
+                    alpha[4] = (4 * alpha[0] + 3 * alpha[1]) / 7;  // Bit code 100
                     alpha[5] = (3 * alpha[0] + 4 * alpha[1]) / 7;  // Bit code 101
-                    alpha[6] = (2 * alpha[0] + 5 * alpha[1]) / 7;  // Bit code 110    
+                    alpha[6] = (2 * alpha[0] + 5 * alpha[1]) / 7;  // Bit code 110
                     alpha[7] = (alpha[0] + 6 * alpha[1]) / 7;      // Bit code 111
-                }    
-                else {  // 6-alpha block:  derive the other alphas.    
+                }
+                else {  // 6-alpha block:  derive the other alphas.
                     // 000 = alpha[0], 001 = alpha[1], others are interpolated
                     alpha[2] = (4 * alpha[0] + alpha[1]) / 5;      // Bit code 010
-                    alpha[3] = (3 * alpha[0] + 2 * alpha[1]) / 5;  // Bit code 011    
-                    alpha[4] = (2 * alpha[0] + 3 * alpha[1]) / 5;  // Bit code 100    
+                    alpha[3] = (3 * alpha[0] + 2 * alpha[1]) / 5;  // Bit code 011
+                    alpha[4] = (2 * alpha[0] + 3 * alpha[1]) / 5;  // Bit code 100
                     alpha[5] = (alpha[0] + 4 * alpha[1]) / 5;      // Bit code 101
                     alpha[6] = 0;                                // Bit code 110
                     alpha[7] = 255;                              // Bit code 111
@@ -419,26 +419,26 @@ void hsDXTSoftwareCodec::UncompressMipmap(plMipmap *uncompressed, plMipmap *comp
             color[0] = (colorBlock[1] << 8) | colorBlock[0];
             color[1] = (colorBlock[3] << 8) | colorBlock[2];
 
-            if (color[0] > color[1]) 
+            if (color[0] > color[1])
             {
-                // Four-color block: derive the other two colors.    
+                // Four-color block: derive the other two colors.
                 // 00 = color[0], 01 = color[1], 10 = color[2, 11 = color[3
-                // These two bit codes correspond to the 2-bit fields 
+                // These two bit codes correspond to the 2-bit fields
                 // stored in the 64-bit block.
                 color[2] = BlendColors16(2, color[0], 1, color[1]);
                 color[3] = BlendColors16(1, color[0], 2, color[1]);
 
                 encoding = kFourColorEncoding;
-            }    
+            }
             else
-            { 
+            {
                 // Three-color block: derive the other color.
-                // 00 = color[0],  01 = color[1],  10 = color[2,  
+                // 00 = color[0],  01 = color[1],  10 = color[2,
                 // 11 = transparent.
-                // These two bit codes correspond to the 2-bit fields 
-                // stored in the 64-bit block. 
+                // These two bit codes correspond to the 2-bit fields
+                // stored in the 64-bit block.
                 color[2] = BlendColors16(1, color[0], 1, color[1]);
-                color[3] = 0;    
+                color[3] = 0;
 
                 encoding = kThreeColorEncoding;
             }
@@ -475,7 +475,7 @@ void hsDXTSoftwareCodec::UncompressMipmap(plMipmap *uncompressed, plMipmap *comp
                     }
 
                     uint32_t colorMask = 0x3;
-                    uint32_t colorDWord = (colorBlock[7] << 24) | (colorBlock[6] << 16) | 
+                    uint32_t colorDWord = (colorBlock[7] << 24) | (colorBlock[6] << 16) |
                         (colorBlock[5] << 8) | colorBlock[4];
                     uint32_t colorShift = 2 * (4 * yy + xx);
                     uint32_t colorIndex = (colorDWord >> colorShift) & colorMask;
@@ -497,7 +497,7 @@ void hsDXTSoftwareCodec::UncompressMipmap(plMipmap *uncompressed, plMipmap *comp
                     pixel->g = g;
                     pixel->b = b;
                 }
-            }   
+            }
         }
     }
 }
@@ -505,7 +505,7 @@ void hsDXTSoftwareCodec::UncompressMipmap(plMipmap *uncompressed, plMipmap *comp
 
 //// UncompressBitmap /////////////////////////////////////////////////////////
 //
-//  Workhorse function distribution. Takes a compressed GBitmapClass as input 
+//  Workhorse function distribution. Takes a compressed GBitmapClass as input
 //  and writes the uncompressed version to the destination bitmap class.
 //  (Doesn't actually do anything but call the appropriate function per format.
 //  Change this function to add support for more compression formats.)
@@ -593,7 +593,7 @@ void    hsDXTSoftwareCodec::IUncompressMipmapDXT5To16( plMipmap *destBMap, plMip
 
     blockSize = srcBMap->fDirectXInfo.fBlockSize >> 1; // In 16-bit words
     srcData = (uint16_t *)srcBMap->GetCurrLevelPtr();
-    // Note our trick here to make sure nothing breaks if GetAddr16's 
+    // Note our trick here to make sure nothing breaks if GetAddr16's
     // formula changes
     bMapStride = (uint32_t)( destBMap->GetAddr16( 0, 1 ) - destBMap->GetAddr16( 0, 0 ) );
     x = y = 0;
@@ -620,7 +620,7 @@ void    hsDXTSoftwareCodec::IUncompressMipmapDXT5To16( plMipmap *destBMap, plMip
             /// and we're using unsigned values here. (i.e. we need all the bits)
             aTemp = alphas[ 0 ];
             a0 = ( aTemp / 7 );
-            a1 = ( alphas[ 1 ] / 7 );           
+            a1 = ( alphas[ 1 ] / 7 );
             for( j = 2; j < 8; j++ )
             {
                 aTemp += a1 - a0;
@@ -652,11 +652,11 @@ void    hsDXTSoftwareCodec::IUncompressMipmapDXT5To16( plMipmap *destBMap, plMip
         alphas[ 1 ] &= 0xf000;
 
         /// Now do the 16 pixels in 2 blocks, decompressing 3-bit lookups
-        aBitSrc1 = ( (uint32_t)bytePtr[ 4 ] << 16 ) + 
-                    ( (uint32_t)bytePtr[ 3 ] << 8 ) + 
+        aBitSrc1 = ( (uint32_t)bytePtr[ 4 ] << 16 ) +
+                    ( (uint32_t)bytePtr[ 3 ] << 8 ) +
                     ( (uint32_t)bytePtr[ 2 ] );
-        aBitSrc2 = ( (uint32_t)bytePtr[ 7 ] << 16 ) + 
-                    ( (uint32_t)bytePtr[ 6 ] << 8 ) + 
+        aBitSrc2 = ( (uint32_t)bytePtr[ 7 ] << 16 ) +
+                    ( (uint32_t)bytePtr[ 6 ] << 8 ) +
                     ( (uint32_t)bytePtr[ 5 ] );
 
         /// Now decompress color data
@@ -721,7 +721,7 @@ void    hsDXTSoftwareCodec::IUncompressMipmapDXT5To16( plMipmap *destBMap, plMip
 //// IUncompressMipmapDXT5To16Weird ///////////////////////////////////////////
 //
 //  UncompressBitmap internal call for DXT5 compression. DXT5 is 3-bit linear
-//  interpolated alpha channel compression. Output is a 16-bit RGB 4444 
+//  interpolated alpha channel compression. Output is a 16-bit RGB 4444
 //  reversed bitmap (Red and blue are swapped ala OpenGL).
 //  (Note: Annoyingly enough, this is exactly the same as the above function
 //  EXCEPT for two stupid lines. We can't use function pointers as the two
@@ -750,7 +750,7 @@ void    hsDXTSoftwareCodec::IUncompressMipmapDXT5To16Weird( plMipmap *destBMap, 
 
     blockSize = srcBMap->fDirectXInfo.fBlockSize >> 1; // In 16-bit words
     srcData = (uint16_t *)srcBMap->GetCurrLevelPtr();
-    // Note our trick here to make sure nothing breaks if GetAddr16's 
+    // Note our trick here to make sure nothing breaks if GetAddr16's
     // formula changes
     bMapStride = (uint32_t)( destBMap->GetAddr16( 0, 1 ) - destBMap->GetAddr16( 0, 0 ) );
     x = y = 0;
@@ -777,7 +777,7 @@ void    hsDXTSoftwareCodec::IUncompressMipmapDXT5To16Weird( plMipmap *destBMap, 
             /// and we're using unsigned values here. (i.e. we need all the bits)
             aTemp = alphas[ 0 ];
             a0 = ( aTemp / 7 );
-            a1 = ( alphas[ 1 ] / 7 );           
+            a1 = ( alphas[ 1 ] / 7 );
             for( j = 2; j < 8; j++ )
             {
                 aTemp += a1 - a0;
@@ -809,11 +809,11 @@ void    hsDXTSoftwareCodec::IUncompressMipmapDXT5To16Weird( plMipmap *destBMap, 
         alphas[ 1 ] &= 0xf000;
 
         /// Now do the 16 pixels in 2 blocks, decompressing 3-bit lookups
-        aBitSrc1 = ( (uint32_t)bytePtr[ 4 ] << 16 ) + 
-                    ( (uint32_t)bytePtr[ 3 ] << 8 ) + 
+        aBitSrc1 = ( (uint32_t)bytePtr[ 4 ] << 16 ) +
+                    ( (uint32_t)bytePtr[ 3 ] << 8 ) +
                     ( (uint32_t)bytePtr[ 2 ] );
-        aBitSrc2 = ( (uint32_t)bytePtr[ 7 ] << 16 ) + 
-                    ( (uint32_t)bytePtr[ 6 ] << 8 ) + 
+        aBitSrc2 = ( (uint32_t)bytePtr[ 7 ] << 16 ) +
+                    ( (uint32_t)bytePtr[ 6 ] << 8 ) +
                     ( (uint32_t)bytePtr[ 5 ] );
 
         /// Now decompress color data
@@ -906,7 +906,7 @@ void    hsDXTSoftwareCodec::IUncompressMipmapDXT5To32( plMipmap *destBMap, plMip
 
     blockSize = srcBMap->fDirectXInfo.fBlockSize >> 1; // In 16-bit words
     srcData = (uint16_t *)srcBMap->GetCurrLevelPtr();
-    // Note our trick here to make sure nothing breaks if GetAddr32's 
+    // Note our trick here to make sure nothing breaks if GetAddr32's
     // formula changes
     bMapStride = (uint32_t)( destBMap->GetAddr32( 0, 1 ) - destBMap->GetAddr32( 0, 0 ) );
     x = y = 0;
@@ -941,7 +941,7 @@ void    hsDXTSoftwareCodec::IUncompressMipmapDXT5To32( plMipmap *destBMap, plMip
             /// and we're using unsigned values here. (i.e. we need all the bits)
             aTemp = alphas[ 0 ];
             a0 = ( aTemp / 7 ) & 0xff000000;
-            a1 = ( alphas[ 1 ] / 7 ) & 0xff000000;          
+            a1 = ( alphas[ 1 ] / 7 ) & 0xff000000;
             for( j = 2; j < 8; j++ )
             {
                 aTemp += a1 - a0;
@@ -973,11 +973,11 @@ void    hsDXTSoftwareCodec::IUncompressMipmapDXT5To32( plMipmap *destBMap, plMip
         }
 
         /// Now do the 16 pixels in 2 blocks, decompressing 3-bit lookups
-        aBitSrc1 = ( (uint32_t)bytePtr[ 4 ] << 16 ) + 
-                    ( (uint32_t)bytePtr[ 3 ] << 8 ) + 
+        aBitSrc1 = ( (uint32_t)bytePtr[ 4 ] << 16 ) +
+                    ( (uint32_t)bytePtr[ 3 ] << 8 ) +
                     ( (uint32_t)bytePtr[ 2 ] );
-        aBitSrc2 = ( (uint32_t)bytePtr[ 7 ] << 16 ) + 
-                    ( (uint32_t)bytePtr[ 6 ] << 8 ) + 
+        aBitSrc2 = ( (uint32_t)bytePtr[ 7 ] << 16 ) +
+                    ( (uint32_t)bytePtr[ 6 ] << 8 ) +
                     ( (uint32_t)bytePtr[ 5 ] );
 
         /// Now decompress color data
@@ -1067,7 +1067,7 @@ void    hsDXTSoftwareCodec::IUncompressMipmapDXT5ToAInten( plMipmap *destBMap, p
 
     blockSize = srcBMap->fDirectXInfo.fBlockSize >> 1; // In 16-bit words
     srcData = (uint16_t *)srcBMap->GetCurrLevelPtr();
-    // Note our trick here to make sure nothing breaks if GetAddr32's 
+    // Note our trick here to make sure nothing breaks if GetAddr32's
     // formula changes
     bMapStride = (uint32_t)( destBMap->GetAddr16( 0, 1 ) - destBMap->GetAddr16( 0, 0 ) );
     x = y = 0;
@@ -1094,7 +1094,7 @@ void    hsDXTSoftwareCodec::IUncompressMipmapDXT5ToAInten( plMipmap *destBMap, p
             /// and we're using unsigned values here. (i.e. we need all the bits)
             aTemp = alphas[ 0 ];
             a0 = ( aTemp / 7 );
-            a1 = ( alphas[ 1 ] / 7 );           
+            a1 = ( alphas[ 1 ] / 7 );
             for( j = 2; j < 8; j++ )
             {
                 aTemp += a1 - a0;
@@ -1122,11 +1122,11 @@ void    hsDXTSoftwareCodec::IUncompressMipmapDXT5ToAInten( plMipmap *destBMap, p
         }
 
         /// Now do the 16 pixels in 2 blocks, decompressing 3-bit lookups
-        aBitSrc1 = ( (uint32_t)bytePtr[ 4 ] << 16 ) + 
-                    ( (uint32_t)bytePtr[ 3 ] << 8 ) + 
+        aBitSrc1 = ( (uint32_t)bytePtr[ 4 ] << 16 ) +
+                    ( (uint32_t)bytePtr[ 3 ] << 8 ) +
                     ( (uint32_t)bytePtr[ 2 ] );
-        aBitSrc2 = ( (uint32_t)bytePtr[ 7 ] << 16 ) + 
-                    ( (uint32_t)bytePtr[ 6 ] << 8 ) + 
+        aBitSrc2 = ( (uint32_t)bytePtr[ 7 ] << 16 ) +
+                    ( (uint32_t)bytePtr[ 6 ] << 8 ) +
                     ( (uint32_t)bytePtr[ 5 ] );
 
         /// Now decompress color data
@@ -1210,7 +1210,7 @@ void    hsDXTSoftwareCodec::IUncompressMipmapDXT1To16( plMipmap *destBMap, plMip
 
     blockSize = srcBMap->fDirectXInfo.fBlockSize >> 1; // In 16-bit words
     srcData = (uint16_t *)srcBMap->GetCurrLevelPtr();
-    // Note our trick here to make sure nothing breaks if GetAddr32's 
+    // Note our trick here to make sure nothing breaks if GetAddr32's
     // formula changes
     bMapStride = (uint32_t)( destBMap->GetAddr16( 0, 1 ) - destBMap->GetAddr16( 0, 0 ) );
     x = y = 0;
@@ -1294,7 +1294,7 @@ void    hsDXTSoftwareCodec::IUncompressMipmapDXT1To16( plMipmap *destBMap, plMip
 //
 //  Note: this version decompresses to a 5-5-5-1 RGBA format.
 
-void    hsDXTSoftwareCodec::IUncompressMipmapDXT1To16Weird( plMipmap *destBMap, 
+void    hsDXTSoftwareCodec::IUncompressMipmapDXT1To16Weird( plMipmap *destBMap,
                                                    plMipmap *srcBMap )
 {
     uint16_t      *srcData, tempW1, tempW2;
@@ -1312,7 +1312,7 @@ void    hsDXTSoftwareCodec::IUncompressMipmapDXT1To16Weird( plMipmap *destBMap,
 
     blockSize = srcBMap->fDirectXInfo.fBlockSize >> 1; // In 16-bit words
     srcData = (uint16_t *)srcBMap->GetCurrLevelPtr();
-    // Note our trick here to make sure nothing breaks if GetAddr32's 
+    // Note our trick here to make sure nothing breaks if GetAddr32's
     // formula changes
     bMapStride = (uint32_t)( destBMap->GetAddr16( 0, 1 ) - destBMap->GetAddr16( 0, 0 ) );
     x = y = 0;
@@ -1396,7 +1396,7 @@ void    hsDXTSoftwareCodec::IUncompressMipmapDXT1To16Weird( plMipmap *destBMap,
 //
 //  7.31.2000 - M.Burrack - Created, based on old code (uncredited)
 
-void    hsDXTSoftwareCodec::IUncompressMipmapDXT1To32( plMipmap *destBMap, 
+void    hsDXTSoftwareCodec::IUncompressMipmapDXT1To32( plMipmap *destBMap,
                                                    plMipmap *srcBMap )
 {
     uint16_t      *srcData, tempW1, tempW2;
@@ -1414,7 +1414,7 @@ void    hsDXTSoftwareCodec::IUncompressMipmapDXT1To32( plMipmap *destBMap,
 
     blockSize = srcBMap->fDirectXInfo.fBlockSize >> 1; // In 16-bit words
     srcData = (uint16_t *)srcBMap->GetCurrLevelPtr();
-    // Note our trick here to make sure nothing breaks if GetAddr32's 
+    // Note our trick here to make sure nothing breaks if GetAddr32's
     // formula changes
     bMapStride = (uint32_t)( destBMap->GetAddr32( 0, 1 ) - destBMap->GetAddr32( 0, 0 ) );
     x = y = 0;
@@ -1494,10 +1494,10 @@ void    hsDXTSoftwareCodec::IUncompressMipmapDXT1To32( plMipmap *destBMap,
 //// IUncompressMipmapDXT1ToInten /////////////////////////////////////////////
 //
 //  UncompressBitmap internal call for DXT1 compression. DXT1 is a simple on/off
-//  or all-on alpha 'compression'. Output is an 8-bit intensity bitmap, 
+//  or all-on alpha 'compression'. Output is an 8-bit intensity bitmap,
 //  constructed from the blue-color channel of the DXT1 output.
 
-void    hsDXTSoftwareCodec::IUncompressMipmapDXT1ToInten( plMipmap *destBMap, 
+void    hsDXTSoftwareCodec::IUncompressMipmapDXT1ToInten( plMipmap *destBMap,
                                                    plMipmap *srcBMap )
 {
     uint16_t      *srcData, tempW1, tempW2;
@@ -1515,7 +1515,7 @@ void    hsDXTSoftwareCodec::IUncompressMipmapDXT1ToInten( plMipmap *destBMap,
 
     blockSize = srcBMap->fDirectXInfo.fBlockSize >> 1; // In 16-bit words
     srcData = (uint16_t *)srcBMap->GetCurrLevelPtr();
-    // Note our trick here to make sure nothing breaks if GetAddr8's 
+    // Note our trick here to make sure nothing breaks if GetAddr8's
     // formula changes
     bMapStride = (uint32_t)( destBMap->GetAddr8( 0, 1 ) - destBMap->GetAddr8( 0, 0 ) );
     x = y = 0;
@@ -2015,8 +2015,8 @@ void hsDXTSoftwareCodec::CompressMipmapLevel( plMipmap *uncompressed, plMipmap *
                     alpha[0] = oldMinAlpha;
                     alpha[1] = oldMaxAlpha;
                     alpha[2] = (4 * alpha[0] + alpha[1]) / 5;      // Bit code 010
-                    alpha[3] = (3 * alpha[0] + 2 * alpha[1]) / 5;  // Bit code 011    
-                    alpha[4] = (2 * alpha[0] + 3 * alpha[1]) / 5;  // Bit code 100    
+                    alpha[3] = (3 * alpha[0] + 2 * alpha[1]) / 5;  // Bit code 011
+                    alpha[4] = (2 * alpha[0] + 3 * alpha[1]) / 5;  // Bit code 100
                     alpha[5] = (alpha[0] + 4 * alpha[1]) / 5;      // Bit code 101
                     alpha[6] = 0;                                // Bit code 110
                     alpha[7] = 255;                              // Bit code 111
@@ -2026,8 +2026,8 @@ void hsDXTSoftwareCodec::CompressMipmapLevel( plMipmap *uncompressed, plMipmap *
                     alpha[0] = minAlpha;
                     alpha[1] = maxAlpha;
                     alpha[2] = (4 * alpha[0] + alpha[1]) / 5;      // Bit code 010
-                    alpha[3] = (3 * alpha[0] + 2 * alpha[1]) / 5;  // Bit code 011    
-                    alpha[4] = (2 * alpha[0] + 3 * alpha[1]) / 5;  // Bit code 100    
+                    alpha[3] = (3 * alpha[0] + 2 * alpha[1]) / 5;  // Bit code 011
+                    alpha[4] = (2 * alpha[0] + 3 * alpha[1]) / 5;  // Bit code 100
                     alpha[5] = (alpha[0] + 4 * alpha[1]) / 5;      // Bit code 101
                     alpha[6] = 0;                                // Bit code 110
                     alpha[7] = 255;                              // Bit code 111
@@ -2038,10 +2038,10 @@ void hsDXTSoftwareCodec::CompressMipmapLevel( plMipmap *uncompressed, plMipmap *
                     alpha[0] = maxAlpha;
                     alpha[1] = minAlpha;
                     alpha[2] = (6 * alpha[0] + alpha[1]) / 7;      // bit code 010
-                    alpha[3] = (5 * alpha[0] + 2 * alpha[1]) / 7;  // Bit code 011    
-                    alpha[4] = (4 * alpha[0] + 3 * alpha[1]) / 7;  // Bit code 100    
+                    alpha[3] = (5 * alpha[0] + 2 * alpha[1]) / 7;  // Bit code 011
+                    alpha[4] = (4 * alpha[0] + 3 * alpha[1]) / 7;  // Bit code 100
                     alpha[5] = (3 * alpha[0] + 4 * alpha[1]) / 7;  // Bit code 101
-                    alpha[6] = (2 * alpha[0] + 5 * alpha[1]) / 7;  // Bit code 110    
+                    alpha[6] = (2 * alpha[0] + 5 * alpha[1]) / 7;  // Bit code 110
                     alpha[7] = (alpha[0] + 6 * alpha[1]) / 7;      // Bit code 111
                 }
             }
@@ -2238,7 +2238,7 @@ uint16_t hsDXTSoftwareCodec::BlendColors16(uint16_t weight1, uint16_t color1, ui
 }
 
 
-hsRGBAColor32 hsDXTSoftwareCodec::BlendColors32(uint32_t weight1, hsRGBAColor32 color1, 
+hsRGBAColor32 hsDXTSoftwareCodec::BlendColors32(uint32_t weight1, hsRGBAColor32 color1,
                                          uint32_t weight2, hsRGBAColor32 color2)
 {
     hsRGBAColor32 result;
@@ -2379,8 +2379,8 @@ bool hsDXTSoftwareCodec::ColorizeCompMipmap( plMipmap *bMap, const uint8_t *colo
             /// Spoiler for above: we shift the uint16_t right one bit, then
             /// not the bits, then mask off the lower bits of the pairs
             /// (which of course used to be the upper bits). Now any upper
-            /// bits that were 0 are now lower bits of 1, and everything 
-            /// else 0's. This we then xor with the original value to 
+            /// bits that were 0 are now lower bits of 1, and everything
+            /// else 0's. This we then xor with the original value to
             /// flip the lower bits of those pairs whose upper bits are 0.
             /// Nifty, eh?
         }

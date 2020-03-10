@@ -194,7 +194,7 @@ void hsAffineParts::ComposeMatrix(hsMatrix44 *out) const
     //      |U01    U11 U21 0|
     //      |U02    U12 U22 0|, where Uij is from matrix U
     //
-    // So, K * Ut = 
+    // So, K * Ut =
     //      |Sx*U00 Sx*U10  Sx*U20  0|
     //      |Sy*U01 Sy*U11  Sy*U21  0|
     //      |Sz*U02 Sz*U12  Sz*U22  0|
@@ -211,7 +211,7 @@ void hsAffineParts::ComposeMatrix(hsMatrix44 *out) const
     //      | R1 dot UKc0   R1 dot UKc1 R1 dot UKc2     0|
     //      | R2 dot UKc0   R2 dot UKc1 R2 dot UKc2     0|, where UKci is column i from UK
     //
-    // if f is -1, we negate the matrix we have so far, else we don't. We can 
+    // if f is -1, we negate the matrix we have so far, else we don't. We can
     // accomplish this cleanly by just negating the scale vector S if f == -1.
     //
     // Since the translate is last, we can just stuff it into the 4th column.
@@ -235,8 +235,8 @@ void hsAffineParts::ComposeMatrix(hsMatrix44 *out) const
         for( j = 0; j < 3; j++ )
         {
             // SU[j] = (fK.fX * U[j].fX, fK.fY * U[j].fY, fK.fZ * U[j].fZ)
-            UKt[j][i] = U[i].fX * fK.fX * U[j].fX 
-                + U[i].fY * fK.fY * U[j].fY 
+            UKt[j][i] = U[i].fX * fK.fX * U[j].fX
+                + U[i].fY * fK.fY * U[j].fY
                 + U[i].fZ * fK.fZ * U[j].fZ;
         }
     }
@@ -331,7 +331,7 @@ void hsAffineParts::ComposeInverseMatrix(hsMatrix44 *out) const
     //      |U01    U11 U21 0|
     //      |U02    U12 U22 0|, where Uij is from matrix U
     //
-    // So, Ut * K = 
+    // So, Ut * K =
     //      |U00*Sx     U10*Sy  U20*Sz  0|
     //      |U01*Sx     U11*Sy  U21*Sz  0|
     //      |U02*Sx     U12*Sy  U22*Sz  0|
@@ -346,10 +346,10 @@ void hsAffineParts::ComposeInverseMatrix(hsMatrix44 *out) const
     // Again we'll stuff the flip into the scale.
     //
     // Now, because the T is on the other end of the concat (closest
-    // to the vertex), we can't just stuff it in. If Mr is the 
+    // to the vertex), we can't just stuff it in. If Mr is the
     // rotation part of the final matrix (Ut * K * U * R * F), then
     // the translation components M[i][3] = Mr[i] dot T.
-    //      
+    //
     //
     hsVector3 Ut[3];
     QuatTo3VectorsTranspose(fU.Conjugate(), Ut);
@@ -365,9 +365,9 @@ void hsAffineParts::ComposeInverseMatrix(hsMatrix44 *out) const
         {
             // SUt[i] = (Ut[i].fX * invK.fX, Ut[i].fY * invK.fY, Ut[i].fZ * invK.fZ)
             // So SUt[i].InnerProduct(Ut[j]) ==
-            //      Ut[i].fX * invK.fX * Ut[j].fX 
-            //          + Ut[i].fY * invK.fY * Ut[j].fY 
-            //          + Ut[i].fZ * invK.fZ * Ut[j].fZ 
+            //      Ut[i].fX * invK.fX * Ut[j].fX
+            //          + Ut[i].fY * invK.fY * Ut[j].fY
+            //          + Ut[i].fZ * invK.fZ * Ut[j].fZ
 
             UK[i][j] = Ut[i].fX * invK.fX * Ut[j].fX
                 + Ut[i].fY * invK.fY * Ut[j].fY

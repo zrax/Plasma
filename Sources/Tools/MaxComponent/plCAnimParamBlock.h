@@ -76,7 +76,7 @@ enum Rollouts
     kRollEase
 };
 
-enum 
+enum
 {
     kAnimRadio_DEAD,
     kAnimAutoStart,         // Start the Animation on load  (V2)

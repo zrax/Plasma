@@ -57,7 +57,7 @@ class plDXTextFont : public plTextFont
 {
 protected:
     IDirect3DTexture9           *fD3DTexture;
-    IDirect3DDevice9            *fDevice; 
+    IDirect3DDevice9            *fDevice;
 
     static IDirect3DVertexBuffer9       *fBuffer;
     static uint32_t                       fBufferCursor;

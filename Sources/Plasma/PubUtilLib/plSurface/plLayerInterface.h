@@ -94,7 +94,7 @@ protected:
     // it can set it's pointer to the previous interfaces pointer to that field
     // and never even do a copy. For any fields this interface will alter, you
     // need to alloc your own copy, and in your eval get the previous interface's
-    // value, modify it, and write it to your copy. 
+    // value, modify it, and write it to your copy.
     // So, if you don't touch a field, copy the pointer from prev into your channel pointer,
     // else alloc your own and set the value to whatever you like.
     // Then you only need to update your value when the source value changes (you'll know
@@ -105,7 +105,7 @@ protected:
     // fPassThruChannels are channels which we need to pass through our underlay's values,
     // even if we have a differing opinion on what the value should be. This let's us arbitrate
     // between different layers that control the same channels. A layer can claim control of
-    // a channel by telling all other layers to pass through that channel via the 
+    // a channel by telling all other layers to pass through that channel via the
     // ClaimChannels(uint32_t chans) member function. See .cpp for arbitration rules.
     uint32_t                  fPassThruChannels;
 
@@ -179,7 +179,7 @@ public:
     void                    ClaimChannels(uint32_t chans);
 
     // Eval may be called multiple times per frame, or even multiple times per render (for multiple
-    // renders per frame). The burden of deciding whether any update is necessary falls to the 
+    // renders per frame). The burden of deciding whether any update is necessary falls to the
     // derived interface, but here's some info to go on.
     // secs - world time. Time dependent effects (like time of day) look mostly at this.
     // frame - incremented each time the camera moves. View dependent effects look at this.
@@ -189,7 +189,7 @@ public:
     //
     virtual uint32_t          Eval(double secs, uint32_t frame, uint32_t ignore);
 
-    // Attach gives you a chance to decide whether you want to pass through fields from prev (by copying 
+    // Attach gives you a chance to decide whether you want to pass through fields from prev (by copying
     // the pointers which you then sooner put long pins through your own eyes than modify). Alloc
     // your own fields before Attach, and you can play with them at will. Base class will pass through
     // (via pointer copy) all nil fields. Detach nils out any fields that are just pass through, and
@@ -198,7 +198,7 @@ public:
     // Given two stacks A->B and C->D, A->Attach(C) makes A->B->C->D
     virtual plLayerInterface*   Attach(plLayerInterface* prev);
     // Given stack A->B->C->D, A->Detach(C) gives two stacks, A->B and C->D (returned value is A)
-    // If A == C (A->B->C && A->Remove(A)), it returns nil, since the it's removed A from the stack, 
+    // If A == C (A->B->C && A->Remove(A)), it returns nil, since the it's removed A from the stack,
     // so the two stacks are now nil and A->B->C
     virtual plLayerInterface*   Detach(plLayerInterface* nuke);
     // Given stack A->B->C->D, A->Remove(C) gives two stacks, A->B->D and C. It returns the stack with C removed.

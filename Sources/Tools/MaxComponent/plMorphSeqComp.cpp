@@ -71,7 +71,7 @@ class plMorphLayComp : public plComponent
 {
 protected:
 public:
-    enum 
+    enum
     {
         kDeltas
     };
@@ -91,7 +91,7 @@ public:
 CLASS_DESC(plMorphLayComp, gMorphLayCompDesc, "Morph Layer",  "MorphLay", COMP_TYPE_AVATAR, MORPHLAY_COMP_CID)
 
 ParamBlockDesc2 gMorphLayBk
-(   
+(
     plComponent::kBlkComp, _T("MorphLay"), 0, &gMorphLayCompDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_MORPHLAY, IDS_COMP_MORPHLAY, 0, 0, nil,
@@ -161,7 +161,7 @@ bool plMorphLayComp::SetupLayer(plMorphArray& morphArr, plMaxNode* baseNode, hsT
         // We want to move the deltas into the same space as the base mesh verts.
         // So the first question is, which space do we want to move them from?
         // Answer is, we want to take the deltas from where they are relative to their OTM (pivot point),
-        // and move them into base node's local space. 
+        // and move them into base node's local space.
         // The idea is that we want to assume the pivot points of the two objects are aligned, even though
         // we don't require that they are. So we transform delta verts to their pivot space, pretend that is the
         // same space as baseNode's pivot space, and transform from that to baseNode's local space.
@@ -202,7 +202,7 @@ protected:
     plMorphLayComp*             IGetLayerComp(int i);
 
 public:
-    enum 
+    enum
     {
         kLayers,
         kBaseNode
@@ -259,7 +259,7 @@ static plMorphSeqProc gMorphSeqProc;
 
 
 ParamBlockDesc2 gMorphSeqBk
-(   
+(
     plComponent::kBlkComp, _T("MorphSeq"), 0, &gMorphSeqCompDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_MORPHSEQ, IDS_COMP_MORPHSEQ, 0, 0, &gMorphSeqProc,
@@ -298,8 +298,8 @@ bool plMorphSeqComp::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
     return true;
 }
 
-bool plMorphSeqComp::Convert(plMaxNode* node, plErrorMsg* pErrMsg) 
-{ 
+bool plMorphSeqComp::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
+{
     const char* dbgNodeName = node->GetName();
 
     // Make our plMorphSequence modifier
@@ -345,7 +345,7 @@ bool plMorphSeqComp::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
     // Error check - should make sure we wound up with something valid,
     // as opposed to a million empty deltas or something.
 
-    return true; 
+    return true;
 }
 
 bool plMorphSeqComp::DeInit(plMaxNode *node, plErrorMsg *pErrMsg)

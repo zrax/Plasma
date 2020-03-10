@@ -128,7 +128,7 @@ bool plParticleCollisionEffectBeat::ApplyEffect(const plEffectTargetInfo &target
         return false;
 
     hsPoint3 *currPos = (hsPoint3 *)(target.fPos + i * target.fPosStride);
-    fBounds->ResolvePoint(*currPos);    
+    fBounds->ResolvePoint(*currPos);
 
     return false;
 }
@@ -147,7 +147,7 @@ bool plParticleCollisionEffectDie::ApplyEffect(const plEffectTargetInfo &target,
         return false;
 
     hsPoint3 *currPos = (hsPoint3 *)(target.fPos + i * target.fPosStride);
-    return fBounds->IsInside(*currPos); 
+    return fBounds->IsInside(*currPos);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -167,7 +167,7 @@ bool plParticleCollisionEffectBounce::ApplyEffect(const plEffectTargetInfo &targ
 
     hsPoint3* currPos = (hsPoint3 *)(target.fPos + i * target.fPosStride);
     hsVector3* currVel = (hsVector3*)(target.fVelocity + i * target.fVelocityStride);
-    fBounds->BouncePoint(*currPos, *currVel, fBounce, fFriction);   
+    fBounds->BouncePoint(*currPos, *currVel, fBounce, fFriction);
 
     return false;
 }
@@ -217,9 +217,9 @@ plParticleFadeVolumeEffect::~plParticleFadeVolumeEffect()
 // Now we could fade all around the box, but that's not really what we want, because
 // that means fading particles that are behind us. And in the case where we're looking
 // along an axis, the camera is pushed up against a face of the box (where the axis
-// aligned box is tangent to the inscribed sphere), so we'd actually be fading 
+// aligned box is tangent to the inscribed sphere), so we'd actually be fading
 // particles just in front of the camera. Because of this non-symmetry, we're going to
-// define the Max in a given dimension as the world space value for that dimension 
+// define the Max in a given dimension as the world space value for that dimension
 // FARTHEST from the camera (NOT largest in value). So if the camera is looking
 // in a negative direction in one dimension, the Max will be less than the Min for
 // that dimension.
@@ -769,7 +769,7 @@ bool plParticleFlockEffect::ApplyEffect(const plEffectTargetInfo& target, int32_
     float maxSpeed;
     float maxSpeedSq;
     if (distSq <= fGoalDistSq)
-    {       
+    {
         goalStr = fGoalOrbitStr;
         if (i & 0x1)
             goalDir.Set(goalDir.fY, -goalDir.fX, goalDir.fZ);

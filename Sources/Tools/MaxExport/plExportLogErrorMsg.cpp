@@ -163,7 +163,7 @@ void plExportLogErrorMsg::Quit()
 //
 void plExportLogErrorMsg::IWriteErrorFile(const char* label, const char* msg)
 {
-    //make sure that there is a filename 
+    //make sure that there is a filename
     if (fErrfile_name[0] != '\0')
     {
         // do we have it open, yet?
@@ -188,7 +188,7 @@ void plExportLogErrorMsg::IWriteErrorFile(const char* label, const char* msg)
       sprintf(buf, "%s: %s", label, msg);
       exportServerGup->Control((DWORD)buf);
       exportServerGup->Control(-7); // signal that we're done sending this update sequence
-   }   
+   }
 }
 
 void plExportLogErrorMsg::IDebugThrow()

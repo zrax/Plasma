@@ -239,7 +239,7 @@ void    plGBufferGroup::SetVertexBufferRef( uint32_t index, hsGDeviceRef *vb )
 
 //// SetIndexBufferRef ////////////////////////////////////////////////////////
 
-void    plGBufferGroup::SetIndexBufferRef( uint32_t index, hsGDeviceRef *ib ) 
+void    plGBufferGroup::SetIndexBufferRef( uint32_t index, hsGDeviceRef *ib )
 {
     hsAssert( index < fIndexBufferRefs.size() + 1, "Index buffers must be assigned linearly!" );
 
@@ -266,20 +266,20 @@ void    plGBufferGroup::PrepForRendering( plPipeline *pipe, bool adjustForNvidia
 
 }
 
-hsGDeviceRef* plGBufferGroup::GetVertexBufferRef(uint32_t i) 
-{ 
+hsGDeviceRef* plGBufferGroup::GetVertexBufferRef(uint32_t i)
+{
     if( i >= fVertexBufferRefs.size() )
         fVertexBufferRefs.resize(i+1);
 
-    return fVertexBufferRefs[i]; 
+    return fVertexBufferRefs[i];
 }
 
-hsGDeviceRef* plGBufferGroup::GetIndexBufferRef(uint32_t i) 
-{ 
+hsGDeviceRef* plGBufferGroup::GetIndexBufferRef(uint32_t i)
+{
     if( i >= fIndexBufferRefs.size() )
         fIndexBufferRefs.resize(i+1);
 
-    return fIndexBufferRefs[i]; 
+    return fIndexBufferRefs[i];
 }
 
 //// ISendStorageToBuffers ////////////////////////////////////////////////////
@@ -334,7 +334,7 @@ uint8_t   plGBufferGroup::ICalcVertexSize( uint8_t &liteStride )
 
 //// I/O Functions ////////////////////////////////////////////////////////////
 
-void    plGBufferGroup::Read( hsStream *s ) 
+void    plGBufferGroup::Read( hsStream *s )
 {
     uint32_t          totalDynSize, i, count, temp = 0, j;
     uint8_t           *vData;
@@ -452,7 +452,7 @@ void    plGBufferGroup::Read( hsStream *s )
 
 //#define VERT_LOG
 
-void    plGBufferGroup::Write( hsStream *s ) 
+void    plGBufferGroup::Write( hsStream *s )
 {
     uint32_t      totalDynSize, i, j;
 
@@ -669,7 +669,7 @@ uint32_t  plGBufferGroup::IMakeCell( uint32_t vbIndex, uint8_t flags, uint32_t v
     if( !(flags & kReserveInterleaved) )
     {
         /// Note that there are THREE types of cells: interleaved (colorStart == -1),
-        /// first of an instance group (colorStart != -1 && vStart != -1) and 
+        /// first of an instance group (colorStart != -1 && vStart != -1) and
         /// an instance (colorStart != -1 && vStart == -1 ). To simplify things,
         /// we never merge any separated cells
 
@@ -810,7 +810,7 @@ bool    plGBufferGroup::ReserveVertStorage( uint32_t numVerts, uint32_t *vbIndex
 }
 
 //// AppendToVertStorage //////////////////////////////////////////////////////
-//  Given an opaque array of vertex data, puts it into the first available spot 
+//  Given an opaque array of vertex data, puts it into the first available spot
 //  in fVertStorage. If there is no array on fVertStorage that can hold them,
 //  we create a new one. Returns the index of the storage array and the
 //  starting index into the array. Note that we basically stick it wherever
@@ -901,7 +901,7 @@ uint32_t  plGBufferGroup::GetVertStartFromCell( uint32_t vbIndex, uint32_t cell,
 }
 
 //// StuffToVertStorage ///////////////////////////////////////////////////////
-//  Stuffs data from a plGeometrySpan into the specified location in the 
+//  Stuffs data from a plGeometrySpan into the specified location in the
 //  specified vertex buffer.
 
 void    plGBufferGroup::StuffToVertStorage( plGeometrySpan *srcSpan, uint32_t vbIndex, uint32_t cell, uint32_t offset, uint8_t flags )
@@ -990,7 +990,7 @@ void    plGBufferGroup::StuffToVertStorage( plGeometrySpan *srcSpan, uint32_t vb
                 dPtr += 2;
                 fPtr = (float *)dPtr;
             }
-            else 
+            else
             {
                 cPtr->fDiffuse = color;
                 cPtr->fSpecular = specColor;
@@ -1077,7 +1077,7 @@ bool    plGBufferGroup::ReserveIndexStorage( uint32_t numIndices, uint32_t *ibIn
 //// AppendToIndexStorage /////////////////////////////////////////////////////
 //  Same as AppendToVertStorage, only for the index buffers and indices. Duh :)
 
-void    plGBufferGroup::AppendToIndexStorage( uint32_t numIndices, uint16_t *data, uint32_t addToAll, 
+void    plGBufferGroup::AppendToIndexStorage( uint32_t numIndices, uint16_t *data, uint32_t addToAll,
                                               uint32_t *ibIndex, uint32_t *ibStart )
 {
     uint16_t          *tempPtr;
@@ -1095,8 +1095,8 @@ void    plGBufferGroup::AppendToIndexStorage( uint32_t numIndices, uint16_t *dat
 }
 
 //// ConvertToTriList /////////////////////////////////////////////////////////
-//  Returns an array of plGBufferTriangles representing the span of indices 
-//  specified. 
+//  Returns an array of plGBufferTriangles representing the span of indices
+//  specified.
 
 plGBufferTriangle   *plGBufferGroup::ConvertToTriList( int16_t spanIndex, uint32_t whichIdx, uint32_t whichVtx, uint32_t whichCell, uint32_t start, uint32_t numTriangles )
 {
@@ -1164,7 +1164,7 @@ plGBufferTriangle   *plGBufferGroup::ConvertToTriList( int16_t spanIndex, uint32
 }
 
 //// StuffFromTriList /////////////////////////////////////////////////////////
-//  Stuffs the indices from an array of plGBufferTriangles into the index 
+//  Stuffs the indices from an array of plGBufferTriangles into the index
 //  storage.
 
 void    plGBufferGroup::StuffFromTriList( uint32_t which, uint32_t start, uint32_t numTriangles, uint16_t *data )
@@ -1222,7 +1222,7 @@ hsPoint3    &plGBufferGroup::Position( int iBuff, uint32_t cell, int iVtx )
 
     IGetStartVtxPointer( iBuff, cell, iVtx, vertStgPtr, cPtr );
 
-    return *(hsPoint3 *)( vertStgPtr + 0 ); 
+    return *(hsPoint3 *)( vertStgPtr + 0 );
 }
 
 hsVector3   &plGBufferGroup::Normal( int iBuff, uint32_t cell, int iVtx )
@@ -1232,10 +1232,10 @@ hsVector3   &plGBufferGroup::Normal( int iBuff, uint32_t cell, int iVtx )
 
     IGetStartVtxPointer( iBuff, cell, iVtx, vertStgPtr, cPtr );
 
-    return *(hsVector3 *)( vertStgPtr + sizeof( hsPoint3 ) ); 
+    return *(hsVector3 *)( vertStgPtr + sizeof( hsPoint3 ) );
 }
 
-uint32_t  &plGBufferGroup::Color( int iBuff, uint32_t cell, int iVtx ) 
+uint32_t  &plGBufferGroup::Color( int iBuff, uint32_t cell, int iVtx )
 {
     uint8_t           *vertStgPtr;
     plGBufferColor  *cPtr;
@@ -1248,7 +1248,7 @@ uint32_t  &plGBufferGroup::Color( int iBuff, uint32_t cell, int iVtx )
         return *(uint32_t *)( vertStgPtr + 2 * sizeof( hsPoint3 ) );
 }
 
-uint32_t  &plGBufferGroup::Specular( int iBuff, uint32_t cell, int iVtx ) 
+uint32_t  &plGBufferGroup::Specular( int iBuff, uint32_t cell, int iVtx )
 {
     uint8_t           *vertStgPtr;
     plGBufferColor  *cPtr;

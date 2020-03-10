@@ -58,7 +58,7 @@ bool plPickingDetector::MsgReceive(plMessage* msg)
     plObjRefMsg* refMsg = plObjRefMsg::ConvertNoRef(msg);
     if( refMsg )
     {
-        if( refMsg->fType == plObjRefMsg::kModifier) 
+        if( refMsg->fType == plObjRefMsg::kModifier)
         {
             if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
             {

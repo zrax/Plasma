@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/NucleusLib/pnNetProtocol/Private/Protocols/Srv2Log/pnNpSrv2Log.cpp
-*   
+*
 ***/
 
 #ifdef SERVER
@@ -75,7 +75,7 @@ bool Srv2LogValidateConnect (
         return false;
 
     // Validate connect server type
-    if (!(connect.srvType == kSrvTypeAuth || connect.srvType == kSrvTypeGame || connect.srvType == kSrvTypeVault || connect.srvType == kSrvTypeDb || 
+    if (!(connect.srvType == kSrvTypeAuth || connect.srvType == kSrvTypeGame || connect.srvType == kSrvTypeVault || connect.srvType == kSrvTypeDb ||
           connect.srvType == kSrvTypeMcp || connect.srvType == kSrvTypeState || connect.srvType == kSrvTypeFile || connect.srvType == kSrvTypeDll))
         return false;
 

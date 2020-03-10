@@ -135,7 +135,7 @@ static plClimbTriggerComponentProc gClimbTriggerComponentProc;
 
 // PARAM BLOCK
 ParamBlockDesc2 gClimbTriggerBk
-(   
+(
 
     plComponent::kBlkComp, _T("ClimbTrigger"), 0, &gClimbTriggerDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
@@ -335,7 +335,7 @@ BOOL plClimbTriggerComponentProc::DlgProc(TimeValue t, IParamMap2 *pm, HWND hWnd
                 std::vector<Class_ID> pickableClasses;
                 pickableClasses.push_back(PHYSICS_TERRAIN_CID);     // allow picking terrains
                 pickableClasses.push_back(PHYS_CLIMBABLE_CID);      // and climbables
-                if (plPick::NodeRefKludge(pb, plClimbTriggerComponent::kWallPicker, &pickableClasses, true, false))         
+                if (plPick::NodeRefKludge(pb, plClimbTriggerComponent::kWallPicker, &pickableClasses, true, false))
                 {
                     curPick = pb->GetINode(ParamID(plClimbTriggerComponent::kWallPicker));
                     Button_SetText(hPick, (curPick == nil ? "None" : curPick->GetName()));

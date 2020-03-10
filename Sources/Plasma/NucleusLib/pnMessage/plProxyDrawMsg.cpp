@@ -45,7 +45,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "hsStream.h"
 
 plProxyDrawMsg::plProxyDrawMsg()
-:   plMessage(nil, nil, nil), 
+:   plMessage(nil, nil, nil),
     fProxyFlags(0)
 {
     SetBCastFlag(plMessage::kBCastByExactType);

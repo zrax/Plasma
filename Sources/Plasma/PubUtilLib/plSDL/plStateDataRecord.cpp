@@ -50,11 +50,11 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 const ST::string plSDL::kAgeSDLObjectName = ST_LITERAL("AgeSDLHook");
 
-// static 
+// static
 const uint8_t plStateDataRecord::kIOVersion=6;
 
 //
-// helper 
+// helper
 //
 void plSDL::VariableLengthRead(hsStream* s, int size, int* val)
 {
@@ -106,8 +106,8 @@ plStateDataRecord::plStateDataRecord(plStateDescriptor* sd) : fFlags(0)
     IInitDescriptor(sd);
 }
 
-plStateDataRecord::~plStateDataRecord() 
-{ 
+plStateDataRecord::~plStateDataRecord()
+{
     IDeleteVarsList(fVarsList);
     IDeleteVarsList(fSDVarsList);
 }
@@ -405,7 +405,7 @@ void plStateDataRecord::Write(hsStream* s, float timeConvert, uint32_t writeOpti
 }
 
 //
-// STATIC - read prefix header.  returns true on success 
+// STATIC - read prefix header.  returns true on success
 //
 bool plStateDataRecord::ReadStreamHeader(hsStream* s, ST::string* name, int* version, plUoid* objUoid)
 {
@@ -434,7 +434,7 @@ bool plStateDataRecord::ReadStreamHeader(hsStream* s, ST::string* name, int* ver
             plUoid tmp;
             tmp.Read(s);
         }
-    }   
+    }
     
     return true;    // ok
 }
@@ -449,7 +449,7 @@ void plStateDataRecord::WriteStreamHeader(hsStream* s, plUoid* objUoid) const
         savFlags |= plSDL::kHasUoid;
 
     s->WriteLE(savFlags);
-    s->WriteSafeString(GetDescriptor()->GetName());         
+    s->WriteSafeString(GetDescriptor()->GetName());
     s->WriteLE16((int16_t)GetDescriptor()->GetVersion());
     if (objUoid)
         objUoid->Write(s);
@@ -461,12 +461,12 @@ void plStateDataRecord::WriteStreamHeader(hsStream* s, plUoid* objUoid) const
 plNetMsgSDLState* plStateDataRecord::PrepNetMsg(float timeConvert, uint32_t writeOptions) const
 {
     // save to stream
-    hsRAMStream stream; 
+    hsRAMStream stream;
     WriteStreamHeader(&stream);
     Write(&stream, timeConvert, writeOptions);
     
     // fill in net msg
-    plNetMsgSDLState* msg;  
+    plNetMsgSDLState* msg;
     if (writeOptions & plSDL::kBroadcast)
         msg = new plNetMsgSDLStateBCast;
     else
@@ -498,7 +498,7 @@ void plStateDataRecord::CopyFrom(const plStateDataRecord& other, uint32_t writeO
 }
 
 //
-// Find the data items which are dirty in 'other' and 
+// Find the data items which are dirty in 'other' and
 // copy them to my corresponding item.
 // Requires that records have the same descriptor.
 //
@@ -512,7 +512,7 @@ void plStateDataRecord::UpdateFrom(const plStateDataRecord& other, uint32_t writ
         ConvertTo( sd );
     }
 
-    hsAssert(other.GetDescriptor()==fDescriptor, 
+    hsAssert(other.GetDescriptor()==fDescriptor,
         ST::format("descriptor mismatch in UpdateFromDirty, SDL={},{} version {} {}",
             GetDescriptor()->GetName(), other.GetDescriptor()->GetName(),
             GetDescriptor()->GetVersion(), other.GetDescriptor()->GetVersion()).c_str());
@@ -597,7 +597,7 @@ void plStateDataRecord::FlagNewerState(const plStateDataRecord& other, bool resp
         int i;
         for(i=0;i<other.GetNumVars();i++)
         {
-            bool newer= (GetVar(i)->IsUsed() && 
+            bool newer= (GetVar(i)->IsUsed() &&
                 (GetVar(i)->GetTimeStamp() > other.GetVar(i)->GetTimeStamp() ||         // later timestamp
                 (respectAlwaysNew && GetVar(i)->GetVarDescriptor()->IsAlwaysNew())) );  // flagged to be always new
             GetVar(i)->SetDirty(newer);
@@ -622,7 +622,7 @@ void plStateDataRecord::FlagNewerState(const plStateDataRecord& other, bool resp
 //
 // assumes matching state descriptors
 //
-bool plStateDataRecord::operator==(const plStateDataRecord &other) const    
+bool plStateDataRecord::operator==(const plStateDataRecord &other) const
 {
     // hsAssert(other.GetDescriptor()==fDescriptor, "descriptor mismatch in equality check");
     if (other.GetDescriptor()!=fDescriptor)
@@ -647,7 +647,7 @@ bool plStateDataRecord::operator==(const plStateDataRecord &other) const
 //
 // Converting from a var in an older dtor to a corresponding var in a newer dtor.
 // If possible, use the value from fromVar (type converted, if necessary, to the type of toVar),
-//      o/wise use toVar's default value.  
+//      o/wise use toVar's default value.
 // Also handle the possiblity of different counts.
 // Put the final value in the otherData buffer.
 // return false on err
@@ -700,7 +700,7 @@ bool plStateDataRecord::ConvertTo( plStateDescriptor* other, bool force )
     hsLogEntry( plNetApp::StaticDebugMsg( "SDR(0x{x}) converting sdl record {} from version {} to {} (force:{})",
         uintptr_t(this), fDescriptor->GetName(), fDescriptor->GetVersion(), other->GetVersion(), force ) );
 
-    // make other StateData to represent other descriptor, 
+    // make other StateData to represent other descriptor,
     // this will be the destination for the convert operation
     plStateDataRecord otherStateData(other);
 
@@ -767,16 +767,16 @@ void plStateDataRecord::DumpToObjectDebugger(const char* msg, bool dirtyOnly, in
     {
         if ( (dirtyOnly && fVarsList[i]->IsDirty()) ||  (!dirtyOnly && fVarsList[i]->IsUsed()) )
         {
-            fVarsList[i]->DumpToObjectDebugger(dirtyOnly, level+1);     
+            fVarsList[i]->DumpToObjectDebugger(dirtyOnly, level+1);
         }
     }
  
-    // dump nested vars 
+    // dump nested vars
     for (size_t i=0; i<fSDVarsList.size(); i++)
     {
         if ( (dirtyOnly && fSDVarsList[i]->IsDirty()) || (!dirtyOnly && fSDVarsList[i]->IsUsed()) )
         {
-            fSDVarsList[i]->DumpToObjectDebugger(dirtyOnly, level+1);       
+            fSDVarsList[i]->DumpToObjectDebugger(dirtyOnly, level+1);
         }
     }
 }
@@ -806,7 +806,7 @@ void plStateDataRecord::DumpToStream(hsStream* stream, const char* msg, bool dir
     {
         if ( (dirtyOnly && fVarsList[i]->IsDirty()) ||  (!dirtyOnly && fVarsList[i]->IsUsed()) )
         {
-            fVarsList[i]->DumpToStream(stream, dirtyOnly, level+1);     
+            fVarsList[i]->DumpToStream(stream, dirtyOnly, level+1);
         }
     }
  
@@ -815,7 +815,7 @@ void plStateDataRecord::DumpToStream(hsStream* stream, const char* msg, bool dir
     {
         if ( (dirtyOnly && fSDVarsList[i]->IsDirty()) || (!dirtyOnly && fSDVarsList[i]->IsUsed()) )
         {
-            fSDVarsList[i]->DumpToStream(stream, dirtyOnly, level+1);       
+            fSDVarsList[i]->DumpToStream(stream, dirtyOnly, level+1);
         }
     }
 
@@ -832,7 +832,7 @@ void plStateDataRecord::SetFromDefaults(bool timeStampNow)
         fVarsList[i]->SetFromDefaults(timeStampNow);
     }
  
-    // set nested vars  
+    // set nested vars
     for(i=0;i<fSDVarsList.size(); i++)
     {
         fSDVarsList[i]->SetFromDefaults(timeStampNow);
@@ -849,7 +849,7 @@ void plStateDataRecord::TimeStampDirtyVars()
             fVarsList[i]->TimeStamp();
     }
  
-    // set nested vars  
+    // set nested vars
     for(i=0;i<fSDVarsList.size(); i++)
     {
         if ( fSDVarsList[i]->IsDirty() )

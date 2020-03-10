@@ -61,7 +61,7 @@ public:
     plClientLoader() : fClient(nullptr) { }
 
     /**
-     * Initializes the client asyncrhonouslynn including: loading the localization, 
+     * Initializes the client asyncrhonouslynn including: loading the localization,
      * registry, dispatcher, etc.
      */
     void Init()

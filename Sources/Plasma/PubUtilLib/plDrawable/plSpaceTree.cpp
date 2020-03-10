@@ -382,8 +382,8 @@ void plSpaceTree::HarvestLeaves(plVolumeIsect* cull, hsBitVector& list) const
     scratchTotVec.Clear();
 }
 
-void plSpaceTree::HarvestLeaves(int16_t subRoot, hsBitVector& list) const 
-{ 
+void plSpaceTree::HarvestLeaves(int16_t subRoot, hsBitVector& list) const
+{
     IHarvestLeaves(GetNode(subRoot), scratchTotVec, list);
     scratchTotVec.Clear();
 }
@@ -399,7 +399,7 @@ void plSpaceTree::HarvestLeaves(plVolumeIsect* cull, hsTArray<int16_t>& list) co
     }
 }
 
-void plSpaceTree::HarvestLeaves(hsTArray<int16_t>& list) const 
+void plSpaceTree::HarvestLeaves(hsTArray<int16_t>& list) const
 {
     if( !IsEmpty() )
     {
@@ -410,8 +410,8 @@ void plSpaceTree::HarvestLeaves(hsTArray<int16_t>& list) const
     }
 }
 
-void plSpaceTree::HarvestLeaves(int16_t subRoot, hsTArray<int16_t>& list) const 
-{ 
+void plSpaceTree::HarvestLeaves(int16_t subRoot, hsTArray<int16_t>& list) const
+{
     if( !IsEmpty() )
     {
         scratchBitVec.Clear();

@@ -93,7 +93,7 @@ struct plMouseState
     {
         kLeftButton     =   0x0001,
         kRightButton    =   0x0002,
-        kMiddleButton   =   0x0004, 
+        kMiddleButton   =   0x0004,
     };
     float   fX;
     float   fY;
@@ -101,4 +101,4 @@ struct plMouseState
 };
 
 
-#endif // plOSMsg 
+#endif // plOSMsg

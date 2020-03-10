@@ -52,7 +52,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 //-----------------------------------------------------------------------------
 // Name: D3DEnum_ModeInfo
 // Desc: Structure to hold information about a display mode. This
-//       info is stored as a width, height, bpp, and pixelformat within a 
+//       info is stored as a width, height, bpp, and pixelformat within a
 //       DDSURFACEDESC2.
 //-----------------------------------------------------------------------------
 struct D3DEnum_ModeInfo
@@ -160,8 +160,8 @@ public:
     D3DEnum_ModeInfo* GetCurrentMode() { return GetCurrentDevice() ? GetCurrentDriver()->fCurrentMode : nil; }
 
     void SetCurrentDriver(D3DEnum_DriverInfo* d) { fCurrentDriver = d; }
-    void SetCurrentDevice(D3DEnum_DeviceInfo* d) { hsAssert(GetCurrentDriver(), "Set Driver first"); GetCurrentDriver()->fCurrentDevice = d; } 
-    void SetCurrentMode(D3DEnum_ModeInfo* m) { hsAssert(GetCurrentDriver(), "Set Driver first"); GetCurrentDriver()->fCurrentMode = m; } 
+    void SetCurrentDevice(D3DEnum_DeviceInfo* d) { hsAssert(GetCurrentDriver(), "Set Driver first"); GetCurrentDriver()->fCurrentDevice = d; }
+    void SetCurrentMode(D3DEnum_ModeInfo* m) { hsAssert(GetCurrentDriver(), "Set Driver first"); GetCurrentDriver()->fCurrentMode = m; }
 
     char* GetEnumeErrorStr() { return fEnumeErrorStr; }
     void SetEnumeErrorStr(const char* s);

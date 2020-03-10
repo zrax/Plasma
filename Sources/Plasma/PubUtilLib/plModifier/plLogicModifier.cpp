@@ -61,7 +61,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "pfConditional/plObjectInBoxConditionalObject.h"
 
 
-plLogicModifier::plLogicModifier() 
+plLogicModifier::plLogicModifier()
 {
     fMyCursor = plCursorChangeMsg::kCursorUp;
 }
@@ -124,12 +124,12 @@ bool plLogicModifier::MsgReceive(plMessage* msg)
 //          return true;
         }
 //      else
-        {   
+        {
             bool ignore=false;
 
             // Ignore collision activations by remote players
-            if (pActivateMsg->fTriggerType==plActivatorMsg::kCollideEnter  || 
-            pActivateMsg->fTriggerType==plActivatorMsg::kCollideExit || 
+            if (pActivateMsg->fTriggerType==plActivatorMsg::kCollideEnter  ||
+            pActivateMsg->fTriggerType==plActivatorMsg::kCollideExit ||
             pActivateMsg->fTriggerType==plActivatorMsg::kCollideContact)
             {
                 if (plNetClientApp::GetInstance()->IsRemotePlayerKey(pActivateMsg->fHitterObj))
@@ -137,7 +137,7 @@ bool plLogicModifier::MsgReceive(plMessage* msg)
             }
 
             if (!ignore)
-            {       
+            {
                 for (int i = 0; i < fConditionList.Count(); i++)
                 {
                     if (fConditionList[i]->MsgReceive(msg))
@@ -200,7 +200,7 @@ bool plLogicModifier::MsgReceive(plMessage* msg)
         return true;
     }
 
-    return (plLogicModBase::MsgReceive(msg));   
+    return (plLogicModBase::MsgReceive(msg));
 }
 
 void plLogicModifier::RequestTrigger(bool netRequest)
@@ -243,7 +243,7 @@ void plLogicModifier::Read(hsStream* stream, hsResMgr* mgr)
     fConditionList.SetCountAndZero(n);
     int i;
     for(i = 0; i < n; i++ )
-    {   
+    {
         refMsg = new plCondRefMsg(GetKey(), i);
         mgr->ReadKeyNotifyMe(stream,refMsg, plRefFlags::kActiveRef);
     }
@@ -262,9 +262,9 @@ void plLogicModifier::Write(hsStream* stream, hsResMgr* mgr)
 void plLogicModifier::AddCondition(plConditionalObject* c)
 {
     plGenRefMsg *msg= new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, -1);
-    hsgResMgr::ResMgr()->AddViaNotify(c->GetKey(), msg, plRefFlags::kActiveRef); 
+    hsgResMgr::ResMgr()->AddViaNotify(c->GetKey(), msg, plRefFlags::kActiveRef);
 
-    fConditionList.Append(c); 
+    fConditionList.Append(c);
     c->SetLogicMod(this);
     if (c->HasFlag(plConditionalObject::kLocalElement))
         SetFlag(kLocalElement);

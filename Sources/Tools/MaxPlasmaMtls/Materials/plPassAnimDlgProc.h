@@ -98,4 +98,4 @@ class plPassAnimDlgProc : public ParamMap2UserDlgProc, public plMtlChangeCallbac
         void    IEnableEaseStopPoints( IParamMap2 *pm, bool enable );
 };
 
-#endif //_plPassAnimDlgProc_h 
+#endif //_plPassAnimDlgProc_h

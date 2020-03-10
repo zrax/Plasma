@@ -115,11 +115,11 @@ namespace plNetCommon
                 if ( stricmp( playerName, kPlayerNameKodama )==0 )
                     return kAvatarShapeKodama;
                 if ( stricmp( playerName, kPlayerNameEngberg )==0 )
-                    return kAvatarShapeEngberg;                 
+                    return kAvatarShapeEngberg;
                 if ( stricmp( playerName, kPlayerNameZandi )==0 )
-                    return kAvatarShapeZandi;                   
+                    return kAvatarShapeZandi;
                 if ( stricmp( playerName, kPlayerNameYeesha )==0 )
-                    return kAvatarShapeYeesha;                  
+                    return kAvatarShapeYeesha;
                     // other reserved players go here.
                 return currShapeName;
             }

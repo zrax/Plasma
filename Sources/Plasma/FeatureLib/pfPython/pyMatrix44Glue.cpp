@@ -323,10 +323,10 @@ PYTHON_METHOD_DEFINITION(ptMatrix44, setData, args)
 {
     float mat[4*4];
 
-    if (!PyArg_ParseTuple(args, "((ffff)(ffff)(ffff)(ffff))", 
-        &mat[0], &mat[1], &mat[2], &mat[3], 
-        &mat[4], &mat[5], &mat[6], &mat[7], 
-        &mat[8], &mat[9], &mat[10], &mat[11], 
+    if (!PyArg_ParseTuple(args, "((ffff)(ffff)(ffff)(ffff))",
+        &mat[0], &mat[1], &mat[2], &mat[3],
+        &mat[4], &mat[5], &mat[6], &mat[7],
+        &mat[8], &mat[9], &mat[10], &mat[11],
         &mat[12], &mat[13], &mat[14], &mat[15]))
     {
         PyErr_SetString(PyExc_TypeError, "setData expects a 4x4 tuple of floats");

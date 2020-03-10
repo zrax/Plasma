@@ -182,7 +182,7 @@ void    plFogEnvironment::GetPipelineParams( float *start, float *end, hsColorRG
 //  Gets exp/exp^2 pipeline (DX8) specific parameters. Basically massages our
 //  interface values into values that DX8 can use. In this case, we're going
 //  to modulate the density by the end value so that it actually ends at the
-//  right spot. 
+//  right spot.
 
 void    plFogEnvironment::GetPipelineParams( float *density, hsColorRGBA *color ) const
 {

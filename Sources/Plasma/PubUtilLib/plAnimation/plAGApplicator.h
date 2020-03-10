@@ -140,7 +140,7 @@ public:
     
     // this is pretty much a HACK to support applicators that want to stick around when
     // their channel is gone so they can operate on the next channel that comes in
-    // the RIGHT way to do this is to make applicators support the Detach() protocol just 
+    // the RIGHT way to do this is to make applicators support the Detach() protocol just
     // like channels...
     virtual bool AutoDelete() { return true; } // should we remove it when its input channel is gone?
 

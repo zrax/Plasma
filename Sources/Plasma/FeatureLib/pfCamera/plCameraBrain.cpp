@@ -92,7 +92,7 @@ fCurCamSpeed(0.0f),
 fCurViewSpeed(0.0f),
 fVelocity(30.0f),
 fAccel(30.0f),
-fDecel(30.0f),  
+fDecel(30.0f),
 fPOAVelocity(30.0f),
 fPOAAccel(30.0f),
 fPOADecel(30.0f),
@@ -114,7 +114,7 @@ fCurCamSpeed(0.0f),
 fCurViewSpeed(0.0f),
 fVelocity(30.0f),
 fAccel(30.0f),
-fDecel(30.0f),  
+fDecel(30.0f),
 fPOAVelocity(30.0f),
 fPOAAccel(30.0f),
 fPOADecel(30.0f),
@@ -178,7 +178,7 @@ void plCameraBrain1::Pop()
 
 // set the goal to which we want to animate the fov
 void plCameraBrain1::SetFOVGoal(float w, float h, double t)
-{ 
+{
     if (fFOVhGoal == h || h == fCamera->GetFOVh() &&
         fFOVwGoal == w || w == fCamera->GetFOVw())
         return;
@@ -186,9 +186,9 @@ void plCameraBrain1::SetFOVGoal(float w, float h, double t)
     float dif = h - fCamera->GetFOVh();
     fFOVhAnimRate = dif / ((float)t);
 
-    fFOVhGoal = h; 
+    fFOVhGoal = h;
     fFOVStartTime = hsTimer::GetSysSeconds();
-    fFOVEndTime = fFOVStartTime + t; 
+    fFOVEndTime = fFOVStartTime + t;
 
     if (w == 0.f)
     {
@@ -203,7 +203,7 @@ void plCameraBrain1::SetFOVGoal(float w, float h, double t)
         fFOVwGoal = w;
     }
 
-    fFlags.SetBit(kAnimateFOV); 
+    fFlags.SetBit(kAnimateFOV);
 }
 
 // set parameters for how this camera zooms FOV based on user input (mostly for telescopes)
@@ -216,7 +216,7 @@ void plCameraBrain1::SetZoomParams(float max, float min, float rate)
 }
 
 
-// periodic update - forced means we are forcing an update at a non-normal time to "prime" the camera 
+// periodic update - forced means we are forcing an update at a non-normal time to "prime" the camera
 // into position before it renders the first time (hence the fake 10 second frame delta)
 void plCameraBrain1::Update(bool forced)
 {
@@ -232,7 +232,7 @@ void plCameraBrain1::Update(bool forced)
         fPOAGoal += fPOAOffset;
     }
     else
-    {   
+    {
         // get view based on current orientation (we could be animated)
         if (fCamera->GetTarget())
         {
@@ -347,8 +347,8 @@ void plCameraBrain1::IMoveTowardGoal(double elapsedTime)
 }
 
 void plCameraBrain1::SetMovementFlag(int f)
-{ 
-    fMoveFlags.SetBit(f); 
+{
+    fMoveFlags.SetBit(f);
 }
 
 
@@ -378,10 +378,10 @@ void plCameraBrain1::IPointTowardGoal(double elapsedTime)
     // smooth out stoppage
     float adjMaxVel = fPOAVelocity;
     if (distToGoal <= 5.0f && distToGoal > 0.1f)
-    {   
+    {
         float mult = (distToGoal - 5.0f)*0.1f;
         adjMaxVel = fPOAVelocity - fabs(fPOAVelocity*mult);
-    }   
+    }
     
 
     hsVector3 vel( dir * fCurViewSpeed );
@@ -422,8 +422,8 @@ void plCameraBrain1::IPointTowardGoal(double elapsedTime)
 }
 
 
-void plCameraBrain1::IAdjustVelocity(float adjAccelRate, float adjDecelRate, 
-                                       hsVector3* dir, hsVector3* vel, float maxSpeed, 
+void plCameraBrain1::IAdjustVelocity(float adjAccelRate, float adjDecelRate,
+                                       hsVector3* dir, hsVector3* vel, float maxSpeed,
                                        float distToGoal, double elapsedTime)
 {
     float speed = vel->Magnitude();      // save current speed
@@ -479,7 +479,7 @@ bool plCameraBrain1::IShouldDecelerate(float decelSpeed, float curSpeed, float d
         return false;
 
     // compute distance required to stop, given decel speed (in units/sec sq)
-    float stopTime = curSpeed / decelSpeed;      
+    float stopTime = curSpeed / decelSpeed;
     float avgSpeed = curSpeed * .5f;
     float stopDist = avgSpeed * stopTime;
 
@@ -487,7 +487,7 @@ bool plCameraBrain1::IShouldDecelerate(float decelSpeed, float curSpeed, float d
 }
 
 //
-// Make adjustments to camera position based on 
+// Make adjustments to camera position based on
 // user input - NOTE this is for mouse-cursor based adjustment
 //
 void plCameraBrain1::AdjustForInput(double secs)
@@ -708,14 +708,14 @@ bool plCameraBrain1::MsgReceive(plMessage* msg)
                 plMouseDevice::ShowCursor();
             }
             else
-            if ( (pCMsg->GetControlCode() == B_CAMERA_ZOOM_IN || pCMsg->GetControlCode() == B_CAMERA_ZOOM_OUT)  
+            if ( (pCMsg->GetControlCode() == B_CAMERA_ZOOM_IN || pCMsg->GetControlCode() == B_CAMERA_ZOOM_OUT)
                 && fFlags.IsBitSet(kZoomEnabled) )
             {
                 fFlags.ClearBit(kAnimateFOV);
                 return true;
             }
 
-        }   
+        }
         return true;
     }
     
@@ -761,7 +761,7 @@ plCameraBrain1_Drive::plCameraBrain1_Drive() : plCameraBrain1()
 }
 
 plCameraBrain1_Drive::plCameraBrain1_Drive(plCameraModifier1* pMod) : plCameraBrain1(pMod)
-{   
+{
     fGoal.Set(100,100,100);
     fPOAGoal.Set(0,0,0);
     fUp.Set(0,0,1);
@@ -783,16 +783,16 @@ void plCameraBrain1_Drive::Push(bool recenter)
     fLastTime = hsTimer::GetSeconds();
 }
 void plCameraBrain1_Drive::Pop()
-{   
+{
     plInputManager::SetRecenterMouse(false);
 }
 
-// 
+//
 // Update Method
 //
 void plCameraBrain1_Drive::Update(bool forced)
 {
-    hsVector3 neg_up = -1 * fUp; 
+    hsVector3 neg_up = -1 * fUp;
     fTargetMatrix.Make(&fGoal, &fPOAGoal, &neg_up);
     
     // update our desired position:
@@ -883,7 +883,7 @@ void plCameraBrain1_Drive::Update(bool forced)
 
     if ( HasMovementFlag( B_CAMERA_ROTATE_RIGHT ) ||  HasMovementFlag( B_CAMERA_ROTATE_LEFT ) )
     {
-        hsQuat q(turn * fTurnRate * eTime * deltaX, &up);   
+        hsQuat q(turn * fTurnRate * eTime * deltaX, &up);
         q.NormalizeIfNeeded();
         q.MakeMatrix(&rot);
         ClearMovementFlag( B_CAMERA_ROTATE_RIGHT );
@@ -894,7 +894,7 @@ void plCameraBrain1_Drive::Update(bool forced)
 
     if ( HasMovementFlag( B_CAMERA_ROTATE_UP ) || HasMovementFlag(B_CAMERA_ROTATE_DOWN) )
     {
-        hsQuat q(turn * fTurnRate* eTime * deltaY, &right); 
+        hsQuat q(turn * fTurnRate* eTime * deltaY, &right);
         q.NormalizeIfNeeded();
         q.MakeMatrix(&rot);
         ClearMovementFlag( B_CAMERA_ROTATE_UP );
@@ -936,7 +936,7 @@ bool plCameraBrain1_Drive::MsgReceive(plMessage* msg)
         {
             bDisregardY = false;
             return true;
-        }   
+        }
         
         if (bDisregardX && pMouseMsg->GetDX() != 0.0)
         {
@@ -1033,7 +1033,7 @@ void plCameraBrain1_Avatar::Push(bool recenter)
 }
 
 
-// 
+//
 // Update Method
 //
 void plCameraBrain1_Avatar::Update(bool forced)
@@ -1164,7 +1164,7 @@ void plCameraBrain1_Avatar::CalculatePosition()
         ISendFadeMsg(false);
         fFaded = false;
     }
-}   
+}
 
 
 void plCameraBrain1_Avatar::IHandleObstacle()
@@ -1252,7 +1252,7 @@ bool plCameraBrain1_Avatar::MsgReceive(plMessage* msg)
         if (behNotifymsg->fType == plHBehavior::kBehaviorTypeFall && fFlags.IsBitSet(kVerticalWhenFalling))
         {
             if (behNotifymsg->state)
-            {   
+            {
                 SetFlags(kBeginFalling);
                 fFallTimer = hsTimer::GetSysSeconds() + plVirtualCam1::fFallTimerDelay;
             }
@@ -1321,7 +1321,7 @@ plCameraBrain1_FirstPerson::plCameraBrain1_FirstPerson() : plCameraBrain1_Avatar
 
 plCameraBrain1_FirstPerson::plCameraBrain1_FirstPerson(plCameraModifier1* pMod) : plCameraBrain1_Avatar(pMod)
 {
-}   
+}
 
 // destructor
 plCameraBrain1_FirstPerson::~plCameraBrain1_FirstPerson()
@@ -1337,7 +1337,7 @@ bool plCameraBrain1_FirstPerson::MsgReceive(plMessage* msg)
         if (pRefMsg->fType == kSubject)
         {
             if( pRefMsg->GetContext() & ( plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace ) )
-            {   
+            {
                 fPosNode = nil;
                 SetSubject((plSceneObject*)pRefMsg->GetRef());
                 // are we the built-in 1st person camera?  If we are, change our subject pointer to FPCameraOrigin node on the avatar
@@ -1459,13 +1459,13 @@ void plCameraBrain1_FirstPerson::CalculatePosition()
         ISendFadeMsg(false);
         fFaded = false;
     }
-}   
+}
 
 
 void plCameraBrain1_FirstPerson::Push(bool recenter)
 {
     if (!GetSubject())
-        return; 
+        return;
     
     if (plCameraBrain1_FirstPerson::fDontFade)
         return;
@@ -1504,7 +1504,7 @@ plCameraBrain1_Fixed::plCameraBrain1_Fixed() : plCameraBrain1()
 plCameraBrain1_Fixed::plCameraBrain1_Fixed(plCameraModifier1* pMod) : plCameraBrain1(pMod)
 {
     fTargetPoint = nil;
-}   
+}
 
 // destructor
 plCameraBrain1_Fixed::~plCameraBrain1_Fixed()
@@ -1561,7 +1561,7 @@ void plCameraBrain1_Fixed::Update(bool forced)
 
         }
         else
-        {   
+        {
             if (fCamera->GetTarget())
             {
                 fTargetMatrix = fCamera->GetTarget()->GetCoordinateInterface()->GetLocalToWorld();
@@ -1575,7 +1575,7 @@ void plCameraBrain1_Fixed::Update(bool forced)
             }
         }
         if (fFlags.IsBitSet(kRailComponent) && fRail)
-        {       
+        {
             if (fCurCamSpeed == 0)
                 fCurCamSpeed = 1.0f;
             if (forced)
@@ -1618,7 +1618,7 @@ bool plCameraBrain1_Fixed::MsgReceive(plMessage* msg)
 static const float kTwoPI    = 2.0f*M_PI;
 
 plCameraBrain1_Circle::plCameraBrain1_Circle() : plCameraBrain1_Fixed()
-{ 
+{
     fCircleFlags = 0;
     fCenterObject = nil;
     fCenter.Set(0,0,0);
@@ -1627,7 +1627,7 @@ plCameraBrain1_Circle::plCameraBrain1_Circle() : plCameraBrain1_Fixed()
     fCirPerSec = 0.25f;
 }
 plCameraBrain1_Circle::plCameraBrain1_Circle(plCameraModifier1* pMod) : plCameraBrain1_Fixed(pMod)
-{ 
+{
     fCircleFlags = 0;
     fCenterObject = nil;
     fCenter.Set(0,0,0);
@@ -1636,8 +1636,8 @@ plCameraBrain1_Circle::plCameraBrain1_Circle(plCameraModifier1* pMod) : plCamera
     fCirPerSec = 0.25f;
 }
 
-plCameraBrain1_Circle::~plCameraBrain1_Circle() 
-{ 
+plCameraBrain1_Circle::~plCameraBrain1_Circle()
+{
 }
 
 //
@@ -1668,7 +1668,7 @@ void plCameraBrain1_Circle::Update(bool forced)
         fFlags.ClearBit(kCutPos);
     }
     else
-    {   
+    {
         fGoal = MoveTowardsFromGoal(&goalpos, secs);
         fFlags.SetBit(kCutPos);
     }
@@ -1694,7 +1694,7 @@ hsPoint3 plCameraBrain1_Circle::MoveTowardsFromGoal(const hsPoint3* fromGoal, do
         bool mustWrap = (dist > M_PI);  // go opposite direction for shortcut and wrap
 
         // compute speed
-        float speed; 
+        float speed;
         if (warp)
             speed = (float)(kTwoPI * 100 * secs);
         else
@@ -1868,7 +1868,7 @@ bool plCameraBrain1_Circle::MsgReceive(plMessage* msg)
         else
         {
             if (GetCircleFlags() & kCircleLocalAvatar)
-            {   
+            {
                 SetPOAObject((plSceneObject*)pPMsg->fPlayer->GetObjectPtr());
                 fFlags.SetBit(kCutPOA);
             }

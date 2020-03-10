@@ -125,7 +125,7 @@ class pfMLScrollProc : public pfGUICtrlProcObject
         virtual void    DoSomething( pfGUIControlMod *ctrl )
         {
             // Do a check here to make sure we actually changed scroll
-            // positions--if not, we don't want to update, since that'll be 
+            // positions--if not, we don't want to update, since that'll be
             // slow as hell
             int newScrollPos = (int)fParent->fScrollControl->GetMax() - (int)fParent->fScrollControl->GetCurrValue();
             fParent->SetScrollPosition( newScrollPos );
@@ -238,7 +238,7 @@ void    pfGUIMultiLineEditCtrl::SetScrollPosition( int32_t topLine )
 
     IUpdate();
 
-    if( fScrollControl != nil ) 
+    if( fScrollControl != nil )
         // Scroll control values are reversed
         fScrollControl->SetCurrValue( fScrollControl->GetMax() - (float)fScrollPos );
 
@@ -435,7 +435,7 @@ void    pfGUIMultiLineEditCtrl::IUpdate( int32_t startLine, int32_t endLine )
         // Clear this line
         if( clearEachLine )
         {
-            fDynTextMap->FillRect( 0, (uint16_t)y, fDynTextMap->GetVisibleWidth(), fLineHeight, 
+            fDynTextMap->FillRect( 0, (uint16_t)y, fDynTextMap->GetVisibleWidth(), fLineHeight,
                                     GetColorScheme()->fBackColor );
         }
 
@@ -461,7 +461,7 @@ void    pfGUIMultiLineEditCtrl::IUpdate( int32_t startLine, int32_t endLine )
             // Store the cursor X,Y pair. Go figure, the ONLY time we actually need this is
             // to move up or down one line, and even then it's only because we want to keep
             // the same approximate horizontal position (versus same character offset)
-            fCurrCursorX = (uint16_t)x;   
+            fCurrCursorX = (uint16_t)x;
             fCurrCursorY = (uint16_t)y;
         }
         y += fLineHeight;
@@ -469,7 +469,7 @@ void    pfGUIMultiLineEditCtrl::IUpdate( int32_t startLine, int32_t endLine )
     if( clearEachLine && line >= fLineStarts.GetCount() && y < fDynTextMap->GetVisibleHeight()-fBottomMargin )
     {
         // No lines left, so clear the rest of the visible area
-        fDynTextMap->FillRect( 0, (uint16_t)y, fDynTextMap->GetVisibleWidth(), (uint16_t)(fDynTextMap->GetVisibleHeight() - y), 
+        fDynTextMap->FillRect( 0, (uint16_t)y, fDynTextMap->GetVisibleWidth(), (uint16_t)(fDynTextMap->GetVisibleHeight() - y),
                                 GetColorScheme()->fBackColor );
     }
     fDynTextMap->FlushToHost();
@@ -872,7 +872,7 @@ int32_t   pfGUIMultiLineEditCtrl::IRecalcLineStarts( int32_t startingLine, bool 
         // Check to see if the line was just too long to wrap at all
         if( startPos == charPos )
         {
-            // OK, so just try again and break as soon as necessary. nextPos should be 
+            // OK, so just try again and break as soon as necessary. nextPos should be
             // already advanced too far, so start from there and go back
             while( widthCounter >= wrapWidth && nextPos > startPos )
             {
@@ -883,7 +883,7 @@ int32_t   pfGUIMultiLineEditCtrl::IRecalcLineStarts( int32_t startingLine, bool 
             charPos = nextPos;
         }
 
-        // Continue on!     
+        // Continue on!
     }
 
     if( charPos >= fBuffer.GetCount() )
@@ -1047,7 +1047,7 @@ bool    pfGUIMultiLineEditCtrl::HandleKeyPress( wchar_t key, uint8_t modifiers )
     fLastKeyModifiers = modifiers;
     fLastKeyPressed = key;
     
-    // Send out a key pressed event. 
+    // Send out a key pressed event.
     HandleExtendedEvent( kKeyPressedEvent );
 
     // We discard keys when locked only after we give our handler the key
@@ -1114,12 +1114,12 @@ bool    pfGUIMultiLineEditCtrl::HandleKeyEvent( pfGameGUIMgr::EventType event, p
 
             InsertChar('\n');
         }
-        else if (modifiers & pfGameGUIMgr::kCtrlDown) 
+        else if (modifiers & pfGameGUIMgr::kCtrlDown)
         {
             // Not exactly safe way to do it, since there are control codes inside buffer.
             // But what's the worst thing that can happen? Horribly colorful ki-mails?
             // Too lazy to worry about that...
-            if (key == KEY_C) 
+            if (key == KEY_C)
             {
                 plClipboard::GetInstance().SetClipboardText(ST::string::from_wchar(fBuffer.AcquireArray()));
             }
@@ -1128,7 +1128,7 @@ bool    pfGUIMultiLineEditCtrl::HandleKeyEvent( pfGameGUIMgr::EventType event, p
                 ST::string contents = plClipboard::GetInstance().GetClipboardText();
                 InsertString(contents.to_wchar().data());
             }
-        } 
+        }
         else if( key == KEY_ESCAPE )
         {
 //          fEscapedFlag = true;
@@ -1261,7 +1261,7 @@ void    pfGUIMultiLineEditCtrl::IMoveCursor( pfGUIMultiLineEditCtrl::Direction d
         case kOneLineUp:
             // The wonderful thing is, since we keep going on the position of the cursor (which magically
             // is the left side of the character we're on), we end up drifting left as we keep going up
-            // or down. So to compensate, we put a little fudge factor in that lets us attempt to stay 
+            // or down. So to compensate, we put a little fudge factor in that lets us attempt to stay
             // "on course", as it were.
             if( IFindCursorLine( cursor ) > 0 )
                 cursor = IPointToPosition( fCurrCursorX + ( fLineHeight >> 2 ), fCurrCursorY - fLineHeight, true );
@@ -1394,7 +1394,7 @@ void    pfGUIMultiLineEditCtrl::InsertColor( hsColorRGBA &color )
     IActuallyInsertColor( fCursorPos, color );
     IOffsetLineStarts( fCursorPos, fColorCodeSize );
     fCursorPos += fColorCodeSize;
-    IRecalcFromCursor( true );  // Force update of all following lines, since 
+    IRecalcFromCursor( true );  // Force update of all following lines, since
                                 // insertion of this code changes appearance of following characters
 }
 
@@ -1419,7 +1419,7 @@ void    pfGUIMultiLineEditCtrl::InsertStyle( uint8_t fontStyle )
 
     IOffsetLineStarts( fCursorPos, fStyleCodeSize );
     fCursorPos += fStyleCodeSize;
-    IRecalcFromCursor( true );  // Force update of all following lines, since 
+    IRecalcFromCursor( true );  // Force update of all following lines, since
                                 // insertion of this code changes appearance of following characters
 }
 
@@ -1653,7 +1653,7 @@ int32_t   pfGUIMultiLineEditCtrl::ICharPosToBufferPos( int32_t charPos ) const
 void    pfGUIMultiLineEditCtrl::Lock()
 {
     fLockCount++;
-    IUpdate();  
+    IUpdate();
 }
 
 void    pfGUIMultiLineEditCtrl::Unlock()
@@ -1662,7 +1662,7 @@ void    pfGUIMultiLineEditCtrl::Unlock()
     //hsAssert( fLockCount >= 0, "Too many unlocks for pfGUIMultiLineEditCtrl" );
     if (fLockCount < 0)
         fLockCount = 0; // instead of asserting, hande it nicely
-    IUpdate();  
+    IUpdate();
 }
 
 // linking functions, for linking multiple multi-line edit controls together

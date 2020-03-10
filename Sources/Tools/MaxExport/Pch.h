@@ -43,7 +43,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #ifndef _MaxExport_Pch_inc_
 #define _MaxExport_Pch_inc_
 
-/** 
+/**
  * \file Pch.h
  * \brief Precompiled Header for MaxConvert
  */

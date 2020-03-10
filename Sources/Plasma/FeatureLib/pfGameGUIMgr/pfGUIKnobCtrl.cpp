@@ -341,7 +341,7 @@ void    pfGUIKnobCtrl::SetCurrValue( float v )
                 newTime = ( ( fValue - fMin ) / ( fMax - fMin ) ) * tLength + fAnimBegin;
         }
         plAnimCmdMsg *msg = new plAnimCmdMsg();
-        msg->SetCmd( plAnimCmdMsg::kGoToTime ); 
+        msg->SetCmd( plAnimCmdMsg::kGoToTime );
         msg->SetAnimName( fAnimName );
         msg->fTime = newTime;
         msg->AddReceivers( fAnimationKeys );

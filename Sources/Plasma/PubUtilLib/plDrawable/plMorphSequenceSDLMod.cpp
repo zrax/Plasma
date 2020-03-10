@@ -127,7 +127,7 @@ void plMorphSequenceSDLMod::IPutCurrentStateIn(plStateDataRecord* dstState)
 void plMorphSequenceSDLMod::SetCurrentStateFrom(const plStateDataRecord* srcState)
 {
     ISetCurrentStateFrom(srcState);
-}       
+}
 
 void plMorphSequenceSDLMod::ISetCurrentStateFrom(const plStateDataRecord* srcState)
 {
@@ -138,9 +138,9 @@ void plMorphSequenceSDLMod::ISetCurrentStateFrom(const plStateDataRecord* srcSta
     {
         hsAssert(false, "Wrong type of state data record passed into plMorphSequenceSDLMod.");
         return;
-    }   
+    }
 
-    int i, j;   
+    int i, j;
     const plMorphSequence *kMorphMod = plMorphSequence::ConvertNoRef(sobj->GetModifierByType(plMorphSequence::Index()));
     if (!kMorphMod)
     {
@@ -166,7 +166,7 @@ void plMorphSequenceSDLMod::ISetCurrentStateFrom(const plStateDataRecord* srcSta
         // Count down so that we do the high index first and the pending state struct
         // of plMorphSequence only has to resize the array once.
         for (j = weights->GetCount() - 1; j >= 0; j--)
-        {           
+        {
             uint8_t weight;
             weights->Get(&weight, j);
             float posWeight = weight * 2.f / 255.f - 1.f;
@@ -177,7 +177,7 @@ void plMorphSequenceSDLMod::ISetCurrentStateFrom(const plStateDataRecord* srcSta
                 negWeight = -posWeight;
                 posWeight = 0;
             }
-            morphMod->SetWeight(j, 1, negWeight, meshKey);          
+            morphMod->SetWeight(j, 1, negWeight, meshKey);
             morphMod->SetWeight(j, 0, posWeight, meshKey);
         }
     }

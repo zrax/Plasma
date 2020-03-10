@@ -46,8 +46,8 @@ ClassDesc2* GetCompMtlDesc();
 
 static ParamBlockDesc2 gCompositeMtlPB
 (
-    plCompositeMtl::kBlkPasses, _T("composite"), 0, GetCompMtlDesc(), 
-    P_AUTO_CONSTRUCT, plCompositeMtl::kRefPasses, 
+    plCompositeMtl::kBlkPasses, _T("composite"), 0, GetCompMtlDesc(),
+    P_AUTO_CONSTRUCT, plCompositeMtl::kRefPasses,
 
     plCompositeMtl::kCompPasses,        _T("passes"),           TYPE_MTL_TAB, 3,        0, 0,
         end,

@@ -59,13 +59,13 @@ class plCameraConfig
 {
 public:
 
-    plCameraConfig() : 
+    plCameraConfig() :
     fAccel(0),fDecel(0),
     fVel(0),fFPAccel(0),
     fFPDecel(0),fFPVel(0),
     fFOVw(0),fFOVh(0),fType(0),fWorldspace(false){fOffset.Set(0,0,0);}
     
-    plCameraConfig(int flags) : 
+    plCameraConfig(int flags) :
     fAccel(0),fDecel(0),
     fVel(0),fFPAccel(0),
     fFPDecel(0),fFPVel(0),
@@ -88,7 +88,7 @@ public:
     float        fFPAccel;
     float        fFPDecel;
     float        fFPVel;
-    float        fFOVw, fFOVh;   
+    float        fFOVw, fFOVh;
     bool         fWorldspace;
 
     void Read(hsStream* stream);
@@ -113,8 +113,8 @@ public:
 
     
     plCameraTargetFadeMsg() { }
-    plCameraTargetFadeMsg(const plKey &s, 
-                    const plKey &r, 
+    plCameraTargetFadeMsg(const plKey &s,
+                    const plKey &r,
                     const double* t) { }
     
     CLASSNAME_REGISTER(plCameraTargetFadeMsg);
@@ -156,8 +156,8 @@ public:
     void SetActivated(bool x) { fActivated = x; }
         
     plCameraMsg();
-    plCameraMsg(const plKey &s, 
-                    const plKey &r, 
+    plCameraMsg(const plKey &s,
+                    const plKey &r,
                     const double* t);
     
     CLASSNAME_REGISTER(plCameraMsg);
@@ -246,8 +246,8 @@ public:
     bool GetDisable() const { return fDisable; }
 
     plIfaceFadeAvatarMsg() : fEnable(false),fDisable(false) { }
-    plIfaceFadeAvatarMsg(const plKey &s, 
-                    const plKey &r, 
+    plIfaceFadeAvatarMsg(const plKey &s,
+                    const plKey &r,
                     const double* t): fEnable(false),fDisable(false) { }
     
     CLASSNAME_REGISTER(plIfaceFadeAvatarMsg);

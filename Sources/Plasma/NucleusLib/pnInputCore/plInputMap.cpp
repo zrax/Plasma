@@ -193,7 +193,7 @@ void    plKeyMap::ClearAll()
 }
 
 //// AddCode //////////////////////////////////////////////////////////////////////////
-//  Adds a given control code to the map. Once you add it, you can't change its flags. 
+//  Adds a given control code to the map. Once you add it, you can't change its flags.
 //  Returns false if the code is already present
 
 bool    plKeyMap::AddCode( ControlEventCode code, uint32_t codeFlags )
@@ -206,7 +206,7 @@ bool    plKeyMap::AddCode( ControlEventCode code, uint32_t codeFlags )
 }
 
 //// AddConsoleCommand ///////////////////////////////////////////////////////
-//  Same but for console commands. No flags b/c console commands always use 
+//  Same but for console commands. No flags b/c console commands always use
 //  the same flags.
 
 bool    plKeyMap::AddConsoleCommand( const char *command )
@@ -214,9 +214,9 @@ bool    plKeyMap::AddConsoleCommand( const char *command )
     if( IFindConsoleBinding( command ) != nil )
         return false;
 
-    fBindings.Append( new plKeyBinding( B_CONTROL_CONSOLE_COMMAND, 
+    fBindings.Append( new plKeyBinding( B_CONTROL_CONSOLE_COMMAND,
                                         kControlFlagDownEvent | kControlFlagNoRepeat | kControlFlagNoDeactivate,
-                                        plKeyCombo::kUnmapped, plKeyCombo::kUnmapped, 
+                                        plKeyCombo::kUnmapped, plKeyCombo::kUnmapped,
                                         command ) );
     return true;
 }
@@ -281,7 +281,7 @@ void plKeyMap::IFindAllBindingsByKey(const plKeyCombo &combo, hsTArray<plKeyBind
             else
                 result.Append(fBindings[i]);
         }
-    }       
+    }
 }
 
 //// IFindConsoleBinding /////////////////////////////////////////////////////
@@ -348,7 +348,7 @@ void    plKeyMap::IActuallyBind( plKeyBinding *binding, const plKeyCombo &combo,
 }
 
 //// BindKey /////////////////////////////////////////////////////////////////
-//  Adds a key binding to a given code. Returns false if the code isn't in 
+//  Adds a key binding to a given code. Returns false if the code isn't in
 //  this map or if key is already mapped.
 
 bool    plKeyMap::BindKey( const plKeyCombo &combo, ControlEventCode code, BindPref pref /*= kNoPreference*/ )
@@ -440,7 +440,7 @@ const plKeyBinding* plKeyMap::FindConsoleBinding( const char *command ) const
 }
 
 //// EnsureKeysClear /////////////////////////////////////////////////////////
-//  Basically UnmapKey(), but for two keys at once and won't assert if you 
+//  Basically UnmapKey(), but for two keys at once and won't assert if you
 //  give it unmapped keys
 
 void    plKeyMap::EnsureKeysClear( const plKeyCombo &key1, const plKeyCombo &key2 )
@@ -497,7 +497,7 @@ void    plKeyMap::UnmapAllBindings()
 }
 
 //// EraseBinding ////////////////////////////////////////////////////////////
-//  Erases the given code binding. Note: should never really be used, but 
+//  Erases the given code binding. Note: should never really be used, but
 //  provided here for completeness
 
 void    plKeyMap::EraseBinding( ControlEventCode code )
@@ -723,18 +723,18 @@ void plKeyMap::ICheckAndBindDupe(plKeyDef origKey, plKeyDef dupeKey)
             if (IFindBindingByKey(combo) == nil)
                 IActuallyBind(binding, combo, kNoPreference);
         }
-    }   
+    }
 }
 
 Win32keyConvert plKeyMap::fKeyConversionEnglish[] =
-{ 
-    { VK_F1,    "F1"}, 
-    { VK_F2,    "F2"}, 
-    { VK_F3,    "F3"}, 
+{
+    { VK_F1,    "F1"},
+    { VK_F2,    "F2"},
+    { VK_F3,    "F3"},
     { VK_F4,    "F4"},
     { VK_F5,    "F5"},
     { VK_F6,    "F6"},
-    { VK_F7,    "F7"}, 
+    { VK_F7,    "F7"},
     { VK_F8,    "F8"},
     { VK_F9,    "F9"},
     { VK_F10,   "F10"},
@@ -742,12 +742,12 @@ Win32keyConvert plKeyMap::fKeyConversionEnglish[] =
     { VK_F12,   "F12"},
     { VK_ESCAPE, "Esc"},
     { VK_TAB,   "Tab"},
-    { VK_UP,    "UpArrow"}, 
-    { VK_DOWN,  "DownArrow"}, 
+    { VK_UP,    "UpArrow"},
+    { VK_DOWN,  "DownArrow"},
     { VK_LEFT,  "LeftArrow"},
     { VK_RIGHT, "RightArrow"},
     { VK_BACK,  "Backspace"},
-    { VK_RETURN, "Enter"}, 
+    { VK_RETURN, "Enter"},
     { VK_PAUSE, "Pause"},
     { VK_CAPITAL, "CapsLock"},
     { VK_PRIOR, "PageUp"},
@@ -757,13 +757,13 @@ Win32keyConvert plKeyMap::fKeyConversionEnglish[] =
     { VK_SNAPSHOT,  "PrintScrn"},
     { VK_INSERT,    "Insert"},
     { VK_DELETE,    "Delete"},
-    { VK_NUMPAD0,   "NumPad0"}, 
-    { VK_NUMPAD1,   "NumPad1"}, 
-    { VK_NUMPAD2,   "NumPad2"}, 
+    { VK_NUMPAD0,   "NumPad0"},
+    { VK_NUMPAD1,   "NumPad1"},
+    { VK_NUMPAD2,   "NumPad2"},
     { VK_NUMPAD3,   "NumPad3"},
     { VK_NUMPAD4,   "NumPad4"},
     { VK_NUMPAD5,   "NumPad5"},
-    { VK_NUMPAD6,   "NumPad6"}, 
+    { VK_NUMPAD6,   "NumPad6"},
     { VK_NUMPAD7,   "NumPad7"},
     { VK_NUMPAD8,   "NumPad8"},
     { VK_NUMPAD9,   "NumPad9"},
@@ -783,7 +783,7 @@ Win32keyConvert plKeyMap::fKeyConversionEnglish[] =
     { VK_OEM_2,     "ForewardSlash"},
     { VK_OEM_3,     "Tilde"},
     { VK_OEM_4,     "LeftBracket"},
-    { VK_OEM_5,     "Backslash"},   
+    { VK_OEM_5,     "Backslash"},
     { VK_OEM_6,     "RightBracket"},
     { VK_OEM_7,     "Quote"},
                 
@@ -792,13 +792,13 @@ Win32keyConvert plKeyMap::fKeyConversionEnglish[] =
 
 Win32keyConvert  plKeyMap::fKeyConversionFrench[] =
 {
-    { VK_F1,    "F1"}, 
-    { VK_F2,    "F2"}, 
-    { VK_F3,    "F3"}, 
+    { VK_F1,    "F1"},
+    { VK_F2,    "F2"},
+    { VK_F3,    "F3"},
     { VK_F4,    "F4"},
     { VK_F5,    "F5"},
     { VK_F6,    "F6"},
-    { VK_F7,    "F7"}, 
+    { VK_F7,    "F7"},
     { VK_F8,    "F8"},
     { VK_F9,    "F9"},
     { VK_F10,   "F10"},
@@ -806,12 +806,12 @@ Win32keyConvert  plKeyMap::fKeyConversionFrench[] =
     { VK_F12,   "F12"},
     { VK_ESCAPE, "Échap"},
     { VK_TAB,   "Tab"},
-    { VK_UP,    "FlècheHaut"}, 
-    { VK_DOWN,  "FlècheBas"}, 
+    { VK_UP,    "FlècheHaut"},
+    { VK_DOWN,  "FlècheBas"},
     { VK_LEFT,  "FlècheGauche"},
     { VK_RIGHT, "FlècheDroite"},
     { VK_BACK,  "Retour"},
-    { VK_RETURN, "Entrée"}, 
+    { VK_RETURN, "Entrée"},
     { VK_PAUSE, "Pause"},
     { VK_CAPITAL, "CapsLock"},
     { VK_PRIOR, "PagePréc"},
@@ -821,13 +821,13 @@ Win32keyConvert  plKeyMap::fKeyConversionFrench[] =
     { VK_SNAPSHOT,  "ImprÉcran"},
     { VK_INSERT,    "Inser"},
     { VK_DELETE,    "Suppr"},
-    { VK_NUMPAD0,   "PavNum0"}, 
-    { VK_NUMPAD1,   "PavNum1"}, 
-    { VK_NUMPAD2,   "PavNum2"}, 
+    { VK_NUMPAD0,   "PavNum0"},
+    { VK_NUMPAD1,   "PavNum1"},
+    { VK_NUMPAD2,   "PavNum2"},
     { VK_NUMPAD3,   "PavNum3"},
     { VK_NUMPAD4,   "PavNum4"},
     { VK_NUMPAD5,   "PavNum5"},
-    { VK_NUMPAD6,   "PavNum6"}, 
+    { VK_NUMPAD6,   "PavNum6"},
     { VK_NUMPAD7,   "PavNum7"},
     { VK_NUMPAD8,   "PavNum8"},
     { VK_NUMPAD9,   "PavNum9"},
@@ -847,7 +847,7 @@ Win32keyConvert  plKeyMap::fKeyConversionFrench[] =
     { VK_OEM_2,     "BarreOblique"},
     { VK_OEM_3,     "Tilde"},
     { VK_OEM_4,     "ParenthèseG"},
-    { VK_OEM_5,     "BarreInverse"},    
+    { VK_OEM_5,     "BarreInverse"},
     { VK_OEM_6,     "ParenthèseD"},
     { VK_OEM_7,     "Guillemet"},
                 
@@ -856,13 +856,13 @@ Win32keyConvert  plKeyMap::fKeyConversionFrench[] =
 
 Win32keyConvert  plKeyMap::fKeyConversionGerman[] =
 {
-    { VK_F1,    "F1"}, 
-    { VK_F2,    "F2"}, 
-    { VK_F3,    "F3"}, 
+    { VK_F1,    "F1"},
+    { VK_F2,    "F2"},
+    { VK_F3,    "F3"},
     { VK_F4,    "F4"},
     { VK_F5,    "F5"},
     { VK_F6,    "F6"},
-    { VK_F7,    "F7"}, 
+    { VK_F7,    "F7"},
     { VK_F8,    "F8"},
     { VK_F9,    "F9"},
     { VK_F10,   "F10"},
@@ -870,12 +870,12 @@ Win32keyConvert  plKeyMap::fKeyConversionGerman[] =
     { VK_F12,   "F12"},
     { VK_ESCAPE, "Esc"},
     { VK_TAB,   "Tab"},
-    { VK_UP,    "PfeilHoch"}, 
-    { VK_DOWN,  "PfeilRunter"}, 
+    { VK_UP,    "PfeilHoch"},
+    { VK_DOWN,  "PfeilRunter"},
     { VK_LEFT,  "PfeilLinks"},
     { VK_RIGHT, "PfeilRechts"},
     { VK_BACK,  "Backspace"},
-    { VK_RETURN, "Enter"}, 
+    { VK_RETURN, "Enter"},
     { VK_PAUSE, "Pause"},
     { VK_CAPITAL, "Feststelltaste"},
     { VK_PRIOR, "BildHoch"},
@@ -885,13 +885,13 @@ Win32keyConvert  plKeyMap::fKeyConversionGerman[] =
     { VK_SNAPSHOT,  "Druck"},
     { VK_INSERT,    "Einf"},
     { VK_DELETE,    "Entf"},
-    { VK_NUMPAD0,   "ZB0"}, 
-    { VK_NUMPAD1,   "ZB1"}, 
-    { VK_NUMPAD2,   "ZB2"}, 
+    { VK_NUMPAD0,   "ZB0"},
+    { VK_NUMPAD1,   "ZB1"},
+    { VK_NUMPAD2,   "ZB2"},
     { VK_NUMPAD3,   "ZB3"},
     { VK_NUMPAD4,   "ZB4"},
     { VK_NUMPAD5,   "ZB5"},
-    { VK_NUMPAD6,   "ZB6"}, 
+    { VK_NUMPAD6,   "ZB6"},
     { VK_NUMPAD7,   "ZB7"},
     { VK_NUMPAD8,   "ZB8"},
     { VK_NUMPAD9,   "ZB9"},
@@ -911,7 +911,7 @@ Win32keyConvert  plKeyMap::fKeyConversionGerman[] =
     { VK_OEM_2,     "#"},
     { VK_OEM_3,     "Ö"},
     { VK_OEM_4,     "ß"},
-    { VK_OEM_5,     "Backslash"},   
+    { VK_OEM_5,     "Backslash"},
     { VK_OEM_6,     "Akzent"},
     { VK_OEM_7,     "Ä"},
                 
@@ -921,13 +921,13 @@ Win32keyConvert  plKeyMap::fKeyConversionGerman[] =
 /*
 Win32keyConvert  plKeyMap::fKeyConversionSpanish[] =
 {
-    { VK_F1,    "F1"}, 
-    { VK_F2,    "F2"}, 
-    { VK_F3,    "F3"}, 
+    { VK_F1,    "F1"},
+    { VK_F2,    "F2"},
+    { VK_F3,    "F3"},
     { VK_F4,    "F4"},
     { VK_F5,    "F5"},
     { VK_F6,    "F6"},
-    { VK_F7,    "F7"}, 
+    { VK_F7,    "F7"},
     { VK_F8,    "F8"},
     { VK_F9,    "F9"},
     { VK_F10,   "F10"},
@@ -935,12 +935,12 @@ Win32keyConvert  plKeyMap::fKeyConversionSpanish[] =
     { VK_F12,   "F12"},
     { VK_ESCAPE, "Esc"},
     { VK_TAB,   "Tabulador"},
-    { VK_UP,    "CursorArriba"}, 
-    { VK_DOWN,  "CursorAbajo"}, 
+    { VK_UP,    "CursorArriba"},
+    { VK_DOWN,  "CursorAbajo"},
     { VK_LEFT,  "CursorIzquierdo"},
     { VK_RIGHT, "CursorDerecho"},
     { VK_BACK,  "Retroceso"},
-    { VK_RETURN, "Intro"}, 
+    { VK_RETURN, "Intro"},
     { VK_PAUSE, "Pausa"},
     { VK_CAPITAL, "BloqMayús"},
     { VK_PRIOR, "RePág"},
@@ -950,13 +950,13 @@ Win32keyConvert  plKeyMap::fKeyConversionSpanish[] =
     { VK_SNAPSHOT,  "ImprPetSis"},
     { VK_INSERT,    "Insert"},
     { VK_DELETE,    "Supr"},
-    { VK_NUMPAD0,   "TecNum0"}, 
-    { VK_NUMPAD1,   "TecNum1"}, 
-    { VK_NUMPAD2,   "TecNum2"}, 
+    { VK_NUMPAD0,   "TecNum0"},
+    { VK_NUMPAD1,   "TecNum1"},
+    { VK_NUMPAD2,   "TecNum2"},
     { VK_NUMPAD3,   "TecNum3"},
     { VK_NUMPAD4,   "TecNum4"},
     { VK_NUMPAD5,   "TecNum5"},
-    { VK_NUMPAD6,   "TecNum6"}, 
+    { VK_NUMPAD6,   "TecNum6"},
     { VK_NUMPAD7,   "TecNum7"},
     { VK_NUMPAD8,   "TecNum8"},
     { VK_NUMPAD9,   "TecNum9"},
@@ -976,7 +976,7 @@ Win32keyConvert  plKeyMap::fKeyConversionSpanish[] =
     { VK_OEM_2,     "Barra"},
     { VK_OEM_3,     "Tilde"},
     { VK_OEM_4,     "AbrirParéntesis"},
-    { VK_OEM_5,     "BarraInvertida"},  
+    { VK_OEM_5,     "BarraInvertida"},
     { VK_OEM_6,     "CerrarParéntesis"},
     { VK_OEM_7,     "Comillas"},
                 
@@ -985,13 +985,13 @@ Win32keyConvert  plKeyMap::fKeyConversionSpanish[] =
 
 Win32keyConvert  plKeyMap::fKeyConversionItalian[] =
 {
-    { VK_F1,    "F1"}, 
-    { VK_F2,    "F2"}, 
-    { VK_F3,    "F3"}, 
+    { VK_F1,    "F1"},
+    { VK_F2,    "F2"},
+    { VK_F3,    "F3"},
     { VK_F4,    "F4"},
     { VK_F5,    "F5"},
     { VK_F6,    "F6"},
-    { VK_F7,    "F7"}, 
+    { VK_F7,    "F7"},
     { VK_F8,    "F8"},
     { VK_F9,    "F9"},
     { VK_F10,   "F10"},
@@ -999,12 +999,12 @@ Win32keyConvert  plKeyMap::fKeyConversionItalian[] =
     { VK_F12,   "F12"},
     { VK_ESCAPE, "Esc"},
     { VK_TAB,   "Tab"},
-    { VK_UP,    "FrecciaSu"}, 
-    { VK_DOWN,  "FrecciaGiù"}, 
+    { VK_UP,    "FrecciaSu"},
+    { VK_DOWN,  "FrecciaGiù"},
     { VK_LEFT,  "FrecciaSx"},
     { VK_RIGHT, "FrecciaDx"},
     { VK_BACK,  "Backspace"},
-    { VK_RETURN, "Invio"}, 
+    { VK_RETURN, "Invio"},
     { VK_PAUSE, "Pausa"},
     { VK_CAPITAL, "BlocMaiusc"},
     { VK_PRIOR, "PagSu"},
@@ -1014,13 +1014,13 @@ Win32keyConvert  plKeyMap::fKeyConversionItalian[] =
     { VK_SNAPSHOT,  "Stamp"},
     { VK_INSERT,    "Ins"},
     { VK_DELETE,    "Canc"},
-    { VK_NUMPAD0,   "TastNum0"}, 
-    { VK_NUMPAD1,   "TastNum1"}, 
-    { VK_NUMPAD2,   "TastNum2"}, 
+    { VK_NUMPAD0,   "TastNum0"},
+    { VK_NUMPAD1,   "TastNum1"},
+    { VK_NUMPAD2,   "TastNum2"},
     { VK_NUMPAD3,   "TastNum3"},
     { VK_NUMPAD4,   "TastNum4"},
     { VK_NUMPAD5,   "TastNum5"},
-    { VK_NUMPAD6,   "TastNum6"}, 
+    { VK_NUMPAD6,   "TastNum6"},
     { VK_NUMPAD7,   "TastNum7"},
     { VK_NUMPAD8,   "TastNum8"},
     { VK_NUMPAD9,   "TastNum9"},
@@ -1040,7 +1040,7 @@ Win32keyConvert  plKeyMap::fKeyConversionItalian[] =
     { VK_OEM_2,     "ù"},
     { VK_OEM_3,     "ò"},
     { VK_OEM_4,     "Apostrofo"},
-    { VK_OEM_5,     "\\"},  
+    { VK_OEM_5,     "\\"},
     { VK_OEM_6,     "ì"},
     { VK_OEM_7,     "à"},
                 
@@ -1094,7 +1094,7 @@ CommandConvert plInputMap::fCmdConvert[] =
     { S_INCREASE_MIC_VOL,       "Increase Microphone Sensitivity"   },
     { S_DECREASE_MIC_VOL,       "Decrease Microphone Sensitivity"   },
     { S_PUSH_TO_TALK,           "Push to talk" },
-    { S_SET_WALK_MODE,          "Set Walk Mode" },          
+    { S_SET_WALK_MODE,          "Set Walk Mode" },
     { B_CONTROL_TURN_TO,            "Turn To Click" },
     { B_CONTROL_TOGGLE_PHYSICAL,    "Toggle Physical" },
     { S_SET_FIRST_PERSON_MODE,      "Toggle First Person" },

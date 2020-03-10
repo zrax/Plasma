@@ -108,7 +108,7 @@ plAnimInfo plNotetrackAnim::GetAnimInfo(const ST::string &animName)
 
     if (animName.empty() || fSegMap->find(animName) == fSegMap->end())
         return plAnimInfo(fSegMap, ST::null);
-    else 
+    else
         return plAnimInfo(fSegMap, animName);
 }
 

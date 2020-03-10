@@ -69,7 +69,7 @@ void cyParticleSys::AddRecvr(plKey &recvr)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : ISendParticleSysMsg
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : send the message to the Particle System
 //

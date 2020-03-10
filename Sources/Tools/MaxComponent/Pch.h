@@ -43,7 +43,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #ifndef _MaxComponent_Pch_inc_
 #define _MaxComponent_Pch_inc_
 
-/** 
+/**
  * \file Pch.h
  * \brief Precompiled Header for MaxComponent
  */

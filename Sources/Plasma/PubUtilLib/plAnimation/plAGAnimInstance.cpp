@@ -595,7 +595,7 @@ void plAGAnimInstance::ISetupFade(float goal, float rate, bool detach, uint8_t t
     switch (type)
     {
     case kFadeBlend:
-        fFadeBlend = true;      
+        fFadeBlend = true;
         fFadeBlendGoal = goal;
         fFadeBlendRate = rate;
         fFadeDetach = detach;

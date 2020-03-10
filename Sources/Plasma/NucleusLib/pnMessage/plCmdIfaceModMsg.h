@@ -57,14 +57,14 @@ protected:
 
 public:
     plCmdIfaceModMsg() : fInterface(nil), fIndex(0), fControlCode(0){SetBCastFlag(plMessage::kBCastByExactType);}
-    plCmdIfaceModMsg(const plKey* s, 
-                    const plKey* r, 
+    plCmdIfaceModMsg(const plKey* s,
+                    const plKey* r,
                     const double* t) : fInterface(nil) { }
     
     CLASSNAME_REGISTER(plCmdIfaceModMsg);
     GETINTERFACE_ANY(plCmdIfaceModMsg, plMessage);
 
-    enum 
+    enum
     {
         kAdd = 0,
         kRemove,
@@ -81,7 +81,7 @@ public:
     hsBitVector         fCmd;
     plControlConfig*    fInterface;
     uint32_t              fControlCode;
-    int                 fIndex; 
+    int                 fIndex;
 
     bool Cmd(int n) { return fCmd.IsBitSet(n); }
     void SetCmd(int n) { fCmd.SetBit(n); }

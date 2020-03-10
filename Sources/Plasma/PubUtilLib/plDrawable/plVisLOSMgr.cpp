@@ -88,7 +88,7 @@ bool plVisLOSMgr::ICheckSpaceTreeRecur(plSpaceTree* space, int which, hsTArray<p
     // If it's a hit
     if( ICheckBound(node.fWorldBounds, closest) )
     {
-        // If it's a leaf, 
+        // If it's a leaf,
         if( node.IsLeaf() )
         {
             // add it to the list with the closest intersection point,
@@ -257,7 +257,7 @@ bool plVisLOSMgr::ICheckSpan(plDrawableSpans* dr, uint32_t spanIdx, plVisHit& hi
 
     bool retVal = false;
 
-    // We move into local space, look for hits, and convert the closest we find 
+    // We move into local space, look for hits, and convert the closest we find
     // (if any) back into world space at the end.
     hsPoint3 currFrom = src.GetWorldToLocal() * fCurrFrom;
     hsPoint3 currTarg = src.GetWorldToLocal() * fCurrTarg;

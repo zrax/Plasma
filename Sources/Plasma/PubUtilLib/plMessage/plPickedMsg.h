@@ -57,15 +57,15 @@ public:
     hsPoint3    fHitPoint;      // where in the world the object was picked on
         
     plPickedMsg() : fPicked(true),fHitPoint(0,0,0){SetBCastFlag(plMessage::kPropagateToModifiers);}
-    plPickedMsg(const plKey &s, 
-                    const plKey &r, 
+    plPickedMsg(const plKey &s,
+                    const plKey &r,
                     const double* t) : fPicked(true),fHitPoint(0,0,0) {SetBCastFlag(plMessage::kPropagateToModifiers);}
     ~plPickedMsg() { }
 
     CLASSNAME_REGISTER( plPickedMsg );
     GETINTERFACE_ANY( plPickedMsg, plMessage );
 
-    // IO 
+    // IO
     void Read(hsStream* stream, hsResMgr* mgr)
     {
         plMessage::IMsgRead(stream, mgr);

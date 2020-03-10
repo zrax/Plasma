@@ -76,7 +76,7 @@ protected:
     uint32_t  fFlags;
     plNetApp* fNetApp;
 
-    // these calls should be made by the client/server app only, 
+    // these calls should be made by the client/server app only,
     // so they can keep the netCorePeer userData point to the right member
     virtual ~plNetMember() {}
 

@@ -61,7 +61,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 //
 // baseclass save/load methods for various types
 //
-hsBitVector plSynchedValueBase::ISaveOrLoad(hsBitVector& v, bool32 save, hsStream* stream, hsResMgr* mgr) 
+hsBitVector plSynchedValueBase::ISaveOrLoad(hsBitVector& v, bool32 save, hsStream* stream, hsResMgr* mgr)
 {
     if (save)
         v.Write(stream);
@@ -70,22 +70,22 @@ hsBitVector plSynchedValueBase::ISaveOrLoad(hsBitVector& v, bool32 save, hsStrea
     return v;
 }
 
-float plSynchedValueBase::ISaveOrLoad(float v, bool32 save, hsStream* stream, hsResMgr* mgr) 
+float plSynchedValueBase::ISaveOrLoad(float v, bool32 save, hsStream* stream, hsResMgr* mgr)
     ISaveOrLoadSimpleType();
 
-double plSynchedValueBase::ISaveOrLoad(double v, bool32 save, hsStream* stream, hsResMgr* mgr) 
+double plSynchedValueBase::ISaveOrLoad(double v, bool32 save, hsStream* stream, hsResMgr* mgr)
     ISaveOrLoadSimpleType();
 
-int32_t plSynchedValueBase::ISaveOrLoad(int32_t v, bool32 save, hsStream* stream, hsResMgr* mgr) 
+int32_t plSynchedValueBase::ISaveOrLoad(int32_t v, bool32 save, hsStream* stream, hsResMgr* mgr)
     ISaveOrLoadSimpleType();
 
-uint32_t plSynchedValueBase::ISaveOrLoad(uint32_t v, bool32 save, hsStream* stream, hsResMgr* mgr) 
+uint32_t plSynchedValueBase::ISaveOrLoad(uint32_t v, bool32 save, hsStream* stream, hsResMgr* mgr)
     ISaveOrLoadSimpleType();
 
-int plSynchedValueBase::ISaveOrLoad(int v, bool32 save, hsStream* stream, hsResMgr* mgr) 
+int plSynchedValueBase::ISaveOrLoad(int v, bool32 save, hsStream* stream, hsResMgr* mgr)
     ISaveOrLoadSimpleType();
 
-bool plSynchedValueBase::ISaveOrLoad(bool v, bool32 save, hsStream* stream, hsResMgr* mgr) 
+bool plSynchedValueBase::ISaveOrLoad(bool v, bool32 save, hsStream* stream, hsResMgr* mgr)
     ISaveOrLoadSimpleType();
 
 //
@@ -94,7 +94,7 @@ bool plSynchedValueBase::ISaveOrLoad(bool v, bool32 save, hsStream* stream, hsRe
 const plKey plSynchedValueBase::ISaveOrLoad(const plKey key, bool32 save, hsStream* stream, hsResMgr* mgr)
 {
     if (save)
-    {   
+    {
         if (key)
         {
             stream->WriteByte(1);
@@ -113,7 +113,7 @@ const plKey plSynchedValueBase::ISaveOrLoad(const plKey key, bool32 save, hsStre
         return key;
     }
     else
-    {   
+    {
         int32_t has=stream->ReadByte();
         if (has)
         {
@@ -134,7 +134,7 @@ const plKey plSynchedValueBase::ISaveOrLoad(const plKey key, bool32 save, hsStre
     return nil;
 }
 
-hsKeyedObject* plSynchedValueBase::ISaveOrLoad(hsKeyedObject* obj, bool32 save, hsStream* stream, hsResMgr* mgr) 
+hsKeyedObject* plSynchedValueBase::ISaveOrLoad(hsKeyedObject* obj, bool32 save, hsStream* stream, hsResMgr* mgr)
 {
     plKey key = obj ? obj->GetKey() : nil;
     key = ISaveOrLoad(key, save, stream, mgr);
@@ -142,8 +142,8 @@ hsKeyedObject* plSynchedValueBase::ISaveOrLoad(hsKeyedObject* obj, bool32 save, 
 }
 
 plSceneNode* plSynchedValueBase::ISaveOrLoad(plSceneNode* obj, bool32 save, hsStream* stream, hsResMgr* mgr)
-{ 
-    // return plSceneNode::ConvertNoRef(ISaveOrLoad(hsKeyedObject::ConvertNoRef(obj), save, stream, mgr)); 
+{
+    // return plSceneNode::ConvertNoRef(ISaveOrLoad(hsKeyedObject::ConvertNoRef(obj), save, stream, mgr));
     hsAssert(false, "SceneNode synchedValues currently not implemented");
     return nil;
 }

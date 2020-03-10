@@ -107,8 +107,8 @@ protected:
     float                    ISubDivBack(hsPoint3 &pt) const;
     void                        IInitInterval(float time, float delTime, hsPoint3 &pt) const;
     float                    ICheckInterval(hsPoint3 &pt) const;
-    float                    IBestTime() const { return fLastDistSq < fThisDistSq 
-                                                        ? (fLastDistSq < fNextDistSq 
+    float                    IBestTime() const { return fLastDistSq < fThisDistSq
+                                                        ? (fLastDistSq < fNextDistSq
                                                             ? fLastTime
                                                             : fNextTime)
                                                         : (fThisDistSq < fNextDistSq

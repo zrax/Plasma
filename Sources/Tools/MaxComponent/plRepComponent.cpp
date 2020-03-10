@@ -144,7 +144,7 @@ static plRepresentProc gRepresentProc;
 CLASS_DESC(plRepresentComp, gRepresentDesc, "Representation",  "Rep", COMP_TYPE_GRAPHICS, REPCOMP_CID)
 
 ParamBlockDesc2 gRepresentBk
-(   
+(
     plComponent::kBlkComp, _T("Represent"), 0, &gRepresentDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_REPRESENT, IDS_COMP_REPRESENT, 0, 0, &gRepresentProc,
@@ -372,7 +372,7 @@ static plRepGroupProc gRepGroupProc;
 CLASS_DESC(plRepGroupComp, gRepGroupDesc, "Representation Group",  "RepGroup", COMP_TYPE_GRAPHICS, REPGROUP_CID)
 
 ParamBlockDesc2 gRepGroupBk
-(   
+(
     plComponent::kBlkComp, _T("RepGroup"), 0, &gRepGroupDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_REPGROUP, IDS_COMP_REPGROUP, 0, 0, &gRepGroupProc,

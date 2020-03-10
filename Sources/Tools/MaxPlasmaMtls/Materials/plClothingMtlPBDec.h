@@ -194,20 +194,20 @@ public:
         for (i = 0; i < tileset->fElements.GetCount(); i++)
         {
             plClothingElement *element = tileset->fElements.Get(i);
-            SendMessage(GetDlgItem(hWnd, plClothingMtl::TextConstants[2 * i]), 
+            SendMessage(GetDlgItem(hWnd, plClothingMtl::TextConstants[2 * i]),
                         WM_SETTEXT, NULL, (LPARAM)element->fName.c_str());
             snprintf(buff, arrsize(buff), "(%d, %d)", element->fWidth, element->fHeight);
-            SendMessage(GetDlgItem(hWnd, plClothingMtl::TextConstants[2 * i + 1]), 
+            SendMessage(GetDlgItem(hWnd, plClothingMtl::TextConstants[2 * i + 1]),
                         WM_SETTEXT, NULL, (LPARAM)buff);
             
-            ShowWindow(GetDlgItem(hWnd, plClothingMtl::TextConstants[2 * i]), SW_SHOW); 
-            ShowWindow(GetDlgItem(hWnd, plClothingMtl::TextConstants[2 * i + 1]), SW_SHOW); 
-            ShowWindow(GetDlgItem(hWnd, plClothingMtl::ButtonConstants[i]), SW_SHOW);   
+            ShowWindow(GetDlgItem(hWnd, plClothingMtl::TextConstants[2 * i]), SW_SHOW);
+            ShowWindow(GetDlgItem(hWnd, plClothingMtl::TextConstants[2 * i + 1]), SW_SHOW);
+            ShowWindow(GetDlgItem(hWnd, plClothingMtl::ButtonConstants[i]), SW_SHOW);
         }
         for (i = tileset->fElements.GetCount(); i < plClothingMtl::kMaxTiles; i++)
         {
-            ShowWindow(GetDlgItem(hWnd, plClothingMtl::TextConstants[2 * i]), SW_HIDE); 
-            ShowWindow(GetDlgItem(hWnd, plClothingMtl::TextConstants[2 * i + 1]), SW_HIDE); 
+            ShowWindow(GetDlgItem(hWnd, plClothingMtl::TextConstants[2 * i]), SW_HIDE);
+            ShowWindow(GetDlgItem(hWnd, plClothingMtl::TextConstants[2 * i + 1]), SW_HIDE);
             ShowWindow(GetDlgItem(hWnd, plClothingMtl::ButtonConstants[i]), SW_HIDE);
         }
         mtl->ReleaseTilesets();
@@ -232,7 +232,7 @@ public:
         plPlasmaMAXLayer *layer;
         PBBitmap *pbbm;
         ICustButton *bmSelectBtn;
-        int layerIdx = plClothingMtl::LayerToPBIdx[pb->GetInt(ParamID(plClothingMtl::kLayer))];      
+        int layerIdx = plClothingMtl::LayerToPBIdx[pb->GetInt(ParamID(plClothingMtl::kLayer))];
 
         switch (msg)
         {
@@ -367,8 +367,8 @@ static ClothingBasicDlgProc gClothingBasicDlgProc;
 
 static ParamBlockDesc2 gClothingMtlPB
 (
-    plClothingMtl::kBlkBasic, _T("Clothing"), IDS_PASS_BASIC, GetClothingMtlDesc(), 
-    P_AUTO_CONSTRUCT + P_AUTO_UI + P_CALLSETS_ON_LOAD, plClothingMtl::kRefBasic, 
+    plClothingMtl::kBlkBasic, _T("Clothing"), IDS_PASS_BASIC, GetClothingMtlDesc(),
+    P_AUTO_CONSTRUCT + P_AUTO_UI + P_CALLSETS_ON_LOAD, plClothingMtl::kRefBasic,
 
     // UI
     IDD_CLOTHING, IDS_PASS_BASIC, 0, 0, &gClothingBasicDlgProc,
@@ -406,7 +406,7 @@ static ParamBlockDesc2 gClothingMtlPB
         end,
 
     plClothingMtl::kTexmapBase, _T("BaseLayer"), TYPE_TEXMAP_TAB, plClothingMtl::kMaxTiles, 0, 0,
-        end, 
+        end,
         
     plClothingMtl::kTexmapSkinBlend1, _T("SkinBlend(1)"), TYPE_TEXMAP_TAB, plClothingMtl::kMaxTiles, 0, 0,
         end,
@@ -428,12 +428,12 @@ static ParamBlockDesc2 gClothingMtlPB
 
     plClothingMtl::kDefaultTint1,   _T("DefaultTint1"), TYPE_RGBA,  0, 0,
         p_ui, TYPE_COLORSWATCH, IDC_CLOTHING_TINT1,
-        p_default,      Color(1,1,1),       
+        p_default,      Color(1,1,1),
         end,
 
     plClothingMtl::kDefaultTint2,   _T("DefaultTint2"), TYPE_RGBA,  0, 0,
         p_ui, TYPE_COLORSWATCH, IDC_CLOTHING_TINT2,
-        p_default,      Color(1,1,1),       
+        p_default,      Color(1,1,1),
         end,
 
     plClothingMtl::kForcedAcc,  _T("ForcedAcc"), TYPE_STRING, 0, 0,

@@ -56,7 +56,7 @@ plSynchedObject* plSynchedObject::fStaticSynchedObj=nil;
 std::vector<plSynchedObject::StateDefn> plSynchedObject::fDirtyStates;
 std::vector<bool> plSynchedObject::fSynchStateStack;
 
-plSynchedObject::plSynchedObject() : 
+plSynchedObject::plSynchedObject() :
     fSynchFlags(0),
 #ifdef USE_SYNCHED_VALUES
     fSynchedValueAddrOffsets(nil),
@@ -65,8 +65,8 @@ plSynchedObject::plSynchedObject() :
     fNumSynchedValueFriends(0),
 #endif
     fNetGroup(plNetGroup::kNetGroupUnknown)
-{ 
-    fStaticSynchedObj=this; 
+{
+    fStaticSynchedObj=this;
 }
 
 plSynchedObject::~plSynchedObject()
@@ -91,13 +91,13 @@ bool plSynchedObject::MsgReceive(plMessage* msg)
 
 #ifdef USE_SYNCHED_VALUES
 plSynchedValueBase* plSynchedObject::GetSynchedValue(int i) const
-{ 
+{
     if (i<fNumSynchedValues)
         return IGetSynchedValue((NumSynchedValuesType)i);
     return IGetSynchedValueFriend((NumSynchedValuesType)(i-fNumSynchedValues));
 }
 
-// realloc and add 
+// realloc and add
 void plSynchedObject::IAppendSynchedValueAddrOffset(AddrOffsetType synchedValueAddrOffset)
 {
     // copy to new larger array
@@ -131,17 +131,17 @@ void plSynchedObject::IAppendSynchedValueFriend(plSynchedValueBase* v)
 }
 
 // adds synchedValue and returns index
-uint8_t plSynchedObject::RegisterSynchedValue(plSynchedValueBase* v) 
-{ 
-    int32_t addrOff = ((int32_t)v - (int32_t)this)>>2;    
+uint8_t plSynchedObject::RegisterSynchedValue(plSynchedValueBase* v)
+{
+    int32_t addrOff = ((int32_t)v - (int32_t)this)>>2;
     hsAssert(abs(addrOff) < (uint32_t)(1<<(sizeof(AddrOffsetType)<<3)), "address offset overflow");
-    IAppendSynchedValueAddrOffset((AddrOffsetType)addrOff); 
-    int32_t idx = fNumSynchedValues-1; 
+    IAppendSynchedValueAddrOffset((AddrOffsetType)addrOff);
+    int32_t idx = fNumSynchedValues-1;
     hsAssert(idx<256, "index too big");
     return (uint8_t)idx;
 }
 
-bool plSynchedObject::RemoveSynchedValue(plSynchedValueBase* v) 
+bool plSynchedObject::RemoveSynchedValue(plSynchedValueBase* v)
 {
     int i;
     for(i=0;i<GetNumSynchedValues(); i++)
@@ -155,25 +155,25 @@ bool plSynchedObject::RemoveSynchedValue(plSynchedValueBase* v)
     int idx=i;
     if (idx<fNumSynchedValues)
     {
-        AddrOffsetType* tmp = new AddrOffsetType[fNumSynchedValues-1];      
+        AddrOffsetType* tmp = new AddrOffsetType[fNumSynchedValues-1];
         for(i=0;i<idx;i++)
             tmp[i] = fSynchedValueAddrOffsets[i];
         for(i=idx+1;i<fNumSynchedValues;i++)
             tmp[i-1] = fSynchedValueAddrOffsets[i];
         delete [] fSynchedValueAddrOffsets;
-        fSynchedValueAddrOffsets=tmp;       
+        fSynchedValueAddrOffsets=tmp;
         fNumSynchedValues--;
     }
     else
     {
         idx -= fNumSynchedValues;
-        plSynchedValueBase** tmp = new plSynchedValueBase*[fNumSynchedValueFriends-1];      
+        plSynchedValueBase** tmp = new plSynchedValueBase*[fNumSynchedValueFriends-1];
         for(i=0;i<idx;i++)
             tmp[i] = fSynchedValueFriends[i];
         for(i=idx+1;i<fNumSynchedValueFriends;i++)
             tmp[i-1] = fSynchedValueFriends[i];
         delete [] fSynchedValueFriends;
-        fSynchedValueFriends=tmp;       
+        fSynchedValueFriends=tmp;
         fNumSynchedValueFriends--;
     }
 
@@ -181,8 +181,8 @@ bool plSynchedObject::RemoveSynchedValue(plSynchedValueBase* v)
 }
 
 // adds synchedValueFriend
-void plSynchedObject::RegisterSynchedValueFriend(plSynchedValueBase* v) 
-{ 
+void plSynchedObject::RegisterSynchedValueFriend(plSynchedValueBase* v)
+{
     IAppendSynchedValueFriend(v);
 }
 #endif
@@ -277,7 +277,7 @@ void plSynchedObject::IAddDirtyState(plKey objKey, const ST::string& sdlName, ui
     {
         StateDefn state(objKey, sendFlags, sdlName);
         fDirtyStates.push_back(state);
-    }   
+    }
     else
     {
 #if 0
@@ -291,7 +291,7 @@ void plSynchedObject::IAddDirtyState(plKey objKey, const ST::string& sdlName, ui
 // STATIC
 //
 void plSynchedObject::IRemoveDirtyState(plKey objKey, const ST::string& sdlName)
-{ 
+{
     std::vector<StateDefn>::iterator it=fDirtyStates.begin();
     for( ; it != fDirtyStates.end(); it++)
     {
@@ -312,19 +312,19 @@ void plSynchedObject::SetNetGroupConstant(plNetGroupId netGroup)
 
 plNetGroupId plSynchedObject::SelectNetGroup(plKey rmKey)
 {
-    return plNetClientApp::GetInstance() ? 
+    return plNetClientApp::GetInstance() ?
       plNetClientApp::GetInstance()->SelectNetGroup(this, rmKey) : plNetGroup::kNetGroupUnknown;
 }
 
 plNetGroupId plSynchedObject::GetEffectiveNetGroup() const
 {
-    return plNetClientApp::GetInstance() ? 
+    return plNetClientApp::GetInstance() ?
         plNetClientApp::GetInstance()->GetEffectiveNetGroup(this) : plNetGroup::kNetGroupLocalPlayer;
 }
 
 int plSynchedObject::IsLocallyOwned() const
-{ 
-    return plNetClientApp::GetInstance() ? 
+{
+    return plNetClientApp::GetInstance() ?
         plNetClientApp::GetInstance()->IsLocallyOwned(this) : kYes;
 }
 
@@ -395,12 +395,12 @@ void    plSynchedObject::Write(hsStream* stream, hsResMgr* mgr)
 //
 // static
 //
-bool plSynchedObject::PopSynchDisabled() 
-{ 
+bool plSynchedObject::PopSynchDisabled()
+{
     if (fSynchStateStack.size())
     {
-        bool ret=fSynchStateStack.back(); 
-        fSynchStateStack.pop_back(); 
+        bool ret=fSynchStateStack.back();
+        fSynchStateStack.pop_back();
         return ret;
     }
     else
@@ -419,7 +419,7 @@ void plSynchedObject::AddDirtyNotifier(plDirtyNotifier* dn)
         if (it == fDirtyNotifiers.end())    // not there
         {
             dn->SetSynchedObjKey(GetKey());
-            fDirtyNotifiers.push_back(dn);  
+            fDirtyNotifiers.push_back(dn);
         }
     }
 }
@@ -430,7 +430,7 @@ void plSynchedObject::RemoveDirtyNotifier(plDirtyNotifier* dn)
     {
         std::vector<plDirtyNotifier*>::iterator it=std::find(fDirtyNotifiers.begin(), fDirtyNotifiers.end(), dn);
         if (it != fDirtyNotifiers.end())    // its there
-            fDirtyNotifiers.erase(it);  
+            fDirtyNotifiers.erase(it);
     }
 }
 
@@ -448,7 +448,7 @@ void plSynchedObject::CallDirtyNotifiers() {}
 // return true if it's ok to dirty this object
 //
 bool plSynchedObject::IOKToDirty(const ST::string& SDLStateName) const
-{   
+{
     // is synching disabled?
     bool synchDisabled = (GetSynchDisabled()!=0);
     if (synchDisabled)
@@ -472,7 +472,7 @@ bool plSynchedObject::IOKToDirty(const ST::string& SDLStateName) const
 bool plSynchedObject::IOKToNetwork(const ST::string& sdlName, uint32_t* synchFlags) const
 {
     // determine destination
-    bool dstServerOnly=false, dstClientsOnly=false, dstClientsAndServer=false;  
+    bool dstServerOnly=false, dstClientsOnly=false, dstClientsAndServer=false;
 
     if ((*synchFlags) & kBCastToClients)
     {   // bcasting to clients and server

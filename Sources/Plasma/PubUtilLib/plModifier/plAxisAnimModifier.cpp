@@ -103,13 +103,13 @@ class plAxisInputInterface : public plInputInterface
         virtual bool    HasInterestingCursorID() const { return true; }
 };
 
-plAxisAnimModifier::plAxisAnimModifier() : 
-fXAnim(nil), 
-fYAnim(nil), 
-fActive(false), 
-fXPos(0.0f), 
-fYPos(0.0f), 
-fIface(0), 
+plAxisAnimModifier::plAxisAnimModifier() :
+fXAnim(nil),
+fYAnim(nil),
+fActive(false),
+fXPos(0.0f),
+fYPos(0.0f),
+fIface(0),
 fAllOrNothing(false)
 {
     fNotify = new plNotifyMsg;
@@ -283,7 +283,7 @@ bool plAxisAnimModifier::MsgReceive(plMessage* msg)
         if (pRefMsg->GetContext() == plRefMsg::kOnCreate )
         {
             if (pRefMsg->fType == kTypeX)
-            {   
+            {
                 fXAnim = pRefMsg->GetRef()->GetKey();
 
                 // add callbacks for beginning and end of animation
@@ -309,7 +309,7 @@ bool plAxisAnimModifier::MsgReceive(plMessage* msg)
 
                 plgDispatch::MsgSend(pMsg);
             }
-            else 
+            else
             if (pRefMsg->fType == kTypeY)
             {
                 fYAnim = pRefMsg->GetRef()->GetKey();
@@ -337,7 +337,7 @@ bool plAxisAnimModifier::MsgReceive(plMessage* msg)
 
                 plgDispatch::MsgSend(pMsg);
             }
-            else 
+            else
             if (pRefMsg->fType == kTypeLogic)
             {
                 SetNotificationKey(pRefMsg->GetRef()->GetKey());
@@ -348,14 +348,14 @@ bool plAxisAnimModifier::MsgReceive(plMessage* msg)
         {
             if (pRefMsg->fType == kTypeX)
                 fXAnim = nil;
-            else 
+            else
             if (pRefMsg->fType == kTypeY)
                 fYAnim = nil;
-            else 
+            else
             if (pRefMsg->fType == kTypeLogic)
                 fNotificationKey = nil;
         }
-        return true;    
+        return true;
     }
     
     return plSingleModifier::MsgReceive(msg);

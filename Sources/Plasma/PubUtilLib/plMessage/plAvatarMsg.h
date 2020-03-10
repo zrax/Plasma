@@ -179,7 +179,7 @@ private:
 class plAvSeekMsg : public plAvTaskMsg
 {
 public:
-    enum 
+    enum
     {
         kSeekFlagUnForce3rdPersonOnFinish   = 0x01,
         kSeekFlagForce3rdPersonOnStart      = 0x02,
@@ -233,7 +233,7 @@ public:
     GETINTERFACE_ANY( plAvTaskSeekDoneMsg, plAvatarMsg );
 
     virtual void Read(hsStream *stream, hsResMgr *mgr);
-    virtual void Write(hsStream *stream, hsResMgr *mgr);    
+    virtual void Write(hsStream *stream, hsResMgr *mgr);
 };
 
 class plOneShotCallbacks;
@@ -306,7 +306,7 @@ public:
         \param setDirection Do we want to set the overall brain direction?
         \param isForward If setDirection is true, then true = forward, false = backward
         \param transitionTime Time in seconds to transition between stages.
-    */  
+    */
     plAvBrainGenericMsg(const plKey& sender, const plKey &receiver,
                         Type type, int stage, bool setTime, float newTime,
                         bool setDirection, bool isForward, float transitiontime);
@@ -427,7 +427,7 @@ public:
     
     // These aren't meant to go across the net, so no IO necessary.
     void Read(hsStream* stream, hsResMgr* mgr) {}
-    void Write(hsStream* stream, hsResMgr* mgr) {}  
+    void Write(hsStream* stream, hsResMgr* mgr) {}
 };
 
 class plAvatarSpawnNotifyMsg : public plMessage
@@ -457,7 +457,7 @@ public:
     
     // These aren't meant to go across the net, so no IO necessary.
     void Read(hsStream* stream, hsResMgr* mgr) {}
-    void Write(hsStream* stream, hsResMgr* mgr) {}  
+    void Write(hsStream* stream, hsResMgr* mgr) {}
 };
 
 #endif // plAvatarMsg_inc

@@ -321,7 +321,7 @@ plMaxNodeBase *plComponentBase::GetINode()
     // There should only be one INode in this list.
     DependentIterator di(this);
     ReferenceMaker* rm = di.Next();
-    while (rm != nil) 
+    while (rm != nil)
     {
         if (rm->SuperClassID() == BASENODE_CLASS_ID)
             return (plMaxNodeBase*)rm;

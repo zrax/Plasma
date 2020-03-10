@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/PubUtilLib/plNetGameLib/Private/plNglFile.cpp
-*   
+*
 ***/
 
 #include "../Pch.h"
@@ -406,7 +406,7 @@ static void NotifyConnSocketDisconnect (CliFileConn * conn) {
     if (notify) {
         ReportNetError(kNetProtocolCli2File, kNetErrDisconnected);
     }
-    else {  
+    else {
         // clean up the socket and start reconnect, if we are doing that
         conn->Destroy();
         if (conn->AutoReconnectEnabled())
@@ -834,7 +834,7 @@ bool BuildIdRequestTrans::Send () {
     buildIdReq.transId = m_transId;
     buildIdReq.messageBytes = sizeof(buildIdReq);
 
-    m_conn->Send(&buildIdReq, buildIdReq.messageBytes); 
+    m_conn->Send(&buildIdReq, buildIdReq.messageBytes);
     
     return true;
 }
@@ -904,7 +904,7 @@ bool ManifestRequestTrans::Send () {
     manifestReq.messageBytes = sizeof(manifestReq);
     manifestReq.buildId = m_buildId;
 
-    m_conn->Send(&manifestReq, manifestReq.messageBytes);   
+    m_conn->Send(&manifestReq, manifestReq.messageBytes);
 
     return true;
 }
@@ -949,7 +949,7 @@ bool ManifestRequestTrans::Recv (
     manifestAck.messageBytes = sizeof(manifestAck);
     manifestAck.readerId = reply.readerId;
 
-    m_conn->Send(&manifestAck, manifestAck.messageBytes);   
+    m_conn->Send(&manifestAck, manifestAck.messageBytes);
 
     // if wchar_tCount is 2 or less, the data only contains the terminator "\0\0" and we
     // don't need to convert anything (and we are done)
@@ -1011,7 +1011,7 @@ bool ManifestRequestTrans::Recv (
             return false; // something is screwy, abort and disconnect
 
         // point it at the md5 for compressed files
-        curChar++; 
+        curChar++;
         wchar_tCount--;
 
         // --------------------------------------------------------------------
@@ -1024,7 +1024,7 @@ bool ManifestRequestTrans::Recv (
             return false; // something is screwy, abort and disconnect
 
         // point it at the first part of the filesize value (format: 0xHHHHLLLL)
-        curChar++; 
+        curChar++;
         wchar_tCount--;
 
         // --------------------------------------------------------------------
@@ -1037,7 +1037,7 @@ bool ManifestRequestTrans::Recv (
             return false; // screwy data
 
         // point it at the first part of the zipsize value (format: 0xHHHHLLLL)
-        curChar++; 
+        curChar++;
         wchar_tCount--;
 
         // --------------------------------------------------------------------
@@ -1050,7 +1050,7 @@ bool ManifestRequestTrans::Recv (
             return false; // screwy data
 
         // point it at the first part of the flags value (format: 0xHHHHLLLL)
-        curChar++; 
+        curChar++;
         wchar_tCount--;
 
         // --------------------------------------------------------------------
@@ -1266,7 +1266,7 @@ void FileDestroy (bool wait) {
     NetTransCancelByProtocol(
         kNetProtocolCli2File,
         kNetErrRemoteShutdown
-    );    
+    );
     NetMsgProtocolDestroy(
         kNetProtocolCli2File,
         false

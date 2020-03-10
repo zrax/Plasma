@@ -63,13 +63,13 @@ pyDynamicText::pyDynamicText()
     IInit();
 }
 
-pyDynamicText::pyDynamicText(pyKey& key) 
+pyDynamicText::pyDynamicText(pyKey& key)
 {
     IInit();
     fReceivers.Append(key.getKey());
 }
 
-pyDynamicText::pyDynamicText(plKey key) 
+pyDynamicText::pyDynamicText(plKey key)
 {
     IInit();
     fReceivers.Append(key);

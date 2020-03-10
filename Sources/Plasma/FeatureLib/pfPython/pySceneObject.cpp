@@ -202,7 +202,7 @@ PyObject* pySceneObject::getObjPyKey()
 }
 
 void pySceneObject::setSenderKey(plKey key)
-{ 
+{
     fSenderKey=key;
     ISetAllSenderKeys();
 }
@@ -636,7 +636,7 @@ void pySceneObject::PushCutsceneCamera(bool cut, pyKey& avKey)
         // referring to multiple objects, so the first one in the list will do.)
         plSceneObject* obj = plSceneObject::ConvertNoRef(fSceneObjects[0]->ObjectIsLoaded());
         if ( obj )
-        {   
+        {
             for (int i = 0; i < obj->GetNumModifiers(); i++)
             {
                 const plCameraModifier1* pCam = plCameraModifier1::ConvertNoRef(obj->GetModifier(i));
@@ -670,7 +670,7 @@ void pySceneObject::PopCutsceneCamera(pyKey& avKey)
         // referring to multiple objects, so the first one in the list will do.)
         plSceneObject* obj = plSceneObject::ConvertNoRef(fSceneObjects[0]->ObjectIsLoaded());
         if ( obj )
-        {   
+        {
             for (int i = 0; i < obj->GetNumModifiers(); i++)
             {
                 const plCameraModifier1* pCam = plCameraModifier1::ConvertNoRef(obj->GetModifier(i));
@@ -697,7 +697,7 @@ void pySceneObject::PushCamera(pyKey& avKey)
 {
     plSceneObject* obj = plSceneObject::ConvertNoRef(fSceneObjects[0]->ObjectIsLoaded());
     if ( obj )
-    {   
+    {
         for (int i = 0; i < obj->GetNumModifiers(); i++)
         {
             const plCameraModifier1* pCam = plCameraModifier1::ConvertNoRef(obj->GetModifier(i));
@@ -726,7 +726,7 @@ void pySceneObject::PushCameraCut(pyKey& avKey)
 {
     plSceneObject* obj = plSceneObject::ConvertNoRef(fSceneObjects[0]->ObjectIsLoaded());
     if ( obj )
-    {   
+    {
         for (int i = 0; i < obj->GetNumModifiers(); i++)
         {
             const plCameraModifier1* pCam = plCameraModifier1::ConvertNoRef(obj->GetModifier(i));
@@ -764,7 +764,7 @@ void pySceneObject::PopCamera(pyKey& avKey)
 {
     plSceneObject* obj = plSceneObject::ConvertNoRef(fSceneObjects[0]->ObjectIsLoaded());
     if ( obj )
-    {   
+    {
         for (int i = 0; i < obj->GetNumModifiers(); i++)
         {
             const plCameraModifier1* pCam = plCameraModifier1::ConvertNoRef(obj->GetModifier(i));
@@ -798,7 +798,7 @@ std::vector<PyObject*> pySceneObject::GetResponders()
         // referring to multiple objects, so the first one in the list will do.)
         plSceneObject* obj = plSceneObject::ConvertNoRef(fSceneObjects[0]->ObjectIsLoaded());
         if ( obj )
-        {   
+        {
             for (int i = 0; i < obj->GetNumModifiers(); i++)
             {
                 const plResponderModifier* resp = plResponderModifier::ConvertNoRef(obj->GetModifier(i));
@@ -820,7 +820,7 @@ std::vector<PyObject*> pySceneObject::GetPythonMods()
         // referring to multiple objects, so the first one in the list will do.)
         plSceneObject* obj = plSceneObject::ConvertNoRef(fSceneObjects[0]->ObjectIsLoaded());
         if ( obj )
-        {   
+        {
             for (int i = 0; i < obj->GetNumModifiers(); i++)
             {
                 const plPythonFileMod* resp = plPythonFileMod::ConvertNoRef(obj->GetModifier(i));
@@ -865,13 +865,13 @@ void pySceneObject::RewindAnim(const char* animName)
 {
     plSceneObject* obj = plSceneObject::ConvertNoRef(fSceneObjects[0]->ObjectIsLoaded());
     if ( obj )
-    {   
+    {
         plAnimCmdMsg* pMsg = new plAnimCmdMsg;
         pMsg->AddReceiver(obj->GetKey());
         pMsg->SetAnimName(animName);
         pMsg->SetCmd(plAnimCmdMsg::kGoToBegin);
         pMsg->SetBCastFlag(plMessage::kPropagateToModifiers);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes    
+        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
     }
 }
 
@@ -885,7 +885,7 @@ void pySceneObject::PlayAnim(const char* animName)
         pMsg->SetAnimName(animName);
         pMsg->SetCmd(plAnimCmdMsg::kContinue);
         pMsg->SetBCastFlag(plMessage::kPropagateToModifiers);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes    
+        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
     }
 }
 
@@ -899,7 +899,7 @@ void pySceneObject::StopAnim(const char* animName)
         pMsg->SetAnimName(animName);
         pMsg->SetCmd(plAnimCmdMsg::kStop);
         pMsg->SetBCastFlag(plMessage::kPropagateToModifiers);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes    
+        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
     }
 }
 

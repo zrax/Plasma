@@ -82,7 +82,7 @@ void cyPhysics::AddRecvr(plKey &recvr)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : Enable
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Enable physics (must already be there)
 //
@@ -154,7 +154,7 @@ void  cyPhysics::EnableCollision()
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
-        pMsg->SetFlags(plEventGroupEnableMsg::kCollideOn);  
+        pMsg->SetFlags(plEventGroupEnableMsg::kCollideOn);
         plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
     }
     */
@@ -183,7 +183,7 @@ void  cyPhysics::DisableCollision()
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
-        pMsg->SetFlags(plEventGroupEnableMsg::kCollideOff); 
+        pMsg->SetFlags(plEventGroupEnableMsg::kCollideOff);
         plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
     }
     */
@@ -403,7 +403,7 @@ void cyPhysics::Rotate(float rad, pyVector3& axis)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : Force
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : apply a force to the center of mass of the receiver
 //
@@ -441,7 +441,7 @@ void cyPhysics::Force(pyVector3& force)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : ForceWithOffset
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : apply a force to the receiver as though it were being impacted at the
 //             : given point in global space
@@ -481,7 +481,7 @@ void cyPhysics::ForceWithOffset(pyVector3& force, pyPoint3& offset)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : Torque
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Apply the given torque force to the body
 //             : The vector indicates the axes, and the magnitude indicates the strength
@@ -520,7 +520,7 @@ void cyPhysics::Torque(pyVector3& torque)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : Impulse
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Add the given vector to the objects velocity
 //
@@ -558,7 +558,7 @@ void cyPhysics::Impulse(pyVector3& impulse)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : ImpulseWithOffset
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Apply the given impulse to the object at the given point in global space
 //             : Will impart torque if not applied to center of mass
@@ -598,7 +598,7 @@ void cyPhysics::ImpulseWithOffset(pyVector3& impulse, pyPoint3& offset)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : AngularImpulse
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Add the given vector (representing a rotation axis and magnitude)
 //
@@ -636,7 +636,7 @@ void cyPhysics::AngularImpulse(pyVector3& impulse)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : Damp
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Decrease all velocities on the given object.
 //             : A damp factor of 0 nulls them all entirely;
@@ -676,7 +676,7 @@ void cyPhysics::Damp(float damp)
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Function   : ShiftMass
-//  PARAMETERS : 
+//  PARAMETERS :
 //
 //  PURPOSE    : Shift the center of mass of the given object by the given
 //             : amount in the given direction.
@@ -732,7 +732,7 @@ void cyPhysics::Suppress(bool doSuppress)
 //  Function   : SetLinearVelocity
 //  PARAMETERS : velocity
 //
-//  PURPOSE    : Change the objects linear velocity to this 
+//  PURPOSE    : Change the objects linear velocity to this
 //
 //
 void cyPhysics::SetLinearVelocity(pyVector3& velocity)

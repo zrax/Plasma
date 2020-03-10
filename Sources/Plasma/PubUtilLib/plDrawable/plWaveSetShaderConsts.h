@@ -389,7 +389,7 @@ namespace plWaveDecVS // closely related to plFixedVS and plShoreVS
         kCosConsts                  = 11,
         kPiConsts                   = 12,
         kNumericConsts              = 13,
-        kTex0Transform              = 14, 
+        kTex0Transform              = 14,
         kTex0_Row0                      = 14,
         kTex0_Row1                      = 15,
         kTex1Transform              = 16,

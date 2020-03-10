@@ -52,7 +52,7 @@ class hsStream;
 class hsResMgr;
 class plVolumeIsect;
 
-class plSpaceTreeNode 
+class plSpaceTreeNode
 {
 public:
     enum {

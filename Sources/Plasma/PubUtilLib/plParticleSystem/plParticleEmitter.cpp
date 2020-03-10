@@ -141,27 +141,27 @@ void plParticleEmitter::ISetupParticleMem()
     fTargetInfo.fVelocity = (uint8_t *)fParticleExts;
     fTargetInfo.fInvMass = fTargetInfo.fVelocity + sizeof(hsVector3);
     fTargetInfo.fAcceleration = fTargetInfo.fInvMass + sizeof(float);
-    fTargetInfo.fMiscFlags = (uint8_t *)&(fParticleExts[0].fMiscFlags);   
+    fTargetInfo.fMiscFlags = (uint8_t *)&(fParticleExts[0].fMiscFlags);
     fTargetInfo.fRadsPerSec = (uint8_t *)&(fParticleExts[0].fRadsPerSec);
-    fTargetInfo.fVelocityStride 
-        = fTargetInfo.fInvMassStride 
-        = fTargetInfo.fAccelerationStride 
+    fTargetInfo.fVelocityStride
+        = fTargetInfo.fInvMassStride
+        = fTargetInfo.fAccelerationStride
         = fTargetInfo.fRadsPerSecStride
-        = fTargetInfo.fMiscFlagsStride 
+        = fTargetInfo.fMiscFlagsStride
         = sizeof(plParticleExt);
 }
 
 uint32_t plParticleEmitter::GetNumTiles() const
-{ 
-    return fSystem->GetNumTiles(); 
+{
+    return fSystem->GetNumTiles();
 }
 
 const hsMatrix44 &plParticleEmitter::GetLocalToWorld() const
-{ 
-    return fMiscFlags & kOverrideLocalToWorld ? fLocalToWorld : fSystem->GetLocalToWorld(); 
+{
+    return fMiscFlags & kOverrideLocalToWorld ? fLocalToWorld : fSystem->GetLocalToWorld();
 }
 
-void plParticleEmitter::AddParticle(hsPoint3 &pos, hsVector3 &velocity, uint32_t tileIndex, 
+void plParticleEmitter::AddParticle(hsPoint3 &pos, hsVector3 &velocity, uint32_t tileIndex,
                                     float hSize, float vSize, float scale, float invMass, float life,
                                     hsPoint3 &orientation, uint32_t miscFlags, float radsPerSec)
 {
@@ -174,7 +174,7 @@ void plParticleEmitter::AddParticle(hsPoint3 &pos, hsVector3 &velocity, uint32_t
     else
         currParticle = fNumValidParticles++;
 
-    core = &fParticleCores[currParticle];   
+    core = &fParticleCores[currParticle];
     core->fPos = pos;
     core->fOrientation = orientation;
     core->fColor = CreateHexColor(fColor);
@@ -206,7 +206,7 @@ void plParticleEmitter::AddParticle(hsPoint3 &pos, hsVector3 &velocity, uint32_t
     ext->fInvMass = invMass;
     ext->fLife = ext->fStartLife = life;
     ext->fMiscFlags = miscFlags; // Is this ever NOT zero?
-    if (life <= 0) 
+    if (life <= 0)
         ext->fMiscFlags |= plParticleExt::kImmortal;
 
     ext->fRadsPerSec = radsPerSec;
@@ -215,7 +215,7 @@ void plParticleEmitter::AddParticle(hsPoint3 &pos, hsVector3 &velocity, uint32_t
 }
 
 void plParticleEmitter::WipeExistingParticles()
-{ 
+{
     fNumValidParticles = 0;  // That was easy.
 }
 
@@ -356,7 +356,7 @@ void plParticleEmitter::IUpdateParticles(float delta)
     {
         fSystem->fEffects[j]->PrepareEffect(fTargetInfo);
     }
-    for (j = 0; j < fSystem->fConstraints.GetCount(); j++) 
+    for (j = 0; j < fSystem->fConstraints.GetCount(); j++)
     {
         fSystem->fConstraints[j]->PrepareEffect(fTargetInfo);
     }
@@ -364,7 +364,7 @@ void plParticleEmitter::IUpdateParticles(float delta)
     for (i = 0; i < fNumValidParticles; i++)
     {
         if (!( fParticleExts[i].fMiscFlags & plParticleExt::kImmortal ))
-        {           
+        {
             float percent = (1.0f - fParticleExts[i].fLife / fParticleExts[i].fStartLife);
             colorCtl = (fMiscFlags & kMatIsEmissive ? fSystem->fAmbientCtl : fSystem->fDiffuseCtl);
             if (colorCtl != nil)
@@ -393,7 +393,7 @@ void plParticleEmitter::IUpdateParticles(float delta)
                 fParticleCores[i].fVSize *= fParticleExts[i].fScale;
             }
 
-            fParticleCores[i].fColor = CreateHexColor(color.fX, color.fY, color.fZ, alpha);                     
+            fParticleCores[i].fColor = CreateHexColor(color.fX, color.fY, color.fZ, alpha);
         }
 
         for (j = 0; j < fSystem->fForces.GetCount(); j++)
@@ -447,13 +447,13 @@ void plParticleEmitter::IUpdateParticles(float delta)
         // We may need to do more than one iteration through the constraints. It's a trade-off
         // between accurracy and speed (what's new?) but I'm going to go with just one
         // for now until we decide things don't "look right"
-        for (j = 0; j < fSystem->fConstraints.GetCount(); j++) 
+        for (j = 0; j < fSystem->fConstraints.GetCount(); j++)
         {
             if( fSystem->fConstraints[j]->ApplyEffect(fTargetInfo, i) )
             {
                 IRemoveParticle(i);
                 i--; // so that we hit this index again on the next iteration
-                break; 
+                break;
                 // break will break us out of loop over constraints,
                 // and since we're last, we move onto next particle.
             }
@@ -469,7 +469,7 @@ void plParticleEmitter::IUpdateParticles(float delta)
     {
         fSystem->fEffects[j]->EndEffect(fTargetInfo);
     }
-    for (j = 0; j < fSystem->fConstraints.GetCount(); j++) 
+    for (j = 0; j < fSystem->fConstraints.GetCount(); j++)
     {
         fSystem->fConstraints[j]->EndEffect(fTargetInfo);
     }
@@ -495,13 +495,13 @@ void plParticleEmitter::IUpdateBoundsAndNormals(float delta)
     hsVector3 normal;
     if (fMiscFlags & kNormalVelUpVel)
     {
-        for (i = fNumValidParticles - 1; i >=0; i--) 
+        for (i = fNumValidParticles - 1; i >=0; i--)
         {
             //currDirection.Set(&fParticleCores[i].fPos, &fParticleExts[i].fOldPos);
             //normal = (currDirection % up % currDirection);
             normal.Set(-fParticleExts[i].fVelocity.fX * fParticleExts[i].fVelocity.fZ,
                        -fParticleExts[i].fVelocity.fY * fParticleExts[i].fVelocity.fZ,
-                       (fParticleExts[i].fVelocity.fX * fParticleExts[i].fVelocity.fX + 
+                       (fParticleExts[i].fVelocity.fX * fParticleExts[i].fVelocity.fX +
                         fParticleExts[i].fVelocity.fY * fParticleExts[i].fVelocity.fY));
             if (!normal.IsEmpty()) // zero length check
             {
@@ -512,7 +512,7 @@ void plParticleEmitter::IUpdateBoundsAndNormals(float delta)
     }
     else if (fMiscFlags & kNormalFromCenter)
     {
-        for (i = fNumValidParticles - 1; i >=0; i--) 
+        for (i = fNumValidParticles - 1; i >=0; i--)
         {
             normal.Set(&fParticleCores[i].fPos, &center);
             if (!normal.IsEmpty()) // zero length check

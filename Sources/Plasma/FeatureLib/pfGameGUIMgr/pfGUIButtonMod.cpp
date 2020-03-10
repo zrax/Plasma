@@ -249,7 +249,7 @@ void    pfGUIButtonMod::HandleMouseDown( hsPoint3 &mousePt, uint8_t modifiers )
         plAnimCmdMsg *msg = new plAnimCmdMsg();
         msg->SetCmd( plAnimCmdMsg::kContinue );
         msg->SetCmd( plAnimCmdMsg::kSetForewards );
-        msg->SetCmd( plAnimCmdMsg::kGoToBegin );    
+        msg->SetCmd( plAnimCmdMsg::kGoToBegin );
         msg->SetAnimName( fAnimName );
         msg->AddReceivers( fAnimationKeys );
         plgDispatch::MsgSend( msg );
@@ -279,7 +279,7 @@ void    pfGUIButtonMod::HandleMouseUp( hsPoint3 &mousePt, uint8_t modifiers )
         plAnimCmdMsg *msg = new plAnimCmdMsg();
         msg->SetCmd( plAnimCmdMsg::kContinue );
         msg->SetCmd( plAnimCmdMsg::kSetBackwards );
-        msg->SetCmd( plAnimCmdMsg::kGoToEnd );  
+        msg->SetCmd( plAnimCmdMsg::kGoToEnd );
         msg->SetAnimName( fAnimName );
         msg->AddReceivers( fAnimationKeys );
         plgDispatch::MsgSend( msg );
@@ -289,7 +289,7 @@ void    pfGUIButtonMod::HandleMouseUp( hsPoint3 &mousePt, uint8_t modifiers )
 
     // Don't run the command if the mouse is outside our bounds
     if( !fBounds.IsInside( &mousePt ) && fNotifyType != kNotifyOnUpAndDown )
-        return;     
+        return;
 
     if ( fNotifyType == kNotifyOnUp || fNotifyType == kNotifyOnUpAndDown)
         fTriggering = true;

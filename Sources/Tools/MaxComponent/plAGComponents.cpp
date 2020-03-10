@@ -129,19 +129,19 @@ CLASS_DESC(plAnimAvatarComponent, gAnimAvatarDesc, "Compound Animation",  "Compo
 //
 //
 ParamBlockDesc2 gAnimAvatarBk
-(   
+(
     plComponent::kBlkComp, _T("CompoundAnim"), 0, &gAnimAvatarDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     //Roll out
     IDD_COMP_ANIM_AVATAR, IDS_COMP_ANIM_AVATARS, 0, 0, NULL,
 
     // params
-    kShareableBool, _T("ShareableBool"), TYPE_BOOL, 0, 0,   
+    kShareableBool, _T("ShareableBool"), TYPE_BOOL, 0, 0,
         p_default, FALSE,
         p_ui,   TYPE_SINGLECHEKBOX, IDC_COMP_ANIM_AVATAR_SHAREBOOL,
         end,
 
-    kGlobalBool, _T("ShareableBool"), TYPE_BOOL, 0, 0,  
+    kGlobalBool, _T("ShareableBool"), TYPE_BOOL, 0, 0,
         p_default, FALSE,
         p_ui,   TYPE_SINGLECHEKBOX, IDC_COMP_ANIM_AVATAR_GLOBALBOOL,
         end,
@@ -184,7 +184,7 @@ bool plAnimAvatarComponent::SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg
         SetupProperties((plMaxNode *)node->GetChildNode(i), pErrMsg);
     }
 
-    return true; 
+    return true;
 }
 
 //
@@ -256,7 +256,7 @@ bool plAnimAvatarComponent::ConvertNode(plMaxNode *node, plErrorMsg *pErrMsg)
 // -------------
 plATCAnim * plAnimAvatarComponent::NewAnimation(const ST::string &name, double begin, double end)
 {
-    return new plATCAnim(name, begin, end); 
+    return new plATCAnim(name, begin, end);
 }
 
 
@@ -410,19 +410,19 @@ ParamBlockDesc2 gEmoteBk
         p_default, plEmoteComponent::kBodyUnknown,
         end,
 
-    plEmoteComponent::kFadeIn, _T("Length"), TYPE_FLOAT,    0, 0,   
+    plEmoteComponent::kFadeIn, _T("Length"), TYPE_FLOAT,    0, 0,
         p_default, 2.0,
         p_range, 0.1, 10.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_EMO_FADEIN, IDC_EMO_FADEIN_SPIN, 0.1,
-        end,    
+        end,
 
-    plEmoteComponent::kFadeOut, _T("Length"), TYPE_FLOAT,   0, 0,   
+    plEmoteComponent::kFadeOut, _T("Length"), TYPE_FLOAT,   0, 0,
         p_default, 2.0,
         p_range, 0.1, 10.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_EMO_FADEOUT, IDC_EMO_FADEOUT_SPIN, 0.1,
-        end,    
+        end,
 
 
     end

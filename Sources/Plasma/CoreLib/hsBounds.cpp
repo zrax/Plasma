@@ -61,7 +61,7 @@ void hsBounds::Read(hsStream *s)
     fType =(hsBoundsType) s->ReadLE32();
 }
 
-void hsBounds::Write(hsStream *s) 
+void hsBounds::Write(hsStream *s)
 {
     s->WriteLE32((int32_t)fType);
 }
@@ -72,7 +72,7 @@ void hsBounds::Write(hsStream *s)
 //
 /////////////////////////////////////////////////////////////////////////////////////////
 
-void hsBounds3::Transform(const hsMatrix44 *mat) 
+void hsBounds3::Transform(const hsMatrix44 *mat)
 {
 #if 0 // IDENT
     if( mat->fFlags & hsMatrix44::kIsIdent )
@@ -144,7 +144,7 @@ void hsBounds3::Union(const hsPoint3 *p)
     {
         if(fType != kBoundsFull)    // Otherwise re-init unless bounds is full already
             this->Reset(p);
-    }   
+    }
 }
 
 void hsBounds3::Union(const hsVector3 *v)
@@ -352,7 +352,7 @@ void hsBounds3::MakeTriMeshSphere(hsGTriMesh* tMesh, hsPoint3* cornersIn) const
 //
 void hsBounds3::MakeTriMesh(hsGTriMesh* tMesh, uint32_t triFlags, hsPoint3* cornersIn) const
 {
-    hsAssert(cornersIn || fType == kBoundsNormal, 
+    hsAssert(cornersIn || fType == kBoundsNormal,
         "Invalid bounds type for hsBounds3::MakeTriMesh ");
 
     const int maxNew= 12;
@@ -378,7 +378,7 @@ void hsBounds3::MakeTriMesh(hsGTriMesh* tMesh, uint32_t triFlags, hsPoint3* corn
     int triNum=0;
 
 
-    static int verts[maxNew * 3] = {        
+    static int verts[maxNew * 3] = {
     /* -Y */    6,2,3,
     /* -Y */    6,3,7,
     /* Y  */    5,1,0,
@@ -509,7 +509,7 @@ void hsBounds3::Read(hsStream *stream)
     fBounds3Flags = 0;
 }
 
-void hsBounds3::Write(hsStream *stream) 
+void hsBounds3::Write(hsStream *stream)
 {
     hsBounds::Write(stream);
     fMins.Write(stream);
@@ -522,9 +522,9 @@ void hsBounds3::Write(hsStream *stream)
 //////////////////////////////////////////////////
 
 hsPoint3  hsBoundsOriented::GetCenter() const
-{ 
-    hsAssert(fCenterValid==true, "Unset center for hsBoundsOriented::GetCenter()"); 
-    return fCenter; 
+{
+    hsAssert(fCenterValid==true, "Unset center for hsBoundsOriented::GetCenter()");
+    return fCenter;
 }
 
 void hsBoundsOriented::TestPlane(const hsVector3 &n, hsPoint2 &depth) const
@@ -1368,8 +1368,8 @@ static bool ISectInterval(const hsPoint2& other, const hsPoint2& mine)
     return true;
 }
 
-static bool ITestDepth(const hsPoint2& other, const hsPoint2& mine, 
-                          const hsVector3& inAx, 
+static bool ITestDepth(const hsPoint2& other, const hsPoint2& mine,
+                          const hsVector3& inAx,
                           hsVector3 &outAx, float& depth)
 {
     depth = 0;
@@ -1673,7 +1673,7 @@ bool hsBounds3Ext::ISectBS(const hsBounds3Ext &other, const hsVector3 &myVel) co
     // such uglies...
     if( myVel.MagnitudeSquared() > 0 )
     {
-        float parm = hsVector3(&other.GetCenter(), &fCenter).InnerProduct(myVel) 
+        float parm = hsVector3(&other.GetCenter(), &fCenter).InnerProduct(myVel)
             / myVel.InnerProduct(myVel);
         if( parm > 0 )
         {
@@ -2003,7 +2003,7 @@ bool hsBounds3Ext::ISectTriBS(hsBounds3Tri &tri, const hsVector3 &myVel) const
         {
             normDepth = -tri.fDist + (centerDist + radScaled + velDist);
             if( normDepth > 0 )
-            {   
+            {
                 tri.fDist = -tri.fDist;
                 tri.fNormal = -tri.fNormal;
             }
@@ -2088,7 +2088,7 @@ bool hsBounds3Ext::ISectTriBS(hsBounds3Tri &tri, const hsVector3 &myVel, hsHitIn
         {
             normDepth = -tri.fDist + (centerDist + radScaled + velDist);
             if( normDepth > 0 )
-            {   
+            {
                 tri.fDist = -tri.fDist;
                 tri.fNormal = -tri.fNormal;
             }
@@ -2880,8 +2880,8 @@ hsBounds3Tri* hsBounds3Tri::Translate(const hsVector3& v)
     return this;
 }
 
-void hsBounds3Tri::Set(const hsPoint3& v0, 
-                           const hsPoint3& v1, 
+void hsBounds3Tri::Set(const hsPoint3& v0,
+                           const hsPoint3& v1,
                            const hsPoint3& v2,
                            hsTriangle3* t,
                            const hsMatrix44& x)
@@ -2917,8 +2917,8 @@ void hsBounds3Tri::Set(const hsPoint3& v0,
         Transform(x);
 }
 
-hsBounds3Tri::hsBounds3Tri(const hsPoint3& v0, 
-                           const hsPoint3& v1, 
+hsBounds3Tri::hsBounds3Tri(const hsPoint3& v0,
+                           const hsPoint3& v1,
                            const hsPoint3& v2,
                            hsTriangle3* t,
                            const hsMatrix44& x)
@@ -2928,9 +2928,9 @@ hsBounds3Tri::hsBounds3Tri(const hsPoint3& v0,
 
 hsBounds3Tri::hsBounds3Tri(hsTriangle3* t, const hsMatrix44& x)
 {
-    Set(t->fVert[0]->fVtx->fLocalPos, 
-        t->fVert[2]->fVtx->fLocalPos, 
-        t->fVert[2]->fVtx->fLocalPos, 
+    Set(t->fVert[0]->fVtx->fLocalPos,
+        t->fVert[2]->fVtx->fLocalPos,
+        t->fVert[2]->fVtx->fLocalPos,
         t, x);
 }
 
@@ -2959,9 +2959,9 @@ hsBounds3Tri::hsBounds3Tri(hsPoint3 *v0, hsPoint3 *v1, hsPoint3 *v2, hsVector3 *
 
 hsBounds3Tri::hsBounds3Tri(hsTriangle3* t)
 {
-    Set(&t->fVert[0]->fVtx->fLocalPos, 
-        &t->fVert[1]->fVtx->fLocalPos, 
-        &t->fVert[2]->fVtx->fLocalPos, 
+    Set(&t->fVert[0]->fVtx->fLocalPos,
+        &t->fVert[1]->fVtx->fLocalPos,
+        &t->fVert[2]->fVtx->fLocalPos,
         &t->fNormal, t->fFlags, t);
 }
 
@@ -2979,7 +2979,7 @@ bool hsBounds3Tri::ISectCone(const hsPoint3& from, const hsPoint3& to, float cos
     backSide = d0 < dt;
     if( !ignoreFacing && backSide )
         return false;
-    if ( (d0 < dt || d1 < dt) && 
+    if ( (d0 < dt || d1 < dt) &&
          (d0 > dt || d1 > dt) &&
          ClosestTriPoint(&from, &at, &hsVector3(&to,&from)) )
          return true;

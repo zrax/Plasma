@@ -66,8 +66,8 @@ protected:
 
 public:
     pfGUINotifyMsg() : plMessage() {}
-    pfGUINotifyMsg(const plKey &s, 
-                    const plKey &r, 
+    pfGUINotifyMsg(const plKey &s,
+                    const plKey &r,
                     const double* t) : plMessage(s, r, t) {}
     ~pfGUINotifyMsg() {}
 
@@ -83,7 +83,7 @@ public:
         kFocusChange,       // when one of its controls loses focus to another
         kExitMode,          // GUI Exit Mode key was pressed
         kInterestingEvent,  // GUI interesting-ness has changed
-        kSpecialAction,     // meaning depends on control functionality (see below) 
+        kSpecialAction,     // meaning depends on control functionality (see below)
         kMessageHistoryUp,  // up key to scroll back in history
         kMessageHistoryDown,// down key to scroll forward in history
         kEndEventList
@@ -127,7 +127,7 @@ public:
     plKey GetControlKey() { return fControlKey; }
     uint32_t GetEvent() { return fEvent; }
 
-    // IO 
+    // IO
     void Read(hsStream* stream, hsResMgr* mgr)
     {
         plMessage::IMsgRead(stream, mgr);

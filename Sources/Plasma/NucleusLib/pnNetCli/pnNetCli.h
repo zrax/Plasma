@@ -415,7 +415,7 @@ void NetCliDisconnect (
 );
 
 void NetCliDelete (
-    NetCli *        cli, 
+    NetCli *        cli,
     bool            deleteSocket
 );
 
@@ -425,7 +425,7 @@ void NetCliFlush (
 
 void NetCliSend (
     NetCli *            cli,
-    const uintptr_t  msg[], 
+    const uintptr_t  msg[],
     unsigned            count
 );
 

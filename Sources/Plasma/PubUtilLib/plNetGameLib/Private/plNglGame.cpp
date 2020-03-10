@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/PubUtilLib/plNetGameLib/Private/plNglGame.cpp
-*   
+*
 ***/
 
 #include "../Pch.h"
@@ -667,7 +667,7 @@ void GameDestroy (bool wait) {
     NetTransCancelByProtocol(
         kNetProtocolCli2Game,
         kNetErrRemoteShutdown
-    );    
+    );
     NetMsgProtocolDestroy(
         kNetProtocolCli2Game,
         false

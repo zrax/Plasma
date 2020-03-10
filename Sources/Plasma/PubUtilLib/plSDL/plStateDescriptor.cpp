@@ -49,8 +49,8 @@ const uint8_t plStateDescriptor::kVersion=1;      // for Read/Write format
 // STATE DESC
 /////////////////////////////////////////////////////////////////////////////////
 
-plStateDescriptor::~plStateDescriptor() 
-{ 
+plStateDescriptor::~plStateDescriptor()
+{
     IDeInit();
 }
 
@@ -81,7 +81,7 @@ plVarDescriptor* plStateDescriptor::FindVar(const ST::string& name, int* idx) co
 
 //
 // Usage: The GameServer reads and write state descriptors along with each saved game
-// 
+//
 bool plStateDescriptor::Read(hsStream* s)
 {
     uint8_t rwVersion;
@@ -105,7 +105,7 @@ bool plStateDescriptor::Read(hsStream* s)
     int i;
     for(i=0;i<numVars; i++)
     {
-        uint8_t SDVar=s->ReadByte();      
+        uint8_t SDVar=s->ReadByte();
         plVarDescriptor* var = nil;
         if (SDVar)
             var = new plSDVarDescriptor;
@@ -121,7 +121,7 @@ bool plStateDescriptor::Read(hsStream* s)
 
 //
 // Usage: The GameServer reads and write state descriptors alon with each saved game
-// 
+//
 void plStateDescriptor::Write(hsStream* s) const
 {
     s->WriteLE(kVersion);

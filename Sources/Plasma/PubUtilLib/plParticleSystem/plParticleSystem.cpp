@@ -89,8 +89,8 @@ plParticleSystem::~plParticleSystem()
     delete fHeightCtl;
 }
 
-void plParticleSystem::Init(uint32_t xTiles, uint32_t yTiles, uint32_t maxTotalParticles, uint32_t maxEmitters, 
-                            plController *ambientCtl,   plController *diffuseCtl, plController *opacityCtl, 
+void plParticleSystem::Init(uint32_t xTiles, uint32_t yTiles, uint32_t maxTotalParticles, uint32_t maxEmitters,
+                            plController *ambientCtl,   plController *diffuseCtl, plController *opacityCtl,
                             plController *widthCtl, plController *heightCtl)
 {
     fTarget = nil;
@@ -116,7 +116,7 @@ void plParticleSystem::Init(uint32_t xTiles, uint32_t yTiles, uint32_t maxTotalP
     fEmitters = new plParticleEmitter *[fMaxEmitters];
     int i;
     for (i = 0; i < maxEmitters; i++)
-        fEmitters[i] = nil; 
+        fEmitters[i] = nil;
 
     fAmbientCtl = ambientCtl;
     fDiffuseCtl = diffuseCtl;
@@ -172,7 +172,7 @@ plParticleEmitter* plParticleSystem::GetAvailEmitter()
             fMaxTotalParticlesLeft -= fEmitters[iMinTTL]->fMaxParticles;
 
             // Don't really use this. fEmitters[i]->GetSpanIndex() always == i.
-            fNextEmitterToGo = (fNextEmitterToGo + 1) % fMaxEmitters; 
+            fNextEmitterToGo = (fNextEmitterToGo + 1) % fMaxEmitters;
         }
     }
     return fEmitters[iMinTTL];
@@ -215,7 +215,7 @@ uint32_t plParticleSystem::AddEmitter(uint32_t maxParticles, plParticleGenerator
     return maxParticles;
 }
 
-void plParticleSystem::AddParticle(hsPoint3 &pos, hsVector3 &velocity, uint32_t tileIndex, 
+void plParticleSystem::AddParticle(hsPoint3 &pos, hsVector3 &velocity, uint32_t tileIndex,
                                    float hSize, float vSize, float scale, float invMass, float life,
                                    hsPoint3 &orientation, uint32_t miscFlags, float radsPerSec)
 {
@@ -234,7 +234,7 @@ void plParticleSystem::GenerateParticles(uint32_t num, float dt /* = 0.f */)
     if (fNumValidEmitters > 0 && fEmitters[0]->fGenerator)
         fEmitters[0]->fGenerator->AddAutoParticles(fEmitters[0], dt, num);
 
-    GetTarget(0)->DirtySynchState(kSDLParticleSystem, 0);   
+    GetTarget(0)->DirtySynchState(kSDLParticleSystem, 0);
 }
 
 void plParticleSystem::WipeExistingParticles()
@@ -249,7 +249,7 @@ void plParticleSystem::KillParticles(float num, float timeToDie, uint8_t flags)
     if (fEmitters[0])
         fEmitters[0]->KillParticles(num, timeToDie, flags);
 
-    GetTarget(0)->DirtySynchState(kSDLParticleSystem, 0);   
+    GetTarget(0)->DirtySynchState(kSDLParticleSystem, 0);
 }
 
 void plParticleSystem::TranslateAllParticles(hsPoint3 &amount)
@@ -274,16 +274,16 @@ uint16_t plParticleSystem::StealParticlesFrom(plParticleSystem *victim, uint16_t
     if (victim)
     {
         uint16_t numStolen = fEmitters[0]->StealParticlesFrom(victim->fNumValidEmitters > 0 ? victim->fEmitters[0] : nil, num);
-        GetTarget(0)->DirtySynchState(kSDLParticleSystem, 0);   
-        victim->GetTarget(0)->DirtySynchState(kSDLParticleSystem, 0);   
+        GetTarget(0)->DirtySynchState(kSDLParticleSystem, 0);
+        victim->GetTarget(0)->DirtySynchState(kSDLParticleSystem, 0);
         return numStolen;
     }
     
     return 0;
 }
 
-plParticleGenerator *plParticleSystem::GetExportedGenerator() const 
-{ 
+plParticleGenerator *plParticleSystem::GetExportedGenerator() const
+{
     return (fNumValidEmitters > 0 ? fEmitters[0]->fGenerator : nil);
 }
 
@@ -327,8 +327,8 @@ uint32_t plParticleSystem::GetNumValidParticles(bool immortalOnly /* = false */)
 
 
 const hsMatrix44 &plParticleSystem::GetLocalToWorld() const
-{ 
-    return fTarget->GetCoordinateInterface()->GetLocalToWorld(); 
+{
+    return fTarget->GetCoordinateInterface()->GetLocalToWorld();
 }
 
 bool plParticleSystem::IEval(double secs, float del, uint32_t dirty)
@@ -416,8 +416,8 @@ plDrawInterface* plParticleSystem::ICheckDrawInterface()
 }
 
 void plParticleSystem::IHandleRenderMsg(plPipeline* pipe)
-{   
-    fCurrTime = hsTimer::GetSysSeconds(); 
+{
+    fCurrTime = hsTimer::GetSysSeconds();
     float delta = float(fCurrTime - fLastTime);
     if (delta == 0)
         return;
@@ -613,7 +613,7 @@ void plParticleSystem::Read(hsStream *s, hsResMgr *mgr)
     msg = new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, 0, 0); // Material
     mgr->ReadKeyNotifyMe(s, msg, plRefFlags::kActiveRef);
 
-    fAmbientCtl = plController::ConvertNoRef(mgr->ReadCreatable(s));    
+    fAmbientCtl = plController::ConvertNoRef(mgr->ReadCreatable(s));
     fDiffuseCtl = plController::ConvertNoRef(mgr->ReadCreatable(s));
     fOpacityCtl = plController::ConvertNoRef(mgr->ReadCreatable(s));
     fWidthCtl = plController::ConvertNoRef(mgr->ReadCreatable(s));

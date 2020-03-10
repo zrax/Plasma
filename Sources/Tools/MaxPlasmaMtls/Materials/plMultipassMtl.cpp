@@ -73,7 +73,7 @@ plMultipassMtl::plMultipassMtl(BOOL loading) : fPassesPB(NULL)
 {
     plMultipassMtlDesc.MakeAutoParamBlocks(this);
 
-    if (!loading) 
+    if (!loading)
         Reset();
 
     SetNumSubMtls(1);
@@ -84,16 +84,16 @@ void plMultipassMtl::GetClassName(TSTR& s)
     s = GetString(IDS_MULTI_MTL);
 }
 
-void plMultipassMtl::Reset() 
+void plMultipassMtl::Reset()
 {
     fIValid.SetEmpty();
 }
 
-ParamDlg* plMultipassMtl::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp) 
+ParamDlg* plMultipassMtl::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp)
 {
     fMtlDlg = new plMultipassMtlDlg(hwMtlEdit, imp, this);
 
-    return fMtlDlg; 
+    return fMtlDlg;
 }
 
 void plMultipassMtl::SetParamDlg(ParamDlg *dlg)
@@ -114,14 +114,14 @@ BOOL plMultipassMtl::SetDlgThing(ParamDlg* dlg)
 
 Interval plMultipassMtl::Validity(TimeValue t)
 {
-    Interval valid = FOREVER;       
+    Interval valid = FOREVER;
 
-/*  for (int i = 0; i < fSubTexmap.Count(); i++) 
+/*  for (int i = 0; i < fSubTexmap.Count(); i++)
     {
-        if (fSubTexmap[i]) 
+        if (fSubTexmap[i])
             valid &= fSubTexmap[i]->Validity(t);
     }
-*/  
+*/
 //  float u;
 //  fPBlock->GetValue(pb_spin,t,u,valid);
     return valid;
@@ -136,7 +136,7 @@ int plMultipassMtl::NumSubs()
     return NumSubMtls();
 }
 
-TSTR plMultipassMtl::SubAnimName(int i) 
+TSTR plMultipassMtl::SubAnimName(int i)
 {
     return GetSubMtlSlotName(i);
 }
@@ -186,8 +186,8 @@ IParamBlock2 *plMultipassMtl::GetParamBlockByID(BlockID id)
     return NULL;
 }
 
-RefResult plMultipassMtl::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, 
-   PartID& partID, RefMessage message ) 
+RefResult plMultipassMtl::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
+   PartID& partID, RefMessage message )
 {
     switch (message)
     {
@@ -246,7 +246,7 @@ TSTR plMultipassMtl::GetSubMtlTVName(int i)
 #define MTL_HDR_CHUNK 0x4000
 
 IOResult plMultipassMtl::Save(ISave *isave)
-{ 
+{
     IOResult res;
     isave->BeginChunk(MTL_HDR_CHUNK);
     res = MtlBase::Save(isave);
@@ -254,7 +254,7 @@ IOResult plMultipassMtl::Save(ISave *isave)
     isave->EndChunk();
 
     return IO_OK;
-}   
+}
 
 IOResult plMultipassMtl::Load(ILoad *iload)
 {
@@ -269,7 +269,7 @@ IOResult plMultipassMtl::Load(ILoad *iload)
                 break;
         }
         iload->CloseChunk();
-        if (res!=IO_OK) 
+        if (res!=IO_OK)
             return res;
     }
 
@@ -284,22 +284,22 @@ IOResult plMultipassMtl::Load(ILoad *iload)
 RefTargetHandle plMultipassMtl::Clone(RemapDir &remap)
 {
     plMultipassMtl *mnew = new plMultipassMtl(FALSE);
-    *((MtlBase*)mnew) = *((MtlBase*)this); 
+    *((MtlBase*)mnew) = *((MtlBase*)this);
     mnew->ReplaceReference(kRefPasses, remap.CloneRef(fPassesPB));
 
-    mnew->fIValid.SetEmpty();   
+    mnew->fIValid.SetEmpty();
     BaseClone(this, mnew, remap);
 
     return (RefTargetHandle)mnew;
 }
 
-void plMultipassMtl::NotifyChanged() 
+void plMultipassMtl::NotifyChanged()
 {
     NotifyDependents(FOREVER, PART_ALL, REFMSG_CHANGE);
 }
 
-void plMultipassMtl::Update(TimeValue t, Interval& valid) 
-{   
+void plMultipassMtl::Update(TimeValue t, Interval& valid)
+{
     if (!fIValid.InInterval(t))
     {
         fIValid.SetInfinite();
@@ -318,8 +318,8 @@ void plMultipassMtl::Update(TimeValue t, Interval& valid)
 /*===========================================================================*\
  |  Determine the characteristics of the material
 \*===========================================================================*/
-void plMultipassMtl::SetAmbient(Color c, TimeValue t) {}        
-void plMultipassMtl::SetDiffuse(Color c, TimeValue t) {}        
+void plMultipassMtl::SetAmbient(Color c, TimeValue t) {}
+void plMultipassMtl::SetDiffuse(Color c, TimeValue t) {}
 void plMultipassMtl::SetSpecular(Color c, TimeValue t) {}
 void plMultipassMtl::SetShininess(float v, TimeValue t) {}
                 
@@ -335,7 +335,7 @@ float plMultipassMtl::WireSize(int mtlNum, BOOL backFace)       { return 0.0f; }
  |  Actual shading takes place
 \*===========================================================================*/
 
-void plMultipassMtl::Shade(ShadeContext& sc) 
+void plMultipassMtl::Shade(ShadeContext& sc)
 {
     // Get the background color
     Color backColor, backTrans;
@@ -374,7 +374,7 @@ Interval plMultipassMtl::DisplacementValidity(TimeValue t)
     Interval iv;
     iv.SetInfinite();
 
-    return iv;  
+    return iv;
 }
 
 void plMultipassMtl::SetNumSubMtls(int num)

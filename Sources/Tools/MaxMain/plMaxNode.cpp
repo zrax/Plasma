@@ -144,8 +144,8 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 extern UserPropMgr gUserPropMgr;
 
-bool ThreePlaneIntersect(const hsVector3& norm0, const hsPoint3& point0, 
-                         const hsVector3& norm1, const hsPoint3& point1, 
+bool ThreePlaneIntersect(const hsVector3& norm0, const hsPoint3& point0,
+                         const hsVector3& norm1, const hsPoint3& point1,
                          const hsVector3& norm2, const hsPoint3& point2, hsPoint3& loc);
 
 // Begin external component toolbox ///////////////////////////////////////////////////////////////
@@ -178,9 +178,9 @@ static plKey GetAnimCompModKey(plComponentBase *comp, plMaxNodeBase *node)
     return nil;
 }
 
-plComponentTools gComponentTools(ExternAddModifier, 
-                                ExternGetNewKey, 
-                                nil, 
+plComponentTools gComponentTools(ExternAddModifier,
+                                ExternGetNewKey,
+                                nil,
                                 GetAnimCompModKey,
                                 GetAnimCompAnimName,
                                 GetMatAnimModKey,
@@ -225,7 +225,7 @@ void plMaxBoneMap::SetBaseMatrixIndex(plDrawable *draw, uint32_t idx)
 // you'll be hosed (duh).
 void plMaxBoneMap::SortBones()
 {
-    plMaxNodeBase **tempBones = new plMaxNodeBase*[fNumBones];  
+    plMaxNodeBase **tempBones = new plMaxNodeBase*[fNumBones];
     FillBoneArray(tempBones);
 
     // Look ma! An n^2 bubble sort!
@@ -233,7 +233,7 @@ void plMaxBoneMap::SortBones()
     int i,j;
     for (i = 0; i < fNumBones; i++)
     {
-        bool swap = false;        
+        bool swap = false;
         for (j = i + 1; j < fNumBones; j++)
         {
             if (strcmp(tempBones[i]->GetName(), tempBones[j]->GetName()) > 0)
@@ -345,8 +345,8 @@ bool plMaxNode::ConvertValidate(plErrorMsg *pErrMsg, plConvertSettings *settings
                 canConvert = false;
         }
         else
-            canConvert = false; 
-    }   
+            canConvert = false;
+    }
     if (canConvert && obj->SuperClassID() == LIGHT_CLASS_ID)
     {
         thisNodeData.SetDrawable(false);
@@ -380,7 +380,7 @@ bool plMaxNode::ConvertValidate(plErrorMsg *pErrMsg, plConvertSettings *settings
 #define MF_DISABLE_INSTANCING
 #ifndef MF_DISABLE_INSTANCING
     // Send this node off to the instance list, to see if we're instanced
-    if( CanMakeMesh( obj, pErrMsg, settings ) ) 
+    if( CanMakeMesh( obj, pErrMsg, settings ) )
     {
         hsTArray<plMaxNode *> nodes;
         uint32_t numInstances = IBuildInstanceList( GetObjectRef(), t, nodes );
@@ -488,13 +488,13 @@ void plMaxNode::CheckSynchOptions(plSynchedObject* so)
             {
                 plComponentBase *comp = GetAttachedComponent(x);
                 if (comp->ClassID() == Class_ID(0x670d3629, 0x559e4f11))
-                {   
+                {
                     hasPFC = true;
                     break;
                 }
             }
             if (!isDynSim && !hasPFC)
-            {   
+            {
                 so->SetSynchFlagsBit(plSynchedObject::kExcludeAllPersistentState);
             }
             else
@@ -512,7 +512,7 @@ void plMaxNode::CheckSynchOptions(plSynchedObject* so)
 bool plMaxNode::MakeSceneObject(plErrorMsg *pErrMsg, plConvertSettings *settings)
 {
     const char* dbgName = GetName();
-    if (!CanConvert()) 
+    if (!CanConvert())
         return false;
 
     plLocation nodeLoc = GetLocation();//GetLocFromStrings();   // After this we can use GetLocation()
@@ -660,7 +660,7 @@ bool plMaxNode::MakePhysical(plErrorMsg *pErrMsg, plConvertSettings *settings)
         mass = 1.f;
 
     TSTR sdata;
-    plMaxNode* baseNode = this; 
+    plMaxNode* baseNode = this;
     while (!baseNode->GetParentNode()->IsRootNode())
         baseNode = (plMaxNode*)baseNode->GetParentNode();
     plKey roomKey = baseNode->GetRoomKey();
@@ -863,13 +863,13 @@ bool plMaxNode::MakePhysical(plErrorMsg *pErrMsg, plConvertSettings *settings)
 
 bool plMaxNode::MakeController(plErrorMsg *pErrMsg, plConvertSettings *settings)
 {
-    if (!CanConvert()) 
+    if (!CanConvert())
         return false;
 
     bool forceLocal = hsControlConverter::Instance().ForceLocal(this);
         // Rember the force Local setting
     bool CurrForceLocal = GetForceLocal();                    // dont want to clobber it with false if componentPass made it true
-    forceLocal = (CurrForceLocal || forceLocal) ? true : false;     // if it was set before, or is true now, make it true... 
+    forceLocal = (CurrForceLocal || forceLocal) ? true : false;     // if it was set before, or is true now, make it true...
     SetForceLocal(forceLocal);
 
     if( IsTMAnimated() && (!GetParentNode()->IsRootNode()) )
@@ -883,7 +883,7 @@ bool plMaxNode::MakeController(plErrorMsg *pErrMsg, plConvertSettings *settings)
 bool plMaxNode::MakeCoordinateInterface(plErrorMsg *pErrMsg, plConvertSettings *settings)
 {
     const char* dbgNodeName = GetName();
-    if (!CanConvert()) 
+    if (!CanConvert())
         return false;
     plCoordinateInterface* ci = nil;
 
@@ -923,7 +923,7 @@ bool plMaxNode::MakeCoordinateInterface(plErrorMsg *pErrMsg, plConvertSettings *
 
 bool plMaxNode::MakeModifiers(plErrorMsg *pErrMsg, plConvertSettings *settings)
 {
-    if (!CanConvert()) 
+    if (!CanConvert())
         return false;
     
     bool forceLocal = GetForceLocal();
@@ -988,7 +988,7 @@ bool plMaxNode::MakeModifiers(plErrorMsg *pErrMsg, plConvertSettings *settings)
 
 bool plMaxNode::MakeParentOrRoomConnection(plErrorMsg *pErrMsg, plConvertSettings *settings)
 {
-    if (!CanConvert()) 
+    if (!CanConvert())
         return false;
 
     char *dbgNodeName = GetName();
@@ -1275,7 +1275,7 @@ bool plMaxNode::MakeMesh(plErrorMsg *pErrMsg, plConvertSettings *settings)
     
     if (!GetSwappableGeom())
     {
-        if (!CanConvert()) 
+        if (!CanConvert())
             return false;
 
         if( UserPropExists( "Plasma2_Camera" ) || !GetDrawable()  )
@@ -1369,14 +1369,14 @@ bool plMaxNode::MakeMesh(plErrorMsg *pErrMsg, plConvertSettings *settings)
         if (spanArray[i]->fMaterial->IsDecal())
             DecalMat = true;
         else
-            NonDecalMat = true;                 
+            NonDecalMat = true;
     }
     if (!(DecalMat ^ NonDecalMat))
     {
         for( i = 0; i < spanArray.GetCount(); i++ )
             spanArray[ i ]->ClearBuffers();
 
-        if (pErrMsg->Set((plConvert::Instance().fWarned & plConvert::kWarnedDecalAndNonDecal) == 0, GetName(), 
+        if (pErrMsg->Set((plConvert::Instance().fWarned & plConvert::kWarnedDecalAndNonDecal) == 0, GetName(),
             "This node has both regular and decal materials, and thus will be ignored.").CheckAskOrCancel())
         {
             plConvert::Instance().fWarned |= plConvert::kWarnedDecalAndNonDecal;
@@ -1396,7 +1396,7 @@ bool plMaxNode::MakeMesh(plErrorMsg *pErrMsg, plConvertSettings *settings)
 
     /// 4.17.2001 mcn - TEMP HACK to test fog by adding a key to a bogus fogEnviron object to ALL spans
 /*      plFogEnvironment    *myFog = nil;
-    plKey               myFogKey = hsgResMgr::ResMgr()->FindExportAlias( "HACK_FOG", plFogEnvironment::Index() );   
+    plKey               myFogKey = hsgResMgr::ResMgr()->FindExportAlias( "HACK_FOG", plFogEnvironment::Index() );
     if( myFogKey != nil )
         myFog = plFogEnvironment::ConvertNoRef( myFogKey->GetObjectPtr() );
     else
@@ -1446,7 +1446,7 @@ bool plMaxNode::MakeMesh(plErrorMsg *pErrMsg, plConvertSettings *settings)
         tmpNode = plSceneNode::ConvertNoRef( GetRoomKey()->GetObjectPtr() );
 
         if (isDecal) // If we're a decal, we just want to use our parent's drawable
-        {   
+        {
             plMaxNode *parent = (plMaxNode *)GetParentNode();
                             
             SetDecalLevel(parent->GetDecalLevel() + 1);
@@ -1513,7 +1513,7 @@ void    plMaxNode::IAssignSpansToDrawables( hsTArray<plGeometrySpan *> &spanArra
 
             /// Warn, since we should only be itinerant if our parent is as well
             pErrMsg->Set( true, "Warning", "Itinerant flag in child '%s' of non-itinerant tree. This should never happen. You should inform a programmer...", GetName() ).Show();
-        }       
+        }
     }
     else
         tmpNode = plSceneNode::ConvertNoRef( GetRoomKey()->GetObjectPtr() );
@@ -1608,7 +1608,7 @@ void    plMaxNode::IAssignSpan( plDrawableSpans *drawable, hsTArray<plGeometrySp
     if( NumBones() )
         ISetupBones( drawable, spanArray, l2w, w2l, pErrMsg, settings );
 
-    // Assign spans to the drawables, plus set the volatile flag on the 
+    // Assign spans to the drawables, plus set the volatile flag on the
     // drawables for the SceneViewer, just in case it hasn't been set yet
     if( settings->fSceneViewer )
     {
@@ -1981,7 +1981,7 @@ bool plMaxNode::ShadeMesh(plErrorMsg *pErrMsg, plConvertSettings *settings)
 
     hsTArray<plGeometrySpan *> spanArray;
 
-    if( !(CanConvert() && GetDrawable()) ) 
+    if( !(CanConvert() && GetDrawable()) )
         return true;
 
     plSceneObject* obj = GetSceneObject();
@@ -2105,7 +2105,7 @@ bool plMaxNode::ConvertToOccluder(plErrorMsg* pErrMsg, bool twoSided, bool isHol
             const float kEdgeThresh = M_PI / 20.f;
             const float kBias = 0.1f;
             const float kMaxEdge = -1.f;
-            const DWORD kOptFlags = OPTIMIZE_SAVESMOOTHBOUNDRIES; 
+            const DWORD kOptFlags = OPTIMIZE_SAVESMOOTHBOUNDRIES;
 
             mesh.Optimize(
                 kNormThresh, // threshold of normal differences to preserve
@@ -2264,7 +2264,7 @@ bool plMaxNode::ConvertToOccluder(plErrorMsg* pErrMsg, bool twoSided, bool isHol
 bool plMaxNode::MakeLight(plErrorMsg *pErrMsg, plConvertSettings *settings)
 {
 
-    if (!CanConvert()) 
+    if (!CanConvert())
         return false;
 
     if (!GetRunTimeLight())
@@ -2288,7 +2288,7 @@ bool plMaxNode::MakeLight(plErrorMsg *pErrMsg, plConvertSettings *settings)
 
     if( liInfo )
     {
-        // 12.03.01 mcn - Um, we want RT lights to affect static objects if they're animated. So 
+        // 12.03.01 mcn - Um, we want RT lights to affect static objects if they're animated. So
         // why wasn't this here a long time ago? :~
         if( IsMovable() || IsAnimatedLight() )
             liInfo->SetProperty(plLightInfo::kLPMovable, true);
@@ -2320,10 +2320,10 @@ plLightInfo* plMaxNode::IMakeLight(plErrorMsg *pErrMsg, plConvertSettings *setti
     Object *obj = EvalWorldState(timeVal).obj;
     if( obj->ClassID() == Class_ID(OMNI_LIGHT_CLASS_ID, 0) )
         liInfo = IMakeOmni(pErrMsg, settings);
-    else 
+    else
     if( (obj->ClassID() == Class_ID(SPOT_LIGHT_CLASS_ID, 0)) || (obj->ClassID() == Class_ID(FSPOT_LIGHT_CLASS_ID, 0)) )
         liInfo = IMakeSpot(pErrMsg, settings);
-    else 
+    else
     if( (obj->ClassID() == Class_ID(DIR_LIGHT_CLASS_ID, 0)) || (obj->ClassID() == Class_ID(TDIR_LIGHT_CLASS_ID, 0)) )
         liInfo = IMakeDirectional(pErrMsg, settings);
     else
@@ -2332,7 +2332,7 @@ plLightInfo* plMaxNode::IMakeLight(plErrorMsg *pErrMsg, plConvertSettings *setti
     else
     if( (obj->ClassID() == RTSPOT_LIGHT_CLASSID) ) //|| (obj->ClassID() == Class_ID(FSPOT_LIGHT_CLASS_ID, 0)) )
         liInfo = IMakeRTSpot(pErrMsg, settings);
-    else 
+    else
     if( (obj->ClassID() == RTDIR_LIGHT_CLASSID) ) //|| (obj->ClassID() == Class_ID(FSPOT_LIGHT_CLASS_ID, 0)) )
         liInfo = IMakeRTDirectional(pErrMsg, settings);
     else
@@ -2367,7 +2367,7 @@ void plMaxNode::IGetLightAttenuation(plOmniLightInfo* liInfo, LightObject* light
             attenQuadratic = (intens * plSillyLightKonstants::GetFarPowerKonst() -1.f) / (attenEnd * attenEnd);
             break;
         case 3:
-            attenConst = intens;        
+            attenConst = intens;
             attenLinear = 0.f;
             attenQuadratic = 0.f;
             liInfo->SetCutoffAttenuation( ( (GenLight *)light )->GetDecayRadius( timeVal ) );
@@ -2533,7 +2533,7 @@ plLightInfo* plMaxNode::IMakeSpot(plErrorMsg* pErrMsg, plConvertSettings* settin
     Object *obj = EvalWorldState(timeVal).obj;
     LightObject *light = (LightObject*)obj->ConvertToType(timeVal, Class_ID(SPOT_LIGHT_CLASS_ID,0));
     if( !light )
-        light = (LightObject*)obj->ConvertToType(timeVal, Class_ID(FSPOT_LIGHT_CLASS_ID,0)); 
+        light = (LightObject*)obj->ConvertToType(timeVal, Class_ID(FSPOT_LIGHT_CLASS_ID,0));
 
     LightState ls;
     if (!(REF_SUCCEED == light->EvalLightState(timeVal, Interval(timeVal, timeVal), &ls)))
@@ -2561,7 +2561,7 @@ plLightInfo* plMaxNode::IMakeOmni(plErrorMsg* pErrMsg, plConvertSettings* settin
     TimeValue timeVal = hsConverterUtils::Instance().GetTime(GetInterface());
 
     Object *obj = EvalWorldState(timeVal).obj;
-    LightObject *light = (LightObject*)obj->ConvertToType(timeVal, 
+    LightObject *light = (LightObject*)obj->ConvertToType(timeVal,
         Class_ID(OMNI_LIGHT_CLASS_ID,0));
 
     LightState ls;
@@ -2590,7 +2590,7 @@ plLightInfo* plMaxNode::IMakeDirectional(plErrorMsg* pErrMsg, plConvertSettings*
     Object *obj = EvalWorldState(timeVal).obj;
     LightObject *light = (LightObject*)obj->ConvertToType(timeVal, Class_ID(DIR_LIGHT_CLASS_ID,0));
     if( !light )
-        light = (LightObject*)obj->ConvertToType(timeVal, Class_ID(TDIR_LIGHT_CLASS_ID,0)); 
+        light = (LightObject*)obj->ConvertToType(timeVal, Class_ID(TDIR_LIGHT_CLASS_ID,0));
 
     LightState ls;
     if (!(REF_SUCCEED == light->EvalLightState(timeVal, Interval(timeVal, timeVal), &ls)))
@@ -2645,7 +2645,7 @@ plLightInfo* plMaxNode::IMakeRTSpot(plErrorMsg* pErrMsg, plConvertSettings* sett
     plSpotLightInfo* spot = new plSpotLightInfo;
 
     if(!ThisObjPB->GetInt(plRTLightBase::kLightOn))
-        spot->SetProperty(plLightInfo::kDisable, true); 
+        spot->SetProperty(plLightInfo::kDisable, true);
 
     IGetRTLightColors(spot,ThisObjPB);
 
@@ -2680,7 +2680,7 @@ plLightInfo* plMaxNode::IMakeRTOmni(plErrorMsg* pErrMsg, plConvertSettings* sett
     plOmniLightInfo* omni = new plOmniLightInfo;
 
     if(!ThisObjPB->GetInt(plRTLightBase::kLightOn))
-        omni->SetProperty(plLightInfo::kDisable, true); 
+        omni->SetProperty(plLightInfo::kDisable, true);
 
     IGetRTLightAttenuation(omni, ThisObjPB);
 
@@ -2713,7 +2713,7 @@ plLightInfo* plMaxNode::IMakeRTDirectional(plErrorMsg* pErrMsg, plConvertSetting
     plDirectionalLightInfo* direct = new plDirectionalLightInfo;
 
     if(!ThisObjPB->GetInt(plRTLightBase::kLightOn))
-        direct->SetProperty(plLightInfo::kDisable, true); 
+        direct->SetProperty(plLightInfo::kDisable, true);
 
     IGetRTLightColors(direct, ThisObjPB);
 
@@ -2750,7 +2750,7 @@ plLightInfo *plMaxNode::IMakeRTProjDirectional( plErrorMsg *pErrMsg, plConvertSe
     light->SetDepth( projPB->GetFloat( plRTProjDirLight::kRange ) );
 
     if( !mainPB->GetInt( plRTLightBase::kLightOn ) )
-        light->SetProperty( plLightInfo::kDisable, true ); 
+        light->SetProperty( plLightInfo::kDisable, true );
 
     IGetRTLightColors( light, mainPB );
 
@@ -3307,7 +3307,7 @@ plDrawableSpans *plMaxNode::IGetSceneNodeSpans( plSceneNode *node, bool needBlen
 
     plDrawableSpans *spans;
     ST::string      tmpName;
-    plLocation      nodeLoc = GetLocation();  
+    plLocation      nodeLoc = GetLocation();
     
     if( !needBlending )
         needSorting = false;
@@ -3700,7 +3700,7 @@ void plMaxNode::SetDISceneNodeSpans( plDrawInterface *di, bool needBlending )
     // need a blending drawable, which can always be index zero since it's the only
     // one.
     di->SetDrawable( di->GetNumDrawables(),
-                        IGetSceneNodeSpans(plSceneNode::ConvertNoRef( GetRoomKey()->GetObjectPtr() ), 
+                        IGetSceneNodeSpans(plSceneNode::ConvertNoRef( GetRoomKey()->GetObjectPtr() ),
                                        needBlending));
 }
 
@@ -3848,7 +3848,7 @@ int plMaxNode::NumUVWChannels()
 
         /// Check the mapping channels. See, MAX likes to tell us we have mapping channels
         /// but the actual channel pointer is nil. When MAX tries to render the scene, it says that the
-        /// object in question has no UV channel. So apparently we have to check numChannels *and* 
+        /// object in question has no UV channel. So apparently we have to check numChannels *and*
         /// that each mapChannel is non-nil...
         int i;
         for( i = 0; i < numChannels; i++ )
@@ -4001,7 +4001,7 @@ TriObject* plMaxNode::GetTriObject(bool& deleteIt)
 }
 
 //// GetNextSoundIdx /////////////////////////////////////////////////////////
-//  Starting at 0, returns an incrementing index for each maxNode. Useful for 
+//  Starting at 0, returns an incrementing index for each maxNode. Useful for
 //  assigning indices to sound objects attached to the node.
 
 uint32_t  plMaxNode::GetNextSoundIdx()
@@ -4017,7 +4017,7 @@ uint32_t  plMaxNode::GetNextSoundIdx()
 
 bool    plMaxNode::IsPhysical()
 {
-    if( GetSceneObject() && GetSceneObject()->GetSimulationInterface() && 
+    if( GetSceneObject() && GetSceneObject()->GetSimulationInterface() &&
         GetSceneObject()->GetSimulationInterface()->GetPhysical() )
         return true;
 
@@ -4056,7 +4056,7 @@ const char *plMaxNode::GetAgeName()
 
 // create a list of keys used by the run-time interface for things like
 // determining cursor changes, what kind of object this is, etc.
-// we're doing this here because multiple logic triggers can be attached to a 
+// we're doing this here because multiple logic triggers can be attached to a
 // single object and tracking down all their run-time counterpart objects (who might
 // need a message sent to them) is a huge pain and very ugly.  This will capture anything
 // important in a single list.
@@ -4091,7 +4091,7 @@ bool plMaxNode::MakeIfaceReferences(plErrorMsg *pErrMsg, plConvertSettings *sett
             keys.Append(pLog->GetKey());
         }
     }
-    // if there is anything there, create an 'interface object modifier' which simply stores 
+    // if there is anything there, create an 'interface object modifier' which simply stores
     // the list in a handy form
     if (keys.Count())
     {

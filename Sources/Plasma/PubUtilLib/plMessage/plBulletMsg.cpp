@@ -47,9 +47,9 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "plBulletMsg.h"
 
-void plBulletMsg::Read(hsStream* stream, hsResMgr* mgr) 
-{ 
-    IMsgRead(stream, mgr); 
+void plBulletMsg::Read(hsStream* stream, hsResMgr* mgr)
+{
+    IMsgRead(stream, mgr);
 
     fCmd = Cmd(stream->ReadByte());
 
@@ -60,9 +60,9 @@ void plBulletMsg::Read(hsStream* stream, hsResMgr* mgr)
     fPartyTime = stream->ReadLEScalar();
 }
 
-void plBulletMsg::Write(hsStream* stream, hsResMgr* mgr) 
-{ 
-    IMsgWrite(stream, mgr); 
+void plBulletMsg::Write(hsStream* stream, hsResMgr* mgr)
+{
+    IMsgWrite(stream, mgr);
 
     stream->WriteByte(uint8_t(fCmd));
 

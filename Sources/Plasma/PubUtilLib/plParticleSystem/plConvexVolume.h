@@ -71,7 +71,7 @@ public:
     bool IsInside(const hsPoint3 &pos) const;
 
     // returns true if the point was inside the volume, and thus moved outward.
-    bool ResolvePoint(hsPoint3 &pos) const; 
+    bool ResolvePoint(hsPoint3 &pos) const;
 
     // returns true if the point was inside and pos and velocity updated to bounce off offending plane.
     // input bounce==1.f for perfect bounce, bounce==0 to slide.
@@ -94,8 +94,8 @@ inline bool plConvexVolume::TestPlane(const hsPoint3 &pos, const hsPlane3 &plane
 {
     float dis = plane.fN.InnerProduct(pos);
     dis += plane.fD;
-    if( dis >= 0.f )    
-        return false;   
+    if( dis >= 0.f )
+        return false;
                         
     return true;
 }

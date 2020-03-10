@@ -75,8 +75,8 @@ public:
     virtual ~plMsgWrap() { hsRefCnt_SafeUnRef(fMsg); }
 
     plMsgWrap&                      ClearReceivers() { fReceivers.SetCount(0); return *this; }
-    plMsgWrap&                      AddReceiver(const plKey& rcv) 
-                                    { 
+    plMsgWrap&                      AddReceiver(const plKey& rcv)
+                                    {
                                         hsAssert(rcv, "Trying to send mail to nil receiver");
                                         fReceivers.Append(rcv); return *this;
                                     }
@@ -206,11 +206,11 @@ void plDispatch::ICheckDeferred(double secs)
 
     int timeIdx = plTimeMsg::Index();
     if( IGetOwner()
-        && !fFutureMsgQueue 
-        && 
-            ( 
-                (timeIdx >= fRegisteredExactTypes.GetCount()) 
-                || 
+        && !fFutureMsgQueue
+        &&
+            (
+                (timeIdx >= fRegisteredExactTypes.GetCount())
+                ||
                 !fRegisteredExactTypes[plTimeMsg::Index()]
             )
       )
@@ -420,12 +420,12 @@ bool plDispatch::IMsgNetPropagate(plMessage* msg)
     }
 
     // Decide if msg should go out over the network.
-    // If kNetForce is used, this message should always go out over the network, even if it's already 
+    // If kNetForce is used, this message should always go out over the network, even if it's already
     // part of a net cascade. We still want to inherit net status flags (but ignore them)
-    // so that response messages obey cascading rules.  In other words, we are not 
+    // so that response messages obey cascading rules.  In other words, we are not
     // halting the cascade, just overriding the send rule for this message.
-    if( msg->HasBCastFlag(plMessage::kNetPropagate) && 
-        (!msg->HasBCastFlag(plMessage::kNetSent) || 
+    if( msg->HasBCastFlag(plMessage::kNetPropagate) &&
+        (!msg->HasBCastFlag(plMessage::kNetSent) ||
         msg->HasBCastFlag(plMessage::kNetForce) ||
         msg->HasBCastFlag(plMessage::kNetNonDeterministic) ||
         msg->HasBCastFlag(plMessage::kCCRSendToAllPlayers )) )
@@ -438,7 +438,7 @@ bool plDispatch::IMsgNetPropagate(plMessage* msg)
 
     // Decide if msg should get sent locally
     if (!msg->HasBCastFlag(plMessage::kLocalPropagate))
-    {   
+    {
         hsRefCnt_SafeUnRef(msg);
         return true;
     }

@@ -55,7 +55,7 @@ protected:
         static bool loaded = false;
         if (loaded)
             return;
-        loaded = true;  
+        loaded = true;
 
         HINSTANCE hInst = hInstance;
         hLockButtons = ImageList_Create(16, 15, TRUE, 2, 0);

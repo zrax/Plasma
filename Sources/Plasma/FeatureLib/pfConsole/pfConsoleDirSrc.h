@@ -93,7 +93,7 @@ class pfConsoleDirSrc
         void ResetProcessedFiles();
         bool AlreadyProcessedFile(const plFileName& path, const plFileName& file);
         void AddProcessedFile(const plFileName& path, const plFileName& file);
-        void SetCheckProcessedFiles(bool c) { fCheckProcessedFiles=c; }       
+        void SetCheckProcessedFiles(bool c) { fCheckProcessedFiles=c; }
 };
 
 

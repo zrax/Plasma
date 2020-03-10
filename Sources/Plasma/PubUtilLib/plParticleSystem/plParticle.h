@@ -46,7 +46,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "hsColorRGBA.h"
 
 // The meat of the particle. These classes, in combination with the plParticleEmitter that spawned it,
-// should contain everything specific to a particle, necessary to build a renderable poly to represent a 
+// should contain everything specific to a particle, necessary to build a renderable poly to represent a
 // particular particle. (The emitter is necessary for properties (like texture) that are common among all
 // particles that originated from the same emitter.
 

@@ -50,7 +50,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "hsWindows.h"
 
 const int   kBlockingError          = WSAEWOULDBLOCK;
-const int   kTimeoutError           = WSAETIMEDOUT;    
+const int   kTimeoutError           = WSAETIMEDOUT;
 const SOCKET    kBadSocket          = 0xffffffff;
 typedef int socklen_t;
 
@@ -70,7 +70,7 @@ typedef int socklen_t;
 
 typedef int SOCKET;
 const int   kBlockingError          = EWOULDBLOCK;
-const int   kTimeoutError           = ETIMEDOUT;    
+const int   kTimeoutError           = ETIMEDOUT;
 const SOCKET    kBadSocket          = -1;
 
 // must #define BSDBLOCK if compiling on BSD

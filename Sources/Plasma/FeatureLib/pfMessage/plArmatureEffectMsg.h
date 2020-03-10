@@ -68,10 +68,10 @@ public:
     ~plArmatureEffectStateMsg();
     
     CLASSNAME_REGISTER( plArmatureEffectStateMsg );
-    GETINTERFACE_ANY( plArmatureEffectStateMsg, plMessage );    
+    GETINTERFACE_ANY( plArmatureEffectStateMsg, plMessage );
 
-    virtual void Read(hsStream* stream, hsResMgr* mgr); 
-    virtual void Write(hsStream* stream, hsResMgr* mgr); 
+    virtual void Read(hsStream* stream, hsResMgr* mgr);
+    virtual void Write(hsStream* stream, hsResMgr* mgr);
 
     int8_t fSurface;
     bool fAddSurface;

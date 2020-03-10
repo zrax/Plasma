@@ -71,7 +71,7 @@ public:
     virtual int GetNumTargets() const { return 1; }
     virtual plSceneObject* GetTarget(int iTarg) const {return fTarget;}
     virtual void AddTarget(plSceneObject* so) {SetTarget(so);}
-    virtual void RemoveTarget(plSceneObject* so) {fTarget = 0;} 
+    virtual void RemoveTarget(plSceneObject* so) {fTarget = 0;}
 
 
     virtual plSceneObject* GetTarget() const { return fTarget; }

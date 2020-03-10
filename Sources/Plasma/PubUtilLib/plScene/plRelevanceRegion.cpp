@@ -81,7 +81,7 @@ bool plRelevanceRegion::MsgReceive(plMessage* msg)
             fRegion = nil;
         }
         return true;
-    }           
+    }
 
     return plObjInterface::MsgReceive(msg);
 }

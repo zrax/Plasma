@@ -51,7 +51,7 @@ class plKey;
 
 class plAudioSysMsg : public plMessage
 {
-    int fAudFlag;   
+    int fAudFlag;
     plKey pObj;
     bool    fBoolFlag;
 public:
@@ -73,10 +73,10 @@ public:
 
 
     plAudioSysMsg() : pObj(nil){SetBCastFlag(plMessage::kBCastByExactType);}
-    plAudioSysMsg(const plKey &s) : pObj(nil){SetBCastFlag(plMessage::kBCastByExactType);SetSender(s);}  
-    plAudioSysMsg(int i) : pObj(nil){fAudFlag = i; SetBCastFlag(plMessage::kBCastByExactType );}  
-    plAudioSysMsg(const plKey &s, 
-                    const plKey &r, 
+    plAudioSysMsg(const plKey &s) : pObj(nil){SetBCastFlag(plMessage::kBCastByExactType);SetSender(s);}
+    plAudioSysMsg(int i) : pObj(nil){fAudFlag = i; SetBCastFlag(plMessage::kBCastByExactType );}
+    plAudioSysMsg(const plKey &s,
+                    const plKey &r,
                     const double* t) : pObj(nil){SetBCastFlag(plMessage::kBCastByExactType);}
     ~plAudioSysMsg() { }
 

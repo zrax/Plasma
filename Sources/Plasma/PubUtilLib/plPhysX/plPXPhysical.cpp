@@ -272,7 +272,7 @@ bool plPXPhysical::Init()
             }
             else
             {
-                // handle the animated activators.... 
+                // handle the animated activators....
                 fNumberAnimatedActivators++;
                 bodyDesc.flags |= NX_BF_KINEMATIC;
                 startAsleep = true;
@@ -340,7 +340,7 @@ bool plPXPhysical::Init()
     if (GetProperty(plSimulationInterface::kSuppressed_DEAD))
         IEnable(false);
 
-    plNodeRefMsg* refMsg = new plNodeRefMsg(fSceneNode, plRefMsg::kOnCreate, -1, plNodeRefMsg::kPhysical); 
+    plNodeRefMsg* refMsg = new plNodeRefMsg(fSceneNode, plRefMsg::kOnCreate, -1, plNodeRefMsg::kPhysical);
     hsgResMgr::ResMgr()->AddViaNotify(GetKey(), refMsg, plRefFlags::kActiveRef);
 
     // only dynamic physicals without noSync need SDLs
@@ -559,7 +559,7 @@ plProfile_Extern(SetTransforms);
 
 bool CompareMatrices(const hsMatrix44 &matA, const hsMatrix44 &matB, float tolerance)
 {
-    return 
+    return
         (fabs(matA.fMap[0][0] - matB.fMap[0][0]) < tolerance) &&
         (fabs(matA.fMap[0][1] - matB.fMap[0][1]) < tolerance) &&
         (fabs(matA.fMap[0][2] - matB.fMap[0][2]) < tolerance) &&
@@ -683,7 +683,7 @@ void plPXPhysical::ISetTransformGlobal(const hsMatrix44& l2w)
 
     // This used to check for the kPhysAnim flag, however animated detectors
     // are also kinematic but not kPhysAnim, therefore, this would break on PhysX
-    // SDKs (yes, I'm looking at you, 2.6.4) that actually obey the ***GlobalPose 
+    // SDKs (yes, I'm looking at you, 2.6.4) that actually obey the ***GlobalPose
     // rules set forth in the SDK documentation.
     if (fActor->readBodyFlag(NX_BF_KINEMATIC))
         fActor->moveGlobalPose(mat);
@@ -693,7 +693,7 @@ void plPXPhysical::ISetTransformGlobal(const hsMatrix44& l2w)
 
 // the physical may have several parents between it and the subworld object,
 // but the *havok* transform is only one level away from the subworld.
-// to avoid any confusion about this difference, we avoid referring to the 
+// to avoid any confusion about this difference, we avoid referring to the
 // subworld as "parent" and use, for example, "l2s" (local-to-sub) instead
 // of the canonical plasma "l2p" (local-to-parent)
 void plPXPhysical::IGetTransformGlobal(hsMatrix44& l2w) const
@@ -1044,7 +1044,7 @@ void plPXPhysical::Write(hsStream* stream, hsResMgr* mgr)
 {
     plPhysical::Write(stream, mgr);
 
-    hsAssert(fActor, "nil actor");  
+    hsAssert(fActor, "nil actor");
     hsAssert(fActor->getNbShapes() == 1, "Can only write actors with one shape. Writing first only.");
     NxShape* shape = fActor->getShapes()[0];
 
@@ -1277,7 +1277,7 @@ plDrawableSpans* plPXPhysical::CreateProxy(hsGMaterial* mat, hsTArray<uint32_t>&
             for (int i = 0; i < desc.numTriangles; i++)
                 GetTrimeshTri(desc, i, &tris[i*3]);
 
-            myDraw = plDrawableGenerator::GenerateDrawable(pos.GetCount(), 
+            myDraw = plDrawableGenerator::GenerateDrawable(pos.GetCount(),
                                             pos.AcquireArray(),
                                             nil,    // normals - def to avg (smooth) norm
                                             nil,    // uvws
@@ -1315,7 +1315,7 @@ plDrawableSpans* plPXPhysical::CreateProxy(hsGMaterial* mat, hsTArray<uint32_t>&
 
                     curTri++;
                 }
-                myDraw = plDrawableGenerator::GenerateDrawable(pos.GetCount(), 
+                myDraw = plDrawableGenerator::GenerateDrawable(pos.GetCount(),
                                                 pos.AcquireArray(),
                                                 nil,    // normals - def to avg (smooth) norm
                                                 nil,    // uvws
@@ -1352,7 +1352,7 @@ plDrawableSpans* plPXPhysical::CreateProxy(hsGMaterial* mat, hsTArray<uint32_t>&
         for (int i = 0; i < desc.numTriangles; i++)
             GetConvexTri(desc, i, &tris[i*3]);
 
-        myDraw = plDrawableGenerator::GenerateDrawable(pos.GetCount(), 
+        myDraw = plDrawableGenerator::GenerateDrawable(pos.GetCount(),
             pos.AcquireArray(),
             nil,    // normals - def to avg (smooth) norm
             nil,    // uvws

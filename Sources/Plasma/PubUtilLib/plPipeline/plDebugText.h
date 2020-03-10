@@ -64,8 +64,8 @@ class plDebugText
 
         static plDebugText  fInstance;
 
-        plDebugText() 
-        { 
+        plDebugText()
+        {
             fManager = nil;
 #ifdef PLASMA_EXTERNAL_RELEASE
             SetFont( "Trebuchet MS Bold", 8 );
@@ -171,8 +171,8 @@ class   plDebugTextManager
             uint8_t   fStyle;                     // 0xff means rectangle, 0xfe means 3d border
 
             plDebugTextNode() { fText[ 0 ] = 0; fColor = 0; fX = fY = 0; fStyle = 0; }
-            plDebugTextNode( const char *s, uint32_t c, uint16_t x, uint16_t y, uint8_t style ); 
-            plDebugTextNode( uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, uint32_t c ); 
+            plDebugTextNode( const char *s, uint32_t c, uint16_t x, uint16_t y, uint8_t style );
+            plDebugTextNode( uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, uint32_t c );
             plDebugTextNode( uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, uint32_t c1, uint32_t c2 );
             ~plDebugTextNode() { }
         };

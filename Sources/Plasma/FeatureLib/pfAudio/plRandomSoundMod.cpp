@@ -173,9 +173,9 @@ void plRandomSoundMod::IPlayNext()
         if(fGroups == nil && fActiveList.empty() && nSounds)
         {
             // If no sounds in this component even attempt to play this component gets mad and will never play any sounds again.
-            // So, give it a zero to make it happy. This sound will still be rejected when it tries to play which is exactly what 
+            // So, give it a zero to make it happy. This sound will still be rejected when it tries to play which is exactly what
             // we want since if we get here no sounds in this component should play.
-            fActiveList.push_back(0); 
+            fActiveList.push_back(0);
         }
     }
 
@@ -210,7 +210,7 @@ void plRandomSoundMod::IPlayNext()
         plWin32GroupedSound *sound = plWin32GroupedSound::ConvertNoRef( ai->GetSound( fGroups[ fCurrentGroup ].fGroupedIdx ) );
         
         if (!sound)
-        {   
+        {
             hsAssert( sound != nil, "Invalid sound type in plRandomSoundMod" );
             return;
         }
@@ -419,7 +419,7 @@ plSound *plRandomSoundMod::IGetSoundPtr()
 {
     plSound *pSound = nil;
     if(fGroups != nil) return nil;
-    if(fCurrent == -1) return nil;  // sound list hasn't been initialized yet, don't try and access it 
+    if(fCurrent == -1) return nil;  // sound list hasn't been initialized yet, don't try and access it
 
     int currentSndIdx = fActiveList[fCurrent];
     plAudioInterface* ai = IGetTargetAudioInterface(0);

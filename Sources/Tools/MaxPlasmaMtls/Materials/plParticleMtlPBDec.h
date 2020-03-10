@@ -64,10 +64,10 @@ public:
 
         bmSelectBtn = GetICustButton(GetDlgItem(hWnd,IDC_PARTICLE_TEXTURE));
         bmSelectBtn->SetText(pbbm ? (TCHAR*)pbbm->bi.Filename() : "(none)");
-        ReleaseICustButton(bmSelectBtn);    
-    }       
+        ReleaseICustButton(bmSelectBtn);
+    }
 
-    virtual void Update(TimeValue t, Interval& valid, IParamMap2* pmap) { UpdateDisplay(pmap); }    
+    virtual void Update(TimeValue t, Interval& valid, IParamMap2* pmap) { UpdateDisplay(pmap); }
 
     virtual BOOL DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
@@ -90,7 +90,7 @@ public:
             UpdateDisplay(map);
             return TRUE;
 
-        case WM_COMMAND:  
+        case WM_COMMAND:
             if (id == IDC_PARTICLE_NORMAL)
             {
                 pb->SetValue(plParticleMtl::kNormal, t, SendMessage(GetDlgItem(hWnd, id), CB_GETCURSEL, 0, 0));
@@ -131,8 +131,8 @@ static ParticleBasicDlgProc gParticleBasicDlgProc;
 
 static ParamBlockDesc2 gParticleMtlPB
 (
-    plParticleMtl::kBlkBasic, _T("particle"), IDS_PASS_BASIC, GetParticleMtlDesc(), 
-    P_AUTO_CONSTRUCT + P_AUTO_UI + P_CALLSETS_ON_LOAD, plParticleMtl::kRefBasic, 
+    plParticleMtl::kBlkBasic, _T("particle"), IDS_PASS_BASIC, GetParticleMtlDesc(),
+    P_AUTO_CONSTRUCT + P_AUTO_UI + P_CALLSETS_ON_LOAD, plParticleMtl::kRefBasic,
 
     // UI
     IDD_PARTICLE, IDS_PASS_BASIC, 0, 0, &gParticleBasicDlgProc,
@@ -154,24 +154,24 @@ static ParamBlockDesc2 gParticleMtlPB
         p_default,      Color(1,1,1),
         end,
         
-    plParticleMtl::kWidth,      _T("width"),    TYPE_FLOAT,     P_ANIMATABLE, IDS_PARTICLE_WIDTH,   
+    plParticleMtl::kWidth,      _T("width"),    TYPE_FLOAT,     P_ANIMATABLE, IDS_PARTICLE_WIDTH,
         p_default, 1.0,
         p_range, 0.01, 10.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_PARTICLE_WIDTH, IDC_PARTICLE_WIDTH_SPIN, 1.0,
         end,
 
-    plParticleMtl::kHeight,     _T("height"),   TYPE_FLOAT,     P_ANIMATABLE, IDS_PARTICLE_HEIGHT,  
+    plParticleMtl::kHeight,     _T("height"),   TYPE_FLOAT,     P_ANIMATABLE, IDS_PARTICLE_HEIGHT,
         p_default, 1.0,
         p_range, 0.01, 10.0,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_PARTICLE_HEIGHT, IDC_PARTICLE_HEIGHT_SPIN, 1.0,
         end,
         
     plParticleMtl::kXTiles, _T("xTiling"),  TYPE_INT,   0, 0,
         p_default, 1,
         p_range, PL_PARTICLE_MTL_MIN_TILES, PL_PARTICLE_MTL_MAX_TILES,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_INT,   
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_INT,
         IDC_PARTICLE_XTILE, IDC_PARTICLE_XTILE_SPIN, 1.0,
         p_accessor,     &partMtl_accessor,
         end,
@@ -179,7 +179,7 @@ static ParamBlockDesc2 gParticleMtlPB
     plParticleMtl::kYTiles, _T("yTiling"),  TYPE_INT,   0, 0,
         p_default, 1,
         p_range, PL_PARTICLE_MTL_MIN_TILES, PL_PARTICLE_MTL_MAX_TILES,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_INT,   
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_INT,
         IDC_PARTICLE_YTILE, IDC_PARTICLE_YTILE_SPIN, 1.0,
         p_accessor,     &partMtl_accessor,
         end,
@@ -190,7 +190,7 @@ static ParamBlockDesc2 gParticleMtlPB
 
     plParticleMtl::kBlend,      _T("texBlend"), TYPE_INT,   0, 0,
         p_ui,               TYPE_RADIO, 2, IDC_PARTICLE_BLEND_ALPHA, IDC_PARTICLE_BLEND_ADD,
-        p_vals,             plParticleMtl::kBlendAlpha, plParticleMtl::kBlendAdd, 
+        p_vals,             plParticleMtl::kBlendAlpha, plParticleMtl::kBlendAdd,
         p_default,          plParticleMtl::kBlendAlpha,
         end,
 

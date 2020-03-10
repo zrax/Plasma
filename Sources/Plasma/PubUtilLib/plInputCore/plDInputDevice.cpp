@@ -73,7 +73,7 @@ void plDInputDevice::Update(DIDEVICEOBJECTDATA* js)
             {
                 int i = (int)(js->dwData);
                 if (i <= -1)
-                {   
+                {
                     plControlEventMsg* pMsg = new plControlEventMsg;
                     pMsg->SetControlCode( B_CONTROL_MOVE_FORWARD );
                     pMsg->SetControlActivated( true );
@@ -81,7 +81,7 @@ void plDInputDevice::Update(DIDEVICEOBJECTDATA* js)
                 }
                 else
                 if (i >= 1)
-                {   
+                {
                     plControlEventMsg* pMsg = new plControlEventMsg;
                     pMsg->SetControlCode( B_CONTROL_MOVE_BACKWARD );
                     pMsg->SetControlActivated( true );
@@ -117,15 +117,15 @@ void plDInputDevice::Update(DIDEVICEOBJECTDATA* js)
             }
             break;
         case B_CONTROL_ACTION:
-            {   
+            {
                 plControlEventMsg* pMsg = new plControlEventMsg;
                 pMsg->SetControlCode( B_CONTROL_ACTION );
                 pMsg->SetControlActivated(js->dwData & 0x80);
-                plgDispatch::MsgSend(pMsg); 
+                plgDispatch::MsgSend(pMsg);
             }
             break;
         case B_CONTROL_MODIFIER_FAST:
-            {   
+            {
                 plControlEventMsg* pMsg = new plControlEventMsg;
                 pMsg->SetControlCode( B_CONTROL_MODIFIER_FAST );
                 pMsg->SetControlActivated(js->dwData & 0x80);
@@ -133,7 +133,7 @@ void plDInputDevice::Update(DIDEVICEOBJECTDATA* js)
             }
             break;
         case B_CONTROL_JUMP:
-            {   
+            {
                 plControlEventMsg* pMsg = new plControlEventMsg;
                 pMsg->SetControlCode( B_CONTROL_JUMP );
                 pMsg->SetControlActivated(js->dwData & 0x80);
@@ -141,7 +141,7 @@ void plDInputDevice::Update(DIDEVICEOBJECTDATA* js)
             }
             break;
         case B_CONTROL_STRAFE_LEFT:
-            {   
+            {
                 plControlEventMsg* pMsg = new plControlEventMsg;
                 pMsg->SetControlCode( B_CONTROL_STRAFE_LEFT );
                 pMsg->SetControlActivated(js->dwData & 0x80);
@@ -149,7 +149,7 @@ void plDInputDevice::Update(DIDEVICEOBJECTDATA* js)
             }
             break;
         case B_CONTROL_STRAFE_RIGHT:
-            {   
+            {
                 plControlEventMsg* pMsg = new plControlEventMsg;
                 pMsg->SetControlCode( B_CONTROL_STRAFE_RIGHT);
                 pMsg->SetControlActivated(js->dwData & 0x80);
@@ -157,7 +157,7 @@ void plDInputDevice::Update(DIDEVICEOBJECTDATA* js)
             }
             break;
         case B_CONTROL_EQUIP:
-            {   
+            {
                 plControlEventMsg* pMsg = new plControlEventMsg;
                 pMsg->SetControlCode( B_CONTROL_EQUIP );
                 pMsg->SetControlActivated(js->dwData & 0x80);
@@ -165,7 +165,7 @@ void plDInputDevice::Update(DIDEVICEOBJECTDATA* js)
             }
             break;
         case B_CONTROL_DROP:
-            {   
+            {
                 plControlEventMsg* pMsg = new plControlEventMsg;
                 pMsg->SetControlCode( B_CONTROL_DROP );
                 pMsg->SetControlActivated(js->dwData & 0x80);
@@ -173,7 +173,7 @@ void plDInputDevice::Update(DIDEVICEOBJECTDATA* js)
             }
             break;
         case B_CONTROL_MOVE_FORWARD:
-            {   
+            {
                 plControlEventMsg* pMsg = new plControlEventMsg;
                 pMsg->SetControlCode( B_CONTROL_MOVE_FORWARD );
                 pMsg->SetControlActivated(js->dwData & 0x80);
@@ -181,7 +181,7 @@ void plDInputDevice::Update(DIDEVICEOBJECTDATA* js)
             }
             break;
         case B_CONTROL_MOVE_BACKWARD:
-            {   
+            {
                 plControlEventMsg* pMsg = new plControlEventMsg;
                 pMsg->SetControlCode( B_CONTROL_MOVE_BACKWARD );
                 pMsg->SetControlActivated(js->dwData & 0x80);
@@ -189,7 +189,7 @@ void plDInputDevice::Update(DIDEVICEOBJECTDATA* js)
             }
             break;
         case B_CONTROL_ROTATE_RIGHT:
-            {   
+            {
                 plControlEventMsg* pMsg = new plControlEventMsg;
                 pMsg->SetControlCode( B_CONTROL_ROTATE_RIGHT);
                 pMsg->SetControlActivated(js->dwData & 0x80);
@@ -197,7 +197,7 @@ void plDInputDevice::Update(DIDEVICEOBJECTDATA* js)
             }
             break;
         case B_CONTROL_ROTATE_LEFT:
-            {   
+            {
                 plControlEventMsg* pMsg = new plControlEventMsg;
                 pMsg->SetControlCode( B_CONTROL_ROTATE_LEFT );
                 pMsg->SetControlActivated(js->dwData & 0x80);
@@ -205,7 +205,7 @@ void plDInputDevice::Update(DIDEVICEOBJECTDATA* js)
             }
             break;
         case B_CONTROL_TURN_TO:
-            {   
+            {
                 plControlEventMsg* pMsg = new plControlEventMsg;
                 pMsg->SetControlCode( B_CONTROL_TURN_TO );
                 pMsg->SetControlActivated(js->dwData & 0x80);
@@ -213,7 +213,7 @@ void plDInputDevice::Update(DIDEVICEOBJECTDATA* js)
             }
             break;
         case B_CAMERA_RECENTER:
-            {   
+            {
                 plControlEventMsg* pMsg = new plControlEventMsg;
                 pMsg->SetControlCode( B_CAMERA_RECENTER );
                 pMsg->SetControlActivated(js->dwData & 0x80);
@@ -237,14 +237,14 @@ void plDInputDevice::Update(DIDEVICEOBJECTDATA* js)
                     pMsg2->SetControlCode(B_CAMERA_ROTATE_UP);
                     pMsg2->SetControlPct(0);
                     plgDispatch::MsgSend( pMsg2 );
-                }   
+                }
                 else
                 {
                     plControlEventMsg* pMsg = new plControlEventMsg;
                     pMsg->SetControlActivated( true );
                     if (f < 0)
                         pMsg->SetControlCode(B_CAMERA_ROTATE_DOWN);
-                    else 
+                    else
                         pMsg->SetControlCode(B_CAMERA_ROTATE_UP);
                     
                     pMsg->SetControlPct(f);
@@ -268,14 +268,14 @@ void plDInputDevice::Update(DIDEVICEOBJECTDATA* js)
                     pMsg2->SetControlCode(B_CAMERA_ROTATE_LEFT);
                     pMsg2->SetControlPct(0);
                     plgDispatch::MsgSend( pMsg2 );
-                }   
+                }
                 else
                 {
                     plControlEventMsg* pMsg = new plControlEventMsg;
                     pMsg->SetControlActivated( true );
                     if (f < 0)
                         pMsg->SetControlCode(B_CAMERA_ROTATE_RIGHT);
-                    else 
+                    else
                         pMsg->SetControlCode(B_CAMERA_ROTATE_LEFT);
                     
                     pMsg->SetControlPct(f);

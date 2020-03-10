@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/NucleusLib/pnNetProtocol/Private/Protocols/pnNpCli2Auth.h
-*   
+*
 ***/
 
 #ifdef PLASMA20_SOURCES_PLASMA_NUCLEUSLIB_PNNETPROTOCOL_PRIVATE_PROTOCOLS_PNNPCLI2AUTH_H
@@ -111,7 +111,7 @@ enum {
     kCli2Auth_PropagateBuffer,
     
 
-    // Public ages    
+    // Public ages
     kCli2Auth_GetPublicAgeList,
     kCli2Auth_SetAgePublic,
 
@@ -200,7 +200,7 @@ enum {
     // Admin
     kAuth2Cli_KickedOff,
 
-    // Public ages    
+    // Public ages
     kAuth2Cli_PublicAgeList,
 
     // Score

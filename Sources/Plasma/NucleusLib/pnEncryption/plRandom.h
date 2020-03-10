@@ -72,13 +72,13 @@ public:
 };
 
 inline float plRandom::RandNorm() const
-{ 
+{
 #ifndef FAST_Q
-    return 1.f / 32767.f; 
+    return 1.f / 32767.f;
 #else // FAST_Q
     return (1.f / float(~0UL));
 #endif // FAST_Q
-} 
+}
 
 inline int plRandom::Rand() const
 {
@@ -109,7 +109,7 @@ inline float plRandom::RandZeroToOne() const
 }
 
 // RandMinusOneToOne - same as RandZeroToOne, but we
-// mask in an exponent putting it in range [2..4), 
+// mask in an exponent putting it in range [2..4),
 // then subtract 3 to give [-1..1).
 inline float plRandom::RandMinusOneToOne() const
 {

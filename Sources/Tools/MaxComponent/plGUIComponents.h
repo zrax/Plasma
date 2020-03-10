@@ -154,7 +154,7 @@ class plGUIControlBase : public plComponent
         virtual Texmap  *GetMtl( uint32_t idx ) { return nil; }
 
         // Given a maxNode that is really a component, will return a pointer to the GUI control modifier
-        // created for it at export time. Only valid after PreConvert. If you think the control component 
+        // created for it at export time. Only valid after PreConvert. If you think the control component
         // might be applied to more than one sceneObject, then you better supply the sceneObject you're
         // asking for as well to make sure you get the right control. If not, just leave the second
         // parameter nil, but that can be VERY dangerous if the component results in more than one

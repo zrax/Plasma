@@ -386,9 +386,9 @@ HVect spect_decomp(HMatrix S, HMatrix U)
         }
     }
     }
-    kv.x = static_cast<float>(Diag[X]); 
-    kv.y = static_cast<float>(Diag[Y]); 
-    kv.z = static_cast<float>(Diag[Z]); 
+    kv.x = static_cast<float>(Diag[X]);
+    kv.y = static_cast<float>(Diag[Y]);
+    kv.z = static_cast<float>(Diag[Z]);
     kv.w = 1.0f;
     return (kv);
 }
@@ -476,7 +476,7 @@ gemQuat snuggle(gemQuat q, HVect *k)
         } else {/*big*/ pa[hi] = static_cast<float>(sgn(neg[hi],1.0));}
     } else {
         if (two>big) {/*two*/
-        pa[hi] = static_cast<float>(sgn(neg[hi],SQRTHALF)); 
+        pa[hi] = static_cast<float>(sgn(neg[hi],SQRTHALF));
         pa[lo] = static_cast<float>(sgn(neg[lo], SQRTHALF));
         if (lo>hi) {hi ^= lo; lo ^= hi; hi ^= lo;}
         if (hi==W) {hi = "\001\002\000"[lo]; lo = 3-hi-lo;}

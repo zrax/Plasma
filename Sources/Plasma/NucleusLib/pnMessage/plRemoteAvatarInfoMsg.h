@@ -59,8 +59,8 @@ protected:
     plKey fAvatar;
 public:
     plRemoteAvatarInfoMsg() : fAvatar(nil){SetBCastFlag(plMessage::kBCastByExactType);}
-    plRemoteAvatarInfoMsg(const plKey &s, 
-                    const plKey &r, 
+    plRemoteAvatarInfoMsg(const plKey &s,
+                    const plKey &r,
                     const double* t) : fAvatar(nil){SetBCastFlag(plMessage::kBCastByExactType);}
 
     CLASSNAME_REGISTER(plRemoteAvatarInfoMsg);

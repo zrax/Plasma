@@ -79,7 +79,7 @@ protected:
     virtual void    IStop();
     void            ISetVolume(float volume);
     void            ISetPosition(hsPoint3);
-    plSound         *IGetSoundPtr(); 
+    plSound         *IGetSoundPtr();
     
 public:
     plRandomSoundMod();

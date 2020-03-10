@@ -57,10 +57,10 @@ protected:
     Point3              fPertNorm;
 
 public:
-    plMaxLightContext(const Box3& b, TimeValue t=0) 
-    { 
-        fBounds = b; 
-        fCurrentTime = t; 
+    plMaxLightContext(const Box3& b, TimeValue t=0)
+    {
+        fBounds = b;
+        fCurrentTime = t;
 
         doMaps = true;
         filterMaps = true;
@@ -74,7 +74,7 @@ public:
 
     virtual BOOL InMtlEditor() { return false; }    // is this rendering the mtl editor sample sphere?
 
-    virtual LightDesc* Light(int n) { return nil; } // get the nth light. 
+    virtual LightDesc* Light(int n) { return nil; } // get the nth light.
 
     virtual TimeValue CurTime() { return fCurrentTime; }        // current time value
 
@@ -84,7 +84,7 @@ public:
     virtual Point3 OrigNormal() { return fNorm; } // original surface normal: not affected by SetNormal();
     virtual Point3 GNormal() { return fNorm; }      // geometric (face) normal
 
-    virtual Point3 V() { return Point3(0.f,1.f,0.f); }              // Unit view vector: from camera towards P 
+    virtual Point3 V() { return Point3(0.f,1.f,0.f); }              // Unit view vector: from camera towards P
     virtual void SetView(Point3 p) {  } // Set the view vector
 
     virtual Point3 ReflectVector() { return V(); }  // reflection vector
@@ -98,8 +98,8 @@ public:
     virtual Point3 PObj() { return P(); }               // point in obj coords
     virtual Point3 DPObj() { return DP(); }         // deriv of PObj, rel to pixel, for AA
     virtual Box3 ObjectBox() { return fBounds; }        // Object extents box in obj coords
-    virtual Point3 PObjRelBox();        // Point rel to obj box [-1 .. +1 ] 
-    virtual Point3 DPObjRelBox() { return Point3(0,0,0); }      // deriv of Point rel to obj box [-1 .. +1 ] 
+    virtual Point3 PObjRelBox();        // Point rel to obj box [-1 .. +1 ]
+    virtual Point3 DPObjRelBox() { return Point3(0,0,0); }      // deriv of Point rel to obj box [-1 .. +1 ]
     virtual void ScreenUV(Point2& uv, Point2 &duv) {uv.Set(0,0); duv.Set(0,0); } // screen relative uv (from lower left)
     virtual IPoint2 ScreenCoord() { return IPoint2(0,0); } // integer screen coordinate (from upper left)
 
@@ -109,7 +109,7 @@ public:
 
     virtual void GetBGColor(Color &bgcol, Color& transp, BOOL fogBG=TRUE) { bgcol.Black(); transp.Black(); }   // returns Background color, bg transparency
 
-    virtual Point3 PointTo(const Point3& p, RefFrame ito) { return p; } 
+    virtual Point3 PointTo(const Point3& p, RefFrame ito) { return p; }
     virtual Point3 PointFrom(const Point3& p, RefFrame ifrom) { return p; }
     virtual Point3 VectorTo(const Point3& p, RefFrame ito) { return p; }
     virtual Point3 VectorFrom(const Point3& p, RefFrame ifrom) { return p; }
@@ -119,14 +119,14 @@ inline Point3 plMaxLightContext::PObjRelBox()
 {
     Point3 q;
     Point3 p = PObj();
-    Box3 b = ObjectBox(); 
+    Box3 b = ObjectBox();
     q.x = 2.0f*(p.x-b.pmin.x)/(b.pmax.x-b.pmin.x) - 1.0f;
     q.y = 2.0f*(p.y-b.pmin.y)/(b.pmax.y-b.pmin.y) - 1.0f;
     q.z = 2.0f*(p.z-b.pmin.z)/(b.pmax.z-b.pmin.z) - 1.0f;
     return q;
 }
 
-class plMaxRendContext : public RendContext 
+class plMaxRendContext : public RendContext
 {
 public:
     Matrix3 WorldToCam() const { return Matrix3(1); }

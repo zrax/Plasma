@@ -70,10 +70,10 @@ public:
     //---------------------------
     //  Finding Functions
     //---------------------------
-    virtual plKey FindKey(const plUoid& uoid)=0;    
+    virtual plKey FindKey(const plUoid& uoid)=0;
 
     //---------------------------
-    //  Establish reference linkage 
+    //  Establish reference linkage
     //---------------------------
     virtual bool  AddViaNotify(const plKey& sentKey, plRefMsg* msg, plRefFlags::Type flags)=0;
     virtual bool  AddViaNotify(plRefMsg* msg, plRefFlags::Type flags)=0; // msg->fRef->GetKey() == sentKey
@@ -85,13 +85,13 @@ public:
     //  Reading and Writing keys
     //---------------------------
     // Read a Key in, and Notify me when the Object is loaded
-    virtual plKey ReadKeyNotifyMe(hsStream* s, plRefMsg* retMsg, plRefFlags::Type flags)=0; 
+    virtual plKey ReadKeyNotifyMe(hsStream* s, plRefMsg* retMsg, plRefFlags::Type flags)=0;
     // Just read the Key data in and find a match in the registry and return it.
-    virtual plKey ReadKey(hsStream* s)=0; 
+    virtual plKey ReadKey(hsStream* s)=0;
 
     // For convenience you can write a key using the KeyedObject or the Key...same result
-    virtual void WriteKey(hsStream* s, hsKeyedObject* obj)=0; 
-    virtual void WriteKey(hsStream* s, const plKey& key)=0; 
+    virtual void WriteKey(hsStream* s, hsKeyedObject* obj)=0;
+    virtual void WriteKey(hsStream* s, const plKey& key)=0;
 
     //---------------------------
     //  Reading and Writing Objects directly

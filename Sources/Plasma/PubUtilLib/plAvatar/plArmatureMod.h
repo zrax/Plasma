@@ -107,10 +107,10 @@ public:
     virtual ~plArmatureModBase();
 
     CLASSNAME_REGISTER( plArmatureModBase );
-    GETINTERFACE_ANY( plArmatureModBase, plAGMasterMod );   
+    GETINTERFACE_ANY( plArmatureModBase, plAGMasterMod );
     
     virtual bool    MsgReceive(plMessage* msg);
-    virtual void    AddTarget(plSceneObject* so);   
+    virtual void    AddTarget(plSceneObject* so);
     virtual void    RemoveTarget(plSceneObject* so);
     virtual bool    IEval(double secs, float del, uint32_t dirty);
     virtual void    Read(hsStream *stream, hsResMgr *mgr);
@@ -147,16 +147,16 @@ public:
         kDisableReasonVehicle   = 0x0010,
         kDisableReasonGenericBrain  = 0x0020,
         kDisableReasonKinematic = 0x0040
-    };  
+    };
     void EnablePhysics(bool status, uint16_t reason = kDisableReasonUnknown);
     void EnablePhysicsKinematic(bool status);
-    void EnableDrawing(bool status, uint16_t reason = kDisableReasonUnknown);   
+    void EnableDrawing(bool status, uint16_t reason = kDisableReasonUnknown);
     bool IsPhysicsEnabled() { return fDisabledPhysics == 0; }
     bool IsDrawEnabled() { return fDisabledDraw == 0; }
 
 
     static void AddressMessageToDescendants(const plCoordinateInterface * CI, plMessage *msg);
-    static void EnableDrawingTree(const plSceneObject *object, bool status);  
+    static void EnableDrawingTree(const plSceneObject *object, bool status);
 
     static int fMinLOD;                     // throttle for lowest-indexed LOD
     static double fLODDistance;             // Distance for first LOD switch 2nd is 2x this distance (for now)
@@ -178,12 +178,12 @@ protected:
         kNeedApplicator         = 0x20,
         kNeedBrainActivation    = 0x40,
     };
-    uint16_t fWaitFlags;  
+    uint16_t fWaitFlags;
     
     int fCurLOD;
     plPhysicalControllerCore* fController;
     plKeyVector fMeshKeys;
-    plBrainStack fBrains;   
+    plBrainStack fBrains;
     plMatrixDifferenceApp *fRootAnimator;
     std::vector<plKeyVector*> fUnusedBones;
     uint16_t fDisabledPhysics;
@@ -282,7 +282,7 @@ public:
     ST::string GetMoveKeyString() const;
 
     void SynchIfLocal(double timeNow, int force); // Just physical state
-    void SynchInputState(uint32_t rcvID = kInvalidPlayerID);  
+    void SynchInputState(uint32_t rcvID = kInvalidPlayerID);
     bool DirtySynchState(const ST::string& SDLStateName, uint32_t synchFlags );
     bool DirtyPhysicalSynchState(uint32_t synchFlags);
     plClothingOutfit *GetClothingOutfit() const { return fClothingOutfit; }
@@ -327,7 +327,7 @@ public:
     // Discovered a bug which makes these values horribly out of scale. So we do the rescale
     // in the Get/Set functions for backwards compatability.
     static void     SetMouseTurnSensitivity(float val) { fMouseTurnSensitivity = val / 150.f; }
-    static float GetMouseTurnSensitivity() { return fMouseTurnSensitivity * 150.f; } 
+    static float GetMouseTurnSensitivity() { return fMouseTurnSensitivity * 150.f; }
     
     static void SetSpawnPointOverride(const ST::string &overrideObjName);
     static void WindowActivate(bool active);
@@ -355,7 +355,7 @@ public:
         kBoneBaseCritter, // AI controlled avatar
         kBoneBaseActor, // human controlled, non human avatar
         kMaxBoneBase
-    };  
+    };
     enum
     {
         kAvatarLOSGround,
@@ -377,7 +377,7 @@ public:
 
 protected:
     void IInitDefaults();
-    virtual void IFinalize();   
+    virtual void IFinalize();
     virtual void ICustomizeApplicator();
     virtual void ISetupMarkerCallbacks(plATCAnim *anim, plAnimTimeConvert *atc);
     
@@ -400,7 +400,7 @@ protected:
     plKey               fLinkSoundSOKey;    // Same thing for linking... wwwwawAWAWAwawa...
     plKey               fLinkInAnimKey;     // Set when we link out, this is the anim to play (backwards) when we link in.
     static float        fMouseTurnSensitivity;
-    plArmatureUpdateMsg *fUpdateMsg;    
+    plArmatureUpdateMsg *fUpdateMsg;
     
     // Trying to be a good lad here and align all our bools and bytes...
     bool fIsLinkedIn;       // We have finished playing the LinkEffects and are properly in the age
@@ -411,7 +411,7 @@ protected:
     bool fPendingSynch;
     bool fDebugOn;
     bool fOpaque;
-    uint8_t fSuspendInputCount;   
+    uint8_t fSuspendInputCount;
     uint8_t fStealthMode;
     int fStealthLevel;  // you are invisible to other players/CCRs of lower stealthLevel
     
@@ -453,7 +453,7 @@ protected:
 
 // PLARMATURELOD
 // This class has been phased into plArmatureModBase. It's left behind
-// for backwards compatability. 
+// for backwards compatability.
 class plArmatureLODMod : public plArmatureMod
 {
 public:

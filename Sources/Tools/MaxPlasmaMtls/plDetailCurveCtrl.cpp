@@ -114,7 +114,7 @@ void    plDetailCurveCtrl::IRegisterCtrl( HINSTANCE instance )
 #endif
 
         HDC hDC = GetDC( NULL );
-        fFont = CreateFont( -MulDiv( 8, GetDeviceCaps( hDC, LOGPIXELSY ), 72 ), 0, 0, 0, 0, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, 
+        fFont = CreateFont( -MulDiv( 8, GetDeviceCaps( hDC, LOGPIXELSY ), 72 ), 0, 0, 0, 0, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
                             CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, "Arial" );
         ReleaseDC( NULL, hDC );
     }

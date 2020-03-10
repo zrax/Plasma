@@ -203,7 +203,7 @@ void    plDebugTextManager::DrawToDevice( plPipeline *pipe )
     if( fFont == nil )
     {
         // Create font first time around
-        fFont = pipe->MakeTextFont( (char *)plDebugText::Instance().GetFontFace(), 
+        fFont = pipe->MakeTextFont( (char *)plDebugText::Instance().GetFontFace(),
                                         plDebugText::Instance().GetFontSize() );
 
         if( fFont == nil )
@@ -233,12 +233,12 @@ void    plDebugTextManager::DrawToDevice( plPipeline *pipe )
 
             if( node.fStyle == 0xff )
             {
-                fFont->DrawRect( node.fX, node.fY, 
+                fFont->DrawRect( node.fX, node.fY,
                                  node.fRight, node.fBottom, node.fColor );
             }
             else if( node.fStyle == 0xfe )
             {
-                fFont->Draw3DBorder( node.fX, node.fY, 
+                fFont->Draw3DBorder( node.fX, node.fY,
                                  node.fRight, node.fBottom, node.fColor, node.fDarkColor );
             }
             else
@@ -276,7 +276,7 @@ uint32_t  plDebugTextManager::CalcStringWidth( const char *string )
     if( !plDebugText::Instance().IsEnabled() || fFont == nil )
         return 0;
 
-    return fFont->CalcStringWidth( string );    
+    return fFont->CalcStringWidth( string );
 }
 
 //// GetScreenSize ///////////////////////////////////////////////////////////

@@ -99,7 +99,7 @@ public:
         out.Append(new plClothingElement("glasses-front", 256, 512, 256, 64));
         out.Append(new plClothingElement("glasses-side", 256, 576, 256, 32));
         out.Append(new plClothingElement("KI", 256, 640, 256, 128));
-    */  
+    */
         out.Append(new plClothingElement("Chest", 768, 0, 256, 512));
         out.Append(new plClothingElement("Arm", 512, 192, 256, 128));
         out.Append(new plClothingElement("Face", 0, 256, 512, 256));
@@ -113,7 +113,7 @@ public:
         out.Append(new plClothingElement("Palm", 0, 512, 256, 128));
         out.Append(new plClothingElement("Player Book", 256, 512, 256, 128));
         out.Append(new plClothingElement("Glasses", 384, 640, 128, 128));
-        out.Append(new plClothingElement("KI", 256, 640, 128, 128));        
+        out.Append(new plClothingElement("KI", 256, 640, 128, 128));
         
     }
 };

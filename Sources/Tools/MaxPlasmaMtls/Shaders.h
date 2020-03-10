@@ -83,7 +83,7 @@ public:
 };
 
 //===========================================================================
-// Phong shader... 
+// Phong shader...
 //===========================================================================
 
 class PhongShader : public Shader {
@@ -97,12 +97,12 @@ public:
         shin_str = shineStr;
     }
     float EvalHilite(float x) {
-        return shin_str*(float)pow((double)cos(x*M_PI),(double)fs);  
+        return shin_str*(float)pow((double)cos(x*M_PI),(double)fs);
     }
 };
 
 //===========================================================================
-// Blinn shader... 
+// Blinn shader...
 //===========================================================================
 
 class BlinnShader : public Shader {
@@ -116,12 +116,12 @@ public:
         shin_str = shineStr;
     }
     float EvalHilite(float x) {
-        return shin_str*(float)pow((double)cos(x*M_PI),(double)fs); 
+        return shin_str*(float)pow((double)cos(x*M_PI),(double)fs);
     }
 };
 
 //===========================================================================
-// Metal shader... 
+// Metal shader...
 //===========================================================================
 
 class MetalShader : public Shader {
@@ -134,7 +134,7 @@ public:
 };
 
 //===========================================================================
-// hsMax layer shader... 
+// hsMax layer shader...
 //===========================================================================
 
 class hsMaxShader : public Shader {
@@ -148,7 +148,7 @@ public:
         shin_str = shineStr;
     }
     float EvalHilite(float x) {
-        return shin_str*(float)pow((double)cos(x*M_PI),(double)fs);  
+        return shin_str*(float)pow((double)cos(x*M_PI),(double)fs);
     }
 };
 

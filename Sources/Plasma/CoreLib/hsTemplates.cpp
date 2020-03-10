@@ -74,18 +74,18 @@ void RemoveNode(void *pthing)
 
 }
 
-void hsDlistNode::AddNode() 
-{ 
+void hsDlistNode::AddNode()
+{
     fcreated++;
     if (!fpFirst) fpFirst = this;
-    fpPrev = fpLast; 
-    if (fpLast) 
-        fpLast->fpNext = this; 
-    fpLast = this; 
+    fpPrev = fpLast;
+    if (fpLast)
+        fpLast->fpNext = this;
+    fpLast = this;
 }
 
-void hsDlistNode::RemoveNode() 
-{ 
+void hsDlistNode::RemoveNode()
+{
     fdestroyed++;
 /*
     if (!NodeKnt)
@@ -94,17 +94,17 @@ void hsDlistNode::RemoveNode()
         return;
     }
 */
-    if (fpPrev) 
-        fpPrev->fpNext = fpNext; 
-    if (fpNext) 
+    if (fpPrev)
+        fpPrev->fpNext = fpNext;
+    if (fpNext)
         fpNext->fpPrev = fpPrev;
-    if (this == fpFirst) 
-        fpFirst = fpNext; 
-    if (this == fpLast) 
-        fpLast = fpPrev; 
+    if (this == fpFirst)
+        fpFirst = fpNext;
+    if (this == fpLast)
+        fpLast = fpPrev;
 /*
     if (NodeKnt == 1)
-    {   
+    {
         if (fpLast) fpFirst = fpLast;
         if (fpFirst) fpLast = fpFirst;
         fpFirst->fpNext = 0;
@@ -271,7 +271,7 @@ void LargeArrayStats() {}
 
 void hsTArrayBase::GrowArraySize(uint16_t newCount)
 {
-#if 1   
+#if 1
     if (newCount < 8)
         fTotalCount = newCount; // Hey its small don't loose sleep over the copy time
     else if( newCount & 0x8000 ) // Hey, its huge, give it half way to maxed out
@@ -290,7 +290,7 @@ void hsTArrayBase::GrowArraySize(uint16_t newCount)
 
 void hsLargeArrayBase::GrowArraySize(uint32_t newCount)
 {
-#if 1   
+#if 1
     if (newCount < 8)
         fTotalCount = newCount; // Hey its small don't loose sleep over the copy time
     else

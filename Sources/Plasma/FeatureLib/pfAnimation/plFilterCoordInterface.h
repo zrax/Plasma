@@ -61,7 +61,7 @@ protected:
     uint32_t              fFilterMask;
     hsMatrix44          fRefParentLocalToWorld;
 
-    virtual void IRecalcTransforms(); 
+    virtual void IRecalcTransforms();
 public:
     plFilterCoordInterface();
     ~plFilterCoordInterface();

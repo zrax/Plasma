@@ -53,15 +53,15 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "MaxPlasmaMtls/Layers/plLayerTexBitmapPB.h"
 
 
-static int GetTargetPoint(TimeValue t, INode *inode, Point3& p) 
+static int GetTargetPoint(TimeValue t, INode *inode, Point3& p)
 {
     Matrix3 tmat;
-    if (inode->GetTargetTM(t,tmat)) 
+    if (inode->GetTargetTM(t,tmat))
     {
         p = tmat.GetTrans();
         return 1;
     }
-    else 
+    else
         return 0;
 }
 
@@ -172,7 +172,7 @@ int RTLightMouseCallBack::proc(ViewExp *vpt, int msg, int point, int flags, IPoi
             mat.SetTrans(vpt->SnapPoint(m,m,NULL,SNAP_IN_PLANE));
             if (msg == MOUSE_POINT)
                 return 0;
-            break;          
+            break;
         }
         break;
 
@@ -185,7 +185,7 @@ int RTLightMouseCallBack::proc(ViewExp *vpt, int msg, int point, int flags, IPoi
 
 static RTLightMouseCallBack sRTBaseLgtCreateCB;
 
-CreateMouseCallBack* plRTLightBase::GetCreateMouseCallBack() 
+CreateMouseCallBack* plRTLightBase::GetCreateMouseCallBack()
 {
     sRTBaseLgtCreateCB.SetObj(this);
 
@@ -358,14 +358,14 @@ plRTLightBase::~plRTLightBase()
 
 IParamBlock2* plRTLightBase::GetParamBlock2()
 {
-    return fLightPB; 
+    return fLightPB;
 }
 
 IParamBlock2* plRTLightBase::GetParamBlockByID( short id )
 {
     if( id == fLightPB->ID() )
-        return fLightPB; 
-    else 
+        return fLightPB;
+    else
         return nil;
 }
 
@@ -389,7 +389,7 @@ Animatable *plRTLightBase::SubAnim(int i)
     return (Animatable *)fLightPB;
 
     switch(i)
-    {           
+    {
         /*  kRefProjMap,
         kRefShadowProjMap,
         kRefShadowType,
@@ -406,10 +406,10 @@ Animatable *plRTLightBase::SubAnim(int i)
         case kRefTDirLight:
         case kRefProjDirLight:
             return (Animatable*)fLightPB;
-        case kRefProjMap: 
+        case kRefProjMap:
             Texmap* MyMap;
-            return (Animatable*) fLightPB->GetValue(kProjMapTexButton, 0, MyMap, FOREVER);          
-        case kRefShadowType: 
+            return (Animatable*) fLightPB->GetValue(kProjMapTexButton, 0, MyMap, FOREVER);
+        case kRefShadowType:
             return NULL;
         default: return NULL;
 
@@ -418,18 +418,18 @@ Animatable *plRTLightBase::SubAnim(int i)
     //return (Animatable*) fLightPB;
 }
 
-TSTR plRTLightBase::SubAnimName(int i) 
-{ 
+TSTR plRTLightBase::SubAnimName(int i)
+{
     return fLightPB->GetLocalName();
-        switch(i) 
-        {   
+        switch(i)
+        {
         
         case kRefOmniLight:return _T("");
         case kRefSpotLight: return TSTR(GetString(IDS_DB_FSPOT));
         case kRefTSpotLight:return _T("");
         case kRefDirLight:return _T("");
         case kRefTDirLight:return _T("");
-        case kRefProjMap: return TSTR(GetString(IDS_DS_PROJMAP));           
+        case kRefProjMap: return TSTR(GetString(IDS_DS_PROJMAP));
         case kRefShadowType: return _T("");
             default: return _T("");
     
@@ -437,7 +437,7 @@ TSTR plRTLightBase::SubAnimName(int i)
             case PROJMAP_REF: return TSTR(GetString(IDS_DS_PROJMAP));
             case SHADPROJMAP_REF: return TSTR(GetString(IDS_DS_SHADPROJMAP));
             case SHADTYPE_REF: return TSTR(GetString(IDS_DS_SHAD_GEN));
-            case EMITTER_REF: 
+            case EMITTER_REF:
                 if ( IsCompatibleRenderer ())
                     return TSTR(GetString(IDS_EMITTER));
                 else
@@ -447,7 +447,7 @@ TSTR plRTLightBase::SubAnimName(int i)
         }
 }
 
-#if 0 
+#if 0
 RefTargetHandle plRTSpotLight::Clone(RemapDir &remap)
 {
     plRTLightBase *obj = new plRTSpotLight;
@@ -459,7 +459,7 @@ RefTargetHandle plRTSpotLight::Clone(RemapDir &remap)
     //obj->fLightPB->SetValue(kContrast, t, fLightPB->GetInt(kLightOn, t));
     //obj->fLightPB->SetValue(kDiffSoft, t, fLightPB->GetInt(kLightOn, t));
     //obj->fLightPB->SetValue(kDiffOn, t, fLightPB->GetInt(kLightOn, t));
-    obj->fLightPB->SetValue(kSpec, t, fLightPB->GetInt(kLightOn, t));   
+    obj->fLightPB->SetValue(kSpec, t, fLightPB->GetInt(kLightOn, t));
     obj->fLightPB->SetValue(kSpecularColorSwatch, t, fLightPB->GetInt(kLightOn, t));
     obj->fLightPB->SetValue(kIntensity, t, fLightPB->GetInt(kLightOn, t));
     
@@ -525,13 +525,13 @@ void plRTLightBase::FreeCaches()
 
 
 
-void plRTLightBase::BoxCircle(TimeValue t, float r, float d, Box3& box, int extraPt, Matrix3 *tm) 
+void plRTLightBase::BoxCircle(TimeValue t, float r, float d, Box3& box, int extraPt, Matrix3 *tm)
 {
     Point3 q[3*NUM_CIRC_PTS];
     int npts;
     float asp;
     if ( 1 /*Circle Object*/) {     npts =  NUM_CIRC_PTS+extraPt;   asp = -1.0f; }
-    else { npts = 4+extraPt;  asp = -1.0; } 
+    else { npts = 4+extraPt;  asp = -1.0; }
     GetConePoints(t, asp , r, d, q);
     box.IncludePoints(q,npts,tm);
 }
@@ -545,26 +545,26 @@ void plRTLightBase::BoxDirPoints(TimeValue t, float angle, float dist, Box3 &box
 }
 
 
-void plRTLightBase::BoxPoints(TimeValue t, float angle, float dist, Box3 &box, Matrix3 *tm) 
+void plRTLightBase::BoxPoints(TimeValue t, float angle, float dist, Box3 &box, Matrix3 *tm)
 {
     if (IsDir())
         BoxCircle(t, angle, dist, box, 0,tm);
-    else 
+    else
         BoxDirPoints(t, angle, dist, box, tm);
 }
 
 
-void plRTLightBase::BoxLight(TimeValue t, INode *inode, Box3& box, Matrix3 *tm) 
+void plRTLightBase::BoxLight(TimeValue t, INode *inode, Box3& box, Matrix3 *tm)
 {
     Point3 pt;
     float d;
-    if (GetTargetPoint(t, inode, pt)) 
+    if (GetTargetPoint(t, inode, pt))
     {
         Point3 loc = inode->GetObjectTM(t).GetTrans();
         d = FLength(loc - pt) / FLength(inode->GetObjectTM(t).GetRow(2));
         box += tm? (*tm)*Point3(0.0f, 0.0f, -d): Point3(0.0f, 0.0f, -d);
     }
-    else 
+    else
     {
         d = GetTDist(t);
     //  if(fLightPB->GetInt(kLightType) == RT_FREE_DIR)
@@ -580,20 +580,20 @@ void plRTLightBase::BoxLight(TimeValue t, INode *inode, Box3& box, Matrix3 *tm)
     }
     if( this->ClassID() == RTSPOT_LIGHT_CLASSID )
 //  if  (fLightPB->GetInt(kLightType) == RT_FREE_SPOT || fLightPB->GetInt(kLightType) == RT_TARGET_SPOT)
-        if((fLightPB->GetInt(kShowConeBool,t)) || (extDispFlags & EXT_DISP_ONLY_SELECTED)) 
+        if((fLightPB->GetInt(kShowConeBool,t)) || (extDispFlags & EXT_DISP_ONLY_SELECTED))
         {
             float rad = MaxF(GetHotspot(t), GetFallsize(t));
-            if (IsDir()) 
+            if (IsDir())
                 BoxCircle(t,rad,0.0f,box,1,tm);
             BoxCircle(t,rad,d,box,1,tm);
         }
-    if( this->ClassID() == RTDIR_LIGHT_CLASSID 
+    if( this->ClassID() == RTDIR_LIGHT_CLASSID
         || this->ClassID() == RTPDIR_LIGHT_CLASSID )
 //  if  (fLightPB->GetInt(kLightType) == RT_FREE_DIR || fLightPB->GetInt(kLightType) == RT_TARGET_DIR)
-        if((extDispFlags & EXT_DISP_ONLY_SELECTED)) 
+        if((extDispFlags & EXT_DISP_ONLY_SELECTED))
         {
             float rad = MaxF(GetHotspot(t), GetFallsize(t));
-            if (IsDir()) 
+            if (IsDir())
                 BoxCircle(t,rad,0.0f,box,1,tm);
             BoxCircle(t,rad,2.82841*GetFallsize(t),box,1,tm);   //hack, hack.  Do 2root2 at corners...
         }
@@ -607,13 +607,13 @@ void plRTLightBase::BoxLight(TimeValue t, INode *inode, Box3& box, Matrix3 *tm)
 
         dispDecay = (GetDecayType()&&(extDispFlags & EXT_DISP_ONLY_SELECTED));
     }
-    if( dispAtten || dispDecay) 
+    if( dispAtten || dispDecay)
     {
         if( this->ClassID() == RTOMNI_LIGHT_CLASSID )
-        { 
+        {
             Point3 q[3*NUM_CIRC_PTS];
             float rad = 0;
-            if (dispAtten) 
+            if (dispAtten)
                 rad = MaxF(GetAtten(t, ATTEN_START), GetAtten(t, ATTEN_END));
             if (dispDecay) rad = MaxF(rad,0.0/*GetDecayRadius(t)*/);
             GetAttenPoints(t, rad, q);
@@ -621,19 +621,19 @@ void plRTLightBase::BoxLight(TimeValue t, INode *inode, Box3& box, Matrix3 *tm)
         }
         if( this->ClassID() == RTSPOT_LIGHT_CLASSID )
         {
-            if (dispAtten) 
+            if (dispAtten)
             {
                 BoxPoints(t, GetFallsize(t), GetAtten(t,ATTEN_END), box, tm);
                 BoxPoints(t, GetFallsize(t), GetAtten(t,ATTEN_START), box, tm);
             }
-            if (dispDecay) 
+            if (dispDecay)
                 BoxPoints(t, GetFallsize(t), 0.0/*GetDecayRadius(t)*/, box, tm);
         }
     }
 
 }
 
-int plRTLightBase::GetRectXPoints(TimeValue t, float angle, float dist, Point3 *q) 
+int plRTLightBase::GetRectXPoints(TimeValue t, float angle, float dist, Point3 *q)
 {
     int i;
     if(dist==0.0f) dist = .00001f;
@@ -650,10 +650,10 @@ int plRTLightBase::GetRectXPoints(TimeValue t, float angle, float dist, Point3 *
 
     // draw horizontal and vertical center lines
     da = wang/float(NUM_HALF_ARC);
-    for(i = -NUM_HALF_ARC, a = -wang; i<= NUM_HALF_ARC; i++, a+=da) 
+    for(i = -NUM_HALF_ARC, a = -wang; i<= NUM_HALF_ARC; i++, a+=da)
         q[j++] = Point3(dist*(float)sin(a), 0.0f, -dist*(float)cos(a));
     da = hang/float(NUM_HALF_ARC);
-    for(i = -NUM_HALF_ARC, a = -hang; i<= NUM_HALF_ARC; i++, a+=da) 
+    for(i = -NUM_HALF_ARC, a = -hang; i<= NUM_HALF_ARC; i++, a+=da)
         q[j++] = Point3(0.0f, dist*(float)sin(a), -dist*(float)cos(a));
 
 
@@ -661,12 +661,12 @@ int plRTLightBase::GetRectXPoints(TimeValue t, float angle, float dist, Point3 *
     da = aw/float(NUM_HALF_ARC);
     sn = (float)sin(hang);
     cs = (float)cos(hang);
-    for (i = -NUM_HALF_ARC, a = -aw; i<= NUM_HALF_ARC; i++, a+=da) 
+    for (i = -NUM_HALF_ARC, a = -aw; i<= NUM_HALF_ARC; i++, a+=da)
     {
-        x =  dist*(float)sin(a); 
+        x =  dist*(float)sin(a);
         z = -dist*(float)cos(a);
-        q[j]             = Point3(x, z*sn, z*cs);               
-        q[j+NUM_ARC_PTS] = Point3(x,-z*sn, z*cs);               
+        q[j]             = Point3(x, z*sn, z*cs);
+        q[j+NUM_ARC_PTS] = Point3(x,-z*sn, z*cs);
         j++;
     }
     
@@ -678,17 +678,17 @@ int plRTLightBase::GetRectXPoints(TimeValue t, float angle, float dist, Point3 *
     cs = (float)cos(wang);
     for (i = -NUM_HALF_ARC, a = -ah; i<= NUM_HALF_ARC; i++, a+=da)
     {
-        y =  dist*(float)sin(a); 
+        y =  dist*(float)sin(a);
         z = -dist*(float)cos(a);
-        q[j]             = Point3( z*sn, y, z*cs);                  
-        q[j+NUM_ARC_PTS] = Point3(-z*sn, y, z*cs);                  
+        q[j]             = Point3( z*sn, y, z*cs);
+        q[j+NUM_ARC_PTS] = Point3(-z*sn, y, z*cs);
         j++;
     }
 
     return 6*NUM_ARC_PTS;
 }
 
-int plRTLightBase::GetCirXPoints(TimeValue t, float angle, float dist, Point3 *q) 
+int plRTLightBase::GetCirXPoints(TimeValue t, float angle, float dist, Point3 *q)
 {
     int i;
     float ang = DegToRad(angle)/2.0f;
@@ -699,15 +699,15 @@ int plRTLightBase::GetCirXPoints(TimeValue t, float angle, float dist, Point3 *q
     int j=NUM_CIRC_PTS;
     // then draw Arc X
     float a = -ang;
-    for(i = -NUM_HALF_ARC; i<= NUM_HALF_ARC; i++, a+=da) 
+    for(i = -NUM_HALF_ARC; i<= NUM_HALF_ARC; i++, a+=da)
         q[j++] = Point3(0.0f, dist*(float)sin(a), -dist*(float)cos(a));
-    a = -ang;   
-    for(i = -NUM_HALF_ARC; i<= NUM_HALF_ARC; i++, a+=da) 
+    a = -ang;
+    for(i = -NUM_HALF_ARC; i<= NUM_HALF_ARC; i++, a+=da)
         q[j++] = Point3(dist*(float)sin(a), 0.0f, -dist*(float)cos(a));
     return NUM_CIRC_PTS + 2*NUM_ARC_PTS;
 }
 
-void plRTLightBase::DrawX(TimeValue t, float asp, int npts, float dist, GraphicsWindow *gw, int indx) 
+void plRTLightBase::DrawX(TimeValue t, float asp, int npts, float dist, GraphicsWindow *gw, int indx)
 {
     Point3 q[3*NUM_CIRC_PTS+1];
     Point3 u[2];
@@ -725,7 +725,7 @@ void plRTLightBase::GetAttenPoints(TimeValue t, float rad, Point3 *q)
 {
     double a;
     float sn, cs;
-    for(int i = 0; i < NUM_CIRC_PTS; i++) 
+    for(int i = 0; i < NUM_CIRC_PTS; i++)
     {
         a = (double)i * 2.0 * 3.1415926 / (double)NUM_CIRC_PTS;
         sn = rad * (float)sin(a);
@@ -738,22 +738,22 @@ void plRTLightBase::GetAttenPoints(TimeValue t, float rad, Point3 *q)
 
 
 // Draw warped rectangle
-void plRTLightBase::DrawWarpRect(TimeValue t, GraphicsWindow *gw, float angle, float dist, Point3 *q) 
+void plRTLightBase::DrawWarpRect(TimeValue t, GraphicsWindow *gw, float angle, float dist, Point3 *q)
 {
     GetRectXPoints(t, angle,dist,q);
     for (int i=0; i<6; i++)
-        gw->polyline(NUM_ARC_PTS, q+i*NUM_ARC_PTS,NULL, NULL, FALSE, NULL);  
+        gw->polyline(NUM_ARC_PTS, q+i*NUM_ARC_PTS,NULL, NULL, FALSE, NULL);
 }
 
-void plRTLightBase::DrawCircleX(TimeValue t, GraphicsWindow *gw, float angle, float dist, Point3 *q) 
+void plRTLightBase::DrawCircleX(TimeValue t, GraphicsWindow *gw, float angle, float dist, Point3 *q)
 {
     GetCirXPoints(t, angle,dist,q);
-    gw->polyline(NUM_CIRC_PTS, q,NULL, NULL, TRUE, NULL);  // circle 
+    gw->polyline(NUM_CIRC_PTS, q,NULL, NULL, TRUE, NULL);  // circle
     gw->polyline(NUM_ARC_PTS, q+NUM_CIRC_PTS,NULL, NULL, FALSE, NULL); // vert arc
     gw->polyline(NUM_ARC_PTS, q+NUM_CIRC_PTS+NUM_ARC_PTS,NULL, NULL, FALSE, NULL);  // horiz arc
 }
 
-void plRTLightBase::DrawSphereArcs(TimeValue t, GraphicsWindow *gw, float r, Point3 *q) 
+void plRTLightBase::DrawSphereArcs(TimeValue t, GraphicsWindow *gw, float r, Point3 *q)
 {
     GetAttenPoints(t, r, q);
     gw->polyline(NUM_CIRC_PTS, q,               NULL, NULL, TRUE, NULL);
@@ -763,22 +763,22 @@ void plRTLightBase::DrawSphereArcs(TimeValue t, GraphicsWindow *gw, float r, Poi
 
 //
 
-void plRTLightBase::DrawAttenCirOrRect(TimeValue t, GraphicsWindow *gw, float dist, BOOL froze, int uicol) 
+void plRTLightBase::DrawAttenCirOrRect(TimeValue t, GraphicsWindow *gw, float dist, BOOL froze, int uicol)
 {
     if (!froze) gw->setColor( LINE_COLOR, GetUIColor(uicol));
-    if (IsDir()) 
+    if (IsDir())
     {
         int npts,indx;
         float asp;
         npts = NUM_CIRC_PTS;    asp  = -1.0f;   indx = SEG_INDEX;
         DrawX(t, asp, npts, dist, gw, indx);
     }
-    else 
+    else
     {
         Point3 q[3*NUM_CIRC_PTS+1];
         if( this->ClassID() == RTOMNI_LIGHT_CLASSID )
             DrawSphereArcs(t, gw, dist, q);
-        else    
+        else
             DrawCircleX(t, gw, GetFallsize(t),dist,q);
         
     }
@@ -795,18 +795,18 @@ int plRTLightBase::DrawAtten(TimeValue t, INode *inode, GraphicsWindow *gw)
         //BOOL dispAttenNear = (fLightPB->GetInt(kUseNearAtten) && (extDispFlags & EXT_DISP_ONLY_SELECTED))?TRUE:fLightPB->GetInt(kShowFarAttenRanges);
         dispDecay = (GetDecayType() && (extDispFlags & EXT_DISP_ONLY_SELECTED));
     }
-    if (dispAtten || dispDecay) 
+    if (dispAtten || dispDecay)
     {
         Matrix3 tm = inode->GetObjectTM(t);
         gw->setTransform(tm);
         BOOL froze = inode->IsFrozen() && !inode->Dependent();
-        if (dispAtten) 
+        if (dispAtten)
         {
             DrawAttenCirOrRect(t, gw, GetAtten(t,ATTEN_START), froze, COLOR_START_RANGE);
             DrawAttenCirOrRect(t, gw, GetAtten(t,ATTEN_END), froze, COLOR_END_RANGE);
         }
         
-        if (dispDecay) 
+        if (dispDecay)
         {
             DrawAttenCirOrRect(t, gw, 0.0 /*DecayRadius() Stuff here */, froze, COLOR_DECAY_RADIUS);
         }
@@ -824,7 +824,7 @@ void plRTLightBase::GetLocalBoundBox(TimeValue t, INode *node, ViewExp *vpt, Box
 //  Point3 loc = tm.GetTrans();
 //  nv = fMesh.getNumVerts();
 //  box.Init();
-//  if(!(extDispFlags & EXT_DISP_ZOOM_EXT)) 
+//  if(!(extDispFlags & EXT_DISP_ZOOM_EXT))
 //      box.IncludePoints(fMesh.verts,nv,&tm);
 //  else
 //      box += loc;
@@ -990,7 +990,7 @@ int plRTLightBase::Display(TimeValue t, INode *node, ViewExp *vpt, int flags)
 
     
     Matrix3 m;
-//  if (!enable) 
+//  if (!enable)
 //      return 0;
     GraphicsWindow *gw = vpt->getGW();
     GetMat(t,node,vpt,m);
@@ -999,7 +999,7 @@ int plRTLightBase::Display(TimeValue t, INode *node, ViewExp *vpt, int flags)
     gw->setRndLimits(GW_WIREFRAME|GW_BACKCULL|(gw->getRndMode() & GW_Z_BUFFER));
     if (node->Selected())
         gw->setColor( LINE_COLOR, GetSelColor());
-    else if(!node->IsFrozen() && !node->Dependent())    
+    else if(!node->IsFrozen() && !node->Dependent())
     {
         if(fLightPB->GetInt(kLightOn))
             gw->setColor( LINE_COLOR, GetUIColor(COLOR_LIGHT_OBJ));
@@ -1009,7 +1009,7 @@ int plRTLightBase::Display(TimeValue t, INode *node, ViewExp *vpt, int flags)
     }
     
     fMesh.render( gw, gw->getMaterial(),
-        (flags&USE_DAMAGE_RECT) ? &vpt->GetDammageRect() : NULL, COMP_ALL); 
+        (flags&USE_DAMAGE_RECT) ? &vpt->GetDammageRect() : NULL, COMP_ALL);
     
     DrawConeAndLine(t, node, gw, 1);
 //  DrawAtten(t, node, gw);
@@ -1020,7 +1020,7 @@ int plRTLightBase::Display(TimeValue t, INode *node, ViewExp *vpt, int flags)
 
 
 
-static void RemoveScaling(Matrix3 &tm) 
+static void RemoveScaling(Matrix3 &tm)
 {
     AffineParts ap;
     decomp_affine(tm, &ap);
@@ -1029,7 +1029,7 @@ static void RemoveScaling(Matrix3 &tm)
     tm.SetTrans(ap.t);
 }
 
-void plRTLightBase::GetMat(TimeValue t, INode* inode, ViewExp *vpt, Matrix3& tm) 
+void plRTLightBase::GetMat(TimeValue t, INode* inode, ViewExp *vpt, Matrix3& tm)
 {
     tm = inode->GetObjectTM(t);
 //  tm.NoScale();
@@ -1039,11 +1039,11 @@ void plRTLightBase::GetMat(TimeValue t, INode* inode, ViewExp *vpt, Matrix3& tm)
 }
 
 
-void plRTLightBase::GetConePoints(TimeValue t, float aspect, float angle, float dist, Point3 *q) 
+void plRTLightBase::GetConePoints(TimeValue t, float aspect, float angle, float dist, Point3 *q)
 {
-    float ta = (float)tan(0.5*DegToRad(angle));   
-    if(1 /*fLightPB->GetFloat(kAspect, t) <= 0.0f*/) 
-    { 
+    float ta = (float)tan(0.5*DegToRad(angle));
+    if(1 /*fLightPB->GetFloat(kAspect, t) <= 0.0f*/)
+    {
         // CIRCULAR
         float rad = dist * ta;
         double a;
@@ -1056,14 +1056,14 @@ void plRTLightBase::GetConePoints(TimeValue t, float aspect, float angle, float 
             }
         q[i] = q[0] + Point3(0.0f, 15.0f, 0.0f);
     }
-    else 
-    {        
+    else
+    {
         // RECTANGULAR
         float w = IsDir()? angle : dist * ta * (float)sqrt((double)aspect);
         float h = w / aspect;
-        q[0] = Point3( w, h,-dist);             
-        q[1] = Point3(-w, h,-dist);             
-        q[2] = Point3(-w,-h,-dist);             
+        q[0] = Point3( w, h,-dist);
+        q[1] = Point3(-w, h,-dist);
+        q[2] = Point3(-w,-h,-dist);
         q[3] = Point3( w,-h,-dist);
         q[4] = Point3( 0.0f, h+15.0f, -dist);
         q[5] = Point3( 0.0f, h, -dist);
@@ -1073,12 +1073,12 @@ void plRTLightBase::GetConePoints(TimeValue t, float aspect, float angle, float 
 #define HOTCONE     0
 #define FALLCONE    1
 
-void plRTLightBase::DrawCone(TimeValue t, GraphicsWindow *gw, float dist) 
+void plRTLightBase::DrawCone(TimeValue t, GraphicsWindow *gw, float dist)
 {
     Point3 q[NUM_CIRC_PTS+1], u[3];
     int dirLight = IsDir();
     int i;
-    BOOL dispAtten = false; 
+    BOOL dispAtten = false;
     BOOL dispDecay = false;
     if( this->ClassID() == RTOMNI_LIGHT_CLASSID || this->ClassID() == RTSPOT_LIGHT_CLASSID )
     {
@@ -1091,9 +1091,9 @@ void plRTLightBase::DrawCone(TimeValue t, GraphicsWindow *gw, float dist)
         GetConePoints(t, -1.0f, 20.0, dist, q);
 
     gw->setColor( LINE_COLOR, GetUIColor(COLOR_HOTSPOT));
-    if(1 /*Circular Hack*/) {  
+    if(1 /*Circular Hack*/) {
         // CIRCULAR
-        if(GetHotspot(t) >= GetFallsize(t)) 
+        if(GetHotspot(t) >= GetFallsize(t))
         {
             // draw (far) hotspot circle
             u[0] = q[0];
@@ -1101,26 +1101,26 @@ void plRTLightBase::DrawCone(TimeValue t, GraphicsWindow *gw, float dist)
             gw->polyline( 2, u, NULL, NULL, FALSE, NULL);
         }
         gw->polyline(NUM_CIRC_PTS, q, NULL, NULL, TRUE, NULL);
-        if (dirLight) 
+        if (dirLight)
         {
             // draw 4 axial hotspot lines
-            for (i = 0; i < NUM_CIRC_PTS; i += SEG_INDEX) 
+            for (i = 0; i < NUM_CIRC_PTS; i += SEG_INDEX)
             {
                 u[0] =  q[i];   u[1] =  q[i]; u[1].z += dist;
-                gw->polyline( 2, u, NULL, NULL, FALSE, NULL );  
+                gw->polyline( 2, u, NULL, NULL, FALSE, NULL );
             }
             GetConePoints(t, -1.0f, 20/*GetHotspot(t)*/, 0.0f, q);
             // draw (near) hotspot circle
             gw->polyline(NUM_CIRC_PTS, q, NULL, NULL, TRUE, NULL);
         }
-        else  
+        else
         {
             // draw 4 axial lines
             u[0] = Point3(0,0,0);
-            for (i = 0; i < NUM_CIRC_PTS; i += SEG_INDEX) 
+            for (i = 0; i < NUM_CIRC_PTS; i += SEG_INDEX)
             {
                 u[1] =  q[i];
-                gw->polyline( 2, u, NULL, NULL, FALSE, NULL );  
+                gw->polyline( 2, u, NULL, NULL, FALSE, NULL );
             }
         }
         if(!IsDir())
@@ -1128,7 +1128,7 @@ void plRTLightBase::DrawCone(TimeValue t, GraphicsWindow *gw, float dist)
         else
             GetConePoints(t, -1.0f, 200.0, dist, q);
         gw->setColor( LINE_COLOR, GetUIColor(COLOR_FALLOFF));
-        if(GetHotspot(t) < GetFallsize(t)) 
+        if(GetHotspot(t) < GetFallsize(t))
         {
             // draw (far) fallsize circle
             u[0] = q[0];    u[1] = q[NUM_CIRC_PTS];
@@ -1150,10 +1150,10 @@ void plRTLightBase::DrawCone(TimeValue t, GraphicsWindow *gw, float dist)
             }
 
             // draw axial fallsize lines
-            for (i = 0; i < NUM_CIRC_PTS; i += SEG_INDEX) 
+            for (i = 0; i < NUM_CIRC_PTS; i += SEG_INDEX)
             {
                 u[0] =  q[i];  u[0].z = dfar;   u[1] =  q[i]; u[1].z = dnear;
-                gw->polyline( 2, u, NULL, NULL, FALSE, NULL );  
+                gw->polyline( 2, u, NULL, NULL, FALSE, NULL );
             }
 
             GetConePoints(t, -1.0f, 10000.0, 0.0f, q);
@@ -1161,19 +1161,19 @@ void plRTLightBase::DrawCone(TimeValue t, GraphicsWindow *gw, float dist)
             gw->polyline(NUM_CIRC_PTS, q, NULL, NULL, TRUE, NULL);
             
         }
-        else 
+        else
         {
             float cs = (float)cos(DegToRad(GetFallsize(t)*0.5f));
             float dfar = q[0].z;
             if (dispAtten)
                 dfar  = MinF(-cs*GetAtten(t,ATTEN_END),dfar);
-            if (dispDecay) 
+            if (dispDecay)
                 dfar  = MinF(/*-cs*GetDecayRadius(t)*/0.0,dfar);
 
-            for (i = 0; i < NUM_CIRC_PTS; i += SEG_INDEX) 
+            for (i = 0; i < NUM_CIRC_PTS; i += SEG_INDEX)
             {
-                u[1] =  -q[i]*dfar/dist;    
-                gw->polyline( 2, u, NULL, NULL, FALSE, NULL );  
+                u[1] =  -q[i]*dfar/dist;
+                gw->polyline( 2, u, NULL, NULL, FALSE, NULL );
             }
         }
     }
@@ -1181,7 +1181,7 @@ void plRTLightBase::DrawCone(TimeValue t, GraphicsWindow *gw, float dist)
 }
 
 
-int plRTLightBase::DrawConeAndLine(TimeValue t, INode* inode, GraphicsWindow *gw, int drawing ) 
+int plRTLightBase::DrawConeAndLine(TimeValue t, INode* inode, GraphicsWindow *gw, int drawing )
     {
     if(!IsSpot() && !IsDir())
         return 0;
@@ -1191,7 +1191,7 @@ int plRTLightBase::DrawConeAndLine(TimeValue t, INode* inode, GraphicsWindow *gw
     if( 0 )
     {
         Point3 pt,v[3];
-        if (GetTargetPoint(t, inode, pt)) 
+        if (GetTargetPoint(t, inode, pt))
         {
             float den = FLength(tm.GetRow(2));
             float dist = (den!=0) ? FLength(tm.GetTrans()-pt) / den : 0.0f;
@@ -1210,7 +1210,7 @@ int plRTLightBase::DrawConeAndLine(TimeValue t, INode* inode, GraphicsWindow *gw
                 gw->setColor( LINE_COLOR, GetUIColor(COLOR_TARGET_LINE));
             v[0] = Point3(0,0,0);
             v[1] = Point3(0.0f, 0.0f, (drawing == -1)? (-0.9f * dist): -dist);
-            gw->polyline( 2, v, NULL, NULL, FALSE, NULL );  
+            gw->polyline( 2, v, NULL, NULL, FALSE, NULL );
         }
         
     }
@@ -1230,7 +1230,7 @@ int plRTLightBase::DrawConeAndLine(TimeValue t, INode* inode, GraphicsWindow *gw
 
 //// DrawArrow ///////////////////////////////////////////////////////////////
 
-void    plRTLightBase::DrawArrow( TimeValue t, GraphicsWindow *gw, Point3 &direction, float dist ) 
+void    plRTLightBase::DrawArrow( TimeValue t, GraphicsWindow *gw, Point3 &direction, float dist )
 {
     Point3  pts[ 5 ];
 
@@ -1260,7 +1260,7 @@ int plRTLightBase::HitTest(TimeValue t, INode *node, int type, int crossing, int
     gw->setTransform(m);
     res = fMesh.select( gw, mtl, &hitRegion, flags & HIT_ABORTONHIT);
     // if not, check the target line, and set the pair flag if it's hit
-    if( !res )  
+    if( !res )
     {
         // this special case only works with point selection of targeted lights
         if((type != HITTYPE_POINT) || !node->GetTarget())
@@ -1277,13 +1277,13 @@ int plRTLightBase::HitTest(TimeValue t, INode *node, int type, int crossing, int
 
     //return fMesh.select(gw,node->Mtls(),&hitRegion,flags & HIT_ABORTONHIT,node->NumMtls());
 }
-static void GenericSnap(TimeValue t, INode* inode, SnapInfo *snap, IPoint2 *p, ViewExp *vpt) 
+static void GenericSnap(TimeValue t, INode* inode, SnapInfo *snap, IPoint2 *p, ViewExp *vpt)
 {
     // Make sure the vertex priority is active and at least as important as the best snap so far
-    if(snap->vertPriority > 0 && snap->vertPriority <= snap->priority) 
+    if(snap->vertPriority > 0 && snap->vertPriority <= snap->priority)
     {
-        Matrix3 tm = inode->GetObjectTM(t); 
-        GraphicsWindow *gw = vpt->getGW();  
+        Matrix3 tm = inode->GetObjectTM(t);
+        GraphicsWindow *gw = vpt->getGW();
     
         gw->setTransform(tm);
 
@@ -1299,10 +1299,10 @@ static void GenericSnap(TimeValue t, INode* inode, SnapInfo *snap, IPoint2 *p, V
 
         // Are we within the snap radius?
         int len = (int)Length(screen2 - fp);
-        if(len <= snap->strength) 
+        if(len <= snap->strength)
         {
             // Is this priority better than the best so far?
-            if(snap->vertPriority < snap->priority) 
+            if(snap->vertPriority < snap->priority)
             {
                 snap->priority = snap->vertPriority;
                 snap->bestWorld = vert * tm;
@@ -1310,7 +1310,7 @@ static void GenericSnap(TimeValue t, INode* inode, SnapInfo *snap, IPoint2 *p, V
                 snap->bestDist = len;
             }
             // Closer than the best of this priority?
-            else if(len < snap->bestDist) 
+            else if(len < snap->bestDist)
             {
                 snap->priority = snap->vertPriority;
                 snap->bestWorld = vert * tm;
@@ -1321,7 +1321,7 @@ static void GenericSnap(TimeValue t, INode* inode, SnapInfo *snap, IPoint2 *p, V
     }
 }
 
-void plRTLightBase::Snap(TimeValue t, INode* inode, SnapInfo *snap, IPoint2 *p, ViewExp *vpt) 
+void plRTLightBase::Snap(TimeValue t, INode* inode, SnapInfo *snap, IPoint2 *p, ViewExp *vpt)
 {
     GenericSnap(t,inode,snap,p,vpt);
 }
@@ -1344,8 +1344,8 @@ RefTargetHandle plRTLightBase::GetReference(int i)
         case kRefProjMap:
             //if(fLightPB->GetTexmap(kProjMapTexButton, 0) != NULL)
             //{
-            //  MyMap = fLightPB->GetTexmap(kProjMapTexButton, 0);          
-            //return (RefTargetHandle) MyMap; 
+            //  MyMap = fLightPB->GetTexmap(kProjMapTexButton, 0);
+            //return (RefTargetHandle) MyMap;
             //}else
                 return NULL;
         case kRefShadowProjMap:
@@ -1363,7 +1363,7 @@ RefTargetHandle plRTLightBase::GetReference(int i)
             return NULL;
         }
 
-}       
+}
 
 void plRTLightBase::SetReference(int ref, RefTargetHandle rtarg)
 {
@@ -1377,7 +1377,7 @@ void plRTLightBase::SetReference(int ref, RefTargetHandle rtarg)
                 //MyMap = (Texmap *)rtarg;
                 //fLightPB->SetValue(kProjMapTexButton, 0, MyMap);
                 
-                //if (projMapName) 
+                //if (projMapName)
                 //  projMapName->SetText(projMap?projMap->GetFullName().data():GetString(IDS_DB_NONE));
                 return;
             
@@ -1392,12 +1392,12 @@ void plRTLightBase::SetReference(int ref, RefTargetHandle rtarg)
         case kRefTDirLight:
         case kRefProjDirLight:
             fLightPB = (IParamBlock2*)rtarg; break;
-        }   
+        }
         //fLightPB = (IParamBlock2*)rtarg;
 }
 
 RefResult plRTLightBase::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message)
-{           
+{
     if( fLightPB )
     {
         ParamID     param = fLightPB->LastNotifyParamID();
@@ -1423,7 +1423,7 @@ void plRTLightBase::BeginEditParams(IObjParam *ip, ULONG flags, Animatable *prev
 }
 
 void plRTLightBase::EndEditParams(IObjParam *ip, ULONG flags, Animatable *next)
-{   
+{
     GenLight::EndEditParams( ip, flags, next );
     fIP = NULL;
     fClassDesc->EndEditParams(ip, this, flags, next);
@@ -1463,8 +1463,8 @@ RefResult plRTLightBase::EvalLightState(TimeValue t, Interval& valid, LightState
     ls->aspect = -1.0;//GetAspect(t, valid);
     ls->overshoot = false;  //GetOvershoot();
     ls->shadow = GetShadow();
-    ls->ambientOnly = false; //fLightPB->GetValue(  kAmbiOnly,t, ls->ambientOnly, valid);   //ls->ambientOnly = fLightP.AmbiOnly;   
-    ls->affectDiffuse = true;   //fLightPB->GetInt(kDiffOn,t);  //ls->affectDiffusey = fLightP.AmbiOnly;    
+    ls->ambientOnly = false; //fLightPB->GetValue(  kAmbiOnly,t, ls->ambientOnly, valid);   //ls->ambientOnly = fLightP.AmbiOnly;
+    ls->affectDiffuse = true;   //fLightPB->GetInt(kDiffOn,t);  //ls->affectDiffusey = fLightP.AmbiOnly;
     ls->affectSpecular = fLightPB->GetInt(kSpec,t); //ls- = fLightP.DiffOn;;
 
     //ls->
@@ -1551,7 +1551,7 @@ float plRTLightBase::GetHotspot(TimeValue t, Interval& valid)
     return f;
 }
 
-void plRTLightBase::SetRGBColor(TimeValue t, Point3& rgb) 
+void plRTLightBase::SetRGBColor(TimeValue t, Point3& rgb)
 {
     //fLightPB->SetValue(plRTLightBase::kRed, t, rgb.x);
     //fLightPB->SetValue(plRTLightBase::kGreen, t, rgb.y);
@@ -1563,7 +1563,7 @@ void plRTLightBase::SetRGBColor(TimeValue t, Point3& rgb)
 }
 
 Point3 plRTLightBase::GetRGBColor(TimeValue t, Interval &valid)
-{   
+{
     //Point3 Foo = Point3(fLightPB->GetInt(plRTLightBase::kRed, t), fLightPB->GetInt(plRTLightBase::kGreen, t), fLightPB->GetInt(plRTLightBase::kBlue, t));
     Point3 rgb;
     fLightPB->GetValue( kLightColor, t, rgb, valid );
@@ -1608,17 +1608,17 @@ void plRTLightBase::SetAtten(TimeValue t, int which, float f)
         fLightPB->SetValue(kAttenMaxFalloffEdit, t, f);
 
     NotifyDependents(FOREVER, PART_ALL, REFMSG_CHANGE);
-}   
+}
 
 
 float plRTLightBase::GetAtten(TimeValue t, int which, Interval& valid)
-{   
+{
     float f = 0.0;
     //if(fLightPB->GetInt(kEndAttenFar, t) == 1)
     //if(LyteType == RT_OMNI)
-    //  fLightPB->GetValue(kStartAttenFar, t, f, FOREVER); 
+    //  fLightPB->GetValue(kStartAttenFar, t, f, FOREVER);
     //else
-    //  fLightPB->GetValue(kStartAttenNear, t, f, FOREVER); 
+    //  fLightPB->GetValue(kStartAttenNear, t, f, FOREVER);
     if(which == LIGHT_ATTEN_START)
         return f;
     else
@@ -1628,7 +1628,7 @@ float plRTLightBase::GetAtten(TimeValue t, int which, Interval& valid)
 }
 
     
-void plRTLightBase::SetTDist(TimeValue t, float f) 
+void plRTLightBase::SetTDist(TimeValue t, float f)
 {
 //  int i;
 //  fLightPB->GetInt(kLightType, t, i);
@@ -1657,7 +1657,7 @@ float plRTLightBase::GetTDist(TimeValue t, Interval& valid)
     return f;
 }
 
-void plRTLightBase::SetConeDisplay(int s, int notify) 
+void plRTLightBase::SetConeDisplay(int s, int notify)
 {
     if(!IsDir())
         fLightPB->SetValue(kShowConeBool, 0, s);
@@ -1691,7 +1691,7 @@ void plRTLightBase::SetProjMap(BitmapInfo* pmap)
 
     //Texmap* MyMap;
     //fLightPB->GetValue(kProjMapTexButton, 0, MyMap, FOREVER);
-    if (fTex) fLightPB->SetValue(kUseProjectorBool, 0, true);   
+    if (fTex) fLightPB->SetValue(kUseProjectorBool, 0, true);
     NotifyDependents(FOREVER,0,REFMSG_SUBANIM_STRUCTURE_CHANGED);
     if( fLightPB->GetMap() )
     {
@@ -1712,8 +1712,8 @@ void plRTLightBase::SetShadow(int a)
     fLightPB->SetValue(kCastShadows, 0, 1);
 }
 
-Texmap* plRTLightBase::GetProjMap() 
-{ 
+Texmap* plRTLightBase::GetProjMap()
+{
     if( !fLightPB->GetInt(kUseProjectorBool) )
         return NULL;
 

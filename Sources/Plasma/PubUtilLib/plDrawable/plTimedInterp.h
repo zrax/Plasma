@@ -50,9 +50,9 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 // fairly general. Adding features would most likely
 // be best implemented in a derived type.
 // Notably lacking features are:
-//      ability to read and write, 
+//      ability to read and write,
 //      auto-eval on significant time change
-//      
+//
 //
 // Requires class T to have the following members
 // T& operator+=(const class T& t);
@@ -104,7 +104,7 @@ plTimedInterp<T>::plTimedInterp(const T& t)
 }
 
 template <class T>
-const T& 
+const T&
 plTimedInterp<T>::Update(double t)
 {
     if( fDuration <= 0 )
@@ -120,7 +120,7 @@ plTimedInterp<T>::Update(double t)
 }
 
 template <class T>
-const T& 
+const T&
 plTimedInterp<T>::SetTarget(const T& targ, double start, double dur)
 {
     fEnd = start + dur;
@@ -133,7 +133,7 @@ plTimedInterp<T>::SetTarget(const T& targ, double start, double dur)
 }
 
 template <class T>
-const T& 
+const T&
 plTimedInterp<T>::IEnd()
 {
     fDuration = 0;
@@ -142,14 +142,14 @@ plTimedInterp<T>::IEnd()
 }
 
 template <class T>
-const T& 
+const T&
 plTimedInterp<T>::IBegin()
 {
     return fCurr;
 }
 
 template <class T>
-const T& 
+const T&
 plTimedInterp<T>::IEval(float parm)
 {
     fCurr = fInit;

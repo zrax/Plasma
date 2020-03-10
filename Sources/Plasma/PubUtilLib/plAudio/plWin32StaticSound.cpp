@@ -102,13 +102,13 @@ bool plWin32StaticSound::LoadSound( bool is3D )
 
         // We need it to be resident to read in
         plSoundBuffer::ELoadReturnVal retVal = IPreLoadBuffer(true);
-        plSoundBuffer *buffer = (plSoundBuffer *)fDataBufferKey->ObjectIsLoaded();  
+        plSoundBuffer *buffer = (plSoundBuffer *)fDataBufferKey->ObjectIsLoaded();
         if(!buffer)
         {
             return plSoundBuffer::kError;
         }
 
-        if( retVal == plSoundBuffer::kPending)  // we are still reading data. 
+        if( retVal == plSoundBuffer::kPending)  // we are still reading data.
         {
             return true;
         }
@@ -212,7 +212,7 @@ void plWin32StaticSound::IDerivedActuallyPlay()
 {
     // Ensure there's a stop notify for us
     if( !fReallyPlaying )
-    {   
+    {
         for(;;)
         {
             if(IsPropertySet(kPropIncidental))

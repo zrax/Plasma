@@ -79,7 +79,7 @@ public:
     static plInputManager*  fInstance;
     virtual bool MsgReceive(plMessage* msg);
     static bool RecenterMouse() { return bRecenterMouse > 0; }
-    static void SetRecenterMouse(bool b); 
+    static void SetRecenterMouse(bool b);
     static void RecenterCursor();
     void CreateInterfaceMod(plPipeline* p);
 
@@ -95,7 +95,7 @@ protected:
     hsTArray<plInputDevice*>    fInputDevices;
     plDInputMgr*                fDInputMgr;
     plInputInterfaceMgr         *fInterfaceMgr;
-    bool                        fActive, fFirstActivated;       
+    bool                        fActive, fFirstActivated;
 
     float                    fMouseScale;
     static uint8_t           bRecenterMouse;

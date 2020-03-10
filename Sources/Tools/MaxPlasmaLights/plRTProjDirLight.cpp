@@ -162,8 +162,8 @@ void    plRTProjPBAccessor::Get( PB2Value& v, ReferenceMaker* owner, ParamID id,
 
 plRTProjDirLight::plRTProjDirLight()
 {
-    fIP = nil; 
-    fLightPB = nil; 
+    fIP = nil;
+    fLightPB = nil;
     fProjPB = nil;
     fClassDesc = plRTProjDirLightDesc::GetDesc();
     fClassDesc->MakeAutoParamBlocks( this );
@@ -172,7 +172,7 @@ plRTProjDirLight::plRTProjDirLight()
     SetHSVColor(0, Point3(255, 255, 255));
     
     fTex = nil;
-    meshBuilt = 0; 
+    meshBuilt = 0;
     
     IBuildMeshes(true);
 }
@@ -197,22 +197,22 @@ RefTargetHandle plRTProjDirLight::Clone( RemapDir &remap )
 Animatable  *plRTProjDirLight::SubAnim( int i )
 {
     switch( i )
-    {           
+    {
         case 0:
             return (Animatable *)fLightPB;
         case 1:
             return (Animatable *)fProjPB;
-        default: 
+        default:
             return nil;
     }
 }
 
 //// SubAnimName /////////////////////////////////////////////////////////////
 
-TSTR    plRTProjDirLight::SubAnimName( int i ) 
-{ 
-    switch( i ) 
-    {   
+TSTR    plRTProjDirLight::SubAnimName( int i )
+{
+    switch( i )
+    {
         case 0:
             return fLightPB->GetLocalName();
         case 1:
@@ -235,16 +235,16 @@ RefTargetHandle plRTProjDirLight::GetReference( int i )
         default:
             return plRTLightBase::GetReference( i );
     }
-}       
+}
 
 //// SetReference ////////////////////////////////////////////////////////////
 
 void    plRTProjDirLight::SetReference( int ref, RefTargetHandle rtarg )
 {
     switch( ref )
-    {       
+    {
         case kRefMainRollout:
-            fLightPB = (IParamBlock2 *)rtarg; 
+            fLightPB = (IParamBlock2 *)rtarg;
             break;
         case kRefProjRollout:
             fProjPB = (IParamBlock2 *)rtarg;
@@ -253,7 +253,7 @@ void    plRTProjDirLight::SetReference( int ref, RefTargetHandle rtarg )
         default:
             plRTLightBase::SetReference( ref, rtarg );
             break;
-    }   
+    }
 }
 
 //// ParamBlock Functions ////////////////////////////////////////////////////
@@ -282,8 +282,8 @@ IParamBlock2    *plRTProjDirLight::GetParamBlockByID( BlockID id )
 
 //// GetProjMap //////////////////////////////////////////////////////////////
 
-Texmap  *plRTProjDirLight::GetProjMap() 
-{ 
+Texmap  *plRTProjDirLight::GetProjMap()
+{
     // If we don't have one, create one
     plLayerTex  *layer = (plLayerTex *)fProjPB->GetTexmap( kTexmap, 0 );
     if( layer == nil || layer->ClassID() != LAYER_TEX_CLASS_ID )
@@ -320,7 +320,7 @@ Texmap  *plRTProjDirLight::GetProjMap()
     
 //// IBuildMeshes ////////////////////////////////////////////////////////////
 
-void    plRTProjDirLight::IBuildMeshes( BOOL isnew ) 
+void    plRTProjDirLight::IBuildMeshes( BOOL isnew )
 {
     BuildStaticMeshes();
 
@@ -358,7 +358,7 @@ void    plRTProjDirLight::GetLocalBoundBox( TimeValue t, INode *node, ViewExp *v
 
 //// DrawConeAndLine /////////////////////////////////////////////////////////
 
-int     plRTProjDirLight::DrawConeAndLine( TimeValue t, INode* inode, GraphicsWindow *gw, int drawing ) 
+int     plRTProjDirLight::DrawConeAndLine( TimeValue t, INode* inode, GraphicsWindow *gw, int drawing )
 {
     Matrix3 tm = inode->GetObjectTM( t );
     gw->setTransform( tm );
@@ -374,7 +374,7 @@ int     plRTProjDirLight::DrawConeAndLine( TimeValue t, INode* inode, GraphicsWi
 //  Function called by MAX to render the cone shape in the viewport for this
 //  light. Note that this is the cone, not the actual object itself!
 
-void    plRTProjDirLight::DrawCone( TimeValue t, GraphicsWindow *gw, float dist ) 
+void    plRTProjDirLight::DrawCone( TimeValue t, GraphicsWindow *gw, float dist )
 {
     Point3  nearPts[ 5 ], farPts[ 5 ], u[ 3 ];
     int     i;

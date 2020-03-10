@@ -72,7 +72,7 @@ class plStencilCaps
         enum CompareFuncs
         {
             kCmpNever = 0,
-            kCmpLessThan,           
+            kCmpLessThan,
             kCmpEqual,
             kCmpLessThanOrEqual,
             kCmpGreaterThan,

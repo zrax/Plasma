@@ -45,7 +45,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 //                         static public string arrays representing the names
 //                         of the classes before and after keyedObjDelineator
 //                         in plCreatableIndex.h. Note the cunning (and humble)
-//                         use of macros to avoid having to change this file 
+//                         use of macros to avoid having to change this file
 //                         whenever plCreatableIndex.h changes.
 //
 //                         Should only be included once, probably in plFactory.cpp
@@ -78,13 +78,13 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
     }; \
     const char *plCreatableStrings::fKeyedStrings[] = {
 #define CLASS_INDEX(ci) #ci
-#define CLASS_INDEX_NONKEYED_OBJ_START      }; const char *plCreatableStrings::fNonKeyedStrings[] = { 
+#define CLASS_INDEX_NONKEYED_OBJ_START      }; const char *plCreatableStrings::fNonKeyedStrings[] = {
 #define CLASS_INDEX_LIST_END    };
 
 #undef CLASS_INDEX_DATABASE_STRUCT_INDEXES_START
 #undef CLASS_INDEX_DATABASE_STRUCT_INDEXES_END
 #define CLASS_INDEX_DATABASE_STRUCT_INDEXES_START
-#define CLASS_INDEX_DATABASE_STRUCT_INDEXES_END     }; const char *plCreatableStrings::fNonKeyedPostDBStrings[] = { 
+#define CLASS_INDEX_DATABASE_STRUCT_INDEXES_END     }; const char *plCreatableStrings::fNonKeyedPostDBStrings[] = {
 
 // Step 3: Include plCI.h
 

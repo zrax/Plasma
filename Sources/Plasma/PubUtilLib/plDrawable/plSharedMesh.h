@@ -55,7 +55,7 @@ class plMorphDataSet;
 class plSharedMesh : public hsKeyedObject
 {
 public:
-    enum 
+    enum
     {
         kDontSaveMorphState = 0x1,  // Don't save state (duh). Used for a morph that only has global layers
         kLayer0GlobalToMod  = 0x2   // This mesh's weight for layer 0 should be applied to all meshes on
@@ -76,10 +76,10 @@ public:
     CLASSNAME_REGISTER( plSharedMesh );
     GETINTERFACE_ANY( plSharedMesh, hsKeyedObject );
     
-    virtual bool MsgReceive(plMessage* msg);  
+    virtual bool MsgReceive(plMessage* msg);
 
     virtual void Read(hsStream* s, hsResMgr* mgr);
-    virtual void Write(hsStream* s, hsResMgr* mgr); 
+    virtual void Write(hsStream* s, hsResMgr* mgr);
 };
 
 class plSharedMeshBCMsg : public plMessage
@@ -96,7 +96,7 @@ public:
     GETINTERFACE_ANY( plSharedMeshBCMsg, plMessage );
 
     virtual void Read(hsStream* s, hsResMgr* mgr) {}
-    virtual void Write(hsStream* s, hsResMgr* mgr) {}       
+    virtual void Write(hsStream* s, hsResMgr* mgr) {}
 };
 
 

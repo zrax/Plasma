@@ -80,5 +80,5 @@ const wchar_t * NetProtocolToString (ENetProtocol protocol) {
         if (s_protocols[i].protocol == protocol)
             return s_protocols[i].name;
 
-    return L"Unknown protocol id";  
+    return L"Unknown protocol id";
 }

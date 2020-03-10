@@ -93,7 +93,7 @@ public:
    20   8/13/01 mcn     Not that I know of. Change to various object formats to support object instancing.
    21   8/20/01 mf      Like you'd know. Revised inter-object dependency connections throughout the five scene graphs.
    22   8/21/01 mf      CoordinateInterfaces keep refs to child SceneObjects instead of child CoordinateInterfaces.
-   22   8/21/01 mcn     You hurt my feelings. I bump major version in retaliation. (Also upped max UV count) 
+   22   8/21/01 mcn     You hurt my feelings. I bump major version in retaliation. (Also upped max UV count)
    23   8/24/01 mf      Made runtime lights respect Max's OTM.
    24   8/26/01 mcn     Changed plSound format to support stereo (background music) sounds
    25   9/05/01 thamer  Changed uoid to support 32bit clones
@@ -109,7 +109,7 @@ public:
    35  10/30/01 mf      Change to span format, breaks anything with visible geometry.
    36   11/5/01 mcn     Changed structure of sound classes to be far more intuitive and bug-free.
    37   11/9/01 ee      Just for fun.
-   38  11/13/01 bob     Changed file format for plAnimTimeConvert / plAnimCmdMsg / plAGAnim (sense a theme?) 
+   38  11/13/01 bob     Changed file format for plAnimTimeConvert / plAnimCmdMsg / plAGAnim (sense a theme?)
    39  11/25/01 mf      More sorting info for drawable geometry.
    40  11/29/01 mcn     Fixed sound fade param read/write. Anything with sounds must be re-exported.
    41  12/04/01 bob     More animation file format changes.
@@ -120,13 +120,13 @@ public:
    46  12/28/01 mf      DrawInterface format change to purge the last of the Opaque/Blending dualism.
    47    1/2/01 mf      Decoupled the hardware and software skinning vertex formats.
    48    1/6/01 mf      Added grey area to Soft Regions (formerly Soft Volumes).
-   49   1/17/02 cp      new camera system checked into client and plugins   
+   49   1/17/02 cp      new camera system checked into client and plugins
    50   1/21/02 Colin   Physics changes
    51   1/24/02 Colin   Animation format change
    52   2/14/02 bob     plAnimTimeConvert format change
    53   2/14/02 matt    made all brains non-keyed. reordering all over the place
-   54   3/15/02 cjp     new LOS query types, format change to plHKPhysical  
-   55   4/09/02 cjp     more new LOS query types, format change to plHKPhysical, camera type changes    
+   54   3/15/02 cjp     new LOS query types, format change to plHKPhysical
+   55   4/09/02 cjp     more new LOS query types, format change to plHKPhysical, camera type changes
    56   4/23/02 bob     nuked plSimpleModifier from plAGMasterMod. Changes file format for animation.
    57   5/17/02 Colin   Changed Uoid format for cloning
    58   7/02/02 thamer  Changed synchedOject R/W format to support more LocalOnly options
@@ -150,7 +150,7 @@ public:
     2   5/9/01  mcn     Changed color components of drawableSpans
     0   5/11/01 mf      Dropped back to zero on Major Version change
     1   8/06/01 thamer  Upped the version for mf's anim callback changes.
-    2   8/06/01 bob     Changes to particle system read/write. 
+    2   8/06/01 bob     Changes to particle system read/write.
     0   8/13/01 mcn     Bumped back to 0 due to major version change.
     1   8/23/01 bob     Added animation controller to particle systems, changing their format.
     0   8/24/01 mcn     Bumped back to 0 yet again.
@@ -182,7 +182,7 @@ public:
    3    1/31/02  Colin  File format change to logic modifier (all detector components)
    4    2/13/02  Colin  File format change to ladder modifier
    0    2/14/02  bob    Reset to zero for major change.
-   1(5) 2/14/02  mcn    GUI control format changes to support dynamic text layers (the RIGHT way) 
+   1(5) 2/14/02  mcn    GUI control format changes to support dynamic text layers (the RIGHT way)
    2(6) 2/19/02  mcn    Added version field to dialogs, to allow synching with C++ and Python code (just in case)
    7    3/01/02  mcn    Moved GUI controls to pfGUIColorScheme methods of handling colors/fonts
    8    3/01/02  cjp    changed format of new camera brains, only affects the few using them right now
@@ -231,10 +231,10 @@ public:
    8    9/25/02  mcn    Support for new grouped random sound objects
    9    10/15/02 mcn    Material anim support in GUI controls
    10   10/21/02 mcn    Variable volume support to group sounds. No format break.
-   11   10/29/02 cjp    proper python notification of avatar page out & last avatar out plus elevator persistance fix - breaks message format for exclude regions 
-   12   10/29/02 mcn    Fixing chris's booboo 
+   11   10/29/02 cjp    proper python notification of avatar page out & last avatar out plus elevator persistance fix - breaks message format for exclude regions
+   12   10/29/02 mcn    Fixing chris's booboo
    13   10/29/02 cjp    Changed camera component data format slightly.
-   16   11/18.02 cjp    changed camera speed components & objects, don't know where v 14 & 15 went  
+   16   11/18.02 cjp    changed camera speed components & objects, don't know where v 14 & 15 went
    17   12/04/20 matt    New line-of-sight categories; format change for physicals.
    18   12/05/02 mf     Enhanced linefollowmod to play nice with stereizer, and added field to occluder's cullpoly.
    19   12/17/02 matt   Bumped armaturemod, based on strong circumstantial evidenced that I missed something.

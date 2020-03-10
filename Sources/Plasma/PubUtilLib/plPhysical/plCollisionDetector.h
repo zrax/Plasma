@@ -120,10 +120,10 @@ protected:
 
 public:
     
-    plObjectInVolumeDetector() 
+    plObjectInVolumeDetector()
         : plCollisionDetector(), fWaitingForEval(false) { }
 
-    plObjectInVolumeDetector(int8_t type) 
+    plObjectInVolumeDetector(int8_t type)
         : plCollisionDetector(type), fWaitingForEval(false) { }
 
     virtual ~plObjectInVolumeDetector() { }
@@ -241,7 +241,7 @@ public:
     GETINTERFACE_ANY( plPanicLinkRegion, plCollisionDetector );
 
     void Read(hsStream* stream, hsResMgr* mgr);
-    void Write(hsStream* stream, hsResMgr* mgr);    
+    void Write(hsStream* stream, hsResMgr* mgr);
 };
 
 
@@ -285,7 +285,7 @@ public:
     GETINTERFACE_ANY( plSwimDetector, plSimpleRegionSensor);
     
     virtual void Write(hsStream *stream, hsResMgr *mgr);
-    virtual void Read(hsStream *stream, hsResMgr *mgr); 
+    virtual void Read(hsStream *stream, hsResMgr *mgr);
     bool MsgReceive(plMessage *msg);
 };
 class plRidingAnimatedPhysicalDetector: public plSimpleRegionSensor

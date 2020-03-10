@@ -72,20 +72,20 @@ static ParamBlockDesc2 gDecalAnimPB
     // Anim Ease
     kPBAnimEaseInType,  _T("easeInType"),   TYPE_INT,       0, 0,
         end,
-    kPBAnimEaseInLength,    _T("easeInLength"), TYPE_FLOAT,     0, 0,   
+    kPBAnimEaseInLength,    _T("easeInLength"), TYPE_FLOAT,     0, 0,
         end,
-    kPBAnimEaseInMin,       _T("easeInMin"),    TYPE_FLOAT,     0, 0,   
+    kPBAnimEaseInMin,       _T("easeInMin"),    TYPE_FLOAT,     0, 0,
         end,
-    kPBAnimEaseInMax,   _T("easeInMax"),    TYPE_FLOAT,     0, 0,   
+    kPBAnimEaseInMax,   _T("easeInMax"),    TYPE_FLOAT,     0, 0,
         end,
 
     kPBAnimEaseOutType, _T("easeOutType"),  TYPE_INT,       0, 0,
         end,
-    kPBAnimEaseOutLength,   _T("easeOutLength"),    TYPE_FLOAT,     0, 0,   
+    kPBAnimEaseOutLength,   _T("easeOutLength"),    TYPE_FLOAT,     0, 0,
         end,
-    kPBAnimEaseOutMin,      _T("easeOutMin"),   TYPE_FLOAT,     0, 0,   
+    kPBAnimEaseOutMin,      _T("easeOutMin"),   TYPE_FLOAT,     0, 0,
         end,
-    kPBAnimEaseOutMax,  _T("easeOutMax"),   TYPE_FLOAT,     0, 0,   
+    kPBAnimEaseOutMax,  _T("easeOutMax"),   TYPE_FLOAT,     0, 0,
         end,
 
 #endif // MCN_UPGRADE_OLD_ANIM_BLOCKS

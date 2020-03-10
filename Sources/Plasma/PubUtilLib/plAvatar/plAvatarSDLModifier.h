@@ -47,7 +47,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 
 //
-// This modifier is responsible for sending and recving 
+// This modifier is responsible for sending and recving
 // an avatar's state
 //
 class plStateDataRecord;
@@ -83,10 +83,10 @@ protected:
     static char kStrBrainStack[];
     static char kStrInvisibilityLevel[];
 
-    // var labels 
+    // var labels
     struct StandardStageVarNames
     {
-        static char kStrName[]; 
+        static char kStrName[];
         static char kStrNumLoops[];
         static char kStrForward[];
         static char kStrBackward[];
@@ -99,13 +99,13 @@ protected:
         static char kStrUseGlobalCoords[];
         static char kStrLocalTime[];
         static char kStrCurrentLoop[];
-        static char kStrIsAttached[];       
+        static char kStrIsAttached[];
     };
 
     struct GenericBrainVarNames
     {
-        static char kStrStages[];       
-        static char kStrCurrentStage[];     
+        static char kStrStages[];
+        static char kStrCurrentStage[];
         static char kStrFreezePhysicalAtEnd[];
         static char kStrCallbackRcvr[];
         static char kStrMovingForward[];
@@ -116,7 +116,7 @@ protected:
         static char kStrFadeOut[];
         static char kStrMoveMode[];
         static char kStrBodyUsage[];
-    }; 
+    };
 
 
     struct BrainUnionVarNames

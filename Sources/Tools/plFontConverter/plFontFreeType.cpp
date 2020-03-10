@@ -185,7 +185,7 @@ bool    plFontFreeType::ImportFreeType( const plFileName &fontPath, Options *opt
             strcpy( str, ftFace->family_name );
         SetFace( str );
 
-        // # of bytes per row 
+        // # of bytes per row
         uint32_t stride = ( fBPP == 1 ) ? ( fWidth >> 3 ) : fWidth;
 
         // Pre-expand our char list

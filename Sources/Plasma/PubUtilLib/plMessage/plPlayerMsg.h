@@ -59,13 +59,13 @@ protected:
 
 public:
     plPlayerMsg() { SetBCastFlag(plMessage::kBCastByExactType); }
-    plPlayerMsg(const plKey &s, 
-                    const plKey &r, 
+    plPlayerMsg(const plKey &s,
+                    const plKey &r,
                     const double* t){ SetBCastFlag(plMessage::kBCastByExactType);    }
     ~plPlayerMsg() { }
 
     CLASSNAME_REGISTER( plPlayerMsg );
-    GETINTERFACE_ANY( plPlayerMsg, plMessage ); 
+    GETINTERFACE_ANY( plPlayerMsg, plMessage );
 
     enum ModCmds
     {
@@ -85,7 +85,7 @@ public:
     const hsPoint3 GetTargPoint() { return targPoint; }
     void SetTargPoint(hsPoint3 pt) { targPoint = pt; }
 
-    // IO 
+    // IO
     void Read(hsStream* stream, hsResMgr* mgr)
     {
         plMessage::IMsgRead(stream, mgr);

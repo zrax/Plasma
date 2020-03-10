@@ -171,7 +171,7 @@ inline uint16_t hsSwapEndian16(uint16_t value)
 }
 inline uint32_t hsSwapEndian32(uint32_t value)
 {
-    return ((value)              << 24) | 
+    return ((value)              << 24) |
             ((value & 0x0000ff00) << 8)  |
             ((value & 0x00ff0000) >> 8)  |
             ((value)              >> 24);
@@ -348,13 +348,13 @@ enum {
 };
 
 enum {          // RETURN VALUES FROM hsMessageBox
-    hsMBoxOk = 1,       // OK button was selected. 
-    hsMBoxCancel,   // Cancel button was selected. 
-    hsMBoxAbort,    // Abort button was selected. 
-    hsMBoxRetry,    // Retry button was selected. 
-    hsMBoxIgnore,   // Ignore button was selected. 
-    hsMBoxYes,      // Yes button was selected. 
-    hsMBoxNo        // No button was selected. 
+    hsMBoxOk = 1,       // OK button was selected.
+    hsMBoxCancel,   // Cancel button was selected.
+    hsMBoxAbort,    // Abort button was selected.
+    hsMBoxRetry,    // Retry button was selected.
+    hsMBoxIgnore,   // Ignore button was selected.
+    hsMBoxYes,      // Yes button was selected.
+    hsMBoxNo        // No button was selected.
 };
 
 extern bool hsMessageBox_SuppressPrompts;

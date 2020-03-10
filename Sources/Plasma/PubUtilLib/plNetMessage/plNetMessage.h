@@ -78,13 +78,13 @@ class plNetCommonMessage;
 class plKey;
 
 class plNetMessage : public plCreatable
-{   
+{
     friend class plNetServerMsgPlsRoutableMsg;
 
-    uint32_t fFlags;      // indicates what is present in the message, always transmitted 
+    uint32_t fFlags;      // indicates what is present in the message, always transmitted
     plUnifiedTime fTimeSent;    // time msg was sent (in sender's unified timeSpace), always transmitted to and from the client
-    double fTimeRecvd;      // time msg was recvd (in rcvrs timeSpace), never transmitted 
-    uint32_t fBytesRead;      // amount of data we've already read, never transmitted 
+    double fTimeRecvd;      // time msg was recvd (in rcvrs timeSpace), never transmitted
+    uint32_t fBytesRead;      // amount of data we've already read, never transmitted
     uint32_t fContext;        // set by sender, included in reply. Only written if kHasContext flag set
     uint32_t fTransactionID;  // set by originator, included in reply. Only written if kHasTransactionID flag set
     uint32_t fPlayerID;       // set by originator. Only written if kHasPlayerID flag set
@@ -105,7 +105,7 @@ class plNetMessage : public plCreatable
         kNetMsgVersion,
     };
 
-protected:  
+protected:
     virtual int IPokeBuffer(hsStream* stream, uint32_t peekOptions=0);
     virtual int IPeekBuffer(hsStream* stream, uint32_t peekOptions=0);
 
@@ -273,7 +273,7 @@ public:
     }
 };
 
-// 
+//
 // for msgs which only go from the gameserver to the client
 //
 class plNetMsgServerToClient : public plNetMessage
@@ -416,14 +416,14 @@ public:
 //
 class plNetMsgSDLStateBCast : public plNetMsgSDLState
 {
-protected:  
+protected:
     int IPokeBuffer(hsStream* stream, uint32_t peekOptions=0);
     int IPeekBuffer(hsStream* stream, uint32_t peekOptions=0);
-public: 
+public:
     CLASSNAME_REGISTER( plNetMsgSDLStateBCast );
     GETINTERFACE_ANY(plNetMsgSDLStateBCast, plNetMsgSDLState);
 
-    // virtuals 
+    // virtuals
     bool NeedsBroadcast() const { return true; }
 
     void ReadVersion(hsStream* s, hsResMgr* mgr);
@@ -449,7 +449,7 @@ public:
 class plNetMsgRoomsList : public plNetMessage
 {
 protected:
-    std::vector<plLocation> fRooms; 
+    std::vector<plLocation> fRooms;
     std::vector<ST::string> fRoomNames;    // for debug usage only
 
     int IPokeBuffer(hsStream* stream, uint32_t peekOptions=0);
@@ -530,7 +530,7 @@ protected:
     plNetMsgObjectHelper fObjectHelper;
 
     int IPokeBuffer(hsStream* stream, uint32_t peekOptions=0);
-    int IPeekBuffer(hsStream* stream, uint32_t peekOptions=0);    
+    int IPeekBuffer(hsStream* stream, uint32_t peekOptions=0);
 public:
 
     CLASSNAME_REGISTER( plNetMsgLoadClone );
@@ -568,7 +568,7 @@ class plNetMsgPlayerPage : public plNetMessage
 {
 protected:
     int IPokeBuffer(hsStream* stream, uint32_t peekOptions=0);
-    int IPeekBuffer(hsStream* stream, uint32_t peekOptions=0);    
+    int IPeekBuffer(hsStream* stream, uint32_t peekOptions=0);
 public:
     plUoid  fUoid;
     bool fUnload;
@@ -594,13 +594,13 @@ protected:
     plNetMsgReceiversListHelper fReceivers;
 
     int IPokeBuffer(hsStream* stream, uint32_t peekOptions=0);
-    int IPeekBuffer(hsStream* stream, uint32_t peekOptions=0);    
+    int IPeekBuffer(hsStream* stream, uint32_t peekOptions=0);
 public:
     CLASSNAME_REGISTER( plNetMsgGameMessageDirected );
     GETINTERFACE_ANY_AUX(plNetMsgGameMessageDirected,plNetMsgGameMessage,
         plNetMsgReceiversListHelper,fReceivers)
 
-    plNetMsgReceiversListHelper* Receivers() { return &fReceivers; }    
+    plNetMsgReceiversListHelper* Receivers() { return &fReceivers; }
 
     // virtuals
     void ReadVersion(hsStream* s, hsResMgr* mgr);
@@ -642,7 +642,7 @@ public:
     bool GetResetList() const { return (fPageFlags & kResetList) != 0; }
 
     void SetRequestingState(bool b) { if (b) fPageFlags |= kRequestState; else fPageFlags &=~kRequestState; }
-    bool GetRequestingState() const { return (fPageFlags & kRequestState) != 0; } 
+    bool GetRequestingState() const { return (fPageFlags & kRequestState) != 0; }
 
     // debug
     ST::string AsString() const HS_OVERRIDE
@@ -663,7 +663,7 @@ public:
     plNetMsgGameStateRequest() { SetBit(kIsSystemMessage|kNeedsReliableSend); }
 
     CLASSNAME_REGISTER( plNetMsgGameStateRequest );
-    GETINTERFACE_ANY( plNetMsgGameStateRequest, plNetMsgRoomsList );    
+    GETINTERFACE_ANY( plNetMsgGameStateRequest, plNetMsgRoomsList );
 };
 
 //
@@ -685,7 +685,7 @@ public:
         GroupInfo(plNetGroupId gID, bool o) : fGroupID(gID),fOwnIt(o) {}
     };
 protected:
-    std::vector<GroupInfo> fGroups; 
+    std::vector<GroupInfo> fGroups;
 
     int IPokeBuffer(hsStream* stream, uint32_t peekOptions=0);
     int IPeekBuffer(hsStream* stream, uint32_t peekOptions=0);
@@ -784,7 +784,7 @@ public:
     void CopySharedState(plNetSharedState* ss);
 
     void SetLockRequest(bool b) { fLockRequest=b; }
-    bool GetLockRequest() const { return fLockRequest; }  
+    bool GetLockRequest() const { return fLockRequest; }
 
     void ReadVersion(hsStream* s, hsResMgr* mgr);
     void WriteVersion(hsStream* s, hsResMgr* mgr);
@@ -914,7 +914,7 @@ public:
 class plNetMsgListenListUpdate : public plNetMessage
 {
 private:
-    plNetMsgReceiversListHelper fReceivers;     // used by server, the players we're listening to 
+    plNetMsgReceiversListHelper fReceivers;     // used by server, the players we're listening to
     bool fAdding;                           // else removing
 
     int IPokeBuffer(hsStream* stream, uint32_t peekOptions=0);

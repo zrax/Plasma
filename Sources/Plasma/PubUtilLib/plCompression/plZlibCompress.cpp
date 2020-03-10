@@ -96,7 +96,7 @@ bool plZlibCompress::Compress(uint8_t** bufIn, uint32_t* bufLenIn, int offset)
     uint32_t bufLenOut = (int)(adjBufLenIn*1.1+12);
     char* bufOut = new char[bufLenOut];
     
-    bool ok=(Compress((uint8_t*)bufOut, &bufLenOut, (uint8_t*)adjBufIn, adjBufLenIn) && 
+    bool ok=(Compress((uint8_t*)bufOut, &bufLenOut, (uint8_t*)adjBufIn, adjBufLenIn) &&
         bufLenOut < adjBufLenIn);
     return ICopyBuffers(bufIn, bufLenIn, bufOut, bufLenOut, offset, ok);
 }

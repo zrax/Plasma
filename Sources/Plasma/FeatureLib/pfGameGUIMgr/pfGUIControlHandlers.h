@@ -51,7 +51,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "hsStream.h"
 
 //// pfGUICtrlProcObject Definition //////////////////////////////////////////
-//  Any control which "does something" (buttons, edit boxes on Enter/Return, 
+//  Any control which "does something" (buttons, edit boxes on Enter/Return,
 //  etc) uses this in some form. Basically, each control will have an (optional?)
 //  pointer to an object derived from this class type. The class has a single
 //  standard, virtual function that gets called on the "do something" event.
@@ -63,7 +63,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 //  Note the second: DoSomething() takes a parameter--namely, a pointer to
 //  the control that called it. Thus, you can make one object handle
 //  several controls by just switch()ing on that parameter and save yourself
-//  some object creation. 
+//  some object creation.
 //
 //  UserCallback() is an additional function for use in communicating between
 //  procs. Basically, if you want another proc to do something (another dialog),

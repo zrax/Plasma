@@ -48,7 +48,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plMessage/plCondRefMsg.h"
 
 
-plORConditionalObject::plORConditionalObject() 
+plORConditionalObject::plORConditionalObject()
 {
     
 }
@@ -81,7 +81,7 @@ void plORConditionalObject::SetLogicMod(plLogicModBase* pMod)
     }
 }
 
-bool plORConditionalObject::Satisfied() 
+bool plORConditionalObject::Satisfied()
 {
     for (int i = 0; i < fChildren.Count(); i++)
     {
@@ -111,10 +111,10 @@ void plORConditionalObject::Read(hsStream* stream, hsResMgr* mgr)
     int n = stream->ReadLE32();
     fChildren.SetCountAndZero(n);
     for(int i = 0; i < n; i++ )
-    {   
+    {
         refMsg = new plCondRefMsg(GetKey(), i);
         mgr->ReadKeyNotifyMe(stream,refMsg, plRefFlags::kActiveRef);
-    }   
+    }
 }
 
 void plORConditionalObject::Write(hsStream* stream, hsResMgr* mgr)

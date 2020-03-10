@@ -45,7 +45,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
     // Using Fixed Key feature:
     // Add a new fixedkey to the enum list below.
-    // Then add, to the Seed list (in plFixedKey.cpp) in the Corresponding 
+    // Then add, to the Seed list (in plFixedKey.cpp) in the Corresponding
     // position, (don't screw up, it will be validated...)
     // The "Full Address" data for you Fixed key (see rules in plFixedKey.cpp)
 
@@ -55,7 +55,7 @@ enum plFixedKeyId
 
     kLOSObject_KEY,
     kTimerCallbackManager_KEY,
-    kConsoleObject_KEY, 
+    kConsoleObject_KEY,
     kAudioSystem_KEY,
     kInput_KEY,
     kClient_KEY,

@@ -240,7 +240,7 @@ bool plAVIWriterImp::Open(const char* fileName, plPipeline* pipeline)
         }
 
         IFillBitmapInfo(&fBitmapInfo, pipeline);
-        err = AVIStreamSetFormat(   fCompressedHandle, 0, 
+        err = AVIStreamSetFormat(   fCompressedHandle, 0,
                                     &fBitmapInfo,   // stream format
                                     fBitmapInfo.biSize);
     } while (err != AVIERR_OK &&

@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/PubUtilLib/plVault/plVaultNodeAccess.cpp
-*   
+*
 ***/
 
 #include "Pch.h"
@@ -159,13 +159,13 @@ bool VaultSDLNode::GetStateDataRecord (plStateDataRecord * rec, unsigned readOpt
 
     // Note: Setting from default here results in a bug causing age SDL to
     // be incorrectly shown when immediately linking back to an age you linked
-    // out of (relto door will be closed, window shut, etc).    
+    // out of (relto door will be closed, window shut, etc).
     // rec->SetFromDefaults(false);
 
     if (!rec->Read( &ram, 0, readOptions))
         return false;
         
-    // If we converted the record to a newer version, re-save it.       
+    // If we converted the record to a newer version, re-save it.
     if (rec->GetDescriptor()->GetVersion() != sdlRecVersion)
         SetStateDataRecord(rec, readOptions);
     
@@ -320,7 +320,7 @@ void VaultAgeLinkNode::AddSpawnPoint (const plSpawnPointInfo & point) {
     if ( std::find_if( points.begin(), points.end(), MatchesSpawnPointTitle( point.fTitle ) )!=points.end() )
         return;
 
-    // only check to see if the titles are the same... 
+    // only check to see if the titles are the same...
     //... so we can add the same spawnpoint as long as they have different titles
         //if ( std::find_if( points.begin(), points.end(), MatchesSpawnPointName( point.fSpawnPt.c_str() ) )!=points.end() )
         //  return;
@@ -335,7 +335,7 @@ void VaultAgeLinkNode::AddSpawnPoint (const plSpawnPointInfo & point) {
 void VaultAgeLinkNode::RemoveSpawnPoint (const ST::string & spawnPtName) {
 
     plSpawnPointVec points;
-    GetSpawnPoints( &points );                                                  
+    GetSpawnPoints( &points );
     plSpawnPointVec::iterator it = std::find_if( points.begin(), points.end(), MatchesSpawnPointName( spawnPtName ) );
     while ( it!=points.end() )
     {
@@ -351,7 +351,7 @@ void VaultAgeLinkNode::RemoveSpawnPoint (const ST::string & spawnPtName) {
 bool VaultAgeLinkNode::HasSpawnPoint (const ST::string & spawnPtName) const {
 
     plSpawnPointVec points;
-    GetSpawnPoints( &points );                                                  
+    GetSpawnPoints( &points );
     return ( std::find_if( points.begin(), points.end(), MatchesSpawnPointName( spawnPtName ) )!=points.end() );
 }
 #endif

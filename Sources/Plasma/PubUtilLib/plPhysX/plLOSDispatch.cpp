@@ -218,7 +218,7 @@ bool plLOSDispatch::MsgReceive(plMessage* msg)
         NxRay worldRay;
         worldRay.dir = plPXConvert::Vector(norm);
         worldRay.orig = plPXConvert::Point(from);
-        //PhysX will complain to log if ray distance is less than or equal to Zero, besides shouldn't  bother throwing 
+        //PhysX will complain to log if ray distance is less than or equal to Zero, besides shouldn't  bother throwing
         // a point, and if we have negative we have some serious problems
         if(dist>0.0f)
         {

@@ -65,7 +65,7 @@ enum PageCond
 // Represents one entire (age,page) location and contains all keys in that
 // location. Note: just because the node exists does not mean that the keys are loaded.
 //
-class plRegistryPageNode 
+class plRegistryPageNode
 {
 protected:
     friend class plKeyFinder;

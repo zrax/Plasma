@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/NucleusLib/pnAsyncCoreExe/Private/Win32/pnAceW32Dns.cpp
-*   
+*
 ***/
 
 #include "../../Pch.h"
@@ -161,7 +161,7 @@ static unsigned THREADCALL LookupThreadProc (AsyncThread * thread) {
         WINDOW_CLASS,
         WINDOW_CLASS,
         WS_OVERLAPPED,
-        CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, 
+        CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
         (HWND)0,
         (HMENU) 0,
         wc.hInstance,
@@ -266,8 +266,8 @@ void DnsDestroy (unsigned exitThreadWaitMs) {
 void AsyncAddressLookupName (
     AsyncCancelId *     cancelId,   // out
     FAsyncLookupProc    lookupProc,
-    const char*         name, 
-    unsigned            port, 
+    const char*         name,
+    unsigned            port,
     void *              param
 ) {
     ASSERT(lookupProc);
@@ -352,7 +352,7 @@ void AsyncAddressLookupAddr (
         // Perform async lookup
         u_long addr = ((const sockaddr_in *) &address)->sin_addr.S_un.S_addr;
         lookup->cancelHandle = WSAAsyncGetHostByAddr(
-            s_lookupWindow, 
+            s_lookupWindow,
             WM_LOOKUP_FOUND_HOST,
             (const char *) &addr,
             sizeof(addr),

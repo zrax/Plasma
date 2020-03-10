@@ -80,7 +80,7 @@ public:
     virtual bool CheckAskOrCancel() { return false; }
 
     // Show - If condition is true, displays message, returns true
-    virtual bool Show() { return false; } 
+    virtual bool Show() { return false; }
 
     // CheckAndShow - If condition is true, shows message box then throws self, else return false
     virtual bool CheckAndShow() { return false; }

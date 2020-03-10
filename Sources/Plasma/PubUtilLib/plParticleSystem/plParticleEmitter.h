@@ -78,13 +78,13 @@ public:
     uint32_t GetSpanIndex() const { return fSpanIndex; }
     const hsMatrix44 &GetLocalToWorld() const;
 
-    void AddParticle(hsPoint3 &pos, hsVector3 &velocity, uint32_t tileIndex, 
+    void AddParticle(hsPoint3 &pos, hsVector3 &velocity, uint32_t tileIndex,
                      float hSize, float vSize, float scale, float invMass, float life,
                      hsPoint3 &orientation, uint32_t miscFlags, float radsPerSec=0);
     void WipeExistingParticles();
-    void KillParticles(float num, float timeToDie, uint8_t flags);  
+    void KillParticles(float num, float timeToDie, uint8_t flags);
     uint16_t StealParticlesFrom(plParticleEmitter *victim, uint16_t num); // returns the number actually stolen
-    void TranslateAllParticles(hsPoint3 &amount); // Used to recenter the system when linking between ages. 
+    void TranslateAllParticles(hsPoint3 &amount); // Used to recenter the system when linking between ages.
     void UpdateGenerator(uint32_t paramID, float paramValue);
 
     static uint32_t CreateHexColor(const hsColorRGBA &color);
@@ -99,7 +99,7 @@ public:
     CLASSNAME_REGISTER( plParticleEmitter );
     GETINTERFACE_ANY( plParticleEmitter, plCreatable);
 
-    virtual void Read(hsStream* s, hsResMgr *mgr); 
+    virtual void Read(hsStream* s, hsResMgr *mgr);
     virtual void Write(hsStream* s, hsResMgr *mgr);
 
     enum // Miscellaneous flags
@@ -132,13 +132,13 @@ public:
 protected:
 
     plParticleSystem *fSystem;          // The particle system this belongs to.
-    plParticleCore *fParticleCores;     // The particle pool, created on init, initialized as needed, and recycled. 
+    plParticleCore *fParticleCores;     // The particle pool, created on init, initialized as needed, and recycled.
     plParticleExt *fParticleExts;       // Same mapping as the Core pool. Contains extra info the render pipeline
                                         // doesn't need.
 
     plParticleGenerator *fGenerator;    // Optional auto generator (have this be nil if you don't want auto-generation)
     uint32_t fSpanIndex;                  // Index of the span that this emitter uses.
-    uint32_t fNumValidParticles;          
+    uint32_t fNumValidParticles;
     uint32_t fMaxParticles;
     hsBounds3Ext fBoundBox;
     plEffectTargetInfo fTargetInfo;     // A collection of pointers and strides that plParticleEffects will manipulate.

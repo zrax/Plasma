@@ -116,15 +116,15 @@ void plClientUnifiedTime::ConvertToGameTime(double* gameTimeOut, double curGameS
 }
 #pragma optimize( "", on )  // restore optimizations to their defaults
 
-const plClientUnifiedTime & plClientUnifiedTime::operator=(const plUnifiedTime & src) 
-{ 
+const plClientUnifiedTime & plClientUnifiedTime::operator=(const plUnifiedTime & src)
+{
     plUnifiedTime* ut=this;
     *ut=src;
     return *this;
 }
 
-const plClientUnifiedTime & plClientUnifiedTime::operator=(const plClientUnifiedTime & src) 
-{ 
+const plClientUnifiedTime & plClientUnifiedTime::operator=(const plClientUnifiedTime & src)
+{
     plUnifiedTime* ut=this;
     plUnifiedTime* utSrc=this;
     *ut=*utSrc;

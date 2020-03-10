@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/NucleusLib/pnNetProtocol/Private/Protocols/Srv2Vault/pnNpSrv2Vault.h
-*   
+*
 ***/
 
 #ifdef PLASMA20_SOURCES_PLASMA_NUCLEUSLIB_PNNETPROTOCOL_PRIVATE_PROTOCOLS_SRV2VAULT_PNNPSRV2VAULT_H
@@ -246,7 +246,7 @@ struct Srv2Vault_NodeRemove : SrvMsgHeader {
     uint32_t   parentId;
     uint32_t   childId;
     unsigned    playerCheckId;
-    unsigned    isRequestFromAuth;  
+    unsigned    isRequestFromAuth;
 };
 
 struct Srv2Vault_NodeRemove2 : SrvMsgHeader {

@@ -49,7 +49,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plMessage/plRenderMsg.h"
 #include "plPipeline.h"
 
-plHardRegion::plHardRegion() 
+plHardRegion::plHardRegion()
 :   fState(kDirty)
 {
 }

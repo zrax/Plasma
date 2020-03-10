@@ -326,7 +326,7 @@ bool    pfConsoleEngine::RunCommand( char *line, void (*PrintFn)( const char * )
     /// tokenizing (with the new separators now, mind you) and turn them into
     /// params
 
-    for( numParams = numQuotedParams = 0; numParams < fMaxNumParams 
+    for( numParams = numQuotedParams = 0; numParams < fMaxNumParams
                         && ( ptr = console_strtok( line, true ) ) != nil
                         && valid; numParams++ )
     {
@@ -364,7 +364,7 @@ bool    pfConsoleEngine::RunCommand( char *line, void (*PrintFn)( const char * )
     for( i = numParams; i < fMaxNumParams + 1; i++ )
         paramArray[ i ].SetNone();
 
-    if( !valid || ( cmd->GetSigEntry( (uint8_t)numParams ) != pfConsoleCmd::kAny && 
+    if( !valid || ( cmd->GetSigEntry( (uint8_t)numParams ) != pfConsoleCmd::kAny &&
                     cmd->GetSigEntry( (uint8_t)numParams ) != pfConsoleCmd::kNone ) )
     {
         // Print help string and return
@@ -380,7 +380,7 @@ bool    pfConsoleEngine::RunCommand( char *line, void (*PrintFn)( const char * )
 }
 
 //// IConvertToParam /////////////////////////////////////////////////////////
-//  Converts a null-terminated string representing a parameter to a 
+//  Converts a null-terminated string representing a parameter to a
 //  pfConsoleCmdParam argument.
 
 bool    pfConsoleEngine::IConvertToParam( uint8_t type, const char *string, pfConsoleCmdParam *param )
@@ -512,7 +512,7 @@ bool    pfConsoleEngine::FindPartialCmd( char *line, bool findAgain, bool preser
             strcat( newStr, group->GetName() );
             strcat( newStr, "." );
         }
-        else 
+        else
         {
             cmd = group->FindCommandNoCase( ptr, pfConsoleCmdGroup::kFindPartial, lastCmd );
             if( cmd == nil )

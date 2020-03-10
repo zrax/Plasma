@@ -104,7 +104,7 @@ void plComponentMgr::Register(ClassDesc *desc)
 {
     // Organize desc's by category and name
     std::vector<ClassDesc*>::iterator it;
-    for (it = fDescs.begin(); it != fDescs.end(); it++) 
+    for (it = fDescs.begin(); it != fDescs.end(); it++)
     {
         if (IDescCompare(desc, (*it)) < 0)
         {

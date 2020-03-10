@@ -58,7 +58,7 @@ public:
     ~plSynchEnableMsg() {}
 
     CLASSNAME_REGISTER( plSynchEnableMsg);
-    GETINTERFACE_ANY( plSynchEnableMsg, plMessage );    
+    GETINTERFACE_ANY( plSynchEnableMsg, plMessage );
 
     void Read(hsStream* stream, hsResMgr* mgr);
     void Write(hsStream* stream, hsResMgr* mgr);

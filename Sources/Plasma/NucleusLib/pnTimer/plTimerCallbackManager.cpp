@@ -47,7 +47,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "pnKeyedObject/plFixedKey.h"
 #include "hsTimer.h"
 
-plTimerCallbackManager::plTimerCallbackManager() 
+plTimerCallbackManager::plTimerCallbackManager()
 {
 }
 
@@ -71,7 +71,7 @@ bool plTimerCallbackManager::MsgReceive(plMessage* msg)
                 plgDispatch::MsgSend( fCallbacks[i]->fMsg );
 
                 // Set it nil so the TimerCallback destructor doesn't unRef it
-                fCallbacks[i]->fMsg = nil; 
+                fCallbacks[i]->fMsg = nil;
 
                 delete(fCallbacks[i]);
                 fCallbacks.SetCount(i);
@@ -85,7 +85,7 @@ bool plTimerCallbackManager::MsgReceive(plMessage* msg)
 plTimerCallback* plTimerCallbackManager::NewTimer(float time, plMessage* pMsg)
 {
     plTimerCallback* t = new plTimerCallback( hsTimer::GetSysSeconds() + time, pMsg );
-    fCallbacks.Append(t); 
+    fCallbacks.Append(t);
     // sort them
     for (int i = 0; i < fCallbacks.Count(); i++)
     {

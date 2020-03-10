@@ -221,7 +221,7 @@ PyObject* pyVault::GetKIUsage()
             break;
         }
         break;
-    }       
+    }
 
     // create the tuple of usage numbers
     PyObject* retVal = PyTuple_New(4);
@@ -582,7 +582,7 @@ void pyVault::CreateNeighborhood()
     info.SetAgeFilename(kNeighborhoodAgeFilename);
     VaultUnregisterOwnedAgeAndWait(&info);
 
-    // Register new hood    
+    // Register new hood
     plAgeLinkStruct link;
     link.GetAgeInfo()->SetAgeFilename(kNeighborhoodAgeFilename);
     link.GetAgeInfo()->SetAgeInstanceName(kNeighborhoodAgeInstanceName);

@@ -212,7 +212,7 @@ class plInputInterface : public hsRefCnt
         bool        IsEnabled() const { return fEnabled; }
         
         // clear all keys from map
-        virtual void    ClearKeyMap(); 
+        virtual void    ClearKeyMap();
         
         // reset clickable state
         virtual void ResetClickableState() { }

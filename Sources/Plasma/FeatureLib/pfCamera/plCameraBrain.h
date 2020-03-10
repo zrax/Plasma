@@ -109,7 +109,7 @@ public:
     virtual plSceneObject*  GetSubject();
     virtual void SetSubject(plSceneObject* sub);
     
-    virtual hsVector3   GetPOAOffset() { return fPOAOffset; }   
+    virtual hsVector3   GetPOAOffset() { return fPOAOffset; }
     void        SetPOAOffset(hsVector3 pt) { fPOAOffset = pt; }
     void AddTarget();
  
@@ -120,7 +120,7 @@ public:
     virtual bool    SetFaded(bool b) { return false; }
 
     bool    HasMovementFlag(int f) { return fMoveFlags.IsBitSet(f); }
-    void    SetMovementFlag(int f); 
+    void    SetMovementFlag(int f);
     void    ClearMovementFlag(int which) { fMoveFlags.ClearBit( which ); }
     void    SetFlags(int i) { fFlags.SetBit(i); }
     void    ClearFlags(int which) { fFlags.ClearBit( which ); }
@@ -271,8 +271,8 @@ public:
     virtual void        Update(bool forced = false);
     virtual bool        MsgReceive(plMessage* msg);
     
-    virtual void        CalculatePosition();                
-    hsVector3   GetOffset() { return fOffset; } 
+    virtual void        CalculatePosition();
+    hsVector3   GetOffset() { return fOffset; }
     void        SetOffset(hsVector3 pt) { fOffset = pt; }
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
@@ -307,7 +307,7 @@ public:
     CLASSNAME_REGISTER( plCameraBrain1_FirstPerson );
     GETINTERFACE_ANY( plCameraBrain1_FirstPerson, plCameraBrain1_Avatar );
     
-    virtual void CalculatePosition();               
+    virtual void CalculatePosition();
     virtual void Push(bool recenter = true);
     virtual void Pop();
     virtual bool        MsgReceive(plMessage* msg);
@@ -335,7 +335,7 @@ public:
     void SetTargetPoint(plCameraModifier1* pt) { fTargetPoint = pt; }
 
     virtual void    Update(bool forced = false);
-    void            CalculatePosition();                
+    void            CalculatePosition();
     virtual bool MsgReceive(plMessage* msg);
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);
@@ -373,8 +373,8 @@ protected:
 
     hsPoint3    IGetClosestPointOnCircle(const hsPoint3* toThisPt);
 public:
-    plCameraBrain1_Circle(); 
-    plCameraBrain1_Circle(plCameraModifier1* pMod); 
+    plCameraBrain1_Circle();
+    plCameraBrain1_Circle(plCameraModifier1* pMod);
     ~plCameraBrain1_Circle();
 
     CLASSNAME_REGISTER( plCameraBrain1_Circle );

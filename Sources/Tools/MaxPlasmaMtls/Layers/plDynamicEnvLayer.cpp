@@ -99,7 +99,7 @@ plDynamicEnvLayer::plDynamicEnvLayer() :
     fIValid(NEVER)
 {
     plDynamicEnvLayerDesc.MakeAutoParamBlocks(this);
-    ReplaceReference(kRefUVGen, GetNewDefaultUVGen());  
+    ReplaceReference(kRefUVGen, GetNewDefaultUVGen());
 }
 
 plDynamicEnvLayer::~plDynamicEnvLayer()
@@ -107,14 +107,14 @@ plDynamicEnvLayer::~plDynamicEnvLayer()
     IDiscardTexHandle();
 }
 
-void    plDynamicEnvLayer::GetClassName( TSTR& s ) 
+void    plDynamicEnvLayer::GetClassName( TSTR& s )
 {
-    s = GetString( IDS_DYNAMIC_ENVMAP_LAYER ); 
+    s = GetString( IDS_DYNAMIC_ENVMAP_LAYER );
 }
 
 //// Reset ////////////////////////////////////////////////////////////////////
 
-void plDynamicEnvLayer::Reset() 
+void plDynamicEnvLayer::Reset()
 {
     GetDynamicEnvLayerDesc()->Reset(this, TRUE);    // reset all pb2's
     NotifyDependents(FOREVER, PART_ALL, REFMSG_CHANGE);
@@ -124,7 +124,7 @@ void plDynamicEnvLayer::Reset()
 
 //// Update ///////////////////////////////////////////////////////////////////
 
-void plDynamicEnvLayer::Update(TimeValue t, Interval& valid) 
+void plDynamicEnvLayer::Update(TimeValue t, Interval& valid)
 {
     if (!fIValid.InInterval(t))
     {
@@ -153,18 +153,18 @@ Interval plDynamicEnvLayer::Validity(TimeValue t)
 
 //// CreateParamDlg ///////////////////////////////////////////////////////////
 
-ParamDlg* plDynamicEnvLayer::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp) 
+ParamDlg* plDynamicEnvLayer::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp)
 {
     fIMtlParams = imp;
     IAutoMParamDlg* masterDlg = plDynamicEnvLayerDesc.CreateParamDlgs(hwMtlEdit, imp, this);
 
-    return masterDlg;   
+    return masterDlg;
 }
 
 //// SetDlgThing //////////////////////////////////////////////////////////////
 
 BOOL plDynamicEnvLayer::SetDlgThing(ParamDlg* dlg)
-{   
+{
     return FALSE;
 }
 
@@ -175,7 +175,7 @@ int plDynamicEnvLayer::NumRefs()
     return 2;
 }
 
-RefTargetHandle plDynamicEnvLayer::GetReference( int i ) 
+RefTargetHandle plDynamicEnvLayer::GetReference( int i )
 {
     switch( i )
     {
@@ -185,14 +185,14 @@ RefTargetHandle plDynamicEnvLayer::GetReference( int i )
     }
 }
 
-void    plDynamicEnvLayer::SetReference( int i, RefTargetHandle rtarg ) 
+void    plDynamicEnvLayer::SetReference( int i, RefTargetHandle rtarg )
 {
     Interval    garbage;
 
     switch( i )
     {
-        case kRefUVGen:  
-            fUVGen = (UVGen *)rtarg; 
+        case kRefUVGen:
+            fUVGen = (UVGen *)rtarg;
             if( fUVGen )
                 fUVGen->Update( TimeValue( 0 ), garbage );
             break;
@@ -228,7 +228,7 @@ IParamBlock2    *plDynamicEnvLayer::GetParamBlockByID( BlockID id )
 
 //// Clone ////////////////////////////////////////////////////////////////////
 
-RefTargetHandle plDynamicEnvLayer::Clone( RemapDir &remap ) 
+RefTargetHandle plDynamicEnvLayer::Clone( RemapDir &remap )
 {
     plDynamicEnvLayer *mnew = new plDynamicEnvLayer();
     *((MtlBase*)mnew) = *((MtlBase*)this); // copy superclass stuff
@@ -245,7 +245,7 @@ int plDynamicEnvLayer::NumSubs()
     return 1;
 }
 
-Animatable  *plDynamicEnvLayer::SubAnim( int i ) 
+Animatable  *plDynamicEnvLayer::SubAnim( int i )
 {
     switch( i )
     {
@@ -254,7 +254,7 @@ Animatable  *plDynamicEnvLayer::SubAnim( int i )
     }
 }
 
-TSTR    plDynamicEnvLayer::SubAnimName( int i ) 
+TSTR    plDynamicEnvLayer::SubAnimName( int i )
 {
     switch( i )
     {
@@ -265,8 +265,8 @@ TSTR    plDynamicEnvLayer::SubAnimName( int i )
 
 //// NotifyRefChanged /////////////////////////////////////////////////////////
 
-RefResult   plDynamicEnvLayer::NotifyRefChanged( Interval changeInt, RefTargetHandle hTarget, 
-                                                   PartID& partID, RefMessage message ) 
+RefResult   plDynamicEnvLayer::NotifyRefChanged( Interval changeInt, RefTargetHandle hTarget,
+                                                   PartID& partID, RefMessage message )
 {
     switch (message)
     {
@@ -285,7 +285,7 @@ RefResult   plDynamicEnvLayer::NotifyRefChanged( Interval changeInt, RefTargetHa
         break;
 
         case REFMSG_UV_SYM_CHANGE:
-            IDiscardTexHandle();  
+            IDiscardTexHandle();
             break;
     }
 
@@ -296,7 +296,7 @@ RefResult   plDynamicEnvLayer::NotifyRefChanged( Interval changeInt, RefTargetHa
 
 #define TEX_HDR_CHUNK 0x5000
 
-IOResult plDynamicEnvLayer::Save(ISave *isave) 
+IOResult plDynamicEnvLayer::Save(ISave *isave)
 {
     IOResult res;
 
@@ -307,9 +307,9 @@ IOResult plDynamicEnvLayer::Save(ISave *isave)
     isave->EndChunk();
 
     return IO_OK;
-}   
+}
 
-IOResult plDynamicEnvLayer::Load(ILoad *iload) 
+IOResult plDynamicEnvLayer::Load(ILoad *iload)
 {
     IOResult res;
     while (IO_OK == (res = iload->OpenChunk()))
@@ -319,7 +319,7 @@ IOResult plDynamicEnvLayer::Load(ILoad *iload)
             res = MtlBase::Load(iload);
         }
         iload->CloseChunk();
-        if (res != IO_OK) 
+        if (res != IO_OK)
             return res;
     }
 
@@ -328,26 +328,26 @@ IOResult plDynamicEnvLayer::Load(ILoad *iload)
 
 //// EvalColor ////////////////////////////////////////////////////////////////
 
-inline Point2 CompUV(float x, float y, float z) 
+inline Point2 CompUV(float x, float y, float z)
 {
     return Point2( 0.5f * ( x / z + 1.0f ), 0.5f * ( y / z + 1.0f ) );
 }
 
 AColor plDynamicEnvLayer::EvalColor(ShadeContext& sc)
 {
-    if (!sc.doMaps) 
+    if (!sc.doMaps)
         return AColor(0.0f, 0.0f, 0.0f, 1.0f);
 
     AColor color;
-    if (sc.GetCache(this, color)) 
+    if (sc.GetCache(this, color))
         return color;
 
-    if (gbufID) 
+    if (gbufID)
         sc.SetGBufferID(gbufID);
 
     color.White();
 
-    sc.PutCache(this, color); 
+    sc.PutCache(this, color);
     return color;
 }
 
@@ -367,7 +367,7 @@ ULONG plDynamicEnvLayer::LocalRequirements(int subMtlNum)
     return MTLREQ_VIEW_DEP;
 }
 
-void plDynamicEnvLayer::IDiscardTexHandle() 
+void plDynamicEnvLayer::IDiscardTexHandle()
 {
     if (fTexHandle)
     {
@@ -387,10 +387,10 @@ BITMAPINFO *plDynamicEnvLayer::GetVPDisplayDIB(TimeValue t, TexHandleMaker& thma
     return NULL;
 }
 
-DWORD plDynamicEnvLayer::GetActiveTexHandle(TimeValue t, TexHandleMaker& thmaker) 
+DWORD plDynamicEnvLayer::GetActiveTexHandle(TimeValue t, TexHandleMaker& thmaker)
 {
     // FIXME: ignore validity for now
-    if (fTexHandle && fIValid.InInterval(t))// && texTime == CalcFrame(t)) 
+    if (fTexHandle && fIValid.InInterval(t))// && texTime == CalcFrame(t))
         return fTexHandle->GetHandle();
     else
     {
@@ -406,8 +406,8 @@ DWORD plDynamicEnvLayer::GetActiveTexHandle(TimeValue t, TexHandleMaker& thmaker
 }
 
 //// MustBeUnique /////////////////////////////////////////////////////////////
-//  Fun stuff here. If our anchor is set to nil (i.e. "self"), then we must be 
-//  unique for each object we're applied to. However, that means the material 
+//  Fun stuff here. If our anchor is set to nil (i.e. "self"), then we must be
+//  unique for each object we're applied to. However, that means the material
 //  must *ALSO* be unique. Hence why this function is called by
 //  hsMaterialConverter::IMustBeUniqueMaterial().
 

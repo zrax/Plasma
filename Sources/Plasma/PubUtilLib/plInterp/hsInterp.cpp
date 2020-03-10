@@ -55,7 +55,7 @@ void hsInterp::LinInterp(float k1, float k2, float t, float* result)
     *result = k1 + t * (k2 - k1);
 }
 
-void hsInterp::LinInterp(const hsScalarTriple* k1, const hsScalarTriple* k2, float t, 
+void hsInterp::LinInterp(const hsScalarTriple* k1, const hsScalarTriple* k2, float t,
                       hsScalarTriple* result)
 {
     if (t==0.0)
@@ -71,7 +71,7 @@ void hsInterp::LinInterp(const hsScalarTriple* k1, const hsScalarTriple* k2, flo
     }
 }
 
-void hsInterp::LinInterp(const hsColorRGBA* k1, const hsColorRGBA* k2, float t, 
+void hsInterp::LinInterp(const hsColorRGBA* k1, const hsColorRGBA* k2, float t,
                       hsColorRGBA* result, uint32_t flags)
 {
     if (t==0.0)
@@ -102,7 +102,7 @@ void hsInterp::LinInterp(const hsColorRGBA* k1, const hsColorRGBA* k2, float t,
         LinInterp(k1->a, k2->a, t, &result->a);
 }
 
-void hsInterp::LinInterp(const hsMatrix33* k1, const hsMatrix33* k2, float t, 
+void hsInterp::LinInterp(const hsMatrix33* k1, const hsMatrix33* k2, float t,
                       hsMatrix33* result, uint32_t flags)
 {
     if (t==0.0)
@@ -162,7 +162,7 @@ void hsInterp::LinInterp(const hsMatrix33* k1, const hsMatrix33* k2, float t,
 
 //
 //
-void hsInterp::LinInterp(const hsMatrix44* mat1, const hsMatrix44* mat2, float t, 
+void hsInterp::LinInterp(const hsMatrix44* mat1, const hsMatrix44* mat2, float t,
                       hsMatrix44* out, uint32_t flags)
 {
     if (flags == 0)
@@ -199,7 +199,7 @@ void hsInterp::LinInterp(const hsMatrix44* mat1, const hsMatrix44* mat2, float t
         hsAssert(mat2->fMap[3][0]==0 && mat2->fMap[3][1]==0 && mat2->fMap[3][2]==0 && mat2->fMap[3][3]==1,
             "matrix prob?");
 #else
-        // copy 
+        // copy
         for(int i=0; i<3; i++)
             out->fMap[3][i] = mat2->fMap[3][i];
 #endif
@@ -222,10 +222,10 @@ void hsInterp::LinInterp(const hsMatrix44* mat1, const hsMatrix44* mat2, float t
         gemAffineParts gemParts1, gemParts2;
         hsAffineParts parts1, parts2, partsOut;
     
-        decomp_affine(mat1->fMap, &gemParts1); 
+        decomp_affine(mat1->fMap, &gemParts1);
         AP_SET(parts1, gemParts1);
 
-        decomp_affine(mat2->fMap, &gemParts2); 
+        decomp_affine(mat2->fMap, &gemParts2);
         AP_SET(parts2, gemParts2);
 
         LinInterp(&parts1, &parts2, t, &partsOut, flags);   // flags will be parsed here
@@ -247,16 +247,16 @@ void hsInterp::LinInterp(const hsQuat* k1, const hsQuat* k2, float t, hsQuat* re
     }
 }
 
-void hsInterp::LinInterp(const hsScaleValue* k1, const hsScaleValue* k2, float t, 
+void hsInterp::LinInterp(const hsScaleValue* k1, const hsScaleValue* k2, float t,
                       hsScaleValue* result)
 {
-    LinInterp(&k1->fS, &k2->fS, t, &result->fS);    // Stretch rotation 
-    LinInterp(&k1->fQ, &k2->fQ, t, &result->fQ);    // Stretch factor   
+    LinInterp(&k1->fS, &k2->fS, t, &result->fS);    // Stretch rotation
+    LinInterp(&k1->fQ, &k2->fQ, t, &result->fQ);    // Stretch factor
 }
 
-void hsInterp::LinInterp(const hsAffineParts* k1, const hsAffineParts* k2, float t, 
+void hsInterp::LinInterp(const hsAffineParts* k1, const hsAffineParts* k2, float t,
                       hsAffineParts* result, uint32_t flags)
-{       
+{
     if (t==0.0)
     {
         // copy
@@ -306,13 +306,13 @@ void hsInterp::LinInterp(const hsAffineParts* k1, const hsAffineParts* k2, float
         LinInterp(&k1->fT, &k2->fT, t, &result->fT);    // Translation
     if (!(flags & kIgnorePartsRot))
     {
-        LinInterp(&k1->fQ, &k2->fQ, t, &result->fQ);    // Essential rotation   
+        LinInterp(&k1->fQ, &k2->fQ, t, &result->fQ);    // Essential rotation
     }
     
     if (!(flags & (kIgnorePartsScale | kPreservePartsScale)))
     {
-        LinInterp(&k1->fU, &k2->fU, t, &result->fU);    // Stretch rotation 
-        LinInterp(&k1->fK, &k2->fK, t, &result->fK);    // Stretch factor   
+        LinInterp(&k1->fU, &k2->fU, t, &result->fU);    // Stretch rotation
+        LinInterp(&k1->fK, &k2->fK, t, &result->fK);    // Stretch factor
     }
 
 #if 0
@@ -378,7 +378,7 @@ void hsInterp::BezInterp(const hsBezScaleKey* k1, const hsBezScaleKey* k2, const
     float scale = (k2->fFrame - k1->fFrame) * MAX_TICKS_PER_FRAME / 3.f;
     BezScalarEval(k1->fValue.fS.fX, k1->fOutTan.fX, k2->fValue.fS.fX, k2->fInTan.fX, t, scale, &result->fS.fX);
     BezScalarEval(k1->fValue.fS.fY, k1->fOutTan.fY, k2->fValue.fS.fY, k2->fInTan.fY, t, scale, &result->fS.fY);
-    BezScalarEval(k1->fValue.fS.fZ, k1->fOutTan.fZ, k2->fValue.fS.fZ, k2->fInTan.fZ, t, scale, &result->fS.fZ); 
+    BezScalarEval(k1->fValue.fS.fZ, k1->fOutTan.fZ, k2->fValue.fS.fZ, k2->fInTan.fZ, t, scale, &result->fS.fZ);
 
     // Slerp scale axis
     LinInterp(&k1->fValue.fQ, &k2->fValue.fQ, t, &result->fQ);
@@ -394,7 +394,7 @@ static inline hsKeyFrame* GetKey(int32_t i, void *keys, int32_t size)
 
 //
 // STATIC
-// Given a list of keys, and a time, fills in the 2 boundary keys and 
+// Given a list of keys, and a time, fills in the 2 boundary keys and
 // a fraction (p=0-1) indicating where the time falls between them.
 // Returns the index of the first key which can be passed in as a hint (lastKeyIdx)
 // for the next search.
@@ -494,7 +494,7 @@ void hsInterp::GetBoundaryKeyFrames(float time, uint32_t numKeys, void *keys, ui
             }
             key2=key1;
         }
-    }       
+    }
 
 ret:
 ;

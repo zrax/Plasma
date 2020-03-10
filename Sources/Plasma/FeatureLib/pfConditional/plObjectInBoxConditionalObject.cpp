@@ -122,7 +122,7 @@ bool plObjectInBoxConditionalObject::Verify(plMessage* msg)
 
 
 //
-// volume sensor conditional 
+// volume sensor conditional
 //
 plVolumeSensorConditionalObject::plVolumeSensorConditionalObject() :
     fTrigNum(-1),

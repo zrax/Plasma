@@ -47,7 +47,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 plKeyPressConditionalObject::plKeyPressConditionalObject()
 {
-    SetFlag(kLocalElement);     // since it relies on user input    
+    SetFlag(kLocalElement);     // since it relies on user input
 }
 
 bool plKeyPressConditionalObject::MsgReceive(plMessage* msg)

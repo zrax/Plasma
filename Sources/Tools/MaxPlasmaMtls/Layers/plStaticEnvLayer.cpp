@@ -84,7 +84,7 @@ plStaticEnvLayer::plStaticEnvLayer() :
     }
 
     plStaticEnvLayerDesc.MakeAutoParamBlocks(this);
-    ReplaceReference(kRefUVGen, GetNewDefaultUVGen());  
+    ReplaceReference(kRefUVGen, GetNewDefaultUVGen());
 }
 
 plStaticEnvLayer::~plStaticEnvLayer()
@@ -107,7 +107,7 @@ void plStaticEnvLayer::GetClassName(TSTR& s)
 }
 
 //From MtlBase
-void plStaticEnvLayer::Reset() 
+void plStaticEnvLayer::Reset()
 {
     GetStaticEnvLayerDesc()->Reset(this, TRUE); // reset all pb2's
     for( int i = 0; i < 6; i++ )
@@ -118,7 +118,7 @@ void plStaticEnvLayer::Reset()
     fIValid.SetEmpty();
 }
 
-void plStaticEnvLayer::Update(TimeValue t, Interval& valid) 
+void plStaticEnvLayer::Update(TimeValue t, Interval& valid)
 {
     if (!fIValid.InInterval(t))
     {
@@ -152,7 +152,7 @@ Interval plStaticEnvLayer::Validity(TimeValue t)
     return v;
 }
 
-ParamDlg* plStaticEnvLayer::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp) 
+ParamDlg* plStaticEnvLayer::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp)
 {
     fIMtlParams = imp;
     IAutoMParamDlg* masterDlg = plStaticEnvLayerDesc.CreateParamDlgs(hwMtlEdit, imp, this);
@@ -161,11 +161,11 @@ ParamDlg* plStaticEnvLayer::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp)
     if( paramDlg )
         paramDlg->fMtlParams = imp;
 
-    return masterDlg;   
+    return masterDlg;
 }
 
 BOOL plStaticEnvLayer::SetDlgThing(ParamDlg* dlg)
-{   
+{
     return FALSE;
 }
 
@@ -175,7 +175,7 @@ int plStaticEnvLayer::NumRefs()
 }
 
 //From ReferenceMaker
-RefTargetHandle plStaticEnvLayer::GetReference(int i) 
+RefTargetHandle plStaticEnvLayer::GetReference(int i)
 {
     switch (i)
     {
@@ -185,14 +185,14 @@ RefTargetHandle plStaticEnvLayer::GetReference(int i)
     }
 }
 
-void plStaticEnvLayer::SetReference(int i, RefTargetHandle rtarg) 
+void plStaticEnvLayer::SetReference(int i, RefTargetHandle rtarg)
 {
     Interval    garbage;
 
     switch (i)
     {
-        case kRefUVGen:  
-            fUVGen = (UVGen *)rtarg; 
+        case kRefUVGen:
+            fUVGen = (UVGen *)rtarg;
             if( fUVGen )
                 fUVGen->Update( TimeValue( 0 ), garbage );
             break;
@@ -228,8 +228,8 @@ IParamBlock2* plStaticEnvLayer::GetParamBlockByID(BlockID id)
         return NULL;
 }
 
-//From ReferenceTarget 
-RefTargetHandle plStaticEnvLayer::Clone(RemapDir &remap) 
+//From ReferenceTarget
+RefTargetHandle plStaticEnvLayer::Clone(RemapDir &remap)
 {
     plStaticEnvLayer *mnew = new plStaticEnvLayer();
     *((MtlBase*)mnew) = *((MtlBase*)this); // copy superclass stuff
@@ -244,7 +244,7 @@ int plStaticEnvLayer::NumSubs()
     return 2;
 }
 
-Animatable* plStaticEnvLayer::SubAnim(int i) 
+Animatable* plStaticEnvLayer::SubAnim(int i)
 {
     //TODO: Return 'i-th' sub-anim
     switch (i)
@@ -255,7 +255,7 @@ Animatable* plStaticEnvLayer::SubAnim(int i)
     }
 }
 
-TSTR plStaticEnvLayer::SubAnimName(int i) 
+TSTR plStaticEnvLayer::SubAnimName(int i)
 {
     switch (i)
     {
@@ -265,8 +265,8 @@ TSTR plStaticEnvLayer::SubAnimName(int i)
     }
 }
 
-RefResult plStaticEnvLayer::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, 
-   PartID& partID, RefMessage message) 
+RefResult plStaticEnvLayer::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
+   PartID& partID, RefMessage message)
 {
     switch (message)
     {
@@ -288,7 +288,7 @@ RefResult plStaticEnvLayer::NotifyRefChanged(Interval changeInt, RefTargetHandle
         break;
 
     case REFMSG_UV_SYM_CHANGE:
-        IDiscardTexHandle();  
+        IDiscardTexHandle();
         break;
     }
 
@@ -310,7 +310,7 @@ void plStaticEnvLayer::IChanged()
 #define TEX_HDR_CHUNK 0x5000
 #define MAX_ASS_CHUNK 0x5500
 
-IOResult plStaticEnvLayer::Save(ISave *isave) 
+IOResult plStaticEnvLayer::Save(ISave *isave)
 {
     IOResult res;
 
@@ -321,9 +321,9 @@ IOResult plStaticEnvLayer::Save(ISave *isave)
     isave->EndChunk();
 
     return IO_OK;
-}   
+}
 
-IOResult plStaticEnvLayer::Load(ILoad *iload) 
+IOResult plStaticEnvLayer::Load(ILoad *iload)
 {
     IOResult res;
     while (IO_OK == (res = iload->OpenChunk()))
@@ -333,28 +333,28 @@ IOResult plStaticEnvLayer::Load(ILoad *iload)
             res = MtlBase::Load(iload);
         }
         iload->CloseChunk();
-        if (res != IO_OK) 
+        if (res != IO_OK)
             return res;
     }
 
     return IO_OK;
 }
 
-inline Point2 CompUV(float x, float y, float z) 
+inline Point2 CompUV(float x, float y, float z)
 {
     return Point2( 0.5f * ( x / z + 1.0f ), 0.5f * ( y / z + 1.0f ) );
 }
 
 AColor plStaticEnvLayer::EvalColor(ShadeContext& sc)
 {
-    if (!sc.doMaps) 
+    if (!sc.doMaps)
         return AColor(0.0f, 0.0f, 0.0f, 1.0f);
 
     AColor color;
-    if (sc.GetCache(this, color)) 
+    if (sc.GetCache(this, color))
         return color;
 
-    if (gbufID) 
+    if (gbufID)
         sc.SetGBufferID(gbufID);
 
     // Evaluate the Bitmap
@@ -368,9 +368,9 @@ AColor plStaticEnvLayer::EvalColor(ShadeContext& sc)
     Point2  uv;
     int     size;
 
-    wx = (float)fabs( v.x );  
+    wx = (float)fabs( v.x );
     wy = (float)fabs( v.y );
-    wz = (float)fabs( v.z ); 
+    wz = (float)fabs( v.z );
     if( wx >= wy && wx >= wz )
     {
         if( v.x < 0 )
@@ -384,7 +384,7 @@ AColor plStaticEnvLayer::EvalColor(ShadeContext& sc)
             uv = CompUV( v.y, -v.z, -v.x );
         }
     }
-    else if( wy >= wx && wy >= wz ) 
+    else if( wy >= wx && wy >= wz )
     {
         if( v.y > 0 )
         {
@@ -397,15 +397,15 @@ AColor plStaticEnvLayer::EvalColor(ShadeContext& sc)
             uv = CompUV(  v.x, -v.z,  v.y );
         }
     }
-    else if( wz >= wx && wz >= wy ) 
+    else if( wz >= wx && wz >= wy )
     {
         if( v.z < 0 )
-        {   
+        {
             refmap = fBitmaps[ kBottomFace ];
             uv = CompUV( -v.x, -v.y,  v.z );
         }
-        else     
-        {   
+        else
+        {
             refmap = fBitmaps[ kTopFace ];
             uv = CompUV( -v.x,  v.y, -v.z );
         }
@@ -416,11 +416,11 @@ AColor plStaticEnvLayer::EvalColor(ShadeContext& sc)
     else
     {
         if( uv.x < 0.0f )
-            uv.x = 0.0f; 
+            uv.x = 0.0f;
         else if( uv.x > 1.0f )
             uv.x = 1.0f;
         if( uv.y < 0.0f )
-            uv.y = 0.0f; 
+            uv.y = 0.0f;
         else if( uv.y > 1.0f )
             uv.y = 1.0f;
         size = refmap->Width();
@@ -454,7 +454,7 @@ AColor plStaticEnvLayer::EvalColor(ShadeContext& sc)
     if( fBitmapPB->GetInt( kBmpRGBOutput ) == 1 )
         color = AColor( color.a, color.a, color.a, 1.0f );
 
-    sc.PutCache(this, color); 
+    sc.PutCache(this, color);
     return color;
 }
 
@@ -480,7 +480,7 @@ ULONG plStaticEnvLayer::LocalRequirements(int subMtlNum)
     return MTLREQ_VIEW_DEP | MTLREQ_NOATMOS;
 }
 
-void plStaticEnvLayer::IDiscardTexHandle() 
+void plStaticEnvLayer::IDiscardTexHandle()
 {
     if (fTexHandle)
     {
@@ -510,10 +510,10 @@ BITMAPINFO *plStaticEnvLayer::GetVPDisplayDIB(TimeValue t, TexHandleMaker& thmak
     return bmi;
 }
 
-DWORD plStaticEnvLayer::GetActiveTexHandle(TimeValue t, TexHandleMaker& thmaker) 
+DWORD plStaticEnvLayer::GetActiveTexHandle(TimeValue t, TexHandleMaker& thmaker)
 {
     // FIXME: ignore validity for now
-    if (fTexHandle && fIValid.InInterval(t))// && texTime == CalcFrame(t)) 
+    if (fTexHandle && fIValid.InInterval(t))// && texTime == CalcFrame(t))
         return fTexHandle->GetHandle();
     else
     {
@@ -558,27 +558,27 @@ Matrix3 plStaticEnvLayer::IGetViewTM( int i )
 {
     Matrix3 m;
     m.IdentityMatrix();
-    switch( i ) 
+    switch( i )
     {
         case kTopFace:
-            m.RotateX( -M_PI );   
+            m.RotateX( -M_PI );
             break;
         case kBottomFace:
             break;
         case kLeftFace:
-            m.RotateX( -.5f * M_PI ); 
+            m.RotateX( -.5f * M_PI );
             m.RotateY( -.5f * M_PI );
             break;
         case kRightFace:
-            m.RotateX( -.5f * M_PI ); 
+            m.RotateX( -.5f * M_PI );
             m.RotateY( +.5f * M_PI );
             break;
         case kFrontFace:
-            m.RotateX( -.5f * M_PI ); 
+            m.RotateX( -.5f * M_PI );
             m.RotateY( M_PI );
             break;
         case kBackFace:
-            m.RotateX( -.5f * M_PI ); 
+            m.RotateX( -.5f * M_PI );
             break;
     }
     return m;
@@ -591,7 +591,7 @@ int plStaticEnvLayer::IWriteBM( BitmapInfo *bi, Bitmap *bm, TCHAR *name )
     bi->SetName( name );
     if( bm->OpenOutput( bi ) == BMMRES_SUCCESS )
     {
-        if( bm->Write( bi, BMM_SINGLEFRAME ) == BMMRES_SUCCESS ) 
+        if( bm->Write( bi, BMM_SINGLEFRAME ) == BMMRES_SUCCESS )
         {
             bm->Close( bi );
             return 1;
@@ -618,7 +618,7 @@ void    plStaticEnvLayer::RenderCubicMap( INode *node )
 
     Interface *ip = GetCOREInterface();
     size = fBitmapPB->GetInt( kBmpTextureSize, ip->GetTime() );
-    if( size <= 0 ) 
+    if( size <= 0 )
     {
         return;
     }
@@ -643,8 +643,8 @@ void    plStaticEnvLayer::RenderCubicMap( INode *node )
     bm = TheManager->Create( &biOutFile );
 
     Matrix3 nodeTM = node->GetNodeTM( ip->GetTime() );
-    Matrix3 tm; 
-    INode *root = ip->GetRootNode();        
+    Matrix3 tm;
+    INode *root = ip->GetRootNode();
     bm->Display( GetString( IDS_CUBIC_RENDER_TITLE ) );
 
     /// Set up rendering contexts
@@ -665,27 +665,27 @@ void    plStaticEnvLayer::RenderCubicMap( INode *node )
     BOOL    saveUseEnvMap = ip->GetUseEnvironmentMap();
     ip->SetUseEnvironmentMap( false );
 
-    res = ip->OpenCurRenderer( &vp ); 
+    res = ip->OpenCurRenderer( &vp );
     for( int i = 0; i < 6; i++ )
     {
         tm = IGetViewTM( i );
-        tm.PreTranslate( -nodeTM.GetTrans() ); 
+        tm.PreTranslate( -nodeTM.GetTrans() );
         vp.affineTM = tm;
 
         // Construct filename
         thisFilename.printf( _T( "%s\\%s%s%s" ), path, filename, suffixes[ i ], ext );
 
         res = ip->CurRendererRenderFrame( ip->GetTime(), bm, NULL, 1.0f, &vp );
-        if( !res ) 
+        if( !res )
             goto fail;
 
-        if( !IWriteBM( &biOutFile, bm, thisFilename ) ) 
+        if( !IWriteBM( &biOutFile, bm, thisFilename ) )
             goto fail;
     }
 
     success = 1;
 fail:
-    ip->CloseCurRenderer(); 
+    ip->CloseCurRenderer();
     ip->SetUseEnvironmentMap( saveUseEnvMap );
 
     bm->DeleteThis();
@@ -706,8 +706,8 @@ fail:
 }
 
 PBBitmap *plStaticEnvLayer::GetPBBitmap(int index /* = 0 */)
-{ 
-    return fBitmapPB->GetBitmap( ParamID( kBmpFrontBitmap + index ) ); 
+{
+    return fBitmapPB->GetBitmap( ParamID( kBmpFrontBitmap + index ) );
 }
 
 void plStaticEnvLayer::ISetPBBitmap( PBBitmap *pbbm, int index )

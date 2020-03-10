@@ -48,7 +48,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 plSeekPointMod::plSeekPointMod()
 : fName(nil), plMultiModifier()
 {
-    // this constructor is called from the loader. 
+    // this constructor is called from the loader.
 }
 
 // CTOR(char *)

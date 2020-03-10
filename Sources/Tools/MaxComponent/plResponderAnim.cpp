@@ -95,13 +95,13 @@ plResponderCmdAnim& plResponderCmdAnim::Instance()
 }
 
 // Use the old types, for backwards compatibility
-enum 
+enum
 {
-    kRespondPlayAnim, 
-    kRespondStopAnim, 
-    kRespondToggleAnim, 
+    kRespondPlayAnim,
+    kRespondStopAnim,
+    kRespondToggleAnim,
     kRespondLoopAnimOn,
-    kRespondLoopAnimOff, 
+    kRespondLoopAnimOff,
     kRespondSetForeAnim=7,
     kRespondSetBackAnim,
 
@@ -131,10 +131,10 @@ static int IndexToOldType(int idx)
     static int oldTypes[] =
     {
         kRespondPlayAnim,
-        kRespondStopAnim, 
-        kRespondToggleAnim, 
+        kRespondStopAnim,
+        kRespondToggleAnim,
         kRespondLoopAnimOn,
-        kRespondLoopAnimOff, 
+        kRespondLoopAnimOff,
         kRespondSetForeAnim,
         kRespondSetBackAnim,
 
@@ -627,7 +627,7 @@ void plResponderAnimProc::IPickComponent(IParamBlock2* pb)
     if (type == kRespondPlaySound ||
         type == kRespondStopSound ||
         type == kRespondToggleSound ||
-        type == kRespondRewindSound || 
+        type == kRespondRewindSound ||
         type == kRespondSyncedPlaySound)
     {
         cids.push_back(SOUND_3D_COMPONENT_ID);

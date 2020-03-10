@@ -59,7 +59,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 namespace plSDL
 {
-    typedef std::list<plStateDescriptor*> DescriptorList;   
+    typedef std::list<plStateDescriptor*> DescriptorList;
     enum    GeneralPurpose
     {
         kLatestVersion  = -1,       // used when requesting the latest version of a state descriptor
@@ -68,7 +68,7 @@ namespace plSDL
 
     enum ContentsFlags // or saveFlags, 16 bits
     {
-        kHasUoid        = 0x1,      
+        kHasUoid        = 0x1,
         kHasNotificationInfo = 0x2,
         kHasTimeStamp   = 0x4,
         kSameAsDefault  = 0x8,
@@ -77,7 +77,7 @@ namespace plSDL
 
         kAddedVarLengthIO = 0x8000,     // using to establish a new version in the header, can delete in 8/03
         
-        kHasMaximumValue= 0xffff,   
+        kHasMaximumValue= 0xffff,
     };
 
     enum RWOptions
@@ -85,12 +85,12 @@ namespace plSDL
         kDirtyOnly              = 1<< 0,            // write option
         kSkipNotificationInfo   = 1<< 1,            // read/write option
         kBroadcast              = 1<< 2,            // send option
-        kWriteTimeStamps        = 1<< 3,            // write out time stamps    
+        kWriteTimeStamps        = 1<< 3,            // write out time stamps
         kTimeStampOnRead        = 1<< 4,            // read: timestamp each var when it gets read. write: request that the reader timestamp the dirty vars.
         kTimeStampOnWrite       = 1<< 5,            // read: n/a. write: timestamp each var when it gets written.
         kKeepDirty              = 1<< 6,            // don't clear dirty flag on read
         kDontWriteDirtyFlag     = 1<< 7,            // write option. don't write var dirty flag.
-        kMakeDirty              = 1<< 8,            // read/write: set dirty flag on var read/write. 
+        kMakeDirty              = 1<< 8,            // read/write: set dirty flag on var read/write.
         kDirtyNonDefaults       = 1<< 9,            // dirty the var if non default value.
         kForceConvert           = 1<<10,            // always try to convert rec to latest on read
     };
@@ -129,7 +129,7 @@ public:
     enum Flags
     {
         kDirty  = 0x1,  // true when someone sets the value using Set(...), can be cleared after writing
-        kUsed   = 0x2   // true when it contains some value (either by Set(...) or Read() ) 
+        kUsed   = 0x2   // true when it contains some value (either by Set(...) or Read() )
     };
 protected:
     uint32_t fFlags;
@@ -170,7 +170,7 @@ public:
 };
 
 //
-// Change Notifier. 
+// Change Notifier.
 // When a plSimpleStateVariable changes it's value by more than the given delta value,
 // a notification msg will be sent to the objects that registered interest.
 //
@@ -250,13 +250,13 @@ protected:
     bool IConvertFromRGB8(plVarDescriptor::Type newType);
     bool IConvertFromRGBA8(plVarDescriptor::Type newType);
 
-    bool IReadData(hsStream* s, float timeConvert, int idx, uint32_t readOptions);    
+    bool IReadData(hsStream* s, float timeConvert, int idx, uint32_t readOptions);
     bool IWriteData(hsStream* s, float timeConvert, int idx, uint32_t writeOptions) const;
 
 public:
 
-    plSimpleStateVariable() { IInit(); }        
-    plSimpleStateVariable(plVarDescriptor* vd) { IInit(); CopyFrom(vd); }   
+    plSimpleStateVariable() { IInit(); }
+    plSimpleStateVariable(plVarDescriptor* vd) { IInit(); CopyFrom(vd); }
     ~plSimpleStateVariable() { IDeAlloc(); }
     
     // conversion ops
@@ -314,7 +314,7 @@ public:
 
     // State Change Notification
     void AddStateChangeNotification(plStateChangeNotifier& n);
-    void RemoveStateChangeNotification(plKey notificationObj);      // remove all with this key 
+    void RemoveStateChangeNotification(plKey notificationObj);      // remove all with this key
     void RemoveStateChangeNotification(plStateChangeNotifier n);    // remove ones which match
     void NotifyStateChange(const plSimpleStateVariable* other, const ST::string& sdlName);      // send notification msg if necessary, internal use
 
@@ -322,22 +322,22 @@ public:
     void DumpToStream(hsStream* stream, bool dirtyOnly, int level) const;
 
     // IO
-    bool ReadData(hsStream* s, float timeConvert, uint32_t readOptions);  
+    bool ReadData(hsStream* s, float timeConvert, uint32_t readOptions);
     bool WriteData(hsStream* s, float timeConvert, uint32_t writeOptions) const;
 };
 
 //
-// A list of state data records, all of which are the same kind. 
+// A list of state data records, all of which are the same kind.
 // Corresponds to a SD var descriptor.
 //
 class plStateDataRecord;
 class plSDStateVariable : public plStateVariable
 {
 public:
-    typedef std::vector<const plStateDataRecord*> ConstDataRecList; 
+    typedef std::vector<const plStateDataRecord*> ConstDataRecList;
 protected:
     typedef std::vector<plStateDataRecord*> DataRecList;
-    DataRecList fDataRecList;   
+    DataRecList fDataRecList;
     plSDVarDescriptor* fVarDescriptor;
 
     void IDeInit();
@@ -384,7 +384,7 @@ public:
     void DumpToStream(hsStream* stream, bool dirtyOnly, int level) const;
     
     // IO
-    bool ReadData(hsStream* s, float timeConvert, uint32_t readOptions);  
+    bool ReadData(hsStream* s, float timeConvert, uint32_t readOptions);
     bool WriteData(hsStream* s, float timeConvert, uint32_t writeOptions) const;
 };
 
@@ -469,7 +469,7 @@ public:
     bool HasUsedSDVars() const { return IHasUsedVars(fSDVarsList); }
 
     // Dirty Vars
-    bool IsDirty() const { return (HasDirtyVars() || HasDirtySDVars()); }   
+    bool IsDirty() const { return (HasDirtyVars() || HasDirtySDVars()); }
     
     int GetNumDirtyVars() const { return IGetNumDirtyVars(fVarsList); }
     int GetDirtyVars(SimpleVarsList *vars) const { return IGetDirtyVars(fVarsList, (VarsList*)vars); }  // build a list of vars that are dirty
@@ -484,7 +484,7 @@ public:
     
     plNetMsgSDLState* PrepNetMsg(float timeConvert, uint32_t writeOptions) const; // create/prep a net msg with this data
     
-    void SetAssocObject(const plUoid& u) { fAssocObject=u; }        // optional 
+    void SetAssocObject(const plUoid& u) { fAssocObject=u; }        // optional
     plUoid* GetAssocObject() { return &fAssocObject; }      // optional
     const plUoid* GetAssocObject() const { return &fAssocObject; }      // optional
 

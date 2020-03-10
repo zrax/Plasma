@@ -85,7 +85,7 @@ static ParamBlockDesc2 gBumpBasicPB
 
     kBumpBasRunColor,       _T("runtimeColor"),     TYPE_RGBA,          P_ANIMATABLE, IDS_BASIC_RUNCOLOR,
 //      p_ui,           TYPE_COLORSWATCH, IDC_LAYER_RUNCOLOR,
-        p_ui,           TYPE_SPINNER, EDITTYPE_INT, IDC_INTEN_EDIT, IDC_INTEN_SPIN, 
+        p_ui,           TYPE_SPINNER, EDITTYPE_INT, IDC_INTEN_EDIT, IDC_INTEN_SPIN,
                         IDC_DUMMY_EDIT1, IDC_DUMMY_SPIN1, IDC_DUMMY_EDIT2, IDC_DUMMY_SPIN2,
                         SPIN_AUTOSCALE,
         p_default,      Color(1,0,0),

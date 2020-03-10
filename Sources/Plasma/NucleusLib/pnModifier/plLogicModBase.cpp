@@ -104,11 +104,11 @@ void plLogicModBase::AddTarget(plSceneObject* so)
 
 void plLogicModBase::RegisterForMessageType(uint16_t hClass)
 {
-    plgDispatch::Dispatch()->RegisterForExactType( hClass, GetKey() ); 
+    plgDispatch::Dispatch()->RegisterForExactType( hClass, GetKey() );
 }
 
 //
-// Update generic shared state (which reflects trigger state) on server 
+// Update generic shared state (which reflects trigger state) on server
 // by sending TestAndSet request.  By locking and unlocking the sharedState,
 // we can guarantee that only one logicMod instance can trigger at a time.
 // The server will confirm or deny our request to lock and set the state.
@@ -123,7 +123,7 @@ void plLogicModBase::IUpdateSharedState(bool triggered) const
     bool lock = triggered;
 
     // if unlocking, then the server does not need to store this state, since it's back to its default state
-    ss.SetServerMayDelete(!lock);       
+    ss.SetServerMayDelete(!lock);
 
     plNetMsgTestAndSet ts;
     ts.SetNetProtocol(kNetProtocolCli2Game);
@@ -234,13 +234,13 @@ void plLogicModBase::RequestTrigger(bool netRequest)
 bool plLogicModBase::IEvalCounter()
 {
     if (fCounterLimit > 0)
-    {   
+    {
         fCounter = fCounter + 1;
         if (fCounter != fCounterLimit)
         {
             Reset(false);
             return false;
-        }   
+        }
     }
     return true;
 }
@@ -299,7 +299,7 @@ void plLogicModBase::Reset(bool bCounterReset)
 }
 
 void plLogicModBase::CreateNotifyMsg()
-{   
+{
     fNotify = new plNotifyMsg;
     for (int i = 0; i < fReceiverList.Count(); i++)
         fNotify->AddReceiver(fReceiverList[i]);
@@ -317,7 +317,7 @@ void plLogicModBase::Read(hsStream* stream, hsResMgr* mgr)
     int n = stream->ReadLE32();
     fCommandList.SetCountAndZero(n);
     for(int i = 0; i < n; i++ )
-    {   
+    {
         plMessage* pMsg =  plMessage::ConvertNoRef(mgr->ReadCreatable(stream));
         fCommandList[i] = pMsg;
     }

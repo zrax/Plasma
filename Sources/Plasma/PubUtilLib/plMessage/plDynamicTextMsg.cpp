@@ -57,7 +57,7 @@ void    plDynamicTextMsg::SetTextColor( hsColorRGBA &c, bool blockRGB )
 {
     hsAssert( ( fCmd & kColorCmds ) == 0, "Attempting to issue conflicting drawText commands" );
     fCmd &= ~kColorCmds;
-    fCmd |= kSetTextColor; 
+    fCmd |= kSetTextColor;
     fColor = c;
     fBlockRGB = blockRGB;
 }
@@ -66,7 +66,7 @@ void    plDynamicTextMsg::SetFont( const char *face, int16_t size, bool isBold )
 {
     hsAssert( ( fCmd & ( kPosCmds | kStringCmds | kFlagCmds ) ) == 0, "Attempting to issue conflicting drawText commands" );
     fCmd &= ~( kPosCmds | kStringCmds | kFlagCmds );
-    fCmd |= kSetFont; 
+    fCmd |= kSetFont;
     fString = face;
     fX = size;
     fFlags = (uint32_t)isBold;
@@ -82,7 +82,7 @@ void    plDynamicTextMsg::SetJustify( uint8_t justifyFlags )
 {
     hsAssert( ( fCmd & ( kFlagCmds ) ) == 0, "Attempting to issue conflicting drawText commands" );
     fCmd &= ~( kFlagCmds );
-    fCmd |= kSetJustify; 
+    fCmd |= kSetJustify;
     fFlags = (uint32_t)justifyFlags;
 }
 
@@ -90,7 +90,7 @@ void    plDynamicTextMsg::FillRect( uint16_t left, uint16_t top, uint16_t right,
 {
     hsAssert( ( fCmd & ( kRectCmds | kColorCmds ) ) == 0, "Attempting to issue conflicting drawText commands" );
     fCmd &= ~( kRectCmds | kColorCmds );
-    fCmd |= kFillRect; 
+    fCmd |= kFillRect;
 
     fLeft = left;
     fTop = top;
@@ -103,7 +103,7 @@ void    plDynamicTextMsg::FrameRect( uint16_t left, uint16_t top, uint16_t right
 {
     hsAssert( ( fCmd & ( kRectCmds | kColorCmds ) ) == 0, "Attempting to issue conflicting drawText commands" );
     fCmd &= ~( kRectCmds | kColorCmds );
-    fCmd |= kFrameRect; 
+    fCmd |= kFrameRect;
 
     fLeft = left;
     fTop = top;
@@ -116,7 +116,7 @@ void    plDynamicTextMsg::DrawString( int16_t x, int16_t y, const ST::string& te
 {
     hsAssert( ( fCmd & ( kStringCmds | kPosCmds ) ) == 0, "Attempting to issue conflicting drawText commands" );
     fCmd &= ~( kStringCmds | kPosCmds );
-    fCmd |= kDrawString; 
+    fCmd |= kDrawString;
 
     fString = text;
     fX = x;
@@ -127,7 +127,7 @@ void    plDynamicTextMsg::DrawClippedString( int16_t x, int16_t y, uint16_t clip
 {
     hsAssert( ( fCmd & ( kStringCmds | kPosCmds | kRectCmds ) ) == 0, "Attempting to issue conflicting drawText commands" );
     fCmd &= ~( kStringCmds | kPosCmds | kRectCmds );
-    fCmd |= kDrawClippedString; 
+    fCmd |= kDrawClippedString;
 
     fString = text;
     fX = x;
@@ -143,7 +143,7 @@ void    plDynamicTextMsg::DrawWrappedString( int16_t x, int16_t y, uint16_t wrap
 {
     hsAssert( ( fCmd & ( kStringCmds | kPosCmds | kRectCmds ) ) == 0, "Attempting to issue conflicting drawText commands" );
     fCmd &= ~( kStringCmds | kPosCmds | kRectCmds );
-    fCmd |= kDrawWrappedString; 
+    fCmd |= kDrawWrappedString;
 
     fString = text;
     fX = x;
@@ -157,7 +157,7 @@ void    plDynamicTextMsg::DrawImage( int16_t x, int16_t y, plKey &image, bool re
 {
     hsAssert( ( fCmd & ( kPosCmds | kFlagCmds ) ) == 0, "Attempting to issue conflicting drawText commands" );
     fCmd &= ~( kPosCmds | kFlagCmds );
-    fCmd |= kDrawImage; 
+    fCmd |= kDrawImage;
 
     fImageKey = image;
     fX = x;
@@ -169,7 +169,7 @@ void    plDynamicTextMsg::DrawClippedImage( int16_t x, int16_t y, plKey &image, 
 {
     hsAssert( ( fCmd & ( kPosCmds | kFlagCmds | kRectCmds ) ) == 0, "Attempting to issue conflicting drawText commands" );
     fCmd &= ~( kPosCmds | kFlagCmds | kRectCmds );
-    fCmd |= kDrawClippedImage; 
+    fCmd |= kDrawClippedImage;
 
     fImageKey = image;
     fX = x;
@@ -181,9 +181,9 @@ void    plDynamicTextMsg::DrawClippedImage( int16_t x, int16_t y, plKey &image, 
     fFlags = (uint32_t)respectAlpha;
 }
 
-void    plDynamicTextMsg::Read( hsStream *s, hsResMgr *mgr ) 
-{ 
-    plMessage::IMsgRead( s, mgr ); 
+void    plDynamicTextMsg::Read( hsStream *s, hsResMgr *mgr )
+{
+    plMessage::IMsgRead( s, mgr );
 
     s->ReadLE( &fCmd );
     s->ReadLE( &fX );
@@ -205,9 +205,9 @@ void    plDynamicTextMsg::Read( hsStream *s, hsResMgr *mgr )
     fBlockRGB = s->ReadBOOL();
     s->ReadLE( &fLineSpacing );
 }
-void    plDynamicTextMsg::Write( hsStream *s, hsResMgr *mgr ) 
-{ 
-    plMessage::IMsgWrite( s, mgr ); 
+void    plDynamicTextMsg::Write( hsStream *s, hsResMgr *mgr )
+{
+    plMessage::IMsgWrite( s, mgr );
 
 #ifdef HS_DEBUGGING
     if (fCmd & (kDrawImage | kDrawClippedImage))
@@ -256,7 +256,7 @@ enum DynamicTextMsgFlags
     kDynTextMsgLineSpacing,
 };
 
-void plDynamicTextMsg::ReadVersion(hsStream* s, hsResMgr* mgr) 
+void plDynamicTextMsg::ReadVersion(hsStream* s, hsResMgr* mgr)
 {
     plMessage::IMsgReadVersion(s, mgr);
 
@@ -293,8 +293,8 @@ void plDynamicTextMsg::ReadVersion(hsStream* s, hsResMgr* mgr)
         s->ReadLE( &fLineSpacing );
 }
 
-void plDynamicTextMsg::WriteVersion(hsStream* s, hsResMgr* mgr) 
-{ 
+void plDynamicTextMsg::WriteVersion(hsStream* s, hsResMgr* mgr)
+{
     plMessage::IMsgWriteVersion(s, mgr);
 
     hsBitVector contentFlags;

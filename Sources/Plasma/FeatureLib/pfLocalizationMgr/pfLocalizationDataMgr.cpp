@@ -494,7 +494,7 @@ LocalizationXMLFile::set LocalizationDatabase::IMergeSetData(LocalizationXMLFile
         if (firstSet.find(curElement->first) == firstSet.end())
             firstSet[curElement->first] = curElement->second;
         else // merge the element in
-            firstSet[curElement->first] = IMergeElementData(firstSet[curElement->first], curElement->second, fileName, 
+            firstSet[curElement->first] = IMergeElementData(firstSet[curElement->first], curElement->second, fileName,
                 ST::format("{}.{}", path, curElement->first));
     }
 
@@ -513,7 +513,7 @@ LocalizationXMLFile::age LocalizationDatabase::IMergeAgeData(LocalizationXMLFile
         if (firstAge.find(curSet->first) == firstAge.end())
             firstAge[curSet->first] = curSet->second;
         else // merge the data in
-            firstAge[curSet->first] = IMergeSetData(firstAge[curSet->first], curSet->second, fileName, 
+            firstAge[curSet->first] = IMergeSetData(firstAge[curSet->first], curSet->second, fileName,
                 ST::format("{}.{}", path, curSet->first));
     }
 

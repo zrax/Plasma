@@ -127,7 +127,7 @@ void plAvTask::Write(hsStream *stream, hsResMgr *mgr)
 
 void plAvTask::ILimitPlayersInput(plArmatureMod *avatar)
 {
-    // make sure this is the local avatar we are talking about  
+    // make sure this is the local avatar we are talking about
     if (avatar == plAvatarMgr::GetInstance()->GetLocalAvatar())
     {
         plInputInterfaceMgr::GetInstance()->ForceCursorHidden(true);
@@ -139,7 +139,7 @@ void plAvTask::ILimitPlayersInput(plArmatureMod *avatar)
 
 void plAvTask::IUndoLimitPlayersInput(plArmatureMod *avatar)
 {
-    // make sure this is the local avatar we are talking about  
+    // make sure this is the local avatar we are talking about
     if (avatar == plAvatarMgr::GetInstance()->GetLocalAvatar())
     {
         plInputInterfaceMgr::GetInstance()->ForceCursorHidden(false);
@@ -273,7 +273,7 @@ void CalcHandleTargetPosition(hsMatrix44 &result, plSceneObject *handle, plScene
 void CalcHandleTargetPosition(hsMatrix44 &result, plSceneObject *insert, plSceneObject *target, plSceneObject *bodyRoot)
 {
     hsMatrix44 bodyToHandle = bodyRoot->GetLocalToParent();
-    CalcHandleTargetPosition(result, insert, target, bodyToHandle); 
+    CalcHandleTargetPosition(result, insert, target, bodyToHandle);
 }
 
 // PROCESS
@@ -306,7 +306,7 @@ bool plAvSeekTask::Process(plArmatureMod *avatar, plArmatureBrain *brain, double
     else
     {
         hsPoint3 posToGo = fTargetPosition - position;          // vec from here to the goal
-        float thisPercentage = (float)(elapsed / timeToGo);         
+        float thisPercentage = (float)(elapsed / timeToGo);
 
         hsPoint3 newPosition = position + posToGo * thisPercentage;
         hsQuat newRotation;
@@ -582,7 +582,7 @@ bool plAvOneShotTask::Start(plArmatureMod *avatar, plArmatureBrain *brain, doubl
             plAvatarPhysicsEnableCallbackMsg *epMsg = new plAvatarPhysicsEnableCallbackMsg(avatar->GetKey(), kStop, 0, 0, 0, 0);
             fAnimInstance->GetTimeConvert()->AddCallback(epMsg);
             hsRefCnt_SafeUnRef(epMsg);
-        }   
+        }
 
         if (fCallbacks)
         {
@@ -630,7 +630,7 @@ bool plAvOneShotTask::Start(plArmatureMod *avatar, plArmatureBrain *brain, doubl
             differ->Enable(true);
         }
 
-        avatar->ApplyAnimations(time, elapsed);                         
+        avatar->ApplyAnimations(time, elapsed);
 
         result = true;
     }
@@ -671,7 +671,7 @@ bool plAvOneShotTask::Process(plArmatureMod *avatar, plArmatureBrain *brain, dou
                         // For some reason, calling CheckValidPosition at the beginning of
                         // an age can cause detectors to incorrectly report collisions. So
                         // we only call this if we're in the age.
-                        // 
+                        //
                         // It's only debugging code anyway to help the artist check that
                         // their oneshot doesn't end while penetrating geometry.
                         char *overlaps = nil;
@@ -688,7 +688,7 @@ bool plAvOneShotTask::Process(plArmatureMod *avatar, plArmatureBrain *brain, dou
                         }
                     }
 #endif
-                }                   
+                }
                 if (humanBrain)
                     humanBrain->ResetIdle();
 
@@ -739,12 +739,12 @@ void plAvOneShotTask::SetAnimName(const ST::string &name)
 //
 //////////////////////
 
-plAvOneShotLinkTask::plAvOneShotLinkTask() : plAvOneShotTask(), 
+plAvOneShotLinkTask::plAvOneShotLinkTask() : plAvOneShotTask(),
 fMarkerTime(-1),
 fStartTime(0),
 fLinkFired(false)
 {
-    fDisablePhysics = false;        
+    fDisablePhysics = false;
 }
 
 plAvOneShotLinkTask::~plAvOneShotLinkTask()

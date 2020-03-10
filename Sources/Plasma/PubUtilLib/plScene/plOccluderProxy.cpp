@@ -67,9 +67,9 @@ bool plOccluderProxy::Init(plOccluder* occluder)
     return fOwner != nil;
 }
 
-plKey plOccluderProxy::IGetNode() const 
-{ 
-    return fOwner ? fOwner->GetSceneNode() : nil; 
+plKey plOccluderProxy::IGetNode() const
+{
+    return fOwner ? fOwner->GetSceneNode() : nil;
 }
 
 plDrawableSpans* plOccluderProxy::ICreateProxy(hsGMaterial* mat, hsTArray<uint32_t>& idx, plDrawableSpans* addTo)

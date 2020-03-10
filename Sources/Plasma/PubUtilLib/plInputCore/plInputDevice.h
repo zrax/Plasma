@@ -58,7 +58,7 @@ class plPipeline;
 
 namespace ST { class string; }
 
-class plInputDevice 
+class plInputDevice
 {
 public:
     enum Flags
@@ -164,9 +164,9 @@ public:
     const char* GetInputName() { return "mouse"; }
 
     bool    HasControlFlag(int f) const { return fControlFlags.IsBitSet(f); }
-    void    SetControlFlag(int f) 
-    { 
-        fControlFlags.SetBit(f); 
+    void    SetControlFlag(int f)
+    {
+        fControlFlags.SetBit(f);
     }
     void    ClearControlFlag(int which) { fControlFlags.ClearBit( which ); }
     void    SetCursorX(float x);

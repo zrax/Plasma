@@ -144,7 +144,7 @@ inline void plWorldWave7::Accumulate(hsPoint3& accumPos, hsVector3& accumNorm) c
     // Thing is, for the height is still based on the unperterbed position, so when
     // we move it laterally, the height is wrong. Maybe not too wrong, but still wrong.
     // Same for normal.
-    accumPos.fZ += s * fAmplitude; 
+    accumPos.fZ += s * fAmplitude;
 
     c *= -fFreq * fAmplitude;
     accumNorm.fX += fDir.fX * c;
@@ -193,7 +193,7 @@ inline void plWaveSet7::IRestartLog() const
 void plWaveSet7::StartLog()
 {
     delete fStatusLog;
-    fStatusLog = plStatusLogMgr::GetInstance().CreateStatusLog(kNumTexWaves, "TexWaves", 
+    fStatusLog = plStatusLogMgr::GetInstance().CreateStatusLog(kNumTexWaves, "TexWaves",
                             plStatusLog::kDontWriteFile | plStatusLog::kDeleteForMe | plStatusLog::kFilledBackground);
 }
 
@@ -723,7 +723,7 @@ bool plWaveSet7::IOnRemove(plGenRefMsg* refMsg)
 }
 
 void plWaveSet7::SetState(const plFixedWaterState7& state, float dur)
-{ 
+{
     fState.Set(state, dur);
 
     if( fFixedLayers[0] )
@@ -1306,7 +1306,7 @@ void plWaveSet7::IInitWaveConsts()
         // fS       fK      fD
         { 1.f,      5.f,    0.f },
         { 1.f,      10.f,   2.f },
-        { -1.f,     20.f,   -9.f }, 
+        { -1.f,     20.f,   -9.f },
         { 1.f,      30.f,   16.f }
     };
     int i;
@@ -1570,7 +1570,7 @@ hsGMaterial* plWaveSet7::ICreateBumpLayersFFP()
     //      which doesn't need a final bias instruction because it remains biased all the way through
     //      at the cost of 1 bit of precision.
     //      Whatever.
-    //      
+    //
 
     // return material;
     return nil;
@@ -1582,7 +1582,7 @@ plMipmap* plWaveSet7::ICreateBiasNoiseMap()
     plMipmap* mipMap = new plMipmap(
         size, size,
         plMipmap::kARGB32Config,
-        1, 
+        1,
         plMipmap::kUncompressed,
         plMipmap::UncompressedInfo::kRGB8888);
 
@@ -1627,7 +1627,7 @@ plMipmap* plWaveSet7::ICreateBumpMipmapPS()
         plMipmap* mipMap = new plMipmap(
         kCompositeSize, sizeV,
         plMipmap::kARGB32Config,
-        kNumLevels, 
+        kNumLevels,
         plMipmap::kUncompressed,
         plMipmap::UncompressedInfo::kRGB8888);
 
@@ -1871,7 +1871,7 @@ void plWaveSet7::IAddBumpBiasShaders(plLayer* layer)
         fBiasVShader = vShader;
     }
 
-    plLayRefMsg* refMsg = new plLayRefMsg(layer->GetKey(), plRefMsg::kOnCreate, 0, plLayRefMsg::kVertexShader); 
+    plLayRefMsg* refMsg = new plLayRefMsg(layer->GetKey(), plRefMsg::kOnCreate, 0, plLayRefMsg::kVertexShader);
     hsgResMgr::ResMgr()->SendRef(fBiasVShader->GetKey(), refMsg, plRefFlags::kActiveRef);
 
 
@@ -1897,7 +1897,7 @@ void plWaveSet7::IAddBumpBiasShaders(plLayer* layer)
         fBiasPShader = pShader;
     }
 
-    refMsg = new plLayRefMsg(layer->GetKey(), plRefMsg::kOnCreate, 0, plLayRefMsg::kPixelShader);   
+    refMsg = new plLayRefMsg(layer->GetKey(), plRefMsg::kOnCreate, 0, plLayRefMsg::kPixelShader);
     hsgResMgr::ResMgr()->SendRef(fBiasPShader->GetKey(), refMsg, plRefFlags::kActiveRef);
 
 }
@@ -2066,12 +2066,12 @@ plDrawableSpans* plWaveSet7::ICreateClearDrawable(plDrawableSpans* drawable, hsG
     idx[5] = 3;
 
 
-    plDrawableGenerator::GenerateDrawable( 4, pos, norm, 
+    plDrawableGenerator::GenerateDrawable( 4, pos, norm,
                                                         uvw, 1,
                                                         nil, false, nil,
-                                                        6, idx, 
-                                                        mat, 
-                                                        hsMatrix44::IdentityMatrix(), 
+                                                        6, idx,
+                                                        mat,
+                                                        hsMatrix44::IdentityMatrix(),
                                                         false,
                                                         nil,
                                                         drawable);
@@ -2200,7 +2200,7 @@ hsGMaterial* plWaveSet7::ICreateFixedMatPS(hsGMaterial* mat, const int numUVWs)
         return mat;
 
     // First, strip off whatever's on there now.
-    // If this is the 
+    // If this is the
     int i;
     for( i = mat->GetNumLayers()-1; i > 0; i-- )
     {
@@ -2388,11 +2388,11 @@ void plWaveSet7::IAddShaderToLayers(hsGMaterial* mat, int iFirst, int iLast, uin
     for( i = iFirst; i <= iLast; i++ )
     {
         plLayer* layer = plLayer::ConvertNoRef(mat->GetLayer(i)->BottomOfStack());
-        if( layer 
-            && (layer->GetVertexShader() != shader) 
+        if( layer
+            && (layer->GetVertexShader() != shader)
             && (layer->GetPixelShader() != shader) )
         {
-            plLayRefMsg* refMsg = new plLayRefMsg(layer->GetKey(), plRefMsg::kOnCreate, 0, type);   
+            plLayRefMsg* refMsg = new plLayRefMsg(layer->GetKey(), plRefMsg::kOnCreate, 0, type);
             hsgResMgr::ResMgr()->SendRef(shader->GetKey(), refMsg, plRefFlags::kActiveRef);
 
 //          layer->SetShadeFlags(layer->GetShadeFlags() | hsGMatState::kShadeReallyNoFog);
@@ -2448,10 +2448,10 @@ void plWaveSet7::IAddRipVertexShader(hsGMaterial* mat, const plRipVSConsts& ripC
         vShader->SetVector(plRipVS::kNumericConsts, 0, 0.5f, 1.f, 2.f);
 
         hsVector3 waterOffset = State().fWaterOffset;
-        vShader->SetVector(plRipVS::kWaterLevel, 
-            State().fWaterHeight + waterOffset.fX, 
-            State().fWaterHeight + waterOffset.fY, 
-            State().fWaterHeight + waterOffset.fZ, 
+        vShader->SetVector(plRipVS::kWaterLevel,
+            State().fWaterHeight + waterOffset.fX,
+            State().fWaterHeight + waterOffset.fY,
+            State().fWaterHeight + waterOffset.fZ,
             State().fWaterHeight);
 
         hsVector3 maxAtten = State().fMaxAtten;
@@ -2592,10 +2592,10 @@ plShader* plWaveSet7::ICreateDecalVShader(DecalVType t)
         vShader->SetVector(plWaveDecVS::kNumericConsts, 0, 0.5f, 1.f, 2.f);
 
         hsVector3 waterOffset = State().fWaterOffset;
-        vShader->SetVector(plWaveDecVS::kWaterLevel, 
-            State().fWaterHeight + waterOffset.fX, 
-            State().fWaterHeight + waterOffset.fY, 
-            State().fWaterHeight + waterOffset.fZ, 
+        vShader->SetVector(plWaveDecVS::kWaterLevel,
+            State().fWaterHeight + waterOffset.fX,
+            State().fWaterHeight + waterOffset.fY,
+            State().fWaterHeight + waterOffset.fZ,
             State().fWaterHeight);
 
         hsVector3 maxAtten = State().fMaxAtten;
@@ -2956,7 +2956,7 @@ void plWaveSet7::IUpdateRipVShader(plPipeline* pipe, const hsMatrix44& l2w, cons
 
         fRipVShader->SetFloat(plRipVS::kLifeConsts, 1, float(hsTimer::GetSysSeconds()));
         float normQ[kNumWaves];
-        int i; 
+        int i;
         for( i = 0; i < kNumWaves; i++ )
         {
             normQ[i] = GeoState().fChop / (2.f*M_PI * GeoState().fAmpOverLen * kNumWaves);
@@ -3133,10 +3133,10 @@ void plWaveSet7::IUpdateShoreVShader(plPipeline* pipe, const hsMatrix44& l2w, co
             fWorldWaves[3].fDir.fY);
 
         hsVector3 waterOffset = State().fWaterOffset;
-        fShoreVShader->SetVector(plShoreVS::kWaterLevel, 
-            State().fWaterHeight + waterOffset.fX, 
-            State().fWaterHeight + waterOffset.fY, 
-            State().fWaterHeight + waterOffset.fZ, 
+        fShoreVShader->SetVector(plShoreVS::kWaterLevel,
+            State().fWaterHeight + waterOffset.fX,
+            State().fWaterHeight + waterOffset.fY,
+            State().fWaterHeight + waterOffset.fZ,
             State().fWaterHeight);
 
         hsVector3 maxAtten = State().fMaxAtten;
@@ -3292,10 +3292,10 @@ void plWaveSet7::IUpdateFixedVShader(plPipeline* pipe, const hsMatrix44& l2w, co
         // to be uploading them to the card anyway, might as well refresh
         // the sysmem shader to be safe.
         hsVector3 waterOffset = State().fWaterOffset;
-        fFixedVShader->SetVector(plFixedVS7::kWaterLevel, 
-            State().fWaterHeight + waterOffset.fX, 
-            State().fWaterHeight + waterOffset.fY, 
-            State().fWaterHeight + waterOffset.fZ, 
+        fFixedVShader->SetVector(plFixedVS7::kWaterLevel,
+            State().fWaterHeight + waterOffset.fX,
+            State().fWaterHeight + waterOffset.fY,
+            State().fWaterHeight + waterOffset.fZ,
             State().fWaterHeight);
 
         hsVector3 maxAtten = State().fMaxAtten;
@@ -3626,16 +3626,16 @@ plDrawableSpans* plWaveSet7::ICreateGraphDrawable(plDrawableSpans* drawable, hsG
     }
 
 
-    plDrawableGenerator::GenerateDrawable( nVerts, pos.AcquireArray(), norm.AcquireArray(), 
+    plDrawableGenerator::GenerateDrawable( nVerts, pos.AcquireArray(), norm.AcquireArray(),
 #ifndef TEST_UVWS
-                                                        nil, 0, 
+                                                        nil, 0,
 #else // TEST_UVWS
                                                         uvw.AcquireArray(), 1,
 #endif // TEST_UVWS
                                                         nil, false, nil,
-                                                        nTris * 3, idxArr.AcquireArray(), 
-                                                        mat, 
-                                                        hsMatrix44::IdentityMatrix(), 
+                                                        nTris * 3, idxArr.AcquireArray(),
+                                                        mat,
+                                                        hsMatrix44::IdentityMatrix(),
                                                         false,
                                                         nil,
                                                         drawable);
@@ -3680,7 +3680,7 @@ plMipmap* plWaveSet7::ICreateBlankTex(const char* name, int width, int height, u
     plMipmap* mipMap = new plMipmap(
         width, height,
         plMipmap::kARGB32Config,
-        1, 
+        1,
         plMipmap::kUncompressed,
         plMipmap::UncompressedInfo::kRGB8888);
 
@@ -3755,7 +3755,7 @@ void plWaveSet7::IRefillBubbleShoreTex()
     const int width = mipMap->GetWidth();
     const int height = mipMap->GetHeight();
 
-    // Initialize to white opaque. 
+    // Initialize to white opaque.
     memset(mipMap->GetAddr32(0,0), 0xff, width*height*sizeof(uint32_t));
 
     plConst(int) kMinNumBub(1024);
@@ -3940,7 +3940,7 @@ plMipmap* plWaveSet7::ICreateEdgeShoreTex(int width, int height)
 void plWaveSet7::ISetAsTexture(plLayer* lay, plBitmap* tex)
 {
     hsAssert(lay && tex, "Trying to set nil texture or nil layer");
-    plLayRefMsg* refMsg = new plLayRefMsg(lay->GetKey(), plRefMsg::kOnRequest, 0, plLayRefMsg::kTexture);   
+    plLayRefMsg* refMsg = new plLayRefMsg(lay->GetKey(), plRefMsg::kOnRequest, 0, plLayRefMsg::kTexture);
     hsgResMgr::ResMgr()->SendRef(tex->GetKey(), refMsg, plRefFlags::kActiveRef);
 }
 
@@ -4275,7 +4275,7 @@ void plWaveSet7::IInitGraph(int iPass)
     static int lastOne = 0;
 
     plConst(float) kBasePeriod(3.f);
-    float life = State().fPeriod * kBasePeriod * (1.f + fRand.RandZeroToOne()); 
+    float life = State().fPeriod * kBasePeriod * (1.f + fRand.RandZeroToOne());
     gs.fInvLife = (1.f + float(lastOne)/float(kGraphShorePasses-1)) / life;
 
     lastOne = !lastOne;
@@ -4310,7 +4310,7 @@ void plWaveSet7::IInitGraph(int iPass)
         }
 
         // Input will be in range [0..2], so we'll omit the customary 2*PI here.
-        gs.fFreq[i] = k * M_PI; 
+        gs.fFreq[i] = k * M_PI;
 
         // Amplitude depends on freqency, or roughly inversely proportional
         // to frequency (randomized about linear on period).
@@ -4369,10 +4369,10 @@ void plWaveSet7::IUpdateGraphShader(float dt, int iPass)
         {
             float sinAge = hsFastMath::SinInRange(rads);
 
-            shader->SetVector(plGraphVS::kAmplitude, 
-                gs.fAmp[0] * sinAge, 
-                gs.fAmp[1] * sinAge, 
-                gs.fAmp[2] * sinAge, 
+            shader->SetVector(plGraphVS::kAmplitude,
+                gs.fAmp[0] * sinAge,
+                gs.fAmp[1] * sinAge,
+                gs.fAmp[2] * sinAge,
                 gs.fAmp[3] * sinAge);
 
             // Might want to tint this sometime.

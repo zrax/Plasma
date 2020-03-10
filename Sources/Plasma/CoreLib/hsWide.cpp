@@ -287,7 +287,7 @@ int32_t hsWide::Sqrt() const
     do {
         WIDE_SHIFTLEFT(currH, currL, currH, currL, 2);
         currL |= TOP2BITS(valueH);
-        WIDE_SHIFTLEFT(valueH, valueL, valueH, valueL, 2);      
+        WIDE_SHIFTLEFT(valueH, valueL, valueH, valueL, 2);
         WIDE_SHIFTLEFT(guessH, guessL, 0, root, 2);
         root <<= 1;
         if (WIDE_LESSTHAN(guessH, guessL, currH, currL))
@@ -316,11 +316,11 @@ int32_t hsWide::CubeRoot() const
     }
 
     currH = currL = 0;
-    WIDE_SHIFTLEFT(valueH, valueL, valueH, valueL, 1);  
+    WIDE_SHIFTLEFT(valueH, valueL, valueH, valueL, 1);
     do {
         WIDE_SHIFTLEFT(currH, currL, currH, currL, 3);
         currL |= TOP3BITS(valueH);
-        WIDE_SHIFTLEFT(valueH, valueL, valueH, valueL, 3);      
+        WIDE_SHIFTLEFT(valueH, valueL, valueH, valueL, 3);
 
         root <<= 1;
 

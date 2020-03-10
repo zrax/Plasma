@@ -180,7 +180,7 @@ class plDynamicTextMap : public plMipmap
             kImgSprite          // Copy color data and alphas
         };
         void    DrawImage( uint16_t x, uint16_t y, plMipmap *image, DrawMethods method = kImgNoAlpha );
-        void    DrawClippedImage( uint16_t x, uint16_t y, plMipmap *image, uint16_t srcClipX, uint16_t srcClipY, 
+        void    DrawClippedImage( uint16_t x, uint16_t y, plMipmap *image, uint16_t srcClipX, uint16_t srcClipY,
                                 uint16_t srcClipWidth, uint16_t srcClipHeight, DrawMethods method = kImgNoAlpha );
 
         void    FlushToHost();

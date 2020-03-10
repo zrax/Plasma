@@ -257,8 +257,8 @@ void    plFont::IRenderString( plMipmap *mip, uint16_t x, uint16_t y, const wcha
 
     switch( fRenderInfo.fFlags & kRenderJustYMask )
     {
-        case kRenderJustYTop: 
-            fRenderInfo.fY += (int16_t)fFontAscent; 
+        case kRenderJustYTop:
+            fRenderInfo.fY += (int16_t)fFontAscent;
             break;
         case kRenderJustYBottom:
             if( fRenderInfo.fFlags & ( kRenderClip | kRenderWrap ) )
@@ -510,7 +510,7 @@ void    plFont::IRenderString( plMipmap *mip, uint16_t x, uint16_t y, const wcha
                     }
                     // Yes, and we didn't go over, so store as the last successfully fit uint16_t and move on
                     lastWord = i;
-                }           
+                }
             }
 
             if( string[ i ] == 0 )
@@ -609,7 +609,7 @@ void    plFont::IRenderString( plMipmap *mip, uint16_t x, uint16_t y, const wcha
             fRenderInfo.fMaxWidth = destMaxWidth;
             fRenderInfo.fMaxAscent = 0;
 
-            // Look for the next non-word-breaker. Note that if we have any carriage returns hidden in here, 
+            // Look for the next non-word-breaker. Note that if we have any carriage returns hidden in here,
             // we'll want to be advancing down even further
             // Advance down
             if( string[ i ] != 0 )
@@ -642,11 +642,11 @@ void    plFont::IRenderString( plMipmap *mip, uint16_t x, uint16_t y, const wcha
             string += i;
         }
 
-        fRenderInfo.fMaxAscent = firstMaxAscent;    
+        fRenderInfo.fMaxAscent = firstMaxAscent;
         // Final y offset from the last line
         fRenderInfo.fY += (int16_t)fFontDescent;
 
-        fRenderInfo.fVolatileStringPtr = string; 
+        fRenderInfo.fVolatileStringPtr = string;
     }
     else
     {
@@ -686,7 +686,7 @@ void    plFont::IRenderString( plMipmap *mip, uint16_t x, uint16_t y, const wcha
 void    plFont::IRenderLoop( const wchar_t *string, int32_t maxCount )
 {
     // Render the string straight across, one char at a time
-    while( *string != 0 && maxCount != 0 )  // Note: if maxCount starts out -1, then it'll just keep 
+    while( *string != 0 && maxCount != 0 )  // Note: if maxCount starts out -1, then it'll just keep
     {                                       // decrementing...well ok, not for forever, but pretty close
         uint16_t c = (uint16_t)*string;
         if( c < fFirstChar )
@@ -764,7 +764,7 @@ void    plFont::IRenderChar1To32( const plFont::plCharacter &c )
         for( x = 0; x < fRenderInfo.fNumCols; x++ )
         {
             for( bitMask = 0x80; bitMask != 0; bitMask >>= 1 )
-            {   
+            {
                 if( *src & bitMask )
                     *destPtr = fRenderInfo.fColor;
                 destPtr++;
@@ -797,7 +797,7 @@ void    plFont::IRenderChar1To32AA( const plFont::plCharacter &c )
         for( x = 0; x < fRenderInfo.fNumCols; x++ )
         {
             for( bitMask = 0x80; bitMask != 0; bitMask >>= 2 )
-            {   
+            {
                 // Grab 4 bits and do 4-to-1 AA
                 uint8_t value = ( *src & bitMask ) ? 1 : 0;
                 value += ( *src & ( bitMask >> 1 ) ) ? 1 : 0;
@@ -810,7 +810,7 @@ void    plFont::IRenderChar1To32AA( const plFont::plCharacter &c )
                     {
                         uint32_t src = ( fRenderInfo.fColor >> 2 ) & 0x3f3f3f3f;
                         uint32_t dst = ( (*destPtr) >> 2 ) & 0x3f3f3f3f;
-                        *destPtr = src + dst + dst + dst;                   
+                        *destPtr = src + dst + dst + dst;
                         break;
                     }
                     case 2:
@@ -1241,7 +1241,7 @@ uint8_t   *plFont::IGetFreeCharData( uint32_t &newOffset )
 }
 
 //// LoadFromP2FFile //////////////////////////////////////////////////////////
-//  Handy quick wrapper 
+//  Handy quick wrapper
 
 bool    plFont::LoadFromP2FFile( const plFileName &path )
 {

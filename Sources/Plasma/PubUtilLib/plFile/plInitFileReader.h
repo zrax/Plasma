@@ -84,7 +84,7 @@ class plInitSectionReader
 };
 
 //// Semi-Derived Class //////////////////////////////////////////////////////
-//  Half-way derived class for parsing lines by tokens rather than pure 
+//  Half-way derived class for parsing lines by tokens rather than pure
 //  strings.
 
 class hsStringTokenizer;

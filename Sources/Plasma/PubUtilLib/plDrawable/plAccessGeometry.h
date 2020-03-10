@@ -88,7 +88,7 @@ public:
     static void SetTheIntance(plAccessGeometry* i);
 
     // You have 2 options in opening the data.
-    // RO - Read Only. 
+    // RO - Read Only.
     //      If you specify useSnapShot=true, then for channels which have had a snapshot
     //      taken, you will get pointers to this constant original snapshot form. For
     //      channels which have no snapshot data, or if useSnapShot=false, you will get
@@ -120,7 +120,7 @@ public:
     // a list of geometry corresponding to that SceneObject/DrawInterface.
     // NOTE: the list is in no way suggested to be homogenous. In fact, it's guaranteed
     // not to be, because the reason the single object resolved into multiple geometry spans
-    // (possibly across multiple drawables) is that the conceptual single object is composed 
+    // (possibly across multiple drawables) is that the conceptual single object is composed
     // of multiple types of data that can't be batched into a single drawprimitive call.
     // At the least, the different AccessSpans will have different materials. But it's just
     // as likely that they will have different underlying formats (number of UVs, etc.).
@@ -146,7 +146,7 @@ public:
     // RestoreSnapShot will copy the stored channels back into the buffer group, resetting those channels to
     //      the state when the snapshot was taken. Note that channels not SnapShotted might have been modified
     //      via OpenRW.
-    // 
+    //
     void    TakeSnapShot(plDrawable* drawable, uint32_t spanIdx, uint32_t channels) const;
     void    RestoreSnapShot(plDrawable* drawable, uint32_t spanIdx, uint32_t channels) const;
     void    ReleaseSnapShot(plDrawable* drawable, uint32_t spanIdx) const;

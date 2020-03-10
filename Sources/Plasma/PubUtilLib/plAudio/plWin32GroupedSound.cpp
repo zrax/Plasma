@@ -146,19 +146,19 @@ bool    plWin32GroupedSound::LoadSound( bool is3D )
     
     // We need it to be resident to read in
     plSoundBuffer::ELoadReturnVal retVal = IPreLoadBuffer(true);
-    plSoundBuffer *buffer = (plSoundBuffer *)fDataBufferKey->ObjectIsLoaded();  
+    plSoundBuffer *buffer = (plSoundBuffer *)fDataBufferKey->ObjectIsLoaded();
     if(!buffer)
     {
         return plSoundBuffer::kError;
     }
 
-    if( retVal == plSoundBuffer::kPending)  // we are still reading data. 
+    if( retVal == plSoundBuffer::kPending)  // we are still reading data.
     {
         return true;
     }
 
     // We need it to be resident to read in
-    if( retVal == plSoundBuffer::kError) 
+    if( retVal == plSoundBuffer::kError)
     {
         ST::string str = ST::format("Unable to open .wav file {}", fDataBufferKey ? fDataBufferKey->GetName() : "nil");
         IPrintDbgMessage( str.c_str(), true );
@@ -179,7 +179,7 @@ bool    plWin32GroupedSound::LoadSound( bool is3D )
         return false;
     }
 
-    // Calculate the maximum size for our buffer. This will be the length of the longest sound we're going to 
+    // Calculate the maximum size for our buffer. This will be the length of the longest sound we're going to
     // have to play.
     uint16_t i;
     uint32_t maxSoundSize, len;
@@ -352,7 +352,7 @@ void    plWin32GroupedSound::IFillCurrentSound( int16_t newCurrent /*= -1*/ )
 
             /*plProfile_BeginTiming( StaticSwizzleTime );
 
-            plSoundDeswizzler   deswiz( (uint8_t *)fDataBuffer->GetData() + fStartPositions[ fCurrentSound ], fCurrentSoundLength, 
+            plSoundDeswizzler   deswiz( (uint8_t *)fDataBuffer->GetData() + fStartPositions[ fCurrentSound ], fCurrentSoundLength,
                                         (uint8_t)(fDataBuffer->GetHeader().fNumChannels), fNumDestBytesPerSample );
 
             deswiz.Extract( fChannelSelect, dataPtr );

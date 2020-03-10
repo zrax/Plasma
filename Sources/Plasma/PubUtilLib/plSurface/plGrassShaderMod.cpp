@@ -156,7 +156,7 @@ bool plGrassShaderMod::MsgReceive(plMessage *msg)
             }
         }
         else
-        {   
+        {
             switch (refMsg->fType)
             {
             case kRefGrassVS:
@@ -262,12 +262,12 @@ void plGrassShaderMod::ISetupShaders()
     plLayer* layer = plLayer::ConvertNoRef(fMaterial->GetLayer(0)->BottomOfStack());
     if (layer && (layer->GetVertexShader() != fVShader))
     {
-        plLayRefMsg* refMsg = new plLayRefMsg(layer->GetKey(), plRefMsg::kOnCreate, 0, plLayRefMsg::kVertexShader); 
+        plLayRefMsg* refMsg = new plLayRefMsg(layer->GetKey(), plRefMsg::kOnCreate, 0, plLayRefMsg::kVertexShader);
         hsgResMgr::ResMgr()->SendRef(fVShader->GetKey(), refMsg, plRefFlags::kActiveRef);
     }
     if (layer && (layer->GetPixelShader() != fPShader))
     {
-        plLayRefMsg* refMsg = new plLayRefMsg(layer->GetKey(), plRefMsg::kOnCreate, 0, plLayRefMsg::kPixelShader);  
+        plLayRefMsg* refMsg = new plLayRefMsg(layer->GetKey(), plRefMsg::kOnCreate, 0, plLayRefMsg::kPixelShader);
         hsgResMgr::ResMgr()->SendRef(fPShader->GetKey(), refMsg, plRefFlags::kActiveRef);
     }
 }

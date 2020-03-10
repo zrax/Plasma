@@ -303,8 +303,8 @@ void    pfGUIPopUpMenu::Write( hsStream *s, hsResMgr *mgr )
 
 void    pfGUIPopUpMenu::SetOriginAnchor( plSceneObject *anchor, pfGUIDialogMod *context )
 {
-    fOriginAnchor = anchor; 
-    fOriginContext = context; 
+    fOriginAnchor = anchor;
+    fOriginContext = context;
     hsgResMgr::ResMgr()->AddViaNotify( fOriginAnchor->GetKey(), new plGenRefMsg( GetKey(), plRefMsg::kOnCreate, -1, kRefOriginAnchor ), plRefFlags::kPassiveRef );
     hsgResMgr::ResMgr()->AddViaNotify( fOriginContext->GetKey(), new plGenRefMsg( GetKey(), plRefMsg::kOnCreate, -1, kRefOriginContext ), plRefFlags::kPassiveRef );
 }
@@ -666,7 +666,7 @@ void    pfGUIPopUpMenu::ClearItems()
 }
 
 //// AddItem /////////////////////////////////////////////////////////////////
-//  Append a new item to the list of things to build the menu from 
+//  Append a new item to the list of things to build the menu from
 
 void    pfGUIPopUpMenu::AddItem( const char *name, pfGUICtrlProcObject *handler, pfGUIPopUpMenu *subMenu )
 {
@@ -784,9 +784,9 @@ pfGUIPopUpMenu  *pfGUIPopUpMenu::Build( const char *name, pfGUIDialogMod *parent
     menu->fParentNode= new plSceneNode;
     menu->fKeyGen->CreateKey( menu->fParentNode );
 //  menu->fParentNode->GetKey()->RefObject();
-    hsgResMgr::ResMgr()->SendRef( menu->fParentNode->GetKey(), new plGenRefMsg( menu->GetKey(), plRefMsg::kOnCreate, 0, kRefParentNode ), plRefFlags::kActiveRef );     
+    hsgResMgr::ResMgr()->SendRef( menu->fParentNode->GetKey(), new plGenRefMsg( menu->GetKey(), plRefMsg::kOnCreate, 0, kRefParentNode ), plRefFlags::kActiveRef );
 
-    hsgResMgr::ResMgr()->AddViaNotify( menu->fParentNode->GetKey(), new plGenRefMsg( renderMod->GetKey(), plRefMsg::kOnCreate, 0, plPostEffectMod::kNodeRef ), plRefFlags::kPassiveRef );       
+    hsgResMgr::ResMgr()->AddViaNotify( menu->fParentNode->GetKey(), new plGenRefMsg( renderMod->GetKey(), plRefMsg::kOnCreate, 0, plPostEffectMod::kNodeRef ), plRefFlags::kPassiveRef );
 
     menu->SetRenderMod( renderMod );
     menu->SetName( name );
@@ -805,17 +805,17 @@ pfGUIPopUpMenu  *pfGUIPopUpMenu::Build( const char *name, pfGUIDialogMod *parent
 
     // Using SendRef here because AddViaNotify will queue the messages up, which doesn't do us any good
     // if we need these refs right away
-    hsgResMgr::ResMgr()->SendRef( newCI->GetKey(), new plObjRefMsg( newObj->GetKey(), plRefMsg::kOnCreate, 0, plObjRefMsg::kInterface ), plRefFlags::kActiveRef );      
-    hsgResMgr::ResMgr()->SendRef( renderMod->GetKey(), new plObjRefMsg( newObj->GetKey(), plRefMsg::kOnCreate, 0, plObjRefMsg::kModifier ), plRefFlags::kActiveRef );       
+    hsgResMgr::ResMgr()->SendRef( newCI->GetKey(), new plObjRefMsg( newObj->GetKey(), plRefMsg::kOnCreate, 0, plObjRefMsg::kInterface ), plRefFlags::kActiveRef );
+    hsgResMgr::ResMgr()->SendRef( renderMod->GetKey(), new plObjRefMsg( newObj->GetKey(), plRefMsg::kOnCreate, 0, plObjRefMsg::kModifier ), plRefFlags::kActiveRef );
     newObj->SetSceneNode( menu->fParentNode->GetKey() );
     newObj->SetTransform( l2w, w2l );
 
-    hsgResMgr::ResMgr()->SendRef( menu->GetKey(), new plObjRefMsg( newObj->GetKey(), plRefMsg::kOnCreate, 0, plObjRefMsg::kModifier ), plRefFlags::kActiveRef );        
+    hsgResMgr::ResMgr()->SendRef( menu->GetKey(), new plObjRefMsg( newObj->GetKey(), plRefMsg::kOnCreate, 0, plObjRefMsg::kModifier ), plRefFlags::kActiveRef );
 
     // Add the menu to the GUI mgr
-    plGenRefMsg *refMsg = new plGenRefMsg( pfGameGUIMgr::GetInstance()->GetKey(), 
+    plGenRefMsg *refMsg = new plGenRefMsg( pfGameGUIMgr::GetInstance()->GetKey(),
                                             plRefMsg::kOnCreate, 0, pfGameGUIMgr::kDlgModRef );
-    hsgResMgr::ResMgr()->AddViaNotify( menu->GetKey(), refMsg, plRefFlags::kActiveRef );        
+    hsgResMgr::ResMgr()->AddViaNotify( menu->GetKey(), refMsg, plRefFlags::kActiveRef );
 
     menu->ISeekToOrigin();
 

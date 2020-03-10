@@ -84,7 +84,7 @@ public:
     virtual ~plNoteTrackWatcher();
     void DeleteThis() { delete this; }
 
-    Class_ID    ClassID()               { return NTWATCHER_CLASSID; }      
+    Class_ID    ClassID()               { return NTWATCHER_CLASSID; }
     SClass_ID   SuperClassID()          { return REF_MAKER_CLASS_ID; }
     
     int             NumRefs();
@@ -95,4 +95,4 @@ public:
     virtual BOOL    IsRealDependency( ReferenceTarget *rtarg );
 };
 
-#endif //_plNoteTrackWatcher_h 
+#endif //_plNoteTrackWatcher_h

@@ -52,11 +52,11 @@ class plNetTransportMember;
 class plNetVoiceList
 {
 protected:
-    typedef std::vector<plNetTransportMember*> VoiceListType;   
+    typedef std::vector<plNetTransportMember*> VoiceListType;
 protected:
-    VoiceListType fMembers; 
+    VoiceListType fMembers;
 
-public: 
+public:
     plNetVoiceList() {}
     virtual ~plNetVoiceList() {}
     

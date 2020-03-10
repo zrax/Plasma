@@ -443,17 +443,17 @@ void plAvBrainGenericMsg::WriteVersion(hsStream* s, hsResMgr* mgr)
 
     // kAvBrainGenericType
     s->WriteLE32(fType);
-    // kAvBrainGenericWhich 
+    // kAvBrainGenericWhich
     s->WriteLE32(fWhichStage);
-    // kAvBrainGenericSetTime   
+    // kAvBrainGenericSetTime
     s->WriteBool(fSetTime);
-    // kAvBrainGenericNewTime   
+    // kAvBrainGenericNewTime
     s->WriteLEScalar(fNewTime);
-    // kAvBrainGenericSetDir    
+    // kAvBrainGenericSetDir
     s->WriteBool(fSetDirection);
-    // kAvBrainGenericNewDir    
+    // kAvBrainGenericNewDir
     s->WriteBool(fNewDirection);
-    // kAvBrainGenericTransTime 
+    // kAvBrainGenericTransTime
     s->WriteLEScalar(fTransitionTime);
 }
 
@@ -527,9 +527,9 @@ void plAvPushBrainMsg::Write(hsStream *stream, hsResMgr *mgr)
 //
 ///////////////////////////
 
-plAvatarStealthModeMsg::plAvatarStealthModeMsg() : plAvatarMsg(), fMode(kStealthVisible), fLevel(0) 
-{ 
-    SetBCastFlag(plMessage::kBCastByExactType); 
+plAvatarStealthModeMsg::plAvatarStealthModeMsg() : plAvatarMsg(), fMode(kStealthVisible), fLevel(0)
+{
+    SetBCastFlag(plMessage::kBCastByExactType);
 }
 
 // READ stream mgr

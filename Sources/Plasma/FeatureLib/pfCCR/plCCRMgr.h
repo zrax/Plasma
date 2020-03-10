@@ -65,7 +65,7 @@ namespace plCCRError
         kPlayerNotInAge = -8,
         kVaultTimedOut  = -9,
         kVaultFetchFailed = -10,
-        kAuthTimedOut   = -11       
+        kAuthTimedOut   = -11
     };
 }
 

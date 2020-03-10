@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/PubUtilLib/plNetClientComm/plNetClientComm.cpp
-*   
+*
 ***/
 
 #include "plNetClientComm.h"
@@ -338,13 +338,13 @@ static void LoginPlayerInitCallback (
         msg->param              = param;
         msg->Send();
     }
-    {   
+    {
         plNetCommActivePlayerMsg * msg = new plNetCommActivePlayerMsg;
         msg->result     = result;
         msg->param      = param;
         msg->Send();
     }
-    {   
+    {
         plAccountUpdateMsg * msg = new plAccountUpdateMsg(plAccountUpdateMsg::kActivePlayer);
         msg->SetPlayerInt(NetCommGetPlayer()->playerInt);
         msg->SetResult((unsigned)result);
@@ -420,7 +420,7 @@ static void INetCliAuthLoginRequestCallback (
         s_account.accountUuid = kNilUuid;
 
     // If they specified an alternate age, but we couldn't find the player, force
-    // the StartUp age to load so that they may select/create a player first.    
+    // the StartUp age to load so that they may select/create a player first.
     if (!wantsStartUpAge && !s_player)
         s_startupAge.ageDatasetName = "StartUp";
 
@@ -913,7 +913,7 @@ void NetCommRecvMsg (
         if (!handler && s_defaultHandler.proc) {
             s_defaultHandler.proc(msg, s_defaultHandler.state);
             break;
-        }        
+        }
         while (handler) {
             if (kOK_MsgConsumed == handler->proc(msg, handler->state))
                 break;
@@ -971,7 +971,7 @@ void NetCommRemoveMsgHandler (
                 continue;
 
         // We found a matching handler, delete it
-        delete handler;        
+        delete handler;
     }
 }
 

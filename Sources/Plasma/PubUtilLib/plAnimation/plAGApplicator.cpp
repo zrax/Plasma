@@ -83,8 +83,8 @@ ST::string plAGApplicator::GetChannelName()
     return fChannelName;
 };
 
-plAGChannel *plAGApplicator::MergeChannel(plAGApplicator *app, plAGChannel *channel, 
-                                          plScalarChannel *blend, int blendPriority)    
+plAGChannel *plAGApplicator::MergeChannel(plAGApplicator *app, plAGChannel *channel,
+                                          plScalarChannel *blend, int blendPriority)
 {
     plAGChannel *result = nil;
     if(fChannel)

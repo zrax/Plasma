@@ -85,7 +85,7 @@ public:
                 plPick::Activator(pb, plAvBehaviorSittingComponent::kDetector, true);
                 IUpdateButtonText(hWnd, pb);
                 return TRUE;
-            }           
+            }
             break;
         }
 
@@ -98,7 +98,7 @@ static plSittingComponentProc gSittingComponentProc;
 CLASS_DESC(plAvBehaviorSittingComponent, gAvBehaviorSittingDesc, "Sitting Behavior",  "SitBehavior", COMP_TYPE_AVATAR, BEHAVIORAL_SITTING_CID)
 
 ParamBlockDesc2 gAvBehavioralSittingBk
-(   
+(
     plComponent::kBlkComp, _T("(sittingBehavior"), 0, &gAvBehaviorSittingDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     //Roll out
@@ -126,7 +126,7 @@ ParamBlockDesc2 gAvBehavioralSittingBk
     plAvBehaviorSittingComponent::kDisableForward, _T("DisableForward"),        TYPE_BOOL,      0, 0,
         p_ui,   TYPE_SINGLECHEKBOX, IDC_SIT_NOFORWARD,
         p_default, TRUE,
-        end,        
+        end,
 
     end
 );

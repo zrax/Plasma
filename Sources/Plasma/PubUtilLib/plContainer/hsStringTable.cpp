@@ -54,12 +54,12 @@ hsStringTable::Node::~Node() { };
 void* hsStringTable::Node::GetData() { return data; }
 void hsStringTable::Node::SetData(void* v) { data = v; }
 
-hsStringTable::~hsStringTable() 
+hsStringTable::~hsStringTable()
 {
     RemoveNode(root.kid);
 }
 
-void hsStringTable::Reset() 
+void hsStringTable::Reset()
 {
     RemoveNode(root.kid);
     root.kid = nil;
@@ -87,10 +87,10 @@ hsStringTable::Node* hsStringTable::FindPartial(char* str, int32_t len) const
 //
 // Find and Add if needs a node for str and register it with data
 //
-void hsStringTable::Register(const char* str, void* data) 
+void hsStringTable::Register(const char* str, void* data)
 {
     Node* node = FindRecur(root.kid, str, true);
-    if (!node) 
+    if (!node)
     {
         node = AddRecur(&root, str);
     }
@@ -114,20 +114,20 @@ bool hsStringTable::Iterate(hsStringTableCallback* callback, Node* fromNode)
 hsStringTable::Node* hsStringTable::FindRecur(Node* root, const char* str, bool createIfNeeded)
 {
     if (!root || !str) return nil;
-    if (tolower(root->chr)==tolower(*str)) 
+    if (tolower(root->chr)==tolower(*str))
     {
-        if (*(str+1)) 
+        if (*(str+1))
         {
             Node* node = FindRecur(root->kid, str+1, createIfNeeded);
             if (!node && createIfNeeded) node = AddRecur(root, str+1);
             return node;
-        } 
-        else 
+        }
+        else
         {
             return root;
         }
-    } 
-    else 
+    }
+    else
     {
         return FindRecur(root->sib,str,createIfNeeded);
     }
@@ -138,30 +138,30 @@ hsStringTable::Node* hsStringTable::FindRecur(Node* root, const char* str, bool 
 //
 hsStringTable::Node* hsStringTable::FindPartialRecur(Node* root, char* str, int32_t len) const
 {
-    if (!root || !str) 
+    if (!root || !str)
     {
         return nil;
     }
 
-    if (tolower(root->chr)==tolower(*str)) 
+    if (tolower(root->chr)==tolower(*str))
     {
-        if (len) 
+        if (len)
         {
             *str = root->chr;
         }
         
-        if (*(str+1)) 
+        if (*(str+1))
         {
             Node* node = FindPartialRecur(root->kid,str+1,len-1);
             //if (!node) node = AddRecur(root,str+1);
             return node;
-        } 
-        else 
+        }
+        else
         {
             return FindLeafRecur(root, str, len);
         }
-    } 
-    else 
+    }
+    else
     {
         return FindPartialRecur(root->sib, str, len);
     }
@@ -172,17 +172,17 @@ hsStringTable::Node* hsStringTable::FindPartialRecur(Node* root, char* str, int3
 //
 hsStringTable::Node* hsStringTable::FindLeafRecur(Node* root, char* str, int32_t len) const
 {
-    if (root->data || !root->kid || root->kid->sib) 
+    if (root->data || !root->kid || root->kid->sib)
     {
-        if (len) 
+        if (len)
         {
             *(str+1) = 0;
         }
         return root;
-    } 
-    else 
+    }
+    else
     {
-        if (len) 
+        if (len)
         {
             *(str+1) = len>1 ? root->kid->chr : 0;
         }
@@ -194,7 +194,7 @@ hsStringTable::Node* hsStringTable::FindLeafRecur(Node* root, char* str, int32_t
 //
 // Add a string to the tree
 //
-hsStringTable::Node* hsStringTable::AddRecur(Node* root, const char* str) 
+hsStringTable::Node* hsStringTable::AddRecur(Node* root, const char* str)
 {
     Node* node = new Node(*str);
     node->sib = root->kid;
@@ -206,7 +206,7 @@ hsStringTable::Node* hsStringTable::AddRecur(Node* root, const char* str)
 //
 // Remove a node recursive from the tree
 //
-void hsStringTable::RemoveNode(Node* root) 
+void hsStringTable::RemoveNode(Node* root)
 {
     if (!root) return;
     RemoveNode(root->kid);

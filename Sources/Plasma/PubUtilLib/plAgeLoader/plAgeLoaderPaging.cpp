@@ -75,7 +75,7 @@ bool ReportRoomToServer(const plKey &key)
                     key->GetName().contains("_Female")
                     )
                 )
-            );  
+            );
     
     if (skip)
         hsLogEntry(plNetApp::StaticDebugMsg("Not reporting room {} to server, reserved={}, virtual={}",
@@ -109,7 +109,7 @@ void plAgeLoader::FinishedPagingInRoom(plKey* rmKey, int numRms)
         if (!ReportRoomToServer(key))
             continue;
 
-        pagingMsg->AddRoom(key);        
+        pagingMsg->AddRoom(key);
         hsLogEntry(nc->DebugMsg("\tSending PageIn/RequestState msg, room={}\n", key->GetName()));
     }
     if( pagingMsg->GetNumRooms() > 0 )  // all rooms were reserved
@@ -217,7 +217,7 @@ void plAgeLoader::IgnorePagingOutRoom(plKey* rmKey, int numRms)
 
 ///////////////////////////////////
 
-bool plAgeLoader::IsPendingPageInRoomKey(plKey pKey, int *idx) 
+bool plAgeLoader::IsPendingPageInRoomKey(plKey pKey, int *idx)
 {
     if (pKey)
     {
@@ -302,7 +302,7 @@ bool    plAgeLoader::IsPageExcluded( const plAgePage *page, const ST::string& ag
     }
 
     // Check if pages are excluded due to age SDL vars
-    if (page->GetFlags() & plAgePage::kLoadIfSDLPresent) 
+    if (page->GetFlags() & plAgePage::kLoadIfSDLPresent)
     {
         if (IGetInitialAgeState())
         {

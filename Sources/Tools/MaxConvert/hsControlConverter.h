@@ -96,9 +96,9 @@ public:
     Control *GetControllerByID(IParamBlock2 *pblock, int paramID);
 
     /////////////////////////////////////////////////////////////////////////
-    // 
+    //
     // Controller convert functions:
-    // 
+    //
     // All convert functions must call ISetSegRange(start, end) at the beginning.
     // (ISetSegRange(-1, -1) will give you the entire anim.)
     plLeafController* MakeMatrix44Controller(StdUVGen* uvGen, const char* nodeName);

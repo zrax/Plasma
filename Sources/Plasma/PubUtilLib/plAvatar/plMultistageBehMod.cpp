@@ -170,8 +170,8 @@ bool plMultistageBehMod::MsgReceive(plMessage* msg)
                         plMessage *exitCallback = nil, *enterCallback = nil;
                         uint32_t exitFlags = plAvBrainGeneric::kExitNormal;
 
-                        plAvBrainGeneric *brain = new plAvBrainGeneric(stages, exitCallback, enterCallback, sender, exitFlags, 
-                                                                       plAvBrainGeneric::kDefaultFadeIn, plAvBrainGeneric::kDefaultFadeOut, 
+                        plAvBrainGeneric *brain = new plAvBrainGeneric(stages, exitCallback, enterCallback, sender, exitFlags,
+                                                                       plAvBrainGeneric::kDefaultFadeIn, plAvBrainGeneric::kDefaultFadeOut,
                                                                        plAvBrainGeneric::kMoveRelative);
                         if (ladder)
                         {

@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/NucleusLib/pnAsyncCoreExe/pnAceCore.cpp
-*   
+*
 ***/
 
 #include "Pch.h"
@@ -101,7 +101,7 @@ static void IAsyncInitForClient () {
     IAsyncInitUseUnix();
 #else
     ErrorAssert("AsyncCore: No default implementation for this platform");
-#endif    
+#endif
 }
 
 //===========================================================================
@@ -112,7 +112,7 @@ static void IAsyncInitForServer () {
     IAsyncInitUseUnix();
 #else
     ErrorAssert("AsyncCore: No default implementation for this platform");
-#endif    
+#endif
 }
 
 

@@ -106,13 +106,13 @@ pfGUICtrlProcWriteableObject *pfGUICtrlProcWriteableObject::Read( hsStream *s )
 
 //// pfGUIConsoleCmdProc /////////////////////////////////////////////////////
 
-pfGUIConsoleCmdProc::pfGUIConsoleCmdProc() : pfGUICtrlProcWriteableObject( kConsoleCmd ) 
-{ 
-    fCommand = nil; 
+pfGUIConsoleCmdProc::pfGUIConsoleCmdProc() : pfGUICtrlProcWriteableObject( kConsoleCmd )
+{
+    fCommand = nil;
 }
 
 pfGUIConsoleCmdProc::pfGUIConsoleCmdProc( const char *cmd )
-                : pfGUICtrlProcWriteableObject( kConsoleCmd ) 
+                : pfGUICtrlProcWriteableObject( kConsoleCmd )
 {
     fCommand = nil;
     SetCommand( cmd );
@@ -172,8 +172,8 @@ void    pfGUIConsoleCmdProc::SetCommand( const char *cmd )
 
 //// pfGUIPythonScriptProc ///////////////////////////////////////////////////
 
-pfGUIPythonScriptProc::pfGUIPythonScriptProc() : pfGUICtrlProcWriteableObject( kPythonScript ) 
-{ 
+pfGUIPythonScriptProc::pfGUIPythonScriptProc() : pfGUICtrlProcWriteableObject( kPythonScript )
+{
 }
 
 pfGUIPythonScriptProc::~pfGUIPythonScriptProc()

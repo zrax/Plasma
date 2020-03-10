@@ -49,7 +49,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 void plLoadAgeMsg::Read(hsStream* stream, hsResMgr* mgr)
 {
-    plMessage::IMsgRead(stream, mgr);   
+    plMessage::IMsgRead(stream, mgr);
 
     // read agename
     uint8_t len;
@@ -66,9 +66,9 @@ void plLoadAgeMsg::Read(hsStream* stream, hsResMgr* mgr)
     fAgeGuid.Read(stream);
 }
 
-void plLoadAgeMsg::Write(hsStream* stream, hsResMgr* mgr)   
-{   
-    plMessage::IMsgWrite(stream, mgr);  
+void plLoadAgeMsg::Write(hsStream* stream, hsResMgr* mgr)
+{
+    plMessage::IMsgWrite(stream, mgr);
 
     // write agename
     uint8_t len = static_cast<uint8_t>(fAgeFilename.size());

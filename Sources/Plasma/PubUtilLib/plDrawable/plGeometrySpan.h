@@ -79,7 +79,7 @@ class plFogEnvironment;
 class plGeometrySpan
 {
     public:
-        enum 
+        enum
         {
             kMaxNumUVChannels   = 8
         };
@@ -192,10 +192,10 @@ class plGeometrySpan
 
         /// UV stuff
         uint8_t   GetNumUVs() const { return ( fFormat & kUVCountMask ); }
-        void    SetNumUVs( uint8_t numUVs ) 
+        void    SetNumUVs( uint8_t numUVs )
         {
             hsAssert( numUVs < kMaxNumUVChannels, "Invalid UV count to plGeometrySpan" );
-            fFormat = ( fFormat & ~kUVCountMask ) | numUVs; 
+            fFormat = ( fFormat & ~kUVCountMask ) | numUVs;
         }
 
         static uint8_t CalcNumUVs( uint8_t format ) { return ( format & kUVCountMask ); }
@@ -259,7 +259,7 @@ class plGeometrySpan
 
     protected:
 
-        struct TempVertex 
+        struct TempVertex
         {
             hsPoint3    fPosition;
             hsPoint3    fNormal;

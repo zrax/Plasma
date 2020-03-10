@@ -74,7 +74,7 @@ plBMSampler::plBMSampler(plPlasmaMAXLayer *layer, Bitmap *bm) : fBM(bm), fInitia
     }
 }
 
-int plBMSampler::PlaceUV(ShadeContext &sc, float &u, float &v, int iu, int iv) 
+int plBMSampler::PlaceUV(ShadeContext &sc, float &u, float &v, int iu, int iv)
 {
     if (!fInitialized)
         return 1;
@@ -88,7 +88,7 @@ int plBMSampler::PlaceUV(ShadeContext &sc, float &u, float &v, int iu, int iv)
     return 1;
 }
 
-void plBMSampler::PlaceUVFilter(ShadeContext &sc, float &u, float &v, int iu, int iv) 
+void plBMSampler::PlaceUVFilter(ShadeContext &sc, float &u, float &v, int iu, int iv)
 {
     if (!fInitialized)
         return;
@@ -97,7 +97,7 @@ void plBMSampler::PlaceUVFilter(ShadeContext &sc, float &u, float &v, int iu, in
     v = (v-fData.fClipV)/fData.fClipH;
 }
 
-AColor plBMSampler::Sample(ShadeContext& sc, float u,float v) 
+AColor plBMSampler::Sample(ShadeContext& sc, float u,float v)
 {
     AColor none(0.0f, 0.0f, 0.0f, 0.0f);
 
@@ -133,21 +133,21 @@ AColor plBMSampler::Sample(ShadeContext& sc, float u,float v)
     switch(fData.fAlphaSource)
     {
     case plBMSamplerData::kDiscard:
-        c.a = 0xffff; 
+        c.a = 0xffff;
         break;
     case plBMSamplerData::kFromRGB:
-        c.a = (c.r+c.g+c.b)/3; 
+        c.a = (c.r+c.g+c.b)/3;
         break;
         //  TBD
-        // XPCOL needs to be handled in bitmap for filtering. 
+        // XPCOL needs to be handled in bitmap for filtering.
         // Need to open a bitmap with this property.
-        //  case ALPHA_XPCOL:  break; 
+        //  case ALPHA_XPCOL:  break;
     }
     return c;
 }
 
 
-AColor plBMSampler::SampleFilter(ShadeContext& sc, float u,float v, float du, float dv) 
+AColor plBMSampler::SampleFilter(ShadeContext& sc, float u,float v, float du, float dv)
 {
     AColor none(0.0f, 0.0f, 0.0f, 0.0f);
 
@@ -184,10 +184,10 @@ AColor plBMSampler::SampleFilter(ShadeContext& sc, float u,float v, float du, fl
             switch(fData.fAlphaSource)
             {
             case plBMSamplerData::kDiscard:
-                c.a = 0xffff; 
+                c.a = 0xffff;
                 break;
-            case plBMSamplerData::kFromRGB:   
-                c.a = (c.r + c.g + c.b)/3; 
+            case plBMSamplerData::kFromRGB:
+                c.a = (c.r + c.g + c.b)/3;
                 break;
             }
             AColor ac(c);
@@ -207,16 +207,16 @@ AColor plBMSampler::SampleFilter(ShadeContext& sc, float u,float v, float du, fl
             fBM->GetFiltered(fu,fv,du,dv,&c);
         }
     }
-    else 
+    else
         fBM->GetFiltered(fu,fv,du,dv,&c);
 
     switch (fData.fAlphaSource)
     {
-    case plBMSamplerData::kDiscard:  
-        c.a = 0xffff; 
+    case plBMSamplerData::kDiscard:
+        c.a = 0xffff;
         break;
-    case plBMSamplerData::kFromRGB:   
-        c.a = (c.r + c.g + c.b)/3; 
+    case plBMSamplerData::kFromRGB:
+        c.a = (c.r + c.g + c.b)/3;
         break;
     }
 

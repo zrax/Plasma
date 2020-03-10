@@ -120,7 +120,7 @@ CLASS_DESC(plOneShotComponent, gOneShotDesc, "(ex)One Shot", "OneShot", COMP_TYP
 
 //
 // OneShot Paramblock2
-//      If functionality is no longer necessary, remove it here.  Don't touch the 
+//      If functionality is no longer necessary, remove it here.  Don't touch the
 //      order of the Enum field mentioned above.
 //
 ParamBlockDesc2 gOneShotBlock
@@ -148,7 +148,7 @@ ParamBlockDesc2 gOneShotBlock
     kSeekTimeFloat, _T("SeekTimeFloat"), TYPE_FLOAT, 0, 0,
         p_default, 1.0f,
         p_ui,   TYPE_SPINNER, EDITTYPE_POS_FLOAT,
-        IDC_COMP_ONESHOT_SEEK_FIELD_EDIT, IDC_COMP_ONESHOT_SEEK_FIELD_SPIN, .1f, 
+        IDC_COMP_ONESHOT_SEEK_FIELD_EDIT, IDC_COMP_ONESHOT_SEEK_FIELD_SPIN, .1f,
         end,
 
     kSmartSeekBool, _T("SmartSeekBool"), TYPE_BOOL, 0,  0,

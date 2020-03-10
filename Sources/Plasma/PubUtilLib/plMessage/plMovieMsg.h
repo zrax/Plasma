@@ -93,19 +93,19 @@ protected:
 
 public:
     plMovieMsg(const ST::string& name, uint16_t cmd)
-        : plMessage(nil, nil, nil) 
-    { 
+        : plMessage(nil, nil, nil)
+    {
         fFileName = name;
         SetCmd(cmd).MakeDefault();
     }
 
     plMovieMsg() : fCmd(kIgnore)
-    { 
+    {
         MakeDefault();
     }
 
-    virtual ~plMovieMsg() 
-    { 
+    virtual ~plMovieMsg()
+    {
         for (int i = 0; i < fCallbacks.GetCount(); i++)
         {
             hsRefCnt_SafeUnRef(fCallbacks[i]);
@@ -115,8 +115,8 @@ public:
     CLASSNAME_REGISTER( plMovieMsg );
     GETINTERFACE_ANY( plMovieMsg, plMessage );
 
-    plMovieMsg& MakeDefault() 
-    { 
+    plMovieMsg& MakeDefault()
+    {
         SetCenter(0,0);
         SetScale(1.f,1.f);
         SetColor(1.f, 1.f, 1.f, 1.f);
@@ -125,8 +125,8 @@ public:
         SetFadeOutSecs(0);
         SetFadeOutColor(0, 0, 0, 0);
         SetVolume(1.f);
-        SetBCastFlag(kBCastByType); 
-        return *this; 
+        SetBCastFlag(kBCastByType);
+        return *this;
     }
 
     // Make sure you set at least one command, and set appropriate params for the command

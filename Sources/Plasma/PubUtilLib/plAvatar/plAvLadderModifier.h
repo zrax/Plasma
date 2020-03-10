@@ -90,7 +90,7 @@ protected:
         kNumOfTypeFields,
     };
 
-    bool fGoingUp;      // true means heading up; false means down      
+    bool fGoingUp;      // true means heading up; false means down
     int fType;          // what type of ladder are we?
     int fLoops;         // if we're a big ladder, how many traverse loops do we need?
     hsVector3 fLadderView;

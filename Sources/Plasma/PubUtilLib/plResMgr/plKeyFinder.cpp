@@ -416,7 +416,7 @@ plKey   plKeyFinder::FindSceneNodeKey( const ST::string &ageName, const ST::stri
 }
 
 //// FindSceneNodeKey ////////////////////////////////////////////////////////
-//  plLocation version 
+//  plLocation version
 
 plKey plKeyFinder::FindSceneNodeKey(const plLocation& location) const
 {
@@ -456,7 +456,7 @@ plKey plKeyFinder::IFindSceneNodeKey(plRegistryPageNode* page) const
         retVal = plKey::Make((plKeyData*)keyList->fKeys[0]);
     }
     // If we just loaded up all the keys for this page, then we
-    // may have a bunch of keys with a refcount of 0. For any of 
+    // may have a bunch of keys with a refcount of 0. For any of
     // these keys that nothing else refs (yes, we have unused objects
     // in the data), they don't get deleted because the refcount never
     // rises above zero or falls back to zero. So we'll go ahead and

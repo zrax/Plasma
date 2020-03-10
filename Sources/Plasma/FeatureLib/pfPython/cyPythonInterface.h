@@ -44,7 +44,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 // PythonInterface   - The Python interface to the Python dll
 //
 // NOTE: Eventually, this will be made into a separate dll, because there should
-//       only be one instance of this interface. 
+//       only be one instance of this interface.
 //
 #include "HeadSpin.h"
 #include <string_theory/string>
@@ -109,7 +109,7 @@ public:
     // Initialize the PlasmaVaultConstants module;
     static void AddPlasmaVaultConstantsClasses();
 
-    // Initialize the Python to Plasma 
+    // Initialize the Python to Plasma
     static void initDebugInterface();
 
     // Finalize the Python dll, ie. get ready to shut down

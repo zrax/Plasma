@@ -67,7 +67,7 @@ public:
     GETINTERFACE_ANY( plVolumeIsect, plCreatable );
 
     virtual void SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l) = 0;
-    virtual plVolumeCullResult  Test(const hsBounds3Ext& bnd) const = 0;    
+    virtual plVolumeCullResult  Test(const hsBounds3Ext& bnd) const = 0;
     virtual float            Test(const hsPoint3& pos) const = 0;
 
     virtual void Read(hsStream* s, hsResMgr* mgr) = 0;
@@ -96,7 +96,7 @@ public:
 
     virtual void SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l);
 
-    virtual plVolumeCullResult  Test(const hsBounds3Ext& bnd) const;    
+    virtual plVolumeCullResult  Test(const hsBounds3Ext& bnd) const;
     virtual float            Test(const hsPoint3& pos) const; // return 0 if point inside, else "distance" from pos to volume
 
     virtual void Read(hsStream* s, hsResMgr* mgr);

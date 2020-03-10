@@ -109,7 +109,7 @@ CLASS_DESC(plSmoothComponent, gSmoothDesc, "Smooth",  "Smooth", COMP_TYPE_GRAPHI
 
 
 ParamBlockDesc2 gSmoothBk
-(   
+(
  plComponent::kBlkComp, _T("Smooth"), 0, &gSmoothDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_SMOOTH, IDS_COMP_SMOOTHS, 0, 0, NULL,
@@ -117,7 +117,7 @@ ParamBlockDesc2 gSmoothBk
     plSmoothComponent::kSmoothAngle, _T("SmoothAngle"),     TYPE_FLOAT, 0, 0,
         p_default, 75.0f,
         p_range, 0.0, 180.0,
-        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT, 
+        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT,
         IDC_COMP_SMOOTH_ANGLE, IDC_COMP_SMOOTH_ANGLE_SPIN, 1.f,
         end,
 
@@ -274,7 +274,7 @@ CLASS_DESC(plSmoothAvComponent, gSmoothAvDesc, "Avatar Smooth",  "AvSmooth", COM
 
 
 ParamBlockDesc2 gSmoothAvBk
-(   
+(
  plComponent::kBlkComp, _T("SmoothAv"), 0, &gSmoothAvDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_SMOOTHAV, IDS_COMP_SMOOTHAV, 0, 0, NULL,
@@ -282,14 +282,14 @@ ParamBlockDesc2 gSmoothAvBk
     plSmoothAvComponent::kSmoothAngle, _T("SmoothAngle"),       TYPE_FLOAT, 0, 0,
         p_default, 75.0f,
         p_range, 0.0, 180.0,
-        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT, 
+        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT,
         IDC_COMP_SMOOTHAV_ANGLE, IDC_COMP_SMOOTHAV_ANGLE_SPIN, 1.f,
         end,
 
     plSmoothAvComponent::kDistTol, _T("DistTol"),       TYPE_FLOAT, 0, 0,
         p_default, 0.001f,
         p_range, 0.0, 1.0,
-        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT, 
+        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT,
         IDC_COMP_SMOOTHAV_DIST, IDC_COMP_SMOOTHAV_DIST_SPIN, 0.01f,
         end,
 
@@ -425,7 +425,7 @@ public:
 CLASS_DESC(plSmoothBaseComponent, gSmoothBaseDesc, "Smoothing Base",  "SmoothBase", COMP_TYPE_GRAPHICS, CID_SMOOTHBASE)
 
 ParamBlockDesc2 gSmoothBaseBk
-(   
+(
     plComponent::kBlkComp, _T("SmoothBase"), 0, &gSmoothBaseDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_SMOOTHBASE, IDS_COMP_SMOOTHBASE, 0, 0, NULL,
@@ -433,14 +433,14 @@ ParamBlockDesc2 gSmoothBaseBk
     plSmoothBaseComponent::kSmoothAngle, _T("SmoothAngle"),     TYPE_FLOAT, 0, 0,
         p_default, 75.0f,
         p_range, 0.0, 180.0,
-        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT, 
+        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT,
         IDC_COMP_SMOOTHBASE_ANGLE, IDC_COMP_SMOOTHBASE_ANGLE_SPIN, 1.f,
         end,
 
     plSmoothBaseComponent::kDistTol, _T("DistTol"),     TYPE_FLOAT, 0, 0,
         p_default, 0.001f,
         p_range, 0.0, 1.0,
-        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT, 
+        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT,
         IDC_COMP_SMOOTHBASE_DIST, IDC_COMP_SMOOTHBASE_DIST_SPIN, 0.01f,
         end,
 
@@ -639,7 +639,7 @@ CLASS_DESC(plSmoothSnapComponent, gSmoothSnapDesc, "Snap to Base",  "SnapTo", CO
 
 
 ParamBlockDesc2 gSmoothSnapBk
-(   
+(
  plComponent::kBlkComp, _T("SmoothSnap"), 0, &gSmoothSnapDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_SMOOTHSNAP, IDS_COMP_SMOOTHSNAP, 0, 0, &gSmoothBaseSelProc,
@@ -650,14 +650,14 @@ ParamBlockDesc2 gSmoothSnapBk
     plSmoothSnapComponent::kSmoothAngle, _T("SmoothAngle"),     TYPE_FLOAT, 0, 0,
         p_default, 75.0f,
         p_range, 0.0, 180.0,
-        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT, 
+        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT,
         IDC_COMP_SMOOTHSNAP_ANGLE, IDC_COMP_SMOOTHSNAP_ANGLE_SPIN, 1.f,
         end,
 
     plSmoothSnapComponent::kDistTol, _T("DistTol"),     TYPE_FLOAT, 0, 0,
         p_default, 0.01f,
         p_range, 0.0, 1.0,
-        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT, 
+        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT,
         IDC_COMP_SMOOTHSNAP_DIST, IDC_COMP_SMOOTHSNAP_DIST_SPIN, 0.01f,
         end,
 

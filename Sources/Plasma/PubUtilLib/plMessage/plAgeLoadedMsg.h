@@ -60,7 +60,7 @@ public:
     // True if the pages finished loading, false if they finished unloading
     bool fLoaded;
 
-    // IO 
+    // IO
     void Read(hsStream* stream, hsResMgr* mgr)  { plMessage::IMsgRead(stream, mgr);  fLoaded = stream->ReadBool(); }
     void Write(hsStream* stream, hsResMgr* mgr) { plMessage::IMsgWrite(stream, mgr); stream->WriteBool(fLoaded); }
 };
@@ -74,7 +74,7 @@ public:
 
     plAgeLoaded2Msg() { SetBCastFlag(kBCastByType); }
     
-    // IO 
+    // IO
     void Read(hsStream* stream, hsResMgr* mgr)  { plMessage::IMsgRead(stream, mgr);  }
     void Write(hsStream* stream, hsResMgr* mgr) { plMessage::IMsgWrite(stream, mgr); }
 };
@@ -93,7 +93,7 @@ public:
     // True if the pages are starting to load, false if they are starting to unload
     bool fLoading;
 
-    // IO 
+    // IO
     void Read(hsStream* stream, hsResMgr* mgr)  { plMessage::IMsgRead(stream, mgr);  fLoading = stream->ReadBool(); }
     void Write(hsStream* stream, hsResMgr* mgr) { plMessage::IMsgWrite(stream, mgr); stream->WriteBool(fLoading); }
 };
@@ -109,7 +109,7 @@ public:
 
    plInitialAgeStateLoadedMsg() { SetBCastFlag(kBCastByType);   }
 
-   // IO 
+   // IO
    void Read(hsStream* stream, hsResMgr* mgr) { plMessage::IMsgRead(stream, mgr); }
    void Write(hsStream* stream, hsResMgr* mgr)  {   plMessage::IMsgWrite(stream, mgr); }
 };

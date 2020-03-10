@@ -99,7 +99,7 @@ void    plCubicRenderTargetModifier::ICreateRenderRequest( int face )
     if( rr == nil )
         rr = fRequests[ face ] = new plRenderRequest;
 
-    uint32_t renderState 
+    uint32_t renderState
         = plPipeline::kRenderNormal
         | plPipeline::kRenderClearColor
         | plPipeline::kRenderClearDepth;

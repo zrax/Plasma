@@ -46,7 +46,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 // static vars
 char plAnimTimeConvertSDLModifier::AnimTimeConvertVarNames::kStrFlags[]="flags";
-char plAnimTimeConvertSDLModifier::AnimTimeConvertVarNames::kStrLastStateAnimTime[]="lastStateAnimTime";        
+char plAnimTimeConvertSDLModifier::AnimTimeConvertVarNames::kStrLastStateAnimTime[]="lastStateAnimTime";
 char plAnimTimeConvertSDLModifier::AnimTimeConvertVarNames::kStrLoopBegin[]="loopBegin";
 char plAnimTimeConvertSDLModifier::AnimTimeConvertVarNames::kStrLoopEnd[]="loopEnd";
 char plAnimTimeConvertSDLModifier::AnimTimeConvertVarNames::kStrSpeed[]="speed";
@@ -60,24 +60,24 @@ char plAnimTimeConvertSDLModifier::AnimTimeConvertVarNames::kStrLastStateChange[
 void plAnimTimeConvertSDLModifier::IPutATC(plStateDataRecord* atcStateDataRec, plAnimTimeConvert* animTimeConvert)
 {
     plATCState *lastState = animTimeConvert->fStates.front();
-    atcStateDataRec->FindVar(AnimTimeConvertVarNames::kStrFlags)->Set(animTimeConvert->fFlags);     
-    atcStateDataRec->FindVar(AnimTimeConvertVarNames::kStrLastStateAnimTime)->Set(lastState->fStartAnimTime);       
-    atcStateDataRec->FindVar(AnimTimeConvertVarNames::kStrLoopEnd)->Set(animTimeConvert->fLoopEnd);     
-    atcStateDataRec->FindVar(AnimTimeConvertVarNames::kStrLoopBegin)->Set(animTimeConvert->fLoopBegin);     
-    atcStateDataRec->FindVar(AnimTimeConvertVarNames::kStrSpeed)->Set(animTimeConvert->fSpeed);     
-    atcStateDataRec->FindVar(AnimTimeConvertVarNames::kStrLastStateChange)->Set(lastState->fStartWorldTime);    
+    atcStateDataRec->FindVar(AnimTimeConvertVarNames::kStrFlags)->Set(animTimeConvert->fFlags);
+    atcStateDataRec->FindVar(AnimTimeConvertVarNames::kStrLastStateAnimTime)->Set(lastState->fStartAnimTime);
+    atcStateDataRec->FindVar(AnimTimeConvertVarNames::kStrLoopEnd)->Set(animTimeConvert->fLoopEnd);
+    atcStateDataRec->FindVar(AnimTimeConvertVarNames::kStrLoopBegin)->Set(animTimeConvert->fLoopBegin);
+    atcStateDataRec->FindVar(AnimTimeConvertVarNames::kStrSpeed)->Set(animTimeConvert->fSpeed);
+    atcStateDataRec->FindVar(AnimTimeConvertVarNames::kStrLastStateChange)->Set(lastState->fStartWorldTime);
     
     int curEaseCurve = animTimeConvert->GetCurrentEaseCurve();
-    atcStateDataRec->FindVar(AnimTimeConvertVarNames::kStrCurrentEaseCurve)->Set(curEaseCurve);     
+    atcStateDataRec->FindVar(AnimTimeConvertVarNames::kStrCurrentEaseCurve)->Set(curEaseCurve);
 
     atcStateDataRec->FindVar(AnimTimeConvertVarNames::kStrCurrentEaseBeginWorldTime)->Set(curEaseCurve ?
-        animTimeConvert->fCurrentEaseCurve->fBeginWorldTime : 0);       
+        animTimeConvert->fCurrentEaseCurve->fBeginWorldTime : 0);
 }
 
 //
-// Apply state in SDL record to current animation state 
+// Apply state in SDL record to current animation state
 //
-void plAnimTimeConvertSDLModifier::ISetCurrentATC(const plStateDataRecord* atcStateDataRec, plAnimTimeConvert* objAtc)                                      
+void plAnimTimeConvertSDLModifier::ISetCurrentATC(const plStateDataRecord* atcStateDataRec, plAnimTimeConvert* objAtc)
 {
 //  if ( GetTarget(0)->GetKeyName() && stricmp( GetTarget(0)->GetKeyName(), "RTDirLight01" )==0 )
 //  {
@@ -132,7 +132,7 @@ void plAnimTimeConvertSDLModifier::ISetCurrentATC(const plStateDataRecord* atcSt
             if (vars[j]->IsNamed(AnimTimeConvertVarNames::kStrCurrentEaseBeginWorldTime) && objAtc->fCurrentEaseCurve)
                 vars[j]->Get(&objAtc->fCurrentEaseCurve->fBeginWorldTime);
         }
-        objAtc->IClearAllStates();      
+        objAtc->IClearAllStates();
         objAtc->IProcessStateChange(lastStateChange, lastStateAnimTime);
         objAtc->fCurrentAnimTime = lastStateAnimTime;
         objAtc->fLastEvalWorldTime = lastStateChange;

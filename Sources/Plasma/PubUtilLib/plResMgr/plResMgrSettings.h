@@ -41,7 +41,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 *==LICENSE==*/
 //////////////////////////////////////////////////////////////////////////////
 //
-//  plResMgrSettings - Class that holds all the various settings for 
+//  plResMgrSettings - Class that holds all the various settings for
 //                     plResManager
 //
 //// History /////////////////////////////////////////////////////////////////

@@ -90,12 +90,12 @@ plSoundEvent::~plSoundEvent()
 
 
     for( i = 0; i < fCallbacks.GetCount(); i++ )
-        hsRefCnt_SafeUnRef( fCallbacks[ i ] ); 
+        hsRefCnt_SafeUnRef( fCallbacks[ i ] );
 }
 
 void    plSoundEvent::AddCallback( plEventCallbackMsg *msg )
 {
-    hsRefCnt_SafeRef( msg ); 
+    hsRefCnt_SafeRef( msg );
     fCallbacks.Append( msg );
     fCallbackEndingFlags.Append( 0 );
 }
@@ -105,7 +105,7 @@ bool    plSoundEvent::RemoveCallback( plEventCallbackMsg *msg )
     int idx = fCallbacks.Find( msg );
     if( idx != fCallbacks.kMissingIndex )
     {
-        hsRefCnt_SafeUnRef( msg ); 
+        hsRefCnt_SafeUnRef( msg );
         fCallbacks.Remove( idx );
         fCallbackEndingFlags.Remove( idx );
         return true;
@@ -125,7 +125,7 @@ void    plSoundEvent::SendCallbacks()
         plEventCallbackMsg *msg = fCallbacks[ j ];
         
         if (!msg->HasBCastFlag(plMessage::kNetPropagate) || !fOwner ||
-            fOwner->IsLocallyOwned() == plSynchedObject::kYes )     
+            fOwner->IsLocallyOwned() == plSynchedObject::kYes )
         {
             /// Do this a bit differently so we can do our MsgSend last
             sMsg = nil;
@@ -158,7 +158,7 @@ void    plSoundEvent::SendCallbacks()
             {
                 plgDispatch::MsgSend( sMsg, true );
                 fCallbackEndingFlags[ j ] = 0xff;       // Our special flag to mean "hey, don't
-                                                        // process this, just waiting for 
+                                                        // process this, just waiting for
                                                         // it to die"
             }
         }

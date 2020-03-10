@@ -77,7 +77,7 @@ public:
     void SetPlayerID(int p) { fPlayerID=p; }
     int GetPlayerID() const { return fPlayerID; }
     
-    // IO 
+    // IO
     void Read(hsStream* stream, hsResMgr* mgr);
     void Write(hsStream* stream, hsResMgr* mgr);
 
@@ -95,11 +95,11 @@ public:
     plLinkOutUnloadMsg() { fUnload=true; }
 
     CLASSNAME_REGISTER( plLinkOutUnloadMsg );
-    GETINTERFACE_ANY( plLinkOutUnloadMsg, plLoadAgeMsg );   
+    GETINTERFACE_ANY( plLinkOutUnloadMsg, plLoadAgeMsg );
 };
 
 //
-// Internal msg, used by NetClientMgr. 
+// Internal msg, used by NetClientMgr.
 // (we send another to the avatar that linked)
 // Not meant to go over the wire.
 //
@@ -108,7 +108,7 @@ class plLinkInDoneMsg : public plMessage
 public:
 
     CLASSNAME_REGISTER( plLinkInDoneMsg );
-    GETINTERFACE_ANY( plLinkInDoneMsg, plMessage ); 
+    GETINTERFACE_ANY( plLinkInDoneMsg, plMessage );
 
     void Read(hsStream* stream, hsResMgr* mgr) { IMsgRead(stream, mgr); }
     void Write(hsStream* stream, hsResMgr* mgr) { IMsgWrite(stream, mgr);   }

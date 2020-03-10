@@ -63,7 +63,7 @@ fActivated(false)
 {
 }
 
-plCameraMsg::plCameraMsg(const plKey &s, const plKey &r, const double* t)  : 
+plCameraMsg::plCameraMsg(const plKey &s, const plKey &r, const double* t)  :
 fNewCam(nil),
 fTriggerer(nil),
 fTransTime(0),
@@ -83,7 +83,7 @@ void plCameraMsg::Read(hsStream* stream, hsResMgr* mgr)
     fActivated = stream->ReadBool();
     fNewCam = mgr->ReadKey(stream);
     fTriggerer = mgr->ReadKey(stream);
-    fConfig.Read(stream);   
+    fConfig.Read(stream);
 }
 
 void plCameraMsg::Write(hsStream* stream, hsResMgr* mgr)
@@ -95,7 +95,7 @@ void plCameraMsg::Write(hsStream* stream, hsResMgr* mgr)
     mgr->WriteKey(stream, fNewCam);
     mgr->WriteKey(stream, fTriggerer);
     fConfig.Write(stream);
-}   
+}
 
 void plCameraConfig::Read(hsStream* stream)
 {
@@ -105,8 +105,8 @@ void plCameraConfig::Read(hsStream* stream)
     fFPAccel = stream->ReadLEFloat();
     fFPDecel = stream->ReadLEFloat();
     fFPVel = stream->ReadLEFloat();
-    fFOVw = stream->ReadLEFloat(); 
-    fFOVh = stream->ReadLEFloat();    
+    fFOVw = stream->ReadLEFloat();
+    fFOVh = stream->ReadLEFloat();
     fOffset.fX = stream->ReadLEFloat();
     fOffset.fY = stream->ReadLEFloat();
     fOffset.fZ = stream->ReadLEFloat();
@@ -148,7 +148,7 @@ void plCameraTargetFadeMsg::Write(hsStream* stream, hsResMgr* mgr)
     plMessage::IMsgWrite(stream, mgr);
     mgr->WriteKey(stream, fSubject);
     stream->WriteBool(fFadeOut);
-}   
+}
 
 // IO
 void plIfaceFadeAvatarMsg::Read(hsStream* stream, hsResMgr* mgr)
@@ -167,5 +167,5 @@ void plIfaceFadeAvatarMsg::Write(hsStream* stream, hsResMgr* mgr)
     stream->WriteBool(fFadeOut);
     stream->WriteBool(fEnable);
     stream->WriteBool(fDisable);
-}   
+}
 

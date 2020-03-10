@@ -278,7 +278,7 @@ plCoordinateInterface* plStereizer::IGetParent() const
 // Note that (along with it's many other hacky defects), this
 // will go down in flames if there are two potential masters.
 // Of course, two line follow mods doesn't really make sense
-// now anyway, but the point is that this is a simplified placeholder 
+// now anyway, but the point is that this is a simplified placeholder
 // to get the job done. If and when a need is shown for sequencing of
 // modifiers, this should be updated to follow that protocol. But
 // the rationale is that one simple example of a need for sequencing

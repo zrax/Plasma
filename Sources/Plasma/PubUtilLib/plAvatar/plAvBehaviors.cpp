@@ -52,7 +52,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 plArmatureBehavior::plArmatureBehavior() : fAnim(nil), fArmature(nil), fBrain(nil), fIndex((uint8_t)-1), fFlags(0) {}
 
-plArmatureBehavior::~plArmatureBehavior() 
+plArmatureBehavior::~plArmatureBehavior()
 {
     if (fAnim)
         fAnim->Detach();
@@ -65,7 +65,7 @@ void plArmatureBehavior::Init(plAGAnim *anim, bool loop, plArmatureBrain *brain,
     fIndex = index;
     fStrength.Set(0);
     if (anim)
-    {   
+    {
         fAnim = fArmature->AttachAnimationBlended(anim, 0, 0, true);
         fAnim->SetLoop(loop);
     }
@@ -120,14 +120,14 @@ void plArmatureBehavior::DumpDebug(int &x, int &y, int lineHeight, plDebugText &
         details = ST::format("         Behavior {2} {>3} {}", fIndex, onOff, blendBar);
 
     debugTxt.DrawString(x, y, details);
-    y += lineHeight; 
+    y += lineHeight;
 }
 
 
 void plArmatureBehavior::IStart()
 {
-    if (fAnim) 
-    {           
+    if (fAnim)
+    {
         fAnim->SetCurrentTime(0.0f, true);
         fAnim->Start();
     }

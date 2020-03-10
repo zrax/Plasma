@@ -183,7 +183,7 @@ void plDynamicEnvMap::SetRefreshRate(float secs)
 
 void plDynamicEnvMap::ISetupRenderRequests()
 {
-    uint32_t renderState 
+    uint32_t renderState
         = plPipeline::kRenderNormal
         | plPipeline::kRenderClearColor
         | plPipeline::kRenderClearDepth;
@@ -397,9 +397,9 @@ bool plDynamicEnvMap::IOnRefMsg(plGenRefMsg* refMsg)
     return false;
 }
 
-void plDynamicEnvMap::SetIncludeCharacters(bool b) 
-{ 
-    fIncCharacters = b; 
+void plDynamicEnvMap::SetIncludeCharacters(bool b)
+{
+    fIncCharacters = b;
     if( b )
         fVisSet.SetBit(plVisMgr::kCharacter);
     else
@@ -568,9 +568,9 @@ void plDynamicCamMap::ISetupRenderRequest(plPipeline *pipe)
     fReq.SetYon(fYon);
     fReq.SetFogStart(fFogStart);
 
-    // For a reflection map, this must match the camera FOV, or else the camera based 
+    // For a reflection map, this must match the camera FOV, or else the camera based
     // texture coordinates for the reflection texture will be off.
-    // 
+    //
     // For a fixed camera, you might want to use the height in both params, so that
     // you're rendering a square FOV into your square texture. In practice, the artists
     // don't mind the visual results when just scaling their UVs, so I'll leave it the
@@ -633,11 +633,11 @@ void plDynamicCamMap::ICheckForRefresh(double t, plPipeline *pipe)
             IPrepTextureLayers();
     }
 
-    // So no one's using us, eh? Hitting this condition is likely a bug, 
+    // So no one's using us, eh? Hitting this condition is likely a bug,
     // but an assert every frame would be annoying. We'll notice when
     // the render target never updates.
     if (fTargetNodes.GetCount() == 0)
-        return; 
+        return;
 
     // If dynamic planar reflections are disabled and we're using our substitute
     // texture, don't update. Otherwise, this particular reflection is forced to
@@ -797,7 +797,7 @@ bool plDynamicCamMap::IOnRefMsg(plRefMsg* refMsg)
             {
                 if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
                     fCamera = cam;
-                else 
+                else
                     fCamera = nil;
 
                 return true;
@@ -810,7 +810,7 @@ bool plDynamicCamMap::IOnRefMsg(plRefMsg* refMsg)
             {
                 if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
                     fRootNode = so;
-                else 
+                else
                     fRootNode = nil;
 
                 return true;
@@ -826,7 +826,7 @@ bool plDynamicCamMap::IOnRefMsg(plRefMsg* refMsg)
                     if (fTargetNodes.Find(so) == fTargetNodes.kMissingIndex)
                         fTargetNodes.Append(so);
                 }
-                else 
+                else
                 {
                     fTargetNodes.RemoveItem(so);
                 }
@@ -870,9 +870,9 @@ bool plDynamicCamMap::IOnRefMsg(plRefMsg* refMsg)
     return false;
 }
 
-void plDynamicCamMap::SetIncludeCharacters(bool b) 
-{ 
-    fIncCharacters = b; 
+void plDynamicCamMap::SetIncludeCharacters(bool b)
+{
+    fIncCharacters = b;
     if( b )
         fVisSet.SetBit(plVisMgr::kCharacter);
     else

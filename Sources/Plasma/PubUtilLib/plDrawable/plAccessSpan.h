@@ -84,8 +84,8 @@ private:
 
     hsGMaterial*        fMaterial;
 
-    void        SetSource(plSpan* s); 
-    void        SetSource(plGeometrySpan* s); 
+    void        SetSource(plSpan* s);
+    void        SetSource(plGeometrySpan* s);
     void        SetMaterial(hsGMaterial* m) { fMaterial = m; }
 
     friend class plAccessGeometry;

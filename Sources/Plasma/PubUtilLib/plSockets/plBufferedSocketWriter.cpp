@@ -93,7 +93,7 @@ int plBufferedSocketWriter::Flush(plTcpSocket & sck)    // this is where things 
         {
             bool wasBlockingOrNot = sck.IsBlocking();
             sck.SetBlocking(fBlockOnSend);
-            nBytesWritten = sck.SendData(FastGetBufferStart(), writeSize);        
+            nBytesWritten = sck.SendData(FastGetBufferStart(), writeSize);
             sck.SetBlocking(wasBlockingOrNot);
         }
 
@@ -112,7 +112,7 @@ int plBufferedSocketWriter::Flush(plTcpSocket & sck)    // this is where things 
         {
             ans = kFailedSocketClosed;
         }
-    }        
+    }
     return ans;
 }
 

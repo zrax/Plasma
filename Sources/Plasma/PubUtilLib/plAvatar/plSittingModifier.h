@@ -69,7 +69,7 @@ class plArmatureMod;
 
 class plSittingModifier : public plSingleModifier
 {
-public: 
+public:
     enum
     {
         kApproachFront  = 0x01,
@@ -80,7 +80,7 @@ public:
         kDisableForward = 0x10,
     };
     
-    uint8_t fMiscFlags;   
+    uint8_t fMiscFlags;
 
     plSittingModifier();
     plSittingModifier(bool hasFront, bool hasLeft, bool hasRight);
@@ -100,11 +100,11 @@ public:
     virtual void UnTrigger();
 
 protected:
-    /** We've been triggered: go ahead and send the seek and brain tasks to the 
+    /** We've been triggered: go ahead and send the seek and brain tasks to the
         triggering avatar. */
     bool IEmitCommand(plKey playerKey, plMessage *enterCallback, plMessage *exitCallback);
 
-    /** Set up generic notification messages which were passed in by the responder / 
+    /** Set up generic notification messages which were passed in by the responder /
         max authoring stuff. */
     void ISetupNotify(plNotifyMsg *notifyMsg, plNotifyMsg *originalNotify);
 

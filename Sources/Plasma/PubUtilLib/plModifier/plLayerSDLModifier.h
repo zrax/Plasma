@@ -45,7 +45,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plModifier/plAnimTimeConvertSDLModifier.h"
 
 //
-// This modifier is responsible for sending and recving 
+// This modifier is responsible for sending and recving
 // an layer's animation state (basically an animTimeConvert)
 //
 class plLayerAnimation;

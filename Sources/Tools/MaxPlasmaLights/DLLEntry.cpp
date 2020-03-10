@@ -59,7 +59,7 @@ REGISTER_NONCREATABLE( plLayerInterface );
 HINSTANCE hInstance;
 int controlsInit = FALSE;
 
-// This function is called by Windows when the DLL is loaded.  This 
+// This function is called by Windows when the DLL is loaded.  This
 // function may also be called many times during time critical operations
 // like rendering.  Therefore developers need to be careful what they
 // do inside this function.  In the code below, note how after the DLL is

@@ -143,7 +143,7 @@ public:
 class plDynamicCamMap : public plRenderTarget
 {
 public:
-    enum 
+    enum
     {
         kRefVisSet,
         kRefCamera,
@@ -168,7 +168,7 @@ protected:
 
     hsBitVector                 fVisSet;
     hsTArray<plVisRegion*>      fVisRegions;
-    hsTArray<char *>            fVisRegionNames;    // this allows us to specify vis-regions in other pages.    
+    hsTArray<char *>            fVisRegionNames;    // this allows us to specify vis-regions in other pages.
     bool                        fIncCharacters;
     plCameraModifier1*          fCamera;
     plSceneObject*              fRootNode;
@@ -178,7 +178,7 @@ protected:
     plBitmap*                   fDisableTexture;
     hsTArray<plLayer*>          fMatLayers;
     static uint8_t                fFlags;
-    enum 
+    enum
     {
         kReflectionCapable  = 0x01,
         kReflectionEnabled  = 0x02,

@@ -184,17 +184,17 @@ public:
         kAllowTimeOut,                      // allow clients to timeout and be kicked off the server
         kAllowAuthTimeOut,                  // allow clients to timeout while authenticating
         kPlayingGame,                       // set when client is actively part of an age.
-        kShowLists,                         // debug info on-screen 
-        kShowRooms,                         // debug info on-screen 
+        kShowLists,                         // debug info on-screen
+        kShowRooms,                         // debug info on-screen
         kShowAvatars,                       // Avatar position/orientation info
-        kShowRelevanceRegions,              // debug info on-screen 
+        kShowRelevanceRegions,              // debug info on-screen
         kConnectedToVault,                  // initial connection to vault achieved
         kBanLinking,                        // player is not allowed to link
         kSilencePlayer,                     // player's outbound communication is shutoff
         kConsoleOutput,                     // net log output is echoed to console
         kLoadingInitialAgeState,            // set when we first link in to an age and are recving its initial state
         kLaunchedFromSetup,                 // set if we were launched from the setup program
-        kCCRVaultConnected,                 // set if we've connected to the CCR vault 
+        kCCRVaultConnected,                 // set if we've connected to the CCR vault
         kNetClientCommInited,               // set if the netClientComm interface has been initialized
         kNeedToSendInitialAgeStateLoadedMsg,// internal use only, when we need to send plInitialAgeStateLoadedMsg
         kNeedToSendAgeLoadedMsg,
@@ -229,7 +229,7 @@ public:
     virtual plSynchedObject* GetLocalPlayer(bool forceLoad=false) const { hsAssert(false, "stub"); return nil; }
     virtual plNetGroupId SelectNetGroup(plSynchedObject* objIn, plKey groupKey) { hsAssert(false, "stub"); return plNetGroup::kNetGroupUnknown; }
     virtual int IsLocallyOwned(const plSynchedObject* obj) const { hsAssert(false, "stub"); return 0; }
-    virtual int IsLocallyOwned(const plUoid&) const { hsAssert(false, "stub"); return 0; }  
+    virtual int IsLocallyOwned(const plUoid&) const { hsAssert(false, "stub"); return 0; }
     virtual plNetGroupId GetEffectiveNetGroup(const plSynchedObject* obj) const { hsAssert(false, "stub"); return plNetGroup::kNetGroupUnknown; }
     virtual int Update(double secs) { return hsOK;}
     virtual const char* GetServerLogTimeAsString(ST::string& ts) const { hsAssert(false, "stub"); return nil; }
@@ -269,7 +269,7 @@ public:
         kDisableStateLogging,               // used by gameserver
         kGameStateIsDirty,                  // used by gameserver
         kDumpConfigDoc,                     // dump config options queries to log file
-        kProtectedServer,                   // set by a protected lobby 
+        kProtectedServer,                   // set by a protected lobby
         kRequireProtectedCCRs,              // CCRS must have logged in thru a protected lobby, used by gameserver
         kProcessedPendingMsgs,              // Used by front-end server
     };
@@ -291,7 +291,7 @@ public:
     static plNetObjectDebuggerBase* GetInstance() { return fInstance;   }
     static void SetInstance(plNetObjectDebuggerBase* i) { fInstance=i;  }
     virtual bool IsDebugObject(const hsKeyedObject* obj) const = 0;
-    virtual void LogMsgIfMatch(const char* msg) const = 0;      // write to status log if there's a string match    
+    virtual void LogMsgIfMatch(const char* msg) const = 0;      // write to status log if there's a string match
     virtual void LogMsg(const char* msg) const = 0;
     
     virtual bool GetDebugging() const = 0;

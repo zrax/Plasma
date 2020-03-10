@@ -117,10 +117,10 @@ public:
 
     plCameraBrain1* GetBrain()      { return fBrain;}
 
-    hsPoint3        GetTargetPos() { return fFrom; }    
-    hsPoint3        GetTargetPOA() { return fAt; }  
-    hsPoint3        GetSubworldPos() { return fLastSubPos; }    
-    hsPoint3        GetSubworldPOA() { return fLastSubPOA; }    
+    hsPoint3        GetTargetPos() { return fFrom; }
+    hsPoint3        GetTargetPOA() { return fAt; }
+    hsPoint3        GetSubworldPos() { return fLastSubPos; }
+    hsPoint3        GetSubworldPOA() { return fLastSubPOA; }
 
     
     void            SetTransform(hsPoint3 at);
@@ -130,9 +130,9 @@ public:
     void            SetSubworldPOA(hsPoint3 pos) { fLastSubPOA = pos; }
     float           GetFOVw() const { return fFOVw; }
     float           GetFOVh() const { return fFOVh; }
-    void            SetFOV(float w, float h, bool fUpdateVCam = true); 
-    void            SetFOVw(float f, bool fUpdateVCam = true); 
-    void            SetFOVh(float f, bool fUpdateVCam = true); 
+    void            SetFOV(float w, float h, bool fUpdateVCam = true);
+    void            SetFOVw(float f, bool fUpdateVCam = true);
+    void            SetFOVh(float f, bool fUpdateVCam = true);
     bool            GetInSubworld() { return fInSubLastUpdate; }
     void            InSubworld(bool b) { fInSubLastUpdate = b; }
     virtual void Read(hsStream* stream, hsResMgr* mgr);
@@ -140,11 +140,11 @@ public:
     void AddTrans(CamTrans* t) { fTrans.Append(t); }
     int  GetNumTrans() { return fTrans.Count(); }
     CamTrans* GetTrans(int i) { return fTrans[i]; }
-    void SetSubject(plSceneObject* pObj); 
+    void SetSubject(plSceneObject* pObj);
     plSceneObject* GetSubject();
 
-    virtual void Push(bool recenter = true); 
-    virtual void Pop(); 
+    virtual void Push(bool recenter = true);
+    virtual void Pop();
 
     virtual bool    GetFaded();
     virtual bool    SetFaded(bool b);

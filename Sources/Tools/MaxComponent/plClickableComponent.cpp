@@ -106,10 +106,10 @@ ParamBlockDesc2 gClickableBlock
         p_ui,               TYPE_SINGLECHEKBOX, IDC_COMP_CLICK_OMNI,
         end,
 
-    kClickableDegrees, _T("degrees"),   TYPE_INT,   P_ANIMATABLE, 0,    
+    kClickableDegrees, _T("degrees"),   TYPE_INT,   P_ANIMATABLE, 0,
         p_range, 1, 180,
         p_default, 180,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_INT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_INT,
         IDC_COMP_CLICK_DEG, IDC_COMP_CLICK_DEGSPIN, SPIN_AUTOSCALE,
         end,
 
@@ -156,10 +156,10 @@ ParamBlockDesc2 gClickableBlock
         p_default, FALSE,
         end,
 
-    kClickableFriction, _T("friction"), TYPE_FLOAT, 0, 0,   
+    kClickableFriction, _T("friction"), TYPE_FLOAT, 0, 0,
         p_range, 0.0f, FLT_MAX,
         p_default, 0.0f,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_CLICKABLE_FRIC_EDIT1,  IDC_COMP_CLICKABLE_FRIC_SPIN1, SPIN_AUTOSCALE,
         end,
     end
@@ -400,9 +400,9 @@ public:
     plNoBlkClickableComponent();
     void DeleteThis() { delete this; }
 
-    bool SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg); 
+    bool SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg);
     bool Convert(plMaxNode *node, plErrorMsg *pErrMsg) { return true; }
-    bool PreConvert(plMaxNode *node, plErrorMsg *pErrMsg) { return true; } 
+    bool PreConvert(plMaxNode *node, plErrorMsg *pErrMsg) { return true; }
 
     virtual void CollectNonDrawables(INodeTab& nonDrawables) { AddTargetsToList(nonDrawables); }
 };

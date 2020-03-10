@@ -50,7 +50,7 @@ class plGeometrySpan;
 struct hsColorRGBA;
 class plLightMapGen;
 
-class hsVertexShader 
+class hsVertexShader
 {
 private:
     hsVertexShader();

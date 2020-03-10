@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*****************************************************************************
 *
 *   $/Plasma20/Sources/Plasma/NucleusLib/pnAsyncCoreExe/pnAceIo.cpp
-*   
+*
 ***/
 
 #include "Pch.h"
@@ -320,7 +320,7 @@ void AsyncSocketEnableNagling (
 
 //===========================================================================
 void AsyncSocketRegisterNotifyProc (
-    uint8_t                    connType, 
+    uint8_t                    connType,
     FAsyncNotifySocketProc  notifyProc,
     unsigned                buildId,
     unsigned                buildType,
@@ -346,7 +346,7 @@ void AsyncSocketRegisterNotifyProc (
 
 //===========================================================================
 void AsyncSocketUnregisterNotifyProc (
-    uint8_t                    connType, 
+    uint8_t                    connType,
     FAsyncNotifySocketProc  notifyProc,
     unsigned                buildId,
     unsigned                buildType,

@@ -154,7 +154,7 @@ public:
     virtual bool                        PreRender(plDrawable* drawable, hsTArray<int16_t>& visList, plVisMgr* visMgr=nil) = 0;
     // PrepForRender - perform any processing on the drawable data nessecary before rendering.
     // visList is read only. On input, visList is SORTED visible spans, and is ALL spans which will be drawn this render.
-    // Called once per scene render. 
+    // Called once per scene render.
     // Returns true if rendering should proceed.
     virtual bool                        PrepForRender(plDrawable* drawable, hsTArray<int16_t>& visList, plVisMgr* visMgr=nil) = 0;
     // Render - draw the drawable to the current render target.
@@ -179,7 +179,7 @@ public:
     virtual bool            OpenAccess(plAccessSpan& dst, plDrawableSpans* d, const plVertexSpan* span, bool readOnly) = 0;
     virtual bool            CloseAccess(plAccessSpan& acc) = 0;
 
-    virtual void            CheckTextureRef(plLayerInterface* lay) = 0;     
+    virtual void            CheckTextureRef(plLayerInterface* lay) = 0;
 
     // Default fog settings
     virtual void                        SetDefaultFogEnviron( plFogEnvironment *fog ) = 0;
@@ -197,7 +197,7 @@ public:
         kRTOrthoProjected   = 0x0008,
         kRTProjected        = kRTPerspProjected | kRTOrthoProjected
     };
-    enum RenderStateSettings 
+    enum RenderStateSettings
     {
         kRenderNormal           = 0x0,
         kRenderProjection       = 0x1,
@@ -251,7 +251,7 @@ public:
     // Properties
     enum Properties
     {
-        kPropDontDeleteTextures     = 0x00000001            // Keeps the pipeline from deleting textures on 
+        kPropDontDeleteTextures     = 0x00000001            // Keeps the pipeline from deleting textures on
                                                             // MakeTextureRef, regardless of the kUserOwnsBitmap flag
     };
 
@@ -296,7 +296,7 @@ public:
 
     virtual const plViewTransform&      GetViewTransform() const = 0;
 
-    virtual void                        ScreenToWorldPoint( int n, uint32_t stride, int32_t *scrX, int32_t *scrY, 
+    virtual void                        ScreenToWorldPoint( int n, uint32_t stride, int32_t *scrX, int32_t *scrY,
                                                     float dist, uint32_t strideOut, hsPoint3 *worldOut ) = 0;
 
     virtual void                        RefreshMatrices() = 0;
@@ -325,7 +325,7 @@ public:
     virtual bool                        SetGamma(float eR, float eG, float eB) = 0;
     virtual bool                        SetGamma(const uint16_t* const tabR, const uint16_t* const tabG, const uint16_t* const tabB) = 0; // len table = 256.
     virtual bool                        SetGamma(float e) { return SetGamma(e, e, e); }
-    virtual bool                        SetGamma(const uint16_t* const table) { return SetGamma(table, table, table); } 
+    virtual bool                        SetGamma(const uint16_t* const table) { return SetGamma(table, table, table); }
 
     // flipVertical is for the AVI writer, which wants it's frames upside down
     virtual bool                        CaptureScreen( plMipmap *dest, bool flipVertical = false, uint16_t desiredWidth = 0, uint16_t desiredHeight = 0 ) = 0;

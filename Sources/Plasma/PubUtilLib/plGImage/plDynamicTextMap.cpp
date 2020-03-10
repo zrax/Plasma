@@ -135,7 +135,7 @@ void    plDynamicTextMap::Create( uint32_t width, uint32_t height, bool hasAlpha
     fCompressionType = plMipmap::kUncompressed;
     fUncompressedInfo.fType = plMipmap::UncompressedInfo::kRGB8888;
 
-    // Destroy the old texture ref, if we have one. This should force the 
+    // Destroy the old texture ref, if we have one. This should force the
     // pipeline to recreate one more suitable for our use
     SetDeviceRef( nil );
 
@@ -194,7 +194,7 @@ bool        plDynamicTextMap::IIsValid()
         IBuildLevelSizes();
         fTotalSize = GetLevelSize( 0 );
         SetCurrLevel( 0 );
-        // Destroy the old texture ref, if we have one. This should force the 
+        // Destroy the old texture ref, if we have one. This should force the
         // pipeline to recreate one more suitable for our use
         SetDeviceRef( nil );
         plProfile_NewMem(MemMipmaps, fTotalSize);
@@ -217,7 +217,7 @@ void plDynamicTextMap::PurgeImage()
     IDestroyOSSurface();
     fTotalSize = 0;
     SetCurrLevel( 0 );
-    // Destroy the old texture ref, if we have one. This should force the 
+    // Destroy the old texture ref, if we have one. This should force the
     // pipeline to recreate one more suitable for our use
     SetDeviceRef( nil );
 }
@@ -413,7 +413,7 @@ void    plDynamicTextMap::SetJustify( Justify j )
 //  if( !IIsValid() )
 //      return;
 
-    fJustify = j; 
+    fJustify = j;
     switch( fJustify )
     {
         case kLeftJustify:  fCurrFont->SetRenderXJustify( plFont::kRenderJustXForceLeft ); break;
@@ -444,7 +444,7 @@ void    plDynamicTextMap::SetFont( const ST::string &face, uint16_t size, uint8_
     fFontAntiAliasRGB = antiAliasRGB;
 
     fCurrFont = plFontCache::GetInstance().GetFont( fFontFace, (uint8_t)fFontSize,
-                        ( ( fFontFlags & kFontBold ) ? plFont::kFlagBold : 0 ) | 
+                        ( ( fFontFlags & kFontBold ) ? plFont::kFlagBold : 0 ) |
                         ( ( fFontFlags & kFontItalic ) ? plFont::kFlagItalic : 0 ) );
     if ( fCurrFont == nil )
     {
@@ -454,7 +454,7 @@ void    plDynamicTextMap::SetFont( const ST::string &face, uint16_t size, uint8_
         fFontFace = "Arial";
         // lets try again with Arial
         fCurrFont = plFontCache::GetInstance().GetFont( fFontFace, (uint8_t)fFontSize,
-                            ( ( fFontFlags & kFontBold ) ? plFont::kFlagBold : 0 ) | 
+                            ( ( fFontFlags & kFontBold ) ? plFont::kFlagBold : 0 ) |
                             ( ( fFontFlags & kFontItalic ) ? plFont::kFlagItalic : 0 ) );
     }
 
@@ -726,9 +726,9 @@ void    plDynamicTextMap::DrawImage( uint16_t x, uint16_t y, plMipmap *image, Dr
 
 //// DrawClippedImage /////////////////////////////////////////////////////////
 
-void    plDynamicTextMap::DrawClippedImage( uint16_t x, uint16_t y, plMipmap *image, 
-                                            uint16_t srcClipX, uint16_t srcClipY, 
-                                            uint16_t srcClipWidth, uint16_t srcClipHeight, 
+void    plDynamicTextMap::DrawClippedImage( uint16_t x, uint16_t y, plMipmap *image,
+                                            uint16_t srcClipX, uint16_t srcClipY,
+                                            uint16_t srcClipWidth, uint16_t srcClipHeight,
                                             DrawMethods method )
 {
     if( !IIsValid() )
@@ -792,7 +792,7 @@ hsMatrix44  plDynamicTextMap::GetLayerTransform()
     hsMatrix44  xform;
     hsVector3   scale;
 
-    scale.Set( (float)GetVisibleWidth() / (float)GetWidth(), 
+    scale.Set( (float)GetVisibleWidth() / (float)GetWidth(),
                (float)GetVisibleHeight() / (float)GetHeight(), 1.f );
 
     xform.MakeScaleMat( &scale );
@@ -851,7 +851,7 @@ bool    plDynamicTextMap::MsgReceive( plMessage *msg )
         {
             plMipmap *mip = plMipmap::ConvertNoRef( textMsg->fImageKey ? textMsg->fImageKey->ObjectIsLoaded() : nil);
             if( mip != nil )
-                DrawClippedImage( textMsg->fX, textMsg->fY, mip, textMsg->fLeft, textMsg->fTop, 
+                DrawClippedImage( textMsg->fX, textMsg->fY, mip, textMsg->fLeft, textMsg->fTop,
                                 textMsg->fRight, textMsg->fBottom, textMsg->fFlags ? kImgBlend : kImgNoAlpha );
         }
 

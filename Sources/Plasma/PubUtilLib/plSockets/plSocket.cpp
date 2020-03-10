@@ -84,9 +84,9 @@ bool plSocket::ErrorClose()
 }
 
 
-bool plSocket::Active() 
-{ 
-    return (fSocket != kBadSocket); 
+bool plSocket::Active()
+{
+    return (fSocket != kBadSocket);
 }
 
 
@@ -139,10 +139,10 @@ void plSocket::SetBlocking(bool value)
 #error "BSDBLOCK: This code needs to be verified right now. Don't assume it will work at all."
     int flags = fcntl(fSocket,F_GETFL,val);
     flags = flags |O_NONBLOCK;
-    fcntl(fSocket,F_SETFL,flags);        
+    fcntl(fSocket,F_SETFL,flags);
 #else
     plNet::Ioctl(fSocket,FIONBIO,&val);
-#endif  
+#endif
 }
 
 
@@ -159,7 +159,7 @@ bool plSocket::IsBlocking()
 
 void plSocket::SetReuseAddress()
 {
-    int opt = 1; 
+    int opt = 1;
     setsockopt(fSocket, SOL_SOCKET, SO_REUSEADDR,  (const char *)&opt, sizeof(opt));
 }
 

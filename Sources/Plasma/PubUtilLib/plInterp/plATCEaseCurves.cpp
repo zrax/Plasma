@@ -46,7 +46,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-plATCEaseCurve *plATCEaseCurve::CreateEaseCurve(uint8_t type, float minLength, float maxLength, float length, 
+plATCEaseCurve *plATCEaseCurve::CreateEaseCurve(uint8_t type, float minLength, float maxLength, float length,
                                                 float startSpeed, float goalSpeed)
 {
     if (type == plAnimEaseTypes::kConstAccel)
@@ -151,12 +151,12 @@ plConstAccelEaseCurve::plConstAccelEaseCurve()
     RecalcToSpeed(0, 1);
 }
 
-plConstAccelEaseCurve::plConstAccelEaseCurve(float minLength, float maxLength, float length, 
+plConstAccelEaseCurve::plConstAccelEaseCurve(float minLength, float maxLength, float length,
                                              float startSpeed, float goalSpeed)
 {
     fMinLength = minLength;
     fMaxLength = maxLength;
-    fNormLength = fLength = length; 
+    fNormLength = fLength = length;
     fBeginWorldTime = 0;
 
     RecalcToSpeed(startSpeed, goalSpeed);
@@ -206,12 +206,12 @@ plSplineEaseCurve::plSplineEaseCurve()
     RecalcToSpeed(0, 1);
 }
 
-plSplineEaseCurve::plSplineEaseCurve(float minLength, float maxLength, float length, 
+plSplineEaseCurve::plSplineEaseCurve(float minLength, float maxLength, float length,
                                      float startSpeed, float goalSpeed)
 {
     fMinLength = minLength;
     fMaxLength = maxLength;
-    fNormLength = fLength = length; 
+    fNormLength = fLength = length;
     fBeginWorldTime = 0;
 
     RecalcToSpeed(startSpeed, goalSpeed);
@@ -241,7 +241,7 @@ void plSplineEaseCurve::RecalcToSpeed(float startSpeed, float goalSpeed, bool pr
     
     // These are greatly simplified because the in/out tangents are always zero
     // Note: "b" is always zero for the ease splines we're currently doing (and will remain that way
-    //       so long as the initial acceleration is zero. Can optimize a bit of the eval math to take 
+    //       so long as the initial acceleration is zero. Can optimize a bit of the eval math to take
     //       advantage of this.
     float a, b, c, d;
 
@@ -283,7 +283,7 @@ float plSplineEaseCurve::VelocityGivenTime(float time) const
     return fCoef[0] + fCoef[1] * t1 + fCoef[2] * t2 + fCoef[3] * t3;
 }
 
-float plSplineEaseCurve::TimeGivenVelocity(float velocity) const 
+float plSplineEaseCurve::TimeGivenVelocity(float velocity) const
 {
     // Code based off of Graphics Gems V, pp 11-12 and
     // http://www.worldserver.com/turk/opensource/FindCubicRoots.c.txt
@@ -300,8 +300,8 @@ float plSplineEaseCurve::TimeGivenVelocity(float velocity) const
     float Q3 = Q * Q * Q;
     float D = Q3 - R * R;
 
-    if (D >= 0) 
-    {   
+    if (D >= 0)
+    {
         // 3 roots, find the one in the range [0, 1]
         const float pi = 3.14159;
         double theta = acos(R / sqrt(Q3));

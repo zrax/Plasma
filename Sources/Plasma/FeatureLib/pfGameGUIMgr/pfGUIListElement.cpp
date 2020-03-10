@@ -125,7 +125,7 @@ void    pfGUIListText::GetSize( plDynamicTextMap *textGen, uint16_t *width, uint
 {
     *width = textGen->CalcStringWidth( GetText(), height );
     if( height != nil )
-    { 
+    {
         if( *height == 0 )
             *height = 10;       // Never allow zero height elements
         else
@@ -338,7 +338,7 @@ void    pfGUIListTreeRoot::GetSize( plDynamicTextMap *textGen, uint16_t *width, 
 {
     *width = textGen->CalcStringWidth( GetTitle(), height );
     if( height != nil )
-    { 
+    {
         if( *height == 0 )
             *height = 10;       // Never allow zero height elements
         else

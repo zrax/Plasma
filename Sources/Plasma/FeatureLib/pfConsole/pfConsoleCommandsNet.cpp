@@ -136,9 +136,9 @@ PF_CONSOLE_FILE_DUMMY(Net)
 //        isn't used, but will be used in the future when implementing help
 //        (could you have guessed it? :) Please fill it in when the function
 //        name isn't obvious (i.e. SetFogColor doesn't really need one)
-//  
+//
 //  The actual C code prototype looks like:
-//      void    pfConsoleCmd_groupName_functionName( uint32_t numParams, pfConsoleCmdParam *params, 
+//      void    pfConsoleCmd_groupName_functionName( uint32_t numParams, pfConsoleCmdParam *params,
 //                                                      void (*PrintString)( char * ) );
 //
 //  numParams is exactly what it sounds like. params is an array of console
@@ -183,7 +183,7 @@ PF_CONSOLE_FILE_DUMMY(Net)
 //
 //  to create the Graphics_Render_Drawing subgroup. All groups must be
 //  defined before any commands that are in that group. Note that although
-//  the 
+//  the
 //
 //////////////////////////////////////////////////////////////////////////////
 
@@ -246,11 +246,11 @@ PF_CONSOLE_CMD( Net,        // groupName
                "Show player relevance regions" )    // helpString
 {
     bool on = params[0];
-    plNetClientMgr::GetInstance()->SetFlagsBit(plNetClientMgr::kShowRelevanceRegions, on);  
+    plNetClientMgr::GetInstance()->SetFlagsBit(plNetClientMgr::kShowRelevanceRegions, on);
     if (on)
     {
-        plNetClientMgr::GetInstance()->SetFlagsBit(plNetClientMgr::kShowLists, false);  
-        plNetClientMgr::GetInstance()->SetFlagsBit(plNetClientMgr::kShowRooms, false);  
+        plNetClientMgr::GetInstance()->SetFlagsBit(plNetClientMgr::kShowLists, false);
+        plNetClientMgr::GetInstance()->SetFlagsBit(plNetClientMgr::kShowRooms, false);
     }
 
 }
@@ -261,11 +261,11 @@ PF_CONSOLE_CMD( Net,        // groupName
                "Show debug player lists" )  // helpString
 {
     bool on = params[0];
-    plNetClientMgr::GetInstance()->SetFlagsBit(plNetClientMgr::kShowLists, on); 
+    plNetClientMgr::GetInstance()->SetFlagsBit(plNetClientMgr::kShowLists, on);
     if (on)
     {
-        plNetClientMgr::GetInstance()->SetFlagsBit(plNetClientMgr::kShowRooms, false);  
-        plNetClientMgr::GetInstance()->SetFlagsBit(plNetClientMgr::kShowRelevanceRegions, false);   
+        plNetClientMgr::GetInstance()->SetFlagsBit(plNetClientMgr::kShowRooms, false);
+        plNetClientMgr::GetInstance()->SetFlagsBit(plNetClientMgr::kShowRelevanceRegions, false);
     }
 }
 
@@ -275,11 +275,11 @@ PF_CONSOLE_CMD( Net,        // groupName
                "Show debug room lists" )    // helpString
 {
     bool on = params[0];
-    plNetClientMgr::GetInstance()->SetFlagsBit(plNetClientMgr::kShowRooms, on); 
+    plNetClientMgr::GetInstance()->SetFlagsBit(plNetClientMgr::kShowRooms, on);
     if (on)
     {
-        plNetClientMgr::GetInstance()->SetFlagsBit(plNetClientMgr::kShowLists, false);  
-        plNetClientMgr::GetInstance()->SetFlagsBit(plNetClientMgr::kShowRelevanceRegions, false);   
+        plNetClientMgr::GetInstance()->SetFlagsBit(plNetClientMgr::kShowLists, false);
+        plNetClientMgr::GetInstance()->SetFlagsBit(plNetClientMgr::kShowRelevanceRegions, false);
     }
 }
 
@@ -293,7 +293,7 @@ PF_CONSOLE_CMD( Net,        // groupName
                "", // paramList
                "Make triggers localOnly" )  // helpString
 {
-    plNetClientMgr::GetInstance()->SetFlagsBit(plNetClientMgr::kLocalTriggers); 
+    plNetClientMgr::GetInstance()->SetFlagsBit(plNetClientMgr::kLocalTriggers);
 }
 
 PF_CONSOLE_CMD( Net,        // groupName
@@ -313,7 +313,7 @@ PF_CONSOLE_CMD( Net,        // groupName
                EnableLinking,       // fxnName
                "bool enable", // paramList
                "Enable/disable linking." )  // helpString
-{   
+{
     if ( (int)params[0] )
     {
         plNetLinkingMgr::GetInstance()->SetEnabled( true );
@@ -330,7 +330,7 @@ PF_CONSOLE_CMD( Net,        // groupName
                LinkToAge,       // fxnName
                "string ageFilename", // paramList
                "Link to an age." )  // helpString
-{   
+{
     plAgeLinkStruct link;
     link.GetAgeInfo()->SetAgeFilename( (const char *)params[0] );
     link.SetLinkingRules( plNetCommon::LinkingRules::kBasicLink );
@@ -344,7 +344,7 @@ PF_CONSOLE_CMD( Net,        // groupName
                LinkToAgeInstance,       // fxnName
                "string ageFilename, string ageGuid", // paramList
                "Link to a specific age by guid." )  // helpString
-{   
+{
     plAgeLinkStruct link;
     link.GetAgeInfo()->SetAgeFilename( (const char *)params[0] );
     //link.GetAgeInfo()->SetAgeInstanceName( params[0] );
@@ -360,7 +360,7 @@ PF_CONSOLE_CMD( Net,        // groupName
                LinkToPrevAge,       // fxnName
                "", // paramList
                "Link to my last age." ) // helpString
-{   
+{
     plNetLinkingMgr::GetInstance()->LinkToPrevAge( );
     PrintString("Linking to previous age...");
 }
@@ -581,7 +581,7 @@ PF_CONSOLE_CMD( Net,            // groupName
                ForceSetAgeTimeOfDay,        // fxnName
                "float timePercent", // paramList
                "Force the age time of day to a specific value from 0.0 to 1.0.  Set to -1 to unset." )  // helpString
-{   
+{
     plNetClientMgr::GetInstance()->SetOverrideAgeTimeOfDayPercent(params[0]);
 }
 
@@ -589,7 +589,7 @@ PF_CONSOLE_CMD( Net,            // groupName
                ScreenMessages,      // fxnName
                "bool on", // paramList
                "Screen out illegal net msgs." ) // helpString
-{   
+{
     bool on = params[0];
     plNetApp::GetInstance()->SetFlagsBit(plNetApp::kScreenMessages, on);
 }
@@ -606,7 +606,7 @@ PF_CONSOLE_CMD( Net_DebugObject,        // groupName
                "string objName, ...", // paramList
                "Create a debug log about the specified object. AddObject objName [pageName], wildcards allowed" )   // helpString
 {
-    char* objName = params[0];  
+    char* objName = params[0];
     char* pageName = numParams>1 ? (char*)params[1] : nil;
     if (plNetObjectDebugger::GetInstance())
         plNetObjectDebugger::GetInstance()->AddDebugObject(objName, pageName);
@@ -617,7 +617,7 @@ PF_CONSOLE_CMD( Net_DebugObject,        // groupName
                "string objName, ...", // paramList
                "Stop focused debugging about the specified object. RemoveObject objName [pageName], wildcards allowed" )    // helpString
 {
-    char* objName = params[0];  
+    char* objName = params[0];
     char* pageName = numParams>1 ? (char*)params[1] : nil;
     if (plNetObjectDebugger::GetInstance())
         plNetObjectDebugger::GetInstance()->RemoveDebugObject(objName, pageName);
@@ -682,7 +682,7 @@ PF_CONSOLE_CMD( Net_Log,        // groupName
                Create,      // fxnName
                "string fileName", // paramList
                "obsolete" ) // helpString
-{   
+{
 }
 
 #endif
@@ -695,7 +695,7 @@ PF_CONSOLE_CMD( Net_Auth,       // groupName
                SetAccountName,      // fxnName
                "string name", // paramList
                "Sets account name." )   // helpString
-{   
+{
     plNetClientMgr * nc = plNetClientMgr::GetInstance();
     nc->SetIniAccountName(params[0]);
 }
@@ -704,7 +704,7 @@ PF_CONSOLE_CMD( Net_Auth,       // groupName
                SetAccountPassword,      // fxnName
                "string password", // paramList
                "Sets account password." )   // helpString
-{   
+{
     plNetClientMgr * nc = plNetClientMgr::GetInstance();
     nc->SetIniAccountPass(params[0]);
 }

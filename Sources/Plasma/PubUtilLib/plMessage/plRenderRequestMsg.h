@@ -52,7 +52,7 @@ class hsResMgr;
 
 // This is a little StoneAge, using the old HeadSpin ref count here.
 // It's a perfect spot for a smart pointer, but we ain't got none.
-// 
+//
 // Basic issue is that we hand a pointer to this request off to the
 // client (via the plRenderRequestMsg), who will at some later point this frame
 // hand it to the pipeline to be processed. So if I want to hand it off and

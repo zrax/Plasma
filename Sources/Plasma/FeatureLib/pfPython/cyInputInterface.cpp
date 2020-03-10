@@ -53,7 +53,7 @@ fTelescopeInterface(nil)
 {
 }
 
-cyInputInterface::~cyInputInterface() 
+cyInputInterface::~cyInputInterface()
 {
     if (fTelescopeInterface)
         hsRefCnt_SafeUnRef( fTelescopeInterface );
@@ -78,7 +78,7 @@ void cyInputInterface::PushTelescopeInterface()
         pMsg->SetIFace(fTelescopeInterface);
         pMsg->Send();
     }
-}   
+}
 
 /////////////////////////////////////////////////////////////////////////////
 //

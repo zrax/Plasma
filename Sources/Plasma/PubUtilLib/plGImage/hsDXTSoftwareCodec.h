@@ -89,7 +89,7 @@ private:
     plMipmap    *ICreateUncompressedMipmap( plMipmap *compressed, uint8_t flags );
 
     // Dispatcher for all the decompression functions
-    void inline UncompressMipmap( plMipmap *uncompressed, plMipmap *compressed, 
+    void inline UncompressMipmap( plMipmap *uncompressed, plMipmap *compressed,
                                   uint8_t flags = 0 );
 
     // Decompresses a DXT5 compressed mipmap into a RGB4444 mipmap

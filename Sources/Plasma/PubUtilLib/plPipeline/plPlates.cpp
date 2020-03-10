@@ -188,7 +188,7 @@ void    plPlate::SetOpacity( float opacity )
 }
 
 //// CreateMaterial /////////////////////////////////////////////////////
-//  Creates a new material for this plate with either a specified texture 
+//  Creates a new material for this plate with either a specified texture
 //  or an empty, white-filled bitmap.
 
 plMipmap    *plPlate::CreateMaterial( uint32_t width, uint32_t height, bool withAlpha, plMipmap* texture )

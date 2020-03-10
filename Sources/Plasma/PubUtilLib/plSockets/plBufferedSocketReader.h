@@ -64,7 +64,7 @@ public:
     int ReadBlock(char * buf, int buflen, plTcpSocket & sck);
     int ReadString(char * buf, int buflen, char * termChars, plTcpSocket & sck);
     int ReadStringInPlace(char ** buf, char * termChars, plTcpSocket & sck);
-    void Reset(); 
+    void Reset();
 
 protected:
     int ReadFrom(plTcpSocket & sck);

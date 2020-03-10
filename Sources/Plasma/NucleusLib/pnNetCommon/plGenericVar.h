@@ -141,7 +141,7 @@ public:
 //
 // a generic variable (similar to pfConsoleCmdParam)
 //
-class plGenericVar 
+class plGenericVar
 {
 protected:
     plGenericType fValue;

@@ -63,7 +63,7 @@ pyNotify::pyNotify()
     fBuildMsg.fID = 0;
 }
 
-pyNotify::pyNotify(pyKey& selfkey) 
+pyNotify::pyNotify(pyKey& selfkey)
 {
     fSenderKey = selfkey.getKey();
     fNetPropagate = true;

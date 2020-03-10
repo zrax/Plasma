@@ -241,15 +241,15 @@ plMipmap *hsDXTDirectXCodec::CreateCompressedMipmap( plMipmap *uncompressed )
 
 
     /// Create source DirectDraw surface
-    IDirectDrawSurface7 *srcSurface = IMakeDirect3DSurface( D3DTEXTURE_FMT_ARGB32_8888, 
-                                                            numCompLevels, uncompressed->GetWidth(), 
+    IDirectDrawSurface7 *srcSurface = IMakeDirect3DSurface( D3DTEXTURE_FMT_ARGB32_8888,
+                                                            numCompLevels, uncompressed->GetWidth(),
                                                             uncompressed->GetHeight() );
 
     IFillSurface( (hsRGBAColor32 *)uncompressed->GetImage(), numCompLevels, srcSurface );
 
     /// Create destination DirectDraw surface
-    IDirectDrawSurface7 *destSurface = IMakeDirect3DSurface( compFormat, numCompLevels, 
-                                                            uncompressed->GetWidth(), 
+    IDirectDrawSurface7 *destSurface = IMakeDirect3DSurface( compFormat, numCompLevels,
+                                                            uncompressed->GetWidth(),
                                                             uncompressed->GetHeight() );
     ICopySurface( destSurface, srcSurface, numCompLevels );
 
@@ -257,7 +257,7 @@ plMipmap *hsDXTDirectXCodec::CreateCompressedMipmap( plMipmap *uncompressed )
     /// Now set up the data structures
     compressed = new plMipmap( uncompressed->GetWidth(), uncompressed->GetHeight(), plMipmap::kARGB32Config,
                                 uncompressed->GetNumLevels(), plMipmap::kDirectXCompression,
-                                ( compFormat == D3DTEXTURE_FMT_FOURCC_DXT1 ) ? 
+                                ( compFormat == D3DTEXTURE_FMT_FOURCC_DXT1 ) ?
                                         plMipmap::DirectXInfo::kDXT1 : plMipmap::DirectXInfo::kDXT5 );
     
     /// Copy compressed data back from the surface
@@ -269,7 +269,7 @@ plMipmap *hsDXTDirectXCodec::CreateCompressedMipmap( plMipmap *uncompressed )
         /// Now copy the rest straight over
         for( i = numCompLevels; i < numLevels; i++ )
         {
-            memcpy( compressed->GetLevelPtr( (uint8_t)i ), uncompressed->GetLevelPtr( (uint8_t)i ), 
+            memcpy( compressed->GetLevelPtr( (uint8_t)i ), uncompressed->GetLevelPtr( (uint8_t)i ),
                     uncompressed->GetLevelSize( (uint8_t)i ) );
         }
     }
@@ -283,10 +283,10 @@ plMipmap *hsDXTDirectXCodec::CreateCompressedMipmap( plMipmap *uncompressed )
 
 //// CreateUncompressedMipmap /////////////////////////////////////////////////
 //  Updated 8.15.2000 mcn to support mipmaps down to 1x1. See
-//  CreateCompressedMipmap(). Also cleaned up the code a bit (too tired to 
+//  CreateCompressedMipmap(). Also cleaned up the code a bit (too tired to
 //  clean it ALL up)
 
-plMipmap *hsDXTDirectXCodec::CreateUncompressedMipmap( plMipmap *compressed, 
+plMipmap *hsDXTDirectXCodec::CreateUncompressedMipmap( plMipmap *compressed,
                                                             uint8_t bitDepth )
 {
     /// Use software decompression ALWAYS
@@ -345,16 +345,16 @@ plMipmap *hsDXTDirectXCodec::CreateUncompressedMipmap( plMipmap *compressed,
     }
 
     /// Get format type
-    formatType = ( compressed->fDirectXInfo.fCompressionType == hsGMipmap::DirectXInfo::kDXT1 ) ? 
+    formatType = ( compressed->fDirectXInfo.fCompressionType == hsGMipmap::DirectXInfo::kDXT1 ) ?
                             D3DTEXTURE_FMT_FOURCC_DXT1 : D3DTEXTURE_FMT_FOURCC_DXT5;
 
     /// Make the surfaces (decompress in the process)
-    IDirectDrawSurface7 *srcSurface = IMakeDirect3DSurface( formatType, numCompLevels, 
+    IDirectDrawSurface7 *srcSurface = IMakeDirect3DSurface( formatType, numCompLevels,
                                                             compressed->fWidth, compressed->fHeight );
     IFillSurface( (hsRGBAColor32 *)compressed->fImage, numCompLevels, srcSurface );
 
 
-    IDirectDrawSurface7 *destSurface = IMakeDirect3DSurface( D3DTEXTURE_FMT_ARGB32_8888, numCompLevels, 
+    IDirectDrawSurface7 *destSurface = IMakeDirect3DSurface( D3DTEXTURE_FMT_ARGB32_8888, numCompLevels,
                                                         compressed->fWidth, compressed->fHeight );
     ICopySurface( destSurface, srcSurface, numCompLevels );
 
@@ -398,7 +398,7 @@ plMipmap *hsDXTDirectXCodec::CreateUncompressedMipmap( plMipmap *compressed,
     }
     else
     {
-        uncompressed->fImage = HSMemory::New( uncompressed->fWidth * uncompressed->fHeight * 
+        uncompressed->fImage = HSMemory::New( uncompressed->fWidth * uncompressed->fHeight *
                                                 uncompressed->fPixelSize >> 3 );
     }
 
@@ -468,7 +468,7 @@ DDPIXELFORMAT   IFindTextureFormat(uint32_t formatType)
     }
 }
 
-IDirectDrawSurface7 *hsDXTDirectXCodec::IMakeDirect3DSurface(uint32_t formatType, uint32_t mipMapLevels, 
+IDirectDrawSurface7 *hsDXTDirectXCodec::IMakeDirect3DSurface(uint32_t formatType, uint32_t mipMapLevels,
                                                               uint32_t width, uint32_t height)
 {
     DDSURFACEDESC2 ddsd2;
@@ -554,7 +554,7 @@ void hsDXTDirectXCodec::IFillFromSurface(hsRGBAColor32* dest, uint32_t mmlvs, ID
         memset( &ddsd2, 0, sizeof( DDSURFACEDESC2 ) );
         ddsd2.dwSize = sizeof( DDSURFACEDESC2 );
 
-        hr = pddsSrc->Lock( NULL, &ddsd2, DDLOCK_WAIT | DDLOCK_READONLY | 
+        hr = pddsSrc->Lock( NULL, &ddsd2, DDLOCK_WAIT | DDLOCK_READONLY |
                                             DDLOCK_DISCARDCONTENTS, NULL );
 
         if( ddsd2.ddpfPixelFormat.dwFlags == DDPF_FOURCC )

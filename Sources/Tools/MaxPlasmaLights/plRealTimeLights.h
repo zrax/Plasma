@@ -68,14 +68,14 @@ class plRTOmniLight : public plRTLightBase
 {
     public:
 
-        Class_ID ClassID() { return RTOMNI_LIGHT_CLASSID; }     
+        Class_ID ClassID() { return RTOMNI_LIGHT_CLASSID; }
         SClass_ID SuperClassID() { return LIGHT_CLASS_ID; }
 
         int CanConvertToType(Class_ID obtype) { return (obtype ==  RTOMNI_LIGHT_CLASSID ) ? 1 : 0; }
         plRTOmniLight();
             
         ObjLightDesc *CreateLightDesc(INode *n, BOOL forceShadowBuf= FALSE);
-        GenLight* NewLight(int type) {return new plRTOmniLight();} 
+        GenLight* NewLight(int type) {return new plRTOmniLight();}
         RefTargetHandle Clone(RemapDir &remap);
 
         virtual void            InitNodeName( TSTR &s ) { s = _T( "RTOmniLight" ); }
@@ -90,7 +90,7 @@ class plRTOmniLight : public plRTLightBase
         virtual bool    IHasAttenuation() { return true; }
 };
 
-class plRTOmniLightDesc : public ClassDesc2 
+class plRTOmniLightDesc : public ClassDesc2
 {
     public:
     int             IsPublic()                      { return TRUE; }
@@ -121,7 +121,7 @@ class plRTSpotLight : public plRTLightBase
 
         plRTSpotLight();
 
-        Class_ID ClassID() { return RTSPOT_LIGHT_CLASSID; }     
+        Class_ID ClassID() { return RTSPOT_LIGHT_CLASSID; }
         SClass_ID SuperClassID() { return LIGHT_CLASS_ID; }
 
         int CanConvertToType(Class_ID obtype) { return (obtype ==  RTSPOT_LIGHT_CLASSID ) ? 1 : 0; }
@@ -145,7 +145,7 @@ class plRTSpotLight : public plRTLightBase
         virtual bool    IHasAttenuation() { return true; }
 };
 
-class plRTSpotLightDesc : public ClassDesc2 
+class plRTSpotLightDesc : public ClassDesc2
 {
     public:
     int             IsPublic()                      { return TRUE; }
@@ -174,7 +174,7 @@ class plRTDirLight : public plRTLightBase
 
         plRTDirLight();
 
-        Class_ID ClassID() { return RTDIR_LIGHT_CLASSID; }      
+        Class_ID ClassID() { return RTDIR_LIGHT_CLASSID; }
         SClass_ID SuperClassID() { return LIGHT_CLASS_ID; }
 
         ObjLightDesc *CreateLightDesc(INode *n, BOOL forceShadowBuf= FALSE);
@@ -196,7 +196,7 @@ class plRTDirLight : public plRTLightBase
         void    IBuildZArrow( float x, float y, float zDist, float arrowSize, Point3 *pts );
 };
 
-class plRTDirLightDesc : public ClassDesc2 
+class plRTDirLightDesc : public ClassDesc2
 {
     public:
     int             IsPublic()                      { return TRUE; }

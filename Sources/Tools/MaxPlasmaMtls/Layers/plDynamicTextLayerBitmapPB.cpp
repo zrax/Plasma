@@ -95,8 +95,8 @@ public:
              break;
 
         /// Note: the following *could* be done in the accessor, except that you end up in an
-        /// infinite loop updating the values. Not good. 
-        case CC_SPINNER_CHANGE: 
+        /// infinite loop updating the values. Not good.
+        case CC_SPINNER_CHANGE:
             
             if( LOWORD( wParam ) == IDC_EXPORTWIDTH_SPINNER )
                 IClampTexSizeSpinner( t, map, true );
@@ -133,7 +133,7 @@ public:
                 plPlasmaMAXLayer *layer = (plPlasmaMAXLayer *)map->GetParamBlock()->GetOwner();
                 if( layer == nil )
                     return FALSE;
-                BOOL selectedNewBitmap = layer->HandleBitmapSelection();        
+                BOOL selectedNewBitmap = layer->HandleBitmapSelection();
                 if( selectedNewBitmap )
                 {
                     IParamBlock2 *pblock = map->GetParamBlock();
@@ -143,7 +143,7 @@ public:
                     
                     bmSelectBtn->SetText( pbbm != nil ? (TCHAR *)pbbm->bi.Filename() : "");
                     
-                    ReleaseICustButton( bmSelectBtn );                          
+                    ReleaseICustButton( bmSelectBtn );
                 }
 
                 return TRUE;
@@ -288,7 +288,7 @@ static ParamBlockDesc2 gBitmapParamBlk
     // Initial image
     plDynamicTextLayer::kBmpUseInitImage,   _T("useInitImage"), TYPE_BOOL,      0, 0,
         p_ui,           TYPE_SINGLECHEKBOX, IDC_USEINITIMAGE,
-        p_enable_ctrls, 1, plDynamicTextLayer::kBmpInitBitmap, 
+        p_enable_ctrls, 1, plDynamicTextLayer::kBmpInitBitmap,
         p_accessor,     &gDTLPBAccessor,
         end,
     plDynamicTextLayer::kBmpInitBitmap, _T("initBitmap"),       TYPE_BITMAP,    P_SHORT_LABELS, 0,

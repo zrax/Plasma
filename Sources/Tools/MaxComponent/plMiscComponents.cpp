@@ -118,7 +118,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plSurface/hsGMaterial.h"
 #include "plSurface/plLayerInterface.h"
 
-void DummyCodeIncludeFuncMisc() 
+void DummyCodeIncludeFuncMisc()
 {
     RegisterNotification(plPageInfoComponent::NotifyProc, nil, NOTIFY_FILE_POST_OPEN);
     RegisterNotification(plPageInfoComponent::NotifyProc, nil, NOTIFY_SYSTEM_POST_RESET);
@@ -155,12 +155,12 @@ ParamBlockDesc2 gInterestBk
     IDD_COMP_INTEREST, IDS_COMP_INTERESTS, 0, 0, NULL,
 
     // params
-    kInteresting,       _T("interesting"),      TYPE_STRING,        0, 0,   
+    kInteresting,       _T("interesting"),      TYPE_STRING,        0, 0,
         end,
     
     kCamInterestRadius, _T("CamInterestRadius"),   TYPE_FLOAT,     P_ANIMATABLE, 0,
         p_default, 100.0f,
-        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT, 
+        p_ui,   TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
         IDC_COMP_INTEREST_EDIT1, IDC_COMP_INTEREST_SPIN1, 1.0f,
         end,
 
@@ -337,7 +337,7 @@ public:
 
         return FALSE;
     }
-};  
+};
 
 //  For the paramblock below.
 static plPageInfoComponentProc gPageInfoCompProc;
@@ -347,15 +347,15 @@ CLASS_DESC(plPageInfoComponent, gPageInfoDesc, "Page Info",  "PageInfo", COMP_TY
 
 //Max paramblock2 stuff below.
 ParamBlockDesc2 gPageInfoCompBk
-(   
+(
     plComponent::kBlkComp, _T("PageInfo"), 0, &gPageInfoDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_PAGEINFO, IDS_COMP_PAGEINFOS, 0,   0,  &gPageInfoCompProc,
 
-    plPageInfoComponent::kInfoAge,  _T("ageName"),  TYPE_STRING,        0,  0,  
+    plPageInfoComponent::kInfoAge,  _T("ageName"),  TYPE_STRING,        0,  0,
         end,
 
-    plPageInfoComponent::kInfoPage, _T("pageName"), TYPE_STRING,        0,  0,  
+    plPageInfoComponent::kInfoPage, _T("pageName"), TYPE_STRING,        0,  0,
         end,
 
     plPageInfoComponent::kInfoSeqPrefix, _T("sequencePrefix"), TYPE_INT, 0, 0,
@@ -403,7 +403,7 @@ bool plPageInfoComponent::SetupProperties(plMaxNode *pNode, plErrorMsg *pErrMsg)
                     "PageInfo Component Error",
                     "No Label for the Age, Chapter, or Page, on the Location component found on %s",
                     pNode->GetName()).Show();
-        return false;   
+        return false;
     }
 
     // If we're only exporting a certain page, and this location isn't it, don't export this node
@@ -428,7 +428,7 @@ bool plPageInfoComponent::SetupProperties(plMaxNode *pNode, plErrorMsg *pErrMsg)
             }
             else
             {
-                pErrMsg->Set( true, "PageInfo Component Error", 
+                pErrMsg->Set( true, "PageInfo Component Error",
                                 "The scene you are trying to export is attempting to export to both ages %s and"
                                 " %s. You are only allowed to export to one age at a time.",
                                 fCurrExportedAge, age ).Show();
@@ -468,8 +468,8 @@ bool plPageInfoComponent::SetupProperties(plMaxNode *pNode, plErrorMsg *pErrMsg)
                     "delete the offending page data and export both pages again.\n\n"
                     "The exporter has assigned a valid temporary sequence number for page %s>%s, but this data should not be used "
                     "for playing over the network or released for external use.\n\n"
-                    "\t(Original sequence #: 0x%X)\n\t(Temporary sequence #: 0x%X)", 
-                                    age, room, pNode->GetName(), 
+                    "\t(Original sequence #: 0x%X)\n\t(Temporary sequence #: 0x%X)",
+                                    age, room, pNode->GetName(),
                                     lastPage->GetAge().c_str(), lastPage->GetPage().c_str(), age, room, seqNum, newNum );
             }
             else if( plPluginResManager::ResMgr()->GetLastVerifyError() == plPluginResManager::kErrSeqAlreadyTaken )
@@ -481,8 +481,8 @@ bool plPageInfoComponent::SetupProperties(plMaxNode *pNode, plErrorMsg *pErrMsg)
                     "Manager.\n\n"
                     "The exporter has assigned a valid temporary sequence number for page %s>%s, but this data should not be used "
                     "for playing over the network or released for external use.\n\n"
-                    "\t(Original sequence #: 0x%X)\n\t(Temporary sequence #: 0x%X)", 
-                                    age, room, pNode->GetName(), 
+                    "\t(Original sequence #: 0x%X)\n\t(Temporary sequence #: 0x%X)",
+                                    age, room, pNode->GetName(),
                                     lastPage->GetAge().c_str(), lastPage->GetPage().c_str(), age, room, seqNum, newNum );
             }
             else if( plPluginResManager::ResMgr()->GetLastVerifyError() == plPluginResManager::kErrCantFindValid )
@@ -490,9 +490,9 @@ bool plPageInfoComponent::SetupProperties(plMaxNode *pNode, plErrorMsg *pErrMsg)
                 sprintf( errMsg, "The Page Info component for %s>%s applied to object %s is attempting to export with "
                     "an invalid sequence number. The exporter could not find a valid, free sequence number to use, so this "
                     "page cannot be exported. Contact mcn (ext 264) immediately!\n\n"
-                    "\t(Original sequence #: 0x%X)", 
+                    "\t(Original sequence #: 0x%X)",
                     age, room, pNode->GetName(), seqNum );
-                pErrMsg->Set( true, "PageInfo Convert Error", errMsg ).Show(); 
+                pErrMsg->Set( true, "PageInfo Convert Error", errMsg ).Show();
                 return false;
             }
             else
@@ -501,10 +501,10 @@ bool plPageInfoComponent::SetupProperties(plMaxNode *pNode, plErrorMsg *pErrMsg)
                     "a sequence number that is invalid for an unknown reason.\n\n"
                     "The exporter has assigned a valid temporary sequence number, but this data should not be used "
                     "for playing over the network or released for external use.\n\n"
-                    "\t(Original sequence #: 0x%X)\n\t(Temporary sequence #: 0x%X)", 
+                    "\t(Original sequence #: 0x%X)\n\t(Temporary sequence #: 0x%X)",
                     age, room, pNode->GetName(), seqNum, newNum );
             }
-            pErrMsg->Set( true, "PageInfo Convert Error", errMsg ).Show(); 
+            pErrMsg->Set( true, "PageInfo Convert Error", errMsg ).Show();
             pErrMsg->Set( false );
             fSeqNumValidated = true;
         }
@@ -571,7 +571,7 @@ const char *plPageInfoComponent::GetAgeName()
 }
 
 //// IVerifyLatestAgeAsset ///////////////////////////////////////////////////
-//  Checks in assetMan to make sure we have the latest .age file to export 
+//  Checks in assetMan to make sure we have the latest .age file to export
 //  with.
 
 void    plPageInfoComponent::IVerifyLatestAgeAsset( const ST::string &ageName, const plFileName &localPath, plErrorMsg *errMsg )
@@ -879,7 +879,7 @@ enum
 
 //Max paramblock2 stuff below.
 ParamBlockDesc2 gRoomCompBk
-(   
+(
     1, _T("Location"), 0, &gRoomDesc, P_AUTO_CONSTRUCT+ P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_ROOM, IDS_COMP_ROOMS, 0,   0,  NULL,
@@ -889,11 +889,11 @@ ParamBlockDesc2 gRoomCompBk
         p_ui,   TYPE_EDITBOX, IDC_COMP_ROOM_AGE_TEXTBOX,
         end,
 
-    kLocDistrict,       _T("District"),     TYPE_STRING,        0, 0,   
+    kLocDistrict,       _T("District"),     TYPE_STRING,        0, 0,
         p_ui,   TYPE_EDITBOX,   IDC_COMP_ROOM_DISTRICT_TEXTBOX,
         end,
 
-    kLocRoom,           _T("Room"),     TYPE_STRING,        0, 0,   
+    kLocRoom,           _T("Room"),     TYPE_STRING,        0, 0,
         p_ui,   TYPE_EDITBOX,   IDC_COMP_ROOM_ROOM_TEXTBOX,
         end,
 
@@ -951,27 +951,27 @@ ParamBlockDesc2 gViewFacingBk
     IDD_COMP_VIEWFACE, IDS_COMP_VIEWFACES, 0, 0, NULL,
 
     kTypeofView,    _T("ViewType"),     TYPE_INT,       0, 0,
-        p_ui,       TYPE_RADIO, 4,  IDC_RADIO_VF1,  IDC_RADIO_VF2,  IDC_RADIO_VF3,  IDC_RADIO_VF4, 
+        p_ui,       TYPE_RADIO, 4,  IDC_RADIO_VF1,  IDC_RADIO_VF2,  IDC_RADIO_VF3,  IDC_RADIO_VF4,
         end,
 
     kViewFaceScaleX, _T("ViewFaceScaleX"),      TYPE_FLOAT, 0, 0,
         p_default, 0.0f,
         p_range, 0.0, 1500.0,
-        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT, 
+        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT,
         IDC_COMP_VFSCALE_EDIT1, IDC_COMP_VFSCALE_SPIN1, 0.1f,
         end,
 
     kViewFaceScaleY, _T("ViewFaceScaleY"),      TYPE_FLOAT, 0, 0,
         p_default, 0.0f,
         p_range, 0.0, 1500.0,
-        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT, 
+        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT,
         IDC_COMP_VFSCALE_EDIT2, IDC_COMP_VFSCALE_SPIN2, 0.1f,
         end,
 
     kViewFaceScaleZ, _T("ViewFaceScaleZ"),      TYPE_FLOAT, 0, 0,
         p_default, 0.0f,
         p_range, 0.0, 1500.0,
-        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT, 
+        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT,
         IDC_COMP_VFSCALE_EDIT3, IDC_COMP_VFSCALE_SPIN3, 0.1f,
         end,
 #endif
@@ -1361,8 +1361,8 @@ bool plCamViewComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     GenCamera* cam = nil;
     if( obj->CanConvertToType(Class_ID(LOOKAT_CAM_CLASS_ID, 0)) )
         cam = (GenCamera *) obj->ConvertToType(timeVal, Class_ID(LOOKAT_CAM_CLASS_ID, 0));
-    else 
-    if( obj->CanConvertToType(Class_ID(SIMPLE_CAM_CLASS_ID, 0)) ) 
+    else
+    if( obj->CanConvertToType(Class_ID(SIMPLE_CAM_CLASS_ID, 0)) )
         cam = (GenCamera *) obj->ConvertToType(timeVal, Class_ID(SIMPLE_CAM_CLASS_ID, 0));
 
     if( !cam )
@@ -1373,7 +1373,7 @@ bool plCamViewComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 
     plPostEffectMod* mod = new plPostEffectMod;
 
-    float hither = cam->GetEnvRange(timeVal, ENV_NEAR_RANGE); 
+    float hither = cam->GetEnvRange(timeVal, ENV_NEAR_RANGE);
     if( hither < 0.5f )
         hither = 0.5f;
     float yon = cam->GetEnvRange(timeVal, ENV_FAR_RANGE);
@@ -1474,7 +1474,7 @@ bool plCamViewComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg)
 //
 //
 
-enum    
+enum
 {
     kAffectX,
     kLeaderTypeRadio,
@@ -1572,7 +1572,7 @@ ParamBlockDesc2 gFollowBk
 (
     plComponent::kBlkComp, _T("Follow"), 0, &gFollowDesc, P_AUTO_CONSTRUCT+P_AUTO_UI, plComponent::kRefComp,
 
-    IDD_COMP_FOLLOW, IDS_COMP_FOLLOWS,  0, 0, &gFollowProc, 
+    IDD_COMP_FOLLOW, IDS_COMP_FOLLOWS,  0, 0, &gFollowProc,
 
     kAffectX,  _T("X"), TYPE_BOOL,      0, 0,
         p_default,  TRUE,
@@ -1595,8 +1595,8 @@ ParamBlockDesc2 gFollowBk
         end,
 
     kLeaderTypeRadio, _T("LeaderType"),     TYPE_INT,       0, 0,
-        p_ui,       TYPE_RADIO, 4,  IDC_F_RADIO_PLAYER, IDC_F_RADIO_CAMERA,     IDC_F_RADIO_LISTENER,               IDC_F_RADIO_OBJECT, 
-        p_vals,                     plFollowMod::kLocalPlayer,  plFollowMod::kCamera,   plFollowMod::kListener, plFollowMod::kObject,       
+        p_ui,       TYPE_RADIO, 4,  IDC_F_RADIO_PLAYER, IDC_F_RADIO_CAMERA,     IDC_F_RADIO_LISTENER,               IDC_F_RADIO_OBJECT,
+        p_vals,                     plFollowMod::kLocalPlayer,  plFollowMod::kCamera,   plFollowMod::kListener, plFollowMod::kObject,
         p_default, plFollowMod::kLocalPlayer,
         end,
 
@@ -1933,7 +1933,7 @@ ParamBlockDesc2 gGeoDiceBk
     plGeoDiceComponent::kMaxSize, _T("MaxSize"),        TYPE_FLOAT, 0, 0,
         p_default, 100.0f,
         p_range, 0.0, 10000.0,
-        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT, 
+        p_ui,   TYPE_SPINNER, EDITTYPE_FLOAT,
         IDC_COMP_GEO_DICE_MAXSIZE, IDC_COMP_GEO_DICE_MAXSIZE_SPIN, 0.1f,
         end,
 
@@ -1985,14 +1985,14 @@ public:
 
     // SetupProperties - Internal setup and write-only set properties on the MaxNode. No reading
     // of properties on the MaxNode, as it's still indeterminant.
-    virtual bool SetupProperties(plMaxNode *pNode, plErrorMsg *pErrMsg); 
+    virtual bool SetupProperties(plMaxNode *pNode, plErrorMsg *pErrMsg);
 };
 
 CLASS_DESC(plReferencePointComponent, gReferencePointDesc, "Reference Point",  "RefPoint", COMP_TYPE_MISC, Class_ID(0x3c9c6f71, 0x5774fc5))
 
 //Max paramblock2 stuff below.
 ParamBlockDesc2 gReferencePointBk
-(   
+(
     1, _T("reference"), 0, &gReferencePointDesc, P_AUTO_CONSTRUCT, plComponent::kRefComp,
 
     end
@@ -2114,7 +2114,7 @@ static plNetSyncComponentProc gNetSyncProc;
 
 //Max paramblock2 stuff below.
 ParamBlockDesc2 gHighSDLBk
-(   
+(
     plComponent::kBlkComp, _T("NetSync"), 0, &gNetSyncDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     IDD_COMP_NETSYNC, IDS_COMP_NETSYNC, 0, 0, &gNetSyncProc,
@@ -2398,7 +2398,7 @@ public:
                             IRefreshImageList( hWnd, comp );
                         }
                     }
-                }               
+                }
                 else if( LOWORD( wParam ) == IDC_IMAGE_REMOVE )
                 {
                     int idx = SendDlgItemMessage( hWnd, IDC_IMAGE_LIST, LB_GETCURSEL, 0, 0 );
@@ -2444,7 +2444,7 @@ ParamBlockDesc2 gImageLibBlock
     IDD_COMP_IMAGELIB, IDS_COMP_IMAGELIB, 0, 0, &gImageLibProc,
 
     // params
-    pfImageLibComponent::kRefImageList,     _T("imageList"), TYPE_TEXMAP_TAB, 0,        0, 0,   
+    pfImageLibComponent::kRefImageList,     _T("imageList"), TYPE_TEXMAP_TAB, 0,        0, 0,
         end,
 
     pfImageLibComponent::kCompressImage,    _T("compress"),     TYPE_BOOL_TAB, 0,       0, 0,
@@ -2472,7 +2472,7 @@ int pfImageLibComponent::GetNumBitmaps() const
 }
 
 plLayerTex  *pfImageLibComponent::GetBitmap( int idx )
-{  
+{
     // If we don't have one, create one
     plLayerTex  *layer = (plLayerTex *)fCompPB->GetTexmap( (ParamID)kRefImageList, 0, idx );
     if( layer == nil || layer->ClassID() != LAYER_TEX_CLASS_ID )
@@ -2543,7 +2543,7 @@ bool pfImageLibComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                     bMap = plLayerConverter::Instance().CreateSimpleTexture( texture->bi.Name(), lib->GetKey()->GetUoid().GetLocation(), 0, flags, true );
                 if( bMap != nil )
                 {
-                    hsgResMgr::ResMgr()->AddViaNotify( bMap->GetKey(), new plGenRefMsg( lib->GetKey(), 
+                    hsgResMgr::ResMgr()->AddViaNotify( bMap->GetKey(), new plGenRefMsg( lib->GetKey(),
                                             plRefMsg::kOnCreate, lib->GetNumImages(), plImageLibMod::kRefImage ), plRefFlags::kActiveRef );
                 }
             }
