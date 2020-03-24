@@ -1010,7 +1010,7 @@ void pfLocalizationDataMgr::Initialize(const plFileName & path)
 
 void pfLocalizationDataMgr::Shutdown()
 {
-    if ( fLog != nil )
+    if (fLog != nil)
     {
         delete fLog;
         fLog = nil;

@@ -73,8 +73,8 @@ public:
     void CreateInstance(plSceneObject *so, uint8_t boneIndex);
     void RemoveInstance(plSceneObject *so);
     
-    CLASSNAME_REGISTER( plSharedMesh );
-    GETINTERFACE_ANY( plSharedMesh, hsKeyedObject );
+    CLASSNAME_REGISTER(plSharedMesh);
+    GETINTERFACE_ANY(plSharedMesh, hsKeyedObject);
     
     virtual bool MsgReceive(plMessage* msg);
 
@@ -92,8 +92,8 @@ public:
     plSharedMeshBCMsg();
     ~plSharedMeshBCMsg() {}
     
-    CLASSNAME_REGISTER( plSharedMeshBCMsg );
-    GETINTERFACE_ANY( plSharedMeshBCMsg, plMessage );
+    CLASSNAME_REGISTER(plSharedMeshBCMsg);
+    GETINTERFACE_ANY(plSharedMeshBCMsg, plMessage);
 
     virtual void Read(hsStream* s, hsResMgr* mgr) {}
     virtual void Write(hsStream* s, hsResMgr* mgr) {}

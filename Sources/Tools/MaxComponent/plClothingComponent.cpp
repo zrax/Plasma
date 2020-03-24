@@ -319,10 +319,10 @@ BOOL plClothingComponentProc::DlgProc(TimeValue t, IParamMap2 *pm, HWND hWnd, UI
                 }
                 return TRUE;
             }
-            else if( LOWORD( wParam ) == IDC_CLOTHING_CLEARMESH )
+            else if (LOWORD(wParam) == IDC_CLOTHING_CLEARMESH)
             {
                 int state = pb->GetInt(plClothingComponent::kLODState);
-                pb->SetValue(plClothingComponent::kMeshNodeTab, 0, (INode*)nil, state );
+                pb->SetValue(plClothingComponent::kMeshNodeTab, 0, (INode*)nil, state);
                 pb->Reset(plClothingComponent::kMeshNodeAddBtn);
             }
         }
@@ -348,7 +348,7 @@ BOOL plClothingComponentProc::DlgProc(TimeValue t, IParamMap2 *pm, HWND hWnd, UI
             if (node)
                 pb->SetValue(plClothingComponent::kMeshNodeTab, 0, node, state);
 
-            if(LOWORD(wParam) == IDC_COMP_LOD_CLOTHING_STATE && HIWORD(wParam) == CBN_SELCHANGE)
+            if (LOWORD(wParam) == IDC_COMP_LOD_CLOTHING_STATE && HIWORD(wParam) == CBN_SELCHANGE)
             {
                 int idx = SendMessage((HWND)lParam, CB_GETCURSEL, 0, 0);
                 pb->SetValue(plClothingComponent::kLODState, 0, idx);

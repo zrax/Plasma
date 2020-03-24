@@ -97,7 +97,7 @@ void plBlower::IBlow(double secs, float delSecs)
 
     float strength = 0;
     int i;
-    for( i = 0; i < fOscillators.GetCount(); i++ )
+    for (i = 0; i < fOscillators.GetCount(); i++)
     {
         float c, s;
         t *= fOscillators[i].fFrequency * fMasterFrequency;
@@ -108,7 +108,7 @@ void plBlower::IBlow(double secs, float delSecs)
     }
     strength *= fMasterPower;
 
-    if( strength < 0 )
+    if (strength < 0)
         strength = 0;
 
     fDirection.fX += fRandom.RandMinusOneToOne() * delSecs * fDirectRate;
@@ -117,13 +117,13 @@ void plBlower::IBlow(double secs, float delSecs)
     hsFastMath::NormalizeAppr(fDirection);
 
     float offDist = hsVector3(&fRestPos, &worldPos).Magnitude();
-    if( offDist > fMaxOffsetDist )
+    if (offDist > fMaxOffsetDist)
         fMaxOffsetDist = offDist;
 
     hsVector3 force = fDirection * strength;
 
     static float kOffsetDistFrac = 0.5f; // make me const
-    if( offDist > fMaxOffsetDist * kOffsetDistFrac )
+    if (offDist > fMaxOffsetDist * kOffsetDistFrac)
     {
         offDist /= fMaxOffsetDist;
         offDist *= fMasterPower;
@@ -148,7 +148,7 @@ void plBlower::IBlow(double secs, float delSecs)
 bool plBlower::IEval(double secs, float delSecs, uint32_t dirty)
 {
     const float kMaxDelSecs = 0.1f;
-    if( delSecs > kMaxDelSecs )
+    if (delSecs > kMaxDelSecs)
         delSecs = kMaxDelSecs;
     IBlow(secs, delSecs);
 
@@ -160,7 +160,7 @@ bool plBlower::IEval(double secs, float delSecs, uint32_t dirty)
 void plBlower::ISetTargetTransform()
 {
     plCoordinateInterface* ci = IGetTargetCoordinateInterface(0);
-    if( ci )
+    if (ci)
     {
         hsMatrix44 l2p = ci->GetLocalToParent();
         hsMatrix44 p2l = ci->GetParentToLocal();
@@ -180,7 +180,7 @@ void plBlower::SetTarget(plSceneObject* so)
 {
     plSingleModifier::SetTarget(so);
 
-    if( fTarget )
+    if (fTarget)
     {
         fRestPos = fTarget->GetLocalToWorld().GetTranslate();
         fLocalRestPos = fTarget->GetLocalToParent().GetTranslate();
@@ -215,7 +215,7 @@ void plBlower::IInitOscillators()
     const float kBasePower = 5.f;
     fOscillators.SetCount(5);
     int i;
-    for( i = 0; i < fOscillators.GetCount(); i++ )
+    for (i = 0; i < fOscillators.GetCount(); i++)
     {
         float fi = float(i+1);
         fOscillators[i].fFrequency = fi / M_PI * fRandom.RandRangeF(0.75f, 1.25f);
@@ -227,9 +227,9 @@ void plBlower::IInitOscillators()
 
 void plBlower::SetConstancy(float f)
 {
-    if( f < 0 )
+    if (f < 0)
         f = 0;
-    else if( f > 1.f )
+    else if (f > 1.f)
         f = 1.f;
 
     fBias = f;

@@ -57,8 +57,8 @@ public:
                     const double* t){}
     ~plInterestingModMsg() { }
 
-    CLASSNAME_REGISTER( plInterestingModMsg );
-    GETINTERFACE_ANY( plInterestingModMsg, plMessage );
+    CLASSNAME_REGISTER(plInterestingModMsg);
+    GETINTERFACE_ANY(plInterestingModMsg, plMessage);
     
     float    fWeight;
     float    fRadius;
@@ -100,8 +100,8 @@ public:
                     const double* t){SetBCastFlag(plMessage::kBCastByExactType);}
     ~plInterestingPing() { }
 
-    CLASSNAME_REGISTER( plInterestingPing );
-    GETINTERFACE_ANY( plInterestingPing, plMessage );
+    CLASSNAME_REGISTER(plInterestingPing);
+    GETINTERFACE_ANY(plInterestingPing, plMessage);
     
     // IO
     void Read(hsStream* stream, hsResMgr* mgr)

@@ -81,8 +81,8 @@ public:
     
     virtual bool MsgReceive(plMessage* msg);
 
-    CLASSNAME_REGISTER( plCollisionDetector );
-    GETINTERFACE_ANY( plCollisionDetector, plDetectorModifier );
+    CLASSNAME_REGISTER(plCollisionDetector);
+    GETINTERFACE_ANY(plCollisionDetector, plDetectorModifier);
 
     virtual void SetType(int8_t i) { fType |= i; }
 
@@ -191,8 +191,8 @@ public:
     virtual bool MsgReceive(plMessage* msg);
     void AddMessage(plCameraMsg* pMsg) { fMessages.push_back(pMsg); }
 
-    CLASSNAME_REGISTER( plCameraRegionDetector );
-    GETINTERFACE_ANY( plCameraRegionDetector, plCollisionDetector );
+    CLASSNAME_REGISTER(plCameraRegionDetector);
+    GETINTERFACE_ANY(plCameraRegionDetector, plCollisionDetector);
 
     void Read(hsStream* stream, hsResMgr* mgr);
     void Write(hsStream* stream, hsResMgr* mgr);
@@ -219,8 +219,8 @@ public:
     void SetSubworldKey(plKey pKey) { fSub = pKey; }
     void SetTriggerOnExit(bool b) { fOnExit = b; }
 
-    CLASSNAME_REGISTER( plSubworldRegionDetector );
-    GETINTERFACE_ANY( plSubworldRegionDetector, plCollisionDetector );
+    CLASSNAME_REGISTER(plSubworldRegionDetector);
+    GETINTERFACE_ANY(plSubworldRegionDetector, plCollisionDetector);
 
     void Read(hsStream* stream, hsResMgr* mgr);
     void Write(hsStream* stream, hsResMgr* mgr);
@@ -237,8 +237,8 @@ public:
 
     
     virtual bool MsgReceive(plMessage* msg);
-    CLASSNAME_REGISTER( plPanicLinkRegion );
-    GETINTERFACE_ANY( plPanicLinkRegion, plCollisionDetector );
+    CLASSNAME_REGISTER(plPanicLinkRegion);
+    GETINTERFACE_ANY(plPanicLinkRegion, plCollisionDetector);
 
     void Read(hsStream* stream, hsResMgr* mgr);
     void Write(hsStream* stream, hsResMgr* mgr);
@@ -260,8 +260,8 @@ public:
     virtual ~plSimpleRegionSensor();
 
     virtual bool MsgReceive(plMessage *msg);
-    CLASSNAME_REGISTER( plSimpleRegionSensor );
-    GETINTERFACE_ANY( plSimpleRegionSensor, plSingleModifier);
+    CLASSNAME_REGISTER(plSimpleRegionSensor);
+    GETINTERFACE_ANY(plSimpleRegionSensor, plSingleModifier);
 
     virtual void Write(hsStream *stream, hsResMgr *mgr);
     virtual void Read(hsStream *stream, hsResMgr *mgr);
@@ -281,8 +281,8 @@ public:
     plSwimDetector(plMessage *enterMsg, plMessage *exitMsg) : plSimpleRegionSensor(enterMsg, exitMsg) {}
     virtual ~plSwimDetector() {}
 
-    CLASSNAME_REGISTER( plSwimDetector );
-    GETINTERFACE_ANY( plSwimDetector, plSimpleRegionSensor);
+    CLASSNAME_REGISTER(plSwimDetector);
+    GETINTERFACE_ANY(plSwimDetector, plSimpleRegionSensor);
     
     virtual void Write(hsStream *stream, hsResMgr *mgr);
     virtual void Read(hsStream *stream, hsResMgr *mgr);
@@ -295,7 +295,7 @@ public:
     plRidingAnimatedPhysicalDetector(plMessage *enterMsg, plMessage *exitMsg) : plSimpleRegionSensor(enterMsg, exitMsg) {}
     virtual ~plRidingAnimatedPhysicalDetector(){}
     virtual bool MsgReceive(plMessage *msg);
-    CLASSNAME_REGISTER( plRidingAnimatedPhysicalDetector );
-    GETINTERFACE_ANY( plRidingAnimatedPhysicalDetector, plSimpleRegionSensor);
+    CLASSNAME_REGISTER(plRidingAnimatedPhysicalDetector);
+    GETINTERFACE_ANY(plRidingAnimatedPhysicalDetector, plSimpleRegionSensor);
 };
 #endif //plCollisionDetector_inc

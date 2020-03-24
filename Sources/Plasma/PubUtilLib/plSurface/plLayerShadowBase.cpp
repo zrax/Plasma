@@ -74,9 +74,9 @@ plLayerInterface* plLayerLightBase::Attach(plLayerInterface* prev)
 uint32_t plLayerLightBase::Eval(double secs, uint32_t frame, uint32_t ignore)
 {
     uint32_t ret = plLayerInterface::Eval(secs, frame, ignore);
-    if( fUnderLay )
+    if (fUnderLay)
     {
-        if( fDirty || (ret & kState) )
+        if (fDirty || (ret & kState))
         {
             *fState = fUnderLay->GetState();
 
@@ -84,7 +84,7 @@ uint32_t plLayerLightBase::Eval(double secs, uint32_t frame, uint32_t ignore)
 
             fState->fBlendFlags &= ~hsGMatState::kBlendMask;
 
-            switch( blend )
+            switch (blend)
             {
             case hsGMatState::kBlendAlpha:
                 fState->fBlendFlags |= hsGMatState::kBlendAddColorTimesAlpha;
@@ -137,9 +137,9 @@ plLayerInterface* plLayerShadowBase::Attach(plLayerInterface* prev)
 uint32_t plLayerShadowBase::Eval(double secs, uint32_t frame, uint32_t ignore)
 {
     uint32_t ret = plLayerInterface::Eval(secs, frame, ignore);
-    if( fUnderLay )
+    if (fUnderLay)
     {
-        if( fDirty || (ret & kState) )
+        if (fDirty || (ret & kState))
         {
             *fState = fUnderLay->GetState();
             fState->fBlendFlags &= ~hsGMatState::kBlendMask;

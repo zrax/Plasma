@@ -148,7 +148,7 @@ public:
     void            SetupBonesAliasesRecur(const char *rootName);
     void            SetupBoneHierarchyPalette(plMaxBoneMap *bones = nil);
 
-    void SetDISceneNodeSpans( plDrawInterface *di, bool needBlending );
+    void SetDISceneNodeSpans(plDrawInterface *di, bool needBlending);
 
     bool IsLegalDecal(bool checkParent = true);
     
@@ -168,14 +168,14 @@ public:
 
     bool    IsPhysical();
 
-    bool    CanMakeMesh( Object *obj, plErrorMsg *pErrMsg, plConvertSettings *settings );
+    bool    CanMakeMesh(Object *obj, plErrorMsg *pErrMsg, plConvertSettings *settings);
     plDrawInterface* GetDrawInterface(); // Returns nil if there isn't a sceneobject and a drawinterface.
 
     // Only call during convert
     plPhysicalProps *GetPhysicalProps();
 
     // Little helper function. Calls FindKey() in the resManager using the location (page) of this node
-    plKey   FindPageKey( uint16_t classIdx, const ST::string &name );
+    plKey   FindPageKey(uint16_t classIdx, const ST::string &name);
     const char *GetAgeName();
 
     void CheckSynchOptions(plSynchedObject* so);
@@ -183,7 +183,7 @@ public:
 protected:
     INode *GetRootNode()    { return GetInterface()->GetRootNode(); }
 
-    plDrawableSpans *IGetSceneNodeSpans( plSceneNode *node, bool needBlending, bool needSorting=true );
+    plDrawableSpans *IGetSceneNodeSpans(plSceneNode *node, bool needBlending, bool needSorting=true);
 
     plLightInfo*    IMakeDirectional(plErrorMsg* pErrMsg, plConvertSettings* settings);
     plLightInfo*    IMakeOmni(plErrorMsg* pErrMsg, plConvertSettings* settings);
@@ -192,7 +192,7 @@ protected:
     plLightInfo*    IMakeRTDirectional(plErrorMsg* pErrMsg, plConvertSettings* settings);
     plLightInfo*    IMakeRTOmni(plErrorMsg* pErrMsg, plConvertSettings* settings);
     plLightInfo*    IMakeRTSpot(plErrorMsg* pErrMsg, plConvertSettings* settings);
-    plLightInfo*    IMakeRTProjDirectional( plErrorMsg *pErrMsg, plConvertSettings *settings );
+    plLightInfo*    IMakeRTProjDirectional(plErrorMsg *pErrMsg, plConvertSettings *settings);
 
     void            IGetCone(plSpotLightInfo* liInfo, LightObject* light, LightState& ls);
     void            IGetLightColors(plLightInfo* liInfo, LightObject* light, LightState& ls);
@@ -209,25 +209,25 @@ protected:
     plLightInfo*    IMakeLight(plErrorMsg *pErrMsg, plConvertSettings *settings);
 
     plSceneNode*    IGetDrawableSceneNode(plErrorMsg *pErrMsg);
-    void            IAssignSpansToDrawables( hsTArray<plGeometrySpan *> &spanArray, plDrawInterface *di,
-                                            plErrorMsg *pErrMsg, plConvertSettings *settings );
-    void            IAssignSpan( plDrawableSpans *drawable, hsTArray<plGeometrySpan *> &spanArray, uint32_t &index,
-                                 hsMatrix44 &l2w, hsMatrix44 &w2l,
-                                 plErrorMsg *pErrMsg, plConvertSettings *settings );
-    void            ISetupBones( plDrawableSpans *drawable, hsTArray<plGeometrySpan *> &spanArray,
-                                 hsMatrix44 &l2w, hsMatrix44 &w2l,
-                                 plErrorMsg *pErrMsg, plConvertSettings *settings );
+    void            IAssignSpansToDrawables(hsTArray<plGeometrySpan *> &spanArray, plDrawInterface *di,
+                                            plErrorMsg *pErrMsg, plConvertSettings *settings);
+    void            IAssignSpan(plDrawableSpans *drawable, hsTArray<plGeometrySpan *> &spanArray, uint32_t &index,
+                                hsMatrix44 &l2w, hsMatrix44 &w2l,
+                                plErrorMsg *pErrMsg, plConvertSettings *settings);
+    void            ISetupBones(plDrawableSpans *drawable, hsTArray<plGeometrySpan *> &spanArray,
+                                hsMatrix44 &l2w, hsMatrix44 &w2l,
+                                plErrorMsg *pErrMsg, plConvertSettings *settings);
     bool            IFindBones(plErrorMsg *pErrMsg, plConvertSettings *settings);
 
     void            IWipeBranchDrawable(bool b);
 
-    uint32_t          IBuildInstanceList( Object *obj, TimeValue t, hsTArray<plMaxNode *> &nodes, bool beMoreAccurate = false );
-    bool            IMakeInstanceSpans( plMaxNode *node, hsTArray<plGeometrySpan *> &spanArray,
-                                       plErrorMsg *pErrMsg, plConvertSettings *settings );
-    bool            IMaterialsMatch( plMaxNode *otherNode, bool beMoreAccurate );
+    uint32_t          IBuildInstanceList(Object *obj, TimeValue t, hsTArray<plMaxNode *> &nodes, bool beMoreAccurate = false);
+    bool            IMakeInstanceSpans(plMaxNode *node, hsTArray<plGeometrySpan *> &spanArray,
+                                       plErrorMsg *pErrMsg, plConvertSettings *settings);
+    bool            IMaterialsMatch(plMaxNode *otherNode, bool beMoreAccurate);
 
-    int             IGetCachedAlphaHackValue( int iSubMtl );
-    void            ISetCachedAlphaHackValue( int iSubMtl, int value );
+    int             IGetCachedAlphaHackValue(int iSubMtl);
+    void            ISetCachedAlphaHackValue(int iSubMtl, int value);
     
 friend class plLocationDlg;
 };

@@ -83,7 +83,7 @@ class plNetMsgPagingRoom;
 
 
 struct plNetClientCommMsgHandler : plNetClientComm::MsgHandler {
-    int HandleMessage( plNetMessage* msg );
+    int HandleMessage(plNetMessage* msg);
 };
 
 class plNetClientMgr : public plNetClientApp
@@ -243,8 +243,8 @@ public:
     plNetClientMgr();
     ~plNetClientMgr();
 
-    CLASSNAME_REGISTER( plNetClientMgr );
-    GETINTERFACE_ANY( plNetClientMgr, plNetClientApp );
+    CLASSNAME_REGISTER(plNetClientMgr);
+    GETINTERFACE_ANY(plNetClientMgr, plNetClientApp);
 
     static plNetClientMgr* GetInstance() { return plNetClientMgr::ConvertNoRef(fInstance); }
 
@@ -273,7 +273,7 @@ public:
     void SetIniAccountPass(const char * value) { fIniAccountPass=value;}
     void SetIniPlayerID(uint32_t value)          { fIniPlayerID=value;}
 
-    void SetSPDesiredPlayerName( const char * value ) { fSPDesiredPlayerName=value;}
+    void SetSPDesiredPlayerName(const char * value) { fSPDesiredPlayerName=value;}
     const char * GetSPDesiredPlayerName() const { return fSPDesiredPlayerName.c_str(); }
 
     void SetLocalPlayerKey(plKey l, bool pageOut=false);
@@ -282,7 +282,7 @@ public:
     
     // getters
     uint32_t            GetPlayerID() const;
-    ST::string          GetPlayerName( const plKey avKey=nil ) const;
+    ST::string          GetPlayerName(const plKey avKey=nil) const;
     ST::string          GetPlayerNameById (unsigned playerId) const;
     unsigned            GetPlayerIdByName(const ST::string & name) const;
 
@@ -297,12 +297,12 @@ public:
     void IncNumInitialSDLStates();
     void ResetNumInitialSDLStates() { fNumInitialSDLStates=0; }
     int GetNumInitialSDLStates() const { return fNumInitialSDLStates; }
-    void SetRequiredNumInitialSDLStates( int v ) { fRequiredNumInitialSDLStates=v; }
+    void SetRequiredNumInitialSDLStates(int v) { fRequiredNumInitialSDLStates=v; }
     int GetRequiredNumInitialSDLStates() const { return fRequiredNumInitialSDLStates; }
 
     // Linking progress
-    void    StartTaskProgress( const char *msg, int numSteps );
-    void    IncTaskProgress( const char *msg );
+    void    StartTaskProgress(const char *msg, int numSteps);
+    void    IncTaskProgress(const char *msg);
 
     // avatar vault actions
     int UploadPlayerVault(uint32_t vaultFlags);
@@ -320,7 +320,7 @@ public:
     bool IsRemotePlayerKey(const plKey p, int* idx=nil);
     bool IsAPlayerKey(const plKey pKey) { return (pKey==GetLocalPlayerKey() || IsRemotePlayerKey(pKey));    }
 
-    void SetConsoleOutput( bool b ) { SetFlagsBit(kConsoleOutput, b); }
+    void SetConsoleOutput(bool b) { SetFlagsBit(kConsoleOutput, b); }
     bool GetConsoleOutput() const { return GetFlagsBit(kConsoleOutput); }
     
     // Net groups
@@ -363,7 +363,7 @@ public:
     ST::string GetNextAgeFilename() const;
     void SetOverrideAgeTimeOfDayPercent(float f) { fOverrideAgeTimeOfDayPercent=f;  }
 
-    void AddPendingPagingRoomMsg( plNetMsgPagingRoom * msg );
+    void AddPendingPagingRoomMsg(plNetMsgPagingRoom * msg);
     void MaybeSendPendingPagingRoomMsgs();
     void SendPendingPagingRoomMsgs();
     void ClearPendingPagingRoomMsgs();

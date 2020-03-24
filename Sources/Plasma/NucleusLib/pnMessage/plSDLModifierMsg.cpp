@@ -55,6 +55,6 @@ plSDLModifierMsg::plSDLModifierMsg(const ST::string& sdlName, Action a) :
 
 plSDLModifierMsg::~plSDLModifierMsg()
 {
-    if ( fManageStateMem )
+    if (fManageStateMem)
         delete fState;
 }

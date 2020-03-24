@@ -61,8 +61,8 @@ public:
     plDynaBulletMgr();
     virtual ~plDynaBulletMgr();
 
-    CLASSNAME_REGISTER( plDynaBulletMgr );
-    GETINTERFACE_ANY( plDynaBulletMgr, plDynaDecalMgr );
+    CLASSNAME_REGISTER(plDynaBulletMgr);
+    GETINTERFACE_ANY(plDynaBulletMgr, plDynaDecalMgr);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

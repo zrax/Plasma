@@ -74,9 +74,9 @@ void plAvBrainRideAnimatedPhysical::Deactivate()
 bool plAvBrainRideAnimatedPhysical::MsgReceive(plMessage *msg)
 {
     plRideAnimatedPhysMsg *ride = plRideAnimatedPhysMsg::ConvertNoRef(msg);
-    if(ride)
+    if (ride)
     {
-        if(!ride->Entering())
+        if (!ride->Entering())
         {
             /*this->fArmature->PopBrain();
             delete this;
@@ -185,7 +185,7 @@ bool plAvBrainRideAnimatedPhysical::LeaveAge()
 }
 bool plAvBrainRideAnimatedPhysical::Apply(double timeNow, float elapsed)
 {
-    if(this->fMode==kAbort) return false;
+    if (this->fMode==kAbort) return false;
     else return plAvBrainHuman::Apply(timeNow, elapsed);
 
 }

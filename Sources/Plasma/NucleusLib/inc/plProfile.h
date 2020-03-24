@@ -238,8 +238,8 @@ public:
     // Will output to log like
     // Timername : lapCnt: (lapName) : 3.22 msec
     //
-    void BeginLap(const char* lapName) { if(fActive && fRunning) IBeginLap(lapName); }
-    void EndLap(const char* lapName) { if(fActive && fRunning) IEndLap(lapName); }
+    void BeginLap(const char* lapName) { if (fActive && fRunning) IBeginLap(lapName); }
+    void EndLap(const char* lapName) { if (fActive && fRunning) IEndLap(lapName); }
     
     const char* GetGroup() { return fGroup; }
 

@@ -57,24 +57,24 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 //// Writeable Stuff /////////////////////////////////////////////////////////
 
-void    pfGUICtrlProcWriteableObject::Write( pfGUICtrlProcWriteableObject *obj, hsStream *s )
+void    pfGUICtrlProcWriteableObject::Write(pfGUICtrlProcWriteableObject *obj, hsStream *s)
 {
-    if( obj != nil )
+    if (obj != nil)
     {
-        s->WriteLE32( obj->fType );
-        obj->IWrite( s );
+        s->WriteLE32(obj->fType);
+        obj->IWrite(s);
     }
     else
-        s->WriteLE32( kNull );
+        s->WriteLE32(kNull);
 }
 
-pfGUICtrlProcWriteableObject *pfGUICtrlProcWriteableObject::Read( hsStream *s )
+pfGUICtrlProcWriteableObject *pfGUICtrlProcWriteableObject::Read(hsStream *s)
 {
     pfGUICtrlProcWriteableObject    *obj;
 
     uint32_t type = s->ReadLE32();
 
-    switch( type )
+    switch (type)
     {
         case kConsoleCmd:
             obj = new pfGUIConsoleCmdProc;
@@ -92,11 +92,11 @@ pfGUICtrlProcWriteableObject *pfGUICtrlProcWriteableObject::Read( hsStream *s )
             return nil;
 
         default:
-            hsAssert( false, "Invalid proc type in Read()" );
+            hsAssert(false, "Invalid proc type in Read()");
             return nil;
     }
 
-    obj->IRead( s );
+    obj->IRead(s);
     return obj;
 }
 
@@ -106,16 +106,16 @@ pfGUICtrlProcWriteableObject *pfGUICtrlProcWriteableObject::Read( hsStream *s )
 
 //// pfGUIConsoleCmdProc /////////////////////////////////////////////////////
 
-pfGUIConsoleCmdProc::pfGUIConsoleCmdProc() : pfGUICtrlProcWriteableObject( kConsoleCmd )
+pfGUIConsoleCmdProc::pfGUIConsoleCmdProc() : pfGUICtrlProcWriteableObject(kConsoleCmd)
 {
     fCommand = nil;
 }
 
-pfGUIConsoleCmdProc::pfGUIConsoleCmdProc( const char *cmd )
-                : pfGUICtrlProcWriteableObject( kConsoleCmd )
+pfGUIConsoleCmdProc::pfGUIConsoleCmdProc(const char *cmd)
+                : pfGUICtrlProcWriteableObject(kConsoleCmd)
 {
     fCommand = nil;
-    SetCommand( cmd );
+    SetCommand(cmd);
 }
 
 pfGUIConsoleCmdProc::~pfGUIConsoleCmdProc()
@@ -123,56 +123,56 @@ pfGUIConsoleCmdProc::~pfGUIConsoleCmdProc()
     delete [] fCommand;
 }
 
-void    pfGUIConsoleCmdProc::IRead( hsStream *s )
+void    pfGUIConsoleCmdProc::IRead(hsStream *s)
 {
     int i = s->ReadLE32();
-    if( i > 0 )
+    if (i > 0)
     {
-        fCommand = new char[ i + 1 ];
-        memset( fCommand, 0, i + 1 );
-        s->Read( i, fCommand );
+        fCommand = new char[i + 1];
+        memset(fCommand, 0, i + 1);
+        s->Read(i, fCommand);
     }
     else
         fCommand = nil;
 }
 
-void    pfGUIConsoleCmdProc::IWrite( hsStream *s )
+void    pfGUIConsoleCmdProc::IWrite(hsStream *s)
 {
-    if( fCommand != nil )
+    if (fCommand != nil)
     {
-        s->WriteLE32( strlen( fCommand ) );
-        s->Write( strlen( fCommand ), fCommand );
+        s->WriteLE32(strlen(fCommand));
+        s->Write(strlen(fCommand), fCommand);
     }
     else
-        s->WriteLE32( 0 );
+        s->WriteLE32(0);
 }
 
-void    pfGUIConsoleCmdProc::DoSomething( pfGUIControlMod *ctrl )
+void    pfGUIConsoleCmdProc::DoSomething(pfGUIControlMod *ctrl)
 {
-    if( fCommand != nil )
+    if (fCommand != nil)
     {
-        plConsoleMsg *cMsg = new plConsoleMsg( plConsoleMsg::kExecuteLine, fCommand );
-        plgDispatch::MsgSend( cMsg );
+        plConsoleMsg *cMsg = new plConsoleMsg(plConsoleMsg::kExecuteLine, fCommand);
+        plgDispatch::MsgSend(cMsg);
     }
 }
 
-void    pfGUIConsoleCmdProc::SetCommand( const char *cmd )
+void    pfGUIConsoleCmdProc::SetCommand(const char *cmd)
 {
     delete [] fCommand;
 
-    if( cmd == nil )
+    if (cmd == nil)
         fCommand = nil;
     else
     {
-        fCommand = new char[ strlen( cmd ) + 1 ];
-        memset( fCommand, 0, strlen( cmd ) + 1 );
-        strcpy( fCommand, cmd );
+        fCommand = new char[strlen(cmd) + 1];
+        memset(fCommand, 0, strlen(cmd) + 1);
+        strcpy(fCommand, cmd);
     }
 }
 
 //// pfGUIPythonScriptProc ///////////////////////////////////////////////////
 
-pfGUIPythonScriptProc::pfGUIPythonScriptProc() : pfGUICtrlProcWriteableObject( kPythonScript )
+pfGUIPythonScriptProc::pfGUIPythonScriptProc() : pfGUICtrlProcWriteableObject(kPythonScript)
 {
 }
 
@@ -180,15 +180,15 @@ pfGUIPythonScriptProc::~pfGUIPythonScriptProc()
 {
 }
 
-void    pfGUIPythonScriptProc::IRead( hsStream *s )
+void    pfGUIPythonScriptProc::IRead(hsStream *s)
 {
 }
 
-void    pfGUIPythonScriptProc::IWrite( hsStream *s )
+void    pfGUIPythonScriptProc::IWrite(hsStream *s)
 {
 }
 
-void    pfGUIPythonScriptProc::DoSomething( pfGUIControlMod *ctrl )
+void    pfGUIPythonScriptProc::DoSomething(pfGUIControlMod *ctrl)
 {
 }
 
@@ -196,7 +196,7 @@ void    pfGUIPythonScriptProc::DoSomething( pfGUIControlMod *ctrl )
 //// Simple Runtime Ones /////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
-void    pfGUICloseDlgProc::DoSomething( pfGUIControlMod *ctrl )
+void    pfGUICloseDlgProc::DoSomething(pfGUIControlMod *ctrl)
 {
     ctrl->GetOwnerDlg()->Hide();
 }

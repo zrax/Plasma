@@ -74,7 +74,7 @@ public:
 
     plAudioSysMsg() : pObj(nil){SetBCastFlag(plMessage::kBCastByExactType);}
     plAudioSysMsg(const plKey &s) : pObj(nil){SetBCastFlag(plMessage::kBCastByExactType);SetSender(s);}
-    plAudioSysMsg(int i) : pObj(nil){fAudFlag = i; SetBCastFlag(plMessage::kBCastByExactType );}
+    plAudioSysMsg(int i) : pObj(nil){fAudFlag = i; SetBCastFlag(plMessage::kBCastByExactType);}
     plAudioSysMsg(const plKey &s,
                     const plKey &r,
                     const double* t) : pObj(nil){SetBCastFlag(plMessage::kBCastByExactType);}
@@ -88,7 +88,7 @@ public:
     void SetSceneObject(plKey &k) { pObj = k; }
 
     bool    GetBoolFlag() { return fBoolFlag; }
-    void    SetBoolFlag( bool b ) { fBoolFlag = b; }
+    void    SetBoolFlag(bool b) { fBoolFlag = b; }
 
     // IO
     void Read(hsStream* stream, hsResMgr* mgr) HS_OVERRIDE {

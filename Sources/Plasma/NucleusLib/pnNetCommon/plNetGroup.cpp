@@ -41,8 +41,8 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 *==LICENSE==*/
 #include "plNetGroup.h"
 
-plNetGroupId plNetGroup::kNetGroupUnknown( plLocation::MakeReserved( 0 ) );
-plNetGroupId plNetGroup::kNetGroupLocalPlayer( plLocation::MakeReserved( 1 ), 1);
-plNetGroupId plNetGroup::kNetGroupRemotePlayer( plLocation::MakeReserved( 2 ) , 1);
-plNetGroupId plNetGroup::kNetGroupLocalPhysicals( plLocation::MakeReserved( 3 ) , 1);
-plNetGroupId plNetGroup::kNetGroupRemotePhysicals( plLocation::MakeReserved( 4 ) , 1);
+plNetGroupId plNetGroup::kNetGroupUnknown(plLocation::MakeReserved(0));
+plNetGroupId plNetGroup::kNetGroupLocalPlayer(plLocation::MakeReserved(1), 1);
+plNetGroupId plNetGroup::kNetGroupRemotePlayer(plLocation::MakeReserved(2) , 1);
+plNetGroupId plNetGroup::kNetGroupLocalPhysicals(plLocation::MakeReserved(3) , 1);
+plNetGroupId plNetGroup::kNetGroupRemotePhysicals(plLocation::MakeReserved(4) , 1);

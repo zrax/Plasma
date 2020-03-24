@@ -65,10 +65,10 @@ void plAvMeshSmooth::FindEdges(uint32_t maxVtxIdx, uint32_t nTris, uint16_t* idx
     hsBitVector edgeVertBits;
     // For each vert pair (edge) in idxList
     int i;
-    for( i = 0; i < nTris; i++ )
+    for (i = 0; i < nTris; i++)
     {
         int j;
-        for( j = 0; j < 3; j++ )
+        for (j = 0; j < 3; j++)
         {
             int jPlus = j < 2 ? j+1 : 0;
             int idx0 = idxList[i*3 + j];
@@ -77,7 +77,7 @@ void plAvMeshSmooth::FindEdges(uint32_t maxVtxIdx, uint32_t nTris, uint16_t* idx
             int lo, hi;
             
             // Look in the LUT for the lower index.
-            if( idx0 < idx1 )
+            if (idx0 < idx1)
             {
                 lo = idx0;
                 hi = idx1;
@@ -91,15 +91,15 @@ void plAvMeshSmooth::FindEdges(uint32_t maxVtxIdx, uint32_t nTris, uint16_t* idx
             hsTArray<EdgeBin>& loBin = bins[lo];
             // In that bucket, look for the higher index.
             int k;
-            for( k = 0; k < loBin.GetCount(); k++ )
+            for (k = 0; k < loBin.GetCount(); k++)
             {
-                if( loBin[k].fVtx == hi )
+                if (loBin[k].fVtx == hi)
                     break;
             }
 
             // If we find it, increment it's count,
             // else add it.
-            if( k < loBin.GetCount() )
+            if (k < loBin.GetCount())
             {
                 loBin[k].fCount++;
             }
@@ -113,15 +113,15 @@ void plAvMeshSmooth::FindEdges(uint32_t maxVtxIdx, uint32_t nTris, uint16_t* idx
     }
 
     // For each bucket in the LUT,
-    for( i = 0; i < maxVtxIdx+1; i++ )
+    for (i = 0; i < maxVtxIdx+1; i++)
     {
         hsTArray<EdgeBin>& loBin = bins[i];
         // For each higher index
         int j;
-        for( j = 0; j < loBin.GetCount(); j++ )
+        for (j = 0; j < loBin.GetCount(); j++)
         {
             // If the count is one, it's an edge, so set the edge bit for both indices (hi and lo)
-            if( 1 == loBin[j].fCount )
+            if (1 == loBin[j].fCount)
             {
                 edgeVertBits.SetBit(i);
                 edgeVertBits.SetBit(loBin[j].fVtx);
@@ -130,9 +130,9 @@ void plAvMeshSmooth::FindEdges(uint32_t maxVtxIdx, uint32_t nTris, uint16_t* idx
     }
     
     // Now translate the bitvector to a list of indices.
-    for( i = 0; i < maxVtxIdx+1; i++ )
+    for (i = 0; i < maxVtxIdx+1; i++)
     {
-        if( edgeVertBits.IsBitSet(i) )
+        if (edgeVertBits.IsBitSet(i))
             edgeVerts.Append(i);
     }
     delete [] bins;
@@ -141,10 +141,10 @@ void plAvMeshSmooth::FindEdges(uint32_t maxVtxIdx, uint32_t nTris, uint16_t* idx
 void plAvMeshSmooth::FindEdges(hsTArray<XfmSpan>& spans, hsTArray<uint16_t>* edgeVerts)
 {
     int i;
-    for( i = 0; i < spans.GetCount(); i++ )
+    for (i = 0; i < spans.GetCount(); i++)
     {
         fAccGeom.AccessSpanFromGeometrySpan(spans[i].fAccSpan, spans[i].fSpan);
-        if( !spans[i].fAccSpan.HasAccessTri() )
+        if (!spans[i].fAccSpan.HasAccessTri())
             continue;
 
         plAccessTriSpan& triSpan = spans[i].fAccSpan.AccessTri();
@@ -178,18 +178,18 @@ void plAvMeshSmooth::Smooth(hsTArray<XfmSpan>& srcSpans, hsTArray<XfmSpan>& dstS
     FindEdges(srcSpans, srcEdgeVerts);
 
     int i;
-    for( i = 0; i < dstSpans.GetCount(); i++ )
+    for (i = 0; i < dstSpans.GetCount(); i++)
     {
         plAccessTriSpan& dstTriSpan = dstSpans[i].fAccSpan.AccessTri();
 
         int j;
-        for( j = 0; j < dstEdgeVerts[i].GetCount(); j++ )
+        for (j = 0; j < dstEdgeVerts[i].GetCount(); j++)
         {
 
             hsPoint3 dstPos = IPositionToNeutral(dstSpans[i], dstEdgeVerts[i][j]);
             hsVector3 dstNorm = INormalToNeutral(dstSpans[i], dstEdgeVerts[i][j]);
             hsColorRGBA dstDiff;
-            if( dstTriSpan.HasDiffuse() )
+            if (dstTriSpan.HasDiffuse())
                 dstDiff = dstTriSpan.DiffuseRGBA(dstEdgeVerts[i][j]);
             else
                 dstDiff.Set(1.f, 1.f, 1.f, 1.f);
@@ -201,25 +201,25 @@ void plAvMeshSmooth::Smooth(hsTArray<XfmSpan>& srcSpans, hsTArray<XfmSpan>& dstS
             hsColorRGBA smoothDiff = dstDiff;
 
             int k;
-            for( k = 0; k < srcSpans.GetCount(); k++ )
+            for (k = 0; k < srcSpans.GetCount(); k++)
             {
                 int m;
-                for( m = 0; m < srcEdgeVerts[k].GetCount(); m++ )
+                for (m = 0; m < srcEdgeVerts[k].GetCount(); m++)
                 {
                     hsPoint3 srcPos = IPositionToNeutral(srcSpans[k], srcEdgeVerts[k][m]);
                     hsVector3 srcNorm = INormalToNeutral(srcSpans[k], srcEdgeVerts[k][m]);
 
                     float dist = hsVector3(&dstPos, &srcPos).MagnitudeSquared();
-                    if( dist <= fDistTolSq )
+                    if (dist <= fDistTolSq)
                     {
                         smoothPos = srcPos;
 
                         float currDot = srcNorm.InnerProduct(dstNorm);
-                        if( currDot > maxDot )
+                        if (currDot > maxDot)
                         {
                             maxDot = currDot;
                             smoothNorm = srcNorm;
-                            if( srcSpans[k].fAccSpan.AccessTri().HasDiffuse() )
+                            if (srcSpans[k].fAccSpan.AccessTri().HasDiffuse())
                                 smoothDiff = srcSpans[k].fAccSpan.AccessTri().DiffuseRGBA(srcEdgeVerts[k][m]);
                             else
                                 smoothDiff = dstDiff;
@@ -227,11 +227,11 @@ void plAvMeshSmooth::Smooth(hsTArray<XfmSpan>& srcSpans, hsTArray<XfmSpan>& dstS
                     }
                 }
             }
-            if( fFlags & kSmoothPos )
+            if (fFlags & kSmoothPos)
                 dstTriSpan.Position(dstEdgeVerts[i][j]) = IPositionToSpan(dstSpans[i], smoothPos);
-            if( fFlags & kSmoothNorm )
+            if (fFlags & kSmoothNorm)
                 dstTriSpan.Normal(dstEdgeVerts[i][j]) = INormalToSpan(dstSpans[i], smoothNorm);
-            if( (fFlags & kSmoothDiffuse) && dstTriSpan.HasDiffuse() )
+            if ((fFlags & kSmoothDiffuse) && dstTriSpan.HasDiffuse())
                 dstTriSpan.Diffuse32(dstEdgeVerts[i][j]) = smoothDiff.ToARGB32();
         }
 

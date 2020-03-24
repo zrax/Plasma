@@ -62,38 +62,38 @@ plDniCoordinateInfo::plDniCoordinateInfo()
 {
 }
 
-void plDniCoordinateInfo::CopyFrom( const plDniCoordinateInfo * other )
+void plDniCoordinateInfo::CopyFrom(const plDniCoordinateInfo * other)
 {
     hsRAMStream stream;
-    plCreatable * otherNonConst = const_cast<plDniCoordinateInfo*>( other );    // because plCreatable Write isn't const, but should be.
-    otherNonConst->Write( &stream, nil );
+    plCreatable * otherNonConst = const_cast<plDniCoordinateInfo*>(other);    // because plCreatable Write isn't const, but should be.
+    otherNonConst->Write(&stream, nil);
     stream.Rewind();
-    Read( &stream, nil );
+    Read(&stream, nil);
 }
 
-void plDniCoordinateInfo::Read( hsStream* s, hsResMgr* mgr )
+void plDniCoordinateInfo::Read(hsStream* s, hsResMgr* mgr)
 {
     uint8_t streamVer;
-    s->ReadLE( &streamVer );
-    if ( streamVer==StreamVersion )
+    s->ReadLE(&streamVer);
+    if (streamVer==StreamVersion)
     {
-        s->ReadLE( &fHSpans );
-        s->ReadLE( &fVSpans );
-        s->ReadLE( &fTorans );
+        s->ReadLE(&fHSpans);
+        s->ReadLE(&fVSpans);
+        s->ReadLE(&fTorans);
     }
 }
 
-void plDniCoordinateInfo::Write( hsStream* s, hsResMgr* mgr )
+void plDniCoordinateInfo::Write(hsStream* s, hsResMgr* mgr)
 {
-    s->WriteLE( StreamVersion );
-    s->WriteLE( fHSpans );
-    s->WriteLE( fVSpans );
-    s->WriteLE( fTorans );
+    s->WriteLE(StreamVersion);
+    s->WriteLE(fHSpans);
+    s->WriteLE(fVSpans);
+    s->WriteLE(fTorans);
 }
 
-ST::string plDniCoordinateInfo::AsString( int level ) const
+ST::string plDniCoordinateInfo::AsString(int level) const
 {
-    ST::string space = ST::string::fill( level, ' ' );
+    ST::string space = ST::string::fill(level, ' ');
     return ST::format("{}DniCoords[{},{},{}]", space, fHSpans, fVSpans, fTorans);
 }
 #endif // def CLIENT

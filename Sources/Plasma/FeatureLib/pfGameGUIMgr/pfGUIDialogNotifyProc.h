@@ -63,21 +63,21 @@ class pfGUIDialogNotifyProc : public pfGUIDialogProc
         
         plKey   fReceiver;
 
-        void    ISendNotify( plKey ctrlKey, uint32_t event );
+        void    ISendNotify(plKey ctrlKey, uint32_t event);
 
     public:
 
-        pfGUIDialogNotifyProc( plKey &r );
+        pfGUIDialogNotifyProc(plKey &r);
 
-        virtual void    DoSomething( pfGUIControlMod *ctrl );
-        virtual void    HandleExtendedEvent( pfGUIControlMod *ctrl, uint32_t event );
+        virtual void    DoSomething(pfGUIControlMod *ctrl);
+        virtual void    HandleExtendedEvent(pfGUIControlMod *ctrl, uint32_t event);
         virtual void    OnInit();
         virtual void    OnShow();
         virtual void    OnHide();
         virtual void    OnDestroy();
-        virtual void    OnCtrlFocusChange( pfGUIControlMod *oldCtrl, pfGUIControlMod *newCtrl );
-        virtual void    OnControlEvent( ControlEvt event );
-        virtual void    OnInterestingEvent( pfGUIControlMod *ctrl );
+        virtual void    OnCtrlFocusChange(pfGUIControlMod *oldCtrl, pfGUIControlMod *newCtrl);
+        virtual void    OnControlEvent(ControlEvt event);
+        virtual void    OnInterestingEvent(pfGUIControlMod *ctrl);
 };
 
 #endif // _pfGUIDialogNotifyProc_h

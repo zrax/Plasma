@@ -67,7 +67,7 @@ plDXShader::~plDXShader()
 
 void plDXShader::SetOwner(plShader* owner)
 {
-    if( owner != fOwner )
+    if (owner != fOwner)
     {
         Release();
         fOwner = owner;

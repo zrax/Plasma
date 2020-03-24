@@ -119,7 +119,7 @@ bool plArmatureBrain::IsRunningTask() const
 {
     if (fCurTask)
         return true;
-    if(fTaskQueue.size() > 0)
+    if (fTaskQueue.size() > 0)
         return true;
 
     return false;

@@ -95,8 +95,8 @@ public:
     void SetCullDB(plSimDefs::plLOSDB db) { fCullDB = db; }
     plSimDefs::plLOSDB GetCullDB() { return fCullDB; }
 
-    CLASSNAME_REGISTER( plLOSRequestMsg );
-    GETINTERFACE_ANY( plLOSRequestMsg, plMessage );
+    CLASSNAME_REGISTER(plLOSRequestMsg);
+    GETINTERFACE_ANY(plLOSRequestMsg, plMessage);
 
     // Local only, runtime, no IO necessary
     virtual void Read(hsStream* s, hsResMgr* mgr) {}

@@ -131,7 +131,7 @@ public:
     SClass_ID SuperClassID() { return TEXMAP_CLASS_ID; }
     void GetClassName(TSTR& s);
 
-    RefTargetHandle Clone( RemapDir &remap );
+    RefTargetHandle Clone(RemapDir &remap);
     RefResult NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
         PartID& partID,  RefMessage message);
 
@@ -148,7 +148,7 @@ public:
     IParamBlock2* GetParamBlock(int i); // return i'th ParamBlock
     IParamBlock2* GetParamBlockByID(BlockID id); // return id'd ParamBlock
 
-    const char *GetTextureName( int which );
+    const char *GetTextureName(int which);
 
 
     /// ParamBlock accessors
@@ -166,8 +166,8 @@ public:
 
 
     // Pure virtual accessors for the various bitmap related elements
-    virtual Bitmap *GetMaxBitmap(int index = 0) { hsAssert( false, "Function call not valid on this type of layer." ); return nil; }
-    virtual PBBitmap *GetPBBitmap( int index = 0 ) { hsAssert( false, "Function call not valid on this type of layer." ); return nil; }
+    virtual Bitmap *GetMaxBitmap(int index = 0) { hsAssert(false, "Function call not valid on this type of layer."); return nil; }
+    virtual PBBitmap *GetPBBitmap(int index = 0) { hsAssert(false, "Function call not valid on this type of layer."); return nil; }
     virtual int     GetNumBitmaps() { return 0; }
 
     // Some specific to processing this layer type into runtime materials.
@@ -177,8 +177,8 @@ public:
     virtual int GetHiClamp();
 
 protected:
-    virtual void ISetMaxBitmap(Bitmap *bitmap, int index = 0) { hsAssert( false, "Function call not valid on this type of layer." ); }
-    virtual void ISetPBBitmap( PBBitmap *pbbm, int index = 0 ){ hsAssert( false, "Function call not valid on this type of layer." ); }
+    virtual void ISetMaxBitmap(Bitmap *bitmap, int index = 0) { hsAssert(false, "Function call not valid on this type of layer."); }
+    virtual void ISetPBBitmap(PBBitmap *pbbm, int index = 0){ hsAssert(false, "Function call not valid on this type of layer."); }
 };
 
 #endif // plAngleAttenLayer_inc

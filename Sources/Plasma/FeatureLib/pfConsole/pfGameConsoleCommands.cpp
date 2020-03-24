@@ -88,7 +88,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plPipeline/plCaptureRender.h"
 
 
-#define PF_SANITY_CHECK( cond, msg ) { if( !( cond ) ) { PrintString( msg ); return; } }
+#define PF_SANITY_CHECK(cond, msg) { if (!(cond)) { PrintString(msg); return; } }
 
 //// DO NOT REMOVE!!!!
 //// This is here so Microsoft VC won't decide to "optimize" this file out
@@ -99,9 +99,9 @@ PF_CONSOLE_FILE_DUMMY(Game)
 //// Game Group Commands /////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
-PF_CONSOLE_GROUP( Game )
+PF_CONSOLE_GROUP(Game)
 
-PF_CONSOLE_CMD( Game, TakeScreenshot, "int width, int height", "Captures a screenshot" )
+PF_CONSOLE_CMD(Game, TakeScreenshot, "int width, int height", "Captures a screenshot")
 {
     hsAssert(pfConsole::GetPipeline(), "Game.TakeScreenShot needs a plPipeline!");
 
@@ -114,109 +114,109 @@ PF_CONSOLE_CMD( Game, TakeScreenshot, "int width, int height", "Captures a scree
 }
 
 #ifndef LIMIT_CONSOLE_COMMANDS
-PF_CONSOLE_CMD( Game, LoadDialog, "string dlgName", "Loads the given GUI dialog into memory" )
+PF_CONSOLE_CMD(Game, LoadDialog, "string dlgName", "Loads the given GUI dialog into memory")
 {
-    plUoid lu( kGameGUIMgr_KEY );
-    plKey mgrKey = hsgResMgr::ResMgr()->FindKey( lu );
-    if( mgrKey )
+    plUoid lu(kGameGUIMgr_KEY);
+    plKey mgrKey = hsgResMgr::ResMgr()->FindKey(lu);
+    if (mgrKey)
     {
-        pfGameGUIMsg    *msg = new pfGameGUIMsg( mgrKey, pfGameGUIMsg::kLoadDialog );
-        msg->SetString( (const char *)params[ 0 ] );
-        plgDispatch::MsgSend( msg );
+        pfGameGUIMsg    *msg = new pfGameGUIMsg(mgrKey, pfGameGUIMsg::kLoadDialog);
+        msg->SetString((const char *)params[0]);
+        plgDispatch::MsgSend(msg);
     }
 }
 
-PF_CONSOLE_CMD( Game, LoadLocalDialog, "string ageName, string dlgName", "Loads the given GUI dialog into memory" )
+PF_CONSOLE_CMD(Game, LoadLocalDialog, "string ageName, string dlgName", "Loads the given GUI dialog into memory")
 {
-    plUoid lu( kGameGUIMgr_KEY );
-    plKey mgrKey = hsgResMgr::ResMgr()->FindKey( lu );
-    if( mgrKey )
+    plUoid lu(kGameGUIMgr_KEY);
+    plKey mgrKey = hsgResMgr::ResMgr()->FindKey(lu);
+    if (mgrKey)
     {
-        pfGameGUIMsg    *msg = new pfGameGUIMsg( mgrKey, pfGameGUIMsg::kLoadDialog );
-        msg->SetString( (const char *)params[ 1 ] );
-        msg->SetAge( (const char *)params[ 0 ] );
-        plgDispatch::MsgSend( msg );
+        pfGameGUIMsg    *msg = new pfGameGUIMsg(mgrKey, pfGameGUIMsg::kLoadDialog);
+        msg->SetString((const char *)params[1]);
+        msg->SetAge((const char *)params[0]);
+        plgDispatch::MsgSend(msg);
     }
 }
 
-PF_CONSOLE_CMD( Game, ShowDialog, "string dlgName", "Shows the given GUI dialog" )
+PF_CONSOLE_CMD(Game, ShowDialog, "string dlgName", "Shows the given GUI dialog")
 {
-    plUoid lu( kGameGUIMgr_KEY );
-    plKey mgrKey = hsgResMgr::ResMgr()->FindKey( lu );
-    if( mgrKey )
+    plUoid lu(kGameGUIMgr_KEY);
+    plKey mgrKey = hsgResMgr::ResMgr()->FindKey(lu);
+    if (mgrKey)
     {
-        pfGameGUIMsg    *msg = new pfGameGUIMsg( mgrKey, pfGameGUIMsg::kShowDialog );
-        msg->SetString( (const char *)params[ 0 ] );
-        plgDispatch::MsgSend( msg );
+        pfGameGUIMsg    *msg = new pfGameGUIMsg(mgrKey, pfGameGUIMsg::kShowDialog);
+        msg->SetString((const char *)params[0]);
+        plgDispatch::MsgSend(msg);
     }
 }
 
-PF_CONSOLE_CMD( Game, HideDialog, "string dlgName", "Hides the given GUI dialog" )
+PF_CONSOLE_CMD(Game, HideDialog, "string dlgName", "Hides the given GUI dialog")
 {
-    plUoid lu( kGameGUIMgr_KEY );
-    plKey mgrKey = hsgResMgr::ResMgr()->FindKey( lu );
-    if( mgrKey )
+    plUoid lu(kGameGUIMgr_KEY);
+    plKey mgrKey = hsgResMgr::ResMgr()->FindKey(lu);
+    if (mgrKey)
     {
-        pfGameGUIMsg    *msg = new pfGameGUIMsg( mgrKey, pfGameGUIMsg::kHideDialog );
-        msg->SetString( (const char *)params[ 0 ] );
-        plgDispatch::MsgSend( msg );
+        pfGameGUIMsg    *msg = new pfGameGUIMsg(mgrKey, pfGameGUIMsg::kHideDialog);
+        msg->SetString((const char *)params[0]);
+        plgDispatch::MsgSend(msg);
     }
 }
 
 
 
-PF_CONSOLE_CMD( Game, SwitchDialog, "string olddlgName, string newdlgName", "Hide olddlg and show newdlg" )
+PF_CONSOLE_CMD(Game, SwitchDialog, "string olddlgName, string newdlgName", "Hide olddlg and show newdlg")
 {
-    plUoid lu( kGameGUIMgr_KEY );
-    plKey mgrKey = hsgResMgr::ResMgr()->FindKey( lu );
-    if( mgrKey )
+    plUoid lu(kGameGUIMgr_KEY);
+    plKey mgrKey = hsgResMgr::ResMgr()->FindKey(lu);
+    if (mgrKey)
     {
-        pfGameGUIMsg    *msg = new pfGameGUIMsg( mgrKey, pfGameGUIMsg::kHideDialog );
-        msg->SetString( (const char *)params[ 0 ] );
-        plgDispatch::MsgSend( msg );
+        pfGameGUIMsg    *msg = new pfGameGUIMsg(mgrKey, pfGameGUIMsg::kHideDialog);
+        msg->SetString((const char *)params[0]);
+        plgDispatch::MsgSend(msg);
 
-        pfGameGUIMsg    *msg2 = new pfGameGUIMsg( mgrKey, pfGameGUIMsg::kShowDialog );
-        msg2->SetString( (const char *)params[ 1 ] );
-        plgDispatch::MsgSend( msg2 );
+        pfGameGUIMsg    *msg2 = new pfGameGUIMsg(mgrKey, pfGameGUIMsg::kShowDialog);
+        msg2->SetString((const char *)params[1]);
+        plgDispatch::MsgSend(msg2);
     }
 }
 
-PF_CONSOLE_SUBGROUP( Game, GUI )
+PF_CONSOLE_SUBGROUP(Game, GUI)
 
 #include "pfGameGUIMgr/pfGUICtrlGenerator.h"
 
-static hsColorRGBA  sDynCtrlColor = hsColorRGBA().Set( 1, 1, 1, 1 ), sDynCtrlTextColor = hsColorRGBA().Set( 0, 0, 0, 1 );
+static hsColorRGBA  sDynCtrlColor = hsColorRGBA().Set(1, 1, 1, 1), sDynCtrlTextColor = hsColorRGBA().Set(0, 0, 0, 1);
 
-PF_CONSOLE_CMD( Game_GUI, SetDynamicCtrlColor, "float bgRed, float bgGreen, float bgBlue, float textRed, float textGreen, float textBlue", "" )
+PF_CONSOLE_CMD(Game_GUI, SetDynamicCtrlColor, "float bgRed, float bgGreen, float bgBlue, float textRed, float textGreen, float textBlue", "")
 {
-    sDynCtrlColor.Set( params[ 0 ], params[ 1 ], params[ 2 ], 1.f );
-    sDynCtrlTextColor.Set( params[ 3 ], params[ 4 ], params[ 5 ], 1.f );
+    sDynCtrlColor.Set(params[0], params[1], params[2], 1.f);
+    sDynCtrlTextColor.Set(params[3], params[4], params[5], 1.f);
 }
 
 
-PF_CONSOLE_CMD( Game_GUI, CreateRectButton, "string title, float x, float y, float width, float height, string command", "" )
+PF_CONSOLE_CMD(Game_GUI, CreateRectButton, "string title, float x, float y, float width, float height, string command", "")
 {
-    pfGUICtrlGenerator::Instance().GenerateRectButton( params[ 0 ], params[ 1 ], params[ 2 ],
-                                            params[ 3 ], params[ 4 ],
-                                            params[ 5 ],
-                                            sDynCtrlColor, sDynCtrlTextColor );
+    pfGUICtrlGenerator::Instance().GenerateRectButton(params[0], params[1], params[2],
+                                            params[3], params[4],
+                                            params[5],
+                                            sDynCtrlColor, sDynCtrlTextColor);
 }
 
-PF_CONSOLE_CMD( Game_GUI, CreateRoundButton, "float x, float y, float radius, string command", "" )
+PF_CONSOLE_CMD(Game_GUI, CreateRoundButton, "float x, float y, float radius, string command", "")
 {
-    pfGUICtrlGenerator::Instance().GenerateSphereButton( params[ 0 ], params[ 1 ], params[ 2 ],
-                                            params[ 3 ],
-                                            sDynCtrlColor );
+    pfGUICtrlGenerator::Instance().GenerateSphereButton(params[0], params[1], params[2],
+                                            params[3],
+                                            sDynCtrlColor);
 }
 
-PF_CONSOLE_CMD( Game_GUI, CreateDragBar, "float x, float y, float width, float height", "")
+PF_CONSOLE_CMD(Game_GUI, CreateDragBar, "float x, float y, float width, float height", "")
 {
-    pfGUICtrlGenerator::Instance().GenerateDragBar( params[ 0 ], params[ 1 ], params[ 2 ], params[ 3 ], sDynCtrlColor );
+    pfGUICtrlGenerator::Instance().GenerateDragBar(params[0], params[1], params[2], params[3], sDynCtrlColor);
 }
 
-PF_CONSOLE_CMD( Game_GUI, CreateDialog, "string name", "" )
+PF_CONSOLE_CMD(Game_GUI, CreateDialog, "string name", "")
 {
-    pfGUICtrlGenerator::Instance().GenerateDialog( params[ 0 ] );
+    pfGUICtrlGenerator::Instance().GenerateDialog(params[0]);
 }
 
 
@@ -226,134 +226,134 @@ PF_CONSOLE_CMD( Game_GUI, CreateDialog, "string name", "" )
 //#include "../pfKI/pfKI.h"
 #include "pfMessage/pfKIMsg.h"
 
-PF_CONSOLE_CMD( Game, EnterChatMode, "", "Enters in-game chat mode" )
+PF_CONSOLE_CMD(Game, EnterChatMode, "", "Enters in-game chat mode")
 {
     pfKIMsg* msg = new pfKIMsg(pfKIMsg::kEnterChatMode);
-    plgDispatch::MsgSend( msg );
+    plgDispatch::MsgSend(msg);
 }
 
-PF_CONSOLE_CMD( Game, KIToggleMini, "", "Toggle between mini and big KI" )
+PF_CONSOLE_CMD(Game, KIToggleMini, "", "Toggle between mini and big KI")
 {
     pfKIMsg* msg = new pfKIMsg(pfKIMsg::kMiniBigKIToggle);
-    plgDispatch::MsgSend( msg );
+    plgDispatch::MsgSend(msg);
 }
 
-PF_CONSOLE_CMD( Game, KIPutAway, "", "Put KI completely away" )
+PF_CONSOLE_CMD(Game, KIPutAway, "", "Put KI completely away")
 {
     pfKIMsg* msg = new pfKIMsg(pfKIMsg::kKIPutAway);
-    plgDispatch::MsgSend( msg );
+    plgDispatch::MsgSend(msg);
 }
 
-PF_CONSOLE_CMD( Game, KIChatPageUp, "", "Scroll chat display one page up" )
+PF_CONSOLE_CMD(Game, KIChatPageUp, "", "Scroll chat display one page up")
 {
     pfKIMsg* msg = new pfKIMsg(pfKIMsg::kChatAreaPageUp);
-    plgDispatch::MsgSend( msg );
+    plgDispatch::MsgSend(msg);
 }
 
-PF_CONSOLE_CMD( Game, KIChatPageDown, "", "Scroll chat display one page down" )
+PF_CONSOLE_CMD(Game, KIChatPageDown, "", "Scroll chat display one page down")
 {
     pfKIMsg* msg = new pfKIMsg(pfKIMsg::kChatAreaPageDown);
-    plgDispatch::MsgSend( msg );
+    plgDispatch::MsgSend(msg);
 }
 
-PF_CONSOLE_CMD( Game, KIChatToStart, "", "Scroll chat display to top of buffer" )
+PF_CONSOLE_CMD(Game, KIChatToStart, "", "Scroll chat display to top of buffer")
 {
     pfKIMsg* msg = new pfKIMsg(pfKIMsg::kChatAreaGoToBegin);
-    plgDispatch::MsgSend( msg );
+    plgDispatch::MsgSend(msg);
 }
 
-PF_CONSOLE_CMD( Game, KIChatToEnd, "", "Scroll chat display to bottom of buffer" )
+PF_CONSOLE_CMD(Game, KIChatToEnd, "", "Scroll chat display to bottom of buffer")
 {
     pfKIMsg* msg = new pfKIMsg(pfKIMsg::kChatAreaGoToEnd);
-    plgDispatch::MsgSend( msg );
+    plgDispatch::MsgSend(msg);
 }
 
-PF_CONSOLE_CMD( Game, KITakePicture, "", "Take picture with KI" )
+PF_CONSOLE_CMD(Game, KITakePicture, "", "Take picture with KI")
 {
     pfKIMsg* msg = new pfKIMsg(pfKIMsg::kKITakePicture);
-    plgDispatch::MsgSend( msg );
+    plgDispatch::MsgSend(msg);
 }
 
-PF_CONSOLE_CMD( Game, KICreateJournal, "", "Create journal note entry" )
+PF_CONSOLE_CMD(Game, KICreateJournal, "", "Create journal note entry")
 {
     pfKIMsg* msg = new pfKIMsg(pfKIMsg::kKICreateJournalNote);
-    plgDispatch::MsgSend( msg );
+    plgDispatch::MsgSend(msg);
 }
 
-PF_CONSOLE_CMD( Game, KIChatToggleFaded, "", "Toggle fade of chat display" )
+PF_CONSOLE_CMD(Game, KIChatToggleFaded, "", "Toggle fade of chat display")
 {
     pfKIMsg* msg = new pfKIMsg(pfKIMsg::kKIToggleFade);
-    plgDispatch::MsgSend( msg );
+    plgDispatch::MsgSend(msg);
 }
 
-PF_CONSOLE_CMD( Game, KIChatToggleFadeEnable, "", "Toggle enable of chat fade" )
+PF_CONSOLE_CMD(Game, KIChatToggleFadeEnable, "", "Toggle enable of chat fade")
 {
     pfKIMsg* msg = new pfKIMsg(pfKIMsg::kKIToggleFadeEnable);
-    plgDispatch::MsgSend( msg );
+    plgDispatch::MsgSend(msg);
 }
 
-PF_CONSOLE_CMD( Game, KIUpSizeFont, "", "Up size the KI font (chatarea)" )
+PF_CONSOLE_CMD(Game, KIUpSizeFont, "", "Up size the KI font (chatarea)")
 {
     pfKIMsg* msg = new pfKIMsg(pfKIMsg::kKIUpSizeFont);
-    plgDispatch::MsgSend( msg );
+    plgDispatch::MsgSend(msg);
 }
 
-PF_CONSOLE_CMD( Game, KIDownSizeFont, "", "Down size the KI font (chatarea)" )
+PF_CONSOLE_CMD(Game, KIDownSizeFont, "", "Down size the KI font (chatarea)")
 {
     pfKIMsg* msg = new pfKIMsg(pfKIMsg::kKIDownSizeFont);
-    plgDispatch::MsgSend( msg );
+    plgDispatch::MsgSend(msg);
 }
 
-PF_CONSOLE_CMD( Game, KIOpenYeeshaBook, "", "Open the player's Yeesha book" )
+PF_CONSOLE_CMD(Game, KIOpenYeeshaBook, "", "Open the player's Yeesha book")
 {
     pfKIMsg* msg = new pfKIMsg(pfKIMsg::kKIOpenYeehsaBook);
-    plgDispatch::MsgSend( msg );
+    plgDispatch::MsgSend(msg);
 }
 
-PF_CONSOLE_CMD( Game, KIOpenKI, "", "Open the KI a little at a time" )
+PF_CONSOLE_CMD(Game, KIOpenKI, "", "Open the KI a little at a time")
 {
     pfKIMsg* msg = new pfKIMsg(pfKIMsg::kKIOpenKI);
-    plgDispatch::MsgSend( msg );
+    plgDispatch::MsgSend(msg);
 }
 
-PF_CONSOLE_CMD( Game, KIHelp, "", "Open the CCR help dialog" )
+PF_CONSOLE_CMD(Game, KIHelp, "", "Open the CCR help dialog")
 {
     pfKIMsg* msg = new pfKIMsg(pfKIMsg::kKIShowCCRHelp);
-    plgDispatch::MsgSend( msg );
+    plgDispatch::MsgSend(msg);
 }
 
-PF_CONSOLE_CMD( Game, KICreateMarker, "", "Create marker in the working marker folder" )
+PF_CONSOLE_CMD(Game, KICreateMarker, "", "Create marker in the working marker folder")
 {
     pfKIMsg* msg = new pfKIMsg(pfKIMsg::kKICreateMarker);
-    plgDispatch::MsgSend( msg );
+    plgDispatch::MsgSend(msg);
 }
 
-PF_CONSOLE_CMD( Game, KICreateMarkerFolder, "", "Create marker folder in current Age's journal folder" )
+PF_CONSOLE_CMD(Game, KICreateMarkerFolder, "", "Create marker folder in current Age's journal folder")
 {
     pfKIMsg* msg = new pfKIMsg(pfKIMsg::kKICreateMarkerFolder);
-    plgDispatch::MsgSend( msg );
+    plgDispatch::MsgSend(msg);
 }
 
-PF_CONSOLE_CMD( Game, SetChatFadeDelay, "float delayInSecs", "Sets the time in seconds before the chat text disappears" )
+PF_CONSOLE_CMD(Game, SetChatFadeDelay, "float delayInSecs", "Sets the time in seconds before the chat text disappears")
 {
-//  pfKI::GetInstance()->SetChatFadeDelay( params[ 0 ] );
+//  pfKI::GetInstance()->SetChatFadeDelay(params[0]);
     pfKIMsg* msg = new pfKIMsg(pfKIMsg::kSetChatFadeDelay);
-    msg->SetDelay( params[0] );
-    plgDispatch::MsgSend( msg );
+    msg->SetDelay(params[0]);
+    plgDispatch::MsgSend(msg);
 }
 
 #include "plAvatar/plArmatureMod.h"
 
-PF_CONSOLE_CMD( Game, LimitAvatarLOD, "int newLOD", "Zero is (always) highest detail; 2 is (currently) lowest." )
+PF_CONSOLE_CMD(Game, LimitAvatarLOD, "int newLOD", "Zero is (always) highest detail; 2 is (currently) lowest.")
 {
     int newLOD = params[0];
 
-    if(newLOD >= 0 && newLOD <= 2)
+    if (newLOD >= 0 && newLOD <= 2)
         plArmatureLODMod::fMinLOD = newLOD;
 }
 
 
-PF_CONSOLE_SUBGROUP( Game, Emote)       // Game.Emote.Shakefist
+PF_CONSOLE_SUBGROUP(Game, Emote)       // Game.Emote.Shakefist
 
 void Emote(const char *emotion, float fadeIn = 2.0, float fadeOut = 2.0)
 {
@@ -361,48 +361,48 @@ void Emote(const char *emotion, float fadeIn = 2.0, float fadeOut = 2.0)
     AvatarEmote(avatar, emotion);
 }
 
-PF_CONSOLE_CMD( Game_Emote, Wave, "", "")
+PF_CONSOLE_CMD(Game_Emote, Wave, "", "")
 {
     Emote("Wave", 4.0, 1.0);
 }
 
-PF_CONSOLE_CMD( Game_Emote, Sneeze, "", "")
+PF_CONSOLE_CMD(Game_Emote, Sneeze, "", "")
 {
     Emote("Sneeze");
 }
 
-PF_CONSOLE_CMD( Game_Emote, Dance, "", "")
+PF_CONSOLE_CMD(Game_Emote, Dance, "", "")
 {
     Emote("Dance");
 }
 
-PF_CONSOLE_CMD( Game_Emote, Laugh, "", "")
+PF_CONSOLE_CMD(Game_Emote, Laugh, "", "")
 {
     Emote("Laugh");
 }
 
-PF_CONSOLE_CMD( Game_Emote, Clap, "", "")
+PF_CONSOLE_CMD(Game_Emote, Clap, "", "")
 {
     Emote("Clap", 4.0, 3.0);
 }
 
-PF_CONSOLE_CMD( Game_Emote, Talk, "", "")
+PF_CONSOLE_CMD(Game_Emote, Talk, "", "")
 {
     Emote("Talk");
 }
 
-PF_CONSOLE_CMD( Game_Emote, Sit, "", "")
+PF_CONSOLE_CMD(Game_Emote, Sit, "", "")
 {
     plArmatureMod *avatar = plAvatarMgr::GetInstance()->GetLocalAvatar();
     PushSimpleMultiStage(avatar, "SitDownGround", "SitIdleGround", "SitStandGround", true, true, plAGAnim::kBodyLower, plAvBrainGeneric::kSitOnGround);
 }
 
 #ifndef PLASMA_EXTERNAL_RELEASE
-PF_CONSOLE_CMD( Game, SetLocalClientAsAdmin, "bool enable", "Makes chat messages from this client appear as admin messages" )
+PF_CONSOLE_CMD(Game, SetLocalClientAsAdmin, "bool enable", "Makes chat messages from this client appear as admin messages")
 {
-//  pfKI::GetInstance()->SetTextChatAdminMode( (bool)params[ 0 ] );
+//  pfKI::GetInstance()->SetTextChatAdminMode((bool)params[0]);
     pfKIMsg* msg = new pfKIMsg(pfKIMsg::kSetTextChatAdminMode);
-    msg->SetFlags( params[0] ? pfKIMsg::kAdminMsg : 0 );
-    plgDispatch::MsgSend( msg );
+    msg->SetFlags(params[0] ? pfKIMsg::kAdminMsg : 0);
+    plgDispatch::MsgSend(msg);
 }
 #endif

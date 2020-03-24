@@ -65,7 +65,7 @@ void plHardRegion::SetKey(plKey k)
 #if 0 // The caching of this probably isn't worth it.
     // We'll try evaluation every time first, and try
     // this later as an optimization.
-    if( k )
+    if (k)
     {
         plgDispatch::Dispatch()->RegisterForExactType(plRenderMsg::Index(), GetKey());
     }
@@ -86,9 +86,9 @@ void plHardRegion::Write(hsStream* s, hsResMgr* mgr)
 
 bool plHardRegion::CameraInside() const
 {
-    if( fState & kDirty )
+    if (fState & kDirty)
     {
-        if( ICameraInside() )
+        if (ICameraInside())
             fState |= kCamInside;
         else
             fState &= ~kCamInside;
@@ -100,7 +100,7 @@ bool plHardRegion::CameraInside() const
 bool plHardRegion::MsgReceive(plMessage* msg)
 {
     plRenderMsg* rend = plRenderMsg::ConvertNoRef(msg);
-    if( rend )
+    if (rend)
     {
         fState |= kDirty;
         fCamPos = rend->Pipeline()->GetViewPositionWorld();

@@ -235,7 +235,7 @@ bool plObjectFlockerComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
         delete fFlocker;
 
     fFlocker = new pfObjectFlocker;
-    hsgResMgr::ResMgr()->NewKey( IGetUniqueName(node), fFlocker, node->GetLocation(), node->GetLoadMask());
+    hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), fFlocker, node->GetLocation(), node->GetLoadMask());
 
     fFlocker->SetGoalWeight(fCompPB->GetFloat(ParamID(kGoalStrength)));
     fFlocker->SetWanderWeight(fCompPB->GetFloat(ParamID(kWanderStrength)));
@@ -258,10 +258,10 @@ bool plObjectFlockerComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
     plKey boidKey = nil;
     plMaxNode* targNode = (plMaxNode*)fCompPB->GetINode(kBoidObject);
 
-    if( targNode->CanConvert() )
+    if (targNode->CanConvert())
     {
         plSceneObject* targObj = targNode->GetSceneObject();
-        if( targObj )
+        if (targObj)
         {
             boidKey = targObj->GetKey();
         }
@@ -283,7 +283,7 @@ bool plObjectFlockerComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 
 bool plObjectFlockerComponent::DeInit(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    if( fFlocker )
+    if (fFlocker)
         fFlocker->GetKey()->UnRefObject();
     fFlocker = nil;
 

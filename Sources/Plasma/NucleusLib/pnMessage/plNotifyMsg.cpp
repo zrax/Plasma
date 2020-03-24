@@ -89,84 +89,84 @@ plNotifyMsg::~plNotifyMsg()
 //  PURPOSE    : Add an event record to this notify message
 //
 //
-void plNotifyMsg::AddEvent( proEventData* ed )
+void plNotifyMsg::AddEvent(proEventData* ed)
 {
-    switch ( ed->fEventType )
+    switch (ed->fEventType)
     {
         case proEventData::kCollision:
             {
                 proCollisionEventData *evt = (proCollisionEventData *)ed;
-                AddCollisionEvent(evt->fEnter, evt->fHitter, evt->fHittee );
+                AddCollisionEvent(evt->fEnter, evt->fHitter, evt->fHittee);
             }
             break;
 
         case proEventData::kSpawned:
             {
                 proSpawnedEventData *evt = (proSpawnedEventData *)ed;
-                AddSpawnedEvent( evt->fSpawner, evt->fSpawnee );
+                AddSpawnedEvent(evt->fSpawner, evt->fSpawnee);
             }
             break;
 
         case proEventData::kPicked:
             {
                 proPickedEventData *evt = (proPickedEventData *)ed;
-                AddPickEvent( evt->fPicker, evt->fPicked, evt->fEnabled, evt->fHitPoint );
+                AddPickEvent(evt->fPicker, evt->fPicked, evt->fEnabled, evt->fHitPoint);
             }
             break;
 
         case proEventData::kContained:
             {
                 proContainedEventData *evt = (proContainedEventData *)ed;
-                AddContainerEvent( evt->fContained, evt->fContainer, evt->fEntering );
+                AddContainerEvent(evt->fContained, evt->fContainer, evt->fEntering);
             }
             break;
         
         case proEventData::kCallback:
             {
                 proCallbackEventData *evt = (proCallbackEventData *)ed;
-                AddCallbackEvent( evt->fEventType );
+                AddCallbackEvent(evt->fEventType);
             }
             break;
 
         case proEventData::kResponderState:
             {
                 proResponderStateEventData *evt = (proResponderStateEventData *)ed;
-                AddResponderStateEvent( evt->fState );
+                AddResponderStateEvent(evt->fState);
             }
             break;
 
         case proEventData::kMultiStage:
             {
                 proMultiStageEventData *evt = (proMultiStageEventData *)ed;
-                AddMultiStageEvent( evt->fStage, evt->fEvent, evt->fAvatar );
+                AddMultiStageEvent(evt->fStage, evt->fEvent, evt->fAvatar);
             }
             break;
             
         case proEventData::kCoop:
             {
                 proCoopEventData *evt = (proCoopEventData *)ed;
-                AddCoopEvent( evt->fID, evt->fSerial);
+                AddCoopEvent(evt->fID, evt->fSerial);
             }
             break;
 
         case proEventData::kControlKey:
             {
                 proControlKeyEventData *evt = (proControlKeyEventData *)ed;
-                AddControlKeyEvent( evt->fControlKey, evt->fDown );
+                AddControlKeyEvent(evt->fControlKey, evt->fDown);
             }
             break;
 
         case proEventData::kFacing:
             {
                 proFacingEventData *evt = (proFacingEventData *)ed;
-                AddFacingEvent( evt->fFacer, evt->fFacee, evt->dot, evt->enabled );
+                AddFacingEvent(evt->fFacer, evt->fFacee, evt->dot, evt->enabled);
             }
             break;
         
         case proEventData::kActivate:
             {
                 proActivateEventData *evt = (proActivateEventData *)ed;
-                AddActivateEvent( evt->fActivate );
+                AddActivateEvent(evt->fActivate);
             }
             break;
 
@@ -205,7 +205,7 @@ void plNotifyMsg::AddEvent( proEventData* ed )
         case proEventData::kBook:
             {
                 proBookEventData* evt = (proBookEventData*)ed;
-                AddBookEvent( evt->fEvent, evt->fLinkID );
+                AddBookEvent(evt->fEvent, evt->fLinkID);
             }
             break;
         case proEventData::kClimbingBlockerHit:
@@ -230,21 +230,21 @@ void plNotifyMsg::AddEvent( proEventData* ed )
 // NOTE: To test for duplicate record, it only checks for records of the same type
 //     : Eventually, it might be wise to check if the same 'self' key also?
 //
-void plNotifyMsg::AddCollisionEvent( bool enter, const plKey &other, const plKey &self, bool onlyOneCollision )
+void plNotifyMsg::AddCollisionEvent(bool enter, const plKey &other, const plKey &self, bool onlyOneCollision)
 {
     // if this is the normal case of there can only be one collision, then get rid of any others
-    if ( onlyOneCollision )
+    if (onlyOneCollision)
     {
         // remove records that are like the one being added
         int num_recs = fEvents.GetCount();
-        if ( num_recs > 0 )
+        if (num_recs > 0)
         {
             int i;
-            for ( i=0; i<num_recs; i++ )
+            for (i=0; i<num_recs; i++)
             {
                 // see if its the same type
                 proEventData* pEDTest = fEvents.Get(i);
-                if ( pEDTest->fEventType == proEventData::kCollision )
+                if (pEDTest->fEventType == proEventData::kCollision)
                 {
                     // remove it
                     delete fEvents[i];
@@ -270,18 +270,18 @@ void plNotifyMsg::AddCollisionEvent( bool enter, const plKey &other, const plKey
 //  PARAMETERS : event  - the event type, as enumerated in plEventCallbackMsg.h
 //
 //
-void plNotifyMsg::AddCallbackEvent( int32_t event )
+void plNotifyMsg::AddCallbackEvent(int32_t event)
 {
     // remove records that are like the one being added
     int num_recs = fEvents.GetCount();
-    if ( num_recs > 0 )
+    if (num_recs > 0)
     {
         int i;
-        for ( i=0; i<num_recs; i++ )
+        for (i=0; i<num_recs; i++)
         {
             // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
-            if ( pEDTest->fEventType == proEventData::kCallback )
+            if (pEDTest->fEventType == proEventData::kCallback)
             {
                 // remove it
                 delete fEvents[i];
@@ -305,18 +305,18 @@ void plNotifyMsg::AddCallbackEvent( int32_t event )
 //  PARAMETERS : state  - the state for the responder to switch to before triggering
 //
 //
-void plNotifyMsg::AddResponderStateEvent( int32_t state )
+void plNotifyMsg::AddResponderStateEvent(int32_t state)
 {
     // remove records that are like the one being added
     int num_recs = fEvents.GetCount();
-    if ( num_recs > 0 )
+    if (num_recs > 0)
     {
         int i;
-        for ( i=0; i<num_recs; i++ )
+        for (i=0; i<num_recs; i++)
         {
             // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
-            if ( pEDTest->fEventType == proEventData::kResponderState )
+            if (pEDTest->fEventType == proEventData::kResponderState)
             {
                 // remove it
                 delete fEvents[i];
@@ -341,7 +341,7 @@ void plNotifyMsg::AddResponderStateEvent( int32_t state )
 //             : event   - what was the event that happened
 //
 //
-void plNotifyMsg::AddMultiStageEvent( int32_t stage, int32_t event, const plKey& avatar )
+void plNotifyMsg::AddMultiStageEvent(int32_t stage, int32_t event, const plKey& avatar)
 {
     // we can have multi events of this type
     // create the mutlistage event record
@@ -380,18 +380,18 @@ void plNotifyMsg::AddSpawnedEvent (const plKey &spawner, const plKey &spawnee)
 // NOTE: To test for duplicate record, it only checks for records of the same type
 //     : Eventually, it might be wise to check if the same 'self' key also?
 //
-void plNotifyMsg::AddActivateEvent( bool activate )
+void plNotifyMsg::AddActivateEvent(bool activate)
 {
     // remove records that are like the one being added
     int num_recs = fEvents.GetCount();
-    if ( num_recs > 0 )
+    if (num_recs > 0)
     {
         int i;
-        for ( i=0; i<num_recs; i++ )
+        for (i=0; i<num_recs; i++)
         {
             // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
-            if ( pEDTest->fEventType == proEventData::kActivate )
+            if (pEDTest->fEventType == proEventData::kActivate)
             {
                 // remove it
                 delete fEvents[i];
@@ -421,19 +421,19 @@ void plNotifyMsg::AddActivateEvent( bool activate )
 // NOTE: To test for duplicate record, it only checks for records of the same type
 //     : Eventually, it might be wise to check if the same 'self' key also?
 //
-void plNotifyMsg::AddPickEvent( const plKey &other, const plKey& self, bool enabled, hsPoint3 hitPoint )
+void plNotifyMsg::AddPickEvent(const plKey &other, const plKey& self, bool enabled, hsPoint3 hitPoint)
 {
 
     // remove records that are like the one being added
     int num_recs = fEvents.GetCount();
-    if ( num_recs > 0 )
+    if (num_recs > 0)
     {
         int i;
-        for ( i=0; i<num_recs; i++ )
+        for (i=0; i<num_recs; i++)
         {
             // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
-            if ( pEDTest->fEventType == proEventData::kPicked )
+            if (pEDTest->fEventType == proEventData::kPicked)
             {
                 // remove it
                 delete fEvents[i];
@@ -466,19 +466,19 @@ void plNotifyMsg::AddPickEvent( const plKey &other, const plKey& self, bool enab
 // NOTE: To test for duplicate record, it only checks for records of the same type
 //     : Eventually, it might be wise to check if the same 'self' key also?
 //
-void plNotifyMsg::AddContainerEvent( const plKey &container, const plKey &contained, bool entering )
+void plNotifyMsg::AddContainerEvent(const plKey &container, const plKey &contained, bool entering)
 {
 
     // remove records that are like the one being added
     int num_recs = fEvents.GetCount();
-    if ( num_recs > 0 )
+    if (num_recs > 0)
     {
         int i;
-        for ( i=0; i<num_recs; i++ )
+        for (i=0; i<num_recs; i++)
         {
             // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
-            if ( pEDTest->fEventType == proEventData::kContained )
+            if (pEDTest->fEventType == proEventData::kContained)
             {
                 // remove it
                 delete fEvents[i];
@@ -512,19 +512,19 @@ void plNotifyMsg::AddContainerEvent( const plKey &container, const plKey &contai
 // NOTE: To test for duplicate record, it only checks for records of the same type
 //     : Eventually, it might be wise to check if the same 'self' key also?
 //
-void plNotifyMsg::AddFacingEvent( const plKey &other, const plKey &self, float dot, bool enabled )
+void plNotifyMsg::AddFacingEvent(const plKey &other, const plKey &self, float dot, bool enabled)
 {
 
     // remove records that are like the one being added
     int num_recs = fEvents.GetCount();
-    if ( num_recs > 0 )
+    if (num_recs > 0)
     {
         int i;
-        for ( i=0; i<num_recs; i++ )
+        for (i=0; i<num_recs; i++)
         {
             // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
-            if ( pEDTest->fEventType == proEventData::kFacing )
+            if (pEDTest->fEventType == proEventData::kFacing)
             {
                 // remove it
                 delete fEvents[i];
@@ -556,18 +556,18 @@ void plNotifyMsg::AddFacingEvent( const plKey &other, const plKey &self, float d
 // NOTE: To test for duplicate record, it only checks for records of the same type
 //     : Eventually, it might be wise to check if the same 'self' key also?
 //
-void plNotifyMsg::AddControlKeyEvent( int32_t key, bool down )
+void plNotifyMsg::AddControlKeyEvent(int32_t key, bool down)
 {
     // remove records that are like the one being added
     int num_recs = fEvents.GetCount();
-    if ( num_recs > 0 )
+    if (num_recs > 0)
     {
         int i;
-        for ( i=0; i<num_recs; i++ )
+        for (i=0; i<num_recs; i++)
         {
             // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
-            if ( pEDTest->fEventType == proEventData::kControlKey )
+            if (pEDTest->fEventType == proEventData::kControlKey)
             {
                 // remove it
                 delete fEvents[i];
@@ -669,18 +669,18 @@ void plNotifyMsg::AddVariableEvent(const ST::string& name, const plKey &key)
 // NOTE: To test for duplicate record, it only checks for records of the same type
 //     : Eventually, it might be wise to check if the same 'self' key also?
 //
-void plNotifyMsg::AddClickDragEvent( const plKey& dragger, const plKey& dragee, float animPos )
+void plNotifyMsg::AddClickDragEvent(const plKey& dragger, const plKey& dragee, float animPos)
 {
     // remove records that are like the one being added
     int num_recs = fEvents.GetCount();
-    if ( num_recs > 0 )
+    if (num_recs > 0)
     {
         int i;
-        for ( i=0; i<num_recs; i++ )
+        for (i=0; i<num_recs; i++)
         {
             // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
-            if ( pEDTest->fEventType == proEventData::kClickDrag )
+            if (pEDTest->fEventType == proEventData::kClickDrag)
             {
                 // remove it
                 delete fEvents[i];
@@ -716,14 +716,14 @@ void plNotifyMsg::AddOfferBookEvent(const plKey& offerer, int targetAge, int off
 {
     // remove records that are like the one being added
     int num_recs = fEvents.GetCount();
-    if ( num_recs > 0 )
+    if (num_recs > 0)
     {
         int i;
-        for ( i=0; i<num_recs; i++ )
+        for (i=0; i<num_recs; i++)
         {
             // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
-            if ( pEDTest->fEventType == proEventData::kOfferLinkingBook )
+            if (pEDTest->fEventType == proEventData::kOfferLinkingBook)
             {
                 // remove it
                 delete fEvents[i];
@@ -754,18 +754,18 @@ void plNotifyMsg::AddOfferBookEvent(const plKey& offerer, int targetAge, int off
 // NOTE: To test for duplicate record, it only checks for records of the same type
 //     : Eventually, it might be wise to check if the same 'self' key also?
 //
-void plNotifyMsg::AddBookEvent( uint32_t event, uint32_t linkID /*=0*/)
+void plNotifyMsg::AddBookEvent(uint32_t event, uint32_t linkID /*=0*/)
 {
     // remove records that are like the one being added
     int num_recs = fEvents.GetCount();
-    if ( num_recs > 0 )
+    if (num_recs > 0)
     {
         int i;
-        for ( i=0; i<num_recs; i++ )
+        for (i=0; i<num_recs; i++)
         {
             // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
-            if ( pEDTest->fEventType == proEventData::kBook )
+            if (pEDTest->fEventType == proEventData::kBook)
             {
                 // remove it
                 delete fEvents[i];
@@ -798,14 +798,14 @@ void plNotifyMsg::AddHitClimbingBlockerEvent(const plKey &blocker)
 {
     // remove records that are like the one being added
     int num_recs = fEvents.GetCount();
-    if ( num_recs > 0 )
+    if (num_recs > 0)
     {
         int i;
-        for ( i=0; i<num_recs; i++ )
+        for (i=0; i<num_recs; i++)
         {
             // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
-            if ( pEDTest->fEventType == proEventData::kClimbingBlockerHit )
+            if (pEDTest->fEventType == proEventData::kClimbingBlockerHit)
             {
                 // remove it
                 delete fEvents[i];
@@ -831,19 +831,19 @@ void plNotifyMsg::AddHitClimbingBlockerEvent(const plKey &blocker)
 //
 //  PURPOSE    : Find the first record in the event records that is of type eventtype
 //
-proEventData* plNotifyMsg::FindEventRecord( int32_t eventtype )
+proEventData* plNotifyMsg::FindEventRecord(int32_t eventtype)
 {
     // make sure that its a legal event type
-    if ( eventtype >= 0 && eventtype < proEventData::kNone )
+    if (eventtype >= 0 && eventtype < proEventData::kNone)
     {
         // loop thru the event records looking for what they want
         int num_recs = fEvents.GetCount();
         int i;
-        for ( i=0; i<num_recs; i++ )
+        for (i=0; i<num_recs; i++)
         {
             // see if its the same type
             proEventData* pEDTest = fEvents.Get(i);
-            if ( pEDTest->fEventType == eventtype )
+            if (pEDTest->fEventType == eventtype)
                 return pEDTest;
         }
     }
@@ -863,7 +863,7 @@ void plNotifyMsg::ClearEvents()
 {
     // clean up fEvent records
     int i;
-    for( i = 0; i < fEvents.GetCount(); i++ )
+    for (i = 0; i < fEvents.GetCount(); i++)
         delete fEvents[i];
     fEvents.Reset();
 }
@@ -887,12 +887,12 @@ void plNotifyMsg::Read(hsStream* stream, hsResMgr* mgr)
     // read in the variable part of the message
     int32_t numberEDs = stream->ReadLE32();
     fEvents.SetCountAndZero(numberEDs);
-    if ( numberEDs > 0 )
+    if (numberEDs > 0)
     {
         int i;
-        for ( i=0 ; i < numberEDs ; i++ )
+        for (i=0 ; i < numberEDs ; i++)
         {
-            proEventData* pED = proEventData::Read( stream, mgr );
+            proEventData* pED = proEventData::Read(stream, mgr);
             fEvents[i] = pED;
         }
     }
@@ -916,11 +916,11 @@ void plNotifyMsg::Write(hsStream* stream, hsResMgr* mgr)
     // then write the variable data
     int32_t numberEDs = fEvents.Count();
     stream->WriteLE32(numberEDs);
-    if ( numberEDs > 0 )
+    if (numberEDs > 0)
     {
         // write out each record
         int i;
-        for ( i=0 ; i < numberEDs; i++ )
+        for (i=0 ; i < numberEDs; i++)
         {
             fEvents[i]->Write(stream,mgr);
         }
@@ -1018,16 +1018,16 @@ plKey plNotifyMsg::GetAvatarKey()
         switch (event->fEventType)
         {
         case proEventData::kCollision:
-            return ( (proCollisionEventData *)event )->fHitter;
+            return ((proCollisionEventData *)event)->fHitter;
 
         case proEventData::kPicked:
-            return ( (proPickedEventData *)event )->fPicker;
+            return ((proPickedEventData *)event)->fPicker;
         
         case proEventData::kSpawned:
-            return ( (proSpawnedEventData *)event )->fSpawnee;
+            return ((proSpawnedEventData *)event)->fSpawnee;
 
         case proEventData::kMultiStage:
-            return ( (proMultiStageEventData *)event )->fAvatar;
+            return ((proMultiStageEventData *)event)->fAvatar;
         }
     }
 
@@ -1067,7 +1067,7 @@ proEventData* proEventData::ICreateEventDataType(int32_t type)
 //  Static function on proEventData that reads in a derived event data type
 //  from the given stream and returns it.
 
-proEventData* proEventData::Read( hsStream *stream, hsResMgr *mgr )
+proEventData* proEventData::Read(hsStream *stream, hsResMgr *mgr)
 {
     int32_t evtType = stream->ReadLE32();
 
@@ -1702,9 +1702,9 @@ void proCoopEventData::IReadVersion(hsStream* stream, hsResMgr* mgr)
     hsBitVector contentFlags;
     contentFlags.Read(stream);
 
-    if(contentFlags.IsBitSet(kProCoopID))
+    if (contentFlags.IsBitSet(kProCoopID))
         fID = stream->ReadLE32();
-    if(contentFlags.IsBitSet(kProCoopSerial))
+    if (contentFlags.IsBitSet(kProCoopSerial))
         fSerial = stream->ReadLE16();
 }
 
@@ -1759,11 +1759,11 @@ void proOfferLinkingBookEventData::IReadVersion(hsStream* s, hsResMgr* mgr)
     hsBitVector contentFlags;
     contentFlags.Read(s);
 
-    if(contentFlags.IsBitSet(kProOfferOfferer))
+    if (contentFlags.IsBitSet(kProOfferOfferer))
         offerer = mgr->ReadKey(s);
-    if(contentFlags.IsBitSet(kProOfferTargetAge))
+    if (contentFlags.IsBitSet(kProOfferTargetAge))
         targetAge = s->ReadLE32();
-    if(contentFlags.IsBitSet(kProOfferOfferee))
+    if (contentFlags.IsBitSet(kProOfferOfferee))
         offeree = s->ReadLE32();
 }
 
@@ -1792,8 +1792,8 @@ void proBookEventData::IWriteVersion(hsStream* s, hsResMgr* mgr)
     contentFlags.SetBit(kProBookLinkID);
     contentFlags.Write(s);
 
-    s->WriteLE32( fEvent );
-    s->WriteLE32( fLinkID );
+    s->WriteLE32(fEvent);
+    s->WriteLE32(fLinkID);
 }
 
 void proBookEventData::IReadVersion(hsStream* s, hsResMgr* mgr)
@@ -1801,9 +1801,9 @@ void proBookEventData::IReadVersion(hsStream* s, hsResMgr* mgr)
     hsBitVector contentFlags;
     contentFlags.Read(s);
 
-    if(contentFlags.IsBitSet(kProBookEvent))
+    if (contentFlags.IsBitSet(kProBookEvent))
         fEvent = s->ReadLE32();
-    if(contentFlags.IsBitSet(kProBookLinkID))
+    if (contentFlags.IsBitSet(kProBookLinkID))
         fLinkID = s->ReadLE32();
 }
 

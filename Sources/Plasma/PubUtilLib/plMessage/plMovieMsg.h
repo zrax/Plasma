@@ -112,8 +112,8 @@ public:
         }
     }
 
-    CLASSNAME_REGISTER( plMovieMsg );
-    GETINTERFACE_ANY( plMovieMsg, plMessage );
+    CLASSNAME_REGISTER(plMovieMsg);
+    GETINTERFACE_ANY(plMovieMsg, plMessage);
 
     plMovieMsg& MakeDefault()
     {

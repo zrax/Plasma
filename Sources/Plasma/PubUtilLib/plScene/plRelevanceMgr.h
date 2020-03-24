@@ -71,8 +71,8 @@ protected:
 public:
     plRelevanceMgr();
     
-    CLASSNAME_REGISTER( plRelevanceMgr );
-    GETINTERFACE_ANY( plRelevanceMgr, hsKeyedObject );
+    CLASSNAME_REGISTER(plRelevanceMgr);
+    GETINTERFACE_ANY(plRelevanceMgr, hsKeyedObject);
     
     virtual bool MsgReceive(plMessage* msg);
 

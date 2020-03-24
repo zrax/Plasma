@@ -68,7 +68,7 @@ class plAudioFileReader;
 class plDSoundBuffer
 {
 public:
-    plDSoundBuffer( uint32_t size, plWAVHeader &bufferDesc, bool enable3D, bool looping, bool tryStatic = false, bool streaming = false );
+    plDSoundBuffer(uint32_t size, plWAVHeader &bufferDesc, bool enable3D, bool looping, bool tryStatic = false, bool streaming = false);
     ~plDSoundBuffer();
 
     void        Play();
@@ -77,7 +77,7 @@ public:
     void        Pause();
 
     uint32_t      GetLengthInBytes() const;
-    void        SetScalarVolume( float volume ); // Sets the volume, but on a range from 0 to 1
+    void        SetScalarVolume(float volume); // Sets the volume, but on a range from 0 to 1
 
     unsigned    GetSource() { return source; }
     void        SetPosition(float x, float y, float z);
@@ -87,9 +87,9 @@ public:
     void        SetConeOrientation(float x, float y, float z);
     void        SetConeOutsideVolume(int vol);
 
-    void        SetLooping( bool loop );
-    void        SetMinDistance( int dist);
-    void        SetMaxDistance( int dist );
+    void        SetLooping(bool loop);
+    void        SetMinDistance(int dist);
+    void        SetMaxDistance(int dist);
 
     bool        IsValid() const { return fValid; }
     bool        IsPlaying();
@@ -110,10 +110,10 @@ public:
 
     
     unsigned    GetByteOffset();
-    uint32_t      GetBufferBytePos( float timeInSecs ) const;
-    uint32_t      bytePosToMSecs( uint32_t bytePos ) const;
+    uint32_t      GetBufferBytePos(float timeInSecs) const;
+    uint32_t      bytePosToMSecs(uint32_t bytePos) const;
 
-    void            SetEAXSettings(  plEAXSourceSettings *settings, bool force = false );
+    void            SetEAXSettings(plEAXSourceSettings *settings, bool force = false);
     void            SetTimeOffsetBytes(unsigned bytes);
     uint8_t           GetBlockAlign() const;
     static uint32_t   GetNumBuffers() { return fNumBuffers; }
@@ -159,7 +159,7 @@ protected:
     unsigned            fNumQueuedBuffers;
     float            fPrevVolume;
 
-    void    IAllocate( uint32_t size, plWAVHeader &bufferDesc, bool enable3D, bool tryStatic );
+    void    IAllocate(uint32_t size, plWAVHeader &bufferDesc, bool enable3D, bool tryStatic);
     void    IRelease();
     int     IGetALFormat(unsigned bitsPerSample, unsigned int numChannels);
 };

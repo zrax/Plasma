@@ -78,20 +78,20 @@ public:
 //==================================================================
 // class RelVaultNode : public plVaultNode
 //
-    void Note_SetTitle( const char * text );
-    void Note_SetTitleW( const wchar_t * text );
+    void Note_SetTitle(const char * text);
+    void Note_SetTitleW(const wchar_t * text);
     ST::string Note_GetTitle() const;
-    void Note_SetText( const char * text );
-    void Note_SetTextW( const wchar_t * text );
+    void Note_SetText(const char * text);
+    void Note_SetTextW(const wchar_t * text);
     ST::string Note_GetText() const;
-    void Note_SetType( int32_t type );
+    void Note_SetType(int32_t type);
     int32_t Note_GetType();
 
-    void Note_SetSubType( int32_t type );
+    void Note_SetSubType(int32_t type);
     int32_t Note_GetSubType();
 
     PyObject * GetDeviceInbox() const; // returns pyVaultFolderNode
-    void SetDeviceInbox( const char * devName, PyObject * cb=nil, uint32_t cbContext=0 );
+    void SetDeviceInbox(const char * devName, PyObject * cb=nil, uint32_t cbContext=0);
 };
 
 #endif // _pyVaultTextNoteNode_h_

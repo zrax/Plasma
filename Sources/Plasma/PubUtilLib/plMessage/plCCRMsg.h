@@ -52,8 +52,8 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 class plCCRMessage : public plMessage
 {
 public:
-    CLASSNAME_REGISTER( plCCRMessage);
-    GETINTERFACE_ANY( plCCRMessage, plMessage );
+    CLASSNAME_REGISTER(plCCRMessage);
+    GETINTERFACE_ANY(plCCRMessage, plMessage);
 };
 
 
@@ -70,8 +70,8 @@ public:
     plCCRPetitionMsg() : fPetitionType(plNetCommon::PetitionTypes::kGeneralHelp) { fBCastFlags |= kBCastByType; }
     ~plCCRPetitionMsg() {}
 
-    CLASSNAME_REGISTER( plCCRPetitionMsg);
-    GETINTERFACE_ANY( plCCRPetitionMsg, plCCRMessage );
+    CLASSNAME_REGISTER(plCCRPetitionMsg);
+    GETINTERFACE_ANY(plCCRPetitionMsg, plCCRMessage);
 
     // petition text
     void SetNote(const char* n) { fNote=n;  }
@@ -101,8 +101,8 @@ public:
     plCCRInvisibleMsg();
     ~plCCRInvisibleMsg() {}
 
-    CLASSNAME_REGISTER( plCCRInvisibleMsg);
-    GETINTERFACE_ANY( plCCRInvisibleMsg, plCCRMessage );
+    CLASSNAME_REGISTER(plCCRInvisibleMsg);
+    GETINTERFACE_ANY(plCCRInvisibleMsg, plCCRMessage);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);
@@ -129,8 +129,8 @@ public:
     plCCRCommunicationMsg();
     ~plCCRCommunicationMsg() {}
 
-    CLASSNAME_REGISTER( plCCRCommunicationMsg);
-    GETINTERFACE_ANY( plCCRCommunicationMsg, plCCRMessage );
+    CLASSNAME_REGISTER(plCCRCommunicationMsg);
+    GETINTERFACE_ANY(plCCRCommunicationMsg, plCCRMessage);
 
     // getters and setters
     void SetMessage(const char* n) { fString=n; }
@@ -157,8 +157,8 @@ public:
     plCCRBanLinkingMsg() ;
     ~plCCRBanLinkingMsg() {}
 
-    CLASSNAME_REGISTER( plCCRBanLinkingMsg);
-    GETINTERFACE_ANY( plCCRBanLinkingMsg, plCCRMessage );
+    CLASSNAME_REGISTER(plCCRBanLinkingMsg);
+    GETINTERFACE_ANY(plCCRBanLinkingMsg, plCCRMessage);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);
@@ -175,8 +175,8 @@ public:
     plCCRSilencePlayerMsg() ;
     ~plCCRSilencePlayerMsg() {}
 
-    CLASSNAME_REGISTER( plCCRSilencePlayerMsg);
-    GETINTERFACE_ANY( plCCRSilencePlayerMsg, plCCRMessage );
+    CLASSNAME_REGISTER(plCCRSilencePlayerMsg);
+    GETINTERFACE_ANY(plCCRSilencePlayerMsg, plCCRMessage);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

@@ -63,7 +63,7 @@ protected:
     };
 
     static void SetGlobalQuality(int q) { fGlobalQuality = IBitToMask(q); }
-    static void SetGlobalCapability(int c) { if( c > kMaxCap ) c = kMaxCap; else if( c < 0 ) c = 0; fGlobalCapability = c; }
+    static void SetGlobalCapability(int c) { if (c > kMaxCap) c = kMaxCap; else if (c < 0) c = 0; fGlobalCapability = c; }
 
     static uint8_t IBitToMask(int b) { hsAssert(b<8, "LoadMask: bit too large for uint8_t"); return (1 << b); }
 
@@ -115,7 +115,7 @@ public:
     // Input lists are in order of preference, i.e. if rep[0] and rep[1] are both loadable based
     // on the current settings, only rep[0] will be loaded. This implies some rules
     // to avoid wasted reps (reps that would never get loaded). Basically:
-    //  if( i < j ) then
+    //  if (i < j) then
     //      (quals[i] > quals[j]) || (caps[i] > caps[j])
     //
     // It doesn't break anything if that condition isn't met, it just means

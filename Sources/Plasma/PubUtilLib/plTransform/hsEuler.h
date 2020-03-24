@@ -121,7 +121,7 @@ public:
     hsEuler(float ai, float aj, float ah, uint32_t order) : fX(ai),fY(aj),fZ(ah),fOrder(order) {}
     
     // getters, converters
-    void GetQuat(hsQuat* res );
+    void GetQuat(hsQuat* res);
     void GetMatrix44(hsMatrix44* M);
 
     // setters, converters

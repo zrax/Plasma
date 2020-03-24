@@ -62,7 +62,7 @@ plSeekPointMod::plSeekPointMod(char * name)
 // DTOR()
 plSeekPointMod::~plSeekPointMod()
 {
-    if(fName) {
+    if (fName) {
         delete[] fName;
         fName = nil;
     }
@@ -88,7 +88,7 @@ void plSeekPointMod::Read(hsStream *stream, hsResMgr *mgr)
 
     // read in the name of the animation itself
     int length = stream->ReadLE32();
-    if(length > 0)
+    if (length > 0)
     {
         fName = new char[length + 1];
         stream->Read(length, fName);

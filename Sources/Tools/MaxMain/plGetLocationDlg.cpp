@@ -110,7 +110,7 @@ void plGetLocationDlg::IListRooms(plMaxNode *node, HWND hList)
 {
     // If node is a room component, add it's name to the list
     plComponentBase *comp = node->ConvertToComponent();
-    if(comp && (comp->ClassID() == ROOM_CID || comp->ClassID() == PAGEINFO_CID))
+    if (comp && (comp->ClassID() == ROOM_CID || comp->ClassID() == PAGEINFO_CID))
     {
         int idx = SendMessage(hList, LB_ADDSTRING, 0, (LPARAM)node->GetName());
         SendMessage(hList, LB_SETITEMDATA, idx, (LPARAM)node);

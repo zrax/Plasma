@@ -95,10 +95,10 @@ public:
     //virtual bool CaptureScreen(plMipmap* dest, bool flipVertical = false, uint16_t desiredWidth = 0, uint16_t desiredHeight = 0) = 0;
     //virtual plMipmap* ExtractMipMap(plRenderTarget* targ) = 0;
     //virtual const char* GetErrorString() = 0;
-    //virtual void GetSupportedDisplayModes(std::vector<plDisplayMode> *res, int ColorDepth = 32 ) = 0;
+    //virtual void GetSupportedDisplayModes(std::vector<plDisplayMode> *res, int ColorDepth = 32) = 0;
     //virtual int GetMaxAnisotropicSamples() = 0;
     //virtual int GetMaxAntiAlias(int Width, int Height, int ColorDepth) = 0;
-    //virtual void ResetDisplayDevice(int Width, int Height, int ColorDepth, bool Windowed, int NumAASamples, int MaxAnisotropicSamples, bool vSync = false  ) = 0;
+    //virtual void ResetDisplayDevice(int Width, int Height, int ColorDepth, bool Windowed, int NumAASamples, int MaxAnisotropicSamples, bool vSync = false) = 0;
 };
 
 #endif // _plGLPipeline_inc_

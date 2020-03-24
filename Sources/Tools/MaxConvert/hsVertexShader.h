@@ -79,10 +79,10 @@ private:
     void    INativeShadeVtx(hsColorRGBA& shade, plMaxLightContext& ctx, const plTmpVertex3& vtx, bool translucent);
     void    INativeShadowVtx(hsColorRGBA& shade, plMaxLightContext& ctx, const plTmpVertex3& vtx, bool translucent);
 
-    bool IsTranslucent( hsGMaterial *material );
+    bool IsTranslucent(hsGMaterial *material);
 
-    void IShadeSpan( plGeometrySpan *span, INode* node );
-    void IShadeVertices( plGeometrySpan *span, hsBitVector *dirtyVector, INode* node, bool translucent );
+    void IShadeSpan(plGeometrySpan *span, INode* node);
+    void IShadeVertices(plGeometrySpan *span, hsBitVector *dirtyVector, INode* node, bool translucent);
 
 private:
     Interface           *fInterface;

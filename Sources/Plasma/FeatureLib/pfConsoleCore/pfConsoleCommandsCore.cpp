@@ -181,7 +181,7 @@ PF_CONSOLE_CMD(
     G,
     "int GValue",
     "Set the Auth Server G value"
-    ) {
+) {
     kAuthDhGValue = (int)params[0];
 }
 
@@ -234,7 +234,7 @@ PF_CONSOLE_CMD(
     G,
     "int GValue",
     "Set the Game Server G value"
-    ) {
+) {
     kGameDhGValue = (int)params[0];
 }
 
@@ -297,6 +297,6 @@ PF_CONSOLE_CMD(
     G,
     "int GValue",
     "Set the GateKeeper Server G value"
-    ) {
+) {
     kGateKeeperDhGValue = (int)params[0];
 }

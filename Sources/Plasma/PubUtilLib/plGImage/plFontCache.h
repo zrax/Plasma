@@ -78,26 +78,26 @@ class plFontCache : public hsKeyedObject
 
     public:
 
-        CLASSNAME_REGISTER( plFontCache );
-        GETINTERFACE_ANY( plFontCache, hsKeyedObject );
+        CLASSNAME_REGISTER(plFontCache);
+        GETINTERFACE_ANY(plFontCache, hsKeyedObject);
 
         plFontCache();
         virtual ~plFontCache();
 
-        virtual void    Read( hsStream *s, hsResMgr *mgr ) {}
-        virtual void    Write( hsStream *s, hsResMgr *mgr ) {}
+        virtual void    Read(hsStream *s, hsResMgr *mgr) {}
+        virtual void    Write(hsStream *s, hsResMgr *mgr) {}
 
-        virtual bool    MsgReceive( plMessage* pMsg );
+        virtual bool    MsgReceive(plMessage* pMsg);
         
         static plFontCache  &GetInstance();
 
-        plFont  *GetFont( const ST::string &face, uint8_t size, uint32_t fontFlags );
+        plFont  *GetFont(const ST::string &face, uint8_t size, uint32_t fontFlags);
 
-//      HFONT   GetMeAFont( const char *face, int height, int weight, bool italic, uint32_t quality );
-//      void    FreeFont( HFONT font );
+//      HFONT   GetMeAFont(const char *face, int height, int weight, bool italic, uint32_t quality);
+//      void    FreeFont(HFONT font);
         void    Clear();
 
-        void    LoadCustomFonts( const plFileName &dir );
+        void    LoadCustomFonts(const plFileName &dir);
 
         // Our custom font extension
         static const char* kCustFontExtension;

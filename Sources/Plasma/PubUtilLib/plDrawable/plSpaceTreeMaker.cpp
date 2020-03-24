@@ -72,7 +72,7 @@ double times[kNumTimes];
 #define StartTimer(i) { times[(i)] -= hsTimer::GetSeconds(); }
 #define StopTimer(i) { times[(i)] += hsTimer::GetSeconds(); }
 
-#define InitTimers() { for( int i = 0; i < kNumTimes; i++ )times[i] = 0; }
+#define InitTimers() { for (int i = 0; i < kNumTimes; i++) times[i] = 0; }
 
 #else // MF_DO_TIMES
 
@@ -91,32 +91,32 @@ plSpaceCullResult mySpaceCullFunction(const hsBounds3Ext& bnd)
     const hsPoint3& maxs = bnd.GetMaxs();
     const hsPoint3& mins = bnd.GetMins();
 
-    if( maxs.fX < 0.25f )
+    if (maxs.fX < 0.25f)
         return kSpaceCulled;
-    if( maxs.fY < 0.25f )
+    if (maxs.fY < 0.25f)
         return kSpaceCulled;
-    if( maxs.fZ < 0.25f )
-        return kSpaceCulled;
-
-    if( mins.fX > 0.75f )
-        return kSpaceCulled;
-    if( mins.fY > 0.75f )
-        return kSpaceCulled;
-    if( mins.fZ > 0.75f )
+    if (maxs.fZ < 0.25f)
         return kSpaceCulled;
 
-    if( maxs.fX > 0.75f )
+    if (mins.fX > 0.75f)
+        return kSpaceCulled;
+    if (mins.fY > 0.75f)
+        return kSpaceCulled;
+    if (mins.fZ > 0.75f)
+        return kSpaceCulled;
+
+    if (maxs.fX > 0.75f)
         return kSpaceSplit;
-    if( maxs.fY > 0.75f )
+    if (maxs.fY > 0.75f)
         return kSpaceSplit;
-    if( maxs.fZ > 0.75f )
+    if (maxs.fZ > 0.75f)
         return kSpaceSplit;
 
-    if( mins.fX < 0.25f )
+    if (mins.fX < 0.25f)
         return kSpaceSplit;
-    if( mins.fY < 0.25f )
+    if (mins.fY < 0.25f)
         return kSpaceSplit;
-    if( mins.fZ < 0.25f )
+    if (mins.fZ < 0.25f)
         return kSpaceSplit;
 
     return kSpaceClear;
@@ -130,7 +130,7 @@ void plSpaceTreeMaker::ISortList(hsTArray<plSpacePrepNode*>& nodes, const hsVect
     hsRadixSort::Elem*  list = fSortScratch;
     hsRadixSort::Elem* listTrav = list;
     int32_t n = nodes.GetCount();
-    while( n-- )
+    while (n--)
     {
         listTrav->fKey.fFloat = axis.InnerProduct(nodes[n]->fWorldBounds.GetCenter());
         listTrav->fBody = (void*)nodes[n];
@@ -144,7 +144,7 @@ void plSpaceTreeMaker::ISortList(hsTArray<plSpacePrepNode*>& nodes, const hsVect
     listTrav = sortedList;
 
     int i;
-    for( i = 0; i < nodes.GetCount(); i++ )
+    for (i = 0; i < nodes.GetCount(); i++)
     {
         nodes[i] = (plSpacePrepNode*)(listTrav->fBody);
         listTrav = listTrav->fNext;
@@ -166,9 +166,9 @@ void plSpaceTreeMaker::ISplitList(hsTArray<plSpacePrepNode*>& nodes, const hsVec
     upper.SetCount(upperCount);
 
     int i;
-    for( i = 0; i < lowerCount; i++ )
+    for (i = 0; i < lowerCount; i++)
         lower[i] = nodes[i];
-    for( i = 0; i < upperCount; i++ )
+    for (i = 0; i < upperCount; i++)
         upper[i] = nodes[i + lowerCount];
 }
 
@@ -180,24 +180,24 @@ hsBounds3Ext plSpaceTreeMaker::IFindDistToCenterAxis(hsTArray<plSpacePrepNode*>&
     hsAssert(nodes.GetCount() > 1, "Degenerate case");
 
     int i;
-    for( i = 0; i < nodes.GetCount(); i++ )
+    for (i = 0; i < nodes.GetCount(); i++)
     {
         bnd.Union(&nodes[i]->fWorldBounds);
     }
     length = 0;
-    for( i = 0; i < nodes.GetCount(); i++ )
+    for (i = 0; i < nodes.GetCount(); i++)
     {
         hsVector3 sep;
         sep.Set(&bnd.GetCenter(), &nodes[i]->fWorldBounds.GetCenter());
         float len = sep.MagnitudeSquared();
-        if( len > length )
+        if (len > length)
         {
             axis = sep;
             length = len;
         }
     }
     length = sqrt(length);
-    if( length > 1.e-3f )
+    if (length > 1.e-3f)
         axis /= length;
     else
         return IFindSplitAxis(nodes, length, axis);
@@ -207,7 +207,7 @@ hsBounds3Ext plSpaceTreeMaker::IFindDistToCenterAxis(hsTArray<plSpacePrepNode*>&
 
 plSpacePrepNode* plSpaceTreeMaker::IMakeFatTreeRecur(hsTArray<plSpacePrepNode*>& nodes)
 {
-    if( !nodes.GetCount() )
+    if (!nodes.GetCount())
         return nil;
 
     StartTimer(kMakeFatTree);
@@ -215,7 +215,7 @@ plSpacePrepNode* plSpaceTreeMaker::IMakeFatTreeRecur(hsTArray<plSpacePrepNode*>&
     plSpacePrepNode* subRoot = new plSpacePrepNode;
     fTreeSize++;
 
-    if( nodes.GetCount() == 1 )
+    if (nodes.GetCount() == 1)
     {
         *subRoot = *nodes[0];
 
@@ -254,27 +254,27 @@ hsBounds3Ext plSpaceTreeMaker::IFindSplitAxis(hsTArray<plSpacePrepNode*>& nodes,
     hsBounds3Ext bnd;
     bnd.MakeEmpty();
     int i;
-    for( i = 0; i < nodes.GetCount(); i++ )
+    for (i = 0; i < nodes.GetCount(); i++)
     {
         bnd.Union(&nodes[i]->fWorldBounds);
     }
     float maxLen = bnd.GetMaxs()[0] - bnd.GetMins()[0];
     int maxAxis = 0;
 
-    if( bnd.GetMaxs()[1] - bnd.GetMins()[1] > maxLen )
+    if (bnd.GetMaxs()[1] - bnd.GetMins()[1] > maxLen)
     {
         maxLen = bnd.GetMaxs()[1] - bnd.GetMins()[1];
         maxAxis = 1;
     }
 
-    if( bnd.GetMaxs()[2] - bnd.GetMins()[2] > maxLen )
+    if (bnd.GetMaxs()[2] - bnd.GetMins()[2] > maxLen)
     {
         maxLen = bnd.GetMaxs()[2] - bnd.GetMins()[2];
         maxAxis = 2;
     }
 
     length = maxLen;
-    switch( maxAxis )
+    switch (maxAxis)
     {
     case 0:
         axis.Set(1.f, 0, 0);
@@ -297,11 +297,11 @@ void plSpaceTreeMaker::IFindBigList(hsTArray<plSpacePrepNode*>& nodes, float len
     giants.SetCount(0);
     strimps.SetCount(0);
     int i;
-    for( i = 0; i < nodes.GetCount(); i++ )
+    for (i = 0; i < nodes.GetCount(); i++)
     {
         hsPoint2 depth;
         nodes[i]->fWorldBounds.TestPlane(axis, depth);
-        if( depth.fY - depth.fX > length * kCutoffFrac )
+        if (depth.fY - depth.fX > length * kCutoffFrac)
             giants.Append(nodes[i]);
         else
             strimps.Append(nodes[i]);
@@ -321,10 +321,10 @@ plSpacePrepNode* plSpaceTreeMaker::INewSubRoot(const hsBounds3Ext& bnd)
 
 plSpacePrepNode* plSpaceTreeMaker::IMakeTreeRecur(hsTArray<plSpacePrepNode*>& nodes)
 {
-    if( !nodes.GetCount() )
+    if (!nodes.GetCount())
         return nil;
 
-    if( nodes.GetCount() == 1 )
+    if (nodes.GetCount() == 1)
     {
         return IMakeFatTreeRecur(nodes);
     }
@@ -344,13 +344,13 @@ plSpacePrepNode* plSpaceTreeMaker::IMakeTreeRecur(hsTArray<plSpacePrepNode*>& no
     plSpacePrepNode* subRoot = nil;
 
     // If list0 not empty, put them in first child, recur on remainder,
-    if( list0.GetCount() && list1.GetCount() )
+    if (list0.GetCount() && list1.GetCount())
     {
         subRoot = INewSubRoot(bnd);
         subRoot->fChildren[0] = IMakeFatTreeRecur(list0); // too big
         subRoot->fChildren[1] = IMakeTreeRecur(list1); // remainder
     }
-    else if( list0.GetCount() )
+    else if (list0.GetCount())
     {
         subRoot = IMakeFatTreeRecur(list0);
     }
@@ -390,7 +390,7 @@ void plSpaceTreeMaker::Reset()
 
 void plSpaceTreeMaker::IDeleteTreeRecur(plSpacePrepNode* node)
 {
-    if( node )
+    if (node)
     {
         IDeleteTreeRecur(node->fChildren[0]);
         IDeleteTreeRecur(node->fChildren[1]);
@@ -405,7 +405,7 @@ void plSpaceTreeMaker::Cleanup()
     fPrepTree = nil;
 
     int i;
-    for( i = 0; i < fLeaves.GetCount(); i++ )
+    for (i = 0; i < fLeaves.GetCount(); i++)
         delete fLeaves[i];
     fLeaves.Reset();
     fDisabled.Reset();
@@ -420,7 +420,7 @@ int32_t plSpaceTreeMaker::AddLeaf(const hsBounds3Ext& worldBnd, bool disable)
     leaf->fChildren[1] = nil;
     
     leaf->fWorldBounds = worldBnd;
-    if( leaf->fWorldBounds.GetType() != kBoundsNormal )
+    if (leaf->fWorldBounds.GetType() != kBoundsNormal)
     {
         static const hsPoint3 zero(0.f, 0.f, 0.f);
         leaf->fWorldBounds.Reset(&zero);
@@ -445,14 +445,14 @@ void plSpaceTreeMaker::TestTree()
 
     const int kTestSize = 10;
     int i;
-    for( i = 0; i < kTestSize; i++ )
+    for (i = 0; i < kTestSize; i++)
     {
         int j;
-        for( j = 0; j < kTestSize; j++ )
+        for (j = 0; j < kTestSize; j++)
         {
             int k;
 #ifdef MF_DO_3D
-            for( k = 0; k < kTestSize; k++ )
+            for (k = 0; k < kTestSize; k++)
 #else // MF_DO_3D
             k = 0;
 #endif // MF_DO_3D
@@ -529,10 +529,10 @@ plSpaceTree* plSpaceTreeMaker::MakeTree()
 
     StartTimer(kMakeTreeAll);
 
-    if( !fLeaves.GetCount() )
+    if (!fLeaves.GetCount())
         return IMakeEmptyTree();
 
-    if( fLeaves.GetCount() < 2 )
+    if (fLeaves.GetCount() < 2)
         return IMakeDegenerateTree();
 
     IMakeTree();
@@ -575,7 +575,7 @@ plSpaceTree* plSpaceTreeMaker::IMakeDegenerateTree()
     tree->fTree[0].fParent = plSpaceTree::kRootParent;
     tree->fNumLeaves = 1;
 
-    if( fDisabled.IsBitSet(0) )
+    if (fDisabled.IsBitSet(0))
         tree->SetLeafFlag(0, plSpaceTreeNode::kDisabled, true);
 
     Cleanup();
@@ -585,7 +585,7 @@ plSpaceTree* plSpaceTreeMaker::IMakeDegenerateTree()
 
 int plSpaceTreeMaker::ITreeDepth(plSpacePrepNode* subRoot)
 {
-    if( !subRoot )
+    if (!subRoot)
         return 0;
 
     int dep0 = ITreeDepth(subRoot->fChildren[0]);
@@ -609,7 +609,7 @@ plSpaceTree* plSpaceTreeMaker::IMakeSpaceTree()
     IGatherLeavesRecur(head, tree);
     
     int level = ITreeDepth(head);
-    while( level > 0 )
+    while (level > 0)
         IMakeSpaceTreeRecur(head, tree, --level, 0);
 
     tree->fRoot = tree->fTree.GetCount()-1;
@@ -617,9 +617,9 @@ plSpaceTree* plSpaceTreeMaker::IMakeSpaceTree()
     tree->fNumLeaves = fLeaves.GetCount();
 
     int i;
-    for( i = 0; i < fLeaves.GetCount(); i++ )
+    for (i = 0; i < fLeaves.GetCount(); i++)
     {
-        if( fDisabled.IsBitSet(i) )
+        if (fDisabled.IsBitSet(i))
             tree->SetLeafFlag(i, plSpaceTreeNode::kDisabled, true);
     }
 
@@ -633,7 +633,7 @@ plSpaceTree* plSpaceTreeMaker::IMakeSpaceTree()
 #if 0 // Leaves first
 int16_t plSpaceTreeMaker::IMakeSpaceTreeRecur(plSpacePrepNode* sub, plSpaceTree* tree, const int targetLevel, int currLevel)
 {
-    if( currLevel == targetLevel )
+    if (currLevel == targetLevel)
     {
         int16_t nodeIdx = tree->fTree.GetCount();
         tree->fTree.Push();
@@ -642,7 +642,7 @@ int16_t plSpaceTreeMaker::IMakeSpaceTreeRecur(plSpacePrepNode* sub, plSpaceTree*
 
         sub->fIndex = nodeIdx;
 
-        if( !sub->fChildren[0] )
+        if (!sub->fChildren[0])
         {
             hsAssert(!sub->fChildren[1], "Unsupported unbalance of tree");
 
@@ -661,7 +661,7 @@ int16_t plSpaceTreeMaker::IMakeSpaceTreeRecur(plSpacePrepNode* sub, plSpaceTree*
 
     int16_t nodeIdx = sub->fIndex;
 
-    if( !sub->fChildren[0] )
+    if (!sub->fChildren[0])
     {
         hsAssert(!sub->fChildren[1] , "Unsupported unbalance of tree");
         return nodeIdx;
@@ -681,7 +681,7 @@ int16_t plSpaceTreeMaker::IMakeSpaceTreeRecur(plSpacePrepNode* sub, plSpaceTree*
 void plSpaceTreeMaker::IGatherLeavesRecur(plSpacePrepNode* sub, plSpaceTree* tree)
 {
     // if it's a leaf, stuff it in the right slot, else recur
-    if( !sub->fChildren[0] )
+    if (!sub->fChildren[0])
     {
         hsAssert(!sub->fChildren[1], "Unsupported unbalance of tree");
         
@@ -703,7 +703,7 @@ void plSpaceTreeMaker::IGatherLeavesRecur(plSpacePrepNode* sub, plSpaceTree* tre
 void plSpaceTreeMaker::IMakeSpaceTreeRecur(plSpacePrepNode* sub, plSpaceTree* tree, const int targetLevel, int currLevel)
 {
     // If it's a leaf, we've already done it.
-    if( !sub->fChildren[0] )
+    if (!sub->fChildren[0])
     {
         hsAssert(!sub->fChildren[1], "Unsupported unbalance of tree");
         return;
@@ -711,7 +711,7 @@ void plSpaceTreeMaker::IMakeSpaceTreeRecur(plSpacePrepNode* sub, plSpaceTree* tr
 
     hsAssert(sub->fChildren[0] && sub->fChildren[1], "Shouldn't get this deep, already got the leaves");
 
-    if( currLevel == targetLevel )
+    if (currLevel == targetLevel)
     {
         int16_t nodeIdx = tree->fTree.GetCount();
         tree->fTree.Push();

@@ -94,8 +94,8 @@ void    plStatusLogDrawer::Draw(plStatusLog* curLog, plStatusLog* firstLog)
 
     /// Calc position on screen
     lineHt = drawText.GetFontHeight() + 2;
-    height = lineHt * ( IGetMaxNumLines( curLog ) + 2 ) + 8;
-    if( IGetFlags( curLog ) & plStatusLog::kAlignToTop )
+    height = lineHt * (IGetMaxNumLines(curLog) + 2) + 8;
+    if (IGetFlags(curLog) & plStatusLog::kAlignToTop)
     {
         width = fPipeline->Width() - 8;
         x = 4;
@@ -105,22 +105,22 @@ void    plStatusLogDrawer::Draw(plStatusLog* curLog, plStatusLog* firstLog)
     {
         width = fPipeline->Width() >> 1;
         x = width - 10;
-        y = ( fPipeline->Height() - height ) >> 1;
+        y = (fPipeline->Height() - height) >> 1;
     }
 
     /// Draw!
-    if( IGetFlags( curLog ) & plStatusLog::kFilledBackground )
-        drawText.DrawRect( x, y, x + width, y + height, 0, 0, 0, 127 );
+    if (IGetFlags(curLog) & plStatusLog::kFilledBackground)
+        drawText.DrawRect(x, y, x + width, y + height, 0, 0, 0, 127);
 
-    drawText.DrawString( x + 2, y + ( lineHt >> 1 ), IGetFilename( curLog ).AsString(), 127, 127, 255, 255, plDebugText::kStyleBold );
-    drawText.DrawRect( x + 2,               y + ( lineHt << 1 ) + 1,
-                       x + width - 8,      y + ( lineHt << 1 ) + 2, 127, 127, 255, 255 );
+    drawText.DrawString(x + 2, y + (lineHt >> 1), IGetFilename(curLog).AsString(), 127, 127, 255, 255, plDebugText::kStyleBold);
+    drawText.DrawRect(x + 2,              y + (lineHt << 1) + 1,
+                      x + width - 8,      y + (lineHt << 1) + 2, 127, 127, 255, 255);
 
     y += lineHt * 2;
-    for( i = 0; i < IGetMaxNumLines( curLog ); i++ )
+    for (i = 0; i < IGetMaxNumLines(curLog); i++)
     {
-        if( IGetLines( curLog )[ i ] != nil )
-            drawText.DrawString( x + 4, y, IGetLines( curLog )[ i ], IGetColors( curLog )[ i ] );
+        if (IGetLines(curLog)[i] != nil)
+            drawText.DrawString(x + 4, y, IGetLines(curLog)[i], IGetColors(curLog)[i]);
         y += lineHt;
     }
 

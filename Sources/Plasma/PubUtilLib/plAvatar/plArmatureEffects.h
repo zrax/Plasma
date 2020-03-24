@@ -69,8 +69,8 @@ public:
     plArmatureEffectsMgr() : fArmature(nil), fEnabled(true) {}
     virtual ~plArmatureEffectsMgr() {}
 
-    CLASSNAME_REGISTER( plArmatureEffectsMgr );
-    GETINTERFACE_ANY( plArmatureEffectsMgr, hsKeyedObject );
+    CLASSNAME_REGISTER(plArmatureEffectsMgr);
+    GETINTERFACE_ANY(plArmatureEffectsMgr, hsKeyedObject);
 
     virtual void Read(hsStream* s, hsResMgr* mgr);
     virtual void Write(hsStream* s, hsResMgr* mgr);
@@ -116,8 +116,8 @@ public:
     plArmatureEffect() {}
     ~plArmatureEffect() {}
 
-    CLASSNAME_REGISTER( plArmatureEffect );
-    GETINTERFACE_ANY( plArmatureEffect, hsKeyedObject );
+    CLASSNAME_REGISTER(plArmatureEffect);
+    GETINTERFACE_ANY(plArmatureEffect, hsKeyedObject);
 
     virtual bool HandleTrigger(plMessage* msg) = 0;
     virtual void Reset() {}
@@ -143,8 +143,8 @@ public:
     plArmatureEffectFootSound();
     ~plArmatureEffectFootSound();
 
-    CLASSNAME_REGISTER( plArmatureEffectFootSound );
-    GETINTERFACE_ANY( plArmatureEffectFootSound, plArmatureEffect );
+    CLASSNAME_REGISTER(plArmatureEffectFootSound);
+    GETINTERFACE_ANY(plArmatureEffectFootSound, plArmatureEffect);
 
     virtual void Read(hsStream* s, hsResMgr* mgr);
     virtual void Write(hsStream* s, hsResMgr* mgr);

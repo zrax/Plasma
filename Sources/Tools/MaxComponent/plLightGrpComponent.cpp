@@ -120,7 +120,7 @@ public:
     {
         IParamBlock2* compPB = fLightGrp->GetParamBlock(plComponentBase::kBlkComp);
         INode* light = compPB->GetINode(kAffectedLightSel);
-        if( light )
+        if (light)
         {
             fLightGrp->AddTarget((plMaxNodeBase*)light);
             compPB->SetValue(kAffectedLightSel, TimeValue(0), (INode*)nil);
@@ -139,18 +139,18 @@ IOResult plLightGrpComponent::Load(ILoad* iLoad)
 bool plLightGrpComponent::IAddLightsToSpans(plMaxNode* pNode, plErrorMsg* pErrMsg)
 {
     int i;
-    for( i = 0; i < fLightInfos.GetCount(); i++ )
+    for (i = 0; i < fLightInfos.GetCount(); i++)
     {
-        if( !fLightInfos[i] )
+        if (!fLightInfos[i])
             continue;
 
         const plDrawInterface* di = pNode->GetSceneObject()->GetDrawInterface();
 
         int iDraw;
-        for( iDraw = 0; iDraw < di->GetNumDrawables(); iDraw++ )
+        for (iDraw = 0; iDraw < di->GetNumDrawables(); iDraw++)
         {
             plDrawableSpans* drawable = plDrawableSpans::ConvertNoRef(di->GetDrawable(iDraw));
-            if( drawable )
+            if (drawable)
             {
                 uint32_t diIndex = di->GetDrawableMeshIndex(iDraw);
 
@@ -165,10 +165,10 @@ bool plLightGrpComponent::ISendItOff(plLightInfo* liInfo, plDrawableSpans* drawa
 {
     plDISpanIndex spans = drawable->GetDISpans(diIndex);
 
-    if( spans.fFlags & plDISpanIndex::kMatrixOnly )
+    if (spans.fFlags & plDISpanIndex::kMatrixOnly)
         return false;
 
-    if( !fCompPB->GetInt(kTest) )
+    if (!fCompPB->GetInt(kTest))
     {
         uint8_t liMsgType = liInfo->GetProjection() ? plDrawable::kMsgPermaProjDI : plDrawable::kMsgPermaLightDI;
         plGenRefMsg* refMsg = new plGenRefMsg(drawable->GetKey(), plRefMsg::kOnCreate, diIndex, liMsgType);
@@ -182,9 +182,9 @@ bool plLightGrpComponent::ISendItOff(plLightInfo* liInfo, plDrawableSpans* drawa
 
         uint8_t liMsgType = liInfo->GetProjection() ? plDrawable::kMsgPermaProj : plDrawable::kMsgPermaLight;
         int i;
-        for( i = 0; i < spans.GetCount(); i++ )
+        for (i = 0; i < spans.GetCount(); i++)
         {
-            if( litSpans.IsBitSet(spans[i]) )
+            if (litSpans.IsBitSet(spans[i]))
             {
                 plGenRefMsg* refMsg = new plGenRefMsg(drawable->GetKey(), plRefMsg::kOnCreate, spans[i], liMsgType);
                 hsgResMgr::ResMgr()->AddViaNotify(liInfo->GetKey(), refMsg, plRefFlags::kPassiveRef);
@@ -197,23 +197,23 @@ bool plLightGrpComponent::ISendItOff(plLightInfo* liInfo, plDrawableSpans* drawa
 
 bool plLightGrpComponent::IGetLightInfos()
 {
-    if( !fLightInfos.GetCount() )
+    if (!fLightInfos.GetCount())
     {
         // Already checked that lightnodes are cool. just get the light interfaces.
         int i;
-        for( i = 0; i < fLightNodes.GetCount(); i++ )
+        for (i = 0; i < fLightNodes.GetCount(); i++)
         {
             plMaxNode* lightNode = fLightNodes[i];
             plSceneObject* lightSO = lightNode->GetSceneObject();
-            if( !lightSO )
+            if (!lightSO)
                 continue;
 
             plLightInfo* liInfo = plLightInfo::ConvertNoRef(lightSO->GetGenericInterface(plLightInfo::Index()));
-            if( !liInfo )
+            if (!liInfo)
                 continue;
 
             liInfo->SetProperty(plLightInfo::kLPHasIncludes, true);
-            if( fCompPB->GetInt(kIncludeChars) )
+            if (fCompPB->GetInt(kIncludeChars))
                 liInfo->SetProperty(plLightInfo::kLPIncludesChars, true);
             fLightInfos.Append(liInfo);
         }
@@ -230,10 +230,10 @@ const hsTArray<plLightInfo*>& plLightGrpComponent::GetLightInfos()
 plLightGrpComponent* plLightGrpComponent::GetComp(plMaxNode* node)
 {
     int i;
-    for( i = 0; i < node->NumAttachedComponents(); i++ )
+    for (i = 0; i < node->NumAttachedComponents(); i++)
     {
         plComponentBase* comp = node->GetAttachedComponent(i);
-        if( comp && comp->ClassID() == LIGHTGRP_COMP_CID )
+        if (comp && comp->ClassID() == LIGHTGRP_COMP_CID)
             return (plLightGrpComponent*)comp;
     }
     return nil;
@@ -242,20 +242,20 @@ plLightGrpComponent* plLightGrpComponent::GetComp(plMaxNode* node)
 bool plLightGrpComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
     const char* dbgNodeName = node->GetName();
-    if( !fValid )
+    if (!fValid)
         return true;
 
-    if( !IGetLightInfos() )
+    if (!IGetLightInfos())
         return true;
 
-    if( !node->GetDrawable() )
+    if (!node->GetDrawable())
         return true;
 
-    if( !node->GetSceneObject() || !node->GetSceneObject()->GetDrawInterface() )
+    if (!node->GetSceneObject() || !node->GetSceneObject()->GetDrawInterface())
         return true;
 
     // If it's shaded as a character, ignore any light groups attached.
-    if( node->GetItinerant() )
+    if (node->GetItinerant())
         return true;
 
     IAddLightsToSpans(node, pErrMsg);
@@ -270,21 +270,21 @@ bool plLightGrpComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *pErrMsg
     fLightNodes.Reset();
 
     int i;
-    for( i = 0; i < NumTargets(); i++ )
+    for (i = 0; i < NumTargets(); i++)
     {
         plMaxNodeBase* liNode = GetTarget(i);
 
-        if( liNode && liNode->CanConvert() )
+        if (liNode && liNode->CanConvert())
         {
             Object *obj = liNode->GetObjectRef();
-            if( obj )
+            if (obj)
             {
                 Class_ID cid = obj->ClassID();
 
-                if( (cid == RTSPOT_LIGHT_CLASSID)
+                if ((cid == RTSPOT_LIGHT_CLASSID)
                     || (cid == RTOMNI_LIGHT_CLASSID)
                     || (cid == RTDIR_LIGHT_CLASSID)
-                    || (cid == RTPDIR_LIGHT_CLASSID) )
+                    || (cid == RTPDIR_LIGHT_CLASSID))
                 {
                     fLightNodes.Append((plMaxNode*)liNode);
                 }
@@ -292,7 +292,7 @@ bool plLightGrpComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *pErrMsg
         }
 
     }
-    if( !fLightNodes.GetCount() )
+    if (!fLightNodes.GetCount())
         return true;
 
     fValid = true;
@@ -301,7 +301,7 @@ bool plLightGrpComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *pErrMsg
 
 bool plLightGrpComponent::PreConvert(plMaxNode* pNode, plErrorMsg* pErrMsg)
 {
-    if( !fValid )
+    if (!fValid)
         return true;
 
     fValid = false;

@@ -273,7 +273,7 @@ void plCameraBrain1::IAnimateFOV(double time)
 
     if (dW == fFOVwGoal && dH == fFOVhGoal)
         fFlags.ClearBit(kAnimateFOV);
-    fCamera->SetFOV( dW, dH );
+    fCamera->SetFOV(dW, dH);
 }
 
 // move the camera's origin point (not where it is looking) toward where it is going
@@ -308,7 +308,7 @@ void plCameraBrain1::IMoveTowardGoal(double elapsedTime)
     if (distToGoal > 0.0f)
         dir.Normalize();
 
-    hsVector3 vel( dir * fCurCamSpeed );
+    hsVector3 vel(dir * fCurCamSpeed);
     
     if (fFlags.IsBitSet(kFalling))
         IAdjustVelocity(plCameraBrain1::fFallAccel, plCameraBrain1::fFallDecel, &dir, &vel, plCameraBrain1::fFallVelocity, distToGoal, elapsedTime);
@@ -384,7 +384,7 @@ void plCameraBrain1::IPointTowardGoal(double elapsedTime)
     }
     
 
-    hsVector3 vel( dir * fCurViewSpeed );
+    hsVector3 vel(dir * fCurViewSpeed);
     
     if (fFlags.IsBitSet(kFalling))
         IAdjustVelocity(plCameraBrain1::fFallPOAAccel, plCameraBrain1::fFallPOADecel, &dir, &vel, plCameraBrain1::fFallPOAVelocity, distToGoal, elapsedTime);
@@ -507,11 +507,11 @@ void plCameraBrain1::Read(hsStream* stream, hsResMgr* mgr)
 {
     hsKeyedObject::Read(stream, mgr);
     fPOAOffset.Read(stream);
-    plGenRefMsg* msg = new plGenRefMsg(GetKey(), plRefMsg::kOnRequest, 0, kSubject ); // SceneObject
-    mgr->ReadKeyNotifyMe( stream, msg, plRefFlags::kActiveRef );
+    plGenRefMsg* msg = new plGenRefMsg(GetKey(), plRefMsg::kOnRequest, 0, kSubject); // SceneObject
+    mgr->ReadKeyNotifyMe(stream, msg, plRefFlags::kActiveRef);
     
-    plGenRefMsg* msg2 = new plGenRefMsg( GetKey(), plRefMsg::kOnRequest, 0, kRailComponent ); // SceneObject
-    mgr->ReadKeyNotifyMe( stream, msg2, plRefFlags::kActiveRef );
+    plGenRefMsg* msg2 = new plGenRefMsg(GetKey(), plRefMsg::kOnRequest, 0, kRailComponent); // SceneObject
+    mgr->ReadKeyNotifyMe(stream, msg2, plRefFlags::kActiveRef);
 
     fFlags.Read(stream);
 
@@ -609,7 +609,7 @@ bool plCameraBrain1::MsgReceive(plMessage* msg)
     {
         if (pRefMsg->fType == kSubject)
         {
-            if( pRefMsg->GetContext() & ( plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace ) )
+            if (pRefMsg->GetContext() & (plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace))
                 SetSubject((plSceneObject*)pRefMsg->GetRef());
             else
                 SetSubject(nil);
@@ -618,7 +618,7 @@ bool plCameraBrain1::MsgReceive(plMessage* msg)
         else
         if (pRefMsg->fType == kRailComponent)
         {
-            if( pRefMsg->GetContext() & ( plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace ) )
+            if (pRefMsg->GetContext() & (plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace))
             {
                 fFlags.SetBit(kRailComponent);
                 fRail = (plRailCameraMod*)pRefMsg->GetRef();
@@ -643,7 +643,7 @@ bool plCameraBrain1::MsgReceive(plMessage* msg)
             }
             else
             {
-                plGenRefMsg* msg = new plGenRefMsg(GetKey(), plRefMsg::kOnRequest, 0, kSubject ); // SceneObject
+                plGenRefMsg* msg = new plGenRefMsg(GetKey(), plRefMsg::kOnRequest, 0, kSubject); // SceneObject
                 hsgResMgr::ResMgr()->AddViaNotify(pPMsg->fPlayer, msg, plRefFlags::kPassiveRef);
 
                 fFlags.SetBit(kCutPosOnce);
@@ -708,8 +708,8 @@ bool plCameraBrain1::MsgReceive(plMessage* msg)
                 plMouseDevice::ShowCursor();
             }
             else
-            if ( (pCMsg->GetControlCode() == B_CAMERA_ZOOM_IN || pCMsg->GetControlCode() == B_CAMERA_ZOOM_OUT)
-                && fFlags.IsBitSet(kZoomEnabled) )
+            if ((pCMsg->GetControlCode() == B_CAMERA_ZOOM_IN || pCMsg->GetControlCode() == B_CAMERA_ZOOM_OUT)
+                && fFlags.IsBitSet(kZoomEnabled))
             {
                 fFlags.ClearBit(kAnimateFOV);
                 return true;
@@ -798,7 +798,7 @@ void plCameraBrain1_Drive::Update(bool forced)
     // update our desired position:
     double time = hsTimer::GetSeconds();
     float eTime = (float)(time-fLastTime);
-    if(eTime > 0.01f)
+    if (eTime > 0.01f)
         eTime = 0.01f;
     fLastTime = time;
     hsPoint3 cameraPos = fCamera->GetTargetPos();
@@ -881,24 +881,24 @@ void plCameraBrain1_Drive::Update(bool forced)
 
     fTargetMatrix.GetAxis(&view,&up,&right);
 
-    if ( HasMovementFlag( B_CAMERA_ROTATE_RIGHT ) ||  HasMovementFlag( B_CAMERA_ROTATE_LEFT ) )
+    if (HasMovementFlag(B_CAMERA_ROTATE_RIGHT) ||  HasMovementFlag(B_CAMERA_ROTATE_LEFT))
     {
         hsQuat q(turn * fTurnRate * eTime * deltaX, &up);
         q.NormalizeIfNeeded();
         q.MakeMatrix(&rot);
-        ClearMovementFlag( B_CAMERA_ROTATE_RIGHT );
-        ClearMovementFlag( B_CAMERA_ROTATE_LEFT );
+        ClearMovementFlag(B_CAMERA_ROTATE_RIGHT);
+        ClearMovementFlag(B_CAMERA_ROTATE_LEFT);
         fTargetMatrix = rot * fTargetMatrix;
     }
     rot.Reset();
 
-    if ( HasMovementFlag( B_CAMERA_ROTATE_UP ) || HasMovementFlag(B_CAMERA_ROTATE_DOWN) )
+    if (HasMovementFlag(B_CAMERA_ROTATE_UP) || HasMovementFlag(B_CAMERA_ROTATE_DOWN))
     {
         hsQuat q(turn * fTurnRate* eTime * deltaY, &right);
         q.NormalizeIfNeeded();
         q.MakeMatrix(&rot);
-        ClearMovementFlag( B_CAMERA_ROTATE_UP );
-        ClearMovementFlag( B_CAMERA_ROTATE_DOWN );
+        ClearMovementFlag(B_CAMERA_ROTATE_UP);
+        ClearMovementFlag(B_CAMERA_ROTATE_DOWN);
         fTargetMatrix = rot * fTargetMatrix;
     }
 
@@ -918,7 +918,7 @@ void plCameraBrain1_Drive::Update(bool forced)
 bool plCameraBrain1_Drive::MsgReceive(plMessage* msg)
 {
     plMouseEventMsg* pMouseMsg = plMouseEventMsg::ConvertNoRef(msg);
-    if( pMouseMsg )
+    if (pMouseMsg)
     {
         if (pMouseMsg->GetDX() > 0.4 || pMouseMsg->GetDX() < -0.4)
         {
@@ -945,26 +945,26 @@ bool plCameraBrain1_Drive::MsgReceive(plMessage* msg)
         }
         if (pMouseMsg->GetDX() < 0)
         {
-            SetMovementFlag( B_CAMERA_ROTATE_RIGHT );
+            SetMovementFlag(B_CAMERA_ROTATE_RIGHT);
             deltaX = pMouseMsg->GetDX();
         }
         else
         if (pMouseMsg->GetDX() > 0)
         {
-            SetMovementFlag( B_CAMERA_ROTATE_LEFT );
+            SetMovementFlag(B_CAMERA_ROTATE_LEFT);
             deltaX = pMouseMsg->GetDX();
         }
         else
         if (pMouseMsg->GetDY() > 0)
         {
-            SetMovementFlag( B_CAMERA_ROTATE_DOWN );
+            SetMovementFlag(B_CAMERA_ROTATE_DOWN);
             deltaY = pMouseMsg->GetDY();
         }
         else
         if (pMouseMsg->GetDY() < 0)
         {
             deltaY = pMouseMsg->GetDY();
-            SetMovementFlag( B_CAMERA_ROTATE_UP );
+            SetMovementFlag(B_CAMERA_ROTATE_UP);
         }
         
         return true;
@@ -1135,9 +1135,9 @@ void plCameraBrain1_Avatar::CalculatePosition()
     // check LOS
     if (GetCamera()->GetKey() && fFlags.IsBitSet(kMaintainLOS) && (plVirtualCam1::Instance()->GetCurrentStackCamera() == GetCamera()))
     {
-        plLOSRequestMsg* pMsg = new plLOSRequestMsg( GetCamera()->GetKey(), fPOAGoal, fGoal, plSimDefs::kLOSDBCameraBlockers,
+        plLOSRequestMsg* pMsg = new plLOSRequestMsg(GetCamera()->GetKey(), fPOAGoal, fGoal, plSimDefs::kLOSDBCameraBlockers,
             plLOSRequestMsg::kTestClosest, plLOSRequestMsg::kReportHitOrMiss);
-        plgDispatch::MsgSend( pMsg );
+        plgDispatch::MsgSend(pMsg);
     }
     
     if (bObscured)
@@ -1193,8 +1193,8 @@ void plCameraBrain1_Avatar::ISendFadeMsg(bool fade)
 
 bool plCameraBrain1_Avatar::MsgReceive(plMessage* msg)
 {
-    plLOSHitMsg *pLOSMsg = plLOSHitMsg::ConvertNoRef( msg );
-    if( pLOSMsg )
+    plLOSHitMsg *pLOSMsg = plLOSHitMsg::ConvertNoRef(msg);
+    if (pLOSMsg)
     {
         bObscured = !pLOSMsg->fNoHit;
         fHitPoint = pLOSMsg->fHitPoint;
@@ -1206,14 +1206,14 @@ bool plCameraBrain1_Avatar::MsgReceive(plMessage* msg)
         return true;
     }
     plMouseEventMsg* pMouseMsg = plMouseEventMsg::ConvertNoRef(msg);
-    if( pMouseMsg )
+    if (pMouseMsg)
     {
         if (pMouseMsg->GetButton() == kWheelPos || pMouseMsg->GetButton() == kWheelNeg)
         {
             if (fFlags.IsBitSet(kFalling))
                 return true;
         
-            fOffsetPct += -1 * ( (pMouseMsg->GetWheelDelta() / 24) * 0.01f);
+            fOffsetPct += -1 * ((pMouseMsg->GetWheelDelta() / 24) * 0.01f);
             if (fOffsetPct > 1.0f)
                 fOffsetPct = 1.0f;
             else
@@ -1227,7 +1227,7 @@ bool plCameraBrain1_Avatar::MsgReceive(plMessage* msg)
     {
         if (pRefMsg->fType == kSubject)
         {
-            if( pRefMsg->GetContext() & ( plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace ) )
+            if (pRefMsg->GetContext() & (plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace))
             {
                 SetSubject((plSceneObject*)pRefMsg->GetRef());
                 plSceneObject* avSO = nil;
@@ -1336,7 +1336,7 @@ bool plCameraBrain1_FirstPerson::MsgReceive(plMessage* msg)
     {
         if (pRefMsg->fType == kSubject)
         {
-            if( pRefMsg->GetContext() & ( plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace ) )
+            if (pRefMsg->GetContext() & (plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace))
             {
                 fPosNode = nil;
                 SetSubject((plSceneObject*)pRefMsg->GetRef());
@@ -1372,7 +1372,7 @@ bool plCameraBrain1_FirstPerson::MsgReceive(plMessage* msg)
         }
     }
     plMouseEventMsg* pMouseMsg = plMouseEventMsg::ConvertNoRef(msg);
-    if( pMouseMsg )
+    if (pMouseMsg)
     {
         if (pMouseMsg->GetButton() == kWheelPos || pMouseMsg->GetButton() == kWheelNeg)
         {
@@ -1430,9 +1430,9 @@ void plCameraBrain1_FirstPerson::CalculatePosition()
     // check LOS
     if (GetCamera()->GetKey() && fFlags.IsBitSet(kMaintainLOS) && (plVirtualCam1::Instance()->GetCurrentStackCamera() == GetCamera()))
     {
-        plLOSRequestMsg* pMsg = new plLOSRequestMsg( GetCamera()->GetKey(), fPOAGoal, fGoal, plSimDefs::kLOSDBCameraBlockers,
+        plLOSRequestMsg* pMsg = new plLOSRequestMsg(GetCamera()->GetKey(), fPOAGoal, fGoal, plSimDefs::kLOSDBCameraBlockers,
             plLOSRequestMsg::kTestClosest, plLOSRequestMsg::kReportHitOrMiss);
-        plgDispatch::MsgSend( pMsg );
+        plgDispatch::MsgSend(pMsg);
     }
     
     if (bObscured)
@@ -1514,7 +1514,7 @@ plCameraBrain1_Fixed::~plCameraBrain1_Fixed()
 void plCameraBrain1_Fixed::Read(hsStream* stream, hsResMgr* mgr)
 {
     plCameraBrain1::Read(stream, mgr);
-    mgr->ReadKeyNotifyMe( stream, new plGenRefMsg(GetKey(), plRefMsg::kOnRequest, 0, 99), plRefFlags::kPassiveRef);
+    mgr->ReadKeyNotifyMe(stream, new plGenRefMsg(GetKey(), plRefMsg::kOnRequest, 0, 99), plRefFlags::kPassiveRef);
 }
 
 void plCameraBrain1_Fixed::Write(hsStream* stream, hsResMgr* mgr)
@@ -1531,7 +1531,7 @@ void plCameraBrain1_Fixed::Update(bool forced)
     
     if (!fFlags.IsBitSet(kIsTransitionCamera))
     {
-        if(fTargetPoint)
+        if (fTargetPoint)
             fTargetPoint->GetBrain()->Update();
 
         if (GetSubject())
@@ -1709,7 +1709,7 @@ hsPoint3 plCameraBrain1_Circle::MoveTowardsFromGoal(const hsPoint3* fromGoal, do
             {
                 fCurRad-=speed;
                 bool didWrap=false;
-                while(fCurRad<0)
+                while (fCurRad<0)
                 {
                     didWrap=true;
                     fCurRad+=kTwoPI;
@@ -1730,7 +1730,7 @@ hsPoint3 plCameraBrain1_Circle::MoveTowardsFromGoal(const hsPoint3* fromGoal, do
             {
                 fCurRad+=speed;
                 bool didWrap=false;
-                while(fCurRad>kTwoPI)
+                while (fCurRad>kTwoPI)
                 {
                     didWrap=true;
                     fCurRad-=kTwoPI;
@@ -1759,7 +1759,7 @@ hsPoint3 plCameraBrain1_Circle::IGetClosestPointOnCircle(const hsPoint3* toThis)
     hsPoint3 center=GetCenterPoint();
     hsPoint3 p(toThis->fX, toThis->fY, center.fZ);  // Move to plane of circle
     hsVector3 v;
-    if (!(GetCircleFlags() & kFarthest) )
+    if (!(GetCircleFlags() & kFarthest))
     {
         v = hsVector3(&p, &center);
     }
@@ -1815,10 +1815,10 @@ void plCameraBrain1_Circle::Read(hsStream* stream, hsResMgr* mgr)
 
     fCenter.Read(stream);
     SetRadius(stream->ReadLEScalar());
-    plGenRefMsg* msg = new plGenRefMsg(GetKey(), plRefMsg::kOnRequest, 0, kCircleTarget ); // SceneObject
-    mgr->ReadKeyNotifyMe( stream, msg, plRefFlags::kActiveRef );
-    plGenRefMsg* msg2 = new plGenRefMsg( GetKey(), plRefMsg::kOnRequest, 0, kPOAObject ); // SceneObject
-    mgr->ReadKeyNotifyMe( stream, msg2, plRefFlags::kActiveRef );
+    plGenRefMsg* msg = new plGenRefMsg(GetKey(), plRefMsg::kOnRequest, 0, kCircleTarget); // SceneObject
+    mgr->ReadKeyNotifyMe(stream, msg, plRefFlags::kActiveRef);
+    plGenRefMsg* msg2 = new plGenRefMsg(GetKey(), plRefMsg::kOnRequest, 0, kPOAObject); // SceneObject
+    mgr->ReadKeyNotifyMe(stream, msg2, plRefFlags::kActiveRef);
     fCirPerSec = stream->ReadLEScalar();
     plgDispatch::Dispatch()->RegisterForExactType(plEvalMsg::Index(), GetKey());
 }
@@ -1830,7 +1830,7 @@ bool plCameraBrain1_Circle::MsgReceive(plMessage* msg)
     {
         if (pRefMsg->fType == kCircleTarget)
         {
-            if( pRefMsg->GetContext() & ( plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace ) )
+            if (pRefMsg->GetContext() & (plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace))
                 fCenterObject = (plSceneObject*)pRefMsg->GetRef();
             else
                 fCenterObject = nil;
@@ -1839,7 +1839,7 @@ bool plCameraBrain1_Circle::MsgReceive(plMessage* msg)
         else
         if (pRefMsg->fType == kPOAObject)
         {
-            if( pRefMsg->GetContext() & ( plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace ) )
+            if (pRefMsg->GetContext() & (plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace))
                 fPOAObj = (plSceneObject*)pRefMsg->GetRef();
             else
                 fPOAObj = nil;
@@ -1848,7 +1848,7 @@ bool plCameraBrain1_Circle::MsgReceive(plMessage* msg)
         else
         if (pRefMsg->fType == kSubject)
         {
-            if( pRefMsg->GetContext() & ( plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace ) )
+            if (pRefMsg->GetContext() & (plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace))
                 SetSubject((plSceneObject*)pRefMsg->GetRef());
             else
                 SetSubject(nil);
@@ -1874,7 +1874,7 @@ bool plCameraBrain1_Circle::MsgReceive(plMessage* msg)
             }
             if (fFlags.IsBitSet(kFollowLocalAvatar))
             {
-                plGenRefMsg* msg = new plGenRefMsg(GetKey(), plRefMsg::kOnRequest, 0, kSubject ); // SceneObject
+                plGenRefMsg* msg = new plGenRefMsg(GetKey(), plRefMsg::kOnRequest, 0, kSubject); // SceneObject
                 hsgResMgr::ResMgr()->AddViaNotify(pPMsg->fPlayer, msg, plRefFlags::kPassiveRef);
 
                 fFlags.SetBit(kCutPosOnce);

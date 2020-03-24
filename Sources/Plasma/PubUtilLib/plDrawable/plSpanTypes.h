@@ -177,7 +177,7 @@ class plSpan
         bool            IsShadowBitSet(uint32_t idx) const { return fShadowBits.IsBitSet(idx); }
         void            ClearLights() const;
 
-        void            AddLight( plLightInfo* li, float strength, float scale, bool proj ) const;
+        void            AddLight(plLightInfo* li, float strength, float scale, bool proj) const;
 
         hsTArray<plLightInfo*>& GetLightList(bool proj) const { return proj ? fProjectors : fLights; }
 
@@ -199,11 +199,11 @@ class plSpan
         int             GetNumAuxSpans() const { return fAuxSpans.GetCount(); }
         plAuxSpan*      GetAuxSpan(int i) const { return fAuxSpans[i]; }
 
-        virtual void    Read( hsStream* stream );
-        virtual void    Write( hsStream* stream );
+        virtual void    Read(hsStream* stream);
+        virtual void    Write(hsStream* stream);
 
-        virtual bool    CanMergeInto( plSpan* other );
-        virtual void    MergeInto( plSpan* other );
+        virtual bool    CanMergeInto(plSpan* other);
+        virtual void    MergeInto(plSpan* other);
         virtual void    Destroy();
 
         void            SetMinDist(float minDist) { fMinDist = minDist; }
@@ -230,11 +230,11 @@ public:
 
         plVertexSpan();
 
-        virtual void    Read( hsStream* stream );
-        virtual void    Write( hsStream* stream );
+        virtual void    Read(hsStream* stream);
+        virtual void    Write(hsStream* stream);
 
-        virtual bool    CanMergeInto( plSpan* other );
-        virtual void    MergeInto( plSpan* other );
+        virtual bool    CanMergeInto(plSpan* other);
+        virtual void    MergeInto(plSpan* other);
 };
 
 //// plIcicle Class Definition ///////////////////////////////////////////////
@@ -257,11 +257,11 @@ class plIcicle : public plVertexSpan
 
         plIcicle();
 
-        virtual void    Read( hsStream* stream );
-        virtual void    Write( hsStream* stream );
+        virtual void    Read(hsStream* stream);
+        virtual void    Write(hsStream* stream);
 
-        virtual bool    CanMergeInto( plSpan* other );
-        virtual void    MergeInto( plSpan* other );
+        virtual bool    CanMergeInto(plSpan* other);
+        virtual void    MergeInto(plSpan* other);
         virtual void    Destroy();
 };
 
@@ -285,11 +285,11 @@ class plParticleSpan : public plIcicle
 
         plParticleSpan();
 
-        virtual void    Read( hsStream* stream ) { /*plParticleSpans don't read in!*/ }
-        virtual void    Write( hsStream* stream ) { /*plParticleSpans don't write out!*/ }
+        virtual void    Read(hsStream* stream) { /*plParticleSpans don't read in!*/ }
+        virtual void    Write(hsStream* stream) { /*plParticleSpans don't write out!*/ }
 
-        virtual bool    CanMergeInto( plSpan* other );
-        virtual void    MergeInto( plSpan* other );
+        virtual bool    CanMergeInto(plSpan* other);
+        virtual void    MergeInto(plSpan* other);
         virtual void    Destroy();
 };
 

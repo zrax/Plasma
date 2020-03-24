@@ -55,8 +55,8 @@ public:
     plCollideMsg() { SetBCastFlag(plMessage::kPropagateToModifiers); }
     ~plCollideMsg() {}
 
-    CLASSNAME_REGISTER( plCollideMsg );
-    GETINTERFACE_ANY( plCollideMsg, plMessage );
+    CLASSNAME_REGISTER(plCollideMsg);
+    GETINTERFACE_ANY(plCollideMsg, plMessage);
 
     // IO
     void Read(hsStream* stream, hsResMgr* mgr)  {   plMessage::IMsgRead(stream, mgr);   }

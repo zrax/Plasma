@@ -80,10 +80,10 @@ REGISTER_CREATABLE(plNetMsgTestAndSet);
 REGISTER_CREATABLE(plNetMsgGetSharedState);
 REGISTER_CREATABLE(plNetMsgObjStateRequest);
 REGISTER_CREATABLE(plNetMsgObjectUpdateFilter);
-REGISTER_CREATABLE(plNetMsgMembersListReq );
-REGISTER_CREATABLE(plNetMsgMembersList );
+REGISTER_CREATABLE(plNetMsgMembersListReq);
+REGISTER_CREATABLE(plNetMsgMembersList);
 REGISTER_CREATABLE(plNetMsgServerToClient);
-REGISTER_CREATABLE(plNetMsgMemberUpdate );
+REGISTER_CREATABLE(plNetMsgMemberUpdate);
 REGISTER_CREATABLE(plNetMsgListenListUpdate);
 
 REGISTER_CREATABLE(plNetMsgInitialAgeStateSent);

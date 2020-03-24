@@ -61,20 +61,20 @@ struct plSpawnPointInfo
     plSpawnPointInfo(){}
     plSpawnPointInfo(const plSpawnPointInfo & other) = default;
     plSpawnPointInfo(plSpawnPointInfo&& other) = default;
-    plSpawnPointInfo( const ST::string & title, const ST::string & spawnPt )
-        : fTitle( title ), fSpawnPt( spawnPt ) {}
+    plSpawnPointInfo(const ST::string & title, const ST::string & spawnPt)
+        : fTitle(title), fSpawnPt(spawnPt) {}
     plSpawnPointInfo& operator=(const plSpawnPointInfo&) = default;
     plSpawnPointInfo& operator=(plSpawnPointInfo&&) = default;
     ST::string GetTitle() const { return fTitle; }
-    void    SetTitle( const ST::string & v ) { fTitle=v; }
+    void    SetTitle(const ST::string & v) { fTitle=v; }
     ST::string GetName() const { return fSpawnPt; }
-    void    SetName( const ST::string & v ) { fSpawnPt = v; }
+    void    SetName(const ST::string & v) { fSpawnPt = v; }
     ST::string GetCameraStack() const { return fCameraStack; }
-    void    SetCameraStack( const ST::string & v ) { fCameraStack=v; }
+    void    SetCameraStack(const ST::string & v) { fCameraStack=v; }
     void    Reset();
-    void    Read( hsStream * s );
-    void    ReadOld( hsStream * s );
-    void    Write( hsStream * s ) const;
+    void    Read(hsStream * s);
+    void    ReadOld(hsStream * s);
+    void    Write(hsStream * s) const;
     ST::string AsString() const;
 };
 typedef std::vector<plSpawnPointInfo>   plSpawnPointVec;

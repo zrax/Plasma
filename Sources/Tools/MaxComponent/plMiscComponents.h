@@ -62,11 +62,11 @@ const char* LocCompGetPage(plComponentBase* comp);
 namespace plPageInfoUtils
 {
     plFileName  GetAgeFolder();
-    int32_t     GetSeqNumFromAgeDesc( const char *ageName, const char *pageName );
-    int32_t     CombineSeqNum( int prefix, int suffix );
-    int32_t     GetCommonSeqNumFromNormal( int32_t normalSeqNumber, int whichCommonPage );
+    int32_t     GetSeqNumFromAgeDesc(const char *ageName, const char *pageName);
+    int32_t     CombineSeqNum(int prefix, int suffix);
+    int32_t     GetCommonSeqNumFromNormal(int32_t normalSeqNumber, int whichCommonPage);
 
-    plAgeDescription    *GetAgeDesc( const ST::string &ageName );
+    plAgeDescription    *GetAgeDesc(const ST::string &ageName);
 };
 
 // PageInfo component definition, here so other components can get to the static function(s)
@@ -75,10 +75,10 @@ class plPageInfoComponent : public plComponent
 protected:
     bool        fSeqNumValidated;
     bool        fItinerant;
-    static char fCurrExportedAge[ 256 ];
+    static char fCurrExportedAge[256];
 
-    void    IVerifyLatestAgeAsset( const ST::string &ageName, const plFileName &localPath, plErrorMsg *errMsg );
-    void    IUpdateSeqNumbersFromAgeFile( plErrorMsg *errMsg );
+    void    IVerifyLatestAgeAsset(const ST::string &ageName, const plFileName &localPath, plErrorMsg *errMsg);
+    void    IUpdateSeqNumbersFromAgeFile(plErrorMsg *errMsg);
     
 public:
     plPageInfoComponent();
@@ -124,9 +124,9 @@ public:
     };
 
     int         GetNumBitmaps() const;
-    plLayerTex  *GetBitmap( int idx );
-    int         AppendBitmap( plLayerTex *tex );
-    void        RemoveBitmap( int idx );
+    plLayerTex  *GetBitmap(int idx);
+    int         AppendBitmap(plLayerTex *tex);
+    void        RemoveBitmap(int idx);
     bool        GetCompress(int idx);
     void        SetCompress(int idx, bool compress);
 

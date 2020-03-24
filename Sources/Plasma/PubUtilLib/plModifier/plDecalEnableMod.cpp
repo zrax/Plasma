@@ -64,20 +64,20 @@ plDecalEnableMod::~plDecalEnableMod()
 bool plDecalEnableMod::MsgReceive(plMessage* msg)
 {
     plCollideMsg* coll = plCollideMsg::ConvertNoRef(msg);
-    if( coll )
+    if (coll)
     {
         plSceneObject* obj = plSceneObject::ConvertNoRef(coll->fOtherKey->ObjectIsLoaded());
-        if( !obj )
+        if (!obj)
             return true;
 
         const plArmatureMod* arm = (const plArmatureMod*)obj->GetModifierByType(plArmatureMod::Index());
-        if( !arm )
+        if (!arm)
             return true;
 
         plKey armKey = arm->GetKey();
 
         int i;
-        for( i = 0; i < fDecalMgrs.GetCount(); i++ )
+        for (i = 0; i < fDecalMgrs.GetCount(); i++)
         {
             plDynaDecalEnableMsg* ena = new plDynaDecalEnableMsg(fDecalMgrs[i], armKey, hsTimer::GetSysSeconds(), fWetLength, !coll->fEntering);
 
@@ -96,7 +96,7 @@ void plDecalEnableMod::Read(hsStream* stream, hsResMgr* mgr)
     int n = stream->ReadLE32();
     fDecalMgrs.SetCount(n);
     int i;
-    for( i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
         fDecalMgrs[i] = mgr->ReadKey(stream);
 
     fWetLength = stream->ReadLEScalar();
@@ -109,7 +109,7 @@ void plDecalEnableMod::Write(hsStream* stream, hsResMgr* mgr)
     stream->WriteLE32(fDecalMgrs.GetCount());
 
     int i;
-    for( i = 0; i < fDecalMgrs.GetCount(); i++ )
+    for (i = 0; i < fDecalMgrs.GetCount(); i++)
         mgr->WriteKey(stream, fDecalMgrs[i]);
 
     stream->WriteLEScalar(fWetLength);

@@ -62,29 +62,29 @@ pyGUIControlDraggable::pyGUIControlDraggable(plKey objkey) : pyGUIControl(objkey
 
 bool pyGUIControlDraggable::IsGUIControlDraggable(pyKey& gckey)
 {
-    if ( gckey.getKey() && pfGUIDraggableMod::ConvertNoRef(gckey.getKey()->ObjectIsLoaded()) )
+    if (gckey.getKey() && pfGUIDraggableMod::ConvertNoRef(gckey.getKey()->ObjectIsLoaded()))
         return true;
     return false;
 }
 
-void pyGUIControlDraggable::StopDragging( bool cancel )
+void pyGUIControlDraggable::StopDragging(bool cancel)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIDraggableMod* pcmmod = pfGUIDraggableMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pcmmod )
+        if (pcmmod)
             pcmmod->StopDragging(cancel);
     }
 }
 
 PyObject* pyGUIControlDraggable::GetLastMousePt()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIDraggableMod* pcmmod = pfGUIDraggableMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pcmmod )
+        if (pcmmod)
             return pyPoint3::New(pcmmod->GetLastMousePt());
     }
     PYTHON_RETURN_NONE;

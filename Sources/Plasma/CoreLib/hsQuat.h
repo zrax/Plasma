@@ -80,7 +80,7 @@ public:
     const float& operator[](int i) const { return (&fX)[i]; }
 
     // Unary operators
-    hsQuat operator-() const { return(hsQuat(-fX,-fY,-fZ,-fW)); }
+    hsQuat operator-() const { return (hsQuat(-fX,-fY,-fZ,-fW)); }
     hsQuat operator+() const { return *this; }
 
     // Comparison

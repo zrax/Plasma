@@ -55,7 +55,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 static const float kMinMinZ = 1.f; // totally random arbitrary number (has to be > 0).
 
-static inline void QuickNorm( hsVector3& a, float& b )
+static inline void QuickNorm(hsVector3& a, float& b)
 {
     float len = hsFastMath::InvSqrtAppr((a).MagnitudeSquared());
     a *= len;
@@ -101,7 +101,7 @@ plPointShadowMaster::~plPointShadowMaster()
 {
     fIsectPool.SetCount(fIsectPool.GetNumAlloc());
     int i;
-    for( i = 0; i < fIsectPool.GetCount(); i++ )
+    for (i = 0; i < fIsectPool.GetCount(); i++)
         delete fIsectPool[i];
 }
 
@@ -135,14 +135,14 @@ void plPointShadowMaster::IComputeWorldToLight(const hsBounds3Ext& bnd, plShadow
     float dist = fromDepth - depth.fY;
 
     static float kMinDist = 3.f;
-    if( dist < kMinDist )
+    if (dist < kMinDist)
     {
         atToFrom *= kMinDist - dist;
         from += atToFrom;
     }
 
     hsVector3 up(0,0,1.f);
-    if( CrossProd(up, (at - from)).MagnitudeSquared() < kMinMag )
+    if (CrossProd(up, (at - from)).MagnitudeSquared() < kMinMag)
     {
         up.Set(0, 1.f, 0);
     }
@@ -173,7 +173,7 @@ void plPointShadowMaster::IComputeISect(const hsBounds3Ext& bnd, plShadowSlave* 
 {
     int iIsect = fIsectPool.GetCount();
     fIsectPool.ExpandAndZero(iIsect+1);
-    if( !fIsectPool[iIsect] )
+    if (!fIsectPool[iIsect])
     {
         fIsectPool[iIsect] = new plBoundsIsect;
     }

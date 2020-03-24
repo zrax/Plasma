@@ -67,7 +67,7 @@ plProfile_CreateTimer("FollowMod", "RenderSetup", FollowMod);
 bool plFollowMod::MsgReceive(plMessage* msg)
 {
     plRenderMsg* rend = plRenderMsg::ConvertNoRef(msg);
-    if( rend )
+    if (rend)
     {
         plProfile_BeginLap(FollowMod, this->GetKey()->GetUoid().GetObjectName().c_str());
         fLeaderL2W = rend->Pipeline()->GetCameraToWorld();
@@ -77,7 +77,7 @@ bool plFollowMod::MsgReceive(plMessage* msg)
         return true;
     }
     plListenerMsg* list = plListenerMsg::ConvertNoRef(msg);
-    if( list )
+    if (list)
     {
         hsVector3 pos;
         pos.Set(list->GetPosition().fX, list->GetPosition().fY, list->GetPosition().fZ);
@@ -90,15 +90,15 @@ bool plFollowMod::MsgReceive(plMessage* msg)
     }
 
     plGenRefMsg* ref = plGenRefMsg::ConvertNoRef(msg);
-    if( ref )
+    if (ref)
     {
-        switch( ref->fType )
+        switch (ref->fType)
         {
         case kRefLeader:
 
-            if( ref->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+            if (ref->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
                 fLeader = plSceneObject::ConvertNoRef(ref->GetRef());
-            else if( ref->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+            else if (ref->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
                 fLeader = nil;
             return true;
         default:
@@ -112,12 +112,12 @@ bool plFollowMod::MsgReceive(plMessage* msg)
 
 bool plFollowMod::ICheckLeader()
 {
-    switch( fLeaderType )
+    switch (fLeaderType)
     {
     case kLocalPlayer:
         {
             plSceneObject* player = plSceneObject::ConvertNoRef(plNetClientApp::GetInstance()->GetLocalPlayer());
-            if( player )
+            if (player)
             {
                 fLeaderL2W = player->GetLocalToWorld();
                 fLeaderW2L = player->GetWorldToLocal();
@@ -128,7 +128,7 @@ bool plFollowMod::ICheckLeader()
         }
         break;
     case kObject:
-        if( fLeader )
+        if (fLeader)
         {
             fLeaderL2W = fLeader->GetLocalToWorld();
             fLeaderW2L = fLeader->GetWorldToLocal();
@@ -147,7 +147,7 @@ bool plFollowMod::ICheckLeader()
 
 void plFollowMod::IMoveTarget()
 {
-    if( fMode == kFullTransform )
+    if (fMode == kFullTransform)
     {
         GetTarget()->SetTransform(fLeaderL2W, fLeaderW2L);
         return;
@@ -156,12 +156,12 @@ void plFollowMod::IMoveTarget()
     hsMatrix44 l2w = GetTarget()->GetLocalToWorld();
     hsMatrix44 w2l = GetTarget()->GetWorldToLocal();
 
-    if( fMode & kRotate )
+    if (fMode & kRotate)
     {
         int i, j;
-        for( i = 0; i < 3; i++ )
+        for (i = 0; i < 3; i++)
         {
-            for( j = 0; j < 3; j++ )
+            for (j = 0; j < 3; j++)
             {
                 l2w.fMap[i][j] = fLeaderL2W.fMap[i][j];
                 w2l.fMap[i][j] = fLeaderW2L.fMap[i][j];
@@ -169,7 +169,7 @@ void plFollowMod::IMoveTarget()
         }
     }
 
-    if( fMode & kPosition )
+    if (fMode & kPosition)
     {
         hsMatrix44 invMove;
         invMove.Reset();
@@ -181,19 +181,19 @@ void plFollowMod::IMoveTarget()
 
         // l2w = newPosMat * -oldPosMat * l2w
         // so w2l = w2l * inv-oldPosMat * invNewPosMat
-        if( fMode & kPositionX )
+        if (fMode & kPositionX)
         {
             l2w.fMap[0][3] = newPos.fX;
             invMove.fMap[0][3] = oldPos.fX - newPos.fX;
         }
 
-        if( fMode & kPositionY )
+        if (fMode & kPositionY)
         {
             l2w.fMap[1][3] = newPos.fY;
             invMove.fMap[1][3] = oldPos.fY - newPos.fY;
         }
 
-        if( fMode & kPositionZ )
+        if (fMode & kPositionZ)
         {
             l2w.fMap[2][3] = newPos.fZ;
             invMove.fMap[2][3] = oldPos.fZ - newPos.fZ;
@@ -220,7 +220,7 @@ void plFollowMod::IMoveTarget()
 
 bool plFollowMod::IEval(double secs, float del, uint32_t dirty)
 {
-    if( ICheckLeader() )
+    if (ICheckLeader())
         IMoveTarget();
     return true;
 }
@@ -228,7 +228,7 @@ bool plFollowMod::IEval(double secs, float del, uint32_t dirty)
 void plFollowMod::SetTarget(plSceneObject* so)
 {
     plSingleModifier::SetTarget(so);
-    if( fTarget )
+    if (fTarget)
         Activate();
     else
         Deactivate();
@@ -236,7 +236,7 @@ void plFollowMod::SetTarget(plSceneObject* so)
 
 void plFollowMod::Activate()
 {
-    switch( fLeaderType )
+    switch (fLeaderType)
     {
     case kLocalPlayer:
         break;
@@ -249,20 +249,20 @@ void plFollowMod::Activate()
         plgDispatch::Dispatch()->RegisterForExactType(plListenerMsg::Index(), GetKey());
         break;
     }
-    if( fTarget )
+    if (fTarget)
         plgDispatch::Dispatch()->RegisterForExactType(plEvalMsg::Index(), GetKey());
 }
 
 void plFollowMod::Deactivate()
 {
-    switch( fLeaderType )
+    switch (fLeaderType)
     {
     case kLocalPlayer:
-        if( fTarget )
+        if (fTarget)
             plgDispatch::Dispatch()->UnRegisterForExactType(plEvalMsg::Index(), GetKey());
         break;
     case kObject:
-        if( fTarget )
+        if (fTarget)
             plgDispatch::Dispatch()->UnRegisterForExactType(plEvalMsg::Index(), GetKey());
         break;
     case kCamera:

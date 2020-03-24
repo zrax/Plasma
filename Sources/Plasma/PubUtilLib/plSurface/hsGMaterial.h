@@ -137,8 +137,8 @@ public:
     virtual void Reset();
     virtual void Init();
 
-    CLASSNAME_REGISTER( hsGMaterial );
-    GETINTERFACE_ANY( hsGMaterial, hsKeyedObject );
+    CLASSNAME_REGISTER(hsGMaterial);
+    GETINTERFACE_ANY(hsGMaterial, hsKeyedObject);
     
     virtual bool MsgReceive(plMessage* msg);
 };

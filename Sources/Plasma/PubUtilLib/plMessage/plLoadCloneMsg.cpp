@@ -70,12 +70,12 @@ plLoadCloneMsg::plLoadCloneMsg(const plUoid &uoidToClone, const plKey &requestor
     SetBCastFlag(plMessage::kNetPropagate);
     
     hsKeyedObject * koRequestor = fRequestorKey->ObjectIsLoaded();
-    if(koRequestor)
+    if (koRequestor)
     {
         plNetClientApp *app = plNetClientApp::GetInstance();
         plKey originalKey = hsgResMgr::ResMgr()->FindKey(uoidToClone);
 
-        if(originalKey)
+        if (originalKey)
         {
             // all is well. finish it off.
             fCloneKey = hsgResMgr::ResMgr()->CloneKey(originalKey);

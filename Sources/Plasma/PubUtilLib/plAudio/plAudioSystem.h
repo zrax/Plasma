@@ -82,8 +82,8 @@ public:
     plAudioSystem();
     ~plAudioSystem();
 
-    CLASSNAME_REGISTER( plAudioSystem );
-    GETINTERFACE_ANY( plAudioSystem, hsKeyedObject );
+    CLASSNAME_REGISTER(plAudioSystem);
+    GETINTERFACE_ANY(plAudioSystem, hsKeyedObject);
 
     enum
     {
@@ -94,7 +94,7 @@ public:
     bool    Init();
     void    Shutdown();
 
-    void    SetActive( bool b );
+    void    SetActive(bool b);
     
     void SetListenerPos(const hsPoint3 pos);
     void SetListenerVelocity(const hsVector3 vel);
@@ -160,9 +160,9 @@ protected:
     unsigned int    fMaxNumSources;     // max openal sources
     double          fLastUpdateTimeMs;
 
-    void    RegisterSoftSound( const plKey soundKey );
-    void    UnregisterSoftSound( const plKey soundKey );
-    void    IUpdateSoftSounds( const hsPoint3 &newPosition );
+    void    RegisterSoftSound(const plKey soundKey);
+    void    UnregisterSoftSound(const plKey soundKey);
+    void    IUpdateSoftSounds(const hsPoint3 &newPosition);
     uint32_t  IScaleVolume(float volume);
     void    IEnumerateDevices();
 
@@ -201,8 +201,8 @@ public:
     static bool Hardware() { return fUseHardware; }
     static void SetUseHardware(bool b);
     static void SetActive(bool b);
-    static void SetMuted( bool b );
-    static void EnableEAX( bool b );
+    static void SetMuted(bool b);
+    static void EnableEAX(bool b);
     static bool Active() { return fInit; }
     static void Shutdown();
     static void Activate(bool b);
@@ -213,36 +213,36 @@ public:
 
     static void NextDebugSound();
 
-    static void     SetChannelVolume( ASChannel chan, float vol );
-    static float GetChannelVolume( ASChannel chan );
+    static void     SetChannelVolume(ASChannel chan, float vol);
+    static float GetChannelVolume(ASChannel chan);
 
-    static void     Set2D3DBias( float bias );
+    static void     Set2D3DBias(float bias);
     static float Get2D3Dbias();
 
-    static void     SetGlobalFadeVolume( float vol );
+    static void     SetGlobalFadeVolume(float vol);
     static float GetGlobalFadeVolume() { return fGlobalFadeVolume; }
 
-    static void     SetDebugFlag( uint32_t flag, bool set = true ) { if( set ) fDebugFlags |= flag; else fDebugFlags &= ~flag; }
-    static bool     IsDebugFlagSet( uint32_t flag ) { return fDebugFlags & flag; }
+    static void     SetDebugFlag(uint32_t flag, bool set = true) { if (set) fDebugFlags |= flag; else fDebugFlags &= ~flag; }
+    static bool     IsDebugFlagSet(uint32_t flag) { return fDebugFlags & flag; }
     static void     ClearDebugFlags() { fDebugFlags = 0; }
 
     static float GetStreamingBufferSize() { return fStreamingBufferSize; }
-    static void     SetStreamingBufferSize( float size ) { fStreamingBufferSize = size; }
+    static void     SetStreamingBufferSize(float size) { fStreamingBufferSize = size; }
 
     static uint8_t    GetPriorityCutoff() { return fPriorityCutoff; }
-    static void     SetPriorityCutoff( uint8_t cut ) { fPriorityCutoff = cut;  if(fSys) fSys->SetMaxNumberOfActiveSounds(); }
+    static void     SetPriorityCutoff(uint8_t cut) { fPriorityCutoff = cut;  if (fSys) fSys->SetMaxNumberOfActiveSounds(); }
 
     static bool     AreExtendedLogsEnabled() { return fEnableExtendedLogs; }
-    static void     EnableExtendedLogs( bool e ) { fEnableExtendedLogs = e; }
+    static void     EnableExtendedLogs(bool e) { fEnableExtendedLogs = e; }
 
     static float GetStreamFromRAMCutoff() { return fStreamFromRAMCutoff; }
-    static void     SetStreamFromRAMCutoff( float c ) { fStreamFromRAMCutoff = c; }
+    static void     SetStreamFromRAMCutoff(float c) { fStreamFromRAMCutoff = c; }
 
     static void SetListenerPos(const hsPoint3 pos);
     static void SetListenerVelocity(const hsVector3 vel);
     static void SetListenerOrientation(const hsVector3 view, const hsVector3 up);
 
-    static void ShowNumBuffers(bool b) { if(fSys) fSys->fDisplayNumBuffers = b; }
+    static void ShowNumBuffers(bool b) { if (fSys) fSys->fDisplayNumBuffers = b; }
 
     static void SetAudioMode(AudioMode mode);
     static int GetAudioMode();
@@ -253,8 +253,8 @@ public:
     static int GetNumAudioDevices();
     static const char *GetAudioDeviceName(int index);
     static bool SupportsEAX(const char *deviceName);
-    static void RegisterSoftSound( const plKey soundKey );
-    static void UnregisterSoftSound( const plKey soundKey );
+    static void RegisterSoftSound(const plKey soundKey);
+    static void UnregisterSoftSound(const plKey soundKey);
 
     static bool IsRestarting() {return fRestarting;}
 
@@ -267,7 +267,7 @@ private:
     static bool                 fMuted;
     static bool                 fUseHardware;
     static bool                 fDelayedActivate;
-    static float             fChannelVolumes[ kNumChannels ];
+    static float             fChannelVolumes[kNumChannels];
     static float             fGlobalFadeVolume;
     static uint32_t               fDebugFlags;
     static bool                 fEnableEAX;

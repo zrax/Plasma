@@ -168,7 +168,7 @@ bool PythonInterface::DumpObject(PyObject* pyobj, char** pickle, int32_t* size)
     s = PyMarshal_WriteObjectToString(pyobj, Py_MARSHAL_VERSION);
 #endif
     // did it actually do it?
-    if ( s != NULL )
+    if (s != NULL)
     {
         // yes, then get the size and the string address
         *size = PyString_Size(s);
@@ -262,7 +262,7 @@ bool PythonInterface::RunPYC(PyObject* code, PyObject* module)
 {
     PyObject *d, *v;
     // make sure that we're given a good module... or at least one with an address
-    if ( !module )
+    if (!module)
     {
         // if no module was given then use just use the main module
         module = PyImport_AddModule("__main__");

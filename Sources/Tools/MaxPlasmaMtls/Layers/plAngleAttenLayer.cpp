@@ -324,7 +324,7 @@ void plAngleAttenLayer::ICacheCosines()
     fCosTransp0 = cosf(hsDegreesToRadians(fParmsPB->GetFloat(kTranspAngle0)));
     fCosOpaque0 = cosf(hsDegreesToRadians(fParmsPB->GetFloat(kOpaqueAngle0)));
 
-    if( fParmsPB->GetInt(kDoubleFade) )
+    if (fParmsPB->GetInt(kDoubleFade))
     {
         fCosTransp1 = cosf(hsDegreesToRadians(fParmsPB->GetFloat(kTranspAngle1)));
         fCosOpaque1 = cosf(hsDegreesToRadians(fParmsPB->GetFloat(kOpaqueAngle1)));
@@ -371,14 +371,14 @@ IOResult plAngleAttenLayer::Load(ILoad *iload)
 
 AColor plAngleAttenLayer::EvalColor(ShadeContext& sc)
 {
-    if( !sc.doMaps )
+    if (!sc.doMaps)
         return AColor(0.0f, 0.0f, 0.0f, 1.0f);
 
     AColor color;
     if (sc.GetCache(this, color))
         return color;
 
-    if( !fCosinesCached )
+    if (!fCosinesCached)
         ICacheCosines();
 
     if (gbufID)
@@ -388,39 +388,39 @@ AColor plAngleAttenLayer::EvalColor(ShadeContext& sc)
 
     Point3 normal = sc.Normal();
 
-    if( fParmsPB->GetInt(kReflect) )
+    if (fParmsPB->GetInt(kReflect))
     {
         normal = sc.ReflectVector();
     }
     float dotZ = normal.z;
 
     float alpha = 1.f;
-    if( fCosTransp0 != fCosOpaque0 )
+    if (fCosTransp0 != fCosOpaque0)
     {
         float a = (dotZ - fCosTransp0) / (fCosOpaque0 - fCosTransp0);
-        if( a < 0 )
+        if (a < 0)
             a = 0;
-        else if( a > 1.f )
+        else if (a > 1.f)
             a = 1.f;
         alpha *= a;
     }
-    if( fParmsPB->GetInt(kDoubleFade) && (fCosTransp1 != fCosOpaque1) )
+    if (fParmsPB->GetInt(kDoubleFade) && (fCosTransp1 != fCosOpaque1))
     {
         float a = (dotZ - fCosTransp1) / (fCosOpaque1 - fCosTransp1);
-        if( a < 0 )
+        if (a < 0)
             a = 0;
-        else if( a > 1.f )
+        else if (a > 1.f)
             a = 1.f;
-        if( fCosTransp0 < fCosTransp1 )
+        if (fCosTransp0 < fCosTransp1)
         {
-            if( fCosTransp0 > fCosOpaque0 )
+            if (fCosTransp0 > fCosOpaque0)
                 alpha += a;
             else
                 alpha *= a;
         }
         else
         {
-            if( fCosTransp0 < fCosOpaque0 )
+            if (fCosTransp0 < fCosOpaque0)
                 alpha += a;
             else
                 alpha *= a;
@@ -463,7 +463,7 @@ DWORD plAngleAttenLayer::GetActiveTexHandle(TimeValue t, TexHandleMaker& thmaker
     return 0;
 }
 
-const char *plAngleAttenLayer::GetTextureName( int which )
+const char *plAngleAttenLayer::GetTextureName(int which)
 {
     return NULL;
 }
@@ -484,20 +484,20 @@ Box3 plAngleAttenLayer::GetFade()
 
     pmin.x  = fParmsPB->GetFloat(kTranspAngle0);
     pmin.y  = fParmsPB->GetFloat(kOpaqueAngle0);
-    if( pmin.x < pmin.y )
+    if (pmin.x < pmin.y)
         pmin.z = -1.f;
-    else if( pmin.x > pmin.y )
+    else if (pmin.x > pmin.y)
         pmin.z = 1.f;
     else
         pmin.z = 0;
 
-    if( fParmsPB->GetInt(kDoubleFade) )
+    if (fParmsPB->GetInt(kDoubleFade))
     {
         pmax.x  = fParmsPB->GetFloat(kTranspAngle1);
         pmax.y  = fParmsPB->GetFloat(kOpaqueAngle1);
-        if( pmax.x < pmax.y )
+        if (pmax.x < pmax.y)
             pmax.z = -1.f;
-        else if( pmax.x > pmax.y )
+        else if (pmax.x > pmax.y)
             pmax.z = 1.f;
         else
             pmax.z = 0;

@@ -51,7 +51,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #if defined(HS_BUILD_FOR_WIN32)
 
-#elif defined( HS_BUILD_FOR_UNIX )
+#elif defined(HS_BUILD_FOR_UNIX)
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>

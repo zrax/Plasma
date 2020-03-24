@@ -51,11 +51,11 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 namespace plVault {
 #ifdef CLIENT
 
-const char * NodeTypeStr( int type, bool pretty )
+const char * NodeTypeStr(int type, bool pretty)
 {
     if (!pretty)
     {
-        switch ( type )
+        switch (type)
         {
         case kNodeType_VNodeMgrPlayer:  return "PLR";
         case kNodeType_VNodeMgrAge:     return "AGE";
@@ -76,7 +76,7 @@ const char * NodeTypeStr( int type, bool pretty )
     }
     else
     {
-        switch ( type )
+        switch (type)
         {
         case kNodeType_VNodeMgrPlayer:  return "Player";
         case kNodeType_VNodeMgrAge:     return "Age";
@@ -97,9 +97,9 @@ const char * NodeTypeStr( int type, bool pretty )
     }
 }
 
-const char * StandardNodeStr( int type )
+const char * StandardNodeStr(int type)
 {
-    switch ( type )
+    switch (type)
     {
     case kUserDefinedNode:      return "Generic";
     case kInboxFolder:          return "InboxFolder";

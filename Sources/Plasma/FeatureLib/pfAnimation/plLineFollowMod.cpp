@@ -82,7 +82,7 @@ plLineFollowMod::~plLineFollowMod()
 void plLineFollowMod::SetSpeedClamp(float fps)
 {
     fSpeedClamp = fps;
-    if( fSpeedClamp > 0 )
+    if (fSpeedClamp > 0)
     {
         fFollowFlags |= kSpeedClamp;
     }
@@ -96,7 +96,7 @@ void plLineFollowMod::SetSpeedClamp(float fps)
 void plLineFollowMod::SetOffsetFeet(float f)
 {
     fOffset = f;
-    if( fOffset != 0 )
+    if (fOffset != 0)
     {
         fFollowFlags &= ~kOffsetAng;
         fFollowFlags |= kOffsetFeet;
@@ -109,7 +109,7 @@ void plLineFollowMod::SetOffsetFeet(float f)
 
 void plLineFollowMod::SetForceToLine(bool on)
 {
-    if( on )
+    if (on)
         fFollowFlags |= kForceToLine;
     else
         fFollowFlags &= ~kForceToLine;
@@ -118,7 +118,7 @@ void plLineFollowMod::SetForceToLine(bool on)
 void plLineFollowMod::SetOffsetDegrees(float f)
 {
     fOffset = hsDegreesToRadians(f);
-    if( fOffset != 0 )
+    if (fOffset != 0)
     {
         fFollowFlags &= ~kOffsetFeet;
         fFollowFlags |= kOffsetAng;
@@ -133,7 +133,7 @@ void plLineFollowMod::SetOffsetDegrees(float f)
 void plLineFollowMod::SetOffsetClamp(float f)
 {
     fOffsetClamp = f;
-    if( fOffsetClamp > 0 )
+    if (fOffsetClamp > 0)
     {
         fFollowFlags |= kOffsetClamp;
     }
@@ -160,7 +160,7 @@ void plLineFollowMod::Read(hsStream* stream, hsResMgr* mgr)
     mgr->ReadKeyNotifyMe(stream, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, 0, kRefObject), plRefFlags::kPassiveRef);
 
     int n = stream->ReadLE32();
-    while(n--)
+    while (n--)
     {
         mgr->ReadKeyNotifyMe(stream, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, 0, kRefStereizer), plRefFlags::kPassiveRef);
     }
@@ -170,19 +170,19 @@ void plLineFollowMod::Read(hsStream* stream, hsResMgr* mgr)
 
     fFollowFlags = (uint16_t)((f >> 16) & 0xffff);
 
-    if( fFollowFlags & kOffset )
+    if (fFollowFlags & kOffset)
     {
         fOffset = stream->ReadLEScalar();
     }
-    if( fFollowFlags & kOffsetAng )
+    if (fFollowFlags & kOffsetAng)
     {
         fTanOffset = tanf(fOffset);
     }
-    if( fFollowFlags & kOffsetClamp )
+    if (fFollowFlags & kOffsetClamp)
     {
         fOffsetClamp = stream->ReadLEScalar();
     }
-    if( fFollowFlags & kSpeedClamp )
+    if (fFollowFlags & kSpeedClamp)
     {
         fSpeedClamp = stream->ReadLEScalar();
     }
@@ -200,17 +200,17 @@ void plLineFollowMod::Write(hsStream* stream, hsResMgr* mgr)
 
     stream->WriteLE32(fStereizers.GetCount());
     int i;
-    for( i = 0; i < fStereizers.GetCount(); i++ )
+    for (i = 0; i < fStereizers.GetCount(); i++)
         mgr->WriteKey(stream, fStereizers[i]->GetKey());
 
     uint32_t f = uint32_t(fFollowMode) | (uint32_t(fFollowFlags) << 16);
     stream->WriteLE32(f);
 
-    if( fFollowFlags & kOffset )
+    if (fFollowFlags & kOffset)
         stream->WriteLEScalar(fOffset);
-    if( fFollowFlags & kOffsetClamp )
+    if (fFollowFlags & kOffsetClamp)
         stream->WriteLEScalar(fOffsetClamp);
-    if( fFollowFlags & kSpeedClamp )
+    if (fFollowFlags & kSpeedClamp)
         stream->WriteLEScalar(fSpeedClamp);
 }
 
@@ -221,41 +221,41 @@ plProfile_CreateTimer("LineFollow", "RenderSetup", LineFollow);
 bool plLineFollowMod::MsgReceive(plMessage* msg)
 {
     plGenRefMsg* refMsg = plGenRefMsg::ConvertNoRef(msg);
-    if( refMsg )
+    if (refMsg)
     {
-        if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+        if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
         {
             plSceneObject* obj = plSceneObject::ConvertNoRef(refMsg->GetRef());
-            if( kRefParent == refMsg->fType )
+            if (kRefParent == refMsg->fType)
                 fPathParent = obj;
-            else if( kRefObject == refMsg->fType )
+            else if (kRefObject == refMsg->fType)
                 fRefObj = obj;
-            else if( kRefStereizer == refMsg->fType )
+            else if (kRefStereizer == refMsg->fType)
             {
                 plStereizer* ster = plStereizer::ConvertNoRef(refMsg->GetRef());
                 int idx = fStereizers.Find(ster);
-                if( idx == fStereizers.kMissingIndex )
+                if (idx == fStereizers.kMissingIndex)
                     fStereizers.Append(ster);
             }
         }
-        else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+        else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
         {
-            if( kRefParent == refMsg->fType )
+            if (kRefParent == refMsg->fType)
                 fPathParent = nil;
-            else if( kRefObject == refMsg->fType )
+            else if (kRefObject == refMsg->fType)
                 fRefObj = nil;
-            else if( kRefStereizer == refMsg->fType )
+            else if (kRefStereizer == refMsg->fType)
             {
                 plStereizer* ster = (plStereizer*)(refMsg->GetRef());
                 int idx = fStereizers.Find(ster);
-                if( idx != fStereizers.kMissingIndex )
+                if (idx != fStereizers.kMissingIndex)
                     fStereizers.Remove(idx);
             }
         }
         return true;
     }
     plRenderMsg* rend = plRenderMsg::ConvertNoRef(msg);
-    if( rend )
+    if (rend)
     {
         plProfile_BeginLap(LineFollow, this->GetKey()->GetUoid().GetObjectName().c_str());
         hsPoint3 oldPos = fSearchPos;
@@ -265,7 +265,7 @@ bool plLineFollowMod::MsgReceive(plMessage* msg)
         return true;
     }
     plListenerMsg* list = plListenerMsg::ConvertNoRef(msg);
-    if( list )
+    if (list)
     {
         hsPoint3 oldPos = fSearchPos;
         fSearchPos = list->GetPosition();
@@ -298,7 +298,7 @@ void plLineFollowMod::SetFollowMode(FollowMode f)
 
 void plLineFollowMod::IUnRegister()
 {
-    switch( fFollowMode )
+    switch (fFollowMode)
     {
     case kFollowObject:
         break;
@@ -317,7 +317,7 @@ void plLineFollowMod::IUnRegister()
 
 void plLineFollowMod::IRegister()
 {
-    switch( fFollowMode )
+    switch (fFollowMode)
     {
     case kFollowObject:
         break;
@@ -339,22 +339,22 @@ void plLineFollowMod::IRegister()
 
 bool plLineFollowMod::IEval(double secs, float del, uint32_t dirty)
 {
-    if( !fPath )
+    if (!fPath)
         return false;
 
     ISetPathTransform();
 
-    if( !IGetSearchPos() )
+    if (!IGetSearchPos())
         return false;
 
     hsMatrix44 tgtXfm;
     IGetTargetTransform(fSearchPos, tgtXfm);
 
-    if( fFollowFlags & kOffset )
+    if (fFollowFlags & kOffset)
         IOffsetTargetTransform(tgtXfm);
 
     int i;
-    for( i = 0; i < GetNumTargets(); i++ )
+    for (i = 0; i < GetNumTargets(); i++)
     {
         ISetTargetTransform(i, tgtXfm);
     }
@@ -372,26 +372,26 @@ bool plLineFollowMod::IOffsetTargetTransform(hsMatrix44& tgtXfm)
     hsVector3 out;
     out.Set(-tgt2src.fY, tgt2src.fX, 0); // (0,0,1) X (tgt2src)
 
-    if( fFollowFlags & kOffsetAng )
+    if (fFollowFlags & kOffsetAng)
     {
         float del = t2sLen * fTanOffset;
-        if( fFollowFlags & kOffsetClamp )
+        if (fFollowFlags & kOffsetClamp)
         {
-            if( del > fOffsetClamp )
+            if (del > fOffsetClamp)
                 del = fOffsetClamp;
-            else if( del < -fOffsetClamp )
+            else if (del < -fOffsetClamp)
                 del = -fOffsetClamp;
         }
         out *= del;
     }
-    else if( fFollowFlags & kOffsetFeet )
+    else if (fFollowFlags & kOffsetFeet)
     {
         out *= fOffset;
     }
     else
         out.Set(0,0,0);
 
-    if( fFollowFlags & kForceToLine )
+    if (fFollowFlags & kForceToLine)
     {
         hsPoint3 newSearch = tgtPos;
         newSearch += out;
@@ -410,7 +410,7 @@ bool plLineFollowMod::IOffsetTargetTransform(hsMatrix44& tgtXfm)
 bool plLineFollowMod::IGetTargetTransform(hsPoint3& searchPos, hsMatrix44& tgtXfm)
 {
     float t = fPath->GetExtremePoint(searchPos);
-    if( fFollowFlags & kFullMatrix )
+    if (fFollowFlags & kFullMatrix)
     {
         fPath->SetCurTime(t, plAnimPath::kNone);
         fPath->GetMatrix44(&tgtXfm);
@@ -428,7 +428,7 @@ bool plLineFollowMod::IGetTargetTransform(hsPoint3& searchPos, hsMatrix44& tgtXf
 
 void plLineFollowMod::ISetPathTransform()
 {
-    if( fPathParent && fPathParent->GetCoordinateInterface() )
+    if (fPathParent && fPathParent->GetCoordinateInterface())
     {
         hsMatrix44 l2w = fPathParent->GetCoordinateInterface()->GetLocalToWorld();
         hsMatrix44 w2l = fPathParent->GetCoordinateInterface()->GetWorldToLocal();
@@ -447,7 +447,7 @@ void plLineFollowMod::ICheckForPop(const hsPoint3& oldPos, const hsPoint3& newPo
         speedSq = del.MagnitudeSquared() / elapsed;
 
     const float kMaxSpeedSq = 30.f * 30.f; // (feet per sec)^2
-    if( speedSq > kMaxSpeedSq )
+    if (speedSq > kMaxSpeedSq)
         fFollowFlags |= kSearchPosPop;
     else
         fFollowFlags &= ~kSearchPosPop;
@@ -456,18 +456,18 @@ void plLineFollowMod::ICheckForPop(const hsPoint3& oldPos, const hsPoint3& newPo
 bool plLineFollowMod::IGetSearchPos()
 {
     hsPoint3 oldPos = fSearchPos;
-    if( kFollowObject == fFollowMode )
+    if (kFollowObject == fFollowMode)
     {
-        if( !fRefObj )
+        if (!fRefObj)
             return false;
 
-        if( fRefObj->GetCoordinateInterface() )
+        if (fRefObj->GetCoordinateInterface())
         {
             fSearchPos = fRefObj->GetCoordinateInterface()->GetWorldPos();
             ICheckForPop(oldPos, fSearchPos);
             return true;
         }
-        else if( fRefObj->GetDrawInterface() )
+        else if (fRefObj->GetDrawInterface())
         {
             fSearchPos = fRefObj->GetDrawInterface()->GetWorldBounds().GetCenter();
             ICheckForPop(oldPos, fSearchPos);
@@ -480,13 +480,13 @@ bool plLineFollowMod::IGetSearchPos()
     {
         if (!fRefObj)
             return false;
-        if( fRefObj->GetCoordinateInterface() )
+        if (fRefObj->GetCoordinateInterface())
         {
             fSearchPos = fRefObj->GetCoordinateInterface()->GetWorldPos();
             ICheckForPop(oldPos, fSearchPos);
             return true;
         }
-        else if( fRefObj->GetDrawInterface() )
+        else if (fRefObj->GetDrawInterface())
         {
             fSearchPos = fRefObj->GetDrawInterface()->GetWorldBounds().GetCenter();
             ICheckForPop(oldPos, fSearchPos);
@@ -501,9 +501,9 @@ hsMatrix44 plLineFollowMod::IInterpMatrices(const hsMatrix44& m0, const hsMatrix
 {
     hsMatrix44 retVal;
     int i, j;
-    for( i = 0; i < 3; i++ )
+    for (i = 0; i < 3; i++)
     {
-        for( j = 0; j < 4; j++ )
+        for (j = 0; j < 4; j++)
         {
             retVal.fMap[i][j] = m0.fMap[i][j] * (1.f - parm) + m1.fMap[i][j] * parm;
         }
@@ -517,7 +517,7 @@ hsMatrix44 plLineFollowMod::IInterpMatrices(const hsMatrix44& m0, const hsMatrix
 hsMatrix44 plLineFollowMod::ISpeedClamp(plCoordinateInterface* ci, const hsMatrix44& unclTgtXfm)
 {
     // If our search position has popped, or delsysseconds is zero, just return as is.
-    if( (fFollowFlags & kSearchPosPop) || !(hsTimer::GetDelSysSeconds() > 0) )
+    if ((fFollowFlags & kSearchPosPop) || !(hsTimer::GetDelSysSeconds() > 0))
         return unclTgtXfm;
 
     const hsMatrix44 currL2W = ci->GetLocalToWorld();
@@ -529,7 +529,7 @@ hsMatrix44 plLineFollowMod::ISpeedClamp(plCoordinateInterface* ci, const hsMatri
     if (elapsed > 0.f)
         speed = del.Magnitude() / elapsed;
 
-    if( speed > fSpeedClamp )
+    if (speed > fSpeedClamp)
     {
         float parm = fSpeedClamp / speed;
 
@@ -544,10 +544,10 @@ hsMatrix44 plLineFollowMod::ISpeedClamp(plCoordinateInterface* ci, const hsMatri
 void plLineFollowMod::ISetTargetTransform(int iTarg, const hsMatrix44& unclTgtXfm)
 {
     plCoordinateInterface* ci = IGetTargetCoordinateInterface(iTarg);
-    if( ci )
+    if (ci)
     {
         hsMatrix44 tgtXfm = fFollowFlags & kSpeedClamp ? ISpeedClamp(ci, unclTgtXfm) : unclTgtXfm;
-        if( fFollowFlags & kFullMatrix )
+        if (fFollowFlags & kFullMatrix)
         {
             // This branch currently never gets taken. If it ever does,
             // we should probably optimize out this GetInverse() (depending
@@ -580,9 +580,9 @@ void plLineFollowMod::ISetTargetTransform(int iTarg, const hsMatrix44& unclTgtXf
         }
         hsPoint3 newPos = tgtXfm.GetTranslate();
         int i;
-        for( i = 0; i < fStereizers.GetCount(); i++ )
+        for (i = 0; i < fStereizers.GetCount(); i++)
         {
-            if( fStereizers[i] )
+            if (fStereizers[i])
             {
                 fStereizers[i]->SetWorldInitPos(newPos);
                 fStereizers[i]->Stereize();
@@ -594,9 +594,9 @@ void plLineFollowMod::ISetTargetTransform(int iTarg, const hsMatrix44& unclTgtXf
 void plLineFollowMod::ISetupStereizers(const plListenerMsg* listMsg)
 {
     int i;
-    for( i = 0; i < fStereizers.GetCount(); i++ )
+    for (i = 0; i < fStereizers.GetCount(); i++)
     {
-        if( fStereizers[i] )
+        if (fStereizers[i])
             fStereizers[i]->SetFromListenerMsg(listMsg);
     }
 }
@@ -605,7 +605,7 @@ void plLineFollowMod::AddTarget(plSceneObject* so)
 {
     plMultiModifier::AddTarget(so);
 
-    if( so )
+    if (so)
         plgDispatch::Dispatch()->RegisterForExactType(plEvalMsg::Index(), GetKey());
 }
 

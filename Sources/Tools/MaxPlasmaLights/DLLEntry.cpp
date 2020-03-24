@@ -53,7 +53,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plRTProjDirLightClassDesc.h"
 #include "plSurface/plLayerInterface.h"
 
-REGISTER_NONCREATABLE( plLayerInterface );
+REGISTER_NONCREATABLE(plLayerInterface);
 
 
 HINSTANCE hInstance;

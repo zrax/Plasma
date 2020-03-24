@@ -69,31 +69,31 @@ void plListenerMsg::Write(hsStream* s, hsResMgr* mgr)
 }
 
 
-plSetListenerMsg::plSetListenerMsg( uint8_t type, const plKey &srcKey, bool binding ) : plMessage( nil, nil, nil )
+plSetListenerMsg::plSetListenerMsg(uint8_t type, const plKey &srcKey, bool binding) : plMessage(nil, nil, nil)
 {
-    plUoid uoid( kListenerMod_KEY );
-    plKey pLKey = hsgResMgr::ResMgr()->FindKey( uoid );
-    AddReceiver( pLKey );
-    Set( srcKey, type, binding );
+    plUoid uoid(kListenerMod_KEY);
+    plKey pLKey = hsgResMgr::ResMgr()->FindKey(uoid);
+    AddReceiver(pLKey);
+    Set(srcKey, type, binding);
 }
 
-void plSetListenerMsg::Read( hsStream *s, hsResMgr *mgr )
+void plSetListenerMsg::Read(hsStream *s, hsResMgr *mgr)
 {
     plMessage::IMsgRead(s, mgr);
     fType = s->ReadByte();
-    fSrcKey = mgr->ReadKey( s );
+    fSrcKey = mgr->ReadKey(s);
     fBinding = s->ReadBool();
 }
 
-void plSetListenerMsg::Write( hsStream *s, hsResMgr *mgr )
+void plSetListenerMsg::Write(hsStream *s, hsResMgr *mgr)
 {
     plMessage::IMsgWrite(s, mgr);
-    s->WriteByte( fType );
-    mgr->WriteKey( s, fSrcKey );
-    s->WriteBool( fBinding );
+    s->WriteByte(fType);
+    mgr->WriteKey(s, fSrcKey);
+    s->WriteBool(fBinding);
 }
 
-void plSetListenerMsg::Set( const plKey &key, uint8_t type, bool binding )
+void plSetListenerMsg::Set(const plKey &key, uint8_t type, bool binding)
 {
     fSrcKey = key;
     fType = (uint8_t)type;

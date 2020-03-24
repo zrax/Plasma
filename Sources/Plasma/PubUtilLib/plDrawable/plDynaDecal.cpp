@@ -48,25 +48,25 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 bool plDynaSplot::Age(double t, float ramp, float decay, float life)
 {
     float age = float(t - fBirth);
-    if( age >= life )
+    if (age >= life)
         return true;
 
     int n = fNumVerts;
-    if( !n )
+    if (!n)
         return true;
 
     float atten = fInitAtten;
-    if( age < ramp )
+    if (age < ramp)
     {
         atten *= age / ramp;
         fFlags |= kFresh;
     }
-    else if( age > decay )
+    else if (age > decay)
     {
         atten *= (life - age) / (life - decay);
         fFlags |= kFresh;
     }
-    else if( fFlags & kFresh )
+    else if (fFlags & kFresh)
     {
         fFlags &= ~kFresh;
     }
@@ -77,11 +77,11 @@ bool plDynaSplot::Age(double t, float ramp, float decay, float life)
 
     hsPoint3* origUVW = &fAuxSpan->fOrigUVW[fStartVtx];
 
-    if( fFlags & kAttenColor )
+    if (fFlags & kAttenColor)
     {
         plDecalVtxFormat* vtx = fVtxBase;
 
-        while( n-- )
+        while (n--)
         {
             uint32_t diff = uint32_t(origUVW->fZ * atten * 255.99f);
             vtx->fDiffuse = 0xff000000
@@ -94,7 +94,7 @@ bool plDynaSplot::Age(double t, float ramp, float decay, float life)
         }
     }
     else
-    if( fAuxSpan->fFlags & plAuxSpan::kRTLit )
+    if (fAuxSpan->fFlags & plAuxSpan::kRTLit)
     {
         const int stride = sizeof(plDecalVtxFormat);
 
@@ -102,7 +102,7 @@ bool plDynaSplot::Age(double t, float ramp, float decay, float life)
 
         unsigned char* alpha = (unsigned char*)&fVtxBase->fDiffuse;
         alpha += 3;
-        while( n-- )
+        while (n--)
         {
             float initOpac = *sPtr;
             *alpha = (unsigned char)(initOpac * atten * 255.99f);
@@ -119,7 +119,7 @@ bool plDynaSplot::Age(double t, float ramp, float decay, float life)
 
         const int stride = sizeof(plDecalVtxFormat);
 
-        while( n-- )
+        while (n--)
         {
             (*(float*)oPtr) = *sPtr * atten;
 
@@ -133,19 +133,19 @@ bool plDynaSplot::Age(double t, float ramp, float decay, float life)
 bool plDynaRipple::Age(double t, float ramp, float decay, float life)
 {
     float age = float(t - fBirth);
-    if( age >= life )
+    if (age >= life)
         return true;
 
     int n = fNumVerts;
-    if( !n )
+    if (!n)
         return true;
 
     float atten = fInitAtten;
-    if( age < ramp )
+    if (age < ramp)
     {
         atten *= age / ramp;
     }
-    else if( age > decay )
+    else if (age > decay)
     {
         atten *= (life - age) / (life - decay);
     }
@@ -155,11 +155,11 @@ bool plDynaRipple::Age(double t, float ramp, float decay, float life)
 
     hsPoint3* origUVW = &fAuxSpan->fOrigUVW[fStartVtx];
 
-    if( fFlags & kAttenColor )
+    if (fFlags & kAttenColor)
     {
         plDecalVtxFormat* vtx = fVtxBase;
 
-        while( n-- )
+        while (n--)
         {
             uint32_t diff = uint32_t(origUVW->fZ * atten * 255.99f);
             vtx->fDiffuse = 0xff000000
@@ -175,11 +175,11 @@ bool plDynaRipple::Age(double t, float ramp, float decay, float life)
         }
     }
     else
-    if( fAuxSpan->fFlags & plAuxSpan::kRTLit )
+    if (fAuxSpan->fFlags & plAuxSpan::kRTLit)
     {
         plDecalVtxFormat* vtx = fVtxBase;
 
-        while( n-- )
+        while (n--)
         {
             unsigned char* alpha = ((unsigned char*)&vtx->fDiffuse) + 3;
             *alpha = (unsigned char)(origUVW->fZ * atten * 255.99f);
@@ -195,7 +195,7 @@ bool plDynaRipple::Age(double t, float ramp, float decay, float life)
     {
         plDecalVtxFormat* vtx = fVtxBase;
 
-        while( n-- )
+        while (n--)
         {
             vtx->fUVW[0].fX = (origUVW->fX - 0.5f) * scaleU + 0.5f;
             vtx->fUVW[0].fY = (origUVW->fY - 0.5f) * scaleV + 0.5f;
@@ -213,19 +213,19 @@ bool plDynaRipple::Age(double t, float ramp, float decay, float life)
 bool plDynaWake::Age(double t, float ramp, float decay, float life)
 {
     float age = float(t - fBirth);
-    if( age >= life )
+    if (age >= life)
         return true;
 
     int n = fNumVerts;
-    if( !n )
+    if (!n)
         return true;
 
     float atten = fInitAtten;
-    if( age < ramp )
+    if (age < ramp)
     {
         atten *= age / ramp;
     }
-    else if( age > decay )
+    else if (age > decay)
     {
         atten *= (life - age) / (life - decay);
     }
@@ -235,11 +235,11 @@ bool plDynaWake::Age(double t, float ramp, float decay, float life)
 
     hsPoint3* origUVW = &fAuxSpan->fOrigUVW[fStartVtx];
 
-    if( fFlags & kAttenColor )
+    if (fFlags & kAttenColor)
     {
         plDecalVtxFormat* vtx = fVtxBase;
 
-        while( n-- )
+        while (n--)
         {
             uint32_t diff = uint32_t(origUVW->fZ * atten * 255.99f);
             vtx->fDiffuse = 0xff000000
@@ -255,11 +255,11 @@ bool plDynaWake::Age(double t, float ramp, float decay, float life)
         }
     }
     else
-    if( fAuxSpan->fFlags & plAuxSpan::kRTLit )
+    if (fAuxSpan->fFlags & plAuxSpan::kRTLit)
     {
         plDecalVtxFormat* vtx = fVtxBase;
 
-        while( n-- )
+        while (n--)
         {
             unsigned char* alpha = ((unsigned char*)&vtx->fDiffuse) + 3;
             *alpha = (unsigned char)(origUVW->fZ * atten * 255.99f);
@@ -275,7 +275,7 @@ bool plDynaWake::Age(double t, float ramp, float decay, float life)
     {
         plDecalVtxFormat* vtx = fVtxBase;
 
-        while( n-- )
+        while (n--)
         {
             vtx->fUVW[0].fX = (origUVW->fX - 0.5f) * scaleU + 0.5f;
             vtx->fUVW[0].fY = origUVW->fY * scaleV;
@@ -293,19 +293,19 @@ bool plDynaWake::Age(double t, float ramp, float decay, float life)
 bool plDynaWave::Age(double t, float ramp, float decay, float life)
 {
     float age = float(t - fBirth);
-    if( age >= life )
+    if (age >= life)
         return true;
 
     int n = fNumVerts;
-    if( !n )
+    if (!n)
         return true;
 
     float atten = fInitAtten;
-    if( age < ramp )
+    if (age < ramp)
     {
         atten *= age / ramp;
     }
-    else if( age > decay )
+    else if (age > decay)
     {
         atten *= (life - age) / (life - decay);
     }
@@ -315,11 +315,11 @@ bool plDynaWave::Age(double t, float ramp, float decay, float life)
 
     hsPoint3* origUVW = &fAuxSpan->fOrigUVW[fStartVtx];
 
-    if( fFlags & kAttenColor )
+    if (fFlags & kAttenColor)
     {
         plDecalVtxFormat* vtx = fVtxBase;
 
-        while( n-- )
+        while (n--)
         {
             uint32_t diff = uint32_t(origUVW->fZ * atten * 255.99f);
             vtx->fDiffuse = 0xff000000
@@ -335,11 +335,11 @@ bool plDynaWave::Age(double t, float ramp, float decay, float life)
         }
     }
     else
-    if( fAuxSpan->fFlags & plAuxSpan::kRTLit )
+    if (fAuxSpan->fFlags & plAuxSpan::kRTLit)
     {
         plDecalVtxFormat* vtx = fVtxBase;
 
-        while( n-- )
+        while (n--)
         {
             unsigned char* alpha = ((unsigned char*)&vtx->fDiffuse) + 3;
             *alpha = (unsigned char)(origUVW->fZ * atten * 255.99f);
@@ -355,7 +355,7 @@ bool plDynaWave::Age(double t, float ramp, float decay, float life)
     {
         plDecalVtxFormat* vtx = fVtxBase;
 
-        while( n-- )
+        while (n--)
         {
             vtx->fUVW[0].fX = origUVW->fX;
             vtx->fUVW[0].fY = origUVW->fY * scale + scroll;
@@ -373,11 +373,11 @@ bool plDynaWave::Age(double t, float ramp, float decay, float life)
 bool plDynaRippleVS::Age(double t, float ramp, float decay, float life)
 {
     float age = float(t - fBirth);
-    if( age >= life )
+    if (age >= life)
         return true;
 
     int n = fNumVerts;
-    if( !n )
+    if (!n)
         return true;
 
     fFlags &= ~kFresh;

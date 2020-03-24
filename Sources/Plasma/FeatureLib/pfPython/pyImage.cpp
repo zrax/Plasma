@@ -66,7 +66,7 @@ plMipmap* pyImage::GetImage()
 {
     if (fMipmap)
         return fMipmap;
-    return ( plMipmap::ConvertNoRef(fMipMapKey->ObjectIsLoaded()) );
+    return (plMipmap::ConvertNoRef(fMipMapKey->ObjectIsLoaded()));
 }
 
 // GetPixelColor
@@ -213,7 +213,7 @@ PyObject* pyImage::LoadJPEGFromDisk(const plFileName& filename, uint16_t width, 
 
         hsgResMgr::ResMgr()->NewKey(name, theMipmap, plLocation::kGlobalFixedLoc);
         
-        return pyImage::New( theMipmap );
+        return pyImage::New(theMipmap);
     }
     else
         PYTHON_RETURN_NONE;
@@ -238,7 +238,7 @@ PyObject* pyImage::LoadPNGFromDisk(const plFileName& filename, uint16_t width, u
 
         hsgResMgr::ResMgr()->NewKey(name, theMipmap, plLocation::kGlobalFixedLoc);
 
-        return pyImage::New( theMipmap );
+        return pyImage::New(theMipmap);
     }
     else
         PYTHON_RETURN_NONE;

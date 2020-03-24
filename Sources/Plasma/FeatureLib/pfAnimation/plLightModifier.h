@@ -70,8 +70,8 @@ public:
     plLightModifier();
     virtual ~plLightModifier();
 
-    CLASSNAME_REGISTER( plLightModifier );
-    GETINTERFACE_ANY( plLightModifier, plSimpleModifier );
+    CLASSNAME_REGISTER(plLightModifier);
+    GETINTERFACE_ANY(plLightModifier, plSimpleModifier);
 
     virtual void AddTarget(plSceneObject* so);
     virtual void RemoveTarget(plSceneObject* so);
@@ -106,8 +106,8 @@ public:
     plOmniModifier();
     virtual ~plOmniModifier();
 
-    CLASSNAME_REGISTER( plOmniModifier );
-    GETINTERFACE_ANY( plOmniModifier, plLightModifier );
+    CLASSNAME_REGISTER(plOmniModifier);
+    GETINTERFACE_ANY(plOmniModifier, plLightModifier);
 
     virtual void AddTarget(plSceneObject* so);
     virtual void RemoveTarget(plSceneObject* so);
@@ -140,8 +140,8 @@ public:
     plSpotModifier();
     virtual ~plSpotModifier();
 
-    CLASSNAME_REGISTER( plSpotModifier );
-    GETINTERFACE_ANY( plSpotModifier, plLightModifier );
+    CLASSNAME_REGISTER(plSpotModifier);
+    GETINTERFACE_ANY(plSpotModifier, plLightModifier);
 
     virtual void AddTarget(plSceneObject* so);
     virtual void RemoveTarget(plSceneObject* so);
@@ -175,8 +175,8 @@ public:
     plLtdDirModifier();
     virtual ~plLtdDirModifier();
 
-    CLASSNAME_REGISTER( plLtdDirModifier );
-    GETINTERFACE_ANY( plLtdDirModifier, plLightModifier );
+    CLASSNAME_REGISTER(plLtdDirModifier);
+    GETINTERFACE_ANY(plLtdDirModifier, plLightModifier);
 
     virtual void AddTarget(plSceneObject* so);
     virtual void RemoveTarget(plSceneObject* so);

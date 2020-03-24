@@ -95,11 +95,11 @@ class plRTLightBase;
 class plBaseLightProc : public ParamMap2UserDlgProc
 {
     protected:
-        void            ILoadComboBox( HWND hComboBox, const char *names[] );
-        void            IBuildLightMesh( plRTLightBase *base, float coneSize );
+        void            ILoadComboBox(HWND hComboBox, const char *names[]);
+        void            IBuildLightMesh(plRTLightBase *base, float coneSize);
 
     public:
-        virtual BOOL    DlgProc( TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
+        virtual BOOL    DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -109,8 +109,8 @@ class plBaseLightProc : public ParamMap2UserDlgProc
 class plLightTexPBAccessor : public PBAccessor
 {
     public:
-        void Set( PB2Value& val, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t );
-        void Get( PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t, Interval &valid );
+        void Set(PB2Value& val, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t);
+        void Get(PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t, Interval &valid);
 
         static plLightTexPBAccessor *Instance() { return &fAccessor; }
 
@@ -135,7 +135,7 @@ protected:
 
 
     virtual bool    IHasAttenuation() { return false; }
-    virtual void    IBuildMeshes( BOOL isNew ) {}
+    virtual void    IBuildMeshes(BOOL isNew) {}
 
     void    BuildStaticMeshes();
     void    BuildSpotMesh(float coneSize);
@@ -328,7 +328,7 @@ public:
     TCHAR* GetObjectName()      { return (TCHAR*)fClassDesc->ClassName(); }
     void GetClassName(TSTR& s)  { s = fClassDesc->ClassName(); }
 
-    virtual IParamBlock2 *GetParamBlock( int i );
+    virtual IParamBlock2 *GetParamBlock(int i);
     virtual IParamBlock2* GetParamBlock2();
     virtual IParamBlock2* GetParamBlockByID(short id);
     plLayerTex*   GetTex() { return fTex; }
@@ -354,7 +354,7 @@ public:
     
     // main display function for this object
     int Display(TimeValue t, INode *node, ViewExp *vpt, int flags);
-    virtual int DrawConeAndLine(TimeValue t, INode* inode, GraphicsWindow *gw, int drawing );
+    virtual int DrawConeAndLine(TimeValue t, INode* inode, GraphicsWindow *gw, int drawing);
     void GetConePoints(TimeValue t, float aspect, float angle, float dist, Point3 *q);
     virtual void DrawCone(TimeValue t, GraphicsWindow *gw, float dist);
     int GetSpotShape(){ return 0; }
@@ -363,7 +363,7 @@ public:
     void BoxDirPoints(TimeValue t, float angle, float dist, Box3 &box, Matrix3 *tm);
     void BoxPoints(TimeValue t, float angle, float dist, Box3 &box, Matrix3 *tm);
 
-    void    DrawArrow( TimeValue t, GraphicsWindow *gw, Point3 &direction, float dist );
+    void    DrawArrow(TimeValue t, GraphicsWindow *gw, Point3 &direction, float dist);
     
     void GetAttenPoints(TimeValue t, float rad, Point3 *q);
     int GetRectXPoints(TimeValue t, float angle, float dist, Point3 *q);
@@ -388,7 +388,7 @@ public:
     int HitTest(TimeValue t, INode *node, int type, int crossing, int flags, IPoint2 *p, ViewExp *vpt);
     
     void Snap(TimeValue t, INode* inode, SnapInfo *snap, IPoint2 *p, ViewExp *vpt);
-    void GetDeformBBox(TimeValue t, Box3& box, Matrix3 *tm, BOOL useSel );
+    void GetDeformBBox(TimeValue t, Box3& box, Matrix3 *tm, BOOL useSel);
 
 
     //Internal routines
@@ -503,8 +503,8 @@ public:
     void SetAffectDiffuse(BOOL onOff) {}//fLightPB->SetValue(kDiffOn, 0, onOff); }
     BOOL GetAffectDiffuse() {return false; } //fLightPB->GetInt(kDiffOn, 0); }
 
-    LRESULT CALLBACK TrackViewWinProc( HWND hwnd,  UINT message,
-            WPARAM wParam,   LPARAM lParam ){return(0);}
+    LRESULT CALLBACK TrackViewWinProc(HWND hwnd,  UINT message,
+            WPARAM wParam,   LPARAM lParam){return (0);}
 };
 
 #endif

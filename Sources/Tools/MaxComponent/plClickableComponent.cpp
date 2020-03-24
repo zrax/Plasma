@@ -173,14 +173,14 @@ plClickableComponent::plClickableComponent()
 
 void plClickableComponent::CollectNonDrawables(INodeTab& nonDrawables)
 {
-    if( fCompPB->GetInt(kClickableUseProxy) )
+    if (fCompPB->GetInt(kClickableUseProxy))
     {
         INode* clickNode = fCompPB->GetINode(kClickableProxy);
-        if( clickNode )
+        if (clickNode)
             nonDrawables.Append(1, &clickNode);
     }
     INode* detectNode = fCompPB->GetINode(kClickableProxyRegion);
-    if( detectNode )
+    if (detectNode)
         nonDrawables.Append(1, &detectNode);
 
 }
@@ -212,14 +212,14 @@ bool plClickableComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
         {
             physProps->SetGroup(plSimDefs::kGroupStatic, clickNode, pErrMsg);
             // only if movable will it have mass (then it will keep track of movements in PhysX)
-            if ( clickNode->IsMovable() || clickNode->IsTMAnimatedRecur() )
+            if (clickNode->IsMovable() || clickNode->IsTMAnimatedRecur())
                 physProps->SetMass(1.0, clickNode, pErrMsg);
             physProps->SetFriction(fCompPB->GetFloat(kClickableFriction),clickNode,pErrMsg);
         }
         else
         {
             physProps->SetGroup(plSimDefs::kGroupLOSOnly, clickNode, pErrMsg);
-            if(clickNode->IsMovable() || clickNode->IsTMAnimatedRecur())
+            if (clickNode->IsMovable() || clickNode->IsTMAnimatedRecur())
             {
                 physProps->SetMass(1.0, clickNode, pErrMsg);
 
@@ -239,11 +239,11 @@ bool plClickableComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
         physPropsDetector->SetProxyNode(detectNode, node, pErrMsg);
         physPropsDetector->SetBoundsType(plSimDefs::kHullBounds, detectNode, pErrMsg);
         // only if movable will it have mass (then it will keep track of movements in PhysX)
-        if ( detectNode->IsMovable() || detectNode->IsTMAnimatedRecur() )
+        if (detectNode->IsMovable() || detectNode->IsTMAnimatedRecur())
             physPropsDetector->SetMass(1.0, detectNode, pErrMsg);
 
-        physPropsDetector->SetGroup(plSimDefs::kGroupDetector, detectNode, pErrMsg );
-        physPropsDetector->SetReportGroup(1<<plSimDefs::kGroupAvatar, detectNode, pErrMsg );
+        physPropsDetector->SetGroup(plSimDefs::kGroupDetector, detectNode, pErrMsg);
+        physPropsDetector->SetReportGroup(1<<plSimDefs::kGroupAvatar, detectNode, pErrMsg);
     }
 
     return true;

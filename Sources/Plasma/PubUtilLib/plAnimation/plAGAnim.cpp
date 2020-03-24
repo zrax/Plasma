@@ -106,7 +106,7 @@ plAGAnim::~plAGAnim()
         if (app)
         {
             plAGChannel *channel = app->GetChannel();
-            if(channel)
+            if (channel)
                 delete channel;
             
             delete app;
@@ -135,13 +135,13 @@ plAGChannel * plAGAnim::GetChannel(const ST::string &name) const
 {
     int appCount = fApps.size();
 
-    for(int i = 0; i < appCount; i++)
+    for (int i = 0; i < appCount; i++)
     {
         plAGApplicator *app = fApps[i];
         plAGChannel *channel = app->GetChannel();
         ST::string channelName = app->GetChannelName();
 
-        if(name.compare(channelName, ST::case_insensitive) == 0)
+        if (name.compare(channelName, ST::case_insensitive) == 0)
         {
             return channel;
         }
@@ -171,7 +171,7 @@ int plAGAnim::AddApplicator(plAGApplicator *app)
     fApps.push_back(app);
 
     // return the index of the channel
-    return(fApps.size() - 1);
+    return (fApps.size() - 1);
 }
 
 // RemoveApplicator ------------------------
@@ -180,7 +180,7 @@ bool plAGAnim::RemoveApplicator(int index)
 {
     hsAssert(index < fApps.size(), "Out of range index for plAGAnim::RemoveApp()");
 
-    if(index < fApps.size())
+    if (index < fApps.size())
     {
         fApps.erase(fApps.begin() + index);
         return true;
@@ -203,7 +203,7 @@ ST::string plAGAnim::GetChannelName(int index)
 {
     hsAssert(index < fApps.size(), "Out of range index for plAGAnim::GetChannelName()");
 
-    if(index < fApps.size())
+    if (index < fApps.size())
     {
         return fApps[index]->GetChannel()->GetName();
     } else {
@@ -277,7 +277,7 @@ void plAGAnim::AddAnim(const ST::string & name, plAGAnim *anim)
 {
     // Only register the animation if it's got a "real" name. Unnamed animations
     // all get the same standard name.
-    if(name.compare(ENTIRE_ANIMATION_NAME) != 0)
+    if (name.compare(ENTIRE_ANIMATION_NAME) != 0)
     {
         hsAssert(anim, "registering nil anim");
         fAllAnims[name] = anim;
@@ -290,7 +290,7 @@ plAGAnim * plAGAnim::FindAnim(const ST::string &name)
 {
     plAnimMap::iterator i = fAllAnims.find(name);
 
-    if(i != fAllAnims.end())
+    if (i != fAllAnims.end())
     {
         return (*i).second;
     } else {
@@ -304,7 +304,7 @@ bool plAGAnim::RemoveAnim(const ST::string &name)
 {
     plAnimMap::iterator i = fAllAnims.find(name);
 
-    if(i != fAllAnims.end())
+    if (i != fAllAnims.end())
     {
         fAllAnims.erase(i);
         return true;
@@ -324,7 +324,7 @@ void plAGAnim::DumpAnimationRegistry()
         plAGAnim *anim = (*i).second;
         ST::string name = anim->GetName();
         hsStatusMessageF("GLOBAL ANIMS [%d]: <%s>", j++, name.c_str());
-    } while(++i != fAllAnims.end());
+    } while (++i != fAllAnims.end());
 }
 
 // SharesPinsWith -----------------------------------------
@@ -719,12 +719,12 @@ bool GetRelativeTransform(const plAGAnim *anim, double timeA, double timeB,
     bool result = false;
     plAGChannel *maybeChannel = anim->GetChannel(channelName);
     hsAssert(maybeChannel, "Couldn't find channel with given name.");
-    if(maybeChannel)
+    if (maybeChannel)
     {
         plMatrixChannel *channel = plMatrixChannel::ConvertNoRef(maybeChannel);
         hsAssert(channel, "Found channel, but it's not a matrix channel.");
         
-        if(channel)
+        if (channel)
         {
             hsMatrix44 matA;
             hsMatrix44 matB;
@@ -732,19 +732,19 @@ bool GetRelativeTransform(const plAGAnim *anim, double timeA, double timeB,
             channel->Value(matA, timeA);
             channel->Value(matB, timeB);
 
-            if(a2b)                 // requested a transform from point A to point B
+            if (a2b)                 // requested a transform from point A to point B
             {
                 hsMatrix44 invA;
                 matA.GetInverse(&invA);
                 *a2b = invA * matB;
             }
-            if(b2a)                 // requested a transform from point B to point A
+            if (b2a)                 // requested a transform from point B to point A
             {
                 hsMatrix44 invB;
                 matB.GetInverse(&invB);
                 *b2a = invB * matA;
                 
-                if(a2b)
+                if (a2b)
                 {
                     hsMatrix44 invB2;
                     a2b->GetInverse(&invB2);

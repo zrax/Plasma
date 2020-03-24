@@ -256,8 +256,8 @@ public:
 
     // plasma protocol
     bool MsgReceive(plMessage *msg);
-    CLASSNAME_REGISTER( plAvBrainGeneric );
-    GETINTERFACE_ANY( plAvBrainGeneric, plArmatureBrain );
+    CLASSNAME_REGISTER(plAvBrainGeneric);
+    GETINTERFACE_ANY(plAvBrainGeneric, plArmatureBrain);
 
     virtual void Read(hsStream *stream, hsResMgr *mgr);
     virtual void Write(hsStream *stream, hsResMgr *mgr);

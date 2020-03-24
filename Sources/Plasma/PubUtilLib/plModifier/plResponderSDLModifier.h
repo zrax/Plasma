@@ -66,8 +66,8 @@ protected:
     void IPutCurrentStateIn(plStateDataRecord* dstState);
     void ISetCurrentStateFrom(const plStateDataRecord* srcState);
 public:
-    CLASSNAME_REGISTER( plResponderSDLModifier );
-    GETINTERFACE_ANY( plResponderSDLModifier, plSDLModifier);
+    CLASSNAME_REGISTER(plResponderSDLModifier);
+    GETINTERFACE_ANY(plResponderSDLModifier, plSDLModifier);
         
     plResponderSDLModifier() : fResponder(nil) {}
 

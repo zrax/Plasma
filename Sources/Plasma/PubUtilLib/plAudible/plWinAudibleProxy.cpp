@@ -74,7 +74,7 @@ plKey plWinAudibleProxy::IGetNode() const
 
 plDrawableSpans* plWinAudibleProxy::ICreateProxy(hsGMaterial* mat, hsTArray<uint32_t>& idx, plDrawableSpans* addTo)
 {
-    if( fOwner )
+    if (fOwner)
     {
         return fOwner->CreateProxy(mat, idx, addTo);
     }

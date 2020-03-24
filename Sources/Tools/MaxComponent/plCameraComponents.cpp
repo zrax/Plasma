@@ -486,13 +486,13 @@ bool plTransOverrideComponent::DeInit(plMaxNode *node, plErrorMsg *pErrMsg)
 {
     TransitionKeys::iterator    i = fTransKeys.begin();
 
-    for( ; i != fTransKeys.end(); i++ )
+    for (; i != fTransKeys.end(); i++)
     {
         delete (*i).second;
     }
     fTransKeys.clear();
 
-    return plComponent::DeInit( node, pErrMsg );
+    return plComponent::DeInit(node, pErrMsg);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -729,7 +729,7 @@ bool plCameraBaseComponent::IsValidNodeType(plMaxNode *pNode)
 {
     Object *obj = pNode->EvalWorldState(hsConverterUtils::Instance().GetTime(pNode->GetInterface())).obj;
     TimeValue Now = hsConverterUtils::Instance().GetTime(pNode->GetInterface());
-    if(obj->ConvertToType(Now, Class_ID(LOOKAT_CAM_CLASS_ID, 0)))
+    if (obj->ConvertToType(Now, Class_ID(LOOKAT_CAM_CLASS_ID, 0)))
         return true;
     else
         return false;
@@ -739,8 +739,8 @@ bool plCameraBaseComponent::SetupProperties(plMaxNode* pNode, plErrorMsg* pErrMs
 {
     fModKeys.clear();
     bool ValidNode = IsValidNodeType(pNode);
-    if(!ValidNode){
-        if(pErrMsg->Set(true, "Invalid Camera Object", "The camera %s is not a 'Max Target Camera type'.  This camera will be disabled..\nKill the export?",((INode*)pNode)->GetName()).Ask())
+    if (!ValidNode) {
+        if (pErrMsg->Set(true, "Invalid Camera Object", "The camera %s is not a 'Max Target Camera type'.  This camera will be disabled..\nKill the export?",((INode*)pNode)->GetName()).Ask())
                 pErrMsg->Set(true, "", "");
         else
                 pErrMsg->Set(false); // Don't want to abort
@@ -854,7 +854,7 @@ plCameraModifier1* plCameraBaseComponent::ICreateCameraModifier(plMaxNode* pNode
     FOVvalue = FOVvalue*(180/3.141592);
     int FOVType = theCam->GetFOVType();
     float wDeg, hDeg;
-    switch(FOVType)
+    switch (FOVType)
     {
     case 0: // FOV_W
         {
@@ -891,17 +891,17 @@ void plCameraBaseComponent::ISetLimitPan(plMaxNode* pNode, plCameraBrain1* pBrai
     {
         // set this camera to limit panning x degrees
         IParamBlock2* pBlk = LimitPanComp->GetParamBlock(plComponentBase::kRefComp);
-        if ( pBlk && pBlk->GetInt(kLimitPanX) )
+        if (pBlk && pBlk->GetInt(kLimitPanX))
         {
             float deg = pBlk->GetFloat(kPanZDeg);
             float rad = hsDegreesToRadians(deg);
-            pBrain->SetXPanLimit( rad * 0.5f );
+            pBrain->SetXPanLimit(rad * 0.5f);
         }
-        if ( pBlk && pBlk->GetInt(kLimitPanZ) )
+        if (pBlk && pBlk->GetInt(kLimitPanZ))
         {
             float deg = pBlk->GetFloat(kPanXDeg);
             float rad = hsDegreesToRadians(deg);
-            pBrain->SetZPanLimit( rad * 0.5f );
+            pBrain->SetZPanLimit(rad * 0.5f);
         }
     }
 }
@@ -961,7 +961,7 @@ plCameraModifier1* plCameraBaseComponent::ICreateFocalPointObject(plMaxNode* pNo
     hsgResMgr::ResMgr()->NewKey(IGetUniqueName(pNode), pPOABrain, pNode->GetLocation());
 
     plGenRefMsg* pGRMsg = new plGenRefMsg(pPOAMod->GetKey(), plRefMsg::kOnCreate, -1, 0);
-    pGRMsg->SetRef( (hsKeyedObject*)pPOABrain );
+    pGRMsg->SetRef((hsKeyedObject*)pPOABrain);
     plConvert::Instance().AddMessageToQueue(pGRMsg);
     
     return (pPOAMod);
@@ -1109,7 +1109,7 @@ bool plCamera1Component::PreConvert(plMaxNode *pNode, plErrorMsg *pErrMsg)
     hsgResMgr::ResMgr()->NewKey(IGetUniqueName(pNode), pBrain, pNode->GetLocation());
 
     plGenRefMsg* pMsg = new plGenRefMsg(pMod->GetKey(), plRefMsg::kOnCreate, -1, 0);
-    pMsg->SetRef( (hsKeyedObject*)pBrain );
+    pMsg->SetRef((hsKeyedObject*)pBrain);
     plConvert::Instance().AddMessageToQueue(pMsg);
 
     pBrain->SetFlags(plCameraBrain1::kCutPOA);
@@ -1352,7 +1352,7 @@ bool plAutoCamComponent::PreConvert(plMaxNode *pNode, plErrorMsg *pErrMsg)
     hsgResMgr::ResMgr()->NewKey(IGetUniqueName(pNode), pBrain, pNode->GetLocation());
 
     plGenRefMsg* pMsg = new plGenRefMsg(pMod->GetKey(), plRefMsg::kOnCreate, -1, 0);
-    pMsg->SetRef( (hsKeyedObject*)pBrain );
+    pMsg->SetRef((hsKeyedObject*)pBrain);
     plConvert::Instance().AddMessageToQueue(pMsg);
     hsVector3 pt;
     pt.Set(fCompPB->GetFloat(kAutoCamOffX),fCompPB->GetFloat(kAutoCamOffY),fCompPB->GetFloat(kAutoCamOffZ));
@@ -1514,7 +1514,7 @@ bool plFPCamComponent::PreConvert(plMaxNode *pNode, plErrorMsg *pErrMsg)
     // Give the brain a key
     hsgResMgr::ResMgr()->NewKey(IGetUniqueName(pNode), pBrain, pNode->GetLocation());
     plGenRefMsg* pMsg2 = new plGenRefMsg(pMod->GetKey(), plRefMsg::kOnCreate, -1, 0);
-    pMsg2->SetRef( (hsKeyedObject*)pBrain );
+    pMsg2->SetRef((hsKeyedObject*)pBrain);
     plConvert::Instance().AddMessageToQueue(pMsg2);
 
     hsVector3 pt;
@@ -1654,7 +1654,7 @@ bool plRailCameraComponent::IMakeLineMod(plMaxNode* pNode, plErrorMsg* pErrMsg)
     lineMod->SetFollowMode(plLineFollowMod::kFollowLocalAvatar);
 
     plMaxNode* pathNode = (plMaxNode*)fCompPB->GetINode(kRailCamObj);
-    if(!pathNode)
+    if (!pathNode)
     {
         pErrMsg->Set(true, "Path Node Failure", "Path Node %s was set to be Ignored or empty. Path Component ignored.", ((INode*)pathNode)->GetName()).Show();
         pErrMsg->Set(false);
@@ -1666,7 +1666,7 @@ bool plRailCameraComponent::IMakeLineMod(plMaxNode* pNode, plErrorMsg* pErrMsg)
 
     plCompoundController* tmc = plCompoundController::ConvertNoRef(hsControlConverter::Instance().MakeTransformController(maxTm, pathNode));
 
-    if( !(tmc && tmc->GetPosController() && !plCompoundController::ConvertNoRef(tmc->GetPosController())) )
+    if (!(tmc && tmc->GetPosController() && !plCompoundController::ConvertNoRef(tmc->GetPosController())))
     {
         delete tmc;
 
@@ -1677,7 +1677,7 @@ bool plRailCameraComponent::IMakeLineMod(plMaxNode* pNode, plErrorMsg* pErrMsg)
 
     Matrix3 w2p(true);
     Matrix3 l2w = pathNode->GetNodeTM(TimeValue(0));
-    if( !pathNode->GetParentNode()->IsRootNode() )
+    if (!pathNode->GetParentNode()->IsRootNode())
         w2p = Inverse(pathNode->GetParentNode()->GetNodeTM(TimeValue(0)));
     hsMatrix44 loc2Par = pathNode->Matrix3ToMatrix44(l2w * w2p);
 
@@ -1693,11 +1693,11 @@ bool plRailCameraComponent::IMakeLineMod(plMaxNode* pNode, plErrorMsg* pErrMsg)
 
     lineMod->SetPath(animPath);
 
-    if( !pathNode->GetParentNode()->IsRootNode() )
+    if (!pathNode->GetParentNode()->IsRootNode())
     {
         plMaxNode* parNode = (plMaxNode*)pathNode->GetParentNode();
         plSceneObject* parObj = parNode->GetSceneObject();
-        if( parObj )
+        if (parObj)
         {
             plGenRefMsg* refMsg = new plGenRefMsg(lineMod->GetKey(), plRefMsg::kOnCreate, 0, plLineFollowMod::kRefParent);
             hsgResMgr::ResMgr()->AddViaNotify(parObj->GetKey(), refMsg, plRefFlags::kPassiveRef);
@@ -1727,16 +1727,16 @@ bool plRailCameraComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *pErrM
     fValid = false;
     fLineMod = nil;
 
-    if( !fCompPB->GetINode(kRailCamObj) )
+    if (!fCompPB->GetINode(kRailCamObj))
     {
         return true;
     }
     plMaxNode* pathNode = (plMaxNode*)fCompPB->GetINode(kRailCamObj);
-    if( !pathNode )
+    if (!pathNode)
     {
         return true;
     }
-    if( !pathNode->IsTMAnimated() )
+    if (!pathNode->IsTMAnimated())
     {
         return true;
     }
@@ -1765,7 +1765,7 @@ bool plRailCameraComponent::PreConvert(plMaxNode* pNode, plErrorMsg* pErrMsg)
     pBrain->SetDecel(5.0f);
     
     plGenRefMsg* pMsg = new plGenRefMsg(pMod->GetKey(), plRefMsg::kOnCreate, -1, 0);
-    pMsg->SetRef( (hsKeyedObject*)pBrain );
+    pMsg->SetRef((hsKeyedObject*)pBrain);
     plConvert::Instance().AddMessageToQueue(pMsg);
 
     pBrain->SetVelocity(fCompPB->GetFloat(kRailVelocity));
@@ -1797,16 +1797,16 @@ bool plRailCameraComponent::PreConvert(plMaxNode* pNode, plErrorMsg* pErrMsg)
 
     // rail camera part
     plMaxNode* pathNode = (plMaxNode*)fCompPB->GetINode(kRailCamObj);
-    if( !pathNode )
+    if (!pathNode)
     {
         pErrMsg->Set(true, "Invald Rail Camera", "Rail Camera component on  %s. has no path object selected. This component will not be exported.\n", ((INode*)pNode)->GetName()).Show();
         pErrMsg->Set(false);
         return false;
     }
 
-    if( !fLineMod )
+    if (!fLineMod)
     {
-        if( !IMakeLineMod(pNode, pErrMsg) )
+        if (!IMakeLineMod(pNode, pErrMsg))
         {
             fValid = false;
             return true;
@@ -1925,7 +1925,7 @@ bool plCircleCameraComponent::PreConvert(plMaxNode* pNode, plErrorMsg* pErrMsg)
         pBrain->SetFarCircleCam(true);
 
     plGenRefMsg* pMsg = new plGenRefMsg(pMod->GetKey(), plRefMsg::kOnCreate, -1, 0);
-    pMsg->SetRef( (hsKeyedObject*)pBrain );
+    pMsg->SetRef((hsKeyedObject*)pBrain);
     plConvert::Instance().AddMessageToQueue(pMsg);
 
     pBrain->SetPOAVelocity(fCompPB->GetFloat(kCirclePOAVelocity));
@@ -2053,7 +2053,7 @@ bool plCameraDetectorComponent::SetupProperties(plMaxNode *pNode, plErrorMsg *pE
 
     physProps->SetPinned(true, pNode, pErrMsg);
     // only if movable will it have mass (then it will keep track of movements in PhysX)
-    if ( pNode->IsMovable() || pNode->IsTMAnimatedRecur() )
+    if (pNode->IsMovable() || pNode->IsTMAnimatedRecur())
         physProps->SetMass(1.0, pNode, pErrMsg);
     physProps->SetFriction(0.0, pNode, pErrMsg);
     physProps->SetRestitution(0.0, pNode, pErrMsg);
@@ -2091,7 +2091,7 @@ bool plCameraDetectorComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     plMaxNode* pCamNode = (plMaxNode*)fCompPB->GetINode(kCameraTarget);
     if (pCamNode)
     {
-        if(pCamNode->CanConvert())
+        if (pCamNode->CanConvert())
         {
             pMsg->SetCmd(plCameraMsg::kRegionPushCamera);
             pMsg->SetNewCam(((plMaxNode*)pCamNode)->GetSceneObject()->GetKey());
@@ -2306,7 +2306,7 @@ bool plFollowCamComponent::PreConvert(plMaxNode *pNode, plErrorMsg *pErrMsg)
     hsgResMgr::ResMgr()->NewKey(IGetUniqueName(pNode), pBrain, pNode->GetLocation());
 
     plGenRefMsg* pMsg = new plGenRefMsg(pMod->GetKey(), plRefMsg::kOnCreate, -1, 0);
-    pMsg->SetRef( (hsKeyedObject*)pBrain );
+    pMsg->SetRef((hsKeyedObject*)pBrain);
     plConvert::Instance().AddMessageToQueue(pMsg);
     hsVector3 pt;
     pt.Set(fCompPB->GetFloat(kFollowCamOffX),fCompPB->GetFloat(kFollowCamOffY),fCompPB->GetFloat(kFollowCamOffZ));
@@ -2332,7 +2332,7 @@ bool plFollowCamComponent::PreConvert(plMaxNode *pNode, plErrorMsg *pErrMsg)
 
     if (!ISetPOA(pNode, pBrain, pErrMsg))
     {
-        if(pErrMsg->Set(true, "Invalid Object Follow Camera", "The camera %s does NOT have an Object POA to go with its Object Follow Cam Component.  This camera will be disabled..\nKill the export?",((INode*)pNode)->GetName()).Ask())
+        if (pErrMsg->Set(true, "Invalid Object Follow Camera", "The camera %s does NOT have an Object POA to go with its Object Follow Cam Component.  This camera will be disabled..\nKill the export?",((INode*)pNode)->GetName()).Ask())
                 pErrMsg->Set(true, "", "");
         else
                 pErrMsg->Set(false); // Don't want to abort
@@ -2434,7 +2434,7 @@ bool plCameraAnimCmdComponent::Convert(plMaxNode* pNode, plErrorMsg* pErrMsg)
         if (!pCamMod)
             return false;
         // forgive me oh const-ness gods.  it is only the exporter, after all...
-        const_cast<plCameraModifier1*>(pCamMod)->SetAnimCommands( fCompPB->GetInt(kAnimateOnPush), fCompPB->GetInt(kStopOnPop), fCompPB->GetInt(kResetOnPop) );
+        const_cast<plCameraModifier1*>(pCamMod)->SetAnimCommands(fCompPB->GetInt(kAnimateOnPush), fCompPB->GetInt(kStopOnPop), fCompPB->GetInt(kResetOnPop));
     }
     return true;
 }

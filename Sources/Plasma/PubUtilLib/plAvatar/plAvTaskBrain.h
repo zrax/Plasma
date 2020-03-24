@@ -79,8 +79,8 @@ public:
 
     plArmatureBrain *GetBrain();
 
-    CLASSNAME_REGISTER( plAvTaskBrain );
-    GETINTERFACE_ANY( plAvTaskBrain, plAvTask );
+    CLASSNAME_REGISTER(plAvTaskBrain);
+    GETINTERFACE_ANY(plAvTaskBrain, plAvTask);
 
     /** Read the task from a stream. Not all tasks need to read/write, so the base implementation
         gives a warning to expose tasks that are being read/written unexpectedly. */

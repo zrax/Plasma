@@ -93,8 +93,8 @@ public:
     bool IsActiveForReal();
 
     // rtti
-    CLASSNAME_REGISTER( plCoopCoordinator );
-    GETINTERFACE_ANY( plCoopCoordinator, hsKeyedObject);
+    CLASSNAME_REGISTER(plCoopCoordinator);
+    GETINTERFACE_ANY(plCoopCoordinator, hsKeyedObject);
 
     // i/o
     virtual void Read(hsStream *stream, hsResMgr *mgr);

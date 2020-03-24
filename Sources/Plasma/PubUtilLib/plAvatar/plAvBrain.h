@@ -68,8 +68,8 @@ public:
     plArmatureBrain();
     virtual ~plArmatureBrain();
     
-    CLASSNAME_REGISTER( plArmatureBrain );
-    GETINTERFACE_ANY( plArmatureBrain, plCreatable );
+    CLASSNAME_REGISTER(plArmatureBrain);
+    GETINTERFACE_ANY(plArmatureBrain, plCreatable);
     
     virtual bool Apply(double timeNow, float elapsed);
     virtual void Activate(plArmatureModBase *armature);

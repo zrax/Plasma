@@ -57,8 +57,8 @@ public:
     struct Match
     {
         const plServerGuid * fGuid;
-        Match( const plServerGuid * guid ):fGuid( guid ){}
-        bool operator()( const plServerGuid * guid ) const { return guid->IsEqualTo( fGuid );}
+        Match(const plServerGuid * guid):fGuid(guid){}
+        bool operator()(const plServerGuid * guid) const { return guid->IsEqualTo(fGuid);}
     };
 
     union
@@ -67,39 +67,39 @@ public:
         hsWide  fWide;
     };
     plServerGuid();
-    plServerGuid( const plServerGuid & other );
-    explicit plServerGuid( const char * s );
-    explicit plServerGuid( const hsWide & v );
+    plServerGuid(const plServerGuid & other);
+    explicit plServerGuid(const char * s);
+    explicit plServerGuid(const hsWide & v);
 
 
-    plServerGuid& operator=( const plServerGuid & rhs );
-    friend bool operator==( const plServerGuid & X, const plServerGuid & Y );
-    friend bool operator!=( const plServerGuid & X, const plServerGuid & Y );
-    friend bool operator<( const plServerGuid & X, const plServerGuid & Y) ;
+    plServerGuid& operator=(const plServerGuid & rhs);
+    friend bool operator==(const plServerGuid & X, const plServerGuid & Y);
+    friend bool operator!=(const plServerGuid & X, const plServerGuid & Y);
+    friend bool operator<(const plServerGuid & X, const plServerGuid & Y) ;
 
     const char *    AsString() const; // returns static buffer.
     std::string     AsStdString() const;
-    bool            FromString( const char * s );
+    bool            FromString(const char * s);
 
     hsWide          AsWide() const;
-    void            FromWide( const hsWide & v );
+    void            FromWide(const hsWide & v);
 
     bool            IsSet() const;
-    bool            IsEqualTo( const plServerGuid * other ) const;
+    bool            IsEqualTo(const plServerGuid * other) const;
     operator std::string () const { return AsString();}
 
-    void            Read( hsStream * s, hsResMgr* mgr=nil );
-    void            Write( hsStream * s, hsResMgr* mgr=nil );
-    void            CopyFrom( const plServerGuid & other );
-    void            CopyFrom( const plServerGuid * other );
+    void            Read(hsStream * s, hsResMgr* mgr=nil);
+    void            Write(hsStream * s, hsResMgr* mgr=nil);
+    void            CopyFrom(const plServerGuid & other);
+    void            CopyFrom(const plServerGuid * other);
     void            Clear();
 
-    static void SetGuidSeed( uint32_t seed );
+    static void SetGuidSeed(uint32_t seed);
     static bool GuidSeedIsSet() { return fGuidSeed!=0;}
     static plServerGuid GenerateGuid();
 
-    CLASSNAME_REGISTER( plServerGuid );
-    GETINTERFACE_ANY( plServerGuid, plCreatable );
+    CLASSNAME_REGISTER(plServerGuid);
+    GETINTERFACE_ANY(plServerGuid, plCreatable);
 
 private:
     static uint32_t   fGuidSeed;  // only low 24 bits are used

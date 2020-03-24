@@ -65,13 +65,13 @@ protected:
     IDirect3DStateBlock9 *fOldStateBlock;
     IDirect3DStateBlock9 *fTextStateBlock;
 
-    virtual void    ICreateTexture( uint16_t *data );
+    virtual void    ICreateTexture(uint16_t *data);
     virtual void    IInitStateBlocks();
-    virtual void    IDrawPrimitive( uint32_t count, plFontVertex *array );
-    virtual void    IDrawLines( uint32_t count, plFontVertex *array );
+    virtual void    IDrawPrimitive(uint32_t count, plFontVertex *array);
+    virtual void    IDrawLines(uint32_t count, plFontVertex *array);
 
 public:
-    plDXTextFont( plPipeline *pipe, IDirect3DDevice9 *device );
+    plDXTextFont(plPipeline *pipe, IDirect3DDevice9 *device);
     ~plDXTextFont();
 
     static  void CreateShared(IDirect3DDevice9* device);

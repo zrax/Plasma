@@ -77,23 +77,23 @@ class plAxisInputInterface : public plInputInterface
 
     public:
 
-        plAxisInputInterface( plAxisAnimModifier *owner ) { fOwner = owner; SetEnabled( true ); }
+        plAxisInputInterface(plAxisAnimModifier *owner) { fOwner = owner; SetEnabled(true); }
 
         virtual uint32_t  GetPriorityLevel() const { return kSceneInteractionPriority + 10; }
-        virtual bool    InterpretInputEvent( plInputEventMsg *pMsg )
+        virtual bool    InterpretInputEvent(plInputEventMsg *pMsg)
         {
-            plMouseEventMsg* pMMsg = plMouseEventMsg::ConvertNoRef( pMsg );
-            if (pMMsg )
+            plMouseEventMsg* pMMsg = plMouseEventMsg::ConvertNoRef(pMsg);
+            if (pMMsg)
             {
-                if( pMMsg->GetButton() == kLeftButtonUp )
+                if (pMMsg->GetButton() == kLeftButtonUp)
                 {
                     // Remove ourselves from the stack
-                    plInputIfaceMgrMsg *msg = new plInputIfaceMgrMsg( plInputIfaceMgrMsg::kRemoveInterface );
-                    msg->SetIFace( this );
-                    plgDispatch::MsgSend( msg );
+                    plInputIfaceMgrMsg *msg = new plInputIfaceMgrMsg(plInputIfaceMgrMsg::kRemoveInterface);
+                    msg->SetIFace(this);
+                    plgDispatch::MsgSend(msg);
                     return true;
                 }
-                return fOwner->MsgReceive( pMMsg );
+                return fOwner->MsgReceive(pMMsg);
             }
 
             return false;
@@ -113,12 +113,12 @@ fIface(0),
 fAllOrNothing(false)
 {
     fNotify = new plNotifyMsg;
-    fInputIface = new plAxisInputInterface( this );
+    fInputIface = new plAxisInputInterface(this);
 }
 plAxisAnimModifier::~plAxisAnimModifier()
 {
     hsRefCnt_SafeUnRef(fNotify);
-    hsRefCnt_SafeUnRef( fInputIface );
+    hsRefCnt_SafeUnRef(fInputIface);
 }
 
 
@@ -134,7 +134,7 @@ void plAxisAnimModifier::SetTarget(plSceneObject* so)
 {
     plSingleModifier::SetTarget(so);
 
-    if( so )
+    if (so)
         plgDispatch::Dispatch()->RegisterForExactType(plEvalMsg::Index(), GetKey());
 }
 
@@ -149,12 +149,12 @@ bool plAxisAnimModifier::MsgReceive(plMessage* msg)
             time = 1.0f;
         fNotify->ClearEvents();
         fNotify->SetSender(fNotificationKey); // so python can handle it.
-        fNotify->AddCallbackEvent( pCall->fEvent );
+        fNotify->AddCallbackEvent(pCall->fEvent);
         fNotify->SetState(1.0f);
         fNotify->AddActivateEvent(true);
         fNotify->AddClickDragEvent(GetTarget()->GetKey(), plNetClientApp::GetInstance()->GetLocalPlayerKey(), time);
         hsRefCnt_SafeRef(fNotify);
-        plgDispatch::MsgSend( fNotify );
+        plgDispatch::MsgSend(fNotify);
         return true;
     }
         
@@ -165,16 +165,16 @@ bool plAxisAnimModifier::MsgReceive(plMessage* msg)
         {
             if (pNMsg->GetEventRecord(i)->fEventType == proEventData::kActivate)
             {
-                if( ( (proActivateEventData *)pNMsg->GetEventRecord(i) )->fActivate )
+                if (((proActivateEventData *)pNMsg->GetEventRecord(i))->fActivate)
                 {
                     fActive = true;
                     fXPos = plMouseDevice::Instance()->GetCursorX();
                     fYPos = plMouseDevice::Instance()->GetCursorY();
 
                     // Insert our input interface onto the input stack
-                    plInputIfaceMgrMsg *msg = new plInputIfaceMgrMsg( plInputIfaceMgrMsg::kAddInterface );
-                    msg->SetIFace( fInputIface );
-                    plgDispatch::MsgSend( msg );
+                    plInputIfaceMgrMsg *msg = new plInputIfaceMgrMsg(plInputIfaceMgrMsg::kAddInterface);
+                    msg->SetIFace(fInputIface);
+                    plgDispatch::MsgSend(msg);
                 }
                 else
                 {
@@ -183,9 +183,9 @@ bool plAxisAnimModifier::MsgReceive(plMessage* msg)
                         fActive = false;
 
                         // Remove our input interface from the input stack
-                        plInputIfaceMgrMsg *msg = new plInputIfaceMgrMsg( plInputIfaceMgrMsg::kRemoveInterface );
-                        msg->SetIFace( fInputIface );
-                        plgDispatch::MsgSend( msg );
+                        plInputIfaceMgrMsg *msg = new plInputIfaceMgrMsg(plInputIfaceMgrMsg::kRemoveInterface);
+                        msg->SetIFace(fInputIface);
+                        plgDispatch::MsgSend(msg);
                     }
 */              }
                 break;
@@ -233,9 +233,9 @@ bool plAxisAnimModifier::MsgReceive(plMessage* msg)
                     fActive = false;
 
                     // Remove our input interface from the input stack
-                    plInputIfaceMgrMsg *msg = new plInputIfaceMgrMsg( plInputIfaceMgrMsg::kRemoveInterface );
-                    msg->SetIFace( fInputIface );
-                    plgDispatch::MsgSend( msg );
+                    plInputIfaceMgrMsg *msg = new plInputIfaceMgrMsg(plInputIfaceMgrMsg::kRemoveInterface);
+                    msg->SetIFace(fInputIface);
+                    plgDispatch::MsgSend(msg);
                     plInputManager::SetRecenterMouse(false);
                 }
                 else
@@ -252,9 +252,9 @@ bool plAxisAnimModifier::MsgReceive(plMessage* msg)
                     fActive = false;
 
                     // Remove our input interface from the input stack
-                    plInputIfaceMgrMsg *msg = new plInputIfaceMgrMsg( plInputIfaceMgrMsg::kRemoveInterface );
-                    msg->SetIFace( fInputIface );
-                    plgDispatch::MsgSend( msg );
+                    plInputIfaceMgrMsg *msg = new plInputIfaceMgrMsg(plInputIfaceMgrMsg::kRemoveInterface);
+                    msg->SetIFace(fInputIface);
+                    plgDispatch::MsgSend(msg);
 
                     plInputManager::SetRecenterMouse(false);
                 }
@@ -280,7 +280,7 @@ bool plAxisAnimModifier::MsgReceive(plMessage* msg)
     plGenRefMsg* pRefMsg = plGenRefMsg::ConvertNoRef(msg);
     if (pRefMsg)
     {
-        if (pRefMsg->GetContext() == plRefMsg::kOnCreate )
+        if (pRefMsg->GetContext() == plRefMsg::kOnCreate)
         {
             if (pRefMsg->fType == kTypeX)
             {
@@ -302,10 +302,10 @@ bool plAxisAnimModifier::MsgReceive(plMessage* msg)
                 pMsg->AddCallback(pCall1);
                 pMsg->AddCallback(pCall2);
                 pMsg->SetAnimName(fAnimLabel);
-                pMsg->AddReceiver( fXAnim );
+                pMsg->AddReceiver(fXAnim);
 
-                hsRefCnt_SafeUnRef( pCall1 );
-                hsRefCnt_SafeUnRef( pCall2 );
+                hsRefCnt_SafeUnRef(pCall1);
+                hsRefCnt_SafeUnRef(pCall2);
 
                 plgDispatch::MsgSend(pMsg);
             }
@@ -329,11 +329,11 @@ bool plAxisAnimModifier::MsgReceive(plMessage* msg)
                 pMsg->SetCmd(plAnimCmdMsg::kAddCallbacks);
                 pMsg->AddCallback(pCall1);
                 pMsg->AddCallback(pCall2);
-                pMsg->AddReceiver( fYAnim );
+                pMsg->AddReceiver(fYAnim);
                 pMsg->SetAnimName(fAnimLabel);
 
-                hsRefCnt_SafeUnRef( pCall1 );
-                hsRefCnt_SafeUnRef( pCall2 );
+                hsRefCnt_SafeUnRef(pCall1);
+                hsRefCnt_SafeUnRef(pCall2);
 
                 plgDispatch::MsgSend(pMsg);
             }
@@ -344,7 +344,7 @@ bool plAxisAnimModifier::MsgReceive(plMessage* msg)
             }
         }
         else
-        if (pRefMsg->GetContext() == plRefMsg::kOnDestroy )
+        if (pRefMsg->GetContext() == plRefMsg::kOnDestroy)
         {
             if (pRefMsg->fType == kTypeX)
                 fXAnim = nil;
@@ -365,9 +365,9 @@ void plAxisAnimModifier::Read(hsStream* s, hsResMgr* mgr)
 {
     plSingleModifier::Read(s, mgr);
 
-    mgr->ReadKeyNotifyMe( s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, 0, kTypeX), plRefFlags::kPassiveRef);
-    mgr->ReadKeyNotifyMe( s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, 0, kTypeY), plRefFlags::kPassiveRef);
-    mgr->ReadKeyNotifyMe( s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, 0, kTypeLogic), plRefFlags::kPassiveRef);
+    mgr->ReadKeyNotifyMe(s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, 0, kTypeX), plRefFlags::kPassiveRef);
+    mgr->ReadKeyNotifyMe(s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, 0, kTypeY), plRefFlags::kPassiveRef);
+    mgr->ReadKeyNotifyMe(s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, 0, kTypeLogic), plRefFlags::kPassiveRef);
     
     fAllOrNothing = s->ReadBool();
     plNotifyMsg* pMsg = plNotifyMsg::ConvertNoRef(mgr->ReadCreatable(s));

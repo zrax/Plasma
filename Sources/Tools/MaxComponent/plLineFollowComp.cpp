@@ -112,7 +112,7 @@ class plLineObjAccessor : public PBAccessor
 public:
     void Set(PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t)
     {
-        if( (id == kFollowObjectSel) || (id == kPathObjectSel) )
+        if ((id == kFollowObjectSel) || (id == kPathObjectSel))
         {
             plComponentBase* comp = (plComponentBase*)owner;
             comp->NotifyDependents(FOREVER, PART_ALL, REFMSG_USER_COMP_REF_CHANGED);
@@ -132,10 +132,10 @@ public:
         case WM_INITDIALOG:
             {
                     IParamBlock2* pb = map->GetParamBlock();
-                    map->SetTooltip(kPathObjectSel, TRUE, "Press the button, & select the path source object in one of the Viewports" );
-                    map->SetTooltip(kFollowObjectSel, TRUE, "Press the button, & select the object to follow in one of the Viewports" );
-                    map->SetTooltip(kOffsetDegrees, TRUE, "Positive angle to right, negative to left." );
-                    if( pb->GetInt(kFollowModeRadio) == plLineFollowMod::kFollowObject )
+                    map->SetTooltip(kPathObjectSel, TRUE, "Press the button, & select the path source object in one of the Viewports");
+                    map->SetTooltip(kFollowObjectSel, TRUE, "Press the button, & select the object to follow in one of the Viewports");
+                    map->SetTooltip(kOffsetDegrees, TRUE, "Positive angle to right, negative to left.");
+                    if (pb->GetInt(kFollowModeRadio) == plLineFollowMod::kFollowObject)
                         map->Enable(kFollowObjectSel, TRUE);
                     else
                         map->Enable(kFollowObjectSel, FALSE);
@@ -145,12 +145,12 @@ public:
 //////////////////
         case WM_COMMAND:
             {
-                if( (LOWORD(wParam) == IDC_RADIO_LISTENER)
+                if ((LOWORD(wParam) == IDC_RADIO_LISTENER)
                     || (LOWORD(wParam) == IDC_RADIO_CAMERA)
-                    || (LOWORD(wParam) == IDC_RADIO_OBJECT) )
+                    || (LOWORD(wParam) == IDC_RADIO_OBJECT))
                 {
                     IParamBlock2* pb = map->GetParamBlock();
-                    if( pb->GetInt(kFollowModeRadio) == plLineFollowMod::kFollowObject )
+                    if (pb->GetInt(kFollowModeRadio) == plLineFollowMod::kFollowObject)
                         map->Enable(kFollowObjectSel, TRUE);
                     else
                         map->Enable(kFollowObjectSel, FALSE);
@@ -281,18 +281,18 @@ bool plLineFollowComponent::IMakeLineMod(plMaxNode* pNode, plErrorMsg* pErrMsg)
     plLineFollowMod* lineMod = new plLineFollowMod;
     hsgResMgr::ResMgr()->NewKey(IGetUniqueName(pNode), lineMod, pNode->GetLocation());
 
-    if( plLineFollowMod::kFollowObject == mode )
+    if (plLineFollowMod::kFollowObject == mode)
     {
-        if(fCompPB->GetINode(kFollowObjectSel) != NULL)
+        if (fCompPB->GetINode(kFollowObjectSel) != NULL)
 
 
         {
             plMaxNode* targNode = (plMaxNode*)fCompPB->GetINode(kFollowObjectSel);
             //plMaxNodeData* pMD = targNode->GetMaxNodeData();
-            if( targNode->CanConvert() )
+            if (targNode->CanConvert())
             {
                 plSceneObject* targObj = targNode->GetSceneObject();
-                if( targObj )
+                if (targObj)
                 {
                     plGenRefMsg* refMsg = new plGenRefMsg(lineMod->GetKey(), plRefMsg::kOnCreate, 0, plLineFollowMod::kRefObject);
                     hsgResMgr::ResMgr()->AddViaNotify(targObj->GetKey(), refMsg, plRefFlags::kPassiveRef);
@@ -308,7 +308,7 @@ bool plLineFollowComponent::IMakeLineMod(plMaxNode* pNode, plErrorMsg* pErrMsg)
     }
 
     plMaxNode* pathNode = (plMaxNode*)fCompPB->GetINode(kPathObjectSel);
-    if(!pathNode)
+    if (!pathNode)
     {
         pErrMsg->Set(true, "Path Node Failure", "Path Node %s was set to be Ignored or empty. Path Component ignored.", ((INode*)pathNode)->GetName()).Show();
         pErrMsg->Set(false);
@@ -321,7 +321,7 @@ bool plLineFollowComponent::IMakeLineMod(plMaxNode* pNode, plErrorMsg* pErrMsg)
 
     Matrix3 w2p(true);
     Matrix3 l2w = pathNode->GetNodeTM(TimeValue(0));
-    if( !pathNode->GetParentNode()->IsRootNode() )
+    if (!pathNode->GetParentNode()->IsRootNode())
         w2p = Inverse(pathNode->GetParentNode()->GetNodeTM(TimeValue(0)));
     hsMatrix44 loc2Par = pathNode->Matrix3ToMatrix44(l2w * w2p);
 
@@ -336,22 +336,22 @@ bool plLineFollowComponent::IMakeLineMod(plMaxNode* pNode, plErrorMsg* pErrMsg)
 
     lineMod->SetPath(animPath);
 
-    if( !pathNode->GetParentNode()->IsRootNode() )
+    if (!pathNode->GetParentNode()->IsRootNode())
     {
         plMaxNode* parNode = (plMaxNode*)pathNode->GetParentNode();
         plSceneObject* parObj = parNode->GetSceneObject();
-        if( parObj )
+        if (parObj)
         {
             plGenRefMsg* refMsg = new plGenRefMsg(lineMod->GetKey(), plRefMsg::kOnCreate, 0, plLineFollowMod::kRefParent);
             hsgResMgr::ResMgr()->AddViaNotify(parObj->GetKey(), refMsg, plRefFlags::kPassiveRef);
         }
     }
 
-    if( fCompPB->GetInt(kOffsetActive) )
+    if (fCompPB->GetInt(kOffsetActive))
     {
         lineMod->SetOffsetDegrees(fCompPB->GetFloat(kOffsetDegrees));
         
-        if( fCompPB->GetInt(kOffsetClampActive) )
+        if (fCompPB->GetInt(kOffsetClampActive))
         {
             lineMod->SetOffsetClamp(fCompPB->GetFloat(kOffsetClamp));
         }
@@ -359,7 +359,7 @@ bool plLineFollowComponent::IMakeLineMod(plMaxNode* pNode, plErrorMsg* pErrMsg)
         lineMod->SetForceToLine(fCompPB->GetInt(kForceToLine));
     }
 
-    if( fCompPB->GetInt(kSpeedClampActive) )
+    if (fCompPB->GetInt(kSpeedClampActive))
     {
         lineMod->SetSpeedClamp(fCompPB->GetFloat(kSpeedClamp));
     }
@@ -371,16 +371,16 @@ bool plLineFollowComponent::IMakeLineMod(plMaxNode* pNode, plErrorMsg* pErrMsg)
 
 plLineFollowMod* plLineFollowComponent::GetLineMod(plErrorMsg* pErrMsg)
 {
-    if( !fValid )
+    if (!fValid)
         return nil;
-    if( !fLineMod )
+    if (!fLineMod)
     {
         int i;
-        for( i = 0; i < NumTargets(); i++ )
+        for (i = 0; i < NumTargets(); i++)
         {
             plMaxNode* targ = (plMaxNode*)GetTarget(i);
             IMakeLineMod(targ, pErrMsg);
-            if( fLineMod )
+            if (fLineMod)
                 break;
         }
     }
@@ -389,12 +389,12 @@ plLineFollowMod* plLineFollowComponent::GetLineMod(plErrorMsg* pErrMsg)
 
 bool plLineFollowComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    if( !fValid )
+    if (!fValid)
         return true;
 
-    if( !fLineMod )
+    if (!fLineMod)
     {
-        if( !IMakeLineMod(node, pErrMsg) )
+        if (!IMakeLineMod(node, pErrMsg))
         {
             fValid = false;
             return true;
@@ -411,24 +411,24 @@ bool plLineFollowComponent::SetupProperties(plMaxNode* pNode,  plErrorMsg* pErrM
     fValid = false;
     fLineMod = nil;
 
-    if( !fCompPB->GetINode(kPathObjectSel) )
+    if (!fCompPB->GetINode(kPathObjectSel))
     {
         return true;
     }
     plMaxNode* pathNode = (plMaxNode*)fCompPB->GetINode(kPathObjectSel);
-    if( !pathNode )
+    if (!pathNode)
     {
         return true;
     }
-    if( !pathNode->IsTMAnimated() )
+    if (!pathNode->IsTMAnimated())
     {
         return true;
     }
     pathNode->SetCanConvert(false);
 
-    if( plLineFollowMod::kFollowObject == fCompPB->GetInt(kFollowModeRadio) )
+    if (plLineFollowMod::kFollowObject == fCompPB->GetInt(kFollowModeRadio))
     {
-        if( !fCompPB->GetINode(kFollowObjectSel) )
+        if (!fCompPB->GetINode(kFollowObjectSel))
         {
             return true;
         }
@@ -441,22 +441,22 @@ bool plLineFollowComponent::SetupProperties(plMaxNode* pNode,  plErrorMsg* pErrM
 
 bool plLineFollowComponent::PreConvert(plMaxNode* pNode, plErrorMsg* pErrMsg)
 {
-    if( !fValid )
+    if (!fValid)
         return true;
     fValid = false;
 
-    if( plLineFollowMod::kFollowObject == fCompPB->GetInt(kFollowModeRadio) )
+    if (plLineFollowMod::kFollowObject == fCompPB->GetInt(kFollowModeRadio))
     {
         plMaxNode* followNode = (plMaxNode*)fCompPB->GetINode(kFollowObjectSel);
-        if( !followNode->CanConvert() )
+        if (!followNode->CanConvert())
         {
             return true;
         }
     }
     plMaxNode* pathNode = (plMaxNode*)fCompPB->GetINode(kPathObjectSel);
-    if( !pathNode->GetParentNode()->IsRootNode() )
+    if (!pathNode->GetParentNode()->IsRootNode())
     {
-        if( !((plMaxNode*)pathNode->GetParentNode())->CanConvert() )
+        if (!((plMaxNode*)pathNode->GetParentNode())->CanConvert())
         {
             return true;
         }
@@ -565,7 +565,7 @@ plStereizeComp::plStereizeComp()
 bool plStereizeComp::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
 {
     node->SetForceLocal(true);
-    if( !node->GetParentNode()->IsRootNode() )
+    if (!node->GetParentNode()->IsRootNode())
         ((plMaxNode*)node->GetParentNode())->SetForceLocal(true);
 
     return true;
@@ -591,7 +591,7 @@ bool plStereizeComp::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
     stereo->SetTransition(fCompPB->GetFloat(kTransition));
 
     float ang = fCompPB->GetFloat(kSepAngle);
-    if( ang > 80.f )
+    if (ang > 80.f)
         ang = 80.f;
     stereo->SetSepAngle(hsDegreesToRadians(ang));
 
@@ -615,14 +615,14 @@ plLineFollowMod* plStereizeComp::ISetMaster(plStereizer* stereo, plMaxNode* node
     int numComp = node->NumAttachedComponents(false);
 
     int i;
-    for( i = 0; i < numComp; i++ )
+    for (i = 0; i < numComp; i++)
     {
         plComponentBase *comp = node->GetAttachedComponent(i);
-        if( comp && (comp->ClassID() == LINEFOLLOW_COMP_CID) )
+        if (comp && (comp->ClassID() == LINEFOLLOW_COMP_CID))
         {
             plLineFollowComponent* lineComp = (plLineFollowComponent*)comp;
             plLineFollowMod* lineMod = lineComp->GetLineMod(pErrMsg);
-            if( lineMod )
+            if (lineMod)
             {
                 lineMod->AddStereizer(stereo->GetKey());
                 return lineMod;
@@ -686,7 +686,7 @@ public:
         case WM_INITDIALOG:
             {
                     IParamBlock2* pb = map->GetParamBlock();
-                    if( pb->GetInt(plSwivelComp::kFaceTypeRadio) == plSwivelComp::kFaceObject )
+                    if (pb->GetInt(plSwivelComp::kFaceTypeRadio) == plSwivelComp::kFaceObject)
                         map->Enable(plSwivelComp::kFaceObjectSel, TRUE);
                     else
                         map->Enable(plSwivelComp::kFaceObjectSel, FALSE);
@@ -696,13 +696,13 @@ public:
 //////////////////
         case WM_COMMAND:
             {
-                if( (LOWORD(wParam) == IDC_RADIO_LISTENER)
+                if ((LOWORD(wParam) == IDC_RADIO_LISTENER)
                     || (LOWORD(wParam) == IDC_RADIO_PLAYER)
                     || (LOWORD(wParam) == IDC_RADIO_CAMERA)
-                    || (LOWORD(wParam) == IDC_RADIO_OBJECT) )
+                    || (LOWORD(wParam) == IDC_RADIO_OBJECT))
                 {
                     IParamBlock2* pb = map->GetParamBlock();
-                    if( pb->GetInt(plSwivelComp::kFaceTypeRadio) == plSwivelComp::kFaceObject )
+                    if (pb->GetInt(plSwivelComp::kFaceTypeRadio) == plSwivelComp::kFaceObject)
                         map->Enable(plSwivelComp::kFaceObjectSel, TRUE);
                     else
                         map->Enable(plSwivelComp::kFaceObjectSel, FALSE);
@@ -811,12 +811,12 @@ bool plSwivelComp::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
     pMod->SetOrigTransform(node->GetLocalToParent44(), node->GetParentToLocal44());
     node->AddModifier(pMod, IGetUniqueName(node));
 
-    if( fCompPB->GetInt(kPivotY) )
+    if (fCompPB->GetInt(kPivotY))
         pMod->SetFlag(plViewFaceModifier::kPivotY);
     else
         pMod->SetFlag(plViewFaceModifier::kPivotFace);
 
-    switch( fCompPB->GetInt(kFaceTypeRadio) )
+    switch (fCompPB->GetInt(kFaceTypeRadio))
     {
     case kFaceCamera:
         pMod->SetFollowMode(plViewFaceModifier::kFollowCamera);
@@ -833,7 +833,7 @@ bool plSwivelComp::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
     case kFaceObject:
         {
             plMaxNode* targNode = (plMaxNode*)fCompPB->GetINode(kFaceObjectSel);
-            if( targNode && targNode->CanConvert() )
+            if (targNode && targNode->CanConvert())
             {
                 pMod->SetFollowMode(plViewFaceModifier::kFollowObject, targNode->GetKey());
             }
@@ -849,7 +849,7 @@ bool plSwivelComp::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
     }
 
     pMod->SetOffsetActive(fCompPB->GetInt(kOffsetActive));
-    if( fCompPB->GetInt(kOffsetActive) )
+    if (fCompPB->GetInt(kOffsetActive))
     {
         hsVector3 off(fCompPB->GetFloat(kOffsetX), fCompPB->GetFloat(kOffsetY), fCompPB->GetFloat(kOffsetZ));
         pMod->SetOffset(off, fCompPB->GetInt(kOffsetLocal));

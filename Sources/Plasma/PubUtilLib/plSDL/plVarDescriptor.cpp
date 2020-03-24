@@ -116,7 +116,7 @@ bool plVarDescriptor::SetType(const ST::string& type)
     if (!type.compare_i("plKey"))
         fType=kKey;
     else
-    if (!type.compare_i("message") || !type.compare_i("creatable") )
+    if (!type.compare_i("message") || !type.compare_i("creatable"))
         fType=kCreatable;
     else
     if (type.front() == '$')
@@ -199,7 +199,7 @@ plSimpleVarDescriptor::plSimpleVarDescriptor() :
 // size in bytes
 int plSimpleVarDescriptor::GetAtomicSize() const
 {
-    switch(fAtomicType)
+    switch (fAtomicType)
     {
     case kInt:
         return sizeof(int)*GetAtomicCount();

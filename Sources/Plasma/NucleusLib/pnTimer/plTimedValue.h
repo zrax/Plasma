@@ -106,7 +106,7 @@ public:
 template <class T>
 plTimedValue<T>& plTimedValue<T>::Set(const T& v, float secs)
 {
-    if( secs <= 0 )
+    if (secs <= 0)
     {
         fGoal = fInit = v;
         fInvSecs = 0;
@@ -124,12 +124,12 @@ plTimedValue<T>& plTimedValue<T>::Set(const T& v, float secs)
 template <class T>
 T plTimedValue<T>::Value() const
 {
-    if( fInvSecs > 0 )
+    if (fInvSecs > 0)
     {
         float t = (float)((hsTimer::GetSysSeconds() - fStart) * fInvSecs);
         hsAssert(t >= 0, "Moving back in time");
 
-        if( t < 1.f )
+        if (t < 1.f)
             return fGoal * t + fInit * (1.f - t);
 
     }

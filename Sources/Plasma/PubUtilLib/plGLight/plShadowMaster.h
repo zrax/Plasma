@@ -121,8 +121,8 @@ public:
     plShadowMaster();
     virtual ~plShadowMaster();
 
-    CLASSNAME_REGISTER( plShadowMaster );
-    GETINTERFACE_ANY( plShadowMaster, plObjInterface );
+    CLASSNAME_REGISTER(plShadowMaster);
+    GETINTERFACE_ANY(plShadowMaster, plObjInterface);
 
     virtual bool MsgReceive(plMessage* msg);
 

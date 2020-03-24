@@ -69,7 +69,7 @@ plEAXListenerMod::plEAXListenerMod()
     fGetsMessages = false;
 
 #ifdef EAX_SDK_AVAILABLE
-    memcpy( fListenerProps, &REVERB_ORIGINAL_PRESETS[ ORIGINAL_GENERIC ], sizeof( EAXREVERBPROPERTIES ) );
+    memcpy(fListenerProps, &REVERB_ORIGINAL_PRESETS[ORIGINAL_GENERIC], sizeof(EAXREVERBPROPERTIES));
 #endif
 }
 
@@ -79,9 +79,9 @@ plEAXListenerMod::~plEAXListenerMod()
     IUnRegister();
 
     // Unregister for audioSys messages
-    if( fGetsMessages )
+    if (fGetsMessages)
     {
-        plgDispatch::Dispatch()->UnRegisterForExactType( plAudioSysMsg::Index(), GetKey() );
+        plgDispatch::Dispatch()->UnRegisterForExactType(plAudioSysMsg::Index(), GetKey());
         fGetsMessages = false;
     }
 
@@ -90,56 +90,56 @@ plEAXListenerMod::~plEAXListenerMod()
 
 void    plEAXListenerMod::IRegister()
 {
-    if( !fGetsMessages )
+    if (!fGetsMessages)
     {
-        plgDispatch::Dispatch()->RegisterForExactType( plAudioSysMsg::Index(), GetKey() );
+        plgDispatch::Dispatch()->RegisterForExactType(plAudioSysMsg::Index(), GetKey());
         fGetsMessages = true;
     }
 
-    if( fRegistered || GetKey() == nil )
+    if (fRegistered || GetKey() == nil)
         return;
 
-    plKey sysKey = hsgResMgr::ResMgr()->FindKey( plUoid( kAudioSystem_KEY ) );
-    if( sysKey != nil )
+    plKey sysKey = hsgResMgr::ResMgr()->FindKey(plUoid(kAudioSystem_KEY));
+    if (sysKey != nil)
     {
-        plGenRefMsg *refMsg = new plGenRefMsg( sysKey, plRefMsg::kOnCreate, 0, plAudioSystem::kRefEAXRegion );
-        hsgResMgr::ResMgr()->AddViaNotify( GetKey(), refMsg, plRefFlags::kPassiveRef );
+        plGenRefMsg *refMsg = new plGenRefMsg(sysKey, plRefMsg::kOnCreate, 0, plAudioSystem::kRefEAXRegion);
+        hsgResMgr::ResMgr()->AddViaNotify(GetKey(), refMsg, plRefFlags::kPassiveRef);
         fRegistered = true;
     }
 }
 
 void    plEAXListenerMod::IUnRegister()
 {
-    if( !fRegistered || GetKey() == nil )
+    if (!fRegistered || GetKey() == nil)
         return;
 
-    plKey sysKey = hsgResMgr::ResMgr()->FindKey( plUoid( kAudioSystem_KEY ) );
-    if( sysKey != nil && GetKey() != nil )
-        sysKey->Release( GetKey() );
+    plKey sysKey = hsgResMgr::ResMgr()->FindKey(plUoid(kAudioSystem_KEY));
+    if (sysKey != nil && GetKey() != nil)
+        sysKey->Release(GetKey());
 
     fRegistered = false;
 }
 
-bool plEAXListenerMod::IEval( double secs, float del, uint32_t dirty )
+bool plEAXListenerMod::IEval(double secs, float del, uint32_t dirty)
 {
     IRegister();
     return false;
 }
 
-bool    plEAXListenerMod::MsgReceive( plMessage* pMsg )
+bool    plEAXListenerMod::MsgReceive(plMessage* pMsg)
 {
-    plGenRefMsg *refMsg = plGenRefMsg::ConvertNoRef( pMsg );
-    if( refMsg != nil )
+    plGenRefMsg *refMsg = plGenRefMsg::ConvertNoRef(pMsg);
+    if (refMsg != nil)
     {
-        switch( refMsg->fType )
+        switch (refMsg->fType)
         {
             case kRefSoftRegion:
-                if( refMsg->GetContext() & ( plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace ) )
+                if (refMsg->GetContext() & (plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace))
                 {
-                    fSoftRegion = plSoftVolume::ConvertNoRef( refMsg->GetRef() );
+                    fSoftRegion = plSoftVolume::ConvertNoRef(refMsg->GetRef());
                     fSoftRegion->SetCheckListener();
                 }
-                else if( refMsg->GetContext() & ( plRefMsg::kOnRemove | plRefMsg::kOnDestroy ) )
+                else if (refMsg->GetContext() & (plRefMsg::kOnRemove | plRefMsg::kOnDestroy))
                 {
                     fSoftRegion = nil;
                 }
@@ -147,14 +147,14 @@ bool    plEAXListenerMod::MsgReceive( plMessage* pMsg )
         }
     }
 
-    plAudioSysMsg *sysMsg = plAudioSysMsg::ConvertNoRef( pMsg );
-    if( sysMsg != nil )
+    plAudioSysMsg *sysMsg = plAudioSysMsg::ConvertNoRef(pMsg);
+    if (sysMsg != nil)
     {
-        if( sysMsg->GetAudFlag() == plAudioSysMsg::kActivate )
+        if (sysMsg->GetAudFlag() == plAudioSysMsg::kActivate)
         {
             IRegister();
         }
-        else if( sysMsg->GetAudFlag() == plAudioSysMsg::kDeActivate )
+        else if (sysMsg->GetAudFlag() == plAudioSysMsg::kDeActivate)
         {
             IUnRegister();
         }
@@ -162,15 +162,15 @@ bool    plEAXListenerMod::MsgReceive( plMessage* pMsg )
         return true;
     }
 
-    return plSingleModifier::MsgReceive( pMsg );
+    return plSingleModifier::MsgReceive(pMsg);
 }
         
-void plEAXListenerMod::Read( hsStream* s, hsResMgr* mgr )
+void plEAXListenerMod::Read(hsStream* s, hsResMgr* mgr)
 {
-    plSingleModifier::Read( s, mgr );
+    plSingleModifier::Read(s, mgr);
 
     // Read in the soft region
-    mgr->ReadKeyNotifyMe( s, new plGenRefMsg( GetKey(), plRefMsg::kOnCreate, 0, kRefSoftRegion ), plRefFlags::kActiveRef );
+    mgr->ReadKeyNotifyMe(s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, 0, kRefSoftRegion), plRefFlags::kActiveRef);
 
     // Read the listener params
     fListenerProps->ulEnvironment = s->ReadLE32();
@@ -202,51 +202,51 @@ void plEAXListenerMod::Read( hsStream* s, hsResMgr* mgr )
     IRegister();
 }
 
-void plEAXListenerMod::Write( hsStream* s, hsResMgr* mgr )
+void plEAXListenerMod::Write(hsStream* s, hsResMgr* mgr)
 {
-    plSingleModifier::Write( s, mgr );
+    plSingleModifier::Write(s, mgr);
 
     // Write the soft region key
-    mgr->WriteKey( s, fSoftRegion );
+    mgr->WriteKey(s, fSoftRegion);
 
     // Write the listener params
-    s->WriteLE32( fListenerProps->ulEnvironment );
-    s->WriteLEFloat( fListenerProps->flEnvironmentSize );
-    s->WriteLEFloat( fListenerProps->flEnvironmentDiffusion );
-    s->WriteLE32( fListenerProps->lRoom );
-    s->WriteLE32( fListenerProps->lRoomHF );
-    s->WriteLE32( fListenerProps->lRoomLF );
-    s->WriteLEFloat( fListenerProps->flDecayTime );
-    s->WriteLEFloat( fListenerProps->flDecayHFRatio );
-    s->WriteLEFloat( fListenerProps->flDecayLFRatio );
-    s->WriteLE32( fListenerProps->lReflections );
-    s->WriteLEFloat( fListenerProps->flReflectionsDelay );
-    //s->WriteLEFloat( fListenerProps->vReflectionsPan;     // early reflections panning vector
-    s->WriteLE32( fListenerProps->lReverb );                  // late reverberation level relative to room effect
-    s->WriteLEFloat( fListenerProps->flReverbDelay );
-    //s->WriteLEFloat( fListenerProps->vReverbPan;          // late reverberation panning vector
-    s->WriteLEFloat( fListenerProps->flEchoTime );
-    s->WriteLEFloat( fListenerProps->flEchoDepth );
-    s->WriteLEFloat( fListenerProps->flModulationTime );
-    s->WriteLEFloat( fListenerProps->flModulationDepth );
-    s->WriteLEFloat( fListenerProps->flAirAbsorptionHF );
-    s->WriteLEFloat( fListenerProps->flHFReference );
-    s->WriteLEFloat( fListenerProps->flLFReference );
-    s->WriteLEFloat( fListenerProps->flRoomRolloffFactor );
-    s->WriteLE32( fListenerProps->ulFlags );
+    s->WriteLE32(fListenerProps->ulEnvironment);
+    s->WriteLEFloat(fListenerProps->flEnvironmentSize);
+    s->WriteLEFloat(fListenerProps->flEnvironmentDiffusion);
+    s->WriteLE32(fListenerProps->lRoom);
+    s->WriteLE32(fListenerProps->lRoomHF);
+    s->WriteLE32(fListenerProps->lRoomLF);
+    s->WriteLEFloat(fListenerProps->flDecayTime);
+    s->WriteLEFloat(fListenerProps->flDecayHFRatio);
+    s->WriteLEFloat(fListenerProps->flDecayLFRatio);
+    s->WriteLE32(fListenerProps->lReflections);
+    s->WriteLEFloat(fListenerProps->flReflectionsDelay);
+    //s->WriteLEFloat(fListenerProps->vReflectionsPan;     // early reflections panning vector
+    s->WriteLE32(fListenerProps->lReverb);                  // late reverberation level relative to room effect
+    s->WriteLEFloat(fListenerProps->flReverbDelay);
+    //s->WriteLEFloat(fListenerProps->vReverbPan;          // late reverberation panning vector
+    s->WriteLEFloat(fListenerProps->flEchoTime);
+    s->WriteLEFloat(fListenerProps->flEchoDepth);
+    s->WriteLEFloat(fListenerProps->flModulationTime);
+    s->WriteLEFloat(fListenerProps->flModulationDepth);
+    s->WriteLEFloat(fListenerProps->flAirAbsorptionHF);
+    s->WriteLEFloat(fListenerProps->flHFReference);
+    s->WriteLEFloat(fListenerProps->flLFReference);
+    s->WriteLEFloat(fListenerProps->flRoomRolloffFactor);
+    s->WriteLE32(fListenerProps->ulFlags);
 }
 
 
-void    plEAXListenerMod::SetFromPreset( uint32_t preset )
+void    plEAXListenerMod::SetFromPreset(uint32_t preset)
 {
 #ifdef EAX_SDK_AVAILABLE
-    memcpy( fListenerProps, &REVERB_ORIGINAL_PRESETS[ preset ], sizeof( EAXREVERBPROPERTIES ) );
+    memcpy(fListenerProps, &REVERB_ORIGINAL_PRESETS[preset], sizeof(EAXREVERBPROPERTIES));
 #endif
 }
 
 float   plEAXListenerMod::GetStrength()
 {
-    if( fSoftRegion == nil )
+    if (fSoftRegion == nil)
         return 0.f;
 
     return fSoftRegion->GetListenerStrength();

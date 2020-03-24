@@ -57,8 +57,8 @@ public:
     plCondRefMsg(const plKey &s, int which)
         : plRefMsg(s, plRefMsg::kOnCreate), fWhich(which) {}
 
-    CLASSNAME_REGISTER( plCondRefMsg );
-    GETINTERFACE_ANY( plCondRefMsg, plRefMsg );
+    CLASSNAME_REGISTER(plCondRefMsg);
+    GETINTERFACE_ANY(plCondRefMsg, plRefMsg);
 
     int8_t                    fWhich;
 

@@ -81,8 +81,8 @@ plBitmap::plBitmap()
 
 plBitmap::~plBitmap()
 {
-    if( fDeviceRef != nil )
-        hsRefCnt_SafeUnRef( fDeviceRef );
+    if (fDeviceRef != nil)
+        hsRefCnt_SafeUnRef(fDeviceRef);
 }
 
 bool plBitmap::IsSameModifiedTime(uint32_t lowTime, uint32_t highTime)
@@ -100,21 +100,21 @@ void plBitmap::SetModifiedTime(uint32_t lowTime, uint32_t highTime)
 
 static uint8_t    sBitmapVersion = 2;
 
-uint32_t  plBitmap::Read( hsStream *s )
+uint32_t  plBitmap::Read(hsStream *s)
 {
     uint8_t   version = s->ReadByte();
     uint32_t  read = 6;
 
 
-    hsAssert( version == sBitmapVersion, "Invalid bitamp version on Read()" );
+    hsAssert(version == sBitmapVersion, "Invalid bitamp version on Read()");
 
     fPixelSize = s->ReadByte();
     fSpace = s->ReadByte();
     fFlags = s->ReadLE16();
     fCompressionType = s->ReadByte();
 
-    if( fCompressionType == kUncompressed || fCompressionType == kJPEGCompression ||
-        fCompressionType == kPNGCompression )
+    if (fCompressionType == kUncompressed || fCompressionType == kJPEGCompression ||
+        fCompressionType == kPNGCompression)
     {
         fUncompressedInfo.fType = s->ReadByte();
         read++;
@@ -134,28 +134,28 @@ uint32_t  plBitmap::Read( hsStream *s )
 
 //// Write ////////////////////////////////////////////////////////////////////
 
-uint32_t  plBitmap::Write( hsStream *s )
+uint32_t  plBitmap::Write(hsStream *s)
 {
     uint32_t  written = 6;
 
 
-    s->WriteByte( sBitmapVersion );
+    s->WriteByte(sBitmapVersion);
 
-    s->WriteByte( fPixelSize );
-    s->WriteByte( fSpace );
-    s->WriteLE16( fFlags );
-    s->WriteByte( fCompressionType );
+    s->WriteByte(fPixelSize);
+    s->WriteByte(fSpace);
+    s->WriteLE16(fFlags);
+    s->WriteByte(fCompressionType);
 
-    if( fCompressionType == kUncompressed || fCompressionType == kJPEGCompression ||
-        fCompressionType == kPNGCompression )
+    if (fCompressionType == kUncompressed || fCompressionType == kJPEGCompression ||
+        fCompressionType == kPNGCompression)
     {
-        s->WriteByte( fUncompressedInfo.fType );
+        s->WriteByte(fUncompressedInfo.fType);
         written++;
     }
     else
     {
-        s->WriteByte( fDirectXInfo.fBlockSize );
-        s->WriteByte( fDirectXInfo.fCompressionType );
+        s->WriteByte(fDirectXInfo.fBlockSize);
+        s->WriteByte(fDirectXInfo.fCompressionType);
         written += 2;
     }
 
@@ -167,16 +167,16 @@ uint32_t  plBitmap::Write( hsStream *s )
 
 //// SetDeviceRef /////////////////////////////////////////////////////////////
 
-void    plBitmap::SetDeviceRef( hsGDeviceRef *const devRef )
+void    plBitmap::SetDeviceRef(hsGDeviceRef *const devRef)
 {
-    if( fDeviceRef == devRef )
+    if (fDeviceRef == devRef)
         return;
 
-    hsRefCnt_SafeAssign( fDeviceRef, devRef );
+    hsRefCnt_SafeAssign(fDeviceRef, devRef);
 }
 
 void plBitmap::MakeDirty()
 {
-    if( fDeviceRef )
+    if (fDeviceRef)
         fDeviceRef->SetDirty(true);
 }

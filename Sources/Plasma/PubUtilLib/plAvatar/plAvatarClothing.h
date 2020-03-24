@@ -108,8 +108,8 @@ public:
     plClothingItem();
     ~plClothingItem();
     
-    CLASSNAME_REGISTER( plClothingItem );
-    GETINTERFACE_ANY( plClothingItem, hsKeyedObject );
+    CLASSNAME_REGISTER(plClothingItem);
+    GETINTERFACE_ANY(plClothingItem, hsKeyedObject);
 
     void SetName(const ST::string &name) { fName = name; }
     ST::string GetName() const { return fName; }
@@ -144,8 +144,8 @@ public:
 
     plClothingBase();
 
-    CLASSNAME_REGISTER( plClothingBase );
-    GETINTERFACE_ANY( plClothingBase, hsKeyedObject );
+    CLASSNAME_REGISTER(plClothingBase);
+    GETINTERFACE_ANY(plClothingBase, hsKeyedObject);
     
     void SetLayoutName(const ST::string &name) { fLayoutName = name; }
 
@@ -174,8 +174,8 @@ public:
     plClothingOutfit();
     ~plClothingOutfit();
 
-    CLASSNAME_REGISTER( plClothingOutfit );
-    GETINTERFACE_ANY( plClothingOutfit, plSynchedObject );
+    CLASSNAME_REGISTER(plClothingOutfit);
+    GETINTERFACE_ANY(plClothingOutfit, plSynchedObject);
 
     void SaveCustomizations(bool retry = true);
     void AddItem(plClothingItem *item, bool update = true, bool broadcast = true, bool netForce=false);
@@ -278,8 +278,8 @@ public:
     plClothingMgr();
     ~plClothingMgr();
 
-    CLASSNAME_REGISTER( plClothingMgr );
-    GETINTERFACE_ANY( plClothingMgr, hsKeyedObject );
+    CLASSNAME_REGISTER(plClothingMgr);
+    GETINTERFACE_ANY(plClothingMgr, hsKeyedObject);
 
     plClothingLayout *GetLayout(const ST::string &name) const;
     plClothingElement *FindElementByName(const ST::string &name) const;

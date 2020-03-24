@@ -58,8 +58,8 @@ public:
     plObjectIntersectPlaneConditionalObject();
     ~plObjectIntersectPlaneConditionalObject() { }
     
-    CLASSNAME_REGISTER( plObjectIntersectPlaneConditionalObject );
-    GETINTERFACE_ANY( plObjectIntersectPlaneConditionalObject, plConditionalObject );
+    CLASSNAME_REGISTER(plObjectIntersectPlaneConditionalObject);
+    GETINTERFACE_ANY(plObjectIntersectPlaneConditionalObject, plConditionalObject);
     
     bool MsgReceive(plMessage* msg);
 

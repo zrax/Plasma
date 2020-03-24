@@ -80,7 +80,7 @@ class pfGUITag
 {
     public:
         uint32_t  fID;
-        char    fName[ 128 ];
+        char    fName[128];
 };
 
 
@@ -158,18 +158,18 @@ class pfGameGUIMgr : public hsKeyedObject
         // LoadDialog adds an entry and MsgReceive removes it
         hsTArray<pfDialogNameSetKey *>  fDialogToSetKeyOf;
 
-        void    ILoadDialog( const char *name );
-        void    IShowDialog( const char *name );
-        void    IHideDialog( const char *name );
+        void    ILoadDialog(const char *name);
+        void    IShowDialog(const char *name);
+        void    IHideDialog(const char *name);
 
-        void    IAddDlgToList( hsKeyedObject *obj );
-        void    IRemoveDlgFromList( hsKeyedObject *obj );
+        void    IAddDlgToList(hsKeyedObject *obj);
+        void    IRemoveDlgFromList(hsKeyedObject *obj);
 
-        void    IActivateGUI( bool activate );
+        void    IActivateGUI(bool activate);
 
-        bool    IHandleMouse( EventType event, float mouseX, float mouseY, uint8_t modifiers, uint32_t *desiredCursor );
-        bool    IHandleKeyEvt( EventType event, plKeyDef key, uint8_t modifiers );
-        bool    IHandleKeyPress( wchar_t key, uint8_t modifiers );
+        bool    IHandleMouse(EventType event, float mouseX, float mouseY, uint8_t modifiers, uint32_t *desiredCursor);
+        bool    IHandleKeyEvt(EventType event, plKeyDef key, uint8_t modifiers);
+        bool    IHandleKeyPress(wchar_t key, uint8_t modifiers);
 
         bool    IModalBlocking();
 
@@ -186,26 +186,26 @@ class pfGameGUIMgr : public hsKeyedObject
         pfGameGUIMgr();
         ~pfGameGUIMgr();
 
-        CLASSNAME_REGISTER( pfGameGUIMgr );
-        GETINTERFACE_ANY( pfGameGUIMgr, hsKeyedObject );
+        CLASSNAME_REGISTER(pfGameGUIMgr);
+        GETINTERFACE_ANY(pfGameGUIMgr, hsKeyedObject);
 
-        void        Draw( plPipeline *p );
+        void        Draw(plPipeline *p);
 
         bool        Init();
 
-        virtual bool    MsgReceive( plMessage* pMsg );
+        virtual bool    MsgReceive(plMessage* pMsg);
 
-        void    LoadDialog( const char *name, plKey recvrKey=nil, const char *ageName = nil );  // AgeName = nil defaults to "GUI"
-        void    ShowDialog( const char *name ) { IShowDialog(name); }
-        void    HideDialog( const char *name ) { IHideDialog(name); }
-        void    UnloadDialog( const char *name );
-        void    UnloadDialog( pfGUIDialogMod *dlg );
+        void    LoadDialog(const char *name, plKey recvrKey=nil, const char *ageName = nil);  // AgeName = nil defaults to "GUI"
+        void    ShowDialog(const char *name) { IShowDialog(name); }
+        void    HideDialog(const char *name) { IHideDialog(name); }
+        void    UnloadDialog(const char *name);
+        void    UnloadDialog(pfGUIDialogMod *dlg);
 
-        void    ShowDialog( pfGUIDialogMod *dlg, bool resetClickables=true );
-        void    HideDialog( pfGUIDialogMod *dlg );
+        void    ShowDialog(pfGUIDialogMod *dlg, bool resetClickables=true);
+        void    HideDialog(pfGUIDialogMod *dlg);
 
-        bool    IsDialogLoaded( const char *name );
-        pfGUIDialogMod *GetDialogFromString( const char *name );
+        bool    IsDialogLoaded(const char *name);
+        pfGUIDialogMod *GetDialogFromString(const char *name);
 
         void    SetDialogToNotify(const char *name, plKey recvrKey);
         void    SetDialogToNotify(pfGUIDialogMod *dlg, plKey recvrKey);
@@ -215,17 +215,17 @@ class pfGameGUIMgr : public hsKeyedObject
         void    SetCursorOpacity(float opacity) { fCursorOpacity = opacity; }
         float    GetCursorOpacity() { return fCursorOpacity; }
 
-        pfGUIPopUpMenu  *FindPopUpMenu( const char *name );
+        pfGUIPopUpMenu  *FindPopUpMenu(const char *name);
 
         std::vector<plPostEffectMod*> GetDlgRenderMods() const;
         bool    IsModalBlocking() {return IModalBlocking();}
 
         // Tag ID stuff
-        pfGUIDialogMod  *GetDialogFromTag( uint32_t tagID );
-        pfGUIControlMod *GetControlFromTag( pfGUIDialogMod *dlg, uint32_t tagID );
+        pfGUIDialogMod  *GetDialogFromTag(uint32_t tagID);
+        pfGUIControlMod *GetControlFromTag(pfGUIDialogMod *dlg, uint32_t tagID);
 
         static uint32_t       GetNumTags();
-        static pfGUITag     *GetTag( uint32_t tagIndex );
+        static pfGUITag     *GetTag(uint32_t tagIndex);
         static uint32_t       GetHighestTag();
         void SetAspectRatio(float aspectratio);
         float GetAspectRatio() { return fAspectRatio; }

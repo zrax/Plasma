@@ -116,7 +116,7 @@ public:
     // interface functions
     virtual uint32_t  GetTagID();
 
-    virtual void    SetEnabled( bool e );
+    virtual void    SetEnabled(bool e);
     virtual void    Enable() { SetEnabled(true); }
     virtual void    Disable() { SetEnabled(false); }
     virtual bool        IsEnabled();
@@ -124,13 +124,13 @@ public:
     virtual uint32_t      GetVersion();
 
     virtual uint32_t      GetNumControls();
-    virtual PyObject*   GetControl( uint32_t idx ); // returns pyKey
-    virtual void        SetFocus( pyKey& gcKey );
-    virtual void        NoFocus( );
+    virtual PyObject*   GetControl(uint32_t idx); // returns pyKey
+    virtual void        SetFocus(pyKey& gcKey);
+    virtual void        NoFocus();
     virtual void        Show();
     virtual void        ShowNoReset();
     virtual void        Hide();
-    virtual PyObject*   GetControlFromTag( uint32_t tagID );  // returns pyKey
+    virtual PyObject*   GetControlFromTag(uint32_t tagID);  // returns pyKey
 
     // get color schemes
     virtual PyObject*   GetForeColor(); // returns pyColor
@@ -139,10 +139,10 @@ public:
     virtual PyObject*   GetBackSelColor(); // returns pyColor
     virtual uint32_t      GetFontSize();
     // set color scheme
-    virtual void        SetForeColor( float r, float g, float b, float a );
-    virtual void        SetSelColor( float r, float g, float b, float a );
-    virtual void        SetBackColor( float r, float g, float b, float a );
-    virtual void        SetBackSelColor( float r, float g, float b, float a );
+    virtual void        SetForeColor(float r, float g, float b, float a);
+    virtual void        SetSelColor(float r, float g, float b, float a);
+    virtual void        SetBackColor(float r, float g, float b, float a);
+    virtual void        SetBackSelColor(float r, float g, float b, float a);
     virtual void        SetFontSize(uint32_t fontsize);
 
     virtual void        UpdateAllBounds();

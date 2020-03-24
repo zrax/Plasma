@@ -59,8 +59,8 @@ public:
     plLightSpace() : fLightInfo(nil) {}
     virtual ~plLightSpace() {}
 
-    CLASSNAME_REGISTER( plLightSpace );
-    GETINTERFACE_ANY( plLightSpace, plMultiModifier );
+    CLASSNAME_REGISTER(plLightSpace);
+    GETINTERFACE_ANY(plLightSpace, plMultiModifier);
 
     virtual bool IEval(double secs, float del, uint32_t dirty) { return false; }
 

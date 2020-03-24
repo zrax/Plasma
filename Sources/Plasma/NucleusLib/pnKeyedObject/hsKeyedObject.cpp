@@ -77,7 +77,7 @@ ST::string hsKeyedObject::GetKeyName() const
 
 hsKeyedObject::~hsKeyedObject()
 {
-    if( fpKey && fpKey->ObjectIsLoaded() )
+    if (fpKey && fpKey->ObjectIsLoaded())
     {
         // If our key is pointing to an object (presumably back to us),
         // then UnRegister will call SetObjectPtr(nil) will unregister the key (and us), which will

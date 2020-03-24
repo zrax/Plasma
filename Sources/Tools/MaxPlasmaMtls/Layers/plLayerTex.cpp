@@ -75,9 +75,9 @@ ParamBlockDesc2 *GetBitmapBlk();
 
 #include "plLayerTexBitmapPB.cpp"
 
-void    plLayerTex::GetClassName( TSTR &s )
+void    plLayerTex::GetClassName(TSTR &s)
 {
-    s = GetString( IDS_LAYER );
+    s = GetString(IDS_LAYER);
 }
 
 plLayerTex::plLayerTex() :
@@ -208,8 +208,8 @@ void plLayerTex::SetReference(int i, RefTargetHandle rtarg)
     {
         case kRefUVGen:
             fUVGen = (UVGen *)rtarg;
-            if( fUVGen )
-                fUVGen->Update( TimeValue( 0 ), garbage );
+            if (fUVGen)
+                fUVGen->Update(TimeValue(0), garbage);
             break;
         case kRefBitmap:
             fBitmapPB = (IParamBlock2 *)rtarg;
@@ -663,19 +663,19 @@ PBBitmap *plLayerTex::GetPBBitmap(int index /* = 0 */)
 //  Virtual function called by plBMSampler to get various things while sampling
 //  the layer's image
 
-bool    plLayerTex::GetSamplerInfo( plBMSamplerData *samplerData )
+bool    plLayerTex::GetSamplerInfo(plBMSamplerData *samplerData)
 {
-    samplerData->fClipU = fBitmapPB->GetFloat( (ParamID)kBmpClipU );
-    samplerData->fClipV = fBitmapPB->GetFloat( (ParamID)kBmpClipV );
-    samplerData->fClipW = fBitmapPB->GetFloat( (ParamID)kBmpClipW );
-    samplerData->fClipH = fBitmapPB->GetFloat( (ParamID)kBmpClipH );
+    samplerData->fClipU = fBitmapPB->GetFloat((ParamID)kBmpClipU);
+    samplerData->fClipV = fBitmapPB->GetFloat((ParamID)kBmpClipV);
+    samplerData->fClipW = fBitmapPB->GetFloat((ParamID)kBmpClipW);
+    samplerData->fClipH = fBitmapPB->GetFloat((ParamID)kBmpClipH);
 
-    samplerData->fEnableCrop = fBitmapPB->GetInt( (ParamID)kBmpApply ) ? true : false;
-    samplerData->fCropPlacement = fBitmapPB->GetInt( (ParamID)kBmpCropPlace );
+    samplerData->fEnableCrop = fBitmapPB->GetInt((ParamID)kBmpApply) ? true : false;
+    samplerData->fCropPlacement = fBitmapPB->GetInt((ParamID)kBmpCropPlace);
 
-    if( fBitmapPB->GetInt( (ParamID)kBmpDiscardAlpha ) )
+    if (fBitmapPB->GetInt((ParamID)kBmpDiscardAlpha))
         samplerData->fAlphaSource = plBMSamplerData::kDiscard;
-    else if( fBitmapPB->GetInt( (ParamID)kBmpRGBOutput ) == 1 )
+    else if (fBitmapPB->GetInt((ParamID)kBmpRGBOutput) == 1)
         samplerData->fAlphaSource = plBMSamplerData::kFromRGB;
     else
         samplerData->fAlphaSource = plBMSamplerData::kFromTexture;

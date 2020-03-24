@@ -93,7 +93,7 @@ bool plInstanceDrawInterface::MsgReceive(plMessage* msg)
     plSwapSpansRefMsg* refMsg = plSwapSpansRefMsg::ConvertNoRef(msg);
     if (refMsg)
     {
-        if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+        if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
             fDrawable = nil;
         else
             fDrawable = plDrawableSpans::ConvertNoRef(refMsg->GetRef());
@@ -114,7 +114,7 @@ void plInstanceDrawInterface::AddSharedMesh(plSharedMesh *mesh, hsGMaterial *mat
 #ifdef MF_NOSHADOW_ACC
     // TESTHACKERY FOLLOWS - GlassesNoShadow
     uint32_t noShadHack = 0;
-    if( mesh->GetKey() && (mesh->GetKey()->GetName().Find("lasses") >= 0 || mesh->GetKey()->GetName().Find("oggles") >= 0) )
+    if (mesh->GetKey() && (mesh->GetKey()->GetName().Find("lasses") >= 0 || mesh->GetKey()->GetName().Find("oggles") >= 0))
         noShadHack = plGeometrySpan::kPropNoShadowCast;
 #endif // MF_NOSHADOW_ACC
 
@@ -123,7 +123,7 @@ void plInstanceDrawInterface::AddSharedMesh(plSharedMesh *mesh, hsGMaterial *mat
     {
         mesh->fSpans[i]->fMaterial = mat;
 
-        if( partialSort )
+        if (partialSort)
         {
             mesh->fSpans[i]->fProps |= plGeometrySpan::kPartialSort;
         }
@@ -199,7 +199,7 @@ void plInstanceDrawInterface::RemoveSharedMesh(plSharedMesh *mesh)
 
 void plInstanceDrawInterface::ICheckDrawableIndex(uint8_t which)
 {
-    if( which >= fMeshes.GetCount() )
+    if (which >= fMeshes.GetCount())
     {
         fMeshes.ExpandAndZero(which+1);
     }
@@ -239,9 +239,9 @@ void plInstanceDrawInterface::IClearIndex(uint8_t which)
 int32_t plInstanceDrawInterface::GetSharedMeshIndex(const plSharedMesh *mesh) const
 {
     int i;
-    for( i = 0; i < fMeshes.GetCount(); i++ )
+    for (i = 0; i < fMeshes.GetCount(); i++)
     {
-        if( fMeshes[i] == mesh )
+        if (fMeshes[i] == mesh)
             return i;
     }
     return -1;

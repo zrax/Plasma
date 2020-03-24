@@ -66,8 +66,8 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 pfGUITextBoxMod::pfGUITextBoxMod()
 {
-//  SetFlag( kWantsInterest );
-    SetFlag( kIntangible );
+//  SetFlag(kWantsInterest);
+    SetFlag(kIntangible);
     fText = nil;
     fUseLocalizationPath = false;
 }
@@ -79,16 +79,16 @@ pfGUITextBoxMod::~pfGUITextBoxMod()
 
 //// IEval ///////////////////////////////////////////////////////////////////
 
-bool    pfGUITextBoxMod::IEval( double secs, float del, uint32_t dirty )
+bool    pfGUITextBoxMod::IEval(double secs, float del, uint32_t dirty)
 {
-    return pfGUIControlMod::IEval( secs, del, dirty );
+    return pfGUIControlMod::IEval(secs, del, dirty);
 }
 
 //// MsgReceive //////////////////////////////////////////////////////////////
 
-bool    pfGUITextBoxMod::MsgReceive( plMessage *msg )
+bool    pfGUITextBoxMod::MsgReceive(plMessage *msg)
 {
-    return pfGUIControlMod::MsgReceive( msg );
+    return pfGUIControlMod::MsgReceive(msg);
 }
 
 //// IPostSetUpDynTextMap ////////////////////////////////////////////////////
@@ -97,34 +97,34 @@ void    pfGUITextBoxMod::IPostSetUpDynTextMap()
 {
     pfGUIColorScheme *scheme = GetColorScheme();
 
-    fDynTextMap->SetFont( scheme->fFontFace, scheme->fFontSize, scheme->fFontFlags,
-                            HasFlag( kXparentBgnd ) ? false : true );
-    fDynTextMap->SetTextColor( scheme->fForeColor,
-                            ( HasFlag( kXparentBgnd ) && scheme->fBackColor.a == 0.f ) ? true : false );
+    fDynTextMap->SetFont(scheme->fFontFace, scheme->fFontSize, scheme->fFontFlags,
+                            HasFlag(kXparentBgnd) ? false : true);
+    fDynTextMap->SetTextColor(scheme->fForeColor,
+                            (HasFlag(kXparentBgnd) && scheme->fBackColor.a == 0.f) ? true : false);
 }
 
 //// IUpdate /////////////////////////////////////////////////////////////////
 
 void    pfGUITextBoxMod::IUpdate()
 {
-    if( fDynTextMap == nil || !fDynTextMap->IsValid() )
+    if (fDynTextMap == nil || !fDynTextMap->IsValid())
         return;
 
-    if( HasFlag( kCenterJustify ) )
-        fDynTextMap->SetJustify( plDynamicTextMap::kCenter );
-    else if( HasFlag( kRightJustify ) )
-        fDynTextMap->SetJustify( plDynamicTextMap::kRightJustify );
+    if (HasFlag(kCenterJustify))
+        fDynTextMap->SetJustify(plDynamicTextMap::kCenter);
+    else if (HasFlag(kRightJustify))
+        fDynTextMap->SetJustify(plDynamicTextMap::kRightJustify);
     else
-        fDynTextMap->SetJustify( plDynamicTextMap::kLeftJustify );
+        fDynTextMap->SetJustify(plDynamicTextMap::kLeftJustify);
 
-    fDynTextMap->ClearToColor( GetColorScheme()->fBackColor );
+    fDynTextMap->ClearToColor(GetColorScheme()->fBackColor);
 
     std::wstring drawStr;
     if (fUseLocalizationPath && !fLocalizationPath.empty() && pfLocalizationMgr::InstanceValid())
         drawStr = pfLocalizationMgr::Instance().GetString(fLocalizationPath).to_wchar().data();
     else
     {
-        if( fText != nil )
+        if (fText != nil)
         {
             int lang = plLocalization::GetLanguage();
             std::vector<std::wstring> translations = plLocalization::StringToLocal(fText);
@@ -136,29 +136,29 @@ void    pfGUITextBoxMod::IUpdate()
     }
 
     if (!drawStr.empty())
-        fDynTextMap->DrawWrappedString( 4, 4, drawStr.c_str(), fDynTextMap->GetVisibleWidth() - 8, fDynTextMap->GetVisibleHeight() - 8 );
+        fDynTextMap->DrawWrappedString(4, 4, drawStr.c_str(), fDynTextMap->GetVisibleWidth() - 8, fDynTextMap->GetVisibleHeight() - 8);
 
     fDynTextMap->FlushToHost();
 }
 
 void pfGUITextBoxMod::PurgeDynaTextMapImage()
 {
-    if ( fDynTextMap != nil )
+    if (fDynTextMap != nil)
         fDynTextMap->PurgeImage();
 }
 
 //// Read/Write //////////////////////////////////////////////////////////////
 
-void    pfGUITextBoxMod::Read( hsStream *s, hsResMgr *mgr )
+void    pfGUITextBoxMod::Read(hsStream *s, hsResMgr *mgr)
 {
     pfGUIControlMod::Read(s, mgr);
 
     uint32_t len = s->ReadLE32();
-    if( len > 0 )
+    if (len > 0)
     {
-        char *text = new char[ len + 1 ];
-        s->Read( len, text );
-        text[ len ] = 0;
+        char *text = new char[len + 1];
+        s->Read(len, text);
+        text[len] = 0;
 
         fText = hsStringToWString(text);
         delete [] text;
@@ -173,17 +173,17 @@ void    pfGUITextBoxMod::Read( hsStream *s, hsResMgr *mgr )
     }
 }
 
-void    pfGUITextBoxMod::Write( hsStream *s, hsResMgr *mgr )
+void    pfGUITextBoxMod::Write(hsStream *s, hsResMgr *mgr)
 {
-    pfGUIControlMod::Write( s, mgr );
+    pfGUIControlMod::Write(s, mgr);
 
-    if( fText == nil )
-        s->WriteLE32( 0 );
+    if (fText == nil)
+        s->WriteLE32(0);
     else
     {
         char *text = hsWStringToString(fText);
-        s->WriteLE32( strlen( text ) );
-        s->Write( strlen( text ), text );
+        s->WriteLE32(strlen(text));
+        s->Write(strlen(text), text);
         delete [] text;
     }
 
@@ -198,21 +198,21 @@ void    pfGUITextBoxMod::Write( hsStream *s, hsResMgr *mgr )
 
 //// HandleMouseDown/Up //////////////////////////////////////////////////////
 
-void    pfGUITextBoxMod::HandleMouseDown( hsPoint3 &mousePt, uint8_t modifiers )
+void    pfGUITextBoxMod::HandleMouseDown(hsPoint3 &mousePt, uint8_t modifiers)
 {
 }
 
-void    pfGUITextBoxMod::HandleMouseUp( hsPoint3 &mousePt, uint8_t modifiers )
+void    pfGUITextBoxMod::HandleMouseUp(hsPoint3 &mousePt, uint8_t modifiers)
 {
 }
 
-void    pfGUITextBoxMod::HandleMouseDrag( hsPoint3 &mousePt, uint8_t modifiers )
+void    pfGUITextBoxMod::HandleMouseDrag(hsPoint3 &mousePt, uint8_t modifiers)
 {
 }
 
 //// SetText /////////////////////////////////////////////////////////////////
 
-void    pfGUITextBoxMod::SetText( const char *text )
+void    pfGUITextBoxMod::SetText(const char *text)
 {
     delete [] fText;
     if (text)
@@ -224,7 +224,7 @@ void    pfGUITextBoxMod::SetText( const char *text )
     IUpdate();
 }
 
-void    pfGUITextBoxMod::SetText( const wchar_t *text )
+void    pfGUITextBoxMod::SetText(const wchar_t *text)
 {
     delete [] fText;
     if (text)

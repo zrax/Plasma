@@ -82,7 +82,7 @@ bool plDynaTorpedoMgr::IHandleShot(plBulletMsg* bull)
 
     plConst(int) kNumShots(3);
     int i;
-    for( i = 0; i < kNumShots; i++ )
+    for (i = 0; i < kNumShots; i++)
     {
         hsVector3 up = IRandomUp(bull->Dir());
         hsVector3 pert = bull->Dir() % up;
@@ -101,7 +101,7 @@ bool plDynaTorpedoMgr::IHandleShot(plBulletMsg* bull)
 
 #if 0
         plConst(float) kMinScale(0.5f);
-        if( i )
+        if (i)
         {
             scaleX *= sRand.RandRangeF(kMinScale, 1.f);
             scaleY *= sRand.RandRangeF(kMinScale, 1.f);
@@ -113,7 +113,7 @@ bool plDynaTorpedoMgr::IHandleShot(plBulletMsg* bull)
 #else
         plConst(float) kMinScale(0.25f);
         plConst(float) kMaxScale(0.75f);
-        if( i )
+        if (i)
         {
             float scale = sRand.RandRangeF(kMinScale, kMaxScale);
             scaleX *= scale;
@@ -126,12 +126,12 @@ bool plDynaTorpedoMgr::IHandleShot(plBulletMsg* bull)
 
         plDynaDecalInfo& info = IGetDecalInfo(uintptr_t(this), GetKey());
 
-        if( bull->PartyTime() > 0 )
+        if (bull->PartyTime() > 0)
             fPartyTime = bull->PartyTime();
 
         double secs = hsTimer::GetSysSeconds();
 
-        if( ICutoutTargets(secs) )
+        if (ICutoutTargets(secs))
             info.fLastTime = secs;
 
         fPartyTime = 0;
@@ -145,9 +145,9 @@ bool plDynaTorpedoMgr::IHandleShot(plBulletMsg* bull)
 bool plDynaTorpedoMgr::MsgReceive(plMessage* msg)
 {
     plBulletMsg* bullMsg = plBulletMsg::ConvertNoRef(msg);
-    if( bullMsg )
+    if (bullMsg)
     {
-        if( bullMsg->Shot() )
+        if (bullMsg->Shot())
         {
             return IHandleShot(bullMsg);
         }

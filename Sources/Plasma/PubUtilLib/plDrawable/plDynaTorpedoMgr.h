@@ -58,8 +58,8 @@ public:
     plDynaTorpedoMgr();
     virtual ~plDynaTorpedoMgr();
 
-    CLASSNAME_REGISTER( plDynaTorpedoMgr );
-    GETINTERFACE_ANY( plDynaTorpedoMgr, plDynaRippleMgr );
+    CLASSNAME_REGISTER(plDynaTorpedoMgr);
+    GETINTERFACE_ANY(plDynaTorpedoMgr, plDynaRippleMgr);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
 

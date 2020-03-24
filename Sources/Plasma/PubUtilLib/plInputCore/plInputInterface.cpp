@@ -75,25 +75,25 @@ plInputInterface::~plInputInterface()
 
 void plInputInterface::ClearKeyMap()
 {
-    if( fControlMap != nil )
+    if (fControlMap != nil)
         fControlMap->ClearAll();
 }
 
 //// Read/Write //////////////////////////////////////////////////////////////
 
-void    plInputInterface::Read( hsStream* s, hsResMgr* mgr )
+void    plInputInterface::Read(hsStream* s, hsResMgr* mgr)
 {
 }
 
-void    plInputInterface::Write( hsStream* s, hsResMgr* mgr )
+void    plInputInterface::Write(hsStream* s, hsResMgr* mgr)
 {
 }
 
 //// Helper Functions ////////////////////////////////////////////////////////
 
-bool        plInputInterface::IOwnsControlCode( ControlEventCode code )
+bool        plInputInterface::IOwnsControlCode(ControlEventCode code)
 {
-    if( fControlMap->FindBinding( code ) != nil )
+    if (fControlMap->FindBinding(code) != nil)
         return true;
     
     return false;
@@ -102,7 +102,7 @@ bool        plInputInterface::IOwnsControlCode( ControlEventCode code )
 //// IVerifyShiftKey /////////////////////////////////////////////////////////
 // special logic so the shift key can make everyone totally happy...
 
-bool    plInputInterface::IVerifyShiftKey( plKeyDef key, int index )
+bool    plInputInterface::IVerifyShiftKey(plKeyDef key, int index)
 {
     // if we are mapped to the actual shift key, return true
     if (key == KEY_SHIFT)
@@ -113,7 +113,7 @@ bool    plInputInterface::IVerifyShiftKey( plKeyDef key, int index )
     {
     if (index == i)
     continue;
-    if (fKeyMap->fMap[i]->fKeyDef == key && fKeyMap->fMap[i]->fKeyFlags & plKeyInfo::kKeyShift )
+    if (fKeyMap->fMap[i]->fKeyDef == key && fKeyMap->fMap[i]->fKeyFlags & plKeyInfo::kKeyShift)
     return false;
     }
     */  return true;
@@ -121,15 +121,15 @@ bool    plInputInterface::IVerifyShiftKey( plKeyDef key, int index )
 
 void plInputInterface::IDeactivateBinding(const plKeyBinding *binding)
 {
-    if( !(binding->GetCodeFlags() & kControlFlagNoDeactivate) && !(binding->GetCodeFlags() & kControlFlagToggle) )
+    if (!(binding->GetCodeFlags() & kControlFlagNoDeactivate) && !(binding->GetCodeFlags() & kControlFlagToggle))
     {
-        plCtrlCmd *pCmd = new plCtrlCmd( this );
+        plCtrlCmd *pCmd = new plCtrlCmd(this);
         pCmd->fControlCode = binding->GetCode();
         pCmd->fControlActivated = false;
-        pCmd->SetCmdString( binding->GetExtendedString() );
-        pCmd->fNetPropagateToPlayers = ( binding->GetCodeFlags() & kControlFlagNetPropagate ) ? true : false;
+        pCmd->SetCmdString(binding->GetExtendedString());
+        pCmd->fNetPropagateToPlayers = (binding->GetCodeFlags() & kControlFlagNetPropagate) ? true : false;
     
-        fMessageQueue->Append( pCmd );
+        fMessageQueue->Append(pCmd);
     }
     IClearKeyControlFlag(binding->GetCode());
 }
@@ -138,13 +138,13 @@ void plInputInterface::IDeactivateBinding(const plKeyBinding *binding)
 //  Processes the given key event as a key binding, if one exists. If not,
 //  returns false.
 
-bool    plInputInterface::ProcessKeyBindings( plInputEventMsg *msg )
+bool    plInputInterface::ProcessKeyBindings(plInputEventMsg *msg)
 {
     int     i;
     bool    activate;
     
-    plKeyEventMsg   *keyMsg = plKeyEventMsg::ConvertNoRef( msg );
-    if( keyMsg == nil )
+    plKeyEventMsg   *keyMsg = plKeyEventMsg::ConvertNoRef(msg);
+    if (keyMsg == nil)
         return false;
 
 
@@ -152,28 +152,28 @@ bool    plInputInterface::ProcessKeyBindings( plInputEventMsg *msg )
     /// modifiers (ctrl or shift)...if that is true, then we want to disable them if either
     /// of those modifiers are up, no matter what key this message is for
     hsTArray<int16_t> enabledCtrls;
-    fKeyControlFlags.Enumerate( enabledCtrls );
+    fKeyControlFlags.Enumerate(enabledCtrls);
 
-    for( i = 0; i < enabledCtrls.GetCount(); i++ )
+    for (i = 0; i < enabledCtrls.GetCount(); i++)
     {
-        const plKeyBinding *binding = fControlMap->FindBinding( (ControlEventCode)enabledCtrls[ i ] );
-        if( binding == nil )
+        const plKeyBinding *binding = fControlMap->FindBinding((ControlEventCode)enabledCtrls[i]);
+        if (binding == nil)
             ; // Somehow we lost the binding??
         else
         {
             bool wantShift, wantCtrl;
-            if( fKeyControlsFrom2ndKeyFlags.IsBitSet( enabledCtrls[ i ] ) )
+            if (fKeyControlsFrom2ndKeyFlags.IsBitSet(enabledCtrls[i]))
             {
-                wantShift = ( binding->GetKey2().fFlags & plKeyCombo::kShift ) || ( binding->GetKey2().fKey == KEY_SHIFT );
-                wantCtrl = ( binding->GetKey2().fFlags & plKeyCombo::kCtrl ) || ( binding->GetKey2().fKey == KEY_CTRL );
+                wantShift = (binding->GetKey2().fFlags & plKeyCombo::kShift) || (binding->GetKey2().fKey == KEY_SHIFT);
+                wantCtrl = (binding->GetKey2().fFlags & plKeyCombo::kCtrl) || (binding->GetKey2().fKey == KEY_CTRL);
             }
             else
             {
-                wantShift = ( binding->GetKey1().fFlags & plKeyCombo::kShift ) || ( binding->GetKey1().fKey == KEY_SHIFT );
-                wantCtrl = ( binding->GetKey1().fFlags & plKeyCombo::kCtrl ) || ( binding->GetKey1().fKey == KEY_CTRL );
+                wantShift = (binding->GetKey1().fFlags & plKeyCombo::kShift) || (binding->GetKey1().fKey == KEY_SHIFT);
+                wantCtrl = (binding->GetKey1().fFlags & plKeyCombo::kCtrl) || (binding->GetKey1().fKey == KEY_CTRL);
             }
 
-            if( ( wantShift && !keyMsg->GetShiftKeyDown() ) || ( wantCtrl && !keyMsg->GetCtrlKeyDown() ) )
+            if ((wantShift && !keyMsg->GetShiftKeyDown()) || (wantCtrl && !keyMsg->GetCtrlKeyDown()))
             {
                 IDeactivateBinding(binding);
                 fKeyControlsFrom2ndKeyFlags.SetBit(enabledCtrls[i], false);
@@ -183,8 +183,8 @@ bool    plInputInterface::ProcessKeyBindings( plInputEventMsg *msg )
 
 
     /// Process any binding for this message's key code now
-    plKeyCombo  combo( keyMsg->GetKeyCode(), ( keyMsg->GetShiftKeyDown() ? plKeyCombo::kShift : 0 ) |
-                                            ( keyMsg->GetCtrlKeyDown() ? plKeyCombo::kCtrl : 0 ) );
+    plKeyCombo  combo(keyMsg->GetKeyCode(), (keyMsg->GetShiftKeyDown() ? plKeyCombo::kShift : 0) |
+                                            (keyMsg->GetCtrlKeyDown() ? plKeyCombo::kCtrl : 0));
 
     hsTArray<const plKeyBinding *> bindings;
     fControlMap->FindAllBindingsByKey(combo, bindings);
@@ -197,11 +197,11 @@ bool    plInputInterface::ProcessKeyBindings( plInputEventMsg *msg )
         IDeactivateBinding(bindings[i]);
 
     /*
-    const plKeyBinding *binding = fControlMap->FindBindingByKey( combo );
-    if( binding == nil )
+    const plKeyBinding *binding = fControlMap->FindBindingByKey(combo);
+    if (binding == nil)
     {
         // Don't panic just yet, there are some special cases with the shift key to check first
-        if( keyMsg->GetKeyCode() == KEY_SHIFT || keyMsg->GetShiftKeyDown() )
+        if (keyMsg->GetKeyCode() == KEY_SHIFT || keyMsg->GetShiftKeyDown())
         {
             // See, there are two other cases to consider: 1) we have a binding directly to the shift
             // key, which wouldn't have the shift flag set (so the above search wouldn't have caught it).
@@ -213,7 +213,7 @@ bool    plInputInterface::ProcessKeyBindings( plInputEventMsg *msg )
             // Either way, we remove the shift flag and try again
             combo.fFlags &= ~plKeyCombo::kShift;
 
-            binding = fControlMap->FindBindingByKey( combo );
+            binding = fControlMap->FindBindingByKey(combo);
         }
     }
     */
@@ -224,23 +224,23 @@ bool    plInputInterface::ProcessKeyBindings( plInputEventMsg *msg )
     uint32_t codeFlags = binding->GetCodeFlags();
 
     // Filter out no-repeat messages
-    if( ( codeFlags & kControlFlagNoRepeat ) && keyMsg->GetRepeat() )
+    if ((codeFlags & kControlFlagNoRepeat) && keyMsg->GetRepeat())
         return false;
 
-    if( codeFlags & kControlFlagNormal )
+    if (codeFlags & kControlFlagNormal)
     {
         // "Normal" behavior--enable on key down, disable on key up
         activate = keyMsg->GetKeyDown() ? true : false;
     }
-    else if( codeFlags & kControlFlagToggle )
+    else if (codeFlags & kControlFlagToggle)
     {
         // Toggle behavior
-        if( ( codeFlags & kControlFlagDownEvent ) && !keyMsg->GetKeyDown() )
+        if ((codeFlags & kControlFlagDownEvent) && !keyMsg->GetKeyDown())
             return false;
-        if( ( codeFlags & kControlFlagUpEvent ) && keyMsg->GetKeyDown() )
+        if ((codeFlags & kControlFlagUpEvent) && keyMsg->GetKeyDown())
             return false;
 
-        if( IHasKeyControlFlag( binding->GetCode() ) )
+        if (IHasKeyControlFlag(binding->GetCode()))
             activate = false;
         else
             activate = true;
@@ -249,9 +249,9 @@ bool    plInputInterface::ProcessKeyBindings( plInputEventMsg *msg )
     {
         // Remaining ones are triggered to activate on their flagged event and
         // deactivate when that turns false
-        if( ( codeFlags & kControlFlagDownEvent ) && !keyMsg->GetKeyDown() )
+        if ((codeFlags & kControlFlagDownEvent) && !keyMsg->GetKeyDown())
             activate = false;
-        else if( ( codeFlags & kControlFlagUpEvent ) && keyMsg->GetKeyDown() )
+        else if ((codeFlags & kControlFlagUpEvent) && keyMsg->GetKeyDown())
             activate = false;
         else
             activate = true;
@@ -260,22 +260,22 @@ bool    plInputInterface::ProcessKeyBindings( plInputEventMsg *msg )
     bool wasActive = IHasKeyControlFlag(binding->GetCode());
 
     // Set or clear our flags, since we do that even if we don't send a message
-    if ( !keyMsg->GetKeyChar() )
+    if (!keyMsg->GetKeyChar())
     {
-        if( activate )
+        if (activate)
         {
-            ISetKeyControlFlag( binding->GetCode() );
-            fKeyControlsFrom2ndKeyFlags.SetBit( binding->GetCode(), ( binding->GetKey2() == combo ) ? true : false );
+            ISetKeyControlFlag(binding->GetCode());
+            fKeyControlsFrom2ndKeyFlags.SetBit(binding->GetCode(), (binding->GetKey2() == combo) ? true : false);
         }
         else
         {
-            IClearKeyControlFlag( binding->GetCode() );
-            fKeyControlsFrom2ndKeyFlags.SetBit( binding->GetCode(), 0 );
+            IClearKeyControlFlag(binding->GetCode());
+            fKeyControlsFrom2ndKeyFlags.SetBit(binding->GetCode(), 0);
         }
     }
 
     // Filter out codes that only want their activate messages sent (like console commands)
-    if( ( codeFlags & kControlFlagNoDeactivate ) && !activate )
+    if ((codeFlags & kControlFlagNoDeactivate) && !activate)
         return false;
 
     if (!IControlCodeEnabled(binding->GetCode()))
@@ -289,23 +289,23 @@ bool    plInputInterface::ProcessKeyBindings( plInputEventMsg *msg )
 
     // Still here? Only proces bound keys for KEYDOWNS.
     // We'll pretend to process CHARs so they don't get sent on...
-    if ( keyMsg->GetKeyChar() )
+    if (keyMsg->GetKeyChar())
         return true;
 
     /// OK, generate the message to send
-    plCtrlCmd *pCmd = new plCtrlCmd( this );
+    plCtrlCmd *pCmd = new plCtrlCmd(this);
     pCmd->fControlCode = binding->GetCode();
     pCmd->fControlActivated = activate;
 
-    pCmd->SetCmdString( binding->GetExtendedString() );
-    pCmd->fNetPropagateToPlayers = ( codeFlags & kControlFlagNetPropagate ) ? true : false;
+    pCmd->SetCmdString(binding->GetExtendedString());
+    pCmd->fNetPropagateToPlayers = (codeFlags & kControlFlagNetPropagate) ? true : false;
 
-    fMessageQueue->Append( pCmd );
+    fMessageQueue->Append(pCmd);
 
     return true;
 }
 
-bool plInputInterface::IControlCodeEnabled(ControlEventCode code )
+bool plInputInterface::IControlCodeEnabled(ControlEventCode code)
 {
     return (!fDisabledControls.IsBitSet(code));
 }

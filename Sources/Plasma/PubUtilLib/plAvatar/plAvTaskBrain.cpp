@@ -77,7 +77,7 @@ plAvTaskBrain::~plAvTaskBrain()
 // ------
 bool plAvTaskBrain::Start(plArmatureMod *avatar, plArmatureBrain *brain, double time, float elapsed)
 {
-    if(fBrain)
+    if (fBrain)
         avatar->PushBrain(fBrain);
     else
         avatar->PopBrain();
@@ -96,7 +96,7 @@ void plAvTaskBrain::Finish(plArmatureMod *avatar, plArmatureBrain *brain, double
 // ----------
 void plAvTaskBrain::DumpDebug(const char *name, int &x, int&y, int lineHeight, plDebugText &debugTxt)
 {
-    if(fBrain)
+    if (fBrain)
     {
         debugTxt.DrawString(x, y, "Brain task -- Push New Brain.");
     } else {

@@ -89,7 +89,7 @@ fDisabled(false)
 plLogicModBase::~plLogicModBase()
 {
     int i;
-    for (i = 0; i < fCommandList.Count(); i++ )
+    for (i = 0; i < fCommandList.Count(); i++)
     {
         hsRefCnt_SafeUnRef(fCommandList[i]);
     }
@@ -104,7 +104,7 @@ void plLogicModBase::AddTarget(plSceneObject* so)
 
 void plLogicModBase::RegisterForMessageType(uint16_t hClass)
 {
-    plgDispatch::Dispatch()->RegisterForExactType( hClass, GetKey() );
+    plgDispatch::Dispatch()->RegisterForExactType(hClass, GetKey());
 }
 
 //
@@ -211,7 +211,7 @@ void plLogicModBase::RequestTrigger(bool netRequest)
 
         return;
     }
-    if ( plNetApp::GetInstance()->GetFlagsBit(plNetClientApp::kLocalTriggers))
+    if (plNetApp::GetInstance()->GetFlagsBit(plNetClientApp::kLocalTriggers))
     {
         PreTrigger(false);
     }
@@ -267,7 +267,7 @@ void plLogicModBase::Trigger(bool netRequest)
     fNotify->SetState(1.0f);
     fNotify->AddActivateEvent(true);
 //  hsRefCnt_SafeRef(fNotify);
-    plgDispatch::MsgSend( fNotify );
+    plgDispatch::MsgSend(fNotify);
     CreateNotifyMsg();
     if (HasFlag(kOneShot))
         fDisabled = true;
@@ -286,7 +286,7 @@ void plLogicModBase::UnTrigger()
     fNotify->SetState(0.0f);
     fNotify->AddActivateEvent(false);
 //  hsRefCnt_SafeRef(fNotify);
-    plgDispatch::MsgSend( fNotify );
+    plgDispatch::MsgSend(fNotify);
     CreateNotifyMsg();
     Reset(true);
 }
@@ -316,7 +316,7 @@ void plLogicModBase::Read(hsStream* stream, hsResMgr* mgr)
     plSingleModifier::Read(stream, mgr);
     int n = stream->ReadLE32();
     fCommandList.SetCountAndZero(n);
-    for(int i = 0; i < n; i++ )
+    for (int i = 0; i < n; i++)
     {
         plMessage* pMsg =  plMessage::ConvertNoRef(mgr->ReadCreatable(stream));
         fCommandList[i] = pMsg;
@@ -336,9 +336,9 @@ void plLogicModBase::Write(hsStream* stream, hsResMgr* mgr)
 {
     plSingleModifier::Write(stream, mgr);
     stream->WriteLE32(fCommandList.GetCount());
-    for(int i = 0; i < fCommandList.GetCount(); i++ )
-        mgr->WriteCreatable( stream, fCommandList[i] );
-    mgr->WriteCreatable( stream, fNotify );
+    for (int i = 0; i < fCommandList.GetCount(); i++)
+        mgr->WriteCreatable(stream, fCommandList[i]);
+    mgr->WriteCreatable(stream, fNotify);
     fFlags.Write(stream);
     stream->WriteBool(fDisabled);
 }

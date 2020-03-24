@@ -54,7 +54,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 bool pfConsoleDirSrc::ParseDirectory(const plFileName& path, const char* mask /* = L"*.*" */)
 {
-    hsAssert( fEngine != nil, "Cannot do a dir execute without an engine!" );
+    hsAssert(fEngine != nil, "Cannot do a dir execute without an engine!");
 
     std::vector<plFileName> files = plFileSystem::ListDir(path, mask);
     for (auto iter = files.begin(); iter != files.end(); ++iter)
@@ -87,7 +87,7 @@ bool pfConsoleDirSrc::ParseDirectory(const plFileName& path, const char* mask /*
 void pfConsoleDirSrc::ResetProcessedFiles()
 {
     int i;
-    for(i=0;i<fProcessedFiles.size(); i++)
+    for (i=0;i<fProcessedFiles.size(); i++)
         delete fProcessedFiles[i];
     fProcessedFiles.clear();
 }

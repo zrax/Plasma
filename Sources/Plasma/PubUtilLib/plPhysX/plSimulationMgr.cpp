@@ -209,9 +209,9 @@ class ErrorStream : public NxUserOutputStream
 //
 // Alloc all the sim timers here so they make a nice pretty display
 //
-//plProfile_CreateTimer(    "ClearContacts", "Simulation", ClearContacts);
-plProfile_CreateTimer(  "Step", "Simulation", Step);
-// plProfile_CreateTimer(   "  Broadphase", "Simulation", Broadphase);
+//plProfile_CreateTimer("ClearContacts", "Simulation", ClearContacts);
+plProfile_CreateTimer("Step", "Simulation", Step);
+// plProfile_CreateTimer("  Broadphase", "Simulation", Broadphase);
 plProfile_CreateCounter("  Awake", "Simulation", Awake);
 plProfile_CreateCounter("  Contacts", "Simulation", Contacts);
 plProfile_CreateCounter("  DynActors", "Simulation", DynActors);
@@ -224,16 +224,16 @@ plProfile_CreateCounter("  PhyScenes", "Simulation", Scenes);
 // plProfile_CreateCounter("  Broadphase Accepted", "Simulation", BroadphaseAccept);
 // plProfile_CreateCounter("  Impact", "Simulation", Impact);
 // plProfile_CreateCounter("  Penetration", "Simulation", Penetration);
-// plProfile_CreateTimer(   "Narrowphase", "Simulation", Narrowphase);
-// plProfile_CreateTimer(   "ProcessInterpenetration", "Simulation", ProcessInterpenetration);
-plProfile_CreateTimer(  "LineOfSight", "Simulation", LineOfSight);
-plProfile_CreateTimer(  "ProcessSyncs", "Simulation", ProcessSyncs);
-plProfile_CreateTimer(  "UpdateContexts", "Simulation", UpdateContexts);
+// plProfile_CreateTimer("Narrowphase", "Simulation", Narrowphase);
+// plProfile_CreateTimer("ProcessInterpenetration", "Simulation", ProcessInterpenetration);
+plProfile_CreateTimer("LineOfSight", "Simulation", LineOfSight);
+plProfile_CreateTimer("ProcessSyncs", "Simulation", ProcessSyncs);
+plProfile_CreateTimer("UpdateContexts", "Simulation", UpdateContexts);
 // plProfile_CreateCounter("  ContextUpdates", "Simulation", ContextUpdates);
 plProfile_CreateCounter("  MaySendLocation", "Simulation", MaySendLocation);
 plProfile_CreateCounter("  LocationsSent", "Simulation", LocationsSent);
-plProfile_CreateTimer(  "  PhysicsUpdates","Simulation",PhysicsUpdates);
-// plProfile_CreateTimer(   "EntityCleanup", "Simulation", EntityCleanup);
+plProfile_CreateTimer("  PhysicsUpdates","Simulation",PhysicsUpdates);
+// plProfile_CreateTimer("EntityCleanup", "Simulation", EntityCleanup);
 plProfile_CreateCounter("SetTransforms Accepted", "Simulation", SetTransforms);
 plProfile_CreateCounter("AnimatedPhysicals", "Simulation", AnimatedPhysicals);
 plProfile_CreateCounter("AnimatedActivators", "Simulation", AnimatedActivators);
@@ -514,7 +514,7 @@ void plSimulationMgr::Advance(float delSecs)
 
     plProfile_EndTiming(Step);
 #ifndef PLASMA_EXTERNAL_RELEASE
-    if(plSimulationMgr::fDisplayAwakeActors)IDrawActiveActorList();
+    if (plSimulationMgr::fDisplayAwakeActors)IDrawActiveActorList();
 #endif
     if (fExtraProfile)
     {
@@ -617,17 +617,17 @@ void plSimulationMgr::ISendUpdates()
         }
 
 //      // iterate through the db types, which are powers-of-two enums.
-//      for( plLOSDB db = static_cast<plLOSDB>(1) ;
+//      for (plLOSDB db = static_cast<plLOSDB>(1) ;
 //          db < plSimDefs::kLOSDBMax;
-//          db = static_cast<plLOSDB>(db << 1) )
+//          db = static_cast<plLOSDB>(db << 1))
 //      {
 //          fLOSSolvers[db]->Resolve(fSubspace);
 //      }
-//      if(fNeedLOSCullPhase)
+//      if (fNeedLOSCullPhase)
 //      {
-//          for( plLOSDB db = static_cast<plLOSDB>(1) ;
+//          for (plLOSDB db = static_cast<plLOSDB>(1) ;
 //              db < plSimDefs::kLOSDBMax;
-//              db = static_cast<plLOSDB>(db << 1) )
+//              db = static_cast<plLOSDB>(db << 1))
 //          {
 //              fLOSSolvers[db]->Resolve(fSubspace);
 //          }
@@ -784,10 +784,10 @@ void plSimulationMgr::IProcessSynchs()
 
 void plSimulationMgr::ClearLog()
 {
-    if(gTheInstance)
+    if (gTheInstance)
     {
         plStatusLog *log = GetInstance()->fLog;
-        if(log)
+        if (log)
         {
             log->Clear();
         }
@@ -798,11 +798,11 @@ void plSimulationMgr::ClearLog()
 void plSimulationMgr::IDrawActiveActorList()
 {
     plDebugText     &debugTxt = plDebugText::Instance();
-    char            strBuf[ 2048 ];
+    char            strBuf[2048];
     int             lineHeight = debugTxt.GetFontSize() + 4;
     uint32_t          scrnWidth, scrnHeight;
 
-    debugTxt.GetScreenSize( &scrnWidth, &scrnHeight );
+    debugTxt.GetScreenSize(&scrnWidth, &scrnHeight);
     int y = 10;
     int x = 10;
 
@@ -818,9 +818,9 @@ void plSimulationMgr::IDrawActiveActorList()
         y += lineHeight;
         uint32_t numActors =it->second->getNbActors();
         NxActor** actors =it->second->getActors();
-        for(uint32_t i=0;i<numActors;i++)
+        for (uint32_t i=0;i<numActors;i++)
         {
-            if(!actors[i]->isSleeping())
+            if (!actors[i]->isSleeping())
             {
                 sprintf(strBuf,"\t%s",actors[i]->getName());
                 debugTxt.DrawString(x, y, strBuf);

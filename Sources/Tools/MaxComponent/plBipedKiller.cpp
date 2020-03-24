@@ -131,13 +131,13 @@ void RemoveBiped(INode *bipRoot, Interface *theInterface)
     DllDir* dllDir=&theInterface->GetDllDir();
     ClassDirectory* classDir=&dllDir->ClassDir();
 
-    ClassDesc* rotCtrl = classDir->FindClass( SClass_ID(CTRL_ROTATION_CLASS_ID),
+    ClassDesc* rotCtrl = classDir->FindClass(SClass_ID(CTRL_ROTATION_CLASS_ID),
                                 Class_ID(TCBINTERP_ROTATION_CLASS_ID,0));  // was Class_ID(LININTERP_ROTATION_CLASS_ID,0));
 
-    ClassDesc* posCtrl = classDir->FindClass( SClass_ID(CTRL_POSITION_CLASS_ID),
+    ClassDesc* posCtrl = classDir->FindClass(SClass_ID(CTRL_POSITION_CLASS_ID),
                                     Class_ID(LININTERP_POSITION_CLASS_ID, 0));
 
-    ClassDesc* scaleCtrl = classDir->FindClass( SClass_ID(CTRL_SCALE_CLASS_ID),
+    ClassDesc* scaleCtrl = classDir->FindClass(SClass_ID(CTRL_SCALE_CLASS_ID),
                                             Class_ID(LININTERP_SCALE_CLASS_ID, 0));
 
     SetDefaultController(CTRL_ROTATION_CLASS_ID, rotCtrl);
@@ -158,7 +158,7 @@ void RemoveBiped(INode *bipRoot, Interface *theInterface)
 // PROCESSNODERECURSE
 void ProcessNodeRecurse(INode *node, INode *parent, Interface *theInterface)
 {
-    if(HasBipController(node))
+    if (HasBipController(node))
     {
         ProcessBipedNodeRecurse(node, parent, theInterface);
     } else {
@@ -182,7 +182,7 @@ void ProcessBipedNodeRecurse(INode *bipNode, INode *parent, Interface *theInterf
         INode *child = bipNode->GetChildNode(i);
         char *childName = child ? child->GetName() : nil;
 
-        if( ! HasBipController(child) )
+        if (! HasBipController(child))
         {
             replacement = child;                    // this child is going to be our replacement for this bipnode
 
@@ -203,7 +203,7 @@ void ProcessBipedNodeRecurse(INode *bipNode, INode *parent, Interface *theInterf
         }
     }
     
-    if(replacement)
+    if (replacement)
     {
         // reparent the siblings to the newly promoted replacement node
         numChildren = bipNode->NumberOfChildren();
@@ -211,7 +211,7 @@ void ProcessBipedNodeRecurse(INode *bipNode, INode *parent, Interface *theInterf
         {
             INode *child = bipNode->GetChildNode(i);
 
-            if( HasBipController(child) )
+            if (HasBipController(child))
             {
                 ProcessBipedNodeRecurse(child, replacement, theInterface);
             } else {
@@ -233,7 +233,7 @@ void ProcessBipedNodeRecurse(INode *bipNode, INode *parent, Interface *theInterf
 // Sample motion for a hierarchy that does not have any Biped controllers in it.
 void ProcessNonBipedNodeRecurse(INode *node, INode *parent, Interface *theInterface)
 {
-    if( ! ExportableAnimationController(node) )
+    if (! ExportableAnimationController(node))
     {
         plSampleVec *samples = SampleNodeMotion(node, parent, 2, theInterface);
         ReapplyAnimation(node, samples);
@@ -257,7 +257,7 @@ void AdjustRotKeys(INode *node)
     IKeyControl *rotKeyCont = GetKeyControlInterface(rotControl);
     int numKeys = rotKeyCont->GetNumKeys();
 
-    for(int i = 0; i < numKeys; i++)
+    for (int i = 0; i < numKeys; i++)
     {
         ITCBKey key;
         rotKeyCont->GetKey(i, &key);
@@ -338,7 +338,7 @@ void ReapplyAnimation(INode *node, plSampleVec *samples)
     controller->SetPositionController(posControl);
     controller->SetScaleController(scaleControl);
 
-    for(int i = 0; i < samples->size(); i++)
+    for (int i = 0; i < samples->size(); i++)
     {
         nodeTMInfo *info = (*samples)[i];
         Matrix3 m = info->fMat3;
@@ -380,7 +380,7 @@ bool HasBipController(INode* node)
     Control* c = node->GetTMController();
     if (c && ((c->ClassID()== BIPSLAVE_CONTROL_CLASS_ID) ||
         (c->ClassID()== BIPBODY_CONTROL_CLASS_ID) ||
-        (c->ClassID()== FOOTPRINT_CLASS_ID)) )
+        (c->ClassID()== FOOTPRINT_CLASS_ID)))
         return true;
     return false;
 
@@ -391,13 +391,13 @@ bool ExportableAnimationController(INode* node)
 {
     bool result = false;
 
-    if(node)
+    if (node)
     {
         Control *c = node->GetTMController();
-        if(c)
+        if (c)
         {
             Class_ID id = c->ClassID();
-            if(id == Class_ID(LININTERP_ROTATION_CLASS_ID, 0)
+            if (id == Class_ID(LININTERP_ROTATION_CLASS_ID, 0)
                 || id == Class_ID(PRS_CONTROL_CLASS_ID, 0)
                 || id == Class_ID(LININTERP_POSITION_CLASS_ID, 0)
                 || id == Class_ID(TCBINTERP_FLOAT_CLASS_ID, 0)
@@ -435,7 +435,7 @@ plSampleVec * SampleNodeMotion(INode * node, INode* parent, int sampleRate, Time
 
     bool done = false;
     
-    for(int i = start; ! done; i += sampleRate)
+    for (int i = start; ! done; i += sampleRate)
     {
         if (i > end) i = end;
         if (i == end) done = true;
@@ -459,7 +459,7 @@ plSampleVec * SampleNodeMotion(INode * node, INode* parent, int sampleRate, Time
 void FreeMotionSamples(plSampleVec *samples)
 {
     int count = samples->size();
-    for(int i = 0; i < count; i++)
+    for (int i = 0; i < count; i++)
     {
         delete (*samples)[i];
     }

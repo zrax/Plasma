@@ -105,7 +105,7 @@ plConvert& plConvert::Instance()
 
 bool plConvert::IOK()
 {
-    return (!fQuit && !fpErrorMsg->IsBogus() ) ? true: false;
+    return (!fQuit && !fpErrorMsg->IsBogus()) ? true: false;
 }
 
 bool plConvert::Convert()
@@ -128,121 +128,121 @@ bool plConvert::Convert()
     plExportProgressBar bar;
     bool    retVal  = true; // sometime, we might look at this
 
-    if( !IAutoClusterRecur(pNode) )
+    if (!IAutoClusterRecur(pNode))
     {
         fQuit = true;
     }
 
-    if(IOK())
+    if (IOK())
     {
         bar.Start("Clear Old Data");
-        retVal = pNode->DoAllRecur( &plMaxNode::ClearData, fpErrorMsg, fSettings, &bar );
+        retVal = pNode->DoAllRecur(&plMaxNode::ClearData, fpErrorMsg, fSettings, &bar);
     }
-    if(IOK())
+    if (IOK())
     {
         bar.Start("Convert Validate");
-        retVal = pNode->DoRecur( &plMaxNode::ConvertValidate, fpErrorMsg, fSettings, &bar );
+        retVal = pNode->DoRecur(&plMaxNode::ConvertValidate, fpErrorMsg, fSettings, &bar);
     }
-    if(IOK())
+    if (IOK())
     {
         bar.Start("Components Initialize");
-        retVal = pNode->DoRecur( &plMaxNode::SetupPropertiesPass, fpErrorMsg, fSettings, &bar );
+        retVal = pNode->DoRecur(&plMaxNode::SetupPropertiesPass, fpErrorMsg, fSettings, &bar);
     }
-    if(IOK())
+    if (IOK())
     {
         bar.Start("Prepare for skinning");
-        retVal = pNode->DoRecur( &plMaxNode::PrepareSkin, fpErrorMsg, fSettings, &bar );
+        retVal = pNode->DoRecur(&plMaxNode::PrepareSkin, fpErrorMsg, fSettings, &bar);
     }
-    if(IOK())
+    if (IOK())
     {
         bar.Start("Make Scene Object");
-        retVal = pNode->DoRecur( &plMaxNode::MakeSceneObject, fpErrorMsg, fSettings, &bar );
+        retVal = pNode->DoRecur(&plMaxNode::MakeSceneObject, fpErrorMsg, fSettings, &bar);
     }
-    if(IOK())
+    if (IOK())
     {
         bar.Start("Make Physical");
         plPhysXCooking::Init();
-        retVal = pNode->DoRecur( &plMaxNode::MakePhysical, fpErrorMsg, fSettings, &bar );
+        retVal = pNode->DoRecur(&plMaxNode::MakePhysical, fpErrorMsg, fSettings, &bar);
         plPhysXCooking::Shutdown();
     }
-    if(IOK())
+    if (IOK())
     {
         bar.Start("Component Preconvert");
-        retVal = pNode->DoRecur( &plMaxNode::FirstComponentPass, fpErrorMsg, fSettings, &bar );
+        retVal = pNode->DoRecur(&plMaxNode::FirstComponentPass, fpErrorMsg, fSettings, &bar);
     }
-    if(IOK())
+    if (IOK())
     {
         bar.Start("Make Controller");
-        retVal = pNode->DoRecur( &plMaxNode::MakeController, fpErrorMsg, fSettings, &bar );
+        retVal = pNode->DoRecur(&plMaxNode::MakeController, fpErrorMsg, fSettings, &bar);
     }
-    if(IOK())
+    if (IOK())
     {   // must be before mesh
         bar.Start("Make Coord Interface");
-        retVal = pNode->DoRecur( &plMaxNode::MakeCoordinateInterface, fpErrorMsg, fSettings, &bar );
+        retVal = pNode->DoRecur(&plMaxNode::MakeCoordinateInterface, fpErrorMsg, fSettings, &bar);
     }
-    if(IOK())
+    if (IOK())
     {   // must be after coord interface but before pool data is created.
         bar.Start("Make Connections");
-        retVal = pNode->DoRecur( &plMaxNode::MakeParentOrRoomConnection, fpErrorMsg, fSettings, &bar );
+        retVal = pNode->DoRecur(&plMaxNode::MakeParentOrRoomConnection, fpErrorMsg, fSettings, &bar);
     }
 
-    if(IOK())
+    if (IOK())
     {   // must be before simulation
         bar.Start("Make Mesh");
-        retVal = pNode->DoRecur( &plMaxNode::MakeMesh, fpErrorMsg, fSettings, &bar );
+        retVal = pNode->DoRecur(&plMaxNode::MakeMesh, fpErrorMsg, fSettings, &bar);
     }
 
-    if(IOK())
+    if (IOK())
     {   // doesn't matter when
         bar.Start("Make Light");
-        retVal = pNode->DoRecur( &plMaxNode::MakeLight, fpErrorMsg, fSettings, &bar );
+        retVal = pNode->DoRecur(&plMaxNode::MakeLight, fpErrorMsg, fSettings, &bar);
     }
-    if(IOK())
+    if (IOK())
     {   // doesn't matter when
         bar.Start("Make Occluder");
-        retVal = pNode->DoRecur( &plMaxNode::MakeOccluder, fpErrorMsg, fSettings, &bar );
+        retVal = pNode->DoRecur(&plMaxNode::MakeOccluder, fpErrorMsg, fSettings, &bar);
     }
-    if(IOK())
+    if (IOK())
     {   // must be after mesh
         bar.Start("Make Modifiers");
-        retVal = pNode->DoRecur( &plMaxNode::MakeModifiers, fpErrorMsg, fSettings, &bar );
+        retVal = pNode->DoRecur(&plMaxNode::MakeModifiers, fpErrorMsg, fSettings, &bar);
     }
-    if(IOK())
+    if (IOK())
     {
         bar.Start("Convert Components");
-        retVal = pNode->DoRecur( &plMaxNode::ConvertComponents, fpErrorMsg, fSettings, &bar );
+        retVal = pNode->DoRecur(&plMaxNode::ConvertComponents, fpErrorMsg, fSettings, &bar);
     }
-    if(IOK())
+    if (IOK())
     {
         // do this after convert
         bar.Start("Set Up Interface References");
-        retVal = pNode->DoRecur( &plMaxNode::MakeIfaceReferences, fpErrorMsg, fSettings, &bar );
+        retVal = pNode->DoRecur(&plMaxNode::MakeIfaceReferences, fpErrorMsg, fSettings, &bar);
     }
 
-    if(IOK() && fSettings->fDoPreshade)
+    if (IOK() && fSettings->fDoPreshade)
     {
         // These need to be opened after the components have had a chance to flag the MaxNodes
         plLightMapGen::Instance().Open(fInterface, fInterface->GetTime(), fSettings->fDoLightMap);
         hsVertexShader::Instance().Open();
 
         bar.Start("Preshade Geometry");
-        retVal = pNode->DoRecur( &plMaxNode::ShadeMesh, fpErrorMsg, fSettings, &bar );
+        retVal = pNode->DoRecur(&plMaxNode::ShadeMesh, fpErrorMsg, fSettings, &bar);
 
         plLightMapGen::Instance().Close();
         hsVertexShader::Instance().Close();
     }
 
-    if(IOK())
+    if (IOK())
     {
         // Do this next-to-last--allows all the components to free up any temp data they kept around
         bar.Start("Component DeInit");
-        retVal = pNode->DoRecur( &plMaxNode::DeInitComponents, fpErrorMsg, fSettings, &bar );
+        retVal = pNode->DoRecur(&plMaxNode::DeInitComponents, fpErrorMsg, fSettings, &bar);
     }
-    if(IOK())
+    if (IOK())
     {
         // Do this very last--it de-inits and frees all the maxNodeDatas lying around
         bar.Start("Clear MaxNodeDatas");
-        retVal = pNode->DoAllRecur( &plMaxNode::ClearMaxNodeData, fpErrorMsg, fSettings, &bar );
+        retVal = pNode->DoAllRecur(&plMaxNode::ClearMaxNodeData, fpErrorMsg, fSettings, &bar);
     }
 //  fpErrorMsg->Set();
 
@@ -253,14 +253,14 @@ bool plConvert::Convert()
     return IOK();
     }
 #ifndef HS_NO_TRY
-    catch(plErrorMsg& err)
+    catch (plErrorMsg& err)
     {
         DeInit();
         fInterface->SetIncludeXRefsInHierarchy(FALSE);
         err.Show();
         return false;
     }
-    catch(...)
+    catch (...)
     {
         DeInit();
         fInterface->SetIncludeXRefsInHierarchy(FALSE);
@@ -300,39 +300,39 @@ bool plConvert::Convert(hsTArray<plMaxNode*>& nodes)
     if (IOK())
         retVal = ConvertList(nodes, &plMaxNode::ClearData, fpErrorMsg, fSettings);
 
-    if(IOK())
+    if (IOK())
         retVal = ConvertList(nodes, &plMaxNode::ConvertValidate,         fpErrorMsg, fSettings);
-    if(IOK())
+    if (IOK())
         retVal = ConvertList(nodes, &plMaxNode::SetupPropertiesPass,     fpErrorMsg, fSettings);
-    if(IOK())
+    if (IOK())
         retVal = ConvertList(nodes, &plMaxNode::PrepareSkin,             fpErrorMsg, fSettings);
-    if(IOK())
+    if (IOK())
         retVal = ConvertList(nodes, &plMaxNode::MakeSceneObject,         fpErrorMsg, fSettings);
-    if(IOK())
+    if (IOK())
         retVal = ConvertList(nodes, &plMaxNode::FirstComponentPass,      fpErrorMsg, fSettings);
-    if(IOK())
+    if (IOK())
         retVal = ConvertList(nodes, &plMaxNode::MakeController,          fpErrorMsg,fSettings);
-    if(IOK())
+    if (IOK())
         retVal = ConvertList(nodes, &plMaxNode::MakeCoordinateInterface, fpErrorMsg, fSettings);// must be before mesh
-    if(IOK())
+    if (IOK())
         retVal = ConvertList(nodes, &plMaxNode::MakeParentOrRoomConnection,  fpErrorMsg, fSettings); // after coord, before mesh (or any other pool data).
 
     // These shouldn't be opened until the components have had a chance to flag the MaxNodes
     plLightMapGen::Instance().Open(fInterface, fInterface->GetTime(), fSettings->fDoLightMap);
     hsVertexShader::Instance().Open();
 
-    if(IOK())
+    if (IOK())
         retVal = ConvertList(nodes, &plMaxNode::MakeMesh, fpErrorMsg, fSettings);    // must be before simulation
 
-    if(IOK())                       // doesn't matter when
+    if (IOK())                       // doesn't matter when
         retVal = ConvertList(nodes, &plMaxNode::MakeLight,                   fpErrorMsg, fSettings);
-    if(IOK())                       // doesn't matter when
+    if (IOK())                       // doesn't matter when
         retVal = ConvertList(nodes, &plMaxNode::MakeOccluder,                fpErrorMsg, fSettings);
-    if(IOK())                       // must be after mesh
+    if (IOK())                       // must be after mesh
         retVal = ConvertList(nodes, &plMaxNode::MakeModifiers,               fpErrorMsg, fSettings);
-    if(IOK())
+    if (IOK())
         retVal = ConvertList(nodes, &plMaxNode::ConvertComponents,           fpErrorMsg, fSettings);
-    if(IOK())
+    if (IOK())
         retVal = ConvertList(nodes, &plMaxNode::ShadeMesh,                   fpErrorMsg, fSettings);
 
     // These may be used by components, so don't close them till the end.
@@ -346,12 +346,12 @@ bool plConvert::Convert(hsTArray<plMaxNode*>& nodes)
     return IOK();
     }
 #ifndef HS_NO_TRY
-    catch(plErrorMsg& err)
+    catch (plErrorMsg& err)
     {
         err.Show();
         return false;
     }
-    catch(...)
+    catch (...)
     {
         hsMessageBox("Unknown error during convert", "plConvert", hsMessageBoxNormal);
         return false;
@@ -367,7 +367,7 @@ bool plConvert::Init(Interface *ip, plErrorMsg* msg, plConvertSettings *settings
 
     // Move us to time 0, so that things like initial transforms are always consistent with the 0th frame.
     // This saves our asses from things like the patch-generation process later
-    ip->SetTime( 0, false );
+    ip->SetTime(0, false);
 
     hsConverterUtils::Instance().Init(true, fpErrorMsg);
     plBitmapCreator::Instance().Init(true, fpErrorMsg);
@@ -403,7 +403,7 @@ void plConvert::DeInit()
 //  plBitmapCreator::Instance().DeInit();
 
     plNodeCleanupMsg *clean = new plNodeCleanupMsg();
-    plgDispatch::MsgSend( clean );
+    plgDispatch::MsgSend(clean);
 }
 
 void plConvert::AddMessageToQueue(plMessage* msg)
@@ -411,19 +411,19 @@ void plConvert::AddMessageToQueue(plMessage* msg)
     fMsgQueue.Append(msg);
 }
 
-void plConvert::SendEnvironmentMessage(plMaxNode* pNode, plMaxNode* efxRegion, plMessage* msg, bool ignorePhysicals )
+void plConvert::SendEnvironmentMessage(plMaxNode* pNode, plMaxNode* efxRegion, plMessage* msg, bool ignorePhysicals)
 {
     for (int i = 0; i < pNode->NumberOfChildren(); i++)
-        SendEnvironmentMessage((plMaxNode *)pNode->GetChildNode(i), efxRegion, msg, ignorePhysicals );
+        SendEnvironmentMessage((plMaxNode *)pNode->GetChildNode(i), efxRegion, msg, ignorePhysicals);
 
     // don't call ourself...
     if (pNode == efxRegion)
         return;
 
     // send the scene object this message:
-    if (efxRegion->Contains( ((INode*)pNode)->GetNodeTM(hsConverterUtils::Instance().GetTime(pNode->GetInterface())).GetRow(3)) &&
-        pNode->GetSceneObject() && ( !ignorePhysicals || !pNode->IsPhysical() ) )
-        msg->AddReceiver( pNode->GetSceneObject()->GetKey() );
+    if (efxRegion->Contains(((INode*)pNode)->GetNodeTM(hsConverterUtils::Instance().GetTime(pNode->GetInterface())).GetRow(3)) &&
+        pNode->GetSceneObject() && (!ignorePhysicals || !pNode->IsPhysical()))
+        msg->AddReceiver(pNode->GetSceneObject()->GetKey());
 }
 
 plMaxNode* plConvert::GetRootNode()
@@ -436,17 +436,17 @@ BOOL plConvert::IAutoClusterRecur(INode* node)
     plMaxNode* maxNode = (plMaxNode*)node;
     plComponentBase* comp = maxNode->ConvertToComponent();
 
-    if( comp && (comp->ClassID() == CLUSTER_COMP_CID) )
+    if (comp && (comp->ClassID() == CLUSTER_COMP_CID))
     {
         plClusterComponent* clust = (plClusterComponent*)comp;
         // Cluster decides if it needs autogen
-        if( clust->AutoGen(fpErrorMsg) )
+        if (clust->AutoGen(fpErrorMsg))
             return false;
     }
     int i;
-    for( i = 0; i < node->NumberOfChildren(); i++ )
+    for (i = 0; i < node->NumberOfChildren(); i++)
     {
-        if( !IAutoClusterRecur(node->GetChildNode(i)) )
+        if (!IAutoClusterRecur(node->GetChildNode(i)))
             return false;
     }
     return true;
@@ -457,14 +457,14 @@ BOOL plConvert::IAutoUnClusterRecur(INode* node)
     plMaxNode* maxNode = (plMaxNode*)node;
     plComponentBase* comp = maxNode->ConvertToComponent();
 
-    if( comp && (comp->ClassID() == CLUSTER_COMP_CID) )
+    if (comp && (comp->ClassID() == CLUSTER_COMP_CID))
     {
         plClusterComponent* clust = (plClusterComponent*)comp;
         // Cluster remembers whether it was autogen'd.
         clust->AutoClear(fpErrorMsg);
     }
     int i;
-    for( i = 0; i < node->NumberOfChildren(); i++ )
+    for (i = 0; i < node->NumberOfChildren(); i++)
     {
         IAutoUnClusterRecur(node->GetChildNode(i));
     }

@@ -77,7 +77,7 @@ int PrintHelp()
     puts("");
     puts("Usage: plPageInfo [-s -i] pageFile");
     puts("       plPageInfo -v");
-    puts("Where:" );
+    puts("Where:");
     puts("       -v print version and exit.");
     puts("       -s dump sounds in page to the console");
     puts("       -i dump object size info to .csv files");

@@ -189,11 +189,11 @@ plAvLadderComponent::plAvLadderComponent()
 void plAvLadderComponent::CollectNonDrawables(INodeTab& nonDrawables)
 {
     INode* ladderNode = fCompPB->GetINode(kLadderNode);
-    if( ladderNode )
+    if (ladderNode)
         nonDrawables.Append(1, &ladderNode);
 
     INode* triggerNode = fCompPB->GetINode(kTriggerNode);
-    if( triggerNode )
+    if (triggerNode)
         nonDrawables.Append(1, &triggerNode);
     
     AddTargetsToList(nonDrawables);
@@ -241,7 +241,7 @@ bool plAvLadderComponent::SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg)
     physProps->SetReportGroup(1<<plSimDefs::kGroupAvatar, node, pErrMsg);   // only fires on local avatars
     physProps->SetPinned(true, node, pErrMsg);
     // only if movable will it have mass (then it will keep track of movements in PhysX)
-    if ( node->IsMovable() || node->IsTMAnimated() )
+    if (node->IsMovable() || node->IsTMAnimated())
         physProps->SetMass(1.0f, node, pErrMsg);                                        // detectors don't move
     physProps->SetBoundsType(plSimDefs::kHullBounds, node, pErrMsg);
 

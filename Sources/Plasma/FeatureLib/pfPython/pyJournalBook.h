@@ -69,14 +69,14 @@ protected:
     void    IMakeNewKey();
 
     pyJournalBook(); // used by python glue only, do NOT call
-    pyJournalBook( const char *esHTMLSource );
-    pyJournalBook( std::wstring esHTMLSource );
-    pyJournalBook( const char *esHTMLSource, pyKey callbackKey );
-    pyJournalBook( std::wstring esHTMLSource, pyKey callbackKey );
-    pyJournalBook( const char *esHTMLSource, pyImage &coverImage, pyKey callbackKey );
-    pyJournalBook( std::wstring esHTMLSource, pyImage &coverImage, pyKey callbackKey );
-    pyJournalBook( const char *esHTMLSource, pyImage &coverImage, pyKey callbackKey, const ST::string &guiName );
-    pyJournalBook( std::wstring esHTMLSource, pyImage &coverImage, pyKey callbackKey, const ST::string &guiName );
+    pyJournalBook(const char *esHTMLSource);
+    pyJournalBook(std::wstring esHTMLSource);
+    pyJournalBook(const char *esHTMLSource, pyKey callbackKey);
+    pyJournalBook(std::wstring esHTMLSource, pyKey callbackKey);
+    pyJournalBook(const char *esHTMLSource, pyImage &coverImage, pyKey callbackKey);
+    pyJournalBook(std::wstring esHTMLSource, pyImage &coverImage, pyKey callbackKey);
+    pyJournalBook(const char *esHTMLSource, pyImage &coverImage, pyKey callbackKey, const ST::string &guiName);
+    pyJournalBook(std::wstring esHTMLSource, pyImage &coverImage, pyKey callbackKey, const ST::string &guiName);
 
 public:
     virtual ~pyJournalBook();
@@ -99,32 +99,32 @@ public:
     void MakeBook(std::wstring esHTMLSource, plKey coverImageKey = nil, plKey callbackKey = nil, const ST::string &guiName = ST::null);
 
     // Interface functions per book
-    virtual void    Show( bool startOpened );
+    virtual void    Show(bool startOpened);
     virtual void    Hide();
-    virtual void    Open( uint32_t startingPage );
+    virtual void    Open(uint32_t startingPage);
     virtual void    Close();
     virtual void    CloseAndHide();
 
     virtual void    NextPage();
     virtual void    PreviousPage();
-    virtual void    GoToPage( uint32_t page );
+    virtual void    GoToPage(uint32_t page);
     virtual uint32_t  GetCurrentPage() const;
-    virtual void    SetPageMargin( uint32_t margin );
-    virtual void    AllowPageTurning( bool allow );
+    virtual void    SetPageMargin(uint32_t margin);
+    virtual void    AllowPageTurning(bool allow);
 
-    virtual void    SetSize( float width, float height );
+    virtual void    SetSize(float width, float height);
 
-    virtual void    SetGUI( const ST::string &guiName );
+    virtual void    SetGUI(const ST::string &guiName);
 
-    static void     LoadGUI( const ST::string &guiName );
-    static void     UnloadGUI( const ST::string &guiName );
+    static void     LoadGUI(const ST::string &guiName);
+    static void     UnloadGUI(const ST::string &guiName);
     static void     UnloadAllGUIs();
 
-    virtual PyObject *GetMovie( uint8_t index ); // returns cyAnimation
+    virtual PyObject *GetMovie(uint8_t index); // returns cyAnimation
     
-    virtual void    SetEditable( bool editable );
+    virtual void    SetEditable(bool editable);
     virtual std::string GetEditableText() const;
-    virtual void    SetEditableText( std::string text );
+    virtual void    SetEditableText(std::string text);
 };
 
 #endif // _pyJournalBook_h_

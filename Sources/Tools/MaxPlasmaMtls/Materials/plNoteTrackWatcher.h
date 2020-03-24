@@ -80,7 +80,7 @@ public:
         kRefParentMtl = 0
     };
 
-    plNoteTrackWatcher( plPassMtlBase *parentMtl );
+    plNoteTrackWatcher(plPassMtlBase *parentMtl);
     virtual ~plNoteTrackWatcher();
     void DeleteThis() { delete this; }
 
@@ -92,7 +92,7 @@ public:
     void            SetReference(int i, RefTargetHandle rtarg);
     RefResult       NotifyRefChanged(Interval changeInt,RefTargetHandle hTarget, PartID& partID, RefMessage message);
 
-    virtual BOOL    IsRealDependency( ReferenceTarget *rtarg );
+    virtual BOOL    IsRealDependency(ReferenceTarget *rtarg);
 };
 
 #endif //_plNoteTrackWatcher_h

@@ -78,24 +78,24 @@ uint64_t plTimerShare::GetTicks() const
 
 double plTimerShare::IncSysSeconds()
 {
-    if( fRunningFrameTime )
+    if (fRunningFrameTime)
     {
         fDelSysSeconds = fFrameTimeInc * fSysTimeScale;
         fSysSeconds += fDelSysSeconds;
 
         fResetSmooth = true;
     }
-    else if( fSmoothingClampSecs >= 0 )
+    else if (fSmoothingClampSecs >= 0)
     {
         double t = GetSeconds();
         float delSys = float(t - fRealSeconds);
-        fClamping = ( (fTimeClampSecs > 0) && (delSys > fTimeClampSecs) );
+        fClamping = ((fTimeClampSecs > 0) && (delSys > fTimeClampSecs));
         if (fClamping)
         {
             delSys = fTimeClampSecs;
         }
         delSys *= fSysTimeScale;
-        if( fDelSysSeconds > 0 && fDelSysSeconds < fSmoothingClampSecs )
+        if (fDelSysSeconds > 0 && fDelSysSeconds < fSmoothingClampSecs)
         {
             const float kFrac = 0.1f;
             const float kOneMinusFrac = 1.f-kFrac;
@@ -107,7 +107,7 @@ double plTimerShare::IncSysSeconds()
             //got that mysterious bug, (Win2k? certain CPU's?) try again...
 #if HS_BUILD_FOR_WIN32
             int count = 10;
-            while( delSys >= fDelSysSeconds * 2 && count > 0 )
+            while (delSys >= fDelSysSeconds * 2 && count > 0)
             {
                 fRealSeconds = t;
                 t = GetSeconds();
@@ -127,21 +127,21 @@ double plTimerShare::IncSysSeconds()
         double t = GetSeconds();
         plCONST(int) kSmoothBuffUsed(kSmoothBuffLen);
 
-        if( fResetSmooth )
+        if (fResetSmooth)
         {
             int i;
-            for( i = 0; i < kSmoothBuffUsed; i++ )
+            for (i = 0; i < kSmoothBuffUsed; i++)
                 fSmoothBuff[i] = t;
             fResetSmooth = false;
         }
 
-        if( ++fCurrSlot >= kSmoothBuffUsed )
+        if (++fCurrSlot >= kSmoothBuffUsed)
             fCurrSlot = 0;
         fSmoothBuff[fCurrSlot] = t;
 
         double avg = 0;
         int j;
-        for( j = 0; j < kSmoothBuffUsed; j++ )
+        for (j = 0; j < kSmoothBuffUsed; j++)
         {
             avg += fSmoothBuff[j];
         }
@@ -149,7 +149,7 @@ double plTimerShare::IncSysSeconds()
 
         plCONST(float) kMaxSmoothable(0.15f);
         fDelSysSeconds = float(avg - fRealSeconds) * fSysTimeScale;
-        if( fDelSysSeconds > kMaxSmoothable * fSysTimeScale )
+        if (fDelSysSeconds > kMaxSmoothable * fSysTimeScale)
         {
             avg = t;
             fDelSysSeconds = float(avg - fRealSeconds) * fSysTimeScale;

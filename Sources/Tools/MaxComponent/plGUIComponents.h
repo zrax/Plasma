@@ -64,8 +64,8 @@ class plErrorMsg;
 class plGUIDialogComponent : public plComponent
 {
     protected:
-        void            IMakeEveryoneOpaqueRecur( plMaxNode *node );
-        void            IMakeEveryoneOpaque( plMaxNode *node );
+        void            IMakeEveryoneOpaqueRecur(plMaxNode *node);
+        void            IMakeEveryoneOpaque(plMaxNode *node);
 
         pfGUIDialogMod  *fDialogMod;
         plKey           fProcReceiver;  // non-nil means to send out notifys as our proc
@@ -75,12 +75,12 @@ class plGUIDialogComponent : public plComponent
 
     public:
         // I believe booleans should always default to false, hence why this is dontInit instead of init. uint8_t me.
-        plGUIDialogComponent( bool dontInit = false );
+        plGUIDialogComponent(bool dontInit = false);
         void DeleteThis() { delete this; }
 
-        bool SetupProperties( plMaxNode *pNode, plErrorMsg *pErrMsg );
-        bool PreConvert( plMaxNode *pNode, plErrorMsg *pErrMsg );
-        bool Convert( plMaxNode *node, plErrorMsg *pErrMsg );
+        bool SetupProperties(plMaxNode *pNode, plErrorMsg *pErrMsg);
+        bool PreConvert(plMaxNode *pNode, plErrorMsg *pErrMsg);
+        bool Convert(plMaxNode *node, plErrorMsg *pErrMsg);
         bool DeInit(plMaxNode *node, plErrorMsg *pErrMsg)     { fProcReceiver = nil; return true;}
 
         pfGUIDialogMod  *GetModifier() { return fDialogMod; }
@@ -90,9 +90,9 @@ class plGUIDialogComponent : public plComponent
         plKey           GetModifierKey();
 
         // Set this to have the dialog send out notify messages on events. Do it before Convert(). Returns false if it failed.
-        bool            SetNotifyReceiver( plKey key );
+        bool            SetNotifyReceiver(plKey key);
 
-        static pfGUIDialogMod   *GetNodeDialog( plMaxNode *childNode );
+        static pfGUIDialogMod   *GetNodeDialog(plMaxNode *childNode);
 
         enum
         {
@@ -123,14 +123,14 @@ class plGUIControlBase : public plComponent
         pfGUIControlMod *fControl;
 
 
-        pfGUIDialogMod  *IGetDialogMod( plMaxNode *node );
+        pfGUIDialogMod  *IGetDialogMod(plMaxNode *node);
 
         virtual pfGUIControlMod *IGetNewControl() = 0;
         virtual bool            IHasProcRollout() { return true; }
         virtual bool            INeedsDynamicText() { return false; }
         virtual bool            ICanHaveProxy() { return false; }
 
-        const char              *ISetSoundIndex( ParamID checkBoxID, ParamID sndCompID, uint8_t guiCtrlEvent, plMaxNode *node );
+        const char              *ISetSoundIndex(ParamID checkBoxID, ParamID sndCompID, uint8_t guiCtrlEvent, plMaxNode *node);
 
 
         // When converting, since we get a new instance per component but not per node,
@@ -144,14 +144,14 @@ class plGUIControlBase : public plComponent
         plGUIControlBase() {}
         void DeleteThis() { delete this; }
 
-        bool SetupProperties( plMaxNode *pNode, plErrorMsg *pErrMsg );
+        bool SetupProperties(plMaxNode *pNode, plErrorMsg *pErrMsg);
         bool PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg);
         bool Convert(plMaxNode *node, plErrorMsg *pErrMsg);
 
-        virtual void    CollectNonDrawables( INodeTab &nonDrawables );
+        virtual void    CollectNonDrawables(INodeTab &nonDrawables);
 
         virtual uint32_t  GetNumMtls() const { return 0; }
-        virtual Texmap  *GetMtl( uint32_t idx ) { return nil; }
+        virtual Texmap  *GetMtl(uint32_t idx) { return nil; }
 
         // Given a maxNode that is really a component, will return a pointer to the GUI control modifier
         // created for it at export time. Only valid after PreConvert. If you think the control component
@@ -159,19 +159,19 @@ class plGUIControlBase : public plComponent
         // asking for as well to make sure you get the right control. If not, just leave the second
         // parameter nil, but that can be VERY dangerous if the component results in more than one
         // GUI control.
-        static pfGUIControlMod *GrabControlMod( INode *node, INode *sceneObjectNode = nil );
+        static pfGUIControlMod *GrabControlMod(INode *node, INode *sceneObjectNode = nil);
 
         // Like GrabControlMod, but for when you already have a pointer to some kind of component
-        static pfGUIControlMod  *ConvertCompToControl( plComponentBase *comp, INode *sceneObjectNode );
+        static pfGUIControlMod  *ConvertCompToControl(plComponentBase *comp, INode *sceneObjectNode);
 
         // Given a MAX object node, returns the one (and hopefully only) pfGUIControlMod attached to the scene object. Valid after PreConvert.
-        static pfGUIControlMod  *GrabControlFromObject( INode *node );
+        static pfGUIControlMod  *GrabControlFromObject(INode *node);
 
         // Given an INode, gives you a pointer to the GUI component if it actually is one, nil otherwise
-        static plGUIControlBase     *GetGUIComp( INode *node );
+        static plGUIControlBase     *GetGUIComp(INode *node);
     
         // Or a plComponentBase...
-        static plGUIControlBase     *GetGUIComp( plComponentBase *base );
+        static plGUIControlBase     *GetGUIComp(plComponentBase *base);
 
         enum
         {
@@ -204,9 +204,9 @@ class plGUIMenuComponent : public plGUIDialogComponent
         plGUIMenuComponent();
         void DeleteThis() { delete this; }
 
-        virtual bool SetupProperties( plMaxNode *pNode, plErrorMsg *pErrMsg );
-        virtual bool PreConvert( plMaxNode *pNode, plErrorMsg *pErrMsg );
-        virtual bool Convert( plMaxNode *node, plErrorMsg *pErrMsg );
+        virtual bool SetupProperties(plMaxNode *pNode, plErrorMsg *pErrMsg);
+        virtual bool PreConvert(plMaxNode *pNode, plErrorMsg *pErrMsg);
+        virtual bool Convert(plMaxNode *node, plErrorMsg *pErrMsg);
         virtual bool DeInit(plMaxNode *node, plErrorMsg *pErrMsg);
 
         plKey   GetConvertedMenuKey() const;

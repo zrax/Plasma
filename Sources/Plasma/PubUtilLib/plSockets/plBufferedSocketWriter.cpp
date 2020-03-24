@@ -57,13 +57,13 @@ int plBufferedSocketWriter::WriteBlock(const char * data, int len, plTcpSocket &
 {
     int ans = kSuccessNoDataSent;
     
-    if(len > BufferAvailable())
+    if (len > BufferAvailable())
         ans = Flush(sck);
     
-    if(ans >= 0)
+    if (ans >= 0)
         ans = WriteBlock(data,len);
     
-    if(ans >= 0 && fFlushPoint >= 0 && fFlushPoint < AmountBuffered())
+    if (ans >= 0 && fFlushPoint >= 0 && fFlushPoint < AmountBuffered())
         ans = Flush(sck);
             
     return ans;
@@ -72,7 +72,7 @@ int plBufferedSocketWriter::WriteBlock(const char * data, int len, plTcpSocket &
 int plBufferedSocketWriter::WriteBlock(const char * data, int len)
 {
     int ans = kSuccessNoDataSent;
-    if(!Put(data,len))
+    if (!Put(data,len))
         ans = kFailedNoBufferSpace;
     return ans;
 }
@@ -83,7 +83,7 @@ int plBufferedSocketWriter::Flush(plTcpSocket & sck)    // this is where things 
 
     int writeSize = std::min(FastAmountBuffered(), fBytesPerFlush);
     
-    if(writeSize > 0)
+    if (writeSize > 0)
     {
         int nBytesWritten = 0;
 //      int nBytesWritten = sck.SendData(FastGetBufferStart(), writeSize);

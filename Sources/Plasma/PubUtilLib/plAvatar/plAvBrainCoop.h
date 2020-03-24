@@ -67,8 +67,8 @@ public:
     void EnableGuestClick();
 
     // rtti
-    CLASSNAME_REGISTER( plAvBrainCoop );
-    GETINTERFACE_ANY( plAvBrainCoop, plAvBrainGeneric);
+    CLASSNAME_REGISTER(plAvBrainCoop);
+    GETINTERFACE_ANY(plAvBrainCoop, plAvBrainGeneric);
 
     // i/o
     virtual void Read(hsStream *stream, hsResMgr *mgr);

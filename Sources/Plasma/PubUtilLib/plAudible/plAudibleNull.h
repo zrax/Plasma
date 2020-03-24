@@ -54,8 +54,8 @@ public:
 
     plAudibleNull() : fSceneNode(nil),fSceneObj(nil) { }
 
-    CLASSNAME_REGISTER( plAudibleNull );
-    GETINTERFACE_ANY( plAudibleNull, plAudible );
+    CLASSNAME_REGISTER(plAudibleNull);
+    GETINTERFACE_ANY(plAudibleNull, plAudible);
 
     virtual plKey GetSceneNode() const { return fSceneNode; }
     virtual void SetSceneNode(plKey newNode);
@@ -94,13 +94,13 @@ public:
     virtual void    RemoveCallbacks(plSoundMsg* pMsg) {}
     virtual void    AddCallbacks(plSoundMsg* pMsg) {}
 
-    virtual void    SetMuted( bool muted, int index = -1 ) { }
-    virtual void    ToggleMuted( int index = -1 ) { }
+    virtual void    SetMuted(bool muted, int index = -1) { }
+    virtual void    ToggleMuted(int index = -1) { }
     virtual void    SetTalkIcon(int index, uint32_t str) { }
     virtual void    ClearTalkIcon() { }
 
-    virtual void        SetFadeIn( const int type, const float length, int index = -1 ) {}
-    virtual void        SetFadeOut( const int type, const float length, int index = -1 ) {}
+    virtual void        SetFadeIn(const int type, const float length, int index = -1) {}
+    virtual void        SetFadeOut(const int type, const float length, int index = -1) {}
 
 protected:
     plKey               fSceneNode, fSceneObj;

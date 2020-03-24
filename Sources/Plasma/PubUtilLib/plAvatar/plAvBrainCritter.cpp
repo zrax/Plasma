@@ -323,7 +323,7 @@ void plAvBrainCritter::GoToGoal(hsPoint3 newGoal, bool avoidingAvatars /* = fals
 
     // Only play the run behavior if it's not already activated
     // Why? This might just be an update to a preexisting goal.
-    if(!RunningBehavior(RunBehaviorName()))
+    if (!RunningBehavior(RunBehaviorName()))
         fNextMode = IPickBehavior(kRun);
     // Missing TODO Turd: Pathfinding.
 }

@@ -47,12 +47,12 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "plAudibleNull.h"
 
-REGISTER_CREATABLE( plAudibleNull );
+REGISTER_CREATABLE(plAudibleNull);
 
 #include "plWinAudible.h"
 
-REGISTER_CREATABLE( plWinAudible );
-REGISTER_CREATABLE( pl2WayWinAudible );
+REGISTER_CREATABLE(plWinAudible);
+REGISTER_CREATABLE(pl2WayWinAudible);
 
 
 #endif // plAudibleCreatable_inc

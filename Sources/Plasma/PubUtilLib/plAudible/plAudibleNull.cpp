@@ -52,26 +52,26 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 hsVector3   plAudibleNull::GetVelocity(int index) const
 {
     hsVector3 ret(0,0,0);
-    return(ret);
+    return (ret);
 }
 hsPoint3    plAudibleNull::GetPosition(int index)
 {
     hsPoint3 ret(0,0,0);
-    return(ret);
+    return (ret);
 }
 
 void plAudibleNull::SetSceneNode(plKey newNode)
 {
     plKey oldNode = GetSceneNode();
-    if( oldNode == newNode )
+    if (oldNode == newNode)
         return;
 
-    if( newNode )
+    if (newNode)
     {
         plNodeRefMsg* refMsg = new plNodeRefMsg(newNode, plNodeRefMsg::kOnRequest, -1, plNodeRefMsg::kAudible);
         hsgResMgr::ResMgr()->AddViaNotify(GetKey(), refMsg, plRefFlags::kActiveRef);
     }
-    if( oldNode )
+    if (oldNode)
     {
         oldNode->Release(GetKey());
     }

@@ -58,8 +58,8 @@ public:
     plLocalPlayerInBoxConditionalObject();
     ~plLocalPlayerInBoxConditionalObject() { }
     
-    CLASSNAME_REGISTER( plLocalPlayerInBoxConditionalObject );
-    GETINTERFACE_ANY( plLocalPlayerInBoxConditionalObject, plConditionalObject );
+    CLASSNAME_REGISTER(plLocalPlayerInBoxConditionalObject);
+    GETINTERFACE_ANY(plLocalPlayerInBoxConditionalObject, plConditionalObject);
     
     bool MsgReceive(plMessage* msg);
 

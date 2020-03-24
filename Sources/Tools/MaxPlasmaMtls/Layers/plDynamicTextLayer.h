@@ -150,7 +150,7 @@ public:
     SClass_ID SuperClassID() { return TEXMAP_CLASS_ID; }
     void GetClassName(TSTR& s);
 
-    RefTargetHandle Clone( RemapDir &remap );
+    RefTargetHandle Clone(RemapDir &remap);
     RefResult NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
         PartID& partID,  RefMessage message);
 
@@ -167,7 +167,7 @@ public:
     IParamBlock2* GetParamBlock(int i); // return i'th ParamBlock
     IParamBlock2* GetParamBlockByID(BlockID id); // return id'd ParamBlock
 
-    const char *GetTextureName( int which );
+    const char *GetTextureName(int which);
     virtual Bitmap* GetBitmap(TimeValue t);
 
 
@@ -212,15 +212,15 @@ public:
 
         // Pure virtual accessors for the various bitmap related elements
         virtual Bitmap *GetMaxBitmap(int index = 0) { return fInitBitmap; }
-        virtual PBBitmap *GetPBBitmap( int index = 0 );
+        virtual PBBitmap *GetPBBitmap(int index = 0);
         virtual int     GetNumBitmaps() { return 1; }
 
         // Virtual function called by plBMSampler to get various things while sampling the layer's image
-        virtual bool    GetSamplerInfo( plBMSamplerData *samplerData );
+        virtual bool    GetSamplerInfo(plBMSamplerData *samplerData);
 
     protected:
-        virtual void ISetMaxBitmap( Bitmap *bitmap, int index = 0 ) { fInitBitmap = bitmap; }
-        virtual void ISetPBBitmap( PBBitmap *pbbm, int index = 0 );
+        virtual void ISetMaxBitmap(Bitmap *bitmap, int index = 0) { fInitBitmap = bitmap; }
+        virtual void ISetPBBitmap(PBBitmap *pbbm, int index = 0);
 };
 
 #endif // _plDynamicTextLayer_h

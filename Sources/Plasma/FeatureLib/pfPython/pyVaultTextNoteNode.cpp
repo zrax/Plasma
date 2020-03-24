@@ -73,7 +73,7 @@ pyVaultTextNoteNode::pyVaultTextNoteNode()
 //==================================================================
 // class RelVaultNode : public plVaultNode
 //
-void pyVaultTextNoteNode::Note_SetTitle( const char * text )
+void pyVaultTextNoteNode::Note_SetTitle(const char * text)
 {
     if (fNode) {
         VaultTextNoteNode textNote(fNode);
@@ -81,7 +81,7 @@ void pyVaultTextNoteNode::Note_SetTitle( const char * text )
     }
 }
 
-void pyVaultTextNoteNode::Note_SetTitleW( const wchar_t * text )
+void pyVaultTextNoteNode::Note_SetTitleW(const wchar_t * text)
 {
     if (!fNode)
         return;
@@ -107,7 +107,7 @@ void pyVaultTextNoteNode::Note_SetText(const char * text)
     }
 }
 
-void pyVaultTextNoteNode::Note_SetTextW( const wchar_t * text )
+void pyVaultTextNoteNode::Note_SetTextW(const wchar_t * text)
 {
     if (!fNode)
         return;
@@ -125,7 +125,7 @@ ST::string pyVaultTextNoteNode::Note_GetText() const
     return ST::null;
 }
 
-void pyVaultTextNoteNode::Note_SetType( int32_t type )
+void pyVaultTextNoteNode::Note_SetType(int32_t type)
 {
     if (!fNode)
         return;
@@ -143,7 +143,7 @@ int32_t pyVaultTextNoteNode::Note_GetType()
     return textNote.GetNoteType();
 }
 
-void pyVaultTextNoteNode::Note_SetSubType( int32_t type )
+void pyVaultTextNoteNode::Note_SetSubType(int32_t type)
 {
     if (!fNode)
         return;
@@ -170,16 +170,16 @@ PyObject * pyVaultTextNoteNode::GetDeviceInbox() const
         PYTHON_RETURN_NONE;
 }
 
-void pyVaultTextNoteNode::SetDeviceInbox( const char * devName, PyObject * cbObject, uint32_t cbContext )
+void pyVaultTextNoteNode::SetDeviceInbox(const char * devName, PyObject * cbObject, uint32_t cbContext)
 {
     if (!fNode)
         return;
 
-    pyVaultNode::pyVaultNodeOperationCallback * cb = new pyVaultNode::pyVaultNodeOperationCallback( cbObject );
-    cb->VaultOperationStarted( cbContext );
+    pyVaultNode::pyVaultNodeOperationCallback * cb = new pyVaultNode::pyVaultNodeOperationCallback(cbObject);
+    cb->VaultOperationStarted(cbContext);
 
     if (hsRef<RelVaultNode> rvn = VaultAgeSetDeviceInboxAndWait(devName, DEFAULT_DEVICE_INBOX))
         cb->SetNode(rvn);
 
-    cb->VaultOperationComplete( cbContext, cb->GetNode() ? hsOK : hsFail ); // cbHolder deletes itself here.
+    cb->VaultOperationComplete(cbContext, cb->GetNode() ? hsOK : hsFail); // cbHolder deletes itself here.
 }

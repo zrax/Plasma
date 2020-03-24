@@ -71,8 +71,8 @@ public:
                     const double* t) : plMessage(s, r, t) {}
     ~pfGUINotifyMsg() {}
 
-    CLASSNAME_REGISTER( pfGUINotifyMsg );
-    GETINTERFACE_ANY( pfGUINotifyMsg, plMessage );
+    CLASSNAME_REGISTER(pfGUINotifyMsg);
+    GETINTERFACE_ANY(pfGUINotifyMsg, plMessage);
 
     enum GUIEventType
     {
@@ -118,7 +118,7 @@ public:
 // kTextBox
 // kDragBar
 
-    void SetEvent( plKey &key, uint32_t event)
+    void SetEvent(plKey &key, uint32_t event)
     {
         fControlKey = key;
         fEvent = event;

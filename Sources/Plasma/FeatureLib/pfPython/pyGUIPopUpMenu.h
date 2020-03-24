@@ -69,8 +69,8 @@ protected:
     pyGUIPopUpMenu(plKey objkey);
     pyGUIPopUpMenu();
     // For creating new menus on the fly
-    pyGUIPopUpMenu( const char *name, float screenOriginX, float screenOriginY, const plLocation &destLoc = plLocation::kGlobalFixedLoc );
-    pyGUIPopUpMenu( const char *name, pyGUIPopUpMenu &parent, float screenOriginX, float screenOriginY );
+    pyGUIPopUpMenu(const char *name, float screenOriginX, float screenOriginY, const plLocation &destLoc = plLocation::kGlobalFixedLoc);
+    pyGUIPopUpMenu(const char *name, pyGUIPopUpMenu &parent, float screenOriginX, float screenOriginY);
 
 public:
     virtual ~pyGUIPopUpMenu();
@@ -105,7 +105,7 @@ public:
     // interface functions
     virtual uint32_t  GetTagID();
 
-    virtual void    SetEnabled( bool e );
+    virtual void    SetEnabled(bool e);
     virtual void    Enable() { SetEnabled(true); }
     virtual void    Disable() { SetEnabled(false); }
     virtual bool    IsEnabled();
@@ -121,18 +121,18 @@ public:
     virtual PyObject*   GetBackColor(); // returns pyColor
     virtual PyObject*   GetBackSelColor(); // returns pyColor
     // set color scheme
-    virtual void        SetForeColor( float r, float g, float b, float a );
-    virtual void        SetSelColor( float r, float g, float b, float a );
-    virtual void        SetBackColor( float r, float g, float b, float a );
-    virtual void        SetBackSelColor( float r, float g, float b, float a );
+    virtual void        SetForeColor(float r, float g, float b, float a);
+    virtual void        SetSelColor(float r, float g, float b, float a);
+    virtual void        SetBackColor(float r, float g, float b, float a);
+    virtual void        SetBackSelColor(float r, float g, float b, float a);
 
     // Menu item functions
-    virtual void        AddConsoleCmdItem( const char *name, const char *consoleCmd );
-    virtual void        AddConsoleCmdItemW( std::wstring name, const char *consoleCmd );
-    virtual void        AddNotifyItem( const char *name );
-    virtual void        AddNotifyItemW( std::wstring name );
-    virtual void        AddSubMenuItem( const char *name, pyGUIPopUpMenu &subMenu );
-    virtual void        AddSubMenuItemW( std::wstring name, pyGUIPopUpMenu &subMenu );
+    virtual void        AddConsoleCmdItem(const char *name, const char *consoleCmd);
+    virtual void        AddConsoleCmdItemW(std::wstring name, const char *consoleCmd);
+    virtual void        AddNotifyItem(const char *name);
+    virtual void        AddNotifyItemW(std::wstring name);
+    virtual void        AddSubMenuItem(const char *name, pyGUIPopUpMenu &subMenu);
+    virtual void        AddSubMenuItemW(std::wstring name, pyGUIPopUpMenu &subMenu);
 };
 
 #endif // _pyGUIPopUpMenu_h_

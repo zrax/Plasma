@@ -447,7 +447,7 @@ void hsStrLower(char *s)
 //// IStringToWString /////////////////////////////////////////////////////////
 // Converts a char * string to a wchar_t * string
 
-wchar_t *hsStringToWString( const char *str )
+wchar_t *hsStringToWString(const char *str)
 {
     // convert the char string to a wchar_t string
     int len = strlen(str);
@@ -461,7 +461,7 @@ wchar_t *hsStringToWString( const char *str )
 //// IWStringToString /////////////////////////////////////////////////////////
 // Converts a wchar_t * string to a char * string
 
-char    *hsWStringToString( const wchar_t *str )
+char    *hsWStringToString(const wchar_t *str)
 {
     // convert the wchar_t string to a char string
     int len = wcslen(str);
@@ -503,44 +503,44 @@ std::vector<ST::string> DisplaySystemVersion()
 
         // Test for the product.
 
-        if ( version.dwMajorVersion <= 4 )
+        if (version.dwMajorVersion <= 4)
             versionStrs.push_back("Microsoft Windows NT ");
 
-        if ( version.dwMajorVersion == 5 && version.dwMinorVersion == 0 )
+        if (version.dwMajorVersion == 5 && version.dwMinorVersion == 0)
             versionStrs.push_back("Microsoft Windows 2000 ");
 
-        if ( version.dwMajorVersion == 5 && version.dwMinorVersion == 1 )
+        if (version.dwMajorVersion == 5 && version.dwMinorVersion == 1)
             versionStrs.push_back("Microsoft Windows XP ");
 
-        if ( version.dwMajorVersion == 6 && version.dwMinorVersion == 0 )
+        if (version.dwMajorVersion == 6 && version.dwMinorVersion == 0)
             versionStrs.push_back("Microsoft Windows Vista ");
 
-        if ( version.dwMajorVersion == 6 && version.dwMinorVersion == 1 )
+        if (version.dwMajorVersion == 6 && version.dwMinorVersion == 1)
             versionStrs.push_back("Microsoft Windows 7 ");
 
-        if ( version.dwMajorVersion == 6 && version.dwMinorVersion == 2 )
+        if (version.dwMajorVersion == 6 && version.dwMinorVersion == 2)
             versionStrs.push_back("Microsoft Windows 8 ");
 
-        if ( version.dwMajorVersion == 6 && version.dwMinorVersion == 3 )
+        if (version.dwMajorVersion == 6 && version.dwMinorVersion == 3)
             versionStrs.push_back("Microsoft Windows 8.1 ");
 
-        if ( version.dwMajorVersion == 10 && version.dwMinorVersion == 0 )
+        if (version.dwMajorVersion == 10 && version.dwMinorVersion == 0)
             versionStrs.push_back("Microsoft Windows 10 ");
 
         // Test for product type.
 
-        if ( version.wProductType == VER_NT_WORKSTATION )
+        if (version.wProductType == VER_NT_WORKSTATION)
         {
-            if( version.wSuiteMask & VER_SUITE_PERSONAL )
+            if (version.wSuiteMask & VER_SUITE_PERSONAL)
                 versionStrs.push_back("Personal ");
             else
                 versionStrs.push_back("Professional ");
         }
-        else if ( version.wProductType == VER_NT_SERVER )
+        else if (version.wProductType == VER_NT_SERVER)
         {
-            if( version.wSuiteMask & VER_SUITE_DATACENTER )
+            if (version.wSuiteMask & VER_SUITE_DATACENTER)
                 versionStrs.push_back("DataCenter Server ");
-            else if( version.wSuiteMask & VER_SUITE_ENTERPRISE )
+            else if (version.wSuiteMask & VER_SUITE_ENTERPRISE)
                 versionStrs.push_back("Advanced Server ");
             else
                 versionStrs.push_back("Server ");
@@ -548,7 +548,7 @@ std::vector<ST::string> DisplaySystemVersion()
 
         // Display version, service pack (if any), and build number.
 
-        if ( version.dwMajorVersion <= 4 )
+        if (version.dwMajorVersion <= 4)
         {
             versionStrs.push_back(ST::format("version {}.{} {} (Build {})\n",
                 version.dwMajorVersion,

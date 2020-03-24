@@ -70,7 +70,7 @@ plRandomCommandMod::~plRandomCommandMod()
 // return how many are left to choose from
 int plRandomCommandMod::IExcludeSelections(int ncmds)
 {
-    if( fMode & kCoverall )
+    if (fMode & kCoverall)
     {
         int nLeft = ncmds;
 
@@ -78,9 +78,9 @@ int plRandomCommandMod::IExcludeSelections(int ncmds)
 
         // Count how many haven't been played.
         int i;
-        for( i = ncmds-1; i >= 0; --i )
+        for (i = ncmds-1; i >= 0; --i)
         {
-            if( fExcluded.IsBitSet(i) )
+            if (fExcluded.IsBitSet(i))
                 nLeft--;
         }
 
@@ -89,17 +89,17 @@ int plRandomCommandMod::IExcludeSelections(int ncmds)
         // Go ahead and reset for that.
         // If we're out and OneCycle isn't set, then go ahead
         // and set up for a new cycle.
-        if( !nLeft )
+        if (!nLeft)
         {
             fExcluded.Clear();
-            if( fMode & kNoRepeats )
+            if (fMode & kNoRepeats)
                 fExcluded.SetBit(fCurrent);
 
-            if( fMode & kOneCycle )
+            if (fMode & kOneCycle)
                 return 0;
 
             nLeft = ncmds;
-            if( ( fMode & kNoRepeats ) && ncmds > 1 )
+            if ((fMode & kNoRepeats) && ncmds > 1)
                 nLeft--;
         }
 
@@ -108,15 +108,15 @@ int plRandomCommandMod::IExcludeSelections(int ncmds)
     double currTime = hsTimer::GetSysSeconds();
     fExcluded.Clear();
     int i;
-    for( i = 0; i < fEndTimes.GetCount(); i++ )
+    for (i = 0; i < fEndTimes.GetCount(); i++)
     {
-        if( fEndTimes[i] > currTime )
+        if (fEndTimes[i] > currTime)
         {
             ncmds--;
             fExcluded.SetBit(i);
         }
     }
-    if( fMode & kNoRepeats )
+    if (fMode & kNoRepeats)
     {
         ncmds--;
         fExcluded.SetBit(fCurrent);
@@ -132,10 +132,10 @@ float plRandomCommandMod::IGetDelay(float len) const
 
     float delay = fMinDelay + (fMaxDelay - fMinDelay) * r;
 
-    if( fMode & kDelayFromEnd )
+    if (fMode & kDelayFromEnd)
         delay += len;
 
-    if( delay < 0 )
+    if (delay < 0)
         delay = fmodf(len, -delay);
 
     return delay;
@@ -143,11 +143,11 @@ float plRandomCommandMod::IGetDelay(float len) const
 
 bool plRandomCommandMod::ISelectNext(int ncmds)
 {
-    if( fMode & kSequential )
+    if (fMode & kSequential)
     {
-        if( ++fCurrent >= ncmds )
+        if (++fCurrent >= ncmds)
         {
-            if( fMode & kOneCycle )
+            if (fMode & kOneCycle)
             {
                 fCurrent = -1;
                 return false;
@@ -160,21 +160,21 @@ bool plRandomCommandMod::ISelectNext(int ncmds)
 
     int nSelect = ncmds;
     
-    if( fCurrent >= 0 )
+    if (fCurrent >= 0)
         nSelect = IExcludeSelections(ncmds);
 
-    if( !nSelect )
+    if (!nSelect)
         return false;
 
     int nth = int(r * (float(nSelect)-1.e-3f));
     
     int iNext = 0;
     int i;
-    for( i = 0; i < ncmds; i++ )
+    for (i = 0; i < ncmds; i++)
     {
-        if( !fExcluded.IsBitSet(i) )
+        if (!fExcluded.IsBitSet(i))
         {
-            if( !nth-- )
+            if (!nth--)
             {
                 iNext = i;
                 break;
@@ -188,7 +188,7 @@ bool plRandomCommandMod::ISelectNext(int ncmds)
 
 void plRandomCommandMod::IStart()
 {
-    if( !IStopped() )
+    if (!IStopped())
         return;
 
     fState &= ~kStopped;
@@ -202,13 +202,13 @@ void plRandomCommandMod::IStop()
 
 void plRandomCommandMod::IPlayNextIfMaster()
 {
-    if( !fTarget )
+    if (!fTarget)
         IRetry(2.f);
     
-    if( fTarget->IsLocallyOwned() == plSynchedObject::kNo )     // if this object is a proxy, it should just wait for network cmds
+    if (fTarget->IsLocallyOwned() == plSynchedObject::kNo)     // if this object is a proxy, it should just wait for network cmds
         return;
 
-    if( IStopped() )
+    if (IStopped())
         return;
 
     IPlayNext();
@@ -220,21 +220,21 @@ bool plRandomCommandMod::MsgReceive(plMessage* msg)
     // could overinterpret set loop points to limit range of
     // cmds we use to a window of the total set.
     plAnimCmdMsg* anim = plAnimCmdMsg::ConvertNoRef(msg);
-    if( anim )
+    if (anim)
     {
-        if( anim->GetSender() != GetKey() )
+        if (anim->GetSender() != GetKey())
         {
 #if 0
             hsStatusMessageF("someone triggered me, remote=%d\n",
                 msg->HasBCastFlag(plMessage::kNetNonLocal));
 #endif
-            if( anim->Cmd(plAnimCmdMsg::kContinue) )
+            if (anim->Cmd(plAnimCmdMsg::kContinue))
                 IStart();
-            if( anim->Cmd(plAnimCmdMsg::kStop) )
+            if (anim->Cmd(plAnimCmdMsg::kStop))
                 IStop();
-            if( anim->Cmd(plAnimCmdMsg::kToggleState) )
+            if (anim->Cmd(plAnimCmdMsg::kToggleState))
             {
-                if( IStopped() )
+                if (IStopped())
                     IStart();
                 else
                     IStop();
@@ -261,7 +261,7 @@ void plRandomCommandMod::IReset()
     fCurrent = -1;
     fExcluded.Clear();
 
-    if( !IStopped() )
+    if (!IStopped())
         IRetry(0);
 }
 

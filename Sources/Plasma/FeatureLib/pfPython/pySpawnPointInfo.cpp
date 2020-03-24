@@ -50,7 +50,7 @@ pySpawnPointInfo::pySpawnPointInfo()
 {
 }
 
-pySpawnPointInfo::pySpawnPointInfo( const char * title, const char * spawnPt )
+pySpawnPointInfo::pySpawnPointInfo(const char * title, const char * spawnPt)
 {
     fInfo.fTitle = title;
     fInfo.fSpawnPt = spawnPt;

@@ -262,7 +262,7 @@ bool plPick::GUIDialog(IParamBlock2 *pb, int paramID, bool single)
     return (GetCOREInterface()->DoHitByNameDialog(&pick) != 0);
 }
 
-bool plPick::GenericClass(IParamBlock2 *pb, int paramID, bool single, Class_ID classIDToPick )
+bool plPick::GenericClass(IParamBlock2 *pb, int paramID, bool single, Class_ID classIDToPick)
 {
     std::vector<Class_ID> cid;
     cid.push_back(classIDToPick);

@@ -60,8 +60,8 @@ public:
     plAnimationEventConditionalObject(plKey pTargetModifier);
     ~plAnimationEventConditionalObject() { }
     
-    CLASSNAME_REGISTER( plAnimationEventConditionalObject );
-    GETINTERFACE_ANY( plAnimationEventConditionalObject, plConditionalObject );
+    CLASSNAME_REGISTER(plAnimationEventConditionalObject);
+    GETINTERFACE_ANY(plAnimationEventConditionalObject, plConditionalObject);
     
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

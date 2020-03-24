@@ -77,12 +77,12 @@ public:
     CWaveFile();
     ~CWaveFile();
 
-    HRESULT Open(const char *strFileName, WAVEFORMATEX* pwfx, DWORD dwFlags );
-    HRESULT OpenFromMemory( BYTE* pbData, ULONG ulDataSize, WAVEFORMATEX* pwfx, DWORD dwFlags );
+    HRESULT Open(const char *strFileName, WAVEFORMATEX* pwfx, DWORD dwFlags);
+    HRESULT OpenFromMemory(BYTE* pbData, ULONG ulDataSize, WAVEFORMATEX* pwfx, DWORD dwFlags);
 
-    HRESULT Read( BYTE* pBuffer, DWORD dwSizeToRead, DWORD* pdwSizeRead );
-    HRESULT AdvanceWithoutRead( DWORD dwSizeToRead, DWORD* pdwSizeRead );
-    HRESULT Write( UINT nSizeToWrite, BYTE* pbData, UINT* pnSizeWrote );
+    HRESULT Read(BYTE* pBuffer, DWORD dwSizeToRead, DWORD* pdwSizeRead);
+    HRESULT AdvanceWithoutRead(DWORD dwSizeToRead, DWORD* pdwSizeRead);
+    HRESULT Write(UINT nSizeToWrite, BYTE* pbData, UINT* pnSizeWrote);
 
     DWORD   GetSize();
     HRESULT ResetFile();
@@ -93,17 +93,17 @@ public:
 
 
     // Overloads for plAudioFileReader
-    CWaveFile( const char *path, plAudioCore::ChannelSelect whichChan );
-    virtual bool    OpenForWriting( const char *path, plWAVHeader &header );
+    CWaveFile(const char *path, plAudioCore::ChannelSelect whichChan);
+    virtual bool    OpenForWriting(const char *path, plWAVHeader &header);
     virtual plWAVHeader &GetHeader();
     virtual void    Close();
     virtual uint32_t  GetDataSize();
     virtual float   GetLengthInSecs();
 
-    virtual bool    SetPosition( uint32_t numBytes );
-    virtual bool    Read( uint32_t numBytes, void *buffer );
+    virtual bool    SetPosition(uint32_t numBytes);
+    virtual bool    Read(uint32_t numBytes, void *buffer);
     virtual uint32_t  NumBytesLeft();
-    virtual uint32_t  Write( uint32_t bytes, void *buffer );
+    virtual uint32_t  Write(uint32_t bytes, void *buffer);
 
     virtual bool    IsValid();
     WAVEFORMATEX* m_pwfx;        // Pointer to WAVEFORMATEX structure
@@ -125,7 +125,7 @@ public:
 
 protected:
     HRESULT ReadMMIO();
-    HRESULT WriteMMIO( WAVEFORMATEX *pwfxDest );
+    HRESULT WriteMMIO(WAVEFORMATEX *pwfxDest);
     HRESULT IClose();
 };
 #endif // BUILDING_MAXPLUGIN

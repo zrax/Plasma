@@ -91,7 +91,7 @@ public:
 
                 HWND cbox = GetDlgItem(hWnd, IDC_COMP_SHADOW_QUALITY);
                 int i;
-                for( i = 0; i < kNumQualities; i++ )
+                for (i = 0; i < kNumQualities; i++)
                 {
                     SendMessage(cbox, CB_ADDSTRING, 0, (LPARAM)kQualityStrings[i]);
                 }
@@ -101,7 +101,7 @@ public:
             return true;
 
         case WM_COMMAND:
-            switch( LOWORD(wParam) )
+            switch (LOWORD(wParam))
             {
             case IDC_COMP_SHADOW_QUALITY:
                 map->GetParamBlock()->SetValue(T::kQuality, t, SendMessage(GetDlgItem(hWnd, LOWORD(wParam)), CB_GETCURSEL, 0, 0));
@@ -199,24 +199,24 @@ plShadowCastComponent::plShadowCastComponent()
 bool plShadowCastComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
     plSceneObject* so = node->GetSceneObject();
-    if( !so )
+    if (!so)
         return true;
 
     const float kBlurPercentToAbs = 1.e-2f * 1.5f;
     const float kAttenPercentToAbs = 1.e-2f;
     const float kBoostPercentToAbs = 1.e-2f;
-    if( !fCaster )
+    if (!fCaster)
     {
         fCaster = new plShadowCaster;
         plLoadMask lm(QualityBitToMask(fCompPB->GetInt(kQuality)), QualityBitToMask(0));
         hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), fCaster, node->GetLocation(), lm);
         fCaster->SetSelfShadow(fCompPB->GetInt(kSelfShadow));
-        if( fCompPB->GetInt(kBlur) )
+        if (fCompPB->GetInt(kBlur))
             fCaster->SetBlurScale(fCompPB->GetFloat(kBlurScale) * kBlurPercentToAbs);
-        if( fCompPB->GetInt(kAtten) )
+        if (fCompPB->GetInt(kAtten))
             fCaster->SetAttenScale(fCompPB->GetFloat(kAttenScale) * kAttenPercentToAbs);
         fCaster->SetBoost(fCompPB->GetFloat(kBoost) * kBoostPercentToAbs);
-        if( fCompPB->GetInt(kLimitRes) )
+        if (fCompPB->GetInt(kLimitRes))
             fCaster->SetLimitRes(true);
     }
 
@@ -238,11 +238,11 @@ bool plShadowCastComponent::PreConvert(plMaxNode* pNode, plErrorMsg* pErrMsg)
 
 bool plShadowCastComponent::AddShadowCastModifier(plMaxNode* pNode, plShadowCaster* caster)
 {
-    if( !pNode->CanConvert() )
+    if (!pNode->CanConvert())
         return false;
 
     plSceneObject* so = pNode->GetSceneObject();
-    if( !so )
+    if (!so)
         return false;
 
     return plShadowCastComponent::AddShadowCastModifier(so, caster);
@@ -253,9 +253,9 @@ bool plShadowCastComponent::AddShadowCastModifier(plSceneObject* so, plShadowCas
     // First off, ensure that we NEVER NEVER NEVER have more than one shadowcaster on an object.
     // That would be BAD BAD BAD BAD BAD BAD BAD BAD BAD BAD BAD BAD BAD BAD BAD BAD BAD BAD.
     int i;
-    for( i = 0; i < so->GetNumModifiers(); i++ )
+    for (i = 0; i < so->GetNumModifiers(); i++)
     {
-        if( plShadowCaster::ConvertNoRef(so->GetModifier(i)) )
+        if (plShadowCaster::ConvertNoRef(so->GetModifier(i)))
             return false;
     }
 
@@ -300,12 +300,12 @@ bool plShadowRcvComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 
 bool plShadowRcvComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *pErrMsg)
 {
-    if( fCompPB->GetInt(kForceRadio) == kForceOn )
+    if (fCompPB->GetInt(kForceRadio) == kForceOn)
     {
         pNode->SetForceShadow(true);
         pNode->SetNoShadow(false);
     }
-    else if( fCompPB->GetInt(kForceRadio) == kForceOff )
+    else if (fCompPB->GetInt(kForceRadio) == kForceOff)
     {
         pNode->SetForceShadow(false);
         pNode->SetNoShadow(true);
@@ -385,29 +385,29 @@ plShadowLightComponent::plShadowLightComponent()
 bool plShadowLightComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
     plSceneObject* so = node->GetSceneObject();
-    if( !so )
+    if (!so)
         return true;
 
     plLightInfo* liInfo = plLightInfo::ConvertNoRef(so->GetGenericInterface(plLightInfo::Index()));
-    if( !liInfo )
+    if (!liInfo)
         return true;
 
-    if( fCompPB->GetInt(kShadowOnly) )
+    if (fCompPB->GetInt(kShadowOnly))
         liInfo->SetProperty(plLightInfo::kLPShadowOnly, true);
 
-    if( fCompPB->GetInt(kObeyGroups) )
+    if (fCompPB->GetInt(kObeyGroups))
         liInfo->SetProperty(plLightInfo::kLPShadowLightGroup, true);
 
     plDirectionalLightInfo* dirLiInfo = plDirectionalLightInfo::ConvertNoRef(liInfo);
-    if( dirLiInfo )
+    if (dirLiInfo)
         return IAddDirectMaster(node, so);
 
     plOmniLightInfo* omniLiInfo = plOmniLightInfo::ConvertNoRef(liInfo);
-    if( omniLiInfo )
+    if (omniLiInfo)
         return IAddPointMaster(node, so);
 
     plSpotLightInfo* spotLiInfo = plSpotLightInfo::ConvertNoRef(liInfo);
-    if( spotLiInfo )
+    if (spotLiInfo)
         return IAddPointMaster(node, so);
 
     return true;

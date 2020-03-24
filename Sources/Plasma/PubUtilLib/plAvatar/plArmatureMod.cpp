@@ -155,7 +155,7 @@ bool plArmatureModBase::MsgReceive(plMessage* msg)
     if (fBrains.size() > 0)
     {
         curBrain = fBrains.back();
-        if(curBrain->MsgReceive(msg))
+        if (curBrain->MsgReceive(msg))
             return true;
     }
     
@@ -172,7 +172,7 @@ void plArmatureModBase::AddTarget(plSceneObject* so)
 void plArmatureModBase::RemoveTarget(plSceneObject* so)
 {
     int count = fBrains.size();
-    for(int i = count - 1; i >= 0; i--)
+    for (int i = count - 1; i >= 0; i--)
     {
         plArmatureBrain *brain = fBrains[i];
         if (brain)
@@ -215,14 +215,14 @@ void plArmatureModBase::Read(hsStream * stream, hsResMgr *mgr)
 
     int i;
     int meshKeyCount = stream->ReadLE32();
-    for(i = 0; i < meshKeyCount; i++)
+    for (i = 0; i < meshKeyCount; i++)
     {
         plKey meshKey = mgr->ReadKey(stream);
         fMeshKeys.push_back(meshKey);
         
         plKeyVector *vec = new plKeyVector;
         int boneCount = stream->ReadLE32();
-        for(int j = 0; j < boneCount; j++)
+        for (int j = 0; j < boneCount; j++)
             vec->push_back(mgr->ReadKey(stream));
         fUnusedBones.push_back(vec);
     }
@@ -249,7 +249,7 @@ void plArmatureModBase::Write(hsStream *stream, hsResMgr *mgr)
         
         // Should be a list per mesh key
         stream->WriteLE32(fUnusedBones[i]->size());
-        for(int j = 0; j < fUnusedBones[i]->size(); j++)
+        for (int j = 0; j < fUnusedBones[i]->size(); j++)
             mgr->WriteKey(stream, (*fUnusedBones[i])[j]);
     }
     
@@ -278,10 +278,10 @@ void plArmatureModBase::EnableDrawingTree(const plSceneObject *object, bool stat
     
     plEnableMsg *msg = new plEnableMsg;
     if (status)
-        msg->SetCmd( plEnableMsg::kEnable );
+        msg->SetCmd(plEnableMsg::kEnable);
     else
-        msg->SetCmd( plEnableMsg::kDisable );
-    msg->SetCmd( plEnableMsg::kDrawable );
+        msg->SetCmd(plEnableMsg::kDisable);
+    msg->SetCmd(plEnableMsg::kDrawable);
     
     const plCoordinateInterface *pCI = object->GetCoordinateInterface();
     AddressMessageToDescendants(pCI, msg);
@@ -317,7 +317,7 @@ bool plArmatureModBase::ValidateMesh()
         fWaitFlags &= ~kNeedMesh;
         int n = fMeshKeys.size();
         
-        for(int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++)
         {
             plKey meshKey = fMeshKeys[i];
             plSceneObject *meshObj = (plSceneObject *)meshKey->GetObjectPtr();
@@ -456,7 +456,7 @@ bool plArmatureModBase::SetLOD(int iNewLOD)
     if (iNewLOD != fCurLOD)
     {
         int oldLOD = fCurLOD;
-        if(fMeshKeys.size() > iNewLOD)
+        if (fMeshKeys.size() > iNewLOD)
         {
             if (fCurLOD != -1)
             {
@@ -757,7 +757,7 @@ const plSceneObject *plArmatureMod::FindBone(const ST::string & name) const
 
 const plSceneObject *plArmatureMod::FindBone(uint32_t id) const
 {
-    if(fBoneMap)
+    if (fBoneMap)
         return fBoneMap->FindBone(id);
     else
         return nil;
@@ -765,7 +765,7 @@ const plSceneObject *plArmatureMod::FindBone(uint32_t id) const
 
 void plArmatureMod::AddBoneMapping(uint32_t id, const plSceneObject *bone)
 {
-    if(!fBoneMap)
+    if (!fBoneMap)
         fBoneMap = new plAvBoneMap();
 
     fBoneMap->AddBoneMapping(id, bone);
@@ -812,10 +812,10 @@ void plArmatureMod::Spawn(double timeNow)
     int numSpawnPoints = mgr->NumSpawnPoints();
 
     int spawnNum = IFindSpawnOverride();
-    if( spawnNum == -1 )
+    if (spawnNum == -1)
     {
-        spawnNum = plAvatarMgr::GetInstance()->FindSpawnPoint( "LinkInPointDefault" );
-        if( spawnNum == -1 )
+        spawnNum = plAvatarMgr::GetInstance()->FindSpawnPoint("LinkInPointDefault");
+        if (spawnNum == -1)
         {
             spawnNum = plNetClientApp::GetInstance()->GetJoinOrder();
         }
@@ -823,7 +823,7 @@ void plArmatureMod::Spawn(double timeNow)
     
     hsAssert(numSpawnPoints, "No spawn points! You are about to crash!");
     
-    if ( numSpawnPoints )
+    if (numSpawnPoints)
         spawnNum %= numSpawnPoints;
     
     ValidatePhysics();
@@ -838,7 +838,7 @@ void plArmatureMod::SpawnAt(int spawnNum, double time)
     
     hsMatrix44 l2w;
     hsMatrix44 w2l;
-    if ( spawn )
+    if (spawn)
     {
         const plSceneObject * spawnObj = spawn->GetTarget(0);
         l2w = spawnObj->GetLocalToWorld();
@@ -1011,8 +1011,8 @@ void plArmatureMod::PanicLink(bool playLinkOutAnim /* = true */)
     plNetApp::StaticDebugMsg("plArmatureMod::PanicLink()");
 
     // make the player book blink as they are linking out
-    pfKIMsg *msg = new pfKIMsg( pfKIMsg::kStartBookAlert );
-    plgDispatch::MsgSend( msg );
+    pfKIMsg *msg = new pfKIMsg(pfKIMsg::kStartBookAlert);
+    plgDispatch::MsgSend(msg);
 
     // Can't depend on the anim to link if the human brain isn't ready to deal with it
     plAvBrainHuman *brain = plAvBrainHuman::ConvertNoRef(GetCurrentBrain());
@@ -1065,7 +1065,7 @@ bool plArmatureMod::MsgReceive(plMessage* msg)
     if (fBrains.size() > 0)
     {
         curBrain = fBrains.back();
-        if(curBrain->MsgReceive(msg))
+        if (curBrain->MsgReceive(msg))
             return true;
     }
 
@@ -1077,7 +1077,7 @@ bool plArmatureMod::MsgReceive(plMessage* msg)
     }
     
     plControlEventMsg *control = plControlEventMsg::ConvertNoRef(msg);
-    if(control)
+    if (control)
     {
         IHandleControlMsg(control);
         return true;
@@ -1097,13 +1097,13 @@ bool plArmatureMod::MsgReceive(plMessage* msg)
         plClothingOutfit *outfit = plClothingOutfit::ConvertNoRef(refMsg->GetRef());
         if (outfit)
         {
-            if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+            if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
             {
                 fClothingOutfit = outfit;
                 fClothingOutfit->fAvatar = this;
                 plgDispatch::Dispatch()->RegisterForExactType(plPipeRTMakeMsg::Index(), fClothingOutfit->GetKey());
             }
-            else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+            else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
             {
                 if (fClothingOutfit)
                     plgDispatch::Dispatch()->UnRegisterForExactType(plPipeRTMakeMsg::Index(), fClothingOutfit->GetKey());
@@ -1115,12 +1115,12 @@ bool plArmatureMod::MsgReceive(plMessage* msg)
         plArmatureEffectsMgr *effects = plArmatureEffectsMgr::ConvertNoRef(refMsg->GetRef());
         if (effects)
         {
-            if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+            if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
             {
                 fEffects = effects;
                 fEffects->fArmature = this;
             }
-            else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+            else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
             {
                 fEffects->fArmature = nil;
                 fEffects = nil;
@@ -1130,12 +1130,12 @@ bool plArmatureMod::MsgReceive(plMessage* msg)
         plSceneObject *so = plSceneObject::ConvertNoRef(refMsg->GetRef());
         if (so)
         {
-            if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+            if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
             {
                 fClothToSOMap.ExpandAndZero(refMsg->fWhich + 1);
                 fClothToSOMap[refMsg->fWhich] = so;
             }
-            else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+            else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
             {
                 fClothToSOMap[refMsg->fWhich] = nil;
             }
@@ -1159,20 +1159,20 @@ bool plArmatureMod::MsgReceive(plMessage* msg)
     }
     
     plEnableMsg *enMsg = plEnableMsg::ConvertNoRef(msg);
-    if(enMsg && enMsg->Type(plEnableMsg::kDrawable))
+    if (enMsg && enMsg->Type(plEnableMsg::kDrawable))
     {
         bool enable = enMsg->Cmd(plEnableMsg::kEnable);
         bool disable = enMsg->Cmd(plEnableMsg::kDisable);
         
         hsAssert(enable != disable, "Conflicting or missing commands to enable message");
         
-        if(enable != disable)
+        if (enable != disable)
             EnableDrawing(enable);
         return true;
     }
-    if(enMsg && enMsg->Cmd(plEnableMsg::kPhysical))
+    if (enMsg && enMsg->Cmd(plEnableMsg::kPhysical))
     {
-        EnablePhysics( enMsg->Cmd(plEnableMsg::kEnable));
+        EnablePhysics(enMsg->Cmd(plEnableMsg::kEnable));
     }
     
     plAvatarOpacityCallbackMsg *opacMsg = plAvatarOpacityCallbackMsg::ConvertNoRef(msg);
@@ -1283,7 +1283,7 @@ bool plArmatureMod::MsgReceive(plMessage* msg)
             if (spawnKO)
             {
                 plSceneObject * spawnSO = plSceneObject::ConvertNoRef(spawnKO);
-                if(spawnSO)
+                if (spawnSO)
                 {
                     hsMatrix44 l2w = spawnSO->GetLocalToWorld();
                     plWarpMsg *warpM = new plWarpMsg(nil, GetTarget(0)->GetKey(), plWarpMsg::kFlushTransform, l2w);
@@ -1432,7 +1432,7 @@ bool plArmatureMod::IHandleControlMsg(plControlEventMsg* pMsg)
         ControlEventCode moveCode = pMsg->GetControlCode();
 
         bool flagChanged = false;
-        if(pMsg->ControlActivated())
+        if (pMsg->ControlActivated())
         {
             if (moveCode == B_CONTROL_TURN_TO && fClickToTurn)
             {
@@ -1441,7 +1441,7 @@ bool plArmatureMod::IHandleControlMsg(plControlEventMsg* pMsg)
                 plSceneInputInterface::GetInstance()->RequestAvatarTurnToPointLOS();
 #else
                 plVisHit hit;
-                if( plVisLOSMgr::Instance()->CursorCheck(hit) )
+                if (plVisLOSMgr::Instance()->CursorCheck(hit))
                     TurnToPoint(hit.fPos);
 #endif
                 return true;
@@ -1460,24 +1460,24 @@ bool plArmatureMod::IHandleControlMsg(plControlEventMsg* pMsg)
                 }
             }
 
-            if (!GetInputFlag( moveCode ) )
+            if (!GetInputFlag(moveCode))
             {
-                SetInputFlag( moveCode, true );
+                SetInputFlag(moveCode, true);
                 flagChanged = true;
 
                 if (moveCode == B_CONTROL_JUMP)
                     SetInputFlag(B_CONTROL_CONSUMABLE_JUMP, true);
                 
-                if(plNetClientMgr::GetInstance()->AmCCR())
+                if (plNetClientMgr::GetInstance()->AmCCR())
                 {
                     // special case for clipping: synch every key change
-                    SynchIfLocal( hsTimer::GetSysSeconds(), false);
+                    SynchIfLocal(hsTimer::GetSysSeconds(), false);
                 }
             }
         } else {
-            if ( GetInputFlag( moveCode ) )
+            if (GetInputFlag(moveCode))
             {
-                SetInputFlag( moveCode, false );
+                SetInputFlag(moveCode, false);
                 flagChanged = true;
 
                 if (fReverseFBOnIdle && (moveCode == B_CONTROL_MOVE_FORWARD || moveCode == B_CONTROL_MOVE_BACKWARD))
@@ -1533,15 +1533,15 @@ void plArmatureMod::ILinkToPersonalAge()
     plNetClientMgr * nc = plNetClientMgr::GetInstance();
     
     plAgeLinkStruct link;
-    link.GetAgeInfo()->SetAgeFilename( kPersonalAgeFilename );
-    link.GetAgeInfo()->SetAgeInstanceName( kPersonalAgeInstanceName );
+    link.GetAgeInfo()->SetAgeFilename(kPersonalAgeFilename);
+    link.GetAgeInfo()->SetAgeInstanceName(kPersonalAgeInstanceName);
     
     plSpawnPointInfo hutSpawnPoint;
     hutSpawnPoint.SetName(kPersonalAgeLinkInPointCloset);
     link.SetSpawnPoint(hutSpawnPoint);
     
-    link.SetLinkingRules( plNetCommon::LinkingRules::kOriginalBook );
-    plLinkToAgeMsg* pMsg = new plLinkToAgeMsg( &link );
+    link.SetLinkingRules(plNetCommon::LinkingRules::kOriginalBook);
+    plLinkToAgeMsg* pMsg = new plLinkToAgeMsg(&link);
     pMsg->SetLinkInAnimName(kPersonalLinkAnimName);
     pMsg->AddReceiver(nc->GetKey());
     pMsg->Send();
@@ -1721,20 +1721,20 @@ void plArmatureMod::Write(hsStream *stream, hsResMgr *mgr)
 
     if (fClothingOutfit == nil)
     {
-        stream->WriteBool( false );
+        stream->WriteBool(false);
     }
     else
     {
-        stream->WriteBool( true );
+        stream->WriteBool(true);
         mgr->WriteKey(stream, fClothingOutfit->GetKey());
     }
 
     stream->WriteLE32(fBodyType);
-    if( fEffects == nil )
-        stream->WriteBool( false );
+    if (fEffects == nil)
+        stream->WriteBool(false);
     else
     {
-        stream->WriteBool( true );
+        stream->WriteBool(true);
         mgr->WriteKey(stream, fEffects->GetKey());
     }
 
@@ -1765,14 +1765,14 @@ void plArmatureMod::Read(hsStream * stream, hsResMgr *mgr)
         this->PushBrain(brain);
     }
         
-    if( stream->ReadBool() )
+    if (stream->ReadBool())
         mgr->ReadKeyNotifyMe(stream, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, -1), plRefFlags::kActiveRef); // plClothingBase
     else
         fClothingOutfit = nil;
 
     fBodyType = stream->ReadLE32();
 
-    if( stream->ReadBool() )
+    if (stream->ReadBool())
     {
         plKey effectMgrKey = mgr->ReadKey(stream);
         mgr->AddViaNotify(effectMgrKey, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, -1), plRefFlags::kActiveRef); // plArmatureEffects
@@ -1837,10 +1837,10 @@ bool plArmatureMod::DirtySynchState(const ST::string& SDLStateName, uint32_t syn
     
     synchFlags |= plSynchedObject::kForceFullSend;  // TEMP
     
-    if(GetNumTargets() > 0)
+    if (GetNumTargets() > 0)
     {
         plSceneObject *sObj = GetTarget(0);
-        if(sObj)
+        if (sObj)
             sObj->DirtySynchState(SDLStateName, synchFlags);
     }
     return false;
@@ -1851,10 +1851,10 @@ bool plArmatureMod::DirtyPhysicalSynchState(uint32_t synchFlags)
     synchFlags |= plSynchedObject::kForceFullSend;  // TEMP
     synchFlags |= plSynchedObject::kBCastToClients;
     
-    if(GetNumTargets() > 0)
+    if (GetNumTargets() > 0)
     {
         plSceneObject *sObj = GetTarget(0);
-        if(sObj)
+        if (sObj)
             sObj->DirtySynchState(kSDLAvatarPhysical, synchFlags);
     }
     return false;
@@ -1866,7 +1866,7 @@ void plArmatureMod::IFinalize()
     
     if (fWaitFlags & kNeedAudio)
     {
-        plSetListenerMsg *msg = new plSetListenerMsg( plSetListenerMsg::kVelocity, GetTarget(0)->GetKey(), true );
+        plSetListenerMsg *msg = new plSetListenerMsg(plSetListenerMsg::kVelocity, GetTarget(0)->GetKey(), true);
         msg->Send();
         fWaitFlags &= ~kNeedAudio;
     }
@@ -1877,7 +1877,7 @@ void plArmatureMod::IFinalize()
         pMsg->SetCmd(plCameraMsg::kCreateNewDefaultCam);
         pMsg->SetCmd(plCameraMsg::kSetSubject);
         pMsg->SetSubject(GetTarget(0));
-        pMsg->SetBCastFlag( plMessage::kBCastByExactType );
+        pMsg->SetBCastFlag(plMessage::kBCastByExactType);
         pMsg->Send();
         fWaitFlags &= ~kNeedCamera;
     }
@@ -1898,7 +1898,7 @@ void plArmatureMod::ICustomizeApplicator()
     {
         // are there any applicators that manipulate the transform?
         plAGApplicator *app = agMod->GetApplicator(kAGPinTransform);
-        if(app)
+        if (app)
         {
             plMatrixDelayedCorrectionApplicator *corApp = plMatrixDelayedCorrectionApplicator::ConvertNoRef(app);
             if (corApp)
@@ -2027,12 +2027,12 @@ bool plArmatureMod::ValidateMesh()
         fWaitFlags &= ~kNeedMesh;
         int n = fMeshKeys.size();
         
-        for(int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++)
         {
             plKey meshKey = fMeshKeys[i];
             plSceneObject * meshObj = (plSceneObject *)meshKey->GetObjectPtr();
             
-            if( ! meshObj)
+            if (! meshObj)
             {
                 fWaitFlags |= kNeedMesh;
                 break;
@@ -2063,13 +2063,13 @@ plArmatureBrain * plArmatureMod::GetNextBrain(plArmatureBrain *brain)
     bool passedTarget = false;
 
     int count = fBrains.size();
-    for(int i = count - 1; i >= 0; i--)
+    for (int i = count - 1; i >= 0; i--)
     {
         plArmatureBrain *curBrain = fBrains.at(i);
-        if(passedTarget)
+        if (passedTarget)
             result = curBrain;
         else {
-            if(curBrain == brain)
+            if (curBrain == brain)
                 passedTarget = true;
         }
     }
@@ -2086,11 +2086,11 @@ plArmatureBrain * plArmatureMod::FindBrainByClass(uint32_t classID) const
 {
     int n = fBrains.size();
 
-    for(int i = 0; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
         plArmatureBrain *brain = fBrains.at(i);
 
-        if(brain->ClassIndex() == classID)
+        if (brain->ClassIndex() == classID)
         {
             return brain;
         }
@@ -2121,7 +2121,7 @@ void plArmatureMod::ResumeInput()
 {
     if (fSuspendInputCount > 0) // decrementing an unsigned variable set to 0 is BAD
         fSuspendInputCount--;
-    if(fSuspendInputCount == 0)
+    if (fSuspendInputCount == 0)
     {
         RestoreInputState();
         IProcessQueuedInput();
@@ -2134,7 +2134,7 @@ void plArmatureMod::IProcessQueuedInput()
 {
     CtrlMessageVec::iterator i = fQueuedCtrlMessages.begin();
     CtrlMessageVec::iterator end = fQueuedCtrlMessages.end();
-    while(i != end)
+    while (i != end)
     {
         plControlEventMsg *ctrlMsg = *i;
         IHandleControlMsg(ctrlMsg);
@@ -2163,7 +2163,7 @@ bool plArmatureMod::GetInputFlag (int which) const
 
 void plArmatureMod::SetInputFlag(int which, bool status)
 {
-    if(status)
+    if (status)
     {
         fMoveFlags.SetBit(which);
     } else {
@@ -2344,10 +2344,10 @@ void plArmatureMod::ClearInputFlags(bool saveAlwaysRun, bool clearBackup)
 
 plAGModifier * plArmatureMod::GetRootAGMod()
 {
-    if(fRootAGMod)
+    if (fRootAGMod)
         return fRootAGMod;
 
-    if(fTarget)
+    if (fTarget)
     {
         const plAGModifier * shit = plAGModifier::ConvertNoRef(FindModifierByClass(fTarget, plAGModifier::Index()));
         fRootAGMod = const_cast<plAGModifier *>(shit);
@@ -2541,7 +2541,7 @@ void plArmatureMod::ISetTransparentDrawOrder(bool val)
 
 bool plArmatureMod::IsKILowestLevel()
 {
-    if ( GetKILevel() == pfKIMsg::kNanoKI )
+    if (GetKILevel() == pfKIMsg::kNanoKI)
         return true;
     else
         return false;
@@ -2596,14 +2596,14 @@ void plArmatureLODMod::Read(hsStream *stream, hsResMgr *mgr)
 
     fMeshKeys.clear();
     int meshKeyCount = stream->ReadLE32();
-    for(int i = 0; i < meshKeyCount; i++)
+    for (int i = 0; i < meshKeyCount; i++)
     {
         plKey meshKey = mgr->ReadKey(stream);
         fMeshKeys.push_back(meshKey);
         
         plKeyVector *vec = new plKeyVector;
         int boneCount = stream->ReadLE32();
-        for(int j = 0; j < boneCount; j++)
+        for (int j = 0; j < boneCount; j++)
             vec->push_back(mgr->ReadKey(stream));
         fUnusedBones.push_back(vec);
     }
@@ -2617,14 +2617,14 @@ void plArmatureLODMod::Write(hsStream *stream, hsResMgr *mgr)
     int meshKeyCount = fMeshKeys.size();
     stream->WriteLE32(meshKeyCount);
     
-    for(int i = 0; i < meshKeyCount; i++)
+    for (int i = 0; i < meshKeyCount; i++)
     {
         plKey meshKey = fMeshKeys[i];
         mgr->WriteKey(stream, meshKey);
         
         // Should be a list per mesh key
         stream->WriteLE32(fUnusedBones[i]->size());
-        for(int j = 0; j < fUnusedBones[i]->size(); j++)
+        for (int j = 0; j < fUnusedBones[i]->size(); j++)
             mgr->WriteKey(stream, (*fUnusedBones[i])[j]);
     }
 }
@@ -2643,7 +2643,7 @@ int plArmatureMod::RefreshDebugDisplay()
     int             lineHeight = debugTxt.GetFontSize() + 4;
     uint32_t          scrnWidth, scrnHeight;
 
-    debugTxt.GetScreenSize( &scrnWidth, &scrnHeight );
+    debugTxt.GetScreenSize(&scrnWidth, &scrnHeight);
     int y = 10;
     int x = 10;
 
@@ -2657,7 +2657,7 @@ void plArmatureMod::DumpToDebugDisplay(int &x, int &y, int lineHeight, plDebugTe
     y += lineHeight;
 
     plSceneObject * SO = GetTarget(0);
-    if(SO)
+    if (SO)
     {
         // global location
         hsMatrix44  l2w = SO->GetLocalToWorld();
@@ -2699,7 +2699,7 @@ void plArmatureMod::DumpToDebugDisplay(int &x, int &y, int lineHeight, plDebugTe
     DebugDumpMoveKeys(x, y, lineHeight, debugTxt);
 
     int i;
-    for(i = 0; i < fBrains.size(); i++)
+    for (i = 0; i < fBrains.size(); i++)
     {
         plArmatureBrain *brain = fBrains[i];
         brain->DumpToDebugDisplay(x, y, lineHeight, debugTxt);
@@ -2776,7 +2776,7 @@ const plSceneObject * plAvBoneMap::FindBone(uint32_t boneID)
     BoneMapImp::id2SceneObjectMap::iterator i = fImp->fMap.find(boneID);
     const plSceneObject *result = nil;
 
-    if(i != fImp->fMap.end())
+    if (i != fImp->fMap.end())
     {
         result = (*i).second;
     }
@@ -2807,23 +2807,23 @@ ST::string plArmatureMod::GetMoveKeyString() const
     ST::string_stream keys;
     keys << "Move keys: ";
 
-    if(FastKeyDown())
+    if (FastKeyDown())
         keys << "FAST ";
-    if(StrafeKeyDown())
+    if (StrafeKeyDown())
         keys << "STRAFE ";
-    if(ForwardKeyDown())
+    if (ForwardKeyDown())
         keys << "FORWARD ";
-    if(BackwardKeyDown())
+    if (BackwardKeyDown())
         keys << "BACKWARD ";
-    if(TurnLeftKeyDown())
+    if (TurnLeftKeyDown())
         keys << "TURNLEFT ";
-    if(TurnRightKeyDown())
+    if (TurnRightKeyDown())
         keys << "TURNRIGHT ";
-    if(StrafeLeftKeyDown())
+    if (StrafeLeftKeyDown())
         keys << "STRAFELEFT ";
-    if(StrafeRightKeyDown())
+    if (StrafeRightKeyDown())
         keys << "STRAFERIGHT ";
-    if(JumpKeyDown())
+    if (JumpKeyDown())
         keys << "JUMP ";
 
     return keys.to_string();

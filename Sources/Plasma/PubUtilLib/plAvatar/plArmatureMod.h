@@ -106,8 +106,8 @@ public:
     plArmatureModBase();
     virtual ~plArmatureModBase();
 
-    CLASSNAME_REGISTER( plArmatureModBase );
-    GETINTERFACE_ANY( plArmatureModBase, plAGMasterMod );
+    CLASSNAME_REGISTER(plArmatureModBase);
+    GETINTERFACE_ANY(plArmatureModBase, plAGMasterMod);
     
     virtual bool    MsgReceive(plMessage* msg);
     virtual void    AddTarget(plSceneObject* so);
@@ -202,8 +202,8 @@ public:
     plArmatureMod();
     virtual ~plArmatureMod();
     
-    CLASSNAME_REGISTER( plArmatureMod );
-    GETINTERFACE_ANY( plArmatureMod, plArmatureModBase );
+    CLASSNAME_REGISTER(plArmatureMod);
+    GETINTERFACE_ANY(plArmatureMod, plArmatureModBase);
     
     virtual bool    MsgReceive(plMessage* msg);
     virtual void    AddTarget(plSceneObject* so);
@@ -239,7 +239,7 @@ public:
 
     int GetBrainCount();
     plArmatureBrain *GetNextBrain(plArmatureBrain *brain);
-    plArmatureBrain *GetBrain(int index) { if(index <= fBrains.size()) return fBrains.at(index); else return nil; }
+    plArmatureBrain *GetBrain(int index) { if (index <= fBrains.size()) return fBrains.at(index); else return nil; }
     plArmatureBrain *FindBrainByClass(uint32_t classID) const;
 
     void TurnToPoint(hsPoint3 &point);
@@ -283,7 +283,7 @@ public:
 
     void SynchIfLocal(double timeNow, int force); // Just physical state
     void SynchInputState(uint32_t rcvID = kInvalidPlayerID);
-    bool DirtySynchState(const ST::string& SDLStateName, uint32_t synchFlags );
+    bool DirtySynchState(const ST::string& SDLStateName, uint32_t synchFlags);
     bool DirtyPhysicalSynchState(uint32_t synchFlags);
     plClothingOutfit *GetClothingOutfit() const { return fClothingOutfit; }
     plClothingSDLModifier *GetClothingSDLMod() const { return fClothingSDLMod; }
@@ -462,8 +462,8 @@ public:
     plArmatureLODMod(const ST::string & root_name);
     virtual ~plArmatureLODMod();
 
-    CLASSNAME_REGISTER( plArmatureLODMod );
-    GETINTERFACE_ANY( plArmatureLODMod, plArmatureMod );
+    CLASSNAME_REGISTER(plArmatureLODMod);
+    GETINTERFACE_ANY(plArmatureLODMod, plArmatureMod);
 
     virtual void    Read(hsStream *stream, hsResMgr *mgr);
     virtual void    Write(hsStream *stream, hsResMgr *mgr);

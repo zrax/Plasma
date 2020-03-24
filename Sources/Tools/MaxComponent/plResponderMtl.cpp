@@ -270,7 +270,7 @@ void ISearchLayerRecur(plLayerInterface *layer, const ST::string &segName, hsTAr
         ST::string ID = animLayer->GetSegmentID();
         if (!segName.compare(ID))
         {
-            if( keys.kMissingIndex == keys.Find(animLayer->GetKey()) )
+            if (keys.kMissingIndex == keys.Find(animLayer->GetKey()))
                 keys.Append(animLayer->GetKey());
         }
     }
@@ -281,7 +281,7 @@ void ISearchLayerRecur(plLayerInterface *layer, const ST::string &segName, hsTAr
 int ISearchLayerRecur(hsGMaterial* mat, const ST::string &segName, hsTArray<plKey>& keys)
 {
     int i;
-    for( i = 0; i < mat->GetNumLayers(); i++ )
+    for (i = 0; i < mat->GetNumLayers(); i++)
         ISearchLayerRecur(mat->GetLayer(i), segName, keys);
     return keys.GetCount();
 }
@@ -292,12 +292,12 @@ int GetMatAnimModKey(Mtl* mtl, plMaxNodeBase* node, const ST::string& segName, h
 
     int i;
 
-    //if( begin < 0 )
+    //if (begin < 0)
     //  begin = 0;
 
-    if( mtl->ClassID() == Class_ID(MULTI_CLASS_ID,0) )
+    if (mtl->ClassID() == Class_ID(MULTI_CLASS_ID,0))
     {
-        for( i = 0; i < mtl->NumSubMtls(); i++ )
+        for (i = 0; i < mtl->NumSubMtls(); i++)
             retVal += GetMatAnimModKey(mtl->GetSubMtl(i), node, segName, keys);
     }
     else
@@ -309,7 +309,7 @@ int GetMatAnimModKey(Mtl* mtl, plMaxNodeBase* node, const ST::string& segName, h
         else
             hsMaterialConverter::Instance().CollectConvertedMaterials(mtl, matList);
 
-        for( i = 0; i < matList.GetCount(); i++ )
+        for (i = 0; i < matList.GetCount(); i++)
         {
             retVal += ISearchLayerRecur(matList[i], segName, keys);
         }
@@ -344,7 +344,7 @@ plMessage *plResponderCmdMtl::CreateMsg(plMaxNode* node, plErrorMsg *pErrMsg, IP
 
     hsTArray<plKey> keys;
 
-    if( segMap )
+    if (segMap)
     {
         GetSegMapAnimTime(animName, segMap, SegmentSpec::kAnim, begin, end);
     }
@@ -487,7 +487,7 @@ void plResponderCmdMtl::CreateWait(plMaxNode* node, plErrorMsg* pErrMsg, IParamB
 
     plMessageWithCallbacks *callbackMsg = plMessageWithCallbacks::ConvertNoRef(waitInfo.msg);
     callbackMsg->AddCallback(eventMsg);
-    hsRefCnt_SafeUnRef( eventMsg );
+    hsRefCnt_SafeUnRef(eventMsg);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -51,19 +51,19 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "plEncryptLogLine.h"
 
-void    plStatusEncrypt::Decrypt( uint8_t *line, int32_t len, uint8_t hint )
+void    plStatusEncrypt::Decrypt(uint8_t *line, int32_t len, uint8_t hint)
 {
     // Da reverse, of course!
     int32_t i;
-    uint8_t lastChar = 0, newLo, loBits = ( line[ 0 ] ^ hint ) >> 5;
+    uint8_t lastChar = 0, newLo, loBits = (line[0] ^ hint) >> 5;
 
-    for( i = len - 1; i >= 0; i-- )
+    for (i = len - 1; i >= 0; i--)
     {
-        lastChar = line[ i ];
-        line[ i ] ^= hint;
-        newLo = line[ i ] >> 5;
-        line[ i ] = ( line[ i ] << 3 ) | loBits;
-        line[ i ] = ( line[ i ] >> 6 ) | ( line[ i ] << 2 );
+        lastChar = line[i];
+        line[i] ^= hint;
+        newLo = line[i] >> 5;
+        line[i] = (line[i] << 3) | loBits;
+        line[i] = (line[i] >> 6) | (line[i] << 2);
 
         loBits = newLo;
     }

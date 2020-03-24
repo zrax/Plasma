@@ -56,7 +56,7 @@ fTelescopeInterface(nil)
 cyInputInterface::~cyInputInterface()
 {
     if (fTelescopeInterface)
-        hsRefCnt_SafeUnRef( fTelescopeInterface );
+        hsRefCnt_SafeUnRef(fTelescopeInterface);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -94,7 +94,7 @@ void cyInputInterface::PopTelescope()
         plInputIfaceMgrMsg* pMsg = new plInputIfaceMgrMsg(plInputIfaceMgrMsg::kRemoveInterface);
         pMsg->SetIFace(fTelescopeInterface);
         pMsg->Send();
-        hsRefCnt_SafeUnRef( fTelescopeInterface );
+        hsRefCnt_SafeUnRef(fTelescopeInterface);
         fTelescopeInterface = nil;
     }
 }

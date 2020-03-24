@@ -77,10 +77,10 @@ public:
 #ifndef BUILDING_PYPLASMA
     // enable/disable linking
     bool IsEnabled() const;
-    void SetEnabled( bool b ) const;
+    void SetEnabled(bool b) const;
 
     // Link to a public instance. PLS will load balance.
-    void LinkToAge( pyAgeLinkStruct & link, const char* linkAnim, bool linkInSfx, bool linkOutSfx );
+    void LinkToAge(pyAgeLinkStruct & link, const char* linkAnim, bool linkInSfx, bool linkOutSfx);
     // Link to my Personal Age
     void LinkToMyPersonalAge();
     // link to my personal age with the YeehsaBook
@@ -88,11 +88,11 @@ public:
     // Link to my Neighborhood Age
     void LinkToMyNeighborhoodAge();
     // Link player to my current age
-    void LinkPlayerHere( uint32_t playerID );
+    void LinkPlayerHere(uint32_t playerID);
     // Link player to specified age
-    void LinkPlayerToAge( pyAgeLinkStruct & link, uint32_t playerID );
+    void LinkPlayerToAge(pyAgeLinkStruct & link, uint32_t playerID);
     // Link to player's current age
-    void LinkToPlayersAge( uint32_t playerID );
+    void LinkToPlayersAge(uint32_t playerID);
 
     PyObject* GetCurrAgeLink(); // returns pyAgeLinkStructRef
     PyObject* GetPrevAgeLink(); // returns pyAgeLinkStructRef

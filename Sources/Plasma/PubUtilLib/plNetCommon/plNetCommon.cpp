@@ -48,9 +48,9 @@ namespace plNetCommon
     ////////////////////////////////////////////////////////////////
     namespace VaultTasks
     {
-        const char * VaultTaskStr( int taskID )
+        const char * VaultTaskStr(int taskID)
         {
-            switch ( taskID )
+            switch (taskID)
             {
             case kCreatePlayer:         return "CreatePlayer";
             case kDeletePlayer:         return "DeletePlayer";
@@ -98,27 +98,27 @@ namespace plNetCommon
 #define kAvatarShapeYeesha          "Yeesha"
 ////////////////////////////////////////////
 
-            const char * GetReservedAvatarShape( const char * playerName, const char * currShapeName )
+            const char * GetReservedAvatarShape(const char * playerName, const char * currShapeName)
             {
-                if ( stricmp( playerName, kPlayerNameDrWatson )==0 )
+                if (stricmp(playerName, kPlayerNameDrWatson)==0)
                     return kAvatarShapeDrWatson;
-                if ( stricmp( playerName, kPlayerNameRand )==0 )
+                if (stricmp(playerName, kPlayerNameRand)==0)
                     return kAvatarShapeRand;
-                if ( stricmp( playerName, kPlayerNameDrWatson )==0 )
+                if (stricmp(playerName, kPlayerNameDrWatson)==0)
                     return kAvatarShapeDrWatson;
-                if ( stricmp( playerName, kPlayerNameRand )==0 )
+                if (stricmp(playerName, kPlayerNameRand)==0)
                     return kAvatarShapeRand;
-                if ( stricmp( playerName, kPlayerNameSutherland )==0 )
+                if (stricmp(playerName, kPlayerNameSutherland)==0)
                     return kAvatarShapeSutherland;
-                if ( stricmp( playerName, kPlayerNameLaxman )==0 )
+                if (stricmp(playerName, kPlayerNameLaxman)==0)
                     return kAvatarShapeLaxman;
-                if ( stricmp( playerName, kPlayerNameKodama )==0 )
+                if (stricmp(playerName, kPlayerNameKodama)==0)
                     return kAvatarShapeKodama;
-                if ( stricmp( playerName, kPlayerNameEngberg )==0 )
+                if (stricmp(playerName, kPlayerNameEngberg)==0)
                     return kAvatarShapeEngberg;
-                if ( stricmp( playerName, kPlayerNameZandi )==0 )
+                if (stricmp(playerName, kPlayerNameZandi)==0)
                     return kAvatarShapeZandi;
-                if ( stricmp( playerName, kPlayerNameYeesha )==0 )
+                if (stricmp(playerName, kPlayerNameYeesha)==0)
                     return kAvatarShapeYeesha;
                     // other reserved players go here.
                 return currShapeName;

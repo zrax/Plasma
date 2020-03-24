@@ -280,7 +280,7 @@ bool plGrassComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 
 bool plGrassComponent::DeInit(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    if( fShader )
+    if (fShader)
         fShader->GetKey()->UnRefObject();
     fShader = nil;
 
@@ -289,14 +289,14 @@ bool plGrassComponent::DeInit(plMaxNode* node, plErrorMsg* pErrMsg)
 
 plGrassShaderMod* plGrassComponent::GetShader(INode* node)
 {
-    if( !node )
+    if (!node)
         return nil;
 
     plComponentBase *comp = ((plMaxNodeBase*)node)->ConvertToComponent();
-    if( !comp )
+    if (!comp)
         return nil;
 
-    if( comp->ClassID() != GRASS_COMPONENT_CLASS_ID )
+    if (comp->ClassID() != GRASS_COMPONENT_CLASS_ID)
         return nil;
 
     plGrassComponent *shader = (plGrassComponent*)comp;
@@ -305,15 +305,15 @@ plGrassShaderMod* plGrassComponent::GetShader(INode* node)
 
 plGrassShaderMod* plGrassComponent::GetShaderNode(plMaxNode* node)
 {
-    if( !node )
+    if (!node)
         return nil;
 
     int n = node->NumAttachedComponents();
     int i;
-    for( i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
     {
         plComponentBase* comp = node->GetAttachedComponent(i);
-        if( comp && (comp->ClassID() == GRASS_COMPONENT_CLASS_ID) )
+        if (comp && (comp->ClassID() == GRASS_COMPONENT_CLASS_ID))
         {
             plGrassComponent* shader = (plGrassComponent*)comp;
             return shader->fShader;

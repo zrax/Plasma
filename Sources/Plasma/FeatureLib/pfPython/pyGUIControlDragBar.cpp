@@ -65,7 +65,7 @@ pyGUIControlDragBar::~pyGUIControlDragBar()
 
 bool pyGUIControlDragBar::IsGUIControlDragBar(pyKey& gckey)
 {
-    if ( gckey.getKey() && pfGUIDragBarCtrl::ConvertNoRef(gckey.getKey()->ObjectIsLoaded()) )
+    if (gckey.getKey() && pfGUIDragBarCtrl::ConvertNoRef(gckey.getKey()->ObjectIsLoaded()))
         return true;
     return false;
 }
@@ -73,33 +73,33 @@ bool pyGUIControlDragBar::IsGUIControlDragBar(pyKey& gckey)
 
 void pyGUIControlDragBar::Anchor()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIDragBarCtrl* pbmod = pfGUIDragBarCtrl::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pbmod )
+        if (pbmod)
             pbmod->SetAnchored(true);
     }
 }
 
 void pyGUIControlDragBar::Unanchor()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIDragBarCtrl* pbmod = pfGUIDragBarCtrl::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pbmod )
+        if (pbmod)
             pbmod->SetAnchored(false);
     }
 }
 
 bool pyGUIControlDragBar::IsAnchored()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIDragBarCtrl* pbmod = pfGUIDragBarCtrl::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pbmod )
+        if (pbmod)
             return pbmod->IsAnchored();
     }
     return false;

@@ -61,7 +61,7 @@ class pfGUIDraggableMod : public pfGUIControlMod
         bool        fDragging;
 
         
-        virtual bool IEval( double secs, float del, uint32_t dirty ); // called only by owner object's Eval()
+        virtual bool IEval(double secs, float del, uint32_t dirty); // called only by owner object's Eval()
 
         virtual uint32_t      IGetDesiredCursor() const;    // As specified in plInputInterface.h
 
@@ -70,8 +70,8 @@ class pfGUIDraggableMod : public pfGUIControlMod
         pfGUIDraggableMod();
         virtual ~pfGUIDraggableMod();
 
-        CLASSNAME_REGISTER( pfGUIDraggableMod );
-        GETINTERFACE_ANY( pfGUIDraggableMod, pfGUIControlMod );
+        CLASSNAME_REGISTER(pfGUIDraggableMod);
+        GETINTERFACE_ANY(pfGUIDraggableMod, pfGUIControlMod);
 
         enum OurFlags
         {
@@ -88,18 +88,18 @@ class pfGUIDraggableMod : public pfGUIControlMod
             kStartingDrag
         };
 
-        virtual bool    MsgReceive( plMessage* pMsg );
+        virtual bool    MsgReceive(plMessage* pMsg);
         
-        virtual void Read( hsStream* s, hsResMgr* mgr );
-        virtual void Write( hsStream* s, hsResMgr* mgr );
+        virtual void Read(hsStream* s, hsResMgr* mgr);
+        virtual void Write(hsStream* s, hsResMgr* mgr);
 
-        virtual void    HandleMouseDown( hsPoint3 &mousePt, uint8_t modifiers );
-        virtual void    HandleMouseUp( hsPoint3 &mousePt, uint8_t modifiers );
-        virtual void    HandleMouseDrag( hsPoint3 &mousePt, uint8_t modifiers );
+        virtual void    HandleMouseDown(hsPoint3 &mousePt, uint8_t modifiers);
+        virtual void    HandleMouseUp(hsPoint3 &mousePt, uint8_t modifiers);
+        virtual void    HandleMouseDrag(hsPoint3 &mousePt, uint8_t modifiers);
 
-        virtual void    UpdateBounds( hsMatrix44 *invXformMatrix = nil, bool force = false );
+        virtual void    UpdateBounds(hsMatrix44 *invXformMatrix = nil, bool force = false);
 
-        void            StopDragging( bool cancel );
+        void            StopDragging(bool cancel);
         const hsPoint3  &GetLastMousePt() const { return fLastMousePt; }
 };
 

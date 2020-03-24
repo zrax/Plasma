@@ -68,22 +68,22 @@ public:
         kLoop
     };
 
-    plSoundEvent( Types type, plSound *owner );
-    plSoundEvent( Types type, uint32_t bytePos, plSound *owner );
+    plSoundEvent(Types type, plSound *owner);
+    plSoundEvent(Types type, uint32_t bytePos, plSound *owner);
     plSoundEvent();
     ~plSoundEvent();
 
-    void    AddCallback( plEventCallbackMsg *msg );
-    bool    RemoveCallback( plEventCallbackMsg *msg );
+    void    AddCallback(plEventCallbackMsg *msg);
+    bool    RemoveCallback(plEventCallbackMsg *msg);
 
     uint32_t  GetNumCallbacks() const;
     int     GetType() const;
-    void    SetType( Types type );
+    void    SetType(Types type);
     uint32_t  GetTime() const;
 
     void    SendCallbacks();
 
-    static Types    GetTypeFromCallbackMsg( plEventCallbackMsg *msg );
+    static Types    GetTypeFromCallbackMsg(plEventCallbackMsg *msg);
 
 protected:
 

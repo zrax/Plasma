@@ -71,8 +71,8 @@ public:
     plDirectShadowMaster();
     virtual ~plDirectShadowMaster();
 
-    CLASSNAME_REGISTER( plDirectShadowMaster );
-    GETINTERFACE_ANY( plDirectShadowMaster, plShadowMaster );
+    CLASSNAME_REGISTER(plDirectShadowMaster);
+    GETINTERFACE_ANY(plDirectShadowMaster, plShadowMaster);
 
 };
 

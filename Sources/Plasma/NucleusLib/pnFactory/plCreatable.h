@@ -78,18 +78,18 @@ public:
 //  NOTE: Comfortable use of these macros assumes the compiler is comfortable
 //        eating a spurious semi-colon (;) following a curly brace. If that
 //        isn't the case, they can easily be wrapped in something like
-//        do { original macro } while(0) or the like.
+//        do { original macro } while (0) or the like.
 //
 //  Normal setup for a class:
 //  In public section of class declaration, insert the following two macros:
-//      CLASSNAME_REGISTER( myClassName );
-//      GETINTERFACE_ANY( myClassName, classIWasDerivedFromName );
+//      CLASSNAME_REGISTER(myClassName);
+//      GETINTERFACE_ANY(myClassName, classIWasDerivedFromName);
 //  Then in the *Creatable.h file for that library (e.g. plSurfaceCreatable.h), add macro
-//      REGISTER_CREATABLE( myClassName )
+//      REGISTER_CREATABLE(myClassName)
 //  Finally, add an enum to the plCreatableIndex.h file using CLASS_INDEX(className)
 //      ( e.g. CLASS_INDEX(hsGMaterial) )
 //
-//  CLASSNAME_REGISTER( plClassName ) - Sets up identification for this
+//  CLASSNAME_REGISTER(plClassName) - Sets up identification for this
 //      class. The exposed methods are
 //      static  uint16_t Index() - returns the index for that class.
 //      virtual uint16_t ClassIndex() - returns index for this object's class.
@@ -111,9 +111,9 @@ public:
 //      type matching class handle hClass.
 //  Insert into public section of class definition (like right after CLASSNAME_REGISTER).
 //
-//  REGISTER_CREATABLE( plClassName ) - normal creatable type, any you can instantiate.
+//  REGISTER_CREATABLE(plClassName) - normal creatable type, any you can instantiate.
 //  or
-//  REGISTER_NONCREATABLE( plClassName ) - can't be created either because it's pure virtual
+//  REGISTER_NONCREATABLE(plClassName) - can't be created either because it's pure virtual
 //      or just doesn't want to be creatable. It's Create member returns nil. But Convert
 //      may return an interface, depending on the GETINTERFACE above.
 //  - This line is the only exposure to the plCreator.
@@ -156,10 +156,10 @@ public:
 // Added macros to support multiple AUX interfaces primarily,
 // but they are not limited to that. Usage example:
 //
-//  plBeginInterfaceMap( plMyClass, plBaseClass );
-//      plAddInterfaceAux( plFooClass, fFooMember );
-//      plAddInterfaceAux( plBarClass, fBarMember );
-//      plAddInterface( plSomeOtherClass );
+//  plBeginInterfaceMap(plMyClass, plBaseClass);
+//      plAddInterfaceAux(plFooClass, fFooMember);
+//      plAddInterfaceAux(plBarClass, fBarMember);
+//      plAddInterface(plSomeOtherClass);
 //  plEndInterfaceMap();
 //
 

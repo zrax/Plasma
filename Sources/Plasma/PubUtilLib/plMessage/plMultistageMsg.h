@@ -68,8 +68,8 @@ public:
     void SetCommand(uint8_t cmd, bool val = true) { fCmds.SetBit(cmd, val); }
     
     // plasma protocol
-    CLASSNAME_REGISTER( plMultistageModMsg );
-    GETINTERFACE_ANY( plMultistageModMsg, plMessage );
+    CLASSNAME_REGISTER(plMultistageModMsg);
+    GETINTERFACE_ANY(plMultistageModMsg, plMessage);
 
     virtual void Read(hsStream *stream, hsResMgr *mgr);
     virtual void Write(hsStream *stream, hsResMgr *mgr);

@@ -85,37 +85,37 @@ public:
     plUUID          GetAgeGuid();
 
     PyObject *      GetAgeSDL() const; // returns pySDLStateDataRecord
-    void            UpdateAgeSDL( pySDLStateDataRecord & pyrec );
+    void            UpdateAgeSDL(pySDLStateDataRecord & pyrec);
 
     PyObject*       GetAgeInfo(); // returns pyVaultAgeInfoNode
     PyObject*       GetAgeDevicesFolder(); // returns pyVaultFolderNode
     PyObject*       GetSubAgesFolder(); // returns pyVaultFolderNode
     PyObject*       GetChronicleFolder(); // returns pyVaultFolderNode
     // Age chronicle (not the player chronicle!)
-    PyObject*       FindChronicleEntry( const ST::string& entryName ); // returns pyVaultChronicleNode
-    void AddChronicleEntry( const ST::string& name, uint32_t type, const ST::string& value );
+    PyObject*       FindChronicleEntry(const ST::string& entryName); // returns pyVaultChronicleNode
+    void AddChronicleEntry(const ST::string& name, uint32_t type, const ST::string& value);
     // Players who have published to devices in this age
     PyObject*       GetPeopleIKnowAboutFolder(); // returns pyVaultPlayerInfoListNode
     // PERSONAL AGE SPECIFIC
     PyObject*       GetBookshelfFolder (); // returns pyVaultFolderNode
     // NEXUS SPECIFIC
     PyObject*       GetPublicAgesFolder(); // returns pyVaultFolderNode
-    PyObject*       GetSubAgeLink( const pyAgeInfoStruct & info ); // returns pyVaultAgeLinkNode
+    PyObject*       GetSubAgeLink(const pyAgeInfoStruct & info); // returns pyVaultAgeLinkNode
     // AGE DEVICES. AKA IMAGERS, WHATEVER.
     // Add a new device.
-    void AddDevice( const char * deviceName, PyObject * cb=nil, uint32_t cbContext=0 );
+    void AddDevice(const char * deviceName, PyObject * cb=nil, uint32_t cbContext=0);
     // Remove a device.
-    void RemoveDevice( const char * deviceName );
+    void RemoveDevice(const char * deviceName);
     // True if device exists in age.
-    bool HasDevice( const char * deviceName );
+    bool HasDevice(const char * deviceName);
     // Get the device node by name.
-    PyObject * GetDevice( const char * deviceName ); // returns pyVaultTextNoteNode
+    PyObject * GetDevice(const char * deviceName); // returns pyVaultTextNoteNode
     // Sets the inbox associated with a device.
-    void SetDeviceInbox( const char * deviceName, const char * inboxName, PyObject * cb=nil, uint32_t cbContext=0 );
+    void SetDeviceInbox(const char * deviceName, const char * inboxName, PyObject * cb=nil, uint32_t cbContext=0);
     // Get the inbox associated with a device.
-    PyObject * GetDeviceInbox( const char * deviceName ); // returns pyVaultFolderNode
+    PyObject * GetDeviceInbox(const char * deviceName); // returns pyVaultFolderNode
     // find matching node
-    PyObject* FindNode( pyVaultNode* templateNode ) const; // returns pyVaultNode
+    PyObject* FindNode(pyVaultNode* templateNode) const; // returns pyVaultNode
 };
 
 #endif // _pyAgeVault_h_

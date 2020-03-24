@@ -62,8 +62,8 @@ public:
                     const double* t) : fPicked(true),fHitPoint(0,0,0) {SetBCastFlag(plMessage::kPropagateToModifiers);}
     ~plPickedMsg() { }
 
-    CLASSNAME_REGISTER( plPickedMsg );
-    GETINTERFACE_ANY( plPickedMsg, plMessage );
+    CLASSNAME_REGISTER(plPickedMsg);
+    GETINTERFACE_ANY(plPickedMsg, plMessage);
 
     // IO
     void Read(hsStream* stream, hsResMgr* mgr)

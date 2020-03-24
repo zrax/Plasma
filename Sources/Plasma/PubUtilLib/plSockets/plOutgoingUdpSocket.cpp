@@ -75,10 +75,10 @@ int plOutgoingUdpSocket::SetSendBufferSize(int insize)
 bool plOutgoingUdpSocket::ActiveOpen(plNetAddress & addr)
 {
     SetSocket(plNet::NewUDP());
-    if(fSocket == kBadSocket)
+    if (fSocket == kBadSocket)
         return false;
     
-    if(plNet::Connect(fSocket, &addr.GetAddressInfo()) != 0)
+    if (plNet::Connect(fSocket, &addr.GetAddressInfo()) != 0)
         return ErrorClose();
     
     return true;
@@ -88,12 +88,12 @@ bool plOutgoingUdpSocket::ActiveOpen(plNetAddress & addr)
 bool plOutgoingUdpSocket::ActiveOpenNonBlocking(plNetAddress & addr)
 {
     SetSocket(plNet::NewUDP());
-    if(fSocket == kBadSocket)
+    if (fSocket == kBadSocket)
         return false;
 
     SetBlocking(false);
 
-    if(plNet::Connect(fSocket, &addr.GetAddressInfo()) != 0)
+    if (plNet::Connect(fSocket, &addr.GetAddressInfo()) != 0)
         return ErrorClose();
     
     return true;

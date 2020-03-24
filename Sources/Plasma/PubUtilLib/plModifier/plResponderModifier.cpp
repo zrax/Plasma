@@ -121,7 +121,7 @@ plResponderModifier::~plResponderModifier()
 
     for (int i = 0; i < fStates.Count(); i++)
     {
-        for (int j = 0; j < fStates[i].fCmds.Count(); j++ )
+        for (int j = 0; j < fStates[i].fCmds.Count(); j++)
             hsRefCnt_SafeUnRef(fStates[i].fCmds[j].fMsg);
     }
 }
@@ -219,8 +219,8 @@ bool plResponderModifier::IIsLocalOnlyCmd(plMessage* cmd)
     if (plCameraMsg::ConvertNoRef(cmd))     // don't want to change our camera
         return true;
 
-    plSoundMsg *snd = plSoundMsg::ConvertNoRef( cmd );
-    if( snd != nil && snd->Cmd( plSoundMsg::kIsLocalOnly ) )
+    plSoundMsg *snd = plSoundMsg::ConvertNoRef(cmd);
+    if (snd != nil && snd->Cmd(plSoundMsg::kIsLocalOnly))
         return true;
 
     return false;
@@ -359,7 +359,7 @@ bool plResponderModifier::IContinueSending()
                 else if (plSubWorldMsg* swMsg = plSubWorldMsg::ConvertNoRef(msg))
                 {
                     plArmatureMod *avatar = plAvatarMgr::GetInstance()->GetLocalAvatar();
-                    if(avatar)
+                    if (avatar)
                     {
                         swMsg->AddReceiver(avatar->GetKey());
                     }
@@ -531,13 +531,13 @@ plMessage* plResponderModifier::IGetFastForwardMsg(plMessage* msg, bool python)
         hsRefCnt_SafeRef(msg);
         return msg;
     }
-    else if(plSoundMsg *soundMsg = plSoundMsg::ConvertNoRef(msg))
+    else if (plSoundMsg *soundMsg = plSoundMsg::ConvertNoRef(msg))
     {
-        if( fFlags & kSkipFFSound )
+        if (fFlags & kSkipFFSound)
         {
             return nil;
         }
-        if(soundMsg->Cmd(plSoundMsg::kPlay) ||
+        if (soundMsg->Cmd(plSoundMsg::kPlay) ||
             soundMsg->Cmd(plSoundMsg::kToggleState)  ||
             soundMsg->Cmd(plAnimCmdMsg::kAddCallbacks))
         {
@@ -557,13 +557,13 @@ plMessage* plResponderModifier::IGetFastForwardMsg(plMessage* msg, bool python)
             // Remove the callbacks
             newSoundMsg->fCmd.SetBit(plSoundMsg::kAddCallbacks, false);
 
-            if(newSoundMsg->Cmd(plSoundMsg::kPlay))
+            if (newSoundMsg->Cmd(plSoundMsg::kPlay))
             {
                 newSoundMsg->fCmd.SetBit(plSoundMsg::kPlay, false);
                 newSoundMsg->fCmd.SetBit(plSoundMsg::kFastForwardPlay);
                 ResponderLog(ILog(plStatusLog::kWhite, "FF Sound Play Msg"));
             }
-            else if(newSoundMsg->Cmd(plSoundMsg::kToggleState))
+            else if (newSoundMsg->Cmd(plSoundMsg::kToggleState))
             {
                 newSoundMsg->fCmd.SetBit(plSoundMsg::kToggleState, false);
                 newSoundMsg->fCmd.SetBit(plSoundMsg::kFastForwardToggle);

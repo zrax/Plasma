@@ -295,7 +295,7 @@ bool plFootPrintComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
 {
     // If we don't have a valid layer, we're screwed. Throw up a warning
     // and shutdown.
-    if( !fCompPB->GetTexmap(kLayer) )
+    if (!fCompPB->GetTexmap(kLayer))
     {
         pErrMsg->Set(true, GetINode()->GetName(), "No layer setup. Ignoring Footprint generator").CheckAndAsk();
         pErrMsg->Set(false);
@@ -313,11 +313,11 @@ bool plFootPrintComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
 
 bool plFootPrintComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    if( !fValid )
+    if (!fValid)
         return true;
 
     // If we haven't already, create our DynaDecalMgr and stash it away.
-    if( !fDecalMgr )
+    if (!fDecalMgr)
     {
         ISetupDecalMgr(node, pErrMsg, new plDynaFootMgr);
     }
@@ -327,10 +327,10 @@ bool plFootPrintComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
 
 bool plFootPrintComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    if( !fValid )
+    if (!fValid)
         return true;
 
-    if( !fNotifiesSetup )
+    if (!fNotifiesSetup)
         ISetupNotifies(node, pErrMsg);
 
     // Add this node's object to our DynaDecalMgr.
@@ -382,9 +382,9 @@ bool plFootPrintComponent::ISetupDecalMgr(plMaxNode* node, plErrorMsg* pErrMsg, 
     fDecalMgr->SetScale(hsVector3(width, length, kHeightHack));
 
     const float kMinFadeOut = 1.e-2f;
-    if( fadeOut > lifeSpan - kMinFadeOut)
+    if (fadeOut > lifeSpan - kMinFadeOut)
         fadeOut = lifeSpan - kMinFadeOut;
-    if( fadeIn > lifeSpan - fadeOut )
+    if (fadeIn > lifeSpan - fadeOut)
         fadeIn = lifeSpan - fadeOut;
 
     fDecalMgr->SetWetLength(wetTime);
@@ -394,7 +394,7 @@ bool plFootPrintComponent::ISetupDecalMgr(plMaxNode* node, plErrorMsg* pErrMsg, 
     fDecalMgr->SetIntensity(intensity);
     fDecalMgr->SetPartyTime(partyTime);
 
-    if( !ICreateDecalMaterials(node, pErrMsg) )
+    if (!ICreateDecalMaterials(node, pErrMsg))
     {
         delete fDecalMgr;
         fDecalMgr = nil;
@@ -412,10 +412,10 @@ bool plFootPrintComponent::ISetupNotifies(plMaxNode* node, plErrorMsg* pErrMsg)
 {
     int num = fCompPB->Count(kNotifies);
     int i;
-    for( i = 0; i < num; i++ )
+    for (i = 0; i < num; i++)
     {
         plDynaDecalMgr* slave = GetDecalMgr(fCompPB->GetINode(kNotifies, TimeValue(0), i));
-        if( slave )
+        if (slave)
         {
             slave->SetWaitOnEnable(true);
             fDecalMgr->AddNotify(slave->GetKey());
@@ -429,28 +429,28 @@ bool plFootPrintComponent::ISetupNotifies(plMaxNode* node, plErrorMsg* pErrMsg)
 bool plFootPrintComponent::ISetupParticles(plMaxNode* node, plErrorMsg* pErrMsg)
 {
     int num = fCompPB->Count(kParticles);
-    if( !num )
+    if (!num)
         return true;
 
     int i;
-    for( i = 0; i < num; i++ )
+    for (i = 0; i < num; i++)
     {
         plParticleComponent* partyComp = IGetParticleComp(fCompPB->GetINode(kParticles, TimeValue(0), i));
-        if( partyComp && partyComp->NumTargets() )
+        if (partyComp && partyComp->NumTargets())
         {
             plMaxNodeBase* partyNode = nil;
             const int numTarg = partyComp->NumTargets();
             int j;
-            for( j = 0; j < numTarg; j++ )
+            for (j = 0; j < numTarg; j++)
             {
                 partyNode = partyComp->GetTarget(j);
-                if( partyNode )
+                if (partyNode)
                     break;
             }
-            if( partyNode )
+            if (partyNode)
             {
                 plSceneObject* obj = partyNode->GetSceneObject();
-                if( obj )
+                if (obj)
                 {
                     hsgResMgr::ResMgr()->AddViaNotify(obj->GetKey(),
                         new plGenRefMsg(fDecalMgr->GetKey(), plRefMsg::kOnCreate, 0, plDynaDecalMgr::kRefPartyObject), plRefFlags::kPassiveRef);
@@ -466,12 +466,12 @@ bool plFootPrintComponent::ISetupParticles(plMaxNode* node, plErrorMsg* pErrMsg)
 
 bool plFootPrintComponent::ICreateDecalMaterials(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    if( fCompPB->GetInt(kBlend) != kAlpha )
+    if (fCompPB->GetInt(kBlend) != kAlpha)
         return ISetupColorDecalMaterials(node, pErrMsg);
 
     hsGMaterial* matRTShade = hsMaterialConverter::Instance().NonAlphaHackPrint(node, fCompPB->GetTexmap(kLayer), hsGMatState::kBlendAlpha);
 
-    if( !matRTShade )
+    if (!matRTShade)
         return fValid = false;
 
     hsgResMgr::ResMgr()->AddViaNotify(matRTShade->GetKey(), new plGenRefMsg(fDecalMgr->GetKey(), plRefMsg::kOnCreate, 0, plDynaDecalMgr::kRefMatRTShade), plRefFlags::kActiveRef);
@@ -486,7 +486,7 @@ bool plFootPrintComponent::ICreateDecalMaterials(plMaxNode* node, plErrorMsg* pE
 bool plFootPrintComponent::ISetupColorDecalMaterials(plMaxNode* node, plErrorMsg* pErrMsg)
 {
     uint32_t blendFlags = 0;
-    switch( fCompPB->GetInt(kBlend) )
+    switch (fCompPB->GetInt(kBlend))
     {
     case kMADD:
         blendFlags = hsGMatState::kBlendMADD;
@@ -504,10 +504,10 @@ bool plFootPrintComponent::ISetupColorDecalMaterials(plMaxNode* node, plErrorMsg
     }
     hsGMaterial* matRTShade = hsMaterialConverter::Instance().NonAlphaHackPrint(node, fCompPB->GetTexmap(kLayer), blendFlags);
 
-    if( blendFlags & hsGMatState::kBlendMult )
+    if (blendFlags & hsGMatState::kBlendMult)
     {
         plLayer* layer = plLayer::ConvertNoRef(matRTShade->GetLayer(0)->BottomOfStack());
-        if( !layer )
+        if (!layer)
             return fValid = false;
 
         layer->SetBlendFlags(layer->GetBlendFlags() | hsGMatState::kBlendInvertFinalColor);
@@ -520,14 +520,14 @@ bool plFootPrintComponent::ISetupColorDecalMaterials(plMaxNode* node, plErrorMsg
 
 plParticleComponent* plFootPrintComponent::IGetParticleComp(INode* node)
 {
-    if( !node )
+    if (!node)
         return nil;
 
     plComponentBase *comp = ((plMaxNodeBase*)node)->ConvertToComponent();
-    if( comp == nil )
+    if (comp == nil)
         return nil;
 
-    if( comp->ClassID() == PARTICLE_SYSTEM_COMPONENT_CLASS_ID )
+    if (comp->ClassID() == PARTICLE_SYSTEM_COMPONENT_CLASS_ID)
     {
         plParticleComponent* party = (plParticleComponent*)comp;
         return party;
@@ -538,14 +538,14 @@ plParticleComponent* plFootPrintComponent::IGetParticleComp(INode* node)
 
 plDynaDecalMgr* plFootPrintComponent::GetDecalMgr(INode* node)
 {
-    if( !node )
+    if (!node)
         return nil;
 
     plComponentBase *comp = ((plMaxNodeBase*)node)->ConvertToComponent();
-    if( comp == nil )
+    if (comp == nil)
         return nil;
 
-    if( (comp->ClassID() == FOOTPRINT_COMP_CID)
+    if ((comp->ClassID() == FOOTPRINT_COMP_CID)
         || (comp->ClassID() == RIPPLE_COMP_CID)
         || (comp->ClassID() == PUDDLE_COMP_CID)
         || (comp->ClassID() == WAKE_COMP_CID)
@@ -683,14 +683,14 @@ bool plRippleComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
 
 bool plRippleComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    if( !fValid )
+    if (!fValid)
         return true;
 
     // If we haven't already, create our DynaDecalMgr and stash it away.
-    if( !fDecalMgr )
+    if (!fDecalMgr)
     {
         plDynaRippleMgr* ripple = nil;
-        if( node->GetVS() || node->UserPropExists("XXXWaterColor") )
+        if (node->GetVS() || node->UserPropExists("XXXWaterColor"))
         {
             ripple = new plDynaRippleVSMgr;
         }
@@ -699,7 +699,7 @@ bool plRippleComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
             ripple = new plDynaRippleMgr;
         }
         ISetupDecalMgr(node, pErrMsg, ripple);
-        if( fValid )
+        if (fValid)
         {
             ripple->SetUVWAnim(hsVector3(3.f, 3.f, 3.f), hsVector3(1.f, 1.f, 1.f));
         }
@@ -710,13 +710,13 @@ bool plRippleComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
 
 bool plRippleComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    if( !fValid )
+    if (!fValid)
         return true;
 
-    if( !fNotifiesSetup )
+    if (!fNotifiesSetup)
     {
         plWaveSetBase* waveSet = plWaterComponent::GetWaveSetFromNode(node);
-        if( waveSet )
+        if (waveSet)
         {
             plGenRefMsg* refMsg = new plGenRefMsg(fDecalMgr->GetKey(), plRefMsg::kOnCreate, 0, plDynaRippleVSMgr::kRefWaveSetBase);
             hsgResMgr::ResMgr()->AddViaNotify(waveSet->GetKey(), refMsg, plRefFlags::kPassiveRef);
@@ -858,16 +858,16 @@ bool plPuddleComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
 
 bool plPuddleComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    if( !fValid )
+    if (!fValid)
         return true;
 
     // If we haven't already, create our DynaDecalMgr and stash it away.
-    if( !fDecalMgr )
+    if (!fDecalMgr)
     {
         plDynaRippleMgr* puddle = new plDynaPuddleMgr;
 
         ISetupDecalMgr(node, pErrMsg, puddle);
-        if( fValid )
+        if (fValid)
         {
             puddle->SetUVWAnim(hsVector3(5.f, 5.f, 5.f), hsVector3(1.f, 1.f, 1.f));
         }
@@ -877,10 +877,10 @@ bool plPuddleComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
 
 bool plPuddleComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    if( !fValid )
+    if (!fValid)
         return true;
 
-    if( !fNotifiesSetup )
+    if (!fNotifiesSetup)
         ISetupNotifies(node, pErrMsg);
 
     // Add this node's object to our DynaDecalMgr.
@@ -1023,11 +1023,11 @@ bool plBulletComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
 
 bool plBulletComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    if( !fValid )
+    if (!fValid)
         return true;
 
     // If we haven't already, create our DynaDecalMgr and stash it away.
-    if( !fDecalMgr )
+    if (!fDecalMgr)
     {
         plDynaBulletMgr* bullet = new plDynaBulletMgr;
 
@@ -1038,10 +1038,10 @@ bool plBulletComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
 
 bool plBulletComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    if( !fValid )
+    if (!fValid)
         return true;
 
-    if( !fNotifiesSetup )
+    if (!fNotifiesSetup)
         ISetupNotifies(node, pErrMsg);
 
     // Add this node's object to our DynaDecalMgr.
@@ -1186,20 +1186,20 @@ bool plTorpedoComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
 
 bool plTorpedoComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    if( !fValid )
+    if (!fValid)
         return true;
 
     // If we haven't already, create our DynaDecalMgr and stash it away.
-    if( !fDecalMgr )
+    if (!fDecalMgr)
     {
         plDynaRippleMgr* torpedo;
-        if( node->GetVS() )
+        if (node->GetVS())
             torpedo = new plDynaTorpedoVSMgr;
         else
             torpedo = new plDynaTorpedoMgr;
 
         ISetupDecalMgr(node, pErrMsg, torpedo);
-        if( fValid )
+        if (fValid)
         {
             torpedo->SetUVWAnim(hsVector3(5.f, 5.f, 5.f), hsVector3(1.f, 1.f, 1.f));
         }
@@ -1346,15 +1346,15 @@ bool plWakeComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
 
 bool plWakeComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    if( !fValid )
+    if (!fValid)
         return true;
 
     // If we haven't already, create our DynaDecalMgr and stash it away.
-    if( !fDecalMgr )
+    if (!fDecalMgr)
     {
         plDynaWakeMgr* wake = new plDynaWakeMgr;
         ISetupDecalMgr(node, pErrMsg, wake);
-        if( fValid )
+        if (fValid)
         {
             wake->SetUVWAnim(hsVector3(5.f, 5.f, 5.f), hsVector3(1.f, 1.f, 1.f));
         }
@@ -1365,10 +1365,10 @@ bool plWakeComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
 
 bool plWakeComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    if( !fValid )
+    if (!fValid)
         return true;
 
-    if( !fNotifiesSetup )
+    if (!fNotifiesSetup)
         ISetupNotifies(node, pErrMsg);
 
     // Add this node's object to our DynaDecalMgr.
@@ -1491,7 +1491,7 @@ bool plDirtyComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
     // Check that this node has a physical interface, or all is for nought.
     // Should throw up a warning if it doesn't have one, seems an easy thing
     // to miss.
-    if( !node->IsPhysical() )
+    if (!node->IsPhysical())
     {
         pErrMsg->Set(true, node->GetName(), "Has no physical component to notify %s Dirty/Wet component", GetINode()->GetName()).CheckAndAsk();
         pErrMsg->Set(false);
@@ -1504,13 +1504,13 @@ bool plDirtyComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
 
     int numDecals = fCompPB->Count(kDecals);
     int i;
-    for( i = 0; i < numDecals; i++ )
+    for (i = 0; i < numDecals; i++)
     {
         INode* decalNode = fCompPB->GetINode(kDecals, TimeValue(0), i);
 
         plDynaDecalMgr* decal = plFootPrintComponent::GetDecalMgr(decalNode);
 
-        if( decal )
+        if (decal)
         {
             decal->SetWaitOnEnable(true);
             enable->AddDecalKey(decal->GetKey());
@@ -1618,7 +1618,7 @@ bool plPrintShapeComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
 bool plPrintShapeComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
 {
     plSceneObject* obj = node->GetSceneObject();
-    if( !obj )
+    if (!obj)
         return true;
 
     plPrintShape* shape = new plPrintShape();
@@ -1768,7 +1768,7 @@ bool plActivePrintShapeComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMs
 bool plActivePrintShapeComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
 {
     plSceneObject* obj = node->GetSceneObject();
-    if( !obj )
+    if (!obj)
         return true;
 
     plActivePrintShape* shape = new plActivePrintShape();
@@ -1780,10 +1780,10 @@ bool plActivePrintShapeComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
 
     int num = fCompPB->Count(kNotifies);
     int i;
-    for( i = 0; i < num; i++ )
+    for (i = 0; i < num; i++)
     {
         plDynaDecalMgr* notify = plFootPrintComponent::GetDecalMgr(fCompPB->GetINode(kNotifies, TimeValue(0), i));
-        if( notify )
+        if (notify)
         {
             shape->AddDecalKey(notify->GetKey());
         }

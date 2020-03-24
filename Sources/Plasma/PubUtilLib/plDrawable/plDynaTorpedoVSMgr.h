@@ -67,8 +67,8 @@ public:
     plDynaTorpedoVSMgr();
     virtual ~plDynaTorpedoVSMgr();
 
-    CLASSNAME_REGISTER( plDynaTorpedoVSMgr );
-    GETINTERFACE_ANY( plDynaTorpedoVSMgr, plDynaTorpedoMgr );
+    CLASSNAME_REGISTER(plDynaTorpedoVSMgr);
+    GETINTERFACE_ANY(plDynaTorpedoVSMgr, plDynaTorpedoMgr);
 
     virtual bool MsgReceive(plMessage* msg);
 

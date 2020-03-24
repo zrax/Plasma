@@ -85,9 +85,9 @@ void plLayerSDLModifier::IPutCurrentStateIn(plStateDataRecord* dstState)
     if (transformSize > 0)
     {
         int i,j;
-        for(i=0;i<4;i++)
+        for (i=0;i<4;i++)
         {
-            for(j=0;j<4;j++)
+            for (j=0;j<4;j++)
             {
                 float f=layer->fTransform->fMap[i][j];
                 transformVar->Set(&f, i*4+j);
@@ -153,9 +153,9 @@ void plLayerSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcState)
     if (transformVar->IsUsed() && transformVar->GetCount() == 16)
     {
         int i,j;
-        for(i=0;i<4;i++)
+        for (i=0;i<4;i++)
         {
-            for(j=0;j<4;j++)
+            for (j=0;j<4;j++)
             {
                 float f;
                 srcState->FindVar(kStrTransform)->Get(&f, i*4+j);

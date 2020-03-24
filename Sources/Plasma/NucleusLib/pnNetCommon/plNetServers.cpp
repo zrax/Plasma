@@ -95,7 +95,7 @@ const char* plNetServerConstants::ServerPrograms[] =
 //
 const char* plNetServerConstants::GetServerName(int type)
 {
-    switch(type)
+    switch (type)
     {
     default:
 //      hsAssert(false, "unknown type"); // not the right place to catch this problem.
@@ -121,7 +121,7 @@ const char* plNetServerConstants::GetServerName(int type)
 
 uint16_t plNetServerConstants::GetPort(int type)
 {
-    switch(type)
+    switch (type)
     {
     default:
 //      hsAssert(false, "unknown type"); // not the right place to catch this problem.

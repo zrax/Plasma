@@ -62,7 +62,7 @@ private:
     bool    fICreatedLog;
 
 protected:
-    pyStatusLog( plStatusLog* log=nil );
+    pyStatusLog(plStatusLog* log=nil);
 
 public:
     virtual ~pyStatusLog();

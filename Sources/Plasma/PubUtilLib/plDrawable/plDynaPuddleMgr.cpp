@@ -67,7 +67,7 @@ plDynaPuddleMgr::plDynaPuddleMgr()
 {
     fPartIDs.SetCount(kNumPrintIDs);
     int i;
-    for( i = 0; i < kNumPrintIDs; i++ )
+    for (i = 0; i < kNumPrintIDs; i++)
         fPartIDs[i] = kPrintIDs[i];
 }
 
@@ -85,17 +85,17 @@ void plDynaPuddleMgr::Read(hsStream* stream, hsResMgr* mgr)
 bool plDynaPuddleMgr::MsgReceive(plMessage* msg)
 {
     plAvatarFootMsg* footMsg = plAvatarFootMsg::ConvertNoRef(msg);
-    if( footMsg )
+    if (footMsg)
     {
         int i;
-        for( i = 0; i < fPartIDs.GetCount(); i++ )
+        for (i = 0; i < fPartIDs.GetCount(); i++)
         {
             plArmatureMod* armMod = footMsg->GetArmature();
             const plPrintShape* shape = IGetPrintShape(armMod, fPartIDs[i]);
-            if( shape )
+            if (shape)
             {
                 plDynaDecalInfo& info = IGetDecalInfo(uintptr_t(shape), shape->GetKey());
-                if( IRippleFromShape(shape, true) )
+                if (IRippleFromShape(shape, true))
                 {
                     INotifyActive(info, armMod->GetKey(), fPartIDs[i]);
                 }

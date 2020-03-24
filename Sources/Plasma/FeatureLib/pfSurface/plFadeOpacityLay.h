@@ -56,8 +56,8 @@ public:
     plFadeOpacityLay();
     virtual ~plFadeOpacityLay();
 
-    CLASSNAME_REGISTER( plFadeOpacityLay );
-    GETINTERFACE_ANY( plFadeOpacityLay, plLayerInterface );
+    CLASSNAME_REGISTER(plFadeOpacityLay);
+    GETINTERFACE_ANY(plFadeOpacityLay, plLayerInterface);
 
     virtual uint32_t          Eval(double secs, uint32_t frame, uint32_t ignore);
 

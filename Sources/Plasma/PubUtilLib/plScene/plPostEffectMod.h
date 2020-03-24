@@ -103,8 +103,8 @@ public:
     plPostEffectMod();
     virtual ~plPostEffectMod();
 
-    CLASSNAME_REGISTER( plPostEffectMod );
-    GETINTERFACE_ANY( plPostEffectMod, plSingleModifier );
+    CLASSNAME_REGISTER(plPostEffectMod);
+    GETINTERFACE_ANY(plPostEffectMod, plSingleModifier);
 
 
     virtual bool    MsgReceive(plMessage* pMsg);
@@ -112,7 +112,7 @@ public:
     virtual void Read(hsStream* s, hsResMgr* mgr);
     virtual void Write(hsStream* s, hsResMgr* mgr);
 
-    void        GetDefaultWorldToCamera( hsMatrix44 &w2c, hsMatrix44 &c2w );
+    void        GetDefaultWorldToCamera(hsMatrix44 &w2c, hsMatrix44 &c2w);
 
     // Export only
     void        SetNodeKey(plKey key) { fNodeKey = key; }
@@ -133,7 +133,7 @@ public:
     const plViewTransform& GetViewTransform();
 
     // If translating from a scene object, send WorldToLocal() and LocalToWorld(), in that order
-    void        SetWorldToCamera( hsMatrix44 &w2c, hsMatrix44 &c2w );
+    void        SetWorldToCamera(hsMatrix44 &w2c, hsMatrix44 &c2w);
 
     // Very bad
     void        EnableLightsOnRenderRequest();

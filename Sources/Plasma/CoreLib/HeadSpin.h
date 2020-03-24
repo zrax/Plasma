@@ -72,7 +72,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
     // 4284: STL template defined operator-> for a class it doesn't make sense for (int, etc)
     // 4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
 #   ifdef _MSC_VER
-#      pragma warning( disable : 4305 4503 4018 4786 4284 4800)
+#      pragma warning(disable : 4305 4503 4018 4786 4284 4800)
 #   endif // _MSC_VER
 
     // Kind of nasty looking forward declarations, but this is Win32.... it'll never change!
@@ -310,8 +310,8 @@ inline char *hsStrncpy(char *strDest, const char *strSource, size_t count)
     return temp;
 }
 
-wchar_t *hsStringToWString( const char *str );
-char    *hsWStringToString( const wchar_t *str );
+wchar_t *hsStringToWString(const char *str);
+char    *hsWStringToString(const wchar_t *str);
 
 // Use "correct" non-standard string functions based on the
 // selected compiler / library
@@ -364,12 +364,12 @@ int hsMessageBoxWithOwner(hsWindowHndl owner, const char* message, const char* c
 int hsMessageBoxWithOwner(hsWindowHndl owner, const wchar_t* message, const wchar_t* caption, int kind, int icon=hsMessageBoxIconAsterisk);
 
 // flag testing / clearing
-#define hsCheckBits(f,c) ((f & c)==c)
-#define hsTestBits(f,b)  ( (f) & (b)   )
-#define hsSetBits(f,b)   ( (f) |= (b)  )
-#define hsClearBits(f,b) ( (f) &= ~(b) )
-#define hsToggleBits(f,b) ( (f) ^= (b) )
-#define hsChangeBits(f,b,t) ( t ? hsSetBits(f,b) : hsClearBits(f,b) )
+#define hsCheckBits(f,c) ((f & c) == c)
+#define hsTestBits(f,b)  ((f) & (b))
+#define hsSetBits(f,b)   ((f) |= (b))
+#define hsClearBits(f,b) ((f) &= ~(b))
+#define hsToggleBits(f,b) ((f) ^= (b))
+#define hsChangeBits(f,b,t) (t ? hsSetBits(f,b) : hsClearBits(f,b))
 
 
 #if HS_BUILD_FOR_WIN32

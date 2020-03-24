@@ -151,7 +151,7 @@ void plNetClientApp::InheritNetMsgFlags(uint32_t parentMsgFlags, uint32_t* child
 //
 void plNetClientApp::UnInheritNetMsgFlags(plMessage* msg)
 {
-    msg->SetBCastFlag( plMessage::kCCRSendToAllPlayers, 0 );
+    msg->SetBCastFlag(plMessage::kCCRSendToAllPlayers, 0);
     // if msg was propagated from another client...(and not originated on the server)
     if (msg && msg->HasBCastFlag(plMessage::kNetPropagate))
     {

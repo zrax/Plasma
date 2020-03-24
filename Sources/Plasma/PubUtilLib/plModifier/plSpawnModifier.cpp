@@ -64,11 +64,11 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 //      for (int i=0; i < GetNumTargets(); i++)
 //      {
 //          plSpawnModMsg* pMsg = new plSpawnModMsg;
-//          pMsg->AddReceiver( pSpawnMsg->GetSender() );
+//          pMsg->AddReceiver(pSpawnMsg->GetSender());
 //          //pMsg->fPos= GetTarget(i)->GetDrawInterface()->GetWorldBounds().GetCenter();
 //          pMsg->fPos= GetTarget(i)->GetCoordinateInterface()->GetLocalToWorld().GetTranslate();
 //          pMsg->fObj = GetTarget(i)->GetKey()->GetUoid();
-//          plgDispatch::MsgSend( pMsg );
+//          plgDispatch::MsgSend(pMsg);
 //      }
 //      return true;
 //  }

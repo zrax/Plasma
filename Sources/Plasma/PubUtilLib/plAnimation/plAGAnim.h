@@ -168,8 +168,8 @@ public:
 
     // PLASMA PROTOCOL
     // rtti
-    CLASSNAME_REGISTER( plAGAnim );
-    GETINTERFACE_ANY( plAGAnim, plSynchedObject );
+    CLASSNAME_REGISTER(plAGAnim);
+    GETINTERFACE_ANY(plAGAnim, plSynchedObject);
 
     // *** temp hack to manage animation instances
     /** Add the animation by name to a global static registry.
@@ -338,8 +338,8 @@ public:
 
     // PLASMA PROTOCOL
     // rtti
-    CLASSNAME_REGISTER( plATCAnim );
-    GETINTERFACE_ANY( plATCAnim, plAGAnim );
+    CLASSNAME_REGISTER(plATCAnim);
+    GETINTERFACE_ANY(plATCAnim, plAGAnim);
 
     // persistance
     virtual void Read(hsStream* stream, hsResMgr* mgr);
@@ -389,8 +389,8 @@ public:
     float GetFadeIn() const;
     float GetFadeOut() const;
 
-    CLASSNAME_REGISTER( plEmoteAnim );
-    GETINTERFACE_ANY( plEmoteAnim, plATCAnim );
+    CLASSNAME_REGISTER(plEmoteAnim);
+    GETINTERFACE_ANY(plEmoteAnim, plATCAnim);
 
     virtual void Read(hsStream *stream, hsResMgr *mgr);
     virtual void Write(hsStream *stream, hsResMgr *mgr);
@@ -423,8 +423,8 @@ public:
 
     // PLASMA PROTOCOL
     // rtti
-    CLASSNAME_REGISTER( plAgeGlobalAnim );
-    GETINTERFACE_ANY( plAgeGlobalAnim, plAGAnim );
+    CLASSNAME_REGISTER(plAgeGlobalAnim);
+    GETINTERFACE_ANY(plAgeGlobalAnim, plAGAnim);
 
     // persistance
     virtual void Read(hsStream* stream, hsResMgr* mgr);

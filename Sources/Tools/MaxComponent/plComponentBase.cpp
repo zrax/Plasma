@@ -202,10 +202,10 @@ IOResult plComponentBase::Load(ILoad* iload)
 void plComponentBase::AddTargetsToList(INodeTab& list)
 {
     int i;
-    for( i = 0; i < NumTargets(); i++ )
+    for (i = 0; i < NumTargets(); i++)
     {
         INode* targ = GetTarget(i);
-        if( targ )
+        if (targ)
             list.Append(1, &targ);
     }
 }

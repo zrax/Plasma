@@ -74,7 +74,7 @@ class pfGUIDialogProc : public pfGUICtrlProcObject
         virtual ~pfGUIDialogProc() { }
 
         // Called by the mgr--don't call yourself!
-        void    SetDialog( pfGUIDialogMod *dlg ) { fDialog = dlg; }
+        void    SetDialog(pfGUIDialogMod *dlg) { fDialog = dlg; }
 
         // Enums for OnControlEvent
         enum ControlEvt
@@ -86,7 +86,7 @@ class pfGUIDialogProc : public pfGUICtrlProcObject
 
         // Overloaded here so you don't have to unless you want to. Overload
         // it if you want to use this for a control handler as well.
-        virtual void    DoSomething( pfGUIControlMod *ctrl ) { }
+        virtual void    DoSomething(pfGUIControlMod *ctrl) { }
 
         // Called on dialog init (i.e. first showing, before OnShow() is called), only ever called once
         virtual void    OnInit() { }
@@ -101,13 +101,13 @@ class pfGUIDialogProc : public pfGUICtrlProcObject
         virtual void    OnDestroy() { }
 
         // Called when the dialog's focused control changes
-        virtual void    OnCtrlFocusChange( pfGUIControlMod *oldCtrl, pfGUIControlMod *newCtrl ) { }
+        virtual void    OnCtrlFocusChange(pfGUIControlMod *oldCtrl, pfGUIControlMod *newCtrl) { }
 
         // Called when the key bound to a GUI event is pressed. Only called on the top modal dialog
-        virtual void    OnControlEvent( ControlEvt event ) { }
+        virtual void    OnControlEvent(ControlEvt event) { }
 
         // Called when the GUI changes interesting state
-        virtual void    OnInterestingEvent( pfGUIControlMod *ctrl ) { }
+        virtual void    OnInterestingEvent(pfGUIControlMod *ctrl) { }
 };
 
 #endif // _pfGUIDialogHandlers_h

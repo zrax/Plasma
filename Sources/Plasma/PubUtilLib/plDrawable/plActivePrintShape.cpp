@@ -68,7 +68,7 @@ void plActivePrintShape::Read(hsStream* stream, hsResMgr* mgr)
     uint32_t n = stream->ReadLE32();
     fDecalMgrs.SetCount(n);
     int i;
-    for( i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
         fDecalMgrs[i] = mgr->ReadKey(stream);
 
     plgDispatch::Dispatch()->RegisterForExactType(plEvalMsg::Index(), GetKey());
@@ -80,7 +80,7 @@ void plActivePrintShape::Write(hsStream* stream, hsResMgr* mgr)
 
     stream->WriteLE32(fDecalMgrs.GetCount());
     int i;
-    for( i = 0; i < fDecalMgrs.GetCount(); i++ )
+    for (i = 0; i < fDecalMgrs.GetCount(); i++)
         mgr->WriteKey(stream, fDecalMgrs[i]);
 }
 
@@ -93,7 +93,7 @@ void plActivePrintShape::AddDecalKey(const plKey& k)
 bool plActivePrintShape::MsgReceive(plMessage* msg)
 {
     plEvalMsg* eval = plEvalMsg::ConvertNoRef(msg);
-    if( eval )
+    if (eval)
     {
         return INotify();
     }
@@ -103,14 +103,14 @@ bool plActivePrintShape::MsgReceive(plMessage* msg)
 
 bool plActivePrintShape::INotify()
 {
-    if( !fShapeMsg )
+    if (!fShapeMsg)
         ISetupShapeMsg();
 
-    if( fDecalMgrs.GetCount() )
+    if (fDecalMgrs.GetCount())
     {
         fShapeMsg->SetBCastFlag(plMessage::kBCastByExactType, false);
         int i;
-        for( i = 0; i < fDecalMgrs.GetCount(); i++ )
+        for (i = 0; i < fDecalMgrs.GetCount(); i++)
         {
             fShapeMsg->ClearReceivers().SendAndKeep(fDecalMgrs[i]);
         }

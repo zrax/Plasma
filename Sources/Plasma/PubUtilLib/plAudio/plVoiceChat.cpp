@@ -107,7 +107,7 @@ plVoiceRecorder::~plVoiceRecorder()
     fDisabledIcon = nullptr;
 
     if (fTalkIcon)
-        plPlateManager::Instance().DestroyPlate(fTalkIcon );
+        plPlateManager::Instance().DestroyPlate(fTalkIcon);
     fTalkIcon = nullptr;
 }
 
@@ -161,10 +161,10 @@ void plVoiceRecorder::SetSampleRate(uint32_t rate)
 void plVoiceRecorder::SetQuality(int quality)
 {
     char str[] = "Voice quality setting out of range. Must be between 1 and 10 inclusive";
-    if(quality < 1 || quality > 10)
+    if (quality < 1 || quality > 10)
     {
-        plConsoleMsg    *cMsg = new plConsoleMsg( plConsoleMsg::kAddLine, str );
-        plgDispatch::MsgSend( cMsg );
+        plConsoleMsg    *cMsg = new plConsoleMsg(plConsoleMsg::kAddLine, str);
+        plgDispatch::MsgSend(cMsg);
         return;
     }
 
@@ -192,7 +192,7 @@ void plVoiceRecorder::SetVBR(bool vbr)
 
 void plVoiceRecorder::SetComplexity(int c)
 {
-    if(c < 1 || c > 10) {
+    if (c < 1 || c > 10) {
         plConsoleMsg* cMsg = new plConsoleMsg(plConsoleMsg::kAddLine, "Voice quality setting out of range. Must be between 1 and 10 inclusive");
         plgDispatch::MsgSend(cMsg);
     } else {
@@ -244,7 +244,7 @@ void plVoiceRecorder::DrawTalkIcon(bool b)
     if (!fTalkIcon) {
         plPlateManager::Instance().CreatePlate(&fTalkIcon);
         if (fTalkIcon) {
-            fTalkIcon->CreateFromResource( TALKING );
+            fTalkIcon->CreateFromResource(TALKING);
             fTalkIcon->SetPosition(-0.9,-0.9);
             fTalkIcon->SetSize(0.064, 0.064, true);
             fTalkIcon->SetVisible(false);
@@ -472,7 +472,7 @@ void plVoiceSound::SetSampleRate(uint32_t rate)
 
 void plVoiceSound::IDerivedActuallyPlay()
 {
-    if(!fReallyPlaying) {
+    if (!fReallyPlaying) {
         fDSoundBuffer->Play();
         fReallyPlaying = true;
     }
@@ -491,7 +491,7 @@ void plVoiceSound::AddVoiceData(const void *data, size_t bytes)
     fDSoundBuffer->UnQueueVoiceBuffers();       // attempt to unque any buffers that have finished
     while (bytes > 0) {
         size = bytes < STREAM_BUFFER_SIZE ? bytes : STREAM_BUFFER_SIZE;
-        if(!fDSoundBuffer->GetAvailableBufferId(&bufferId))
+        if (!fDSoundBuffer->GetAvailableBufferId(&bufferId))
             break;      // if there isn't any room for the data, it is currently thrown out
 
         fDSoundBuffer->VoiceFillBuffer(data, size, bufferId);
@@ -503,7 +503,7 @@ void plVoiceSound::AddVoiceData(const void *data, size_t bytes)
 void plVoiceSound::Update()
 {
     if (IsPlaying()) {
-        if((hsTimer::GetMilliSeconds() - fLastUpdate) > VOICE_STOP_MS)
+        if ((hsTimer::GetMilliSeconds() - fLastUpdate) > VOICE_STOP_MS)
             Stop(); // terminating case for playback. Wait for x number of milliseconds, and stop.
     }
 }

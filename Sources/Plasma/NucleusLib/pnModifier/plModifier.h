@@ -75,8 +75,8 @@ public:
     plModifier();
     virtual ~plModifier();
 
-    CLASSNAME_REGISTER( plModifier );
-    GETINTERFACE_ANY( plModifier, plSynchedObject );
+    CLASSNAME_REGISTER(plModifier);
+    GETINTERFACE_ANY(plModifier, plSynchedObject);
 
     virtual bool MsgReceive(plMessage* msg);
 

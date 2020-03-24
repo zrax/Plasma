@@ -57,11 +57,11 @@ void plFdSet::SetForSocket(plSocket & in)
 {
     SOCKET sck = in.GetSocket();
     hsAssert(sck>=0, "plFdSet::SetForSocket: socket<0");
-    if ( sck<0 )
+    if (sck<0)
         return;
     FD_SET(sck, &fFds);
     FD_SET(sck, &fErrFds);
-    if(fMaxFd < sck)
+    if (fMaxFd < sck)
         fMaxFd = sck;
 }
 
@@ -69,7 +69,7 @@ void plFdSet::ClearForSocket(plSocket & in)
 {
     SOCKET sck = in.GetSocket();
     hsAssert(sck>=0, "plFdSet::ClearForSocket: socket<0");
-    if ( sck<0 )
+    if (sck<0)
         return;
     FD_CLR(sck, &fFds);
     FD_CLR(sck, &fErrFds);
@@ -80,7 +80,7 @@ bool plFdSet::IsSetFor(plSocket & in)
 {
     SOCKET sck = in.GetSocket();
     hsAssert(sck>=0, "plFdSet::IsSetFor: socket<0");
-    if ( sck<0 )
+    if (sck<0)
         return false;
     return (FD_ISSET(sck, &fFds) != 0);
 }
@@ -89,7 +89,7 @@ bool plFdSet::IsErrFor(plSocket & in)
 {
     SOCKET sck = in.GetSocket();
     hsAssert(sck>=0, "plFdSet::IsErrFor: socket<0");
-    if ( sck<0 )
+    if (sck<0)
         return false;
     return (FD_ISSET(sck, &fErrFds) != 0);
 }
@@ -99,7 +99,7 @@ int plFdSet::WaitForRead(bool shouldZeroFds, unsigned long timeoutMillis)
 {
     int ret_val = 0;
 
-    if(timeoutMillis == kInfinite)
+    if (timeoutMillis == kInfinite)
     {
         ret_val = select(fMaxFd+1,&fFds,NULL,&fErrFds,NULL);
     }
@@ -122,7 +122,7 @@ int plFdSet::WaitForWrite(bool shouldZeroFds, unsigned long timeoutMillis)
 {
     int ret_val = 0;
 
-    if(timeoutMillis == kInfinite)
+    if (timeoutMillis == kInfinite)
     {
         ret_val = select(fMaxFd+1,NULL,&fFds,&fErrFds,NULL);
     }
@@ -145,7 +145,7 @@ int plFdSet::WaitForError(bool shouldZeroFds, unsigned long timeoutMillis)
 {
     int ret_val = 0;
 
-    if(timeoutMillis == kInfinite)
+    if (timeoutMillis == kInfinite)
     {
         ret_val = select(fMaxFd+1,NULL,NULL,&fErrFds,NULL);
     }

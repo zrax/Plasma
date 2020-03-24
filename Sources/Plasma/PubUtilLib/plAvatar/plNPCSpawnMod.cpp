@@ -83,7 +83,7 @@ void plNPCSpawnMod::AddTarget(plSceneObject* so)
 {
     plSingleModifier::AddTarget(so);
 
-    if(fAutoSpawn)
+    if (fAutoSpawn)
         Trigger();
 }
 
@@ -94,7 +94,7 @@ bool plNPCSpawnMod::Trigger()
 
     // you can ONLY spawn if you are local. the spawn message
     // will netpropagate
-    if(this->IsLocallyOwned())
+    if (this->IsLocallyOwned())
     {
         if (!fModelName.empty())
         {
@@ -131,7 +131,7 @@ void plNPCSpawnMod::Read(hsStream *stream, hsResMgr *mgr)
     fModelName = stream->ReadSafeString();
     fAccountName = stream->ReadSafeString();
     fAutoSpawn = stream->ReadBool();
-    if(stream->ReadBool())
+    if (stream->ReadBool())
         fNotify = plNotifyMsg::ConvertNoRef(mgr->ReadCreatable(stream));
 }
 
@@ -143,7 +143,7 @@ void plNPCSpawnMod::Write(hsStream *stream, hsResMgr *mgr)
     stream->WriteSafeString(fModelName);
     stream->WriteSafeString(fAccountName);
     stream->WriteBool(fAutoSpawn);
-    if(fNotify)
+    if (fNotify)
     {
         stream->WriteBool(true);
         mgr->WriteCreatable(stream, fNotify);
@@ -162,7 +162,7 @@ bool plNPCSpawnMod::IEval(double secs, float del, uint32_t dirty)
 // ISENDNOTIFY
 void plNPCSpawnMod::ISendNotify(plKey &avatarKey)
 {
-    if(fNotify)
+    if (fNotify)
     {
         proSpawnedEventData * event = new proSpawnedEventData;
         event->fSpawner = GetKey();

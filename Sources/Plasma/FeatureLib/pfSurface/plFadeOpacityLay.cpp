@@ -59,9 +59,9 @@ uint32_t plFadeOpacityLay::Eval(double secs, uint32_t frame, uint32_t ignore)
 {
     uint32_t ret = plLayerInterface::Eval(secs, frame, ignore);
 
-    if( fUnderLay )
+    if (fUnderLay)
     {
-        if( GetBlendFlags() & hsGMatState::kBlendAdd )
+        if (GetBlendFlags() & hsGMatState::kBlendAdd)
         {
             *fRuntimeColor = fUnderLay->GetRuntimeColor() * fOpScale;
         }

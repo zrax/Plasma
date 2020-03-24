@@ -129,7 +129,7 @@ bool plPhysicalProps::SetReportGroup(uint32_t notifyGroup, plMaxNode *node, plEr
 
 bool plPhysicalProps::SetMass(float mass, plMaxNode *node, plErrorMsg *errMsg, bool canIgnore)
 {
-    if(mass != 0.0f)
+    if (mass != 0.0f)
     {
         if (!GetPinned())
             node->SetMovable(true);
@@ -156,7 +156,7 @@ bool plPhysicalProps::SetBoundsType(int boundsType, plMaxNode *node, plErrorMsg 
 
 bool plPhysicalProps::SetProxyNode(plMaxNode *proxyNode, plMaxNode *node, plErrorMsg *errMsg, bool canIgnore)
 {
-    if( proxyNode )
+    if (proxyNode)
         proxyNode->SetDrawable(false);
 
     return ISetParam(fProxyNode, proxyNode, kProxyNode, canIgnore, node, errMsg);

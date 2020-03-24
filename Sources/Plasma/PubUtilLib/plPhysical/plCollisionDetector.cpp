@@ -120,7 +120,7 @@ bool plCollisionDetector::MsgReceive(plMessage* msg)
                 for (int i = 0; i < fReceivers.Count(); i++)
                 {
                     plActivatorMsg* pMsg = new plActivatorMsg;
-                    pMsg->AddReceiver( fReceivers[i] );
+                    pMsg->AddReceiver(fReceivers[i]);
 
                     if (fProxyKey)
                         pMsg->fHiteeObj = fProxyKey;
@@ -128,8 +128,8 @@ bool plCollisionDetector::MsgReceive(plMessage* msg)
                         pMsg->fHiteeObj = GetTarget()->GetKey();
                     pMsg->fHitterObj = pCollMsg->fOtherKey;
                     pMsg->SetSender(GetKey());
-                    pMsg->SetTriggerType( plActivatorMsg::kCollideContact );
-                    plgDispatch::MsgSend( pMsg );
+                    pMsg->SetTriggerType(plActivatorMsg::kCollideContact);
+                    plgDispatch::MsgSend(pMsg);
                 }
                 fBumped = true;
                 fTriggered = true;
@@ -147,7 +147,7 @@ bool plCollisionDetector::MsgReceive(plMessage* msg)
         for (int i = 0; i < fReceivers.Count(); i++)
         {
             plActivatorMsg* pMsg = new plActivatorMsg;
-            pMsg->AddReceiver( fReceivers[i] );
+            pMsg->AddReceiver(fReceivers[i]);
             if (fProxyKey)
                 pMsg->fHiteeObj = fProxyKey;
             else
@@ -157,32 +157,32 @@ bool plCollisionDetector::MsgReceive(plMessage* msg)
             
             if (fType & kTypeEnter && pCollMsg->fEntering)
             {
-                pMsg->SetTriggerType( plActivatorMsg::kCollideEnter );
-                plgDispatch::MsgSend( pMsg );
+                pMsg->SetTriggerType(plActivatorMsg::kCollideEnter);
+                plgDispatch::MsgSend(pMsg);
                 continue;
             }
             if (fType & kTypeUnEnter && pCollMsg->fEntering)
             {
-                pMsg->SetTriggerType( plActivatorMsg::kEnterUnTrigger );
-                plgDispatch::MsgSend( pMsg );
+                pMsg->SetTriggerType(plActivatorMsg::kEnterUnTrigger);
+                plgDispatch::MsgSend(pMsg);
                 continue;
             }
-            if(fType & kTypeExit && !pCollMsg->fEntering)
+            if (fType & kTypeExit && !pCollMsg->fEntering)
             {
-                pMsg->SetTriggerType( plActivatorMsg::kCollideExit );
-                plgDispatch::MsgSend( pMsg );
+                pMsg->SetTriggerType(plActivatorMsg::kCollideExit);
+                plgDispatch::MsgSend(pMsg);
                 continue;
             }
-            if(fType & kTypeUnExit && !pCollMsg->fEntering)
+            if (fType & kTypeUnExit && !pCollMsg->fEntering)
             {
-                pMsg->SetTriggerType( plActivatorMsg::kExitUnTrigger );
-                plgDispatch::MsgSend( pMsg );
+                pMsg->SetTriggerType(plActivatorMsg::kExitUnTrigger);
+                plgDispatch::MsgSend(pMsg);
                 continue;
             }
             if (fType & kTypeAny)
             {
-                pMsg->SetTriggerType( plActivatorMsg::kCollideContact );
-                plgDispatch::MsgSend( pMsg );
+                pMsg->SetTriggerType(plActivatorMsg::kCollideContact);
+                plgDispatch::MsgSend(pMsg);
                 continue;
             }
 
@@ -200,14 +200,14 @@ bool plCollisionDetector::MsgReceive(plMessage* msg)
             for (int i = 0; i < fReceivers.Count(); i++)
             {
                 plActivatorMsg* pMsg = new plActivatorMsg;
-                pMsg->AddReceiver( fReceivers[i] );
+                pMsg->AddReceiver(fReceivers[i]);
                 if (fProxyKey)
                     pMsg->fHiteeObj = fProxyKey;
                 else
                     pMsg->fHiteeObj = GetTarget()->GetKey();
                 pMsg->SetSender(GetKey());
-                pMsg->SetTriggerType( plActivatorMsg::kCollideUnTrigger );
-                plgDispatch::MsgSend( pMsg );
+                pMsg->SetTriggerType(plActivatorMsg::kCollideUnTrigger);
+                plgDispatch::MsgSend(pMsg);
                 fTriggered = false;
             }
         }
@@ -285,7 +285,7 @@ void plCameraRegionDetector::Read(hsStream* stream, hsResMgr* mgr)
     plDetectorModifier::Read(stream, mgr);
     int n = stream->ReadLE32();
     fMessages.resize(n);
-    for(size_t i = 0; i < n; i++ )
+    for (size_t i = 0; i < n; i++)
     {
         plCameraMsg* pMsg =  plCameraMsg::ConvertNoRef(mgr->ReadCreatable(stream));
         fMessages[i] = pMsg;
@@ -296,8 +296,8 @@ void plCameraRegionDetector::Write(hsStream* stream, hsResMgr* mgr)
 {
     plDetectorModifier::Write(stream, mgr);
     stream->WriteLE32(fMessages.size());
-    for(plCameraMsgVec::iterator it = fMessages.begin(); it != fMessages.end(); ++it)
-        mgr->WriteCreatable( stream, *it );
+    for (plCameraMsgVec::iterator it = fMessages.begin(); it != fMessages.end(); ++it)
+        mgr->WriteCreatable(stream, *it);
 
 }
 
@@ -734,9 +734,9 @@ plSimpleRegionSensor::plSimpleRegionSensor(plMessage *enterMsg, plMessage *exitM
 // dtor
 plSimpleRegionSensor::~plSimpleRegionSensor()
 {
-    if(fEnterMsg)
+    if (fEnterMsg)
         fEnterMsg->UnRef();
-    if(fExitMsg)
+    if (fExitMsg)
         fExitMsg->UnRef();
 }
 
@@ -744,14 +744,14 @@ plSimpleRegionSensor::~plSimpleRegionSensor()
 void plSimpleRegionSensor::Write(hsStream *stream, hsResMgr *mgr)
 {
     plSingleModifier::Write(stream, mgr);
-    if(fEnterMsg)
+    if (fEnterMsg)
     {
         stream->WriteBool(true);
         mgr->WriteCreatable(stream, fEnterMsg);
     } else {
         stream->WriteBool(false);
     }
-    if(fExitMsg)
+    if (fExitMsg)
     {
         stream->WriteBool(true);
         mgr->WriteCreatable(stream, fExitMsg);
@@ -764,14 +764,14 @@ void plSimpleRegionSensor::Write(hsStream *stream, hsResMgr *mgr)
 void plSimpleRegionSensor::Read(hsStream *stream, hsResMgr *mgr)
 {
     plSingleModifier::Read(stream, mgr);
-    if(stream->ReadBool())
+    if (stream->ReadBool())
     {
         fEnterMsg = plMessage::ConvertNoRef(mgr->ReadCreatable(stream));
     } else {
         fEnterMsg = nil;
     }
 
-    if(stream->ReadBool())
+    if (stream->ReadBool())
     {
         fExitMsg = plMessage::ConvertNoRef(mgr->ReadCreatable(stream));
         hsAssert(fExitMsg, "Corrupted plSimpleRegionSensor during read.");
@@ -793,9 +793,9 @@ bool plSimpleRegionSensor::MsgReceive(plMessage *msg)
 
         plKey theThingWhatDoneHitUs = pCollMsg->fOtherKey;
         
-        if(pCollMsg->fEntering)
+        if (pCollMsg->fEntering)
         {
-            if(fEnterMsg)
+            if (fEnterMsg)
             {
                 fEnterMsg->ClearReceivers();
                 fEnterMsg->AddReceiver(theThingWhatDoneHitUs);
@@ -804,7 +804,7 @@ bool plSimpleRegionSensor::MsgReceive(plMessage *msg)
             }
         }
         else {
-            if(fExitMsg)
+            if (fExitMsg)
             {
                 fExitMsg->ClearReceivers();
                 fExitMsg->AddReceiver(theThingWhatDoneHitUs);
@@ -854,9 +854,9 @@ bool plSwimDetector::MsgReceive(plMessage *msg)
         //and if we prop swim state by notify messages we still have a chance of missing it from players
         //who were in the region before we linked in
         plKey theThingWhatDoneHitUs = pCollMsg->fOtherKey;
-        if(pCollMsg->fEntering)
+        if (pCollMsg->fEntering)
         {
-            if(fEnterMsg)
+            if (fEnterMsg)
             {
                 fEnterMsg->ClearReceivers();
                 fEnterMsg->AddReceiver(theThingWhatDoneHitUs);
@@ -865,7 +865,7 @@ bool plSwimDetector::MsgReceive(plMessage *msg)
             }
         }
         else {
-        if(fExitMsg)
+        if (fExitMsg)
             {
                 fExitMsg->ClearReceivers();
                 fExitMsg->AddReceiver(theThingWhatDoneHitUs);
@@ -889,9 +889,9 @@ bool    plRidingAnimatedPhysicalDetector::MsgReceive(plMessage *msg)
         //and if we prop  state by notify messages we still have a chance of missing it from players
         //who were in the region before we linked in
         plKey theThingWhatDoneHitUs = pCollMsg->fOtherKey;
-        if(pCollMsg->fEntering)
+        if (pCollMsg->fEntering)
         {
-            if(fEnterMsg)
+            if (fEnterMsg)
             {
                 fEnterMsg->ClearReceivers();
                 fEnterMsg->AddReceiver(theThingWhatDoneHitUs);
@@ -900,7 +900,7 @@ bool    plRidingAnimatedPhysicalDetector::MsgReceive(plMessage *msg)
             }
         }
         else {
-        if(fExitMsg)
+        if (fExitMsg)
             {
                 fExitMsg->ClearReceivers();
                 fExitMsg->AddReceiver(theThingWhatDoneHitUs);

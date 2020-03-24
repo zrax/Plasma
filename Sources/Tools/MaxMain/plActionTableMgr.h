@@ -92,7 +92,7 @@ public:
         Created = false;
         ActionCB = NULL;
 
-        for(int i = 0; i < numActions; i++)
+        for (int i = 0; i < numActions; i++)
         {
             Actions.push_back(actions[i]);
         }

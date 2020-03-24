@@ -78,8 +78,8 @@ public:
     plDynamicEnvMapMsg(const plKey& rcv) : plMessage(nil, rcv, nil), fCmd(0) {}
     virtual ~plDynamicEnvMapMsg() {}
 
-    CLASSNAME_REGISTER( plDynamicEnvMapMsg );
-    GETINTERFACE_ANY( plDynamicEnvMapMsg, plMessage );
+    CLASSNAME_REGISTER(plDynamicEnvMapMsg);
+    GETINTERFACE_ANY(plDynamicEnvMapMsg, plMessage);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

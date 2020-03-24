@@ -53,8 +53,8 @@ public:
     plLayerMultiply();
     virtual ~plLayerMultiply();
 
-    CLASSNAME_REGISTER( plLayerMultiply );
-    GETINTERFACE_ANY( plLayerMultiply, plLayerInterface );
+    CLASSNAME_REGISTER(plLayerMultiply);
+    GETINTERFACE_ANY(plLayerMultiply, plLayerInterface);
 
     virtual plLayerInterface*   Attach(plLayerInterface* prev);
     virtual uint32_t              Eval(double secs, uint32_t frame, uint32_t ignore);

@@ -73,40 +73,40 @@ class plStringSlicer
     typedef wchar_t *CharPtr;
 
     public:
-        plStringSlicer( wchar_t *string, uint32_t start, uint32_t end )
+        plStringSlicer(wchar_t *string, uint32_t start, uint32_t end)
         {
             fString = string;
-            fTempChar = string[ end ];
-            string[ end ] = 0L;
+            fTempChar = string[end];
+            string[end] = 0L;
             fStart = start;
             fEnd = end;
         }
 
-        plStringSlicer( hsTArray<wchar_t> &string, uint32_t start, uint32_t end )
+        plStringSlicer(hsTArray<wchar_t> &string, uint32_t start, uint32_t end)
         {
             fString = string.AcquireArray();
             fStart = start;
-            if( end < string.GetCount() )
+            if (end < string.GetCount())
                 fEnd = end;
             else
                 fEnd = fStart;
 
-            if( fEnd > fStart )
+            if (fEnd > fStart)
             {
-                fTempChar = fString[ end ];
-                fString[ end ] = 0L;
+                fTempChar = fString[end];
+                fString[end] = 0L;
             }
         }
 
         ~plStringSlicer()
         {
-            if( fEnd > fStart )
-                fString[ fEnd ] = fTempChar;
+            if (fEnd > fStart)
+                fString[fEnd] = fTempChar;
         }
 
         operator CharPtr() const
         {
-            return &fString[ fStart ];
+            return &fString[fStart];
         }
 };
 
@@ -120,15 +120,15 @@ class pfMLScrollProc : public pfGUICtrlProcObject
 
     public:
 
-        pfMLScrollProc( pfGUIMultiLineEditCtrl *parent ) : fParent( parent ) {}
+        pfMLScrollProc(pfGUIMultiLineEditCtrl *parent) : fParent(parent) {}
 
-        virtual void    DoSomething( pfGUIControlMod *ctrl )
+        virtual void    DoSomething(pfGUIControlMod *ctrl)
         {
             // Do a check here to make sure we actually changed scroll
             // positions--if not, we don't want to update, since that'll be
             // slow as hell
             int newScrollPos = (int)fParent->fScrollControl->GetMax() - (int)fParent->fScrollControl->GetCurrValue();
-            fParent->SetScrollPosition( newScrollPos );
+            fParent->SetScrollPosition(newScrollPos);
         }
 };
 
@@ -144,11 +144,11 @@ uint32_t  pfGUIMultiLineEditCtrl::fStyleCodeSize = (wchar_t)3;
 
 pfGUIMultiLineEditCtrl::pfGUIMultiLineEditCtrl()
 {
-    SetFlag( kWantsInterest );
-    SetFlag( kTakesSpecialKeys );
+    SetFlag(kWantsInterest);
+    SetFlag(kTakesSpecialKeys);
     fCursorPos = 0;
     fLastCursorLine = 0;
-    fBuffer.Append( 0L );
+    fBuffer.Append(0L);
     fBufferLimit = -1;
     fScrollControl = nil;
     fScrollProc = nil;
@@ -181,7 +181,7 @@ pfGUIMultiLineEditCtrl::~pfGUIMultiLineEditCtrl()
     ClearNext(); // make sure that no one is referencing us
     ClearPrev();
 
-    if( fScrollProc && fScrollProc->DecRef() )
+    if (fScrollProc && fScrollProc->DecRef())
         delete fScrollProc;
     if (fEventProc)
         delete fEventProc;
@@ -189,25 +189,25 @@ pfGUIMultiLineEditCtrl::~pfGUIMultiLineEditCtrl()
 
 //// IEval ///////////////////////////////////////////////////////////////////
 
-bool    pfGUIMultiLineEditCtrl::IEval( double secs, float del, uint32_t dirty )
+bool    pfGUIMultiLineEditCtrl::IEval(double secs, float del, uint32_t dirty)
 {
-    return pfGUIControlMod::IEval( secs, del, dirty );
+    return pfGUIControlMod::IEval(secs, del, dirty);
 }
 
 //// MsgReceive //////////////////////////////////////////////////////////////
 
-bool    pfGUIMultiLineEditCtrl::MsgReceive( plMessage *msg )
+bool    pfGUIMultiLineEditCtrl::MsgReceive(plMessage *msg)
 {
-    plGenRefMsg *refMsg = plGenRefMsg::ConvertNoRef( msg );
-    if( refMsg != nil )
+    plGenRefMsg *refMsg = plGenRefMsg::ConvertNoRef(msg);
+    if (refMsg != nil)
     {
-        if( refMsg->fType == kRefScrollCtrl )
+        if (refMsg->fType == kRefScrollCtrl)
         {
-            if( refMsg->GetContext() & ( plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace ) )
+            if (refMsg->GetContext() & (plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace))
             {
-                fScrollControl = pfGUIValueCtrl::ConvertNoRef( refMsg->GetRef() );
-                fScrollControl->SetHandler( fScrollProc );
-                fScrollControl->SetStep( 1.f );
+                fScrollControl = pfGUIValueCtrl::ConvertNoRef(refMsg->GetRef());
+                fScrollControl->SetHandler(fScrollProc);
+                fScrollControl->SetStep(1.f);
                 IUpdateScrollRange();
             }
             else
@@ -216,19 +216,19 @@ bool    pfGUIMultiLineEditCtrl::MsgReceive( plMessage *msg )
         }
     }
 
-    return pfGUIControlMod::MsgReceive( msg );
+    return pfGUIControlMod::MsgReceive(msg);
 }
 
 //// SetScrollPosition ///////////////////////////////////////////////////////
 
-void    pfGUIMultiLineEditCtrl::SetScrollPosition( int32_t topLine )
+void    pfGUIMultiLineEditCtrl::SetScrollPosition(int32_t topLine)
 {
-    if( topLine < 0 )
+    if (topLine < 0)
         topLine = 0;
-    else if( topLine > fLineStarts.GetCount() - ICalcNumVisibleLines() + 1 )
+    else if (topLine > fLineStarts.GetCount() - ICalcNumVisibleLines() + 1)
         topLine = fLineStarts.GetCount() - ICalcNumVisibleLines() + 1;
 
-    if( fScrollPos == topLine )
+    if (fScrollPos == topLine)
         return;
 
     if (topLine >= 0)
@@ -238,11 +238,11 @@ void    pfGUIMultiLineEditCtrl::SetScrollPosition( int32_t topLine )
 
     IUpdate();
 
-    if( fScrollControl != nil )
+    if (fScrollControl != nil)
         // Scroll control values are reversed
-        fScrollControl->SetCurrValue( fScrollControl->GetMax() - (float)fScrollPos );
+        fScrollControl->SetCurrValue(fScrollControl->GetMax() - (float)fScrollPos);
 
-    HandleExtendedEvent( pfGUIMultiLineEditCtrl::kScrollPosChanged );
+    HandleExtendedEvent(pfGUIMultiLineEditCtrl::kScrollPosChanged);
 
     // notify thru the dialog something has changed
     if (fDialog && fDialog->GetHandler())
@@ -258,7 +258,7 @@ int32_t   pfGUIMultiLineEditCtrl::GetScrollPosition()
 }
 
 //// MoveCursor - by direction command////////////////////////////////////////////////
-void    pfGUIMultiLineEditCtrl::MoveCursor( Direction dir )
+void    pfGUIMultiLineEditCtrl::MoveCursor(Direction dir)
 {
     IMoveCursor(dir);
 }
@@ -268,23 +268,23 @@ void    pfGUIMultiLineEditCtrl::MoveCursor( Direction dir )
 
 void    pfGUIMultiLineEditCtrl::IUpdateScrollRange()
 {
-    if( fScrollControl == nil )
+    if (fScrollControl == nil)
         return;
 
-    if( fLineStarts.GetCount() > ICalcNumVisibleLines() - 1 )
+    if (fLineStarts.GetCount() > ICalcNumVisibleLines() - 1)
     {
         // +1 here because the last visible line is only a partial, but we want to be able to view
         // full lines all the way to the end.
-        float newMax = (float)( fLineStarts.GetCount() - ICalcNumVisibleLines() + 1 );
+        float newMax = (float)(fLineStarts.GetCount() - ICalcNumVisibleLines() + 1);
 
-        if( newMax != fScrollControl->GetMax() )
+        if (newMax != fScrollControl->GetMax())
         {
-            fScrollControl->SetRange( 0, (float)(fLineStarts.GetCount() - ICalcNumVisibleLines() + 1) );
-            fScrollControl->SetEnabled( true );
-            if( fScrollPos > fLineStarts.GetCount() - ICalcNumVisibleLines() + 1 )
+            fScrollControl->SetRange(0, (float)(fLineStarts.GetCount() - ICalcNumVisibleLines() + 1));
+            fScrollControl->SetEnabled(true);
+            if (fScrollPos > fLineStarts.GetCount() - ICalcNumVisibleLines() + 1)
             {
                 fScrollPos = fLineStarts.GetCount() - ICalcNumVisibleLines() + 1;
-                fScrollControl->SetCurrValue( fScrollControl->GetMax() - (float)fScrollPos );
+                fScrollControl->SetCurrValue(fScrollControl->GetMax() - (float)fScrollPos);
             }
 
             // All bets are off on scrolling, so refresh the whole area
@@ -293,29 +293,29 @@ void    pfGUIMultiLineEditCtrl::IUpdateScrollRange()
     }
     else
     {
-        if( fScrollControl->GetMax() > 0 )
+        if (fScrollControl->GetMax() > 0)
         {
-            fScrollControl->SetRange( 0, 0 );
-            fScrollControl->SetEnabled( false );
+            fScrollControl->SetRange(0, 0);
+            fScrollControl->SetEnabled(false);
             fScrollPos = 0;
             IUpdate();
         }
     }
 }
 
-void pfGUIMultiLineEditCtrl::SetScrollEnable( bool state )
+void pfGUIMultiLineEditCtrl::SetScrollEnable(bool state)
 {
-    if (fScrollControl == nil )
+    if (fScrollControl == nil)
         return;
 
-    if ( state )
+    if (state)
     {
         IUpdateScrollRange();
     }
     else
     {
-        fScrollControl->SetRange( 0, 0 );
-        fScrollControl->SetEnabled( false );
+        fScrollControl->SetRange(0, 0);
+        fScrollControl->SetEnabled(false);
         fScrollPos = 0;
         IUpdate();
     }
@@ -349,15 +349,15 @@ void    pfGUIMultiLineEditCtrl::IPostSetUpDynTextMap()
         fFontFlagsSet |= kFontStyleSet;
     }
 
-    fDynTextMap->SetFont( fFontFace, fFontSize, fFontStyle,
-                            HasFlag( kXparentBgnd ) ? false : true );
+    fDynTextMap->SetFont(fFontFace, fFontSize, fFontStyle,
+                            HasFlag(kXparentBgnd) ? false : true);
 
     // Calculate a height for each line
-    fDynTextMap->CalcStringWidth( L"The quick brown fox jumped over the lazy dog.", &fLineHeight );
+    fDynTextMap->CalcStringWidth(L"The quick brown fox jumped over the lazy dog.", &fLineHeight);
     fCalcedFontSize = fFontSize;
 
     fReadyToRender = true;
-    IRecalcLineStarts( 0, true );
+    IRecalcLineStarts(0, true);
 }
 
 //// ICalcNumVisibleLines ////////////////////////////////////////////////////
@@ -374,7 +374,7 @@ int32_t   pfGUIMultiLineEditCtrl::ICalcNumVisibleLines() const
 //// IUpdate /////////////////////////////////////////////////////////////////
 //  Ranged version
 
-void    pfGUIMultiLineEditCtrl::IUpdate( int32_t startLine, int32_t endLine )
+void    pfGUIMultiLineEditCtrl::IUpdate(int32_t startLine, int32_t endLine)
 {
     hsColorRGBA c;
     static int  testingFlip = 0;
@@ -387,15 +387,15 @@ void    pfGUIMultiLineEditCtrl::IUpdate( int32_t startLine, int32_t endLine )
         return;
 
     // Detect whether we need to recalc all of our dimensions entirely
-    if( fFontFlagsSet & (kFontFaceSet & kFontColorSet & kFontSizeSet & kFontStyleSet) )
+    if (fFontFlagsSet & (kFontFaceSet & kFontColorSet & kFontSizeSet & kFontStyleSet))
         IPostSetUpDynTextMap();
 
-    if( fLineStarts.GetCount() == 0 )
+    if (fLineStarts.GetCount() == 0)
     {
         // Just clear and go away
-        fDynTextMap->ClearToColor( GetColorScheme()->fBackColor );
-        if( IsFocused() )
-            fDynTextMap->FrameRect( fLeftMargin, fTopMargin, 2, fLineHeight, GetColorScheme()->fSelForeColor );
+        fDynTextMap->ClearToColor(GetColorScheme()->fBackColor);
+        if (IsFocused())
+            fDynTextMap->FrameRect(fLeftMargin, fTopMargin, 2, fLineHeight, GetColorScheme()->fSelForeColor);
         fDynTextMap->FlushToHost();
         return;
     }
@@ -411,52 +411,52 @@ void    pfGUIMultiLineEditCtrl::IUpdate( int32_t startLine, int32_t endLine )
     if (fNextCtrl || fPrevCtrl)
         numVisibleLines--; // we don't want "partially visible" lines
     lastVisibleLine = fScrollPos + numVisibleLines - 1;
-    if( lastVisibleLine > fLineStarts.GetCount() - 1 )
+    if (lastVisibleLine > fLineStarts.GetCount() - 1)
         lastVisibleLine = fLineStarts.GetCount() - 1;
 
-    if( startLine < fScrollPos )
+    if (startLine < fScrollPos)
         startLine = fScrollPos;
-    if( endLine > lastVisibleLine )
+    if (endLine > lastVisibleLine)
         endLine = lastVisibleLine;
 
-    if( startLine == fScrollPos && endLine == lastVisibleLine )
+    if (startLine == fScrollPos && endLine == lastVisibleLine)
     {
-        c.Set( 0.f, 0.f, 0.f, 1.f );
-        fDynTextMap->ClearToColor( GetColorScheme()->fBackColor );
+        c.Set(0.f, 0.f, 0.f, 1.f);
+        fDynTextMap->ClearToColor(GetColorScheme()->fBackColor);
         clearEachLine = false;
     }
 
     // Start at our line
-    y = ( startLine - fScrollPos ) * fLineHeight + fTopMargin;
+    y = (startLine - fScrollPos) * fLineHeight + fTopMargin;
     // And loop!
 
-    for( line = startLine; line <= endLine; line++ )
+    for (line = startLine; line <= endLine; line++)
     {
         // Clear this line
-        if( clearEachLine )
+        if (clearEachLine)
         {
-            fDynTextMap->FillRect( 0, (uint16_t)y, fDynTextMap->GetVisibleWidth(), fLineHeight,
-                                    GetColorScheme()->fBackColor );
+            fDynTextMap->FillRect(0, (uint16_t)y, fDynTextMap->GetVisibleWidth(), fLineHeight,
+                                    GetColorScheme()->fBackColor);
         }
 
-        uint32_t start = fLineStarts[ line ], end;
-        if( line == fLineStarts.GetCount() - 1 )
+        uint32_t start = fLineStarts[line], end;
+        if (line == fLineStarts.GetCount() - 1)
             end = fBuffer.GetCount();
         else
-            end = fLineStarts[ line + 1 ];
+            end = fLineStarts[line + 1];
 
         // Render the actual text
-        IRenderLine( fLeftMargin, (uint16_t)y, start, end );
+        IRenderLine(fLeftMargin, (uint16_t)y, start, end);
 
         // Render the cursor
-        if( fCursorPos >= start && fCursorPos < end && IsFocused() )
+        if (fCursorPos >= start && fCursorPos < end && IsFocused())
         {
-            if( fCursorPos > start )
-                x = IRenderLine( fLeftMargin, (uint16_t)y, start, fCursorPos, true );
+            if (fCursorPos > start)
+                x = IRenderLine(fLeftMargin, (uint16_t)y, start, fCursorPos, true);
             else
                 x = fLeftMargin;
             
-            fDynTextMap->FrameRect( (uint16_t)x, (uint16_t)y, 2, fLineHeight, GetColorScheme()->fSelForeColor );
+            fDynTextMap->FrameRect((uint16_t)x, (uint16_t)y, 2, fLineHeight, GetColorScheme()->fSelForeColor);
 
             // Store the cursor X,Y pair. Go figure, the ONLY time we actually need this is
             // to move up or down one line, and even then it's only because we want to keep
@@ -466,11 +466,11 @@ void    pfGUIMultiLineEditCtrl::IUpdate( int32_t startLine, int32_t endLine )
         }
         y += fLineHeight;
     }
-    if( clearEachLine && line >= fLineStarts.GetCount() && y < fDynTextMap->GetVisibleHeight()-fBottomMargin )
+    if (clearEachLine && line >= fLineStarts.GetCount() && y < fDynTextMap->GetVisibleHeight()-fBottomMargin)
     {
         // No lines left, so clear the rest of the visible area
-        fDynTextMap->FillRect( 0, (uint16_t)y, fDynTextMap->GetVisibleWidth(), (uint16_t)(fDynTextMap->GetVisibleHeight() - y),
-                                GetColorScheme()->fBackColor );
+        fDynTextMap->FillRect(0, (uint16_t)y, fDynTextMap->GetVisibleWidth(), (uint16_t)(fDynTextMap->GetVisibleHeight() - y),
+                                GetColorScheme()->fBackColor);
     }
     fDynTextMap->FlushToHost();
 }
@@ -479,43 +479,43 @@ void    pfGUIMultiLineEditCtrl::IUpdate( int32_t startLine, int32_t endLine )
 //  Reads a color code from the given position and advances the given position
 //  appropriately
 
-void    pfGUIMultiLineEditCtrl::IReadColorCode( int32_t &pos, hsColorRGBA &color ) const
+void    pfGUIMultiLineEditCtrl::IReadColorCode(int32_t &pos, hsColorRGBA &color) const
 {
     uint16_t  *buffer = (uint16_t *)fBuffer.AcquireArray() + pos;
     uint8_t   r, g, b;
 
 
-    hsAssert( buffer[ 0 ] == fColorCodeChar, "Invalid position in IReadColorCode()" );
+    hsAssert(buffer[0] == fColorCodeChar, "Invalid position in IReadColorCode()");
     buffer++;
-    r = (uint8_t)buffer[ 0 ];
-    g = (uint8_t)buffer[ 1 ];
-    b = (uint8_t)buffer[ 2 ];
+    r = (uint8_t)buffer[0];
+    g = (uint8_t)buffer[1];
+    b = (uint8_t)buffer[2];
     pos += fColorCodeSize;      // We have a duplicate code at the end of this block, for searching backwards
-    color.Set( r / 255.f, g / 255.f, b / 255.f, fFontColor.a );
+    color.Set(r / 255.f, g / 255.f, b / 255.f, fFontColor.a);
 }
 
 //// IReadStyleCode //////////////////////////////////////////////////////////
 //  Reads a style code from the given position and advances the given position
 //  appropriately
 
-void    pfGUIMultiLineEditCtrl::IReadStyleCode( int32_t &pos, uint8_t &fontFlags ) const
+void    pfGUIMultiLineEditCtrl::IReadStyleCode(int32_t &pos, uint8_t &fontFlags) const
 {
     uint16_t  *buffer = (uint16_t *)fBuffer.AcquireArray() + pos;
 
 
-    hsAssert( buffer[ 0 ] == fStyleCodeChar, "Invalid position in IReadStyleCode()" );
-    fontFlags = (uint8_t)buffer[ 1 ];
+    hsAssert(buffer[0] == fStyleCodeChar, "Invalid position in IReadStyleCode()");
+    fontFlags = (uint8_t)buffer[1];
     pos += fStyleCodeSize;      // We have a duplicate code at the end of this block, for searching backwards
 }
 
-inline bool pfGUIMultiLineEditCtrl::IIsRenderable( const wchar_t c )
+inline bool pfGUIMultiLineEditCtrl::IIsRenderable(const wchar_t c)
 {
-    return ( !IIsCodeChar( c ) && c != L'\n' && c != L'\t' );
+    return (!IIsCodeChar(c) && c != L'\n' && c != L'\t');
 }
 
-inline bool pfGUIMultiLineEditCtrl::IIsCodeChar( const wchar_t c )
+inline bool pfGUIMultiLineEditCtrl::IIsCodeChar(const wchar_t c)
 {
-    return ( c == fColorCodeChar || c == fStyleCodeChar );
+    return (c == fColorCodeChar || c == fStyleCodeChar);
 }
 
 //// IFindLastCode Functions /////////////////////////////////////////////////
@@ -524,13 +524,13 @@ inline bool pfGUIMultiLineEditCtrl::IIsCodeChar( const wchar_t c )
 //  type. If none is found, they set the given parameter to the default value
 //  and return false.
 
-bool    pfGUIMultiLineEditCtrl::IFindLastColorCode( int32_t pos, hsColorRGBA &color, bool ignoreFirstCharacter ) const
+bool    pfGUIMultiLineEditCtrl::IFindLastColorCode(int32_t pos, hsColorRGBA &color, bool ignoreFirstCharacter) const
 {
-    for( ; pos >= 0; pos -= IOffsetToNextCharFromPos( pos - 1 ) )
+    for (; pos >= 0; pos -= IOffsetToNextCharFromPos(pos - 1))
     {
-        if( fBuffer[ pos ] == fColorCodeChar && !ignoreFirstCharacter )
+        if (fBuffer[pos] == fColorCodeChar && !ignoreFirstCharacter)
         {
-            IReadColorCode( pos, color );
+            IReadColorCode(pos, color);
             return true;
         }
         ignoreFirstCharacter = false;
@@ -539,13 +539,13 @@ bool    pfGUIMultiLineEditCtrl::IFindLastColorCode( int32_t pos, hsColorRGBA &co
     return false;
 }
 
-bool    pfGUIMultiLineEditCtrl::IFindLastStyleCode( int32_t pos, uint8_t &style, bool ignoreFirstCharacter ) const
+bool    pfGUIMultiLineEditCtrl::IFindLastStyleCode(int32_t pos, uint8_t &style, bool ignoreFirstCharacter) const
 {
-    for( ; pos >= 0; pos -= IOffsetToNextCharFromPos( pos - 1 ) )
+    for (; pos >= 0; pos -= IOffsetToNextCharFromPos(pos - 1))
     {
-        if( fBuffer[ pos ] == fStyleCodeChar && !ignoreFirstCharacter )
+        if (fBuffer[pos] == fStyleCodeChar && !ignoreFirstCharacter)
         {
-            IReadStyleCode( pos, style );
+            IReadStyleCode(pos, style);
             return true;
         }
         ignoreFirstCharacter = false;
@@ -560,7 +560,7 @@ bool    pfGUIMultiLineEditCtrl::IFindLastStyleCode( int32_t pos, uint8_t &style,
 //  given. Takes into account style codes and special characters (like returns
 //  and tabs). Returns the final X value after rendering.
 
-uint32_t  pfGUIMultiLineEditCtrl::IRenderLine( uint16_t x, uint16_t y, int32_t start, int32_t end, bool dontRender )
+uint32_t  pfGUIMultiLineEditCtrl::IRenderLine(uint16_t x, uint16_t y, int32_t start, int32_t end, bool dontRender)
 {
     int32_t       pos;
     hsColorRGBA currColor = fFontColor;
@@ -568,56 +568,56 @@ uint32_t  pfGUIMultiLineEditCtrl::IRenderLine( uint16_t x, uint16_t y, int32_t s
     const wchar_t   *buffer = fBuffer.AcquireArray();
 
     // First, gotta go back from our starting position and find a color and style code to use
-    IFindLastColorCode( start, currColor );
-    IFindLastStyleCode( start, currStyle );
+    IFindLastColorCode(start, currColor);
+    IFindLastStyleCode(start, currStyle);
 
-    fDynTextMap->SetTextColor( currColor, HasFlag( kXparentBgnd ) ? true : false );
-    fDynTextMap->SetFont( fFontFace, fFontSize, GetColorScheme()->fFontFlags | currStyle,
-                            HasFlag( kXparentBgnd ) ? false : true );
+    fDynTextMap->SetTextColor(currColor, HasFlag(kXparentBgnd) ? true : false);
+    fDynTextMap->SetFont(fFontFace, fFontSize, GetColorScheme()->fFontFlags | currStyle,
+                            HasFlag(kXparentBgnd) ? false : true);
     
     // Now, start from our start and go to the end and keep eating up as many chunks
     // that aren't made up of control codes or carriage returns or tabs (since we render
     // those separately)
-    for( pos = start; pos < end; )
+    for (pos = start; pos < end; )
     {
         start = pos;
-        if( IIsRenderable( buffer[ pos ] ) )
+        if (IIsRenderable(buffer[pos]))
         {
             // State 1: Render a renderable chunk
-            while( pos < end && IIsRenderable( buffer[ pos ] ) )
+            while (pos < end && IIsRenderable(buffer[pos]))
                 pos++;
 
             {
-                plStringSlicer slicer( fBuffer, start, pos );
-                if( !dontRender )
-                    fDynTextMap->DrawString( x, y, slicer );
-                x += fDynTextMap->CalcStringWidth( slicer );
+                plStringSlicer slicer(fBuffer, start, pos);
+                if (!dontRender)
+                    fDynTextMap->DrawString(x, y, slicer);
+                x += fDynTextMap->CalcStringWidth(slicer);
             }
         }
         else
         {
             // State 2: Process non-renderable characters
-            if( buffer[ pos ] == fColorCodeChar )
+            if (buffer[pos] == fColorCodeChar)
             {
                 // Read color and switch to that one
-                IReadColorCode( pos, currColor );
-                if( !dontRender )
-                    fDynTextMap->SetTextColor( currColor, HasFlag( kXparentBgnd ) ? true : false );
+                IReadColorCode(pos, currColor);
+                if (!dontRender)
+                    fDynTextMap->SetTextColor(currColor, HasFlag(kXparentBgnd) ? true : false);
             }
-            else if( buffer[ pos ] == fStyleCodeChar )
+            else if (buffer[pos] == fStyleCodeChar)
             {
                 // Read style and switch to that one
-                IReadStyleCode( pos, currStyle );
-                if( !dontRender )
-                    fDynTextMap->SetFont( fFontFace, fFontSize  , GetColorScheme()->fFontFlags | currStyle,
-                                            HasFlag( kXparentBgnd ) ? false : true );
+                IReadStyleCode(pos, currStyle);
+                if (!dontRender)
+                    fDynTextMap->SetFont(fFontFace, fFontSize  , GetColorScheme()->fFontFlags | currStyle,
+                                            HasFlag(kXparentBgnd) ? false : true);
             }
-            else if( buffer[ pos ] == L'\n' )
+            else if (buffer[pos] == L'\n')
             {
                 // We stop at carriage returns
                 break;
             }
-            else if( buffer[ pos ] == L'\t' )
+            else if (buffer[pos] == L'\t')
             {
                 // Increment by tab amount
                 x += 16;
@@ -625,7 +625,7 @@ uint32_t  pfGUIMultiLineEditCtrl::IRenderLine( uint16_t x, uint16_t y, int32_t s
             }
             else
             {
-                hsAssert( false, "Unknown unrenderable character, ignoring" );
+                hsAssert(false, "Unknown unrenderable character, ignoring");
                 pos++;
             }
         }
@@ -636,7 +636,7 @@ uint32_t  pfGUIMultiLineEditCtrl::IRenderLine( uint16_t x, uint16_t y, int32_t s
 
 void pfGUIMultiLineEditCtrl::PurgeDynaTextMapImage()
 {
-    if ( fDynTextMap != nil )
+    if (fDynTextMap != nil)
         fDynTextMap->PurgeImage();
 }
 
@@ -645,41 +645,41 @@ void pfGUIMultiLineEditCtrl::PurgeDynaTextMapImage()
 void    pfGUIMultiLineEditCtrl::IUpdate()
 {
     // Just call the ranged one with a full range
-    IUpdate( 0, fLineStarts.GetCount() - 1 );
+    IUpdate(0, fLineStarts.GetCount() - 1);
 }
 
 //// Read/Write //////////////////////////////////////////////////////////////
 
-void    pfGUIMultiLineEditCtrl::Read( hsStream *s, hsResMgr *mgr )
+void    pfGUIMultiLineEditCtrl::Read(hsStream *s, hsResMgr *mgr)
 {
     pfGUIControlMod::Read(s, mgr);
 
     fScrollControl = nil;
-    if( s->ReadBool() )
+    if (s->ReadBool())
     {
-        fScrollProc = new pfMLScrollProc( this );
+        fScrollProc = new pfMLScrollProc(this);
         fScrollProc->IncRef();
-        mgr->ReadKeyNotifyMe( s, new plGenRefMsg( GetKey(), plRefMsg::kOnCreate, -1, kRefScrollCtrl ), plRefFlags::kActiveRef );
+        mgr->ReadKeyNotifyMe(s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, kRefScrollCtrl), plRefFlags::kActiveRef);
     }
 }
 
-void    pfGUIMultiLineEditCtrl::Write( hsStream *s, hsResMgr *mgr )
+void    pfGUIMultiLineEditCtrl::Write(hsStream *s, hsResMgr *mgr)
 {
-    pfGUIControlMod::Write( s, mgr );
+    pfGUIControlMod::Write(s, mgr);
 
-    if( fScrollControl != nil )
+    if (fScrollControl != nil)
     {
-        s->WriteBool( true );
-        mgr->WriteKey( s, fScrollControl->GetKey() );
+        s->WriteBool(true);
+        mgr->WriteKey(s, fScrollControl->GetKey());
     }
     else
-        s->WriteBool( false );
+        s->WriteBool(false);
 }
 
 //// IPointToPosition ////////////////////////////////////////////////////////
 //  Translates a 2D point on the visible texture surface to a cursor position.
 
-int32_t   pfGUIMultiLineEditCtrl::IPointToPosition( int16_t ptX, int16_t ptY, bool searchOutsideBounds )
+int32_t   pfGUIMultiLineEditCtrl::IPointToPosition(int16_t ptX, int16_t ptY, bool searchOutsideBounds)
 {
     // Find our line
     int32_t   line, start, pos, end, lastVisibleLine;
@@ -688,33 +688,33 @@ int32_t   pfGUIMultiLineEditCtrl::IPointToPosition( int16_t ptX, int16_t ptY, bo
     if (fPrevCtrl)
         fScrollPos = GetFirstVisibleLine(); // update the scroll position if we are linked
 
-    if( searchOutsideBounds )
+    if (searchOutsideBounds)
         lastVisibleLine = fLineStarts.GetCount() - 1;
     else
     {
         lastVisibleLine = fScrollPos + ICalcNumVisibleLines() - 1;
-        if( lastVisibleLine > fLineStarts.GetCount() - 1 )
+        if (lastVisibleLine > fLineStarts.GetCount() - 1)
             lastVisibleLine = fLineStarts.GetCount() - 1;
     }
 
     line = searchOutsideBounds ? 0 : fScrollPos;
-    y = (int16_t)(-( fScrollPos - line ) * fLineHeight);
+    y = (int16_t)(-(fScrollPos - line) * fLineHeight);
     y += fTopMargin;
-    for( ; line < lastVisibleLine; line++, y += fLineHeight )
+    for (; line < lastVisibleLine; line++, y += fLineHeight)
     {
-        if( ptY >= y && ptY < y + fLineHeight )
+        if (ptY >= y && ptY < y + fLineHeight)
         {
             if (line < 0)
                 break; // abort, and yes, this IS possible with this crappy code
 
             // Found the line, figure out what character
-            start = fLineStarts[ line ];
-            end = ( line == fLineStarts.GetCount() - 1 ) ? fBuffer.GetCount() - 1 : fLineStarts[ line + 1 ];
+            start = fLineStarts[line];
+            end = (line == fLineStarts.GetCount() - 1) ? fBuffer.GetCount() - 1 : fLineStarts[line + 1];
 
-            for( pos = start; pos < end; pos++ )
+            for (pos = start; pos < end; pos++)
             {
-                x = (int16_t)IRenderLine( fLeftMargin, 0, start, pos, true );
-                if( x > ptX )
+                x = (int16_t)IRenderLine(fLeftMargin, 0, start, pos, true);
+                if (x > ptX)
                     break;
             }
 
@@ -730,27 +730,27 @@ int32_t   pfGUIMultiLineEditCtrl::IPointToPosition( int16_t ptX, int16_t ptY, bo
 //// IIsWordBreaker //////////////////////////////////////////////////////////
 //  Returns whether the given character is one that can break a line
 
-inline bool IIsWordBreaker( const wchar_t c )
+inline bool IIsWordBreaker(const wchar_t c)
 {
-    return ( wcschr( L" \t,.;\n", c ) != nil ) ? true : false;
+    return (wcschr(L" \t,.;\n", c) != nil) ? true : false;
 }
 
 //// IOffsetToNextChar ///////////////////////////////////////////////////////
 
-inline  int32_t   pfGUIMultiLineEditCtrl::IOffsetToNextChar( wchar_t stringChar )
+inline  int32_t   pfGUIMultiLineEditCtrl::IOffsetToNextChar(wchar_t stringChar)
 {
-    if( stringChar == fColorCodeChar )
+    if (stringChar == fColorCodeChar)
         return fColorCodeSize;
-    else if( stringChar == fStyleCodeChar )
+    else if (stringChar == fStyleCodeChar)
         return fStyleCodeSize;
     else
         return 1;
 }
 
-inline  int32_t   pfGUIMultiLineEditCtrl::IOffsetToNextCharFromPos( int32_t position ) const
+inline  int32_t   pfGUIMultiLineEditCtrl::IOffsetToNextCharFromPos(int32_t position) const
 {
-    if( position >= 0 )
-        return IOffsetToNextChar( fBuffer[ position ] );
+    if (position >= 0)
+        return IOffsetToNextChar(fBuffer[position]);
     else
         return 1;
 }
@@ -766,7 +766,7 @@ inline  int32_t   pfGUIMultiLineEditCtrl::IOffsetToNextCharFromPos( int32_t posi
 //  changed, so we assume as a hint that every line before the starting line
 //  is still valid. If startingLine = 0, we recalc 'em all.
 
-int32_t   pfGUIMultiLineEditCtrl::IRecalcLineStarts( int32_t startingLine, bool force, bool dontUpdate )
+int32_t   pfGUIMultiLineEditCtrl::IRecalcLineStarts(int32_t startingLine, bool force, bool dontUpdate)
 {
     uint16_t      wrapWidth, widthCounter;
     uint32_t      charPos = 0, nextPos, startPos, lastStartPos;
@@ -776,10 +776,10 @@ int32_t   pfGUIMultiLineEditCtrl::IRecalcLineStarts( int32_t startingLine, bool 
     const wchar_t   wordBreaks[] = L" \t,.";
     const wchar_t   wordSeparators[] = L" \t,.\n";
 
-    if( fPrevCtrl )
+    if (fPrevCtrl)
         IUpdateBuffer(); // make sure our buffer is correct if we are linked
     
-    if( fDynTextMap == nil )
+    if (fDynTextMap == nil)
     {
         // Can't calculate anything. Just return invalid
         fLineStarts.Reset();
@@ -788,12 +788,12 @@ int32_t   pfGUIMultiLineEditCtrl::IRecalcLineStarts( int32_t startingLine, bool 
     }
 
     // Figure out our starting character
-    if( startingLine > 0 )
+    if (startingLine > 0)
     {
-        if( startingLine >= fLineStarts.GetCount() )
+        if (startingLine >= fLineStarts.GetCount())
         {
             // Must be a problem, force full recalc
-            hsStatusMessage( "Invalid starting line in IRecalcLineStarts(), forcing full recalc" );
+            hsStatusMessage("Invalid starting line in IRecalcLineStarts(), forcing full recalc");
             currLine = 0;
             force = true;
         }
@@ -801,7 +801,7 @@ int32_t   pfGUIMultiLineEditCtrl::IRecalcLineStarts( int32_t startingLine, bool 
         {
             // Start 1 line before, since we assume that line start is still valid
             currLine = startingLine - 1;
-            charPos = fLineStarts[ currLine ];
+            charPos = fLineStarts[currLine];
         }
     }
     else
@@ -815,19 +815,19 @@ int32_t   pfGUIMultiLineEditCtrl::IRecalcLineStarts( int32_t startingLine, bool 
     firstLine = true;
     lastStartPos = (uint32_t)-1;
 
-    for( ; charPos < fBuffer.GetCount(); currLine++ )
+    for (; charPos < fBuffer.GetCount(); currLine++)
     {
         //// Store this line start
         startPos = charPos;
-        if( IStoreLineStart( currLine, startPos ) )
+        if (IStoreLineStart(currLine, startPos))
         {
-            if( currLine > startingLine )
+            if (currLine > startingLine)
             {
                 // We just stored a line that didn't change its starting position (first line doesn't count)
-                if( !force )
+                if (!force)
                     break;
             }
-            else if( currLine > realStartingLine )
+            else if (currLine > realStartingLine)
             {
                 // Line start didn't change, but we're at the start. See, we always go one line back in case
                 // something changed that would cause the line before to update. But if we're here, both the
@@ -843,41 +843,41 @@ int32_t   pfGUIMultiLineEditCtrl::IRecalcLineStarts( int32_t startingLine, bool 
         //// any "white space"), and then see if we can fit everything up to that point. If we can,
         //// keep walking, if not, stop at whatever we had as a starting point.
         nextPos = charPos;
-        for( widthCounter = 0; widthCounter < wrapWidth; )
+        for (widthCounter = 0; widthCounter < wrapWidth; )
         {
             charPos = nextPos;
 
             // Are we on a line break?
-            if( nextPos >= fBuffer.GetCount() || buffer[ nextPos ] == L'\n' || buffer[ nextPos ] == 0L )
+            if (nextPos >= fBuffer.GetCount() || buffer[nextPos] == L'\n' || buffer[nextPos] == 0L)
             {
                 charPos++;
                 break;  // Yup, so do so
             }
 
             // Find the end of this word
-            while( nextPos < fBuffer.GetCount() && !IIsWordBreaker( buffer[ nextPos ] ) )
-                nextPos += IOffsetToNextChar( buffer[ nextPos ] );
+            while (nextPos < fBuffer.GetCount() && !IIsWordBreaker(buffer[nextPos]))
+                nextPos += IOffsetToNextChar(buffer[nextPos]);
 
             // Now we're at some white space, keep going until we hit the next word
-            while( nextPos < fBuffer.GetCount() && IIsWordBreaker( buffer[ nextPos ] ) && buffer[ nextPos ] != L'\n' )
-                nextPos += IOffsetToNextChar( buffer[ nextPos ] );
+            while (nextPos < fBuffer.GetCount() && IIsWordBreaker(buffer[nextPos]) && buffer[nextPos] != L'\n')
+                nextPos += IOffsetToNextChar(buffer[nextPos]);
 
             // Now see how much width this is
-            widthCounter = (uint16_t)IRenderLine( fLeftMargin, 0, startPos, nextPos, true );
+            widthCounter = (uint16_t)IRenderLine(fLeftMargin, 0, startPos, nextPos, true);
             
             // Now we loop. If wrapWidth is too much, we'll break the loop with charPos pointing to the
             // end of our line. If not, charPos will advance to start the search again
         }
 
         // Check to see if the line was just too long to wrap at all
-        if( startPos == charPos )
+        if (startPos == charPos)
         {
             // OK, so just try again and break as soon as necessary. nextPos should be
             // already advanced too far, so start from there and go back
-            while( widthCounter >= wrapWidth && nextPos > startPos )
+            while (widthCounter >= wrapWidth && nextPos > startPos)
             {
-                nextPos -= IOffsetToNextChar( buffer[ nextPos - 1 ] );
-                widthCounter = (uint16_t)IRenderLine( fLeftMargin, 0, startPos, nextPos, true );
+                nextPos -= IOffsetToNextChar(buffer[nextPos - 1]);
+                widthCounter = (uint16_t)IRenderLine(fLeftMargin, 0, startPos, nextPos, true);
             }
 
             charPos = nextPos;
@@ -886,17 +886,17 @@ int32_t   pfGUIMultiLineEditCtrl::IRecalcLineStarts( int32_t startingLine, bool 
         // Continue on!
     }
 
-    if( charPos >= fBuffer.GetCount() )
+    if (charPos >= fBuffer.GetCount())
     {
         // Make sure there are no lines stored after this one
-        fLineStarts.SetCount( currLine );
+        fLineStarts.SetCount(currLine);
     }
 
     IUpdateScrollRange();
 
-    if( !dontUpdate )
+    if (!dontUpdate)
         // We just changed some of the line starts, so time to redraw
-        IUpdate( realStartingLine, currLine - 1 );
+        IUpdate(realStartingLine, currLine - 1);
 
     // we just updated the line starts, so set all following controls to the same set
     if (fNextCtrl)
@@ -908,35 +908,35 @@ int32_t   pfGUIMultiLineEditCtrl::IRecalcLineStarts( int32_t startingLine, bool 
 //// IStoreLineStart /////////////////////////////////////////////////////////
 //  Stores a single line start, expanding the array if necessary.
 
-bool    pfGUIMultiLineEditCtrl::IStoreLineStart( uint32_t line, int32_t start )
+bool    pfGUIMultiLineEditCtrl::IStoreLineStart(uint32_t line, int32_t start)
 {
-    if( fLineStarts.GetCount() <= line )
+    if (fLineStarts.GetCount() <= line)
     {
-        hsAssert( line == fLineStarts.GetCount(), "Trying to store a line way past the end of line starts!" );
-        fLineStarts.Expand( line + 1 );
-        fLineStarts.SetCount( line + 1 );
-        fLineStarts[ line ] = -1;
+        hsAssert(line == fLineStarts.GetCount(), "Trying to store a line way past the end of line starts!");
+        fLineStarts.Expand(line + 1);
+        fLineStarts.SetCount(line + 1);
+        fLineStarts[line] = -1;
     }
 
-    bool same = ( fLineStarts[ line ] == start ) ? true : false;
-    fLineStarts[ line ] = start;
+    bool same = (fLineStarts[line] == start) ? true : false;
+    fLineStarts[line] = start;
     return same;
 }
 
 //// IFindCursorLine /////////////////////////////////////////////////////////
 //  Calculates the line the cursor is sitting on
 
-int32_t   pfGUIMultiLineEditCtrl::IFindCursorLine( int32_t cursorPos ) const
+int32_t   pfGUIMultiLineEditCtrl::IFindCursorLine(int32_t cursorPos) const
 {
     int32_t   line;
 
 
-    if( cursorPos == -1 )
+    if (cursorPos == -1)
         cursorPos = fCursorPos;
 
-    for( line = 0; line < fLineStarts.GetCount() - 1; line++ )
+    for (line = 0; line < fLineStarts.GetCount() - 1; line++)
     {
-        if( fLineStarts[ line + 1 ] > cursorPos )
+        if (fLineStarts[line + 1] > cursorPos)
             break;
     }
     return line;
@@ -945,9 +945,9 @@ int32_t   pfGUIMultiLineEditCtrl::IFindCursorLine( int32_t cursorPos ) const
 //// IRecalcFromCursor ///////////////////////////////////////////////////////
 //  Recalcs starting with the line that the cursor is sitting on
 
-void    pfGUIMultiLineEditCtrl::IRecalcFromCursor( bool force )
+void    pfGUIMultiLineEditCtrl::IRecalcFromCursor(bool force)
 {
-    IRecalcLineStarts( IFindCursorLine(), force );
+    IRecalcLineStarts(IFindCursorLine(), force);
 }
 
 //// IOffsetLineStarts ///////////////////////////////////////////////////////
@@ -959,7 +959,7 @@ void    pfGUIMultiLineEditCtrl::IRecalcFromCursor( bool force )
 //  doing this, we are inserting into (and offseting inside) a selection,
 //  so we don't want the start moving around.
 
-void    pfGUIMultiLineEditCtrl::IOffsetLineStarts( uint32_t position, int32_t offset, bool offsetSelectionEnd )
+void    pfGUIMultiLineEditCtrl::IOffsetLineStarts(uint32_t position, int32_t offset, bool offsetSelectionEnd)
 {
     int32_t   line;
 
@@ -967,10 +967,10 @@ void    pfGUIMultiLineEditCtrl::IOffsetLineStarts( uint32_t position, int32_t of
     // If it will, we need to recalc the line starts entirely (which is fine,
     // since this function is just called to try to optimize out doing so, but
     // when you gotta, you gotta...)
-    line = IFindCursorLine( position );
-    if( line < fLineStarts.GetCount() - 1 )
+    line = IFindCursorLine(position);
+    if (line < fLineStarts.GetCount() - 1)
     {
-        if( fLineStarts[ line + 1 ] + offset <= fLineStarts[ line ] )
+        if (fLineStarts[line + 1] + offset <= fLineStarts[line])
         {
             // We want to force the line starts to recalc. Otherwise, IRecalc() will attempt
             // to stop once it detects a line start that hasn't changed. Which doesn't work
@@ -979,16 +979,16 @@ void    pfGUIMultiLineEditCtrl::IOffsetLineStarts( uint32_t position, int32_t of
             // the assumption IRecalc() makes is that all the lines *after* that must be OK too
             // b/c it just found the same line start, which in this case it didn't.
             // Just trust me.
-            IRecalcLineStarts( line, true );
+            IRecalcLineStarts(line, true);
             return;
         }
     }
 
     // Offset all lines past our given position
-    for( line = 0; line < fLineStarts.GetCount(); line++ )
+    for (line = 0; line < fLineStarts.GetCount(); line++)
     {
-        if( fLineStarts[ line ] > position )
-            fLineStarts[ line ] += offset;
+        if (fLineStarts[line] > position)
+            fLineStarts[line] += offset;
     }
 
     // now update all following controls
@@ -998,47 +998,47 @@ void    pfGUIMultiLineEditCtrl::IOffsetLineStarts( uint32_t position, int32_t of
 
 //// HandleMouseDown /////////////////////////////////////////////////////////
 
-void    pfGUIMultiLineEditCtrl::HandleMouseDown( hsPoint3 &mousePt, uint8_t modifiers )
+void    pfGUIMultiLineEditCtrl::HandleMouseDown(hsPoint3 &mousePt, uint8_t modifiers)
 {
-    if( fDynTextMap == nil || !fBounds.IsInside( &mousePt ) )
+    if (fDynTextMap == nil || !fBounds.IsInside(&mousePt))
         return;
 
-    IScreenToLocalPt( mousePt );
+    IScreenToLocalPt(mousePt);
     mousePt.fX *= fDynTextMap->GetVisibleWidth();
     mousePt.fY *= fDynTextMap->GetVisibleHeight();
 
-    IMoveCursorTo( IPointToPosition( (int16_t)(mousePt.fX), (int16_t)(mousePt.fY) ) );
+    IMoveCursorTo(IPointToPosition((int16_t)(mousePt.fX), (int16_t)(mousePt.fY)));
 }
 
 //// HandleMouseUp ///////////////////////////////////////////////////////////
 
-void    pfGUIMultiLineEditCtrl::HandleMouseUp( hsPoint3 &mousePt, uint8_t modifiers )
+void    pfGUIMultiLineEditCtrl::HandleMouseUp(hsPoint3 &mousePt, uint8_t modifiers)
 {
-    if( fDynTextMap == nil || !fBounds.IsInside( &mousePt ) )
+    if (fDynTextMap == nil || !fBounds.IsInside(&mousePt))
         return;
 
-    IScreenToLocalPt( mousePt );
+    IScreenToLocalPt(mousePt);
     mousePt.fX *= fDynTextMap->GetVisibleWidth();
     mousePt.fY *= fDynTextMap->GetVisibleHeight();
 
-    IMoveCursorTo( IPointToPosition( (int16_t)(mousePt.fX), (int16_t)(mousePt.fY) ) );
+    IMoveCursorTo(IPointToPosition((int16_t)(mousePt.fX), (int16_t)(mousePt.fY)));
 }
 
 //// HandleMouseDrag /////////////////////////////////////////////////////////
 
-void    pfGUIMultiLineEditCtrl::HandleMouseDrag( hsPoint3 &mousePt, uint8_t modifiers )
+void    pfGUIMultiLineEditCtrl::HandleMouseDrag(hsPoint3 &mousePt, uint8_t modifiers)
 {
-    if( fDynTextMap == nil || !fBounds.IsInside( &mousePt ) )
+    if (fDynTextMap == nil || !fBounds.IsInside(&mousePt))
         return;
 
-    IScreenToLocalPt( mousePt );
+    IScreenToLocalPt(mousePt);
     mousePt.fX *= fDynTextMap->GetVisibleWidth();
     mousePt.fY *= fDynTextMap->GetVisibleHeight();
 
-    IMoveCursorTo( IPointToPosition( (int16_t)(mousePt.fX), (int16_t)(mousePt.fY) ) );
+    IMoveCursorTo(IPointToPosition((int16_t)(mousePt.fX), (int16_t)(mousePt.fY)));
 }
 
-bool    pfGUIMultiLineEditCtrl::HandleKeyPress( wchar_t key, uint8_t modifiers )
+bool    pfGUIMultiLineEditCtrl::HandleKeyPress(wchar_t key, uint8_t modifiers)
 {
     if ((fPrevCtrl || fNextCtrl) && (fLineStarts.GetCount() <= GetFirstVisibleLine()))
         return true; // we're ignoring if we can't actually edit our visible frame (and we're linked)
@@ -1048,68 +1048,68 @@ bool    pfGUIMultiLineEditCtrl::HandleKeyPress( wchar_t key, uint8_t modifiers )
     fLastKeyPressed = key;
     
     // Send out a key pressed event.
-    HandleExtendedEvent( kKeyPressedEvent );
+    HandleExtendedEvent(kKeyPressedEvent);
 
     // We discard keys when locked only after we give our handler the key
-    if( IsLocked() )
+    if (IsLocked())
         return true;
 
     // Insert character at the current cursor position, then inc the cursor by one
     // Note: we always want selection mode off when we're typing
-    InsertChar( key );
+    InsertChar(key);
     return true;
 }
 
-bool    pfGUIMultiLineEditCtrl::HandleKeyEvent( pfGameGUIMgr::EventType event, plKeyDef key, uint8_t modifiers )
+bool    pfGUIMultiLineEditCtrl::HandleKeyEvent(pfGameGUIMgr::EventType event, plKeyDef key, uint8_t modifiers)
 {
-    if( key == KEY_CAPSLOCK )
+    if (key == KEY_CAPSLOCK)
         return false;
 
     if ((fPrevCtrl || fNextCtrl) && (fLineStarts.GetCount() <= GetFirstVisibleLine()))
         return true; // we're ignoring if we can't actually edit our visible frame (and we're linked)
 
-    if( event == pfGameGUIMgr::kKeyDown || event == pfGameGUIMgr::kKeyRepeat )
+    if (event == pfGameGUIMgr::kKeyDown || event == pfGameGUIMgr::kKeyRepeat)
     {
         // Use arrow keys to do our dirty work
-        if( key == KEY_UP )
-            IMoveCursor( kOneLineUp );
-        else if( key == KEY_DOWN )
-            IMoveCursor( kOneLineDown );
-        else if( key == KEY_HOME )
-            IMoveCursor( ( modifiers & pfGameGUIMgr::kCtrlDown ) ? kBufferStart : kLineStart );
-        else if( key == KEY_END )
-            IMoveCursor( ( modifiers & pfGameGUIMgr::kCtrlDown ) ? kBufferEnd : kLineEnd );
-        else if( key == KEY_PAGEUP )
-            IMoveCursor( kPageUp );
-        else if( key == KEY_PAGEDOWN )
-            IMoveCursor( kPageDown );
+        if (key == KEY_UP)
+            IMoveCursor(kOneLineUp);
+        else if (key == KEY_DOWN)
+            IMoveCursor(kOneLineDown);
+        else if (key == KEY_HOME)
+            IMoveCursor((modifiers & pfGameGUIMgr::kCtrlDown) ? kBufferStart : kLineStart);
+        else if (key == KEY_END)
+            IMoveCursor((modifiers & pfGameGUIMgr::kCtrlDown) ? kBufferEnd : kLineEnd);
+        else if (key == KEY_PAGEUP)
+            IMoveCursor(kPageUp);
+        else if (key == KEY_PAGEDOWN)
+            IMoveCursor(kPageDown);
         
-        else if( key == KEY_LEFT )
-            IMoveCursor( ( modifiers & pfGameGUIMgr::kCtrlDown ) ? kOneWordBack : kOneBack );
-        else if( key == KEY_RIGHT )
-            IMoveCursor( ( modifiers & pfGameGUIMgr::kCtrlDown ) ? kOneWordForward : kOneForward );
+        else if (key == KEY_LEFT)
+            IMoveCursor((modifiers & pfGameGUIMgr::kCtrlDown) ? kOneWordBack : kOneBack);
+        else if (key == KEY_RIGHT)
+            IMoveCursor((modifiers & pfGameGUIMgr::kCtrlDown) ? kOneWordForward : kOneForward);
 
-        else if( key == KEY_BACKSPACE )
+        else if (key == KEY_BACKSPACE)
         {
-            if( IsLocked() )
+            if (IsLocked())
                 return true;
 
-            if( fCursorPos > 0 )
+            if (fCursorPos > 0)
             {
                 IMoveCursor(kOneBack);
                 DeleteChar();
             }
         }
-        else if( key == KEY_DELETE )
+        else if (key == KEY_DELETE)
         {
-            if( IsLocked() )
+            if (IsLocked())
                 return true;
 
             DeleteChar();
         }
-        else if( key == KEY_ENTER )
+        else if (key == KEY_ENTER)
         {
-            if( IsLocked() )
+            if (IsLocked())
                 return true;
 
             InsertChar('\n');
@@ -1129,7 +1129,7 @@ bool    pfGUIMultiLineEditCtrl::HandleKeyEvent( pfGameGUIMgr::EventType event, p
                 InsertString(contents.to_wchar().data());
             }
         }
-        else if( key == KEY_ESCAPE )
+        else if (key == KEY_ESCAPE)
         {
 //          fEscapedFlag = true;
             DoSomething();      // Query WasEscaped() to see if it was escape vs enter
@@ -1147,16 +1147,16 @@ bool    pfGUIMultiLineEditCtrl::HandleKeyEvent( pfGameGUIMgr::EventType event, p
 //  should probably call IMoveCursorTo() unless you really know what you're
 //  doing and don't want the current selection updated.
 
-void    pfGUIMultiLineEditCtrl::ISetCursor( int32_t newPosition )
+void    pfGUIMultiLineEditCtrl::ISetCursor(int32_t newPosition)
 {
     fCursorPos = newPosition;
 
     int32_t newLine = IFindCursorLine();
 
     // Rescroll if necessary
-    if( fLastCursorLine != newLine )
+    if (fLastCursorLine != newLine)
     {
-        if( newLine < fScrollPos )
+        if (newLine < fScrollPos)
         {
             if (fPrevCtrl) // we are linked
             {
@@ -1166,14 +1166,14 @@ void    pfGUIMultiLineEditCtrl::ISetCursor( int32_t newPosition )
             else if (!fPrevCtrl && fNextCtrl) // we are linked, but there isn't anyone before us
                 IHitBeginningOfControlList(newPosition); // send an event to the person that wanted it
             else
-                SetScrollPosition( newLine );
+                SetScrollPosition(newLine);
         }
         else
         {
             // -2 here for a reason: 1 because we want the last fully visible line, not partially visible,
             // and 1 because we want the actual last visible line index, which is of course start + len - 1
-            int32_t delta = newLine - ( fScrollPos + ICalcNumVisibleLines() - 2 );
-            if( delta > 0 )
+            int32_t delta = newLine - (fScrollPos + ICalcNumVisibleLines() - 2);
+            if (delta > 0)
             {
                 if (fNextCtrl) // we are linked
                 {
@@ -1183,15 +1183,15 @@ void    pfGUIMultiLineEditCtrl::ISetCursor( int32_t newPosition )
                 else if (!fNextCtrl && fPrevCtrl) // we are linked, but there isn't anyone after us
                     IHitEndOfControlList(newPosition); // send an event to the person that wanted it
                 else
-                    SetScrollPosition( fScrollPos + delta );
+                    SetScrollPosition(fScrollPos + delta);
             }
         }
     }
 
-    if( fLastCursorLine < newLine )
-        IUpdate( fLastCursorLine, newLine );
+    if (fLastCursorLine < newLine)
+        IUpdate(fLastCursorLine, newLine);
     else
-        IUpdate( newLine, fLastCursorLine );
+        IUpdate(newLine, fLastCursorLine);
 
     fLastCursorLine = newLine;
 }
@@ -1199,20 +1199,20 @@ void    pfGUIMultiLineEditCtrl::ISetCursor( int32_t newPosition )
 //// IMoveCursor /////////////////////////////////////////////////////////////
 //  Moves the cursor in a relative direction.
 
-void    pfGUIMultiLineEditCtrl::IMoveCursor( pfGUIMultiLineEditCtrl::Direction dir )
+void    pfGUIMultiLineEditCtrl::IMoveCursor(pfGUIMultiLineEditCtrl::Direction dir)
 {
     int32_t   cursor = fCursorPos, line, offset, end;
 
 
-    switch( dir )
+    switch (dir)
     {
         case kLineStart:
-            while( cursor > 0 && fBuffer[ cursor - 1 ] != L'\n' )
+            while (cursor > 0 && fBuffer[cursor - 1] != L'\n')
                 cursor--;
             break;
 
         case kLineEnd:
-            while( cursor < fBuffer.GetCount() - 1 && fBuffer[ cursor ] != L'\n' )
+            while (cursor < fBuffer.GetCount() - 1 && fBuffer[cursor] != L'\n')
                 cursor++;
             break;
 
@@ -1225,36 +1225,36 @@ void    pfGUIMultiLineEditCtrl::IMoveCursor( pfGUIMultiLineEditCtrl::Direction d
             break;
 
         case kOneBack:
-            if( cursor > 0 )
+            if (cursor > 0)
             {
                 cursor--;
-                while( cursor > 0 && ( fBuffer[ cursor ] == fColorCodeChar || fBuffer[ cursor ] == fStyleCodeChar ) )
-                    cursor -= IOffsetToNextChar( fBuffer[ cursor ] );
+                while (cursor > 0 && (fBuffer[cursor] == fColorCodeChar || fBuffer[cursor] == fStyleCodeChar))
+                    cursor -= IOffsetToNextChar(fBuffer[cursor]);
             }
             break;
 
         case kOneForward:
-            if( cursor < fBuffer.GetCount() - 1 )
+            if (cursor < fBuffer.GetCount() - 1)
             {
                 cursor++;
-                while( cursor < fBuffer.GetCount() - 1 && ( fBuffer[ cursor ] == fColorCodeChar || fBuffer[ cursor ] == fStyleCodeChar ) )
-                    cursor += IOffsetToNextChar( fBuffer[ cursor ] );
+                while (cursor < fBuffer.GetCount() - 1 && (fBuffer[cursor] == fColorCodeChar || fBuffer[cursor] == fStyleCodeChar))
+                    cursor += IOffsetToNextChar(fBuffer[cursor]);
             }
             break;
 
         case kOneWordBack:
-            if( cursor > 0 )
+            if (cursor > 0)
             {
-                for( ; cursor > 0 && IIsWordBreaker( fBuffer[ cursor - 1 ] ); cursor-- );
-                for( ; cursor > 0 && !IIsWordBreaker( fBuffer[ cursor - 1 ] ); cursor-- );
+                for (; cursor > 0 && IIsWordBreaker(fBuffer[cursor - 1]); cursor--);
+                for (; cursor > 0 && !IIsWordBreaker(fBuffer[cursor - 1]); cursor--);
             }
             break;
 
         case kOneWordForward:
-            if( cursor < fBuffer.GetCount() - 1 )
+            if (cursor < fBuffer.GetCount() - 1)
             {
-                for( ; cursor < fBuffer.GetCount() - 1 && !IIsWordBreaker( fBuffer[ cursor ] ); cursor++ );
-                for( ; cursor < fBuffer.GetCount() - 1 && IIsWordBreaker( fBuffer[ cursor ] ); cursor++ );
+                for (; cursor < fBuffer.GetCount() - 1 && !IIsWordBreaker(fBuffer[cursor]); cursor++);
+                for (; cursor < fBuffer.GetCount() - 1 && IIsWordBreaker(fBuffer[cursor]); cursor++);
             }
             break;
 
@@ -1263,56 +1263,56 @@ void    pfGUIMultiLineEditCtrl::IMoveCursor( pfGUIMultiLineEditCtrl::Direction d
             // is the left side of the character we're on), we end up drifting left as we keep going up
             // or down. So to compensate, we put a little fudge factor in that lets us attempt to stay
             // "on course", as it were.
-            if( IFindCursorLine( cursor ) > 0 )
-                cursor = IPointToPosition( fCurrCursorX + ( fLineHeight >> 2 ), fCurrCursorY - fLineHeight, true );
+            if (IFindCursorLine(cursor) > 0)
+                cursor = IPointToPosition(fCurrCursorX + (fLineHeight >> 2), fCurrCursorY - fLineHeight, true);
             break;
 
         case kOneLineDown:
-            if( IFindCursorLine( cursor ) < fLineStarts.GetCount() - 1 )
-                cursor = IPointToPosition( fCurrCursorX + ( fLineHeight >> 2 ), fCurrCursorY + fLineHeight, true );
+            if (IFindCursorLine(cursor) < fLineStarts.GetCount() - 1)
+                cursor = IPointToPosition(fCurrCursorX + (fLineHeight >> 2), fCurrCursorY + fLineHeight, true);
             break;
 
         case kPageUp:
-            line = IFindCursorLine( cursor );
-            offset = cursor - fLineStarts[ line ];
+            line = IFindCursorLine(cursor);
+            offset = cursor - fLineStarts[line];
 
-            line -= ( ICalcNumVisibleLines() - 1 );
-            if( line < 0 )
+            line -= (ICalcNumVisibleLines() - 1);
+            if (line < 0)
                 line = 0;
 
-            end = ( line < fLineStarts.GetCount() - 1 ) ? fLineStarts[ line + 1 ] : fBuffer.GetCount() - 1;
-            if( fLineStarts[ line ] + offset > end )
-                offset = end - fLineStarts[ line ] - 1;
+            end = (line < fLineStarts.GetCount() - 1) ? fLineStarts[line + 1] : fBuffer.GetCount() - 1;
+            if (fLineStarts[line] + offset > end)
+                offset = end - fLineStarts[line] - 1;
 
-            cursor = fLineStarts[ line ] + offset;
+            cursor = fLineStarts[line] + offset;
             break;
 
         case kPageDown:
-            line = IFindCursorLine( cursor );
-            offset = cursor - fLineStarts[ line ];
+            line = IFindCursorLine(cursor);
+            offset = cursor - fLineStarts[line];
 
-            line += ( ICalcNumVisibleLines() - 1 );
-            if( line > fLineStarts.GetCount() - 1 )
+            line += (ICalcNumVisibleLines() - 1);
+            if (line > fLineStarts.GetCount() - 1)
                 line = fLineStarts.GetCount() - 1;
 
-            end = ( line < fLineStarts.GetCount() - 1 ) ? fLineStarts[ line + 1 ] : fBuffer.GetCount() - 1;
-            if( fLineStarts[ line ] + offset > end )
-                offset = end - fLineStarts[ line ] - 1;
+            end = (line < fLineStarts.GetCount() - 1) ? fLineStarts[line + 1] : fBuffer.GetCount() - 1;
+            if (fLineStarts[line] + offset > end)
+                offset = end - fLineStarts[line] - 1;
 
-            cursor = fLineStarts[ line ] + offset;
+            cursor = fLineStarts[line] + offset;
             break;
     }
 
-    IMoveCursorTo( cursor );
+    IMoveCursorTo(cursor);
 }
 
 //// IMoveCursorTo ///////////////////////////////////////////////////////////
 //  Moves the cursor to the given absolute position and updates the selection
 //  area accordingly and if necessary.
 
-void    pfGUIMultiLineEditCtrl::IMoveCursorTo( int32_t position )
+void    pfGUIMultiLineEditCtrl::IMoveCursorTo(int32_t position)
 {
-    ISetCursor( position );
+    ISetCursor(position);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -1324,28 +1324,28 @@ void    pfGUIMultiLineEditCtrl::IMoveCursorTo( int32_t position )
 //  the selection with the given character. Either way, at the end the cursor
 //  is after the inserted character.
 
-void    pfGUIMultiLineEditCtrl::InsertChar( char c )
+void    pfGUIMultiLineEditCtrl::InsertChar(char c)
 {
     InsertChar((wchar_t)c); // a simple cast should be fine
 }
 
-void    pfGUIMultiLineEditCtrl::InsertChar( wchar_t c )
+void    pfGUIMultiLineEditCtrl::InsertChar(wchar_t c)
 {
     // Error checking--make sure our actual character isn't in the range of our
     // code characters, or chaos could erupt
-    //if( c < 3 )
+    //if (c < 3)
     //return;
     if (c == 0)
         return;
 
-    if ( fBufferLimit == -1 || fBuffer.GetCount()+1 < fBufferLimit-1)
+    if (fBufferLimit == -1 || fBuffer.GetCount()+1 < fBufferLimit-1)
     {
-        fBuffer.Insert( fCursorPos, c );
+        fBuffer.Insert(fCursorPos, c);
 
         ISetGlobalBuffer(); // update the global buffer
 
-        IOffsetLineStarts( fCursorPos, 1 );
-        IMoveCursor( kOneForward );
+        IOffsetLineStarts(fCursorPos, 1);
+        IMoveCursor(kOneForward);
         IRecalcFromCursor();
     }
 }
@@ -1354,29 +1354,29 @@ void    pfGUIMultiLineEditCtrl::InsertChar( wchar_t c )
 //  Same as InsertChar, only with a null-terminated string of characters
 //  instead of just one.
 
-void    pfGUIMultiLineEditCtrl::InsertString( const char *string )
+void    pfGUIMultiLineEditCtrl::InsertString(const char *string)
 {
     wchar_t* temp = hsStringToWString(string);
     InsertString(temp);
     delete [] temp;
 }
 
-void    pfGUIMultiLineEditCtrl::InsertString( const wchar_t *string )
+void    pfGUIMultiLineEditCtrl::InsertString(const wchar_t *string)
 {
-    int numChars = wcslen( string );
+    int numChars = wcslen(string);
 
-    if ( fBufferLimit == -1 || fBuffer.GetCount() + numChars < fBufferLimit-1)
+    if (fBufferLimit == -1 || fBuffer.GetCount() + numChars < fBufferLimit-1)
     {
         // Don't freak out, the cast is OK here. Insert() wants an array of chars.
         // It should really take a const array, since it's just copying them,
         // but since it doesn't and we know it's just copying them, we cast and
         // be happy for now.
-        fBuffer.Insert( fCursorPos, numChars, (wchar_t *)string );
+        fBuffer.Insert(fCursorPos, numChars, (wchar_t *)string);
 
         ISetGlobalBuffer(); // update the global buffer
 
-        IOffsetLineStarts( fCursorPos, numChars );
-        IMoveCursorTo( fCursorPos + numChars );
+        IOffsetLineStarts(fCursorPos, numChars);
+        IMoveCursorTo(fCursorPos + numChars);
         IRecalcFromCursor();
     }
 }
@@ -1389,47 +1389,47 @@ void    pfGUIMultiLineEditCtrl::InsertString( const wchar_t *string )
 //  we're inserting a code that conflicts with any code contained in the
 //  selection, we remove the conflicting codes.
 
-void    pfGUIMultiLineEditCtrl::InsertColor( hsColorRGBA &color )
+void    pfGUIMultiLineEditCtrl::InsertColor(hsColorRGBA &color)
 {
-    IActuallyInsertColor( fCursorPos, color );
-    IOffsetLineStarts( fCursorPos, fColorCodeSize );
+    IActuallyInsertColor(fCursorPos, color);
+    IOffsetLineStarts(fCursorPos, fColorCodeSize);
     fCursorPos += fColorCodeSize;
-    IRecalcFromCursor( true );  // Force update of all following lines, since
+    IRecalcFromCursor(true);  // Force update of all following lines, since
                                 // insertion of this code changes appearance of following characters
 }
 
-void    pfGUIMultiLineEditCtrl::IActuallyInsertColor( int32_t pos, hsColorRGBA &color )
+void    pfGUIMultiLineEditCtrl::IActuallyInsertColor(int32_t pos, hsColorRGBA &color)
 {
-    if ( fBufferLimit == -1 || fBuffer.GetCount()+4 < fBufferLimit-1 )
+    if (fBufferLimit == -1 || fBuffer.GetCount()+4 < fBufferLimit-1)
     {
-        fBuffer.Insert( pos, fColorCodeChar );
-        fBuffer.Insert( pos + 1, (uint8_t)( color.r * 255.f ) );
-        fBuffer.Insert( pos + 2, (uint8_t)( color.g * 255.f ) );
-        fBuffer.Insert( pos + 3, (uint8_t)( color.b * 255.f ) );
-        fBuffer.Insert( pos + 4, fColorCodeChar );
+        fBuffer.Insert(pos, fColorCodeChar);
+        fBuffer.Insert(pos + 1, (uint8_t)(color.r * 255.f));
+        fBuffer.Insert(pos + 2, (uint8_t)(color.g * 255.f));
+        fBuffer.Insert(pos + 3, (uint8_t)(color.b * 255.f));
+        fBuffer.Insert(pos + 4, fColorCodeChar);
     }
 }
 
 //// InsertStyle /////////////////////////////////////////////////////////////
 //  Same thing as InsertColor(), only with a style code (or two).
 
-void    pfGUIMultiLineEditCtrl::InsertStyle( uint8_t fontStyle )
+void    pfGUIMultiLineEditCtrl::InsertStyle(uint8_t fontStyle)
 {
-    IActuallyInsertStyle( fCursorPos, fontStyle );
+    IActuallyInsertStyle(fCursorPos, fontStyle);
 
-    IOffsetLineStarts( fCursorPos, fStyleCodeSize );
+    IOffsetLineStarts(fCursorPos, fStyleCodeSize);
     fCursorPos += fStyleCodeSize;
-    IRecalcFromCursor( true );  // Force update of all following lines, since
+    IRecalcFromCursor(true);  // Force update of all following lines, since
                                 // insertion of this code changes appearance of following characters
 }
 
-void    pfGUIMultiLineEditCtrl::IActuallyInsertStyle( int32_t pos, uint8_t style )
+void    pfGUIMultiLineEditCtrl::IActuallyInsertStyle(int32_t pos, uint8_t style)
 {
-    if ( fBufferLimit == -1 || fBuffer.GetCount() + 3 < fBufferLimit-1 )
+    if (fBufferLimit == -1 || fBuffer.GetCount() + 3 < fBufferLimit-1)
     {
-        fBuffer.Insert( pos, fStyleCodeChar );
-        fBuffer.Insert( pos + 1, (wchar_t)style );
-        fBuffer.Insert( pos + 2, fStyleCodeChar );
+        fBuffer.Insert(pos, fStyleCodeChar);
+        fBuffer.Insert(pos + 1, (wchar_t)style);
+        fBuffer.Insert(pos + 2, fStyleCodeChar);
     }
 }
 
@@ -1440,16 +1440,16 @@ void    pfGUIMultiLineEditCtrl::IActuallyInsertStyle( int32_t pos, uint8_t style
 
 void    pfGUIMultiLineEditCtrl::DeleteChar()
 {
-    if( fCursorPos < fBuffer.GetCount() - 1 )
+    if (fCursorPos < fBuffer.GetCount() - 1)
     {
-        int32_t offset = IOffsetToNextChar( fBuffer[ fCursorPos ] );
-        bool forceUpdate = IIsCodeChar( fBuffer[ fCursorPos ] );
-        fBuffer.Remove( fCursorPos, offset );
+        int32_t offset = IOffsetToNextChar(fBuffer[fCursorPos]);
+        bool forceUpdate = IIsCodeChar(fBuffer[fCursorPos]);
+        fBuffer.Remove(fCursorPos, offset);
 
         ISetGlobalBuffer(); // update the global buffer
 
-        IOffsetLineStarts( fCursorPos, -offset );
-        IRecalcFromCursor( forceUpdate );
+        IOffsetLineStarts(fCursorPos, -offset);
+        IRecalcFromCursor(forceUpdate);
     }
 }
 
@@ -1457,29 +1457,29 @@ void    pfGUIMultiLineEditCtrl::DeleteChar()
 //  Generic coded-to-non-coded conversion. Returns a copy of the string that
 //  the caller must free.
 
-wchar_t *pfGUIMultiLineEditCtrl::ICopyRange( int32_t start, int32_t end ) const
+wchar_t *pfGUIMultiLineEditCtrl::ICopyRange(int32_t start, int32_t end) const
 {
     int32_t   stringSize, pos;
     wchar_t *string;
 
 
     // First loop, just count how much space we need
-    for( stringSize = 0, pos = start; pos < end; pos = pos + IOffsetToNextChar( fBuffer[ pos ] ) )
+    for (stringSize = 0, pos = start; pos < end; pos = pos + IOffsetToNextChar(fBuffer[pos]))
     {
-        if( !IIsCodeChar( fBuffer[ pos ] ) )
+        if (!IIsCodeChar(fBuffer[pos]))
             stringSize++;
     }
 
     // Our string...
-    string = new wchar_t[ stringSize + 1 ];
+    string = new wchar_t[stringSize + 1];
 
     // Now actually copy the characters
-    for( stringSize = 0, pos = start; pos < end; pos = pos + IOffsetToNextChar( fBuffer[ pos ] ) )
+    for (stringSize = 0, pos = start; pos < end; pos = pos + IOffsetToNextChar(fBuffer[pos]))
     {
-        if( !IIsCodeChar( fBuffer[ pos ] ) )
-            string[ stringSize++ ] = fBuffer[ pos ];
+        if (!IIsCodeChar(fBuffer[pos]))
+            string[stringSize++] = fBuffer[pos];
     }
-    string[ stringSize++ ] = 0;
+    string[stringSize++] = 0;
 
     // All done!
     return string;
@@ -1491,42 +1491,42 @@ wchar_t *pfGUIMultiLineEditCtrl::ICopyRange( int32_t start, int32_t end ) const
 void    pfGUIMultiLineEditCtrl::ClearBuffer()
 {
     fBuffer.Reset();
-    fBuffer.Append( 0 );
+    fBuffer.Append(0);
     fCursorPos = 0;
     fLastCursorLine = 0;
     fScrollPos = 0;
-    IRecalcLineStarts( 0, true );
+    IRecalcLineStarts(0, true);
 }
 
 //// SetBuffer ///////////////////////////////////////////////////////////////
 //  Replaces the entire contents of the buffer with the given text. Also
 //  clears the undo list.
 
-void    pfGUIMultiLineEditCtrl::SetBuffer( const char *asciiText )
+void    pfGUIMultiLineEditCtrl::SetBuffer(const char *asciiText)
 {
-    SetBuffer( (const uint8_t *)asciiText, (uint32_t)strlen( asciiText ) );
+    SetBuffer((const uint8_t *)asciiText, (uint32_t)strlen(asciiText));
 }
 
-void    pfGUIMultiLineEditCtrl::SetBuffer( const wchar_t *asciiText )
+void    pfGUIMultiLineEditCtrl::SetBuffer(const wchar_t *asciiText)
 {
-    SetBuffer( (const uint16_t *)asciiText, (uint32_t)wcslen( asciiText ) );
+    SetBuffer((const uint16_t *)asciiText, (uint32_t)wcslen(asciiText));
 }
 
 //// SetBuffer ///////////////////////////////////////////////////////////////
 //  The non-0-terminated-string version that can handle buffers with style
 //  codes in them.
 
-void    pfGUIMultiLineEditCtrl::SetBuffer( const uint8_t *codedText, uint32_t length )
+void    pfGUIMultiLineEditCtrl::SetBuffer(const uint8_t *codedText, uint32_t length)
 {
     // convert to uint16_t and set
-    uint16_t *convertedText = new uint16_t[ length ];
-    for( int32_t curChar = 0; curChar < length; curChar++ )
-        convertedText[ curChar ] = (uint16_t)codedText[ curChar ];
+    uint16_t *convertedText = new uint16_t[length];
+    for (int32_t curChar = 0; curChar < length; curChar++)
+        convertedText[curChar] = (uint16_t)codedText[curChar];
     SetBuffer(convertedText,length);
     delete [] convertedText;
 }
 
-void    pfGUIMultiLineEditCtrl::SetBuffer( const uint16_t *codedText, uint32_t length )
+void    pfGUIMultiLineEditCtrl::SetBuffer(const uint16_t *codedText, uint32_t length)
 {
     // recursively call back to the first control and set it
     if (fPrevCtrl)
@@ -1538,9 +1538,9 @@ void    pfGUIMultiLineEditCtrl::SetBuffer( const uint16_t *codedText, uint32_t l
     {
         fBuffer.Reset();
         // Why o why doesn't Insert() take a const array....
-        fBuffer.Insert( 0, length, (wchar_t *)codedText );
-        fBuffer.Append( 0 );
-        IRecalcLineStarts( 0, true ); // only the first control will recalc, this function recurses down to handle all following controls
+        fBuffer.Insert(0, length, (wchar_t *)codedText);
+        fBuffer.Append(0);
+        IRecalcLineStarts(0, true); // only the first control will recalc, this function recurses down to handle all following controls
     }
 
     fScrollPos = GetFirstVisibleLine();
@@ -1561,7 +1561,7 @@ char    *pfGUIMultiLineEditCtrl::GetNonCodedBuffer() const
     else
     {
         // -1 for the null terminator
-        wchar_t *buffer = ICopyRange( 0, fBuffer.GetCount() - 1 );
+        wchar_t *buffer = ICopyRange(0, fBuffer.GetCount() - 1);
         char *retVal = hsWStringToString(buffer);
         delete [] buffer;
 
@@ -1577,7 +1577,7 @@ wchar_t *pfGUIMultiLineEditCtrl::GetNonCodedBufferW() const
     else
     {
         // -1 for the null terminator
-        return ICopyRange( 0, fBuffer.GetCount() - 1 );
+        return ICopyRange(0, fBuffer.GetCount() - 1);
     }
 }
 
@@ -1585,7 +1585,7 @@ wchar_t *pfGUIMultiLineEditCtrl::GetNonCodedBufferW() const
 //  Basically does a blanket copy of the entire buffer and returns it and
 //  the length. The caller is responsible for freeing the buffer.
 
-uint8_t   *pfGUIMultiLineEditCtrl::GetCodedBuffer( uint32_t &length ) const
+uint8_t   *pfGUIMultiLineEditCtrl::GetCodedBuffer(uint32_t &length) const
 {
     // recursively search back to the first control in the linked list and grab its buffer
     if (fPrevCtrl)
@@ -1595,23 +1595,23 @@ uint8_t   *pfGUIMultiLineEditCtrl::GetCodedBuffer( uint32_t &length ) const
         length = fBuffer.GetCount() - 1;
 
         // convert to uint8_t and return
-        uint8_t *buffer = new uint8_t[ length ];
+        uint8_t *buffer = new uint8_t[length];
 
         for (int32_t curChar = 0; curChar < length; curChar++)
         {
-            if (fBuffer[ curChar ] > (wchar_t)0xFF)
+            if (fBuffer[curChar] > (wchar_t)0xFF)
             {
                 // char doesn't fit, fake it with a space
-                buffer[ curChar ] = (uint8_t)(L' ');
+                buffer[curChar] = (uint8_t)(L' ');
             }
             else
-                buffer[ curChar ] = (uint8_t)fBuffer[ curChar ];
+                buffer[curChar] = (uint8_t)fBuffer[curChar];
         }
         return buffer;
     }
 }
 
-uint16_t  *pfGUIMultiLineEditCtrl::GetCodedBufferW( uint32_t &length ) const
+uint16_t  *pfGUIMultiLineEditCtrl::GetCodedBufferW(uint32_t &length) const
 {
     // recursively search back to the first control in the linked list and grab its buffer
     if (fPrevCtrl)
@@ -1620,10 +1620,10 @@ uint16_t  *pfGUIMultiLineEditCtrl::GetCodedBufferW( uint32_t &length ) const
     {
         length = fBuffer.GetCount() - 1;
 
-        uint16_t *buffer = new uint16_t[ length ];
+        uint16_t *buffer = new uint16_t[length];
 
         // AcquireArray() isn't const...
-        memcpy( buffer, &fBuffer[ 0 ], length * sizeof(uint16_t) );
+        memcpy(buffer, &fBuffer[0], length * sizeof(uint16_t));
 
         return buffer;
     }
@@ -1638,12 +1638,12 @@ uint32_t  pfGUIMultiLineEditCtrl::GetBufferSize()
 //  Given a character position (i.e. a buffer position if we didn't have
 //  control codes), returns the actual buffer pos.
 
-int32_t   pfGUIMultiLineEditCtrl::ICharPosToBufferPos( int32_t charPos ) const
+int32_t   pfGUIMultiLineEditCtrl::ICharPosToBufferPos(int32_t charPos) const
 {
     int32_t   pos;
 
 
-    for( pos = 0; charPos > 0 && pos < fBuffer.GetCount() - 1; pos += IOffsetToNextCharFromPos( pos ), charPos-- );
+    for (pos = 0; charPos > 0 && pos < fBuffer.GetCount() - 1; pos += IOffsetToNextCharFromPos(pos), charPos--);
 
     return pos;
 }
@@ -1659,7 +1659,7 @@ void    pfGUIMultiLineEditCtrl::Lock()
 void    pfGUIMultiLineEditCtrl::Unlock()
 {
     fLockCount--;
-    //hsAssert( fLockCount >= 0, "Too many unlocks for pfGUIMultiLineEditCtrl" );
+    //hsAssert(fLockCount >= 0, "Too many unlocks for pfGUIMultiLineEditCtrl");
     if (fLockCount < 0)
         fLockCount = 0; // instead of asserting, hande it nicely
     IUpdate();
@@ -1667,7 +1667,7 @@ void    pfGUIMultiLineEditCtrl::Unlock()
 
 // linking functions, for linking multiple multi-line edit controls together
 
-void    pfGUIMultiLineEditCtrl::SetNext( pfGUIMultiLineEditCtrl *newNext )
+void    pfGUIMultiLineEditCtrl::SetNext(pfGUIMultiLineEditCtrl *newNext)
 {
     ClearNext(); // clear the existing link (if there is one)
     if (newNext)
@@ -1687,7 +1687,7 @@ void    pfGUIMultiLineEditCtrl::ClearNext()
     fNextCtrl = nil;
 }
 
-void    pfGUIMultiLineEditCtrl::SetPrev( pfGUIMultiLineEditCtrl *newPrev )
+void    pfGUIMultiLineEditCtrl::SetPrev(pfGUIMultiLineEditCtrl *newPrev)
 {
     ClearPrev(); // clear existing link
     if (newPrev)
@@ -1776,8 +1776,8 @@ void    pfGUIMultiLineEditCtrl::IUpdateBuffer()
         uint32_t length;
         uint16_t *codedText = GetCodedBufferW(length);
         fBuffer.Reset();
-        fBuffer.Insert( 0, length, (wchar_t *)codedText );
-        fBuffer.Append( 0 );
+        fBuffer.Insert(0, length, (wchar_t *)codedText);
+        fBuffer.Append(0);
         delete [] codedText;
     }
 }
@@ -1840,9 +1840,9 @@ void pfGUIMultiLineEditCtrl::SetFontFace(const ST::string &fontFace)
 {
     fFontFace = fontFace;
     fFontFlagsSet |= kFontFaceSet;
-    fDynTextMap->SetFont( fFontFace, fFontSize, fFontStyle,
-                            HasFlag( kXparentBgnd ) ? false : true );
-    fDynTextMap->CalcStringWidth( "The quick brown fox jumped over the lazy dog.", &fLineHeight );
+    fDynTextMap->SetFont(fFontFace, fFontSize, fFontStyle,
+                            HasFlag(kXparentBgnd) ? false : true);
+    fDynTextMap->CalcStringWidth("The quick brown fox jumped over the lazy dog.", &fLineHeight);
 }
 
 void pfGUIMultiLineEditCtrl::SetFontSize(uint8_t fontSize)
@@ -1850,9 +1850,9 @@ void pfGUIMultiLineEditCtrl::SetFontSize(uint8_t fontSize)
     fFontSize = fontSize;
     fFontFlagsSet |= kFontSizeSet;
     fCalcedFontSize = fontSize;
-    fDynTextMap->SetFont( fFontFace, fFontSize, fFontStyle,
-                            HasFlag( kXparentBgnd ) ? false : true );
-    fDynTextMap->CalcStringWidth( "The quick brown fox jumped over the lazy dog.", &fLineHeight );
+    fDynTextMap->SetFont(fFontFace, fFontSize, fFontStyle,
+                            HasFlag(kXparentBgnd) ? false : true);
+    fDynTextMap->CalcStringWidth("The quick brown fox jumped over the lazy dog.", &fLineHeight);
 }
 
 // are we showing the beginning of the buffer? (controls before us are too far up)

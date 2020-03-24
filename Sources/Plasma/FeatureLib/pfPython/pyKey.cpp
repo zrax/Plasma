@@ -86,9 +86,9 @@ bool pyKey::operator==(const pyKey &key) const
 {
     plKey ours = ((pyKey*)this)->getKey();
     plKey theirs = ((pyKey&)key).getKey();
-    if ( ours == nil && theirs == nil )
+    if (ours == nil && theirs == nil)
         return true;
-    else if ( ours != nil && theirs != nil )
+    else if (ours != nil && theirs != nil)
         return (ours->GetUoid()==theirs->GetUoid());
     else
         return false;
@@ -107,7 +107,7 @@ PyObject* pyKey::GetPySceneObject()
     plModifier* mod = plModifier::ConvertNoRef(theKey->ObjectIsLoaded());
     if (mod)
     {
-        if(mod->GetNumTargets()>0)
+        if (mod->GetNumTargets()>0)
         {
             return pySceneObject::New(mod->GetTarget(0)->GetKey());
         }
@@ -122,7 +122,7 @@ void pyKey::IEnable(bool state)
 {
     // create message
     plEnableMsg* pMsg = new plEnableMsg;
-    if (fNetForce )
+    if (fNetForce)
     {
         // set the network propagate flag to make sure it gets to the other clients
         pMsg->SetBCastFlag(plMessage::kNetPropagate);
@@ -130,11 +130,11 @@ void pyKey::IEnable(bool state)
     }
     pMsg->AddReceiver(fKey);
     // which way are we doin' it?
-    if ( state )
+    if (state)
         pMsg->SetCmd(plEnableMsg::kEnable);
     else
         pMsg->SetCmd(plEnableMsg::kDisable);
-    plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+    plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
 }
 
 
@@ -147,7 +147,7 @@ PyObject* pyKey::GetParentObject()
         plModifier* mod = plModifier::ConvertNoRef(fKey->ObjectIsLoaded());
         if (mod)
         {
-            if ( mod->GetNumTargets() > 0 )
+            if (mod->GetNumTargets() > 0)
                 return pyKey::New(mod->GetTarget(0)->GetKey());
         }
     }
@@ -161,7 +161,7 @@ PyObject* pyKey::GetParentObject()
 bool pyKey::WasLocalNotify()
 {
     // see if we have a PythonFileModifier pointer
-    if ( fPyFileMod )
+    if (fPyFileMod)
         return fPyFileMod->WasLocalNotify();
     // otherwise... just say it is local
     return true;
@@ -171,7 +171,7 @@ bool pyKey::WasLocalNotify()
 bool pyKey::IsAttachedToClone()
 {
     // see if we have a PythonFileModifier pointer
-    if ( fPyFileMod )
+    if (fPyFileMod)
         return fPyFileMod->AmIAttachedToClone();
     // otherwise return nope
     return false;
@@ -179,7 +179,7 @@ bool pyKey::IsAttachedToClone()
 
 plPipeline* pyKey::GetPipeline()
 {
-    if ( fPyFileMod )
+    if (fPyFileMod)
         return fPyFileMod->GetPipeline();
     return nil;
 }
@@ -188,7 +188,7 @@ plPipeline* pyKey::GetPipeline()
 int32_t pyKey::NotifyListCount()
 {
     // see if we have a PythonFileModifier pointer
-    if ( fPyFileMod )
+    if (fPyFileMod)
         return fPyFileMod->NotifyListCount();
     // otherwise... just say notify list receivers
     return 0;
@@ -198,7 +198,7 @@ int32_t pyKey::NotifyListCount()
 plKey pyKey::GetNotifyListItem(int32_t i)
 {
     // see if we have a PythonFileModifier pointer
-    if ( fPyFileMod )
+    if (fPyFileMod)
         return fPyFileMod->GetNotifyListItem(i);
     // otherwise... just say it is local
     return nil;
@@ -209,7 +209,7 @@ plKey pyKey::GetNotifyListItem(int32_t i)
 void pyKey::DirtySynchState(const ST::string& SDLStateName, uint32_t sendFlags)
 {
     // see if we have a PythonFileModifier pointer
-    if ( fPyFileMod )
+    if (fPyFileMod)
         fPyFileMod->DirtySynchState(SDLStateName, sendFlags);
 }
 
@@ -218,7 +218,7 @@ void pyKey::DirtySynchState(const ST::string& SDLStateName, uint32_t sendFlags)
 void pyKey::EnableControlKeyEvents()
 {
     // see if we have a PythonFileModifier pointer
-    if ( fPyFileMod )
+    if (fPyFileMod)
         // if so, then pass on the command request
         fPyFileMod->EnableControlKeyEvents();
 }
@@ -227,7 +227,7 @@ void pyKey::EnableControlKeyEvents()
 void pyKey::DisableControlKeyEvents()
 {
     // see if we have a PythonFileModifier pointer
-    if ( fPyFileMod )
+    if (fPyFileMod)
         // if so, then pass on the command request
         fPyFileMod->DisableControlKeyEvents();
 }

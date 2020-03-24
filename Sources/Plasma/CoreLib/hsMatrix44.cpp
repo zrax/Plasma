@@ -85,9 +85,9 @@ hsMatrix44::hsMatrix44(const hsScalarTriple &translate, const hsQuat &rotate)
     float zz = rotate.fZ * rotate.fZ;
     float zw = rotate.fZ * rotate.fW;
 
-    fMap[0][0] = 1 - 2 * ( yy + zz ); fMap[0][1] =     2 * ( xy - zw ); fMap[0][2] =     2 * ( xz + yw ); fMap[0][3] = translate.fX;
-    fMap[1][0] =     2 * ( xy + zw ); fMap[1][1] = 1 - 2 * ( xx + zz ); fMap[1][2] =     2 * ( yz - xw ); fMap[1][3] = translate.fY;
-    fMap[2][0] =     2 * ( xz - yw ); fMap[2][1] =     2 * ( yz + xw ); fMap[2][2] = 1 - 2 * ( xx + yy ); fMap[2][3] = translate.fZ;
+    fMap[0][0] = 1 - 2 * (yy + zz); fMap[0][1] =     2 * (xy - zw); fMap[0][2] =     2 * (xz + yw); fMap[0][3] = translate.fX;
+    fMap[1][0] =     2 * (xy + zw); fMap[1][1] = 1 - 2 * (xx + zz); fMap[1][2] =     2 * (yz - xw); fMap[1][3] = translate.fY;
+    fMap[2][0] =     2 * (xz - yw); fMap[2][1] =     2 * (yz + xw); fMap[2][2] = 1 - 2 * (xx + yy); fMap[2][3] = translate.fZ;
     fMap[3][0] = fMap[3][1] = fMap[3][2] = 0.0f;
     fMap[3][3] = 1.0f;
     NotIdentity();
@@ -103,15 +103,15 @@ static hsMatrix44 mat_mult_fpu(const hsMatrix44 &a, const hsMatrix44 &b)
 {
     hsMatrix44 c;
 
-    if( a.fFlags & b.fFlags & hsMatrix44::kIsIdent )
+    if (a.fFlags & b.fFlags & hsMatrix44::kIsIdent)
     {
         c.Reset();
         return c;
     }
 
-    if( a.fFlags & hsMatrix44::kIsIdent )
+    if (a.fFlags & hsMatrix44::kIsIdent)
         return b;
-    if( b.fFlags & hsMatrix44::kIsIdent )
+    if (b.fFlags & hsMatrix44::kIsIdent)
         return a;
 
     c.fMap[0][0] = (a.fMap[0][0] * b.fMap[0][0]) + (a.fMap[0][1] * b.fMap[1][0]) + (a.fMap[0][2] * b.fMap[2][0]) + (a.fMap[0][3] * b.fMap[3][0]);
@@ -154,15 +154,15 @@ static hsMatrix44 mat_mult_sse3(const hsMatrix44 &a, const hsMatrix44 &b)
 {
     hsMatrix44 c;
 #ifdef HS_SSE3
-    if( a.fFlags & b.fFlags & hsMatrix44::kIsIdent )
+    if (a.fFlags & b.fFlags & hsMatrix44::kIsIdent)
     {
         c.Reset();
         return c;
     }
 
-    if( a.fFlags & hsMatrix44::kIsIdent )
+    if (a.fFlags & hsMatrix44::kIsIdent)
         return b;
-    if( b.fFlags & hsMatrix44::kIsIdent )
+    if (b.fFlags & hsMatrix44::kIsIdent)
         return a;
 
     __m128 xmm[8];
@@ -220,7 +220,7 @@ hsPoint3 hsMatrix44::operator*(const hsPoint3& p) const
 
 hsVector3 hsMatrix44::operator*(const hsVector3& p) const
 {
-    if( fFlags & hsMatrix44::kIsIdent )
+    if (fFlags & hsMatrix44::kIsIdent)
         return p;
 
     hsVector3 rVal;
@@ -234,14 +234,14 @@ hsVector3 hsMatrix44::operator*(const hsVector3& p) const
 
 bool hsMatrix44::operator==(const hsMatrix44& ss) const
 {
-    if( ss.fFlags & fFlags & hsMatrix44::kIsIdent )
+    if (ss.fFlags & fFlags & hsMatrix44::kIsIdent)
     {
         return true;
     }
 
-    for(int i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++)
     {
-        for(int j = 0; j < 4; j++)
+        for (int j = 0; j < 4; j++)
         {
             if (ss.fMap[i][j] != fMap[i][j])
                 return false;
@@ -421,7 +421,7 @@ hsMatrix44& hsMatrix44::Make(const hsPoint3* f, const hsPoint3* at, const hsVect
 #endif
     topHead.Normalize();
 
-    for(int i = 0; i < 3; i++)
+    for (int i = 0; i < 3; i++)
     {
         fMap[i][0] = leftEar[i];
         fMap[i][1] = back[i];
@@ -451,7 +451,7 @@ hsMatrix44& hsMatrix44::MakeUpPreserving(const hsPoint3* f, const hsPoint3* at, 
     back = (topHead % leftEar);
     back.Normalize();
 
-    for(int i = 0; i < 3; i++)
+    for (int i = 0; i < 3; i++)
     {
         fMap[i][0] = leftEar[i];
         fMap[i][1] = back[i];
@@ -477,7 +477,7 @@ void    hsMatrix44::GetAxis(hsVector3* view, hsVector3 *up, hsVector3* right)
 const hsVector3 hsMatrix44::GetAxis(int i) const
 {
     hsVector3 ret;
-    switch(i)
+    switch (i)
     {
     case kView:
         {
@@ -506,7 +506,7 @@ hsMatrix44& hsMatrix44::MakeCamera(const hsPoint3* from, const hsPoint3* at,
                                                     const hsVector3* up)
 {
     hsVector3 dirZ(at, from);
-    hsVector3 trans( -from->fX, -from->fY, -from->fZ );
+    hsVector3 trans(-from->fX, -from->fY, -from->fZ);
     hsVector3 dirY, dirX;
     hsMatrix44 rmat;
     
@@ -523,7 +523,7 @@ hsMatrix44& hsMatrix44::MakeCamera(const hsPoint3* from, const hsPoint3* at,
     this->Reset();
     this->Translate(&trans);
     rmat.Reset();
-    for(int i = 0; i < 3; i++)
+    for (int i = 0; i < 3; i++)
     {
         rmat.fMap[0][i] = -dirX[i];
         rmat.fMap[1][i] = dirY[i];
@@ -547,7 +547,7 @@ void hsMatrix44::MakeCameraMatrices(const hsPoint3& from, const hsPoint3& at, co
     worldToCamera.Reset(false);
     cameraToWorld.Reset(false);
     int i;
-    for( i = 0; i < 3; i++ )
+    for (i = 0; i < 3; i++)
     {
         worldToCamera.fMap[0][i] = dirX[i];
         worldToCamera.fMap[1][i] = dirY[i];
@@ -602,8 +602,8 @@ hsMatrix44& hsMatrix44::MakeCameraUpPreserving(const hsPoint3* from, const hsPoi
                                                     const hsVector3* up)
 {
     hsVector3 dirZ(at, from);
-    hsVector3 trans( -from->fX, -from->fY, -from->fZ );
-    hsVector3 dirY( up->fX, up->fY, up->fZ );
+    hsVector3 trans(-from->fX, -from->fY, -from->fZ);
+    hsVector3 dirY(up->fX, up->fY, up->fZ);
     hsVector3 dirX;
     hsMatrix44 rmat;
     
@@ -617,7 +617,7 @@ hsMatrix44& hsMatrix44::MakeCameraUpPreserving(const hsPoint3* from, const hsPoi
     this->Reset();
     this->Translate(&trans);
     rmat.Reset();
-    for(int i = 0; i < 3; i++)
+    for (int i = 0; i < 3; i++)
     {
         rmat.fMap[0][i] = -dirX[i];
         rmat.fMap[1][i] = dirY[i];
@@ -632,8 +632,8 @@ hsMatrix44& hsMatrix44::MakeCameraUpPreserving(const hsPoint3* from, const hsPoi
 
 hsMatrix44* hsMatrix44::GetTranspose(hsMatrix44* transp) const
 {
-    for(int i = 0 ; i < 4; i++)
-        for(int j=0; j < 4; j++)
+    for (int i = 0 ; i < 4; i++)
+        for (int j=0; j < 4; j++)
             transp->fMap[i][j] = fMap[j][i];
     return transp;
 }
@@ -678,13 +678,13 @@ hsMatrix44 *hsMatrix44::GetAdjoint(hsMatrix44 *adj) const
  *     calculate the adjoint of a 4x4 matrix
  *
  *      Let  a   denote the minor determinant of matrix A obtained by
- *           ij
+ *            ij
  *
  *      deleting the ith row and jth column from A.
  *
  *                    i+j
  *     Let  b   = (-1)    a
- *          ij            ji
+ *           ij            ji
  *
  *    The matrix B = (b  ) is the adjoint of A
  *                     ij
@@ -808,10 +808,10 @@ const hsPoint3 hsMatrix44::GetTranslate() const
 
 hsPoint3*  hsMatrix44::MapPoints(long count, hsPoint3 points[]) const
 {
-    if( !(fFlags & hsMatrix44::kIsIdent) )
+    if (!(fFlags & hsMatrix44::kIsIdent))
     {
         int i;
-        for(i = 0; i < count; i++)
+        for (i = 0; i < count; i++)
         {
             points[i] = *this * points[i];
         }
@@ -823,12 +823,12 @@ bool hsMatrix44::IsIdentity()
 {
     bool retVal = true;
     int i, j;
-    for( i = 0; i < 4; i++ )
+    for (i = 0; i < 4; i++)
     {
-        for( j = 0; j < 4; j++ )
+        for (j = 0; j < 4; j++)
         {
 #if 0 // IDENTITY_CRISIS
-            if( i == j)
+            if (i == j)
             {
                 if (fMap[i][j] != 1.f)
                 {
@@ -838,7 +838,7 @@ bool hsMatrix44::IsIdentity()
             }
             else
             {
-                if( fMap[i][j] != 0 )
+                if (fMap[i][j] != 0)
                 {
                     NotIdentity();
                     retVal = false;
@@ -846,9 +846,9 @@ bool hsMatrix44::IsIdentity()
             }
 #else // IDENTITY_CRISIS
             const float kEPS = 1.e-5f;
-            if( i == j)
+            if (i == j)
             {
-                if( (fMap[i][j] < 1.f-kEPS) || (fMap[i][j] > 1.f+kEPS) )
+                if ((fMap[i][j] < 1.f-kEPS) || (fMap[i][j] > 1.f+kEPS))
                 {
                     NotIdentity();
                     retVal = false;
@@ -860,7 +860,7 @@ bool hsMatrix44::IsIdentity()
             }
             else
             {
-                if( (fMap[i][j] < -kEPS) || (fMap[i][j] > kEPS) )
+                if ((fMap[i][j] < -kEPS) || (fMap[i][j] > kEPS))
                 {
                     NotIdentity();
                     retVal = false;
@@ -873,14 +873,14 @@ bool hsMatrix44::IsIdentity()
 #endif // IDENTITY_CRISIS
         }
     }
-    if( retVal )
+    if (retVal)
         fFlags |= kIsIdent;
     return retVal;
 }
 
 bool hsMatrix44::GetParity() const
 {
-    if( fFlags & kIsIdent )
+    if (fFlags & kIsIdent)
         return false;
 
     hsVector3* rows[3];
@@ -897,8 +897,8 @@ void hsMatrix44::Read(hsStream *stream)
     if (stream->ReadBool())
     {
         int i,j;
-        for(i=0; i<4; i++)
-            for(j=0; j<4; j++)
+        for (i=0; i<4; i++)
+            for (j=0; j<4; j++)
                 fMap[i][j] = stream->ReadLEFloat();
         IsIdentity();
     }
@@ -913,8 +913,8 @@ void hsMatrix44::Write(hsStream *stream)
     if (!ident)
     {
         int i,j;
-        for(i=0; i<4; i++)
-            for(j=0; j<4; j++)
+        for (i=0; i<4; i++)
+            for (j=0; j<4; j++)
                 stream->WriteLEFloat(fMap[i][j]);
     }
 }

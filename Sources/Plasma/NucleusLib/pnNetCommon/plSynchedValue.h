@@ -87,7 +87,7 @@ protected:
         // is set to his address so we can automatically get at it during construction.
         fFlags=0;
         int32_t off = (int32_t)plSynchedObject::GetStaticSynchedObject() - (int32_t)this;
-        if ( abs(off) <  (1<<(sizeof(fSynchedObjectAddrOffset)<<3)) )
+        if (abs(off) <  (1<<(sizeof(fSynchedObjectAddrOffset)<<3)))
             fSynchedObjectAddrOffset = (int16_t)off;
         else
             fSynchedObjectAddrOffset=-1;
@@ -200,16 +200,16 @@ public:
     const T& operator=(const T& v){ return SetValue(v); }
 
 #if HS_BUILD_FOR_WIN32
-#pragma warning( push )
-#pragma warning( disable : 4284 )   // disable annoying warnings in release build for non pointer types
+#pragma warning(push)
+#pragma warning(disable : 4284)   // disable annoying warnings in release build for non pointer types
 #endif
     // for pointer types, which are allowed to change the object pointed to
     T operator->() { return fValue; }
 #if HS_BUILD_FOR_WIN32
-#pragma warning( pop )
+#pragma warning(pop)
 #endif
     // asignment, can use instead of setvalue
-    const T& operator=(const plSynchedValue<T>& pRHS )  { return SetValue(pRHS.GetValue()); }
+    const T& operator=(const plSynchedValue<T>& pRHS)  { return SetValue(pRHS.GetValue()); }
 
     // setters
     T&  SetValue(const T& v)    // return true if changed value
@@ -229,7 +229,7 @@ public:
     bool32 IsBitSet(uint32_t which) const { return fValue.IsBitSet(which); }
     bool32 SetBit(uint32_t which, bool32 on = true)
     {   bool32 bitSet = IsBitSet(which);
-        if ( (on && !bitSet) || (!on && bitSet) )
+        if ((on && !bitSet) || (!on && bitSet))
             DirtyIfNecessary();
         return fValue.SetBit(which, on);
     }
@@ -340,7 +340,7 @@ void plSynchedTArray<T>::ISaveOrLoad(bool32 save, hsStream* stream, hsResMgr* mg
         // write out size of array
         int32_t i, num = fValueList.GetCount();
         stream->WriteLE(num);
-        for(i=0;i<num;i++)
+        for (i=0;i<num;i++)
         {
             plSynchedValueBase::ISaveOrLoad(fValueList[i], save, stream, mgr);
         }
@@ -353,7 +353,7 @@ void plSynchedTArray<T>::ISaveOrLoad(bool32 save, hsStream* stream, hsResMgr* mg
         int32_t i, num;
         stream->ReadLE(&num);
 
-        for(i=0;i<num;i++)
+        for (i=0;i<num;i++)
         {
             T v;
             HSMemory::ClearMemory(&v, sizeof(v));

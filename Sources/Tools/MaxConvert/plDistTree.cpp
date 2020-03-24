@@ -85,24 +85,24 @@ BOOL plDistTree::IFadesClear(const Box3& fade0, const Box3& fade1) const
     // Either fade0 fades out before fade1 fades in, or v.v.
 
     // First case, does fade0 fade out?
-    if( fade0.Max()[2] > 0 )
+    if (fade0.Max()[2] > 0)
     {
         // does fade1 fade in?
-        if( fade1.Min()[2] < 0 )
+        if (fade1.Min()[2] < 0)
         {
             // Okay they do, does fade0 fade out before fade1 fades in?
-            if( fade0.Max()[0] <= fade1.Min()[0] )
+            if (fade0.Max()[0] <= fade1.Min()[0])
                 return true;
         }
     }
     // Second case, same thing but reversed order
-    if( fade1.Max()[2] > 0 )
+    if (fade1.Max()[2] > 0)
     {
         // does fade0 fade in?
-        if( fade0.Min()[2] < 0 )
+        if (fade0.Min()[2] < 0)
         {
             // Okay they do, does fade1 fade out before fade0 fades in?
-            if( fade1.Max()[0] <= fade0.Min()[0] )
+            if (fade1.Max()[0] <= fade0.Min()[0])
                 return true;
         }
     }
@@ -112,19 +112,19 @@ BOOL plDistTree::IFadesClear(const Box3& fade0, const Box3& fade1) const
 BOOL plDistTree::IBox0ContainsBox1(const Box3& box0, const Box3& box1, const Box3& fade0, const Box3& fade1) const
 {
 #ifdef MAX_CONTAINS_WORKS
-    if( !box0.Contains(box1) )
+    if (!box0.Contains(box1))
         return false;
 #else MAX_CONTAINS_WORKS
-    if( (box0.Min()[0] > box1.Min()[0])
+    if ((box0.Min()[0] > box1.Min()[0])
         ||(box0.Min()[1] > box1.Min()[1])
         ||(box0.Min()[2] > box1.Min()[2])
         ||(box0.Max()[0] < box1.Max()[0])
         ||(box0.Max()[1] < box1.Max()[1])
-        ||(box0.Max()[2] < box1.Max()[2]) )
+        ||(box0.Max()[2] < box1.Max()[2]))
         return false;
 #endif // MAX_CONTAINS_WORKS
 
-    if( IFadesClear(fade0, fade1) )
+    if (IFadesClear(fade0, fade1))
         return false;
 
     return true;
@@ -144,22 +144,22 @@ BOOL plDistTree::IBoxesClear(const Box3& box0, const Box3& box1) const
 
 BOOL plDistTree::IBoxClearRecur(int32_t iNode, const Box3& box, const Box3& fade) const
 {
-    if( iNode < 0 )
+    if (iNode < 0)
         return true;
 
-    if( IBoxesClear(fNodes[iNode].fBox, box) )
+    if (IBoxesClear(fNodes[iNode].fBox, box))
         return true;
 
-    if( IFadesClear(fNodes[iNode].fFade, fade) )
+    if (IFadesClear(fNodes[iNode].fFade, fade))
         return true;
 
-    if( fNodes[iNode].IsLeaf() )
+    if (fNodes[iNode].IsLeaf())
         return false;
 
     int i;
-    for( i = 0; i < 8; i++ )
+    for (i = 0; i < 8; i++)
     {
-        if( !IBoxClearRecur(fNodes[iNode].fChildren[i], box, fade) )
+        if (!IBoxClearRecur(fNodes[iNode].fChildren[i], box, fade))
             return false;
     }
     return true;
@@ -167,22 +167,22 @@ BOOL plDistTree::IBoxClearRecur(int32_t iNode, const Box3& box, const Box3& fade
 
 BOOL plDistTree::IPointClearRecur(int32_t iNode, const Point3& pt, const Box3& fade) const
 {
-    if( iNode < 0 )
+    if (iNode < 0)
         return true;
 
-    if( !fNodes[iNode].fBox.Contains(pt) )
+    if (!fNodes[iNode].fBox.Contains(pt))
         return true;
 
-    if( IFadesClear(fNodes[iNode].fFade, fade) )
+    if (IFadesClear(fNodes[iNode].fFade, fade))
         return true;
 
-    if( fNodes[iNode].IsLeaf() )
+    if (fNodes[iNode].IsLeaf())
         return false;
 
     int i;
-    for( i = 0; i < 8; i++ )
+    for (i = 0; i < 8; i++)
     {
-        if( !IPointClearRecur(fNodes[iNode].fChildren[i], pt, fade) )
+        if (!IPointClearRecur(fNodes[iNode].fChildren[i], pt, fade))
             return false;
     }
     return true;
@@ -192,7 +192,7 @@ BOOL plDistTree::IPointClearRecur(int32_t iNode, const Point3& pt, const Box3& f
 int32_t plDistTree::IAddNodeRecur(int32_t iNode, const Box3& box, const Box3& fade, uint32_t iData)
 {
     // if iNode < 0, make a node for box and return that.
-    if( iNode < 0 )
+    if (iNode < 0)
     {
         return INextNode(box, fade, iData);
     }
@@ -213,11 +213,11 @@ int32_t plDistTree::IAddNodeRecur(int32_t iNode, const Box3& box, const Box3& fa
 
 
 #if 0
-    if( IBox0ContainsBox1(fNodes[iNode].fBox, box, fNodes[iNode].fFade, fade) )
+    if (IBox0ContainsBox1(fNodes[iNode].fBox, box, fNodes[iNode].fFade, fade))
     {
-        if( !fNodes[iNode].IsLeaf() )
+        if (!fNodes[iNode].IsLeaf())
 #else
-    if( !fNodes[iNode].IsLeaf() && IBox0ContainsBox1(fNodes[iNode].fBox, box, fNodes[iNode].fFade, fade) )
+    if (!fNodes[iNode].IsLeaf() && IBox0ContainsBox1(fNodes[iNode].fBox, box, fNodes[iNode].fFade, fade))
     {
 #endif
         {
@@ -301,20 +301,20 @@ void plDistTree::HarvestBox(const Box3& box, Tab<int32_t>& out) const
 
 void plDistTree::IHarvestBoxRecur(int32_t iNode, const Box3& box, Tab<int32_t>& out) const
 {
-    if( iNode < 0 )
+    if (iNode < 0)
         return;
 
-    if( IBoxesClear(fNodes[iNode].fBox, box) )
+    if (IBoxesClear(fNodes[iNode].fBox, box))
         return;
 
-    if( fNodes[iNode].IsLeaf() )
+    if (fNodes[iNode].IsLeaf())
     {
         out.Append(1, &iNode);
     }
     else
     {
         int i;
-        for( i = 0; i < 8; i++ )
+        for (i = 0; i < 8; i++)
             IHarvestBoxRecur(fNodes[iNode].fChildren[i], box, out);
     }
 }

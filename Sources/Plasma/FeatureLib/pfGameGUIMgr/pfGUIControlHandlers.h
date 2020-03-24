@@ -88,15 +88,15 @@ class pfGUICtrlProcObject
         pfGUICtrlProcObject() { fRefCnt = 0; }
         virtual ~pfGUICtrlProcObject() { }
 
-        virtual void    DoSomething( pfGUIControlMod *ctrl ) = 0;
+        virtual void    DoSomething(pfGUIControlMod *ctrl) = 0;
 
-        virtual void    HandleExtendedEvent( pfGUIControlMod *ctrl, uint32_t event ) { }
+        virtual void    HandleExtendedEvent(pfGUIControlMod *ctrl, uint32_t event) { }
 
-        virtual void    UserCallback( uint32_t userValue ) { }
+        virtual void    UserCallback(uint32_t userValue) { }
 
         // ONLY THE GUI SYSTEM SHOULD CALL THESE
         void    IncRef() { fRefCnt++; }
-        bool    DecRef() { fRefCnt--; return ( fRefCnt > 0 ) ? false : true; }
+        bool    DecRef() { fRefCnt--; return (fRefCnt > 0) ? false : true; }
 };
 
 //// pfGUICtrlProcWriteableObject ////////////////////////////////////////////
@@ -112,8 +112,8 @@ class pfGUICtrlProcWriteableObject : public pfGUICtrlProcObject
 
         uint32_t          fType;
 
-        virtual void    IRead( hsStream *s ) = 0;
-        virtual void    IWrite( hsStream *s ) = 0;
+        virtual void    IRead(hsStream *s) = 0;
+        virtual void    IWrite(hsStream *s) = 0;
 
     public:
 
@@ -126,14 +126,14 @@ class pfGUICtrlProcWriteableObject : public pfGUICtrlProcObject
         };
 
         pfGUICtrlProcWriteableObject() { fType = kNull; }
-        pfGUICtrlProcWriteableObject( uint32_t type ) : fType( type ) { }
+        pfGUICtrlProcWriteableObject(uint32_t type) : fType(type) { }
         virtual ~pfGUICtrlProcWriteableObject() { }
 
-        virtual void    DoSomething( pfGUIControlMod *ctrl ) = 0;
+        virtual void    DoSomething(pfGUIControlMod *ctrl) = 0;
 
-        static void Write( pfGUICtrlProcWriteableObject *obj, hsStream *s );
+        static void Write(pfGUICtrlProcWriteableObject *obj, hsStream *s);
 
-        static pfGUICtrlProcWriteableObject *Read( hsStream *s );
+        static pfGUICtrlProcWriteableObject *Read(hsStream *s);
 };
 
 //// pfGUIConsoleCmdProc /////////////////////////////////////////////////////
@@ -145,18 +145,18 @@ class pfGUIConsoleCmdProc : public pfGUICtrlProcWriteableObject
 
         char            *fCommand;
 
-        virtual void    IRead( hsStream *s );
-        virtual void    IWrite( hsStream *s );
+        virtual void    IRead(hsStream *s);
+        virtual void    IWrite(hsStream *s);
     
     public:
 
         pfGUIConsoleCmdProc();
-        pfGUIConsoleCmdProc( const char *cmd );
+        pfGUIConsoleCmdProc(const char *cmd);
         virtual ~pfGUIConsoleCmdProc();
 
-        virtual void    DoSomething( pfGUIControlMod *ctrl );
+        virtual void    DoSomething(pfGUIControlMod *ctrl);
 
-        void            SetCommand( const char *cmd );
+        void            SetCommand(const char *cmd);
 };
 
 //// pfGUIPythonScriptProc ///////////////////////////////////////////////////
@@ -165,15 +165,15 @@ class pfGUIPythonScriptProc : public pfGUICtrlProcWriteableObject
 {
     protected:
 
-        virtual void    IRead( hsStream *s );
-        virtual void    IWrite( hsStream *s );
+        virtual void    IRead(hsStream *s);
+        virtual void    IWrite(hsStream *s);
     
     public:
 
         pfGUIPythonScriptProc();
         virtual ~pfGUIPythonScriptProc();
 
-        virtual void    DoSomething( pfGUIControlMod *ctrl );
+        virtual void    DoSomething(pfGUIControlMod *ctrl);
 };
 
 //// Simple Runtime Ones /////////////////////////////////////////////////////
@@ -182,15 +182,15 @@ class pfGUICloseDlgProc : public pfGUICtrlProcWriteableObject
 {
     protected:
 
-        virtual void    IRead( hsStream *s ) {}
-        virtual void    IWrite( hsStream *s ) {}
+        virtual void    IRead(hsStream *s) {}
+        virtual void    IWrite(hsStream *s) {}
 
     public:
 
-        pfGUICloseDlgProc() : pfGUICtrlProcWriteableObject( kCloseDlg ) {}
+        pfGUICloseDlgProc() : pfGUICtrlProcWriteableObject(kCloseDlg) {}
         virtual ~pfGUICloseDlgProc() {}
 
-        virtual void    DoSomething( pfGUIControlMod *ctrl );
+        virtual void    DoSomething(pfGUIControlMod *ctrl);
 };
 
 #endif // _pfGUIControlHandlers_h

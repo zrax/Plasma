@@ -146,10 +146,10 @@ plCoopCoordinator::plCoopCoordinator(plKey host, plKey guest,
 bool plCoopCoordinator::MsgReceive(plMessage *msg)
 {
     plNotifyMsg *notify = plNotifyMsg::ConvertNoRef(msg);
-    if(notify)
+    if (notify)
     {
         proMultiStageEventData * mtevt = static_cast<proMultiStageEventData *>(notify->FindEventRecord(proEventData::kMultiStage));
-        if(mtevt)
+        if (mtevt)
         {
             int stageNum = mtevt->fStage;
             uint32_t stageState = mtevt->fEvent;
@@ -160,14 +160,14 @@ bool plCoopCoordinator::MsgReceive(plMessage *msg)
 
             DebugMsg("COOP: Received multi-stage callback - stageNum = %d, stageState = %d, isFromHost = %d", stageNum, stageState, isFromHost ? 1 : 0);
 
-            if(isFromHost)
+            if (isFromHost)
             {
-                if(!fGuestAccepted)
+                if (!fGuestAccepted)
                 {
                     // we've just entered the host offer stage (i.e., the offer is ready)
-                    if(stageNum == fHostOfferStage && stageState == proEventData::kEnterStage)
+                    if (stageNum == fHostOfferStage && stageState == proEventData::kEnterStage)
                     {
-                        if(fAutoStartGuest)
+                        if (fAutoStartGuest)
                         {
                             IStartGuest();
                             IStartTimeout();
@@ -178,15 +178,15 @@ bool plCoopCoordinator::MsgReceive(plMessage *msg)
                     }
                 }
 
-            } else if(isFromGuest)
+            } else if (isFromGuest)
             {
-                if(stageNum == fGuestAcceptStage && stageState == proEventData::kEnterStage)
+                if (stageNum == fGuestAcceptStage && stageState == proEventData::kEnterStage)
                 {
                     plKey localPlayer = plNetClientApp::GetInstance()->GetLocalPlayerKey();
 
                     // we only actually fire off the guest accept message if we're on the guest machine.
                     // if it needs to be netpropped, the client can set that up when they set up the coop.
-                    if(fGuestAcceptMsg && localPlayer == fGuestKey)
+                    if (fGuestAcceptMsg && localPlayer == fGuestKey)
                     {
                         fGuestAcceptMsg->Send();
                     }
@@ -205,10 +205,10 @@ bool plCoopCoordinator::MsgReceive(plMessage *msg)
     }
 
     plAvCoopMsg *coop = plAvCoopMsg::ConvertNoRef(msg);
-    if(coop)
+    if (coop)
     {
         DebugMsg("COOP: Received coop message: %d", coop->fCommand);
-        switch(coop->fCommand)
+        switch (coop->fCommand)
         {
             case plAvCoopMsg::kGuestAccepted:
                 IStartGuest();
@@ -236,7 +236,7 @@ bool plCoopCoordinator::MsgReceive(plMessage *msg)
     if (seekDone)
     {
         DebugMsg("COOP: Received avatar seek finished msg: aborted = %d", seekDone->fAborted ? 1 : 0);
-        if ( seekDone->fAborted )
+        if (seekDone->fAborted)
         {
             plAvCoopMsg *coopM = new plAvCoopMsg(plAvCoopMsg::kGuestSeekAbort,fInitiatorID,(uint16_t)fInitiatorSerial);
             coopM->SetBCastFlag(plMessage::kNetPropagate);
@@ -318,14 +318,14 @@ void plCoopCoordinator::IStartGuest()
 {
     DebugMsg("COOP: IStartGuest()");
     plSceneObject *avSO = plSceneObject::ConvertNoRef(fHostKey->ObjectIsLoaded());
-    if ( !avSO )
+    if (!avSO)
         return;
 
     const plArmatureMod *hostAv = (plArmatureMod*)avSO->GetModifierByType(plArmatureMod::Index());
-    if ( hostAv )
+    if (hostAv)
     {
         const plSceneObject *targetBone = hostAv->FindBone(fSynchBone);
-        if(targetBone)
+        if (targetBone)
         {
             plAvSeekMsg *seekMsg = new plAvSeekMsg(GetKey(), fGuestKey, targetBone->GetKey(), 0, true, kAlignHandle, "", false, plAvSeekMsg::kSeekFlagNoWarpOnTimeout, GetKey());
             seekMsg->SetBCastFlag(plMessage::kPropagateToModifiers);
@@ -391,7 +391,7 @@ void plCoopCoordinator::Read(hsStream *stream, hsResMgr *mgr)
     fHostOfferStage = stream->ReadByte();
     fGuestAcceptStage = stream->ReadBool();
 
-    if(stream->ReadBool())
+    if (stream->ReadBool())
         fGuestAcceptMsg = plMessage::ConvertNoRef(mgr->ReadCreatable(stream));
     else
         fGuestAcceptMsg = nil;
@@ -417,7 +417,7 @@ void plCoopCoordinator::Write(hsStream *stream, hsResMgr *mgr)
     stream->WriteByte((uint8_t)fGuestAcceptStage);
 
     stream->WriteBool(fGuestAcceptMsg != nil);
-    if(fGuestAcceptMsg)
+    if (fGuestAcceptMsg)
         mgr->WriteCreatable(stream, fGuestAcceptMsg);
 
     stream->WriteSafeString(fSynchBone);

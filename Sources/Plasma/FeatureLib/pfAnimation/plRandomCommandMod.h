@@ -100,8 +100,8 @@ public:
     plRandomCommandMod();
     ~plRandomCommandMod();
 
-    CLASSNAME_REGISTER( plRandomCommandMod );
-    GETINTERFACE_ANY( plRandomCommandMod, plSingleModifier );
+    CLASSNAME_REGISTER(plRandomCommandMod);
+    GETINTERFACE_ANY(plRandomCommandMod, plSingleModifier);
 
     virtual bool MsgReceive(plMessage* pMsg);
     

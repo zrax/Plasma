@@ -81,8 +81,8 @@ public:
     static char kStrAppearanceDescName[];
     static char kStrLinkInAnim[];
     
-    CLASSNAME_REGISTER( plClothingSDLModifier );
-    GETINTERFACE_ANY( plClothingSDLModifier, plSDLModifier);
+    CLASSNAME_REGISTER(plClothingSDLModifier);
+    GETINTERFACE_ANY(plClothingSDLModifier, plSDLModifier);
     
     plClothingSDLModifier();
     

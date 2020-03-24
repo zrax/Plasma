@@ -56,7 +56,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 plBMSampler::plBMSampler(plPlasmaMAXLayer *layer, Bitmap *bm) : fBM(bm), fInitialized(false)
 {
     // Get our parameters
-    if( fBM && layer && layer->GetSamplerInfo( &fData ) )
+    if (fBM && layer && layer->GetSamplerInfo(&fData))
     {
         u1 = fData.fClipU + fData.fClipW;
         v1 = fData.fClipV + fData.fClipH;
@@ -130,7 +130,7 @@ AColor plBMSampler::Sample(ShadeContext& sc, float u,float v)
         y = (int)(fv*fbmh+0.5f);
     }
     fBM->GetLinearPixels(x,y,1,&c);
-    switch(fData.fAlphaSource)
+    switch (fData.fAlphaSource)
     {
     case plBMSamplerData::kDiscard:
         c.a = 0xffff;
@@ -181,7 +181,7 @@ AColor plBMSampler::SampleFilter(ShadeContext& sc, float u,float v, float du, fl
             if (va<0.0f) { va=0.0f; clip = 1; }
             if (vb>1.0f) { vb=1.0f; clip = 1; }
             fBM->GetFiltered(fu,fv,du,dv,&c);
-            switch(fData.fAlphaSource)
+            switch (fData.fAlphaSource)
             {
             case plBMSamplerData::kDiscard:
                 c.a = 0xffff;

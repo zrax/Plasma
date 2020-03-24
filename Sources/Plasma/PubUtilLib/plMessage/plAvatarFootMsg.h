@@ -67,8 +67,8 @@ public:
         SetBCastFlag(plMessage::kBCastByExactType);
     }
 
-    CLASSNAME_REGISTER( plAvatarFootMsg );
-    GETINTERFACE_ANY( plAvatarFootMsg, plEventCallbackMsg );
+    CLASSNAME_REGISTER(plAvatarFootMsg);
+    GETINTERFACE_ANY(plAvatarFootMsg, plEventCallbackMsg);
 
     virtual void Read(hsStream *stream, hsResMgr *mgr)
     {

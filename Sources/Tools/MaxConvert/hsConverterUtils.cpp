@@ -165,7 +165,7 @@ void hsConverterUtils::StripOffTail(char* path)
     hsGuardBegin("hsConverterUtils::StripOffTail");
 
     int i = strlen(path)-1;
-    while(path[i] != '\\')
+    while (path[i] != '\\')
         i--;
     path[i+1] = 0;
 
@@ -179,7 +179,7 @@ void hsConverterUtils::StripOffPath(char* fileName)
     char tmp[256];
     // Remove preceding path
     int i = strlen(fileName)-1;
-    while(fileName[i] != '\\')
+    while (fileName[i] != '\\')
         i--;
     strcpy(tmp, fileName+i+1);
     strcpy(fileName, tmp);
@@ -204,7 +204,7 @@ bool hsConverterUtils::IsReservedKeyword(const char* nodeName)
         || !_stricmp(nodeName, "themonitor")
         || !_stricmp(nodeName, "the_monitor")
         || !_stricmp(nodeName, "thedetectorshape")
-        || !_stricmp(nodeName, "the_detector_shape")) );
+        || !_stricmp(nodeName, "the_detector_shape")));
 
     hsGuardEnd;
 }
@@ -214,7 +214,7 @@ char *hsConverterUtils::MangleReference(char *mangName, const char *nodeName, co
     hsGuardBegin("hsConverterUtils::MangleReference");
 
     //hsAssert(nodeName, "No node name in hsConverterUtils::MangleReference.");
-    if(!nodeName)
+    if (!nodeName)
     {
         fErrorMsg->Set(true, "Mangle Reference Error", "No node name in hsConverterUtils::MangleReference.").Show();
         fErrorMsg->Set();
@@ -292,7 +292,7 @@ char *hsConverterUtils::MangleRefWithRoom(char *mangName, const char *nodeName, 
     hsGuardBegin("hsConverterUtils::MangleRefWithRoom");
 
     //hsAssert(nodeName && roomName, "No node or room name in hsConverterUtils::MangleRefWithRoom.");
-    if(!(nodeName && roomName))
+    if (!(nodeName && roomName))
     {
         fErrorMsg->Set(true, "Mangle Room Reference Error", "No node or room name in hsConverterUtils::MangleRefWithRoom.").Show();
         fErrorMsg->Set();
@@ -321,17 +321,17 @@ INode* hsConverterUtils::FindINodeFromMangledName(const char* mangName)
 {
     hsGuardBegin("hsConverterUtils::FindINodeFromMangledName");
 
-    if( !(mangName && *mangName) )
+    if (!(mangName && *mangName))
         return nil;
 
     const char* nodeName = mangName;
 
     char* p;
-    while( p = strstr((char*)nodeName, "..") )
+    while (p = strstr((char*)nodeName, ".."))
     {
         nodeName = p + 2;
     }
-    if( !(nodeName && *nodeName) )
+    if (!(nodeName && *nodeName))
         nodeName = mangName;
 
     return GetINodeByName(nodeName);
@@ -343,15 +343,15 @@ INode* hsConverterUtils::FindINodeFromKeyedObject(hsKeyedObject* obj)
     hsGuardBegin("hsConverterUtils::FindINodeFromKeyedObject");
 
     INode* retVal = FindINodeFromMangledName(obj->GetKeyName().c_str());
-    if( retVal )
+    if (retVal)
         return (retVal);
 
 /*  No more other Keys plasma 2.0
     int i;
-    for( i = 0; i < obj->GetNumOtherKeys(); i++ )
+    for (i = 0; i < obj->GetNumOtherKeys(); i++)
     {
         retVal = FindINodeFromMangledName(obj->GetOtherKey(i)->GetName());
-        if( retVal )
+        if (retVal)
             return retVal;
     }
 */
@@ -468,7 +468,7 @@ INode* hsConverterUtils::IGetINodeByNameRecur(INode* node, const char* wantName)
     // Process children
     int num = node->NumberOfChildren();
     int i;
-    for(i=0; i<num; i++)
+    for (i=0; i<num; i++)
     {
         INode* ret;
         if ((ret=IGetINodeByNameRecur(node->GetChildNode(i), wantName)))
@@ -500,7 +500,7 @@ INode* hsConverterUtils::GetINodeByName(const char* name, bool caseSensitive)
     }
 
     //hsAssert(fInterface, "nil fInterface in hsConverterUtils::GetINodeByName()");
-    if(!fInterface)
+    if (!fInterface)
     {
         fErrorMsg->Set(true, "Get INode by Name Error", "nil fInterface in hsConverterUtils::GetINodeByName()").Show();
         fErrorMsg->Set();
@@ -545,7 +545,7 @@ void hsConverterUtils::IBuildNodeSearchCacheRecur(INode* node)
     // Process children
     int num = node->NumberOfChildren();
     int i;
-    for(i=0; i<num; i++)
+    for (i=0; i<num; i++)
     {
         IBuildNodeSearchCacheRecur(node->GetChildNode(i));
     }
@@ -557,7 +557,7 @@ uint32_t hsConverterUtils::CacheNode::GetHash() const
     int len = k ? strlen(k) : 0;
 
     int h;
-    for (h=len; len--;)
+    for (h=len; len--; )
     {
         h = ((h<<5)^(h>>27))^tolower(*k++);
     }

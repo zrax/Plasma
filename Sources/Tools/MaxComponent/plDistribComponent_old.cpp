@@ -106,7 +106,7 @@ private:
     void ISetupScaleLock(IParamMap2* map, BOOL onInit=false)
     {
         IParamBlock2 *pb = map->GetParamBlock();
-        if( pb->GetInt(plDistribComponent_old::kLockScaleXYZ) )
+        if (pb->GetInt(plDistribComponent_old::kLockScaleXYZ))
         {
             map->Enable(plDistribComponent_old::kLockScaleXY, FALSE);
 
@@ -116,7 +116,7 @@ private:
             map->Enable(plDistribComponent_old::kScaleLoZ, FALSE);
             map->Enable(plDistribComponent_old::kScaleHiZ, FALSE);
         }
-        else if( pb->GetInt(plDistribComponent_old::kLockScaleXY) )
+        else if (pb->GetInt(plDistribComponent_old::kLockScaleXY))
         {
             map->Enable(plDistribComponent_old::kLockScaleXY, TRUE);
 
@@ -136,10 +136,10 @@ private:
             map->Enable(plDistribComponent_old::kScaleLoZ, TRUE);
             map->Enable(plDistribComponent_old::kScaleHiZ, TRUE);
         }
-        if( onInit )
+        if (onInit)
         {
-            map->SetTooltip(plDistribComponent_old::kLockScaleXY, TRUE, "Lock scale in X and Y" );
-            map->SetTooltip(plDistribComponent_old::kLockScaleXYZ, TRUE, "Lock scale in X, Y and Z (uniform scale)" );
+            map->SetTooltip(plDistribComponent_old::kLockScaleXY, TRUE, "Lock scale in X and Y");
+            map->SetTooltip(plDistribComponent_old::kLockScaleXYZ, TRUE, "Lock scale in X, Y and Z (uniform scale)");
         }
     }
 public:
@@ -152,7 +152,7 @@ public:
         case WM_INITDIALOG:
             cbox = GetDlgItem(hWnd, IDC_COMP_DISTRIB_PROBCOLORCHAN);
             int i;
-            for( i = 0; i < kNumColorChanOptions; i++ )
+            for (i = 0; i < kNumColorChanOptions; i++)
             {
                 SendMessage(cbox, CB_ADDSTRING, 0, (LPARAM)kProbColorChanStrings[i].fString);
             }
@@ -162,14 +162,14 @@ public:
 
             return TRUE;
         case WM_COMMAND:
-            if( (HIWORD(wParam) == BN_CLICKED) && (LOWORD(wParam) == IDC_DISTRIB_CLEAR) )
+            if ((HIWORD(wParam) == BN_CLICKED) && (LOWORD(wParam) == IDC_DISTRIB_CLEAR))
             {
                 plDistribComponent_old* dc = (plDistribComponent_old*)map->GetParamBlock()->GetOwner();
                 dc->Clear();
 
                 return TRUE;
             }
-            switch( LOWORD(wParam) )
+            switch (LOWORD(wParam))
             {
                 case IDC_COMP_DISTRIB_PROBCOLORCHAN:
                 {
@@ -190,7 +190,7 @@ public:
                 {
                     plDistribComponent_old* dc = (plDistribComponent_old*)map->GetParamBlock()->GetOwner();
                     Box3 fade;
-                    if( !dc->IValidateFade(fade) )
+                    if (!dc->IValidateFade(fade))
                     {
                         map->GetParamBlock()->SetValue(plDistribComponent_old::kFadeInTran, t, fade.Min()[0]);
                         map->GetParamBlock()->SetValue(plDistribComponent_old::kFadeInOpaq, t, fade.Min()[1]);
@@ -214,7 +214,7 @@ public:
                     IParamBlock2 *pb = map->GetParamBlock();
 
                     float maxRndPosRad = pb->GetFloat(plDistribComponent_old::kSpacing) * 0.5f;
-                    if( pb->GetFloat(plDistribComponent_old::kRndPosRadius) > maxRndPosRad )
+                    if (pb->GetFloat(plDistribComponent_old::kRndPosRadius) > maxRndPosRad)
                     {
                         pb->SetValue(plDistribComponent_old::kRndPosRadius, t, maxRndPosRad);
                         map->Invalidate(plDistribComponent_old::kRndPosRadius);
@@ -249,7 +249,7 @@ class plDistribCompAccessor_old : public PBAccessor
 public:
     void Set(PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t)
     {
-        if( id == plDistribComponent_old::kTemplates )
+        if (id == plDistribComponent_old::kTemplates)
         {
             plDistribComponent_old* comp = (plDistribComponent_old*)owner;
             comp->NotifyDependents(FOREVER, PART_ALL, REFMSG_USER_COMP_REF_CHANGED);
@@ -546,10 +546,10 @@ bool plDistribComponent_old::SetupProperties(plMaxNode *node, plErrorMsg *pErrMs
 {
     int numReps = fCompPB->Count(kTemplates);
     int i;
-    for( i = 0; i < numReps; i++ )
+    for (i = 0; i < numReps; i++)
     {
         plMaxNodeBase* temp = (plMaxNodeBase*)fCompPB->GetINode(kTemplates, TimeValue(0), i);
-        if( temp )
+        if (temp)
             temp->SetCanConvert(false);
     }
 
@@ -592,9 +592,9 @@ BOOL plDistribComponent_old::Distribute(plDistribInstTab& replicants, plExportPr
     Point3 scaleHi(fCompPB->GetFloat(kScaleHiX), fCompPB->GetFloat(kScaleHiY), fCompPB->GetFloat(kScaleHiZ));
     distrib.SetScaleRange(scaleLo, scaleHi);
     ULONG scaleLock = plDistributor::kLockNone;
-    if( fCompPB->GetInt(kLockScaleXYZ) )
+    if (fCompPB->GetInt(kLockScaleXYZ))
         scaleLock = plDistributor::kLockX | plDistributor::kLockY | plDistributor::kLockZ;
-    else if( fCompPB->GetInt(kLockScaleXY) )
+    else if (fCompPB->GetInt(kLockScaleXY))
         scaleLock = plDistributor::kLockX | plDistributor::kLockY;
     distrib.SetScaleLock(scaleLock);
 
@@ -613,14 +613,14 @@ BOOL plDistribComponent_old::Distribute(plDistribInstTab& replicants, plExportPr
     distrib.SetProbabilityRemapToLo(fCompPB->GetFloat(kRemapToLo));
     distrib.SetProbabilityRemapToHi(fCompPB->GetFloat(kRemapToHi));
 
-    if( !fCompPB->GetInt(kSeedLocked) )
+    if (!fCompPB->GetInt(kSeedLocked))
         fCompPB->SetValue(kSeed, TimeValue(0), fCompPB->GetInt(kNextSeed));
 
     distrib.SetRandSeed(fCompPB->GetInt(kSeed));
 
     distrib.SetFade(GetFade());
 
-    if( fCompPB->GetInt(kWindBoneActive) )
+    if (fCompPB->GetInt(kWindBoneActive))
         distrib.SetBone(fCompPB->GetINode(kWindBone));
 
     distrib.SetRigid(!IsFlexible());
@@ -631,19 +631,19 @@ BOOL plDistribComponent_old::Distribute(plDistribInstTab& replicants, plExportPr
 
     int numReps = fCompPB->Count(kTemplates);
     int i;
-    for( i = 0; i < numReps; i++ )
+    for (i = 0; i < numReps; i++)
     {
         INode* temp = fCompPB->GetINode(kTemplates, TimeValue(0), i);
-        if( temp )
+        if (temp)
             distrib.AddReplicateNode(temp);
     }
 
     int numTarg = NumTargets();
-    for( i = 0; i < numTarg; i++ )
+    for (i = 0; i < numTarg; i++)
     {
-        if( GetTarget(i) )
+        if (GetTarget(i))
         {
-            if( !distrib.Distribute(GetTarget(i), replicants, fDistCache, bar) )
+            if (!distrib.Distribute(GetTarget(i), replicants, fDistCache, bar))
             {
                 retVal = false;
                 break;
@@ -665,7 +665,7 @@ BOOL plDistribComponent_old::Distribute(plDistribInstTab& replicants, plExportPr
 void plDistribComponent_old::Done()
 {
     int i;
-    for( i = 0; i < fDistCache.Count(); i++ )
+    for (i = 0; i < fDistCache.Count(); i++)
     {
         delete fDistCache[i].fMesh;
     }
@@ -676,12 +676,12 @@ BOOL plDistribComponent_old::IsFlexible() const
 {
     int numReps = fCompPB->Count(kTemplates);
     int i;
-    for( i = 0; i < numReps; i++ )
+    for (i = 0; i < numReps; i++)
     {
         plMaxNode* temp = (plMaxNode*)fCompPB->GetINode(kTemplates, TimeValue(0), i);
-        if( temp )
+        if (temp)
         {
-            if( temp->GetFlexibility()[0] > 0 )
+            if (temp->GetFlexibility()[0] > 0)
                 return true;
         }
     }
@@ -693,12 +693,12 @@ void plDistribComponent_old::ISetProbTexmap(plDistributor& distrib)
     distrib.SetProbabilityBitmapTex(nil);
 
     Texmap* tex = fCompPB->GetTexmap(kProbTexmap);
-    if( tex )
+    if (tex)
     {
         BitmapTex* bmt = GetIBitmapTextInterface(tex);
-        if( bmt )
+        if (bmt)
             distrib.SetProbabilityBitmapTex(bmt);
-        else if( tex->ClassID() == LAYER_TEX_CLASS_ID )
+        else if (tex->ClassID() == LAYER_TEX_CLASS_ID)
             distrib.SetProbabilityLayerTex((plLayerTex*)tex);
     }
 }
@@ -723,10 +723,10 @@ void plDistribComponent_old::Clear()
     // First, clear out any we've already done.
     int numReps = fCompPB->Count(kReplicants);
     int i;
-    for( i = 0; i < numReps; i++ )
+    for (i = 0; i < numReps; i++)
     {
         INode* rep = fCompPB->GetINode(kReplicants, TimeValue(0), i);
-        if( rep )
+        if (rep)
             rep->Delete(TimeValue(0), true);
     }
     fCompPB->ZeroCount(kReplicants);
@@ -737,7 +737,7 @@ void plDistribComponent_old::Clear()
 
 void plDistribComponent_old::Preview()
 {
-    if( !NumTargets() )
+    if (!NumTargets())
         return;
 
     GetCOREInterface()->DisableSceneRedraw();
@@ -760,14 +760,14 @@ void plDistribComponent_old::Preview()
 
 INode* plDistribComponent_old::IMakeOne(plDistribInstTab& nodes)
 {
-    if( !nodes.Count() )
+    if (!nodes.Count())
         return nil;
 
     int iStartNode = 0;
 
     NameMaker *nn = GetCOREInterface()->NewNameMaker();
 
-    while( iStartNode < nodes.Count() )
+    while (iStartNode < nodes.Count())
     {
         TriObject* triObj = CreateNewTriObject();
         Mesh* outMesh = &triObj->mesh;
@@ -782,7 +782,7 @@ INode* plDistribComponent_old::IMakeOne(plDistribInstTab& nodes)
         MeshDelta meshDelta(*outMesh);
 
         int i;
-        for( i = iStartNode; i < nodes.Count(); i++ )
+        for (i = iStartNode; i < nodes.Count(); i++)
         {
             Mesh* nextMesh = nodes[i].fMesh;
 
@@ -793,7 +793,7 @@ INode* plDistribComponent_old::IMakeOne(plDistribInstTab& nodes)
             meshDelta.Apply(*outMesh);
 
             const int kFaceCutoff = 1000;
-            if( outMesh->getNumFaces() > kFaceCutoff )
+            if (outMesh->getNumFaces() > kFaceCutoff)
                 break;
         }
         iStartNode = i;
@@ -820,12 +820,12 @@ INode* plDistribComponent_old::IMakeOne(plDistribInstTab& nodes)
 Box3 plDistribComponent_old::GetFade()
 {
     Point3 pmin;
-    if( fCompPB->GetInt(kFadeInActive) )
+    if (fCompPB->GetInt(kFadeInActive))
     {
         pmin.Set(fCompPB->GetFloat(kFadeInTran), fCompPB->GetFloat(kFadeInOpaq), 0);
-        if( pmin[0] == pmin[1] )
+        if (pmin[0] == pmin[1])
             pmin[2] = 0;
-        else if( pmin[0] < pmin[1] )
+        else if (pmin[0] < pmin[1])
             pmin[2] = -1.f;
         else
             pmin[2] = 1.f;
@@ -837,9 +837,9 @@ Box3 plDistribComponent_old::GetFade()
 
     Point3 pmax;
     pmax.Set(fCompPB->GetFloat(kFadeOutTran), fCompPB->GetFloat(kFadeOutOpaq), 0);
-    if( pmax[0] == pmax[1] )
+    if (pmax[0] == pmax[1])
         pmax[2] = 0;
-    else if( pmax[0] < pmax[1] )
+    else if (pmax[0] < pmax[1])
         pmax[2] = -1.f;
     else
         pmax[2] = 1.f;
@@ -852,31 +852,31 @@ BOOL plDistribComponent_old::IValidateFade(Box3& fade)
     BOOL retVal = true;
     fade = GetFade();
 
-    if( fCompPB->GetInt(kFadeInActive) )
+    if (fCompPB->GetInt(kFadeInActive))
     {
-        if( fade.Max()[0] < fade.Max()[1] )
+        if (fade.Max()[0] < fade.Max()[1])
         {
-            if( fade.Min()[0] > fade.Max()[0] )
+            if (fade.Min()[0] > fade.Max()[0])
             {
                 fade.pmin[0] = fade.Max()[0];
                 retVal = false;
             }
 
-            if( fade.Min()[1] > fade.Min()[0] )
+            if (fade.Min()[1] > fade.Min()[0])
             {
                 fade.pmin[1] = fade.Min()[0];
                 retVal = false;
             }
         }
-        else if( fade.Max()[0] > fade.Max()[1] )
+        else if (fade.Max()[0] > fade.Max()[1])
         {
-            if( fade.Min()[1] > fade.Max()[1] )
+            if (fade.Min()[1] > fade.Max()[1])
             {
                 fade.pmin[1] = fade.Max()[1];
                 retVal = false;
             }
 
-            if( fade.Min()[0] > fade.Min()[1] )
+            if (fade.Min()[0] > fade.Min()[1])
             {
                 fade.pmin[0] = fade.Min()[1];
                 retVal = false;

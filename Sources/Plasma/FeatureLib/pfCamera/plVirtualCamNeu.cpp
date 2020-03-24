@@ -125,7 +125,7 @@ bool plVirtualCam1::IsCurrentCamera(const plCameraModifier1* mod)
     if (plVirtualCam1::Instance())
     {
         if (plVirtualCam1::Instance()->InTransition())
-            return(plVirtualCam1::Instance()->GetTransitionCamera() == mod);
+            return (plVirtualCam1::Instance()->GetTransitionCamera() == mod);
         
         return (plVirtualCam1::Instance()->GetCurrentCamera() == mod);
     }
@@ -161,7 +161,7 @@ plVirtualCam1::plVirtualCam1()
     fRetainedFY = 0.5f;
     // create built-in drive mode camera
     fCameraDriveInterface = plDebugInputInterface::GetInstance();
-    hsRefCnt_SafeRef( fCameraDriveInterface );
+    hsRefCnt_SafeRef(fCameraDriveInterface);
 
     fDriveCamera = new plCameraModifier1;
     plCameraBrain1* pDriveBrain = new plCameraBrain1_Drive(fDriveCamera);
@@ -183,7 +183,7 @@ plVirtualCam1::plVirtualCam1()
     foutLog = nil;
 #ifndef PLASMA_EXTERNAL_RELEASE
     // only open log file if logging is on
-    if ( !plStatusLog::fLoggingOff )
+    if (!plStatusLog::fLoggingOff)
         foutLog = plFileSystem::Open(plFileName::Join(plFileSystem::GetLogPath(), "camLog.txt"), "wt");
 #endif
 
@@ -192,16 +192,16 @@ plVirtualCam1::plVirtualCam1()
 
 plVirtualCam1::~plVirtualCam1()
 {
-    if(fTransitionCamera->GetBrain())
+    if (fTransitionCamera->GetBrain())
     {
         delete(fTransitionCamera->GetBrain());
     }
     fTransitionCamera->UnRegisterAs(kTransitionCamera_KEY);
     delete(fDriveCamera->GetBrain());
     delete(fDriveCamera);
-    hsRefCnt_SafeUnRef( fCameraDriveInterface );
+    hsRefCnt_SafeUnRef(fCameraDriveInterface);
 
-    if(fThirdPersonCam)
+    if (fThirdPersonCam)
     {
         delete(fThirdPersonCam->GetBrain());
         fThirdPersonCam->UnRegisterAs(kBuiltIn3rdPersonCamera_KEY);
@@ -344,7 +344,7 @@ void plVirtualCam1::Drive()
 {
     if (GetCurrentCamera() == fDriveCamera)
     {
-        fCameraDriveInterface->SetEnabled( false );
+        fCameraDriveInterface->SetEnabled(false);
         PopCamera(fDriveCamera);
 
         #ifdef STATUS_LOG
@@ -362,7 +362,7 @@ void plVirtualCam1::Drive()
         PushCamera(fDriveCamera);
     
         // push the interface on
-        fCameraDriveInterface->SetEnabled( true );
+        fCameraDriveInterface->SetEnabled(true);
 
         #ifdef STATUS_LOG
         camLog->AddLine("Camera Drive Mode Enabled");
@@ -433,9 +433,9 @@ plCameraModifier1* plVirtualCam1::GetCurrentCamera()
     if (fPythonOverride)
         return (fPythonOverride);
     if (fFirstPersonOverride)
-        return(fFirstPersonOverride);
+        return (fFirstPersonOverride);
     if (fTransPos == POS_TRANS_FOLLOW)
-        return(fTransitionCamera);
+        return (fTransitionCamera);
     if (fCameraStack.size())
         return fCameraStack.back();
     return nil;
@@ -469,19 +469,19 @@ void plVirtualCam1::ICreatePlate()
     fEffectPlate = nil;
 
     // +0.01 to deal with the half-pixel antialiasing stuff
-    plPlateManager::Instance().CreatePlate( &fEffectPlate, 0, 0, 2.01, 2.01 );
+    plPlateManager::Instance().CreatePlate(&fEffectPlate, 0, 0, 2.01, 2.01);
 
     // hack for now--create a black layer that we will animate the opacity on
-    plMipmap *ourMip = fEffectPlate->CreateMaterial( 16, 16, true );
-    for( y = 0; y < ourMip->GetHeight(); y++ )
+    plMipmap *ourMip = fEffectPlate->CreateMaterial(16, 16, true);
+    for (y = 0; y < ourMip->GetHeight(); y++)
     {
-        uint32_t  *pixels = ourMip->GetAddr32( 0, y );
-        for( x = 0; x < ourMip->GetWidth(); x++ )
-            pixels[ x ] = 0xff000000;
+        uint32_t  *pixels = ourMip->GetAddr32(0, y);
+        for (x = 0; x < ourMip->GetWidth(); x++)
+            pixels[x] = 0xff000000;
     }
-    if( fEffectPlate == nil )
+    if (fEffectPlate == nil)
         ICreatePlate();
-    fEffectPlate->SetVisible( false );
+    fEffectPlate->SetVisible(false);
 }
 
 
@@ -520,7 +520,7 @@ void plVirtualCam1::SetRender(bool render)
 // hack, hack, hack
 bool plVirtualCam1::RestoreFromName(const ST::string& name)
 {
-    for(plSOVec::iterator it = fCamerasLoaded.begin(); it != fCamerasLoaded.end(); ++it)
+    for (plSOVec::iterator it = fCamerasLoaded.begin(); it != fCamerasLoaded.end(); ++it)
     {
         plKey cam = (*it)->GetKey();
         if (name.compare(cam->GetName(), ST::case_insensitive) == 0)
@@ -574,7 +574,7 @@ void plVirtualCam1::StartInterpPanLimits()
     if (pBrain)
     {
         if (pBrain->GetXPanLimit() == fXPanLimit &&
-            pBrain->GetZPanLimit() == fZPanLimit )
+            pBrain->GetZPanLimit() == fZPanLimit)
         {
             ClearFlags(kInterpPanLimits);
             return;
@@ -598,13 +598,13 @@ void plVirtualCam1::InterpPanLimits()
     fXPanLimit += fXPanInterpRate * hsTimer::GetDelSysSeconds();
     fZPanLimit += fZPanInterpRate * hsTimer::GetDelSysSeconds();
     if ((fZPanInterpRate > 0 && fZPanLimit >= fZPanLimitGoal) ||
-        (fZPanInterpRate < 0 && fZPanLimit <= fZPanLimitGoal) )
+        (fZPanInterpRate < 0 && fZPanLimit <= fZPanLimitGoal))
     {
         fZPanLimit = fZPanLimitGoal;
         fZPanInterpRate = 0;
     }
     if ((fXPanInterpRate > 0 && fXPanLimit >= fXPanLimitGoal) ||
-        (fXPanInterpRate < 0 && fXPanLimit <= fXPanLimitGoal) )
+        (fXPanInterpRate < 0 && fXPanLimit <= fXPanLimitGoal))
     {
         fXPanLimit = fXPanLimitGoal;
         fXPanInterpRate = 0;
@@ -715,13 +715,13 @@ void plVirtualCam1::AdjustForInput()
     if (fFirstPersonOverride)
         scaledX = 3.14159;
     else
-        scaledX = (float)(3.14159 - (fXPanLimit * ( (fX - 0.5f) / 0.5f)));
+        scaledX = (float)(3.14159 - (fXPanLimit * ((fX - 0.5f) / 0.5f)));
 
     float scaledZ;
     if (fFirstPersonOverride)
-        scaledZ = (float)(3.14159 - (0.872f * ( (fY - 0.5f) / 0.5f)));
+        scaledZ = (float)(3.14159 - (0.872f * ((fY - 0.5f) / 0.5f)));
     else
-        scaledZ = (float)(3.14159 - (fZPanLimit * ( (fY - 0.5f) / 0.5f)));
+        scaledZ = (float)(3.14159 - (fZPanLimit * ((fY - 0.5f) / 0.5f)));
 
     hsMatrix44 mX;
     hsMatrix44 mZ;
@@ -775,15 +775,15 @@ void plVirtualCam1::IUpdate()
         plCameraModifier1* cam = *i;
         if ((cam == GetCurrentStackCamera()) && fTransPos != POS_TRANS_OFF)
             update = false;
-        if(update)
+        if (update)
         {
             // eek...
-            if(alwaysCutForColin && cam->GetBrain())
+            if (alwaysCutForColin && cam->GetBrain())
             {
                 cam->GetBrain()->SetFlags(plCameraBrain1::kCutPos);
                 cam->GetBrain()->SetFlags(plCameraBrain1::kCutPOA);
             }
-            if(fForceCutOnce)
+            if (fForceCutOnce)
             {
                 cam->GetBrain()->SetFlags(plCameraBrain1::kCutPosOnce);
                 cam->GetBrain()->SetFlags(plCameraBrain1::kCutPOAOnce);
@@ -791,7 +791,7 @@ void plVirtualCam1::IUpdate()
             cam->Update();
         }
     }
-    if(fForceCutOnce)fForceCutOnce=false;
+    if (fForceCutOnce) fForceCutOnce=false;
     
     Output();
 }
@@ -844,7 +844,7 @@ void plVirtualCam1::Output()
     fOutputUp = up;
     targetMatrix.MakeCamera(&fOutputPos,&fOutputPOA, &up);
     targetMatrix.GetInverse(&inverse);
-    fPipe->SetWorldToCamera( targetMatrix, inverse );
+    fPipe->SetWorldToCamera(targetMatrix, inverse);
     if (HasFlags(kSetFOV)) // are we changing the field of view?
         SetOutputFOV();
 /*  if (foutLog)
@@ -1011,7 +1011,7 @@ bool plVirtualCam1::MsgReceive(plMessage* msg)
         if (pCtrlMsg->GetControlCode() == B_CONTROL_MOVE_FORWARD ||
             pCtrlMsg->GetControlCode() == B_CONTROL_MOVE_BACKWARD ||
             pCtrlMsg->GetControlCode() == B_CONTROL_ROTATE_RIGHT ||
-            pCtrlMsg->GetControlCode() == B_CONTROL_ROTATE_LEFT )
+            pCtrlMsg->GetControlCode() == B_CONTROL_ROTATE_LEFT)
         {
             if (!HasMovementFlag(S_SET_FREELOOK))
                 StartUnPan();
@@ -1053,7 +1053,7 @@ bool plVirtualCam1::MsgReceive(plMessage* msg)
         return true;
     }
     plMouseEventMsg* pMouseMsg = plMouseEventMsg::ConvertNoRef(msg);
-    if( pMouseMsg )
+    if (pMouseMsg)
     {
         if (!HasFlags(kFalling))
         {
@@ -1238,7 +1238,7 @@ bool plVirtualCam1::MsgReceive(plMessage* msg)
             }
         }
         else
-        if ( pCam->Cmd(plCameraMsg::kPythonSetFirstPersonOverrideEnable))
+        if (pCam->Cmd(plCameraMsg::kPythonSetFirstPersonOverrideEnable))
         {
             if (!pCam->HasBCastFlag(plMessage::kNetNonLocal))
             {
@@ -1261,7 +1261,7 @@ bool plVirtualCam1::MsgReceive(plMessage* msg)
             }
         }
         else
-        if ( pCam->Cmd(plCameraMsg::kPythonUndoFirstPerson))
+        if (pCam->Cmd(plCameraMsg::kPythonUndoFirstPerson))
         {
             if (!pCam->HasBCastFlag(plMessage::kNetNonLocal))
             {
@@ -1283,7 +1283,7 @@ bool plVirtualCam1::MsgReceive(plMessage* msg)
             }
         }
         else
-        if ( pCam->Cmd(plCameraMsg::kResponderSetThirdPerson))
+        if (pCam->Cmd(plCameraMsg::kResponderSetThirdPerson))
         {
             if (plVirtualCam1::StayInFirstPersonForever)
                 return true;
@@ -1317,7 +1317,7 @@ bool plVirtualCam1::MsgReceive(plMessage* msg)
 #endif
         }
         else
-        if ( pCam->Cmd(plCameraMsg::kResponderUndoThirdPerson))
+        if (pCam->Cmd(plCameraMsg::kResponderUndoThirdPerson))
         {
             if (HasFlags(kScriptsForced3rd) || HasFlags(kScriptsDisabled1st))
                 return true;
@@ -1351,14 +1351,14 @@ bool plVirtualCam1::MsgReceive(plMessage* msg)
                     plCameraModifier1* pCamMod = plCameraModifier1::ConvertNoRef(pCamKey->GetObjectPtr());
                     if (!pCamMod)
                     {
-                        plSceneObject* pObj = plSceneObject::ConvertNoRef( pCamKey->GetObjectPtr() );
+                        plSceneObject* pObj = plSceneObject::ConvertNoRef(pCamKey->GetObjectPtr());
                         if (!pObj)
                             return true;
                         for (int i = 0; i < pObj->GetNumModifiers(); i++)
                         {
                             plKey pModKey = pObj->GetModifier(i)->GetKey();
-                            pCamMod = plCameraModifier1::ConvertNoRef( pModKey->GetObjectPtr() );
-                            if ( pCamMod )
+                            pCamMod = plCameraModifier1::ConvertNoRef(pModKey->GetObjectPtr());
+                            if (pCamMod)
                                 break;
                         }
                     }
@@ -1380,9 +1380,9 @@ bool plVirtualCam1::MsgReceive(plMessage* msg)
         }
     }
     plGenRefMsg* pRefMsg = plGenRefMsg::ConvertNoRef(msg);
-    if (pRefMsg )
+    if (pRefMsg)
     {
-        if( pRefMsg->GetContext() & (plRefMsg::kOnDestroy | plRefMsg::kOnRemove) )
+        if (pRefMsg->GetContext() & (plRefMsg::kOnDestroy | plRefMsg::kOnRemove))
         {
             // unfortunately we cannot rely on the ref message to point at a valid camera
             // (the pointer will match our stack, but it might not be pointing at a valid
@@ -1411,7 +1411,7 @@ void plVirtualCam1::CreateDefaultCamera(plSceneObject* subject)
         if (mod->GetSubject() == subject)
             return;
 
-        plGenRefMsg* msg = new plGenRefMsg(mod->GetKey(), plRefMsg::kOnReplace, 0, plCameraBrain1::kSubject );
+        plGenRefMsg* msg = new plGenRefMsg(mod->GetKey(), plRefMsg::kOnReplace, 0, plCameraBrain1::kSubject);
         msg->SetOldRef(mod->GetSubject());
         hsgResMgr::ResMgr()->AddViaNotify(subject->GetKey(), msg, plRefFlags::kPassiveRef);
     }
@@ -1419,9 +1419,9 @@ void plVirtualCam1::CreateDefaultCamera(plSceneObject* subject)
     {
         plCameraModifier1* pMod = new plCameraModifier1;
         plCameraBrain1_FirstPerson* pBrain = new plCameraBrain1_FirstPerson(pMod);
-        pMod->RegisterAs( kDefaultCameraMod1_KEY );
+        pMod->RegisterAs(kDefaultCameraMod1_KEY);
         //pBrain->SetSubject(subject);
-        plGenRefMsg* msg = new plGenRefMsg(pMod->GetKey(), plRefMsg::kOnCreate, 0, plCameraBrain1::kSubject ); // SceneObject
+        plGenRefMsg* msg = new plGenRefMsg(pMod->GetKey(), plRefMsg::kOnCreate, 0, plCameraBrain1::kSubject); // SceneObject
         hsgResMgr::ResMgr()->AddViaNotify(subject->GetKey(), msg, plRefFlags::kPassiveRef);
         
         plgDispatch::Dispatch()->RegisterForExactType(plEvalMsg::Index(), pMod->GetKey());
@@ -1450,7 +1450,7 @@ void plVirtualCam1::CreateDefaultCamera(plSceneObject* subject)
         if (mod->GetSubject() == subject)
             return;
 
-        plGenRefMsg* msg = new plGenRefMsg(mod->GetKey(), plRefMsg::kOnReplace, 0, plCameraBrain1::kSubject );
+        plGenRefMsg* msg = new plGenRefMsg(mod->GetKey(), plRefMsg::kOnReplace, 0, plCameraBrain1::kSubject);
         msg->SetOldRef(mod->GetSubject());
         hsgResMgr::ResMgr()->AddViaNotify(subject->GetKey(), msg, plRefFlags::kPassiveRef);
     }
@@ -1458,8 +1458,8 @@ void plVirtualCam1::CreateDefaultCamera(plSceneObject* subject)
     {
         plCameraModifier1* pModx = new plCameraModifier1;
         plCameraBrain1_Avatar* pBrainx = new plCameraBrain1_Avatar(pModx);
-        pModx->RegisterAs( kBuiltIn3rdPersonCamera_KEY );
-        plGenRefMsg* msgx = new plGenRefMsg(pModx->GetKey(), plRefMsg::kOnCreate, 0, plCameraBrain1::kSubject ); // SceneObject
+        pModx->RegisterAs(kBuiltIn3rdPersonCamera_KEY);
+        plGenRefMsg* msgx = new plGenRefMsg(pModx->GetKey(), plRefMsg::kOnCreate, 0, plCameraBrain1::kSubject); // SceneObject
         hsgResMgr::ResMgr()->AddViaNotify(subject->GetKey(), msgx, plRefFlags::kPassiveRef);
 
         plgDispatch::Dispatch()->RegisterForExactType(plEvalMsg::Index(), pModx->GetKey());
@@ -1614,7 +1614,7 @@ void plVirtualCam1::PushCamera(plCameraModifier1* pCam, bool bDefault)
         {
             // do a stock transition
             if (plCameraBrain1_Avatar::ConvertNoRef(GetCurrentStackCamera()->GetBrain()) ||
-                plCameraBrain1_Avatar::ConvertNoRef(pCam->GetBrain()) )
+                plCameraBrain1_Avatar::ConvertNoRef(pCam->GetBrain()))
             {
                 // do a track transition here;
                 fPrevCam = GetCurrentStackCamera();
@@ -1759,7 +1759,7 @@ void plVirtualCam1::PopCamera(plCameraModifier1* pCam)
             {
                 // do a stock transition
                 if (plCameraBrain1_Avatar::ConvertNoRef(GetCurrentStackCamera()->GetBrain()) ||
-                    plCameraBrain1_Avatar::ConvertNoRef(pCam->GetBrain()) )
+                    plCameraBrain1_Avatar::ConvertNoRef(pCam->GetBrain()))
                 {
                     // do a track transition here;
                     fPrevCam = pCam;
@@ -1806,7 +1806,7 @@ void plVirtualCam1::PopAll()
 void plVirtualCam1::StartTransition(CamTrans* transition)
 {
     
-    if ((transition->fCutPos && transition->fCutPOA) || GetCurrentStackCamera()->IsAnimated() || alwaysCutForColin )
+    if ((transition->fCutPos && transition->fCutPOA) || GetCurrentStackCamera()->IsAnimated() || alwaysCutForColin)
     {
         if (fTransPos == POS_TRANS_FOLLOW)
             FinishTransition();
@@ -1949,7 +1949,7 @@ void plVirtualCam1::StartTransition(CamTrans* transition)
 
     // deal with FOV -
     float diffH = fabs(pCam->GetFOVh() - fPrevCam->GetFOVh());
-    if ( diffH )
+    if (diffH)
     {
         double time = 0;
         hsVector3 dist;
@@ -1985,7 +1985,7 @@ void plVirtualCam1::RunTransition()
     hsVector3 v1(fTransitionCamera->GetTargetPos() - pToCam->GetTargetPos());
     hsVector3 v2(fTransitionCamera->GetBrain()->GetPOAGoal() - fTransitionCamera->GetTargetPOA());
     
-    if ( v1.MagnitudeSquared() <= 0.0001f && v2.MagnitudeSquared() <= 0.0001f &&
+    if (v1.MagnitudeSquared() <= 0.0001f && v2.MagnitudeSquared() <= 0.0001f &&
         !fTransitionCamera->GetBrain()->HasFlag(plCameraBrain1::kAnimateFOV))
     {
         FinishTransition();
@@ -2034,7 +2034,7 @@ void plVirtualCam1::IHandleCameraStatusLog(plCameraModifier1* pMod, int action)
         return;
     camLog->AddLine("..");
     plCameraBrain1* pBrain = pMod->GetBrain();
-    switch(action)
+    switch (action)
     {
     case kPop:
         camLog->AddLine("Popped Camera {} from top of stack", pMod->GetKeyName());

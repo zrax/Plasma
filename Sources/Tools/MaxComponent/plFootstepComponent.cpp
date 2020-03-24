@@ -108,7 +108,7 @@ extern const plArmatureMod * FindArmatureMod(const plSceneObject *obj);
     {
         const plModifier *mod = obj->GetModifier(i);
         const plArmatureMod * avMod = plArmatureMod::ConvertNoRef(mod);
-        if(avMod)
+        if (avMod)
             return avMod;
     }
     return nil;
@@ -120,7 +120,7 @@ bool plFootstepSoundComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     plArmatureEffectFootSound *effect = new plArmatureEffectFootSound();
     
     // Note: MUST be a hard-coded keyname, since we search for same name in plArmatureMod.cpp
-    hsgResMgr::ResMgr()->NewKey( "FootstepSounds", effect, node->GetLocation());
+    hsgResMgr::ResMgr()->NewKey("FootstepSounds", effect, node->GetLocation());
 
     int i;
     for (i = 0; i < plArmatureEffectsMgr::kMaxSurface; i++)

@@ -69,8 +69,8 @@ public:
     plAvBrainHuman(bool isActor = false);
     virtual ~plAvBrainHuman();
 
-    CLASSNAME_REGISTER( plAvBrainHuman );
-    GETINTERFACE_ANY( plAvBrainHuman, plArmatureBrain );
+    CLASSNAME_REGISTER(plAvBrainHuman);
+    GETINTERFACE_ANY(plAvBrainHuman, plArmatureBrain);
 
     virtual bool Apply(double timeNow, float elapsed);
     virtual void Activate(plArmatureModBase *avMod);

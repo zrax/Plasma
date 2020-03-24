@@ -89,8 +89,8 @@ public:
     plSimpleModifier();
     virtual ~plSimpleModifier();
 
-    CLASSNAME_REGISTER( plSimpleModifier );
-    GETINTERFACE_ANY( plSimpleModifier, plModifier);
+    CLASSNAME_REGISTER(plSimpleModifier);
+    GETINTERFACE_ANY(plSimpleModifier, plModifier);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

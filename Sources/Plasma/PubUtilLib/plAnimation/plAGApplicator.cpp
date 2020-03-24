@@ -73,7 +73,7 @@ void plAGApplicator::Apply(const plAGModifier *mod, double time, bool force)
 
 void plAGApplicator::SetChannelName(const ST::string &name)
 {
-    if(!name.empty())
+    if (!name.empty())
         fChannelName = name;
 };
 
@@ -87,7 +87,7 @@ plAGChannel *plAGApplicator::MergeChannel(plAGApplicator *app, plAGChannel *chan
                                           plScalarChannel *blend, int blendPriority)
 {
     plAGChannel *result = nil;
-    if(fChannel)
+    if (fChannel)
     {
         if (CanCombine(app))
             result = fChannel->MakeCombine(channel);
@@ -117,9 +117,9 @@ bool plAGApplicator::CanBlend(plAGApplicator *app)
     uint16_t ourClass = ClassIndex();
     uint16_t theirClass = app->ClassIndex();
 
-    return(ourClass == theirClass);
+    return (ourClass == theirClass);
 
-//  return(this->HasBaseClass(theirClass)
+//  return (this->HasBaseClass(theirClass)
 //         || app->HasBaseClass(ourClass));
 }
 

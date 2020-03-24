@@ -167,20 +167,20 @@ void hsInterp::LinInterp(const hsMatrix44* mat1, const hsMatrix44* mat2, float t
 {
     if (flags == 0)
     {
-        if( 0 == t )
+        if (0 == t)
         {
             *out = *mat1;
             return;
         }
 
-        if( 1.f == t )
+        if (1.f == t)
         {
             *out = *mat2;
             return;
         }
     }
 
-    if( flags & kIgnorePartsScale )
+    if (flags & kIgnorePartsScale)
     {
         if (!(flags & kIgnorePartsRot))
         {
@@ -200,7 +200,7 @@ void hsInterp::LinInterp(const hsMatrix44* mat1, const hsMatrix44* mat2, float t
             "matrix prob?");
 #else
         // copy
-        for(int i=0; i<3; i++)
+        for (int i=0; i<3; i++)
             out->fMap[3][i] = mat2->fMap[3][i];
 #endif
         
@@ -298,7 +298,7 @@ void hsInterp::LinInterp(const hsAffineParts* k1, const hsAffineParts* k2, float
         return;
     }
     
-    if(k1->fF!=k2->fF)
+    if (k1->fF!=k2->fF)
         hsStatusMessageF("WARNING: Inequality in affine parts flip value.");
 
 //  hsAssert(k1->fF==k2->fF, "inequality in affine parts flip value");

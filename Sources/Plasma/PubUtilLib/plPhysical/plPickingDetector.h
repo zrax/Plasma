@@ -57,8 +57,8 @@ public:
     
     virtual bool MsgReceive(plMessage* msg);
 
-    CLASSNAME_REGISTER( plPickingDetector );
-    GETINTERFACE_ANY( plPickingDetector, plDetectorModifier );
+    CLASSNAME_REGISTER(plPickingDetector);
+    GETINTERFACE_ANY(plPickingDetector, plDetectorModifier);
 
 };
 /*
@@ -72,8 +72,8 @@ public:
     
     virtual bool MsgReceive(plMessage* msg);
 
-    CLASSNAME_REGISTER( plPickingDetector );
-    GETINTERFACE_ANY( plPickingDetector, plDetectorModifier );
+    CLASSNAME_REGISTER(plPickingDetector);
+    GETINTERFACE_ANY(plPickingDetector, plDetectorModifier);
 
 };
 */

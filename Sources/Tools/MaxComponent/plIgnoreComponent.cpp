@@ -177,21 +177,21 @@ public:
         {
 
         case WM_COMMAND:
-            if( (HIWORD(wParam) == BN_CLICKED) && (LOWORD(wParam) == IDC_COMP_IGNORELITE_ON) )
+            if ((HIWORD(wParam) == BN_CLICKED) && (LOWORD(wParam) == IDC_COMP_IGNORELITE_ON))
             {
                 plIgnoreLiteComponent* ilc = (plIgnoreLiteComponent*)map->GetParamBlock()->GetOwner();
                 ilc->SetState(plIgnoreLiteComponent::kTurnOn);
 
                 return TRUE;
             }
-            if( (HIWORD(wParam) == BN_CLICKED) && (LOWORD(wParam) == IDC_COMP_IGNORELITE_OFF) )
+            if ((HIWORD(wParam) == BN_CLICKED) && (LOWORD(wParam) == IDC_COMP_IGNORELITE_OFF))
             {
                 plIgnoreLiteComponent* ilc = (plIgnoreLiteComponent*)map->GetParamBlock()->GetOwner();
                 ilc->SetState(plIgnoreLiteComponent::kTurnOff);
 
                 return TRUE;
             }
-            if( (HIWORD(wParam) == BN_CLICKED) && (LOWORD(wParam) == IDC_COMP_IGNORELITE_TOGGLE) )
+            if ((HIWORD(wParam) == BN_CLICKED) && (LOWORD(wParam) == IDC_COMP_IGNORELITE_TOGGLE))
             {
                 plIgnoreLiteComponent* ilc = (plIgnoreLiteComponent*)map->GetParamBlock()->GetOwner();
                 ilc->SetState(plIgnoreLiteComponent::kToggle);
@@ -237,19 +237,19 @@ void plIgnoreLiteComponent::SetState(LightState s)
 
     int numTarg = NumTargets();
     int i;
-    for( i = 0; i < numTarg; i++ )
+    for (i = 0; i < numTarg; i++)
     {
         plMaxNodeBase* targ = GetTarget(i);
-        if( targ )
+        if (targ)
         {
-            if( selectedOnly && !targ->Selected() )
+            if (selectedOnly && !targ->Selected())
                 continue;
 
             Object *obj = targ->EvalWorldState(TimeValue(0)).obj;
             if (obj && (obj->SuperClassID() == SClass_ID(LIGHT_CLASS_ID)))
             {
                 LightObject* liObj = (LightObject*)obj;
-                switch( s )
+                switch (s)
                 {
                 case kTurnOn:
                     liObj->SetUseLight(true);
@@ -385,11 +385,11 @@ plNoShowComponent::plNoShowComponent()
 // of properties on the MaxNode, as it's still indeterminant.
 bool plNoShowComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *pErrMsg)
 {
-    if( !fCompPB->GetInt(kShowable) )
+    if (!fCompPB->GetInt(kShowable))
     {
-        if( fCompPB->GetInt(kAffectDraw) )
+        if (fCompPB->GetInt(kAffectDraw))
             pNode->SetDrawable(false);
-        if( fCompPB->GetInt(kAffectPhys) )
+        if (fCompPB->GetInt(kAffectPhys))
             pNode->SetPhysical(false);
     }
 
@@ -399,18 +399,18 @@ bool plNoShowComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *pErrMsg)
 bool plNoShowComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
     plSceneObject* obj = node->GetSceneObject();
-    if( !obj )
+    if (!obj)
         return true;
 
-    if( fCompPB->GetInt(kShowable) )
+    if (fCompPB->GetInt(kShowable))
     {
-        if( fCompPB->GetInt(kAffectDraw) )
+        if (fCompPB->GetInt(kAffectDraw))
         {
             plEnableMsg* eMsg = new plEnableMsg(nil, plEnableMsg::kDisable, plEnableMsg::kDrawable);
             eMsg->AddReceiver(obj->GetKey());
             eMsg->Send();
         }
-        if( fCompPB->GetInt(kAffectPhys) )
+        if (fCompPB->GetInt(kAffectPhys))
         {
             hsAssert(0, "Who uses this?");
 //          plEventGroupEnableMsg* pMsg = new plEventGroupEnableMsg;
@@ -420,7 +420,7 @@ bool plNoShowComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         }
 #if 0
         plDrawInterface* di = node->GetDrawInterface();
-        if( di &&
+        if (di &&
         {
             di->SetProperty(plDrawInterface::kDisable, true);
         }
@@ -430,7 +430,7 @@ bool plNoShowComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 }
 void plNoShowComponent::CollectNonDrawables(INodeTab& nonDrawables)
 {
-    if( fCompPB->GetInt(kAffectDraw) )
+    if (fCompPB->GetInt(kAffectDraw))
         AddTargetsToList(nonDrawables);
 }
 

@@ -136,7 +136,7 @@ hsVector3 plDynaWakeMgr::IGetDirection(const plDynaDecalInfo& info, const hsPoin
 {
     hsVector3 dir = fDefaultDir;
     // If we have an animpath, figure a direction based on position here
-    if( fAnimPath )
+    if (fAnimPath)
     {
         hsVector3 animDir;
         hsPoint3 p = pos;
@@ -153,7 +153,7 @@ hsVector3 plDynaWakeMgr::IGetDirection(const plDynaDecalInfo& info, const hsPoin
     // Now if we want to factor in velocity, we can use (pos - info.fLastPos) / (hsTimer::GetSysSeconds() - info.fLastTime)
     float dt = float(hsTimer::GetSysSeconds() - info.fLastTime);
     const float kMinDt = 1.e-3f;
-    if( (info.fFlags & plDynaDecalInfo::kImmersed) && (dt > kMinDt) )
+    if ((info.fFlags & plDynaDecalInfo::kImmersed) && (dt > kMinDt))
     {
         hsVector3 velDir(&pos, &info.fLastPos);
 
@@ -168,7 +168,7 @@ hsVector3 plDynaWakeMgr::IGetDirection(const plDynaDecalInfo& info, const hsPoin
 
 bool plDynaWakeMgr::IRippleFromShape(const plPrintShape* shape, bool force)
 {
-    if( !shape )
+    if (!shape)
         return false;
 
     bool retVal = false;
@@ -184,7 +184,7 @@ bool plDynaWakeMgr::IRippleFromShape(const plPrintShape* shape, bool force)
     bool longEnough = (dt >= kMinTime);
     hsPoint3 xlate = shapeL2W.GetTranslate();
     bool farEnough = (hsVector3(&info.fLastPos, &xlate).Magnitude() > kMinDist);
-    if( force || longEnough || farEnough )
+    if (force || longEnough || farEnough)
     {
         hsPoint3 pos = shapeL2W.GetTranslate();
 
@@ -195,7 +195,7 @@ bool plDynaWakeMgr::IRippleFromShape(const plPrintShape* shape, bool force)
         // but we perturb it more if we're just standing still
         hsVector3 randPert(sRand.RandMinusOneToOne(), sRand.RandMinusOneToOne(), 0);
         randPert.Normalize();
-        if( !farEnough )
+        if (!farEnough)
         {
             static float kRandPert = 0.05f;
             randPert *= kRandPert * shape->GetWidth();
@@ -222,7 +222,7 @@ bool plDynaWakeMgr::IRippleFromShape(const plPrintShape* shape, bool force)
         info.fLastPos = shapeL2W.GetTranslate();
 
         bool hit = ICutoutTargets(t);
-        if( hit )
+        if (hit)
             retVal = true;
     }
     return retVal;

@@ -364,16 +364,16 @@ class pfJournalBook : public hsKeyedObject
         // The constructor takes in the esHTML source for the journal, along with
         // the name of the mipmap to use as the cover of the book. The callback
         // key is the keyed object to send event messages to (see <img> tag).
-        pfJournalBook( const char *esHTMLSource, plKey coverImageKey = nil, plKey callbackKey = nil, const plLocation &hintLoc = plLocation::kGlobalFixedLoc, const ST::string &guiName = ST::null );
-        pfJournalBook( const wchar_t *esHTMLSource, plKey coverImageKey = nil, plKey callbackKey = nil, const plLocation &hintLoc = plLocation::kGlobalFixedLoc, const ST::string &guiName = ST::null );
+        pfJournalBook(const char *esHTMLSource, plKey coverImageKey = nil, plKey callbackKey = nil, const plLocation &hintLoc = plLocation::kGlobalFixedLoc, const ST::string &guiName = ST::null);
+        pfJournalBook(const wchar_t *esHTMLSource, plKey coverImageKey = nil, plKey callbackKey = nil, const plLocation &hintLoc = plLocation::kGlobalFixedLoc, const ST::string &guiName = ST::null);
 
         virtual ~pfJournalBook();
 
-        CLASSNAME_REGISTER( pfJournalBook );
-        GETINTERFACE_ANY( pfJournalBook, hsKeyedObject );
+        CLASSNAME_REGISTER(pfJournalBook);
+        GETINTERFACE_ANY(pfJournalBook, hsKeyedObject);
 
         // Our required virtual
-        virtual bool    MsgReceive( plMessage *pMsg );
+        virtual bool    MsgReceive(plMessage *pMsg);
 
         // Init the singleton, for client startup
         static void SingletonInit();
@@ -382,18 +382,18 @@ class pfJournalBook : public hsKeyedObject
         static void SingletonShutdown();
         
         // loads a gui
-        static void LoadGUI( const ST::string &guiName );
+        static void LoadGUI(const ST::string &guiName);
 
         // unloads a gui if we don't need it any more and want to free up memory
-        static void UnloadGUI( const ST::string &guiName );
+        static void UnloadGUI(const ST::string &guiName);
 
         // unloads all GUIs except for the default
         static void UnloadAllGUIs();
 
-        void    SetGUI( const ST::string &guiName );
+        void    SetGUI(const ST::string &guiName);
 
         // Shows the book, optionally starting open or closed
-        void    Show( bool startOpened = false );
+        void    Show(bool startOpened = false);
 
     
         /// NOTE: The following functions expose functionality that is normally
@@ -405,7 +405,7 @@ class pfJournalBook : public hsKeyedObject
         void    Hide();
 
         // Opens the book, optionally to the given page
-        void    Open( uint32_t startingPage = 0 );
+        void    Open(uint32_t startingPage = 0);
 
         // Closes the book.
         void    Close();
@@ -417,7 +417,7 @@ class pfJournalBook : public hsKeyedObject
         void    PreviousPage();
 
         // For completeness...
-        void    GoToPage( uint32_t pageNumber );
+        void    GoToPage(uint32_t pageNumber);
 
         // See below. Just forces a full calc of the cached info
         void    ForceCacheCalculations();
@@ -426,22 +426,22 @@ class pfJournalBook : public hsKeyedObject
         void    CloseAndHide();
 
         // Sets the book size scaling. 1,1 would be full size, 0,0 is the smallest size possible
-        void    SetBookSize( float width, float height );
+        void    SetBookSize(float width, float height);
 
         // What page are we on?
         uint32_t  GetCurrentPage() const { return fCurrentPage; }
 
         // Set the margin (defaults to 16 pixels)
-        void    SetPageMargin( uint32_t margin ) { fPageTMargin = fPageLMargin = fPageBMargin = fPageRMargin = margin; }
+        void    SetPageMargin(uint32_t margin) { fPageTMargin = fPageLMargin = fPageBMargin = fPageRMargin = margin; }
 
         // Turns on or off page turning
-        void    AllowPageTurning( bool allow ) { fAllowTurning = allow; }
+        void    AllowPageTurning(bool allow) { fAllowTurning = allow; }
 
         // grabs a certain movie based on it's index in the source file
-        plKey   GetMovie( uint8_t index );
+        plKey   GetMovie(uint8_t index);
 
         // turns on and off editing of the book
-        void    SetEditable( bool editable=true );
+        void    SetEditable(bool editable=true);
 
         // returns the text contained by the edit controls
         std::string GetEditableText();
@@ -516,26 +516,26 @@ class pfJournalBook : public hsKeyedObject
         };
 
         // Compiles the given string of esHTML source into our compiled chunk list
-        bool    ICompileSource( const wchar_t *source, const plLocation &hintLoc );
+        bool    ICompileSource(const wchar_t *source, const plLocation &hintLoc);
 
         // Frees our source array
         void    IFreeSource();
 
         // Compile helpers
-        uint8_t   IGetTagType( const wchar_t *string );
-        bool    IGetNextOption( const wchar_t *&string, wchar_t *name, wchar_t *option );
+        uint8_t   IGetTagType(const wchar_t *string);
+        bool    IGetNextOption(const wchar_t *&string, wchar_t *name, wchar_t *option);
 
-        plKey   IGetMipmapKey( const wchar_t *name, const plLocation &loc );
+        plKey   IGetMipmapKey(const wchar_t *name, const plLocation &loc);
 
         // Renders one (1) page into the given DTMap
-        void    IRenderPage( uint32_t page, uint32_t whichDTMap, bool suppressRendering = false );
+        void    IRenderPage(uint32_t page, uint32_t whichDTMap, bool suppressRendering = false);
 
         // moves the movie layers from one material onto another
-        void    IMoveMovies( hsGMaterial *source, hsGMaterial *dest);
+        void    IMoveMovies(hsGMaterial *source, hsGMaterial *dest);
 
         // Starting at the given chunk, works backwards to determine the full set of current
         // font properties at that point, or assigns defaults if none were specified
-        void    IFindFontProps( uint32_t chunkIdx, ST::string &face, uint8_t &size, uint8_t &flags, hsColorRGBA &color, int16_t &spacing );
+        void    IFindFontProps(uint32_t chunkIdx, ST::string &face, uint8_t &size, uint8_t &flags, hsColorRGBA &color, int16_t &spacing);
 
         // Find the last paragraph chunk and thus the last par alignment settings
         uint8_t   IFindLastAlignment() const;
@@ -545,31 +545,31 @@ class pfJournalBook : public hsKeyedObject
         void    IHandleRightSideClick();
 
         // Just sends out a notify to our currently set receiver key
-        void    ISendNotify( uint32_t type, uint32_t linkID = 0 );
+        void    ISendNotify(uint32_t type, uint32_t linkID = 0);
 
         // Close with a notify
-        void    ITriggerCloseWithNotify( bool closeNotOpen, bool immediate );
+        void    ITriggerCloseWithNotify(bool closeNotOpen, bool immediate);
 
         // Finish showing the book, due to the animation being done seeking
-        void    IFinishShow( bool startOpened );
+        void    IFinishShow(bool startOpened);
 
         // Find the current moused link, if any
-        int32_t   IFindCurrVisibleLink( bool rightNotLeft, bool hoverNotUp );
+        int32_t   IFindCurrVisibleLink(bool rightNotLeft, bool hoverNotUp);
 
         // Ensures that all the page starts are calced up to the given page (but not including it)
-        void    IRecalcPageStarts( uint32_t upToPage );
+        void    IRecalcPageStarts(uint32_t upToPage);
 
         // Load (or unload) all the images for the book
-        void    ILoadAllImages( bool unload );
+        void    ILoadAllImages(bool unload);
         
         // Purge the DynaTextMaps
-        void    IPurgeDynaTextMaps( );
+        void    IPurgeDynaTextMaps();
 
         // Process a click on the given "check box" image
-        void    IHandleCheckClick( uint32_t idx, pfBookData::WhichSide which );
+        void    IHandleCheckClick(uint32_t idx, pfBookData::WhichSide which);
 
         // Draw me an image!
-        void    IDrawMipmap( pfEsHTMLChunk *chunk, uint16_t x, uint16_t y, plMipmap *mip, plDynamicTextMap *dtMap, uint32_t whichDTMap, bool dontRender );
+        void    IDrawMipmap(pfEsHTMLChunk *chunk, uint16_t x, uint16_t y, plMipmap *mip, plDynamicTextMap *dtMap, uint32_t whichDTMap, bool dontRender);
         
         // Movie functions
         loadedMovie         *IMovieAlreadyLoaded(pfEsHTMLChunk *chunk);

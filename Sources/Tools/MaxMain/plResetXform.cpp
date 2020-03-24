@@ -57,15 +57,15 @@ void plResetXform::ResetSelected() const
 
 void plResetXform::ResetSelectedRecur(INode* node) const
 {
-    if( !node )
+    if (!node)
         return;
 
-    if( node->Selected() )
+    if (node->Selected())
     {
         IResetNode(node);
     }
     int i;
-    for( i = 0; i < node->NumberOfChildren(); i++ )
+    for (i = 0; i < node->NumberOfChildren(); i++)
         ResetSelectedRecur(node->GetChildNode(i));
 }
 
@@ -75,7 +75,7 @@ void plResetXform::IResetNode(INode* node) const
 
     BOOL deleteIt = false;
     TriObject* oldObj = IGetTriObject(node, deleteIt);
-    if( !oldObj )
+    if (!oldObj)
         return;
 
     Mesh& oldMesh = oldObj->mesh;
@@ -106,15 +106,15 @@ void plResetXform::IResetNode(INode* node) const
     newMesh = oldMesh;
 
     int i;
-    for( i = 0; i < newMesh.getNumVerts(); i++ )
+    for (i = 0; i < newMesh.getNumVerts(); i++)
     {
         Point3 p = vtxXform * newMesh.getVert(i);
         newMesh.getVert(i) = p;
     }
 
-    if( nodeTM.Parity() )
+    if (nodeTM.Parity())
     {
-        for( i = 0; i < newMesh.getNumFaces(); i++ )
+        for (i = 0; i < newMesh.getNumFaces(); i++)
         {
             newMesh.FlipNormal(i);
         }
@@ -124,22 +124,22 @@ void plResetXform::IResetNode(INode* node) const
 
     node->SetNodeTM(t, newXform);
 
-    if( deleteIt )
+    if (deleteIt)
         oldObj->DeleteThis();
 }
 
 TriObject* plResetXform::IGetTriObject(INode* node, BOOL& deleteIt) const
 {
     Object *obj = node->EvalWorldState(TimeValue(0)).obj;
-    if( !obj )
+    if (!obj)
         return NULL;
 
-    if( !obj->CanConvertToType( triObjectClassID ) )
+    if (!obj->CanConvertToType(triObjectClassID))
         return NULL;
 
     // Convert to triMesh object
     TriObject   *meshObj = (TriObject*)obj->ConvertToType(TimeValue(0), triObjectClassID);
-    if( !meshObj )
+    if (!meshObj)
         return NULL;
 
     deleteIt = meshObj != obj;
@@ -150,11 +150,11 @@ TriObject* plResetXform::IGetTriObject(INode* node, BOOL& deleteIt) const
 void plSelectNonRenderables::ICollectNonDrawablesRecur(plMaxNode* node, INodeTab& nodeTab) const
 {
     plComponentBase* comp = node->ConvertToComponent();
-    if( comp )
+    if (comp)
         comp->CollectNonDrawables(nodeTab);
 
     int i;
-    for( i = 0; i < node->NumberOfChildren(); i++ )
+    for (i = 0; i < node->NumberOfChildren(); i++)
         ICollectNonDrawablesRecur((plMaxNode*)node->GetChildNode(i), nodeTab);
 }
 
@@ -166,10 +166,10 @@ void plSelectNonRenderables::SelectNonRenderables() const
 
     INodeTab unhidden;
     int i;
-    for( i = 0; i < nodeTab.Count(); i++ )
+    for (i = 0; i < nodeTab.Count(); i++)
     {
         INode* node = nodeTab[i];
-        if( !node->IsHidden() )
+        if (!node->IsHidden())
             unhidden.Append(1, &node);
     }
 

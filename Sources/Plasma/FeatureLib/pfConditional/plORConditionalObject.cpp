@@ -63,7 +63,7 @@ bool plORConditionalObject::MsgReceive(plMessage* msg)
     plCondRefMsg* pCondMsg = plCondRefMsg::ConvertNoRef(msg);
     if (pCondMsg)
     {
-        fChildren[pCondMsg->fWhich] = plConditionalObject::ConvertNoRef( pCondMsg->GetRef() );
+        fChildren[pCondMsg->fWhich] = plConditionalObject::ConvertNoRef(pCondMsg->GetRef());
         fChildren[pCondMsg->fWhich]->SetLogicMod(fLogicMod);
         return true;
     }
@@ -76,7 +76,7 @@ void plORConditionalObject::SetLogicMod(plLogicModBase* pMod)
     fLogicMod = pMod;
     for (int i = 0; i < fChildren.Count(); i++)
     {
-        if( fChildren[i] )
+        if (fChildren[i])
             fChildren[i]->SetLogicMod(pMod);
     }
 }
@@ -110,7 +110,7 @@ void plORConditionalObject::Read(hsStream* stream, hsResMgr* mgr)
     plCondRefMsg* refMsg;
     int n = stream->ReadLE32();
     fChildren.SetCountAndZero(n);
-    for(int i = 0; i < n; i++ )
+    for (int i = 0; i < n; i++)
     {
         refMsg = new plCondRefMsg(GetKey(), i);
         mgr->ReadKeyNotifyMe(stream,refMsg, plRefFlags::kActiveRef);
@@ -122,7 +122,7 @@ void plORConditionalObject::Write(hsStream* stream, hsResMgr* mgr)
     plConditionalObject::Write(stream, mgr);
     
     stream->WriteLE32(fChildren.GetCount());
-    for( int i = 0; i < fChildren.GetCount(); i++ )
+    for (int i = 0; i < fChildren.GetCount(); i++)
         mgr->WriteKey(stream, fChildren[i]);
 }
 

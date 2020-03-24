@@ -94,7 +94,7 @@ private:
 
     void UpdateLayers();
     void UpdateControlFor(int np);
-    void VScroll(int code, short int cpos );
+    void VScroll(int code, short int cpos);
 */
 protected:
     void IUpdateMtlDisplay() { if (ip) ip->MtlChanged(); }

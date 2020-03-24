@@ -66,14 +66,14 @@ public:
 
     ~plDeviceRecreateMsg() {}
 
-    CLASSNAME_REGISTER( plDeviceRecreateMsg );
-    GETINTERFACE_ANY( plDeviceRecreateMsg, plMessage );
+    CLASSNAME_REGISTER(plDeviceRecreateMsg);
+    GETINTERFACE_ANY(plDeviceRecreateMsg, plMessage);
 
     plPipeline* Pipeline() const { return fPipe; }
 
     // IO
-    void Read(hsStream* stream, hsResMgr* mgr)  { plMessage::IMsgRead( stream, mgr ); }
-    void Write(hsStream* stream, hsResMgr* mgr) { plMessage::IMsgWrite( stream, mgr ); }
+    void Read(hsStream* stream, hsResMgr* mgr)  { plMessage::IMsgRead(stream, mgr); }
+    void Write(hsStream* stream, hsResMgr* mgr) { plMessage::IMsgWrite(stream, mgr); }
 };
 
 #endif // _plDeviceRecreateMsg_h

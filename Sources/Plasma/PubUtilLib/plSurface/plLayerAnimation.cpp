@@ -89,38 +89,38 @@ void plLayerAnimationBase::Read(hsStream* s, hsResMgr* mgr)
     plLayerInterface::Read(s, mgr);
 
     fPreshadeColorCtl = plController::ConvertNoRef(mgr->ReadCreatable(s));
-    fRuntimeColorCtl = plController::ConvertNoRef( mgr->ReadCreatable( s ) );
+    fRuntimeColorCtl = plController::ConvertNoRef(mgr->ReadCreatable(s));
     fAmbientColorCtl = plController::ConvertNoRef(mgr->ReadCreatable(s));
     fSpecularColorCtl = plController::ConvertNoRef(mgr->ReadCreatable(s));
     fOpacityCtl = plController::ConvertNoRef(mgr->ReadCreatable(s));
     fTransformCtl = plController::ConvertNoRef(mgr->ReadCreatable(s));
 
-    if( fOpacityCtl )
+    if (fOpacityCtl)
     {
         fOwnedChannels |= kOpacity;
         fOpacity = new float;
     }
-    if( fPreshadeColorCtl )
+    if (fPreshadeColorCtl)
     {
         fOwnedChannels |= kPreshadeColor;
         fPreshadeColor = new hsColorRGBA;
     }
-    if( fRuntimeColorCtl )
+    if (fRuntimeColorCtl)
     {
         fOwnedChannels |= kRuntimeColor;
         fRuntimeColor = new hsColorRGBA;
     }
-    if( fAmbientColorCtl )
+    if (fAmbientColorCtl)
     {
         fOwnedChannels |= kAmbientColor;
         fAmbientColor = new hsColorRGBA;
     }
-    if( fSpecularColorCtl )
+    if (fSpecularColorCtl)
     {
         fOwnedChannels |= kSpecularColor;
         fSpecularColor = new hsColorRGBA;
     }
-    if( fTransformCtl )
+    if (fTransformCtl)
     {
         fOwnedChannels |= kTransform;
         fTransform = new hsMatrix44;
@@ -147,63 +147,63 @@ plLayerInterface* plLayerAnimationBase::Attach(plLayerInterface* prev)
 
 void plLayerAnimationBase::IEvalConvertedTime(float secs, uint32_t passChans, uint32_t evalChans, uint32_t &dirty)
 {
-    if( evalChans & kPreshadeColor )
+    if (evalChans & kPreshadeColor)
     {
         fPreshadeColorCtl->Interp(fCurrentTime, fPreshadeColor);
         dirty |= kPreshadeColor;
     }
-    else if( passChans & kPreshadeColor )
+    else if (passChans & kPreshadeColor)
     {
         *fPreshadeColor = fUnderLay->GetPreshadeColor();
     }
 
-    if( evalChans & kRuntimeColor )
+    if (evalChans & kRuntimeColor)
     {
-        fRuntimeColorCtl->Interp( fCurrentTime, fRuntimeColor );
+        fRuntimeColorCtl->Interp(fCurrentTime, fRuntimeColor);
         dirty |= kRuntimeColor;
     }
-    else if( passChans & kRuntimeColor )
+    else if (passChans & kRuntimeColor)
     {
         *fRuntimeColor = fUnderLay->GetRuntimeColor();
     }
 
-    if( evalChans & kAmbientColor )
+    if (evalChans & kAmbientColor)
     {
         fAmbientColorCtl->Interp(fCurrentTime, fAmbientColor);
         dirty |= kAmbientColor;
     }
-    else if( passChans & kAmbientColor )
+    else if (passChans & kAmbientColor)
     {
         *fAmbientColor = fUnderLay->GetAmbientColor();
     }
 
-    if( evalChans & kSpecularColor )
+    if (evalChans & kSpecularColor)
     {
-        fSpecularColorCtl->Interp( fCurrentTime, fSpecularColor );
+        fSpecularColorCtl->Interp(fCurrentTime, fSpecularColor);
         dirty |= kSpecularColor;
     }
-    else if( passChans & kSpecularColor )
+    else if (passChans & kSpecularColor)
     {
         *fSpecularColor = fUnderLay->GetSpecularColor();
     }
 
-    if( evalChans & kOpacity )
+    if (evalChans & kOpacity)
     {
         fOpacityCtl->Interp(fCurrentTime, fOpacity);
         *fOpacity *= 1.e-2f;
         dirty |= kOpacity;
     }
-    else if( passChans & kOpacity )
+    else if (passChans & kOpacity)
     {
         *fOpacity = fUnderLay->GetOpacity();
     }
 
-    if( evalChans & kTransform )
+    if (evalChans & kTransform)
     {
         fTransformCtl->Interp(fCurrentTime, fTransform);
         dirty |= kTransform;
     }
-    else if( passChans & kTransform )
+    else if (passChans & kTransform)
     {
         *fTransform = fUnderLay->GetTransform();
     }
@@ -217,7 +217,7 @@ bool plLayerAnimationBase::MsgReceive(plMessage* msg)
 
 void plLayerAnimationBase::SetPreshadeColorCtl(plController* colCtl)
 {
-    if( fPreshadeColorCtl )
+    if (fPreshadeColorCtl)
         delete fPreshadeColorCtl;
     else
         fPreshadeColor = new hsColorRGBA;
@@ -228,7 +228,7 @@ void plLayerAnimationBase::SetPreshadeColorCtl(plController* colCtl)
 
 void plLayerAnimationBase::SetRuntimeColorCtl(plController* colCtl)
 {
-    if( fRuntimeColorCtl )
+    if (fRuntimeColorCtl)
         delete fRuntimeColorCtl;
     else
         fRuntimeColor = new hsColorRGBA;
@@ -239,7 +239,7 @@ void plLayerAnimationBase::SetRuntimeColorCtl(plController* colCtl)
 
 void plLayerAnimationBase::SetAmbientColorCtl(plController* ambCtl)
 {
-    if( fAmbientColorCtl )
+    if (fAmbientColorCtl)
         delete fAmbientColorCtl;
     else
         fAmbientColor = new hsColorRGBA;
@@ -250,7 +250,7 @@ void plLayerAnimationBase::SetAmbientColorCtl(plController* ambCtl)
 
 void plLayerAnimationBase::SetSpecularColorCtl(plController* ambCtl)
 {
-    if( fSpecularColorCtl )
+    if (fSpecularColorCtl)
         delete fSpecularColorCtl;
     else
         fSpecularColor = new hsColorRGBA;
@@ -261,7 +261,7 @@ void plLayerAnimationBase::SetSpecularColorCtl(plController* ambCtl)
 
 void plLayerAnimationBase::SetOpacityCtl(plController* opaCtl)
 {
-    if( fOpacityCtl )
+    if (fOpacityCtl)
         delete fOpacityCtl;
     else
         fOpacity = new float;
@@ -272,7 +272,7 @@ void plLayerAnimationBase::SetOpacityCtl(plController* opaCtl)
 
 void plLayerAnimationBase::SetTransformCtl(plController* xfmCtl)
 {
-    if( fTransformCtl )
+    if (fTransformCtl)
         delete fTransformCtl;
     else
         fTransform = new hsMatrix44;
@@ -284,17 +284,17 @@ void plLayerAnimationBase::SetTransformCtl(plController* xfmCtl)
 float plLayerAnimationBase::IMakeUniformLength()
 {
     fLength = 0;
-    if( fPreshadeColorCtl && (fPreshadeColorCtl->GetLength() > fLength) )
+    if (fPreshadeColorCtl && (fPreshadeColorCtl->GetLength() > fLength))
         fLength = fPreshadeColorCtl->GetLength();
-    if( fRuntimeColorCtl && (fRuntimeColorCtl->GetLength() > fLength) )
+    if (fRuntimeColorCtl && (fRuntimeColorCtl->GetLength() > fLength))
         fLength = fRuntimeColorCtl->GetLength();
-    if( fAmbientColorCtl && (fAmbientColorCtl->GetLength() > fLength) )
+    if (fAmbientColorCtl && (fAmbientColorCtl->GetLength() > fLength))
         fLength = fAmbientColorCtl->GetLength();
-    if( fSpecularColorCtl && (fSpecularColorCtl->GetLength() > fLength) )
+    if (fSpecularColorCtl && (fSpecularColorCtl->GetLength() > fLength))
         fLength = fSpecularColorCtl->GetLength();
-    if( fOpacityCtl && (fOpacityCtl->GetLength() > fLength) )
+    if (fOpacityCtl && (fOpacityCtl->GetLength() > fLength))
         fLength = fOpacityCtl->GetLength();
-    if( fTransformCtl && (fTransformCtl->GetLength() > fLength) )
+    if (fTransformCtl && (fTransformCtl->GetLength() > fLength))
         fLength = fTransformCtl->GetLength();
 
     return fLength;
@@ -352,12 +352,12 @@ plLayerInterface* plLayerAnimation::Attach(plLayerInterface* prev)
 uint32_t plLayerAnimation::Eval(double wSecs, uint32_t frame, uint32_t ignore)
 {
     uint32_t dirty = plLayerInterface::Eval(wSecs, frame, ignore);
-    if( wSecs != fEvalTime )
+    if (wSecs != fEvalTime)
     {
         uint32_t evalChans = 0;
         uint32_t passChans = dirty | fPassThruChannels;
         float secs = fTimeConvert.WorldToAnimTime(wSecs);
-        if( secs != fCurrentTime )
+        if (secs != fCurrentTime)
         {
             evalChans = fOwnedChannels & ~ignore & ~fPassThruChannels;
             fCurrentTime = secs;
@@ -381,7 +381,7 @@ bool plLayerAnimation::MsgReceive(plMessage* msg)
 
     bool retVal = false;
     plAnimCmdMsg* cmdMsg = plAnimCmdMsg::ConvertNoRef(msg);
-    if( cmdMsg )
+    if (cmdMsg)
     {
         // Evaluate first, so we'll be transitioning from our
         // real current state, whether we've been evaluated (in view)
@@ -391,9 +391,9 @@ bool plLayerAnimation::MsgReceive(plMessage* msg)
         DirtySynchState(kSDLLayer, 0);
     }
 
-    if( retVal )
+    if (retVal)
     {
-        if( !fTimeConvert.IsStopped() || fTimeConvert.GetFlag(plAnimTimeConvert::kForcedMove) )
+        if (!fTimeConvert.IsStopped() || fTimeConvert.GetFlag(plAnimTimeConvert::kForcedMove))
         {
             ClaimChannels(fOwnedChannels);
             fCurrentTime = -1.f; // force an eval
@@ -520,7 +520,7 @@ uint32_t plLayerLinkAnimation::Eval(double wSecs, uint32_t frame, uint32_t ignor
                 fFadeFlagsDirty = false;
         }
         
-        if( secs != fCurrentTime )
+        if (secs != fCurrentTime)
         {
             fTimeConvert.SetCurrentAnimTime(secs);
             if (secs == 0.f || oldAnimTime == 0.f)
@@ -556,7 +556,7 @@ void plLayerLinkAnimation::SetFadeFlag(uint8_t flag, bool val)
     fFadeFlagsDirty = true;
 }
 
-bool plLayerLinkAnimation::MsgReceive( plMessage* pMsg )
+bool plLayerLinkAnimation::MsgReceive(plMessage* pMsg)
 {
     plLinkEffectPrepBCMsg *bcpMsg = plLinkEffectPrepBCMsg::ConvertNoRef(pMsg);
     if (bcpMsg != nil)
@@ -669,7 +669,7 @@ bool plLayerLinkAnimation::MsgReceive( plMessage* pMsg )
         return true;
     }
 
-    return plLayerAnimation::MsgReceive( pMsg );
+    return plLayerAnimation::MsgReceive(pMsg);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -679,7 +679,7 @@ plLayerSDLAnimation::plLayerSDLAnimation() : plLayerAnimationBase(), fVar(nil) {
 uint32_t plLayerSDLAnimation::Eval(double wSecs, uint32_t frame, uint32_t ignore)
 {
     uint32_t dirty = plLayerInterface::Eval(wSecs, frame, ignore);
-    if( wSecs != fEvalTime )
+    if (wSecs != fEvalTime)
     {
         uint32_t evalChans = 0;
         uint32_t passChans = dirty | fPassThruChannels;
@@ -707,7 +707,7 @@ uint32_t plLayerSDLAnimation::Eval(double wSecs, uint32_t frame, uint32_t ignore
         // We're guaranteed a 0-1 time. Scale that to our animation length.
         secs *= GetLength();
 
-        if( secs != fCurrentTime )
+        if (secs != fCurrentTime)
         {
             evalChans = fOwnedChannels & ~ignore & ~fPassThruChannels;
             fCurrentTime = secs;

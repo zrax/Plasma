@@ -87,7 +87,7 @@ protected:
     uint32_t              fDepth;
 
     hsTArray<uint16_t>    fZStencilDepths;    // Array of supported depth/stencil buffer formats.
-                                            // Each entry is of the form: ( stencil bit count << 8 ) | ( depth bit count )
+                                            // Each entry is of the form: (stencil bit count << 8) | (depth bit count)
     hsTArray<uint8_t>     fFSAATypes;         // Array of multisample types supported (each one 2-16)
 
     bool                  fCanRenderToCubics;
@@ -105,22 +105,22 @@ public:
     uint32_t GetHeight() const { return fHeight; }
     uint32_t GetColorDepth() const { return fDepth; }
     uint8_t  GetNumZStencilDepths() const { return fZStencilDepths.GetCount(); }
-    uint16_t GetZStencilDepth( uint8_t i ) const { return fZStencilDepths[ i ]; }
+    uint16_t GetZStencilDepth(uint8_t i) const { return fZStencilDepths[i]; }
     uint8_t  GetNumFSAATypes() const { return fFSAATypes.GetCount(); }
-    uint8_t  GetFSAAType( uint8_t i ) const { return fFSAATypes[ i ]; }
+    uint8_t  GetFSAAType(uint8_t i) const { return fFSAATypes[i]; }
     bool     GetCanRenderToCubics() const { return fCanRenderToCubics; }
 
-    void SetDiscarded(bool on=true) { if(on) fFlags |= kDiscarded; else fFlags &= ~kDiscarded; }
+    void SetDiscarded(bool on=true) { if (on) fFlags |= kDiscarded; else fFlags &= ~kDiscarded; }
     void SetWidth(uint32_t w) { fWidth = w; }
     void SetHeight(uint32_t h) { fHeight = h; }
     void SetColorDepth(uint32_t d) { fDepth = d; }
     void ClearZStencilDepths() { fZStencilDepths.Reset(); }
-    void AddZStencilDepth( uint16_t depth ) { fZStencilDepths.Append( depth ); }
+    void AddZStencilDepth(uint16_t depth) { fZStencilDepths.Append(depth); }
 
     void    ClearFSAATypes() { fFSAATypes.Reset(); }
-    void    AddFSAAType( uint8_t type ) { fFSAATypes.Append( type ); }
+    void    AddFSAAType(uint8_t type) { fFSAATypes.Append(type); }
 
-    void    SetCanRenderToCubics( bool can ) { fCanRenderToCubics = can; }
+    void    SetCanRenderToCubics(bool can) { fCanRenderToCubics = can; }
 };
 
 class hsG3DDeviceRecord
@@ -165,8 +165,8 @@ protected:
                             // (i.e. for Z fog, it's a percentage of 1 to add on,
                             // for W fog, it's a percentage of the yon)
 
-    float   fFogKnees[ kNumFogTypes ];
-    float   fFogKneeVals[ kNumFogTypes ];
+    float   fFogKnees[kNumFogTypes];
+    float   fFogKneeVals[kNumFogTypes];
 
     uint8_t   fAASetting;
 
@@ -203,36 +203,36 @@ public:
     void    SetCap(uint32_t cap, bool on=true) { fCaps.SetBit(cap, on); }
 
     float   GetZBiasRating() const { return fZBiasRating; }
-    void    SetZBiasRating( float rating ) { fZBiasRating = rating; }
+    void    SetZBiasRating(float rating) { fZBiasRating = rating; }
 
     float   GetLODBiasRating() const { return fLODBiasRating; }
-    void    SetLODBiasRating( float rating ) { fLODBiasRating = rating; }
+    void    SetLODBiasRating(float rating) { fLODBiasRating = rating; }
 
-    void    GetFogApproxStarts( float &expApprox, float &exp2Approx ) const { expApprox = fFogExpApproxStart;
+    void    GetFogApproxStarts(float &expApprox, float &exp2Approx) const { expApprox = fFogExpApproxStart;
                                                                             exp2Approx = fFogExp2ApproxStart; }
-    void    SetFogApproxStarts( float exp, float exp2 ) { fFogExpApproxStart = exp;
+    void    SetFogApproxStarts(float exp, float exp2) { fFogExpApproxStart = exp;
                                                                 fFogExp2ApproxStart = exp2; }
 
     float   GetFogEndBias() const { return fFogEndBias; }
-    void    SetFogEndBias( float rating ) { fFogEndBias = rating; }
+    void    SetFogEndBias(float rating) { fFogEndBias = rating; }
 
-    void    GetFogKneeParams( uint8_t type, float &knee, float &kneeVal ) const { knee = fFogKnees[ type ]; kneeVal = fFogKneeVals[ type ]; }
-    void    SetFogKneeParams( uint8_t type, float knee, float kneeVal ) { fFogKnees[ type ] = knee; fFogKneeVals[ type ] = kneeVal; }
+    void    GetFogKneeParams(uint8_t type, float &knee, float &kneeVal) const { knee = fFogKnees[type]; kneeVal = fFogKneeVals[type]; }
+    void    SetFogKneeParams(uint8_t type, float knee, float kneeVal) { fFogKnees[type] = knee; fFogKneeVals[type] = kneeVal; }
 
     uint32_t  GetLayersAtOnce() const { return fLayersAtOnce; }
     void    SetLayersAtOnce(uint32_t n) { fLayersAtOnce = n; }
 
     uint8_t   GetAASetting() const { return fAASetting; }
-    void    SetAASetting( uint8_t s ) { fAASetting = s; }
+    void    SetAASetting(uint8_t s) { fAASetting = s; }
 
     uint8_t   GetMaxAnisotropicSamples() const { return fMaxAnisotropicSamples; }
-    void    SetMaxAnisotropicSamples( uint8_t num ) { fMaxAnisotropicSamples = num; }
+    void    SetMaxAnisotropicSamples(uint8_t num) { fMaxAnisotropicSamples = num; }
 
-    void SetDiscarded(bool on=true) { if(on)fFlags |= kDiscarded; else fFlags &= ~kDiscarded; }
+    void SetDiscarded(bool on=true) { if (on)fFlags |= kDiscarded; else fFlags &= ~kDiscarded; }
     bool GetDiscarded() const { return 0 != (fFlags & kDiscarded); }
 
-    void    SetInvalid( bool on = true ) { if( on ) fFlags |= kInvalid; else fFlags &= ~kInvalid; }
-    bool    IsInvalid() const { return 0 != ( fFlags & kInvalid ); }
+    void    SetInvalid(bool on = true) { if (on) fFlags |= kInvalid; else fFlags &= ~kInvalid; }
+    bool    IsInvalid() const { return 0 != (fFlags & kInvalid); }
 
     hsTArray<hsG3DDeviceMode>& GetModes() { return fModes; }
 
@@ -318,9 +318,9 @@ public:
 
 protected:
     hsTArray<hsG3DDeviceRecord>     fRecords;
-    char fTempWinClass[ 128 ];
+    char fTempWinClass[128];
 
-    char    fErrorString[ 128 ];
+    char    fErrorString[128];
 
     void IClear();
     void IRemoveDiscarded();
@@ -329,14 +329,14 @@ protected:
     void ITryDirect3DTnLDriver(D3DEnum_DriverInfo* drivInfo);
     void ITryDirect3DTnL(hsWinRef winRef);
 
-    void IFudgeDirectXDevice( hsG3DDeviceRecord &record,
-                                D3DEnum_DriverInfo *driverInfo, D3DEnum_DeviceInfo *deviceInfo );
-    uint32_t  IAdjustDirectXMemory( uint32_t cardMem );
+    void IFudgeDirectXDevice(hsG3DDeviceRecord &record,
+                                D3DEnum_DriverInfo *driverInfo, D3DEnum_DeviceInfo *deviceInfo);
+    uint32_t  IAdjustDirectXMemory(uint32_t cardMem);
 
-    bool      IGetD3DCardInfo( hsG3DDeviceRecord &record, void *driverInfo, void *deviceInfo,
-                               uint32_t *vendorID, uint32_t *deviceID, char **driverString, char **descString );
+    bool      IGetD3DCardInfo(hsG3DDeviceRecord &record, void *driverInfo, void *deviceInfo,
+                              uint32_t *vendorID, uint32_t *deviceID, char **driverString, char **descString);
 
-    void    ISetFudgeFactors( uint8_t chipsetID, hsG3DDeviceRecord &record );
+    void    ISetFudgeFactors(uint8_t chipsetID, hsG3DDeviceRecord &record);
 
 public:
     hsG3DDeviceSelector() { }

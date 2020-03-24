@@ -83,8 +83,8 @@ public:
     virtual void Write(hsStream *stream, hsResMgr *mgr);
     virtual void Read(hsStream *stream, hsResMgr *mgr);
 
-    CLASSNAME_REGISTER( plGrassShaderMod );
-    GETINTERFACE_ANY( plGrassShaderMod, plModifier );
+    CLASSNAME_REGISTER(plGrassShaderMod);
+    GETINTERFACE_ANY(plGrassShaderMod, plModifier);
 
     enum {
         kRefGrassVS,

@@ -507,8 +507,8 @@ public:
     plWaveSet7();
     virtual ~plWaveSet7();
 
-    CLASSNAME_REGISTER( plWaveSet7 );
-    GETINTERFACE_ANY( plWaveSet7, plWaveSetBase );
+    CLASSNAME_REGISTER(plWaveSet7);
+    GETINTERFACE_ANY(plWaveSet7, plWaveSetBase);
 
     virtual bool MsgReceive(plMessage* msg);
 

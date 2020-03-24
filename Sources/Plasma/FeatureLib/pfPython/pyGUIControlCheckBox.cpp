@@ -60,19 +60,19 @@ pyGUIControlCheckBox::pyGUIControlCheckBox(plKey objkey) : pyGUIControl(objkey)
 
 bool pyGUIControlCheckBox::IsGUIControlCheckBox(pyKey& gckey)
 {
-    if ( gckey.getKey() && pfGUICheckBoxCtrl::ConvertNoRef(gckey.getKey()->ObjectIsLoaded()) )
+    if (gckey.getKey() && pfGUICheckBoxCtrl::ConvertNoRef(gckey.getKey()->ObjectIsLoaded()))
         return true;
     return false;
 }
 
 
-void pyGUIControlCheckBox::SetChecked( bool checked )
+void pyGUIControlCheckBox::SetChecked(bool checked)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUICheckBoxCtrl* pcbmod = pfGUICheckBoxCtrl::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pcbmod )
+        if (pcbmod)
             pcbmod->SetChecked(checked);
     }
 }
@@ -80,11 +80,11 @@ void pyGUIControlCheckBox::SetChecked( bool checked )
 
 bool pyGUIControlCheckBox::IsChecked()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUICheckBoxCtrl* pcbmod = pfGUICheckBoxCtrl::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pcbmod )
+        if (pcbmod)
             return pcbmod->IsChecked();
     }
     return false;

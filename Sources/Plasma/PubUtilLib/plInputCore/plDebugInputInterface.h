@@ -60,7 +60,7 @@ class plDebugInputInterface : public plInputInterface
 {
     protected:
 
-        virtual bool IEval( double secs, float del, uint32_t dirty );
+        virtual bool IEval(double secs, float del, uint32_t dirty);
         bool CursorInBox(plMouseEventMsg* pMsg, hsPoint4 box);
 
         plMouseMap  fMouseMap;
@@ -80,11 +80,11 @@ class plDebugInputInterface : public plInputInterface
         virtual void    RestoreDefaultKeyMappings();
         virtual uint32_t  GetCurrentCursorID() const { return 0; }
 
-        virtual bool    InterpretInputEvent( plInputEventMsg *pMsg );
+        virtual bool    InterpretInputEvent(plInputEventMsg *pMsg);
 
-        virtual bool    MsgReceive( plMessage *msg );
+        virtual bool    MsgReceive(plMessage *msg);
 
-        virtual void    Init( plInputInterfaceMgr *manager );
+        virtual void    Init(plInputInterfaceMgr *manager);
         virtual void    Shutdown();
 
         static plDebugInputInterface    *GetInstance() { return fInstance; }

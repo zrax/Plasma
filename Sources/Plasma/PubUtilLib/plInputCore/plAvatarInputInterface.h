@@ -185,10 +185,10 @@ class plAvatarInputInterface : public plInputInterface
 
         static plAvatarInputInterface       *fInstance;
 
-        virtual bool    IHandleCtrlCmd( plCtrlCmd *cmd );
+        virtual bool    IHandleCtrlCmd(plCtrlCmd *cmd);
 
         // Gets called once per IUpdate(), just like normal IEval()s
-        virtual bool IEval( double secs, float del, uint32_t dirty );
+        virtual bool IEval(double secs, float del, uint32_t dirty);
 
         void    IDeactivateCommand(plMouseInfo *info);
         void    IChangeInputMaps(plAvatarInputMap *newMap);
@@ -200,7 +200,7 @@ class plAvatarInputInterface : public plInputInterface
         void    ISetPostLadderMap();
 
         bool    IHasControlFlag(int f) const    { return fControlFlags.IsBitSet(f); }
-        void    IClearControlFlag(int which)    { fControlFlags.ClearBit( which ); }
+        void    IClearControlFlag(int which)    { fControlFlags.ClearBit(which); }
 
         bool    CursorInBox(plMouseEventMsg* pMsg, hsPoint4 box);
         void    ClearMouseCursor();
@@ -233,12 +233,12 @@ class plAvatarInputInterface : public plInputInterface
         virtual float    GetCurrentCursorOpacity() const { return fCursorOpacity; }
         const char*         GetInputMapName() { return fInputMap ? fInputMap->GetName() : ""; }
 
-        virtual bool        InterpretInputEvent( plInputEventMsg *pMsg );
-        virtual void        MissedInputEvent( plInputEventMsg *pMsg );
+        virtual bool        InterpretInputEvent(plInputEventMsg *pMsg);
+        virtual void        MissedInputEvent(plInputEventMsg *pMsg);
 
-        virtual bool        MsgReceive( plMessage *msg );
+        virtual bool        MsgReceive(plMessage *msg);
 
-        virtual void        Init( plInputInterfaceMgr *manager );
+        virtual void        Init(plInputInterfaceMgr *manager);
         virtual void        Shutdown();
 
         virtual void        RestoreDefaultKeyMappings();
@@ -256,7 +256,7 @@ class plAvatarInputInterface : public plInputInterface
         
         void    SetControlFlag(int f, bool val = true)            { fControlFlags.SetBit(f, val); }
 
-        void    SetCursorFadeDelay( float delay ) { fCursorFadeDelay = delay; }
+        void    SetCursorFadeDelay(float delay) { fCursorFadeDelay = delay; }
 
         bool    IsEnterChatModeBound();
 

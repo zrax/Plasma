@@ -90,7 +90,7 @@ void plLoadAvatarMsg::Read(hsStream* stream, hsResMgr* mgr)
     plLoadCloneMsg::Read(stream, mgr);
     fIsPlayer = stream->ReadBool();
     fSpawnPoint = mgr->ReadKey(stream);
-    if(stream->ReadBool())
+    if (stream->ReadBool())
     {
         fInitialTask = plAvTask::ConvertNoRef(mgr->ReadCreatable(stream));
     }
@@ -102,7 +102,7 @@ void plLoadAvatarMsg::Write(hsStream *stream, hsResMgr *mgr)
     plLoadCloneMsg::Write(stream, mgr);
     stream->WriteBool(fIsPlayer);
     mgr->WriteKey(stream, fSpawnPoint);
-    if(fInitialTask)
+    if (fInitialTask)
     {
         stream->WriteBool(true);
         mgr->WriteCreatable(stream, fInitialTask);

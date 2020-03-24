@@ -71,12 +71,12 @@ public:
     // Audio settings
 
     // Sets the master volume of a given audio channel
-    virtual void SetSoundFXVolume( float volume );
-    virtual void SetMusicVolume( float volume );
-    virtual void SetVoiceVolume( float volume );
-    virtual void SetAmbienceVolume( float volume );
-    virtual void SetGUIVolume( float volume );
-    virtual void SetNPCVoiceVolume( float volume );
+    virtual void SetSoundFXVolume(float volume);
+    virtual void SetMusicVolume(float volume);
+    virtual void SetVoiceVolume(float volume);
+    virtual void SetAmbienceVolume(float volume);
+    virtual void SetGUIVolume(float volume);
+    virtual void SetNPCVoiceVolume(float volume);
     virtual float GetSoundFXVolume();
     virtual float GetMusicVolume();
     virtual float GetVoiceVolume();
@@ -90,18 +90,18 @@ public:
     virtual bool IsEnabled();
 
     // Enable or disable load-on-demand for sounds
-    virtual void SetLoadOnDemand( bool state );
+    virtual void SetLoadOnDemand(bool state);
 
     // Enables or disables two-stage LOD, where sounds can be loaded into RAM but not into sound buffers.
     // ...Less of a performance hit, harder on memory.
-    virtual void SetTwoStageLOD( bool state );
+    virtual void SetTwoStageLOD(bool state);
 
     // Enable audio hardware acceleration
-    virtual void UseHardwareAcceleration( bool state );
+    virtual void UseHardwareAcceleration(bool state);
     virtual bool IsHardwareAccelerated();
 
     // Enable EAX sound acceleration (requires hardware acceleration)
-    virtual void UseEAXAcceleration( bool state );
+    virtual void UseEAXAcceleration(bool state);
     virtual bool IsUsingEAXAcceleration();
 
     // Mute or unmute all sounds
@@ -124,19 +124,19 @@ public:
 
     // Sets the microphone volume, in the range of 0 to 1
     virtual bool CanSetMicLevel();
-    virtual void SetMicLevel( float level );
+    virtual void SetMicLevel(float level);
     virtual float GetMicLevel();
 
     // turn voice recording on or off
-    virtual void EnableVoiceRecording( bool state );
+    virtual void EnableVoiceRecording(bool state);
     virtual bool IsVoiceRecordingEnabled();
 
     // turn voice compression on and off
-    virtual void EnableVoiceCompression( bool state );
+    virtual void EnableVoiceCompression(bool state);
     virtual bool IsVoiceCompressionEnabled();
 
     // turn voice-over-net on and off
-    virtual void EnableVoiceNetBroadcast( bool state );
+    virtual void EnableVoiceNetBroadcast(bool state);
     virtual bool IsVoiceNetBroadcastEnabled();
 
     void EnableVoiceChat(bool enable);
@@ -146,19 +146,19 @@ public:
     virtual void HideIcons();
 
     // turn push-to-talk on or off
-    virtual void PushToTalk( bool state );
+    virtual void PushToTalk(bool state);
 
     // Set the squelch level
-    virtual void SquelchLevel( float level );
+    virtual void SquelchLevel(float level);
 
     // Adjust voice packet frame size
-    virtual void RecordFrame( int32_t size );
+    virtual void RecordFrame(int32_t size);
 
     // Set the sample rate for recording
-    virtual void RecordSampleRate( int32_t sample_rate );
+    virtual void RecordSampleRate(int32_t sample_rate);
 
     virtual uint8_t GetPriorityCutoff();
-    virtual void  SetPriorityCutoff( uint8_t cut );
+    virtual void  SetPriorityCutoff(uint8_t cut);
 
     // does the device specified support EAX
     virtual bool SupportEAX(const char *deviceName);

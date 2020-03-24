@@ -117,7 +117,7 @@ void plPostEffectMod::ISetupRenderRequest()
 }
 void        plPostEffectMod::EnableLightsOnRenderRequest()
 {
-    fRenderRequest->SetRenderState( fRenderRequest->GetRenderState() & ~plPipeline::kRenderNoLights );
+    fRenderRequest->SetRenderState(fRenderRequest->GetRenderState() & ~plPipeline::kRenderNoLights);
 }
 
 void plPostEffectMod::IDestroyRenderRequest()
@@ -132,7 +132,7 @@ void plPostEffectMod::IDestroyRenderRequest()
 
 void plPostEffectMod::IRegisterForRenderMsg(bool on)
 {
-    if( on )
+    if (on)
         plgDispatch::Dispatch()->RegisterForExactType(plRenderMsg::Index(), GetKey());
     else
         plgDispatch::Dispatch()->UnRegisterForExactType(plRenderMsg::Index(), GetKey());
@@ -140,7 +140,7 @@ void plPostEffectMod::IRegisterForRenderMsg(bool on)
 
 void plPostEffectMod::ISetEnable(bool on)
 {
-    if( on )
+    if (on)
     {
         IRegisterForRenderMsg(true);
         fState.SetBit(kEnabled);
@@ -170,13 +170,13 @@ void plPostEffectMod::IUpdateRenderRequest()
     fRenderRequest->SetFovX(fFovX);
     fRenderRequest->SetFovY(fFovY);
 
-    if( GetTarget() )
+    if (GetTarget())
     {
         hsMatrix44 w2c = GetTarget()->GetWorldToLocal();
         hsMatrix44 c2w = GetTarget()->GetLocalToWorld();
 
         int i;
-        for( i = 0; i < 4; i++ )
+        for (i = 0; i < 4; i++)
         {
             w2c.fMap[2][i] *= -1.f;
             c2w.fMap[i][2] *= -1.f;
@@ -187,12 +187,12 @@ void plPostEffectMod::IUpdateRenderRequest()
         fRenderRequest->SetCameraTransform(w2c, c2w);
     }
     else
-        fRenderRequest->SetCameraTransform( fDefaultW2C, fDefaultC2W );
+        fRenderRequest->SetCameraTransform(fDefaultW2C, fDefaultC2W);
 //      fRenderRequest->SetCameraTransform(hsMatrix44::IdentityMatrix(), hsMatrix44::IdentityMatrix());
 }
 
 // If translating from a scene object, send WorldToLocal() and LocalToWorld(), in that order
-void    plPostEffectMod::SetWorldToCamera( hsMatrix44 &w2c, hsMatrix44 &c2w )
+void    plPostEffectMod::SetWorldToCamera(hsMatrix44 &w2c, hsMatrix44 &c2w)
 {
     int i;
 
@@ -200,7 +200,7 @@ void    plPostEffectMod::SetWorldToCamera( hsMatrix44 &w2c, hsMatrix44 &c2w )
     fDefaultW2C = w2c;
     fDefaultC2W = c2w;
 
-    for( i = 0; i < 4; i++ )
+    for (i = 0; i < 4; i++)
     {
         fDefaultW2C.fMap[2][i] *= -1.f;
         fDefaultC2W.fMap[i][2] *= -1.f;
@@ -209,7 +209,7 @@ void    plPostEffectMod::SetWorldToCamera( hsMatrix44 &w2c, hsMatrix44 &c2w )
     fDefaultC2W.NotIdentity();
 }
 
-void    plPostEffectMod::GetDefaultWorldToCamera( hsMatrix44 &w2c, hsMatrix44 &c2w )
+void    plPostEffectMod::GetDefaultWorldToCamera(hsMatrix44 &w2c, hsMatrix44 &c2w)
 {
     w2c = fDefaultW2C;
     c2w = fDefaultC2W;
@@ -243,7 +243,7 @@ plProfile_CreateTimer("PostEffect", "RenderSetup", PostEffect);
 bool plPostEffectMod::MsgReceive(plMessage* msg)
 {
     plRenderMsg* rend = plRenderMsg::ConvertNoRef(msg);
-    if( rend && IIsEnabled() )
+    if (rend && IIsEnabled())
     {
         plProfile_BeginLap(PostEffect, this->GetKey()->GetUoid().GetObjectName().c_str());
         ISubmitRequest();
@@ -252,33 +252,33 @@ bool plPostEffectMod::MsgReceive(plMessage* msg)
         return true;
     }
     plAnimCmdMsg* anim = plAnimCmdMsg::ConvertNoRef(msg);
-    if( anim )
+    if (anim)
     {
-        if( anim->Cmd(plAnimCmdMsg::kContinue) )
+        if (anim->Cmd(plAnimCmdMsg::kContinue))
             ISetEnable(true);
-        else if( anim->Cmd(plAnimCmdMsg::kStop) )
+        else if (anim->Cmd(plAnimCmdMsg::kStop))
             ISetEnable(false);
-        else if( anim->Cmd(plAnimCmdMsg::kToggleState) )
+        else if (anim->Cmd(plAnimCmdMsg::kToggleState))
             ISetEnable(!fState.IsBitSet(kEnabled));
 
         return true;
     }
     plGenRefMsg* ref = plGenRefMsg::ConvertNoRef(msg);
-    if( ref )
+    if (ref)
     {
-        switch( ref->fType )
+        switch (ref->fType)
         {
         case kNodeRef:
-            if( ref->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest) )
+            if (ref->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest))
             {
                 IAddToPageMgr(plSceneNode::ConvertNoRef(ref->GetRef()));
             }
-            else if( ref->GetContext() & plRefMsg::kOnReplace )
+            else if (ref->GetContext() & plRefMsg::kOnReplace)
             {
                 IRemoveFromPageMgr(plSceneNode::ConvertNoRef(ref->GetOldRef()));
                 IAddToPageMgr(plSceneNode::ConvertNoRef(ref->GetRef()));
             }
-            else if( ref->GetContext() & (plRefMsg::kOnRemove | plRefMsg::kOnDestroy) )
+            else if (ref->GetContext() & (plRefMsg::kOnRemove | plRefMsg::kOnDestroy))
             {
                 IRemoveFromPageMgr(plSceneNode::ConvertNoRef(ref->GetRef()));
             }
@@ -307,8 +307,8 @@ void plPostEffectMod::Read(hsStream* s, hsResMgr* mgr)
 
     fNodeKey = mgr->ReadKeyNotifyMe(s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, kNodeRef), plRefFlags::kPassiveRef);
 
-    fDefaultW2C.Read( s );
-    fDefaultC2W.Read( s );
+    fDefaultW2C.Read(s);
+    fDefaultC2W.Read(s);
 
     IUpdateRenderRequest();
 }
@@ -326,8 +326,8 @@ void plPostEffectMod::Write(hsStream* s, hsResMgr* mgr)
 
     mgr->WriteKey(s, fNodeKey);
 
-    fDefaultW2C.Write( s );
-    fDefaultC2W.Write( s );
+    fDefaultW2C.Write(s);
+    fDefaultC2W.Write(s);
 }
 
 const plViewTransform& plPostEffectMod::GetViewTransform()

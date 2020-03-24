@@ -86,14 +86,14 @@ public:
     plAudioCapsDetector();
     virtual ~plAudioCapsDetector();
 
-    static plAudioCaps &Detect( bool log = false, bool init = false );
+    static plAudioCaps &Detect(bool log = false, bool init = false);
 
 protected:
     static plStatusLog  *fLog;
     static plAudioCaps  fCaps;
     static bool         fGotCaps;
     
-    static bool     IDetectEAX( );
+    static bool     IDetectEAX();
 };
 
 #endif //_plAudioCaps_h

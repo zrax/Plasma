@@ -74,7 +74,7 @@ namespace plAudioComp
     plKey GetRandomSoundKey(plComponentBase *comp, plMaxNode *node);
 
     bool    IsSoundComponent(plComponentBase *comp);
-    bool    IsLocalOnly( plComponentBase *comp );
+    bool    IsLocalOnly(plComponentBase *comp);
 };
 
 class plBaseSoundEmitterComponent : public plComponent
@@ -95,21 +95,21 @@ class plBaseSoundEmitterComponent : public plComponent
         };
 
 #ifdef MAXASS_AVAILABLE
-        virtual void    SetSoundAssetId( WhichSound which, jvUniqueId assetId, const TCHAR *fileName );
-        virtual jvUniqueId GetSoundAssetID( WhichSound which );
+        virtual void    SetSoundAssetId(WhichSound which, jvUniqueId assetId, const TCHAR *fileName);
+        virtual jvUniqueId GetSoundAssetID(WhichSound which);
 #endif
-        virtual const char* GetSoundFileName( WhichSound which );
+        virtual const char* GetSoundFileName(WhichSound which);
 
         // Internal setup and write-only set properties on the MaxNode. No reading
         // of properties on the MaxNode, as it's still indeterminant.
         bool SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg);
 
-        bool PreConvert(plMaxNode *node, plErrorMsg *pErrMsg, Class_ID classToConvert );
+        bool PreConvert(plMaxNode *node, plErrorMsg *pErrMsg, Class_ID classToConvert);
         bool Convert(plMaxNode *node, plErrorMsg *pErrMsg) = 0;
 
-        bool DeInit( plMaxNode *node, plErrorMsg *pErrMsg );
+        bool DeInit(plMaxNode *node, plErrorMsg *pErrMsg);
 
-        virtual bool    ConvertGrouped( plMaxNode *baseNode, hsTArray<plBaseSoundEmitterComponent *> &groupArray, plErrorMsg *pErrMsg ) { return false; }
+        virtual bool    ConvertGrouped(plMaxNode *baseNode, hsTArray<plBaseSoundEmitterComponent *> &groupArray, plErrorMsg *pErrMsg) { return false; }
 
         int GetSoundIdx(plMaxNode *node)
         {
@@ -118,23 +118,23 @@ class plBaseSoundEmitterComponent : public plComponent
             return -1;
         }
 
-        static plSoundBuffer    *GetSourceBuffer( const plFileName &fileName, plMaxNode *node, uint32_t srcBufferFlags );
-        static bool             LookupLatestAsset( const char *waveName, char *retPath, plErrorMsg *errMsg );
+        static plSoundBuffer    *GetSourceBuffer(const plFileName &fileName, plMaxNode *node, uint32_t srcBufferFlags);
+        static bool             LookupLatestAsset(const char *waveName, char *retPath, plErrorMsg *errMsg);
 
         virtual void    UpdateSoundFileSelection();
 
         // Loads the given combo box with category selections and sets the ParamID for the category parameter.
         // Returns false if there are no categories to choose for this component
-        virtual bool    UpdateCategories( HWND dialogBox, int &categoryID, ParamID &paramID );
+        virtual bool    UpdateCategories(HWND dialogBox, int &categoryID, ParamID &paramID);
 
         virtual bool    IsLocalOnly() const { return true; }
 
         // Virtuals for handling animated volumes
-        virtual bool    AddToAnim( plAGAnim *anim, plMaxNode *node );
+        virtual bool    AddToAnim(plAGAnim *anim, plMaxNode *node);
         virtual bool    AllowUnhide() { return fAllowUnhide; }
 
         // Flags this component to create a grouped sound instead of a normal sound
-        void            SetCreateGrouped( plMaxNode *baseNode, int commonSoundIdx );
+        void            SetCreateGrouped(plMaxNode *baseNode, int commonSoundIdx);
 
         // Grabs the current sound volume
         virtual float    GetSoundVolume() const;
@@ -163,7 +163,7 @@ class plBaseSoundEmitterComponent : public plComponent
 
         void    IUpdateAssets();
 
-        static void     IShowError( uint32_t type, const char *errMsg, const char *nodeName, plErrorMsg *pErrMsg );
+        static void     IShowError(uint32_t type, const char *errMsg, const char *nodeName, plErrorMsg *pErrMsg);
 
         std::map<plMaxNode*, int> fIndices;
         std::map<plMaxNode*, bool> fValidNodes;
@@ -172,15 +172,15 @@ class plBaseSoundEmitterComponent : public plComponent
 
         void    IConvertOldVolume();
         float   IGetDigitalVolume() const;        // In scale 0. to 1., not in db
-        void    IGrabFadeValues( plSound *sound );
-        void    IGrabSoftRegion( plSound *sound, plErrorMsg *pErrMsg );
-        void    IGrabEAXParams( plSound *sound, plErrorMsg *pErrMsg );
+        void    IGrabFadeValues(plSound *sound);
+        void    IGrabSoftRegion(plSound *sound, plErrorMsg *pErrMsg);
+        void    IGrabEAXParams(plSound *sound, plErrorMsg *pErrMsg);
 
         virtual uint32_t ICalcSourceBufferFlags() const;
 
-        static plSoundBuffer *IGetSourceBuffer( const plFileName &fileName, plMaxNode *srcNode, uint32_t srcBufferFlags );
+        static plSoundBuffer *IGetSourceBuffer(const plFileName &fileName, plMaxNode *srcNode, uint32_t srcBufferFlags);
 
-        plSoundBuffer   *IProcessSourceBuffer( plMaxNode *maxNode, plErrorMsg *errMsg );
+        plSoundBuffer   *IProcessSourceBuffer(plMaxNode *maxNode, plErrorMsg *errMsg);
 
         virtual bool    IAllowStereoFiles() const { return true; }
         virtual bool    IAllowMonoFiles() const { return true; }
@@ -188,9 +188,9 @@ class plBaseSoundEmitterComponent : public plComponent
 
         // Returns pointers to arrays defining the names and konstants for the supported categories
         // for this component. Name array should have an extra "" entry at the end. Returns false if none supported
-        virtual bool    IGetCategoryList( char **&catList, int *&catKonstantList ) { return false; }
+        virtual bool    IGetCategoryList(char **&catList, int *&catKonstantList) { return false; }
 
-        void    ISetBaseParameters( plSound *destSound, plErrorMsg *pErrMsg );
+        void    ISetBaseParameters(plSound *destSound, plErrorMsg *pErrMsg);
 };
 
 class plRandomSoundMod;

@@ -136,7 +136,7 @@ int plNet::Ioctl(const SOCKET sck, const long flags, unsigned long * val)
 // static
 const char * plNet::GetErrorMsg(int error)
 {
-    switch(error)
+    switch (error)
     {
         case WSAEINTR:              return "Interrupted system call"; break;
         case WSAEBADF:              return "Bad file number"; break;

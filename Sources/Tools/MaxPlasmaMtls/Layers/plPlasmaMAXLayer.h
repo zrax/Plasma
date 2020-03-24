@@ -66,12 +66,12 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 //  If you create a new Plasma layer type, add a define for the class ID here
 //  and also add the ID to the list in plPlasmaMAXLayer.cpp.
 
-const Class_ID LAYER_TEX_CLASS_ID( 0x4223c620, 0x183c4868 );
-const Class_ID STATIC_ENV_LAYER_CLASS_ID( 0x379a0a20, 0x3d0b1244 );
-const Class_ID DYNAMIC_ENV_LAYER_CLASS_ID( 0x18205c0f, 0x57ea0e10 );
-const Class_ID DYN_TEXT_LAYER_CLASS_ID( 0x36e3480f, 0x120120bd );
-const Class_ID ANGLE_ATTEN_LAYER_CLASS_ID( 0x6d90918, 0x6160114 );
-const Class_ID MAX_CAMERA_LAYER_CLASS_ID( 0xfaf5ec7, 0x13d90d3f );
+const Class_ID LAYER_TEX_CLASS_ID(0x4223c620, 0x183c4868);
+const Class_ID STATIC_ENV_LAYER_CLASS_ID(0x379a0a20, 0x3d0b1244);
+const Class_ID DYNAMIC_ENV_LAYER_CLASS_ID(0x18205c0f, 0x57ea0e10);
+const Class_ID DYN_TEXT_LAYER_CLASS_ID(0x36e3480f, 0x120120bd);
+const Class_ID ANGLE_ATTEN_LAYER_CLASS_ID(0x6d90918, 0x6160114);
+const Class_ID MAX_CAMERA_LAYER_CLASS_ID(0xfaf5ec7, 0x13d90d3f);
 
 //// Class Definition /////////////////////////////////////////////////////////
 
@@ -102,7 +102,7 @@ class plPlasmaMAXLayer : public Texmap
         plLayerTargetContainer  *fConversionTargets;
 
 
-        void    IAddConversionTarget( plLayerInterface *target );
+        void    IAddConversionTarget(plLayerInterface *target);
         void    IClearConversionTargets();
 
     public:
@@ -114,7 +114,7 @@ class plPlasmaMAXLayer : public Texmap
 
 
         // Static that checks the classID of the given texMap and, if it's a valid Plasma MAX Layer, returns a pointer to such
-        static plPlasmaMAXLayer     *GetPlasmaMAXLayer( Texmap *map );
+        static plPlasmaMAXLayer     *GetPlasmaMAXLayer(Texmap *map);
 
         // Some layers must be unique for each node they're applied to (i.e. can't be shared among nodes).
         // This returns true if the layer must be unique.
@@ -133,7 +133,7 @@ class plPlasmaMAXLayer : public Texmap
         int     GetNumConversionTargets();
 
         // Get an indexed conversion target
-        plLayerInterface    *GetConversionTarget( int index );
+        plLayerInterface    *GetConversionTarget(int index);
         
         virtual BOOL HandleBitmapSelection(int index = 0);
         virtual void SetBitmap(BitmapInfo *bi, int index = 0);
@@ -144,24 +144,24 @@ class plPlasmaMAXLayer : public Texmap
 
         // Pure virtual accessors for the various bitmap related elements
         virtual Bitmap *GetMaxBitmap(int index = 0) = 0;
-        virtual PBBitmap *GetPBBitmap( int index = 0 ) = 0;
+        virtual PBBitmap *GetPBBitmap(int index = 0) = 0;
         virtual int     GetNumBitmaps() = 0;
 
         // Makes sure the textures are the latest versions (including getting
         // the latest version from AssetMan)
         void RefreshBitmaps();
 
-        bool    GetBitmapFileName( char *destFilename, int maxLength, int index = 0 );
+        bool    GetBitmapFileName(char *destFilename, int maxLength, int index = 0);
 
         // Virtual function called by plBMSampler to get various things while sampling the layer's image
-        virtual bool    GetSamplerInfo( plBMSamplerData *samplerData ) { return false; }
+        virtual bool    GetSamplerInfo(plBMSamplerData *samplerData) { return false; }
 
         // Backdoor for the texture find and replace util.  Assumes input has the correct aspect ratio and is power of 2.
         virtual void SetExportSize(int x, int y) {}
         
     protected:
         virtual void ISetMaxBitmap(Bitmap *bitmap, int index = 0) = 0;
-        virtual void ISetPBBitmap( PBBitmap *pbbm, int index = 0 ) = 0;
+        virtual void ISetPBBitmap(PBBitmap *pbbm, int index = 0) = 0;
 
 };
 

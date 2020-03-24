@@ -208,8 +208,8 @@ public:
     bool HasRunningAnims();
     bool DirtySynchState(const ST::string& SDLStateName, uint32_t synchFlags);
     
-    CLASSNAME_REGISTER( plAGMasterMod );
-    GETINTERFACE_ANY( plAGMasterMod, plModifier );
+    CLASSNAME_REGISTER(plAGMasterMod);
+    GETINTERFACE_ANY(plAGMasterMod, plModifier);
 
 protected:
     // -- methods --

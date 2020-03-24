@@ -103,23 +103,23 @@ private:
         }
 
         // is the object's physic enabled and is it in the database that we are looking for?
-        if ( !phys || !phys->GetProperty(plSimulationInterface::kDisable) )
+        if (!phys || !phys->GetProperty(plSimulationInterface::kDisable))
         {
-            if ( (fDB & objDB) != 0)
+            if ((fDB & objDB) != 0)
             {
                 if (fType == plLOSRequestMsg::kTestAny || hit.distance < fDist)
                 {
                     // need one more test... if it is a clickable need to see if it is enabled
                     bool disabled = false;
-                    if ( objKey )
+                    if (objKey)
                     {
-                        plSceneObject* so = plSceneObject::ConvertNoRef( objKey->GetObjectPtr() );
+                        plSceneObject* so = plSceneObject::ConvertNoRef(objKey->GetObjectPtr());
                         if (so)
                         {
                             int i;
-                            for ( i=0; i < so->GetNumModifiers(); i++)
+                            for (i=0; i < so->GetNumModifiers(); i++)
                             {
-                                plLogicModifier* lo = (plLogicModifier*)plLogicModifier::ConvertNoRef(so->GetModifier(i) );
+                                plLogicModifier* lo = (plLogicModifier*)plLogicModifier::ConvertNoRef(so->GetModifier(i));
                                 if (lo)
                                 {
                                     disabled = lo->Disabled();
@@ -180,7 +180,7 @@ bool plLOSDispatch::MsgReceive(plMessage* msg)
         if (!worldKey)
         {
             plArmatureMod* av = plAvatarMgr::GetInstance()->GetLocalAvatar();
-            if ( av && av->GetController() )
+            if (av && av->GetController())
                 worldKey = av->GetController()->GetSubworld();
         }
 
@@ -220,7 +220,7 @@ bool plLOSDispatch::MsgReceive(plMessage* msg)
         worldRay.orig = plPXConvert::Point(from);
         //PhysX will complain to log if ray distance is less than or equal to Zero, besides shouldn't  bother throwing
         // a point, and if we have negative we have some serious problems
-        if(dist>0.0f)
+        if (dist>0.0f)
         {
             scene->raycastAllShapes(worldRay, gMyReport, NX_ALL_SHAPES, 0xffffffff, dist, NX_RAYCAST_DISTANCE | NX_RAYCAST_IMPACT | NX_RAYCAST_NORMAL);
         }
@@ -238,7 +238,7 @@ bool plLOSDispatch::MsgReceive(plMessage* msg)
                 // original point to the object we hit.  If we find anything from the cull
                 // db in there, the cast fails.
                 float dist = gMyReport.GetDistance();
-                if(dist!=0.0)
+                if (dist!=0.0)
                 {
                     gMyReport.InitCast(requestMsg->GetCullDB(), plLOSRequestMsg::kTestAny);
                     scene->raycastAllShapes(worldRay, gMyReport, NX_ALL_SHAPES, 0xffffffff, dist, NX_RAYCAST_DISTANCE | NX_RAYCAST_IMPACT | NX_RAYCAST_NORMAL);

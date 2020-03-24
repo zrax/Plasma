@@ -165,7 +165,7 @@ public:
         fDecalLevel(0),
         fpMesh(nil),
         fpRoomKey(nil),
-        fSoundIdxCounter( 0 ),
+        fSoundIdxCounter(0),
         fAvatarSO(nil),
         fFade(Point3(0,0,0), Point3(0,0,0)),
         fNormalChan(0),
@@ -192,8 +192,8 @@ public:
     // Call init on MaxNodeData whose constructor was never called, e.g. if it was malloc'd.
     plMaxNodeData&  Init()
     {
-        memset( &fpKey, 0, sizeof( plKey ) );
-        memset( &fpRoomKey, 0, sizeof( plKey ) );
+        memset(&fpKey, 0, sizeof(plKey));
+        memset(&fpRoomKey, 0, sizeof(plKey));
         fRenderDependencies.Init();
         fBones.Init();
         fCachedAlphaHackLayerCounts = nil;
@@ -212,7 +212,7 @@ public:
     }
 
     plKey           GetKey()                            { return fpKey;     }
-    void            SetKey(plKey p )                    { fpKey = p;        }
+    void            SetKey(plKey p)                    { fpKey = p;        }
     plSceneObject * GetSceneObject()                    { return fpSO;      }
     void            SetSceneObject(plSceneObject *p)    { fpSO = p;         }
 
@@ -369,7 +369,7 @@ public:
     void            SetDecalLevel(uint32_t i)             { fDecalLevel = i; }
 
     uint32_t          GetSoundIdxCounter()                { return fSoundIdxCounter; }
-    void            SetSoundIdxCounter( uint32_t i )      { fSoundIdxCounter = i; }
+    void            SetSoundIdxCounter(uint32_t i)      { fSoundIdxCounter = i; }
 
     plSceneObject * GetAvatarSO()                       { return fAvatarSO; }
     void            SetAvatarSO(plSceneObject *so)      { fAvatarSO = so; }
@@ -390,7 +390,7 @@ public:
 
     bool            HasLoadMask()                       { return MaxDatBF.CanBF(MaxDatBF.kHasLoadMask); }
     plLoadMask      GetLoadMask()                       { return HasLoadMask() ? fLoadMask : plLoadMask::kAlways; }
-    void            AddLoadMask(const plLoadMask& m)    { if( !HasLoadMask() ) { fLoadMask = m; MaxDatBF.SetBF(true, MaxDatBF.kHasLoadMask); }else{ fLoadMask |= m; } }
+    void            AddLoadMask(const plLoadMask& m)    { if (!HasLoadMask()) { fLoadMask = m; MaxDatBF.SetBF(true, MaxDatBF.kHasLoadMask); } else { fLoadMask |= m; } }
 
     bool            HasNormalChan()                     { return fNormalChan > 0; }
     void            SetNormalChan(int n)                { fNormalChan = n; }
@@ -406,7 +406,7 @@ public:
     plPhysicalProps* GetPhysicalProps()                 { return &fPhysicalProps; }
 
     hsTArray<int>   *GetAlphaHackLayersCache()                        { return fCachedAlphaHackLayerCounts; }
-    void            SetAlphaHackLayersCache( hsTArray<int> *cache )         { fCachedAlphaHackLayerCounts = cache; }
+    void            SetAlphaHackLayersCache(hsTArray<int> *cache)         { fCachedAlphaHackLayerCounts = cache; }
     bool            GetOverrideHighLevelSDL()           { return MaxDatBF.CanBF(MaxDatBF.kOverrideHighLevelSDL); }
     void            SetOverrideHighLevelSDL(bool b)   { MaxDatBF.SetBF(b, MaxDatBF.kOverrideHighLevelSDL); }
     uint8_t           GetAnimCompress()                   { return fAnimCompression; }

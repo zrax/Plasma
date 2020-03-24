@@ -60,14 +60,14 @@ bool pyNetLinkingMgr::IsEnabled() const
     return plNetLinkingMgr::GetInstance()->IsEnabled();
 }
 
-void pyNetLinkingMgr::SetEnabled( bool b ) const
+void pyNetLinkingMgr::SetEnabled(bool b) const
 {
-    plNetLinkingMgr::GetInstance()->SetEnabled( b );
+    plNetLinkingMgr::GetInstance()->SetEnabled(b);
 }
 
-void pyNetLinkingMgr::LinkToAge( pyAgeLinkStruct & link, const char* linkAnim, bool linkInSfx, bool linkOutSfx )
+void pyNetLinkingMgr::LinkToAge(pyAgeLinkStruct & link, const char* linkAnim, bool linkInSfx, bool linkOutSfx)
 {
-    plNetLinkingMgr::GetInstance()->LinkToAge( link.GetAgeLink(), linkAnim, linkInSfx, linkOutSfx );
+    plNetLinkingMgr::GetInstance()->LinkToAge(link.GetAgeLink(), linkAnim, linkInSfx, linkOutSfx);
 }
 
 void pyNetLinkingMgr::LinkToMyPersonalAge()
@@ -87,27 +87,27 @@ void pyNetLinkingMgr::LinkToMyNeighborhoodAge()
     plNetLinkingMgr::GetInstance()->LinkToMyNeighborhoodAge();
 }
 
-void pyNetLinkingMgr::LinkPlayerHere( uint32_t playerID )
+void pyNetLinkingMgr::LinkPlayerHere(uint32_t playerID)
 {
-    plNetLinkingMgr::GetInstance()->LinkPlayerHere( playerID );
+    plNetLinkingMgr::GetInstance()->LinkPlayerHere(playerID);
 }
 
-void pyNetLinkingMgr::LinkPlayerToAge( pyAgeLinkStruct & link, uint32_t playerID )
+void pyNetLinkingMgr::LinkPlayerToAge(pyAgeLinkStruct & link, uint32_t playerID)
 {
-    plNetLinkingMgr::GetInstance()->LinkPlayerToAge( link.GetAgeLink(), playerID );
+    plNetLinkingMgr::GetInstance()->LinkPlayerToAge(link.GetAgeLink(), playerID);
 }
 
-void pyNetLinkingMgr::LinkToPlayersAge( uint32_t playerID )
+void pyNetLinkingMgr::LinkToPlayersAge(uint32_t playerID)
 {
-    plNetLinkingMgr::GetInstance()->LinkToPlayersAge( playerID );
+    plNetLinkingMgr::GetInstance()->LinkToPlayersAge(playerID);
 }
 
 PyObject* pyNetLinkingMgr::GetCurrAgeLink()
 {
-    return pyAgeLinkStructRef::New( *plNetLinkingMgr::GetInstance()->GetAgeLink() );
+    return pyAgeLinkStructRef::New(*plNetLinkingMgr::GetInstance()->GetAgeLink());
 }
 
 PyObject* pyNetLinkingMgr::GetPrevAgeLink()
 {
-    return pyAgeLinkStructRef::New( *plNetLinkingMgr::GetInstance()->GetPrevAgeLink() );
+    return pyAgeLinkStructRef::New(*plNetLinkingMgr::GetInstance()->GetPrevAgeLink());
 }

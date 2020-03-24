@@ -53,8 +53,8 @@ class plSceneObject;
 class plParticleEffect : public hsKeyedObject
 {
 public:
-    CLASSNAME_REGISTER( plParticleEffect );
-    GETINTERFACE_ANY( plParticleEffect, hsKeyedObject );
+    CLASSNAME_REGISTER(plParticleEffect);
+    GETINTERFACE_ANY(plParticleEffect, hsKeyedObject);
 
     // Order is:
     //  PrepareEffect is called with a given target (including valid
@@ -77,8 +77,8 @@ public:
     plParticleCollisionEffect();
     ~plParticleCollisionEffect();
 
-    CLASSNAME_REGISTER( plParticleCollisionEffect );
-    GETINTERFACE_ANY( plParticleCollisionEffect, plParticleEffect );
+    CLASSNAME_REGISTER(plParticleCollisionEffect);
+    GETINTERFACE_ANY(plParticleCollisionEffect, plParticleEffect);
 
     virtual void PrepareEffect(const plEffectTargetInfo& target);
 
@@ -99,8 +99,8 @@ class plParticleCollisionEffectBeat : public plParticleCollisionEffect
 public:
     plParticleCollisionEffectBeat();
 
-    CLASSNAME_REGISTER( plParticleCollisionEffectBeat );
-    GETINTERFACE_ANY( plParticleCollisionEffectBeat, plParticleCollisionEffect );
+    CLASSNAME_REGISTER(plParticleCollisionEffectBeat);
+    GETINTERFACE_ANY(plParticleCollisionEffectBeat, plParticleCollisionEffect);
 
     virtual bool ApplyEffect(const plEffectTargetInfo& target, int32_t i);
 };
@@ -111,8 +111,8 @@ class plParticleCollisionEffectDie : public plParticleCollisionEffect
 public:
     plParticleCollisionEffectDie();
 
-    CLASSNAME_REGISTER( plParticleCollisionEffectDie );
-    GETINTERFACE_ANY( plParticleCollisionEffectDie, plParticleCollisionEffect );
+    CLASSNAME_REGISTER(plParticleCollisionEffectDie);
+    GETINTERFACE_ANY(plParticleCollisionEffectDie, plParticleCollisionEffect);
 
     virtual bool ApplyEffect(const plEffectTargetInfo& target, int32_t i);
 };
@@ -125,8 +125,8 @@ protected:
 public:
     plParticleCollisionEffectBounce();
 
-    CLASSNAME_REGISTER( plParticleCollisionEffectBounce );
-    GETINTERFACE_ANY( plParticleCollisionEffectBounce, plParticleCollisionEffect );
+    CLASSNAME_REGISTER(plParticleCollisionEffectBounce);
+    GETINTERFACE_ANY(plParticleCollisionEffectBounce, plParticleCollisionEffect);
 
     virtual bool ApplyEffect(const plEffectTargetInfo& target, int32_t i);
 
@@ -153,8 +153,8 @@ public:
     plParticleFadeVolumeEffect();
     ~plParticleFadeVolumeEffect();
 
-    CLASSNAME_REGISTER( plParticleFadeVolumeEffect );
-    GETINTERFACE_ANY( plParticleFadeVolumeEffect, plParticleEffect );
+    CLASSNAME_REGISTER(plParticleFadeVolumeEffect);
+    GETINTERFACE_ANY(plParticleFadeVolumeEffect, plParticleEffect);
 
     virtual void PrepareEffect(const plEffectTargetInfo& target);
     virtual bool ApplyEffect(const plEffectTargetInfo& target, int32_t i);
@@ -189,8 +189,8 @@ public:
     plParticleWindEffect();
     ~plParticleWindEffect();
 
-    CLASSNAME_REGISTER( plParticleWindEffect );
-    GETINTERFACE_ANY( plParticleWindEffect, plParticleEffect );
+    CLASSNAME_REGISTER(plParticleWindEffect);
+    GETINTERFACE_ANY(plParticleWindEffect, plParticleEffect);
 
     virtual void PrepareEffect(const plEffectTargetInfo& target);
     virtual bool ApplyEffect(const plEffectTargetInfo& target, int32_t i) = 0;
@@ -228,8 +228,8 @@ public:
     plParticleLocalWind();
     ~plParticleLocalWind();
 
-    CLASSNAME_REGISTER( plParticleLocalWind );
-    GETINTERFACE_ANY( plParticleLocalWind, plParticleWindEffect );
+    CLASSNAME_REGISTER(plParticleLocalWind);
+    GETINTERFACE_ANY(plParticleLocalWind, plParticleWindEffect);
 
     virtual void PrepareEffect(const plEffectTargetInfo& target);
     virtual bool ApplyEffect(const plEffectTargetInfo& target, int32_t i);
@@ -262,8 +262,8 @@ public:
     plParticleUniformWind();
     ~plParticleUniformWind();
 
-    CLASSNAME_REGISTER( plParticleUniformWind );
-    GETINTERFACE_ANY( plParticleUniformWind, plParticleWindEffect );
+    CLASSNAME_REGISTER(plParticleUniformWind);
+    GETINTERFACE_ANY(plParticleUniformWind, plParticleWindEffect);
 
     virtual void PrepareEffect(const plEffectTargetInfo& target);
     virtual bool ApplyEffect(const plEffectTargetInfo& target, int32_t i);
@@ -311,8 +311,8 @@ public:
     plParticleFlockEffect();
     ~plParticleFlockEffect();
 
-    CLASSNAME_REGISTER( plParticleFlockEffect );
-    GETINTERFACE_ANY( plParticleFlockEffect, plParticleEffect );
+    CLASSNAME_REGISTER(plParticleFlockEffect);
+    GETINTERFACE_ANY(plParticleFlockEffect, plParticleEffect);
 
     virtual void PrepareEffect(const plEffectTargetInfo& target);
     virtual bool ApplyEffect(const plEffectTargetInfo& target, int32_t i);
@@ -339,8 +339,8 @@ public:
 class plParticleFollowSystemEffect : public plParticleEffect
 {
 public:
-    CLASSNAME_REGISTER( plParticleFollowSystemEffect );
-    GETINTERFACE_ANY( plParticleFollowSystemEffect, plParticleEffect );
+    CLASSNAME_REGISTER(plParticleFollowSystemEffect);
+    GETINTERFACE_ANY(plParticleFollowSystemEffect, plParticleEffect);
     
     plParticleFollowSystemEffect();
 

@@ -65,9 +65,9 @@ plDynaDecalEnableMsg::plDynaDecalEnableMsg(const plKey& r, const plKey& a, doubl
     fWetLength(w),
     fID(id)
 {
-    if( end )
+    if (end)
         fFlags |= kAtEnd;
-    if( isArm )
+    if (isArm)
         fFlags |= kArmature;
 }
 

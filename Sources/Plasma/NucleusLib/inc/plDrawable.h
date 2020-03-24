@@ -61,7 +61,7 @@ class plAccessSpan;
 class plDrawableCriteria
 {
 public:
-    plDrawableCriteria(uint32_t crit, const plRenderLevel& lev, const plLoadMask& m, uint32_t ty=1 /* Normal */ ) : fCriteria(crit), fLevel(lev), fType(ty), fLoadMask(m) {}
+    plDrawableCriteria(uint32_t crit, const plRenderLevel& lev, const plLoadMask& m, uint32_t ty=1 /* Normal */) : fCriteria(crit), fLevel(lev), fType(ty), fLoadMask(m) {}
     uint32_t              fCriteria;
     plRenderLevel       fLevel;
     uint32_t              fType;
@@ -140,37 +140,37 @@ public:
 
 
 
-    CLASSNAME_REGISTER( plDrawable );
-    GETINTERFACE_ANY( plDrawable, hsKeyedObject );
+    CLASSNAME_REGISTER(plDrawable);
+    GETINTERFACE_ANY(plDrawable, hsKeyedObject);
 
-    virtual plDrawable& SetProperty( int prop, bool on ) = 0;
-    virtual bool GetProperty( int prop ) const = 0;
+    virtual plDrawable& SetProperty(int prop, bool on) = 0;
+    virtual bool GetProperty(int prop) const = 0;
 
-    virtual plDrawable& SetProperty( uint32_t index, int prop, bool on ) = 0;
-    virtual bool GetProperty( uint32_t index, int prop ) const = 0;
+    virtual plDrawable& SetProperty(uint32_t index, int prop, bool on) = 0;
+    virtual bool GetProperty(uint32_t index, int prop) const = 0;
 
-    virtual plDrawable& SetNativeProperty( int prop, bool on ) = 0;
-    virtual bool GetNativeProperty( int prop ) const = 0;
+    virtual plDrawable& SetNativeProperty(int prop, bool on) = 0;
+    virtual bool GetNativeProperty(int prop) const = 0;
 
-    virtual plDrawable& SetNativeProperty( uint32_t index, int prop, bool on ) = 0;
-    virtual bool GetNativeProperty( uint32_t index, int prop ) const = 0;
+    virtual plDrawable& SetNativeProperty(uint32_t index, int prop, bool on) = 0;
+    virtual bool GetNativeProperty(uint32_t index, int prop) const = 0;
 
-    virtual plDrawable& SetSubType( uint32_t index, plSubDrawableType t, bool on ) = 0;
-    virtual uint32_t GetSubType( uint32_t index ) const = 0; // returns or of all spans with this index (index==-1 is all spans).
+    virtual plDrawable& SetSubType(uint32_t index, plSubDrawableType t, bool on) = 0;
+    virtual uint32_t GetSubType(uint32_t index) const = 0; // returns or of all spans with this index (index==-1 is all spans).
 
     virtual uint32_t  GetType() const = 0;
-    virtual void    SetType( uint32_t type ) = 0;
+    virtual void    SetType(uint32_t type) = 0;
 
     virtual void SetRenderLevel(const plRenderLevel& l) = 0;
     virtual const plRenderLevel& GetRenderLevel() const = 0;
 
-    virtual plDrawable& SetTransform( uint32_t index, const hsMatrix44& l2w, const hsMatrix44& w2l ) = 0;
-    virtual const hsMatrix44& GetLocalToWorld( uint32_t span = (uint32_t)-1 ) const = 0;
-    virtual const hsMatrix44& GetWorldToLocal( uint32_t span = (uint32_t)-1 ) const = 0;
+    virtual plDrawable& SetTransform(uint32_t index, const hsMatrix44& l2w, const hsMatrix44& w2l) = 0;
+    virtual const hsMatrix44& GetLocalToWorld(uint32_t span = (uint32_t)-1) const = 0;
+    virtual const hsMatrix44& GetWorldToLocal(uint32_t span = (uint32_t)-1) const = 0;
 
-    virtual const hsBounds3Ext& GetLocalBounds( uint32_t index = (uint32_t)-1 ) const = 0;
-    virtual const hsBounds3Ext& GetWorldBounds( uint32_t index = (uint32_t)-1 ) const = 0;
-    virtual const hsBounds3Ext& GetMaxWorldBounds( uint32_t index = (uint32_t)-1 ) const = 0;
+    virtual const hsBounds3Ext& GetLocalBounds(uint32_t index = (uint32_t)-1) const = 0;
+    virtual const hsBounds3Ext& GetWorldBounds(uint32_t index = (uint32_t)-1) const = 0;
+    virtual const hsBounds3Ext& GetMaxWorldBounds(uint32_t index = (uint32_t)-1) const = 0;
 
     virtual plSpaceTree*    GetSpaceTree() const = 0;
     virtual void            SetDISpanVisSet(uint32_t diIndex, hsKeyedObject* reg, bool on) = 0;
@@ -186,14 +186,14 @@ public:
     virtual plKey GetSceneNode() const = 0;
 
     /// Funky particle system functions
-    virtual uint32_t  CreateParticleSystem( uint32_t maxNumEmitters, uint32_t maxNumParticles, hsGMaterial *material ) = 0;
-    virtual void    ResetParticleSystem( uint32_t index ) = 0;
-    virtual void    AssignEmitterToParticleSystem( uint32_t index, plParticleEmitter *emitter ) = 0;
+    virtual uint32_t  CreateParticleSystem(uint32_t maxNumEmitters, uint32_t maxNumParticles, hsGMaterial *material) = 0;
+    virtual void    ResetParticleSystem(uint32_t index) = 0;
+    virtual void    AssignEmitterToParticleSystem(uint32_t index, plParticleEmitter *emitter) = 0;
 
     /// EXPORT-ONLY
 
     // Called by the sceneNode to determine if we match the criteria
-    virtual bool    DoIMatch( const plDrawableCriteria& crit ) = 0;
+    virtual bool    DoIMatch(const plDrawableCriteria& crit) = 0;
 
     // Take the list of triMeshes and convert them to buffers, building a list of spans for each
     virtual void    Optimize() = 0;

@@ -96,22 +96,22 @@ public:
 
     // interface functions
     virtual uint32_t  GetTagID();
-    virtual void    SetEnabled( bool e );
+    virtual void    SetEnabled(bool e);
     virtual void    Enable() { SetEnabled(true); }
     virtual void    Disable() { SetEnabled(false); }
     virtual bool    IsEnabled();
-    virtual void    SetFocused( bool e );
+    virtual void    SetFocused(bool e);
     virtual void    Focus() { SetFocused(true); }
     virtual void    UnFocus() { SetFocused(false); }
     virtual bool    IsFocused();
-    virtual void    SetVisible( bool vis );
+    virtual void    SetVisible(bool vis);
     virtual void    Show() { SetVisible(true); }
     virtual void    Hide() { SetVisible(false); }
     virtual bool    IsVisible();
     virtual bool    IsInteresting();
-    virtual void    SetNotifyOnInteresting( bool state );
+    virtual void    SetNotifyOnInteresting(bool state);
     virtual void    Refresh();
-    virtual void    SetObjectCenter( pyPoint3& pt);
+    virtual void    SetObjectCenter(pyPoint3& pt);
     virtual PyObject* GetObjectCenter(); // returns pyPoint3
     virtual PyObject* GetOwnerDlg(); // returns pyGUIDialog
 
@@ -123,10 +123,10 @@ public:
     virtual uint32_t    GetFontSize() const;
     virtual uint8_t     GetFontFlags() const;
     // set color scheme
-    virtual void        SetForeColor( float r, float g, float b, float a );
-    virtual void        SetSelColor( float r, float g, float b, float a );
-    virtual void        SetBackColor( float r, float g, float b, float a );
-    virtual void        SetBackSelColor( float r, float g, float b, float a );
+    virtual void        SetForeColor(float r, float g, float b, float a);
+    virtual void        SetSelColor(float r, float g, float b, float a);
+    virtual void        SetBackColor(float r, float g, float b, float a);
+    virtual void        SetBackSelColor(float r, float g, float b, float a);
     virtual void        SetFontSize(uint32_t fontsize);
     virtual void        SetFontFlags(uint8_t fontflags);
 

@@ -51,8 +51,8 @@ public:
     plLayerDepth();
     virtual ~plLayerDepth();
 
-    CLASSNAME_REGISTER( plLayerDepth );
-    GETINTERFACE_ANY( plLayerDepth, plLayer );
+    CLASSNAME_REGISTER(plLayerDepth);
+    GETINTERFACE_ANY(plLayerDepth, plLayer);
 
 };
 

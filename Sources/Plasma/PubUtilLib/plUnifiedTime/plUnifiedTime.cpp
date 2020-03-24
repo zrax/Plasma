@@ -129,7 +129,7 @@ struct tm * plUnifiedTime::IGetTime(const time_t * timer) const
     default:
         tm = localtime(timer);
     }
-    if ( tm )
+    if (tm)
         tm->tm_isdst = -1;
     return tm;
 }
@@ -256,7 +256,7 @@ void plUnifiedTime::ToCurrentTime()
 
 bool plUnifiedTime::SetGMTime(short year, short month, short day, short hour, short minute, short second, unsigned long usec)
 {
-    if( !SetTime( year, month, day, hour, minute, second, usec, 0 ) )
+    if (!SetTime(year, month, day, hour, minute, second, usec, 0))
         return false;
 
     fSecs -= IGetLocalTimeZoneOffset();
@@ -316,7 +316,7 @@ const char* plUnifiedTime::PrintWMillis() const
 {
     static ST::string s;
     s = ST::format("{},s:{},ms:{}",
-        Print(), (unsigned long)GetSecs(), GetMillis() );
+        Print(), (unsigned long)GetSecs(), GetMillis());
     return s.c_str();
 }
 
@@ -364,13 +364,13 @@ int plUnifiedTime::GetMillis() const
     return fMicros/1000;
 }
 
-#pragma optimize( "g", off )    // disable global optimizations
+#pragma optimize("g", off)    // disable global optimizations
 double plUnifiedTime::GetSecsDouble() const
 {
     double ret = GetSecs() + GetMicros() / 1000000.0;
     return ret;
 }
-#pragma optimize( "", on )  // restore optimizations to their defaults
+#pragma optimize("", on)  // restore optimizations to their defaults
 
 void plUnifiedTime::Read(hsStream* s)
 {
@@ -957,7 +957,7 @@ start_over:
     
     if (want_xday && !have_wday)
     {
-        if ( !(have_mon && have_mday) && have_yday)
+        if (!(have_mon && have_mday) && have_yday)
         {
             /* We don't have tm_mon and/or tm_mday, compute them.  */
             int t_mon = 0;
@@ -1005,7 +1005,7 @@ int32_t   plUnifiedTime::IGetLocalTimeZoneOffset()
 {
     static bool     inited = false;
 
-    if( !inited )
+    if (!inited)
     {
         inited = true;
 
@@ -1013,13 +1013,13 @@ int32_t   plUnifiedTime::IGetLocalTimeZoneOffset()
         // Taken from devx.com from an article written by Danny Kalev
         // http://gethelp.devx.com/techtips/cpp_pro/10min/2001/10min1200-3.asp
 
-        time_t  currLocalTime = time( 0 );      // current local time
+        time_t  currLocalTime = time(0);      // current local time
 
-        struct tm   local = *gmtime( &currLocalTime );  // convert curr to GMT, store as tm
+        struct tm   local = *gmtime(&currLocalTime);  // convert curr to GMT, store as tm
         
-        time_t      utc = mktime( &local ); // convert GMT tm to GMT time_t
+        time_t      utc = mktime(&local); // convert GMT tm to GMT time_t
 
-        double diffInSecs = difftime( utc, currLocalTime );
+        double diffInSecs = difftime(utc, currLocalTime);
 
         fLocalTimeZoneOffset = (int32_t)diffInSecs;
     }

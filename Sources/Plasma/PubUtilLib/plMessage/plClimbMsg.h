@@ -75,8 +75,8 @@ public:
     plClimbMsg(const plKey &sender, const plKey &receiver, Command command = kNoCommand, Direction direction = kCenter, bool status = false, plKey target = nil);
 
     // plasma protocol
-    CLASSNAME_REGISTER( plClimbMsg );
-    GETINTERFACE_ANY( plClimbMsg, plMessage );
+    CLASSNAME_REGISTER(plClimbMsg);
+    GETINTERFACE_ANY(plClimbMsg, plMessage);
 
     virtual void Read(hsStream *stream, hsResMgr *mgr);
     virtual void Write(hsStream *stream, hsResMgr *mgr);

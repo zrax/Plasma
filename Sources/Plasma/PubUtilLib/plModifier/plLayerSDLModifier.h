@@ -68,8 +68,8 @@ protected:
     void IPutCurrentStateIn(plStateDataRecord* dstState);
     void ISetCurrentStateFrom(const plStateDataRecord* srcState);
 public:
-    CLASSNAME_REGISTER( plLayerSDLModifier);
-    GETINTERFACE_ANY( plLayerSDLModifier, plAnimTimeConvertSDLModifier);
+    CLASSNAME_REGISTER(plLayerSDLModifier);
+    GETINTERFACE_ANY(plLayerSDLModifier, plAnimTimeConvertSDLModifier);
         
     plLayerSDLModifier() : fLayerAnimation(nil) {}
     

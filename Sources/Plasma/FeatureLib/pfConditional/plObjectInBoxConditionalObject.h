@@ -61,8 +61,8 @@ public:
     plObjectInBoxConditionalObject();
     ~plObjectInBoxConditionalObject() { }
     
-    CLASSNAME_REGISTER( plObjectInBoxConditionalObject );
-    GETINTERFACE_ANY( plObjectInBoxConditionalObject, plConditionalObject );
+    CLASSNAME_REGISTER(plObjectInBoxConditionalObject);
+    GETINTERFACE_ANY(plObjectInBoxConditionalObject, plConditionalObject);
     
     bool MsgReceive(plMessage* msg);
 
@@ -129,7 +129,7 @@ class plVolumeSensorConditionalObjectNoArbitration : public plVolumeSensorCondit
 {
 public:
     CLASSNAME_REGISTER(plVolumeSensorConditionalObjectNoArbitration);
-    GETINTERFACE_ANY( plVolumeSensorConditionalObjectNoArbitration, plVolumeSensorConditionalObject);
+    GETINTERFACE_ANY(plVolumeSensorConditionalObjectNoArbitration, plVolumeSensorConditionalObject);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr) HS_OVERRIDE;
 };

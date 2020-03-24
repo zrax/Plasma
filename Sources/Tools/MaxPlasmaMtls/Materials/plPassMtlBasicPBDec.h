@@ -174,7 +174,7 @@ class PassBasicPBAccessor : public PBAccessor
     bool        fColorLocked;
 
 public:
-    PassBasicPBAccessor() : fColorLocked( false ) {}
+    PassBasicPBAccessor() : fColorLocked(false) {}
 
     void Set(PB2Value& val, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t)
     {
@@ -196,7 +196,7 @@ public:
         case kPassBasColor:
         case kPassBasColorAmb:
         case kPassBasRunColor:
-            ISyncLockedColors( id, pb, val, t );
+            ISyncLockedColors(id, pb, val, t);
             break;
         }
     }
@@ -204,41 +204,41 @@ public:
     {
     }
 
-    void    ISyncLockedColors( ParamID settingID, IParamBlock2 *pb, PB2Value &val, TimeValue t )
+    void    ISyncLockedColors(ParamID settingID, IParamBlock2 *pb, PB2Value &val, TimeValue t)
     {
         int         i, numToSet = 0;
-        ParamID     toSet[ 2 ];
+        ParamID     toSet[2];
 
 
-        if( fColorLocked )
+        if (fColorLocked)
             return;
         fColorLocked = true;
 
-        if( settingID == kPassBasColorAmb && pb->GetInt( kPassBasColorLock, t ) )
+        if (settingID == kPassBasColorAmb && pb->GetInt(kPassBasColorLock, t))
         {
-            toSet[ numToSet++ ] = kPassBasColor;
-            if( pb->GetInt( kPassBasDiffuseLock, t ) )
-                toSet[ numToSet++ ] = kPassBasRunColor;
+            toSet[numToSet++] = kPassBasColor;
+            if (pb->GetInt(kPassBasDiffuseLock, t))
+                toSet[numToSet++] = kPassBasRunColor;
         }
-        else if( settingID == kPassBasRunColor && pb->GetInt( kPassBasDiffuseLock, t ) )
+        else if (settingID == kPassBasRunColor && pb->GetInt(kPassBasDiffuseLock, t))
         {
-            toSet[ numToSet++ ] = kPassBasColor;
-            if( pb->GetInt( kPassBasColorLock, t ) )
-                toSet[ numToSet++ ] = kPassBasColorAmb;
+            toSet[numToSet++] = kPassBasColor;
+            if (pb->GetInt(kPassBasColorLock, t))
+                toSet[numToSet++] = kPassBasColorAmb;
         }
-        else if( settingID == kPassBasColor )
+        else if (settingID == kPassBasColor)
         {
-            if( pb->GetInt( kPassBasColorLock, t ) )
-                toSet[ numToSet++ ] = kPassBasColorAmb;
-            if( pb->GetInt( kPassBasDiffuseLock, t ) )
-                toSet[ numToSet++ ] = kPassBasRunColor;
+            if (pb->GetInt(kPassBasColorLock, t))
+                toSet[numToSet++] = kPassBasColorAmb;
+            if (pb->GetInt(kPassBasDiffuseLock, t))
+                toSet[numToSet++] = kPassBasRunColor;
         }
 
-        for( i = 0; i < numToSet; i++ )
+        for (i = 0; i < numToSet; i++)
         {
-            pb->SetValue( toSet[ i ], t, *val.p );
-            if( pb->GetMap() )
-                pb->GetMap()->Invalidate( toSet[ i ] );
+            pb->SetValue(toSet[i], t, *val.p);
+            if (pb->GetMap())
+                pb->GetMap()->Invalidate(toSet[i]);
         }
 
         fColorLocked = false;

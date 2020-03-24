@@ -298,7 +298,7 @@ void plPhysDebugComponent::CollectNonDrawables(INodeTab& nonDrawables)
     if (fCompPB->GetInt(kCustomBoundField))
     {
         INode* boundsNode = fCompPB->GetINode(kCustomBoundListStuff);
-        if( boundsNode )
+        if (boundsNode)
             nonDrawables.Append(1, &boundsNode);
     }
 }
@@ -315,7 +315,7 @@ bool plPhysDebugComponent::SetupProperties(plMaxNode *node, plErrorMsg *errMsg)
     physProps->SetRestitution(fCompPB->GetFloat(kBounce), node, errMsg);
     physProps->SetFriction(fCompPB->GetFloat(kFriction), node, errMsg);
     physProps->SetBoundsType(fCompPB->GetInt(kBoundCondRadio), node, errMsg);
-    if(fCompPB->GetInt(kLOSChkBx))
+    if (fCompPB->GetInt(kLOSChkBx))
         physProps->SetLOSBlockCamera(true, node, errMsg);       // *** we really need to have four check boxes now....
     physProps->SetPinned(false, node, errMsg);
     physProps->SetAlignToOwner(fCompPB->GetInt(kAlignProxyShape) != 0, node, errMsg);
@@ -420,7 +420,7 @@ void plPhysTerrainComponent::CollectNonDrawables(INodeTab& nonDrawables)
     if (fCompPB->GetInt(kCustomBoundField))
     {
         INode* boundsNode = fCompPB->GetINode(kCustomBoundListStuff);
-        if( boundsNode )
+        if (boundsNode)
             nonDrawables.Append(1, &boundsNode);
     }
 }
@@ -767,7 +767,7 @@ void plPhysSimpleComponent::CollectNonDrawables(INodeTab& nonDrawables)
     if (fCompPB->GetInt(kCustomBoundField))
     {
         INode* boundsNode = fCompPB->GetINode(kCustomBoundListStuff);
-        if( boundsNode )
+        if (boundsNode)
             nonDrawables.Append(1, &boundsNode);
     }
 }
@@ -793,7 +793,7 @@ bool plPhysSimpleComponent::SetupProperties(plMaxNode *pNode, plErrorMsg *pErrMs
     physProps->SetStartInactive(fCompPB->GetInt(kStartInactive));
     physProps->SetAvAnimPushable(fCompPB->GetInt(kAvAnimPushable));
 
-    if( !pNode->IsAnimated() )
+    if (!pNode->IsAnimated())
         pNode->SetItinerant(true);
 
     return IGetProxy(pNode, pErrMsg);
@@ -882,7 +882,7 @@ bool plPhysBlockerComponent::SetupProperties(plMaxNode *pNode, plErrorMsg *pErrM
 
     physProps->SetMass(0, pNode, pErrMsg);
 
-    if(fCompPB->GetInt(kLOSChkBx))
+    if (fCompPB->GetInt(kLOSChkBx))
     {
         physProps->SetLOSBlockUI(true, pNode, pErrMsg);
         physProps->SetLOSBlockCamera(true, pNode, pErrMsg);
@@ -1080,7 +1080,7 @@ public:
     {
         uint32_t minIndex, maxIndex;
         bool adjustMin;
-        switch(id)
+        switch (id)
         {
         case IDC_SWIM_CURRENT_PULL_NEAR_DIST:
         case IDC_SWIM_CURRENT_PULL_NEAR_DIST_SPIN:
@@ -1776,7 +1776,7 @@ bool plSubworldDetectorComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     plMaxNode* pSubNode = (plMaxNode*)fCompPB->GetINode(kSubworldTarget);
     if (pSubNode)
     {
-        if(pSubNode->CanConvert())
+        if (pSubNode->CanConvert())
         {
             detector->SetSubworldKey(pSubNode->GetKey());
         }

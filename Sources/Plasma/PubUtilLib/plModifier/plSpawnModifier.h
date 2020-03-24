@@ -54,8 +54,8 @@ protected:
 public:
     plSpawnModifier() { }
 
-    CLASSNAME_REGISTER( plSpawnModifier );
-    GETINTERFACE_ANY( plSpawnModifier, plMultiModifier );
+    CLASSNAME_REGISTER(plSpawnModifier);
+    GETINTERFACE_ANY(plSpawnModifier, plMultiModifier);
     
     virtual void AddTarget(plSceneObject* so);
     virtual void RemoveTarget(plSceneObject* so);

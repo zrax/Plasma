@@ -67,8 +67,8 @@ public:
     plDynaRippleVSMgr();
     virtual ~plDynaRippleVSMgr();
 
-    CLASSNAME_REGISTER( plDynaRippleVSMgr );
-    GETINTERFACE_ANY( plDynaRippleVSMgr, plDynaRippleMgr );
+    CLASSNAME_REGISTER(plDynaRippleVSMgr);
+    GETINTERFACE_ANY(plDynaRippleVSMgr, plDynaRippleMgr);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

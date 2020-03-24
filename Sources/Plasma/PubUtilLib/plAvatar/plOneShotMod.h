@@ -70,8 +70,8 @@ public:
     void Init(const ST::string &animName, bool drivable, bool reversable,
               float seekDuration, bool smartSeek, bool noSeek = false);
 
-    CLASSNAME_REGISTER( plOneShotMod );
-    GETINTERFACE_ANY( plOneShotMod, plMultiModifier );
+    CLASSNAME_REGISTER(plOneShotMod);
+    GETINTERFACE_ANY(plOneShotMod, plMultiModifier);
     
     virtual void AddTarget(plSceneObject* so);
     bool MsgReceive(plMessage* msg);

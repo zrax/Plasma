@@ -67,7 +67,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 //// Externs //////////////////////////////////////////////////////////////////
 
-extern TCHAR *GetString( int id );
+extern TCHAR *GetString(int id);
 extern HINSTANCE hInstance;
 
 //// ClassDesc Definition /////////////////////////////////////////////////////
@@ -107,9 +107,9 @@ plDynamicEnvLayer::~plDynamicEnvLayer()
     IDiscardTexHandle();
 }
 
-void    plDynamicEnvLayer::GetClassName( TSTR& s )
+void    plDynamicEnvLayer::GetClassName(TSTR& s)
 {
-    s = GetString( IDS_DYNAMIC_ENVMAP_LAYER );
+    s = GetString(IDS_DYNAMIC_ENVMAP_LAYER);
 }
 
 //// Reset ////////////////////////////////////////////////////////////////////
@@ -175,9 +175,9 @@ int plDynamicEnvLayer::NumRefs()
     return 2;
 }
 
-RefTargetHandle plDynamicEnvLayer::GetReference( int i )
+RefTargetHandle plDynamicEnvLayer::GetReference(int i)
 {
-    switch( i )
+    switch (i)
     {
         case kRefUVGen:     return fUVGen;
         case kRefBitmap:    return fBitmapPB;
@@ -185,16 +185,16 @@ RefTargetHandle plDynamicEnvLayer::GetReference( int i )
     }
 }
 
-void    plDynamicEnvLayer::SetReference( int i, RefTargetHandle rtarg )
+void    plDynamicEnvLayer::SetReference(int i, RefTargetHandle rtarg)
 {
     Interval    garbage;
 
-    switch( i )
+    switch (i)
     {
         case kRefUVGen:
             fUVGen = (UVGen *)rtarg;
-            if( fUVGen )
-                fUVGen->Update( TimeValue( 0 ), garbage );
+            if (fUVGen)
+                fUVGen->Update(TimeValue(0), garbage);
             break;
         case kRefBitmap:
             fBitmapPB = (IParamBlock2 *)rtarg;
@@ -209,18 +209,18 @@ int plDynamicEnvLayer::NumParamBlocks()
     return 1;
 }
 
-IParamBlock2    *plDynamicEnvLayer::GetParamBlock( int i )
+IParamBlock2    *plDynamicEnvLayer::GetParamBlock(int i)
 {
-    switch( i )
+    switch (i)
     {
         case 0: return fBitmapPB;
         default: return NULL;
     }
 }
 
-IParamBlock2    *plDynamicEnvLayer::GetParamBlockByID( BlockID id )
+IParamBlock2    *plDynamicEnvLayer::GetParamBlockByID(BlockID id)
 {
-    if( fBitmapPB->ID() == id )
+    if (fBitmapPB->ID() == id)
         return fBitmapPB;
     else
         return NULL;
@@ -228,7 +228,7 @@ IParamBlock2    *plDynamicEnvLayer::GetParamBlockByID( BlockID id )
 
 //// Clone ////////////////////////////////////////////////////////////////////
 
-RefTargetHandle plDynamicEnvLayer::Clone( RemapDir &remap )
+RefTargetHandle plDynamicEnvLayer::Clone(RemapDir &remap)
 {
     plDynamicEnvLayer *mnew = new plDynamicEnvLayer();
     *((MtlBase*)mnew) = *((MtlBase*)this); // copy superclass stuff
@@ -245,18 +245,18 @@ int plDynamicEnvLayer::NumSubs()
     return 1;
 }
 
-Animatable  *plDynamicEnvLayer::SubAnim( int i )
+Animatable  *plDynamicEnvLayer::SubAnim(int i)
 {
-    switch( i )
+    switch (i)
     {
         case kRefBitmap:    return fBitmapPB;
         default: return NULL;
     }
 }
 
-TSTR    plDynamicEnvLayer::SubAnimName( int i )
+TSTR    plDynamicEnvLayer::SubAnimName(int i)
 {
-    switch( i )
+    switch (i)
     {
         case kRefBitmap:    return fBitmapPB->GetLocalName();
         default: return "";
@@ -265,8 +265,8 @@ TSTR    plDynamicEnvLayer::SubAnimName( int i )
 
 //// NotifyRefChanged /////////////////////////////////////////////////////////
 
-RefResult   plDynamicEnvLayer::NotifyRefChanged( Interval changeInt, RefTargetHandle hTarget,
-                                                   PartID& partID, RefMessage message )
+RefResult   plDynamicEnvLayer::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
+                                                   PartID& partID, RefMessage message)
 {
     switch (message)
     {
@@ -330,7 +330,7 @@ IOResult plDynamicEnvLayer::Load(ILoad *iload)
 
 inline Point2 CompUV(float x, float y, float z)
 {
-    return Point2( 0.5f * ( x / z + 1.0f ), 0.5f * ( y / z + 1.0f ) );
+    return Point2(0.5f * (x / z + 1.0f), 0.5f * (y / z + 1.0f));
 }
 
 AColor plDynamicEnvLayer::EvalColor(ShadeContext& sc)
@@ -413,7 +413,7 @@ DWORD plDynamicEnvLayer::GetActiveTexHandle(TimeValue t, TexHandleMaker& thmaker
 
 bool    plDynamicEnvLayer::MustBeUnique()
 {
-    if( fBitmapPB->GetINode( kBmpAnchorNode ) == nil )
+    if (fBitmapPB->GetINode(kBmpAnchorNode) == nil)
         return true;
 
     return false;

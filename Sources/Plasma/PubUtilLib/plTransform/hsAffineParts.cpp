@@ -230,9 +230,9 @@ void hsAffineParts::ComposeMatrix(hsMatrix44 *out) const
     int i, j;
 
     hsVector3 UKt[3];
-    for( i = 0; i < 3; i++ )
+    for (i = 0; i < 3; i++)
     {
-        for( j = 0; j < 3; j++ )
+        for (j = 0; j < 3; j++)
         {
             // SU[j] = (fK.fX * U[j].fX, fK.fY * U[j].fY, fK.fZ * U[j].fZ)
             UKt[j][i] = U[i].fX * fK.fX * U[j].fX
@@ -245,9 +245,9 @@ void hsAffineParts::ComposeMatrix(hsMatrix44 *out) const
     QuatTo3Vectors(fQ, R);
 
     float f = fF < 0 ? -1.f : 1.f;
-    for( i = 0; i < 3; i++ )
+    for (i = 0; i < 3; i++)
     {
-        for( j = 0; j < 3; j++ )
+        for (j = 0; j < 3; j++)
         {
             out->fMap[i][j] = R[i].InnerProduct(UKt[j]) * f;
         }
@@ -359,9 +359,9 @@ void hsAffineParts::ComposeInverseMatrix(hsMatrix44 *out) const
     hsVector3 invK;
     invK.Set(hsInvert(fK.fX),hsInvert(fK.fY),hsInvert(fK.fZ));
     hsVector3 UK[3];
-    for( i = 0; i < 3; i++ )
+    for (i = 0; i < 3; i++)
     {
-        for( j = 0; j < 3; j++ )
+        for (j = 0; j < 3; j++)
         {
             // SUt[i] = (Ut[i].fX * invK.fX, Ut[i].fY * invK.fY, Ut[i].fZ * invK.fZ)
             // So SUt[i].InnerProduct(Ut[j]) ==
@@ -379,9 +379,9 @@ void hsAffineParts::ComposeInverseMatrix(hsMatrix44 *out) const
     QuatTo3VectorsTranspose(fQ.Conjugate(), Rt);
 
     float f = fF < 0 ? -1.f : 1.f;
-    for( i = 0; i < 3; i++ )
+    for (i = 0; i < 3; i++)
     {
-        for( j = 0; j < 3; j++ )
+        for (j = 0; j < 3; j++)
         {
             out->fMap[i][j] = UK[i].InnerProduct(Rt[j]) * f;
         }

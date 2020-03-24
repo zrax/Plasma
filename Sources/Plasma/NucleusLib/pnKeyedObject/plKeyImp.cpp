@@ -104,7 +104,7 @@ plKeyImp::plKeyImp(plUoid u, uint32_t pos,uint32_t len):
 
 #ifdef HS_DEBUGGING
     fIDName = fUoid.GetObjectName();
-    fClassType = plFactory::GetNameOfClass( fUoid.GetClassType() );
+    fClassType = plFactory::GetNameOfClass(fUoid.GetClassType());
 #endif
 }
 
@@ -171,7 +171,7 @@ void plKeyImp::CopyForClone(const plKeyImp *p, uint32_t playerID, uint32_t clone
 
 #ifdef HS_DEBUGGING
     fIDName = fUoid.GetObjectName();
-    fClassType = plFactory::GetNameOfClass( fUoid.GetClassType() );
+    fClassType = plFactory::GetNameOfClass(fUoid.GetClassType());
 #endif
 
     fStartPos = p->GetStartPos();
@@ -277,7 +277,7 @@ void plKeyImp::UnRefObject(plRefFlags::Type flags)
 {
     // Rather than using hsRefCnt's, make Ref and
     // UnRef work with ActiveRef system
-    if ( (flags == plRefFlags::kPassiveRef) && !ObjectIsLoaded())
+    if ((flags == plRefFlags::kPassiveRef) && !ObjectIsLoaded())
         return;
 
 #ifdef LOG_ACTIVE_REFS
@@ -286,15 +286,15 @@ void plKeyImp::UnRefObject(plRefFlags::Type flags)
 #endif // LOG_ACTIVE_REFS
     DecActiveRefs();
 
-    if( !GetActiveRefs() )
+    if (!GetActiveRefs())
     {
         INotifyDestroyed();
 
         IClearRefs();
         ClearNotifyCreated();
 
-        plKey key=plKey::Make( this );  // for linux build
-        plSelfDestructMsg* nuke = new plSelfDestructMsg( key );
+        plKey key=plKey::Make(this);  // for linux build
+        plSelfDestructMsg* nuke = new plSelfDestructMsg(key);
         plgDispatch::Dispatch()->MsgSend(nuke);
     }
 }
@@ -567,7 +567,7 @@ void plKeyImp::INotifyDestroyed()
     hsKeyedObject* ko = GetObjectPtr();
     hsAssert(ko, "Notifying of destroy on already destroyed");
     int i;
-    for( i = 0; i < GetNumNotifyCreated(); i++ )
+    for (i = 0; i < GetNumNotifyCreated(); i++)
     {
         hsAssert(ko, "Notifying of destroy on already destroyed");
         plRefMsg* msg = GetNotifyCreated(i);

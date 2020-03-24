@@ -66,7 +66,7 @@ public:
     static float GetLevel();
 
     // Sets the microphone volume, range 0-1
-    static void     SetLevel( float level );
+    static void     SetLevel(float level);
 
     // Returns whether we can set the level
     static bool     CanSetLevel();

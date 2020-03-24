@@ -115,8 +115,8 @@ public:
     plDispatch();
     virtual ~plDispatch();
 
-    CLASSNAME_REGISTER( plDispatch );
-    GETINTERFACE_ANY( plDispatch, plCreatable );
+    CLASSNAME_REGISTER(plDispatch);
+    GETINTERFACE_ANY(plDispatch, plCreatable);
 
     void RegisterForType(uint16_t hClass, const plKey& receiver) HS_OVERRIDE;
     void RegisterForExactType(uint16_t hClass, const plKey& receiver) HS_OVERRIDE;

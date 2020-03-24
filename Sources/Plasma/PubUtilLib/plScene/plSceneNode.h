@@ -121,8 +121,8 @@ public:
     plSceneNode();
     virtual ~plSceneNode();
 
-    CLASSNAME_REGISTER( plSceneNode );
-    GETINTERFACE_ANY( plSceneNode, hsKeyedObject );
+    CLASSNAME_REGISTER(plSceneNode);
+    GETINTERFACE_ANY(plSceneNode, hsKeyedObject);
 
     virtual void Read(hsStream* s, hsResMgr* mgr);
     virtual void Write(hsStream* s, hsResMgr* mgr);
@@ -143,7 +143,7 @@ public:
     plSpaceTree*    GetSpaceTree();
 
     // Export only: Query for a given drawable
-    virtual plDrawable  *GetMatchingDrawable( const plDrawableCriteria& crit );
+    virtual plDrawable  *GetMatchingDrawable(const plDrawableCriteria& crit);
 
     // Export only: Optimize all my stinkin' drawables
     virtual void    OptimizeDrawables();

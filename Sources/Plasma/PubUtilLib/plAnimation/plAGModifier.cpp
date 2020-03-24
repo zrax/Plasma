@@ -128,7 +128,7 @@ void plAGModifier::Apply(double time) const
 // Apply our channels to our scene object
 bool plAGModifier::IEval(double time, float delta, uint32_t dirty)
 {
-    if(fAutoApply) {
+    if (fAutoApply) {
     //  Apply(time, delta);
     }
     return true;
@@ -143,7 +143,7 @@ plAGApplicator * plAGModifier::GetApplicator(plAGPinType pinType) const
     {
         plAGApplicator *app = fApps[i];
         plAGPinType otherType = app->GetPinType();
-        if(otherType == pinType)
+        if (otherType == pinType)
             return app;
     }
     return nil;
@@ -159,12 +159,12 @@ void plAGModifier::SetApplicator(plAGApplicator *newApp)
     // I sketched out how it *should* work and implemented the base protocol.
     // In reality, most of these code paths are not accessed now...
     // -- mm
-    for(int i = 0; i < numApps; i++)
+    for (int i = 0; i < numApps; i++)
     {
         plAGApplicator *existingApp = fApps[i];
         plAGPinType extPinType = existingApp->GetPinType();
 
-        if(extPinType == newPinType)
+        if (extPinType == newPinType)
         {
             hsStatusMessage("Two applicators accessing same pin type...congratulations for being the first to test this.");
             // these applicators both try to set the same thing; try to merge them
@@ -185,13 +185,13 @@ void plAGModifier::SetApplicator(plAGApplicator *newApp)
 
             // NOTE: we should make these arbitrate, but I'm not going to right now because
             // there's not currently an (easy) way to merge two applicators without allowing a blend.
-//          if(existingApp->CanCombine(newApp))
+//          if (existingApp->CanCombine(newApp))
 //          {
 //              // the existing applicator promises to provide the functionality we need...merge into it.
 //              existingApp->MergeChannel(newApp);
 //          } else {
 //              // couldn't merge into the existing channel; can we merge it into us instead?
-//              if(newApp->CanCombine(extApp))
+//              if (newApp->CanCombine(extApp))
 //              {
 //                  // okay, WE can provide the functionality of the existing applicator.
 //                  fApps[i] = newApp;                      // take over its spot in the applicators
@@ -238,18 +238,18 @@ bool plAGModifier::DetachChannel(plAGChannel * channel)
 {
     plAppTable::iterator i = fApps.begin();
 
-    while( i != fApps.end() )
+    while (i != fApps.end())
     {
         plAGApplicator *app = *i;
         plAGChannel *existingChannel = app->GetChannel();
-        if(existingChannel)
+        if (existingChannel)
         {
             plAGChannel *replacementChannel = existingChannel->Detach(channel);
 
             if (existingChannel != replacementChannel)
             {
                 app->SetChannel(replacementChannel);
-                if( ! replacementChannel && app->AutoDelete())
+                if (! replacementChannel && app->AutoDelete())
                 {
                     // Don't need to adjust the iterator since we're about to exit the loop
                     fApps.erase(i);
@@ -291,7 +291,7 @@ void plAGModifier::Write(hsStream *stream, hsResMgr *mgr)
 
 const plModifier * FindModifierByClass(const plSceneObject *obj, int classID)
 {
-    if(obj)
+    if (obj)
     {
         int modCount = obj->GetNumModifiers();
 
@@ -299,9 +299,9 @@ const plModifier * FindModifierByClass(const plSceneObject *obj, int classID)
         {
             const plModifier *mod = obj->GetModifier(i);
 
-            if(mod)     // modifier might not be loaded yet
+            if (mod)     // modifier might not be loaded yet
             {
-                if(mod->ClassIndex() == classID)
+                if (mod->ClassIndex() == classID)
                 {
                     return mod;
                 }

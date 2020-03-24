@@ -61,14 +61,14 @@ bool plTimerCallbackManager::MsgReceive(plMessage* msg)
 {
     plTimeMsg* pTimeMsg = plTimeMsg::ConvertNoRef(msg);
     int i = fCallbacks.Count();
-    if (pTimeMsg )
+    if (pTimeMsg)
     {
-        if(i)
+        if (i)
         {
             i--;
             if (pTimeMsg->GetTimeStamp() >= fCallbacks[i]->fTime)
             {
-                plgDispatch::MsgSend( fCallbacks[i]->fMsg );
+                plgDispatch::MsgSend(fCallbacks[i]->fMsg);
 
                 // Set it nil so the TimerCallback destructor doesn't unRef it
                 fCallbacks[i]->fMsg = nil;
@@ -84,7 +84,7 @@ bool plTimerCallbackManager::MsgReceive(plMessage* msg)
 
 plTimerCallback* plTimerCallbackManager::NewTimer(float time, plMessage* pMsg)
 {
-    plTimerCallback* t = new plTimerCallback( hsTimer::GetSysSeconds() + time, pMsg );
+    plTimerCallback* t = new plTimerCallback(hsTimer::GetSysSeconds() + time, pMsg);
     fCallbacks.Append(t);
     // sort them
     for (int i = 0; i < fCallbacks.Count(); i++)
@@ -176,8 +176,8 @@ plTimerCallbackManager* plgTimerCallbackMgr::fMgr = nil;
 void plgTimerCallbackMgr::Init()
 {
     fMgr = new plTimerCallbackManager;
-    fMgr->RegisterAs( kTimerCallbackManager_KEY );      // fixedKey from plFixedKey.h
-    plgDispatch::Dispatch()->RegisterForExactType( plTimeMsg::Index(), fMgr->GetKey() );
+    fMgr->RegisterAs(kTimerCallbackManager_KEY);      // fixedKey from plFixedKey.h
+    plgDispatch::Dispatch()->RegisterForExactType(plTimeMsg::Index(), fMgr->GetKey());
 }
 
 bool plgTimerCallbackMgr::CancelCallback(plTimerCallback* pTimer)

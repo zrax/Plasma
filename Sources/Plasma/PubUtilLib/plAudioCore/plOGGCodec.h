@@ -60,7 +60,7 @@ class plOGGCodec : public plAudioFileReader
 {
 public:
 
-    plOGGCodec( const plFileName &path, plAudioCore::ChannelSelect whichChan = plAudioCore::kAll );
+    plOGGCodec(const plFileName &path, plAudioCore::ChannelSelect whichChan = plAudioCore::kAll);
     virtual ~plOGGCodec();
 
     enum DecodeFormat
@@ -81,14 +81,14 @@ public:
     virtual uint32_t  GetDataSize() { return fDataSize / fChannelAdjust; }
     virtual float   GetLengthInSecs();
 
-    virtual bool    SetPosition( uint32_t numBytes );
-    virtual bool    Read( uint32_t numBytes, void *buffer );
+    virtual bool    SetPosition(uint32_t numBytes);
+    virtual bool    Read(uint32_t numBytes, void *buffer);
     virtual uint32_t  NumBytesLeft();
 
-    virtual bool    IsValid() { return ( fOggFile != nil ) ? true : false; }
+    virtual bool    IsValid() { return (fOggFile != nil) ? true : false; }
 
-    static void     SetDecodeFormat( DecodeFormat f ) { fDecodeFormat = f; }
-    static void     SetDecodeFlag( uint8_t flag, bool on ) { if( on ) fDecodeFlags |= flag; else fDecodeFlags &= ~flag; }
+    static void     SetDecodeFormat(DecodeFormat f) { fDecodeFormat = f; }
+    static void     SetDecodeFlag(uint8_t flag, bool on) { if (on) fDecodeFlags |= flag; else fDecodeFlags &= ~flag; }
     static uint8_t  GetDecodeFlags() { return fDecodeFlags; }
     void            ResetWaveHeaderRef() { fCurHeaderPos = 0; }
     void            BuildActualWaveHeader();
@@ -116,8 +116,8 @@ protected:
     uint8_t *           fHeadBuf;
     int                 fCurHeaderPos;
 
-    void    IError( const char *msg );
-    void    IOpen( const plFileName &path, plAudioCore::ChannelSelect whichChan = plAudioCore::kAll );
+    void    IError(const char *msg);
+    void    IOpen(const plFileName &path, plAudioCore::ChannelSelect whichChan = plAudioCore::kAll);
 };
 
 #endif //_plOGGCodec_h

@@ -68,19 +68,19 @@ public:
             case plStaticEnvLayer::kBmpBottomBitmap:
                 // Set up the enums so these would match...
                 if (pb->GetMap())
-                    pb->GetMap()->Invalidate( id );
+                    pb->GetMap()->Invalidate(id);
                 // Update the bitmap saved by the layer
-                //layer->SetBitmap( id, &val.bm->bi );
+                //layer->SetBitmap(id, &val.bm->bi);
                 break;
 
             case plStaticEnvLayer::kBmpBaseFilename:
-                if( pb->GetMap() )
+                if (pb->GetMap())
                 {
-                    pb->GetMap()->Enable( plStaticEnvLayer::kBmpGenerateFaces, ( val.s == NULL || val.s[ 0 ] == 0 ) ? FALSE : TRUE );
+                    pb->GetMap()->Enable(plStaticEnvLayer::kBmpGenerateFaces, (val.s == NULL || val.s[0] == 0) ? FALSE : TRUE);
 
-                    ICustButton     *bmSelectBtn = GetICustButton( GetDlgItem( pb->GetMap()->GetHWnd(), IDC_GENERATE_FACES ) );
-                    bmSelectBtn->SetText( _T( "Generate From Node" ) );
-                    ReleaseICustButton( bmSelectBtn );
+                    ICustButton     *bmSelectBtn = GetICustButton(GetDlgItem(pb->GetMap()->GetHWnd(), IDC_GENERATE_FACES));
+                    bmSelectBtn->SetText(_T("Generate From Node"));
+                    ReleaseICustButton(bmSelectBtn);
                 }
                 break;
         }
@@ -104,36 +104,36 @@ class PickControlNode : public PickObjectProc
 
         PickControlNode() { fLayer = NULL; }
 
-        BOOL    Pick( INode *node )
+        BOOL    Pick(INode *node)
         {
-            if( node && fLayer )
-                fLayer->RenderCubicMap( node );
+            if (node && fLayer)
+                fLayer->RenderCubicMap(node);
             return TRUE;
         }
 
         void    EnterMode()
         {
-            ICustButton     *iBut = GetICustButton( GetDlgItem( fHWnd, IDC_GENERATE_FACES ) );
-            if( iBut )
+            ICustButton     *iBut = GetICustButton(GetDlgItem(fHWnd, IDC_GENERATE_FACES));
+            if (iBut)
             {
-                iBut->SetCheck( TRUE );
-                iBut->SetText( _T( "Generate From Node" ) );
+                iBut->SetCheck(TRUE);
+                iBut->SetText(_T("Generate From Node"));
             }
-            ReleaseICustButton( iBut );
+            ReleaseICustButton(iBut);
         }
 
         void    ExitMode()
         {
-            ICustButton     *iBut = GetICustButton( GetDlgItem( fHWnd, IDC_GENERATE_FACES ) );
-            if( iBut )
+            ICustButton     *iBut = GetICustButton(GetDlgItem(fHWnd, IDC_GENERATE_FACES));
+            if (iBut)
             {
-                iBut->SetCheck( FALSE );
-                iBut->SetText( _T( "Generate From Node" ) );
+                iBut->SetCheck(FALSE);
+                iBut->SetText(_T("Generate From Node"));
             }
-            ReleaseICustButton( iBut );
+            ReleaseICustButton(iBut);
         }
 
-        BOOL    Filter( INode *node ) { return TRUE; }
+        BOOL    Filter(INode *node) { return TRUE; }
 };
 
 
@@ -149,72 +149,72 @@ public:
     IMtlParams  *fMtlParams;
 
     /// Called to update the controls of the dialog
-    virtual void    Update( TimeValue t, Interval &valid, IParamMap2 *map )
+    virtual void    Update(TimeValue t, Interval &valid, IParamMap2 *map)
     {
         ICustButton     *bmSelectBtn;
         IParamBlock2    *pblock;
         int             i;
-        long            buttons[ 6 ] = { IDC_FRONT_NAME, IDC_BACK_NAME, IDC_LEFT_NAME, IDC_RIGHT_NAME, IDC_TOP_NAME, IDC_BOTTOM_NAME };
+        long            buttons[6] = { IDC_FRONT_NAME, IDC_BACK_NAME, IDC_LEFT_NAME, IDC_RIGHT_NAME, IDC_TOP_NAME, IDC_BOTTOM_NAME };
         BitmapInfo      bi;
 
 
-        ParamMap2UserDlgProc::Update( t, valid, map );
+        ParamMap2UserDlgProc::Update(t, valid, map);
 
         pblock = map->GetParamBlock();
-        for( i = plStaticEnvLayer::kBmpFrontBitmap; i <= plStaticEnvLayer::kBmpBottomBitmap; i++ )
+        for (i = plStaticEnvLayer::kBmpFrontBitmap; i <= plStaticEnvLayer::kBmpBottomBitmap; i++)
         {
-            bmSelectBtn = GetICustButton( GetDlgItem( map->GetHWnd(), buttons[ i ] ) );
-            PBBitmap *pbbm = pblock->GetBitmap( i, t );
-            if( pbbm )
-                bmSelectBtn->SetText( (TCHAR *)pbbm->bi.Filename() );
+            bmSelectBtn = GetICustButton(GetDlgItem(map->GetHWnd(), buttons[i]));
+            PBBitmap *pbbm = pblock->GetBitmap(i, t);
+            if (pbbm)
+                bmSelectBtn->SetText((TCHAR *)pbbm->bi.Filename());
             else
-                bmSelectBtn->SetText( _T( "None" ) );
-            ReleaseICustButton( bmSelectBtn );
+                bmSelectBtn->SetText(_T("None"));
+            ReleaseICustButton(bmSelectBtn);
         }
 
         plStaticEnvLayer *layer = (plStaticEnvLayer *)map->GetParamBlock()->GetOwner();
-        bi.SetName( layer->GetBaseFilename( t ) );
-        SetDlgItemText( map->GetHWnd(), IDC_BASE_FILENAME, bi.Filename() );
-        map->Enable( plStaticEnvLayer::kBmpGenerateFaces, ( bi.Name() == NULL || bi.Name()[ 0 ] == 0 ) ? FALSE : TRUE );
+        bi.SetName(layer->GetBaseFilename(t));
+        SetDlgItemText(map->GetHWnd(), IDC_BASE_FILENAME, bi.Filename());
+        map->Enable(plStaticEnvLayer::kBmpGenerateFaces, (bi.Name() == NULL || bi.Name()[0] == 0) ? FALSE : TRUE);
 
-        bmSelectBtn = GetICustButton( GetDlgItem( map->GetHWnd(), IDC_GENERATE_FACES ) );
-        bmSelectBtn->SetText( _T( "Generate From Node" ) );
-        ReleaseICustButton( bmSelectBtn );
+        bmSelectBtn = GetICustButton(GetDlgItem(map->GetHWnd(), IDC_GENERATE_FACES));
+        bmSelectBtn->SetText(_T("Generate From Node"));
+        ReleaseICustButton(bmSelectBtn);
 
-        i = pblock->GetInt( plStaticEnvLayer::kBmpTextureSize, t );
-        pblock->SetValue( plStaticEnvLayer::kBmpLastTextureSize, t, i );
+        i = pblock->GetInt(plStaticEnvLayer::kBmpTextureSize, t);
+        pblock->SetValue(plStaticEnvLayer::kBmpLastTextureSize, t, i);
     }
 
     /// Clamp texture sizes to a power of 2
-    void    IClampTexSizeSpinner( TimeValue t, IParamMap2 *map )
+    void    IClampTexSizeSpinner(TimeValue t, IParamMap2 *map)
     {
         IParamBlock2 *pblock = map->GetParamBlock();
 
-        int     lastVal = pblock->GetInt( plStaticEnvLayer::kBmpLastTextureSize, t );
-        int     tempVal, newVal = pblock->GetInt( plStaticEnvLayer::kBmpTextureSize, t );
+        int     lastVal = pblock->GetInt(plStaticEnvLayer::kBmpLastTextureSize, t);
+        int     tempVal, newVal = pblock->GetInt(plStaticEnvLayer::kBmpTextureSize, t);
 
-        if( newVal < lastVal )
+        if (newVal < lastVal)
         {
             lastVal = newVal;
-            for( tempVal = 1; tempVal < newVal; tempVal <<= 1 );
+            for (tempVal = 1; tempVal < newVal; tempVal <<= 1);
             newVal = tempVal >> 1;
         }
         else
         {
             lastVal = newVal;
-            for( tempVal = 1; tempVal < newVal; tempVal <<= 1 );
+            for (tempVal = 1; tempVal < newVal; tempVal <<= 1);
             newVal = tempVal;
         }
 
-        pblock->SetValue( plStaticEnvLayer::kBmpTextureSize, t, newVal );
-        pblock->SetValue( plStaticEnvLayer::kBmpLastTextureSize, t, newVal );
+        pblock->SetValue(plStaticEnvLayer::kBmpTextureSize, t, newVal);
+        pblock->SetValue(plStaticEnvLayer::kBmpLastTextureSize, t, newVal);
     }
 
     /// Main message proc
     virtual BOOL DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
       static ICustButton* bmSelectBtn;
-      long  buttons[ 6 ] = { IDC_FRONT_NAME, IDC_BACK_NAME, IDC_LEFT_NAME, IDC_RIGHT_NAME, IDC_TOP_NAME, IDC_BOTTOM_NAME };
+      long  buttons[6] = { IDC_FRONT_NAME, IDC_BACK_NAME, IDC_LEFT_NAME, IDC_RIGHT_NAME, IDC_TOP_NAME, IDC_BOTTOM_NAME };
 
         switch (msg)
         {
@@ -222,16 +222,16 @@ public:
              break;
 
         case CC_SPINNER_CHANGE:
-            if( LOWORD( wParam ) == IDC_TEXSIZE_SPIN )
-                IClampTexSizeSpinner( t, map );
+            if (LOWORD(wParam) == IDC_TEXSIZE_SPIN)
+                IClampTexSizeSpinner(t, map);
             break;
 
         case WM_COMMAND:
-            if( HIWORD( wParam ) == EN_CHANGE && LOWORD( wParam ) == IDC_TEXSIZE_EDIT )
+            if (HIWORD(wParam) == EN_CHANGE && LOWORD(wParam) == IDC_TEXSIZE_EDIT)
             {
-                IClampTexSizeSpinner( t, map );
+                IClampTexSizeSpinner(t, map);
             }
-            else if( HIWORD( wParam ) == BN_CLICKED && LOWORD( wParam ) == IDC_LAYER_RELOAD )
+            else if (HIWORD(wParam) == BN_CLICKED && LOWORD(wParam) == IDC_LAYER_RELOAD)
             {
                 plStaticEnvLayer *layer = (plStaticEnvLayer*)map->GetParamBlock()->GetOwner();
                 layer->RefreshBitmaps();
@@ -239,28 +239,28 @@ public:
 
                 return TRUE;
             }
-            else if( LOWORD( wParam ) == IDC_FRONT_NAME )
-                return IDoLayerClicked( LOWORD( wParam ), plStaticEnvLayer::kFrontFace, map, t, hWnd );
+            else if (LOWORD(wParam) == IDC_FRONT_NAME)
+                return IDoLayerClicked(LOWORD(wParam), plStaticEnvLayer::kFrontFace, map, t, hWnd);
 
-            else if( LOWORD( wParam ) == IDC_BACK_NAME )
-                return IDoLayerClicked( LOWORD( wParam ), plStaticEnvLayer::kBackFace, map, t, hWnd );
+            else if (LOWORD(wParam) == IDC_BACK_NAME)
+                return IDoLayerClicked(LOWORD(wParam), plStaticEnvLayer::kBackFace, map, t, hWnd);
 
-            else if( LOWORD( wParam ) == IDC_LEFT_NAME )
-                return IDoLayerClicked( LOWORD( wParam ), plStaticEnvLayer::kLeftFace, map, t, hWnd );
+            else if (LOWORD(wParam) == IDC_LEFT_NAME)
+                return IDoLayerClicked(LOWORD(wParam), plStaticEnvLayer::kLeftFace, map, t, hWnd);
 
-            else if( LOWORD( wParam ) == IDC_RIGHT_NAME )
-                return IDoLayerClicked( LOWORD( wParam ), plStaticEnvLayer::kRightFace, map, t, hWnd );
+            else if (LOWORD(wParam) == IDC_RIGHT_NAME)
+                return IDoLayerClicked(LOWORD(wParam), plStaticEnvLayer::kRightFace, map, t, hWnd);
 
-            else if( LOWORD( wParam ) == IDC_TOP_NAME )
-                return IDoLayerClicked( LOWORD( wParam ), plStaticEnvLayer::kTopFace, map, t, hWnd );
+            else if (LOWORD(wParam) == IDC_TOP_NAME)
+                return IDoLayerClicked(LOWORD(wParam), plStaticEnvLayer::kTopFace, map, t, hWnd);
 
-            else if( LOWORD( wParam ) == IDC_BOTTOM_NAME )
-                return IDoLayerClicked( LOWORD( wParam ), plStaticEnvLayer::kBottomFace, map, t, hWnd );
+            else if (LOWORD(wParam) == IDC_BOTTOM_NAME)
+                return IDoLayerClicked(LOWORD(wParam), plStaticEnvLayer::kBottomFace, map, t, hWnd);
 
-            else if( LOWORD( wParam ) == IDC_LAYER_LOAD_GEN )
-                return IDoLoadGenerated( map, t, hWnd );
+            else if (LOWORD(wParam) == IDC_LAYER_LOAD_GEN)
+                return IDoLoadGenerated(map, t, hWnd);
 
-            else if( LOWORD( wParam ) == IDC_GENERATE_FACES )
+            else if (LOWORD(wParam) == IDC_GENERATE_FACES)
             {
                 plStaticEnvLayer *layer = (plStaticEnvLayer*)map->GetParamBlock()->GetOwner();
 
@@ -268,12 +268,12 @@ public:
                 fPickCallback.fHWnd = hWnd;
                 fPickCallback.fLayer = layer;
 
-                fMtlParams->SetPickMode( &fPickCallback );
+                fMtlParams->SetPickMode(&fPickCallback);
                 break;
             }
 
-            else if( LOWORD( wParam ) == IDC_BASE_FILENAME )
-                return IDoSelectBaseFilename( map, t, hWnd );
+            else if (LOWORD(wParam) == IDC_BASE_FILENAME)
+                return IDoSelectBaseFilename(map, t, hWnd);
 
             break;
         }
@@ -282,7 +282,7 @@ public:
     }
     virtual void DeleteThis() {};
 
-    BOOL    IDoSelectBaseFilename( IParamMap2 *map, TimeValue t, HWND hWnd )
+    BOOL    IDoSelectBaseFilename(IParamMap2 *map, TimeValue t, HWND hWnd)
     {
         BitmapInfo      bi;
 
@@ -290,59 +290,59 @@ public:
         plStaticEnvLayer *layer = (plStaticEnvLayer*)map->GetParamBlock()->GetOwner();
 
         /// Select one file
-        bi.SetName( layer->GetBaseFilename( t ) );
-        if( !TheManager->SelectFileOutput( &bi, GetCOREInterface()->GetMAXHWnd(), _T( "Choose the base filename for the rendered faces" ) ) )
+        bi.SetName(layer->GetBaseFilename(t));
+        if (!TheManager->SelectFileOutput(&bi, GetCOREInterface()->GetMAXHWnd(), _T("Choose the base filename for the rendered faces")))
             return FALSE;
 
         /// Just store the name and set the button label as such, too
-        SetDlgItemText( hWnd, IDC_BASE_FILENAME, bi.Filename() );
-        layer->SetBaseFilename( bi.Name(), t );
+        SetDlgItemText(hWnd, IDC_BASE_FILENAME, bi.Filename());
+        layer->SetBaseFilename(bi.Name(), t);
         return TRUE;
     }
 
-    BOOL    IDoLoadGenerated( IParamMap2 *map, TimeValue t, HWND hWnd )
+    BOOL    IDoLoadGenerated(IParamMap2 *map, TimeValue t, HWND hWnd)
     {
         BitmapInfo      bi;
         int             i;
-        TCHAR           filename[ MAX_PATH ];
-        TCHAR           *modPoint, faces[ 6 ][ 4 ] = { "_FR", "_BK", "_LF", "_RT", "_UP", "_DN" };
+        TCHAR           filename[MAX_PATH];
+        TCHAR           *modPoint, faces[6][4] = { "_FR", "_BK", "_LF", "_RT", "_UP", "_DN" };
         
         
         /// Select one file
-        PBBitmap *pbbm = map->GetParamBlock()->GetBitmap( plStaticEnvLayer::kBmpFrontBitmap, t );
-        if( pbbm != NULL )
-            bi.SetName( pbbm->bi.Name() );
-        if( !TheManager->SelectFileInput( &bi, GetCOREInterface()->GetMAXHWnd(), _T( "Select one of the generated face bitmaps" ) ) )
+        PBBitmap *pbbm = map->GetParamBlock()->GetBitmap(plStaticEnvLayer::kBmpFrontBitmap, t);
+        if (pbbm != NULL)
+            bi.SetName(pbbm->bi.Name());
+        if (!TheManager->SelectFileInput(&bi, GetCOREInterface()->GetMAXHWnd(), _T("Select one of the generated face bitmaps")))
             return FALSE;
 
         /// Copy the name over and get our mod point
-        strcpy( filename, bi.Filename() );
-        modPoint = strstr( filename, "_UP" );
-        if( modPoint == NULL )
-            modPoint = strstr( filename, "_DN" );
-        if( modPoint == NULL )
-            modPoint = strstr( filename, "_LF" );
-        if( modPoint == NULL )
-            modPoint = strstr( filename, "_RT" );
-        if( modPoint == NULL )
-            modPoint = strstr( filename, "_FR" );
-        if( modPoint == NULL )
-            modPoint = strstr( filename, "_BK" );
+        strcpy(filename, bi.Filename());
+        modPoint = strstr(filename, "_UP");
+        if (modPoint == NULL)
+            modPoint = strstr(filename, "_DN");
+        if (modPoint == NULL)
+            modPoint = strstr(filename, "_LF");
+        if (modPoint == NULL)
+            modPoint = strstr(filename, "_RT");
+        if (modPoint == NULL)
+            modPoint = strstr(filename, "_FR");
+        if (modPoint == NULL)
+            modPoint = strstr(filename, "_BK");
 
         /// Load each face
-        for( i = 0; i < 6; i++ )
+        for (i = 0; i < 6; i++)
         {
-            memcpy( modPoint, faces[ i ], sizeof( TCHAR ) * 3 );
-            if( !ILoadFace( i, filename, map, t, hWnd ) )
+            memcpy(modPoint, faces[i], sizeof(TCHAR) * 3);
+            if (!ILoadFace(i, filename, map, t, hWnd))
                 return FALSE;
         }
 
         return TRUE;
     }
 
-    BOOL    ILoadFace( int whichFace, const TCHAR *fileName, IParamMap2 *map, TimeValue t, HWND hWnd )
+    BOOL    ILoadFace(int whichFace, const TCHAR *fileName, IParamMap2 *map, TimeValue t, HWND hWnd)
     {
-        long    buttons[ 6 ] = { IDC_FRONT_NAME, IDC_BACK_NAME, IDC_LEFT_NAME, IDC_RIGHT_NAME, IDC_TOP_NAME, IDC_BOTTOM_NAME };
+        long    buttons[6] = { IDC_FRONT_NAME, IDC_BACK_NAME, IDC_LEFT_NAME, IDC_RIGHT_NAME, IDC_TOP_NAME, IDC_BOTTOM_NAME };
 
         IParamBlock2        *pblock = map->GetParamBlock();
         plStaticEnvLayer    *layer = (plStaticEnvLayer*)map->GetParamBlock()->GetOwner();
@@ -350,32 +350,32 @@ public:
         BitmapInfo          bi;
 
 
-        if( TheManager->GetImageInfo( &bi, fileName ) != BMMRES_SUCCESS )
+        if (TheManager->GetImageInfo(&bi, fileName) != BMMRES_SUCCESS)
             return FALSE;
 
-        layer->SetBitmap( &bi, whichFace - plStaticEnvLayer::kFrontFace );
+        layer->SetBitmap(&bi, whichFace - plStaticEnvLayer::kFrontFace);
 
-        PBBitmap *pbbm = layer->GetPBBitmap( whichFace - plStaticEnvLayer::kFrontFace );
-        bmSelectBtn = GetICustButton( GetDlgItem( hWnd, buttons[ whichFace ] ) );
+        PBBitmap *pbbm = layer->GetPBBitmap(whichFace - plStaticEnvLayer::kFrontFace);
+        bmSelectBtn = GetICustButton(GetDlgItem(hWnd, buttons[whichFace]));
         bmSelectBtn->SetText((TCHAR*)pbbm->bi.Filename());
-        ReleaseICustButton( bmSelectBtn );
+        ReleaseICustButton(bmSelectBtn);
 
         return TRUE;
     }
 
-    BOOL    IDoLayerClicked( int whichBtn, int whichFace, IParamMap2 *map, TimeValue t, HWND hWnd )
+    BOOL    IDoLayerClicked(int whichBtn, int whichFace, IParamMap2 *map, TimeValue t, HWND hWnd)
     {
         plPlasmaMAXLayer *layer = (plPlasmaMAXLayer *)map->GetParamBlock()->GetOwner();
         if (layer == nil)
             return FALSE;
 
-        BOOL selectedNewBitmap = layer->HandleBitmapSelection( whichFace - plStaticEnvLayer::kFrontFace );
-        if(selectedNewBitmap)
+        BOOL selectedNewBitmap = layer->HandleBitmapSelection(whichFace - plStaticEnvLayer::kFrontFace);
+        if (selectedNewBitmap)
         {
             ICustButton* bmSelectBtn;
 
-            PBBitmap *pbbm = layer->GetPBBitmap( whichFace - plStaticEnvLayer::kFrontFace );
-            bmSelectBtn = GetICustButton( GetDlgItem( hWnd, whichBtn ) );
+            PBBitmap *pbbm = layer->GetPBBitmap(whichFace - plStaticEnvLayer::kFrontFace);
+            bmSelectBtn = GetICustButton(GetDlgItem(hWnd, whichBtn));
             bmSelectBtn->SetText(pbbm != nil ? (TCHAR*)pbbm->bi.Filename() : nil);
             ReleaseICustButton(bmSelectBtn);
 
@@ -486,7 +486,7 @@ static ParamBlockDesc2 gBitmapParamBlk
         p_default,      64,
         end,
     plStaticEnvLayer::kBmpBaseFilename, _T("baseFilename"), TYPE_FILENAME, 0, 0,
-        p_default,      _T( "" ),
+        p_default,      _T(""),
         p_accessor,     &bmtex_accessor,
         end,
     plStaticEnvLayer::kBmpGenerateFaces, _T("genFaces"), TYPE_INODE, 0, 0,

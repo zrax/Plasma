@@ -124,15 +124,15 @@ bool plMultistageBehMod::MsgReceive(plMessage* msg)
     if (notifyMsg)
     {
         hsAssert(fStages, "Trying to trigger multistage, but no stages are present.");
-        if(fStages)
+        if (fStages)
         {
             plKey avKey = notifyMsg->GetAvatarKey();
             hsAssert(avKey, "Avatar key missing trying to trigger multistage.");
-            if(avKey)
+            if (avKey)
             {
                 plSceneObject *avObj = plSceneObject::ConvertNoRef(avKey->ObjectIsLoaded());
                 hsAssert(avObj, "Avatar not loaded when trying to trigger multistage.");
-                if(avObj)
+                if (avObj)
                 {
                     // Create a copy of our reference anim stages to give to the brain
                     plAnimStageVec* stages = new plAnimStageVec;
@@ -152,7 +152,7 @@ bool plMultistageBehMod::MsgReceive(plMessage* msg)
                     const plArmatureMod *avMod = (plArmatureMod*)avObj->GetModifierByType(plArmatureMod::Index());
                     hsAssert(avMod, "Missing armature mod on avatar scene object.");
 
-                    if(avMod)
+                    if (avMod)
                     {
                         plKey sender = notifyMsg->GetSender();
                         plKey avModKey = avMod->GetKey();

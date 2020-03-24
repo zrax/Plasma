@@ -60,8 +60,8 @@ public:
     plRelevanceRegion() : fRegion(nil), fMgrIdx((uint32_t)-1) {}
     virtual ~plRelevanceRegion() {}
     
-    CLASSNAME_REGISTER( plRelevanceRegion );
-    GETINTERFACE_ANY( plRelevanceRegion, plObjInterface );
+    CLASSNAME_REGISTER(plRelevanceRegion);
+    GETINTERFACE_ANY(plRelevanceRegion, plObjInterface);
     
     virtual bool MsgReceive(plMessage* msg);
     

@@ -119,8 +119,8 @@ public:
     plLineFollowMod();
     ~plLineFollowMod();
 
-    CLASSNAME_REGISTER( plLineFollowMod );
-    GETINTERFACE_ANY( plLineFollowMod, plMultiModifier );
+    CLASSNAME_REGISTER(plLineFollowMod);
+    GETINTERFACE_ANY(plLineFollowMod, plMultiModifier);
     
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);
@@ -171,8 +171,8 @@ public:
     plRailCameraMod();
     ~plRailCameraMod();
 
-    CLASSNAME_REGISTER( plRailCameraMod );
-    GETINTERFACE_ANY( plRailCameraMod, plLineFollowMod );
+    CLASSNAME_REGISTER(plRailCameraMod);
+    GETINTERFACE_ANY(plRailCameraMod, plLineFollowMod);
     
     void Init() { fCurrentTime = -1; } // twiddle ourselves so we get ready to go...
     hsPoint3 GetGoal(double secs, float speed);

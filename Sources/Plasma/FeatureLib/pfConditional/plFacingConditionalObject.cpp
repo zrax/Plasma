@@ -99,7 +99,7 @@ bool plFacingConditionalObject::Verify(plMessage* msg)
             float dot = playerView * ourView;
             if (dot >= fTolerance)
             {
-                fLogicMod->GetNotify()->AddFacingEvent( pActivateMsg->fHitterObj, fLogicMod->GetTarget()->GetKey(), dot, true);
+                fLogicMod->GetNotify()->AddFacingEvent(pActivateMsg->fHitterObj, fLogicMod->GetTarget()->GetKey(), dot, true);
                 return true;
             }
             else
@@ -138,7 +138,7 @@ bool plFacingConditionalObject::Verify(plMessage* msg)
             {
                 if (!IsToggle())
                 {
-                    fLogicMod->GetNotify()->AddFacingEvent( pPlayer->GetKey(), fLogicMod->GetTarget()->GetKey(), dot, false);
+                    fLogicMod->GetNotify()->AddFacingEvent(pPlayer->GetKey(), fLogicMod->GetTarget()->GetKey(), dot, false);
                     fLogicMod->RequestUnTrigger();
                     return false;
                 }

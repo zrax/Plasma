@@ -57,8 +57,8 @@ public:
     plDynaFootMgr();
     virtual ~plDynaFootMgr();
 
-    CLASSNAME_REGISTER( plDynaFootMgr );
-    GETINTERFACE_ANY( plDynaFootMgr, plDynaDecalMgr );
+    CLASSNAME_REGISTER(plDynaFootMgr);
+    GETINTERFACE_ANY(plDynaFootMgr, plDynaDecalMgr);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

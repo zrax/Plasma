@@ -184,8 +184,8 @@ namespace plVault {
 
 #ifdef CLIENT
 
-    const char * NodeTypeStr( int type, bool pretty=false );
-    const char * StandardNodeStr( int type );
+    const char * NodeTypeStr(int type, bool pretty=false);
+    const char * StandardNodeStr(int type);
 
 #endif
 };

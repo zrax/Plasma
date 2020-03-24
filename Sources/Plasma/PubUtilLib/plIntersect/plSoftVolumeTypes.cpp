@@ -65,15 +65,15 @@ plSoftVolumeSimple::~plSoftVolumeSimple()
 
 float plSoftVolumeSimple::IGetStrength(const hsPoint3& pos) const
 {
-    if( !fVolume || GetProperty(kDisable) )
+    if (!fVolume || GetProperty(kDisable))
         return 0;
 
     float dist = fVolume->Test(pos);
 
-    if( dist <= 0 )
+    if (dist <= 0)
         return 1.f;
 
-    if( dist >= fSoftDist )
+    if (dist >= fSoftDist)
         return 0;
 
     dist /= fSoftDist;
@@ -83,7 +83,7 @@ float plSoftVolumeSimple::IGetStrength(const hsPoint3& pos) const
 
 void plSoftVolumeSimple::SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l)
 {
-    if( fVolume )
+    if (fVolume)
         fVolume->SetTransform(l2w, w2l);
 }
 
@@ -128,7 +128,7 @@ void plSoftVolumeComplex::Read(hsStream* s, hsResMgr* mgr)
 
     int n = s->ReadLE32();
     int i;
-    for( i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
         mgr->ReadKeyNotifyMe(s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, 0, kSubVolume), plRefFlags::kActiveRef);
 }
 
@@ -138,26 +138,26 @@ void plSoftVolumeComplex::Write(hsStream* s, hsResMgr* mgr)
 
     s->WriteLE32(fSubVolumes.GetCount());
     int i;
-    for( i = 0; i < fSubVolumes.GetCount(); i++ )
+    for (i = 0; i < fSubVolumes.GetCount(); i++)
         mgr->WriteKey(s, fSubVolumes[i]);
 }
 
 bool plSoftVolumeComplex::MsgReceive(plMessage* msg)
 {
     plGenRefMsg* refMsg = plGenRefMsg::ConvertNoRef(msg);
-    if( refMsg )
+    if (refMsg)
     {
-        if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest) )
+        if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest))
         {
             plSoftVolume* sub = plSoftVolume::ConvertNoRef(refMsg->GetRef());
             hsAssert(fSubVolumes.kMissingIndex == fSubVolumes.Find(sub), "Adding subvolume I already have");
             fSubVolumes.Append(sub);
         }
-        else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+        else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
         {
             plSoftVolume* sub = (plSoftVolume*)refMsg->GetRef();
             int idx = fSubVolumes.Find(sub);
-            if( idx != fSubVolumes.kMissingIndex )
+            if (idx != fSubVolumes.kMissingIndex)
                 fSubVolumes.Remove(idx);
         }
         return true;
@@ -169,7 +169,7 @@ void plSoftVolumeComplex::UpdateListenerPosition(const hsPoint3& pos)
 {
     plSoftVolume::UpdateListenerPosition(pos);
     int i;
-    for( i = 0; i < fSubVolumes.GetCount(); i++ )
+    for (i = 0; i < fSubVolumes.GetCount(); i++)
         fSubVolumes[i]->UpdateListenerPosition(pos);
 }
 
@@ -188,12 +188,12 @@ float plSoftVolumeUnion::IGetStrength(const hsPoint3& pos) const
 {
     float retVal = 0;
     int i;
-    for( i = 0; i < fSubVolumes.GetCount(); i++ )
+    for (i = 0; i < fSubVolumes.GetCount(); i++)
     {
         float subRet = fSubVolumes[i]->GetStrength(pos);
-        if( subRet >= 1.f )
+        if (subRet >= 1.f)
             return 1.f;
-        if( subRet > retVal )
+        if (subRet > retVal)
             retVal = subRet;
     }
     return retVal;
@@ -203,15 +203,15 @@ float plSoftVolumeUnion::IUpdateListenerStrength() const
 {
     float retVal = 0;
     int i;
-    for( i = 0; i < fSubVolumes.GetCount(); i++ )
+    for (i = 0; i < fSubVolumes.GetCount(); i++)
     {
         float subRet = fSubVolumes[i]->GetListenerStrength();
-        if( subRet >= 1.f )
+        if (subRet >= 1.f)
         {
             retVal = 1.f;
             break;
         }
-        if( subRet > retVal )
+        if (subRet > retVal)
             retVal = subRet;
     }
     return fListenStrength = IRemapStrength(retVal);
@@ -232,12 +232,12 @@ float plSoftVolumeIntersect::IGetStrength(const hsPoint3& pos) const
 {
     float retVal = 1.f;
     int i;
-    for( i = 0; i < fSubVolumes.GetCount(); i++ )
+    for (i = 0; i < fSubVolumes.GetCount(); i++)
     {
         float subRet = fSubVolumes[i]->GetStrength(pos);
-        if( subRet <= 0 )
+        if (subRet <= 0)
             return 0;
-        if( subRet < retVal )
+        if (subRet < retVal)
             retVal = subRet;
     }
     return retVal;
@@ -247,15 +247,15 @@ float plSoftVolumeIntersect::IUpdateListenerStrength() const
 {
     float retVal = 1.f;
     int i;
-    for( i = 0; i < fSubVolumes.GetCount(); i++ )
+    for (i = 0; i < fSubVolumes.GetCount(); i++)
     {
         float subRet = fSubVolumes[i]->GetListenerStrength();
-        if( subRet <= 0 )
+        if (subRet <= 0)
         {
             retVal = 0.f;
             break;
         }
-        if( subRet < retVal )
+        if (subRet < retVal)
             retVal = subRet;
     }
     return fListenStrength = IRemapStrength(retVal);
@@ -275,7 +275,7 @@ plSoftVolumeInvert::~plSoftVolumeInvert()
 float plSoftVolumeInvert::IGetStrength(const hsPoint3& pos) const
 {
     hsAssert(fSubVolumes.GetCount() <= 1, "Too many subvolumes on inverter");
-    if( fSubVolumes.GetCount() )
+    if (fSubVolumes.GetCount())
         return 1.f - fSubVolumes[0]->GetStrength(pos);
 
     return 1.f;
@@ -285,7 +285,7 @@ float plSoftVolumeInvert::IUpdateListenerStrength() const
 {
     hsAssert(fSubVolumes.GetCount() <= 1, "Too many subvolumes on inverter");
     float retVal = 1.f;
-    if( fSubVolumes.GetCount() )
+    if (fSubVolumes.GetCount())
         retVal = (1.f - fSubVolumes[0]->GetListenerStrength());
 
     return fListenStrength = IRemapStrength(retVal);

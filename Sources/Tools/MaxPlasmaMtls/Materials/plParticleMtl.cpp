@@ -317,7 +317,7 @@ IOResult plParticleMtl::Load(ILoad *iload)
     int id;
     while (IO_OK==(res=iload->OpenChunk()))
     {
-        switch(id = iload->CurChunkID())
+        switch (id = iload->CurChunkID())
         {
             case MTL_HDR_CHUNK:
                 res = MtlBase::Load(iload);
@@ -376,8 +376,8 @@ Color plParticleMtl::GetSpecular(int mtlNum, BOOL backFace) { return Color(0,0,0
 
 float plParticleMtl::GetXParency(int mtlNum, BOOL backFace)
 {
-    int         opacity = fBasicPB->GetInt( kOpacity, 0 );
-    float       alpha = 1.0f - ( (float)opacity / 100.0f );
+    int         opacity = fBasicPB->GetInt(kOpacity, 0);
+    float       alpha = 1.0f - ((float)opacity / 100.0f);
 
     return alpha;
 }
@@ -397,7 +397,7 @@ void plParticleMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallba
             if (texHandle[i]) {
                 mtl->texture[i].textHandle = texHandle[i]->GetHandle();
                 Texmap *tx = (*maps)[useSubForTex[i]].map;
-                cb.GetGfxTexInfoFromTexmap(t, mtl->texture[i], tx );
+                cb.GetGfxTexInfoFromTexmap(t, mtl->texture[i], tx);
                 SetTexOps(mtl,i,texOpsType[i]);
                 }
             }
@@ -407,8 +407,8 @@ void plParticleMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallba
 
 #if 0   // WTF?!?!?!?
     Texmap *tx[2];
-    int diffChan = stdIDToChannel[ ID_DI ];
-    int opacChan = stdIDToChannel[ ID_OP ];
+    int diffChan = stdIDToChannel[ID_DI];
+    int opacChan = stdIDToChannel[ID_OP];
     tx[0] = (*maps)[diffChan].IsActive()?(*maps)[diffChan].map:NULL;
     tx[1] = (*maps)[opacChan].IsActive()?(*maps)[opacChan].map:NULL;
 #endif
@@ -510,23 +510,23 @@ void plParticleMtl::Shade(ShadeContext& sc)
 //  Tells MAX what we need to render ourselves properly, such as translucency,
 //  two-sidedness, etc. Flags are in imtl.h in the MAX SDK.
 
-ULONG   plParticleMtl::Requirements( int subMtlNum )
+ULONG   plParticleMtl::Requirements(int subMtlNum)
 {
     ULONG       req = 0;
 
 
-    req = Mtl::Requirements( subMtlNum );
+    req = Mtl::Requirements(subMtlNum);
 
     // Uncomment this to get the background color fed to our ShadeWithBackground()
     // (slower processing tho)
 //  req |= MTLREQ_BGCOL;
 
-    int blendType = fBasicPB->GetInt( kBlend );
-    if( blendType == kBlendAdd )
+    int blendType = fBasicPB->GetInt(kBlend);
+    if (blendType == kBlendAdd)
         req |= MTLREQ_ADDITIVE_TRANSP | MTLREQ_TRANSP;
-    else if( blendType == kBlendAlpha )
+    else if (blendType == kBlendAlpha)
         req |= MTLREQ_TRANSP;
-    else if( fBasicPB->GetInt( kOpacity, 0 ) != 100 )
+    else if (fBasicPB->GetInt(kOpacity, 0) != 100)
         req |= MTLREQ_TRANSP;
 
     return req;
@@ -558,7 +558,7 @@ void plParticleMtl::ShadeWithBackground(ShadeContext &sc, Color background)
 
 
     SIllumParams ip;
-    if( fBasicPB->GetInt( kNormal ) == kEmissive )
+    if (fBasicPB->GetInt(kNormal) == kEmissive)
     {
         // Emissive objects don't get shaded
         ip.diffIllum = fBasicPB->GetColor(kColorAmb, t) * color;
@@ -618,8 +618,8 @@ void plParticleMtl::ShadeWithBackground(ShadeContext &sc, Color background)
     // will be opaque, so be careful.
     Color outC = ip.diffIllum + ip.specIllum;
 
-    sc.out.c = ( outC * alpha );
-    sc.out.t = Color( 1.f - alpha, 1.f - alpha, 1.f - alpha );
+    sc.out.c = (outC * alpha);
+    sc.out.t = Color(1.f - alpha, 1.f - alpha, 1.f - alpha);
 
 #endif
 }

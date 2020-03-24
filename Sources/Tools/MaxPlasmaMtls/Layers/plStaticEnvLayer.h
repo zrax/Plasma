@@ -79,15 +79,15 @@ protected:
     TexHandle *fTexHandle;
     TimeValue fTexTime;
 
-    Bitmap          *fBitmaps[ 6 ];
+    Bitmap          *fBitmaps[6];
     Interval        fIValid;
-    TCHAR           fBaseFileName[ MAX_PATH ];
+    TCHAR           fBaseFileName[MAX_PATH];
    
     friend class SELBitmapDlgProc;
 
 
-    Matrix3     IGetViewTM( int i );
-    int         IWriteBM( BitmapInfo *bi, Bitmap *bm, TCHAR *name );
+    Matrix3     IGetViewTM(int i);
+    int         IWriteBM(BitmapInfo *bi, Bitmap *bm, TCHAR *name);
 
 public:
     // Ref nums
@@ -160,7 +160,7 @@ public:
     SClass_ID SuperClassID() { return TEXMAP_CLASS_ID; }
     void GetClassName(TSTR& s);
 
-    RefTargetHandle Clone( RemapDir &remap );
+    RefTargetHandle Clone(RemapDir &remap);
     RefResult NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
         PartID& partID,  RefMessage message);
 
@@ -177,12 +177,12 @@ public:
     IParamBlock2* GetParamBlock(int i); // return i'th ParamBlock
     IParamBlock2* GetParamBlockByID(BlockID id); // return id'd ParamBlock
 
-    const char *GetTextureName( int which );
+    const char *GetTextureName(int which);
 
-    void        SetBaseFilename( const TCHAR *name, TimeValue t );
-    const TCHAR *GetBaseFilename( TimeValue t );
+    void        SetBaseFilename(const TCHAR *name, TimeValue t);
+    const TCHAR *GetBaseFilename(TimeValue t);
 
-    void    RenderCubicMap( INode *node );
+    void    RenderCubicMap(INode *node);
 
 
     /// ParamBlock accessors
@@ -237,13 +237,13 @@ public:
     };
 
         // Pure virtual accessors for the various bitmap related elements
-        virtual Bitmap *GetMaxBitmap(int index = 0) { return fBitmaps[ index ]; }
-        virtual PBBitmap *GetPBBitmap( int index = 0 );
+        virtual Bitmap *GetMaxBitmap(int index = 0) { return fBitmaps[index]; }
+        virtual PBBitmap *GetPBBitmap(int index = 0);
         virtual int     GetNumBitmaps() { return 6; }
 
     protected:
-        virtual void ISetMaxBitmap(Bitmap *bitmap, int index = 0) { fBitmaps[ index ] = bitmap; }
-        virtual void ISetPBBitmap( PBBitmap *pbbm, int index = 0 );
+        virtual void ISetMaxBitmap(Bitmap *bitmap, int index = 0) { fBitmaps[index] = bitmap; }
+        virtual void ISetPBBitmap(PBBitmap *pbbm, int index = 0);
 
 
 };

@@ -106,9 +106,9 @@ bool plActivatorBaseComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
     return true;
 }
 
-bool plActivatorBaseComponent::DeInit( plMaxNode *node, plErrorMsg *pErrMsg )
+bool plActivatorBaseComponent::DeInit(plMaxNode *node, plErrorMsg *pErrMsg)
 {
     fReceivers.clear();
     fLogicModKeys.clear();
-    return plPhysicCoreComponent::DeInit( node, pErrMsg );
+    return plPhysicCoreComponent::DeInit(node, pErrMsg);
 }

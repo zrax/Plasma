@@ -65,7 +65,7 @@ public:
     {
         float dis = plane.fN.InnerProduct(pos);
         dis += plane.fD;
-        if( dis > 0.f )
+        if (dis > 0.f)
             return false;
 
         return true;

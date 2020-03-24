@@ -56,29 +56,29 @@ pyGUIControlButton::pyGUIControlButton(plKey objkey) : pyGUIControl(objkey)
 
 bool pyGUIControlButton::IsGUIControlButton(pyKey& gckey)
 {
-    if ( gckey.getKey() && pfGUIButtonMod::ConvertNoRef(gckey.getKey()->ObjectIsLoaded()) )
+    if (gckey.getKey() && pfGUIButtonMod::ConvertNoRef(gckey.getKey()->ObjectIsLoaded()))
         return true;
     return false;
 }
 
 void    pyGUIControlButton::SetNotifyType(int32_t kind)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIButtonMod* butnmod = pfGUIButtonMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( butnmod )
+        if (butnmod)
             butnmod->SetNotifyType(kind);
     }
 }
 
 int32_t   pyGUIControlButton::GetNotifyType()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIButtonMod* butnmod = pfGUIButtonMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( butnmod )
+        if (butnmod)
             return butnmod->GetNotifyType();
     }
     return false;
@@ -86,11 +86,11 @@ int32_t   pyGUIControlButton::GetNotifyType()
 
 bool    pyGUIControlButton::IsButtonDown()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIButtonMod* butnmod = pfGUIButtonMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( butnmod )
+        if (butnmod)
             return butnmod->IsButtonDown();
     }
     return false;

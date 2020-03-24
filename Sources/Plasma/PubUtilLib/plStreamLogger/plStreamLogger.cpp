@@ -117,17 +117,17 @@ void hsReadOnlyLoggingStream::LogSubStreamPushDesc(const char* desc)
 
 void hsReadOnlyLoggingStream::Rewind()
 {
-    hsThrow( "can't rewind a logging stream");
+    hsThrow("can't rewind a logging stream");
 }
 
 void hsReadOnlyLoggingStream::FastFwd()
 {
-    hsThrow( "can't fast forward a logging stream");
+    hsThrow("can't fast forward a logging stream");
 }
 
 void hsReadOnlyLoggingStream::SetPosition(uint32_t position)
 {
-    hsThrow( "can't set position on a logging stream");
+    hsThrow("can't set position on a logging stream");
 }
 
 void hsReadOnlyLoggingStream::Skip(uint32_t deltaByteCount)

@@ -84,7 +84,7 @@ plMorphDelta& plMorphDelta::operator=(const plMorphDelta& src)
 {
     SetNumSpans(src.GetNumSpans());
     int i;
-    for( i = 0; i < fSpans.GetCount(); i++ )
+    for (i = 0; i < fSpans.GetCount(); i++)
     {
         SetDeltas(i, src.fSpans[i].fDeltas, src.fSpans[i].fNumUVWChans, src.fSpans[i].fUVWs);
     }
@@ -93,16 +93,16 @@ plMorphDelta& plMorphDelta::operator=(const plMorphDelta& src)
 
 void plMorphDelta::Apply(hsTArray<plAccessSpan>& dst, float weight /* = -1.f */) const
 {
-    if( weight == -1.f)
+    if (weight == -1.f)
         weight = fWeight; // None passed in, use our stored value
 
-    if( weight <= kMinWeight )
+    if (weight <= kMinWeight)
         return;
 
     // Easy
     // For each span
     int iSpan;
-    for( iSpan = 0; iSpan < fSpans.GetCount(); iSpan++ )
+    for (iSpan = 0; iSpan < fSpans.GetCount(); iSpan++)
     {
         plAccessVtxSpan& vtxDst = dst[iSpan].AccessVtx();
 
@@ -111,7 +111,7 @@ void plMorphDelta::Apply(hsTArray<plAccessSpan>& dst, float weight /* = -1.f */)
         // For each vertDelta
         const hsPoint3* uvwDel = span.fUVWs;
         int iDelta;
-        for( iDelta = 0; iDelta < span.fDeltas.GetCount(); iDelta++ )
+        for (iDelta = 0; iDelta < span.fDeltas.GetCount(); iDelta++)
         {
             const plVertDelta& delta = span.fDeltas[iDelta];
             // Add delPos * wgt to position
@@ -129,7 +129,7 @@ void plMorphDelta::Apply(hsTArray<plAccessSpan>& dst, float weight /* = -1.f */)
             // For each UVW
             hsPoint3* uvws = vtxDst.UVWs(delta.fIdx);
             int iUVW;
-            for( iUVW = 0; iUVW < span.fNumUVWChans; iUVW++ )
+            for (iUVW = 0; iUVW < span.fNumUVWChans; iUVW++)
             {
                 // Add delUVW * wgt to uvw
                 *uvws += *uvwDel * weight;
@@ -147,7 +147,7 @@ void plMorphDelta::ComputeDeltas(const hsTArray<plAccessSpan>& base, const hsTAr
 
     // For each span
     {
-        // for( i = 0; i < numVerts; i++ )
+        // for (i = 0; i < numVerts; i++)
         {
             // NOTE: we want to discard zero deltas, but a
             // delta in any channel forces us to save the whole thing.
@@ -176,7 +176,7 @@ void plMorphDelta::ComputeDeltas(const hsTArray<plGeometrySpan*>& base, const hs
 
     // For each span
     int iSpan;
-    for( iSpan = 0; iSpan < base.GetCount(); iSpan++ )
+    for (iSpan = 0; iSpan < base.GetCount(); iSpan++)
     {
         plAccessSpan baseAcc;
         plAccessGeometry::Instance()->AccessSpanFromGeometrySpan(baseAcc, base[iSpan]);
@@ -198,7 +198,7 @@ void plMorphDelta::ComputeDeltas(const hsTArray<plGeometrySpan*>& base, const hs
 
 
         int iVert = 0;;
-        for( baseIter.Begin(), movedIter.Begin(); baseIter.More(); baseIter.Advance(), movedIter.Advance() )
+        for (baseIter.Begin(), movedIter.Begin(); baseIter.More(); baseIter.Advance(), movedIter.Advance())
         {
             // NOTE: we want to discard zero deltas, but a
             // delta in any channel forces us to save the whole thing.
@@ -217,9 +217,9 @@ void plMorphDelta::ComputeDeltas(const hsTArray<plGeometrySpan*>& base, const hs
             plConst(float) kMinDelNorm(3.e-2f); // About 10 degrees
             plConst(float) kMinDelUVW(1.e-4f); // From BHC
             hsPoint3 mPos = d2b * *movedIter.Position();
-            hsVector3 delPos( &mPos, baseIter.Position());
+            hsVector3 delPos(&mPos, baseIter.Position());
             float delPosSq = delPos.MagnitudeSquared();
-            if( delPosSq > kMinDelPos )
+            if (delPosSq > kMinDelPos)
                 nonZero = true;
             else
                 delPos.Set(0,0,0);
@@ -227,23 +227,23 @@ void plMorphDelta::ComputeDeltas(const hsTArray<plGeometrySpan*>& base, const hs
 
             hsVector3 delNorm = (d2bTInv * *movedIter.Normal()) - *baseIter.Normal();
             float delNormSq = delNorm.MagnitudeSquared();
-            if( delNormSq > kMinDelNorm )
+            if (delNormSq > kMinDelNorm)
                 nonZero = true;
             else
                 delNorm.Set(0,0,0);
 
             int i;
-            for( i = 0; i < numUVWs; i++ )
+            for (i = 0; i < numUVWs; i++)
             {
                 delUVWs[i] = *movedIter.UVW(i) - *baseIter.UVW(i);
                 float delUVWSq = delUVWs[i].MagnitudeSquared();
-                if( delUVWSq > kMinDelUVW )
+                if (delUVWSq > kMinDelUVW)
                     nonZero = true;
                 else
                     delUVWs[i].Set(0,0,0);
             }
 
-            if( nonZero )
+            if (nonZero)
             {
                 // Append to deltas (i, del's)
                 plVertDelta del;
@@ -252,7 +252,7 @@ void plMorphDelta::ComputeDeltas(const hsTArray<plGeometrySpan*>& base, const hs
                 del.fNorm = delNorm;
                 deltas.Append(del);
 
-                for( i = 0; i < numUVWs; i++ )
+                for (i = 0; i < numUVWs; i++)
                     uvws.Append(delUVWs[i]);
             }
             else
@@ -281,7 +281,7 @@ void plMorphDelta::AllocDeltas(int iSpan, int nDel, int nUVW)
     delete [] fSpans[iSpan].fUVWs;
 
     int uvwCnt = nDel * nUVW;
-    if( uvwCnt )
+    if (uvwCnt)
         fSpans[iSpan].fUVWs = new hsPoint3[uvwCnt];
     else
         fSpans[iSpan].fUVWs = nil;
@@ -290,11 +290,11 @@ void plMorphDelta::AllocDeltas(int iSpan, int nDel, int nUVW)
 void plMorphDelta::SetDeltas(int iSpan, const hsTArray<plVertDelta>& deltas, int numUVWChans, const hsPoint3* uvws)
 {
     AllocDeltas(iSpan, deltas.GetCount(), numUVWChans);
-    if( deltas.GetCount() )
+    if (deltas.GetCount())
     {
         HSMemory::BlockMove(&deltas[0], fSpans[iSpan].fDeltas.AcquireArray(), deltas.GetCount() * sizeof(plVertDelta));
 
-        if( numUVWChans )
+        if (numUVWChans)
             HSMemory::BlockMove(uvws, fSpans[iSpan].fUVWs, deltas.GetCount() * numUVWChans * sizeof(*uvws));
     }
 }
@@ -306,15 +306,15 @@ void plMorphDelta::Read(hsStream* s, hsResMgr* mgr)
     int n = s->ReadLE32();
     SetNumSpans(n);
     int iSpan;
-    for( iSpan = 0; iSpan < n; iSpan++ )
+    for (iSpan = 0; iSpan < n; iSpan++)
     {
         int nDel = s->ReadLE32();
         int nUVW = s->ReadLE32();
         AllocDeltas(iSpan, nDel, nUVW);
-        if( nDel )
+        if (nDel)
         {
             s->Read(nDel * sizeof(plVertDelta), fSpans[iSpan].fDeltas.AcquireArray());
-            if( nUVW )
+            if (nUVW)
                 s->Read(nDel * nUVW * sizeof(hsPoint3), fSpans[iSpan].fUVWs);
         }
     }
@@ -328,14 +328,14 @@ void plMorphDelta::Write(hsStream* s, hsResMgr* mgr)
     s->WriteLE32(fSpans.GetCount());
 
     int iSpan;
-    for( iSpan = 0; iSpan < fSpans.GetCount(); iSpan++ )
+    for (iSpan = 0; iSpan < fSpans.GetCount(); iSpan++)
     {
         int nDel = fSpans[iSpan].fDeltas.GetCount();
         int nUVW = fSpans[iSpan].fNumUVWChans;
         s->WriteLE32(nDel);
         s->WriteLE32(nUVW);
 
-        if( nDel )
+        if (nDel)
         {
             // Initialize our padding here, so we don't write random data
             for (int i = 0; i < nDel; i++)
@@ -346,7 +346,7 @@ void plMorphDelta::Write(hsStream* s, hsResMgr* mgr)
 
             s->Write(nDel * sizeof(plVertDelta), fSpans[iSpan].fDeltas.AcquireArray());
 
-            if( nUVW )
+            if (nUVW)
                 s->Write(nDel * nUVW * sizeof(hsPoint3), fSpans[iSpan].fUVWs);
         }
     }

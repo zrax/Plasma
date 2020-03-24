@@ -352,14 +352,14 @@ public:
         plCreatableListHelper   fCbArgs;
         //-------------------------------
         virtual ~Callback(){}
-        virtual void OperationStarted( uint32_t context ) = 0;
-        virtual void OperationComplete( uint32_t context, int resultCode ) = 0;
+        virtual void OperationStarted(uint32_t context) = 0;
+        virtual void OperationComplete(uint32_t context, int resultCode) = 0;
     };
     class StubbedCallback : public Callback
     {
     public:
-        void OperationStarted( uint32_t context ) {}
-        void OperationComplete( uint32_t context, int resultCode ) {}
+        void OperationStarted(uint32_t context) {}
+        void OperationComplete(uint32_t context, int resultCode) {}
     };
 
     // Message handler for unsolicited msgs or registered for specific msg types.
@@ -367,7 +367,7 @@ public:
     {
     public:
         static int StaticMsgHandler(plNetMessage * msg, void * userState);
-        virtual int HandleMessage( plNetMessage* msg ) = 0;
+        virtual int HandleMessage(plNetMessage* msg) = 0;
     };
 
     ////////////////////////////////////////////////////////////////
@@ -378,17 +378,17 @@ public:
     ////////////////////////////////////////////////////////////////
 
     // Adds a msg handler for a msg that is convertable to specified type.
-    void    AddMsgHandlerForType( uint16_t msgClassIdx, MsgHandler* handler );
+    void    AddMsgHandlerForType(uint16_t msgClassIdx, MsgHandler* handler);
 
     // Adds a msg handler for a specific msg type.
-    void    AddMsgHandlerForExactType( uint16_t msgClassIdx, MsgHandler* handler );
+    void    AddMsgHandlerForExactType(uint16_t msgClassIdx, MsgHandler* handler);
 
-    bool    RemoveMsgHandler( MsgHandler* handler );
+    bool    RemoveMsgHandler(MsgHandler* handler);
 
     // Msgs not part of a task controlled by this
     // object, and doesn't have a handler set for its type
     // are sent to this handler (if set).
-    void    SetDefaultHandler( MsgHandler* msgHandler );
+    void    SetDefaultHandler(MsgHandler* msgHandler);
 };
 
 ////////////////////////////////////////////////////////////////////

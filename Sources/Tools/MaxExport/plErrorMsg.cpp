@@ -103,18 +103,18 @@ plErrorMsg::plErrorMsg(bool bogus, const char* label, const char* format, float 
 plErrorMsg &plErrorMsg::Set(const char* label, const char* msg)
 {
     fBogus = true;
-    if( label )
+    if (label)
         hsStrncpy(fLabel, label, 256);
     else
         *fLabel = 0;
-    if( msg )
+    if (msg)
     {
         hsAssert(strlen(msg) < PL_ERR_MSG_MAX_MSG, "Too long of an error message for plErrorMsg.");
         hsStrncpy(fMsg, msg, PL_ERR_MSG_MAX_MSG);
     }
     else
         *fMsg = 0;
-    hsThrow( *this );
+    hsThrow(*this);
 
     return *this;
 }
@@ -130,13 +130,13 @@ plErrorMsg &plErrorMsg::Set(bool bogus)
 
 plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* msg)
 {
-    if( fBogus = bogus )
+    if (fBogus = bogus)
     {
-        if( label )
+        if (label)
             hsStrncpy(fLabel, label, 256);
         else
             *fLabel = 0;
-        if( msg )
+        if (msg)
         {
             hsAssert(strlen(msg) < PL_ERR_MSG_MAX_MSG, "Too long of an error message for plErrorMsg.");
             hsStrncpy(fMsg, msg, PL_ERR_MSG_MAX_MSG);
@@ -150,9 +150,9 @@ plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* msg)
 
 plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, const char* str)
 {
-    if( fBogus = bogus )
+    if (fBogus = bogus)
     {
-        if( label )
+        if (label)
             hsStrncpy(fLabel, label, 256);
         else
             *fLabel = 0;
@@ -165,9 +165,9 @@ plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, c
 
 plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, const char* str1, const char* str2)
 {
-    if( fBogus = bogus )
+    if (fBogus = bogus)
     {
-        if( label )
+        if (label)
             hsStrncpy(fLabel, label, 256);
         else
             *fLabel = 0;
@@ -180,9 +180,9 @@ plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, c
 
 plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, int n)
 {
-    if( fBogus = bogus )
+    if (fBogus = bogus)
     {
-        if( label )
+        if (label)
             hsStrncpy(fLabel, label, 256);
         else
             *fLabel = 0;
@@ -195,9 +195,9 @@ plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, i
 
 plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, int n, int m)
 {
-    if( fBogus = bogus )
+    if (fBogus = bogus)
     {
-        if( label )
+        if (label)
             hsStrncpy(fLabel, label, 256);
         else
             *fLabel = 0;
@@ -210,9 +210,9 @@ plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, i
 
 plErrorMsg &plErrorMsg::Set(bool bogus, const char* label, const char* format, float f)
 {
-    if( fBogus = bogus )
+    if (fBogus = bogus)
     {
-        if( label )
+        if (label)
             hsStrncpy(fLabel, label, 256);
         else
             *fLabel = 0;

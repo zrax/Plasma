@@ -902,14 +902,14 @@ PyObject *ptImportHook_load_module_detail(ptImportHook *self, char* module_name,
         if (PyObject* pyc = PythonPack::OpenPythonPacked(packed_name))
         {
             result = PyImport_AddModule(module_name);
-            if(!result)
+            if (!result)
                 return nil;
             PyObject* d = PyModule_GetDict(result);
             PyDict_SetItemString(d, "__builtins__", PyEval_GetBuiltins());
             PyObject *file = PyString_FromString(packed_name);
             PyModule_AddObject(result, "__file__", file);
             PyDict_SetItemString(d, "__loader__", (PyObject*)self);
-            if(isPackage) {
+            if (isPackage) {
                 PyObject *path = PyString_FromString(module_name);
                 PyObject *l = PyList_New(1);
                 PyList_SetItem(l, 0, path);
@@ -917,7 +917,7 @@ PyObject *ptImportHook_load_module_detail(ptImportHook *self, char* module_name,
                 Py_DECREF(l);
             }
             PyObject* v = PyEval_EvalCode((PyCodeObject *)pyc, d, d);
-            if(!v)
+            if (!v)
             {
                 PyDict_DelItemString(modules, module_name);
                 return nil;
@@ -1017,7 +1017,7 @@ void ptImportHook_AddPlasmaClasses(PyObject* m)
 void PythonInterface::initPython()
 {
     // if haven't been initialized then do it
-    if ( FirstTimeInit && Py_IsInitialized() == 0 )
+    if (FirstTimeInit && Py_IsInitialized() == 0)
     {
         FirstTimeInit = false;
         // initialize the Python stuff
@@ -1038,8 +1038,8 @@ void PythonInterface::initPython()
 
         if (!dbgLog)
         {
-            dbgLog = plStatusLogMgr::GetInstance().CreateStatusLog( 30, "Python.log",
-                plStatusLog::kFilledBackground | plStatusLog::kAlignToTop | plStatusLog::kTimestamp );
+            dbgLog = plStatusLogMgr::GetInstance().CreateStatusLog(30, "Python.log",
+                plStatusLog::kFilledBackground | plStatusLog::kAlignToTop | plStatusLog::kTimestamp);
         }
 
         // create the output redirector for the stdout and stderr file
@@ -1280,12 +1280,12 @@ void PythonInterface::initPython()
 //
 void PythonInterface::initDebugInterface()
 {
-    if ( !debug_initialized )
+    if (!debug_initialized)
     {
         // bring up the debug window
         dbgMod = PyImport_ImportModule("cydebug");
         // was there a debug module?
-        if ( dbgMod != nil )
+        if (dbgMod != nil)
         {
             PyObject *dict;
             // get the dictionary for this module
@@ -1505,50 +1505,50 @@ void PythonInterface::finiPython()
 {
     // decrement the number of initializations, on last one do the finalization
     initialized--;
-    if ( initialized < 1 && Py_IsInitialized() != 0 && IsInShutdown )
+    if (initialized < 1 && Py_IsInitialized() != 0 && IsInShutdown)
     {
 #if defined(HAVE_CYPYTHONIDE) && !defined(PLASMA_EXTERNAL_RELEASE)
         if (usePythonDebugger)
             debugServer.Disconnect();
 #endif
         // remove debug module if used
-        if ( dbgMod )
+        if (dbgMod)
         {
             Py_DECREF(dbgMod);
             dbgMod = nil;
         }
 
-        if ( stdOut )
+        if (stdOut)
         {
             Py_DECREF(stdOut);
             stdOut = nil;
         }
 
-        if ( stdErr )
+        if (stdErr)
         {
             Py_DECREF(stdErr);
             stdErr = nil;
         }
 
-        if ( plasmaMod )
+        if (plasmaMod)
         {
             Py_DECREF(plasmaMod);   // get rid of our reference
             plasmaMod = nil;
         }
 
-        if ( plasmaConstantsMod )
+        if (plasmaConstantsMod)
         {
             Py_DECREF(plasmaConstantsMod);
             plasmaConstantsMod = nil;
         }
 
-        if ( plasmaNetConstantsMod )
+        if (plasmaNetConstantsMod)
         {
             Py_DECREF(plasmaNetConstantsMod);
             plasmaNetConstantsMod = nil;
         }
 
-        if ( plasmaVaultConstantsMod )
+        if (plasmaVaultConstantsMod)
         {
             Py_DECREF(plasmaVaultConstantsMod);
             plasmaVaultConstantsMod = nil;
@@ -1564,7 +1564,7 @@ void PythonInterface::finiPython()
         }
 
         // close done the log file, if we created one
-        if ( dbgLog != nil )
+        if (dbgLog != nil)
         {
             delete dbgLog;
             dbgLog = nil;
@@ -1584,11 +1584,11 @@ void PythonInterface::finiPython()
 void PythonInterface::debugTimeSlice()
 {
     // check to see if the debug python module is loaded
-    if ( dbgSlice != nil )
+    if (dbgSlice != nil)
     {
         // then send it the new text
         PyObject* retVal = PyObject_CallFunction(dbgSlice,nil);
-        if ( retVal == nil )
+        if (retVal == nil)
         {
             // for some reason this function didn't, remember that and not call it again
             dbgSlice = nil;
@@ -1642,11 +1642,11 @@ int PythonInterface::getOutputAndReset(std::string *output)
 #endif
 
         // check to see if the debug python module is loaded
-        if ( dbgOut != nil )
+        if (dbgOut != nil)
         {
             // then send it the new text
             PyObject* retVal = PyObject_CallFunction(dbgOut, _pycs("s"), strVal.c_str());
-            if ( retVal == nil )
+            if (retVal == nil)
             {
                 // for some reason this function didn't, remember that and not call it again
                 dbgOut = nil;
@@ -1781,7 +1781,7 @@ PyObject* PythonInterface::CreateModule(const char* module)
 //
 PyObject* PythonInterface::GetPlasmaItem(const char* item)
 {
-    if ( plasmaMod )
+    if (plasmaMod)
     {
         PyObject* d = PyModule_GetDict(plasmaMod);
         return PyDict_GetItemString(d, item);
@@ -1799,7 +1799,7 @@ PyObject* PythonInterface::GetPlasmaItem(const char* item)
 //
 PyObject* PythonInterface::GetModuleItem(const char* item, PyObject* module)
 {
-    if ( module )
+    if (module)
     {
         PyObject* d = PyModule_GetDict(module);
         return PyDict_GetItemString(d, item);
@@ -1823,10 +1823,10 @@ void PythonInterface::CheckModuleForFunctions(PyObject* module, char** funcNames
     dict = PyModule_GetDict(module);
     // start looking for the functions
     int i=0;
-    while ( funcNames[i] != nil )
+    while (funcNames[i] != nil)
     {
         PyObject* func = PyDict_GetItemString(dict, funcNames[i]);
-        if ( func != NULL && PyCallable_Check(func)>0 )
+        if (func != NULL && PyCallable_Check(func)>0)
         {
             // if it is defined then mark the funcTable
             funcTable[i] = func;
@@ -1892,7 +1892,7 @@ bool PythonInterface::DumpObject(PyObject* pyobj, char** pickle, int32_t* size)
 #endif
 
     // did it actually do it?
-    if ( s != NULL )
+    if (s != NULL)
     {
         // yes, then get the size and the string address
         *size = PyString_Size(s);
@@ -1935,7 +1935,7 @@ bool PythonInterface::RunStringInteractive(const char *command, PyObject* module
 {
     PyObject *d, *v;
     // make sure that we're given a good module... or at least one with an address
-    if ( !module )
+    if (!module)
     {
         // if no module was given then use just use the main module
         module = PyImport_AddModule("__main__");
@@ -2005,7 +2005,7 @@ bool PythonInterface::RunPYC(PyObject* code, PyObject* module)
 {
     PyObject *d, *v;
     // make sure that we're given a good module... or at least one with an address
-    if ( !module )
+    if (!module)
     {
         // if no module was given then use just use the main module
         module = PyImport_AddModule("__main__");

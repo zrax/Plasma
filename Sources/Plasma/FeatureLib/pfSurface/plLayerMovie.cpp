@@ -86,13 +86,13 @@ bool plLayerMovie::ISetLength(float secs)
 
 int plLayerMovie::GetWidth() const
 {
-    plMipmap    *mip = plMipmap::ConvertNoRef( GetTexture() );
+    plMipmap    *mip = plMipmap::ConvertNoRef(GetTexture());
     return mip ? mip->GetWidth() : 0;
 }
 
 int plLayerMovie::GetHeight() const
 {
-    plMipmap    *mip = plMipmap::ConvertNoRef( GetTexture() );
+    plMipmap    *mip = plMipmap::ConvertNoRef(GetTexture());
     return mip ? mip->GetHeight() : 0;
 }
 
@@ -105,14 +105,14 @@ bool plLayerMovie::ISetSize(int width, int height)
 
 bool plLayerMovie::ISetupBitmap()
 {
-    if( !GetTexture() )
+    if (!GetTexture())
     {
-        plMipmap* b = new plMipmap( fWidth, fHeight, plMipmap::kARGB32Config, 1 );
-        memset(b->GetImage(), 0x10, b->GetHeight() * b->GetRowBytes() );
-        b->SetFlags( b->GetFlags() | plMipmap::kDontThrowAwayImage );
+        plMipmap* b = new plMipmap(fWidth, fHeight, plMipmap::kARGB32Config, 1);
+        memset(b->GetImage(), 0x10, b->GetHeight() * b->GetRowBytes());
+        b->SetFlags(b->GetFlags() | plMipmap::kDontThrowAwayImage);
 
         ST::string name = ST::format("{}_BMap", fMovieName);
-        hsgResMgr::ResMgr()->NewKey( name, b, plLocation::kGlobalFixedLoc );
+        hsgResMgr::ResMgr()->NewKey(name, b, plLocation::kGlobalFixedLoc);
 
         *fTexture = (plBitmap *)b;
     }
@@ -122,7 +122,7 @@ bool plLayerMovie::ISetupBitmap()
 
 bool plLayerMovie::ICheckBitmap()
 {
-    if( !GetTexture() )
+    if (!GetTexture())
         ISetupBitmap();
 
     return false;
@@ -139,7 +139,7 @@ bool plLayerMovie::ICurrentFrameDirty(double wSecs)
 {
     float secs = fTimeConvert.WorldToAnimTime(wSecs);
     uint32_t frame = ISecsToFrame(secs);
-    if( frame == fCurrentFrame )
+    if (frame == fCurrentFrame)
         return false;
     fCurrentFrame = frame;
 
@@ -150,22 +150,22 @@ uint32_t plLayerMovie::Eval(double wSecs, uint32_t frame, uint32_t ignore)
 {
     uint32_t dirty = plLayerAnimation::Eval(wSecs, frame, ignore);
 
-    if( !IGetFault() && !(ignore & kTexture) )
+    if (!IGetFault() && !(ignore & kTexture))
     {
-        if( ICurrentFrameDirty(wSecs) )
+        if (ICurrentFrameDirty(wSecs))
         {
-            if( IGetCurrentFrame() )
+            if (IGetCurrentFrame())
                 ISetFault("Getting current frame");
 
-            if( GetTexture() )
+            if (GetTexture())
             {
                 hsGDeviceRef* ref = GetTexture()->GetDeviceRef();
-                if( ref )
+                if (ref)
                     ref->SetDirty(true);
             }
         }
         else
-        if( IsStopped() )
+        if (IsStopped())
         {
             IMovieIsIdle();
         }
@@ -180,7 +180,7 @@ void plLayerMovie::Read(hsStream* s, hsResMgr* mgr)
     plLayerAnimation::Read(s, mgr);
 
     int len = s->ReadLE32();
-    if( len )
+    if (len)
     {
         ST::char_buffer movieName;
         movieName.allocate(len);

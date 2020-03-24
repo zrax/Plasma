@@ -78,7 +78,7 @@ bool pyVaultAgeInfoListNode::HasAge(uint32_t ageID)
     return false;
 }
 
-bool pyVaultAgeInfoListNode::AddAge( uint32_t ageID )
+bool pyVaultAgeInfoListNode::AddAge(uint32_t ageID)
 {
     if (!fNode)
         return false;
@@ -87,7 +87,7 @@ bool pyVaultAgeInfoListNode::AddAge( uint32_t ageID )
     return false;
 }
 
-void pyVaultAgeInfoListNode::RemoveAge( uint32_t ageID )
+void pyVaultAgeInfoListNode::RemoveAge(uint32_t ageID)
 {
     if (!fNode)
         return;

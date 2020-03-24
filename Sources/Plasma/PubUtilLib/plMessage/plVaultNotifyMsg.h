@@ -69,14 +69,14 @@ public:
     plVaultNotifyMsg();
     ~plVaultNotifyMsg();
 
-    CLASSNAME_REGISTER( plVaultNotifyMsg );
-    GETINTERFACE_ANY_AUX( plVaultNotifyMsg, plMessage, plCreatableListHelper, fArgs );
+    CLASSNAME_REGISTER(plVaultNotifyMsg);
+    GETINTERFACE_ANY_AUX(plVaultNotifyMsg, plMessage, plCreatableListHelper, fArgs);
 
     uint16_t  GetType() const { return fType; }
-    void      SetType( uint16_t v ) { fType=v; }
+    void      SetType(uint16_t v) { fType=v; }
 
     int8_t  GetResultCode() const { return fResultCode; }
-    void    SetResultCode( int8_t v ) { fResultCode=v; }
+    void    SetResultCode(int8_t v) { fResultCode=v; }
 
     plCreatableListHelper * GetArgs() { return &fArgs; }
     const plCreatableListHelper * GetArgs() const { return &fArgs; }

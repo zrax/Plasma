@@ -137,7 +137,7 @@ plAGAnimInstance::plAGAnimInstance(plAGAnim * anim, plAGMasterMod * master,
         ST::string channelName = app->GetChannelName();
         plAGModifier * channelMod = master->GetChannelMod(channelName);
         
-        if(channelMod) {
+        if (channelMod) {
 #ifdef TRACK_AG_ALLOCS
             gGlobalChannelName = channelName;
 #endif // TRACK_AG_ALLOCS
@@ -146,13 +146,13 @@ plAGAnimInstance::plAGAnimInstance(plAGAnim * anim, plAGMasterMod * master,
             // curChannel will always point to the top one...
             plAGChannel *topNode = inChannel;
 
-            if(cache)
+            if (cache)
             {
                 topNode = topNode->MakeCacheChannel(fTimeConvert);
                 IRegisterDetach(channelName, topNode);
             }
 
-            if(useAmplitude)
+            if (useAmplitude)
             {
                 // amplitude is rarely used and expensive, so only alloc if asked
                 // first build a static copy of the incoming channel...
@@ -294,7 +294,7 @@ void plAGAnimInstance::SetCurrentTime(float localT, bool jump /* = false */)
 // -------------
 void plAGAnimInstance::SeekRelative (float delta, bool jump)
 {
-    if(fTimeConvert)
+    if (fTimeConvert)
     {
         float now = fTimeConvert->CurrentAnimTime();
         fTimeConvert->SetCurrentAnimTime (now + delta, jump);
@@ -318,12 +318,12 @@ void plAGAnimInstance::DetachChannels()
 #endif
     plDetachMap::iterator i = fManualDetachChannels.begin();
 
-    while(i != fManualDetachChannels.end())
+    while (i != fManualDetachChannels.end())
     {
         ST::string channelName = (*i).first;
         plAGModifier *channelMod = fMaster->GetChannelMod(channelName, true);
 
-        if(channelMod)
+        if (channelMod)
         {
             do {
                 plAGChannel *channel = (*i).second;
@@ -354,7 +354,7 @@ void plAGAnimInstance::DetachChannels()
 float plAGAnimInstance::SetBlend(float blend)
 {
     float oldBlend = fBlend.Value(0.0, true);
-    if(oldBlend != blend &&
+    if (oldBlend != blend &&
         (oldBlend == 0.0f ||
          blend == 0.0f ||
          oldBlend == 1.0f ||
@@ -377,7 +377,7 @@ float plAGAnimInstance::GetBlend()
 // -------------
 float plAGAnimInstance::SetAmplitude(float amp)
 {
-    if(fAmplitude.Get() != -1.0f)
+    if (fAmplitude.Get() != -1.0f)
     {
         fAmplitude.Set(amp);
     }
@@ -395,7 +395,7 @@ float plAGAnimInstance::GetAmplitude()
 // --------
 ST::string plAGAnimInstance::GetName()
 {
-    if(fAnimation)
+    if (fAnimation)
         return fAnimation->GetName();
     else
         return ST::null;
@@ -431,7 +431,7 @@ bool plAGAnimInstance::IsFinished()
 // --------
 bool plAGAnimInstance::IsAtEnd()
 {
-    if(fTimeConvert)
+    if (fTimeConvert)
     {
         return fTimeConvert->CurrentAnimTime() == fTimeConvert->GetEnd();
     }
@@ -506,7 +506,7 @@ void plAGAnimInstance::ProcessFade(float elapsed)
     if (fFadeBlend) {
         float newBlend = ICalcFade(fFadeBlend, GetBlend(), fFadeBlendGoal, fFadeBlendRate, elapsed);
         SetBlend(newBlend);
-        if(fFadeDetach && (newBlend == fFadeBlendGoal) && (fFadeBlendGoal == 0.0f) )
+        if (fFadeDetach && (newBlend == fFadeBlendGoal) && (fFadeBlendGoal == 0.0f))
         {
             fMaster->DetachAnimation(this);
             return;
@@ -527,13 +527,13 @@ float plAGAnimInstance::ICalcFade(bool &fade, float curVal, float goal,
 {
     float newVal;
     float curStep = rate * elapsed;
-    if(rate > 0) {
+    if (rate > 0) {
         newVal = std::min(goal, curVal + curStep);
     } else {
         newVal = std::max(goal, curVal + curStep);
     }
 
-    if(newVal == goal)
+    if (newVal == goal)
     {
         fade = false;
         fMaster->DirtySynchState(kSDLAGMaster, 0);  // send SDL state update to server
@@ -565,7 +565,7 @@ void plAGAnimInstance::ISetupFade(float goal, float rate, bool detach, uint8_t t
         {
             SetBlend(goal);
             fFadeBlend = false;
-            if(detach) {
+            if (detach) {
                 fMaster->DetachAnimation(this);
             }
         }
@@ -647,7 +647,7 @@ void DumpAGAllocs()
 
     hsStatusMessage("DUMPING AG ALLOCATIONS ================================================");
 
-    for ( ; i != theEnd; i++)
+    for (; i != theEnd; i++)
     {
         agAlloc * al = (*i).second;
 
@@ -658,7 +658,7 @@ void DumpAGAllocs()
     }
     // it's not fast but it's safe and simple..
     i = gAGAllocs.begin();
-    while(i != gAGAllocs.end())
+    while (i != gAGAllocs.end())
     {
         agAlloc * al = (*i).second;
         delete al;
@@ -671,7 +671,7 @@ void DumpAGAllocs()
 void UnRegisterAGAlloc(plAGChannel *object)
 {
     agAllocMap::iterator i = gAGAllocs.find(object);
-    if(i != gAGAllocs.end())
+    if (i != gAGAllocs.end())
     {
         agAlloc * al = (*i).second;
 

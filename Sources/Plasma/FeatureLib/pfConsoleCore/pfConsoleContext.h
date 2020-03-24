@@ -65,42 +65,42 @@ class pfConsoleContext
         hsTArray<char *>            fVarNames;
         hsTArray<pfConsoleCmdParam> fVarValues;
 
-        void    IAddVar( const char *name, const pfConsoleCmdParam &value );
+        void    IAddVar(const char *name, const pfConsoleCmdParam &value);
 
         static pfConsoleContext fRootContext;
 
     public:
 
-        pfConsoleContext( const char *name );
+        pfConsoleContext(const char *name);
         virtual ~pfConsoleContext();
 
         void    Clear();
 
         uint32_t              GetNumVars() const;
-        const char          *GetVarName( uint32_t idx ) const;
-        pfConsoleCmdParam   &GetVarValue( uint32_t idx ) const;
+        const char          *GetVarName(uint32_t idx) const;
+        pfConsoleCmdParam   &GetVarValue(uint32_t idx) const;
 
-        int32_t   FindVar( const char *name ) const;
-        void    RemoveVar( uint32_t idx );
+        int32_t   FindVar(const char *name) const;
+        void    RemoveVar(uint32_t idx);
 
-        void    AddVar( const char *name, const pfConsoleCmdParam &value );
-        void    AddVar( const char *name, int value );
-        void    AddVar( const char *name, float value );
-        void    AddVar( const char *name, const char *value );
-        void    AddVar( const char *name, char value );
-        void    AddVar( const char *name, bool value );
+        void    AddVar(const char *name, const pfConsoleCmdParam &value);
+        void    AddVar(const char *name, int value);
+        void    AddVar(const char *name, float value);
+        void    AddVar(const char *name, const char *value);
+        void    AddVar(const char *name, char value);
+        void    AddVar(const char *name, bool value);
 
-        bool    SetVar( uint32_t idx, const pfConsoleCmdParam &value );
+        bool    SetVar(uint32_t idx, const pfConsoleCmdParam &value);
 
-        bool    SetVar( const char *name, const pfConsoleCmdParam &value );
-        bool    SetVar( const char *name, int value );
-        bool    SetVar( const char *name, float value );
-        bool    SetVar( const char *name, const char *value );
-        bool    SetVar( const char *name, char value );
-        bool    SetVar( const char *name, bool value );
+        bool    SetVar(const char *name, const pfConsoleCmdParam &value);
+        bool    SetVar(const char *name, int value);
+        bool    SetVar(const char *name, float value);
+        bool    SetVar(const char *name, const char *value);
+        bool    SetVar(const char *name, char value);
+        bool    SetVar(const char *name, bool value);
 
         // Decide whether Sets() on nonexistant variables will fail or add a new variable
-        void    SetAddWhenNotFound( bool f ) { fAddWhenNotFound = f; }
+        void    SetAddWhenNotFound(bool f) { fAddWhenNotFound = f; }
         bool    GetAddWhenNotFound() const { return fAddWhenNotFound; }
 
         static pfConsoleContext &GetRootContext();

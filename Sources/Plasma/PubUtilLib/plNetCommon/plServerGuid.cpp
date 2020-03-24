@@ -88,10 +88,10 @@ plServerGuid::plServerGuid()
     Clear();
 }
 
-plServerGuid::plServerGuid( const plServerGuid & other )
+plServerGuid::plServerGuid(const plServerGuid & other)
 {
     Clear();
-    CopyFrom( other );
+    CopyFrom(other);
 }
 
 plServerGuid::plServerGuid(const char * s)
@@ -103,10 +103,10 @@ plServerGuid::plServerGuid(const char * s)
 plServerGuid::plServerGuid(const hsWide & v)
 {
     Clear();
-    FromWide( v );
+    FromWide(v);
 }
 
-plServerGuid& plServerGuid::operator=( const plServerGuid & rhs )
+plServerGuid& plServerGuid::operator=(const plServerGuid & rhs)
 {
     CopyFrom(rhs);
     return *this;
@@ -132,7 +132,7 @@ hsWide plServerGuid::AsWide() const
     return fWide;
 }
 
-void plServerGuid::FromWide( const hsWide & v )
+void plServerGuid::FromWide(const hsWide & v)
 {
     fWide = v;
 }
@@ -188,7 +188,7 @@ static unsigned char hexValues[] =
 
 bool plServerGuid::FromString(const char * s)
 {
-    if (!s || (s && strlen(s)!=kGuidBytes*2 ) )
+    if (!s || (s && strlen(s)!=kGuidBytes*2))
     {
         Clear();
         return false;
@@ -233,7 +233,7 @@ void plServerGuid::CopyFrom(const plServerGuid & other)
 
 void plServerGuid::CopyFrom(const plServerGuid * other)
 {
-    if(other)
+    if (other)
         memcpy(N,other->N,kGuidBytes);
     else
         Clear();
@@ -264,7 +264,7 @@ plServerGuid plServerGuid::GenerateGuid()
     static uint16_t   StaticCounter = 0;
     if (!fGuidSeed)
     {
-        hsStatusMessage( "fGuidSeed not set yet. Cannot generate a reliable guid! Setting fGuidSeed=getpid()." );
+        hsStatusMessage("fGuidSeed not set yet. Cannot generate a reliable guid! Setting fGuidSeed=getpid().");
 //      hsAssert(fGuidSeed,"fGuidSeed not set yet. Cannot generate a reliable guid.\nIgnoring this assert will set fGuidSeed=getpid().");
         fGuidSeed = getpid();
     }

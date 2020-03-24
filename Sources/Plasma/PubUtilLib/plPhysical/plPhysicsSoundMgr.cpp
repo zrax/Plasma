@@ -132,14 +132,14 @@ void plPhysicsSoundMgr::IStopCollision(const CollidePair& cp)
 
         if (sndA->HasSlideSound(sndB->GetGroup()))
         {
-            if(sndA->IsSliding())
+            if (sndA->IsSliding())
             {
                 sndA->StopSlideSound(sndB->GetGroup());
             }
         }
         if (sndB->HasSlideSound(sndA->GetGroup()))
         {
-            if(sndB->IsSliding())
+            if (sndB->IsSliding())
             {
                 sndB->StopSlideSound(sndA->GetGroup());
             }
@@ -165,7 +165,7 @@ void plPhysicsSoundMgr::IUpdateCollision(const CollidePair& cp)
     
     // scale strength to use as volume
     strength /= 16*8;
-    if(strength < MIN_VOLUME)
+    if (strength < MIN_VOLUME)
         strength = 0;
     
     if (sndA->HasSlideSound(sndB->GetGroup()))
@@ -178,9 +178,9 @@ void plPhysicsSoundMgr::IProcessSlide(plPhysicalSndGroup* sndA, plPhysicalSndGro
 {
     sndA->SetSlideSoundVolume(sndB->GetGroup(), strength);
 
-    if(strength > MIN_VOLUME)
+    if (strength > MIN_VOLUME)
     {
-        if(!sndA->IsSliding())
+        if (!sndA->IsSliding())
         {
             sndA->PlaySlideSound(sndB->GetGroup());
         }

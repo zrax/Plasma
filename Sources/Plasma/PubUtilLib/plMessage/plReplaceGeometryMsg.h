@@ -58,8 +58,8 @@ public:
     plReplaceGeometryMsg() : fMesh(nil), fMaterial(nil), fFlags(0) {}
     ~plReplaceGeometryMsg() {}
 
-    CLASSNAME_REGISTER( plReplaceGeometryMsg );
-    GETINTERFACE_ANY( plReplaceGeometryMsg, plMessage );
+    CLASSNAME_REGISTER(plReplaceGeometryMsg);
+    GETINTERFACE_ANY(plReplaceGeometryMsg, plMessage);
 
     // No R/W, these shouldn't be sent over the wire
     virtual void Read(hsStream* stream, hsResMgr* mgr) {}
@@ -83,8 +83,8 @@ public:
     plSwapSpansRefMsg(const plKey &r, uint8_t c, int which, int type) : plGenRefMsg(r, c, which, type) {}
     ~plSwapSpansRefMsg() {}
 
-    CLASSNAME_REGISTER( plSwapSpansRefMsg );
-    GETINTERFACE_ANY( plSwapSpansRefMsg, plGenRefMsg );
+    CLASSNAME_REGISTER(plSwapSpansRefMsg);
+    GETINTERFACE_ANY(plSwapSpansRefMsg, plGenRefMsg);
 };
 
 #endif

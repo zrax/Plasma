@@ -102,7 +102,7 @@ public:
     hsTArray<uint32_t>    fIndices;
 
     bool        IsMatrixOnly() const { return 0 != (fFlags & kMatrixOnly); }
-    bool        DontTransform() const { return 0 != ( fFlags & kDontTransformSpans ); }
+    bool        DontTransform() const { return 0 != (fFlags & kDontTransformSpans); }
     void        Append(uint32_t i) { fIndices.Append(i); }
     void        Reset() { fFlags = kNone; fIndices.Reset(); }
     void        SetCountAndZero(int c) { fIndices.SetCountAndZero(c); }
@@ -181,33 +181,33 @@ class plDrawableSpans : public plDrawable
         virtual void    IQuickSpaceTree() const;
 
         // Temp placeholder function. See code for comments.
-        void    IUpdateMatrixPaletteBoundsHack( );
+        void    IUpdateMatrixPaletteBoundsHack();
 
         void    ICleanupMatrices();
         void    IRemoveGarbage();
-        void    IAdjustSortData( plGBufferTriangle *triList, uint32_t count, uint32_t threshhold, int32_t delta );
+        void    IAdjustSortData(plGBufferTriangle *triList, uint32_t count, uint32_t threshhold, int32_t delta);
 
         // The following two functions return true if they create a new span, false if it's just an instance
-        bool    IConvertGeoSpanToVertexSpan( plGeometrySpan *geoSpan, plVertexSpan *span, int lod, plVertexSpan *instancedParent );
-        bool    IConvertGeoSpanToIcicle( plGeometrySpan *geoSpan, plIcicle *icicle, int lod, plIcicle *instancedParent = nil );
+        bool    IConvertGeoSpanToVertexSpan(plGeometrySpan *geoSpan, plVertexSpan *span, int lod, plVertexSpan *instancedParent);
+        bool    IConvertGeoSpanToIcicle(plGeometrySpan *geoSpan, plIcicle *icicle, int lod, plIcicle *instancedParent = nil);
 
-        void    IUpdateIcicleFromGeoSpan( plGeometrySpan *geoSpan, plIcicle *icicle );
-        void    IUpdateVertexSpanFromGeoSpan( plGeometrySpan *geoSpan, plVertexSpan *span );
+        void    IUpdateIcicleFromGeoSpan(plGeometrySpan *geoSpan, plIcicle *icicle);
+        void    IUpdateVertexSpanFromGeoSpan(plGeometrySpan *geoSpan, plVertexSpan *span);
 
-        uint32_t  IXlateSpanProps( uint32_t props, bool xlateToSpan );
+        uint32_t  IXlateSpanProps(uint32_t props, bool xlateToSpan);
 
-        uint32_t  IAddAMaterial( hsGMaterial *material );
-        uint32_t  IRefMaterial( uint32_t index );
-        void    ICheckToRemoveMaterial( uint32_t materialIdx );
+        uint32_t  IAddAMaterial(hsGMaterial *material);
+        uint32_t  IRefMaterial(uint32_t index);
+        void    ICheckToRemoveMaterial(uint32_t materialIdx);
 
         // Annoying to need this, but necessary until materials can test for properties on any of their layers (might add in the future)
-        bool    ITestMatForSpecularity( hsGMaterial *mat );
+        bool    ITestMatForSpecularity(hsGMaterial *mat);
 
-        void    IAssignMatIdxToSpan( plSpan *span, hsGMaterial *mtl );
+        void    IAssignMatIdxToSpan(plSpan *span, hsGMaterial *mtl);
 
         // Create the sorting data for a given span and flag it as sortable
-        void            ICheckSpanForSortable( uint32_t idx ) { if( !(fSpans[idx]->fProps & plSpan::kPropFacesSortable) )IMakeSpanSortable(idx); }
-        void            IMakeSpanSortable( uint32_t index );
+        void            ICheckSpanForSortable(uint32_t idx) { if (!(fSpans[idx]->fProps & plSpan::kPropFacesSortable)) IMakeSpanSortable(idx); }
+        void            IMakeSpanSortable(uint32_t index);
 
         /// Bit vector build thingies
         virtual void            IBuildVectors();
@@ -220,17 +220,17 @@ class plDrawableSpans : public plDrawable
         // Sort the spans
         void    ISortSourceSpans();
         // Compare two spans for sorting
-        short   ICompareSpans( plGeometrySpan *span1, plGeometrySpan *span2 );
+        short   ICompareSpans(plGeometrySpan *span1, plGeometrySpan *span2);
         // Find a buffer group of the given format (returns its index into fGroups)
-        uint8_t   IFindBufferGroup( uint8_t vtxFormat, uint32_t numVertsNeeded, int lod, bool vertVolatile, bool idxVolatile);
+        uint8_t   IFindBufferGroup(uint8_t vtxFormat, uint32_t numVertsNeeded, int lod, bool vertVolatile, bool idxVolatile);
         // Write a span to a stream
-        void    IWriteSpan( hsStream *s, plSpan *span );
+        void    IWriteSpan(hsStream *s, plSpan *span);
         /// EXPORT-ONLY FUNCTIONS
 
         /// DYNAMIC FUNCTIONS
-        plDISpanIndex   *IFindDIIndices( uint32_t &index );
+        plDISpanIndex   *IFindDIIndices(uint32_t &index);
         void            IRebuildSpanArray();
-        plParticleSpan  *ICreateParticleIcicle( hsGMaterial *material, plParticleSet *set );
+        plParticleSpan  *ICreateParticleIcicle(hsGMaterial *material, plParticleSet *set);
 
         virtual void    SetKey(plKey k);
 
@@ -238,49 +238,49 @@ class plDrawableSpans : public plDrawable
         plDrawableSpans();
         virtual ~plDrawableSpans();
 
-        CLASSNAME_REGISTER( plDrawableSpans );
-        GETINTERFACE_ANY( plDrawableSpans, plDrawable );
+        CLASSNAME_REGISTER(plDrawableSpans);
+        GETINTERFACE_ANY(plDrawableSpans, plDrawable);
 
         virtual void SetNativeTransform(uint32_t idx, const hsMatrix44& l2w, const hsMatrix44& w2l);
-        virtual plDrawable& SetTransform( uint32_t index, const hsMatrix44& l2w, const hsMatrix44& w2l);
-        virtual const hsMatrix44& GetLocalToWorld( uint32_t index = (uint32_t)-1 ) const;
-        virtual const hsMatrix44& GetWorldToLocal( uint32_t index = (uint32_t)-1 ) const;
+        virtual plDrawable& SetTransform(uint32_t index, const hsMatrix44& l2w, const hsMatrix44& w2l);
+        virtual const hsMatrix44& GetLocalToWorld(uint32_t index = (uint32_t)-1) const;
+        virtual const hsMatrix44& GetWorldToLocal(uint32_t index = (uint32_t)-1) const;
 
-        virtual plDrawable& SetProperty( uint32_t index, int prop, bool on );
-        virtual bool GetProperty( uint32_t index, int prop ) const;
+        virtual plDrawable& SetProperty(uint32_t index, int prop, bool on);
+        virtual bool GetProperty(uint32_t index, int prop) const;
 
-        virtual plDrawable& SetProperty( int prop, bool on );
-        virtual bool GetProperty( int prop ) const;
+        virtual plDrawable& SetProperty(int prop, bool on);
+        virtual bool GetProperty(int prop) const;
 
-        virtual plDrawable& SetNativeProperty( int prop, bool on ) { if( on ) fProps |= prop; else fProps &= ~prop; return *this; }
-        virtual bool GetNativeProperty( int prop ) const { return ( fProps & prop ) ? true : false; }
+        virtual plDrawable& SetNativeProperty(int prop, bool on) { if (on) fProps |= prop; else fProps &= ~prop; return *this; }
+        virtual bool GetNativeProperty(int prop) const { return (fProps & prop) ? true : false; }
 
-        virtual plDrawable& SetNativeProperty( uint32_t index, int prop, bool on );
-        virtual bool GetNativeProperty( uint32_t index, int prop ) const;
+        virtual plDrawable& SetNativeProperty(uint32_t index, int prop, bool on);
+        virtual bool GetNativeProperty(uint32_t index, int prop) const;
 
-        virtual plDrawable& SetSubType( uint32_t index, plSubDrawableType t, bool on );
-        virtual uint32_t GetSubType( uint32_t index ) const; // returns or of all spans with this index (index==-1 is all spans).
+        virtual plDrawable& SetSubType(uint32_t index, plSubDrawableType t, bool on);
+        virtual uint32_t GetSubType(uint32_t index) const; // returns or of all spans with this index (index==-1 is all spans).
 
         virtual uint32_t  GetType() const { return fType; }
-        virtual void    SetType( uint32_t type ) { fType = type; }
+        virtual void    SetType(uint32_t type) { fType = type; }
 
         virtual void SetRenderLevel(const plRenderLevel& l);
         virtual const plRenderLevel& GetRenderLevel() const;
 
-        const hsBounds3Ext& GetLocalBounds( uint32_t index = (uint32_t)-1 ) const;
-        const hsBounds3Ext& GetWorldBounds( uint32_t index = (uint32_t)-1 ) const;
-        const hsBounds3Ext& GetMaxWorldBounds( uint32_t index = (uint32_t)-1 ) const;
+        const hsBounds3Ext& GetLocalBounds(uint32_t index = (uint32_t)-1) const;
+        const hsBounds3Ext& GetWorldBounds(uint32_t index = (uint32_t)-1) const;
+        const hsBounds3Ext& GetMaxWorldBounds(uint32_t index = (uint32_t)-1) const;
 
         virtual void Read(hsStream* s, hsResMgr* mgr);
         virtual void Write(hsStream* s, hsResMgr* mgr);
 
-        virtual plSpaceTree*    GetSpaceTree() const { if(!fSpaceTree)IQuickSpaceTree(); return fSpaceTree; }
+        virtual plSpaceTree*    GetSpaceTree() const { if (!fSpaceTree) IQuickSpaceTree(); return fSpaceTree; }
         virtual void            SetSpaceTree(plSpaceTree* st) const;
         virtual void            SetVisSet(plVisMgr* visMgr);
         virtual void            SetDISpanVisSet(uint32_t diIndex, hsKeyedObject* reg, bool on);
 
-        virtual const plSpan                *GetSpan( uint32_t index ) const { return fSpans[ index ]; }
-        virtual const plSpan                *GetSpan( uint32_t diIndex, uint32_t index ) const { return fSpans[ (*fDIIndices[ diIndex ])[ index ] ]; }
+        virtual const plSpan                *GetSpan(uint32_t index) const { return fSpans[index]; }
+        virtual const plSpan                *GetSpan(uint32_t diIndex, uint32_t index) const { return fSpans[(*fDIIndices[diIndex])[index]]; }
         virtual uint32_t                     GetNumSpans() const { return fSpans.GetCount(); }
         virtual const hsTArray<plSpan *>    &GetSpanArray() const { return fSpans; }
 
@@ -289,9 +289,9 @@ class plDrawableSpans : public plDrawable
         void SetInitialBone(int i, const hsMatrix44& l2b, const hsMatrix44& b2l);
 
         // Get the vertex buffer ref of a given group
-        hsGDeviceRef    *GetVertexRef( uint32_t group, uint32_t idx );
+        hsGDeviceRef    *GetVertexRef(uint32_t group, uint32_t idx);
         // Get the index buffer ref of a given group
-        hsGDeviceRef    *GetIndexRef( uint32_t group, uint32_t idx );
+        hsGDeviceRef    *GetIndexRef(uint32_t group, uint32_t idx);
 
         // BufferGroups accessed only by Pipeline and it's close personal acquaintances.
         plGBufferGroup*                         GetBufferGroup(uint32_t i) const { return fGroups[i]; }
@@ -302,25 +302,25 @@ class plDrawableSpans : public plDrawable
         void            DirtyIndexBuffer(uint32_t group, uint32_t idx);
 
         // Prepare all internal data structures for rendering
-        virtual void    PrepForRender( plPipeline *p );
+        virtual void    PrepForRender(plPipeline *p);
         void            SetNotReadyToRender() { fReadyToRender = false; }
 
-        virtual bool        MsgReceive( plMessage* msg );
+        virtual bool        MsgReceive(plMessage* msg);
 
         // These two should only be called by the SceneNode
         virtual plKey GetSceneNode() const { return fSceneNode; }
         virtual void SetSceneNode(plKey newNode);
 
         // Lookup a material in the material array
-        hsGMaterial     *GetMaterial( uint32_t index ) const { return ( ( index == (uint32_t)-1 ) ? nil : fMaterials[ index ] ); }
+        hsGMaterial     *GetMaterial(uint32_t index) const { return ((index == (uint32_t)-1) ? nil : fMaterials[index]); }
         uint32_t          GetNumMaterials() const { return fMaterials.GetCount(); }
 
         // Convert intermediate data into export/run-time-ready data
         virtual void    Optimize();
         // Called by the sceneNode to determine if we match the criteria
-        virtual bool    DoIMatch( const plDrawableCriteria& crit );
+        virtual bool    DoIMatch(const plDrawableCriteria& crit);
         // To set the criteria that this ice fits
-        void            SetCriteria( const plDrawableCriteria& crit );
+        void            SetCriteria(const plDrawableCriteria& crit);
 
         // Get a bitVector of the spans that are particle spans
         virtual hsBitVector const   &GetParticleSpanVector() const;
@@ -329,7 +329,7 @@ class plDrawableSpans : public plDrawable
         virtual hsBitVector const   &GetBlendingSpanVector() const;
 
         // Set a single bit in the bitVector of spans that are blending
-        virtual void    SetBlendingSpanVectorBit( uint32_t bitNumber, bool on );
+        virtual void    SetBlendingSpanVectorBit(uint32_t bitNumber, bool on);
 
         // Taking span index. DI Index doesn't make sense here, because one object's DI can dereference into many materials etc.
         virtual hsGMaterial*    GetSubMaterial(int index) const;
@@ -342,8 +342,8 @@ class plDrawableSpans : public plDrawable
         void            UnPackCluster(plClusterGroup* cluster);
 
         /// EXPORT-ONLY FUNCTIONS
-        virtual uint32_t  AddDISpans( hsTArray<plGeometrySpan *> &spans, uint32_t index = (uint32_t)-1);
-        virtual plDISpanIndex&  GetDISpans( uint32_t index ) const;
+        virtual uint32_t  AddDISpans(hsTArray<plGeometrySpan *> &spans, uint32_t index = (uint32_t)-1);
+        virtual plDISpanIndex&  GetDISpans(uint32_t index) const;
 
         // Data Access functions
         // Runtime
@@ -364,26 +364,26 @@ class plDrawableSpans : public plDrawable
         plGeometrySpan*     GetGeometrySpan(int spanIdx);
 
         /// DYNAMIC FUNCTIONS
-        virtual void    RemoveDISpans( uint32_t index );
-        virtual uint32_t  AppendDISpans( hsTArray<plGeometrySpan *> &spans, uint32_t index = (uint32_t)-1, bool clearSpansAfterAdd = true, bool doNotAddToSource = false, bool addToFront = false, int lod = 0 );
-        virtual uint32_t  RefreshDISpans( uint32_t diIndex );
-        virtual uint32_t  RefreshSpan( uint32_t srcSpanIndex );
+        virtual void    RemoveDISpans(uint32_t index);
+        virtual uint32_t  AppendDISpans(hsTArray<plGeometrySpan *> &spans, uint32_t index = (uint32_t)-1, bool clearSpansAfterAdd = true, bool doNotAddToSource = false, bool addToFront = false, int lod = 0);
+        virtual uint32_t  RefreshDISpans(uint32_t diIndex);
+        virtual uint32_t  RefreshSpan(uint32_t srcSpanIndex);
         virtual void    RemoveDIMatrixSpans(uint32_t index);
         virtual uint32_t  AppendDIMatrixSpans(int n);
         virtual uint32_t  FindBoneBaseMatrix(const hsTArray<hsMatrix44>& initL2B, bool searchAll) const;
         virtual uint32_t  NewDIMatrixIndex();
-        void            SortSpan( uint32_t index, plPipeline *pipe );
+        void            SortSpan(uint32_t index, plPipeline *pipe);
         void            SortVisibleSpans(const hsTArray<int16_t>& visList, plPipeline* pipe);
         void            SortVisibleSpansPartial(const hsTArray<int16_t>& visList, plPipeline* pipe);
         void            CleanUpGarbage() { IRemoveGarbage(); }
 
         /// Funky particle system functions
-        virtual uint32_t  CreateParticleSystem( uint32_t maxNumEmitters, uint32_t maxNumParticles, hsGMaterial *material );
-        virtual void    ResetParticleSystem( uint32_t index );
-        virtual void    AssignEmitterToParticleSystem( uint32_t index, plParticleEmitter *emitter );
+        virtual uint32_t  CreateParticleSystem(uint32_t maxNumEmitters, uint32_t maxNumParticles, hsGMaterial *material);
+        virtual void    ResetParticleSystem(uint32_t index);
+        virtual void    AssignEmitterToParticleSystem(uint32_t index, plParticleEmitter *emitter);
         
         /// SceneViewer only!
-        void            GetOrigGeometrySpans( uint32_t diIndex, hsTArray<plGeometrySpan *> &arrayToFill );
+        void            GetOrigGeometrySpans(uint32_t diIndex, hsTArray<plGeometrySpan *> &arrayToFill);
         void            ClearAndSetMaterialCount(uint32_t count);
 };
 

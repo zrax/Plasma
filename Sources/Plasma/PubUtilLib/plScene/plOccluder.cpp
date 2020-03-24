@@ -72,12 +72,12 @@ plOccluder::~plOccluder()
 bool plOccluder::MsgReceive(plMessage* msg)
 {
     plGenRefMsg* refMsg = plGenRefMsg::ConvertNoRef(msg);
-    if( refMsg )
+    if (refMsg)
     {
-        switch( refMsg->fType )
+        switch (refMsg->fType)
         {
         case kRefVisRegion:
-            if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+            if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
             {
                 IAddVisRegion(plVisRegion::ConvertNoRef(refMsg->GetRef()));
             }
@@ -96,18 +96,18 @@ bool plOccluder::MsgReceive(plMessage* msg)
 
 void plOccluder::IAddVisRegion(plVisRegion* reg)
 {
-    if( reg )
+    if (reg)
     {
         int idx = fVisRegions.Find(reg);
-        if( fVisRegions.kMissingIndex == idx )
+        if (fVisRegions.kMissingIndex == idx)
         {
             fVisRegions.Append(reg);
-            if( reg->GetProperty(plVisRegion::kIsNot) )
+            if (reg->GetProperty(plVisRegion::kIsNot))
                 fVisNot.SetBit(reg->GetIndex());
             else
             {
                 fVisSet.SetBit(reg->GetIndex());
-                if( reg->ReplaceNormal() )
+                if (reg->ReplaceNormal())
                     fVisSet.ClearBit(plVisMgr::kNormal);
             }
         }
@@ -116,13 +116,13 @@ void plOccluder::IAddVisRegion(plVisRegion* reg)
 
 void plOccluder::IRemoveVisRegion(plVisRegion* reg)
 {
-    if( reg )
+    if (reg)
     {
         int idx = fVisRegions.Find(reg);
-        if( fVisRegions.kMissingIndex != idx )
+        if (fVisRegions.kMissingIndex != idx)
         {
             fVisRegions.Remove(idx);
-            if( reg->GetProperty(plVisRegion::kIsNot) )
+            if (reg->GetProperty(plVisRegion::kIsNot))
                 fVisNot.ClearBit(reg->GetIndex());
             else
                 fVisSet.ClearBit(reg->GetIndex());
@@ -138,15 +138,15 @@ plDrawableSpans* plOccluder::CreateProxy(hsGMaterial* mat, hsTArray<uint32_t>& i
     hsTArray<uint16_t>        tris;
 
     plLayer* lay = plLayer::ConvertNoRef(mat->GetLayer(0)->BottomOfStack());
-    if( lay )
+    if (lay)
         lay->SetMiscFlags(lay->GetMiscFlags() & ~hsGMatState::kMiscTwoSided);
 
     const hsTArray<plCullPoly>& polys = GetLocalPolyList();
     int i;
-    for( i = 0; i < polys.GetCount(); i++ )
+    for (i = 0; i < polys.GetCount(); i++)
     {
         hsColorRGBA col;
-        if( polys[i].IsHole() )
+        if (polys[i].IsHole())
             col.Set(0,0,0,1.f);
         else
             col.Set(1.f, 1.f, 1.f, 1.f);
@@ -161,7 +161,7 @@ plDrawableSpans* plOccluder::CreateProxy(hsGMaterial* mat, hsTArray<uint32_t>& i
         norm.Append(polys[i].fNorm);
         color.Append(col);
         int j;
-        for( j = 2; j < polys[i].fVerts.GetCount(); j++ )
+        for (j = 2; j < polys[i].fVerts.GetCount(); j++)
         {
             int idxCurr = pos.GetCount();
             pos.Append(polys[i].fVerts[j]);
@@ -172,10 +172,10 @@ plDrawableSpans* plOccluder::CreateProxy(hsGMaterial* mat, hsTArray<uint32_t>& i
             tris.Append(idxCurr);
         }
 #if 1
-        if( polys[i].IsTwoSided() )
+        if (polys[i].IsTwoSided())
         {
             int n = tris.GetCount();
-            while( --n >= triStart )
+            while (--n >= triStart)
             {
                 int idx = tris[n];
                 tris.Append(idx);
@@ -230,10 +230,10 @@ void plOccluder::IComputeBounds()
 
     const hsTArray<plCullPoly>& polys = GetLocalPolyList();
     int i;
-    for( i =0 ; i < polys.GetCount(); i++ )
+    for (i =0 ; i < polys.GetCount(); i++)
     {
         int j;
-        for( j = 0; j < polys[i].fVerts.GetCount(); j++ )
+        for (j = 0; j < polys[i].fVerts.GetCount(); j++)
             fWorldBounds.Union(&polys[i].fVerts[j]);
     }
 }
@@ -243,10 +243,10 @@ float plOccluder::IComputeSurfaceArea()
     float area = 0;
     const hsTArray<plCullPoly>& polys = GetLocalPolyList();
     int i;
-    for( i =0 ; i < polys.GetCount(); i++ )
+    for (i =0 ; i < polys.GetCount(); i++)
     {
         int j;
-        for( j = 2; j < polys[i].fVerts.GetCount(); j++ )
+        for (j = 2; j < polys[i].fVerts.GetCount(); j++)
         {
             area += (hsVector3(&polys[i].fVerts[j], &polys[i].fVerts[j-2]) % hsVector3(&polys[i].fVerts[j-1], &polys[i].fVerts[j-2])).Magnitude();
         }
@@ -261,20 +261,20 @@ void plOccluder::SetPolyList(const hsTArray<plCullPoly>& list)
     uint16_t n = list.GetCount();
     fPolys.SetCount(n);
     int i;
-    for( i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
         fPolys[i] = list[i];
 }
 
 void plOccluder::ISetSceneNode(plKey node)
 {
-    if( fSceneNode != node )
+    if (fSceneNode != node)
     {
-        if( node )
+        if (node)
         {
             plNodeRefMsg* refMsg = new plNodeRefMsg(node, plRefMsg::kOnCreate, -1, plNodeRefMsg::kOccluder);
             hsgResMgr::ResMgr()->AddViaNotify(GetKey(), refMsg, plRefFlags::kPassiveRef);
         }
-        if( fSceneNode )
+        if (fSceneNode)
         {
             fSceneNode->Release(GetKey());
         }
@@ -293,7 +293,7 @@ void plOccluder::Read(hsStream* s, hsResMgr* mgr)
     uint16_t n = s->ReadLE16();
     localPolys.SetCount(n);
     int i;
-    for( i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
         localPolys[i].Read(s, mgr);
 
     plKey nodeKey = mgr->ReadKey(s);
@@ -301,7 +301,7 @@ void plOccluder::Read(hsStream* s, hsResMgr* mgr)
 
     n = s->ReadLE16();
     fVisRegions.SetCountAndZero(n);
-    for( i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
         mgr->ReadKeyNotifyMe(s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, 0, kRefVisRegion), plRefFlags::kActiveRef);
 }
 
@@ -315,13 +315,13 @@ void plOccluder::Write(hsStream* s, hsResMgr* mgr)
     const hsTArray<plCullPoly>& localPolys = IGetLocalPolyList();
     s->WriteLE16(localPolys.GetCount());
     int i;
-    for( i = 0; i < localPolys.GetCount(); i++ )
+    for (i = 0; i < localPolys.GetCount(); i++)
         localPolys[i].Write(s, mgr);
 
     mgr->WriteKey(s, fSceneNode);
 
     s->WriteLE16(fVisRegions.GetCount());
-    for( i = 0; i < fVisRegions.GetCount(); i++ )
+    for (i = 0; i < fVisRegions.GetCount(); i++)
         mgr->WriteKey(s, fVisRegions[i]);
 }
 
@@ -347,14 +347,14 @@ void plMobileOccluder::SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l
     fLocalToWorld = l2w;
     fWorldToLocal = w2l;
 
-    if( fPolys.GetCount() != fOrigPolys.GetCount() )
+    if (fPolys.GetCount() != fOrigPolys.GetCount())
         fPolys.SetCount(fOrigPolys.GetCount());
 
     int i;
-    for( i = 0; i < fPolys.GetCount(); i++ )
+    for (i = 0; i < fPolys.GetCount(); i++)
         fOrigPolys[i].Transform(l2w, w2l, fPolys[i]);
 
-    if( fProxyGen )
+    if (fProxyGen)
         fProxyGen->SetTransform(l2w, w2l);
 }
 
@@ -365,7 +365,7 @@ void plMobileOccluder::SetPolyList(const hsTArray<plCullPoly>& list)
     fPolys.SetCount(n);
 
     int i;
-    for( i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
     {
         fPolys[i] = fOrigPolys[i] = list[i];
     }

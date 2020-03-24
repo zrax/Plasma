@@ -130,8 +130,8 @@ public:
     plSpaceTree();
     virtual ~plSpaceTree();
 
-    CLASSNAME_REGISTER( plSpaceTree );
-    GETINTERFACE_ANY( plSpaceTree, plCreatable );
+    CLASSNAME_REGISTER(plSpaceTree);
+    GETINTERFACE_ANY(plSpaceTree, plCreatable);
 
     void SetViewPos(const hsPoint3& p) { fViewPos = p; }
     const hsPoint3& GetViewPos() const { return fViewPos; }

@@ -76,11 +76,11 @@ public:
 
     plNetServerSessionInfo & ServerInfo() { return fInfo; }
 
-    void SetServerName(const ST::string & val) { fInfo.SetServerName( val ); }
-    void SetServerType(uint8_t val) { fInfo.SetServerType( val ); }
-    void SetServerAddr(const ST::string & val) { fInfo.SetServerAddr( val ); }
-    void SetServerPort(uint16_t val) { fInfo.SetServerPort( val ); }
-    void SetServerGuid(const char * val) { fServerGuid.FromString( val ); fInfo.SetServerGuid( &fServerGuid ); }
+    void SetServerName(const ST::string & val) { fInfo.SetServerName(val); }
+    void SetServerType(uint8_t val) { fInfo.SetServerType(val); }
+    void SetServerAddr(const ST::string & val) { fInfo.SetServerAddr(val); }
+    void SetServerPort(uint16_t val) { fInfo.SetServerPort(val); }
+    void SetServerGuid(const char * val) { fServerGuid.FromString(val); fInfo.SetServerGuid(&fServerGuid); }
     bool HasServerName() const { return fInfo.HasServerName(); }
     bool HasServerType() const { return fInfo.HasServerType(); }
     bool HasServerAddr() const { return fInfo.HasServerAddr(); }
@@ -90,7 +90,7 @@ public:
     uint8_t         GetServerType() const { return fInfo.GetServerType(); }
     ST::string      GetServerAddr() const { return fInfo.GetServerAddr(); }
     uint16_t        GetServerPort() const { return fInfo.GetServerPort(); }
-    const char *    GetServerGuid() const { fServerGuid.CopyFrom( fInfo.GetServerGuid() ); return fServerGuid.AsString().c_str(); }
+    const char *    GetServerGuid() const { fServerGuid.CopyFrom(fInfo.GetServerGuid()); return fServerGuid.AsString().c_str(); }
 };
 
 
@@ -104,7 +104,7 @@ private:
 
 protected:
     pyNetServerSessionInfoRef(): fInfo(fDefaultServerSessionInfo) {} // only here for the python glue... do NOT call directly
-    pyNetServerSessionInfoRef( plNetServerSessionInfo& info ): fInfo( info ) {}
+    pyNetServerSessionInfoRef(plNetServerSessionInfo& info): fInfo(info) {}
     plNetServerSessionInfo & ServerInfo() { return fInfo; }
 
 public:
@@ -116,11 +116,11 @@ public:
 
     static void AddPlasmaClasses(PyObject *m);
 
-    void SetServerName(const ST::string & val) { fInfo.SetServerName( val ); }
-    void SetServerType(uint8_t val) { fInfo.SetServerType( val ); }
-    void SetServerAddr(const ST::string & val) { fInfo.SetServerAddr( val ); }
-    void SetServerPort(uint16_t val) { fInfo.SetServerPort( val ); }
-    void SetServerGuid(const char * val) { fServerGuid.FromString( val ); fInfo.SetServerGuid( &fServerGuid ); }
+    void SetServerName(const ST::string & val) { fInfo.SetServerName(val); }
+    void SetServerType(uint8_t val) { fInfo.SetServerType(val); }
+    void SetServerAddr(const ST::string & val) { fInfo.SetServerAddr(val); }
+    void SetServerPort(uint16_t val) { fInfo.SetServerPort(val); }
+    void SetServerGuid(const char * val) { fServerGuid.FromString(val); fInfo.SetServerGuid(&fServerGuid); }
     bool HasServerName() const { return fInfo.HasServerName(); }
     bool HasServerType() const { return fInfo.HasServerType(); }
     bool HasServerAddr() const { return fInfo.HasServerAddr(); }
@@ -130,7 +130,7 @@ public:
     uint8_t         GetServerType() const { return fInfo.GetServerType(); }
     ST::string      GetServerAddr() const { return fInfo.GetServerAddr(); }
     uint16_t        GetServerPort() const { return fInfo.GetServerPort(); }
-    const char *    GetServerGuid() const { fServerGuid.CopyFrom( fInfo.GetServerGuid() ); return fServerGuid.AsString().c_str(); }
+    const char *    GetServerGuid() const { fServerGuid.CopyFrom(fInfo.GetServerGuid()); return fServerGuid.AsString().c_str(); }
 };
 
 

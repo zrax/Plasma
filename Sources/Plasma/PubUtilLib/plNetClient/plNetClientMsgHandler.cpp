@@ -133,10 +133,10 @@ int plNetClientMsgHandler::ReceiveMsg(plNetMessage *& netMsg)
 
     plNetClientMgr::GetInstance()->UpdateServerTimeOffset(netMsg);
     
-    switch(netMsg->ClassIndex())
+    switch (netMsg->ClassIndex())
     {
         default:
-            plNetClientMgr::GetInstance()->ErrorMsg( "Unknown msg: {}", netMsg->ClassName() );
+            plNetClientMgr::GetInstance()->ErrorMsg("Unknown msg: {}", netMsg->ClassName());
             return hsFail;
 
         MSG_HANDLER_CASE(plNetMsgTerminated)
@@ -171,20 +171,20 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgGroupOwner)
     PeekMsg(m);
 
 /* !!! THIS LOG MSG CRASHES THE CLIENT SOMETIMES! -eap
-    hsLogEntry( nc->DebugMsg("<RCV> {}, {}, sz={}",
-        m->ClassName(), m->AsStdString(), m->GetNetCoreMsgLen()) );
+    hsLogEntry(nc->DebugMsg("<RCV> {}, {}, sz={}",
+        m->ClassName(), m->AsStdString(), m->GetNetCoreMsgLen()));
 */
 
     /*
     plNetOwnershipMsg* netOwnMsg = new plNetOwnershipMsg;
 
     int i;
-    for(i=0;i<m->GetNumGroups();i++)
+    for (i=0;i<m->GetNumGroups();i++)
     {
         plNetMsgGroupOwner::GroupInfo gr=m->GetGroupInfo(i);
         netOwnMsg->AddGroupInfo(gr);
         nc->GetNetGroups()->SetGroup(gr.fGroupID, gr.fOwnIt!=0 ? true : false);
-        hsLogEntry( nc->DebugMsg("\tGroup 0x{x}, ownIt={}\n", gr.fGroupID.Room().GetSequenceNumber(), gr.fOwnIt) );
+        hsLogEntry(nc->DebugMsg("\tGroup 0x{x}, ownIt={}\n", gr.fGroupID.Room().GetSequenceNumber(), gr.fOwnIt));
     }
 
     if (netOwnMsg->GetNumGroups())
@@ -207,30 +207,30 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgSDLState)
     PeekMsg(m);
 
 /* !!! THIS LOG MSG CRASHES THE CLIENT SOMETIMES! -eap
-    hsLogEntry( nc->DebugMsg("<RCV> {}, {}, sz={}",
-        m->ClassName(), m->AsStdString(), m->GetNetCoreMsgLen()) );
+    hsLogEntry(nc->DebugMsg("<RCV> {}, {}, sz={}",
+        m->ClassName(), m->AsStdString(), m->GetNetCoreMsgLen()));
 */
 
     uint32_t rwFlags = 0;
 
-    if ( m->IsInitialState() )
+    if (m->IsInitialState())
     {
         nc->IncNumInitialSDLStates();
         rwFlags |= plSDL::kMakeDirty;   // if initial state, we want all vars.
     }
-    else if ( nc->GetFlagsBit( plNetClientApp::kLoadingInitialAgeState ) )
+    else if (nc->GetFlagsBit(plNetClientApp::kLoadingInitialAgeState))
     {
-        if ( nc->GetFlagsBit( plNetClientApp::kNeedInitialAgeStateCount ) )
+        if (nc->GetFlagsBit(plNetClientApp::kNeedInitialAgeStateCount))
         {
-            hsLogEntry( nc->DebugMsg( "Ignoring SDL state because we are still joining age and don't have initial age state count yet." ) );
+            hsLogEntry(nc->DebugMsg("Ignoring SDL state because we are still joining age and don't have initial age state count yet."));
             return hsOK;
         }
-        if ( nc->GetNumInitialSDLStates()<nc->GetRequiredNumInitialSDLStates() )
+        if (nc->GetNumInitialSDLStates()<nc->GetRequiredNumInitialSDLStates())
         {
-            hsLogEntry( nc->DebugMsg( "Ignoring SDL state because we are still joining age and have not received all initial state yet." ) );
+            hsLogEntry(nc->DebugMsg("Ignoring SDL state because we are still joining age and have not received all initial state yet."));
             return hsOK;
         }
-        hsLogEntry( nc->DebugMsg( "We are still joining age, but have all initial states. Accepting this state (risky?)." ) );
+        hsLogEntry(nc->DebugMsg("We are still joining age, but have all initial states. Accepting this state (risky?)."));
     }
     
 
@@ -264,7 +264,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgSDLState)
         nc->QueueDisableNet(true, "SDL Desc Problem");
         delete sdRec;
     }
-    else if( sdRec->Read( &stream, 0, rwFlags ) )
+    else if (sdRec->Read(&stream, 0, rwFlags))
     {
         plStateDataRecord* stateRec = nil;
         if (m->IsInitialState())
@@ -286,8 +286,8 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgSDLState)
 
         // queue up state
         nc->fPendingLoads.push_back(pl);
-        hsLogEntry( nc->DebugMsg( "Added pending SDL delivery for {}:{}",
-                                  m->ObjectInfo()->GetObjectName(), des->GetName() ) );
+        hsLogEntry(nc->DebugMsg("Added pending SDL delivery for {}:{}",
+                                m->ObjectInfo()->GetObjectName(), des->GetName()));
     }
     else
         delete sdRec;
@@ -303,10 +303,10 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgGameMessage)
     {
         PeekMsg(m);
 
-        plNetMsgLoadClone * lcMsg = plNetMsgLoadClone::ConvertNoRef( m );
-        if ( lcMsg )
+        plNetMsgLoadClone * lcMsg = plNetMsgLoadClone::ConvertNoRef(m);
+        if (lcMsg)
         {
-            if ( lcMsg->GetIsInitialState() )
+            if (lcMsg->GetIsInitialState())
             {
                 nc->IncNumInitialSDLStates();
             }
@@ -319,11 +319,11 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgGameMessage)
         if (gameMsg)
         {
         /* !!! THIS LOG MSG CRASHES THE CLIENT SOMETIMES!!! -eap
-            hsLogEntry( nc->DebugMsg("<RCV> {}, {}, sndr {} rcvr {} sz={}",
+            hsLogEntry(nc->DebugMsg("<RCV> {}, {}, sndr {} rcvr {} sz={}",
                 m->ClassName(), m->AsStdString(),
                 gameMsg->GetSender() ? gameMsg->GetSender()->GetName() : "?",
                 gameMsg->GetNumReceivers() ? gameMsg->GetReceiver(0)->GetName() : "?",
-                m->GetNetCoreMsgLen()) );
+                m->GetNetCoreMsgLen()));
         */
 
             if (lcMsg)
@@ -346,7 +346,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgGameMessage)
                         int idx = nc->fTransport.FindMember(loadClone->GetOriginatingPlayerID());
                         if (idx == -1)
                         {
-                            hsLogEntry( nc->DebugMsg( "Ignoring load clone because player isn't in our players list: {}", loadClone->GetOriginatingPlayerID()) );
+                            hsLogEntry(nc->DebugMsg("Ignoring load clone because player isn't in our players list: {}", loadClone->GetOriginatingPlayerID()));
                             return hsOK;
                         }
                     }
@@ -395,8 +395,8 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgVoice)
     PeekMsg(m);
 
 /* !!! THIS LOG MSG CRASHES THE CLIENT SOMETIMES! -eap
-    hsLogEntry( nc->DebugMsg("<RCV> {}, {}, sz={}",
-        m->ClassName(), m->AsStdString(), m->GetNetCoreMsgLen()) );
+    hsLogEntry(nc->DebugMsg("<RCV> {}, {}, sz={}",
+        m->ClassName(), m->AsStdString(), m->GetNetCoreMsgLen()));
 */
 
     int bufLen = m->GetVoiceDataLen();
@@ -451,14 +451,14 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgMembersList)
     PeekMsg(m);
 
 /* !!! THIS LOG MSG CRASHES THE CLIENT SOMETIMES! -eap
-    hsLogEntry( nc->DebugMsg("<RCV> {}, {}, sz={}",
-        m->ClassName(), m->AsStdString(), m->GetNetCoreMsgLen()) );
+    hsLogEntry(nc->DebugMsg("<RCV> {}, {}, sz={}",
+        m->ClassName(), m->AsStdString(), m->GetNetCoreMsgLen()));
 */
 
     int i;
 
     // remove existing members, except server
-    for( i=nc->fTransport.GetNumMembers()-1 ; i>=0; i--  )
+    for (i=nc->fTransport.GetNumMembers()-1 ; i>=0; i--)
     {
         if (!nc->fTransport.GetMember(i)->IsServer())
         {
@@ -468,7 +468,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgMembersList)
 
     // update the members list from the msg.
     // this app is not one of the members in the msg
-    for( i=0 ;i<m->MemberListInfo()->GetNumMembers() ;i++  )
+    for (i=0 ;i<m->MemberListInfo()->GetNumMembers() ;i++)
     {
         plNetTransportMember* mbr = new plNetTransportMember(nc);
         IFillInTransportMember(m->MemberListInfo()->GetMember(i), mbr);
@@ -492,24 +492,24 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgMemberUpdate)
     PeekMsg(m);
 
 /* !!! THIS LOG MSG CRASHES THE CLIENT SOMETIMES! -eap
-    hsLogEntry( nc->DebugMsg("<RCV> {}, {}, sz={}",
-        m->ClassName(), m->AsStdString(), m->GetNetCoreMsgLen()) );
+    hsLogEntry(nc->DebugMsg("<RCV> {}, {}, sz={}",
+        m->ClassName(), m->AsStdString(), m->GetNetCoreMsgLen()));
 */
     
     if (m->AddingMember())
     {
         plNetTransportMember* mbr=nil;
         int idx = nc->fTransport.FindMember(m->MemberInfo()->GetClientGuid()->GetPlayerID());
-        if ( idx>=0 )
+        if (idx>=0)
             mbr = nc->fTransport.GetMember(idx);
         else
             mbr = new plNetTransportMember(nc);
         hsAssert(mbr, "nil xport member");
         IFillInTransportMember(m->MemberInfo(), mbr);
         
-        if ( idx<0 )
+        if (idx<0)
         {   // didn't find him
-            if ( nc->fTransport.AddMember(mbr)<0 )
+            if (nc->fTransport.AddMember(mbr)<0)
                 delete mbr;     // delete newly created member
         }
     }
@@ -518,7 +518,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgMemberUpdate)
         int idx=nc->fTransport.FindMember(m->MemberInfo()->GetClientGuid()->GetPlayerID());
         if (idx<0)
         {
-            hsLogEntry( nc->DebugMsg("\tCan't find member to remove.") );
+            hsLogEntry(nc->DebugMsg("\tCan't find member to remove."));
         }
         else
         {
@@ -540,13 +540,13 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgListenListUpdate)
     PeekMsg(m);
 
 /* !!! THIS LOG MSG CRASHES THE CLIENT SOMETIMES! -eap
-    hsLogEntry( nc->DebugMsg("<RCV> {}, {}, sz={}",
-        m->ClassName(), m->AsStdString(), m->GetNetCoreMsgLen()) );
+    hsLogEntry(nc->DebugMsg("<RCV> {}, {}, sz={}",
+        m->ClassName(), m->AsStdString(), m->GetNetCoreMsgLen()));
 */
 
     int idx=nc->fTransport.FindMember(m->GetPlayerID());
     plNetTransportMember* tm = (idx==-1 ? nil : nc->fTransport.GetMember(idx));
-    if(!tm)
+    if (!tm)
     {
 #if 0
       tm = new plNetTransportMember(nc);
@@ -579,14 +579,14 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgInitialAgeStateSent)
     PeekMsg(msg);
 
 /* !!! THIS LOG MSG CRASHES THE CLIENT SOMETIMES! -eap
-    hsLogEntry( nc->DebugMsg("<RCV> {}, {}, sz={}",
-        netMsg->ClassName(), netMsg->AsStdString(), netMsg->GetNetCoreMsgLen()) );
+    hsLogEntry(nc->DebugMsg("<RCV> {}, {}, sz={}",
+        netMsg->ClassName(), netMsg->AsStdString(), netMsg->GetNetCoreMsgLen()));
 */
 
-    nc->DebugMsg( "Initial age SDL count: {}", msg->GetNumInitialSDLStates( ) );
+    nc->DebugMsg("Initial age SDL count: {}", msg->GetNumInitialSDLStates());
 
-    nc->SetRequiredNumInitialSDLStates( msg->GetNumInitialSDLStates() );
-    nc->SetFlagsBit( plNetClientApp::kNeedInitialAgeStateCount, false );
+    nc->SetRequiredNumInitialSDLStates(msg->GetNumInitialSDLStates());
+    nc->SetFlagsBit(plNetClientApp::kNeedInitialAgeStateCount, false);
 
     if (nc->GetNumInitialSDLStates() >= nc->GetRequiredNumInitialSDLStates()) {
         nc->ICheckPendingStateLoad(hsTimer::GetSysSeconds());

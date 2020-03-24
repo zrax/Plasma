@@ -53,8 +53,8 @@ public:
     plLayer();
     virtual ~plLayer();
 
-    CLASSNAME_REGISTER( plLayer );
-    GETINTERFACE_ANY( plLayer, plLayerInterface );
+    CLASSNAME_REGISTER(plLayer);
+    GETINTERFACE_ANY(plLayer, plLayerInterface);
 
     virtual uint32_t          Eval(double secs, uint32_t frame, uint32_t ignore);
 
@@ -76,7 +76,7 @@ public:
     void SetTexture(plBitmap* t) { *fTexture = t; }
 
     void SetPreshadeColor(const hsColorRGBA& col) { *fPreshadeColor = col; }
-    void SetRuntimeColor( const hsColorRGBA& col ) { *fRuntimeColor = col; }
+    void SetRuntimeColor(const hsColorRGBA& col) { *fRuntimeColor = col; }
     void SetAmbientColor(const hsColorRGBA& col) { *fAmbientColor = col; }
     void SetSpecularColor(const hsColorRGBA& col) { *fSpecularColor = col; }
     void SetOpacity(float a) { *fOpacity = a; }
@@ -93,7 +93,7 @@ public:
     static plLayerInterface* DefaultLayer();
 
     // Copies all the fields from the original layer given, not including the texture
-    void CloneNoTexture( plLayerInterface *original );
+    void CloneNoTexture(plLayerInterface *original);
 };
 
 #endif // plLayerInterfaceStack_inc

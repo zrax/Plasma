@@ -72,11 +72,11 @@ bool plRelevanceRegion::MsgReceive(plMessage* msg)
     if (genMsg)
     {
         plRegionBase *base = plRegionBase::ConvertNoRef(genMsg->GetRef());
-        if( genMsg->GetContext() & (plRefMsg::kOnCreate) )
+        if (genMsg->GetContext() & (plRefMsg::kOnCreate))
         {
             fRegion = base;
         }
-        else if( genMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+        else if (genMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
         {
             fRegion = nil;
         }

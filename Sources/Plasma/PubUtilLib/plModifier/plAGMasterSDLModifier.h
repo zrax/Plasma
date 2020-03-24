@@ -73,8 +73,8 @@ protected:
     uint32_t IApplyModFlags(uint32_t sendFlags);
 
 public:
-    CLASSNAME_REGISTER( plAGMasterSDLModifier);
-    GETINTERFACE_ANY( plAGMasterSDLModifier, plAnimTimeConvertSDLModifier);
+    CLASSNAME_REGISTER(plAGMasterSDLModifier);
+    GETINTERFACE_ANY(plAGMasterSDLModifier, plAnimTimeConvertSDLModifier);
 
     plAGMasterSDLModifier() {}
     ~plAGMasterSDLModifier() {}

@@ -89,8 +89,8 @@ public:
         fCmd(0), fImageKey(nullptr), fFlags(0), fBlockRGB(false)
     { }
 
-    CLASSNAME_REGISTER( plDynamicTextMsg );
-    GETINTERFACE_ANY( plDynamicTextMsg, plMessage );
+    CLASSNAME_REGISTER(plDynamicTextMsg);
+    GETINTERFACE_ANY(plDynamicTextMsg, plMessage);
 
     enum Commands
     {
@@ -118,22 +118,22 @@ public:
     };
 
     // Commands
-    void    ClearToColor( hsColorRGBA &c ) { fCmd |= kClear; fClearColor = c; }
+    void    ClearToColor(hsColorRGBA &c) { fCmd |= kClear; fClearColor = c; }
     void    Flush() { fCmd |= kFlush; }
     void    PurgeImage() { fCmd |= kPurgeImage; }
 
     // The following are mutually exclusive commands 'cause they share some parameters
-    void    SetTextColor( hsColorRGBA &c, bool blockRGB = false );
-    void    SetFont( const char *face, int16_t size, bool isBold = false );
-    void    SetLineSpacing( int16_t spacing );
-    void    FillRect( uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, hsColorRGBA &c );
-    void    FrameRect( uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, hsColorRGBA &c );
-    void    DrawString( int16_t x, int16_t y, const ST::string& text );
-    void    DrawClippedString( int16_t x, int16_t y, uint16_t clipLeft, uint16_t clipTop, uint16_t clipRight, uint16_t clipBottom, const ST::string& text );
-    void    DrawWrappedString( int16_t x, int16_t y, uint16_t wrapWidth, uint16_t wrapHeight, const ST::string& text );
-    void    DrawImage( int16_t x, int16_t y, plKey &image, bool respectAlpha = false );
-    void    DrawClippedImage( int16_t x, int16_t y, plKey &image, uint16_t clipX, uint16_t clipY, uint16_t clipWidth, uint16_t clipHeight, bool respectAlpha = false );
-    void    SetJustify( uint8_t justifyFlags );
+    void    SetTextColor(hsColorRGBA &c, bool blockRGB = false);
+    void    SetFont(const char *face, int16_t size, bool isBold = false);
+    void    SetLineSpacing(int16_t spacing);
+    void    FillRect(uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, hsColorRGBA &c);
+    void    FrameRect(uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, hsColorRGBA &c);
+    void    DrawString(int16_t x, int16_t y, const ST::string& text);
+    void    DrawClippedString(int16_t x, int16_t y, uint16_t clipLeft, uint16_t clipTop, uint16_t clipRight, uint16_t clipBottom, const ST::string& text);
+    void    DrawWrappedString(int16_t x, int16_t y, uint16_t wrapWidth, uint16_t wrapHeight, const ST::string& text);
+    void    DrawImage(int16_t x, int16_t y, plKey &image, bool respectAlpha = false);
+    void    DrawClippedImage(int16_t x, int16_t y, plKey &image, uint16_t clipX, uint16_t clipY, uint16_t clipWidth, uint16_t clipHeight, bool respectAlpha = false);
+    void    SetJustify(uint8_t justifyFlags);
     // IO
     void Read(hsStream* stream, hsResMgr* mgr);
     void Write(hsStream* stream, hsResMgr* mgr);

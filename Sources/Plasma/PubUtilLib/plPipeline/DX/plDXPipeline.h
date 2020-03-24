@@ -109,9 +109,9 @@ extern void D3DSURF_MEMDEL(IDirect3DCubeTexture9* cTex);
 
 extern void plReleaseObject(IUnknown* x);
 
-#define  ReleaseObject(x)   if(x){ plReleaseObject(x); x=NULL; }
+#define  ReleaseObject(x)   if (x) { plReleaseObject(x); x=NULL; }
 
-typedef LPDIRECT3D9 (WINAPI * Direct3DCreateProc)( UINT sdkVersion );
+typedef LPDIRECT3D9 (WINAPI * Direct3DCreateProc)(UINT sdkVersion);
 
 
 //// Helper Classes ///////////////////////////////////////////////////////////
@@ -148,12 +148,12 @@ class plDXPlateManager : public plPlateManager
         IDirect3DDevice9        *fD3DDevice;
         IDirect3DVertexBuffer9  *fVertBuffer;
 
-        plDXPlateManager( plDXPipeline *pipe, IDirect3DDevice9 *device );
+        plDXPlateManager(plDXPipeline *pipe, IDirect3DDevice9 *device);
 
         void ICreateGeometry(plDXPipeline* pipe);
         void IReleaseGeometry();
 
-        virtual void    IDrawToDevice( plPipeline *pipe );
+        virtual void    IDrawToDevice(plPipeline *pipe);
 };
 
 //// Class Definition /////////////////////////////////////////////////////////
@@ -241,12 +241,12 @@ protected:
     D3DEnum_DeviceInfo*     fCurrentDevice;
     D3DEnum_ModeInfo*       fCurrentMode;
 
-    hsGMatState     fLayerState[ 8 ]; // base stage (0) state is held in base class
-    hsGMatState     fOldLayerState[ 8 ];
-    bool            fLayerTransform[ 8 ];
-    float           fLayerLODBias[ 8 ];
-    uint32_t        fLayerUVWSrcs[ 8 ];
-    uint32_t        fLayerXformFlags[ 8 ];
+    hsGMatState     fLayerState[8]; // base stage (0) state is held in base class
+    hsGMatState     fOldLayerState[8];
+    bool            fLayerTransform[8];
+    float           fLayerLODBias[8];
+    uint32_t        fLayerUVWSrcs[8];
+    uint32_t        fLayerXformFlags[8];
     uint32_t        fLastEndingStage;
     bool            fTexturing;
 
@@ -305,19 +305,19 @@ protected:
     void            ICreateDynamicBuffers();
     void            IReleaseDynamicBuffers();
 
-    void            IAddBoundsSpan( plDrawableSpans *ice, const hsBounds3Ext *bounds, uint32_t bndColor = 0xffff0000 );
-    void            IAddNormalsSpan( plDrawableSpans *ice, plIcicle *span, plDXVertexBufferRef *vRef, uint32_t bndColor );
+    void            IAddBoundsSpan(plDrawableSpans *ice, const hsBounds3Ext *bounds, uint32_t bndColor = 0xffff0000);
+    void            IAddNormalsSpan(plDrawableSpans *ice, plIcicle *span, plDXVertexBufferRef *vRef, uint32_t bndColor);
 
     // Rendering
     bool        IFlipSurface();
     long        IGetBufferD3DFormat(uint8_t format) const;
     uint32_t    IGetBufferFormatSize(uint8_t format) const;
-    void        IGetVisibleSpans( plDrawableSpans* drawable, hsTArray<int16_t>& visList, plVisMgr* visMgr );
+    void        IGetVisibleSpans(plDrawableSpans* drawable, hsTArray<int16_t>& visList, plVisMgr* visMgr);
     bool        ILoopOverLayers(const plRenderPrimFunc& render, hsGMaterial* material, const plSpan& span);
-    void        IRenderBufferSpan( const plIcicle& span,
+    void        IRenderBufferSpan(const plIcicle& span,
                                     hsGDeviceRef *vb, hsGDeviceRef *ib,
                                     hsGMaterial *material,
-                                    uint32_t vStart, uint32_t vLength, uint32_t iStart, uint32_t iLength );
+                                    uint32_t vStart, uint32_t vLength, uint32_t iStart, uint32_t iLength);
     void        IRenderAuxSpan(const plSpan& span, const plAuxSpan* aux);
     void        IRenderAuxSpans(const plSpan& span);
 
@@ -326,13 +326,13 @@ protected:
     void        ISetFogParameters(const plSpan* span, const plLayerInterface* baseLay);
 
     // Lighting
-    hsGDeviceRef    *IMakeLightRef( plLightInfo *owner );
-    void            IScaleD3DLight( plDXLightRef *ref, float scale);
-    void            ICalcLighting( const plLayerInterface *currLayer, const plSpan *currSpan );
+    hsGDeviceRef    *IMakeLightRef(plLightInfo *owner);
+    void            IScaleD3DLight(plDXLightRef *ref, float scale);
+    void            ICalcLighting(const plLayerInterface *currLayer, const plSpan *currSpan);
     void            IDisableSpanLights();
     void            IRestoreSpanLights();
-    void            ISelectLights( plSpan *span, int numLights, bool proj );
-    void            IEnableLights( plSpan *span );
+    void            ISelectLights(plSpan *span, int numLights, bool proj);
+    void            IEnableLights(plSpan *span);
     inline void     inlEnsureLightingOff();
     inline void     inlEnsureLightingOn();
     void            IRenderProjection(const plRenderPrimFunc& render, plLightInfo* li);
@@ -347,7 +347,7 @@ protected:
     // Materials
     const hsGMatState&  ICompositeLayerState(int which, plLayerInterface* layer);
     int32_t       IHandleMaterial(hsGMaterial* newMat, uint32_t which, const plSpan* currSpan);
-    void        IHandleFirstTextureStage( plLayerInterface* layer );
+    void        IHandleFirstTextureStage(plLayerInterface* layer);
     void        IHandleShadeMode();
     void        IHandleZMode();
     void        IHandleMiscMode();
@@ -381,68 +381,68 @@ protected:
     HRESULT             ISetShaders(plShader* vShader, plShader* pShader);
 
     // Stenciling
-    virtual bool            StencilEnable( bool enable );
-    virtual void            StencilSetCompareFunc( uint8_t func, uint32_t refValue );
-    virtual void            StencilSetMask( uint32_t mask, uint32_t writeMask );
-    virtual void            StencilSetOps( uint8_t passOp, uint8_t failOp, uint8_t passButZFailOp );
-    virtual bool            StencilGetCaps( plStencilCaps *caps );
+    virtual bool            StencilEnable(bool enable);
+    virtual void            StencilSetCompareFunc(uint8_t func, uint32_t refValue);
+    virtual void            StencilSetMask(uint32_t mask, uint32_t writeMask);
+    virtual void            StencilSetOps(uint8_t passOp, uint8_t failOp, uint8_t passButZFailOp);
+    virtual bool            StencilGetCaps(plStencilCaps *caps);
 
-    hsGDeviceRef    *MakeTextureRef( plLayerInterface* layer, plMipmap *b );
-    void            IReloadTexture( plDXTextureRef *ref );
-    void            IFillD3DTexture( plDXTextureRef *ref );
-    void            IFillD3DCubeTexture( plDXCubeTextureRef *ref );
-    void            IGetD3DTextureFormat( plBitmap *b, D3DFORMAT &formatType, uint32_t& texSize );
-    void            IFormatTextureData( uint32_t formatType, uint32_t numPix, hsRGBAColor32* const src, void *dst );
-    void            *IGetPixelScratch( uint32_t size );
-    hsGDeviceRef    *IMakeCubicTextureRef( plLayerInterface* layer, plCubicEnvironmap *cubic );
-    bool            IProcessMipmapLevels( plMipmap *mipmap, uint32_t &numLevels,
+    hsGDeviceRef    *MakeTextureRef(plLayerInterface* layer, plMipmap *b);
+    void            IReloadTexture(plDXTextureRef *ref);
+    void            IFillD3DTexture(plDXTextureRef *ref);
+    void            IFillD3DCubeTexture(plDXCubeTextureRef *ref);
+    void            IGetD3DTextureFormat(plBitmap *b, D3DFORMAT &formatType, uint32_t& texSize);
+    void            IFormatTextureData(uint32_t formatType, uint32_t numPix, hsRGBAColor32* const src, void *dst);
+    void            *IGetPixelScratch(uint32_t size);
+    hsGDeviceRef    *IMakeCubicTextureRef(plLayerInterface* layer, plCubicEnvironmap *cubic);
+    bool            IProcessMipmapLevels(plMipmap *mipmap, uint32_t &numLevels,
                                                 uint32_t *&levelSizes, uint32_t &totalSize,
-                                                uint32_t &numPixels, void *&textureData, bool noMip );
-    IDirect3DTexture9       *IMakeD3DTexture( plDXTextureRef *ref, D3DFORMAT formatType );
-    IDirect3DCubeTexture9   *IMakeD3DCubeTexture( plDXTextureRef *ref, D3DFORMAT formatType );
+                                                uint32_t &numPixels, void *&textureData, bool noMip);
+    IDirect3DTexture9       *IMakeD3DTexture(plDXTextureRef *ref, D3DFORMAT formatType);
+    IDirect3DCubeTexture9   *IMakeD3DCubeTexture(plDXTextureRef *ref, D3DFORMAT formatType);
 
     // Visualization of active occluders
     void            IMakeOcclusionSnap();
 
     bool            IAvatarSort(plDrawableSpans* d, const hsTArray<int16_t>& visList);
-    void            IBlendVertsIntoBuffer( plSpan* span,
+    void            IBlendVertsIntoBuffer(plSpan* span,
                                             hsMatrix44* matrixPalette, int numMatrices,
                                             const uint8_t *src, uint8_t format, uint32_t srcStride,
-                                            uint8_t *dest, uint32_t destStride, uint32_t count, uint16_t localUVWChans )
+                                            uint8_t *dest, uint32_t destStride, uint32_t count, uint16_t localUVWChans)
                                                 { blend_vert_buffer.call(span, matrixPalette, numMatrices, src, format, srcStride, dest, destStride, count, localUVWChans); };
-    bool            ISoftwareVertexBlend( plDrawableSpans* drawable, const hsTArray<int16_t>& visList );
+    bool            ISoftwareVertexBlend(plDrawableSpans* drawable, const hsTArray<int16_t>& visList);
 
 
-    void            ILinkDevRef( plDXDeviceRef *ref, plDXDeviceRef **refList );
-    void            IUnlinkDevRef( plDXDeviceRef *ref );
+    void            ILinkDevRef(plDXDeviceRef *ref, plDXDeviceRef **refList);
+    void            IUnlinkDevRef(plDXDeviceRef *ref);
 
     // Properties
-    inline DWORD            inlGetD3DColor( const hsColorRGBA &c ) const;
+    inline DWORD            inlGetD3DColor(const hsColorRGBA &c) const;
     inline D3DCOLORVALUE    inlPlToD3DColor(const hsColorRGBA& c, float a) const;
 
     // Error handling
-    void    IAddErrorMessage( char *errStr );
-    void    ISetErrorMessage( char *errStr = nil );
+    void    IAddErrorMessage(char *errStr);
+    void    ISetErrorMessage(char *errStr = nil);
     void    IGetD3DError();
-    void    IShowErrorMessage( char *errStr = nil );
-    bool    ICreateFail( char *errStr );
+    void    IShowErrorMessage(char *errStr = nil);
+    bool    ICreateFail(char *errStr);
 
     // Device initialization
     void    IInvalidateState();
     void    IInitDeviceState();
     void    IClearMembers();
     void    ISetCaps();
-    void    IRestrictCaps( const hsG3DDeviceRecord& devRec );
+    void    IRestrictCaps(const hsG3DDeviceRecord& devRec);
     void    ISetGraphicsCapability(uint32_t v);
 
     bool    IFindDepthFormat(D3DPRESENT_PARAMETERS& params);
     bool    IFindCompressedFormats();
     bool    IFindLuminanceFormats();
-    bool    ITextureFormatAllowed( D3DFORMAT format );
+    bool    ITextureFormatAllowed(D3DFORMAT format);
 
-    void    ISetCurrentDriver( D3DEnum_DriverInfo *driv );
-    void    ISetCurrentDevice( D3DEnum_DeviceInfo *dev );
-    void    ISetCurrentMode( D3DEnum_ModeInfo *mode );
+    void    ISetCurrentDriver(D3DEnum_DriverInfo *driv);
+    void    ISetCurrentDevice(D3DEnum_DeviceInfo *dev);
+    void    ISetCurrentMode(D3DEnum_ModeInfo *mode);
 
     bool        ICreateDevice(bool windowed);
     bool        ICreateNormalSurfaces();
@@ -461,7 +461,7 @@ protected:
     void        ISetAnisotropy(bool on);
 
     // Transforms
-    D3DXMATRIX&     IMatrix44ToD3DMatrix( D3DXMATRIX& dst, const hsMatrix44& src );
+    D3DXMATRIX&     IMatrix44ToD3DMatrix(D3DXMATRIX& dst, const hsMatrix44& src);
     void            ISetCullMode(bool flip=false);
     bool inline   IIsViewLeftHanded();
     bool            IGetClearViewPort(D3DRECT& r);
@@ -471,16 +471,16 @@ protected:
     friend class plDXPlateManager;
     friend class plDXDevice;
 
-    void        IDrawPlate( plPlate *plate );
+    void        IDrawPlate(plPlate *plate);
 
-    void    ISetRenderTarget( plRenderTarget *target );
+    void    ISetRenderTarget(plRenderTarget *target);
 
-    bool    IPrepRenderTargetInfo( plRenderTarget *owner, D3DFORMAT &surfFormat,
-                                    D3DFORMAT &depthFormat, D3DRESOURCETYPE &resType );
-    bool    IFindRenderTargetInfo( plRenderTarget *owner, D3DFORMAT &surfFormat, D3DRESOURCETYPE &resType );
+    bool    IPrepRenderTargetInfo(plRenderTarget *owner, D3DFORMAT &surfFormat,
+                                    D3DFORMAT &depthFormat, D3DRESOURCETYPE &resType);
+    bool    IFindRenderTargetInfo(plRenderTarget *owner, D3DFORMAT &surfFormat, D3DRESOURCETYPE &resType);
 
     // From a D3DFORMAT enumeration, return the string literal for it
-    static const char   *IGetDXFormatName( D3DFORMAT format );
+    static const char   *IGetDXFormatName(D3DFORMAT format);
 
     /////// Shadow internals
     // Generation
@@ -539,11 +539,11 @@ protected:
     void IResetToDefaults(D3DPRESENT_PARAMETERS *params);
 
 public:
-    plDXPipeline( hsWinRef hWnd, const hsG3DDeviceModeRecord *devMode );
+    plDXPipeline(hsWinRef hWnd, const hsG3DDeviceModeRecord *devMode);
     virtual ~plDXPipeline();
 
-    CLASSNAME_REGISTER( plDXPipeline );
-    GETINTERFACE_ANY( plDXPipeline, pl3DPipeline );
+    CLASSNAME_REGISTER(plDXPipeline);
+    GETINTERFACE_ANY(plDXPipeline, pl3DPipeline);
 
     virtual IDirect3DDevice9*           GetD3DDevice() const { return fD3DDevice; }
 
@@ -554,11 +554,11 @@ public:
     virtual void                        PushRenderRequest(plRenderRequest* req);
     virtual void                        PopRenderRequest(plRenderRequest* req);
 
-    void ResetDisplayDevice(int Width, int Height, int ColorDepth, bool Windowed, int NumAASamples, int MaxAnisotropicSamples, bool VSync = false );
+    void ResetDisplayDevice(int Width, int Height, int ColorDepth, bool Windowed, int NumAASamples, int MaxAnisotropicSamples, bool VSync = false);
 
-    virtual void                        ClearRenderTarget( plDrawable* d );
-    virtual void                        ClearRenderTarget( const hsColorRGBA* col = nil, const float* depth = nil );
-    virtual hsGDeviceRef*               MakeRenderTargetRef( plRenderTarget *owner );
+    virtual void                        ClearRenderTarget(plDrawable* d);
+    virtual void                        ClearRenderTarget(const hsColorRGBA* col = nil, const float* depth = nil);
+    virtual hsGDeviceRef*               MakeRenderTargetRef(plRenderTarget *owner);
     virtual hsGDeviceRef*               SharedRenderTargetRef(plRenderTarget* sharer, plRenderTarget *owner);
 
     virtual bool                        BeginRender();
@@ -566,13 +566,13 @@ public:
     virtual void                        RenderScreenElements();
 
     virtual bool                        IsFullScreen() const { return fSettings.fFullscreen; }
-    virtual void                        Resize( uint32_t width, uint32_t height );
+    virtual void                        Resize(uint32_t width, uint32_t height);
 
     virtual bool                        CheckResources();
     virtual void                        LoadResources();    // Tells us where it's a good time to load in unmanaged resources.
 
     // Create a debug text font object
-    virtual plTextFont      *MakeTextFont( char *face, uint16_t size );
+    virtual plTextFont      *MakeTextFont(char *face, uint16_t size);
 
     // Create and/or Refresh geometry buffers
     virtual void            CheckVertexBufferRef(plGBufferGroup* owner, uint32_t idx);
@@ -592,10 +592,10 @@ public:
 #endif // PLASMA_EXTERNAL_RELEASE
 
     //  From a D3DFORMAT enumeration, return the bit depth associated with it.
-    static short    GetDXBitDepth( D3DFORMAT format );
+    static short    GetDXBitDepth(D3DFORMAT format);
 
     // Default fog settings
-    virtual void                        SetDefaultFogEnviron( plFogEnvironment *fog ) { fView.SetDefaultFog(*fog); fCurrFog.fEnvPtr = nil; }
+    virtual void                        SetDefaultFogEnviron(plFogEnvironment *fog) { fView.SetDefaultFog(*fog); fCurrFog.fEnvPtr = nil; }
 
 
 
@@ -608,7 +608,7 @@ public:
     virtual bool                        SetGamma(float eR, float eG, float eB);
     virtual bool                        SetGamma(const uint16_t* const tabR, const uint16_t* const tabG, const uint16_t* const tabB);
 
-    virtual bool                        CaptureScreen( plMipmap *dest, bool flipVertical = false, uint16_t desiredWidth = 0, uint16_t desiredHeight = 0 );
+    virtual bool                        CaptureScreen(plMipmap *dest, bool flipVertical = false, uint16_t desiredWidth = 0, uint16_t desiredHeight = 0);
     virtual plMipmap*                   ExtractMipMap(plRenderTarget* targ);
 
     /// Error handling
@@ -617,11 +617,11 @@ public:
     bool                                ManagedAlloced() const { return fManagedAlloced; }
 
     virtual void                        GetSupportedColorDepths(hsTArray<int> &ColorDepths);
-    virtual void                        GetSupportedDisplayModes(std::vector<plDisplayMode> *res, int ColorDepth = 32 );
+    virtual void                        GetSupportedDisplayModes(std::vector<plDisplayMode> *res, int ColorDepth = 32);
     virtual int                         GetMaxAnisotropicSamples();
     virtual int                         GetMaxAntiAlias(int Width, int Height, int ColorDepth);
 
-    virtual void RenderSpans( plDrawableSpans *ice, const hsTArray<int16_t>& visList );
+    virtual void RenderSpans(plDrawableSpans *ice, const hsTArray<int16_t>& visList);
 
     //  CPU-optimized functions
 protected:
@@ -636,29 +636,29 @@ protected:
 //  ??.?? - Some mild optimizations PBG
 //  MMW - take advantage of the 32 bit float representation on a PC
 
-#define CONVERT_FLOAT_TO_BYTE_COLOR( f, dest ) \
+#define CONVERT_FLOAT_TO_BYTE_COLOR(f, dest) \
     { \
         LONG const floatBitsOne = 0x3f800000; \
-        LONG const floatBits = *( (LONG const *)( &f ) ); \
-        if( floatBits <= 0 ) dest = 0; \
-        else if( floatBits >= floatBitsOne ) dest = 255; \
+        LONG const floatBits = *((LONG const *)(&f)); \
+        if (floatBits <= 0) dest = 0; \
+        else if (floatBits >= floatBitsOne) dest = 255; \
         else \
         { \
-            LONG const times256 = floatBits + ( 8 << 23 ); \
-            dest = (DWORD)( *( (float const *)( &times256 ) ) ); \
+            LONG const times256 = floatBits + (8 << 23); \
+            dest = (DWORD)(*((float const *)(&times256))); \
         } \
     }
 
-inline DWORD    plDXPipeline::inlGetD3DColor( const hsColorRGBA &col ) const
+inline DWORD    plDXPipeline::inlGetD3DColor(const hsColorRGBA &col) const
 {
     DWORD   dr, dg, db, da;
     
-    CONVERT_FLOAT_TO_BYTE_COLOR( col.r, dr );
-    CONVERT_FLOAT_TO_BYTE_COLOR( col.g, dg );
-    CONVERT_FLOAT_TO_BYTE_COLOR( col.b, db );
-    CONVERT_FLOAT_TO_BYTE_COLOR( col.a, da );
+    CONVERT_FLOAT_TO_BYTE_COLOR(col.r, dr);
+    CONVERT_FLOAT_TO_BYTE_COLOR(col.g, dg);
+    CONVERT_FLOAT_TO_BYTE_COLOR(col.b, db);
+    CONVERT_FLOAT_TO_BYTE_COLOR(col.a, da);
   
-    return( ( da << 24 ) | ( dr << 16 ) | ( dg << 8 ) | db );
+    return ((da << 24) | (dr << 16) | (dg << 8) | db);
 }
 
 

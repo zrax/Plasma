@@ -67,7 +67,7 @@ bool plActivatorConditionalObject::MsgReceive(plMessage* msg)
                 if (pDetectorMsg->fTriggerType == plActivatorMsg::kUnPickedTrigger ||
                     pDetectorMsg->fTriggerType == plActivatorMsg::kExitUnTrigger   ||
                     pDetectorMsg->fTriggerType == plActivatorMsg::kEnterUnTrigger  ||
-                    pDetectorMsg->fTriggerType == plActivatorMsg::kCollideUnTrigger )
+                    pDetectorMsg->fTriggerType == plActivatorMsg::kCollideUnTrigger)
                     
                 {
                     // is this a toggle activator?
@@ -81,11 +81,11 @@ bool plActivatorConditionalObject::MsgReceive(plMessage* msg)
                             fLogicMod->GetNotify()->AddPickEvent(pDetectorMsg->fHitterObj, pDetectorMsg->fPickedObj, false, pDetectorMsg->fHitPoint);
 
                         if ((pDetectorMsg->fTriggerType == plActivatorMsg::kCollideExit) ||
-                            (pDetectorMsg->fTriggerType == plActivatorMsg::kVolumeExit)  )
+                            (pDetectorMsg->fTriggerType == plActivatorMsg::kVolumeExit))
                             fLogicMod->GetNotify()->AddCollisionEvent(true, pDetectorMsg->fHitterObj, pDetectorMsg->fHiteeObj);
                     
                         if ((pDetectorMsg->fTriggerType == plActivatorMsg::kCollideEnter) ||
-                            (pDetectorMsg->fTriggerType == plActivatorMsg::kVolumeEnter) )
+                            (pDetectorMsg->fTriggerType == plActivatorMsg::kVolumeEnter))
                             fLogicMod->GetNotify()->AddCollisionEvent(false, pDetectorMsg->fHitterObj, pDetectorMsg->fHiteeObj);
 
                         fLogicMod->RequestUnTrigger();
@@ -101,11 +101,11 @@ bool plActivatorConditionalObject::MsgReceive(plMessage* msg)
                             fLogicMod->GetNotify()->AddPickEvent(pDetectorMsg->fHitterObj, pDetectorMsg->fPickedObj, false, pDetectorMsg->fHitPoint);
 
                         if ((pDetectorMsg->fTriggerType == plActivatorMsg::kCollideExit) ||
-                            (pDetectorMsg->fTriggerType == plActivatorMsg::kVolumeExit)  )
+                            (pDetectorMsg->fTriggerType == plActivatorMsg::kVolumeExit))
                             fLogicMod->GetNotify()->AddCollisionEvent(true, pDetectorMsg->fHitterObj, pDetectorMsg->fHiteeObj);
                     
                         if ((pDetectorMsg->fTriggerType == plActivatorMsg::kCollideEnter) ||
-                            (pDetectorMsg->fTriggerType == plActivatorMsg::kVolumeEnter) )
+                            (pDetectorMsg->fTriggerType == plActivatorMsg::kVolumeEnter))
                             fLogicMod->GetNotify()->AddCollisionEvent(false, pDetectorMsg->fHitterObj, pDetectorMsg->fHiteeObj);
 
                         fLogicMod->RequestUnTrigger();
@@ -113,19 +113,19 @@ bool plActivatorConditionalObject::MsgReceive(plMessage* msg)
                     }
 
 
-                    if (!fLogicMod->VerifyConditions( pDetectorMsg ))
+                    if (!fLogicMod->VerifyConditions(pDetectorMsg))
                         return false;
                     // this is used as part of a picked detector sometimes...
                     if (pDetectorMsg->fTriggerType == plActivatorMsg::kPickedTrigger)
                         fLogicMod->GetNotify()->AddPickEvent(pDetectorMsg->fHitterObj, pDetectorMsg->fPickedObj, true, pDetectorMsg->fHitPoint);
 
                     if ((pDetectorMsg->fTriggerType == plActivatorMsg::kCollideExit) ||
-                        (pDetectorMsg->fTriggerType == plActivatorMsg::kVolumeExit)  )
+                        (pDetectorMsg->fTriggerType == plActivatorMsg::kVolumeExit))
                     {
                         fLogicMod->GetNotify()->AddCollisionEvent(false, pDetectorMsg->fHitterObj, pDetectorMsg->fHiteeObj);
                     }
                     if ((pDetectorMsg->fTriggerType == plActivatorMsg::kCollideEnter) ||
-                        (pDetectorMsg->fTriggerType == plActivatorMsg::kVolumeEnter) )
+                        (pDetectorMsg->fTriggerType == plActivatorMsg::kVolumeEnter))
                     {
                         fLogicMod->GetNotify()->AddCollisionEvent(true, pDetectorMsg->fHitterObj, pDetectorMsg->fHiteeObj);
                     }
@@ -178,7 +178,7 @@ bool plActivatorActivatorConditionalObject::MsgReceive(plMessage* msg)
         else
         if (pDetectorMsg->fState && !fLogicMod->HasFlag(plLogicModBase::kTriggered))
         {
-            if (!fLogicMod->VerifyConditions( pDetectorMsg ))
+            if (!fLogicMod->VerifyConditions(pDetectorMsg))
                 return false;
 
             SetSatisfied(true);
@@ -197,16 +197,16 @@ bool plVolActivatorConditionalObject::MsgReceive(plMessage* msg)
     {
         for (int i = 0; i < fActivators.Count(); i++)
         {
-            if (!fLogicMod->VerifyConditions( pDetectorMsg ))
+            if (!fLogicMod->VerifyConditions(pDetectorMsg))
                 return false;
 
             if ((pDetectorMsg->fTriggerType == plActivatorMsg::kCollideExit) ||
-                (pDetectorMsg->fTriggerType == plActivatorMsg::kVolumeExit)  )
+                (pDetectorMsg->fTriggerType == plActivatorMsg::kVolumeExit))
             {
                 fLogicMod->GetNotify()->AddCollisionEvent(false, pDetectorMsg->fHitterObj, pDetectorMsg->fHiteeObj);
             }
             if ((pDetectorMsg->fTriggerType == plActivatorMsg::kCollideEnter) ||
-                (pDetectorMsg->fTriggerType == plActivatorMsg::kVolumeEnter) )
+                (pDetectorMsg->fTriggerType == plActivatorMsg::kVolumeEnter))
             {
                 fLogicMod->GetNotify()->AddCollisionEvent(true, pDetectorMsg->fHitterObj, pDetectorMsg->fHiteeObj);
             }

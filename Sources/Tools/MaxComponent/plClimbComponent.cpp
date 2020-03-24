@@ -184,7 +184,7 @@ bool plClimbTriggerComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     int iCommand = fCompPB->GetInt(plClimbTriggerComponent::kCommand);
     int iDirection = fCompPB->GetInt(plClimbTriggerComponent::kDirection);
 
-    switch(iCommand)
+    switch (iCommand)
     {
     case kMount:
         enterCommand = plClimbMsg::kStartClimbing;
@@ -224,7 +224,7 @@ bool plClimbTriggerComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         break;
     }
 
-    switch(iDirection)
+    switch (iDirection)
     {
     case kUp:
         direction = plClimbMsg::kUp;
@@ -274,7 +274,7 @@ bool plClimbTriggerComponent::SetupProperties(plMaxNode *node, plErrorMsg *pErrM
     plPhysicalProps *props = node->GetPhysicalProps();
 
     // only if movable will it have mass (then it will keep track of movements in PhysX)
-    if ( node->IsMovable() || node->IsTMAnimatedRecur() )
+    if (node->IsMovable() || node->IsTMAnimatedRecur())
         props->SetMass(1.0, node, pErrMsg);
     props->SetFriction(0.0, node, pErrMsg);
     props->SetRestitution(0.0, node, pErrMsg);

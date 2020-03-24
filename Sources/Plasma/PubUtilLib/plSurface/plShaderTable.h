@@ -131,7 +131,7 @@ protected:
     plShaderTableInst();
 
     bool LoadFromFile() const { return 0 != (fFlags & kLoadFromFile); }
-    void SetLoadFromFile(bool on) { if(on) fFlags |= kLoadFromFile; else fFlags &= ~kLoadFromFile; }
+    void SetLoadFromFile(bool on) { if (on) fFlags |= kLoadFromFile; else fFlags &= ~kLoadFromFile; }
 
     const plShaderDecl* Decl(plShaderID::ID id) const { return fTable[id]; }
 

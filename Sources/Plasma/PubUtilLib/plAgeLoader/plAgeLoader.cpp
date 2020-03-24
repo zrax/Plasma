@@ -96,10 +96,10 @@ plAgeLoader::~plAgeLoader()
     delete fInitialAgeState;
     fInitialAgeState=nil;
 
-    if ( PendingAgeFniFiles().size() )
-        plNetClientApp::StaticErrorMsg( "~plAgeLoader(): {} pending age fni files", PendingAgeFniFiles().size() );
-    if ( PendingPageOuts().size() )
-        plNetClientApp::StaticErrorMsg( "~plAgeLoader(): {} pending page outs", PendingPageOuts().size() );
+    if (PendingAgeFniFiles().size())
+        plNetClientApp::StaticErrorMsg("~plAgeLoader(): {} pending age fni files", PendingAgeFniFiles().size());
+    if (PendingPageOuts().size())
+        plNetClientApp::StaticErrorMsg("~plAgeLoader(): {} pending page outs", PendingPageOuts().size());
 
     ClearPageExcludeList();     // Clear our debugging exclude list, just to be tidy
     
@@ -116,7 +116,7 @@ void plAgeLoader::Shutdown()
 
 void plAgeLoader::Init()
 {
-    RegisterAs( kAgeLoader_KEY );
+    RegisterAs(kAgeLoader_KEY);
     plgDispatch::Dispatch()->RegisterForExactType(plInitialAgeStateLoadedMsg::Index(), GetKey());
     plgDispatch::Dispatch()->RegisterForExactType(plClientMsg::Index(), GetKey());
     plgDispatch::Dispatch()->RegisterForExactType(plResPatcherMsg::Index(), GetKey());
@@ -143,8 +143,8 @@ void plAgeLoader::SetInstance(plAgeLoader* inst)
 //
 bool plAgeLoader::MsgReceive(plMessage* msg)
 {
-    plInitialAgeStateLoadedMsg *stateMsg = plInitialAgeStateLoadedMsg::ConvertNoRef( msg );
-    if( stateMsg != nil )
+    plInitialAgeStateLoadedMsg *stateMsg = plInitialAgeStateLoadedMsg::ConvertNoRef(msg);
+    if (stateMsg != nil)
     {
         // done receiving the initial state of the age from the server
         return true;
@@ -183,9 +183,9 @@ void plAgeLoader::UpdateAge(const ST::string& ageName)
 }
 
 //============================================================================
-void plAgeLoader::NotifyAgeLoaded( bool loaded )
+void plAgeLoader::NotifyAgeLoaded(bool loaded)
 {
-    if ( loaded )
+    if (loaded)
         fFlags &= ~kLoadingAge;
     else
         fFlags &= ~kUnLoadingAge;
@@ -206,7 +206,7 @@ bool plAgeLoader::ILoadAge(const ST::string& ageName)
 
     fAgeName = ageName;
 
-    nc->DebugMsg( "Net: Loading age {}", fAgeName);
+    nc->DebugMsg("Net: Loading age {}", fAgeName);
 
     if ((fFlags & kLoadMask) != 0)
         ErrorAssert(__LINE__, __FILE__, "Fatal Error:\nAlready loading or unloading an age.\n%s will now exit.",
@@ -230,7 +230,7 @@ bool plAgeLoader::ILoadAge(const ST::string& ageName)
     fPendingAgeFniFiles.emplace_back(ST::format("dat\\{}.fni", fAgeName));
     fPendingAgeCsvFiles.emplace_back(ST::format("dat\\{}.csv", fAgeName));
 
-    plSynchEnabler p( false );  // turn off dirty tracking while in this function
+    plSynchEnabler p(false);  // turn off dirty tracking while in this function
 
     hsStream* stream=GetAgeDescFileStream(fAgeName);
     if (!stream)
@@ -248,26 +248,26 @@ bool plAgeLoader::ILoadAge(const ST::string& ageName)
     ad.SeekFirstPage();
     
     plAgePage *page;
-    plKey clientKey = hsgResMgr::ResMgr()->FindKey( kClient_KEY );
+    plKey clientKey = hsgResMgr::ResMgr()->FindKey(kClient_KEY);
 
     // Copy, exclude pages we want excluded, and collect our scene nodes
     fCurAgeDescription.CopyFrom(ad);
-    while( ( page = ad.GetNextPage() ) != nil )
+    while ((page = ad.GetNextPage()) != nil)
     {
-        if( IsPageExcluded( page, fAgeName) )
+        if (IsPageExcluded(page, fAgeName))
             continue;
 
-        plKey roomKey = plKeyFinder::Instance().FindSceneNodeKey( fAgeName, page->GetName() );
-        if( roomKey != nil )
-            AddPendingPageInRoomKey( roomKey );
+        plKey roomKey = plKeyFinder::Instance().FindSceneNodeKey(fAgeName, page->GetName());
+        if (roomKey != nil)
+            AddPendingPageInRoomKey(roomKey);
     }
     ad.SeekFirstPage();
 
 
     // Tell the client to load-and-hold all the keys for this age, to make the loading process work better
-    plClientMsg *loadAgeKeysMsg = new plClientMsg( plClientMsg::kLoadAgeKeys );
-    loadAgeKeysMsg->SetAgeName( fAgeName);
-    loadAgeKeysMsg->Send( clientKey );
+    plClientMsg *loadAgeKeysMsg = new plClientMsg(plClientMsg::kLoadAgeKeys);
+    loadAgeKeysMsg->SetAgeName(fAgeName);
+    loadAgeKeysMsg->Send(clientKey);
 
     //
     // Load the Age's SDL Hook object (and it's python modifier)
@@ -284,9 +284,9 @@ bool plAgeLoader::ILoadAge(const ST::string& ageName)
     pMsg1->SetAgeName(fAgeName);
 
     // Loop and ref!
-    while( ( page = ad.GetNextPage() ) != nil )
+    while ((page = ad.GetNextPage()) != nil)
     {
-        if( IsPageExcluded( page, fAgeName) )
+        if (IsPageExcluded(page, fAgeName))
         {
             nc->DebugMsg("\tExcluding page {}\n", page->GetName());
             continue;
@@ -301,11 +301,11 @@ bool plAgeLoader::ILoadAge(const ST::string& ageName)
     pMsg1->Send(clientKey);
 
     // Send the client a message to let go of the extra keys it was holding on to
-    plClientMsg *dumpAgeKeys = new plClientMsg( plClientMsg::kReleaseAgeKeys );
-    dumpAgeKeys->SetAgeName( fAgeName);
-    dumpAgeKeys->Send( clientKey );
+    plClientMsg *dumpAgeKeys = new plClientMsg(plClientMsg::kReleaseAgeKeys);
+    dumpAgeKeys->SetAgeName(fAgeName);
+    dumpAgeKeys->Send(clientKey);
 
-    if ( nPages==0 )
+    if (nPages==0)
     {
         // age is done loading because it has no pages?
         fFlags &= ~kLoadingAge;
@@ -326,13 +326,13 @@ class plUnloadAgeCollector : public plRegistryPageIterator
         hsTArray<plRegistryPageNode *>  fPages;
         const ST::string                fAge;
 
-        plUnloadAgeCollector(const ST::string& a) : fAge( a ) {}
+        plUnloadAgeCollector(const ST::string& a) : fAge(a) {}
 
-        virtual bool EatPage( plRegistryPageNode *page )
+        virtual bool EatPage(plRegistryPageNode *page)
         {
-            if ( !fAge.empty() && page->GetPageInfo().GetAge().compare_i(fAge) == 0 )
+            if (!fAge.empty() && page->GetPageInfo().GetAge().compare_i(fAge) == 0)
             {
-                fPages.Append( page );
+                fPages.Append(page);
             }
 
             return true;
@@ -346,9 +346,9 @@ class plUnloadAgeCollector : public plRegistryPageIterator
 bool    plAgeLoader::IUnloadAge()
 {
     plNetClientApp* nc = plNetClientApp::GetInstance();
-    nc->DebugMsg( "Net: Unloading age {}", fAgeName);
+    nc->DebugMsg("Net: Unloading age {}", fAgeName);
 
-    hsAssert( (fFlags & kLoadMask)==0, "already loading or unloading an age?");
+    hsAssert((fFlags & kLoadMask)==0, "already loading or unloading an age?");
     fFlags |= kUnLoadingAge;
     
     plAgeBeginLoadingMsg* msg = new plAgeBeginLoadingMsg();
@@ -359,44 +359,44 @@ bool    plAgeLoader::IUnloadAge()
     // is REALLY paged in for this age. So ask the resMgr!
     plUnloadAgeCollector collector(fAgeName);
     // WARNING: unsafe cast here, but it's ok, until somebody is mean and makes a non-plResManager resMgr
-    ( (plResManager *)hsgResMgr::ResMgr() )->IterateAllPages( &collector );
+    ((plResManager *)hsgResMgr::ResMgr())->IterateAllPages(&collector);
 
     // Dat was easy...
-    plKey clientKey = hsgResMgr::ResMgr()->FindKey( kClient_KEY );
+    plKey clientKey = hsgResMgr::ResMgr()->FindKey(kClient_KEY);
 
     // Build up a list of all the rooms we're going to page out
     plKeyVec newPageOuts;
 
     int i;
-    for( i = 0; i < collector.fPages.GetCount(); i++ )
+    for (i = 0; i < collector.fPages.GetCount(); i++)
     {
-        plRegistryPageNode *page = collector.fPages[ i ];
+        plRegistryPageNode *page = collector.fPages[i];
 
-        plKey roomKey = plKeyFinder::Instance().FindSceneNodeKey( page->GetPageInfo().GetLocation() );
-        if( roomKey != nil && roomKey->ObjectIsLoaded() )
+        plKey roomKey = plKeyFinder::Instance().FindSceneNodeKey(page->GetPageInfo().GetLocation());
+        if (roomKey != nil && roomKey->ObjectIsLoaded())
         {
-            nc->DebugMsg( "\tPaging out room {}\n", page->GetPageInfo().GetPage() );
+            nc->DebugMsg("\tPaging out room {}\n", page->GetPageInfo().GetPage());
             newPageOuts.push_back(roomKey);
         }
     }
 
     // Put them in our pending page outs
-    for( i = 0; i < newPageOuts.size(); i++ )
+    for (i = 0; i < newPageOuts.size(); i++)
         fPendingPageOuts.push_back(newPageOuts[i]);
 
     // ...then send the unload messages.  That way we ensure the list is complete
     // before any messages get processed
-    for( i = 0; i < newPageOuts.size(); i++ )
+    for (i = 0; i < newPageOuts.size(); i++)
     {
-        plClientMsg *pMsg1 = new plClientMsg( plClientMsg::kUnloadRoom );
+        plClientMsg *pMsg1 = new plClientMsg(plClientMsg::kUnloadRoom);
         pMsg1->AddRoomLoc(newPageOuts[i]->GetUoid().GetLocation());
-        pMsg1->Send( clientKey );
+        pMsg1->Send(clientKey);
     }
     
-    if ( newPageOuts.size()==0 )
+    if (newPageOuts.size()==0)
     {
         // age is done unloading because it has no pages?
-        NotifyAgeLoaded( false );
+        NotifyAgeLoaded(false);
     }
 
     return true;
@@ -408,8 +408,8 @@ void plAgeLoader::ExecPendingAgeFniFiles()
     int i;
     for (i=0;i<PendingAgeFniFiles().size(); i++)
     {
-        plConsoleMsg    *cMsg = new plConsoleMsg( plConsoleMsg::kExecuteFile, fPendingAgeFniFiles[i].AsString().c_str() );
-        plgDispatch::MsgSend( cMsg );
+        plConsoleMsg    *cMsg = new plConsoleMsg(plConsoleMsg::kExecuteFile, fPendingAgeFniFiles[i].AsString().c_str());
+        plgDispatch::MsgSend(cMsg);
     }
     fPendingAgeFniFiles.clear();
 }

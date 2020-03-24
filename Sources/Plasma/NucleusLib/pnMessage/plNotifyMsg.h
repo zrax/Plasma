@@ -80,7 +80,7 @@ public:
         kNone
     };
 
-    proEventData( int32_t evtType = kNone ) : fEventType( evtType )
+    proEventData(int32_t evtType = kNone) : fEventType(evtType)
     {
     }
     virtual ~proEventData() {}
@@ -382,27 +382,27 @@ public:
      * Adds an arbitrary event to this notify message.
      * \note This copies \a ed.
      */
-    void AddEvent( proEventData* ed);
-    void AddCollisionEvent( bool enter, const plKey &other, const plKey &self, bool onlyOneCollision=true );
-    void AddPickEvent( const plKey &other, const plKey& self, bool enabled, hsPoint3 hitPoint );
-    void AddControlKeyEvent( int32_t key, bool down );
-    void AddVariableEvent( const ST::string& name, float number );
-    void AddVariableEvent( const ST::string& name, int32_t number );
-    void AddVariableEvent( const ST::string& name );
-    void AddVariableEvent( const ST::string& name, const plKey &key );
-    void AddFacingEvent( const plKey &other, const plKey &self, float dot, bool enabled);
-    void AddContainerEvent( const plKey &container, const plKey &contained, bool entering);
-    void AddActivateEvent( bool activate );
-    void AddCallbackEvent( int32_t event );
-    void AddResponderStateEvent( int32_t state );
-    void AddMultiStageEvent( int32_t stage, int32_t event, const plKey& avatar );
+    void AddEvent(proEventData* ed);
+    void AddCollisionEvent(bool enter, const plKey &other, const plKey &self, bool onlyOneCollision=true);
+    void AddPickEvent(const plKey &other, const plKey& self, bool enabled, hsPoint3 hitPoint);
+    void AddControlKeyEvent(int32_t key, bool down);
+    void AddVariableEvent(const ST::string& name, float number);
+    void AddVariableEvent(const ST::string& name, int32_t number);
+    void AddVariableEvent(const ST::string& name);
+    void AddVariableEvent(const ST::string& name, const plKey &key);
+    void AddFacingEvent(const plKey &other, const plKey &self, float dot, bool enabled);
+    void AddContainerEvent(const plKey &container, const plKey &contained, bool entering);
+    void AddActivateEvent(bool activate);
+    void AddCallbackEvent(int32_t event);
+    void AddResponderStateEvent(int32_t state);
+    void AddMultiStageEvent(int32_t stage, int32_t event, const plKey& avatar);
     void AddCoopEvent(uint32_t id, uint16_t serial);
     void AddSpawnedEvent (const plKey &spawner, const plKey &spawned);
     void AddClickDragEvent(const plKey& dragger, const plKey& dragee, float animPos);
     void AddOfferBookEvent(const plKey& offerer, int targetAge, int offeree);
-    void AddBookEvent( uint32_t event, uint32_t linkID = 0 );
+    void AddBookEvent(uint32_t event, uint32_t linkID = 0);
     void AddHitClimbingBlockerEvent(const plKey &blocker);
-    proEventData* FindEventRecord( int32_t eventtype );
+    proEventData* FindEventRecord(int32_t eventtype);
     int32_t GetEventCount() { return fEvents.Count(); }
     proEventData* GetEventRecord(int32_t i) { return fEvents[i]; }
     void ClearEvents();

@@ -75,15 +75,15 @@ class plTextureExportLog
         plBMapNode  *fNodeList;
 
 
-        void    IAddBMapNode( uint32_t rank, plBitmap *bMap );
-        void    IWriteTabbedString( hsStream *stream, const char *string, int8_t numTabs );
+        void    IAddBMapNode(uint32_t rank, plBitmap *bMap);
+        void    IWriteTabbedString(hsStream *stream, const char *string, int8_t numTabs);
 
     public:
 
-        plTextureExportLog( const char *fileName );
+        plTextureExportLog(const char *fileName);
         ~plTextureExportLog();
 
-        void    AddTexture( plBitmap *texture );
+        void    AddTexture(plBitmap *texture);
         void    Write();
 };
 

@@ -61,8 +61,8 @@ public:
                     const double* t) { IReset(); }
     ~plActivatorMsg() { }
 
-    CLASSNAME_REGISTER( plActivatorMsg );
-    GETINTERFACE_ANY( plActivatorMsg, plMessage );
+    CLASSNAME_REGISTER(plActivatorMsg);
+    GETINTERFACE_ANY(plActivatorMsg, plMessage);
     
     // IO
     void Read(hsStream* stream, hsResMgr* mgr)
@@ -75,7 +75,7 @@ public:
     void Write(hsStream* stream, hsResMgr* mgr)
     {
         plMessage::IMsgWrite(stream, mgr);
-        stream->WriteLE32( fTriggerType );
+        stream->WriteLE32(fTriggerType);
         fHitPoint.Write(stream);
     }
 

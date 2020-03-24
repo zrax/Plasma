@@ -69,7 +69,7 @@ public:
 
     virtual bool Ask(); // if b is true and user says yes to displayed query, return true, else false
     virtual bool CheckAndAsk(); // if b is true and user says YES, throw self. only asks if b is true. returns true if b is true but user says no, else false
-    virtual bool CheckAskOrCancel(); // if b is true ( if YES, throw, else if NO return 0, else (CANCEL) return 1
+    virtual bool CheckAskOrCancel(); // if b is true (if YES, throw, else if NO return 0, else (CANCEL) return 1
     virtual bool Show(); // if b is true, displays message, returns true
     virtual bool Check(); // if b was true, throws self, else return false
     virtual bool CheckAndShow(); // if b was true, shows message box then throws self, else return false

@@ -100,7 +100,7 @@ void plAgeLoader::FinishedPagingInRoom(plKey* rmKey, int numRms)
     plNetMsgPagingRoom * pagingMsg = new plNetMsgPagingRoom;
     pagingMsg->SetNetProtocol(kNetProtocolCli2Game);
     int i;
-    for(i=0;i<numRms;i++)
+    for (i=0;i<numRms;i++)
     {
         plKey key=rmKey[i];
         if (!RemovePendingPageInRoomKey(key))   // room is done paging in
@@ -112,10 +112,10 @@ void plAgeLoader::FinishedPagingInRoom(plKey* rmKey, int numRms)
         pagingMsg->AddRoom(key);
         hsLogEntry(nc->DebugMsg("\tSending PageIn/RequestState msg, room={}\n", key->GetName()));
     }
-    if( pagingMsg->GetNumRooms() > 0 )  // all rooms were reserved
+    if (pagingMsg->GetNumRooms() > 0)  // all rooms were reserved
     {
         plNetClientMgr * mgr = plNetClientMgr::GetInstance();
-        mgr->AddPendingPagingRoomMsg( pagingMsg );
+        mgr->AddPendingPagingRoomMsg(pagingMsg);
     }
     else
         delete pagingMsg;
@@ -142,19 +142,19 @@ void plAgeLoader::FinishedPagingOutRoom(plKey* rmKey, int numRms)
     nc->StayAlive(hsTimer::GetSysSeconds());    // alive
 
     int i;
-    for(i=0;i<numRms;i++)
+    for (i=0;i<numRms;i++)
     {
-        plKeyVec::iterator found = std::find( fPendingPageOuts.begin(), fPendingPageOuts.end(), rmKey[ i ] );
-        if( found != fPendingPageOuts.end() )
+        plKeyVec::iterator found = std::find(fPendingPageOuts.begin(), fPendingPageOuts.end(), rmKey[i]);
+        if (found != fPendingPageOuts.end())
         {
-            fPendingPageOuts.erase( found );
+            fPendingPageOuts.erase(found);
             nc->DebugMsg("Finished paging out room {}", rmKey[i]->GetName());
         }
     }
 
     if (PendingPageOuts().size() == 0  && (fFlags & kUnLoadingAge))
     {
-        NotifyAgeLoaded( false );
+        NotifyAgeLoaded(false);
     }
 
 }
@@ -172,7 +172,7 @@ void plAgeLoader::StartPagingOutRoom(plKey* rmKey, int numRms)
     pagingMsg.SetNetProtocol(kNetProtocolCli2Game);
     pagingMsg.SetPagingOut(true);
     int i;
-    for(i=0;i<numRms;i++)
+    for (i=0;i<numRms;i++)
     {
         plKey key=rmKey[i];
         if (!ReportRoomToServer(key))
@@ -199,19 +199,19 @@ void plAgeLoader::IgnorePagingOutRoom(plKey* rmKey, int numRms)
     nc->StayAlive(hsTimer::GetSysSeconds());    // alive
 
     int i;
-    for(i=0;i<numRms;i++)
+    for (i=0;i<numRms;i++)
     {
-        plKeyVec::iterator found = std::find( fPendingPageOuts.begin(), fPendingPageOuts.end(), rmKey[ i ] );
-        if( found != fPendingPageOuts.end() )
+        plKeyVec::iterator found = std::find(fPendingPageOuts.begin(), fPendingPageOuts.end(), rmKey[i]);
+        if (found != fPendingPageOuts.end())
         {
-            fPendingPageOuts.erase( found );
+            fPendingPageOuts.erase(found);
             nc->DebugMsg("Ignoring paged out room {}", rmKey[i]->GetName());
         }
     }
 
     if (PendingPageOuts().size() == 0  && (fFlags & kUnLoadingAge))
     {
-        NotifyAgeLoaded( false );
+        NotifyAgeLoaded(false);
     }
 }
 
@@ -275,12 +275,12 @@ void    plAgeLoader::ClearPageExcludeList()
     sExcludeList.Reset();
 }
 
-void    plAgeLoader::AddExcludedPage( const ST::string& pageName, const ST::string& ageName )
+void    plAgeLoader::AddExcludedPage(const ST::string& pageName, const ST::string& ageName)
 {
-    sExcludeList.Append( plExcludePage( pageName, ageName ) );
+    sExcludeList.Append(plExcludePage(pageName, ageName));
 }
 
-bool    plAgeLoader::IsPageExcluded( const plAgePage *page, const ST::string& ageName )
+bool    plAgeLoader::IsPageExcluded(const plAgePage *page, const ST::string& ageName)
 {
     // check page flags
     if (page->GetFlags() & plAgePage::kPreventAutoLoad)
@@ -289,12 +289,12 @@ bool    plAgeLoader::IsPageExcluded( const plAgePage *page, const ST::string& ag
     // check exclude list
     ST::string pageName = page->GetName();
     int     i;
-    for( i = 0; i < sExcludeList.GetCount(); i++ )
+    for (i = 0; i < sExcludeList.GetCount(); i++)
     {
-        if( pageName.compare_i( sExcludeList[ i ].fPageName ) == 0 )
+        if (pageName.compare_i(sExcludeList[i].fPageName) == 0)
         {
-            if( ageName.empty() || sExcludeList[ i ].fAgeName.empty() ||
-                ageName.compare_i(sExcludeList[ i ].fAgeName) == 0 )
+            if (ageName.empty() || sExcludeList[i].fAgeName.empty() ||
+                ageName.compare_i(sExcludeList[i].fAgeName) == 0)
             {
                 return true;
             }

@@ -74,7 +74,7 @@ void plResponderSDLModifier::IPutCurrentStateIn(plStateDataRecord* dstState)
     int i;
     int num=fResponder->fCompletedEvents.GetNumBitVectors();
     dstState->FindVar(kStrCompletedEvents)->Alloc(num);
-    for(i=0;i<num; i++)
+    for (i=0;i<num; i++)
     {
         int ev = fResponder->fCompletedEvents.GetBitVector(i);
         dstState->FindVar(kStrCompletedEvents)->Set(ev, i);

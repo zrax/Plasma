@@ -104,8 +104,8 @@ public:
     ~plAvCoopMsg();
 
     // rtti
-    CLASSNAME_REGISTER( plAvCoopMsg );
-    GETINTERFACE_ANY( plAvCoopMsg, plMessage);
+    CLASSNAME_REGISTER(plAvCoopMsg);
+    GETINTERFACE_ANY(plAvCoopMsg, plMessage);
 
     // i/o
     virtual void Read(hsStream *stream, hsResMgr *mgr);

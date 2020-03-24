@@ -96,14 +96,14 @@ void plMemBuffer::CopyBuffer(char * data, int len)
 void plMemBuffer::GrowBuffer(int newLen)
 {
     const int kThrashSize   = 25;
-    if(newLen >= fBufferLen)
+    if (newLen >= fBufferLen)
     {
         int len = newLen + kThrashSize;
         len = len+len;
         
         char * tmp =  new char[len];
         
-        if(fBuffer != nil)
+        if (fBuffer != nil)
             memcpy(tmp,fBuffer,fBufferLen);
         
         ClearBuffer();
@@ -134,9 +134,9 @@ bool plMemBuffer::InBufferRange(char * inpos)
 
 void plMemBuffer::ClearBuffer()
 {
-    if(fBufferLocal == true)
+    if (fBufferLocal == true)
     {
-        if(fBuffer != nil)
+        if (fBuffer != nil)
             delete [] fBuffer;
         fBuffer = nil;
     }

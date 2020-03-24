@@ -105,54 +105,54 @@ class plNetLinkingMgr
 
     uint8_t IPreProcessLink();
     void IPostProcessLink();
-    bool IProcessLinkingMgrMsg( plLinkingMgrMsg * msg );
-    bool IProcessLinkToAgeMsg( plLinkToAgeMsg * msg );
+    bool IProcessLinkingMgrMsg(plLinkingMgrMsg * msg);
+    bool IProcessLinkToAgeMsg(plLinkToAgeMsg * msg);
     void IDoLink(plLinkToAgeMsg* link);
     bool IProcessVaultNotifyMsg(plVaultNotifyMsg* msg);
 
-    bool IDispatchMsg( plMessage* msg, uint32_t playerID );
+    bool IDispatchMsg(plMessage* msg, uint32_t playerID);
 
 
 public:
     static plNetLinkingMgr * GetInstance();
-    bool MsgReceive( plMessage *msg );    // TODO: Make this a hsKeyedObject so we can really handle messages.
+    bool MsgReceive(plMessage *msg);    // TODO: Make this a hsKeyedObject so we can really handle messages.
     void Update();
 
     bool IsEnabled() const { return fLinkingEnabled;}
-    void SetEnabled( bool b );
+    void SetEnabled(bool b);
     
     bool LinkedIn () const { return  fLinkedIn &&  fLinkingEnabled; }
     bool Linking () const  { return !fLinkedIn && !fLinkingEnabled; }
 
     // Link to an age.
-    void LinkToAge( plAgeLinkStruct * link, bool linkInSfx=true, bool linkOutSfx=true, uint32_t playerID=kInvalidPlayerID );
-    void LinkToAge( plAgeLinkStruct * link, const char* linkAnim, bool linkInSfx=true, bool linkOutSfx=true, uint32_t playerID=kInvalidPlayerID );
+    void LinkToAge(plAgeLinkStruct * link, bool linkInSfx=true, bool linkOutSfx=true, uint32_t playerID=kInvalidPlayerID);
+    void LinkToAge(plAgeLinkStruct * link, const char* linkAnim, bool linkInSfx=true, bool linkOutSfx=true, uint32_t playerID=kInvalidPlayerID);
 
     // Link to my last age.
-    void LinkToPrevAge( uint32_t playerID=kInvalidPlayerID );
+    void LinkToPrevAge(uint32_t playerID=kInvalidPlayerID);
 
     // Link to my Personal Age
-    void LinkToMyPersonalAge( uint32_t playerID=kInvalidPlayerID );
+    void LinkToMyPersonalAge(uint32_t playerID=kInvalidPlayerID);
 
     // Link to my Neighborhood Age
-    void LinkToMyNeighborhoodAge( uint32_t playerID=kInvalidPlayerID );
+    void LinkToMyNeighborhoodAge(uint32_t playerID=kInvalidPlayerID);
 
     // Link a player here.
-    void LinkPlayerHere( uint32_t playerID );
+    void LinkPlayerHere(uint32_t playerID);
 
     // Link player to specified age
-    void LinkPlayerToAge( plAgeLinkStruct * link, uint32_t playerID );
+    void LinkPlayerToAge(plAgeLinkStruct * link, uint32_t playerID);
 
     // Link player back to his last age
-    void LinkPlayerToPrevAge( uint32_t playerID );
+    void LinkPlayerToPrevAge(uint32_t playerID);
 
     // Link us to a players age.
-    void LinkToPlayersAge( uint32_t playerID );
+    void LinkToPlayersAge(uint32_t playerID);
 
     // Offer a link to player.
-    void OfferLinkToPlayer( const plAgeLinkStruct * info, uint32_t playerID, plKey replyKey );
-    void OfferLinkToPlayer( const plAgeInfoStruct * info, uint32_t playerID );
-    void OfferLinkToPlayer( const plAgeLinkStruct * info, uint32_t playerID );
+    void OfferLinkToPlayer(const plAgeLinkStruct * info, uint32_t playerID, plKey replyKey);
+    void OfferLinkToPlayer(const plAgeInfoStruct * info, uint32_t playerID);
+    void OfferLinkToPlayer(const plAgeLinkStruct * info, uint32_t playerID);
 
     // Leave the current age
     void LeaveAge (bool quitting);
@@ -162,12 +162,12 @@ public:
     plAgeLinkStruct * GetPrevAgeLink() { return &fPrevAgeLink; }
 
     // lobby info
-    void SetLobbyAddr( const char * ipaddr ) { fLobbyInfo.SetServerAddr( ipaddr );}
-    void SetLobbyPort( int port ) { fLobbyInfo.SetServerPort( port );}
+    void SetLobbyAddr(const char * ipaddr) { fLobbyInfo.SetServerAddr(ipaddr);}
+    void SetLobbyPort(int port) { fLobbyInfo.SetServerPort(port);}
     const plNetServerSessionInfo * GetLobbyServerInfo() const { return &fLobbyInfo;}
 
     // helpers
-    static ST::string GetProperAgeName( const ST::string & ageName );    // attempt to fix wrong case age name.
+    static ST::string GetProperAgeName(const ST::string & ageName);    // attempt to fix wrong case age name.
 
 private:
     bool                fLinkingEnabled;

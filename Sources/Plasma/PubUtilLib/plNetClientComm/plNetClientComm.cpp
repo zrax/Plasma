@@ -799,7 +799,7 @@ void NetCommConnect () {
     bool connectedToKeeper = false;
 
     // if a console override was specified for a authserv, connect directly to the authserver rather than going through the gatekeeper
-    if((count = GetAuthSrvHostnames(addrs)) && !addrs[0].empty())
+    if ((count = GetAuthSrvHostnames(addrs)) && !addrs[0].empty())
     {
         NetCliAuthStartConnect(addrs, count);
     }
@@ -812,7 +812,7 @@ void NetCommConnect () {
         // request an auth server ip address
         NetCliGateKeeperAuthSrvIpAddressRequest(AuthSrvIpAddressCallback, nil);
 
-        while(!s_hasAuthSrvIpAddress && !s_netError) {
+        while (!s_hasAuthSrvIpAddress && !s_netError) {
             NetClientUpdate();
             AsyncSleep(10);
         }
@@ -826,7 +826,7 @@ void NetCommConnect () {
     if (!gDataServerLocal) {
 
         // if a console override was specified for a filesrv, connect directly to the fileserver rather than going through the gatekeeper
-        if((count = GetFileSrvHostnames(addrs)) && !addrs[0].empty())
+        if ((count = GetFileSrvHostnames(addrs)) && !addrs[0].empty())
         {
             NetCliFileStartConnect(addrs, count);
         }
@@ -841,7 +841,7 @@ void NetCommConnect () {
             // request a file server ip address
             NetCliGateKeeperFileSrvIpAddressRequest(FileSrvIpAddressCallback, nil, false);
 
-            while(!s_hasFileSrvIpAddress && !s_netError) {
+            while (!s_hasFileSrvIpAddress && !s_netError) {
                 NetClientUpdate();
                 AsyncSleep(10);
             }
@@ -1282,31 +1282,31 @@ plNetClientComm::~plNetClientComm()
 }
 
 // AddMsgHandlerForType ----------------------------------------------
-void plNetClientComm::AddMsgHandlerForType( uint16_t msgClassIdx, MsgHandler* handler )
+void plNetClientComm::AddMsgHandlerForType(uint16_t msgClassIdx, MsgHandler* handler)
 {
     int i;
-    for( i = 0; i < plFactory::GetNumClasses(); i++ )
+    for (i = 0; i < plFactory::GetNumClasses(); i++)
     {
-        if ( plFactory::DerivesFrom( msgClassIdx, i ) )
-            AddMsgHandlerForExactType( i, handler );
+        if (plFactory::DerivesFrom(msgClassIdx, i))
+            AddMsgHandlerForExactType(i, handler);
     }
 }
 
 // AddMsgHandlerForExactType ----------------------------------------------
-void plNetClientComm::AddMsgHandlerForExactType( uint16_t msgClassIdx, MsgHandler* handler )
+void plNetClientComm::AddMsgHandlerForExactType(uint16_t msgClassIdx, MsgHandler* handler)
 {
     NetCommAddMsgHandlerForExactType(msgClassIdx, MsgHandler::StaticMsgHandler, handler);
 }
 
 // RemoveMsgHandler ----------------------------------------------
-bool plNetClientComm::RemoveMsgHandler( MsgHandler* handler )
+bool plNetClientComm::RemoveMsgHandler(MsgHandler* handler)
 {
     NetCommRemoveMsgHandler(kNetCommAllMsgClasses, kNetCommAllMsgHandlers, handler);
     return true;
 }
 
 // SetDefaultHandler ----------------------------------------------
-void plNetClientComm::SetDefaultHandler( MsgHandler* handler) {
+void plNetClientComm::SetDefaultHandler(MsgHandler* handler) {
     NetCommSetDefaultMsgHandler(MsgHandler::StaticMsgHandler, handler);
 }
 

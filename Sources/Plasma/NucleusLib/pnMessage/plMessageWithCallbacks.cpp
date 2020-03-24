@@ -73,7 +73,7 @@ void plMessageWithCallbacks::Read(hsStream* stream, hsResMgr* mgr)
 
     // read callbacks
     int i;
-    for( i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
     {
         fCallbacks[i] = plMessage::ConvertNoRef(mgr->ReadCreatable(stream));
     }
@@ -89,8 +89,8 @@ void plMessageWithCallbacks::Write(hsStream* stream, hsResMgr* mgr)
 
     // write callbacks
     int i;
-    for( i = 0; i < fCallbacks.GetCount(); i++ )
-        mgr->WriteCreatable( stream, fCallbacks[i] );
+    for (i = 0; i < fCallbacks.GetCount(); i++)
+        mgr->WriteCreatable(stream, fCallbacks[i]);
 }
 
 enum MsgWithCallbacksFlags
@@ -138,7 +138,7 @@ void plMessageWithCallbacks::WriteVersion(hsStream* s, hsResMgr* mgr)
 void plMessageWithCallbacks::Clear()
 {
     int i;
-    for( i = 0; i < fCallbacks.GetCount(); i++ )
+    for (i = 0; i < fCallbacks.GetCount(); i++)
         hsRefCnt_SafeUnRef(fCallbacks[i]);
     fCallbacks.SetCount(0);
 }

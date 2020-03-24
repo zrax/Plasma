@@ -70,17 +70,17 @@ public:
     plConditionalObject();
     virtual ~plConditionalObject();
 
-    CLASSNAME_REGISTER( plConditionalObject );
-    GETINTERFACE_ANY( plConditionalObject, hsKeyedObject );
+    CLASSNAME_REGISTER(plConditionalObject);
+    GETINTERFACE_ANY(plConditionalObject, hsKeyedObject);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr) { hsKeyedObject::Read(stream, mgr); bSatisfied = stream->ReadBool(); fToggle = stream->ReadBool();}
-    virtual void Write(hsStream* stream, hsResMgr* mgr){ hsKeyedObject::Write(stream, mgr); stream->WriteBool( bSatisfied ); stream->WriteBool(fToggle);}
+    virtual void Write(hsStream* stream, hsResMgr* mgr){ hsKeyedObject::Write(stream, mgr); stream->WriteBool(bSatisfied); stream->WriteBool(fToggle);}
 
     virtual void SetLogicMod(plLogicModBase* pMod) { fLogicMod = pMod; }
 
 //  virtual bool MsgReceive(plMessage* msg) = 0;
 
-    virtual bool Satisfied() { if(HasFlag(kNOT)) return !bSatisfied; else return bSatisfied; }
+    virtual bool Satisfied() { if (HasFlag(kNOT)) return !bSatisfied; else return bSatisfied; }
     void SetSatisfied(bool b) { bSatisfied=b; }
     bool IsToggle() { return fToggle; }
     void SetToggle(bool b) { fToggle = b; }
@@ -96,7 +96,7 @@ public:
 
     bool    HasFlag(int f) const { return fFlags.IsBitSet(f); }
     void    SetFlag(int f) { fFlags.SetBit(f); }
-    void    ClearFlag(int which) { fFlags.ClearBit( which ); }
+    void    ClearFlag(int which) { fFlags.ClearBit(which); }
 
 
 };

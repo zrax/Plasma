@@ -55,35 +55,35 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plConvexVolume.h"
 #include "plBoundInterface.h"
 
-REGISTER_CREATABLE( plParticleSystem );
-REGISTER_NONCREATABLE( plParticleEffect );
-REGISTER_NONCREATABLE( plParticleCollisionEffect );
-REGISTER_CREATABLE( plParticleCollisionEffectBeat );
-REGISTER_CREATABLE( plParticleCollisionEffectDie );
-REGISTER_CREATABLE( plParticleCollisionEffectBounce );
-REGISTER_CREATABLE( plParticleFadeVolumeEffect );
-REGISTER_NONCREATABLE( plParticleGenerator );
-REGISTER_CREATABLE( plSimpleParticleGenerator );
-REGISTER_CREATABLE( plOneTimeParticleGenerator );
-REGISTER_CREATABLE( plParticleEmitter );
-REGISTER_CREATABLE( plConvexVolume );
-REGISTER_CREATABLE( plBoundInterface );
-REGISTER_NONCREATABLE( plParticleApplicator );
-REGISTER_CREATABLE( plParticleLifeMinApplicator );
-REGISTER_CREATABLE( plParticleLifeMaxApplicator );
-REGISTER_CREATABLE( plParticlePPSApplicator );
-REGISTER_CREATABLE( plParticleAngleApplicator );
-REGISTER_CREATABLE( plParticleVelMinApplicator );
-REGISTER_CREATABLE( plParticleVelMaxApplicator );
-REGISTER_CREATABLE( plParticleScaleMinApplicator );
-REGISTER_CREATABLE( plParticleScaleMaxApplicator );
-//REGISTER_CREATABLE( plParticleGravityApplicator );
-//REGISTER_CREATABLE( plParticleDragApplicator );
-REGISTER_NONCREATABLE( plParticleWindEffect );
-REGISTER_CREATABLE( plParticleLocalWind );
-REGISTER_CREATABLE( plParticleUniformWind );
-REGISTER_CREATABLE( plParticleFlockEffect );
-REGISTER_CREATABLE( plParticleFollowSystemEffect );
-REGISTER_CREATABLE( plParticleSDLMod );
+REGISTER_CREATABLE(plParticleSystem);
+REGISTER_NONCREATABLE(plParticleEffect);
+REGISTER_NONCREATABLE(plParticleCollisionEffect);
+REGISTER_CREATABLE(plParticleCollisionEffectBeat);
+REGISTER_CREATABLE(plParticleCollisionEffectDie);
+REGISTER_CREATABLE(plParticleCollisionEffectBounce);
+REGISTER_CREATABLE(plParticleFadeVolumeEffect);
+REGISTER_NONCREATABLE(plParticleGenerator);
+REGISTER_CREATABLE(plSimpleParticleGenerator);
+REGISTER_CREATABLE(plOneTimeParticleGenerator);
+REGISTER_CREATABLE(plParticleEmitter);
+REGISTER_CREATABLE(plConvexVolume);
+REGISTER_CREATABLE(plBoundInterface);
+REGISTER_NONCREATABLE(plParticleApplicator);
+REGISTER_CREATABLE(plParticleLifeMinApplicator);
+REGISTER_CREATABLE(plParticleLifeMaxApplicator);
+REGISTER_CREATABLE(plParticlePPSApplicator);
+REGISTER_CREATABLE(plParticleAngleApplicator);
+REGISTER_CREATABLE(plParticleVelMinApplicator);
+REGISTER_CREATABLE(plParticleVelMaxApplicator);
+REGISTER_CREATABLE(plParticleScaleMinApplicator);
+REGISTER_CREATABLE(plParticleScaleMaxApplicator);
+//REGISTER_CREATABLE(plParticleGravityApplicator);
+//REGISTER_CREATABLE(plParticleDragApplicator);
+REGISTER_NONCREATABLE(plParticleWindEffect);
+REGISTER_CREATABLE(plParticleLocalWind);
+REGISTER_CREATABLE(plParticleUniformWind);
+REGISTER_CREATABLE(plParticleFlockEffect);
+REGISTER_CREATABLE(plParticleFollowSystemEffect);
+REGISTER_CREATABLE(plParticleSDLMod);
 
 #endif // plParticleCreatable_inc

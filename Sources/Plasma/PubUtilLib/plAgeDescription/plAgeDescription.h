@@ -73,22 +73,22 @@ class plAgePage
             kIsVolatile         = 0x08,
         };
 
-        plAgePage( const ST::string &name, uint32_t seqSuffix, uint8_t flags );
-        plAgePage( const ST::string &stringFrom );
-        plAgePage( const plAgePage &src );
+        plAgePage(const ST::string &name, uint32_t seqSuffix, uint8_t flags);
+        plAgePage(const ST::string &stringFrom);
+        plAgePage(const plAgePage &src);
         plAgePage();
 
         ST::string  GetName() const { return fName; }
         uint32_t    GetSeqSuffix() const { return fSeqSuffix; }
         uint8_t     GetFlags() const { return fFlags; }
 
-        void        SetSeqSuffix( uint32_t s ) { fSeqSuffix = s; }
+        void        SetSeqSuffix(uint32_t s) { fSeqSuffix = s; }
         void        SetFlags(uint8_t f, bool on=true);
 
-        bool        SetFromString( const ST::string &string );
+        bool        SetFromString(const ST::string &string);
         ST::string  GetAsString() const;
 
-        plAgePage &operator=( const plAgePage &src );
+        plAgePage &operator=(const plAgePage &src);
 };
 
 // Derived from plInitSectionTokenReader so we can do nifty things with reading the files
@@ -117,7 +117,7 @@ private:
     void    IDeInit();
 
     // Overload for plInitSectionTokenReader
-    virtual bool        IParseToken( const char *token, hsStringTokenizer *tokenizer, uint32_t userData );
+    virtual bool        IParseToken(const char *token, hsStringTokenizer *tokenizer, uint32_t userData);
 
 public:
     static char kAgeDescPath[];
@@ -127,11 +127,11 @@ public:
     plAgeDescription(const plAgeDescription &src) : plInitSectionTokenReader()
     {
         IInit();
-        CopyFrom( src );
+        CopyFrom(src);
     }
     ~plAgeDescription();
 
-    bool ReadFromFile( const plFileName &fileNameToReadFrom );
+    bool ReadFromFile(const plFileName &fileNameToReadFrom);
     void Read(hsStream* stream);
     void Write(hsStream* stream) const;
 
@@ -139,20 +139,20 @@ public:
     virtual const char  *GetSectionName() const;
 
     ST::string  GetAgeName() const { return fName; }
-    void        SetAgeNameFromPath( const plFileName &path );
+    void        SetAgeNameFromPath(const plFileName &path);
     void        SetAgeName(const ST::string& ageName) { fName = ageName; }
 
     // Page list
     void    ClearPageList();
-    void    RemovePage( const ST::string &page );
-    void    AppendPage( const ST::string &name, int seqSuffix = -1, uint8_t flags = 0 );
+    void    RemovePage(const ST::string &page);
+    void    AppendPage(const ST::string &name, int seqSuffix = -1, uint8_t flags = 0);
 
     void        SeekFirstPage();
     plAgePage   *GetNextPage();
     int         GetNumPages() const { return fPages.GetCount(); }
-    plAgePage   *FindPage( const ST::string &name ) const;
+    plAgePage   *FindPage(const ST::string &name) const;
     bool FindLocation(const plLocation& loc) const;
-    plLocation  CalcPageLocation( const ST::string &page ) const;
+    plLocation  CalcPageLocation(const ST::string &page) const;
 
     // Getters
     short GetStartMonth() const { return fStart.GetMonth(); }
@@ -168,7 +168,7 @@ public:
 
     int32_t   GetSequencePrefix() const { return fSeqPrefix; }
     uint32_t  GetReleaseVersion() const { return fReleaseVersion; }
-    bool    IsGlobalAge() const { return ( fSeqPrefix < 0 ) ? true : false; }
+    bool    IsGlobalAge() const { return (fSeqPrefix < 0) ? true : false; }
 
     // Setters
     bool SetStart(short year, short month, short day, short hour, short minute, short second)
@@ -177,8 +177,8 @@ public:
     void SetDayLength(const float l) { fDayLength = l; }
     void SetMaxCapacity(const short m) { fMaxCapacity=m; }
     void SetLingerTime(const short v) { fLingerTime=v;}
-    void SetSequencePrefix( int32_t p ) { fSeqPrefix = p; }
-    void SetReleaseVersion( uint32_t v ) { fReleaseVersion = v; }
+    void SetSequencePrefix(int32_t p) { fSeqPrefix = p; }
+    void SetReleaseVersion(uint32_t v) { fReleaseVersion = v; }
 
     // calculations
     double GetAgeElapsedDays(plUnifiedTime earthCurrentTime) const;
@@ -194,14 +194,14 @@ public:
         kNumCommonPages
     };
 
-    static const char *GetCommonPage( int pageType );
+    static const char *GetCommonPage(int pageType);
 
     void    AppendCommonPages();
     void    CopyFrom(const plAgeDescription& other);
 
-    plAgeDescription &operator=( const plAgeDescription &src )
+    plAgeDescription &operator=(const plAgeDescription &src)
     {
-        CopyFrom( src );
+        CopyFrom(src);
         return *this;
     }
 };

@@ -59,7 +59,7 @@ protected:
     pyKeyMap() {};
 
 private:
-    plKeyCombo IBindKeyToVKey( const char *keyStr );
+    plKeyCombo IBindKeyToVKey(const char *keyStr);
 
 
 public:
@@ -78,17 +78,17 @@ public:
     static void AddPlasmaClasses(PyObject *m);
 
     // conversion functions
-    const char* ConvertVKeyToChar( uint32_t vk, uint32_t flags );
-    uint32_t ConvertCharToVKey( const char *charVKey );
-    uint32_t ConvertCharToFlags( const char *charVKey );
+    const char* ConvertVKeyToChar(uint32_t vk, uint32_t flags);
+    uint32_t ConvertCharToVKey(const char *charVKey);
+    uint32_t ConvertCharToFlags(const char *charVKey);
 
     uint32_t ConvertCharToControlCode(const char* charCode);
-    const char* ConvertControlCodeToString( uint32_t code );
+    const char* ConvertControlCodeToString(uint32_t code);
 
 
     // bind a key to an action
-    void BindKey( const char* keyStr1, const char* keyStr2, const char* act);
-    void BindKeyToConsoleCommand( const char* keyStr1, const char* command);
+    void BindKey(const char* keyStr1, const char* keyStr2, const char* act);
+    void BindKeyToConsoleCommand(const char* keyStr1, const char* command);
 
     uint32_t GetBindingKey1(uint32_t code);
     uint32_t GetBindingFlags1(uint32_t code);

@@ -80,14 +80,14 @@ protected:
     hsTArray<plMtlChangeCallback *> fChangeCallbacks;
 
     void                IUpdateAnimNodes();
-    plAnimStealthNode   *IFindStealth( const ST::string &animName );
-    plAnimStealthNode   *IVerifyStealthPresent( const ST::string &animName );
+    plAnimStealthNode   *IFindStealth(const ST::string &animName);
+    plAnimStealthNode   *IVerifyStealthPresent(const ST::string &animName);
 
-    int                 IGetNumStealths( bool update = true );
-    plAnimStealthNode   *IGetStealth( int index, bool update = true );
+    int                 IGetNumStealths(bool update = true);
+    plAnimStealthNode   *IGetStealth(int index, bool update = true);
 
-    void                ICloneBase( plPassMtlBase *target, RemapDir &remap );
-    virtual void        ICloneRefs( plPassMtlBase *target, RemapDir &remap ) = 0;
+    void                ICloneBase(plPassMtlBase *target, RemapDir &remap);
+    virtual void        ICloneRefs(plPassMtlBase *target, RemapDir &remap) = 0;
 
 public:
 
@@ -96,7 +96,7 @@ public:
     // use that forever and ever
     static IMtlParams *fIMtlParams;
 
-    plPassMtlBase( BOOL loading );
+    plPassMtlBase(BOOL loading);
     virtual ~plPassMtlBase();
 
     virtual bool HasAlpha() = 0;
@@ -109,11 +109,11 @@ public:
         //kRefAnim,
         kRefNotetracks  = 4 // MUST BE THE LAST REF ID SPECIFIED
     };
-    void    SetLoadingFlag( bool f ) { fLoading = f; }
+    void    SetLoadingFlag(bool f) { fLoading = f; }
     void    PostLoadAnimPBFixup();
 
-    void    RegisterChangeCallback( plMtlChangeCallback *callback );
-    void    UnregisterChangeCallback( plMtlChangeCallback *callback );
+    void    RegisterChangeCallback(plMtlChangeCallback *callback);
+    void    UnregisterChangeCallback(plMtlChangeCallback *callback);
 
     // Change notifys from our ntWatcher
     virtual void    NoteTrackAdded();
@@ -127,19 +127,19 @@ public:
     virtual void    Reset();
 
     int                     NumRefs();
-    virtual RefTargetHandle GetReference( int i );
-    virtual void            SetReference( int i, RefTargetHandle rtarg );
-    RefResult               NotifyRefChanged( Interval changeInt, RefTargetHandle hTarget, PartID &partID, RefMessage message );
+    virtual RefTargetHandle GetReference(int i);
+    virtual void            SetReference(int i, RefTargetHandle rtarg);
+    RefResult               NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID &partID, RefMessage message);
 
     // Convert time, called on the setupProps pass for each material applied to a node in the scene
-    virtual bool    SetupProperties( plMaxNode *node, plErrorMsg *pErrMsg );
-    virtual bool    ConvertDeInit( plMaxNode *node, plErrorMsg *pErrMsg );
+    virtual bool    SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg);
+    virtual bool    ConvertDeInit(plMaxNode *node, plErrorMsg *pErrMsg);
 
     int                 GetNumStealths();
-    plAnimStealthNode   *GetStealth( int index );
+    plAnimStealthNode   *GetStealth(int index);
 
     // Static convert to our plPassMtlBase type, if possible
-    static plPassMtlBase    *ConvertToPassMtl( Mtl *mtl );
+    static plPassMtlBase    *ConvertToPassMtl(Mtl *mtl);
 
     // Blend types
     enum

@@ -107,7 +107,7 @@ plCameraModifier1::~plCameraModifier1()
 void plCameraModifier1::AddTarget(plSceneObject* so)
 {
     fTarget = so;
-    if( plVirtualCam1::Instance() )
+    if (plVirtualCam1::Instance())
         plVirtualCam1::Instance()->AddCameraLoaded(so);
     fFrom = (so->GetWorldToLocal().GetTranslate());
     if (GetBrain())
@@ -217,9 +217,9 @@ bool plCameraModifier1::MsgReceive(plMessage* msg)
         return true;
     }
     plGenRefMsg* pRefMsg = plGenRefMsg::ConvertNoRef(msg);
-    if (pRefMsg )
+    if (pRefMsg)
     {
-        if( pRefMsg->GetContext() & (plRefMsg::kOnCreate | plRefMsg::kOnRequest) )
+        if (pRefMsg->GetContext() & (plRefMsg::kOnCreate | plRefMsg::kOnRequest))
         {
             if (pRefMsg->fType == kRefBrain)
             {
@@ -240,7 +240,7 @@ bool plCameraModifier1::MsgReceive(plMessage* msg)
                 fMessageQueue[pRefMsg->fWhich] = nil;
             }
         }
-        else if( pRefMsg->GetContext() & (plRefMsg::kOnDestroy | plRefMsg::kOnRemove) )
+        else if (pRefMsg->GetContext() & (plRefMsg::kOnDestroy | plRefMsg::kOnRemove))
         {
             plCameraBrain1* pBrain = (plCameraBrain1*)(pRefMsg->GetRef());
             if (fBrain == pBrain)
@@ -287,7 +287,7 @@ void plCameraModifier1::Update()
             {
                 plKey subject = plKey(GetBrain()->GetSubject()->GetKey());
                 plArmatureMod* armMod = plAvatarMgr::FindAvatar(subject);
-                if (armMod && armMod->GetController() )
+                if (armMod && armMod->GetController())
                     worldKey = armMod->GetController()->GetSubworld();
             }
 
@@ -368,19 +368,19 @@ void plCameraModifier1::Read(hsStream* stream, hsResMgr* mgr)
     fFOVh = stream->ReadLEFloat();
     int n = stream->ReadLE32();
     fMessageQueue.SetCountAndZero(n);
-    for(i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
     {
         plMessage* pMsg =  plMessage::ConvertNoRef(mgr->ReadCreatable(stream));
         fMessageQueue[i] = pMsg;
     }
-    for(i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
     {
         mgr->ReadKeyNotifyMe(stream, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, i, kRefCallbackMsg), plRefFlags::kActiveRef);
     }
 
     n = stream->ReadLE32();
     fFOVInstructions.SetCountAndZero(n);
-    for(i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
     {
         plCameraMsg* pMsg =  plCameraMsg::ConvertNoRef(mgr->ReadCreatable(stream));
         fFOVInstructions[i] = pMsg;
@@ -396,7 +396,7 @@ void plCameraModifier1::Write(hsStream* stream, hsResMgr* mgr)
 {
     hsKeyedObject::Write(stream, mgr);
     if (fBrain)
-        mgr->WriteKey(stream, fBrain );
+        mgr->WriteKey(stream, fBrain);
     
     int i = fTrans.Count();
     stream->WriteLE32(i);
@@ -502,5 +502,5 @@ void plCameraModifier1::SetTransform(hsPoint3 at)
     hsVector3 up(0,0,1);
     l2w.Make(&fFrom, &at, &up);
     l2w.GetInverse(&w2l);
-    IGetTargetCoordinateInterface(0)->SetTransform( l2w, w2l );
+    IGetTargetCoordinateInterface(0)->SetTransform(l2w, w2l);
 }

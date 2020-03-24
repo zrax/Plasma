@@ -96,8 +96,8 @@ public:
     void SetTimeToLive(float dt) { fTimeToLive = dt; }
     float GetTimeToLive() const { return fTimeToLive; } // 0 time to live is never turn off.
 
-    CLASSNAME_REGISTER( plParticleEmitter );
-    GETINTERFACE_ANY( plParticleEmitter, plCreatable);
+    CLASSNAME_REGISTER(plParticleEmitter);
+    GETINTERFACE_ANY(plParticleEmitter, plCreatable);
 
     virtual void Read(hsStream* s, hsResMgr *mgr);
     virtual void Write(hsStream* s, hsResMgr *mgr);

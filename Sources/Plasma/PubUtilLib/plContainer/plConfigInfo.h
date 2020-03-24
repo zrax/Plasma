@@ -88,7 +88,7 @@ public:
     bool HasKeyAny(const ST::string & key);
     // does any of the given sections contain this key?
     bool HasKeyIn(const ST::string & key, const char * section1, ... /*, nil*/);
-    bool HasKeyIn(const ST::string & key, const std::vector<ST::string> & sections );
+    bool HasKeyIn(const ST::string & key, const std::vector<ST::string> & sections);
     // does key in section have this value?
     bool KeyHasValue(const ST::string & section, const ST::string & key, const ST::string & value);
     bool KeyHasValue(const ST::string & section, const ST::string & key, int value);
@@ -114,11 +114,11 @@ public:
     std::vector<ST::string> GetAllValuesAny(const ST::string & key) const;
     // get value for key from one of the given sections
     ST::string GetValueIn(const ST::string & key, const ST::string & defval, bool * outFound, const char * section1, ... /*, nil*/) const;
-    ST::string GetValueIn(const ST::string & key, const ST::string & defval, bool * outFound, const std::vector<ST::string> & sections ) const;
+    ST::string GetValueIn(const ST::string & key, const ST::string & defval, bool * outFound, const std::vector<ST::string> & sections) const;
     int GetValueIn(const ST::string & key, int defval, bool * outFound, const char * section1, ... /*, nil*/) const;
-    int GetValueIn(const ST::string & key, int defval, bool * outFound, const std::vector<ST::string> & sections ) const;
+    int GetValueIn(const ST::string & key, int defval, bool * outFound, const std::vector<ST::string> & sections) const;
     double GetValueIn(const ST::string & key, double defval, bool * outFound, const char * section1, ... /*, nil*/) const;
-    double GetValueIn(const ST::string & key, double defval, bool * outFound, const std::vector<ST::string> & sections ) const;
+    double GetValueIn(const ST::string & key, double defval, bool * outFound, const std::vector<ST::string> & sections) const;
     std::vector<ST::string> GetAllValuesIn(const ST::string & key, const char * section1, ... /*, nil*/);
     // ITERATORS
     bool GetSectionIterators(Sections::const_iterator & iter, Sections::const_iterator & end) const;
@@ -166,15 +166,15 @@ public:
 
     // get value for key from one of the given sections
     bool GetValueIn(ST::string& retval, const ST::string & key,  const ST::string & desc, const ST::string & defval, const char * section1, ... /*, nil*/);
-    bool GetValueIn(ST::string& retval, const ST::string & key,  const ST::string & desc, const ST::string & defval, std::vector<ST::string> & sections );
+    bool GetValueIn(ST::string& retval, const ST::string & key,  const ST::string & desc, const ST::string & defval, std::vector<ST::string> & sections);
     bool GetValueIn(int& retval, const ST::string & key,  const ST::string & desc, int defval, const char * section1, ... /*, nil*/);
-    bool GetValueIn(int& retval, const ST::string & key,  const ST::string & desc, int defval, std::vector<ST::string> & sections );
+    bool GetValueIn(int& retval, const ST::string & key,  const ST::string & desc, int defval, std::vector<ST::string> & sections);
     bool GetValueIn(bool& retval, const ST::string & key,  const ST::string & desc, bool defval, const char * section1, ... /*, nil*/);
-    bool GetValueIn(bool& retval, const ST::string & key,  const ST::string & desc, bool defval, std::vector<ST::string> & sections );
+    bool GetValueIn(bool& retval, const ST::string & key,  const ST::string & desc, bool defval, std::vector<ST::string> & sections);
     bool GetValueIn(float& retval, const ST::string & key,  const ST::string & desc, double defval, const char * section1, ... /*, nil*/);
-    bool GetValueIn(float& retval, const ST::string & key,  const ST::string & desc, double defval, std::vector<ST::string> & sections );
+    bool GetValueIn(float& retval, const ST::string & key,  const ST::string & desc, double defval, std::vector<ST::string> & sections);
     bool GetValueIn(double& retval, const ST::string & key,  const ST::string & desc, double defval, const char * section1, ... /*, nil*/);
-    bool GetValueIn(double& retval, const ST::string & key,  const ST::string & desc, double defval, std::vector<ST::string> & sections );
+    bool GetValueIn(double& retval, const ST::string & key,  const ST::string & desc, double defval, std::vector<ST::string> & sections);
 #endif
 };
 
@@ -192,7 +192,7 @@ protected:
     virtual bool ReadString(const ST::string & in);
     virtual bool ReadPair(ST::string & key, ST::string & value);
     virtual bool ReadList(char ** list);
-    virtual bool ReadSubSource( const char * name ) { return true; }
+    virtual bool ReadSubSource(const char * name) { return true; }
     
 protected:
     virtual bool ReadInto(plConfigInfo & configInfo, KAddValueMode mode=kAlwaysAdd);
@@ -284,7 +284,7 @@ class plIniSectionConfigSource : public plIniConfigSource
 protected:
     Sections    fSections;
     bool ReadPair(ST::string & key, ST::string & value);
-    bool ReadSubSource( const char * name );
+    bool ReadSubSource(const char * name);
 public:
     plIniSectionConfigSource(const char * iniFileName, std::vector<ST::string> & sections);
 };
@@ -342,12 +342,12 @@ struct plEvaluate
     plClass * fTarget;
     bool (plClass::*fEvaluate)();
     bool (plClass::*fEvaluateConst)() const;
-    plEvaluate( plClass * target=nil, TEvaluate evaluate=nil )
+    plEvaluate(plClass * target=nil, TEvaluate evaluate=nil)
     : fTarget(target)
     , fEvaluate(evaluate)
     , fEvaluateConst(nil)
     {}
-    plEvaluate( plClass * target, TEvaluateConst evaluate )
+    plEvaluate(plClass * target, TEvaluateConst evaluate)
     : fTarget(target)
     , fEvaluateConst(evaluate)
     , fEvaluate(nil)
@@ -372,7 +372,7 @@ struct plModify
 {
     plClass * fTarget;
     ST::string (plClass::*fModify)(const ST::string & value);
-    plModify( plClass * target=nil, TModify modify=nil )
+    plModify(plClass * target=nil, TModify modify=nil)
     : fTarget(target)
     , fModify(modify)
     {}
@@ -393,7 +393,7 @@ public:
     plModify    fWriteModify;       // may modify the value being written to options
     plModify    fGetModify;         // may modify the value when being assigned
     plModify    fSetModify;         // may modify the value when being accessed
-    plConfigValueBase( const char * configName="", const char * configGroup="" )
+    plConfigValueBase(const char * configName="", const char * configGroup="")
     : fConfigName(configName)
     , fConfigGroup(configGroup)
     {}
@@ -424,7 +424,7 @@ public:
 class plConfigValue : public plConfigValueBase
 {
 public:
-    plConfigValue( const char * configName="", const char * configGroup="" )
+    plConfigValue(const char * configName="", const char * configGroup="")
     : plConfigValueBase(configName, configGroup)
     {}
     ST::string fConfigValue;

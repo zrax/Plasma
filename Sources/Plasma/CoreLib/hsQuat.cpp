@@ -409,7 +409,7 @@ hsQuat hsQuat::QuatFromMatrix44(const hsMatrix44& mat)
         switch (h) {
 #define caseMacro(i,j,k,I,J,K) \
         case I:\
-        s = float(sqrt( (mat.fMap[I][I] - (mat.fMap[J][J]+mat.fMap[K][K])) + 1.f )); \
+        s = float(sqrt((mat.fMap[I][I] - (mat.fMap[J][J]+mat.fMap[K][K])) + 1.f)); \
         qu.i = 0.5f * s; \
         s = 0.5f / s; \
         qu.j = (mat.fMap[I][J] + mat.fMap[J][I]) * s; \

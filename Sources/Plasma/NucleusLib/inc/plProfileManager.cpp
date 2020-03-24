@@ -271,17 +271,17 @@ plProfileLaps::LapInfo* plProfileLaps::IFindLap(const char* lapName)
     int i;
     for (i = lastSearch; i < fLapTimes.size(); i++)
     {
-        if(fLapTimes[i].GetName() == lapName)
+        if (fLapTimes[i].GetName() == lapName)
         {
             lastSearch = i;
             return &fLapTimes[i];
         }
     }
 
-    if(lastSearch > fLapTimes.size()) lastSearch = fLapTimes.size();
+    if (lastSearch > fLapTimes.size()) lastSearch = fLapTimes.size();
     for (i = 0; i < lastSearch; i++)
     {
-        if(fLapTimes[i].GetName() == lapName)
+        if (fLapTimes[i].GetName() == lapName)
         {
             lastSearch = i;
             return &fLapTimes[i];
@@ -383,7 +383,7 @@ void plProfileVar::IBeginLap(const char* lapName)
     if (!fLaps)
         fLaps = new plProfileLaps;
     fDisplayFlags |= kDisplayLaps;
-    if(fLapsActive)
+    if (fLapsActive)
         fLaps->BeginLap(fValue, lapName);
     BeginTiming();
 }
@@ -391,13 +391,13 @@ void plProfileVar::IBeginLap(const char* lapName)
 void plProfileVar::IEndLap(const char* lapName)
 {
     EndTiming();
-    if(fLapsActive)
+    if (fLapsActive)
         fLaps->EndLap(fValue, lapName);
 }
 
 void plProfileVar::IBeginTiming()
 {
-    if( hsCheckBits( fDisplayFlags, kDisplayResetEveryBegin ) )
+    if (hsCheckBits(fDisplayFlags, kDisplayResetEveryBegin))
         fValue = 0;
 
     fValue -= hsTimer::GetTicks();

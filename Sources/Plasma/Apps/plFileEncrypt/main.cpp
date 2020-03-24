@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 #define ARGCMP(y) (strcmp(argv[1], y) == 0)
     if (argc > 1)
     {
-        if (ARGCMP("encrypt") || ARGCMP("-e") )
+        if (ARGCMP("encrypt") || ARGCMP("-e"))
         {
             if (argc > 2)
                 dir = argv[2];
@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
                 dir = argv[2];
             encrypt = false;
         }
-        else if(ARGCMP("--help") || ARGCMP("-h") || ARGCMP("-?")  || ARGCMP("/?"))
+        else if (ARGCMP("--help") || ARGCMP("-h") || ARGCMP("-?")  || ARGCMP("/?"))
         {
             print_help();
             return 0;

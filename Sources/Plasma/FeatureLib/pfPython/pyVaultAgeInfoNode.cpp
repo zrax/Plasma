@@ -227,7 +227,7 @@ plUUID pyVaultAgeInfoNode::GetAgeInstanceGuid() const
     return kNilUuid;
 }
 
-void pyVaultAgeInfoNode::SetAgeInstanceGuid( const char * sguid )
+void pyVaultAgeInfoNode::SetAgeInstanceGuid(const char * sguid)
 {
 }
 
@@ -253,7 +253,7 @@ int32_t pyVaultAgeInfoNode::GetSequenceNumber() const
     return access.GetAgeSequenceNumber();
 }
 
-void pyVaultAgeInfoNode::SetSequenceNumber( int32_t v )
+void pyVaultAgeInfoNode::SetSequenceNumber(int32_t v)
 {
 }
 
@@ -266,7 +266,7 @@ int32_t pyVaultAgeInfoNode::GetAgeLanguage() const
     return access.GetAgeLanguage();
 }
 
-void pyVaultAgeInfoNode::SetAgeLanguage( int32_t v )
+void pyVaultAgeInfoNode::SetAgeLanguage(int32_t v)
 {
 }
 
@@ -275,7 +275,7 @@ uint32_t pyVaultAgeInfoNode::GetAgeID() const
     return 0;
 }
 
-void pyVaultAgeInfoNode::SetAgeID( uint32_t v )
+void pyVaultAgeInfoNode::SetAgeID(uint32_t v)
 {
 }
 

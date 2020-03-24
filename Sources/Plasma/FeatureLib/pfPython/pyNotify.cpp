@@ -73,7 +73,7 @@ pyNotify::pyNotify(pyKey& selfkey)
     fBuildMsg.fID = 0;
     // loop though adding the ones that want to be notified of the change
     int j;
-    for ( j=0 ; j<selfkey.NotifyListCount() ; j++ )
+    for (j=0 ; j<selfkey.NotifyListCount() ; j++)
         fReceivers.Append(selfkey.GetNotifyListItem(j));
 }
 
@@ -117,21 +117,21 @@ void pyNotify::SetType(int32_t type)
 //  Add event record helpers
 //////////////////////////////////////////////////
 
-void pyNotify::AddCollisionEvent( bool enter, pyKey* other, pyKey* self )
+void pyNotify::AddCollisionEvent(bool enter, pyKey* other, pyKey* self)
 {
     fBuildMsg.AddCollisionEvent(enter, other ? other->getKey() : plKey(),
-                                        self ? self->getKey() : plKey() );
+                                        self ? self->getKey() : plKey());
 }
 
-void pyNotify::AddPickEvent( bool enabled, pyKey* other, pyKey* self, pyPoint3 hitPoint)
+void pyNotify::AddPickEvent(bool enabled, pyKey* other, pyKey* self, pyPoint3 hitPoint)
 {
-    fBuildMsg.AddPickEvent( other ? other->getKey() : plKey(),
+    fBuildMsg.AddPickEvent(other ? other->getKey() : plKey(),
                                 self ? self->getKey() : plKey(),
                                 enabled,
-                                hitPoint.fPoint );
+                                hitPoint.fPoint);
 }
 
-void pyNotify::AddControlKeyEvent( int32_t key, bool down )
+void pyNotify::AddControlKeyEvent(int32_t key, bool down)
 {
     fBuildMsg.AddControlKeyEvent(key,down);
 }
@@ -153,29 +153,29 @@ void pyNotify::AddVarNull(const char* name)
 
 void pyNotify::AddVarKey(const char* name, pyKey* key)
 {
-    fBuildMsg.AddVariableEvent(name, key ? key->getKey() : plKey() );
+    fBuildMsg.AddVariableEvent(name, key ? key->getKey() : plKey());
 }
 
-void pyNotify::AddFacingEvent( bool enabled, pyKey* other, pyKey* self, float dot)
+void pyNotify::AddFacingEvent(bool enabled, pyKey* other, pyKey* self, float dot)
 {
-    fBuildMsg.AddFacingEvent( other ? other->getKey() : plKey(),
+    fBuildMsg.AddFacingEvent(other ? other->getKey() : plKey(),
                                 self ? self->getKey() : plKey(),
                                 dot, enabled);
 }
 
-void pyNotify::AddContainerEvent( bool entering, pyKey* contained, pyKey* container)
+void pyNotify::AddContainerEvent(bool entering, pyKey* contained, pyKey* container)
 {
-    fBuildMsg.AddContainerEvent( container ? container->getKey() : plKey(),
+    fBuildMsg.AddContainerEvent(container ? container->getKey() : plKey(),
                                     contained ? contained->getKey() : plKey() ,
                                     entering);
 }
 
-void pyNotify::AddActivateEvent( bool active, bool activate )
+void pyNotify::AddActivateEvent(bool active, bool activate)
 {
     fBuildMsg.AddActivateEvent(activate);
 }
 
-void pyNotify::AddCallbackEvent( int32_t event )
+void pyNotify::AddCallbackEvent(int32_t event)
 {
     fBuildMsg.AddCallbackEvent(event);
 }
@@ -193,12 +193,12 @@ void pyNotify::Send()
     // create new notify message to do the actual send with
     plNotifyMsg* pNMsg = new plNotifyMsg;
 
-    if ( fNetPropagate )
+    if (fNetPropagate)
         pNMsg->SetBCastFlag(plMessage::kNetPropagate);
     else
         pNMsg->SetBCastFlag(plMessage::kNetPropagate,false);
     // set whether this should be forced over the network (ignoring net-cascading)
-    if ( fNetForce )
+    if (fNetForce)
         pNMsg->SetBCastFlag(plMessage::kNetForce);
 
     // copy data and event records to new NotifyMsg
@@ -207,18 +207,18 @@ void pyNotify::Send()
     pNMsg->fID = fBuildMsg.fID;
     // need to recreate all the events in the new message by Adding them
     int i;
-    for ( i=0; i<fBuildMsg.fEvents.GetCount(); i++ )
+    for (i=0; i<fBuildMsg.fEvents.GetCount(); i++)
     {
         proEventData* pED = fBuildMsg.fEvents.Get(i);
-        pNMsg->AddEvent( pED );
+        pNMsg->AddEvent(pED);
     }
 
     // add receivers
     // loop though adding the ones that want to be notified of the change
     int j;
-    for ( j=0 ; j<fReceivers.Count() ; j++ )
+    for (j=0 ; j<fReceivers.Count() ; j++)
         pNMsg->AddReceiver(fReceivers[j]);
 
     pNMsg->SetSender(fSenderKey);
-    plgDispatch::MsgSend( pNMsg );
+    plgDispatch::MsgSend(pNMsg);
 }

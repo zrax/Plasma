@@ -127,7 +127,7 @@ void plParticleSystem::Init(uint32_t xTiles, uint32_t yTiles, uint32_t maxTotalP
 
 void plParticleSystem::IAddEffect(plParticleEffect *effect, uint32_t type)
 {
-    switch(type)
+    switch (type)
     {
     case kEffectForce:
         fForces.Append(effect);
@@ -144,23 +144,23 @@ void plParticleSystem::IAddEffect(plParticleEffect *effect, uint32_t type)
 
 plParticleEmitter* plParticleSystem::GetAvailEmitter()
 {
-    if( !fNumValidEmitters ) // got to start with at least one.
+    if (!fNumValidEmitters) // got to start with at least one.
         return nil;
 
     float minTTL = 1.e33;
     int iMinTTL = -1;
     int i;
-    for( i = 0; i < fNumValidEmitters; i++ )
+    for (i = 0; i < fNumValidEmitters; i++)
     {
-        if( fEmitters[i]->GetTimeToLive() < minTTL )
+        if (fEmitters[i]->GetTimeToLive() < minTTL)
         {
             minTTL = fEmitters[i]->GetTimeToLive();
             iMinTTL = i;
         }
     }
-    if( minTTL > 0 )
+    if (minTTL > 0)
     {
-        if( fNumValidEmitters < fMaxEmitters )
+        if (fNumValidEmitters < fMaxEmitters)
         {
             minTTL = 0;
             iMinTTL = fNumValidEmitters++;
@@ -351,14 +351,14 @@ bool plParticleSystem::IShouldUpdate(plPipeline* pipe) const
     hsBounds3Ext wBnd;
     wBnd.MakeEmpty();
     int i;
-    for( i = 0; i < fNumValidEmitters; i++ )
+    for (i = 0; i < fNumValidEmitters; i++)
     {
-        if( fEmitters[i]->GetBoundingBox().GetType() == kBoundsNormal )
+        if (fEmitters[i]->GetBoundingBox().GetType() == kBoundsNormal)
             wBnd.Union(&fEmitters[i]->GetBoundingBox());
     }
 
     // Always update if we are currently empty
-    if( wBnd.GetType() == kBoundsEmpty )
+    if (wBnd.GetType() == kBoundsEmpty)
     {
         return true;
     }
@@ -367,7 +367,7 @@ bool plParticleSystem::IShouldUpdate(plPipeline* pipe) const
     bool isVisible = pipe->TestVisibleWorld(wBnd);
 
     float delta = fLastTime > 0 ? float(fCurrTime - fLastTime) : hsTimer::GetDelSysSeconds();
-    if( isVisible )
+    if (isVisible)
     {
         // If we know how fast the fastest particle is moving, then we can
         // decide if the system is too far away to need to update every single frame.
@@ -385,7 +385,7 @@ bool plParticleSystem::IShouldUpdate(plPipeline* pipe) const
         float dist = depth.fX - eyeDist;
 
         static float kUpdateCutoffDist = 100.f;
-        if( dist > kUpdateCutoffDist )
+        if (dist > kUpdateCutoffDist)
         {
             static float kDistantUpdateSecs = 0.1f;
             return delta >= kDistantUpdateSecs;
@@ -403,13 +403,13 @@ bool plParticleSystem::IShouldUpdate(plPipeline* pipe) const
 plDrawInterface* plParticleSystem::ICheckDrawInterface()
 {
     plDrawInterface* di = IGetTargetDrawInterface(0);
-    if( !di )
+    if (!di)
         return nil;
 
-    if( di->GetDrawableMeshIndex(0) == uint32_t(-1) )
+    if (di->GetDrawableMeshIndex(0) == uint32_t(-1))
     {
-        di->SetUpForParticleSystem( fMaxEmitters + 1, fMaxTotalParticles, fTexture, fPermaLights );
-        hsAssert(di->GetDrawableMeshIndex( 0 ) != (uint32_t)-1, "SetUpForParticleSystem should never fail"); // still invalid, didn't fix it.
+        di->SetUpForParticleSystem(fMaxEmitters + 1, fMaxTotalParticles, fTexture, fPermaLights);
+        hsAssert(di->GetDrawableMeshIndex(0) != (uint32_t)-1, "SetUpForParticleSystem should never fail"); // still invalid, didn't fix it.
     }
 
     return di;
@@ -422,11 +422,11 @@ void plParticleSystem::IHandleRenderMsg(plPipeline* pipe)
     if (delta == 0)
         return;
     plConst(float) kMaxDelta(0.3f);
-    if( delta > kMaxDelta )
+    if (delta > kMaxDelta)
         delta = kMaxDelta;
 
     plDrawInterface* di = ICheckDrawInterface();
-    if( !di )
+    if (!di)
         return;
 
     bool disabled = di->GetProperty(plDrawInterface::kDisable);
@@ -457,8 +457,8 @@ void plParticleSystem::IHandleRenderMsg(plPipeline* pipe)
         plProfile_IncCount(NumParticles, fEmitters[i]->fNumValidParticles);
         if (!disabled)
         {
-            if( fEmitters[ i ]->GetParticleCount() > 0 )
-                di->AssignEmitterToParticleSystem( fEmitters[ i ] ); // Go make those polys!
+            if (fEmitters[i]->GetParticleCount() > 0)
+                di->AssignEmitterToParticleSystem(fEmitters[i]); // Go make those polys!
         }
     }
     
@@ -527,7 +527,7 @@ bool plParticleSystem::MsgReceive(plMessage* msg)
         KillParticles(killMsg->fNumToKill, killMsg->fTimeLeft, killMsg->fFlags);
         return true;
     }
-    else if( (ageLoaded = plAgeLoadedMsg::ConvertNoRef(msg)) && ageLoaded->fLoaded )
+    else if ((ageLoaded = plAgeLoadedMsg::ConvertNoRef(msg)) && ageLoaded->fLoaded)
     {
         ICheckDrawInterface();
         return true;
@@ -644,7 +644,7 @@ void plParticleSystem::Read(hsStream *s, hsResMgr *mgr)
 
     int count = s->ReadLE32();
     fPermaLights.SetCount(count);
-    for( i = 0; i < count; i++ )
+    for (i = 0; i < count; i++)
     {
         fPermaLights[i] = mgr->ReadKey(s);
     }
@@ -699,7 +699,7 @@ void plParticleSystem::Write(hsStream *s, hsResMgr *mgr)
 
     count = fPermaLights.GetCount();
     s->WriteLE32(count);
-    for( i = 0; i < count; i++ )
+    for (i = 0; i < count; i++)
         mgr->WriteKey(s, fPermaLights[i]);
 }
 

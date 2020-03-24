@@ -55,12 +55,12 @@ public:
     plListener() :  fVCam(nil), fInitMe(true) { }
     ~plListener() { }
 
-    CLASSNAME_REGISTER( plListener );
-    GETINTERFACE_ANY( plListener, plSingleModifier );
+    CLASSNAME_REGISTER(plListener);
+    GETINTERFACE_ANY(plListener, plSingleModifier);
 
     virtual bool MsgReceive(plMessage* msg);
 
-    static void ShowDebugInfo( bool s ) { fPrintDbgInfo = s; }
+    static void ShowDebugInfo(bool s) { fPrintDbgInfo = s; }
 
     // Get info for which object these things are attached to - camera or refObject
     uint8_t GetAttachedPosType() { return (uint8_t)fPosRatio; }
@@ -89,7 +89,7 @@ protected:
     static bool         fPrintDbgInfo;
 
     virtual bool    IEval(double secs, float del, uint32_t dirty);
-    void            ISetRef( const plKey &ref, bool binding, int type );
+    void            ISetRef(const plKey &ref, bool binding, int type);
     void            ICheckAudio() const;
 
     void            IEnsureVCamValid();

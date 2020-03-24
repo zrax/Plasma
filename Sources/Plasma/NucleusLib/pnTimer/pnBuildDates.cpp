@@ -55,38 +55,38 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "hsWindows.h"
 #include "pnTimer/pnBuildDates.h"
 
-char    pnBuildDates::fBuildDate[ 128 ] = __DATE__;
-char    pnBuildDates::fBuildTime[ 128 ] = __TIME__;
+char    pnBuildDates::fBuildDate[128] = __DATE__;
+char    pnBuildDates::fBuildTime[128] = __TIME__;
 
 // This forces our constructor to run on app load
 static  pnBuildDates    staticObjToForceResLoad;
 
 #if HS_BUILD_FOR_WIN32
-HINSTANCE   sModuleHandle = GetModuleHandle( NULL );
+HINSTANCE   sModuleHandle = GetModuleHandle(NULL);
 #endif
 
 pnBuildDates::pnBuildDates()
 {
     // Note; these are int konstants so we don't have to worry about sharing symbols
     // across apps (in this case, our custom app that updates these strings on post-build)
-    IGetString( 1000, fBuildDate, sizeof( fBuildDate ) - 1 );
-    IGetString( 1001, fBuildTime, sizeof( fBuildTime ) - 1 );
+    IGetString(1000, fBuildDate, sizeof(fBuildDate) - 1);
+    IGetString(1001, fBuildTime, sizeof(fBuildTime) - 1);
 }
 
-void    pnBuildDates::IGetString( int resID, char *destBuffer, int size )
+void    pnBuildDates::IGetString(int resID, char *destBuffer, int size)
 {
 #if HS_BUILD_FOR_WIN32
-    HRSRC rsrc = ::FindResource( sModuleHandle, MAKEINTRESOURCE( resID ), RT_RCDATA );
+    HRSRC rsrc = ::FindResource(sModuleHandle, MAKEINTRESOURCE(resID), RT_RCDATA);
 
-    if( rsrc != NULL )
+    if (rsrc != NULL)
     {
-        HGLOBAL handle = ::LoadResource( sModuleHandle, rsrc );
+        HGLOBAL handle = ::LoadResource(sModuleHandle, rsrc);
 
-        if( handle != NULL )
+        if (handle != NULL)
         {
-            char *str = (char *)::LockResource( handle );
-            strncpy( destBuffer, str, size );
-            UnlockResource( handle );
+            char *str = (char *)::LockResource(handle);
+            strncpy(destBuffer, str, size);
+            UnlockResource(handle);
         }
     }
 #endif

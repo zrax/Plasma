@@ -71,7 +71,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "pnKeyedObject/plKey.h"
 
 
-#define SAFE_RELEASE(p) if(p){ p->Release(); p = nil; }
+#define SAFE_RELEASE(p) if (p) { p->Release(); p = nil; }
 #define FADE_TIME   3
 #define MAX_NUM_SOURCES 128
 #define UPDATE_TIME_MS 100
@@ -96,64 +96,64 @@ class plSoftSoundNode
         plSoftSoundNode *fSortNext;
         plSoftSoundNode **fSortPrev;
 
-        plSoftSoundNode( const plKey s ) : fSoundKey( s ) { fNext = nil; fPrev = nil; }
+        plSoftSoundNode(const plKey s) : fSoundKey(s) { fNext = nil; fPrev = nil; }
         ~plSoftSoundNode() { Unlink(); }
 
-        void    Link( plSoftSoundNode **prev )
+        void    Link(plSoftSoundNode **prev)
         {
             fNext = *prev;
             fPrev = prev;
-            if( fNext != nil )
+            if (fNext != nil)
                 fNext->fPrev = &fNext;
             *prev = this;
         }
 
         void    Unlink()
         {
-            if( fPrev != nil )
+            if (fPrev != nil)
             {
                 *fPrev = fNext;
-                if( fNext )
+                if (fNext)
                     fNext->fPrev = fPrev;
                 fPrev = nil;
                 fNext = nil;
             }
         }
 
-        void    SortedLink( plSoftSoundNode **prev, float rank )
+        void    SortedLink(plSoftSoundNode **prev, float rank)
         {
             fRank = rank;
 
             fSortNext = *prev;
             fSortPrev = prev;
-            if( fSortNext != nil )
+            if (fSortNext != nil)
                 fSortNext->fSortPrev = &fSortNext;
             *prev = this;
         }
 
         // Larger values are first in the list
-        void    AddToSortedLink( plSoftSoundNode *toAdd, float rank )
+        void    AddToSortedLink(plSoftSoundNode *toAdd, float rank)
         {
-            if( fRank > rank )
+            if (fRank > rank)
             {
-                if( fSortNext != nil )
-                    fSortNext->AddToSortedLink( toAdd, rank );
+                if (fSortNext != nil)
+                    fSortNext->AddToSortedLink(toAdd, rank);
                 else
                 {
-                    toAdd->SortedLink( &fSortNext, rank );
+                    toAdd->SortedLink(&fSortNext, rank);
                 }
             }
             else
             {
                 // Cute trick here...
-                toAdd->SortedLink( fSortPrev, rank );
+                toAdd->SortedLink(fSortPrev, rank);
             }
         }
 
         void    BootSourceOff()
         {
-            plSound *sound = plSound::ConvertNoRef( fSoundKey->ObjectIsLoaded() );
-            if( sound != nil )
+            plSound *sound = plSound::ConvertNoRef(fSoundKey->ObjectIsLoaded());
+            if (sound != nil)
             {
                 sound->ForceUnregisterFromAudioSys();
             }
@@ -183,8 +183,8 @@ fFadeLength(FADE_TIME),
 fCaptureDevice(nil),
 fLastUpdateTimeMs(0)
 {
-    fCurrListenerPos.Set( -1.e30, -1.e30, -1.e30 );
-    //fCommittedListenerPos.Set( -1.e30, -1.e30, -1.e30 );
+    fCurrListenerPos.Set(-1.e30, -1.e30, -1.e30);
+    //fCommittedListenerPos.Set(-1.e30, -1.e30, -1.e30);
     fLastPos.Set(100, 100, 100);
 }
 
@@ -195,7 +195,7 @@ plAudioSystem::~plAudioSystem()
 void plAudioSystem::IEnumerateDevices()
 {
     fDeviceList.clear();
-    plStatusLog::AddLineS("audio.log", "--Audio Devices --" );
+    plStatusLog::AddLineS("audio.log", "--Audio Devices --");
     char *devices = (char *)alcGetString(nil, ALC_DEVICE_SPECIFIER);
     int major, minor;
 
@@ -221,14 +221,14 @@ void plAudioSystem::IEnumerateDevices()
                 {
                     alcGetIntegerv(device, ALC_MAJOR_VERSION, sizeof(int), &major);
                     alcGetIntegerv(device, ALC_MINOR_VERSION, sizeof(int), &minor);
-                    plStatusLog::AddLineSF("audio.log", "{} OpenAL ver: {}.{}", devices, major, minor );
+                    plStatusLog::AddLineSF("audio.log", "{} OpenAL ver: {}.{}", devices, major, minor);
 
                     // filter out any devices that aren't openal 1.1 compliant
-                    if(major > 1 || (major == 1 && minor >= 1))
+                    if (major > 1 || (major == 1 && minor >= 1))
                     {
                         bool supportsEAX = false;
 #ifdef EAX_SDK_AVAILABLE
-                        if(alIsExtensionPresent((ALchar *)"EAX4.0") || alIsExtensionPresent((ALchar *) "EAX4.0Emulated"))
+                        if (alIsExtensionPresent((ALchar *)"EAX4.0") || alIsExtensionPresent((ALchar *) "EAX4.0Emulated"))
                         {
                             supportsEAX = true;
                         }
@@ -247,15 +247,15 @@ void plAudioSystem::IEnumerateDevices()
 
     DeviceDescriptor temp("", 0);
     // attempt to order devices
-    for(unsigned i = 0; i < fDeviceList.size(); ++i)
+    for (unsigned i = 0; i < fDeviceList.size(); ++i)
     {
-        if(strstr(fDeviceList[i].GetDeviceName(), "Software"))
+        if (strstr(fDeviceList[i].GetDeviceName(), "Software"))
         {
             temp = fDeviceList[i];
             fDeviceList[i] = fDeviceList[0];
             fDeviceList[0] = temp;
         }
-        if(strstr(fDeviceList[i].GetDeviceName(), "Hardware"))
+        if (strstr(fDeviceList[i].GetDeviceName(), "Hardware"))
         {
             temp = fDeviceList[i];
             fDeviceList[i] = fDeviceList[1];
@@ -269,10 +269,10 @@ bool    plAudioSystem::Init()
 {
     plgAudioSys::fRestarting = false;
     static bool firstTimeInit = true;
-    plStatusLog::AddLineS( "audio.log", plStatusLog::kBlue, "ASYS: -- Init --" );
+    plStatusLog::AddLineS("audio.log", plStatusLog::kBlue, "ASYS: -- Init --");
     
     fMaxNumSources = 0;
-    plStatusLog::AddLineS( "audio.log", plStatusLog::kGreen, "ASYS: Detecting caps..." );
+    plStatusLog::AddLineS("audio.log", plStatusLog::kGreen, "ASYS: Detecting caps...");
     plSoundBuffer::Init();
 
     // Set the maximum number of sounds based on priority cutoff slider
@@ -280,39 +280,39 @@ bool    plAudioSystem::Init()
     const char *deviceName = plgAudioSys::fDeviceName.c_str();
     bool useDefaultDevice = true;
     
-    if(firstTimeInit)
+    if (firstTimeInit)
     {
         IEnumerateDevices();
         firstTimeInit = false;
     }
 
-    if(!fDeviceList.size())
+    if (!fDeviceList.size())
     {
-        plStatusLog::AddLineS( "audio.log", plStatusLog::kRed, "ASYS: ERROR Unable to query any devices, is openal installed?" );
+        plStatusLog::AddLineS("audio.log", plStatusLog::kRed, "ASYS: ERROR Unable to query any devices, is openal installed?");
         return false;
     }
 
     // shouldn't ever happen, but just in case
-    if(!deviceName)
+    if (!deviceName)
         plgAudioSys::SetDeviceName(DEFAULT_AUDIO_DEVICE_NAME);
 
-    for(DeviceIter i = fDeviceList.begin(); i != fDeviceList.end(); i++)
+    for (DeviceIter i = fDeviceList.begin(); i != fDeviceList.end(); i++)
     {
-        if(!strcmp((*i).GetDeviceName(), deviceName))
+        if (!strcmp((*i).GetDeviceName(), deviceName))
         {
             useDefaultDevice = false;
             break;
         }
     }
     
-    if(useDefaultDevice)
+    if (useDefaultDevice)
     {
         // if no device has been specified we will use the "Generic Software" device by default. If "Generic Software" is unavailable(which can happen) we select the first available device
         // We want to use software by default since some audio cards have major problems with hardware + eax.
         const char *defaultDev = fDeviceList.front().GetDeviceName();
-        for(DeviceIter i = fDeviceList.begin(); i != fDeviceList.end(); i++)
+        for (DeviceIter i = fDeviceList.begin(); i != fDeviceList.end(); i++)
         {
-            if(!strcmp(DEFAULT_AUDIO_DEVICE_NAME, (*i).GetDeviceName()))
+            if (!strcmp(DEFAULT_AUDIO_DEVICE_NAME, (*i).GetDeviceName()))
             {
                 defaultDev = DEFAULT_AUDIO_DEVICE_NAME;
                 break;
@@ -321,18 +321,18 @@ bool    plAudioSystem::Init()
 
         plgAudioSys::SetDeviceName(defaultDev, false);
         fDevice = alcOpenDevice(defaultDev);
-        plStatusLog::AddLineSF( "audio.log", plStatusLog::kRed, "ASYS: {} device selected", defaultDev );
+        plStatusLog::AddLineSF("audio.log", plStatusLog::kRed, "ASYS: {} device selected", defaultDev);
         deviceName = defaultDev;
     }
     else
     {
         plgAudioSys::SetDeviceName(deviceName, false);
         fDevice = alcOpenDevice(deviceName);
-        plStatusLog::AddLineSF( "audio.log", plStatusLog::kRed, "ASYS: {} device selected", deviceName );
+        plStatusLog::AddLineSF("audio.log", plStatusLog::kRed, "ASYS: {} device selected", deviceName);
     }
-    if(!fDevice)
+    if (!fDevice)
     {
-        plStatusLog::AddLineS( "audio.log", plStatusLog::kRed, "ASYS: ERROR initializing OpenAL" );
+        plStatusLog::AddLineS("audio.log", plStatusLog::kRed, "ASYS: ERROR initializing OpenAL");
         return false;
     }
     
@@ -340,9 +340,9 @@ bool    plAudioSystem::Init()
     alcMakeContextCurrent(fContext);
 
     ALenum error;
-    if(alGetError() != AL_NO_ERROR)
+    if (alGetError() != AL_NO_ERROR)
     {
-        plStatusLog::AddLineS( "audio.log", plStatusLog::kRed, "ASYS: ERROR alcMakeContextCurrent failed" );
+        plStatusLog::AddLineS("audio.log", plStatusLog::kRed, "ASYS: ERROR alcMakeContextCurrent failed");
         return false;
     }
 
@@ -352,12 +352,12 @@ bool    plAudioSystem::Init()
     plStatusLog::AddLineSF("audio.log", "OpenAL extensions: {}", alGetString(AL_EXTENSIONS));
     plAudioCaps caps = plAudioCapsDetector::Detect();
 
-    if(strcmp(deviceName, DEFAULT_AUDIO_DEVICE_NAME))
+    if (strcmp(deviceName, DEFAULT_AUDIO_DEVICE_NAME))
     {
         // we are using a hardware device, set priority based on number of hardware voices
         unsigned int numVoices = caps.GetMaxNumVoices();
         
-        if(numVoices < 16)
+        if (numVoices < 16)
             plgAudioSys::SetPriorityCutoff(3);
         
         SetMaxNumberOfActiveSounds();
@@ -366,16 +366,16 @@ bool    plAudioSystem::Init()
     fMaxNumSources = caps.GetMaxNumVoices();
 
     // attempt to init the EAX listener.
-    if( plgAudioSys::fEnableEAX )
+    if (plgAudioSys::fEnableEAX)
     {
         fUsingEAX = plEAXListener::GetInstance().Init();
-        if( fUsingEAX )
+        if (fUsingEAX)
         {
-            plStatusLog::AddLineS( "audio.log", plStatusLog::kGreen, "ASYS: EAX support detected and enabled." );
+            plStatusLog::AddLineS("audio.log", plStatusLog::kGreen, "ASYS: EAX support detected and enabled.");
         }
         else
         {
-            plStatusLog::AddLineS( "audio.log", plStatusLog::kRed, "ASYS: EAX support NOT detected. EAX effects disabled." );
+            plStatusLog::AddLineS("audio.log", plStatusLog::kRed, "ASYS: EAX support NOT detected. EAX effects disabled.");
         }
     }
     else
@@ -388,7 +388,7 @@ bool    plAudioSystem::Init()
     error = alGetError();
 
     fWaitingForShutdown = false;
-    plgDispatch::Dispatch()->RegisterForExactType( plAgeLoadedMsg::Index(), GetKey() );
+    plgDispatch::Dispatch()->RegisterForExactType(plAgeLoadedMsg::Index(), GetKey());
     return true;
 }
 
@@ -396,7 +396,7 @@ bool    plAudioSystem::Init()
 
 void plAudioSystem::Shutdown()
 {
-    plStatusLog::AddLineS( "audio.log", plStatusLog::kBlue, "ASYS: -- Shutdown --" );
+    plStatusLog::AddLineS("audio.log", plStatusLog::kBlue, "ASYS: -- Shutdown --");
 
     plSoundBuffer::Shutdown();
 
@@ -405,28 +405,28 @@ void plAudioSystem::Shutdown()
     fDebugActiveSoundDisplay = nil;
 
     // Unregister soft sounds
-    while( fSoftRegionSounds != nil )
+    while (fSoftRegionSounds != nil)
     {
         fSoftRegionSounds->BootSourceOff();
         delete fSoftRegionSounds;
     }
-    while( fActiveSofts != nil )
+    while (fActiveSofts != nil)
     {
         fActiveSofts->BootSourceOff();
         delete fActiveSofts;
     }
 
-    while( fEAXRegions.GetCount() > 0 )
+    while (fEAXRegions.GetCount() > 0)
     {
-        if( fEAXRegions[ 0 ] != nil && fEAXRegions[ 0 ]->GetKey() != nil )
+        if (fEAXRegions[0] != nil && fEAXRegions[0]->GetKey() != nil)
         {
-            GetKey()->Release( fEAXRegions[ 0 ]->GetKey() );
+            GetKey()->Release(fEAXRegions[0]->GetKey());
         }
-        fEAXRegions.Remove( 0 );
+        fEAXRegions.Remove(0);
     }
     plEAXListener::GetInstance().ClearProcessCache();
 
-    plSound::SetCurrDebugPlate( nil );
+    plSound::SetCurrDebugPlate(nil);
     fCurrDebugSound = nil;
 
     // Reset this, just in case
@@ -434,7 +434,7 @@ void plAudioSystem::Shutdown()
 
     //fListenerInit = false;
     
-    if( fUsingEAX )
+    if (fUsingEAX)
     {
         plEAXListener::GetInstance().Shutdown();
     }
@@ -451,16 +451,16 @@ void plAudioSystem::Shutdown()
 
     fStartTime = 0;
     fUsingEAX = false;
-    fCurrListenerPos.Set( -1.e30, -1.e30, -1.e30 );
-    //fCommittedListenerPos.Set( -1.e30, -1.e30, -1.e30 );
+    fCurrListenerPos.Set(-1.e30, -1.e30, -1.e30);
+    //fCommittedListenerPos.Set(-1.e30, -1.e30, -1.e30);
     
-    if( fRestartOnDestruct )
+    if (fRestartOnDestruct)
     {
         fRestartOnDestruct = false;
-        plgAudioSys::Activate( true );
+        plgAudioSys::Activate(true);
     }
 
-    plgDispatch::Dispatch()->UnRegisterForExactType(plAgeLoadedMsg::Index(), GetKey() );
+    plgDispatch::Dispatch()->UnRegisterForExactType(plAgeLoadedMsg::Index(), GetKey());
     fWaitingForShutdown = false;
 }
 
@@ -471,7 +471,7 @@ int plAudioSystem::GetNumAudioDevices()
 
 const char *plAudioSystem::GetAudioDeviceName(int index)
 {
-    if(index < 0 || index >= fDeviceList.size())
+    if (index < 0 || index >= fDeviceList.size())
     {
         hsAssert(false, "Invalid index passed to GetAudioDeviceName");
         return nil;
@@ -481,9 +481,9 @@ const char *plAudioSystem::GetAudioDeviceName(int index)
 
 bool plAudioSystem::SupportsEAX(const char *deviceName)
 {
-    for(DeviceIter i = fDeviceList.begin(); i != fDeviceList.end(); i++)
+    for (DeviceIter i = fDeviceList.begin(); i != fDeviceList.end(); i++)
     {
-        if(!strcmp((*i).GetDeviceName(), deviceName))
+        if (!strcmp((*i).GetDeviceName(), deviceName))
         {
             return (*i).SupportsEAX();
         }
@@ -493,14 +493,14 @@ bool plAudioSystem::SupportsEAX(const char *deviceName)
 
 void plAudioSystem::SetDistanceModel(int i)
 {
-    switch(i)
+    switch (i)
     {
         case 0: alDistanceModel(AL_NONE); break;
-        case 1: alDistanceModel(AL_INVERSE_DISTANCE ); break;
+        case 1: alDistanceModel(AL_INVERSE_DISTANCE); break;
         case 2: alDistanceModel(AL_INVERSE_DISTANCE_CLAMPED); break;
-        case 3: alDistanceModel(AL_LINEAR_DISTANCE ); break;
-        case 4: alDistanceModel(AL_LINEAR_DISTANCE_CLAMPED ); break;
-        case 5: alDistanceModel(AL_EXPONENT_DISTANCE ); break;
+        case 3: alDistanceModel(AL_LINEAR_DISTANCE); break;
+        case 4: alDistanceModel(AL_LINEAR_DISTANCE_CLAMPED); break;
+        case 5: alDistanceModel(AL_EXPONENT_DISTANCE); break;
         case 6: alDistanceModel(AL_EXPONENT_DISTANCE_CLAMPED); break;
     }
 }
@@ -512,7 +512,7 @@ void plAudioSystem::SetMaxNumberOfActiveSounds()
     int maxNumSounds = 24;
     
     // Keep this to a reasonable amount based on the users hardware, since we want the sounds to be played in hardware
-    if(maxNumSounds > fMaxNumSources && fMaxNumSources != 0 )
+    if (maxNumSounds > fMaxNumSources && fMaxNumSources != 0)
         maxNumSounds = fMaxNumSources / 2;
 
     // Allow a certain number of sounds based on a user specified setting.
@@ -523,7 +523,7 @@ void plAudioSystem::SetMaxNumberOfActiveSounds()
     fMaxNumSounds = maxNumSounds;
     fNumSoundsSlop = fMaxNumSounds / 2;
 
-    plStatusLog::AddLineSF( "audio.log", "Max Number of Sounds Set to: {}", fMaxNumSounds);
+    plStatusLog::AddLineSF("audio.log", "Max Number of Sounds Set to: {}", fMaxNumSounds);
 }
 
 void plAudioSystem::SetListenerPos(const hsPoint3 pos)
@@ -543,13 +543,13 @@ void plAudioSystem::SetListenerOrientation(const hsVector3 view, const hsVector3
     alListenerfv(AL_ORIENTATION, orientation);
 }
 
-void    plAudioSystem::SetActive( bool b )
+void    plAudioSystem::SetActive(bool b)
 {
     fActive = b;
-    if( fActive )
+    if (fActive)
     {
         // Clear to send activate message (if listener not inited yet, delay until then)
-        plgDispatch::MsgSend( new plAudioSysMsg( plAudioSysMsg::kActivate ) );
+        plgDispatch::MsgSend(new plAudioSysMsg(plAudioSysMsg::kActivate));
     }
 }
 
@@ -559,32 +559,32 @@ void    plAudioSystem::SetActive( bool b )
 //  least all the calc code is in one place. Possible optimization in the
 //  future: when calling IUpdate(), any sounds that are already active don't
 //  need to be recalced, just resorted.
-void    plAudioSystem::RegisterSoftSound( const plKey soundKey )
+void    plAudioSystem::RegisterSoftSound(const plKey soundKey)
 {
-    plSoftSoundNode *node = new plSoftSoundNode( soundKey );
-    node->Link( &fSoftRegionSounds );
+    plSoftSoundNode *node = new plSoftSoundNode(soundKey);
+    node->Link(&fSoftRegionSounds);
 
     fCurrDebugSound = nil;
-    plSound::SetCurrDebugPlate( nil );
+    plSound::SetCurrDebugPlate(nil);
 }
 
 //// IUnregisterSoftSound ////////////////////////////////////////////////////
 
-void    plAudioSystem::UnregisterSoftSound( const plKey soundKey )
+void    plAudioSystem::UnregisterSoftSound(const plKey soundKey)
 {
     plSoftSoundNode *node;
-    for( node = fActiveSofts; node != nil; node = node->fNext )
+    for (node = fActiveSofts; node != nil; node = node->fNext)
     {
-        if( node->fSoundKey == soundKey )
+        if (node->fSoundKey == soundKey)
         {
             delete node;
             return;
         }
     }
 
-    for( node = fSoftRegionSounds; node != nil; node = node->fNext )
+    for (node = fSoftRegionSounds; node != nil; node = node->fNext)
     {
-        if( node->fSoundKey == soundKey )
+        if (node->fSoundKey == soundKey)
         {
             delete node;
             return;
@@ -594,7 +594,7 @@ void    plAudioSystem::UnregisterSoftSound( const plKey soundKey )
     // We might have unregistered it ourselves on destruction, so don't bother
 
     fCurrDebugSound = nil;
-    plSound::SetCurrDebugPlate( nil );
+    plSound::SetCurrDebugPlate(nil);
 }
 
 //// IUpdateSoftSounds ///////////////////////////////////////////////////////
@@ -625,7 +625,7 @@ void    plAudioSystem::UnregisterSoftSound( const plKey soundKey )
 //  full strength, we divide the soft volume ranks by the distSquared, thus
 //  giving us a reasonable approximation at a good rank...<sigh>
 
-void    plAudioSystem::IUpdateSoftSounds( const hsPoint3 &newPosition )
+void    plAudioSystem::IUpdateSoftSounds(const hsPoint3 &newPosition)
 {
     plSoftSoundNode *node, *myNode;
     float        distSquared, rank;
@@ -636,109 +636,109 @@ void    plAudioSystem::IUpdateSoftSounds( const hsPoint3 &newPosition )
     
     // Check the sounds the listener is already inside of. If we moved out, stop sound, else
     // just change attenuation
-    for( node = fActiveSofts; node != nil; )
+    for (node = fActiveSofts; node != nil; )
     {
-        plSound *sound = plSound::ConvertNoRef( node->fSoundKey->ObjectIsLoaded() );
+        plSound *sound = plSound::ConvertNoRef(node->fSoundKey->ObjectIsLoaded());
 
         bool notActive = false;
-        if(sound)
+        if (sound)
             sound->Update();
         
         // Quick checks for not-active
-        if( sound == nil )
+        if (sound == nil)
             notActive = true;
-        else if( !sound->IsWithinRange( newPosition, &distSquared )  )
+        else if (!sound->IsWithinRange(newPosition, &distSquared))
             notActive = true;
-        else if(sound->GetPriority() > plgAudioSys::GetPriorityCutoff())
+        else if (sound->GetPriority() > plgAudioSys::GetPriorityCutoff())
             notActive = true;
 
-        if(plgAudioSys::fMutedStateChange)
+        if (plgAudioSys::fMutedStateChange)
         {
             sound->SetMuted(plgAudioSys::fMuted);
         }
         
-        if( !notActive )
+        if (!notActive)
         {
             /// Our initial guess is that it's enabled...
-            sound->CalcSoftVolume( true, distSquared );
+            sound->CalcSoftVolume(true, distSquared);
             rank = sound->GetVolumeRank();
-            if( rank <= 0.f )
+            if (rank <= 0.f)
                 notActive = true;
             else
             {
                 /// Queue up in our sorted list...
-                if( sortedList == nil )
-                    node->SortedLink( &sortedList, (10.0f - sound->GetPriority()) * rank );
+                if (sortedList == nil)
+                    node->SortedLink(&sortedList, (10.0f - sound->GetPriority()) * rank);
                 else
-                    sortedList->AddToSortedLink( node, (10.0f - sound->GetPriority()) * rank );
+                    sortedList->AddToSortedLink(node, (10.0f - sound->GetPriority()) * rank);
                 /// Still in radius, so consider it still "active".
                 node = node->fNext;
             }
         }
 
-        if( notActive )
+        if (notActive)
         {
             /// Moved out of range of the sound--stop the sound entirely and move it to our
             /// yeah-they're-registered-but-not-active list
             myNode = node;
             node = node->fNext;
             myNode->Unlink();
-            myNode->Link( &fSoftRegionSounds );
+            myNode->Link(&fSoftRegionSounds);
 
             /// We know this sound won't be enabled, so skip the Calc() call
-            if( sound != nil )
-                sound->UpdateSoftVolume( false );
+            if (sound != nil)
+                sound->UpdateSoftVolume(false);
         }
     }
     
     // Now check remaining sounds to see if the listener moved into them
-    for( node = fSoftRegionSounds; node != nil; )
+    for (node = fSoftRegionSounds; node != nil; )
     {
-        if( !fListenerInit )
+        if (!fListenerInit)
         {
             node = node->fNext;
             continue;
         }
     
-        plSound *sound = plSound::ConvertNoRef( node->fSoundKey->ObjectIsLoaded() );
-        if( !sound || sound->GetPriority() > plgAudioSys::GetPriorityCutoff() )
+        plSound *sound = plSound::ConvertNoRef(node->fSoundKey->ObjectIsLoaded());
+        if (!sound || sound->GetPriority() > plgAudioSys::GetPriorityCutoff())
         {
             node = node->fNext;
             continue;
         }
 
         sound->Update();
-        if(plgAudioSys::fMutedStateChange)
+        if (plgAudioSys::fMutedStateChange)
         {
             sound->SetMuted(plgAudioSys::fMuted);
         }
         
-        if( sound->IsWithinRange( newPosition, &distSquared ) )
+        if (sound->IsWithinRange(newPosition, &distSquared))
         {
             /// Our initial guess is that it's enabled...
-            sound->CalcSoftVolume( true, distSquared );
+            sound->CalcSoftVolume(true, distSquared);
             rank = sound->GetVolumeRank();
 
-            if( rank > 0.f )
+            if (rank > 0.f)
             {
                 /// We just moved into its range, so move it to our active list and start the sucker
                 myNode = node;
                 node = node->fNext;
                 myNode->Unlink();
-                myNode->Link( &fActiveSofts );
+                myNode->Link(&fActiveSofts);
 
                 /// Queue up in our sorted list...
-                if( sortedList == nil )
-                    myNode->SortedLink( &sortedList, (10.0f - sound->GetPriority()) * rank );
+                if (sortedList == nil)
+                    myNode->SortedLink(&sortedList, (10.0f - sound->GetPriority()) * rank);
                 else
-                    sortedList->AddToSortedLink( myNode, (10.0f - sound->GetPriority()) * rank );
+                    sortedList->AddToSortedLink(myNode, (10.0f - sound->GetPriority()) * rank);
             }
             else
             {
                 /// Do NOT notify sound, since we were outside of its range and still are
                 // (but if we're playing, we shouldn't be, so better update)
-                if( sound->IsPlaying() )
-                    sound->UpdateSoftVolume( false );
+                if (sound->IsPlaying())
+                    sound->UpdateSoftVolume(false);
 
                 node = node->fNext;
             }
@@ -754,11 +754,11 @@ void    plAudioSystem::IUpdateSoftSounds( const hsPoint3 &newPosition )
     plgAudioSys::fMutedStateChange = false;
     /// Go through sorted list, enabling only the first n sounds and disabling the rest
     // DEBUG: Create a screen-only statusLog to display which sounds are what
-    if( fDebugActiveSoundDisplay == nil )
-        fDebugActiveSoundDisplay = plStatusLogMgr::GetInstance().CreateStatusLog( 32, "Active Sounds", plStatusLog::kDontWriteFile | plStatusLog::kDeleteForMe | plStatusLog::kFilledBackground );
+    if (fDebugActiveSoundDisplay == nil)
+        fDebugActiveSoundDisplay = plStatusLogMgr::GetInstance().CreateStatusLog(32, "Active Sounds", plStatusLog::kDontWriteFile | plStatusLog::kDeleteForMe | plStatusLog::kFilledBackground);
     fDebugActiveSoundDisplay->Clear();
 
-    if(fDisplayNumBuffers)
+    if (fDisplayNumBuffers)
         fDebugActiveSoundDisplay->AddLineF(0xffffffff, "Num Buffers: {}", plDSoundBuffer::GetNumBuffers());
     fDebugActiveSoundDisplay->AddLine(plStatusLog::kGreen, "Not streamed");
     fDebugActiveSoundDisplay->AddLine(plStatusLog::kYellow, "Disk streamed");
@@ -767,13 +767,13 @@ void    plAudioSystem::IUpdateSoftSounds( const hsPoint3 &newPosition )
     fDebugActiveSoundDisplay->AddLine(0xff00ffff, "Incidentals");
     fDebugActiveSoundDisplay->AddLine("--------------------");
     
-    for( i = 0; sortedList != nil && i < fMaxNumSounds; sortedList = sortedList->fSortNext )
+    for (i = 0; sortedList != nil && i < fMaxNumSounds; sortedList = sortedList->fSortNext)
     {
-        plSound *sound = plSound::ConvertNoRef( sortedList->fSoundKey->GetObjectPtr() );
-        if(!sound) continue;
+        plSound *sound = plSound::ConvertNoRef(sortedList->fSoundKey->GetObjectPtr());
+        if (!sound) continue;
     
         /// Notify sound that it really is still enabled
-        sound->UpdateSoftVolume( true );
+        sound->UpdateSoftVolume(true);
         
         uint32_t color = plStatusLog::kGreen;
         switch (sound->GetStreamType())
@@ -783,10 +783,10 @@ void    plAudioSystem::IUpdateSoftSounds( const hsPoint3 &newPosition )
             case plSound::kStreamCompressed:    color = plStatusLog::kRed;      break;
             default: break;
         }
-        if(sound->GetType() == plgAudioSys::kVoice) color = 0xffff8800;
-        if(sound->IsPropertySet(plSound::kPropIncidental)) color = 0xff00ffff;
+        if (sound->GetType() == plgAudioSys::kVoice) color = 0xffff8800;
+        if (sound->IsPropertySet(plSound::kPropIncidental)) color = 0xff00ffff;
         
-        if( fUsingEAX && sound->GetEAXSettings().IsEnabled() )
+        if (fUsingEAX && sound->GetEAXSettings().IsEnabled())
         {
             fDebugActiveSoundDisplay->AddLineF(
                 color,
@@ -810,10 +810,10 @@ void    plAudioSystem::IUpdateSoftSounds( const hsPoint3 &newPosition )
         i++;
     }
 
-    for( ; sortedList != nil; sortedList = sortedList->fSortNext, i++ )
+    for (; sortedList != nil; sortedList = sortedList->fSortNext, i++)
     {
-        plSound *sound = plSound::ConvertNoRef( sortedList->fSoundKey->GetObjectPtr() );
-        if(!sound) continue;
+        plSound *sound = plSound::ConvertNoRef(sortedList->fSoundKey->GetObjectPtr());
+        if (!sound) continue;
 
         /// These unlucky sounds don't get to play (yet). Also, be extra mean
         /// and pretend we're updating for "the first time", which will force them to
@@ -822,7 +822,7 @@ void    plAudioSystem::IUpdateSoftSounds( const hsPoint3 &newPosition )
         // forth around the fMaxNumSounds mark, we have a "slop" allowance: i.e. sounds that we're going
         // to say shouldn't be playing but we'll let them play for a bit anyway just in case they raise
         // in priority. So only be mean to the sounds outside this slop range
-        sound->UpdateSoftVolume( false, ( i < fMaxNumSounds + fNumSoundsSlop ) ? false : true );
+        sound->UpdateSoftVolume(false, (i < fMaxNumSounds + fNumSoundsSlop) ? false : true);
         fDebugActiveSoundDisplay->AddLineF(
             0xff808080,
             "{} {1.2f} {}",
@@ -838,18 +838,18 @@ void    plAudioSystem::NextDebugSound()
 {
     plSoftSoundNode     *node;
 
-    if( fCurrDebugSound == nil )
-        fCurrDebugSound = ( fSoftRegionSounds == nil ) ? fActiveSofts : fSoftRegionSounds;
+    if (fCurrDebugSound == nil)
+        fCurrDebugSound = (fSoftRegionSounds == nil) ? fActiveSofts : fSoftRegionSounds;
     else
     {
         node = fCurrDebugSound;
         fCurrDebugSound = fCurrDebugSound->fNext;
-        if( fCurrDebugSound == nil )
+        if (fCurrDebugSound == nil)
         {
             // Trace back to find which list we were in
-            for( fCurrDebugSound = fSoftRegionSounds; fCurrDebugSound != nil; fCurrDebugSound = fCurrDebugSound->fNext )
+            for (fCurrDebugSound = fSoftRegionSounds; fCurrDebugSound != nil; fCurrDebugSound = fCurrDebugSound->fNext)
             {
-                if( fCurrDebugSound == node )   // Was in first list, move to 2nd
+                if (fCurrDebugSound == node)   // Was in first list, move to 2nd
                 {
                     fCurrDebugSound = fActiveSofts;
                     break;
@@ -859,10 +859,10 @@ void    plAudioSystem::NextDebugSound()
         }
     }
 
-    if( fCurrDebugSound != nil )
-        plSound::SetCurrDebugPlate( fCurrDebugSound->fSoundKey );
+    if (fCurrDebugSound != nil)
+        plSound::SetCurrDebugPlate(fCurrDebugSound->fSoundKey);
     else
-        plSound::SetCurrDebugPlate( nil );
+        plSound::SetCurrDebugPlate(nil);
 }
 
 void plAudioSystem::SetFadeLength(float lengthSec)
@@ -872,71 +872,71 @@ void plAudioSystem::SetFadeLength(float lengthSec)
     
 bool plAudioSystem::MsgReceive(plMessage* msg)
 {
-    if(plTimeMsg *time = plTimeMsg::ConvertNoRef( msg ) )
+    if (plTimeMsg *time = plTimeMsg::ConvertNoRef(msg))
     {
-        if(!plgAudioSys::IsMuted())
+        if (!plgAudioSys::IsMuted())
         {
             double currTime = hsTimer::GetSeconds();
-            if(fStartFade == 0)
+            if (fStartFade == 0)
             {
                 plStatusLog::AddLineSF("audio.log", "Starting Fade {f}", currTime);
             }
-            if((currTime - fStartFade) > fFadeLength)
+            if ((currTime - fStartFade) > fFadeLength)
             {
                 fStartFade = 0;
-                plgDispatch::Dispatch()->UnRegisterForExactType( plTimeMsg::Index(), GetKey() );
+                plgDispatch::Dispatch()->UnRegisterForExactType(plTimeMsg::Index(), GetKey());
                 plStatusLog::AddLineSF("audio.log", "Stopping Fade {f}", currTime);
-                plgAudioSys::SetGlobalFadeVolume( 1.0 );
+                plgAudioSys::SetGlobalFadeVolume(1.0);
             }
             else
             {
-                plgAudioSys::SetGlobalFadeVolume( (float)((currTime-fStartFade) / fFadeLength) );
+                plgAudioSys::SetGlobalFadeVolume((float)((currTime-fStartFade) / fFadeLength));
             }
         }
         return true;
     }
     
-    if (plAudioSysMsg* pASMsg = plAudioSysMsg::ConvertNoRef( msg ))
+    if (plAudioSysMsg* pASMsg = plAudioSysMsg::ConvertNoRef(msg))
     {
         if (pASMsg->GetAudFlag() == plAudioSysMsg::kPing && fListenerInit)
         {
-            plAudioSysMsg* pMsg = new plAudioSysMsg( plAudioSysMsg::kActivate );
-            pMsg->AddReceiver( pASMsg->GetSender() );
+            plAudioSysMsg* pMsg = new plAudioSysMsg(plAudioSysMsg::kActivate);
+            pMsg->AddReceiver(pASMsg->GetSender());
             pMsg->SetBCastFlag(plMessage::kBCastByExactType, false);
-            plgDispatch::MsgSend( pMsg );
+            plgDispatch::MsgSend(pMsg);
             return true;
         }
         else if (pASMsg->GetAudFlag() == plAudioSysMsg::kSetVol)
         {
             return true;
         }
-        else if( pASMsg->GetAudFlag() == plAudioSysMsg::kDestroy )
+        else if (pASMsg->GetAudFlag() == plAudioSysMsg::kDestroy)
         {
-            if( fWaitingForShutdown )
+            if (fWaitingForShutdown)
                 Shutdown();
             return true;
         }
-        else if( pASMsg->GetAudFlag() == plAudioSysMsg::kUnmuteAll )
+        else if (pASMsg->GetAudFlag() == plAudioSysMsg::kUnmuteAll)
         {
-            if( !pASMsg->HasBCastFlag( plMessage::kBCastByExactType ) )
-                plgAudioSys::SetMuted( false );
+            if (!pASMsg->HasBCastFlag(plMessage::kBCastByExactType))
+                plgAudioSys::SetMuted(false);
             return true;
         }
     }
     
-    if(plRenderMsg* pRMsg = plRenderMsg::ConvertNoRef( msg ))
+    if (plRenderMsg* pRMsg = plRenderMsg::ConvertNoRef(msg))
     {
-        //if( fListener )
+        //if (fListener)
         {
             plProfile_BeginLap(AudioUpdate, this->GetKey()->GetUoid().GetObjectName().c_str());
-            if(hsTimer::GetMilliSeconds() - fLastUpdateTimeMs > UPDATE_TIME_MS)
+            if (hsTimer::GetMilliSeconds() - fLastUpdateTimeMs > UPDATE_TIME_MS)
             {
-                IUpdateSoftSounds( fCurrListenerPos );
+                IUpdateSoftSounds(fCurrListenerPos);
 
-                if( fUsingEAX )
+                if (fUsingEAX)
                 {
                     plProfile_BeginTiming(SoundEAXUpdate);
-                    plEAXListener::GetInstance().ProcessMods( fEAXRegions );
+                    plEAXListener::GetInstance().ProcessMods(fEAXRegions);
                     plProfile_EndTiming(SoundEAXUpdate);
                 }
                 //fCommittedListenerPos = fCurrListenerPos;
@@ -947,26 +947,26 @@ bool plAudioSystem::MsgReceive(plMessage* msg)
         return true;
     }
 
-    if(plGenRefMsg *refMsg = plGenRefMsg::ConvertNoRef( msg ))
+    if (plGenRefMsg *refMsg = plGenRefMsg::ConvertNoRef(msg))
     {
-        if( refMsg->GetContext() & ( plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace ) )
+        if (refMsg->GetContext() & (plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace))
         {
-            fEAXRegions.Append( plEAXListenerMod::ConvertNoRef( refMsg->GetRef() ) );
+            fEAXRegions.Append(plEAXListenerMod::ConvertNoRef(refMsg->GetRef()));
             plEAXListener::GetInstance().ClearProcessCache();
         }
-        else if( refMsg->GetContext() & ( plRefMsg::kOnRemove | plRefMsg::kOnDestroy ) )
+        else if (refMsg->GetContext() & (plRefMsg::kOnRemove | plRefMsg::kOnDestroy))
         {
-            int idx = fEAXRegions.Find( plEAXListenerMod::ConvertNoRef( refMsg->GetRef() ) );
-            if( idx != fEAXRegions.kMissingIndex )
-                fEAXRegions.Remove( idx );
+            int idx = fEAXRegions.Find(plEAXListenerMod::ConvertNoRef(refMsg->GetRef()));
+            if (idx != fEAXRegions.kMissingIndex)
+                fEAXRegions.Remove(idx);
             plEAXListener::GetInstance().ClearProcessCache();
         }
         return true;
     }
     
-    if(plAgeLoadedMsg *pALMsg = plAgeLoadedMsg::ConvertNoRef(msg))
+    if (plAgeLoadedMsg *pALMsg = plAgeLoadedMsg::ConvertNoRef(msg))
     {
-        if(!pALMsg->fLoaded)
+        if (!pALMsg->fLoaded)
         {
             fLastPos = fCurrListenerPos;
             fListenerInit = false;
@@ -1058,7 +1058,7 @@ bool            plgAudioSys::fUseHardware = false;
 bool            plgAudioSys::fMuted = true;
 bool            plgAudioSys::fDelayedActivate = false;
 bool            plgAudioSys::fEnableEAX = false;
-float        plgAudioSys::fChannelVolumes[ kNumChannels ] = { 1.f, 1.f, 1.f, 1.f, 1.f, 1.f };
+float        plgAudioSys::fChannelVolumes[kNumChannels] = { 1.f, 1.f, 1.f, 1.f, 1.f, 1.f };
 float        plgAudioSys::f2D3DBias = 0.75f;
 uint32_t          plgAudioSys::fDebugFlags = 0;
 float        plgAudioSys::fStreamingBufferSize = 2.f;
@@ -1074,15 +1074,15 @@ bool            plgAudioSys::fMutedStateChange = false;
 void plgAudioSys::Init()
 {
     fSys = new plAudioSystem;
-    fSys->RegisterAs( kAudioSystem_KEY );
-    plgDispatch::Dispatch()->RegisterForExactType( plAudioSysMsg::Index(), fSys->GetKey() );
-    plgDispatch::Dispatch()->RegisterForExactType( plRenderMsg::Index(), fSys->GetKey() );
+    fSys->RegisterAs(kAudioSystem_KEY);
+    plgDispatch::Dispatch()->RegisterForExactType(plAudioSysMsg::Index(), fSys->GetKey());
+    plgDispatch::Dispatch()->RegisterForExactType(plRenderMsg::Index(), fSys->GetKey());
 
-    if(fMuted)
+    if (fMuted)
         SetGlobalFadeVolume(0.0f);
 
-    if( fDelayedActivate )
-        Activate( true );
+    if (fDelayedActivate)
+        Activate(true);
 }
 
 void plgAudioSys::SetActive(bool b)
@@ -1090,12 +1090,12 @@ void plgAudioSys::SetActive(bool b)
     fActive = b;
 }
 
-void plgAudioSys::SetMuted( bool b )
+void plgAudioSys::SetMuted(bool b)
 {
     fMuted = b;
     fMutedStateChange = true;
 
-    if(fMuted)
+    if (fMuted)
         SetGlobalFadeVolume(0.0f);
     else
         SetGlobalFadeVolume(1.0);
@@ -1104,37 +1104,37 @@ void plgAudioSys::SetMuted( bool b )
 void plgAudioSys::SetUseHardware(bool b)
 {
     fUseHardware = b;
-    if( fActive )
+    if (fActive)
         Restart();
 }
 
-void plgAudioSys::EnableEAX( bool b )
+void plgAudioSys::EnableEAX(bool b)
 {
     fEnableEAX = b;
-    if( fActive )
+    if (fActive)
         Restart();
 }
 
 void plgAudioSys::SetAudioMode(AudioMode mode)
 {
-    if(mode == kDisabled)
+    if (mode == kDisabled)
     {
         Activate(false);
         return;
     }
-    else if(mode == kSoftware)
+    else if (mode == kSoftware)
     {
         fActive = true;
         fUseHardware = false;
         fEnableEAX = false;
     }
-    else if(mode == kHardware)
+    else if (mode == kHardware)
     {
         fActive = true;
         fUseHardware = true;
         fEnableEAX = false;
     }
-    else if(mode == kHardwarePlusEAX)
+    else if (mode == kHardwarePlusEAX)
     {
         fActive = true;
         fUseHardware = true;
@@ -1171,26 +1171,26 @@ int plgAudioSys::GetAudioMode()
 
 void plgAudioSys::Restart()
 {
-    if( fSys )
+    if (fSys)
     {
         fSys->fRestartOnDestruct = true;
-        Activate( false );
+        Activate(false);
         fRestarting = true;
     }
 }
 
 void plgAudioSys::Shutdown()
 {
-    Activate( false );
-    if( fSys )
+    Activate(false);
+    if (fSys)
     {
-        fSys->UnRegisterAs( kAudioSystem_KEY );
+        fSys->UnRegisterAs(kAudioSystem_KEY);
     }
 }
 
 void plgAudioSys::Activate(bool b)
 {
-    if( fSys == nil )
+    if (fSys == nil)
     {
         fDelayedActivate = true;
         return;
@@ -1200,60 +1200,60 @@ void plgAudioSys::Activate(bool b)
         return;
     if (!fActive)
         return;
-    if( b )
+    if (b)
     {
         plStatusLog::AddLineS("audio.log", plStatusLog::kBlue, "ASYS: -- Attempting audio system init --");
-        if( !fSys->Init() )
+        if (!fSys->Init())
         {
             // Cannot init audio system. Don't activate
             return;
         }
         fInit = true;
-        fSys->SetActive( true );
+        fSys->SetActive(true);
 
-        if( !IsMuted() )
+        if (!IsMuted())
         {
-            SetMuted( true );
-            plAudioSysMsg *msg = new plAudioSysMsg( plAudioSysMsg::kUnmuteAll );
-            msg->SetTimeStamp( hsTimer::GetSysSeconds() );
-            msg->AddReceiver( fSys->GetKey() );
-            msg->SetBCastFlag( plMessage::kBCastByExactType, false );
+            SetMuted(true);
+            plAudioSysMsg *msg = new plAudioSysMsg(plAudioSysMsg::kUnmuteAll);
+            msg->SetTimeStamp(hsTimer::GetSysSeconds());
+            msg->AddReceiver(fSys->GetKey());
+            msg->SetBCastFlag(plMessage::kBCastByExactType, false);
             msg->Send();
         }
         return;
     }
 
-    fSys->SetActive( false );
+    fSys->SetActive(false);
     
     plStatusLog::AddLineS("audio.log", plStatusLog::kBlue, "ASYS: -- Sending deactivate/destroy messages --");
-    plgDispatch::MsgSend( new plAudioSysMsg( plAudioSysMsg::kDeActivate ) );
+    plgDispatch::MsgSend(new plAudioSysMsg(plAudioSysMsg::kDeActivate));
 
     // Send ourselves a shutdown message, so that the deactivates get processed first
     fSys->fWaitingForShutdown = true;
-    plAudioSysMsg *msg = new plAudioSysMsg( plAudioSysMsg::kDestroy );
-    msg->SetBCastFlag( plMessage::kBCastByExactType, false );
-    msg->Send( fSys->GetKey() );
+    plAudioSysMsg *msg = new plAudioSysMsg(plAudioSysMsg::kDestroy);
+    msg->SetBCastFlag(plMessage::kBCastByExactType, false);
+    msg->Send(fSys->GetKey());
 //  fSys->Shutdown();
 
     fInit = false;
 }
 
-void    plgAudioSys::SetChannelVolume( ASChannel chan, float vol )
+void    plgAudioSys::SetChannelVolume(ASChannel chan, float vol)
 {
-    fChannelVolumes[ chan ] = vol;
+    fChannelVolumes[chan] = vol;
 }
 
-void    plgAudioSys::SetGlobalFadeVolume( float vol )
+void    plgAudioSys::SetGlobalFadeVolume(float vol)
 {
-    if(!fMuted)
+    if (!fMuted)
         fGlobalFadeVolume = vol;
     else
         fGlobalFadeVolume = 0;
 }
 
-float    plgAudioSys::GetChannelVolume( ASChannel chan )
+float    plgAudioSys::GetChannelVolume(ASChannel chan)
 {
-    return fChannelVolumes[ chan ];
+    return fChannelVolumes[chan];
 }
 
 void    plgAudioSys::NextDebugSound()
@@ -1261,7 +1261,7 @@ void    plgAudioSys::NextDebugSound()
     fSys->NextDebugSound();
 }
 
-void plgAudioSys::Set2D3DBias( float bias )
+void plgAudioSys::Set2D3DBias(float bias)
 {
     f2D3DBias = bias;
 }
@@ -1274,20 +1274,20 @@ float plgAudioSys::Get2D3Dbias()
 void plgAudioSys::SetDeviceName(const char *device, bool restart /* = false */)
 {
     fDeviceName = device;
-    if(restart)
+    if (restart)
         Restart();
 }
 
 int plgAudioSys::GetNumAudioDevices()
 {
-    if(fSys)
+    if (fSys)
         return fSys->GetNumAudioDevices();
     return 0;
 }
 
 const char *plgAudioSys::GetAudioDeviceName(int index)
 {
-    if(fSys)
+    if (fSys)
     {
         return fSys->GetAudioDeviceName(index);
     }
@@ -1296,24 +1296,24 @@ const char *plgAudioSys::GetAudioDeviceName(int index)
 
 bool plgAudioSys::SupportsEAX(const char *deviceName)
 {
-    if(fSys)
+    if (fSys)
     {
         return fSys->SupportsEAX(deviceName);
     }
     return false;
 }
 
-void plgAudioSys::RegisterSoftSound( const plKey soundKey )
+void plgAudioSys::RegisterSoftSound(const plKey soundKey)
 {
-    if(fSys)
+    if (fSys)
     {
         fSys->RegisterSoftSound(soundKey);
     }
 }
 
-void plgAudioSys::UnregisterSoftSound( const plKey soundKey )
+void plgAudioSys::UnregisterSoftSound(const plKey soundKey)
 {
-    if(fSys)
+    if (fSys)
     {
         fSys->UnregisterSoftSound(soundKey);
     }
@@ -1321,7 +1321,7 @@ void plgAudioSys::UnregisterSoftSound( const plKey soundKey )
 
 void plgAudioSys::SetListenerPos(const hsPoint3 pos)
 {
-    if(fSys)
+    if (fSys)
     {
         fSys->SetListenerPos(pos);
     }
@@ -1329,7 +1329,7 @@ void plgAudioSys::SetListenerPos(const hsPoint3 pos)
 
 void plgAudioSys::SetListenerVelocity(const hsVector3 vel)
 {
-    if(fSys)
+    if (fSys)
     {
         fSys->SetListenerVelocity(vel);
     }
@@ -1337,7 +1337,7 @@ void plgAudioSys::SetListenerVelocity(const hsVector3 vel)
 
 void plgAudioSys::SetListenerOrientation(const hsVector3 view, const hsVector3 up)
 {
-    if(fSys)
+    if (fSys)
     {
         fSys->SetListenerOrientation(view, up);
     }

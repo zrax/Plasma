@@ -56,12 +56,12 @@ class plParticleUpdateMsg : public plMessage
 public:
     plParticleUpdateMsg()
         : plMessage(nil, nil, nil) {}
-    plParticleUpdateMsg(const plKey &s, const plKey &r, const double* t, uint32_t paramID, float paramValue )
+    plParticleUpdateMsg(const plKey &s, const plKey &r, const double* t, uint32_t paramID, float paramValue)
         : plMessage(s, r, t) { fParamID = paramID; fParamValue = paramValue; }
     virtual ~plParticleUpdateMsg() {}
 
-    CLASSNAME_REGISTER( plParticleUpdateMsg );
-    GETINTERFACE_ANY( plParticleUpdateMsg, plMessage );
+    CLASSNAME_REGISTER(plParticleUpdateMsg);
+    GETINTERFACE_ANY(plParticleUpdateMsg, plMessage);
 
     enum paramIDs
     {
@@ -121,12 +121,12 @@ public:
     uint16_t  fNumToTransfer; // number of particles to transfer
     
     plParticleTransferMsg() : plMessage(nil, nil, nil), fSysSOKey(nil), fNumToTransfer(0) {}
-    plParticleTransferMsg(const plKey &s, const plKey &r, const double* t, plKey sysSOKey, uint16_t numParticles )
+    plParticleTransferMsg(const plKey &s, const plKey &r, const double* t, plKey sysSOKey, uint16_t numParticles)
         : plMessage(s, r, t) { fSysSOKey = sysSOKey; fNumToTransfer = numParticles; }
     virtual ~plParticleTransferMsg() {}
 
-    CLASSNAME_REGISTER( plParticleTransferMsg );
-    GETINTERFACE_ANY( plParticleTransferMsg, plMessage );
+    CLASSNAME_REGISTER(plParticleTransferMsg);
+    GETINTERFACE_ANY(plParticleTransferMsg, plMessage);
 
     // IO
     virtual void Read(hsStream *stream, hsResMgr *mgr)
@@ -166,12 +166,12 @@ public:
     };
 
     plParticleKillMsg() : plMessage(nil, nil, nil), fNumToKill(0.f), fTimeLeft(0.f), fFlags(kParticleKillImmortalOnly) {}
-    plParticleKillMsg(const plKey &s, const plKey &r, const double* t, float numToKill, float timeLeft, uint8_t flags = kParticleKillImmortalOnly )
+    plParticleKillMsg(const plKey &s, const plKey &r, const double* t, float numToKill, float timeLeft, uint8_t flags = kParticleKillImmortalOnly)
         : plMessage(s, r, t) { fNumToKill = numToKill; fTimeLeft = timeLeft; fFlags = flags; }
     virtual ~plParticleKillMsg() {}
     
-    CLASSNAME_REGISTER( plParticleKillMsg );
-    GETINTERFACE_ANY( plParticleKillMsg, plMessage );
+    CLASSNAME_REGISTER(plParticleKillMsg);
+    GETINTERFACE_ANY(plParticleKillMsg, plMessage);
 
     // Local only
     virtual void Read(hsStream *stream, hsResMgr *mgr)
@@ -209,8 +209,8 @@ public:
         : plMessage(s, r, t), fCmd(cmd), fX(x), fY(y), fZ(z) {}
     virtual ~plParticleFlockMsg() {}
 
-    CLASSNAME_REGISTER( plParticleFlockMsg );
-    GETINTERFACE_ANY( plParticleFlockMsg, plMessage );
+    CLASSNAME_REGISTER(plParticleFlockMsg);
+    GETINTERFACE_ANY(plParticleFlockMsg, plMessage);
 
     // Local only
     virtual void Read(hsStream *stream, hsResMgr *mgr) {}

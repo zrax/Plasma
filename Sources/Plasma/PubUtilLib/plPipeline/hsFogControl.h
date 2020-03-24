@@ -75,8 +75,8 @@ public:
     hsFogControl() {}
     ~hsFogControl() {}
 
-    CLASSNAME_REGISTER( hsFogControl );
-    GETINTERFACE_ANY( hsFogControl, plCreatable );
+    CLASSNAME_REGISTER(hsFogControl);
+    GETINTERFACE_ANY(hsFogControl, plCreatable);
 
     virtual uint32_t      GetType() = 0;
 

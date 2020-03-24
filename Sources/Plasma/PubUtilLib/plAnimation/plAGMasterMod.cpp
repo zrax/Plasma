@@ -257,10 +257,10 @@ void plAGMasterMod::ApplyAnimations(double time, float elapsed)
 
 void plAGMasterMod::AdvanceAnimsToTime(double time)
 {
-    if(fNeedCompile)
+    if (fNeedCompile)
         Compile(time);
     
-    for(plChannelModMap::iterator j = fChannelMods.begin(); j != fChannelMods.end(); j++)
+    for (plChannelModMap::iterator j = fChannelMods.begin(); j != fChannelMods.end(); j++)
     {
         plAGModifier *mod = (*j).second;
         mod->Apply(time);
@@ -277,17 +277,17 @@ void plAGMasterMod::Compile(double time)
     plChannelModMap::iterator end = fChannelMods.end();
     fNeedCompile = false;
 
-    for(plChannelModMap::iterator j = fChannelMods.begin(); j != end; j++)
+    for (plChannelModMap::iterator j = fChannelMods.begin(); j != end; j++)
     {
         plAGModifier *mod = (*j).second;
         plAGApplicator *app = mod->GetApplicator(kAGPinTransform);
 
-        if(app) {
+        if (app) {
             plAGChannel *channel = app->GetChannel();
-            if(channel)
+            if (channel)
             {
                 plMatrixChannel *topChannel = plMatrixChannel::ConvertNoRef(channel);
-                if(topChannel)
+                if (topChannel)
                     topChannel->Optimize(time);
             }
         }
@@ -299,26 +299,26 @@ void plAGMasterMod::DumpAniGraph(const char *justThisChannel, bool optimized, do
     plChannelModMap::iterator end = fChannelMods.end();
     fNeedCompile = false;
 
-    for(plChannelModMap::iterator j = fChannelMods.begin(); j != end; j++)
+    for (plChannelModMap::iterator j = fChannelMods.begin(); j != end; j++)
     {
         plAGModifier *mod = (*j).second;
-        if(!justThisChannel || mod->GetChannelName().compare(justThisChannel, ST::case_insensitive) == 0)
+        if (!justThisChannel || mod->GetChannelName().compare(justThisChannel, ST::case_insensitive) == 0)
         {
             plAGApplicator *app = mod->GetApplicator(kAGPinTransform);
 
-            if(app) {
+            if (app) {
                 plAGChannel *channel = app->GetChannel();
-                if(channel)
+                if (channel)
                 {
                     plMatrixChannel *topChannel = plMatrixChannel::ConvertNoRef(channel);
-                    if(topChannel)
+                    if (topChannel)
                     {
                         hsStatusMessageF("AGModifier: <%s>", mod->GetChannelName().c_str());
                         topChannel->Dump(1, optimized, time);
                     }
                 }
             }
-            if(justThisChannel)
+            if (justThisChannel)
                 break;
         }
     }
@@ -326,7 +326,7 @@ void plAGMasterMod::DumpAniGraph(const char *justThisChannel, bool optimized, do
 
 // GETCHANNELMOD(name)
 // Get the modifier that controls the channel with the given name
-plAGModifier * plAGMasterMod::GetChannelMod(const ST::string & name, bool dontCache ) const
+plAGModifier * plAGMasterMod::GetChannelMod(const ST::string & name, bool dontCache) const
 {
     plAGModifier * result = nil;
     std::map<ST::string, plAGModifier *>::const_iterator i = fChannelMods.find(name);
@@ -335,9 +335,9 @@ plAGModifier * plAGMasterMod::GetChannelMod(const ST::string & name, bool dontCa
         result = (*i).second;
     } else {
         plSceneObject *SO = GetTarget(0);
-        if(SO) {
+        if (SO) {
             result = IFindChannelMod(SO, name);
-            if(result && !dontCache) {
+            if (result && !dontCache) {
                 ICacheChannelMod(result);
             }
         }
@@ -364,14 +364,14 @@ plAGModifier * plAGMasterMod::IFindChannelMod(const plSceneObject *SO, const ST:
     const plAGModifier * constMod = static_cast<const plAGModifier *>(FindModifierByClass(SO, plAGModifier::Index()));
     plAGModifier * mod = const_cast<plAGModifier *>(constMod);
 
-    if(mod)
+    if (mod)
     {
         ST::string modName = mod->GetChannelName();
-        if(modName.compare(name, ST::case_insensitive) == 0)
+        if (modName.compare(name, ST::case_insensitive) == 0)
             return mod;
     }
 
-    if(CI)
+    if (CI)
     {
         int childCount = CI->GetNumChildren();
         for (int i = 0; i < childCount; i++)
@@ -379,7 +379,7 @@ plAGModifier * plAGMasterMod::IFindChannelMod(const plSceneObject *SO, const ST:
             const plSceneObject * subChild = CI->GetChild(i)->GetOwner();
             plAGModifier * mod = IFindChannelMod(subChild, name);
 
-            if(mod)
+            if (mod)
                 return mod;
         }
     }
@@ -394,7 +394,7 @@ plAGAnimInstance * plAGMasterMod::AttachAnimationBlended(plAGAnim *anim,
 {
     plAGAnimInstance *instance = nil;
     plAnimVector::iterator i;
-    if(anim)
+    if (anim)
     {
         fNeedCompile = true;    // need to recompile the graph since we're editing it...
         for (i = fPrivateAnims.begin(); i != fPrivateAnims.end(); i++)
@@ -427,7 +427,7 @@ plAGAnimInstance * plAGMasterMod::AttachAnimationBlended(const ST::string &name,
     plAGAnimInstance *instance = nil;
     plAGAnim *anim = plAGAnim::FindAnim(name);
 
-    if(anim)
+    if (anim)
     {
         instance = AttachAnimationBlended(anim, blendFactor, blendPriority, cache);
     }
@@ -472,7 +472,7 @@ plAGAnimInstance * plAGMasterMod::FindAnimInstance(const ST::string &name)
             plAGAnimInstance *act = fAnimInstances[i];
             ST::string eachName = act->GetName();
 
-            if( eachName.compare(name, ST::case_insensitive) == 0)
+            if (eachName.compare(name, ST::case_insensitive) == 0)
             {
                 result = act;
                 break;
@@ -486,7 +486,7 @@ plAGAnimInstance * plAGMasterMod::FindAnimInstance(const ST::string &name)
 plAGAnimInstance * plAGMasterMod::FindOrAttachInstance(const ST::string &name, float blendFactor)
 {
     plAGAnimInstance *result = FindAnimInstance(name);
-    if(result)
+    if (result)
     {
         // if it's already attached, we need to set the blend
         result->SetBlend(blendFactor);
@@ -532,7 +532,7 @@ void plAGMasterMod::DetachAllAnimations()
     for (int i = nInstances - 1; i >= 0; i--)
     {
         plAGAnimInstance * instance = fAnimInstances[i];
-        if(instance)
+        if (instance)
         {
             DetachAnimation(instance);
             // delete instance;
@@ -551,11 +551,11 @@ void plAGMasterMod::DetachAnimation(plAGAnimInstance *anim)
     
     fNeedCompile = true;    // need to recompile the graph since we're editing it...
 
-    for ( i = fAnimInstances.begin(); i != fAnimInstances.end(); i++)
+    for (i = fAnimInstances.begin(); i != fAnimInstances.end(); i++)
     {
         plAGAnimInstance *instance = *i;
 
-        if(instance == anim)
+        if (instance == anim)
         {
             // DetachAnimation(instance);
             instance->DetachChannels();
@@ -575,11 +575,11 @@ void plAGMasterMod::DetachAnimation(plAGAnimInstance *anim)
             break;
         }
     }
-    for ( i = fATCAnimInstances.begin(); i != fATCAnimInstances.end(); i++)
+    for (i = fATCAnimInstances.begin(); i != fATCAnimInstances.end(); i++)
     {
         plAGAnimInstance *instance = *i;
 
-        if(instance == anim)
+        if (instance == anim)
         {
             i = fATCAnimInstances.erase(i);
             break;
@@ -591,17 +591,17 @@ void plAGMasterMod::DetachAnimation(plAGAnimInstance *anim)
 void plAGMasterMod::DetachAnimation(const ST::string &name)
 {
     plAGAnimInstance *anim = FindAnimInstance(name);
-    if(anim) {
+    if (anim) {
         DetachAnimation(anim);
     }
 }
 
 void plAGMasterMod::DumpCurrentAnims(const char *header)
 {
-    if(header)
+    if (header)
         hsStatusMessageF("Dumping Armature Anim Stack: %s", header);
     int nAnims = fAnimInstances.size();
-    for(int i = nAnims - 1; i >= 0; i--)
+    for (int i = nAnims - 1; i >= 0; i--)
     {
         plAGAnimInstance *inst = fAnimInstances[i];
         ST::string name = inst->GetName();
@@ -717,11 +717,11 @@ bool plAGMasterMod::MsgReceive(plMessage* msg)
                 if (genRefMsg->fType == kPrivateAnim)
                 {
                     plAnimVector::iterator i = fPrivateAnims.begin();
-                    for ( ; i != fPrivateAnims.end(); i++)
+                    for (; i != fPrivateAnims.end(); i++)
                     {
                         plAGAnim *currAnim = *i;
 
-                        if(currAnim == anim)
+                        if (currAnim == anim)
                         {
                             i = fPrivateAnims.erase(i);
                             break;
@@ -759,7 +759,7 @@ bool plAGMasterMod::MsgReceive(plMessage* msg)
     plRefMsg* refMsg = plRefMsg::ConvertNoRef(msg);
     if (refMsg)
     {
-        if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+        if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
             AddTarget(plSceneObject::ConvertNoRef(refMsg->GetRef()));
         else
             RemoveTarget(plSceneObject::ConvertNoRef(refMsg->GetRef()));
@@ -802,10 +802,10 @@ bool plAGMasterMod::HasRunningAnims()
 //
 bool plAGMasterMod::DirtySynchState(const ST::string& SDLStateName, uint32_t synchFlags)
 {
-    if(GetNumTargets() > 0 && (!fIsGrouped || fIsGroupMaster))
+    if (GetNumTargets() > 0 && (!fIsGrouped || fIsGroupMaster))
     {
         plSceneObject *sObj = GetTarget(0);
-        if(sObj)
+        if (sObj)
             return sObj->DirtySynchState(SDLStateName, synchFlags);
     }
     return false;

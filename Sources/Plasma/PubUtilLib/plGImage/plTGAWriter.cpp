@@ -65,44 +65,44 @@ plTGAWriter plTGAWriter::fInstance;
 
 //// WriteMipmap //////////////////////////////////////////////////////////////
 
-void    plTGAWriter::WriteMipmap( const char *fileName, plMipmap *mipmap )
+void    plTGAWriter::WriteMipmap(const char *fileName, plMipmap *mipmap)
 {
     hsUNIXStream    stream;
     int             x, y;
     hsRGBAColor32   pixel;
 
 
-    stream.Open( fileName, "wb" );
+    stream.Open(fileName, "wb");
 
     /// Write header
-    stream.WriteByte( 0 );  // Size of ID field
-    stream.WriteByte( 0 );  // Map type
-    stream.WriteByte( 2 );  // Type 2 image - Unmapped RGB
+    stream.WriteByte(0);  // Size of ID field
+    stream.WriteByte(0);  // Map type
+    stream.WriteByte(2);  // Type 2 image - Unmapped RGB
 
-    stream.WriteByte( 0 );  // Color map spec
-    stream.WriteByte( 0 );  // Color map spec
-    stream.WriteByte( 0 );  // Color map spec
-    stream.WriteByte( 0 );  // Color map spec
-    stream.WriteByte( 0 );  // Color map spec
+    stream.WriteByte(0);  // Color map spec
+    stream.WriteByte(0);  // Color map spec
+    stream.WriteByte(0);  // Color map spec
+    stream.WriteByte(0);  // Color map spec
+    stream.WriteByte(0);  // Color map spec
 
-    stream.WriteLE16( 0 );    // xOrigin
-    stream.WriteLE16( 0 );    // yOrigin
+    stream.WriteLE16(0);    // xOrigin
+    stream.WriteLE16(0);    // yOrigin
 
-    stream.WriteLE16( (uint16_t)mipmap->GetWidth() );
-    stream.WriteLE16( (uint16_t)mipmap->GetHeight() );
+    stream.WriteLE16((uint16_t)mipmap->GetWidth());
+    stream.WriteLE16((uint16_t)mipmap->GetHeight());
 
-    stream.WriteByte( 24 );
-    stream.WriteByte( 0 );
+    stream.WriteByte(24);
+    stream.WriteByte(0);
 
     /// Write image data (gotta do inversed, stupid TGAs...)
-    for( y = mipmap->GetHeight() - 1; y >= 0; y-- )
+    for (y = mipmap->GetHeight() - 1; y >= 0; y--)
     {
-        for( x = 0; x < mipmap->GetWidth(); x++ )
+        for (x = 0; x < mipmap->GetWidth(); x++)
         {
-            pixel = *( (hsRGBAColor32 *)mipmap->GetAddr32( x, y ) );
-            stream.WriteByte( pixel.b );
-            stream.WriteByte( pixel.g );
-            stream.WriteByte( pixel.r );
+            pixel = *((hsRGBAColor32 *)mipmap->GetAddr32(x, y));
+            stream.WriteByte(pixel.b);
+            stream.WriteByte(pixel.g);
+            stream.WriteByte(pixel.r);
         }
     }
 

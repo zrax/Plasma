@@ -58,8 +58,8 @@ public:
     plConvexVolume();
     ~plConvexVolume();
 
-    CLASSNAME_REGISTER( plConvexVolume );
-    GETINTERFACE_ANY( plConvexVolume, plCreatable );
+    CLASSNAME_REGISTER(plConvexVolume);
+    GETINTERFACE_ANY(plConvexVolume, plCreatable);
 
     void Update(const hsMatrix44 &l2w);
 
@@ -94,7 +94,7 @@ inline bool plConvexVolume::TestPlane(const hsPoint3 &pos, const hsPlane3 &plane
 {
     float dis = plane.fN.InnerProduct(pos);
     dis += plane.fD;
-    if( dis >= 0.f )
+    if (dis >= 0.f)
         return false;
                         
     return true;

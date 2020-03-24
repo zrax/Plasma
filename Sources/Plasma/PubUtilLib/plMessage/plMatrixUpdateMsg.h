@@ -56,11 +56,11 @@ public:
                     const double* t){SetBCastFlag(plMessage::kPropagateToModifiers);}
     ~plMatrixUpdateMsg() { }
 
-    CLASSNAME_REGISTER( plMatrixUpdateMsg );
-    GETINTERFACE_ANY( plMatrixUpdateMsg, plMessage );
+    CLASSNAME_REGISTER(plMatrixUpdateMsg);
+    GETINTERFACE_ANY(plMatrixUpdateMsg, plMessage);
 
-    void Read( hsStream* s, hsResMgr* mgr );
-    void Write( hsStream* s, hsResMgr* mgr );
+    void Read(hsStream* s, hsResMgr* mgr);
+    void Write(hsStream* s, hsResMgr* mgr);
 
 
     hsMatrix44  fMatrix;

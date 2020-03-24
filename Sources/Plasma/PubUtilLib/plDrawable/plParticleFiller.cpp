@@ -67,22 +67,22 @@ static float sInvDelSecs;
 //// Local Static Stuff ///////////////////////////////////////////////////////
 
 /// Macros for getting/setting data in a D3D vertex buffer
-#define STUFF_POINT( ptr, point ) { float *fPtr = (float *)ptr; \
-                                    fPtr[ 0 ] = point.fX; fPtr[ 1 ] = point.fY; fPtr[ 2 ] = point.fZ; \
-                                    ptr += sizeof( float ) * 3; }
+#define STUFF_POINT(ptr, point) { float *fPtr = (float *)ptr; \
+                                  fPtr[0] = point.fX; fPtr[1] = point.fY; fPtr[2] = point.fZ; \
+                                  ptr += sizeof(float) * 3; }
 
-#define STUFF_UINT32( ptr, uint ) { uint32_t *dPtr = (uint32_t *)ptr; \
-                                    dPtr[ 0 ] = uint; ptr += sizeof( uint32_t ); }
+#define STUFF_UINT32(ptr, uint) { uint32_t *dPtr = (uint32_t *)ptr; \
+                                  dPtr[0] = uint; ptr += sizeof(uint32_t); }
 
-#define EXTRACT_POINT( ptr, pt ) { float *fPtr = (float *)ptr; \
-                                      pt.fX = fPtr[ 0 ]; pt.fY = fPtr[ 1 ]; pt.fZ = fPtr[ 2 ]; \
-                                      ptr += sizeof( float ) * 3; }
-#define EXTRACT_FLOAT( ptr, f ) { float *fPtr = (float *)ptr; \
-                                      f = fPtr[ 0 ]; \
-                                      ptr += sizeof( float ); }
+#define EXTRACT_POINT(ptr, pt) { float *fPtr = (float *)ptr; \
+                                 pt.fX = fPtr[0]; pt.fY = fPtr[1]; pt.fZ = fPtr[2]; \
+                                 ptr += sizeof(float) * 3; }
+#define EXTRACT_FLOAT(ptr, f) { float *fPtr = (float *)ptr; \
+                                f = fPtr[0]; \
+                                ptr += sizeof(float); }
 
-#define EXTRACT_UINT32( ptr, uint ) { uint32_t *dPtr = (uint32_t *)ptr; \
-                                      uint = dPtr[ 0 ]; ptr += sizeof( uint32_t ); }
+#define EXTRACT_UINT32(ptr, uint) { uint32_t *dPtr = (uint32_t *)ptr; \
+                                    uint = dPtr[0]; ptr += sizeof(uint32_t); }
 
 
 static float sCurrMinWidth = 0;
@@ -98,8 +98,8 @@ static float sCurrMinWidth = 0;
 //  maintain without loosing speed (hence the inlines, which will *hopefully*
 //  remove the function call overhead....)
 
-void inline IInlSetParticlePathFollow( const plParticleCore &particle, const hsMatrix44& viewToWorld,
-                                      hsVector3 &xVec, hsVector3 &yVec, hsVector3 &zVec )
+void inline IInlSetParticlePathFollow(const plParticleCore &particle, const hsMatrix44& viewToWorld,
+                                      hsVector3 &xVec, hsVector3 &yVec, hsVector3 &zVec)
 {
 
     /// Follow path specified by interpreting orientation as a velocity vector.
@@ -121,8 +121,8 @@ void inline IInlSetParticlePathFollow( const plParticleCore &particle, const hsM
     yVec *= particle.fVSize;
 }
 
-void inline IInlSetParticlePathStretch( const plParticleCore &particle, const hsMatrix44& viewToWorld,
-                                      hsVector3 &xVec, hsVector3 &yVec, hsVector3 &zVec )
+void inline IInlSetParticlePathStretch(const plParticleCore &particle, const hsMatrix44& viewToWorld,
+                                      hsVector3 &xVec, hsVector3 &yVec, hsVector3 &zVec)
 {
 
     /// Follow path specified by interpreting orientation as a velocity vector.
@@ -173,7 +173,7 @@ void inline IInlSetParticlePathStretch( const plParticleCore &particle, const hs
     xVec = yVec % viewDir; // cross product of two orthonormal vectors, no need to normalize.
 
     float xLen = particle.fHSize;
-    if( xLen * invD < sCurrMinWidth )
+    if (xLen * invD < sCurrMinWidth)
         xLen = sCurrMinWidth / invD;
     xVec *= xLen;
 
@@ -185,8 +185,8 @@ void inline IInlSetParticlePathStretch( const plParticleCore &particle, const hs
     yVec *= len * -1.f;
 }
 
-void inline IInlSetParticlePathFlow( const plParticleCore &particle, const hsMatrix44& viewToWorld,
-                                      hsVector3 &xVec, hsVector3 &yVec, hsVector3 &zVec )
+void inline IInlSetParticlePathFlow(const plParticleCore &particle, const hsMatrix44& viewToWorld,
+                                      hsVector3 &xVec, hsVector3 &yVec, hsVector3 &zVec)
 {
 
     // Okay, all the notes for SetParticlePathStretch apply here too. The only
@@ -215,7 +215,7 @@ void inline IInlSetParticlePathFlow( const plParticleCore &particle, const hsMat
     float len = yVec.InnerProduct(orientation);
 
     float xLen = particle.fHSize * hsFastMath::InvSqrtAppr(1.f + len * sInvDelSecs);
-    if( xLen * invD < sCurrMinWidth )
+    if (xLen * invD < sCurrMinWidth)
         xLen = sCurrMinWidth / invD;
     xVec *= xLen;
 
@@ -226,13 +226,13 @@ void inline IInlSetParticlePathFlow( const plParticleCore &particle, const hsMat
 
 }
 
-void inline IInlSetParticleExplicit( const hsMatrix44 &viewToWorld, const plParticleCore &particle,
-                                      hsVector3 &xVec, hsVector3 &yVec, hsVector3 &zVec )
+void inline IInlSetParticleExplicit(const hsMatrix44 &viewToWorld, const plParticleCore &particle,
+                                      hsVector3 &xVec, hsVector3 &yVec, hsVector3 &zVec)
 {
     const hsVector3& orientation = (const hsVector3)(particle.fOrientation);
 #if 0 // See notes below - mf
-    zVec.Set( 0, 0, -1 );
-    yVec.Set( &orientation );
+    zVec.Set(0, 0, -1);
+    yVec.Set(&orientation);
     zVec = viewToWorld * zVec;
     yVec = viewToWorld * yVec;
     xVec = yVec % zVec;
@@ -254,91 +254,91 @@ void inline IInlSetParticleExplicit( const hsMatrix44 &viewToWorld, const plPart
     xVec = yVec % zVec;
 #endif // See notes below - mf
 
-    xVec = hsFastMath::NormalizeAppr( xVec ) * particle.fHSize;
-    yVec = hsFastMath::NormalizeAppr( yVec ) * particle.fVSize;
+    xVec = hsFastMath::NormalizeAppr(xVec) * particle.fHSize;
+    yVec = hsFastMath::NormalizeAppr(yVec) * particle.fVSize;
 }
 
-void inline IInlSetParticlePoints( const hsVector3 &xVec, const hsVector3 &yVec, const plParticleCore &particle,
-                                   hsPoint3 *partPts, uint32_t &partColor )
+void inline IInlSetParticlePoints(const hsVector3 &xVec, const hsVector3 &yVec, const plParticleCore &particle,
+                                  hsPoint3 *partPts, uint32_t &partColor)
 {
     /// Do the 4 verts for this particle
-    partPts[ 0 ] = partPts[ 1 ] = partPts[ 2 ] = partPts[ 3 ] = particle.fPos;
-    partPts[ 0 ] +=  xVec - yVec;
-    partPts[ 1 ] += -xVec - yVec;
-    partPts[ 2 ] += -xVec + yVec;
-    partPts[ 3 ] +=  xVec + yVec;
+    partPts[0] = partPts[1] = partPts[2] = partPts[3] = particle.fPos;
+    partPts[0] +=  xVec - yVec;
+    partPts[1] += -xVec - yVec;
+    partPts[2] += -xVec + yVec;
+    partPts[3] +=  xVec + yVec;
 
     partColor = particle.fColor;
 }
 
-void inline IInlSetParticlePointsStretch( const hsVector3 &xVec, const hsVector3 &yVec, const plParticleCore &particle,
-                                   hsPoint3 *partPts, uint32_t &partColor )
+void inline IInlSetParticlePointsStretch(const hsVector3 &xVec, const hsVector3 &yVec, const plParticleCore &particle,
+                                         hsPoint3 *partPts, uint32_t &partColor)
 {
     /// Do the 4 verts for this particle
-    partPts[ 0 ] = partPts[ 1 ] = partPts[ 2 ] = partPts[ 3 ] = particle.fPos;
-    partPts[ 0 ] +=  xVec + yVec;
-    partPts[ 1 ] += -xVec + yVec;
-    partPts[ 2 ] += -xVec;
-    partPts[ 3 ] +=  xVec;
+    partPts[0] = partPts[1] = partPts[2] = partPts[3] = particle.fPos;
+    partPts[0] +=  xVec + yVec;
+    partPts[1] += -xVec + yVec;
+    partPts[2] += -xVec;
+    partPts[3] +=  xVec;
 
     partColor = particle.fColor;
 }
 
-void inline IInlStuffParticle1UV( uint8_t *&destPtr, const hsPoint3 *partPts, const hsVector3 &partNorm,
-                                  const uint32_t &partColor, const plParticleCore &particle )
+void inline IInlStuffParticle1UV(uint8_t *&destPtr, const hsPoint3 *partPts, const hsVector3 &partNorm,
+                                 const uint32_t &partColor, const plParticleCore &particle)
 {
     uint8_t       j;
 
 
-    for( j = 0; j < 4; j++ )
+    for (j = 0; j < 4; j++)
     {
-        STUFF_POINT( destPtr, partPts[ j ] );
-        STUFF_POINT( destPtr, partNorm );
-        STUFF_UINT32( destPtr, partColor );
-        STUFF_UINT32( destPtr, 0 );
-        STUFF_POINT( destPtr, particle.fUVCoords[ j ] );
+        STUFF_POINT(destPtr, partPts[j]);
+        STUFF_POINT(destPtr, partNorm);
+        STUFF_UINT32(destPtr, partColor);
+        STUFF_UINT32(destPtr, 0);
+        STUFF_POINT(destPtr, particle.fUVCoords[j]);
     }
 }
 
-void inline IInlStuffParticleNoUVs( uint8_t *&destPtr, const hsPoint3 *partPts, const hsVector3 &partNorm,
-                                  const uint32_t &partColor )
+void inline IInlStuffParticleNoUVs(uint8_t *&destPtr, const hsPoint3 *partPts, const hsVector3 &partNorm,
+                                   const uint32_t &partColor)
 {
     uint8_t       j;
 
 
-    for( j = 0; j < 4; j++ )
+    for (j = 0; j < 4; j++)
     {
-        STUFF_POINT( destPtr, partPts[ j ] );
-        STUFF_POINT( destPtr, partNorm );
-        STUFF_UINT32( destPtr, partColor );
-        STUFF_UINT32( destPtr, 0 );
+        STUFF_POINT(destPtr, partPts[j]);
+        STUFF_POINT(destPtr, partNorm);
+        STUFF_UINT32(destPtr, partColor);
+        STUFF_UINT32(destPtr, 0);
     }
 }
 
-void inline IInlSetNormalViewFace( hsVector3 &partNorm, const hsVector3 &zVec )
+void inline IInlSetNormalViewFace(hsVector3 &partNorm, const hsVector3 &zVec)
 {
     partNorm = -zVec;
 }
 
-void inline IInlSetNormalStrongestLight( hsVector3 &partNorm, const plParticleCore &particle,
-                                        const plOmniLightInfo *omniLight, const plDirectionalLightInfo *directionLight, const hsVector3 &zVec )
+void inline IInlSetNormalStrongestLight(hsVector3 &partNorm, const plParticleCore &particle,
+                                        const plOmniLightInfo *omniLight, const plDirectionalLightInfo *directionLight, const hsVector3 &zVec)
 {
-    if( omniLight != nil )
+    if (omniLight != nil)
     {
         hsPoint3 pos = omniLight->GetWorldPosition();
-        partNorm.Set( &particle.fPos, &pos );
+        partNorm.Set(&particle.fPos, &pos);
         partNorm = -partNorm;
     }
-    else if( directionLight != nil )
+    else if (directionLight != nil)
     {
         partNorm = -directionLight->GetWorldDirection();
     }
     else
         partNorm = -zVec;
-    partNorm = hsFastMath::NormalizeAppr( partNorm );
+    partNorm = hsFastMath::NormalizeAppr(partNorm);
 }
 
-void inline IInlSetNormalExplicit( hsVector3 &partNorm, const plParticleCore &particle )
+void inline IInlSetNormalExplicit(hsVector3 &partNorm, const plParticleCore &particle)
 {
     partNorm = particle.fNormal;
 }
@@ -354,278 +354,278 @@ void inline IInlSetNormalExplicit( hsVector3 &partNorm, const plParticleCore &pa
 #define IIPL_PROLOG         \
     uint32_t      i, partColor; \
     hsVector3   xVec, yVec, zVec, partNorm; \
-    hsPoint3    partPts[ 4 ]; \
-    for( i = 0; i < numParticles; i++ )
+    hsPoint3    partPts[4]; \
+    for (i = 0; i < numParticles; i++)
 
-void inline IIPL_1UV_OVel_NViewFace( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr )
+void inline IIPL_1UV_OVel_NViewFace(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr)
 {
     IIPL_PROLOG
     {
-        IInlSetParticlePathFollow( particles[ i ], viewToWorld, xVec, yVec, zVec );
-        IInlSetParticlePoints( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalViewFace( partNorm, zVec );
-        IInlStuffParticle1UV( destPtr, partPts, partNorm, partColor, particles[ i ] );
+        IInlSetParticlePathFollow(particles[i], viewToWorld, xVec, yVec, zVec);
+        IInlSetParticlePoints(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalViewFace(partNorm, zVec);
+        IInlStuffParticle1UV(destPtr, partPts, partNorm, partColor, particles[i]);
     }
 }
 
-void inline IIPL_1UV_OVel_NLite( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr,
-                                const plOmniLightInfo *omniLight, const plDirectionalLightInfo *directionLight )
+void inline IIPL_1UV_OVel_NLite(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr,
+                                const plOmniLightInfo *omniLight, const plDirectionalLightInfo *directionLight)
 {
     IIPL_PROLOG
     {
-        IInlSetParticlePathFollow( particles[ i ], viewToWorld, xVec, yVec, zVec );
-        IInlSetParticlePoints( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalStrongestLight( partNorm, particles[ i ], omniLight, directionLight, zVec );
-        IInlStuffParticle1UV( destPtr, partPts, partNorm, partColor, particles[ i ] );
+        IInlSetParticlePathFollow(particles[i], viewToWorld, xVec, yVec, zVec);
+        IInlSetParticlePoints(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalStrongestLight(partNorm, particles[i], omniLight, directionLight, zVec);
+        IInlStuffParticle1UV(destPtr, partPts, partNorm, partColor, particles[i]);
     }
 }
 
-void inline IIPL_1UV_OVel_NExp( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr )
+void inline IIPL_1UV_OVel_NExp(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr)
 {
     IIPL_PROLOG
     {
-        IInlSetParticlePathFollow( particles[ i ], viewToWorld, xVec, yVec, zVec );
-        IInlSetParticlePoints( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalExplicit( partNorm, particles[ i ] );
-        IInlStuffParticle1UV( destPtr, partPts, partNorm, partColor, particles[ i ] );
+        IInlSetParticlePathFollow(particles[i], viewToWorld, xVec, yVec, zVec);
+        IInlSetParticlePoints(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalExplicit(partNorm, particles[i]);
+        IInlStuffParticle1UV(destPtr, partPts, partNorm, partColor, particles[i]);
     }
 }
 
-void inline IIPL_1UV_OStr_NViewFace( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr )
+void inline IIPL_1UV_OStr_NViewFace(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr)
 {
     IIPL_PROLOG
     {
-        IInlSetParticlePathStretch( particles[ i ], viewToWorld, xVec, yVec, zVec );
-        IInlSetParticlePointsStretch( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalViewFace( partNorm, zVec );
-        IInlStuffParticle1UV( destPtr, partPts, partNorm, partColor, particles[ i ] );
+        IInlSetParticlePathStretch(particles[i], viewToWorld, xVec, yVec, zVec);
+        IInlSetParticlePointsStretch(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalViewFace(partNorm, zVec);
+        IInlStuffParticle1UV(destPtr, partPts, partNorm, partColor, particles[i]);
     }
 }
 
-void inline IIPL_1UV_OStr_NLite( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr,
-                                const plOmniLightInfo *omniLight, const plDirectionalLightInfo *directionLight )
+void inline IIPL_1UV_OStr_NLite(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr,
+                                const plOmniLightInfo *omniLight, const plDirectionalLightInfo *directionLight)
 {
     IIPL_PROLOG
     {
-        IInlSetParticlePathStretch( particles[ i ], viewToWorld, xVec, yVec, zVec );
-        IInlSetParticlePointsStretch( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalStrongestLight( partNorm, particles[ i ], omniLight, directionLight, zVec );
-        IInlStuffParticle1UV( destPtr, partPts, partNorm, partColor, particles[ i ] );
+        IInlSetParticlePathStretch(particles[i], viewToWorld, xVec, yVec, zVec);
+        IInlSetParticlePointsStretch(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalStrongestLight(partNorm, particles[i], omniLight, directionLight, zVec);
+        IInlStuffParticle1UV(destPtr, partPts, partNorm, partColor, particles[i]);
     }
 }
 
-void inline IIPL_1UV_OStr_NExp( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr )
+void inline IIPL_1UV_OStr_NExp(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr)
 {
     IIPL_PROLOG
     {
-        IInlSetParticlePathStretch( particles[ i ], viewToWorld, xVec, yVec, zVec );
-        IInlSetParticlePointsStretch( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalExplicit( partNorm, particles[ i ] );
-        IInlStuffParticle1UV( destPtr, partPts, partNorm, partColor, particles[ i ] );
+        IInlSetParticlePathStretch(particles[i], viewToWorld, xVec, yVec, zVec);
+        IInlSetParticlePointsStretch(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalExplicit(partNorm, particles[i]);
+        IInlStuffParticle1UV(destPtr, partPts, partNorm, partColor, particles[i]);
     }
 }
 
-void inline IIPL_1UV_OFlo_NViewFace( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr )
+void inline IIPL_1UV_OFlo_NViewFace(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr)
 {
     IIPL_PROLOG
     {
-        IInlSetParticlePathFlow( particles[ i ], viewToWorld, xVec, yVec, zVec );
-        IInlSetParticlePointsStretch( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalViewFace( partNorm, zVec );
-        IInlStuffParticle1UV( destPtr, partPts, partNorm, partColor, particles[ i ] );
+        IInlSetParticlePathFlow(particles[i], viewToWorld, xVec, yVec, zVec);
+        IInlSetParticlePointsStretch(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalViewFace(partNorm, zVec);
+        IInlStuffParticle1UV(destPtr, partPts, partNorm, partColor, particles[i]);
     }
 }
 
-void inline IIPL_1UV_OFlo_NLite( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr,
-                                const plOmniLightInfo *omniLight, const plDirectionalLightInfo *directionLight )
+void inline IIPL_1UV_OFlo_NLite(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr,
+                                const plOmniLightInfo *omniLight, const plDirectionalLightInfo *directionLight)
 {
     IIPL_PROLOG
     {
-        IInlSetParticlePathFlow( particles[ i ], viewToWorld, xVec, yVec, zVec );
-        IInlSetParticlePointsStretch( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalStrongestLight( partNorm, particles[ i ], omniLight, directionLight, zVec );
-        IInlStuffParticle1UV( destPtr, partPts, partNorm, partColor, particles[ i ] );
+        IInlSetParticlePathFlow(particles[i], viewToWorld, xVec, yVec, zVec);
+        IInlSetParticlePointsStretch(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalStrongestLight(partNorm, particles[i], omniLight, directionLight, zVec);
+        IInlStuffParticle1UV(destPtr, partPts, partNorm, partColor, particles[i]);
     }
 }
 
-void inline IIPL_1UV_OFlo_NExp( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr )
+void inline IIPL_1UV_OFlo_NExp(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr)
 {
     IIPL_PROLOG
     {
-        IInlSetParticlePathFlow( particles[ i ], viewToWorld, xVec, yVec, zVec );
-        IInlSetParticlePointsStretch( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalExplicit( partNorm, particles[ i ] );
-        IInlStuffParticle1UV( destPtr, partPts, partNorm, partColor, particles[ i ] );
+        IInlSetParticlePathFlow(particles[i], viewToWorld, xVec, yVec, zVec);
+        IInlSetParticlePointsStretch(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalExplicit(partNorm, particles[i]);
+        IInlStuffParticle1UV(destPtr, partPts, partNorm, partColor, particles[i]);
     }
 }
 
-void inline IIPL_1UV_OExp_NViewFace( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr )
+void inline IIPL_1UV_OExp_NViewFace(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr)
 {
     IIPL_PROLOG
     {
-        IInlSetParticleExplicit( viewToWorld, particles[ i ], xVec, yVec, zVec );
-        IInlSetParticlePoints( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalViewFace( partNorm, zVec );
-        IInlStuffParticle1UV( destPtr, partPts, partNorm, partColor, particles[ i ] );
+        IInlSetParticleExplicit(viewToWorld, particles[i], xVec, yVec, zVec);
+        IInlSetParticlePoints(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalViewFace(partNorm, zVec);
+        IInlStuffParticle1UV(destPtr, partPts, partNorm, partColor, particles[i]);
     }
 }
 
-void inline IIPL_1UV_OExp_NLite( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr,
-                                const plOmniLightInfo *omniLight, const plDirectionalLightInfo *directionLight )
+void inline IIPL_1UV_OExp_NLite(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr,
+                                const plOmniLightInfo *omniLight, const plDirectionalLightInfo *directionLight)
 {
     IIPL_PROLOG
     {
-        IInlSetParticleExplicit( viewToWorld, particles[ i ], xVec, yVec, zVec );
-        IInlSetParticlePoints( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalStrongestLight( partNorm, particles[ i ], omniLight, directionLight, zVec );
-        IInlStuffParticle1UV( destPtr, partPts, partNorm, partColor, particles[ i ] );
+        IInlSetParticleExplicit(viewToWorld, particles[i], xVec, yVec, zVec);
+        IInlSetParticlePoints(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalStrongestLight(partNorm, particles[i], omniLight, directionLight, zVec);
+        IInlStuffParticle1UV(destPtr, partPts, partNorm, partColor, particles[i]);
     }
 }
 
-void inline IIPL_1UV_OExp_NExp( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr )
+void inline IIPL_1UV_OExp_NExp(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr)
 {
     IIPL_PROLOG
     {
-        IInlSetParticleExplicit( viewToWorld, particles[ i ], xVec, yVec, zVec );
-        IInlSetParticlePoints( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalExplicit( partNorm, particles[ i ] );
-        IInlStuffParticle1UV( destPtr, partPts, partNorm, partColor, particles[ i ] );
+        IInlSetParticleExplicit(viewToWorld, particles[i], xVec, yVec, zVec);
+        IInlSetParticlePoints(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalExplicit(partNorm, particles[i]);
+        IInlStuffParticle1UV(destPtr, partPts, partNorm, partColor, particles[i]);
     }
 }
 
-void inline IIPL_0UV_OVel_NViewFace( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr )
+void inline IIPL_0UV_OVel_NViewFace(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr)
 {
     IIPL_PROLOG
     {
-        IInlSetParticlePathFollow( particles[ i ], viewToWorld, xVec, yVec, zVec );
-        IInlSetParticlePoints( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalViewFace( partNorm, zVec );
-        IInlStuffParticleNoUVs( destPtr, partPts, partNorm, partColor );
+        IInlSetParticlePathFollow(particles[i], viewToWorld, xVec, yVec, zVec);
+        IInlSetParticlePoints(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalViewFace(partNorm, zVec);
+        IInlStuffParticleNoUVs(destPtr, partPts, partNorm, partColor);
     }
 }
 
-void inline IIPL_0UV_OVel_NLite( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr,
-                                const plOmniLightInfo *omniLight, const plDirectionalLightInfo *directionLight )
+void inline IIPL_0UV_OVel_NLite(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr,
+                                const plOmniLightInfo *omniLight, const plDirectionalLightInfo *directionLight)
 {
     IIPL_PROLOG
     {
-        IInlSetParticlePathFollow( particles[ i ], viewToWorld, xVec, yVec, zVec );
-        IInlSetParticlePoints( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalStrongestLight( partNorm, particles[ i ], omniLight, directionLight, zVec );
-        IInlStuffParticleNoUVs( destPtr, partPts, partNorm, partColor );
+        IInlSetParticlePathFollow(particles[i], viewToWorld, xVec, yVec, zVec);
+        IInlSetParticlePoints(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalStrongestLight(partNorm, particles[i], omniLight, directionLight, zVec);
+        IInlStuffParticleNoUVs(destPtr, partPts, partNorm, partColor);
     }
 }
 
-void inline IIPL_0UV_OVel_NExp( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr )
+void inline IIPL_0UV_OVel_NExp(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr)
 {
     IIPL_PROLOG
     {
-        IInlSetParticlePathFollow( particles[ i ], viewToWorld, xVec, yVec, zVec );
-        IInlSetParticlePoints( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalExplicit( partNorm, particles[ i ] );
-        IInlStuffParticleNoUVs( destPtr, partPts, partNorm, partColor );
+        IInlSetParticlePathFollow(particles[i], viewToWorld, xVec, yVec, zVec);
+        IInlSetParticlePoints(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalExplicit(partNorm, particles[i]);
+        IInlStuffParticleNoUVs(destPtr, partPts, partNorm, partColor);
     }
 }
 
-void inline IIPL_0UV_OStr_NViewFace( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr )
+void inline IIPL_0UV_OStr_NViewFace(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr)
 {
     IIPL_PROLOG
     {
-        IInlSetParticlePathStretch( particles[ i ], viewToWorld, xVec, yVec, zVec );
-        IInlSetParticlePointsStretch( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalViewFace( partNorm, zVec );
-        IInlStuffParticleNoUVs( destPtr, partPts, partNorm, partColor );
+        IInlSetParticlePathStretch(particles[i], viewToWorld, xVec, yVec, zVec);
+        IInlSetParticlePointsStretch(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalViewFace(partNorm, zVec);
+        IInlStuffParticleNoUVs(destPtr, partPts, partNorm, partColor);
     }
 }
 
-void inline IIPL_0UV_OStr_NLite( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr,
-                                const plOmniLightInfo *omniLight, const plDirectionalLightInfo *directionLight )
+void inline IIPL_0UV_OStr_NLite(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr,
+                                const plOmniLightInfo *omniLight, const plDirectionalLightInfo *directionLight)
 {
     IIPL_PROLOG
     {
-        IInlSetParticlePathStretch( particles[ i ], viewToWorld, xVec, yVec, zVec );
-        IInlSetParticlePointsStretch( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalStrongestLight( partNorm, particles[ i ], omniLight, directionLight, zVec );
-        IInlStuffParticleNoUVs( destPtr, partPts, partNorm, partColor );
+        IInlSetParticlePathStretch(particles[i], viewToWorld, xVec, yVec, zVec);
+        IInlSetParticlePointsStretch(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalStrongestLight(partNorm, particles[i], omniLight, directionLight, zVec);
+        IInlStuffParticleNoUVs(destPtr, partPts, partNorm, partColor);
     }
 }
 
-void inline IIPL_0UV_OStr_NExp( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr )
+void inline IIPL_0UV_OStr_NExp(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr)
 {
     IIPL_PROLOG
     {
-        IInlSetParticlePathStretch( particles[ i ], viewToWorld, xVec, yVec, zVec );
-        IInlSetParticlePointsStretch( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalExplicit( partNorm, particles[ i ] );
-        IInlStuffParticleNoUVs( destPtr, partPts, partNorm, partColor );
+        IInlSetParticlePathStretch(particles[i], viewToWorld, xVec, yVec, zVec);
+        IInlSetParticlePointsStretch(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalExplicit(partNorm, particles[i]);
+        IInlStuffParticleNoUVs(destPtr, partPts, partNorm, partColor);
     }
 }
 
-void inline IIPL_0UV_OFlo_NViewFace( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr )
+void inline IIPL_0UV_OFlo_NViewFace(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr)
 {
     IIPL_PROLOG
     {
-        IInlSetParticlePathFlow( particles[ i ], viewToWorld, xVec, yVec, zVec );
-        IInlSetParticlePointsStretch( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalViewFace( partNorm, zVec );
-        IInlStuffParticleNoUVs( destPtr, partPts, partNorm, partColor );
+        IInlSetParticlePathFlow(particles[i], viewToWorld, xVec, yVec, zVec);
+        IInlSetParticlePointsStretch(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalViewFace(partNorm, zVec);
+        IInlStuffParticleNoUVs(destPtr, partPts, partNorm, partColor);
     }
 }
 
-void inline IIPL_0UV_OFlo_NLite( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr,
-                                const plOmniLightInfo *omniLight, const plDirectionalLightInfo *directionLight )
+void inline IIPL_0UV_OFlo_NLite(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr,
+                                const plOmniLightInfo *omniLight, const plDirectionalLightInfo *directionLight)
 {
     IIPL_PROLOG
     {
-        IInlSetParticlePathFlow( particles[ i ], viewToWorld, xVec, yVec, zVec );
-        IInlSetParticlePointsStretch( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalStrongestLight( partNorm, particles[ i ], omniLight, directionLight, zVec );
-        IInlStuffParticleNoUVs( destPtr, partPts, partNorm, partColor );
+        IInlSetParticlePathFlow(particles[i], viewToWorld, xVec, yVec, zVec);
+        IInlSetParticlePointsStretch(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalStrongestLight(partNorm, particles[i], omniLight, directionLight, zVec);
+        IInlStuffParticleNoUVs(destPtr, partPts, partNorm, partColor);
     }
 }
 
-void inline IIPL_0UV_OFlo_NExp( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr )
+void inline IIPL_0UV_OFlo_NExp(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr)
 {
     IIPL_PROLOG
     {
-        IInlSetParticlePathFlow( particles[ i ], viewToWorld, xVec, yVec, zVec );
-        IInlSetParticlePointsStretch( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalExplicit( partNorm, particles[ i ] );
-        IInlStuffParticleNoUVs( destPtr, partPts, partNorm, partColor );
+        IInlSetParticlePathFlow(particles[i], viewToWorld, xVec, yVec, zVec);
+        IInlSetParticlePointsStretch(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalExplicit(partNorm, particles[i]);
+        IInlStuffParticleNoUVs(destPtr, partPts, partNorm, partColor);
     }
 }
 
-void inline IIPL_0UV_OExp_NViewFace( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr )
+void inline IIPL_0UV_OExp_NViewFace(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr)
 {
     IIPL_PROLOG
     {
-        IInlSetParticleExplicit( viewToWorld, particles[ i ], xVec, yVec, zVec );
-        IInlSetParticlePoints( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalViewFace( partNorm, zVec );
-        IInlStuffParticleNoUVs( destPtr, partPts, partNorm, partColor );
+        IInlSetParticleExplicit(viewToWorld, particles[i], xVec, yVec, zVec);
+        IInlSetParticlePoints(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalViewFace(partNorm, zVec);
+        IInlStuffParticleNoUVs(destPtr, partPts, partNorm, partColor);
     }
 }
 
-void inline IIPL_0UV_OExp_NLite( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr,
-                                const plOmniLightInfo *omniLight, const plDirectionalLightInfo *directionLight )
+void inline IIPL_0UV_OExp_NLite(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr,
+                                const plOmniLightInfo *omniLight, const plDirectionalLightInfo *directionLight)
 {
     IIPL_PROLOG
     {
-        IInlSetParticleExplicit( viewToWorld, particles[ i ], xVec, yVec, zVec );
-        IInlSetParticlePoints( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalStrongestLight( partNorm, particles[ i ], omniLight, directionLight, zVec );
-        IInlStuffParticleNoUVs( destPtr, partPts, partNorm, partColor );
+        IInlSetParticleExplicit(viewToWorld, particles[i], xVec, yVec, zVec);
+        IInlSetParticlePoints(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalStrongestLight(partNorm, particles[i], omniLight, directionLight, zVec);
+        IInlStuffParticleNoUVs(destPtr, partPts, partNorm, partColor);
     }
 }
 
-void inline IIPL_0UV_OExp_NExp( const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr )
+void inline IIPL_0UV_OExp_NExp(const uint32_t &numParticles, const plParticleCore *particles, const hsMatrix44& viewToWorld, uint8_t *&destPtr)
 {
     IIPL_PROLOG
     {
-        IInlSetParticleExplicit( viewToWorld, particles[ i ], xVec, yVec, zVec );
-        IInlSetParticlePoints( xVec, yVec, particles[ i ], partPts, partColor );
-        IInlSetNormalExplicit( partNorm, particles[ i ] );
-        IInlStuffParticleNoUVs( destPtr, partPts, partNorm, partColor );
+        IInlSetParticleExplicit(viewToWorld, particles[i], xVec, yVec, zVec);
+        IInlSetParticlePoints(xVec, yVec, particles[i], partPts, partColor);
+        IInlSetNormalExplicit(partNorm, particles[i]);
+        IInlStuffParticleNoUVs(destPtr, partPts, partNorm, partColor);
     }
 }
 
@@ -643,7 +643,7 @@ void plParticleFiller::FillParticles(plPipeline* pipe, plDrawableSpans* drawable
     plProfile_BeginTiming(ParticleFillPoly);
 
     sInvDelSecs = hsTimer::GetDelSysSeconds();
-    if( sInvDelSecs > 0 )
+    if (sInvDelSecs > 0)
         sInvDelSecs = 1.f / sInvDelSecs;
 
     const plParticleCore* particles = span->fSource->GetParticleArray();
@@ -662,124 +662,124 @@ void plParticleFiller::FillParticles(plPipeline* pipe, plDrawableSpans* drawable
     plDirectionalLightInfo* directionLight = nil;
 
     /// Get strongest light, if there is one, for normal generation
-    if( span->GetNumLights( false ) > 0 )
+    if (span->GetNumLights(false) > 0)
     {
-        omniLight = plOmniLightInfo::ConvertNoRef( span->GetLight( 0, false ) );
-        directionLight = plDirectionalLightInfo::ConvertNoRef( span->GetLight( 0, false ) );
+        omniLight = plOmniLightInfo::ConvertNoRef(span->GetLight(0, false));
+        directionLight = plDirectionalLightInfo::ConvertNoRef(span->GetLight(0, false));
     }
 
     /// Fill with 1 UV channel
-    if( group->GetNumUVs() == 1 )
+    if (group->GetNumUVs() == 1)
     {
         /// Switch on orientation
-        if( span->fSource->fMiscFlags & plParticleEmitter::kOrientationVelocityBased )
+        if (span->fSource->fMiscFlags & plParticleEmitter::kOrientationVelocityBased)
         {
             /// Switch on normal generation
-            if( span->fSource->fMiscFlags & plParticleEmitter::kNormalViewFacing )
-                IIPL_1UV_OVel_NViewFace( numParticles, particles, viewToWorld, destPtr );
+            if (span->fSource->fMiscFlags & plParticleEmitter::kNormalViewFacing)
+                IIPL_1UV_OVel_NViewFace(numParticles, particles, viewToWorld, destPtr);
 
-            else if( span->fSource->fMiscFlags & plParticleEmitter::kNormalNearestLight )
-                IIPL_1UV_OVel_NLite( numParticles, particles, viewToWorld, destPtr, omniLight, directionLight );
+            else if (span->fSource->fMiscFlags & plParticleEmitter::kNormalNearestLight)
+                IIPL_1UV_OVel_NLite(numParticles, particles, viewToWorld, destPtr, omniLight, directionLight);
 
             else
-                IIPL_1UV_OVel_NExp( numParticles, particles, viewToWorld, destPtr );
+                IIPL_1UV_OVel_NExp(numParticles, particles, viewToWorld, destPtr);
         }
-        else if( span->fSource->fMiscFlags & plParticleEmitter::kOrientationVelocityStretch )
+        else if (span->fSource->fMiscFlags & plParticleEmitter::kOrientationVelocityStretch)
         {
             sCurrMinWidth = pipe->GetViewTransform().GetOrthoWidth() / pipe->GetViewTransform().GetScreenWidth() * 0.75f;
 
             /// Switch on normal generation
-            if( span->fSource->fMiscFlags & plParticleEmitter::kNormalViewFacing )
-                IIPL_1UV_OStr_NViewFace( numParticles, particles, viewToWorld, destPtr );
+            if (span->fSource->fMiscFlags & plParticleEmitter::kNormalViewFacing)
+                IIPL_1UV_OStr_NViewFace(numParticles, particles, viewToWorld, destPtr);
 
-            else if( span->fSource->fMiscFlags & plParticleEmitter::kNormalNearestLight )
-                IIPL_1UV_OStr_NLite( numParticles, particles, viewToWorld, destPtr, omniLight, directionLight );
+            else if (span->fSource->fMiscFlags & plParticleEmitter::kNormalNearestLight)
+                IIPL_1UV_OStr_NLite(numParticles, particles, viewToWorld, destPtr, omniLight, directionLight);
 
             else
-                IIPL_1UV_OStr_NExp( numParticles, particles, viewToWorld, destPtr );
+                IIPL_1UV_OStr_NExp(numParticles, particles, viewToWorld, destPtr);
         }
-        else if( span->fSource->fMiscFlags & plParticleEmitter::kOrientationVelocityFlow )
+        else if (span->fSource->fMiscFlags & plParticleEmitter::kOrientationVelocityFlow)
         {
             sCurrMinWidth = pipe->GetViewTransform().GetOrthoWidth() / pipe->GetViewTransform().GetScreenWidth() * 0.75f;
 
             /// Switch on normal generation
-            if( span->fSource->fMiscFlags & plParticleEmitter::kNormalViewFacing )
-                IIPL_1UV_OFlo_NViewFace( numParticles, particles, viewToWorld, destPtr );
+            if (span->fSource->fMiscFlags & plParticleEmitter::kNormalViewFacing)
+                IIPL_1UV_OFlo_NViewFace(numParticles, particles, viewToWorld, destPtr);
 
-            else if( span->fSource->fMiscFlags & plParticleEmitter::kNormalNearestLight )
-                IIPL_1UV_OFlo_NLite( numParticles, particles, viewToWorld, destPtr, omniLight, directionLight );
+            else if (span->fSource->fMiscFlags & plParticleEmitter::kNormalNearestLight)
+                IIPL_1UV_OFlo_NLite(numParticles, particles, viewToWorld, destPtr, omniLight, directionLight);
 
             else
-                IIPL_1UV_OFlo_NExp( numParticles, particles, viewToWorld, destPtr );
+                IIPL_1UV_OFlo_NExp(numParticles, particles, viewToWorld, destPtr);
         }
         else    // Orientation explicit
         {
             /// Switch on normal generation
-            if( span->fSource->fMiscFlags & plParticleEmitter::kNormalViewFacing )
-                IIPL_1UV_OExp_NViewFace( numParticles, particles, viewToWorld, destPtr );
+            if (span->fSource->fMiscFlags & plParticleEmitter::kNormalViewFacing)
+                IIPL_1UV_OExp_NViewFace(numParticles, particles, viewToWorld, destPtr);
 
-            else if( span->fSource->fMiscFlags & plParticleEmitter::kNormalNearestLight )
-                IIPL_1UV_OExp_NLite( numParticles, particles, viewToWorld, destPtr, omniLight, directionLight );
+            else if (span->fSource->fMiscFlags & plParticleEmitter::kNormalNearestLight)
+                IIPL_1UV_OExp_NLite(numParticles, particles, viewToWorld, destPtr, omniLight, directionLight);
 
             else
-                IIPL_1UV_OExp_NExp( numParticles, particles, viewToWorld, destPtr );
+                IIPL_1UV_OExp_NExp(numParticles, particles, viewToWorld, destPtr);
         }
     }
     else
     /// Fill with no UV channels
     {
         /// Switch on orientation
-        if( span->fSource->fMiscFlags & plParticleEmitter::kOrientationVelocityBased )
+        if (span->fSource->fMiscFlags & plParticleEmitter::kOrientationVelocityBased)
         {
             /// Switch on normal generation
-            if( span->fSource->fMiscFlags & plParticleEmitter::kNormalViewFacing )
-                IIPL_0UV_OVel_NViewFace( numParticles, particles, viewToWorld, destPtr );
+            if (span->fSource->fMiscFlags & plParticleEmitter::kNormalViewFacing)
+                IIPL_0UV_OVel_NViewFace(numParticles, particles, viewToWorld, destPtr);
 
-            else if( span->fSource->fMiscFlags & plParticleEmitter::kNormalNearestLight )
-                IIPL_0UV_OVel_NLite( numParticles, particles, viewToWorld, destPtr, omniLight, directionLight );
+            else if (span->fSource->fMiscFlags & plParticleEmitter::kNormalNearestLight)
+                IIPL_0UV_OVel_NLite(numParticles, particles, viewToWorld, destPtr, omniLight, directionLight);
 
             else
-                IIPL_0UV_OVel_NExp( numParticles, particles, viewToWorld, destPtr );
+                IIPL_0UV_OVel_NExp(numParticles, particles, viewToWorld, destPtr);
         }
-        else if( span->fSource->fMiscFlags & plParticleEmitter::kOrientationVelocityStretch )
+        else if (span->fSource->fMiscFlags & plParticleEmitter::kOrientationVelocityStretch)
         {
             sCurrMinWidth = pipe->GetViewTransform().GetOrthoWidth() / pipe->GetViewTransform().GetScreenWidth() * 0.75f;
 
             /// Switch on normal generation
-            if( span->fSource->fMiscFlags & plParticleEmitter::kNormalViewFacing )
-                IIPL_0UV_OStr_NViewFace( numParticles, particles, viewToWorld, destPtr );
+            if (span->fSource->fMiscFlags & plParticleEmitter::kNormalViewFacing)
+                IIPL_0UV_OStr_NViewFace(numParticles, particles, viewToWorld, destPtr);
 
-            else if( span->fSource->fMiscFlags & plParticleEmitter::kNormalNearestLight )
-                IIPL_0UV_OStr_NLite( numParticles, particles, viewToWorld, destPtr, omniLight, directionLight );
+            else if (span->fSource->fMiscFlags & plParticleEmitter::kNormalNearestLight)
+                IIPL_0UV_OStr_NLite(numParticles, particles, viewToWorld, destPtr, omniLight, directionLight);
 
             else
-                IIPL_0UV_OStr_NExp( numParticles, particles, viewToWorld, destPtr );
+                IIPL_0UV_OStr_NExp(numParticles, particles, viewToWorld, destPtr);
         }
-        else if( span->fSource->fMiscFlags & plParticleEmitter::kOrientationVelocityFlow )
+        else if (span->fSource->fMiscFlags & plParticleEmitter::kOrientationVelocityFlow)
         {
             sCurrMinWidth = pipe->GetViewTransform().GetOrthoWidth() / pipe->GetViewTransform().GetScreenWidth() * 0.75f;
 
             /// Switch on normal generation
-            if( span->fSource->fMiscFlags & plParticleEmitter::kNormalViewFacing )
-                IIPL_0UV_OFlo_NViewFace( numParticles, particles, viewToWorld, destPtr );
+            if (span->fSource->fMiscFlags & plParticleEmitter::kNormalViewFacing)
+                IIPL_0UV_OFlo_NViewFace(numParticles, particles, viewToWorld, destPtr);
 
-            else if( span->fSource->fMiscFlags & plParticleEmitter::kNormalNearestLight )
-                IIPL_0UV_OFlo_NLite( numParticles, particles, viewToWorld, destPtr, omniLight, directionLight );
+            else if (span->fSource->fMiscFlags & plParticleEmitter::kNormalNearestLight)
+                IIPL_0UV_OFlo_NLite(numParticles, particles, viewToWorld, destPtr, omniLight, directionLight);
 
             else
-                IIPL_0UV_OFlo_NExp( numParticles, particles, viewToWorld, destPtr );
+                IIPL_0UV_OFlo_NExp(numParticles, particles, viewToWorld, destPtr);
         }
         else    // Orientation explicit
         {
             /// Switch on normal generation
-            if( span->fSource->fMiscFlags & plParticleEmitter::kNormalViewFacing )
-                IIPL_0UV_OExp_NViewFace( numParticles, particles, viewToWorld, destPtr );
+            if (span->fSource->fMiscFlags & plParticleEmitter::kNormalViewFacing)
+                IIPL_0UV_OExp_NViewFace(numParticles, particles, viewToWorld, destPtr);
 
-            else if( span->fSource->fMiscFlags & plParticleEmitter::kNormalNearestLight )
-                IIPL_0UV_OExp_NLite( numParticles, particles, viewToWorld, destPtr, omniLight, directionLight );
+            else if (span->fSource->fMiscFlags & plParticleEmitter::kNormalNearestLight)
+                IIPL_0UV_OExp_NLite(numParticles, particles, viewToWorld, destPtr, omniLight, directionLight);
 
             else
-                IIPL_0UV_OExp_NExp( numParticles, particles, viewToWorld, destPtr );
+                IIPL_0UV_OExp_NExp(numParticles, particles, viewToWorld, destPtr);
         }
     }
 
@@ -789,11 +789,11 @@ void plParticleFiller::FillParticles(plPipeline* pipe, plDrawableSpans* drawable
 
 void plParticleFiller::FillParticlePolys(plPipeline* pipe, plDrawInterface* di)
 {
-    if( !di )
+    if (!di)
         return; // should probably be an asserted error.
 
     plDrawableSpans* drawable = plDrawableSpans::ConvertNoRef(di->GetDrawable(0));
-    if( !drawable )
+    if (!drawable)
         return;
 
     // Currently, the di always points to exactly 1 drawable with 1 span index. If
@@ -803,7 +803,7 @@ void plParticleFiller::FillParticlePolys(plPipeline* pipe, plDrawInterface* di)
 
     const plDISpanIndex& diSpans = drawable->GetDISpans(diIndex);
     int i;
-    for( i = 0; i < diSpans.GetCount(); i++ )
+    for (i = 0; i < diSpans.GetCount(); i++)
     {
         uint32_t spanIdx = diSpans[i];
         hsAssert(drawable->GetSpan(spanIdx), "Bogus input to fill particles");
@@ -812,7 +812,7 @@ void plParticleFiller::FillParticlePolys(plPipeline* pipe, plDrawInterface* di)
         // Safe cast, since we just checked the type mask.
         plParticleSpan* span = (plParticleSpan*)drawable->GetSpan(spanIdx);
 
-        if( !span->fSource )
+        if (!span->fSource)
             return; // Nothing to do, it's idle.
 
         FillParticles(pipe, drawable, span);

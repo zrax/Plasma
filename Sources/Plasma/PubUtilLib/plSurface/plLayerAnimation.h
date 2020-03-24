@@ -79,8 +79,8 @@ public:
     plLayerAnimationBase();
     virtual ~plLayerAnimationBase();
 
-    CLASSNAME_REGISTER( plLayerAnimationBase );
-    GETINTERFACE_ANY( plLayerAnimationBase, plLayerInterface );
+    CLASSNAME_REGISTER(plLayerAnimationBase);
+    GETINTERFACE_ANY(plLayerAnimationBase, plLayerInterface);
     
     virtual plLayerInterface*           Attach(plLayerInterface* prev);
     //virtual uint32_t                        Eval(double secs, uint32_t frame, uint32_t ignore) = 0;
@@ -97,7 +97,7 @@ public:
 
     // Export construction functions follow
     void SetPreshadeColorCtl(plController* colCtl);
-    void SetRuntimeColorCtl( plController *colCtl );
+    void SetRuntimeColorCtl(plController *colCtl);
     void SetAmbientColorCtl(plController* ambCtl);
     void SetSpecularColorCtl(plController* ambCtl);
     void SetOpacityCtl(plController* opaCtl);
@@ -123,8 +123,8 @@ public:
     plLayerAnimation();
     virtual ~plLayerAnimation();
 
-    CLASSNAME_REGISTER( plLayerAnimation );
-    GETINTERFACE_ANY( plLayerAnimation, plLayerAnimationBase );
+    CLASSNAME_REGISTER(plLayerAnimation);
+    GETINTERFACE_ANY(plLayerAnimation, plLayerAnimationBase);
 
     virtual plLayerInterface*           Attach(plLayerInterface* prev);
     virtual uint32_t                      Eval(double wSecs, uint32_t frame, uint32_t ignore);
@@ -163,8 +163,8 @@ public:
     plLayerLinkAnimation();
     ~plLayerLinkAnimation();
 
-    CLASSNAME_REGISTER( plLayerLinkAnimation );
-    GETINTERFACE_ANY( plLayerLinkAnimation, plLayerAnimation );
+    CLASSNAME_REGISTER(plLayerLinkAnimation);
+    GETINTERFACE_ANY(plLayerLinkAnimation, plLayerAnimation);
 
     void SetLinkKey(plKey linkKey) { fLinkKey = linkKey; }
     plKey GetLinkKey() { return fLinkKey; }
@@ -194,8 +194,8 @@ protected:
 public:
     plLayerSDLAnimation();
 
-    CLASSNAME_REGISTER( plLayerSDLAnimation );
-    GETINTERFACE_ANY( plLayerSDLAnimation, plLayerAnimationBase );
+    CLASSNAME_REGISTER(plLayerSDLAnimation);
+    GETINTERFACE_ANY(plLayerSDLAnimation, plLayerAnimationBase);
 
     virtual uint32_t                      Eval(double wSecs, uint32_t frame, uint32_t ignore);
 

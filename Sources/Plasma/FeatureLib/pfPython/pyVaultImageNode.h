@@ -85,14 +85,14 @@ public:
 //==================================================================
 // class RelVaultNode : public plVaultNode
 //
-    void Image_SetTitle( const char * text );
-    void Image_SetTitleW( const wchar_t * text );
+    void Image_SetTitle(const char * text);
+    void Image_SetTitleW(const wchar_t * text);
     ST::string Image_GetTitle() const;
 
     PyObject* Image_GetImage(); // returns pyImage
     void Image_SetImage(pyImage& image);
 
-    void SetImageFromBuf( PyObject * buf );
+    void SetImageFromBuf(PyObject * buf);
     
     void SetImageFromScrShot();
 

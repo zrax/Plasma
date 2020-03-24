@@ -48,8 +48,8 @@ public:
         kWalking,
         kAbort
     };
-    CLASSNAME_REGISTER( plAvBrainRideAnimatedPhysical );
-    GETINTERFACE_ANY( plAvBrainRideAnimatedPhysical, plArmatureBrain );
+    CLASSNAME_REGISTER(plAvBrainRideAnimatedPhysical);
+    GETINTERFACE_ANY(plAvBrainRideAnimatedPhysical, plArmatureBrain);
     plAvBrainRideAnimatedPhysical() : plAvBrainHuman(false),fMode(kWalking){};
     ~plAvBrainRideAnimatedPhysical();
     virtual void Activate(plArmatureModBase *avMod);

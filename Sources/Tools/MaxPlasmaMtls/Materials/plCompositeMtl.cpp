@@ -274,7 +274,7 @@ IParamBlock2 *plCompositeMtl::GetParamBlockByID(BlockID id)
 }
 
 RefResult plCompositeMtl::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
-   PartID& partID, RefMessage message )
+   PartID& partID, RefMessage message)
 {
     switch (message)
     {
@@ -350,7 +350,7 @@ IOResult plCompositeMtl::Load(ILoad *iload)
     int id;
     while (IO_OK==(res=iload->OpenChunk()))
     {
-        switch(id = iload->CurChunkID())
+        switch (id = iload->CurChunkID())
         {
             case MTL_HDR_CHUNK:
                 res = MtlBase::Load(iload);
@@ -452,7 +452,7 @@ void plCompositeMtl::Shade(ShadeContext& sc)
         else
         {
             int blendMethod = fPassesPB->GetInt(kCompBlend, 0, i - 1);
-            switch(blendMethod)
+            switch (blendMethod)
             {
             case kCompBlendVertexAlpha:
             case kCompBlendInverseVtxAlpha:

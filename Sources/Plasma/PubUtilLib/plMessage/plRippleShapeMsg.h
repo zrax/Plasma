@@ -60,8 +60,8 @@ public:
     plRippleShapeMsg(const plKey& r, const plPrintShape* shape);
     ~plRippleShapeMsg();
 
-    CLASSNAME_REGISTER( plRippleShapeMsg );
-    GETINTERFACE_ANY( plRippleShapeMsg, plMessage );
+    CLASSNAME_REGISTER(plRippleShapeMsg);
+    GETINTERFACE_ANY(plRippleShapeMsg, plMessage);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

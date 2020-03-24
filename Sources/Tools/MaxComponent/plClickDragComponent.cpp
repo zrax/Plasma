@@ -270,7 +270,7 @@ plKey plClickDragComponent::GetAxisKey(plMaxNode* node)
 {
     LogicKeys::const_iterator it = fAxisKeys.find(node);
     if (it != fAxisKeys.end())
-        return(it->second);
+        return (it->second);
 
     return nil;
 }
@@ -278,11 +278,11 @@ plKey plClickDragComponent::GetAxisKey(plMaxNode* node)
 void plClickDragComponent::CollectNonDrawables(INodeTab& nonDrawables)
 {
     INode* boundsNode = fCompPB->GetINode(kClickDragProxy);
-    if(boundsNode && fCompPB->GetInt(kClickDragUseProxy))
+    if (boundsNode && fCompPB->GetInt(kClickDragUseProxy))
         nonDrawables.Append(1, &boundsNode);
 
     boundsNode = fCompPB->GetINode(kClickDragProxyRegion);
-    if(boundsNode )
+    if (boundsNode)
         nonDrawables.Append(1, &boundsNode);
 
 }
@@ -297,16 +297,16 @@ bool plClickDragComponent::SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg)
     // Phys Props for the Clickable itself.
     plMaxNode *boundsNode = nil;
     boundsNode = (plMaxNode*)fCompPB->GetINode(kClickDragProxy);
-    if(boundsNode && fCompPB->GetInt(kClickDragUseProxy))
-        if(boundsNode->CanConvert())
+    if (boundsNode && fCompPB->GetInt(kClickDragUseProxy))
+        if (boundsNode->CanConvert())
         {
             boundsNode->SetDrawable(false);
             plPhysicalProps *physProps = boundsNode->GetPhysicalProps();
             // only if movable will it have mass (then it will keep track of movements in PhysX)
-            if ( boundsNode->IsMovable() || boundsNode->IsTMAnimatedRecur() )
+            if (boundsNode->IsMovable() || boundsNode->IsTMAnimatedRecur())
                 physProps->SetMass(1.0, boundsNode, pErrMsg);
-            physProps->SetGroup( plSimDefs::kGroupStatic, boundsNode, pErrMsg);
-//          physProps->SetReportGroup( plPhysicsGroups::kLocalAvatars, boundsNode, pErrMsg);
+            physProps->SetGroup(plSimDefs::kGroupStatic, boundsNode, pErrMsg);
+//          physProps->SetReportGroup(plPhysicsGroups::kLocalAvatars, boundsNode, pErrMsg);
             physProps->SetBoundsType(fCompPB->GetInt(kClikDragBoundsType), boundsNode, pErrMsg);
         }
         else
@@ -319,31 +319,31 @@ bool plClickDragComponent::SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg)
         
         plPhysicalProps *physProps = node->GetPhysicalProps();
         // only if movable will it have mass (then it will keep track of movements in PhysX)
-        if ( node->IsMovable() || node->IsTMAnimatedRecur() )
+        if (node->IsMovable() || node->IsTMAnimatedRecur())
             physProps->SetMass(1.0, node, pErrMsg);
-        physProps->SetGroup( plSimDefs::kGroupStatic, node, pErrMsg);
-//      physProps->SetReportGroup( plPhysicsGroups::kLocalAvatars, node, pErrMsg);
+        physProps->SetGroup(plSimDefs::kGroupStatic, node, pErrMsg);
+//      physProps->SetReportGroup(plPhysicsGroups::kLocalAvatars, node, pErrMsg);
         //node->GetPhysicalProps()->SetAllCollideGroups(0);
         physProps->SetBoundsType(fCompPB->GetInt(kClikDragBoundsType), node, pErrMsg);
     }
     // Phys Properties for the auto-generated Detector Region...
     boundsNode = nil;
     boundsNode = (plMaxNode*)fCompPB->GetINode(kClickDragProxyRegion);
-    if(boundsNode)
+    if (boundsNode)
     {
-        if(boundsNode->CanConvert())
+        if (boundsNode->CanConvert())
         {
             plPhysicalProps *physPropsDetector = boundsNode->GetPhysicalProps();
 //          physPropsDetector->SetAllowLOS(true, boundsNode, pErrMsg);
             physPropsDetector->SetProxyNode(boundsNode, node, pErrMsg);
             physPropsDetector->SetBoundsType(plSimDefs::kHullBounds, boundsNode, pErrMsg);
             // only if movable will it have mass (then it will keep track of movements in PhysX)
-            if ( boundsNode->IsMovable() || boundsNode->IsTMAnimated() )
+            if (boundsNode->IsMovable() || boundsNode->IsTMAnimated())
                 physPropsDetector->SetMass(1.0, boundsNode, pErrMsg);
 
-            physPropsDetector->SetGroup( plSimDefs::kGroupDetector, boundsNode, pErrMsg );
+            physPropsDetector->SetGroup(plSimDefs::kGroupDetector, boundsNode, pErrMsg);
             //boundsNode->GetPhysicalProps()->SetAllCollideGroups(0);
-            physPropsDetector->SetReportGroup( 1<<plSimDefs::kGroupAvatar, boundsNode, pErrMsg );
+            physPropsDetector->SetReportGroup(1<<plSimDefs::kGroupAvatar, boundsNode, pErrMsg);
         }
     }
     else
@@ -433,12 +433,12 @@ bool plClickDragComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     {
         if (fCompPB->GetInt(kClickDragUseX))
         {
-            pAxis->SetXAnim( pAnim->GetModKey(node) );
+            pAxis->SetXAnim(pAnim->GetModKey(node));
         }
         else // take out this else when we support multiple channels
         if (fCompPB->GetInt(kClickDragUseY))
         {
-            pAxis->SetYAnim( pAnim->GetModKey(node) );
+            pAxis->SetYAnim(pAnim->GetModKey(node));
         }
         pAxis->SetAllOrNothing(fCompPB->GetInt(kClickDragAllOrNothing));
 
@@ -473,10 +473,10 @@ bool plClickDragComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         pMsg->AddCallback(pCall1);
         pMsg->AddCallback(pCall2);
 
-        hsRefCnt_SafeUnRef( pCall1 );
-        hsRefCnt_SafeUnRef( pCall2 );
+        hsRefCnt_SafeUnRef(pCall1);
+        hsRefCnt_SafeUnRef(pCall2);
 
-        pMsg->AddReceiver( pAnim->GetModKey(node) );
+        pMsg->AddReceiver(pAnim->GetModKey(node));
         plgDispatch::MsgSend(pMsg);
     }
 
@@ -508,13 +508,13 @@ bool plClickDragComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         //      }
         
 
-        if(pProxyNode->CanConvert())
+        if (pProxyNode->CanConvert())
         {
             det2 = new plPickingDetector;
             // Register the detector
             det2Key = hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), det2, loc);
             hsgResMgr::ResMgr()->AddViaNotify(det2Key, new plObjRefMsg(((plMaxNode*)pProxyNode)->GetSceneObject()->GetKey(), plRefMsg::kOnCreate, -1, plObjRefMsg::kModifier), plRefFlags::kActiveRef);
-            hsgResMgr::ResMgr()->AddViaNotify(logicKey, new plObjRefMsg( det2Key, plRefMsg::kOnCreate, -1, plObjRefMsg::kModifier), plRefFlags::kActiveRef);
+            hsgResMgr::ResMgr()->AddViaNotify(logicKey, new plObjRefMsg(det2Key, plRefMsg::kOnCreate, -1, plObjRefMsg::kModifier), plRefFlags::kActiveRef);
             det2->SetProxyKey(node->GetSceneObject()->GetKey());
         }
         else
@@ -555,7 +555,7 @@ bool plClickDragComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         //      }
         
 
-        if(pProxyRegNode->CanConvert())
+        if (pProxyRegNode->CanConvert())
         {
             // need a player in box condition here...
             // first a detector-any for the box
@@ -617,8 +617,8 @@ bool plClickDragComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     return true;
 }
 
-bool plClickDragComponent::DeInit( plMaxNode *node, plErrorMsg *pErrMsg )
+bool plClickDragComponent::DeInit(plMaxNode *node, plErrorMsg *pErrMsg)
 {
     fAxisKeys.clear();
-    return plActivatorBaseComponent::DeInit( node, pErrMsg );
+    return plActivatorBaseComponent::DeInit(node, pErrMsg);
 }

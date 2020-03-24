@@ -83,8 +83,8 @@ public:
     plMorphDelta(const plMorphDelta& src);
     plMorphDelta& operator=(const plMorphDelta& src);
 
-    CLASSNAME_REGISTER( plMorphDelta );
-    GETINTERFACE_ANY( plMorphDelta, plCreatable );
+    CLASSNAME_REGISTER(plMorphDelta);
+    GETINTERFACE_ANY(plMorphDelta, plCreatable);
 
     void        SetWeight(float w) { fWeight = w; }
     float    GetWeight() const { return fWeight; }

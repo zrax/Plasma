@@ -304,7 +304,7 @@ PyObject* pyVault::GetLinkToCity() const
 
 
 // Owned ages
-PyObject* pyVault::GetOwnedAgeLink( const pyAgeInfoStruct & info )
+PyObject* pyVault::GetOwnedAgeLink(const pyAgeInfoStruct & info)
 {
     if (hsRef<RelVaultNode> rvnLink = VaultGetOwnedAgeLink(info.GetAgeInfo()))
         return pyVaultAgeLinkNode::New(rvnLink);
@@ -314,7 +314,7 @@ PyObject* pyVault::GetOwnedAgeLink( const pyAgeInfoStruct & info )
 }
 
 // Visit ages
-PyObject* pyVault::GetVisitAgeLink( const pyAgeInfoStruct & info)
+PyObject* pyVault::GetVisitAgeLink(const pyAgeInfoStruct & info)
 {
     if (hsRef<RelVaultNode> rvnLink = VaultGetVisitAgeLink(info.GetAgeInfo()))
         return pyVaultAgeLinkNode::New(rvnLink);
@@ -326,7 +326,7 @@ PyObject* pyVault::GetVisitAgeLink( const pyAgeInfoStruct & info)
 
 ///////////////
 // Chronicle
-PyObject* pyVault::FindChronicleEntry( const char * entryName )
+PyObject* pyVault::FindChronicleEntry(const char * entryName)
 {
     if (hsRef<RelVaultNode> rvn = VaultFindChronicleEntry(entryName))
         return pyVaultChronicleNode::New(rvn);
@@ -335,7 +335,7 @@ PyObject* pyVault::FindChronicleEntry( const char * entryName )
     PYTHON_RETURN_NONE;
 }
 
-void pyVault::AddChronicleEntry( const char * name, uint32_t type, const char * value )
+void pyVault::AddChronicleEntry(const char * name, uint32_t type, const char * value)
 {
     // FIXME: We should ideally not block, but for now, the Python assumes that when
     //        we return, the chronicle exists and can be found with findChronicleEntry.
@@ -344,7 +344,7 @@ void pyVault::AddChronicleEntry( const char * name, uint32_t type, const char * 
 }
 
 
-void pyVault::SendToDevice( pyVaultNode& node, const char * deviceName )
+void pyVault::SendToDevice(pyVaultNode& node, const char * deviceName)
 {
     if (!node.GetNode())
         return;
@@ -425,10 +425,10 @@ PyObject* pyVault::GetPsnlAgeSDL() const
     return result;
 }
 
-void pyVault::UpdatePsnlAgeSDL( pySDLStateDataRecord & pyrec )
+void pyVault::UpdatePsnlAgeSDL(pySDLStateDataRecord & pyrec)
 {
     plStateDataRecord * rec = pyrec.GetRec();
-    if ( !rec )
+    if (!rec)
         return;
 
     hsRef<NetVaultNode> templateNode = new NetVaultNode;
@@ -471,7 +471,7 @@ bool pyVault::AmCzarOfCurrentAge() const
     return VaultAmCzarOfCurrentAge();
 }
 
-bool pyVault::AmAgeOwner( const pyAgeInfoStruct * ageInfo )
+bool pyVault::AmAgeOwner(const pyAgeInfoStruct * ageInfo)
 {
     if (!ageInfo->GetAgeInfo())
         return false;
@@ -480,7 +480,7 @@ bool pyVault::AmAgeOwner( const pyAgeInfoStruct * ageInfo )
     return VaultAmOwnerOfAge(ageInstId);
 }
 
-bool pyVault::AmAgeCzar( const pyAgeInfoStruct * ageInfo )
+bool pyVault::AmAgeCzar(const pyAgeInfoStruct * ageInfo)
 {
     if (!ageInfo->GetAgeInfo())
         return false;
@@ -489,30 +489,30 @@ bool pyVault::AmAgeCzar( const pyAgeInfoStruct * ageInfo )
     return VaultAmCzarOfAge(ageInstId);
 }
 
-void pyVault::RegisterMTStation( const ST::string& stationName, const ST::string& backLinkSpawnPtObjName )
+void pyVault::RegisterMTStation(const ST::string& stationName, const ST::string& backLinkSpawnPtObjName)
 {
     // Note: This doesn't actually block (~Hoikas)
     VaultRegisterMTStationAndWait(stationName, backLinkSpawnPtObjName);
 }
 
-void pyVault::RegisterOwnedAge( const pyAgeLinkStruct & link )
+void pyVault::RegisterOwnedAge(const pyAgeLinkStruct & link)
 {
     VaultRegisterOwnedAgeAndWait(link.GetAgeLink());
 }
 
-void pyVault::UnRegisterOwnedAge( const char * ageFilename )
+void pyVault::UnRegisterOwnedAge(const char * ageFilename)
 {
     plAgeInfoStruct info;
     info.SetAgeFilename(ageFilename);
     VaultUnregisterOwnedAgeAndWait(&info);
 }
 
-void pyVault::RegisterVisitAge( const pyAgeLinkStruct & link )
+void pyVault::RegisterVisitAge(const pyAgeLinkStruct & link)
 {
     VaultRegisterVisitAge(link.GetAgeLink());
 }
 
-void pyVault::UnRegisterVisitAge( const char * guidstr )
+void pyVault::UnRegisterVisitAge(const char * guidstr)
 {
     plAgeInfoStruct info;
     plUUID guid(guidstr);
@@ -527,7 +527,7 @@ void _InvitePlayerToAge(ENetError result, void* state, void* param, RelVaultNode
         VaultSendNode(node, (uint32_t)((uintptr_t)param));
 }
 
-void pyVault::InvitePlayerToAge( const pyAgeLinkStruct & link, uint32_t playerID )
+void pyVault::InvitePlayerToAge(const pyAgeLinkStruct & link, uint32_t playerID)
 {
     hsRef<NetVaultNode> templateNode = new NetVaultNode;
     templateNode->SetNodeType(plVault::kNodeType_TextNote);
@@ -544,7 +544,7 @@ void _UninvitePlayerToAge(ENetError result, void* state, void* param, RelVaultNo
         VaultSendNode(node, (uint32_t)((uintptr_t)param));
 }
 
-void pyVault::UnInvitePlayerToAge( const char * str, uint32_t playerID )
+void pyVault::UnInvitePlayerToAge(const char * str, uint32_t playerID)
 {
     plAgeInfoStruct info;
     plUUID guid(str);
@@ -566,7 +566,7 @@ void pyVault::UnInvitePlayerToAge( const char * str, uint32_t playerID )
 }
 
 //============================================================================
-void pyVault::OfferLinkToPlayer( const pyAgeLinkStruct & link, uint32_t playerID )
+void pyVault::OfferLinkToPlayer(const pyAgeLinkStruct & link, uint32_t playerID)
 {
     hsAssert(false, "eric, port me");
 }
@@ -609,13 +609,13 @@ void pyVault::CreateNeighborhood()
     VaultRegisterOwnedAge(&link);
 }
 
-bool pyVault::SetAgePublic( const pyAgeInfoStruct * ageInfo, bool makePublic )
+bool pyVault::SetAgePublic(const pyAgeInfoStruct * ageInfo, bool makePublic)
 {
     // Note: This doesn't actually block (~Hoikas)
     return VaultSetOwnedAgePublicAndWait(ageInfo->GetAgeInfo(), makePublic);
 }
 
-bool pyVault::SetAgePublic( const pyVaultAgeInfoNode * ageInfoNode, bool makePublic )
+bool pyVault::SetAgePublic(const pyVaultAgeInfoNode * ageInfoNode, bool makePublic)
 {
     return VaultSetAgePublicAndWait(ageInfoNode->GetNode(), makePublic);
 }
@@ -632,7 +632,7 @@ PyObject* pyVault::GetGlobalInbox()
 
 /////////////////////////////////////////////////////////////
 
-PyObject* pyVault::FindNode( pyVaultNode* templateNode ) const
+PyObject* pyVault::FindNode(pyVaultNode* templateNode) const
 {
     // See if we already have a matching node locally
     if (hsRef<RelVaultNode> rvn = VaultGetNode(templateNode->GetNode()))

@@ -72,73 +72,73 @@ pfGUIClickMapCtrl::~pfGUIClickMapCtrl()
 
 //// IEval ///////////////////////////////////////////////////////////////////
 
-bool    pfGUIClickMapCtrl::IEval( double secs, float del, uint32_t dirty )
+bool    pfGUIClickMapCtrl::IEval(double secs, float del, uint32_t dirty)
 {
-    return pfGUIControlMod::IEval( secs, del, dirty );
+    return pfGUIControlMod::IEval(secs, del, dirty);
 }
 
 //// MsgReceive //////////////////////////////////////////////////////////////
 
-bool    pfGUIClickMapCtrl::MsgReceive( plMessage *msg )
+bool    pfGUIClickMapCtrl::MsgReceive(plMessage *msg)
 {
-    return pfGUIControlMod::MsgReceive( msg );
+    return pfGUIControlMod::MsgReceive(msg);
 }
 
 //// Read/Write //////////////////////////////////////////////////////////////
 
-void    pfGUIClickMapCtrl::Read( hsStream *s, hsResMgr *mgr )
+void    pfGUIClickMapCtrl::Read(hsStream *s, hsResMgr *mgr)
 {
     pfGUIControlMod::Read(s, mgr);
 }
 
-void    pfGUIClickMapCtrl::Write( hsStream *s, hsResMgr *mgr )
+void    pfGUIClickMapCtrl::Write(hsStream *s, hsResMgr *mgr)
 {
-    pfGUIControlMod::Write( s, mgr );
+    pfGUIControlMod::Write(s, mgr);
 }
 
-void    pfGUIClickMapCtrl::HandleMouseDown( hsPoint3 &mousePt, uint8_t modifiers )
+void    pfGUIClickMapCtrl::HandleMouseDown(hsPoint3 &mousePt, uint8_t modifiers)
 {
-    IScreenToLocalPt( mousePt );
+    IScreenToLocalPt(mousePt);
     fLastMousePt = fLastMouseDragPt = mousePt;
     fTracking = true;
 }
 
-void    pfGUIClickMapCtrl::HandleMouseUp( hsPoint3 &mousePt, uint8_t modifiers )
+void    pfGUIClickMapCtrl::HandleMouseUp(hsPoint3 &mousePt, uint8_t modifiers)
 {
-    if( fTracking )
+    if (fTracking)
     {
-        IScreenToLocalPt( mousePt );
+        IScreenToLocalPt(mousePt);
         fLastMousePt = fLastMouseUpPt = fLastMouseDragPt = mousePt;
         DoSomething();
         fTracking = false;
     }
 }
 
-void    pfGUIClickMapCtrl::HandleMouseDrag( hsPoint3 &mousePt, uint8_t modifiers )
+void    pfGUIClickMapCtrl::HandleMouseDrag(hsPoint3 &mousePt, uint8_t modifiers)
 {
-    if( fTracking )
+    if (fTracking)
     {
-        IScreenToLocalPt( mousePt );
+        IScreenToLocalPt(mousePt);
         fLastMousePt = fLastMouseDragPt = mousePt;
-        if( HasFlag( kReportDragging ) )
-            HandleExtendedEvent( kMouseDragged );
+        if (HasFlag(kReportDragging))
+            HandleExtendedEvent(kMouseDragged);
     }
 }
 
-void    pfGUIClickMapCtrl::HandleMouseHover( hsPoint3 &mousePt, uint8_t modifiers )
+void    pfGUIClickMapCtrl::HandleMouseHover(hsPoint3 &mousePt, uint8_t modifiers)
 {
-    IScreenToLocalPt( mousePt );
+    IScreenToLocalPt(mousePt);
     fLastMousePt = mousePt;
 
-    if( HasFlag( kReportHovering ) )
-        HandleExtendedEvent( kMouseHovered );
+    if (HasFlag(kReportHovering))
+        HandleExtendedEvent(kMouseHovered);
 }
 
 //// IGetDesiredCursor ///////////////////////////////////////////////////////
 
 uint32_t      pfGUIClickMapCtrl::IGetDesiredCursor() const
 {
-    if( fCustomCursor != -1 )
+    if (fCustomCursor != -1)
         return (uint32_t)fCustomCursor;
 
     return plInputInterface::kCursorPoised;

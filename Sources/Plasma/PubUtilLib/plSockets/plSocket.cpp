@@ -77,7 +77,7 @@ bool plSocket::operator==(const plSocket & rhs)
 
 bool plSocket::ErrorClose()
 {
-    if(Active())
+    if (Active())
         plNet::Close(fSocket);
     fSocket = kBadSocket;
     return false;
@@ -92,7 +92,7 @@ bool plSocket::Active()
 
 void plSocket::Close()
 {
-    if(Active())
+    if (Active())
         plNet::Close(fSocket);
     fSocket = kBadSocket;
 }

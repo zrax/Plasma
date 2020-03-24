@@ -91,8 +91,8 @@ public:
     ~plBlower();
     plBlower();
 
-    CLASSNAME_REGISTER( plBlower );
-    GETINTERFACE_ANY( plBlower, plSingleModifier );
+    CLASSNAME_REGISTER(plBlower);
+    GETINTERFACE_ANY(plBlower, plSingleModifier);
     
     virtual void SetTarget(plSceneObject* so);
 

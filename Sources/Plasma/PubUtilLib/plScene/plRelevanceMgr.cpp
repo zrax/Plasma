@@ -135,11 +135,11 @@ bool plRelevanceMgr::MsgReceive(plMessage* msg)
     if (genMsg)
     {
         plRelevanceRegion *region = plRelevanceRegion::ConvertNoRef(genMsg->GetRef());
-        if( genMsg->GetContext() & (plRefMsg::kOnCreate) )
+        if (genMsg->GetContext() & (plRefMsg::kOnCreate))
         {
             IAddRegion(region);
         }
-        else if( genMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+        else if (genMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
         {
             IRemoveRegion(region);
         }

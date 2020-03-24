@@ -110,9 +110,9 @@ static const plCmdArgDef s_cmdLineArgs[] = {
 
 /// Made globals now, so we can set them to zero if we take the border and
 /// caption styles out ala fullscreen (8.11.2000 mcn)
-int gWinBorderDX    = GetSystemMetrics( SM_CXSIZEFRAME );
-int gWinBorderDY    = GetSystemMetrics( SM_CYSIZEFRAME );
-int gWinMenuDY      = GetSystemMetrics( SM_CYCAPTION );
+int gWinBorderDX    = GetSystemMetrics(SM_CXSIZEFRAME);
+int gWinBorderDY    = GetSystemMetrics(SM_CYSIZEFRAME);
+int gWinMenuDY      = GetSystemMetrics(SM_CYCAPTION);
 
 plClientLoader  gClient;
 bool            gPendingActivate = false;
@@ -302,14 +302,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         // Let go of the mouse if the window is being moved.
         case WM_ENTERSIZEMOVE:
             gDragging = true;
-            if( gClient )
+            if (gClient)
                 gClient->WindowActivate(false);
             break;
 
         // Redo the mouse capture if the window gets moved
         case WM_EXITSIZEMOVE:
             gDragging = false;
-            if( gClient )
+            if (gClient)
                 gClient->WindowActivate(true);
             break;
 
@@ -367,11 +367,11 @@ void    PumpMessageQueueProc()
     MSG msg;
 
     // Look for a message
-    while (PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ))
+    while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
     {
         // Handle the message
-        TranslateMessage( &msg );
-        DispatchMessage( &msg );
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
     }
 }
 
@@ -380,11 +380,11 @@ void InitNetClientComm()
     NetCommStartup();
 }
 
-BOOL CALLBACK AuthDialogProc( HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam )
+BOOL CALLBACK AuthDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     static bool* cancelled = NULL;
 
-    switch( uMsg )
+    switch (uMsg)
     {
     case WM_INITDIALOG:
         cancelled = (bool*)lParam;
@@ -432,7 +432,7 @@ static bool AuthenticateNetClientComm(ENetError* result, HWND parentWnd)
     bool cancelled = false;
     NetCommAuthenticate(nil);
 
-    ::DialogBoxParam(gHInst, MAKEINTRESOURCE( IDD_AUTHENTICATING ), parentWnd, AuthDialogProc, (LPARAM)&cancelled);
+    ::DialogBoxParam(gHInst, MAKEINTRESOURCE(IDD_AUTHENTICATING), parentWnd, AuthDialogProc, (LPARAM)&cancelled);
 
     if (!cancelled)
         *result = NetCommGetAuthResult();
@@ -531,9 +531,9 @@ static void AuthFailedStrings (ENetError authError,
 }
 
 
-BOOL CALLBACK AuthFailedDialogProc( HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam )
+BOOL CALLBACK AuthFailedDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-    switch( uMsg )
+    switch (uMsg)
     {
         case WM_INITDIALOG:
             {
@@ -545,11 +545,11 @@ BOOL CALLBACK AuthFailedDialogProc( HWND hwndDlg, UINT uMsg, WPARAM wParam, LPAR
                                          &pStr1, &pStr2, &pWStr);
 
                 if (pStr1)
-                        ::SetDlgItemText( hwndDlg, IDC_AUTH_TEXT, pStr1);
+                        ::SetDlgItemText(hwndDlg, IDC_AUTH_TEXT, pStr1);
                 if (pStr2)
-                        ::SetDlgItemText( hwndDlg, IDC_AUTH_MESSAGE, pStr2);
+                        ::SetDlgItemText(hwndDlg, IDC_AUTH_MESSAGE, pStr2);
                 if (pWStr)
-                        ::SetDlgItemTextW( hwndDlg, IDC_AUTH_MESSAGE, pWStr);
+                        ::SetDlgItemTextW(hwndDlg, IDC_AUTH_MESSAGE, pWStr);
             }
             return TRUE;
 
@@ -568,9 +568,9 @@ BOOL CALLBACK AuthFailedDialogProc( HWND hwndDlg, UINT uMsg, WPARAM wParam, LPAR
     return FALSE;
 }
 
-BOOL CALLBACK UruTOSDialogProc( HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam )
+BOOL CALLBACK UruTOSDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-    switch( uMsg )
+    switch (uMsg)
     {
     case WM_INITDIALOG:
         {
@@ -709,12 +709,12 @@ static size_t CurlCallback(void *buffer, size_t size, size_t nmemb, void *param)
     return size * nmemb;
 }
 
-BOOL CALLBACK UruLoginDialogProc( HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam )
+BOOL CALLBACK UruLoginDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     static LoginDialogParam* pLoginParam;
     static bool showAuthFailed = false;
 
-    switch( uMsg )
+    switch (uMsg)
     {
         case WM_INITDIALOG:
         {
@@ -847,7 +847,7 @@ BOOL CALLBACK UruLoginDialogProc( HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM
                         EndDialog(hwndDlg, ok);
                     else {
                         if (!cancelled)
-                            ::DialogBoxParam(gHInst, MAKEINTRESOURCE( IDD_AUTHFAILED ), hwndDlg, AuthFailedDialogProc, (LPARAM)pLoginParam);
+                            ::DialogBoxParam(gHInst, MAKEINTRESOURCE(IDD_AUTHFAILED), hwndDlg, AuthFailedDialogProc, (LPARAM)pLoginParam);
                         else
                         {
                             NetCommDisconnect();
@@ -878,11 +878,11 @@ BOOL CALLBACK UruLoginDialogProc( HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM
     
         case WM_TIMER:
         {
-            switch(wParam)
+            switch (wParam)
             {
             case AUTH_FAILED_TIMER:
                 KillTimer(hwndDlg, AUTH_FAILED_TIMER);
-                ::DialogBoxParam(gHInst, MAKEINTRESOURCE( IDD_AUTHFAILED ), hwndDlg, AuthFailedDialogProc, (LPARAM)pLoginParam);
+                ::DialogBoxParam(gHInst, MAKEINTRESOURCE(IDD_AUTHFAILED), hwndDlg, AuthFailedDialogProc, (LPARAM)pLoginParam);
                 return TRUE;
 
             case AUTH_LOGIN_TIMER:
@@ -928,19 +928,19 @@ BOOL CALLBACK SplashDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lP
     return 0;
 }
 
-BOOL CALLBACK ExceptionDialogProc( HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam )
+BOOL CALLBACK ExceptionDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     static char *sLastMsg = nil;
 
-    switch( uMsg )
+    switch (uMsg)
     {
         case WM_COMMAND:
-            EndDialog( hwndDlg, IDOK );
+            EndDialog(hwndDlg, IDOK);
     }
     return 0;
 }
 
-LONG WINAPI plCustomUnhandledExceptionFilter( struct _EXCEPTION_POINTERS *ExceptionInfo )
+LONG WINAPI plCustomUnhandledExceptionFilter(struct _EXCEPTION_POINTERS *ExceptionInfo)
 {
 #ifndef HS_DEBUGGING
     // Before we do __ANYTHING__, pass the exception to plCrashHandler
@@ -1059,12 +1059,12 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nC
 
     if (!eventExists) // if it is missing, assume patcher wasn't launched
     {
-        if(!CreateProcessW(s_patcherExeName, NULL, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi))
+        if (!CreateProcessW(s_patcherExeName, NULL, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi))
         {
             hsMessageBox("Failed to launch patcher", "Error", hsMessageBoxNormal);
         }
-        CloseHandle( pi.hThread );
-        CloseHandle( pi.hProcess );
+        CloseHandle(pi.hThread);
+        CloseHandle(pi.hProcess);
         return PARABLE_NORMAL_EXIT;
     }
 #endif
@@ -1160,12 +1160,12 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nC
     }
 
     if (doIntroDialogs) {
-        needExit = ::DialogBoxParam( hInst, MAKEINTRESOURCE( IDD_URULOGIN_MAIN ), NULL, UruLoginDialogProc, (LPARAM)&loginParam ) <= 0;
+        needExit = ::DialogBoxParam(hInst, MAKEINTRESOURCE(IDD_URULOGIN_MAIN), NULL, UruLoginDialogProc, (LPARAM)&loginParam) <= 0;
     }
 
     if (doIntroDialogs && !needExit) {
         HINSTANCE hRichEdDll = LoadLibrary("RICHED20.DLL");
-        INT_PTR val = ::DialogBoxParam( hInst, MAKEINTRESOURCE( IDD_URULOGIN_EULA ), NULL, UruTOSDialogProc, (LPARAM)hInst);
+        INT_PTR val = ::DialogBoxParam(hInst, MAKEINTRESOURCE(IDD_URULOGIN_EULA), NULL, UruTOSDialogProc, (LPARAM)hInst);
         FreeLibrary(hRichEdDll);
         if (val <= 0) {
             DWORD error = GetLastError();

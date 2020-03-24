@@ -73,8 +73,8 @@ public:
     plHardRegion();
     virtual ~plHardRegion();
 
-    CLASSNAME_REGISTER( plHardRegion );
-    GETINTERFACE_ANY( plHardRegion, plRegionBase );
+    CLASSNAME_REGISTER(plHardRegion);
+    GETINTERFACE_ANY(plHardRegion, plRegionBase);
 
     virtual bool IsInside(const hsPoint3& pos) const { return IIsInside(pos); }
     virtual bool CameraInside() const;

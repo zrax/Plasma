@@ -52,8 +52,8 @@ class plReceiver : public plCreatable
 public:
     plReceiver() {}
 
-    CLASSNAME_REGISTER( plReceiver );
-    GETINTERFACE_ANY( plReceiver, plCreatable );
+    CLASSNAME_REGISTER(plReceiver);
+    GETINTERFACE_ANY(plReceiver, plCreatable);
 
     virtual bool MsgReceive(plMessage* msg) { return false; }
 };

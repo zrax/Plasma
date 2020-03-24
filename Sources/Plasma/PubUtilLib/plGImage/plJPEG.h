@@ -67,21 +67,21 @@ class plJPEG
         uint8_t       fWriteQuality;
 
         // Pick one...
-        plMipmap    *IRead( hsStream *inStream );
-        bool        IWrite( plMipmap *source, hsStream *outStream );
+        plMipmap    *IRead(hsStream *inStream);
+        bool        IWrite(plMipmap *source, hsStream *outStream);
 
-        void        ISwapRGBAComponents( uint32_t *data, uint32_t count );
+        void        ISwapRGBAComponents(uint32_t *data, uint32_t count);
 
     public:
 
-        plMipmap    *ReadFromStream( hsStream *inStream ) { return IRead( inStream ); }
-        plMipmap    *ReadFromFile( const plFileName &fileName );
+        plMipmap    *ReadFromStream(hsStream *inStream) { return IRead(inStream); }
+        plMipmap    *ReadFromFile(const plFileName &fileName);
 
-        bool    WriteToStream( hsStream *outStream, plMipmap *sourceData ) { return IWrite( sourceData, outStream ); }
-        bool    WriteToFile( const plFileName &fileName, plMipmap *sourceData );
+        bool    WriteToStream(hsStream *outStream, plMipmap *sourceData) { return IWrite(sourceData, outStream); }
+        bool    WriteToFile(const plFileName &fileName, plMipmap *sourceData);
 
         // Range is 0 (worst) to 100 (best)
-        void    SetWriteQuality( uint8_t q ) { fWriteQuality = q; }
+        void    SetWriteQuality(uint8_t q) { fWriteQuality = q; }
 
         const char  *GetLastError();
 

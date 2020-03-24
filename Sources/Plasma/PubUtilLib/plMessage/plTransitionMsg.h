@@ -63,15 +63,15 @@ public:
         kFadeOutNoSound
     };
 
-    plTransitionMsg() : plMessageWithCallbacks(nil, nil, nil), fEffect( 0 ) { SetBCastFlag(kBCastByExactType);  }
-    plTransitionMsg( uint32_t type, float lengthInSecs, bool holdUntilNext = false ) :
-                plMessageWithCallbacks(nil, nil, nil), fEffect( type ), fLengthInSecs( lengthInSecs ), fHoldUntilNext( holdUntilNext )
-                { SetBCastFlag( kBCastByExactType );  }
+    plTransitionMsg() : plMessageWithCallbacks(nil, nil, nil), fEffect(0) { SetBCastFlag(kBCastByExactType);  }
+    plTransitionMsg(uint32_t type, float lengthInSecs, bool holdUntilNext = false) :
+                plMessageWithCallbacks(nil, nil, nil), fEffect(type), fLengthInSecs(lengthInSecs), fHoldUntilNext(holdUntilNext)
+                { SetBCastFlag(kBCastByExactType);  }
     
     ~plTransitionMsg();
 
-    CLASSNAME_REGISTER( plTransitionMsg );
-    GETINTERFACE_ANY( plTransitionMsg, plMessageWithCallbacks );
+    CLASSNAME_REGISTER(plTransitionMsg);
+    GETINTERFACE_ANY(plTransitionMsg, plMessageWithCallbacks);
 
     uint32_t GetEffect() const { return fEffect; }
     float    GetLengthInSecs() const { return fLengthInSecs; }

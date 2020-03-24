@@ -50,55 +50,55 @@ static_assert(sizeof(plUUID) == sizeof(GUID), "plUUID and Win32 GUID types diffe
 
 void plUUID::Clear()
 {
-    UuidCreateNil( (GUID *)this );
+    UuidCreateNil((GUID *)this);
 }
 
-int plUUID::CompareTo( const plUUID * v ) const
+int plUUID::CompareTo(const plUUID * v) const
 {
     RPC_STATUS s;
-    return UuidCompare( (GUID *)this, (GUID *)v, &s );
+    return UuidCompare((GUID *)this, (GUID *)v, &s);
 }
 
-bool plUUID::IsEqualTo( const plUUID * v ) const
+bool plUUID::IsEqualTo(const plUUID * v) const
 {
-    return ( CompareTo( v )==0 );
+    return (CompareTo(v)==0);
 }
 
 bool plUUID::IsNull() const
 {
     RPC_STATUS s;
-    return 1 == UuidIsNil( (GUID *)this, &s );
+    return 1 == UuidIsNil((GUID *)this, &s);
 }
 
-void plUUID::CopyFrom( const plUUID * v ) {
+void plUUID::CopyFrom(const plUUID * v) {
     if (!v)
         Clear();
     else
         CopyFrom(*v);
 }
 
-void plUUID::CopyFrom( const plUUID & v ) {
+void plUUID::CopyFrom(const plUUID & v) {
     memcpy(fData, v.fData, sizeof(fData));
 }
 
-bool plUUID::FromString( const char * str )
+bool plUUID::FromString(const char * str)
 {
     Clear();
-    if ( !str )
+    if (!str)
         return false;
-    return RPC_S_OK == UuidFromString( (unsigned char *)str, (GUID *)this );
+    return RPC_S_OK == UuidFromString((unsigned char *)str, (GUID *)this);
 }
 
-bool plUUID::ToString( ST::string & out ) const
+bool plUUID::ToString(ST::string & out) const
 {
     out = "";
     unsigned char * ubuf;
     RPC_STATUS s;
-    s = UuidToString( (GUID *) this, &ubuf );
-    bool success = ( s==RPC_S_OK );
-    if ( success )
-        out = ST::string::from_latin_1( (char*)ubuf );
-    RpcStringFree( &ubuf );
+    s = UuidToString((GUID *) this, &ubuf);
+    bool success = (s==RPC_S_OK);
+    if (success)
+        out = ST::string::from_latin_1((char*)ubuf);
+    RpcStringFree(&ubuf);
     return success;
 }
 
@@ -107,7 +107,7 @@ plUUID plUUID::Generate()
 {
     hsAssert(sizeof(plUUID) >= sizeof(GUID), "plUUID size");
     plUUID result;
-    UuidCreate( (GUID *)&result );
+    UuidCreate((GUID *)&result);
     return result;
 }
 

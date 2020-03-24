@@ -62,13 +62,13 @@ protected:
 public:
     plLoadAgeMsg() : fUnload(false), fPlayerID(-1) { }
 
-    CLASSNAME_REGISTER( plLoadAgeMsg );
-    GETINTERFACE_ANY( plLoadAgeMsg, plMessage );
+    CLASSNAME_REGISTER(plLoadAgeMsg);
+    GETINTERFACE_ANY(plLoadAgeMsg, plMessage);
 
     void SetAgeFilename(const ST::string& a) { fAgeFilename = a; }
     ST::string GetAgeFilename() const { return fAgeFilename; }
 
-    void SetAgeGuid( const plUUID * v ) { fAgeGuid.CopyFrom( v ); }
+    void SetAgeGuid(const plUUID * v) { fAgeGuid.CopyFrom(v); }
     const plUUID * GetAgeGuid() const { return &fAgeGuid; }
 
     void SetLoading(bool l) { fUnload=!l; }
@@ -94,8 +94,8 @@ class plLinkOutUnloadMsg : public plLoadAgeMsg
 public:
     plLinkOutUnloadMsg() { fUnload=true; }
 
-    CLASSNAME_REGISTER( plLinkOutUnloadMsg );
-    GETINTERFACE_ANY( plLinkOutUnloadMsg, plLoadAgeMsg );
+    CLASSNAME_REGISTER(plLinkOutUnloadMsg);
+    GETINTERFACE_ANY(plLinkOutUnloadMsg, plLoadAgeMsg);
 };
 
 //
@@ -107,8 +107,8 @@ class plLinkInDoneMsg : public plMessage
 {
 public:
 
-    CLASSNAME_REGISTER( plLinkInDoneMsg );
-    GETINTERFACE_ANY( plLinkInDoneMsg, plMessage );
+    CLASSNAME_REGISTER(plLinkInDoneMsg);
+    GETINTERFACE_ANY(plLinkInDoneMsg, plMessage);
 
     void Read(hsStream* stream, hsResMgr* mgr) { IMsgRead(stream, mgr); }
     void Write(hsStream* stream, hsResMgr* mgr) { IMsgWrite(stream, mgr);   }

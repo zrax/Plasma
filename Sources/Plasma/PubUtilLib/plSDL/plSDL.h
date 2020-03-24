@@ -129,7 +129,7 @@ public:
     enum Flags
     {
         kDirty  = 0x1,  // true when someone sets the value using Set(...), can be cleared after writing
-        kUsed   = 0x2   // true when it contains some value (either by Set(...) or Read() )
+        kUsed   = 0x2   // true when it contains some value (either by Set(...) or Read())
     };
 protected:
     uint32_t fFlags;
@@ -155,7 +155,7 @@ public:
     void SetDirty(bool d) { if (d) fFlags |= kDirty; else fFlags &= ~kDirty; }
     void SetUsed(bool d) { if (d) fFlags |= kUsed; else fFlags &= ~kUsed; }
     virtual void SetFromDefaults(bool timeStampNow) = 0;
-    virtual void TimeStamp( const plUnifiedTime & ut=plUnifiedTime::GetCurrent() ) = 0;
+    virtual void TimeStamp(const plUnifiedTime & ut=plUnifiedTime::GetCurrent()) = 0;
     virtual const plUnifiedTime& GetTimeStamp() const = 0;
 
     plStateVarNotificationInfo& GetNotificationInfo() { return fNotificationInfo; }
@@ -264,7 +264,7 @@ public:
     plSDStateVariable* GetAsSDStateVar() { return nil; }
     bool operator==(const plSimpleStateVariable &other) const;  // assumes matching var descriptors
 
-    void TimeStamp( const plUnifiedTime & ut=plUnifiedTime::GetCurrent() );
+    void TimeStamp(const plUnifiedTime & ut=plUnifiedTime::GetCurrent());
     void CopyFrom(plVarDescriptor* v);
     void CopyData(const plSimpleStateVariable* other, uint32_t writeOptions=0);
     bool SetFromString(const ST::string& value, int idx, bool timeStampNow);  // set value from string, type.  return false on err
@@ -356,7 +356,7 @@ public:
     void AddStateDataRecord(plStateDataRecord *sdr) { fDataRecList.push_back(sdr); SetDirty(true); SetUsed(true); }
     void InsertStateDataRecord(plStateDataRecord *sdr, int i) { fDataRecList[i] = sdr; SetDirty(true); SetUsed(true);}
     void SetFromDefaults(bool timeStampNow);
-    void TimeStamp( const plUnifiedTime & ut=plUnifiedTime::GetCurrent() );
+    void TimeStamp(const plUnifiedTime & ut=plUnifiedTime::GetCurrent());
     const plUnifiedTime& GetTimeStamp() const { static plUnifiedTime foo; return foo; }
     
     void Alloc(int cnt=-1 /* -1 means don't change count */);   // wipe and re-create
@@ -428,16 +428,16 @@ protected:
     int IGetDirtyVars(const VarsList& varsOut, VarsList *varsIn) const; // build a list of vars that are dirty
     bool IHasDirtyVars(const VarsList& vars) const;
 public:
-    CLASSNAME_REGISTER( plStateDataRecord );
-    GETINTERFACE_ANY( plStateDataRecord, plCreatable);
+    CLASSNAME_REGISTER(plStateDataRecord);
+    GETINTERFACE_ANY(plStateDataRecord, plCreatable);
 
     plStateDataRecord(const ST::string& sdName, int version=plSDL::kLatestVersion);
     plStateDataRecord(plStateDescriptor* sd);
-    plStateDataRecord(const plStateDataRecord &other, uint32_t writeOptions=0 ):fFlags(0) { CopyFrom(other, writeOptions); }
+    plStateDataRecord(const plStateDataRecord &other, uint32_t writeOptions=0):fFlags(0) { CopyFrom(other, writeOptions); }
     plStateDataRecord() : fDescriptor(nil), fFlags(0) {}
     ~plStateDataRecord();
 
-    bool ConvertTo(plStateDescriptor* other, bool force=false );
+    bool ConvertTo(plStateDescriptor* other, bool force=false);
     bool operator==(const plStateDataRecord &other) const;  // assumes matching state descriptors
 
     uint32_t GetFlags() const { return fFlags;    }
@@ -565,11 +565,11 @@ public:
     void SetNetApp(plNetApp* a) { fNetApp=a; }
     plNetApp* GetNetApp() const { return fNetApp; }
     
-    bool Init( uint32_t behaviorFlags=0 );    // parse sdl folder
+    bool Init(uint32_t behaviorFlags=0);    // parse sdl folder
     void DeInit();
     uint32_t GetBehaviorFlags() const { return fBehaviorFlags; }
     void SetBehaviorFlags(uint32_t v) { fBehaviorFlags=v; }
-    bool AllowTimeStamping() const { return ! ( fBehaviorFlags&plSDL::kDisallowTimeStamping ); }
+    bool AllowTimeStamping() const { return ! (fBehaviorFlags&plSDL::kDisallowTimeStamping); }
 
     // I/O - return # of bytes read/written
     int Write(hsStream* s, const plSDL::DescriptorList* dl=nil);    // write descriptors to a stream

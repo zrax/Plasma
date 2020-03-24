@@ -62,18 +62,18 @@ class pcSmallRect
         int16_t   fX, fY, fWidth, fHeight;
 
         pcSmallRect() { Empty(); }
-        pcSmallRect( int16_t x, int16_t y, int16_t w, int16_t h ) { Set( x, y, w, h ); }
+        pcSmallRect(int16_t x, int16_t y, int16_t w, int16_t h) { Set(x, y, w, h); }
         
-        void    Set( int16_t x, int16_t y, int16_t w, int16_t h ) { fX = x; fY = y; fWidth = w; fHeight = h; }
+        void    Set(int16_t x, int16_t y, int16_t w, int16_t h) { fX = x; fY = y; fWidth = w; fHeight = h; }
         void    Empty() { fX = fY = fWidth = fHeight = 0; }
 
         int16_t   GetRight() const { return fX + fWidth; }
         int16_t   GetBottom() const { return fY + fHeight; }
 
-        void    Read( hsStream *s );
-        void    Write( hsStream *s );
+        void    Read(hsStream *s);
+        void    Write(hsStream *s);
 
-        bool  Contains( int16_t x, int16_t y ) const
+        bool  Contains(int16_t x, int16_t y) const
         {
             return (x >= fX) && (x <= fX + fWidth) && (y >= fY) && (y <= fY + fHeight);
         }

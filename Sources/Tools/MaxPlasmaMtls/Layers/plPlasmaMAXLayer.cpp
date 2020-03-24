@@ -104,7 +104,7 @@ plPlasmaMAXLayer::~plPlasmaMAXLayer()
 //  Static function that checks the classID of the given texMap and, if it's a
 //  valid Plasma MAX Layer, returns a pointer to such.
 
-plPlasmaMAXLayer    *plPlasmaMAXLayer::GetPlasmaMAXLayer( Texmap *map )
+plPlasmaMAXLayer    *plPlasmaMAXLayer::GetPlasmaMAXLayer(Texmap *map)
 {
     if (!map)
         return NULL;
@@ -112,9 +112,9 @@ plPlasmaMAXLayer    *plPlasmaMAXLayer::GetPlasmaMAXLayer( Texmap *map )
     int     i;
 
 
-    for( i = 0; i < sizeof( fDerivedTypes ) / sizeof( Class_ID ); i++ )
+    for (i = 0; i < sizeof(fDerivedTypes) / sizeof(Class_ID); i++)
     {
-        if( map->ClassID() == fDerivedTypes[ i ] )
+        if (map->ClassID() == fDerivedTypes[i])
             return (plPlasmaMAXLayer *)map;
     }
 
@@ -141,49 +141,49 @@ class plLayerTargetContainer : public hsKeyedObject
     public:
         hsTArray<plLayerInterface *>    fLayers;
 
-        virtual bool MsgReceive( plMessage *msg )
+        virtual bool MsgReceive(plMessage *msg)
         {
-            plGenRefMsg *ref = plGenRefMsg::ConvertNoRef( msg );
-            if( ref != nil )
+            plGenRefMsg *ref = plGenRefMsg::ConvertNoRef(msg);
+            if (ref != nil)
             {
-                if( ref->GetContext() & ( plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace ) )
-                    fLayers[ ref->fWhich ] = plLayerInterface::ConvertNoRef( ref->GetRef() );
+                if (ref->GetContext() & (plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace))
+                    fLayers[ref->fWhich] = plLayerInterface::ConvertNoRef(ref->GetRef());
                 else
-                    fLayers[ ref->fWhich ] = nil;
+                    fLayers[ref->fWhich] = nil;
             }
 
-            return hsKeyedObject::MsgReceive( msg );
+            return hsKeyedObject::MsgReceive(msg);
         }
 
         plLayerTargetContainer()
         {
             ST::string str = ST::format("plLayerTargetContainer-{}", fKeyCount++);
-            hsgResMgr::ResMgr()->NewKey( str, this, plLocation::kGlobalFixedLoc );
+            hsgResMgr::ResMgr()->NewKey(str, this, plLocation::kGlobalFixedLoc);
         }
 };
 
 uint32_t  plLayerTargetContainer::fKeyCount = 0;
 
 
-void    plPlasmaMAXLayer::IAddConversionTarget( plLayerInterface *target )
+void    plPlasmaMAXLayer::IAddConversionTarget(plLayerInterface *target)
 {
-    if( fConversionTargets == nil )
+    if (fConversionTargets == nil)
     {
         // Create us a new container
         fConversionTargets = new plLayerTargetContainer;
         fConversionTargets->GetKey()->RefObject();
     }
 
-    fConversionTargets->fLayers.Append( target );
-    hsgResMgr::ResMgr()->AddViaNotify( target->GetKey(),
-                                        new plGenRefMsg( fConversionTargets->GetKey(), plRefMsg::kOnCreate,
-                                                        fConversionTargets->fLayers.GetCount() - 1, 0 ),
-                                        plRefFlags::kPassiveRef );
+    fConversionTargets->fLayers.Append(target);
+    hsgResMgr::ResMgr()->AddViaNotify(target->GetKey(),
+                                      new plGenRefMsg(fConversionTargets->GetKey(), plRefMsg::kOnCreate,
+                                                      fConversionTargets->fLayers.GetCount() - 1, 0),
+                                      plRefFlags::kPassiveRef);
 }
 
 void    plPlasmaMAXLayer::IClearConversionTargets()
 {
-    if( fConversionTargets != nil )
+    if (fConversionTargets != nil)
     {
         fConversionTargets->GetKey()->UnRefObject();
         fConversionTargets = nil;
@@ -192,31 +192,31 @@ void    plPlasmaMAXLayer::IClearConversionTargets()
 
 int     plPlasmaMAXLayer::GetNumConversionTargets()
 {
-    if( fConversionTargets == nil )
+    if (fConversionTargets == nil)
         return 0;
 
 
     int i, count = 0;
-    for( i = 0; i < fConversionTargets->fLayers.GetCount(); i++ )
+    for (i = 0; i < fConversionTargets->fLayers.GetCount(); i++)
     {
-        if( fConversionTargets->fLayers[ i ] != nil )
+        if (fConversionTargets->fLayers[i] != nil)
             count++;
     }
     return count;
 }
 
-plLayerInterface    *plPlasmaMAXLayer::GetConversionTarget( int index )
+plLayerInterface    *plPlasmaMAXLayer::GetConversionTarget(int index)
 {
-    if( fConversionTargets == nil )
+    if (fConversionTargets == nil)
         return nil;
 
     int i;
-    for( i = 0; i < fConversionTargets->fLayers.GetCount(); i++ )
+    for (i = 0; i < fConversionTargets->fLayers.GetCount(); i++)
     {
-        if( fConversionTargets->fLayers[ i ] != nil )
+        if (fConversionTargets->fLayers[i] != nil)
         {
-            if( index == 0 )
-                return fConversionTargets->fLayers[ i ];
+            if (index == 0)
+                return fConversionTargets->fLayers[i];
             index--;
         }
     }
@@ -285,7 +285,7 @@ void plPlasmaMAXLayer::SetBitmap(BitmapInfo *bi, int index)
                 if (assInterface->GetLatestVersionFile(targetAssetId, newfilename, sizeof(newfilename)))
                 {
                     // If the filename has changed, we have to reset the bitmap in the ParamBlock
-                    if(stricmp(filename, newfilename) != 0)
+                    if (stricmp(filename, newfilename) != 0)
                         bi->SetName(newfilename);
                 }
             }
@@ -369,7 +369,7 @@ void plPlasmaMAXLayer::RefreshBitmaps()
 {
     int i, count = GetNumBitmaps();
 
-    for( i = 0; i < count; i++ )
+    for (i = 0; i < count; i++)
     {
         PBBitmap *pbbm = GetPBBitmap(i);
         if (pbbm)
@@ -383,7 +383,7 @@ void plPlasmaMAXLayer::RefreshBitmaps()
 //  Returns the filename of the ith bitmap. Makes sure we have the latest
 //  version from assetMan as well, if applicable.
 
-bool    plPlasmaMAXLayer::GetBitmapFileName( char *destFilename, int maxLength, int index /* = 0 */ )
+bool    plPlasmaMAXLayer::GetBitmapFileName(char *destFilename, int maxLength, int index /* = 0 */)
 {
 #ifdef MAXASS_AVAILABLE
     jvUniqueId targetAssetId;
@@ -399,10 +399,10 @@ bool    plPlasmaMAXLayer::GetBitmapFileName( char *destFilename, int maxLength, 
 #endif
 
     // Normal return
-    if( GetPBBitmap( index ) == nil )
+    if (GetPBBitmap(index) == nil)
         return false;
 
-    strncpy( destFilename, GetPBBitmap( index )->bi.Name(), maxLength );
+    strncpy(destFilename, GetPBBitmap(index)->bi.Name(), maxLength);
     return true;
 }
 
@@ -410,7 +410,7 @@ BOOL plPlasmaMAXLayer::HandleBitmapSelection(int index /* = 0 */)
 {
     static ICustButton* bmSelectBtn;
 
-    PBBitmap *pbbm = GetPBBitmap( index );
+    PBBitmap *pbbm = GetPBBitmap(index);
 
 #ifdef MAXASS_AVAILABLE
     MaxAssInterface* maxAssInterface = GetMaxAssInterface();
@@ -430,7 +430,7 @@ BOOL plPlasmaMAXLayer::HandleBitmapSelection(int index /* = 0 */)
     }
     // if we have the assetman plug-in, then try to use it, unless shift is held down
 #ifdef MAXASS_AVAILABLE
-    else if(maxAssInterface && !(GetKeyState(VK_SHIFT) & 0x8000))
+    else if (maxAssInterface && !(GetKeyState(VK_SHIFT) & 0x8000))
     {
         jvUniqueId assetId;
         GetBitmapAssetId(assetId, index);
@@ -450,8 +450,8 @@ BOOL plPlasmaMAXLayer::HandleBitmapSelection(int index /* = 0 */)
     else
     {
         BitmapInfo bi;
-        if( pbbm != NULL )
-            bi.SetName( pbbm->bi.Name() );
+        if (pbbm != NULL)
+            bi.SetName(pbbm->bi.Name());
 
         BOOL selectedNewBitmap = TheManager->SelectFileInput(&bi,
                                                             GetCOREInterface()->GetMAXHWnd(),

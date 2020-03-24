@@ -75,8 +75,8 @@ public:
     
     virtual bool MsgReceive(plMessage* msg) {return false;}
 
-    CLASSNAME_REGISTER( plInterestingModifier );
-    GETINTERFACE_ANY( plInterestingModifier, plSingleModifier );
+    CLASSNAME_REGISTER(plInterestingModifier);
+    GETINTERFACE_ANY(plInterestingModifier, plSingleModifier);
 
     float GetInterestWeight() { return fInterestWeight; }
     float GetInterestRadius() { return fInterestRadius; }

@@ -61,8 +61,8 @@ public:
     plInstanceDrawInterface();
     virtual ~plInstanceDrawInterface();
 
-    CLASSNAME_REGISTER( plInstanceDrawInterface );
-    GETINTERFACE_ANY( plInstanceDrawInterface, plDrawInterface );
+    CLASSNAME_REGISTER(plInstanceDrawInterface);
+    GETINTERFACE_ANY(plInstanceDrawInterface, plDrawInterface);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

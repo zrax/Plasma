@@ -79,7 +79,7 @@ void plAnimTimeConvertSDLModifier::IPutATC(plStateDataRecord* atcStateDataRec, p
 //
 void plAnimTimeConvertSDLModifier::ISetCurrentATC(const plStateDataRecord* atcStateDataRec, plAnimTimeConvert* objAtc)
 {
-//  if ( GetTarget(0)->GetKeyName() && stricmp( GetTarget(0)->GetKeyName(), "RTDirLight01" )==0 )
+//  if (GetTarget(0)->GetKeyName() && stricmp(GetTarget(0)->GetKeyName(), "RTDirLight01")==0)
 //  {
 //      int xx=0;
 //  }
@@ -90,7 +90,7 @@ void plAnimTimeConvertSDLModifier::ISetCurrentATC(const plStateDataRecord* atcSt
         int j;
         float lastStateAnimTime = 0;
         double lastStateChange = 0;
-        for(j=0;j<num;j++)
+        for (j=0;j<num;j++)
         {
             if (vars[j]->IsNamed(AnimTimeConvertVarNames::kStrFlags))
             {

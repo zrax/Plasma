@@ -85,15 +85,15 @@ public:
     plRandomSoundMod();
     ~plRandomSoundMod();
 
-    CLASSNAME_REGISTER( plRandomSoundMod );
-    GETINTERFACE_ANY( plRandomSoundMod, plRandomCommandMod );
+    CLASSNAME_REGISTER(plRandomSoundMod);
+    GETINTERFACE_ANY(plRandomSoundMod, plRandomCommandMod);
 
     virtual void Read(hsStream* s, hsResMgr* mgr);
     virtual void Write(hsStream* s, hsResMgr* mgr);
 
     void SetCurrentGroup(uint16_t group);
         
-    void    ForceSoundLoadState( bool loaded );
+    void    ForceSoundLoadState(bool loaded);
     bool    MsgReceive(plMessage* msg);
     float           GetVolume();
 

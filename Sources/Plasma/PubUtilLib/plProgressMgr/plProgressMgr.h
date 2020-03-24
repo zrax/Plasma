@@ -104,7 +104,7 @@ class plOperationProgress
         void IChildUpdateBegin(plOperationProgress* child);
         void IChildUpdateEnd(plOperationProgress* child);
 
-        plOperationProgress( float length );
+        plOperationProgress(float length);
 
     public:
 
@@ -121,13 +121,13 @@ class plOperationProgress
         float GetAmtPerSec() { return fAmtPerSec; }
 
         // Adds on to current value
-        void    Increment( float byHowMuch );
+        void    Increment(float byHowMuch);
 
         // Sets current value
-        void    SetHowMuch( float byHowMuch );
+        void    SetHowMuch(float byHowMuch);
 
         // Set the length
-        void    SetLength( float length );
+        void    SetLength(float length);
 
         /** Sets the progress bar's right justified info text */
         void SetInfoText(const ST::string& info) { fInfoText = info; }
@@ -139,9 +139,9 @@ class plOperationProgress
         void    SetTitle(const ST::string& title) { fTitle = title; }
 
         // Application data
-        void    SetContext( uint32_t context ) { fContext = context;}
+        void    SetContext(uint32_t context) { fContext = context;}
 
-        bool    IsDone() { return ( fValue < fMax ) ? false : true; }
+        bool    IsDone() { return (fValue < fMax) ? false : true; }
 
         // True if this is the initial update (progress was just created)
         bool IsInitUpdate() { return hsCheckBits(fFlags, kInitUpdate); }
@@ -176,13 +176,13 @@ class plOperationProgress
         plOperationProgress* GetNext() const { return fNext; }
 
         // Or this
-        void    SetCancelFlag( bool f ) { hsChangeBits(fFlags, kShouldCancel, f); }
+        void    SetCancelFlag(bool f) { hsChangeBits(fFlags, kShouldCancel, f); }
 };
 
 // This is a callback proc you set that gets called every time the progressManager
 // needs updating (like, say, you need to redraw progress bars). The client generally
 // sets this callback and nobody should ever touch it.
-typedef void(*plProgressMgrCallbackProc)( plOperationProgress* );
+typedef void(*plProgressMgrCallbackProc)(plOperationProgress*);
 
 //// Manager Class Definition ////////////////////////////////////////////////
 
@@ -239,15 +239,15 @@ class plProgressMgr
         uint32_t NumLoadingFrames() const;
         static const ST::string GetStaticTextID(StaticText staticTextType);
 
-        virtual void    Draw( plPipeline *p ) { }
+        virtual void    Draw(plPipeline *p) { }
 
         plOperationProgress* RegisterOperation(float length, const char *title = nil, StaticText staticTextType = kNone, bool isRetry = false, bool alwaysDrawText = false);
         plOperationProgress* RegisterOverallOperation(float length, const char *title = nil, StaticText staticTextType = kNone, bool alwaysDrawText = false);
 
 
-        plProgressMgrCallbackProc SetCallbackProc( plProgressMgrCallbackProc proc );
+        plProgressMgrCallbackProc SetCallbackProc(plProgressMgrCallbackProc proc);
 
-        bool        IsActive() const { return ( fOperations != nil ) ? true : false; }
+        bool        IsActive() const { return (fOperations != nil) ? true : false; }
 
         void    CancelAllOps();
 };

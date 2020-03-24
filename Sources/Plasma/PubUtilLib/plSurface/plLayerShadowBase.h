@@ -55,8 +55,8 @@ public:
     plLayerLightBase();
     virtual ~plLayerLightBase();
 
-    CLASSNAME_REGISTER( plLayerLightBase );
-    GETINTERFACE_ANY( plLayerLightBase, plLayerInterface );
+    CLASSNAME_REGISTER(plLayerLightBase);
+    GETINTERFACE_ANY(plLayerLightBase, plLayerInterface);
 
 
     virtual plLayerInterface*   Attach(plLayerInterface* prev);
@@ -75,8 +75,8 @@ public:
     plLayerShadowBase();
     virtual ~plLayerShadowBase();
 
-    CLASSNAME_REGISTER( plLayerShadowBase );
-    GETINTERFACE_ANY( plLayerShadowBase, plLayerInterface );
+    CLASSNAME_REGISTER(plLayerShadowBase);
+    GETINTERFACE_ANY(plLayerShadowBase, plLayerInterface);
 
 
     virtual plLayerInterface*   Attach(plLayerInterface* prev);

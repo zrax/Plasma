@@ -70,26 +70,26 @@ class plDXRenderTargetRef: public plDXTextureRef
 
         bool                fReleaseDepth;
 
-        void                    Link( plDXRenderTargetRef **back ) { plDXDeviceRef::Link( (plDXDeviceRef **)back ); }
+        void                    Link(plDXRenderTargetRef **back) { plDXDeviceRef::Link((plDXDeviceRef **)back); }
         plDXRenderTargetRef *GetNext() { return (plDXRenderTargetRef *)fNext; }
 
 
-        plDXRenderTargetRef( D3DFORMAT tp, uint32_t ml, plRenderTarget *owner, bool releaseDepthOnDelete = true );
-        plDXRenderTargetRef& Set( D3DFORMAT tp, uint32_t ml, plRenderTarget *owner );
+        plDXRenderTargetRef(D3DFORMAT tp, uint32_t ml, plRenderTarget *owner, bool releaseDepthOnDelete = true);
+        plDXRenderTargetRef& Set(D3DFORMAT tp, uint32_t ml, plRenderTarget *owner);
 
-        virtual void    SetOwner( plRenderTarget *targ ) { fOwner = (plBitmap *)targ; }
+        virtual void    SetOwner(plRenderTarget *targ) { fOwner = (plBitmap *)targ; }
 
-        void    SetTexture( IDirect3DSurface9 *surface, IDirect3DSurface9 *depth );
-        void    SetTexture( IDirect3DTexture9 *surface, IDirect3DSurface9 *depth );
-        void    SetTexture( IDirect3DCubeTexture9 *surface, IDirect3DSurface9 *depth );
+        void    SetTexture(IDirect3DSurface9 *surface, IDirect3DSurface9 *depth);
+        void    SetTexture(IDirect3DTexture9 *surface, IDirect3DSurface9 *depth);
+        void    SetTexture(IDirect3DCubeTexture9 *surface, IDirect3DSurface9 *depth);
 
         IDirect3DSurface9   *GetColorSurface() const
         {
-            if( fD3DTexture != nil )
+            if (fD3DTexture != nil)
             {
                 IDirect3DSurface9* psurf;
                 ((IDirect3DTexture9*)fD3DTexture)->GetSurfaceLevel(0, &psurf);
-                if( psurf )
+                if (psurf)
                     psurf->Release();
                 return psurf;
             }

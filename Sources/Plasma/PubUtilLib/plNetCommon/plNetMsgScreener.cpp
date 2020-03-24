@@ -91,7 +91,7 @@ void plNetMsgScreener::IRejectLogMsg(const plMessage* msg, const char* desc, con
 plNetMsgScreener::Answer plNetMsgScreener::IAllowMessageType(int16_t classIndex, const plNetGameMember* gm) const
 {
     // Check based on exact type
-    switch(classIndex)
+    switch (classIndex)
     {
         // these are wrapped in their own net msg, so the client will see them this way, but not the server
         // that's why they check IAmClient() - this is a special case
@@ -147,7 +147,7 @@ bool plNetMsgScreener::IValidateMessage(const plMessage* msg, const plNetGameMem
     if (!msg)
         return true;
 
-    switch(msg->ClassIndex())
+    switch (msg->ClassIndex())
     {
         // Only chat KI msgs are allowed.
         // Admin/system-wide chat msgs are only allowed by CCRs

@@ -239,8 +239,8 @@ public:
     virtual void SaveAux(hsStream *stream, hsResMgr *mgr);
     virtual void LoadAux(hsStream *stream, hsResMgr *mgr, double time);
 
-    CLASSNAME_REGISTER( plAnimStage );
-    GETINTERFACE_ANY( plAnimStage, plCreatable);
+    CLASSNAME_REGISTER(plAnimStage);
+    GETINTERFACE_ANY(plAnimStage, plCreatable);
     
 protected:
     bool IMoveBackward(double worldTime, float delta, float &underrun, plArmatureMod *avMod);

@@ -65,7 +65,7 @@ plSDLMgr::~plSDLMgr()
     DeInit();
 }
 
-bool plSDLMgr::Init( uint32_t behaviorFlags )
+bool plSDLMgr::Init(uint32_t behaviorFlags)
 {
     fBehaviorFlags = behaviorFlags;
     plSDLParser parser;
@@ -82,7 +82,7 @@ void plSDLMgr::DeInit()
 //
 void plSDLMgr::IDeleteDescriptors(plSDL::DescriptorList* dl)
 {
-    std::for_each( dl->begin(), dl->end(),
+    std::for_each(dl->begin(), dl->end(),
         [](plStateDescriptor* sd) { delete sd; }
     );
     dl->clear();
@@ -107,7 +107,7 @@ plStateDescriptor* plSDLMgr::FindDescriptor(const ST::string& name, int version,
     if (name.empty())
         return nil;
 
-    if ( !dl )
+    if (!dl)
         dl = &fDescriptors;
 
     plStateDescriptor* sd = nil;
@@ -115,16 +115,16 @@ plStateDescriptor* plSDLMgr::FindDescriptor(const ST::string& name, int version,
     plSDL::DescriptorList::const_iterator it;
 
     int highestFound = -1;
-    for(it=(*dl).begin(); it!= (*dl).end(); it++)
+    for (it=(*dl).begin(); it!= (*dl).end(); it++)
     {
-        if (!(*it)->GetName().compare_i(name) )
+        if (!(*it)->GetName().compare_i(name))
         {
-            if ( (*it)->GetVersion()==version )
+            if ((*it)->GetVersion()==version)
             {
                 sd = *it;
                 break;
             }
-            else if ( version==plSDL::kLatestVersion && (*it)->GetVersion()>highestFound )
+            else if (version==plSDL::kLatestVersion && (*it)->GetVersion()>highestFound)
             {
                 sd = *it;
                 highestFound = (*it)->GetVersion();
@@ -150,7 +150,7 @@ int plSDLMgr::Write(hsStream* s, const plSDL::DescriptorList* dl)
     s->WriteLE(num);
 
     plSDL::DescriptorList::const_iterator it;
-    for(it=dl->begin(); it!= dl->end(); it++)
+    for (it=dl->begin(); it!= dl->end(); it++)
         (*it)->Write(s);
 
     int bytes=s->GetPosition()-pos;
@@ -182,7 +182,7 @@ int plSDLMgr::Read(hsStream* s, plSDL::DescriptorList* dl)
         s->ReadLE(&num);
 
         int i;
-        for(i=0;i<num;i++)
+        for (i=0;i<num;i++)
         {
             plStateDescriptor* sd=new plStateDescriptor;
             if (sd->Read(s))

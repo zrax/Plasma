@@ -53,15 +53,15 @@ plKeyPressConditionalObject::plKeyPressConditionalObject()
 bool plKeyPressConditionalObject::MsgReceive(plMessage* msg)
 {
     plKeyEventMsg* pKeyMsg = plKeyEventMsg::ConvertNoRef(msg);
-    if( pKeyMsg )
+    if (pKeyMsg)
     {
-        if (pKeyMsg && pKeyMsg->GetKeyCode() == fKeyEvent && pKeyMsg->GetKeyDown() && !Satisfied() )
+        if (pKeyMsg && pKeyMsg->GetKeyCode() == fKeyEvent && pKeyMsg->GetKeyDown() && !Satisfied())
         {
             SetSatisfied(true);
             //      fLogicMod->RequestTrigger();
         }
         else
-        if (pKeyMsg && pKeyMsg->GetKeyCode() == fKeyEvent && !pKeyMsg->GetKeyDown() && Satisfied() )
+        if (pKeyMsg && pKeyMsg->GetKeyCode() == fKeyEvent && !pKeyMsg->GetKeyDown() && Satisfied())
         {
             SetSatisfied(false);
         }

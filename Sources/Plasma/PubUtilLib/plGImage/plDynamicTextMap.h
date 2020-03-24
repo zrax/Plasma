@@ -93,8 +93,8 @@ class plDynamicTextMap : public plMipmap
 
         uint16_t      fVisWidth, fVisHeight;
 
-        virtual uint32_t  Read( hsStream *s );
-        virtual uint32_t  Write( hsStream *s );
+        virtual uint32_t  Read(hsStream *s);
+        virtual uint32_t  Write(hsStream *s);
 
     public:
         //// Public Flags ////
@@ -113,20 +113,20 @@ class plDynamicTextMap : public plMipmap
 
 
         plDynamicTextMap();
-        plDynamicTextMap( uint32_t width, uint32_t height, bool hasAlpha = false, uint32_t extraWidth = 0, uint32_t extraHeight = 0, bool premultipliedAlpha = false );
+        plDynamicTextMap(uint32_t width, uint32_t height, bool hasAlpha = false, uint32_t extraWidth = 0, uint32_t extraHeight = 0, bool premultipliedAlpha = false);
         virtual ~plDynamicTextMap();
 
-        CLASSNAME_REGISTER( plDynamicTextMap );
-        GETINTERFACE_ANY( plDynamicTextMap, plMipmap );
+        CLASSNAME_REGISTER(plDynamicTextMap);
+        GETINTERFACE_ANY(plDynamicTextMap, plMipmap);
 
 
-        void            Create( uint32_t width, uint32_t height, bool hasAlpha, uint32_t extraWidth = 0, uint32_t extraHeight = 0, bool premultipliedAlpha = false );
-        void            SetNoCreate( uint32_t width, uint32_t height, bool hasAlpha );
+        void            Create(uint32_t width, uint32_t height, bool hasAlpha, uint32_t extraWidth = 0, uint32_t extraHeight = 0, bool premultipliedAlpha = false);
+        void            SetNoCreate(uint32_t width, uint32_t height, bool hasAlpha);
 
         virtual void    Reset();
 
-        virtual void    Read( hsStream *s, hsResMgr *mgr ) { hsKeyedObject::Read( s, mgr ); this->Read( s ); }
-        virtual void    Write( hsStream *s, hsResMgr *mgr ) { hsKeyedObject::Write( s, mgr ); this->Write( s ); }
+        virtual void    Read(hsStream *s, hsResMgr *mgr) { hsKeyedObject::Read(s, mgr); this->Read(s); }
+        virtual void    Write(hsStream *s, hsResMgr *mgr) { hsKeyedObject::Write(s, mgr); this->Write(s); }
 
         virtual uint8_t   GetNumLevels() const { return 1; }
 
@@ -143,7 +143,7 @@ class plDynamicTextMap : public plMipmap
         // ... the fImage will be re-created on the next operation that requires the image
         void    PurgeImage();
 
-        void    ClearToColor( hsColorRGBA &color );
+        void    ClearToColor(hsColorRGBA &color);
 
         enum FontFlags
         {
@@ -152,26 +152,26 @@ class plDynamicTextMap : public plMipmap
             kFontShadowed   = 0x04
         };
 
-        void    SetFont( const ST::string &face, uint16_t size, uint8_t fontFlags = 0, bool antiAliasRGB = true );
-        void    SetLineSpacing( int16_t spacing );
-        void    SetTextColor( hsColorRGBA &color, bool blockRGB = false );
-        void    SetJustify( Justify j );
+        void    SetFont(const ST::string &face, uint16_t size, uint8_t fontFlags = 0, bool antiAliasRGB = true);
+        void    SetLineSpacing(int16_t spacing);
+        void    SetTextColor(hsColorRGBA &color, bool blockRGB = false);
+        void    SetJustify(Justify j);
 
-        void    DrawString( uint16_t x, uint16_t y, const char *text );
-        void    DrawString( uint16_t x, uint16_t y, const wchar_t *text );
-        void    DrawClippedString( int16_t x, int16_t y, const ST::string &text, uint16_t width, uint16_t height );
-        void    DrawClippedString( int16_t x, int16_t y, const wchar_t *text, uint16_t width, uint16_t height );
-        void    DrawClippedString( int16_t x, int16_t y, const ST::string &text, uint16_t clipX, uint16_t clipY, uint16_t width, uint16_t height );
-        void    DrawClippedString( int16_t x, int16_t y, const wchar_t *text, uint16_t clipX, uint16_t clipY, uint16_t width, uint16_t height );
-        void    DrawWrappedString( uint16_t x, uint16_t y, const ST::string &text, uint16_t width, uint16_t height, uint16_t *lastX = nil, uint16_t *lastY = nil );
-        void    DrawWrappedString( uint16_t x, uint16_t y, const wchar_t *text, uint16_t width, uint16_t height, uint16_t *lastX = nil, uint16_t *lastY = nil );
-        uint16_t  CalcStringWidth( const ST::string &text, uint16_t *height = nil );
-        uint16_t  CalcStringWidth( const wchar_t *text, uint16_t *height = nil );
-        void    CalcWrappedStringSize( const ST::string &text, uint16_t *width, uint16_t *height, uint32_t *firstClippedChar = nil, uint16_t *maxAscent = nil, uint16_t *lastX = nil, uint16_t *lastY = nil );
-        void    CalcWrappedStringSize( const wchar_t *text, uint16_t *width, uint16_t *height, uint32_t *firstClippedChar = nil, uint16_t *maxAscent = nil, uint16_t *lastX = nil, uint16_t *lastY = nil );
-        void    FillRect( uint16_t x, uint16_t y, uint16_t width, uint16_t height, hsColorRGBA &color );
-        void    FrameRect( uint16_t x, uint16_t y, uint16_t width, uint16_t height, hsColorRGBA &color );
-        void    SetFirstLineIndent( int16_t indent );
+        void    DrawString(uint16_t x, uint16_t y, const char *text);
+        void    DrawString(uint16_t x, uint16_t y, const wchar_t *text);
+        void    DrawClippedString(int16_t x, int16_t y, const ST::string &text, uint16_t width, uint16_t height);
+        void    DrawClippedString(int16_t x, int16_t y, const wchar_t *text, uint16_t width, uint16_t height);
+        void    DrawClippedString(int16_t x, int16_t y, const ST::string &text, uint16_t clipX, uint16_t clipY, uint16_t width, uint16_t height);
+        void    DrawClippedString(int16_t x, int16_t y, const wchar_t *text, uint16_t clipX, uint16_t clipY, uint16_t width, uint16_t height);
+        void    DrawWrappedString(uint16_t x, uint16_t y, const ST::string &text, uint16_t width, uint16_t height, uint16_t *lastX = nil, uint16_t *lastY = nil);
+        void    DrawWrappedString(uint16_t x, uint16_t y, const wchar_t *text, uint16_t width, uint16_t height, uint16_t *lastX = nil, uint16_t *lastY = nil);
+        uint16_t  CalcStringWidth(const ST::string &text, uint16_t *height = nil);
+        uint16_t  CalcStringWidth(const wchar_t *text, uint16_t *height = nil);
+        void    CalcWrappedStringSize(const ST::string &text, uint16_t *width, uint16_t *height, uint32_t *firstClippedChar = nil, uint16_t *maxAscent = nil, uint16_t *lastX = nil, uint16_t *lastY = nil);
+        void    CalcWrappedStringSize(const wchar_t *text, uint16_t *width, uint16_t *height, uint32_t *firstClippedChar = nil, uint16_t *maxAscent = nil, uint16_t *lastX = nil, uint16_t *lastY = nil);
+        void    FillRect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, hsColorRGBA &color);
+        void    FrameRect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, hsColorRGBA &color);
+        void    SetFirstLineIndent(int16_t indent);
 
         enum DrawMethods
         {
@@ -179,13 +179,13 @@ class plDynamicTextMap : public plMipmap
             kImgBlend,          // Blend color onto dest using src alpha, keep dest alpha
             kImgSprite          // Copy color data and alphas
         };
-        void    DrawImage( uint16_t x, uint16_t y, plMipmap *image, DrawMethods method = kImgNoAlpha );
-        void    DrawClippedImage( uint16_t x, uint16_t y, plMipmap *image, uint16_t srcClipX, uint16_t srcClipY,
-                                uint16_t srcClipWidth, uint16_t srcClipHeight, DrawMethods method = kImgNoAlpha );
+        void    DrawImage(uint16_t x, uint16_t y, plMipmap *image, DrawMethods method = kImgNoAlpha);
+        void    DrawClippedImage(uint16_t x, uint16_t y, plMipmap *image, uint16_t srcClipX, uint16_t srcClipY,
+                                uint16_t srcClipWidth, uint16_t srcClipHeight, DrawMethods method = kImgNoAlpha);
 
         void    FlushToHost();
 
-        bool    MsgReceive( plMessage *msg );
+        bool    MsgReceive(plMessage *msg);
 
         uint16_t  GetVisibleWidth() { return fVisWidth; }
         uint16_t  GetVisibleHeight() { return fVisHeight; }
@@ -196,7 +196,7 @@ class plDynamicTextMap : public plMipmap
 
         hsMatrix44  GetLayerTransform();
 
-        void    SetInitBuffer( uint32_t *buffer );
+        void    SetInitBuffer(uint32_t *buffer);
 
         // Gets for font values
         Justify     GetFontJustify() const { return fJustify; }
@@ -209,16 +209,16 @@ class plDynamicTextMap : public plMipmap
 
         plFont      *GetCurrFont() const { return fCurrFont; }
 
-        virtual void    Swap( plDynamicTextMap *other );
+        virtual void    Swap(plDynamicTextMap *other);
 
     protected:
 
         //// Protected Members ////
 
         bool        IIsValid();
-        void        IClearFromBuffer( uint32_t *clearBuffer );
+        void        IClearFromBuffer(uint32_t *clearBuffer);
 
-        uint32_t      *IAllocateOSSurface( uint16_t width, uint16_t height );
+        uint32_t      *IAllocateOSSurface(uint16_t width, uint16_t height);
         void        IDestroyOSSurface();
 
         void        IPropagateFlags();

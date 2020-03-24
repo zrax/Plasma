@@ -968,7 +968,7 @@ bool pfObjectFlocker::MsgReceive(plMessage* msg)
             plAnimCmdMsg* pMsg = new plAnimCmdMsg;
             pMsg->SetSender(GetKey());
             pMsg->SetBCastFlag(plMessage::kPropagateToModifiers | plMessage::kPropagateToChildren);
-            pMsg->AddReceiver( lcMsg->GetCloneKey() );
+            pMsg->AddReceiver(lcMsg->GetCloneKey());
             pMsg->SetCmd(plAnimCmdMsg::kGoToPercent);
             pMsg->fTime = RAND();
             pMsg->Send();
@@ -1001,7 +1001,7 @@ bool pfObjectFlocker::IEval(double secs, float del, uint32_t dirty)
             hsVector3 side = boid->Side();
 
             // copy the vectors over
-            for(int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 l2w.fMap[i][0] = side[i];
                 l2w.fMap[i][1] = forward[i];
@@ -1024,7 +1024,7 @@ void pfObjectFlocker::SetTarget(plSceneObject* so)
 {
     plSingleModifier::SetTarget(so);
 
-    if( fTarget )
+    if (fTarget)
     {
         plgDispatch::Dispatch()->RegisterForExactType(plInitialAgeStateLoadedMsg::Index(), GetKey());
     }

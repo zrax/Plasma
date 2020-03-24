@@ -60,8 +60,8 @@ public:
     bool GetIsLeaving();
 
     // plasma protocol
-    CLASSNAME_REGISTER( plSwimMsg );
-    GETINTERFACE_ANY( plSwimMsg, plMessage );
+    CLASSNAME_REGISTER(plSwimMsg);
+    GETINTERFACE_ANY(plSwimMsg, plMessage);
 
     virtual void Read(hsStream *stream, hsResMgr *mgr);
     virtual void Write(hsStream *stream, hsResMgr *mgr);

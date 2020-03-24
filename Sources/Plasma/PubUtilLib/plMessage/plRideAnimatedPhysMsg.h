@@ -51,8 +51,8 @@ public:
     plRideAnimatedPhysMsg(const plKey &sender, const plKey &receiver, bool entering, plKey regionKey);
     bool Entering(){return fEntering;}
 //PLASMA
-    CLASSNAME_REGISTER( plRideAnimatedPhysMsg );
-    GETINTERFACE_ANY( plRideAnimatedPhysMsg, plMessage );
+    CLASSNAME_REGISTER(plRideAnimatedPhysMsg);
+    GETINTERFACE_ANY(plRideAnimatedPhysMsg, plMessage);
 
     virtual void Read(hsStream *stream, hsResMgr *mgr);
     virtual void Write(hsStream *stream, hsResMgr *mgr);

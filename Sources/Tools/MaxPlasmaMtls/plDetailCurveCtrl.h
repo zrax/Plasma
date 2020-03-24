@@ -61,7 +61,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #ifndef _plDetailCurveCtrl_h
 #define _plDetailCurveCtrl_h
 
-#define GET_DETAIL_CURVE_CTRL( dlg, id ) (GetDlgItem( dlg, id ) ? (plDetailCurveCtrl *)GetWindowLong( GetDlgItem( dlg, id ), GWL_USERDATA ) : NULL )
+#define GET_DETAIL_CURVE_CTRL(dlg, id) (GetDlgItem(dlg, id) ? (plDetailCurveCtrl *)GetWindowLong(GetDlgItem(dlg, id), GWL_USERDATA) : NULL)
 
 // Message to parent to let it know a point got dragged. lParam = pointer to control, wParam = 1 if start point, 0 if end point
 #define PL_DC_POINT_DRAGGED WM_USER + 50
@@ -97,15 +97,15 @@ class plDetailCurveCtrl
 
         void    IInitDblBuffer();
         void    IRefreshDblBuffer();
-        void    IDrawCurve( HDC hDC, bool clampToInts, int cornerX, int cornerY, SIZE *bgndSize );
+        void    IDrawCurve(HDC hDC, bool clampToInts, int cornerX, int cornerY, SIZE *bgndSize);
 
-        float   IXlateDistToValue( float dist, bool clampToInts );
-        float   IXlateDistToX( float dist, bool clampToInts );
-        float   IXlateXToDist( float howFar );
-        void    IXlateValuesToClientPt( float x, float y, POINT *pt, int cornerX, int cornerY, SIZE *bgndSize );
-        void    IMapMouseToValues( int x, int y, bool mapToStart );
+        float   IXlateDistToValue(float dist, bool clampToInts);
+        float   IXlateDistToX(float dist, bool clampToInts);
+        float   IXlateXToDist(float howFar);
+        void    IXlateValuesToClientPt(float x, float y, POINT *pt, int cornerX, int cornerY, SIZE *bgndSize);
+        void    IMapMouseToValues(int x, int y, bool mapToStart);
 
-        void    ISendDraggedMessage( bool itWasTheStartPoint );
+        void    ISendDraggedMessage(bool itWasTheStartPoint);
 
         static HINSTANCE    fInstance;
         static int          fClassRefCnt;
@@ -117,23 +117,23 @@ class plDetailCurveCtrl
         static bool         fXAsMipmapLevel;
 #endif
 
-        static void IRegisterCtrl( HINSTANCE instance );
+        static void IRegisterCtrl(HINSTANCE instance);
         static void IUnregisterCtrl();
 
-        static LRESULT CALLBACK IWndProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
+        static LRESULT CALLBACK IWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 
     public:
 
-        plDetailCurveCtrl( HWND parentWnd, WPARAM id, RECT *clientRect, HINSTANCE instance = NULL );
+        plDetailCurveCtrl(HWND parentWnd, WPARAM id, RECT *clientRect, HINSTANCE instance = NULL);
         ~plDetailCurveCtrl();
 
-        void    SetStartPoint( float percentLevel, float opacity );
-        void    SetEndPoint( float percentLevel, float opacity );
-        void    SetNumLevels( int numLevels );
+        void    SetStartPoint(float percentLevel, float opacity);
+        void    SetEndPoint(float percentLevel, float opacity);
+        void    SetNumLevels(int numLevels);
 
-        void    GetStartPoint( float &percent, float &opacity ) { percent = fStartPercent; opacity = fStartOpac; }
-        void    GetEndPoint( float &percent, float &opacity ) { percent = fEndPercent; opacity = fEndOpac; }
+        void    GetStartPoint(float &percent, float &opacity) { percent = fStartPercent; opacity = fStartOpac; }
+        void    GetEndPoint(float &percent, float &opacity) { percent = fEndPercent; opacity = fEndOpac; }
 
 };
 

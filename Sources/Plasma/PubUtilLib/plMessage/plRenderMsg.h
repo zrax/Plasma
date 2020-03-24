@@ -58,8 +58,8 @@ public:
 
     ~plRenderMsg() {}
     
-    CLASSNAME_REGISTER( plRenderMsg );
-    GETINTERFACE_ANY( plRenderMsg, plMessage );
+    CLASSNAME_REGISTER(plRenderMsg);
+    GETINTERFACE_ANY(plRenderMsg, plMessage);
 
     plPipeline* Pipeline() const { return fPipe; }
 
@@ -78,8 +78,8 @@ public:
 
     ~plPreResourceMsg() {}
 
-    CLASSNAME_REGISTER( plPreResourceMsg );
-    GETINTERFACE_ANY( plPreResourceMsg, plMessage );
+    CLASSNAME_REGISTER(plPreResourceMsg);
+    GETINTERFACE_ANY(plPreResourceMsg, plMessage);
 
     plPipeline* Pipeline() const { return fPipe; }
 

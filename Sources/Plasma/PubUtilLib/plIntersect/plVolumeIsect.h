@@ -63,8 +63,8 @@ enum plVolumeCullResult
 class plVolumeIsect : public plCreatable
 {
 public:
-    CLASSNAME_REGISTER( plVolumeIsect );
-    GETINTERFACE_ANY( plVolumeIsect, plCreatable );
+    CLASSNAME_REGISTER(plVolumeIsect);
+    GETINTERFACE_ANY(plVolumeIsect, plCreatable);
 
     virtual void SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l) = 0;
     virtual plVolumeCullResult  Test(const hsBounds3Ext& bnd) const = 0;
@@ -86,8 +86,8 @@ public:
     plSphereIsect();
     virtual ~plSphereIsect();
 
-    CLASSNAME_REGISTER( plSphereIsect );
-    GETINTERFACE_ANY( plSphereIsect, plVolumeIsect );
+    CLASSNAME_REGISTER(plSphereIsect);
+    GETINTERFACE_ANY(plSphereIsect, plVolumeIsect);
 
     void SetCenter(const hsPoint3& c);
     void SetRadius(float r);
@@ -126,8 +126,8 @@ public:
     plConeIsect();
     virtual ~plConeIsect();
 
-    CLASSNAME_REGISTER( plConeIsect );
-    GETINTERFACE_ANY( plConeIsect, plVolumeIsect );
+    CLASSNAME_REGISTER(plConeIsect);
+    GETINTERFACE_ANY(plConeIsect, plVolumeIsect);
 
     void SetAngle(float rads);
     void SetLength(float d);
@@ -163,8 +163,8 @@ public:
     plCylinderIsect();
     virtual ~plCylinderIsect();
 
-    CLASSNAME_REGISTER( plCylinderIsect );
-    GETINTERFACE_ANY( plCylinderIsect, plVolumeIsect );
+    CLASSNAME_REGISTER(plCylinderIsect);
+    GETINTERFACE_ANY(plCylinderIsect, plVolumeIsect);
 
     void SetCylinder(const hsPoint3& lTop, const hsPoint3& lBot, float radius);
     void SetCylinder(const hsPoint3& lBot, const hsVector3& axis, float radius);
@@ -197,8 +197,8 @@ public:
     plParallelIsect();
     virtual ~plParallelIsect();
 
-    CLASSNAME_REGISTER( plParallelIsect );
-    GETINTERFACE_ANY( plParallelIsect, plVolumeIsect );
+    CLASSNAME_REGISTER(plParallelIsect);
+    GETINTERFACE_ANY(plParallelIsect, plVolumeIsect);
 
     void SetNumPlanes(int n); // each plane is really two parallel planes
     uint16_t GetNumPlanes() const { return fPlanes.GetCount(); }
@@ -234,8 +234,8 @@ public:
     plConvexIsect();
     virtual ~plConvexIsect();
 
-    CLASSNAME_REGISTER( plConvexIsect );
-    GETINTERFACE_ANY( plConvexIsect, plVolumeIsect );
+    CLASSNAME_REGISTER(plConvexIsect);
+    GETINTERFACE_ANY(plConvexIsect, plVolumeIsect);
 
     void ClearPlanes() { fPlanes.SetCount(0); }
     void AddPlaneUnchecked(const hsVector3& n, float dist); // no validation here
@@ -260,8 +260,8 @@ public:
     plBoundsIsect();
     virtual ~plBoundsIsect();
 
-    CLASSNAME_REGISTER( plBoundsIsect );
-    GETINTERFACE_ANY( plBoundsIsect, plVolumeIsect );
+    CLASSNAME_REGISTER(plBoundsIsect);
+    GETINTERFACE_ANY(plBoundsIsect, plVolumeIsect);
 
     void SetBounds(const hsBounds3Ext& bnd);
 
@@ -283,8 +283,8 @@ public:
     plComplexIsect();
     virtual ~plComplexIsect();
 
-    CLASSNAME_REGISTER( plComplexIsect );
-    GETINTERFACE_ANY( plComplexIsect, plVolumeIsect );
+    CLASSNAME_REGISTER(plComplexIsect);
+    GETINTERFACE_ANY(plComplexIsect, plVolumeIsect);
 
     void AddVolume(plVolumeIsect* v); // Will capture pointer
     uint16_t GetNumVolumes() const { return fVolumes.GetCount(); }
@@ -301,8 +301,8 @@ public:
     plUnionIsect();
     ~plUnionIsect();
 
-    CLASSNAME_REGISTER( plUnionIsect );
-    GETINTERFACE_ANY( plUnionIsect, plComplexIsect );
+    CLASSNAME_REGISTER(plUnionIsect);
+    GETINTERFACE_ANY(plUnionIsect, plComplexIsect);
 
     virtual plVolumeCullResult  Test(const hsBounds3Ext& bnd) const;
     virtual float            Test(const hsPoint3& pos) const;
@@ -314,8 +314,8 @@ public:
     plIntersectionIsect();
     ~plIntersectionIsect();
 
-    CLASSNAME_REGISTER( plIntersectionIsect );
-    GETINTERFACE_ANY( plIntersectionIsect, plComplexIsect );
+    CLASSNAME_REGISTER(plIntersectionIsect);
+    GETINTERFACE_ANY(plIntersectionIsect, plComplexIsect);
 
     virtual plVolumeCullResult  Test(const hsBounds3Ext& bnd) const;
     virtual float            Test(const hsPoint3& pos) const;

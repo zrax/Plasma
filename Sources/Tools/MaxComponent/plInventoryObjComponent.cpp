@@ -180,7 +180,7 @@ plKey plInventoryObjComponent::GetLogicKey(plMaxNode* node)
     for (it = fLogicModKeys.begin(); it != fLogicModKeys.end(); it++)
     {
         if (node == it->first)
-            return(it->second);
+            return (it->second);
     }
     return nil;
 }

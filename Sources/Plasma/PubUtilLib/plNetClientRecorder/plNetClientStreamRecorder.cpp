@@ -207,7 +207,7 @@ plNetMessage* plNetClientStreamRecorder::IGetNextMessage()
 {
     plNetMessage* msg = nil;
 
-    if (!IsQueueEmpty() && GetNextMessageTimeDelta() <= 0 )
+    if (!IsQueueEmpty() && GetNextMessageTimeDelta() <= 0)
     {
         msg = plNetMessage::ConvertNoRef(GetResMgr()->ReadCreatableVersion(fRecordStream));
         // msg->SetPeeked(true);

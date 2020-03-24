@@ -109,7 +109,7 @@ class OmniLight : public BaseObjLight
     BOOL genCanDoOmni;
     float zfac, xscale, yscale, fov, sz2,size,sizeClip,sampSize,sampSize2;
     public:
-        OmniLight(INode *inode, BOOL forceShadowBuf );
+        OmniLight(INode *inode, BOOL forceShadowBuf);
         ~OmniLight();
         int Update(TimeValue t, const RendContext& rc, RenderGlobalContext *rgc, BOOL shadows, BOOL shadowGeomChanged);
         int UpdateViewDepParams(const Matrix3& worldToCam);
@@ -130,7 +130,7 @@ class SpotLight: public BaseObjLight
     Point2 rectv0, rectv1;
     Texmap* projMap;
     public:
-        SpotLight(INode *inode, BOOL forceShadowBuf );
+        SpotLight(INode *inode, BOOL forceShadowBuf);
         ~SpotLight() {} //  FreeShadGens();     }
         int Update(TimeValue t, const RendContext& rc, RenderGlobalContext *rgc, BOOL shadows, BOOL shadowGeomChanged);
         int UpdateViewDepParams(const Matrix3& worldToCam);
@@ -153,7 +153,7 @@ class DirLight : public BaseObjLight
     float sw2, sh2;
     Texmap* projMap;
     public:
-        DirLight(INode *inode, BOOL forceShadowBuf );
+        DirLight(INode *inode, BOOL forceShadowBuf);
         ~DirLight() {   /*  FreeShadGens();*/}
         int Update(TimeValue t, const RendContext& rc, RenderGlobalContext *rgc, BOOL shadows, BOOL shadowGeomChanged);
         int UpdateViewDepParams(const Matrix3& worldToCam);

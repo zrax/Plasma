@@ -60,8 +60,8 @@ class plAudible : public hsKeyedObject
 {
 public:
 
-    CLASSNAME_REGISTER( plAudible );
-    GETINTERFACE_ANY( plAudible, hsKeyedObject );
+    CLASSNAME_REGISTER(plAudible);
+    GETINTERFACE_ANY(plAudible, hsKeyedObject);
 
     virtual plAudible&  SetProperty(int prop, bool on) = 0;
     virtual bool        GetProperty(int prop) = 0;
@@ -82,7 +82,7 @@ public:
     virtual void        SynchedPlay(int index = -1) = 0;
     virtual void        Stop(int index = -1) = 0;
     virtual void        FastForwardPlay(int index = -1) = 0;
-    virtual void        FastForwardToggle( int index = -1) = 0;
+    virtual void        FastForwardToggle(int index = -1) = 0;
     virtual void        SetMin(const float m,int index = -1) = 0; // sets minimum falloff distance
     virtual void        SetMax(const float m,int index = -1) = 0; // sets maximum falloff distance
     virtual float    GetMin(int index = -1) const  = 0;
@@ -103,13 +103,13 @@ public:
     virtual int         GetSoundIndex(const char *keyname) const = 0;
     virtual void        Init(bool isLocal) { }
     virtual void        SetVolume(const float volume,int index = -1) = 0;
-    virtual void        SetMuted( bool muted, int index = -1 ) = 0;
-    virtual void        ToggleMuted( int index = -1 ) = 0;
+    virtual void        SetMuted(bool muted, int index = -1) = 0;
+    virtual void        ToggleMuted(int index = -1) = 0;
     virtual void        SetTalkIcon(int index, uint32_t str) = 0;
     virtual void        ClearTalkIcon() = 0;
     virtual void        SetFilename(int index, const char *filename, bool isCompressed) = 0;  // set filename for a streaming sound
-    virtual void        SetFadeIn( const int type, const float length, int index = -1 ) = 0;
-    virtual void        SetFadeOut( const int type, const float length, int index = -1 ) = 0;
+    virtual void        SetFadeIn(const int type, const float length, int index = -1) = 0;
+    virtual void        SetFadeOut(const int type, const float length, int index = -1) = 0;
 
 protected:
     hsTArray<plEventCallbackMsg*> fCallbacks;

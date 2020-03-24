@@ -59,8 +59,8 @@ public:
     plShadowCastMsg(plKey sender, plShadowCaster* cast, plPipeline* pipe) : plMessage(sender, nil, nil), fPipe(pipe), fCaster(cast) { SetBCastFlag(kBCastByType); }
     ~plShadowCastMsg() {}
 
-    CLASSNAME_REGISTER( plShadowCastMsg );
-    GETINTERFACE_ANY( plShadowCastMsg, plMessage );
+    CLASSNAME_REGISTER(plShadowCastMsg);
+    GETINTERFACE_ANY(plShadowCastMsg, plMessage);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr) { hsAssert(false, "Non-networkable"); }
     virtual void Write(hsStream* stream, hsResMgr* mgr) { hsAssert(false, "Non-networkable"); }

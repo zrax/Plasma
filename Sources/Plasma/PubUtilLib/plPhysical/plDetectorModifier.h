@@ -63,8 +63,8 @@ public:
     
 //  virtual bool MsgReceive(plMessage* msg) = 0;
 
-    CLASSNAME_REGISTER( plDetectorModifier );
-    GETINTERFACE_ANY( plDetectorModifier, plSingleModifier );
+    CLASSNAME_REGISTER(plDetectorModifier);
+    GETINTERFACE_ANY(plDetectorModifier, plSingleModifier);
     void AddLogicObj(plKey pKey) { fReceivers.Append(pKey); }
     void SetRemote(plModifier* p) { fRemoteMod = p; }
     plModifier* RemoteMod() { return fRemoteMod; }
@@ -77,7 +77,7 @@ public:
         plSingleModifier::Read(stream, mgr);
         int n = stream->ReadLE32();
         fReceivers.Reset();
-        for(int i = 0; i < n; i++ )
+        for (int i = 0; i < n; i++)
         {
             fReceivers.Append(mgr->ReadKey(stream));
         }
@@ -89,7 +89,7 @@ public:
     {
         plSingleModifier::Write(stream, mgr);
         stream->WriteLE32(fReceivers.GetCount());
-        for( int i = 0; i < fReceivers.GetCount(); i++ )
+        for (int i = 0; i < fReceivers.GetCount(); i++)
             mgr->WriteKey(stream, fReceivers[i]);
         
         mgr->WriteKey(stream, fRemoteMod);

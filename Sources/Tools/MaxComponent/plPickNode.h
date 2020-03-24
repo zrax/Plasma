@@ -59,7 +59,7 @@ namespace plPick
     bool ClusterComponent(IParamBlock2 *pb, int paramID, bool single);
     bool Animation(IParamBlock2 *pb, int paramID, bool single);
     bool Behavior(IParamBlock2 *pb, int paramID, bool single);
-    bool GenericClass(IParamBlock2 *pb, int paramID, bool single, Class_ID classIDToPick );
+    bool GenericClass(IParamBlock2 *pb, int paramID, bool single, Class_ID classIDToPick);
     bool GrassComponent(IParamBlock2 *pb, int paramID, bool single);
 
     // Basically the same as activator, but includes other things with built in detectors (ladder)

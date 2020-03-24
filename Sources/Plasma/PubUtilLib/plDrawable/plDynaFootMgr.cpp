@@ -83,7 +83,7 @@ plDynaFootMgr::plDynaFootMgr()
 {
     fPartIDs.SetCount(kNumPrintIDs);
     int i;
-    for( i = 0; i < kNumPrintIDs; i++ )
+    for (i = 0; i < kNumPrintIDs; i++)
         fPartIDs[i] = kPrintIDs[i];
 }
 
@@ -107,16 +107,16 @@ void plDynaFootMgr::Write(hsStream* stream, hsResMgr* mgr)
 bool plDynaFootMgr::MsgReceive(plMessage* msg)
 {
     plAvatarFootMsg* footMsg = plAvatarFootMsg::ConvertNoRef(msg);
-    if( footMsg )
+    if (footMsg)
     {
         uint32_t id = footMsg->IsLeft() ? plAvBrainHuman::LFootPrint : plAvBrainHuman::RFootPrint;
 
         plArmatureMod* armMod = footMsg->GetArmature();
         const plPrintShape* shape = IGetPrintShape(armMod, id);
-        if( shape )
+        if (shape)
         {
             plDynaDecalInfo& info = IGetDecalInfo(uintptr_t(shape), shape->GetKey());
-            if( IPrintFromShape(shape, footMsg->IsLeft()) )
+            if (IPrintFromShape(shape, footMsg->IsLeft()))
             {
                 INotifyActive(info, armMod->GetKey(), id);
             }
@@ -136,7 +136,7 @@ bool plDynaFootMgr::IPrintFromShape(const plPrintShape* shape, bool flip)
 {
     bool retVal = false;
 
-    if( shape )
+    if (shape)
     {
         plDynaDecalInfo& info = IGetDecalInfo(uintptr_t(shape), shape->GetKey());
 
@@ -144,7 +144,7 @@ bool plDynaFootMgr::IPrintFromShape(const plPrintShape* shape, bool flip)
         float wetness = IHowWet(info, secs);
         fInitAtten = wetness;
 
-        if( wetness <= 0 )
+        if (wetness <= 0)
             return true;
 
         hsMatrix44 shapeL2W = shape->GetOwner()->GetLocalToWorld();
@@ -156,13 +156,13 @@ bool plDynaFootMgr::IPrintFromShape(const plPrintShape* shape, bool flip)
         fCutter->SetLength(size);
         fCutter->Set(newPos, newDir, newUp, flip);
 
-        // Should this be moved inside the if( ICutout() ) clause? I think so. Probably doesn't
+        // Should this be moved inside the if (ICutout()) clause? I think so. Probably doesn't
         // matter for foot prints, but it seems more correct, since fLastPos/fLastTime is the
         // last time and position we actually dropped a print, not tried to.
         info.fLastPos = newPos;
         info.fLastTime = secs;
 
-        if( ICutoutTargets(secs) )
+        if (ICutoutTargets(secs))
         {
             retVal = true;
         }

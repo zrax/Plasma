@@ -63,8 +63,8 @@ public:
     plWinAudible();
     ~plWinAudible();
 
-    CLASSNAME_REGISTER( plWinAudible );
-    GETINTERFACE_ANY( plWinAudible, plAudible );
+    CLASSNAME_REGISTER(plWinAudible);
+    GETINTERFACE_ANY(plWinAudible, plAudible);
 
     virtual plKey GetSceneNode() const { return fSceneNode; }
     virtual void SetSceneNode(plKey newNode);
@@ -104,14 +104,14 @@ public:
     virtual plSound*    GetSound(int i) const;
     virtual int         GetSoundIndex(const char *keyname) const;
     virtual void        SetVolume(const float volume,int index = -1);
-    virtual void        SetMuted( bool muted, int index = -1 );
-    virtual void        ToggleMuted( int index = -1 );
+    virtual void        SetMuted(bool muted, int index = -1);
+    virtual void        ToggleMuted(int index = -1);
     virtual void        SetTalkIcon(int index, uint32_t str) { }
     virtual void        ClearTalkIcon() { }
     void                SetFilename(int index, const char *filename, bool isCompressed);
 
-    virtual void        SetFadeIn( const int type, const float length, int index = -1 );
-    virtual void        SetFadeOut( const int type, const float length, int index = -1 );
+    virtual void        SetFadeIn(const int type, const float length, int index = -1);
+    virtual void        SetFadeOut(const int type, const float length, int index = -1);
 
     virtual bool    MsgReceive(plMessage* pMsg);
     
@@ -131,7 +131,7 @@ private:
     hsMatrix44                  fLocalToWorld;
     plSoundSDLModifier*         fSDLMod;
     plKey                       fSceneObj;
-    void    IAssignSoundKey( plSound *sound, const char *name, uint32_t i );
+    void    IAssignSoundKey(plSound *sound, const char *name, uint32_t i);
 };
 
 
@@ -142,8 +142,8 @@ public:
     pl2WayWinAudible();
     ~pl2WayWinAudible();
     
-    CLASSNAME_REGISTER( pl2WayWinAudible );
-    GETINTERFACE_ANY( pl2WayWinAudible, plWinAudible );
+    CLASSNAME_REGISTER(pl2WayWinAudible);
+    GETINTERFACE_ANY(pl2WayWinAudible, plWinAudible);
     
     virtual bool    MsgReceive(plMessage* pMsg);
     virtual void Init(bool isLocal);

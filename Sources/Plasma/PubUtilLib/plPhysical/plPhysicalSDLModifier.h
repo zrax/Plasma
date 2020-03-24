@@ -55,8 +55,8 @@ class plPhysical;
 class plPhysicalSDLModifier : public plSDLModifier
 {
 public:
-    CLASSNAME_REGISTER( plPhysicalSDLModifier );
-    GETINTERFACE_ANY( plPhysicalSDLModifier, plSDLModifier);
+    CLASSNAME_REGISTER(plPhysicalSDLModifier);
+    GETINTERFACE_ANY(plPhysicalSDLModifier, plSDLModifier);
 
     const char* GetSDLName() const { return kSDLPhysical; }
 

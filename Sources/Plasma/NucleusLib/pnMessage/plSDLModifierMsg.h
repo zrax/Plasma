@@ -83,7 +83,7 @@ public:
     Action GetAction() const { return fAction; }
     void SetAction(Action t) { fAction=t; }
 
-    plStateDataRecord* GetState(bool unManageState=false) { if ( unManageState ) fManageStateMem=false; return fState; }
+    plStateDataRecord* GetState(bool unManageState=false) { if (unManageState) fManageStateMem=false; return fState; }
     void SetState(plStateDataRecord* s, bool manageState) { fState=s; fManageStateMem=manageState; }
 
     ST::string GetSDLName() const { return fSDLName; }

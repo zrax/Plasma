@@ -68,7 +68,7 @@ class plTextFont
         struct plDXCharInfo
         {
             uint16_t      fW, fH;
-            hsPoint3    fUVs[ 2 ];
+            hsPoint3    fUVs[2];
         };
 
         struct plFontVertex
@@ -90,7 +90,7 @@ class plTextFont
         uint32_t  fMaxNumIndices;
         uint32_t  fTextureWidth, fTextureHeight;
 
-        char    fFace[ 128 ];
+        char    fFace[128];
         uint16_t  fSize;
         bool    fInitialized;
         uint16_t  fFontHeight;
@@ -100,21 +100,21 @@ class plTextFont
         plTextFont      *fNext;
         plTextFont      **fPrevPtr;
 
-        plDXCharInfo    fCharInfo[ 128 ];
+        plDXCharInfo    fCharInfo[128];
 
 
         virtual void    IInitObjects();
-        virtual void    ICreateTexture( uint16_t *data ) = 0;
+        virtual void    ICreateTexture(uint16_t *data) = 0;
         virtual void    IInitStateBlocks() = 0;
-        virtual void    IDrawPrimitive( uint32_t count, plFontVertex *array ) = 0;
-        virtual void    IDrawLines( uint32_t count, plFontVertex *array ) = 0;
+        virtual void    IDrawPrimitive(uint32_t count, plFontVertex *array) = 0;
+        virtual void    IDrawLines(uint32_t count, plFontVertex *array) = 0;
         
         uint16_t  *IInitFontTexture();
 
         void    IUnlink()
         {
-            hsAssert( fPrevPtr, "Font not in list" );
-            if( fNext )
+            hsAssert(fPrevPtr, "Font not in list");
+            if (fNext)
                 fNext->fPrevPtr = fPrevPtr;
             *fPrevPtr = fNext;
 
@@ -124,14 +124,14 @@ class plTextFont
 
     public:
 
-        plTextFont( plPipeline *pipe );
+        plTextFont(plPipeline *pipe);
         virtual ~plTextFont();
 
-        void    Create( char *face, uint16_t size );
-        void    DrawString( const char *string, int x, int y, uint32_t hexColor, uint8_t style, uint32_t rightEdge = 0 );
-        void    DrawRect( int left, int top, int right, int bottom, uint32_t hexColor );
-        void    Draw3DBorder( int left, int top, int right, int bottom, uint32_t hexColor1, uint32_t hexColor2 );
-        uint32_t  CalcStringWidth( const char *string );
+        void    Create(char *face, uint16_t size);
+        void    DrawString(const char *string, int x, int y, uint32_t hexColor, uint8_t style, uint32_t rightEdge = 0);
+        void    DrawRect(int left, int top, int right, int bottom, uint32_t hexColor);
+        void    Draw3DBorder(int left, int top, int right, int bottom, uint32_t hexColor1, uint32_t hexColor2);
+        uint32_t  CalcStringWidth(const char *string);
         uint32_t  GetFontSize() { return fSize; }
 
         uint16_t  GetFontHeight() { return fFontHeight; }
@@ -141,10 +141,10 @@ class plTextFont
         virtual void    RestoreStates() = 0;
         virtual void    FlushDraws() = 0;
 
-        void    Link( plTextFont **back )
+        void    Link(plTextFont **back)
         {
             fNext = *back;
-            if( *back )
+            if (*back)
                 (*back)->fPrevPtr = &fNext;
             fPrevPtr = back;
             *back = this;

@@ -70,7 +70,7 @@ inline bool hsStringTokenizer::IsSep(char c)
 {
     if (!fQAsTok || !fInQuote)
     {
-        if ( fCheckAlphaNum || !isalnum(c) )
+        if (fCheckAlphaNum || !isalnum(c))
         {
             for (int32_t i=0; i<fNumSeps; i++)
             {
@@ -111,20 +111,20 @@ char *hsStringTokenizer::next()
 }
 
 // Slightly more loop-friendly version of next
-bool  hsStringTokenizer::Next( char *token, uint32_t maxTokLen )
+bool  hsStringTokenizer::Next(char *token, uint32_t maxTokLen)
 {
     char *t = next();
-    if( t == nil )
+    if (t == nil)
         return false;
 
-    hsStrncpy( token, t, maxTokLen );
+    hsStrncpy(token, t, maxTokLen);
     return true;
 }
 
 // Restores the last character replaced to generate a terminator
 void    hsStringTokenizer::RestoreLastTerminator()
 {
-    if( fLastTerminator != nil )
+    if (fLastTerminator != nil)
     {
         *fLastTerminator = fLastRep;
         fLastTerminator = nil;
@@ -194,7 +194,7 @@ inline bool hsWStringTokenizer::IsSep(wchar_t c)
 {
     if (!fQAsTok || !fInQuote)
     {
-        if ( fCheckAlphaNum || !iswalnum(c) )
+        if (fCheckAlphaNum || !iswalnum(c))
         {
             for (int32_t i=0; i<fNumSeps; i++)
             {
@@ -235,13 +235,13 @@ wchar_t *hsWStringTokenizer::next()
 }
 
 // Slightly more loop-friendly version of next
-bool  hsWStringTokenizer::Next( wchar_t *token, uint32_t maxTokLen )
+bool  hsWStringTokenizer::Next(wchar_t *token, uint32_t maxTokLen)
 {
     wchar_t *t = next();
-    if( t == nil )
+    if (t == nil)
         return false;
 
-    wcsncpy( token, t, maxTokLen - 1 );
+    wcsncpy(token, t, maxTokLen - 1);
     token[maxTokLen - 1] = L'\0';
     return true;
 }
@@ -249,7 +249,7 @@ bool  hsWStringTokenizer::Next( wchar_t *token, uint32_t maxTokLen )
 // Restores the last character replaced to generate a terminator
 void    hsWStringTokenizer::RestoreLastTerminator()
 {
-    if( fLastTerminator != nil )
+    if (fLastTerminator != nil)
     {
         *fLastTerminator = fLastRep;
         fLastTerminator = nil;

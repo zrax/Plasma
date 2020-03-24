@@ -39,6 +39,6 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
       Mead, WA   99021
 
 *==LICENSE==*/
-#pragma warning( disable : 4305 4503 4018 4786 4284)
+#pragma warning(disable : 4305 4503 4018 4786 4284)
 #include "pnAllCreatables.h"
  

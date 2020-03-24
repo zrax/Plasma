@@ -195,7 +195,7 @@ enum StateIdx {
     }
     uint32_t Value(int i) const
     {
-        switch(i)
+        switch (i)
         {
         case kBlend:
             return fBlendFlags;
@@ -213,7 +213,7 @@ enum StateIdx {
     }
     uint32_t& operator[](const int i)
     {
-        switch(i)
+        switch (i)
         {
         case kBlend:
             return fBlendFlags;

@@ -170,10 +170,10 @@ private:
     bool    ISkinNode(plMaxNode* node);
     void    ISetForceLocal(bool f) { fForceLocal=f; }
 
-    bool    IGetEditableMeshKeyTimes( plMaxNode *node, Tab<TimeValue> &times );
-    bool    IGetGeomKeyTimes( plMaxNode *node, Tab<TimeValue> &times );
-    void    IGetGeomKeyTimesRecur( Animatable *anim, Tab<TimeValue> &times );
-    bool    IGetSubAnimByName( Animatable *anim, TSTR &name, Animatable *&subAnim );
+    bool    IGetEditableMeshKeyTimes(plMaxNode *node, Tab<TimeValue> &times);
+    bool    IGetGeomKeyTimes(plMaxNode *node, Tab<TimeValue> &times);
+    void    IGetGeomKeyTimesRecur(Animatable *anim, Tab<TimeValue> &times);
+    bool    IGetSubAnimByName(Animatable *anim, TSTR &name, Animatable *&subAnim);
     void    IExportAnimatedCameraFOV(plMaxNode* node, hsTArray <hsG3DSMaxKeyFrame>* kfArray);
     Interface* fInterface;
 

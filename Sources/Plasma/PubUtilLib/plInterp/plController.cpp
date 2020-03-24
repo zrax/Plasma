@@ -499,7 +499,7 @@ void plLeafController::QuickScalarController(int numKeys, float* times, float* v
 {
     AllocKeys(numKeys, hsKeyFrame::kScalarKeyFrame);
     int i;
-    for( i = 0; i < numKeys; i++ )
+    for (i = 0; i < numKeys; i++)
     {
         ((hsScalarKey*)fKeys)[i].fFrame = (uint16_t)(*times++ * MAX_FRAMES_PER_SEC);
         ((hsScalarKey*)fKeys)[i].fValue = *values;
@@ -841,7 +841,7 @@ float plCompoundController::GetLength() const
 {
     float len=0;
     int i;
-    for(i=0; i<3; i++)
+    for (i=0; i<3; i++)
     {
         if (GetController(i))
             len = std::max(len, GetController(i)->GetLength());

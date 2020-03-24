@@ -128,14 +128,14 @@ protected:
 
     D3DEnum_DriverInfo*  fCurrentDriver;    // The selected DD driver
 
-    static short    IGetDXBitDepth( D3DFORMAT format );
+    static short    IGetDXBitDepth(D3DFORMAT format);
 
     /// DirectX Helper Functions
-    void    IEnumAdapterDevices( IDirect3D9 *pD3D, UINT iAdapter, D3DEnum_DriverInfo *drivInfo );
-    bool    IFindDepthFormats( IDirect3D9 *pD3D, UINT iAdapter, D3DDEVTYPE deviceType, D3DEnum_ModeInfo *modeInfo );
-    bool    IFindFSAATypes( IDirect3D9 *pD3D, UINT iAdapter, D3DDEVTYPE deviceType, D3DEnum_ModeInfo *modeInfo );
-    bool    ICheckCubicRenderTargets( IDirect3D9 *pD3D, UINT iAdapter, D3DDEVTYPE deviceType, D3DEnum_ModeInfo *modeInfo );
-    HRESULT IConfirmDevice( D3DCAPS9* pCaps, DWORD dwBehavior, D3DFORMAT format );
+    void    IEnumAdapterDevices(IDirect3D9 *pD3D, UINT iAdapter, D3DEnum_DriverInfo *drivInfo);
+    bool    IFindDepthFormats(IDirect3D9 *pD3D, UINT iAdapter, D3DDEVTYPE deviceType, D3DEnum_ModeInfo *modeInfo);
+    bool    IFindFSAATypes(IDirect3D9 *pD3D, UINT iAdapter, D3DDEVTYPE deviceType, D3DEnum_ModeInfo *modeInfo);
+    bool    ICheckCubicRenderTargets(IDirect3D9 *pD3D, UINT iAdapter, D3DDEVTYPE deviceType, D3DEnum_ModeInfo *modeInfo);
+    HRESULT IConfirmDevice(D3DCAPS9* pCaps, DWORD dwBehavior, D3DFORMAT format);
 
     static const uint8_t kNumDisplayFormats;
     static const D3DFORMAT kDisplayFormats[];
@@ -150,7 +150,7 @@ public:
 
     HRESULT SelectFromDevMode(const hsG3DDeviceRecord* devRec, const hsG3DDeviceMode* devMode);
     HRESULT D3DEnum_SelectDefaultMode(int width, int height, int depth);
-    HRESULT D3DEnum_SelectDefaultDriver( DWORD dwFlags );
+    HRESULT D3DEnum_SelectDefaultDriver(DWORD dwFlags);
 
     uint32_t GetNumDrivers() { return fDrivers.GetCount(); }
     D3DEnum_DriverInfo* GetDriver(int i) { return &fDrivers[i]; }

@@ -56,8 +56,8 @@ public:
     plANDConditionalObject();
     ~plANDConditionalObject();
     
-    CLASSNAME_REGISTER( plANDConditionalObject );
-    GETINTERFACE_ANY( plANDConditionalObject, plConditionalObject );
+    CLASSNAME_REGISTER(plANDConditionalObject);
+    GETINTERFACE_ANY(plANDConditionalObject, plConditionalObject);
     
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

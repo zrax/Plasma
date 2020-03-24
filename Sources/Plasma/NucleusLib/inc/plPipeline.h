@@ -142,8 +142,8 @@ class plPipeline : public plCreatable
 {
 public:
 
-    CLASSNAME_REGISTER( plPipeline );
-    GETINTERFACE_ANY( plPipeline, plCreatable );
+    CLASSNAME_REGISTER(plPipeline);
+    GETINTERFACE_ANY(plPipeline, plCreatable);
 
     // Typical 3D device
     //
@@ -170,7 +170,7 @@ public:
     virtual void                        Draw(plDrawable* d) = 0;
     
     // Device-specific ref creation. Includes buffers and fonts
-    virtual plTextFont                  *MakeTextFont( char *face, uint16_t size ) = 0;
+    virtual plTextFont                  *MakeTextFont(char *face, uint16_t size) = 0;
 
     // Create and/or Refresh geometry buffers
     virtual void            CheckVertexBufferRef(plGBufferGroup* owner, uint32_t idx) = 0;
@@ -182,7 +182,7 @@ public:
     virtual void            CheckTextureRef(plLayerInterface* lay) = 0;
 
     // Default fog settings
-    virtual void                        SetDefaultFogEnviron( plFogEnvironment *fog ) = 0;
+    virtual void                        SetDefaultFogEnviron(plFogEnvironment *fog) = 0;
     virtual const plFogEnvironment      &GetDefaultFogEnviron() const = 0;
 
     virtual void                        RegisterLight(plLightInfo* light) = 0;
@@ -215,13 +215,13 @@ public:
     virtual void                        PushRenderRequest(plRenderRequest* req) = 0;
     virtual void                        PopRenderRequest(plRenderRequest* req) = 0;
 
-    virtual void                        ClearRenderTarget( plDrawable* d ) = 0; // nil d reverts to ClearRenderTarget(nil, nil).
+    virtual void                        ClearRenderTarget(plDrawable* d) = 0; // nil d reverts to ClearRenderTarget(nil, nil).
     virtual void                        ClearRenderTarget(const hsColorRGBA* col = nil, const float* depth = nil) = 0; // col/depth are overrides for current default.
     virtual void                        SetClear(const hsColorRGBA* col=nil, const float* depth=nil) = 0; // sets the default clear for current render target.
     virtual hsColorRGBA                 GetClearColor() const = 0;
     virtual float                       GetClearDepth() const = 0;
-    virtual hsGDeviceRef                *MakeRenderTargetRef( plRenderTarget *owner ) = 0;
-    virtual void                        PushRenderTarget( plRenderTarget *target ) = 0;
+    virtual hsGDeviceRef                *MakeRenderTargetRef(plRenderTarget *owner) = 0;
+    virtual void                        PushRenderTarget(plRenderTarget *target) = 0;
     virtual plRenderTarget              *PopRenderTarget() = 0;
 
     virtual bool                        BeginRender() = 0;
@@ -235,7 +235,7 @@ public:
     virtual uint32_t                    Width() const = 0;
     virtual uint32_t                    Height() const = 0;
     virtual uint32_t                    ColorDepth() const = 0;
-    virtual void                        Resize( uint32_t width, uint32_t height ) = 0;
+    virtual void                        Resize(uint32_t width, uint32_t height) = 0;
 
     // Culling. Might be used in Update before bothering to do any serious computation.
     virtual bool                        TestVisibleWorld(const hsBounds3Ext& wBnd) = 0;
@@ -243,8 +243,8 @@ public:
     virtual bool                        HarvestVisible(plSpaceTree* space, hsTArray<int16_t>& visList) = 0;
     virtual bool                        SubmitOccluders(const hsTArray<const plCullPoly*>& polyList) = 0;
     
-    virtual void                        SetDebugFlag( uint32_t flag, bool on ) = 0;
-    virtual bool                        IsDebugFlagSet( uint32_t flag ) const = 0;
+    virtual void                        SetDebugFlag(uint32_t flag, bool on) = 0;
+    virtual bool                        IsDebugFlagSet(uint32_t flag) const = 0;
     virtual void                        SetMaxCullNodes(uint16_t n) = 0; // Debug/analysis only
     virtual uint16_t                    GetMaxCullNodes() const = 0; // Debug/analysis only
 
@@ -258,14 +258,14 @@ public:
     virtual bool                        CheckResources() = 0; // Do we need to call LoadResources?
     virtual void                        LoadResources() = 0;
 
-    virtual void                        SetProperty( uint32_t prop, bool on ) = 0;
-    virtual bool                        GetProperty( uint32_t prop ) const = 0;
+    virtual void                        SetProperty(uint32_t prop, bool on) = 0;
+    virtual bool                        GetProperty(uint32_t prop) const = 0;
     virtual uint32_t                    GetMaxLayersAtOnce() const = 0;
 
     // Drawable type mask
-    virtual void                        SetDrawableTypeMask( uint32_t mask ) = 0;
+    virtual void                        SetDrawableTypeMask(uint32_t mask) = 0;
     virtual uint32_t                    GetDrawableTypeMask() const = 0;
-    virtual void                        SetSubDrawableTypeMask( uint32_t mask ) = 0;
+    virtual void                        SetSubDrawableTypeMask(uint32_t mask) = 0;
     virtual uint32_t                    GetSubDrawableTypeMask() const = 0;
 
     // View state
@@ -273,7 +273,7 @@ public:
     virtual hsVector3                   GetViewAcrossWorld() const = 0;
     virtual hsVector3                   GetViewUpWorld() const = 0;
     virtual hsVector3                   GetViewDirWorld() const = 0;
-    virtual void                        GetViewAxesWorld(hsVector3 axes[3] /* ac,up,at */ ) const = 0;
+    virtual void                        GetViewAxesWorld(hsVector3 axes[3] /* ac,up,at */) const = 0;
 
     virtual void                        GetFOV(float& fovX, float& fovY) const = 0;
     virtual void                        SetFOV(float fovX, float fovY) = 0;
@@ -284,7 +284,7 @@ public:
     virtual void                        GetDepth(float& hither, float& yon) const = 0;
     virtual void                        SetDepth(float hither, float yon) = 0;
 
-    virtual void                        SetZBiasScale( float scale ) = 0;
+    virtual void                        SetZBiasScale(float scale) = 0;
     virtual float                       GetZBiasScale() const = 0;
 
     virtual const hsMatrix44&           GetWorldToCamera() const = 0;
@@ -296,8 +296,8 @@ public:
 
     virtual const plViewTransform&      GetViewTransform() const = 0;
 
-    virtual void                        ScreenToWorldPoint( int n, uint32_t stride, int32_t *scrX, int32_t *scrY,
-                                                    float dist, uint32_t strideOut, hsPoint3 *worldOut ) = 0;
+    virtual void                        ScreenToWorldPoint(int n, uint32_t stride, int32_t *scrX, int32_t *scrY,
+                                                    float dist, uint32_t strideOut, hsPoint3 *worldOut) = 0;
 
     virtual void                        RefreshMatrices() = 0;
     virtual void                        RefreshScreenMatrices() = 0;
@@ -328,7 +328,7 @@ public:
     virtual bool                        SetGamma(const uint16_t* const table) { return SetGamma(table, table, table); }
 
     // flipVertical is for the AVI writer, which wants it's frames upside down
-    virtual bool                        CaptureScreen( plMipmap *dest, bool flipVertical = false, uint16_t desiredWidth = 0, uint16_t desiredHeight = 0 ) = 0;
+    virtual bool                        CaptureScreen(plMipmap *dest, bool flipVertical = false, uint16_t desiredWidth = 0, uint16_t desiredHeight = 0) = 0;
 
     // Returns an un-named (GetKey()==nil) mipmap same dimensions as targ. You are responsible for deleting said mipMap.
     virtual plMipmap*                   ExtractMipMap(plRenderTarget* targ) = 0;
@@ -337,7 +337,7 @@ public:
     virtual const char                  *GetErrorString() = 0;
 
     // info about current rendering device
-    virtual void GetSupportedDisplayModes(std::vector<plDisplayMode> *res, int ColorDepth = 32 ) = 0;
+    virtual void GetSupportedDisplayModes(std::vector<plDisplayMode> *res, int ColorDepth = 32) = 0;
     virtual int GetMaxAnisotropicSamples() = 0;
     virtual int GetMaxAntiAlias(int Width, int Height, int ColorDepth) = 0;
     int GetDesktopWidth() { return fDesktopParams.Width; }
@@ -345,7 +345,7 @@ public:
     int GetDesktopColorDepth() { return fDesktopParams.ColorDepth; }
     PipelineParams *GetDefaultParams() { return &fDefaultPipeParams; }
 
-    virtual void ResetDisplayDevice(int Width, int Height, int ColorDepth, bool Windowed, int NumAASamples, int MaxAnisotropicSamples, bool vSync = false  ) = 0;
+    virtual void ResetDisplayDevice(int Width, int Height, int ColorDepth, bool Windowed, int NumAASamples, int MaxAnisotropicSamples, bool vSync = false) = 0;
     static PipelineParams fDefaultPipeParams;
     static PipelineParams fInitialPipeParams;
     plDisplayMode fDesktopParams;

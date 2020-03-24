@@ -90,8 +90,8 @@ public:
     plVisMgr();
     virtual ~plVisMgr();
 
-    CLASSNAME_REGISTER( plVisMgr );
-    GETINTERFACE_ANY( plVisMgr, hsKeyedObject );
+    CLASSNAME_REGISTER(plVisMgr);
+    GETINTERFACE_ANY(plVisMgr, hsKeyedObject);
 
     virtual bool MsgReceive(plMessage* msg);
 

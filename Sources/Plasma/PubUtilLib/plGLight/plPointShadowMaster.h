@@ -68,8 +68,8 @@ public:
     plPointShadowMaster();
     virtual ~plPointShadowMaster();
 
-    CLASSNAME_REGISTER( plPointShadowMaster );
-    GETINTERFACE_ANY( plPointShadowMaster, plShadowMaster );
+    CLASSNAME_REGISTER(plPointShadowMaster);
+    GETINTERFACE_ANY(plPointShadowMaster, plShadowMaster);
 
 };
 

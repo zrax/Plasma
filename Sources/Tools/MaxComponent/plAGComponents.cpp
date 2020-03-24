@@ -171,7 +171,7 @@ plAnimAvatarComponent::plAnimAvatarComponent()
 //
 bool plAnimAvatarComponent::SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg)
 {
-    if(node->GetMaxNodeData())
+    if (node->GetMaxNodeData())
     {
         node->SetMovable(true);
         node->SetForceLocal(true);
@@ -275,7 +275,7 @@ bool plAnimAvatarComponent::ConvertNodeSegmentBranch(plMaxNode *node, plAGAnim *
 
     // Get the affine parts and the TM Controller
     plSceneObject *obj = node->GetSceneObject();
-    if(obj && !suppressed) {
+    if (obj && !suppressed) {
         hsAffineParts parts;
         hsControlConverter::Instance().ReduceKeys(node->GetTMController(), node->GetKeyReduceThreshold());
         plController* tmc = hsControlConverter::Instance().ConvertTMAnim(obj, node, &parts, mod->GetStart(), mod->GetEnd());
@@ -318,13 +318,13 @@ bool plAnimAvatarComponent::ConvertNodeSegmentBranch(plMaxNode *node, plAGAnim *
 plKey FindSceneNode(plMaxNode *node)
 {
     plSceneObject *obj = node->GetSceneObject();
-    if(obj)
+    if (obj)
     {
         return obj->GetSceneNode();
     } else {
         plMaxNode *parent = (plMaxNode *)node->GetParentNode();
 
-        if(parent)
+        if (parent)
         {
             return FindSceneNode(parent);
         } else {
@@ -343,7 +343,7 @@ bool plAnimAvatarComponent::MakePersistent(plMaxNode *node, plAGAnim *anim, cons
     // new approach: add to the generic pool on the scene node
     plLocation nodeLoc = node->GetLocation();
     plKey sceneNodeKey = FindSceneNode(node);
-    if(sceneNodeKey)
+    if (sceneNodeKey)
     {
         plKey animKey = hsgResMgr::ResMgr()->NewKey(animName, anim, nodeLoc);
 

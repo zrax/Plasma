@@ -69,20 +69,20 @@ public:
         kDisableDebugScreen
     };
 
-    plResMgrHelperMsg( uint8_t command = 0 ) : plMessage(nil, nil, nil), fKeyList( nil ) { fCommand = command; }
+    plResMgrHelperMsg(uint8_t command = 0) : plMessage(nil, nil, nil), fKeyList(nil) { fCommand = command; }
     ~plResMgrHelperMsg() { delete fKeyList; }
 
-    CLASSNAME_REGISTER( plResMgrHelperMsg );
-    GETINTERFACE_ANY( plResMgrHelperMsg, plMessage );
+    CLASSNAME_REGISTER(plResMgrHelperMsg);
+    GETINTERFACE_ANY(plResMgrHelperMsg, plMessage);
 
     virtual void Read(hsStream* s, hsResMgr* mgr)
     {
-        hsAssert( false, "This should never get read" );
+        hsAssert(false, "This should never get read");
     }
     
     virtual void Write(hsStream* s, hsResMgr* mgr)
     {
-        hsAssert( false, "This should never get written" );
+        hsAssert(false, "This should never get written");
     }
 
     uint8_t   GetCommand() const { return fCommand; }

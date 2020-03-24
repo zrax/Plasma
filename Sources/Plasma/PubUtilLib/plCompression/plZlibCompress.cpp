@@ -120,85 +120,85 @@ bool plZlibCompress::Uncompress(uint8_t** bufIn, uint32_t* bufLenIn, uint32_t bu
 #define kGzBufferSize   64 * 1024
 #if 1
 
-bool  plZlibCompress::UncompressFile( const char *compressedPath, const char *destPath )
+bool  plZlibCompress::UncompressFile(const char *compressedPath, const char *destPath)
 {
     gzFile  inFile;
     FILE    *outFile;
     bool    worked = false;
     int     length, err;
 
-    uint8_t   buffer[ kGzBufferSize ];
+    uint8_t   buffer[kGzBufferSize];
 
 
-    outFile = fopen( destPath, "wb" );
-    if( outFile != nil )
+    outFile = fopen(destPath, "wb");
+    if (outFile != nil)
     {
-        inFile = gzopen( compressedPath, "rb" );
-        if( inFile != nil )
+        inFile = gzopen(compressedPath, "rb");
+        if (inFile != nil)
         {
-            for( ;; )
+            for ( ;; )
             {
-                length = gzread( inFile, buffer, sizeof( buffer ) );
-                if( length < 0 )
+                length = gzread(inFile, buffer, sizeof(buffer));
+                if (length < 0)
                 {
-                    gzerror( inFile, &err );
+                    gzerror(inFile, &err);
                     break;
                 }
-                if( length == 0 )
+                if (length == 0)
                 {
                     worked = true;
                     break;
                 }
-                if( fwrite( buffer, 1, length, outFile ) != length )
+                if (fwrite(buffer, 1, length, outFile) != length)
                     break;
             }
-            if( gzclose( inFile ) != Z_OK )
+            if (gzclose(inFile) != Z_OK)
                 worked = false;
         }
-        fclose( outFile );
+        fclose(outFile);
     }
 
     return worked;
 }
 
 
-bool  plZlibCompress::CompressFile( const char *uncompressedPath, const char *destPath )
+bool  plZlibCompress::CompressFile(const char *uncompressedPath, const char *destPath)
 {
     FILE    *inFile;
     gzFile  outFile;
     bool    worked = false;
     int     length, err;
 
-    uint8_t   buffer[ kGzBufferSize ];
+    uint8_t   buffer[kGzBufferSize];
 
 
-    inFile = fopen( uncompressedPath, "rb" );
-    if( inFile != nil )
+    inFile = fopen(uncompressedPath, "rb");
+    if (inFile != nil)
     {
-        outFile = gzopen( destPath, "wb" );
-        if( outFile != nil )
+        outFile = gzopen(destPath, "wb");
+        if (outFile != nil)
         {
-            for( ;; )
+            for ( ;; )
             {
-                length = fread( buffer, 1, sizeof( buffer ), inFile );
-                if( ferror( inFile ) )
+                length = fread(buffer, 1, sizeof(buffer), inFile);
+                if (ferror(inFile))
                     break;
 
-                if( length == 0 )
+                if (length == 0)
                 {
                     worked = true;
                     break;
                 }
-                if( gzwrite( outFile, buffer, (unsigned)length ) != length )
+                if (gzwrite(outFile, buffer, (unsigned)length) != length)
                 {
-                    gzerror( outFile, &err );
+                    gzerror(outFile, &err);
                     break;
                 }
             }
-            if( gzclose( outFile ) != Z_OK )
+            if (gzclose(outFile) != Z_OK)
                 worked = false;
         }
-        fclose( inFile );
+        fclose(inFile);
     }
 
     return worked;
@@ -207,34 +207,34 @@ bool  plZlibCompress::CompressFile( const char *uncompressedPath, const char *de
 
 //// file <-> stream ///////////////////////////////////////////////////////
 
-bool  plZlibCompress::UncompressToStream( const char * filename, hsStream * s )
+bool  plZlibCompress::UncompressToStream(const char * filename, hsStream * s)
 {
     gzFile  inFile;
     bool    worked = false;
     int     length, err;
 
-    uint8_t   buffer[ kGzBufferSize ];
+    uint8_t   buffer[kGzBufferSize];
 
 
-    inFile = gzopen( filename, "rb" );
-    if( inFile != nil )
+    inFile = gzopen(filename, "rb");
+    if (inFile != nil)
     {
-        for( ;; )
+        for ( ;; )
         {
-            length = gzread( inFile, buffer, sizeof( buffer ) );
-            if( length < 0 )
+            length = gzread(inFile, buffer, sizeof(buffer));
+            if (length < 0)
             {
-                gzerror( inFile, &err );
+                gzerror(inFile, &err);
                 break;
             }
-            if( length == 0 )
+            if (length == 0)
             {
                 worked = true;
                 break;
             }
-            s->Write( length, buffer );
+            s->Write(length, buffer);
         }
-        if( gzclose( inFile ) != Z_OK )
+        if (gzclose(inFile) != Z_OK)
             worked = false;
     }
 
@@ -242,44 +242,44 @@ bool  plZlibCompress::UncompressToStream( const char * filename, hsStream * s )
 }
 
 
-bool  plZlibCompress::CompressToFile( hsStream * s, const char * filename )
+bool  plZlibCompress::CompressToFile(hsStream * s, const char * filename)
 {
     gzFile  outFile;
     bool    worked = false;
     int     length, err;
 
-    uint8_t   buffer[ kGzBufferSize ];
+    uint8_t   buffer[kGzBufferSize];
 
 
-    outFile = gzopen( filename, "wb" );
-    if( outFile != nil )
+    outFile = gzopen(filename, "wb");
+    if (outFile != nil)
     {
-        for( ;; )
+        for ( ;; )
         {
             int avail = s->GetEOF()-s->GetPosition();
-            int n = ( avail>sizeof( buffer ) ) ? sizeof( buffer ) : avail;
+            int n = (avail>sizeof(buffer)) ? sizeof(buffer) : avail;
 
-            if( n == 0 )
+            if (n == 0)
             {
                 worked = true;
                 break;
             }
 
-            length = s->Read( n, buffer );
+            length = s->Read(n, buffer);
 
-            if( length == 0 )
+            if (length == 0)
             {
                 worked = true;
                 break;
             }
 
-            if( gzwrite( outFile, buffer, (unsigned)length ) != length )
+            if (gzwrite(outFile, buffer, (unsigned)length) != length)
             {
-                gzerror( outFile, &err );
+                gzerror(outFile, &err);
                 break;
             }
         }
-        if( gzclose( outFile ) != Z_OK )
+        if (gzclose(outFile) != Z_OK)
             worked = false;
     }
 

@@ -98,8 +98,8 @@ public:
     virtual Point3 PObj() { return P(); }               // point in obj coords
     virtual Point3 DPObj() { return DP(); }         // deriv of PObj, rel to pixel, for AA
     virtual Box3 ObjectBox() { return fBounds; }        // Object extents box in obj coords
-    virtual Point3 PObjRelBox();        // Point rel to obj box [-1 .. +1 ]
-    virtual Point3 DPObjRelBox() { return Point3(0,0,0); }      // deriv of Point rel to obj box [-1 .. +1 ]
+    virtual Point3 PObjRelBox();        // Point rel to obj box [-1 .. +1]
+    virtual Point3 DPObjRelBox() { return Point3(0,0,0); }      // deriv of Point rel to obj box [-1 .. +1]
     virtual void ScreenUV(Point2& uv, Point2 &duv) {uv.Set(0,0); duv.Set(0,0); } // screen relative uv (from lower left)
     virtual IPoint2 ScreenCoord() { return IPoint2(0,0); } // integer screen coordinate (from upper left)
 

@@ -140,8 +140,8 @@ public:
     plCoordinateInterface();
     ~plCoordinateInterface();
 
-    CLASSNAME_REGISTER( plCoordinateInterface );
-    GETINTERFACE_ANY( plCoordinateInterface, plObjInterface );
+    CLASSNAME_REGISTER(plCoordinateInterface);
+    GETINTERFACE_ANY(plCoordinateInterface, plObjInterface);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

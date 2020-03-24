@@ -127,7 +127,7 @@ inline hsBitVector::hsBitVector(const hsBitVector& other)
 
 inline bool hsBitVector::Empty() const
 {
-    for (uint32_t i = 0; i < fNumBitVectors; i++ ) {
+    for (uint32_t i = 0; i < fNumBitVectors; i++) {
         if (fBitVectors[i])
             return false;
     }
@@ -139,7 +139,7 @@ inline bool hsBitVector::Overlap(const hsBitVector& other) const
     if (fNumBitVectors > other.fNumBitVectors)
         return other.Overlap(*this);
 
-    for (uint32_t i = 0; i < fNumBitVectors; i++ ){
+    for (uint32_t i = 0; i < fNumBitVectors; i++) {
         if (fBitVectors[i] & other.fBitVectors[i])
             return true;
     }
@@ -281,7 +281,7 @@ inline hsBitVector& hsBitVector::Set(int upToBit)
         for (i = 1; i <= minor && i > 0; i <<= 1)
             fBitVectors[major] |= i;
     } else {
-        for(uint32_t i = 0; i < fNumBitVectors; i++ )
+        for (uint32_t i = 0; i < fNumBitVectors; i++)
             fBitVectors[i] = 0xffffffff;
     }
     return *this;

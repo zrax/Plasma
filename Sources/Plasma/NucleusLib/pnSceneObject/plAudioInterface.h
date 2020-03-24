@@ -80,8 +80,8 @@ public:
     plAudioInterface();
     ~plAudioInterface();
 
-    CLASSNAME_REGISTER( plAudioInterface );
-    GETINTERFACE_ANY( plAudioInterface, plObjInterface );
+    CLASSNAME_REGISTER(plAudioInterface);
+    GETINTERFACE_ANY(plAudioInterface, plObjInterface);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

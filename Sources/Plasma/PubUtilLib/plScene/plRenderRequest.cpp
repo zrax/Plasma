@@ -116,7 +116,7 @@ void plRenderRequest::Write(hsStream* s, hsResMgr* mgr)
 
 void plRenderRequest::Render(plPipeline* pipe, plPageTreeMgr* pageMgr)
 {
-    if( !fVisForce.Empty() )
+    if (!fVisForce.Empty())
     {
         plGlobalVisMgr::Instance()->DisableNormal();
         plGlobalVisMgr::Instance()->ForceVisSets(fVisForce, false);
@@ -127,28 +127,28 @@ void plRenderRequest::Render(plPipeline* pipe, plPageTreeMgr* pageMgr)
     pipe->ClearRenderTarget(GetClearDrawable());
 
     int numDrawn = 0;
-    if( GetPageTreeMgr() )
+    if (GetPageTreeMgr())
         numDrawn = GetPageTreeMgr()->Render(pipe);
     else
         numDrawn = pageMgr->Render(pipe);
 
     pipe->PopRenderRequest(this);
     
-    if( GetAck() )
+    if (GetAck())
     {
-        plRenderRequestAck* ack = new plRenderRequestAck( GetAck(), GetUserData() );
+        plRenderRequestAck* ack = new plRenderRequestAck(GetAck(), GetUserData());
         ack->SetNumDrawn(numDrawn);
-        plgDispatch::MsgSend( ack );
+        plgDispatch::MsgSend(ack);
     }
 }
 
 void plRenderRequest::SetRenderTarget(plRenderTarget* t)
 {
-    if( t != fRenderTarget )
+    if (t != fRenderTarget)
     {
         fRenderTarget = t;
 
-        if( fRenderTarget )
+        if (fRenderTarget)
         {
             fViewTransform.SetWidth(t->GetWidth());
             fViewTransform.SetHeight(t->GetHeight());
@@ -158,7 +158,7 @@ void plRenderRequest::SetRenderTarget(plRenderTarget* t)
 
 void plRenderRequest::SetVisForce(const hsBitVector& b)
 {
-    if( b.Empty() )
+    if (b.Empty())
         fVisForce.Reset();
     else
         fVisForce = b;

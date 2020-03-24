@@ -157,28 +157,28 @@ protected:
     ParamID         fNodeListID;
     BOOL            fRestrict;
     hsTArray<Class_ID>      fRestrictedIDs;
-    TCHAR           fTitle[ 128 ];
+    TCHAR           fTitle[128];
     BOOL            fSingle;
 
 public:
-    plGUICtrlHitCallback( INode* owner, IParamBlock2 *pb, ParamID nodeListID, TCHAR *title = nil,
-                            BOOL restricted = FALSE, Class_ID rID = GUI_BUTTON_CLASSID, BOOL single = TRUE )
-        : fOwner( owner ), fPB( pb ), fNodeListID( nodeListID ), fRestrict( restricted ), fSingle( single )
+    plGUICtrlHitCallback(INode* owner, IParamBlock2 *pb, ParamID nodeListID, TCHAR *title = nil,
+                            BOOL restricted = FALSE, Class_ID rID = GUI_BUTTON_CLASSID, BOOL single = TRUE)
+        : fOwner(owner), fPB(pb), fNodeListID(nodeListID), fRestrict(restricted), fSingle(single)
 
     {
-        fRestrictedIDs.Append( rID );
-        strcpy( fTitle, title );
+        fRestrictedIDs.Append(rID);
+        strcpy(fTitle, title);
     }
 
-    plGUICtrlHitCallback( INode* owner, IParamBlock2 *pb, ParamID nodeListID, TCHAR *title,
-                            hsTArray<Class_ID> &rID )
-        : fOwner( owner ), fPB( pb ), fNodeListID( nodeListID ), fRestrict( true ), fSingle(TRUE)
+    plGUICtrlHitCallback(INode* owner, IParamBlock2 *pb, ParamID nodeListID, TCHAR *title,
+                            hsTArray<Class_ID> &rID)
+        : fOwner(owner), fPB(pb), fNodeListID(nodeListID), fRestrict(true), fSingle(TRUE)
 
     {
-        for( int i = 0; i < rID.GetCount(); i++ )
-            fRestrictedIDs.Append( rID[ i ] );
+        for (int i = 0; i < rID.GetCount(); i++)
+            fRestrictedIDs.Append(rID[i]);
 
-        strcpy( fTitle, title );
+        strcpy(fTitle, title);
     }
 
     virtual TCHAR *dialogTitle() { return fTitle; }
@@ -186,16 +186,16 @@ public:
 
     virtual int filter(INode *node)
     {
-        if( node == fOwner )
+        if (node == fOwner)
             return FALSE;
 
         plComponentBase *comp = ((plMaxNodeBase*)node)->ConvertToComponent();
 
         // If this is an activator type component
-        if( comp )
+        if (comp)
         {
-            if( ( fRestrict && fRestrictedIDs.Find( comp->ClassID() ) != fRestrictedIDs.kMissingIndex )
-                || ( !fRestrict && plGUIControlBase::GetGUIComp( comp ) != nil ) )
+            if ((fRestrict && fRestrictedIDs.Find(comp->ClassID()) != fRestrictedIDs.kMissingIndex)
+                || (!fRestrict && plGUIControlBase::GetGUIComp(comp) != nil))
             {
 
                 // And this wouldn't create a cyclical reference (Max doesn't like those)
@@ -205,7 +205,7 @@ public:
                 return TRUE;
             }
         }
-        else if( fRestrict && fRestrictedIDs.Find( node->ClassID() ) != fRestrictedIDs.kMissingIndex )
+        else if (fRestrict && fRestrictedIDs.Find(node->ClassID()) != fRestrictedIDs.kMissingIndex)
         {
             return TRUE;
         }
@@ -215,12 +215,12 @@ public:
 
     virtual void proc(INodeTab &nodeTab)
     {
-        if ( nodeTab.Count() > 0 )
+        if (nodeTab.Count() > 0)
         {
-            if( fSingle )
-                fPB->SetValue( fNodeListID, TimeValue(0), nodeTab[0] );
+            if (fSingle)
+                fPB->SetValue(fNodeListID, TimeValue(0), nodeTab[0]);
             else
-                fPB->Append( fNodeListID, nodeTab.Count(), &nodeTab[0] );
+                fPB->Append(fNodeListID, nodeTab.Count(), &nodeTab[0]);
         }
     }
 
@@ -235,7 +235,7 @@ class plGUISingleCtrlDlgProc : public ParamMap2UserDlgProc
 protected:
     ParamID         fNodeID;
     int             fDlgItem;
-    TCHAR           fTitle[ 128 ];
+    TCHAR           fTitle[128];
     hsTArray<Class_ID>  fClassesToSelect;
 
     ParamMap2UserDlgProc    *fProcChain;
@@ -246,53 +246,53 @@ public:
 
     static const Class_ID       kEndClassList;
 
-    plGUISingleCtrlDlgProc( ParamID nodeID, int dlgItem, TCHAR *title, Class_ID *restrict, ParamMap2UserDlgProc *parentProc = nil )
+    plGUISingleCtrlDlgProc(ParamID nodeID, int dlgItem, TCHAR *title, Class_ID *restrict, ParamMap2UserDlgProc *parentProc = nil)
     {
         fNodeID = nodeID;
         fDlgItem = dlgItem;
-        for( int i = 0; restrict[ i ] != kEndClassList; i++ )
-            fClassesToSelect.Append( restrict[ i ] );
+        for (int i = 0; restrict[i] != kEndClassList; i++)
+            fClassesToSelect.Append(restrict[i]);
 //      fClassToSelect = restrict;
-        strcpy( fTitle, title );
+        strcpy(fTitle, title);
         fProcChain = parentProc;
     }
 
-    BOOL DlgProc( TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
+    BOOL DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
-        switch ( msg )
+        switch (msg)
         {
             case WM_INITDIALOG:
                 {
                     IParamBlock2 *pb = map->GetParamBlock();
 
-                    INode *node = pb->GetINode( fNodeID );
-                    TSTR newName( node ? node->GetName() : "Pick" );
-                    ::SetWindowText( ::GetDlgItem( hWnd, fDlgItem ), newName );
+                    INode *node = pb->GetINode(fNodeID);
+                    TSTR newName(node ? node->GetName() : "Pick");
+                    ::SetWindowText(::GetDlgItem(hWnd, fDlgItem), newName);
                 }
                 break;
 
             case WM_COMMAND:
-                if( ( HIWORD( wParam ) == BN_CLICKED ) )
+                if ((HIWORD(wParam) == BN_CLICKED))
                 {
-                    if( LOWORD( wParam ) == fDlgItem )
+                    if (LOWORD(wParam) == fDlgItem)
                     {
                         IParamBlock2 *pb = map->GetParamBlock();
-                        plGUICtrlHitCallback hitCB( (INode *)pb->GetOwner(), pb, fNodeID, fTitle, fClassesToSelect );
-                        GetCOREInterface()->DoHitByNameDialog( &hitCB );
+                        plGUICtrlHitCallback hitCB((INode *)pb->GetOwner(), pb, fNodeID, fTitle, fClassesToSelect);
+                        GetCOREInterface()->DoHitByNameDialog(&hitCB);
 
-                        INode* node = pb->GetINode( fNodeID );
-                        TSTR newName( node ? node->GetName() : "Pick" );
-                        ::SetWindowText( ::GetDlgItem(hWnd, fDlgItem ), newName );
-                        map->Invalidate( fNodeID );
-                        ::InvalidateRect( hWnd, NULL, TRUE );
+                        INode* node = pb->GetINode(fNodeID);
+                        TSTR newName(node ? node->GetName() : "Pick");
+                        ::SetWindowText(::GetDlgItem(hWnd, fDlgItem), newName);
+                        map->Invalidate(fNodeID);
+                        ::InvalidateRect(hWnd, NULL, TRUE);
                         return true;
                     }
                 }
                 break;
         }
 
-        if( fProcChain )
-            fProcChain->DlgProc( t, map, hWnd, msg, wParam, lParam );
+        if (fProcChain)
+            fProcChain->DlgProc(t, map, hWnd, msg, wParam, lParam);
 
         return false;
     }
@@ -315,45 +315,45 @@ protected:
 
 public:
 
-    plGUIMultipleCtrlDlgProc( plGUISingleCtrlDlgProc **singleProcs, ParamMap2UserDlgProc **procs=nil )
+    plGUIMultipleCtrlDlgProc(plGUISingleCtrlDlgProc **singleProcs, ParamMap2UserDlgProc **procs=nil)
     {
-        for( int i = 0; singleProcs[ i ] != nil; i++ )
-            fSingleProcs.Append( singleProcs[ i ] );
-        if ( procs )
+        for (int i = 0; singleProcs[i] != nil; i++)
+            fSingleProcs.Append(singleProcs[i]);
+        if (procs)
         {
-            for( int i = 0; procs[ i ] != nil; i++ )
-                fProcs.Append( procs[ i ] );
+            for (int i = 0; procs[i] != nil; i++)
+                fProcs.Append(procs[i]);
         }
     }
 
-    BOOL DlgProc( TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
+    BOOL DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
         int     i;
 
 
-        switch ( msg )
+        switch (msg)
         {
             case WM_INITDIALOG:
-                for( i = 0; i < fSingleProcs.GetCount(); i++ )
-                    fSingleProcs[ i ]->DlgProc( t, map, hWnd, msg, wParam, lParam );
+                for (i = 0; i < fSingleProcs.GetCount(); i++)
+                    fSingleProcs[i]->DlgProc(t, map, hWnd, msg, wParam, lParam);
 
-                for( i = 0; i < fProcs.GetCount(); i++ )
-                    fProcs[ i ]->DlgProc( t, map, hWnd, msg, wParam, lParam );
+                for (i = 0; i < fProcs.GetCount(); i++)
+                    fProcs[i]->DlgProc(t, map, hWnd, msg, wParam, lParam);
 
                 return true;
 
             case WM_COMMAND:
-                for( i = 0; i < fSingleProcs.GetCount(); i++ )
+                for (i = 0; i < fSingleProcs.GetCount(); i++)
                 {
-                    if( fSingleProcs[ i ]->GetHandledDlgItem() == LOWORD( wParam ) )
+                    if (fSingleProcs[i]->GetHandledDlgItem() == LOWORD(wParam))
                     {
-                        fSingleProcs[ i ]->DlgProc( t, map, hWnd, msg, wParam, lParam );
+                        fSingleProcs[i]->DlgProc(t, map, hWnd, msg, wParam, lParam);
                         break;
                     }
                 }
                 // and now do the procs that want more control
-                for( i = 0; i < fProcs.GetCount(); i++ )
-                    fProcs[ i ]->DlgProc( t, map, hWnd, msg, wParam, lParam );
+                for (i = 0; i < fProcs.GetCount(); i++)
+                    fProcs[i]->DlgProc(t, map, hWnd, msg, wParam, lParam);
 
                 return true;
         }
@@ -377,13 +377,13 @@ class plGUITagProc : public ParamMap2UserDlgProc
 {
 protected:
 
-    void    ILoadTags( HWND hWnd, IParamBlock2 *pb );
+    void    ILoadTags(HWND hWnd, IParamBlock2 *pb);
 
 public:
 
     void DeleteThis() {}
 
-    BOOL DlgProc( TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
+    BOOL DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 };
 
 static plGUITagProc gGUITagProc;
@@ -407,12 +407,12 @@ public:
         kRefCurrIDSel = 64      // So we can share it among other components
     };
 
-    static uint32_t GetTagIDOnNode( plMaxNode *node );
+    static uint32_t GetTagIDOnNode(plMaxNode *node);
 };
 
 //Max desc stuff necessary below.
 #define kGUITagClassID      Class_ID(0x77276e84, 0x24f360c5)
-CLASS_DESC(plGUITagComponent, gGUITagDesc, "GUI ID Tag",  "GUITag", COMP_TYPE_GUI, kGUITagClassID )
+CLASS_DESC(plGUITagComponent, gGUITagDesc, "GUI ID Tag",  "GUITag", COMP_TYPE_GUI, kGUITagClassID)
 
 ParamBlockDesc2 gGUITagBk
 (   // KLUDGE: not the defined block ID, but kept for backwards compat.
@@ -426,45 +426,45 @@ ParamBlockDesc2 gGUITagBk
     end
 );
 
-void    plGUITagProc::ILoadTags( HWND hWnd, IParamBlock2 *pb )
+void    plGUITagProc::ILoadTags(HWND hWnd, IParamBlock2 *pb)
 {
     int     idx, idx2 = 0;
     char    str[] = "(none)";
 
 
-    SendMessage( hWnd, CB_RESETCONTENT, 0, 0 );
-    idx2 = idx = SendMessage( hWnd, CB_ADDSTRING, 0, (LPARAM)str );
-    SendMessage( hWnd, CB_SETITEMDATA, (WPARAM)idx, (LPARAM)0 );
+    SendMessage(hWnd, CB_RESETCONTENT, 0, 0);
+    idx2 = idx = SendMessage(hWnd, CB_ADDSTRING, 0, (LPARAM)str);
+    SendMessage(hWnd, CB_SETITEMDATA, (WPARAM)idx, (LPARAM)0);
 
-    for( uint32_t i = 0; i < pfGameGUIMgr::GetNumTags(); i++ )
+    for (uint32_t i = 0; i < pfGameGUIMgr::GetNumTags(); i++)
     {
-        pfGUITag *tag = pfGameGUIMgr::GetTag( i );
-        idx = SendMessage( hWnd, CB_ADDSTRING, 0, (LPARAM)tag->fName );
-        SendMessage( hWnd, CB_SETITEMDATA, (WPARAM)idx, (LPARAM)tag->fID );
+        pfGUITag *tag = pfGameGUIMgr::GetTag(i);
+        idx = SendMessage(hWnd, CB_ADDSTRING, 0, (LPARAM)tag->fName);
+        SendMessage(hWnd, CB_SETITEMDATA, (WPARAM)idx, (LPARAM)tag->fID);
 
-        if( tag->fID == pb->GetInt( plGUITagComponent::kRefCurrIDSel ) )
+        if (tag->fID == pb->GetInt(plGUITagComponent::kRefCurrIDSel))
             idx2 = idx;
     }
 
-    if( idx2 == 0 && pb->GetInt( plGUITagComponent::kRefCurrIDSel ) != 0 )
+    if (idx2 == 0 && pb->GetInt(plGUITagComponent::kRefCurrIDSel) != 0)
     {
-        char    str[ 32 ];
-        sprintf( str, "%d", pb->GetInt( plGUITagComponent::kRefCurrIDSel ) );
-        SendMessage( hWnd, WM_SETTEXT, 0, (LPARAM)str );
+        char    str[32];
+        sprintf(str, "%d", pb->GetInt(plGUITagComponent::kRefCurrIDSel));
+        SendMessage(hWnd, WM_SETTEXT, 0, (LPARAM)str);
     }
     else
-        SendMessage( hWnd, CB_SETCURSEL, idx2, 0 );
+        SendMessage(hWnd, CB_SETCURSEL, idx2, 0);
 }
 
 // Callback enum proc for below
-BOOL CALLBACK   GetEditCtrlEnumProc( HWND hWnd, LPARAM lParam )
+BOOL CALLBACK   GetEditCtrlEnumProc(HWND hWnd, LPARAM lParam)
 {
-    char    className[ 128 ];
+    char    className[128];
 
 
     // ICK
-    GetClassName( hWnd, className, sizeof( className ) - 1 );
-    if( stricmp( className, "EDIT" ) == 0 )
+    GetClassName(hWnd, className, sizeof(className) - 1);
+    if (stricmp(className, "EDIT") == 0)
     {
         HWND    *ptr = (HWND *)lParam;
         *ptr = hWnd;
@@ -474,22 +474,22 @@ BOOL CALLBACK   GetEditCtrlEnumProc( HWND hWnd, LPARAM lParam )
 }
 
 // Small proc that, given the handle of a combo box, returns the handle of the edit window for it
-static HWND     GetEditCtrlFromComboBox( HWND combo )
+static HWND     GetEditCtrlFromComboBox(HWND combo)
 {
     HWND    toReturn;
 
-    EnumChildWindows( combo, GetEditCtrlEnumProc, (LPARAM)&toReturn );
+    EnumChildWindows(combo, GetEditCtrlEnumProc, (LPARAM)&toReturn);
     return toReturn;
 }
 
 // Small proc to only allow numbers in an edit box
 static WNDPROC      sOriginalProc = nil;
-LRESULT CALLBACK    SubclassedEditProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
+LRESULT CALLBACK    SubclassedEditProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-    switch( msg )
+    switch (msg)
     {
         case WM_CHAR:
-            if( !isdigit( (TCHAR)wParam ) )
+            if (!isdigit((TCHAR)wParam))
                 return 0;
             break;
 
@@ -497,89 +497,89 @@ LRESULT CALLBACK    SubclassedEditProc( HWND hWnd, UINT msg, WPARAM wParam, LPAR
             return DLGC_WANTALLKEYS;
 
         case WM_KEYDOWN:
-            if( wParam == VK_RETURN )
+            if (wParam == VK_RETURN)
             {
                 // Do the same thing as when we lose focus--check our int value and make
                 // sure it's big enough (don't worry about setting the paramBlock value,
                 // that'll happen when the control loses focus)
 
-                char    str[ 32 ];
-                GetWindowText( hWnd, str, sizeof( str ) - 1 );
-                int id = atoi( str );
+                char    str[32];
+                GetWindowText(hWnd, str, sizeof(str) - 1);
+                int id = atoi(str);
 
-                if( id < pfGameGUIMgr::GetHighestTag() + 1 )
+                if (id < pfGameGUIMgr::GetHighestTag() + 1)
                 {
                     id = pfGameGUIMgr::GetHighestTag() + 1;
-                    sprintf( str, "%d", id );
-                    SetWindowText( hWnd, str );
+                    sprintf(str, "%d", id);
+                    SetWindowText(hWnd, str);
                 }
-                SendMessage( hWnd, EM_SETSEL, 0, (LPARAM)-1 );
+                SendMessage(hWnd, EM_SETSEL, 0, (LPARAM)-1);
                 return 0;
             }
             break;
     }
 
-    return CallWindowProc( sOriginalProc, hWnd, msg, wParam, lParam );
+    return CallWindowProc(sOriginalProc, hWnd, msg, wParam, lParam);
 }
 
-BOOL plGUITagProc::DlgProc( TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
+BOOL plGUITagProc::DlgProc(TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     HWND    edit;
     BOOL    dummy1;
 
 
-    switch( msg )
+    switch (msg)
     {
         case WM_INITDIALOG:
-            ILoadTags( GetDlgItem( hWnd, IDC_GUI_TAGCOMBO ), pmap->GetParamBlock() );
+            ILoadTags(GetDlgItem(hWnd, IDC_GUI_TAGCOMBO), pmap->GetParamBlock());
 
             // Set the edit control of the combo box to only accept number characters
-            edit = GetEditCtrlFromComboBox( GetDlgItem( hWnd, IDC_GUI_TAGCOMBO ) );
-            SetWindowLong( edit, GWL_STYLE, GetWindowLong( edit, GWL_STYLE ) | ES_WANTRETURN );
-            sOriginalProc = (WNDPROC)SetWindowLong( edit, GWL_WNDPROC, (DWORD)SubclassedEditProc );
+            edit = GetEditCtrlFromComboBox(GetDlgItem(hWnd, IDC_GUI_TAGCOMBO));
+            SetWindowLong(edit, GWL_STYLE, GetWindowLong(edit, GWL_STYLE) | ES_WANTRETURN);
+            sOriginalProc = (WNDPROC)SetWindowLong(edit, GWL_WNDPROC, (DWORD)SubclassedEditProc);
             
             return true;
 
         case WM_DESTROY:
-            SetWindowLong( GetDlgItem( hWnd, IDC_GUI_TAGCOMBO ), GWL_WNDPROC, (DWORD)sOriginalProc );
+            SetWindowLong(GetDlgItem(hWnd, IDC_GUI_TAGCOMBO), GWL_WNDPROC, (DWORD)sOriginalProc);
             break;
 
         case WM_COMMAND:
-            if( LOWORD( wParam ) == IDC_GUI_TAGCOMBO )
+            if (LOWORD(wParam) == IDC_GUI_TAGCOMBO)
             {
-                if( HIWORD( wParam ) == CBN_SELCHANGE )
+                if (HIWORD(wParam) == CBN_SELCHANGE)
                 {
-                    int idx = SendDlgItemMessage( hWnd, IDC_GUI_TAGCOMBO, CB_GETCURSEL, 0, 0 );
-                    if( idx == CB_ERR )
+                    int idx = SendDlgItemMessage(hWnd, IDC_GUI_TAGCOMBO, CB_GETCURSEL, 0, 0);
+                    if (idx == CB_ERR)
                     {
                         // Must be a custom one
-                        int id = GetDlgItemInt( hWnd, IDC_GUI_TAGCOMBO, &dummy1, false );
-                        pmap->GetParamBlock()->SetValue( plGUITagComponent::kRefCurrIDSel, 0, id );
+                        int id = GetDlgItemInt(hWnd, IDC_GUI_TAGCOMBO, &dummy1, false);
+                        pmap->GetParamBlock()->SetValue(plGUITagComponent::kRefCurrIDSel, 0, id);
                     }
                     else
                     {
-                        pmap->GetParamBlock()->SetValue( plGUITagComponent::kRefCurrIDSel, 0,
-                                    SendDlgItemMessage( hWnd, IDC_GUI_TAGCOMBO, CB_GETITEMDATA, idx, 0 ) );
+                        pmap->GetParamBlock()->SetValue(plGUITagComponent::kRefCurrIDSel, 0,
+                                    SendDlgItemMessage(hWnd, IDC_GUI_TAGCOMBO, CB_GETITEMDATA, idx, 0));
                     }
                 }
-                else if( HIWORD( wParam ) == CBN_KILLFOCUS )
+                else if (HIWORD(wParam) == CBN_KILLFOCUS)
                 {
                     plMaxAccelerators::Enable();
 
                     // Make sure the number inside is valid
-                    if( SendDlgItemMessage( hWnd, IDC_GUI_TAGCOMBO, CB_GETCURSEL, 0, 0 ) == CB_ERR )
+                    if (SendDlgItemMessage(hWnd, IDC_GUI_TAGCOMBO, CB_GETCURSEL, 0, 0) == CB_ERR)
                     {
-                        int id = GetDlgItemInt( hWnd, IDC_GUI_TAGCOMBO, &dummy1, false );
-                        if( id < pfGameGUIMgr::GetHighestTag() + 1 )
+                        int id = GetDlgItemInt(hWnd, IDC_GUI_TAGCOMBO, &dummy1, false);
+                        if (id < pfGameGUIMgr::GetHighestTag() + 1)
                         {
                             id = pfGameGUIMgr::GetHighestTag() + 1;
-                            SetDlgItemInt( hWnd, IDC_GUI_TAGCOMBO, id, false );
+                            SetDlgItemInt(hWnd, IDC_GUI_TAGCOMBO, id, false);
                         }
 
-                        pmap->GetParamBlock()->SetValue( plGUITagComponent::kRefCurrIDSel, 0, id );
+                        pmap->GetParamBlock()->SetValue(plGUITagComponent::kRefCurrIDSel, 0, id);
                     }
                 }
-                else if( HIWORD( wParam ) == CBN_SETFOCUS )
+                else if (HIWORD(wParam) == CBN_SETFOCUS)
                 {
                     plMaxAccelerators::Disable();
                 }
@@ -613,18 +613,18 @@ bool plGUITagComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     return true;
 }
 
-uint32_t plGUITagComponent::GetTagIDOnNode( plMaxNode *node )
+uint32_t plGUITagComponent::GetTagIDOnNode(plMaxNode *node)
 {
     uint32_t  i;
 
 
-    for( i = 0; i < node->NumAttachedComponents( false ); i++ )
+    for (i = 0; i < node->NumAttachedComponents(false); i++)
     {
-        plComponentBase *comp = node->GetAttachedComponent( i, false );
-        if( comp->ClassID() == kGUITagClassID )
+        plComponentBase *comp = node->GetAttachedComponent(i, false);
+        if (comp->ClassID() == kGUITagClassID)
         {
             plGUITagComponent *tag = (plGUITagComponent *)comp;
-            return tag->GetParamBlockByID( plComponent::kBlkComp )->GetInt( kRefCurrIDSel );
+            return tag->GetParamBlockByID(plComponent::kBlkComp)->GetInt(kRefCurrIDSel);
         }
     }
 
@@ -643,18 +643,18 @@ class plGUIColorSchemeProc : public ParamMap2UserDlgProc
 {
 protected:
 
-    void    ILoadFonts( HWND hWnd, IParamBlock2 *pb );
+    void    ILoadFonts(HWND hWnd, IParamBlock2 *pb);
 
-    static int CALLBACK IMyFontEnumProc( const ENUMLOGFONTEX *logFontData, const NEWTEXTMETRICEX *physFontData,
-                                                    unsigned long fontType, LPARAM lParam );
+    static int CALLBACK IMyFontEnumProc(const ENUMLOGFONTEX *logFontData, const NEWTEXTMETRICEX *physFontData,
+                                                    unsigned long fontType, LPARAM lParam);
 
 public:
 
     void DeleteThis() {}
 
-    virtual void    Update( TimeValue t, Interval &valid, IParamMap2 *map );
+    virtual void    Update(TimeValue t, Interval &valid, IParamMap2 *map);
 
-    BOOL DlgProc( TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
+    BOOL DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 };
 
@@ -694,11 +694,11 @@ public:
         kRefFontShadowed
     };
 
-    static void     ConvertScheme( IParamBlock2 *pb, pfGUIColorScheme *destScheme, plErrorMsg *pErrMsg );
+    static void     ConvertScheme(IParamBlock2 *pb, pfGUIColorScheme *destScheme, plErrorMsg *pErrMsg);
 };
 
 //Max desc stuff necessary below.
-CLASS_DESC(plGUIColorSchemeComp, gGUIColorSchemeDesc, "GUI Color Scheme",  "GUIColorScheme", COMP_TYPE_GUI, GUI_COLORSCHEME_CLASSID )
+CLASS_DESC(plGUIColorSchemeComp, gGUIColorSchemeDesc, "GUI Color Scheme",  "GUIColorScheme", COMP_TYPE_GUI, GUI_COLORSCHEME_CLASSID)
 
 static ParamBlockDesc2  gGUIColorSchemeBk
 (
@@ -710,22 +710,22 @@ static ParamBlockDesc2  gGUIColorSchemeBk
 
     plGUIColorSchemeComp::kRefForeColor,    _T("foreColor"),        TYPE_RGBA,      0, 0,
         p_ui, plGUIDialogComponent::kSchemeRollout, TYPE_COLORSWATCH, IDC_GUI_FGCOLOR,
-        p_default, Color( 1.f, 1.f, 1.f ),
+        p_default, Color(1.f, 1.f, 1.f),
         end,
 
     plGUIColorSchemeComp::kRefBackColor,    _T("backColor"),        TYPE_RGBA,      0, 0,
         p_ui, plGUIDialogComponent::kSchemeRollout, TYPE_COLORSWATCH, IDC_GUI_BGCOLOR,
-        p_default, Color( 0.f, 0.f, 0.f ),
+        p_default, Color(0.f, 0.f, 0.f),
         end,
 
     plGUIColorSchemeComp::kRefSelForeColor, _T("selForeColor"),     TYPE_RGBA,      0, 0,
         p_ui, plGUIDialogComponent::kSchemeRollout, TYPE_COLORSWATCH, IDC_GUI_SFGCOLOR,
-        p_default, Color( 1.f, 1.f, 1.f ),
+        p_default, Color(1.f, 1.f, 1.f),
         end,
 
     plGUIColorSchemeComp::kRefSelBackColor, _T("selBackColor"),     TYPE_RGBA,      0, 0,
         p_ui, plGUIDialogComponent::kSchemeRollout, TYPE_COLORSWATCH, IDC_GUI_SBGCOLOR,
-        p_default, Color( 0.f, 0.f, 1.f ),
+        p_default, Color(0.f, 0.f, 1.f),
         end,
 
 
@@ -763,7 +763,7 @@ static ParamBlockDesc2  gGUIColorSchemeBk
 
 
     plGUIColorSchemeComp::kRefFontFace, _T("fontFace"),     TYPE_STRING,        0, 0,
-        p_default,  _T( "Times New Roman" ),
+        p_default,  _T("Times New Roman"),
         end,
 
     plGUIColorSchemeComp::kRefFontSize, _T("fontSize"),     TYPE_INT,       0, 0,
@@ -789,174 +789,174 @@ static ParamBlockDesc2  gGUIColorSchemeBk
     end
 );
 
-int CALLBACK plGUIColorSchemeProc::IMyFontEnumProc( const ENUMLOGFONTEX *logFontData, const NEWTEXTMETRICEX *physFontData,
-                                                    unsigned long fontType, LPARAM lParam )
+int CALLBACK plGUIColorSchemeProc::IMyFontEnumProc(const ENUMLOGFONTEX *logFontData, const NEWTEXTMETRICEX *physFontData,
+                                                   unsigned long fontType, LPARAM lParam)
 {
     HWND    combo = (HWND)lParam;
 
 
-    if( SendMessage( combo, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)logFontData->elfLogFont.lfFaceName ) == CB_ERR )
-        SendMessage( combo, CB_ADDSTRING, 0, (LPARAM)logFontData->elfLogFont.lfFaceName );
+    if (SendMessage(combo, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)logFontData->elfLogFont.lfFaceName) == CB_ERR)
+        SendMessage(combo, CB_ADDSTRING, 0, (LPARAM)logFontData->elfLogFont.lfFaceName);
 
     return -1;
 }
 
-void    plGUIColorSchemeProc::ILoadFonts( HWND hWnd, IParamBlock2 *pb )
+void    plGUIColorSchemeProc::ILoadFonts(HWND hWnd, IParamBlock2 *pb)
 {
     LOGFONT logFont;
 
 
     logFont.lfCharSet = DEFAULT_CHARSET;
-    strcpy( logFont.lfFaceName, "" );
+    strcpy(logFont.lfFaceName, "");
     logFont.lfPitchAndFamily = 0;
 
-    SendMessage( hWnd, CB_RESETCONTENT, 0, 0 );
+    SendMessage(hWnd, CB_RESETCONTENT, 0, 0);
 
-    HDC hDC = GetDC( nil );
-    EnumFontFamiliesEx( hDC, &logFont, (FONTENUMPROC)IMyFontEnumProc, (LPARAM)hWnd, 0 );
-    ReleaseDC( nil, hDC );
+    HDC hDC = GetDC(nil);
+    EnumFontFamiliesEx(hDC, &logFont, (FONTENUMPROC)IMyFontEnumProc, (LPARAM)hWnd, 0);
+    ReleaseDC(nil, hDC);
 
-    SendMessage( hWnd, CB_SELECTSTRING, (WPARAM)-1, (LPARAM)pb->GetStr( plGUIColorSchemeComp::kRefFontFace ) );
+    SendMessage(hWnd, CB_SELECTSTRING, (WPARAM)-1, (LPARAM)pb->GetStr(plGUIColorSchemeComp::kRefFontFace));
 }
 
-#define MAXTOCOLORREF( max ) RGB( max.r * 255.f, max.g * 255.f, max.b * 255.f )
+#define MAXTOCOLORREF(max) RGB(max.r * 255.f, max.g * 255.f, max.b * 255.f)
 
-void    plGUIColorSchemeProc::Update( TimeValue t, Interval &valid, IParamMap2 *pmap )
+void    plGUIColorSchemeProc::Update(TimeValue t, Interval &valid, IParamMap2 *pmap)
 {
 }
 
-BOOL plGUIColorSchemeProc::DlgProc( TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
+BOOL plGUIColorSchemeProc::DlgProc(TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-    char            str[ 256 ];
+    char            str[256];
     HWND            placeCtrl;
     PAINTSTRUCT     paintInfo;
     RECT            previewRect, r;
     HBRUSH          bgPattBrush = nil;
     Color           fgColor, bgColor, selFgColor, selBgColor;
-    Color           hatchColor = Color( 0.4f, 0.4f, 0.4f ), blendedColor, whiteColor = Color( 0.7f, 0.7f, 0.7f );
-    Color           blackColor = Color( 0, 0, 0 ), blendedColor2;
+    Color           hatchColor = Color(0.4f, 0.4f, 0.4f), blendedColor, whiteColor = Color(0.7f, 0.7f, 0.7f);
+    Color           blackColor = Color(0, 0, 0), blendedColor2;
     float           fgAlpha, bgAlpha, selFgAlpha, selBgAlpha;
     char            previewString[] = "Preview";
     HFONT           font;
 
 
-    switch( msg )
+    switch (msg)
     {
         case WM_INITDIALOG:
-            ILoadFonts( GetDlgItem( hWnd, IDC_GUI_FONTFACE ), pmap->GetParamBlock() );
+            ILoadFonts(GetDlgItem(hWnd, IDC_GUI_FONTFACE), pmap->GetParamBlock());
             return true;
 
         case WM_DESTROY:
             break;
 
         case WM_COMMAND:
-            if( LOWORD( wParam ) == IDC_GUI_FONTFACE )
+            if (LOWORD(wParam) == IDC_GUI_FONTFACE)
             {
-                if( HIWORD( wParam ) == CBN_SELCHANGE )
+                if (HIWORD(wParam) == CBN_SELCHANGE)
                 {
-                    int idx = SendDlgItemMessage( hWnd, IDC_GUI_FONTFACE, CB_GETCURSEL, 0, 0 );
+                    int idx = SendDlgItemMessage(hWnd, IDC_GUI_FONTFACE, CB_GETCURSEL, 0, 0);
 
-                    SendDlgItemMessage( hWnd, IDC_GUI_FONTFACE, CB_GETLBTEXT, idx, (LPARAM)str );
+                    SendDlgItemMessage(hWnd, IDC_GUI_FONTFACE, CB_GETLBTEXT, idx, (LPARAM)str);
 
-                    pmap->GetParamBlock()->SetValue( plGUIColorSchemeComp::kRefFontFace, 0, str );
+                    pmap->GetParamBlock()->SetValue(plGUIColorSchemeComp::kRefFontFace, 0, str);
                 }
             }
             break;
 
         case CC_COLOR_CHANGE:
         case CC_COLOR_DROP:
-            placeCtrl = ::GetDlgItem( hWnd, IDC_GUI_SCHEMEPREV );
-            ::GetClientRect( placeCtrl, &previewRect );
-            ::MapWindowPoints( placeCtrl, hWnd, (POINT *)&previewRect, 2 );
-            ::InvalidateRect( hWnd, &previewRect, FALSE );
+            placeCtrl = ::GetDlgItem(hWnd, IDC_GUI_SCHEMEPREV);
+            ::GetClientRect(placeCtrl, &previewRect);
+            ::MapWindowPoints(placeCtrl, hWnd, (POINT *)&previewRect, 2);
+            ::InvalidateRect(hWnd, &previewRect, FALSE);
             break;
 
         case WM_PAINT:
 
-            fgColor = pmap->GetParamBlock()->GetColor( plGUIColorSchemeComp::kRefForeColor );
-            bgColor = pmap->GetParamBlock()->GetColor( plGUIColorSchemeComp::kRefBackColor );
-            selFgColor = pmap->GetParamBlock()->GetColor( plGUIColorSchemeComp::kRefSelForeColor );
-            selBgColor = pmap->GetParamBlock()->GetColor( plGUIColorSchemeComp::kRefSelBackColor );
+            fgColor = pmap->GetParamBlock()->GetColor(plGUIColorSchemeComp::kRefForeColor);
+            bgColor = pmap->GetParamBlock()->GetColor(plGUIColorSchemeComp::kRefBackColor);
+            selFgColor = pmap->GetParamBlock()->GetColor(plGUIColorSchemeComp::kRefSelForeColor);
+            selBgColor = pmap->GetParamBlock()->GetColor(plGUIColorSchemeComp::kRefSelBackColor);
 
-            fgAlpha = pmap->GetParamBlock()->GetFloat( plGUIColorSchemeComp::kRefForeAlpha );
-            bgAlpha = pmap->GetParamBlock()->GetFloat( plGUIColorSchemeComp::kRefBackAlpha );
-            selFgAlpha = pmap->GetParamBlock()->GetFloat( plGUIColorSchemeComp::kRefSelForeAlpha );
-            selBgAlpha = pmap->GetParamBlock()->GetFloat( plGUIColorSchemeComp::kRefSelBackAlpha );
-            if( pmap->GetParamBlock()->GetInt( plGUIColorSchemeComp::kRefUseAlphas ) == 0 )
+            fgAlpha = pmap->GetParamBlock()->GetFloat(plGUIColorSchemeComp::kRefForeAlpha);
+            bgAlpha = pmap->GetParamBlock()->GetFloat(plGUIColorSchemeComp::kRefBackAlpha);
+            selFgAlpha = pmap->GetParamBlock()->GetFloat(plGUIColorSchemeComp::kRefSelForeAlpha);
+            selBgAlpha = pmap->GetParamBlock()->GetFloat(plGUIColorSchemeComp::kRefSelBackAlpha);
+            if (pmap->GetParamBlock()->GetInt(plGUIColorSchemeComp::kRefUseAlphas) == 0)
                 fgAlpha = bgAlpha = selFgAlpha = selBgAlpha = 1.f;
 
-            placeCtrl = ::GetDlgItem( hWnd, IDC_GUI_SCHEMEPREV );
-            ::GetClientRect( placeCtrl, &previewRect );
-            ::MapWindowPoints( placeCtrl, hWnd, (POINT *)&previewRect, 2 );
+            placeCtrl = ::GetDlgItem(hWnd, IDC_GUI_SCHEMEPREV);
+            ::GetClientRect(placeCtrl, &previewRect);
+            ::MapWindowPoints(placeCtrl, hWnd, (POINT *)&previewRect, 2);
 
-            ::BeginPaint( hWnd, &paintInfo );
-            ::SetBkMode( paintInfo.hdc, TRANSPARENT );
+            ::BeginPaint(hWnd, &paintInfo);
+            ::SetBkMode(paintInfo.hdc, TRANSPARENT);
 
-            int weight = pmap->GetParamBlock()->GetInt( plGUIColorSchemeComp::kRefFontBold ) ? FW_BOLD : FW_NORMAL;
-            bool italic = pmap->GetParamBlock()->GetInt( plGUIColorSchemeComp::kRefFontItalic ) ? true : false;
-            int nHeight = -MulDiv( pmap->GetParamBlock()->GetInt( plGUIColorSchemeComp::kRefFontSize ), GetDeviceCaps( paintInfo.hdc, LOGPIXELSY ), 72 );
-            const char *face = pmap->GetParamBlock()->GetStr( plGUIColorSchemeComp::kRefFontFace );
+            int weight = pmap->GetParamBlock()->GetInt(plGUIColorSchemeComp::kRefFontBold) ? FW_BOLD : FW_NORMAL;
+            bool italic = pmap->GetParamBlock()->GetInt(plGUIColorSchemeComp::kRefFontItalic) ? true : false;
+            int nHeight = -MulDiv(pmap->GetParamBlock()->GetInt(plGUIColorSchemeComp::kRefFontSize), GetDeviceCaps(paintInfo.hdc, LOGPIXELSY), 72);
+            const char *face = pmap->GetParamBlock()->GetStr(plGUIColorSchemeComp::kRefFontFace);
 
-            font = ::CreateFont( nHeight, 0, 0, 0, weight, italic, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
-                            CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH, face );
-            SelectObject( paintInfo.hdc, font );
+            font = ::CreateFont(nHeight, 0, 0, 0, weight, italic, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
+                            CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH, face);
+            SelectObject(paintInfo.hdc, font);
 
             // Left side
             r = previewRect;
-            r.right = ( r.right + r.left ) >> 1;
+            r.right = (r.right + r.left) >> 1;
 
-            blendedColor = bgColor * bgAlpha + ( whiteColor * ( 1.f - bgAlpha ) );
+            blendedColor = bgColor * bgAlpha + (whiteColor * (1.f - bgAlpha));
 
             // doesn't like the Color to DWORD operator, so duplicating it here
             #define ColorToDWORD(color) RGB(FLto255(color.r),FLto255(color.g),FLto255(color.b))
-            ::SetBkColor( paintInfo.hdc, ColorToDWORD(blendedColor) );
+            ::SetBkColor(paintInfo.hdc, ColorToDWORD(blendedColor));
 
-            blendedColor = bgColor * bgAlpha + ( hatchColor * ( 1.f - bgAlpha ) );
-            bgPattBrush = CreateHatchBrush( HS_DIAGCROSS, MAXTOCOLORREF( blendedColor ) );
+            blendedColor = bgColor * bgAlpha + (hatchColor * (1.f - bgAlpha));
+            bgPattBrush = CreateHatchBrush(HS_DIAGCROSS, MAXTOCOLORREF(blendedColor));
 
-            ::FillRect( paintInfo.hdc, &r, bgPattBrush );
-            if( pmap->GetParamBlock()->GetInt( plGUIColorSchemeComp::kRefFontShadowed ) )
+            ::FillRect(paintInfo.hdc, &r, bgPattBrush);
+            if (pmap->GetParamBlock()->GetInt(plGUIColorSchemeComp::kRefFontShadowed))
             {
-                blendedColor2 = blackColor * fgAlpha + ( blendedColor * ( 1.f - fgAlpha ) );
-                ::SetTextColor( paintInfo.hdc, MAXTOCOLORREF( blendedColor2 ) );
-                ::OffsetRect( &r, 1, 1 );
-                ::DrawText( paintInfo.hdc, previewString, strlen( previewString ), &r, DT_CENTER | DT_VCENTER );
-                ::OffsetRect( &r, -1, -1 );
+                blendedColor2 = blackColor * fgAlpha + (blendedColor * (1.f - fgAlpha));
+                ::SetTextColor(paintInfo.hdc, MAXTOCOLORREF(blendedColor2));
+                ::OffsetRect(&r, 1, 1);
+                ::DrawText(paintInfo.hdc, previewString, strlen(previewString), &r, DT_CENTER | DT_VCENTER);
+                ::OffsetRect(&r, -1, -1);
             }
 
-            blendedColor = fgColor * fgAlpha + ( blendedColor * ( 1.f - fgAlpha ) );
-            ::SetTextColor( paintInfo.hdc, MAXTOCOLORREF( blendedColor ) );
-            ::DrawText( paintInfo.hdc, previewString, strlen( previewString ), &r, DT_CENTER | DT_VCENTER );
+            blendedColor = fgColor * fgAlpha + (blendedColor * (1.f - fgAlpha));
+            ::SetTextColor(paintInfo.hdc, MAXTOCOLORREF(blendedColor));
+            ::DrawText(paintInfo.hdc, previewString, strlen(previewString), &r, DT_CENTER | DT_VCENTER);
             
-            ::DeleteObject( bgPattBrush );
+            ::DeleteObject(bgPattBrush);
 
             // Right side
             r.left = r.right;
             r.right = previewRect.right;
 
-            blendedColor = selBgColor * selBgAlpha + ( whiteColor * ( 1.f - selBgAlpha ) );
-            ::SetBkColor( paintInfo.hdc, ColorToDWORD(blendedColor) );
-            blendedColor = selBgColor * selBgAlpha + ( hatchColor * ( 1.f - selBgAlpha ) );
-            bgPattBrush = CreateHatchBrush( HS_DIAGCROSS, MAXTOCOLORREF( blendedColor ) );
+            blendedColor = selBgColor * selBgAlpha + (whiteColor * (1.f - selBgAlpha));
+            ::SetBkColor(paintInfo.hdc, ColorToDWORD(blendedColor));
+            blendedColor = selBgColor * selBgAlpha + (hatchColor * (1.f - selBgAlpha));
+            bgPattBrush = CreateHatchBrush(HS_DIAGCROSS, MAXTOCOLORREF(blendedColor));
 
-            ::FillRect( paintInfo.hdc, &r, bgPattBrush );
-            if( pmap->GetParamBlock()->GetInt( plGUIColorSchemeComp::kRefFontShadowed ) )
+            ::FillRect(paintInfo.hdc, &r, bgPattBrush);
+            if (pmap->GetParamBlock()->GetInt(plGUIColorSchemeComp::kRefFontShadowed))
             {
-                blendedColor2 = blackColor * selFgAlpha + ( blendedColor * ( 1.f - selFgAlpha ) );
-                ::SetTextColor( paintInfo.hdc, MAXTOCOLORREF( blendedColor2 ) );
-                ::OffsetRect( &r, 1, 1 );
-                ::DrawText( paintInfo.hdc, previewString, strlen( previewString ), &r, DT_CENTER | DT_VCENTER );
-                ::OffsetRect( &r, -1, -1 );
+                blendedColor2 = blackColor * selFgAlpha + (blendedColor * (1.f - selFgAlpha));
+                ::SetTextColor(paintInfo.hdc, MAXTOCOLORREF(blendedColor2));
+                ::OffsetRect(&r, 1, 1);
+                ::DrawText(paintInfo.hdc, previewString, strlen(previewString), &r, DT_CENTER | DT_VCENTER);
+                ::OffsetRect(&r, -1, -1);
             }
-            blendedColor = selFgColor * selFgAlpha + ( blendedColor * ( 1.f - selFgAlpha ) );
-            ::SetTextColor( paintInfo.hdc, MAXTOCOLORREF( blendedColor ) );
-            ::DrawText( paintInfo.hdc, previewString, strlen( previewString ), &r, DT_CENTER | DT_VCENTER );
+            blendedColor = selFgColor * selFgAlpha + (blendedColor * (1.f - selFgAlpha));
+            ::SetTextColor(paintInfo.hdc, MAXTOCOLORREF(blendedColor));
+            ::DrawText(paintInfo.hdc, previewString, strlen(previewString), &r, DT_CENTER | DT_VCENTER);
             
-            ::DeleteObject( bgPattBrush );
+            ::DeleteObject(bgPattBrush);
 
-            ::DeleteObject( font );
+            ::DeleteObject(font);
 
-            ::EndPaint( hWnd, &paintInfo );
+            ::EndPaint(hWnd, &paintInfo);
 
             return true;
     }
@@ -984,50 +984,50 @@ bool plGUIColorSchemeComp::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
 
 bool plGUIColorSchemeComp::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
-    pfGUIControlMod *ctrl = plGUIControlBase::GrabControlFromObject( node );
-    if( ctrl != nil )
+    pfGUIControlMod *ctrl = plGUIControlBase::GrabControlFromObject(node);
+    if (ctrl != nil)
     {
         pfGUIColorScheme *cs = new pfGUIColorScheme;
-        ConvertScheme( fCompPB, cs, pErrMsg );
-        ctrl->SetColorScheme( cs );
+        ConvertScheme(fCompPB, cs, pErrMsg);
+        ctrl->SetColorScheme(cs);
     }
     else
     {
-        pErrMsg->Set( true, "GUI Color Scheme Error", "You have applied a GUI color scheme to an object (%s) without a GUI control. This scheme will be ignored.", node->GetName()).Show();
-        pErrMsg->Set( false );
+        pErrMsg->Set(true, "GUI Color Scheme Error", "You have applied a GUI color scheme to an object (%s) without a GUI control. This scheme will be ignored.", node->GetName()).Show();
+        pErrMsg->Set(false);
         return false;
     }
 
     return true;
 }
 
-void    SMaxRGBAToPlasmaRGBA( Color maxRGB, hsColorRGBA &plasmaRGBA )
+void    SMaxRGBAToPlasmaRGBA(Color maxRGB, hsColorRGBA &plasmaRGBA)
 {
-    plasmaRGBA.Set( maxRGB.r, maxRGB.g, maxRGB.b, 1.f );
+    plasmaRGBA.Set(maxRGB.r, maxRGB.g, maxRGB.b, 1.f);
 }
 
-void    plGUIColorSchemeComp::ConvertScheme( IParamBlock2 *pb, pfGUIColorScheme *destScheme, plErrorMsg *pErrMsg )
+void    plGUIColorSchemeComp::ConvertScheme(IParamBlock2 *pb, pfGUIColorScheme *destScheme, plErrorMsg *pErrMsg)
 {
-    SMaxRGBAToPlasmaRGBA( pb->GetColor( kRefForeColor ), destScheme->fForeColor );
-    SMaxRGBAToPlasmaRGBA( pb->GetColor( kRefBackColor ), destScheme->fBackColor );
-    SMaxRGBAToPlasmaRGBA( pb->GetColor( kRefSelForeColor ), destScheme->fSelForeColor );
-    SMaxRGBAToPlasmaRGBA( pb->GetColor( kRefSelBackColor ), destScheme->fSelBackColor );
+    SMaxRGBAToPlasmaRGBA(pb->GetColor(kRefForeColor), destScheme->fForeColor);
+    SMaxRGBAToPlasmaRGBA(pb->GetColor(kRefBackColor), destScheme->fBackColor);
+    SMaxRGBAToPlasmaRGBA(pb->GetColor(kRefSelForeColor), destScheme->fSelForeColor);
+    SMaxRGBAToPlasmaRGBA(pb->GetColor(kRefSelBackColor), destScheme->fSelBackColor);
 
-    destScheme->fForeColor.a = pb->GetFloat( kRefForeAlpha );
-    destScheme->fBackColor.a = pb->GetFloat( kRefBackAlpha );
-    destScheme->fSelForeColor.a = pb->GetFloat( kRefSelForeAlpha );
-    destScheme->fSelBackColor.a = pb->GetFloat( kRefSelBackAlpha );
+    destScheme->fForeColor.a = pb->GetFloat(kRefForeAlpha);
+    destScheme->fBackColor.a = pb->GetFloat(kRefBackAlpha);
+    destScheme->fSelForeColor.a = pb->GetFloat(kRefSelForeAlpha);
+    destScheme->fSelBackColor.a = pb->GetFloat(kRefSelBackAlpha);
 
-    destScheme->fTransparent = pb->GetInt( kRefUseAlphas ) ? true : false;
+    destScheme->fTransparent = pb->GetInt(kRefUseAlphas) ? true : false;
     
-    destScheme->SetFontFace( pb->GetStr( kRefFontFace ) );
-    destScheme->fFontSize = pb->GetInt( kRefFontSize );
+    destScheme->SetFontFace(pb->GetStr(kRefFontFace));
+    destScheme->fFontSize = pb->GetInt(kRefFontSize);
     destScheme->fFontFlags = 0;
-    if( pb->GetInt( kRefFontBold ) )
+    if (pb->GetInt(kRefFontBold))
         destScheme->fFontFlags |= pfGUIColorScheme::kFontBold;
-    if( pb->GetInt( kRefFontItalic ) )
+    if (pb->GetInt(kRefFontItalic))
         destScheme->fFontFlags |= pfGUIColorScheme::kFontItalic;
-    if( pb->GetInt( kRefFontShadowed ) )
+    if (pb->GetInt(kRefFontShadowed))
         destScheme->fFontFlags |= pfGUIColorScheme::kFontShadowed;
 }
 
@@ -1062,12 +1062,12 @@ public:
     {
         IParamBlock2 *pblock = map->GetParamBlock();
 
-        switch( msg )
+        switch (msg)
         {
             case WM_COMMAND:
-//              if( LOWORD( wParam ) == IDC_GUI_CLEAR )
+//              if (LOWORD(wParam) == IDC_GUI_CLEAR)
 //              {
-//                  pblock->Reset( (ParamID)kRefProxyNode );
+//                  pblock->Reset((ParamID)kRefProxyNode);
 //                  return true;
 //              }
                 break;
@@ -1118,18 +1118,18 @@ class plGUIDialogProc : public ParamMap2UserDlgProc
 {
 protected:
 
-    void    ILoadPages( HWND hWnd, IParamBlock2 *pb );
+    void    ILoadPages(HWND hWnd, IParamBlock2 *pb);
 
 public:
 
     void DeleteThis() {}
 
-    BOOL DlgProc( TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
+    BOOL DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 };
 static plGUIDialogProc gGUIDialogProc;
 
 //Max desc stuff necessary below.
-CLASS_DESC(plGUIDialogComponent, gGUIDialogDesc, "GUI Dialog",  "GUIDialog", COMP_TYPE_GUI, GUI_DIALOG_COMP_CLASS_ID )
+CLASS_DESC(plGUIDialogComponent, gGUIDialogDesc, "GUI Dialog",  "GUIDialog", COMP_TYPE_GUI, GUI_DIALOG_COMP_CLASS_ID)
 
 ParamBlockDesc2 gGUIDialogBk
 (   // KLUDGE: not the defined block ID, but kept for backwards compat.
@@ -1147,7 +1147,7 @@ ParamBlockDesc2 gGUIDialogBk
             end,
 
         plGUIDialogComponent::kRefAgeName,  _T("ageName"),      TYPE_STRING,        0, 0,
-            p_default, _T( "GUI" ),
+            p_default, _T("GUI"),
             end,
             
         plGUIDialogComponent::kRefIsModal, _T("isModal"),       TYPE_BOOL,      0, 0,
@@ -1166,9 +1166,9 @@ ParamBlockDesc2 gGUIDialogBk
     end
 );
 
-plGUIDialogComponent::plGUIDialogComponent( bool dontInit )
+plGUIDialogComponent::plGUIDialogComponent(bool dontInit)
 {
-    if( !dontInit )
+    if (!dontInit)
     {
         fClassDesc = &gGUIDialogDesc;
         fClassDesc->MakeAutoParamBlocks(this);
@@ -1186,16 +1186,16 @@ pfGUIDialogMod  *plGUIDialogComponent::IMakeDialog()
 // of properties on the MaxNode, as it's still indeterminant.
 bool plGUIDialogComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    TimeValue timeVal( 0 );
-    Object* obj = node->EvalWorldState( timeVal ).obj;
+    TimeValue timeVal(0);
+    Object* obj = node->EvalWorldState(timeVal).obj;
 
     fDialogMod = nil;
 
-    if( obj->CanConvertToType( Class_ID( LOOKAT_CAM_CLASS_ID, 0 ) ) ||
-        obj->CanConvertToType( Class_ID( SIMPLE_CAM_CLASS_ID, 0 ) ) )
+    if (obj->CanConvertToType(Class_ID(LOOKAT_CAM_CLASS_ID, 0)) ||
+        obj->CanConvertToType(Class_ID(SIMPLE_CAM_CLASS_ID, 0)))
     {
         // We're applied to a camera. Do our camera stuff
-        node->SetForceLocal( true );
+        node->SetForceLocal(true);
     }
     else
     {
@@ -1206,45 +1206,45 @@ bool plGUIDialogComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg
 
     /// Either way, we mangle our own location component. None of this user-defined-location stuff.
 
-    const char *dialogName = fCompPB->GetStr( kRefDialogName );
-    if( dialogName == nil || *dialogName == 0 )
+    const char *dialogName = fCompPB->GetStr(kRefDialogName);
+    if (dialogName == nil || *dialogName == 0)
     {
         pErrMsg->Set(true, "GUI Dialog Component Error", "No dialog name specified on GUI Dialog component (object: %s)", node->GetName()).Show();
         return false;
     }
 
     const char *ageName = fCompPB->GetStr(kRefAgeName);
-    int32_t seqNum = plPageInfoUtils::GetSeqNumFromAgeDesc( ageName, dialogName );
-    int32_t newNum = plPluginResManager::ResMgr()->VerifySeqNumber( seqNum, ageName, dialogName );
-    if( newNum != seqNum )
+    int32_t seqNum = plPageInfoUtils::GetSeqNumFromAgeDesc(ageName, dialogName);
+    int32_t newNum = plPluginResManager::ResMgr()->VerifySeqNumber(seqNum, ageName, dialogName);
+    if (newNum != seqNum)
     {
-        if( !fSeqNumValidated )
+        if (!fSeqNumValidated)
         {
-            plLocation pageLoc = plPluginResManager::ResMgr()->FindLocation( ageName, dialogName );
+            plLocation pageLoc = plPluginResManager::ResMgr()->FindLocation(ageName, dialogName);
             int32_t pageSeqNum = pageLoc.GetSequenceNumber();
-            char errMsg[ 512 ];
-            sprintf( errMsg, "The sequence number stored by the resource manager (0x%X) for page %s, District, %s does not match\n"
+            char errMsg[512];
+            sprintf(errMsg, "The sequence number stored by the resource manager (0x%X) for page %s, District, %s does not match\n"
                             "the sequence number stored in the .age file (0x%X). Forcing it to use the one in the .age file",
-                                pageSeqNum, ageName, dialogName, seqNum );
-            pErrMsg->Set( true, "PageInfo Convert Error", errMsg ).Show();
-            pErrMsg->Set( false );
+                                pageSeqNum, ageName, dialogName, seqNum);
+            pErrMsg->Set(true, "PageInfo Convert Error", errMsg).Show();
+            pErrMsg->Set(false);
             fSeqNumValidated = true;
         }
         // force the component to use the sequence number in the .age file
         //seqNum = newNum;
     }
 
-    plKey roomKey = plPluginResManager::ResMgr()->NameToLoc( fCompPB->GetStr( kRefAgeName ), fCompPB->GetStr( kRefDialogName ), seqNum );
-    if( !roomKey )
+    plKey roomKey = plPluginResManager::ResMgr()->NameToLoc(fCompPB->GetStr(kRefAgeName), fCompPB->GetStr(kRefDialogName), seqNum);
+    if (!roomKey)
     {
-        pErrMsg->Set( true, "GUI Dialog Component Error", "GUI Dialog Component %s has a Missing Location.  Nuke the files in the dat directory and re-export.",((INode*)node)->GetName()).Show();
+        pErrMsg->Set(true, "GUI Dialog Component Error", "GUI Dialog Component %s has a Missing Location.  Nuke the files in the dat directory and re-export.",((INode*)node)->GetName()).Show();
         return false;
     }
 
-    node->SetRoomKey( roomKey );
+    node->SetRoomKey(roomKey);
 
     // Also, we make sure this node will never be fogged (affects material convert)
-    node->SetIsGUI( true );
+    node->SetIsGUI(true);
 
     return true;
 }
@@ -1256,13 +1256,13 @@ bool plGUIDialogComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     Object* obj = node->EvalWorldState(timeVal).obj;
 
     GenCamera* cam = nil;
-    if( obj->CanConvertToType(Class_ID(LOOKAT_CAM_CLASS_ID, 0)) )
+    if (obj->CanConvertToType(Class_ID(LOOKAT_CAM_CLASS_ID, 0)))
         cam = (GenCamera *) obj->ConvertToType(timeVal, Class_ID(LOOKAT_CAM_CLASS_ID, 0));
     else
-    if( obj->CanConvertToType(Class_ID(SIMPLE_CAM_CLASS_ID, 0)) )
+    if (obj->CanConvertToType(Class_ID(SIMPLE_CAM_CLASS_ID, 0)))
         cam = (GenCamera *) obj->ConvertToType(timeVal, Class_ID(SIMPLE_CAM_CLASS_ID, 0));
 
-    if( !cam )
+    if (!cam)
     {
         // Not applied to a camera, so applied to a normal object. Since this is valid (we also act
         // as a location component), just return
@@ -1272,7 +1272,7 @@ bool plGUIDialogComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     plPostEffectMod* mod = new plPostEffectMod;
 
     float hither = cam->GetEnvRange(timeVal, ENV_NEAR_RANGE);
-    if( hither < 0.5f )
+    if (hither < 0.5f)
         hither = 0.5f;
     float yon = cam->GetEnvRange(timeVal, ENV_FAR_RANGE);
     mod->SetHither(hither);
@@ -1283,7 +1283,7 @@ bool plGUIDialogComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     // convert
     int FOVType = cam->GetFOVType();
     float fovX, fovY;
-    switch(FOVType)
+    switch (FOVType)
     {
     case 0: // FOV_W
         {
@@ -1305,9 +1305,9 @@ bool plGUIDialogComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 
     // Should already be created from SetupProperties...
     // Note: can't just grab the node's room key, 'cause we might not be on the right node!
-    plKey sceneNodeKey = plPluginResManager::ResMgr()->NameToLoc( fCompPB->GetStr( kRefAgeName ),
-                                                        fCompPB->GetStr( kRefDialogName ), (uint32_t)-1 );
-    mod->SetNodeKey( sceneNodeKey );
+    plKey sceneNodeKey = plPluginResManager::ResMgr()->NameToLoc(fCompPB->GetStr(kRefAgeName),
+                                                        fCompPB->GetStr(kRefDialogName), (uint32_t)-1);
+    mod->SetNodeKey(sceneNodeKey);
 
 //  node->AddModifier(mod);
     // Note: we do NOT add this to the sceneObject, we don't want it actually associated with
@@ -1315,26 +1315,26 @@ bool plGUIDialogComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     // all we want
     hsMatrix44 l2w = node->GetLocalToWorld44();
     hsMatrix44 w2l = node->GetWorldToLocal44();
-    mod->SetWorldToCamera( w2l, l2w );
+    mod->SetWorldToCamera(w2l, l2w);
 
     // Add it to the sceneNode as a generic interface, so it gets loaded with the sceneNode
     plLocation nodeLoc = sceneNodeKey->GetUoid().GetLocation();
 
-    plKey modKey = hsgResMgr::ResMgr()->NewKey( ST::string::from_utf8( fCompPB->GetStr( kRefDialogName ) ), mod, nodeLoc );
-    hsgResMgr::ResMgr()->AddViaNotify( modKey, new plNodeRefMsg( sceneNodeKey, plRefMsg::kOnCreate, -1, plNodeRefMsg::kGeneric ), plRefFlags::kActiveRef );
+    plKey modKey = hsgResMgr::ResMgr()->NewKey(ST::string::from_utf8(fCompPB->GetStr(kRefDialogName)), mod, nodeLoc);
+    hsgResMgr::ResMgr()->AddViaNotify(modKey, new plNodeRefMsg(sceneNodeKey, plRefMsg::kOnCreate, -1, plNodeRefMsg::kGeneric), plRefFlags::kActiveRef);
 
     // Also add our dialog mod to the scene node in the same way
-    hsgResMgr::ResMgr()->AddViaNotify( fDialogMod->GetKey(), new plNodeRefMsg( sceneNodeKey, plRefMsg::kOnCreate, -1, plNodeRefMsg::kGeneric ), plRefFlags::kActiveRef );
+    hsgResMgr::ResMgr()->AddViaNotify(fDialogMod->GetKey(), new plNodeRefMsg(sceneNodeKey, plRefMsg::kOnCreate, -1, plNodeRefMsg::kGeneric), plRefFlags::kActiveRef);
 
     /// Already created our mod, just gotta fill it out
-    fDialogMod->SetRenderMod( mod );
-    fDialogMod->SetName( fCompPB->GetStr( kRefDialogName ) );
-    if( fCompPB->GetInt( kRefIsModal ) )
-        fDialogMod->SetFlag( pfGUIDialogMod::kModal );
+    fDialogMod->SetRenderMod(mod);
+    fDialogMod->SetName(fCompPB->GetStr(kRefDialogName));
+    if (fCompPB->GetInt(kRefIsModal))
+        fDialogMod->SetFlag(pfGUIDialogMod::kModal);
     fDialogMod->SetProcReceiver(fProcReceiver);
-    fDialogMod->SetVersion( fCompPB->GetInt( kRefVersion ) );
+    fDialogMod->SetVersion(fCompPB->GetInt(kRefVersion));
 
-    plGUIColorSchemeComp::ConvertScheme( fCompPB, fDialogMod->GetColorScheme(), pErrMsg );
+    plGUIColorSchemeComp::ConvertScheme(fCompPB, fDialogMod->GetColorScheme(), pErrMsg);
 
     return true;
 }
@@ -1344,8 +1344,8 @@ bool plGUIDialogComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
     TimeValue timeVal(0);
     Object* obj = node->EvalWorldState(timeVal).obj;
 
-    if( obj->CanConvertToType(Class_ID(LOOKAT_CAM_CLASS_ID, 0))
-        || obj->CanConvertToType(Class_ID(SIMPLE_CAM_CLASS_ID, 0)) )
+    if (obj->CanConvertToType(Class_ID(LOOKAT_CAM_CLASS_ID, 0))
+        || obj->CanConvertToType(Class_ID(SIMPLE_CAM_CLASS_ID, 0)))
     {
         // Don't do this. -mf
 //      IMakeEveryoneOpaque(node);
@@ -1357,18 +1357,18 @@ bool plGUIDialogComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
         fDialogMod = IMakeDialog();
 
         // Note: can't just grab the node's room key, 'cause we might not be on the right node!
-        plKey sceneNodeKey = plPluginResManager::ResMgr()->NameToLoc( fCompPB->GetStr( kRefAgeName ),
-                                                            fCompPB->GetStr( kRefDialogName ), (uint32_t)-1 );
+        plKey sceneNodeKey = plPluginResManager::ResMgr()->NameToLoc(fCompPB->GetStr(kRefAgeName),
+                                                            fCompPB->GetStr(kRefDialogName), (uint32_t)-1);
 
         plLocation nodeLoc = sceneNodeKey->GetUoid().GetLocation();
-        plKey dlgKey = hsgResMgr::ResMgr()->NewKey( ST::string::from_utf8( fCompPB->GetStr( kRefDialogName ) ), fDialogMod, nodeLoc );
+        plKey dlgKey = hsgResMgr::ResMgr()->NewKey(ST::string::from_utf8(fCompPB->GetStr(kRefDialogName)), fDialogMod, nodeLoc);
 
-        fDialogMod->SetSceneNodeKey( sceneNodeKey );
+        fDialogMod->SetSceneNodeKey(sceneNodeKey);
 
         // See if there's a tag to be had
-        uint32_t id = fCompPB->GetInt( plGUITagComponent::kRefCurrIDSel );
-        if( id > 0 )
-            fDialogMod->SetTagID( id );
+        uint32_t id = fCompPB->GetInt(plGUITagComponent::kRefCurrIDSel);
+        if (id > 0)
+            fDialogMod->SetTagID(id);
 
         fProcReceiver = nil;
     }
@@ -1384,20 +1384,20 @@ void plGUIDialogComponent::IMakeEveryoneOpaque(plMaxNode* node)
     plMaxNode* root = (plMaxNode *)node->GetInterface()->GetRootNode();
 
     int i;
-    for( i = 0; i < root->NumberOfChildren(); i++ )
+    for (i = 0; i < root->NumberOfChildren(); i++)
         IMakeEveryoneOpaqueRecur((plMaxNode*)(root->GetChildNode(i)));
 
 }
 
 void plGUIDialogComponent::IMakeEveryoneOpaqueRecur(plMaxNode* node)
 {
-    if( node->CanConvert() )
+    if (node->CanConvert())
     {
         node->SetNoSpanReSort(true);
         node->SetNoSpanSort(true);
 
         int i;
-        for( i = 0; i < node->NumberOfChildren(); i++ )
+        for (i = 0; i < node->NumberOfChildren(); i++)
         {
             IMakeEveryoneOpaqueRecur((plMaxNode *)(node->GetChildNode(i)));
         }
@@ -1406,111 +1406,111 @@ void plGUIDialogComponent::IMakeEveryoneOpaqueRecur(plMaxNode* node)
 
 plKey   plGUIDialogComponent::GetModifierKey()
 {
-    if( fDialogMod != nil )
+    if (fDialogMod != nil)
         return fDialogMod->GetKey();
 
     return nil;
 }
 
-bool    plGUIDialogComponent::SetNotifyReceiver( plKey key )
+bool    plGUIDialogComponent::SetNotifyReceiver(plKey key)
 {
-    if( fProcReceiver != nil )
+    if (fProcReceiver != nil)
         return false;
 
     fProcReceiver = key;
     return true;
 }
 
-pfGUIDialogMod  *plGUIDialogComponent::GetNodeDialog( plMaxNode *childNode )
+pfGUIDialogMod  *plGUIDialogComponent::GetNodeDialog(plMaxNode *childNode)
 {
-    uint32_t i, numComp = childNode->NumAttachedComponents( false );
-    for( i = 0; i < numComp; i++ )
+    uint32_t i, numComp = childNode->NumAttachedComponents(false);
+    for (i = 0; i < numComp; i++)
     {
-        plComponentBase *comp = childNode->GetAttachedComponent( i );
-        if( comp->ClassID() == GUI_DIALOG_COMP_CLASS_ID )
-            return ( (plGUIDialogComponent *)comp )->GetModifier();
+        plComponentBase *comp = childNode->GetAttachedComponent(i);
+        if (comp->ClassID() == GUI_DIALOG_COMP_CLASS_ID)
+            return ((plGUIDialogComponent *)comp)->GetModifier();
     }
 
     return nil;
 }
 
-void    plGUIDialogProc::ILoadPages( HWND hWnd, IParamBlock2 *pb )
+void    plGUIDialogProc::ILoadPages(HWND hWnd, IParamBlock2 *pb)
 {
-    plAgeDescription    *aged = plPageInfoUtils::GetAgeDesc( pb->GetStr( plGUIDialogComponent::kRefAgeName ) );
+    plAgeDescription    *aged = plPageInfoUtils::GetAgeDesc(pb->GetStr(plGUIDialogComponent::kRefAgeName));
 
-    if( aged == nil )
+    if (aged == nil)
         return;
 
     plAgePage   *page;
-    const char    *selPageName = pb->GetStr( plGUIDialogComponent::kRefDialogName );
+    const char    *selPageName = pb->GetStr(plGUIDialogComponent::kRefDialogName);
     aged->SeekFirstPage();
-    ComboBox_ResetContent( hWnd );
+    ComboBox_ResetContent(hWnd);
 
-    while( ( page = aged->GetNextPage() ) != nil )
+    while ((page = aged->GetNextPage()) != nil)
     {
-        int idx = ComboBox_AddString( hWnd, page->GetName().c_str() );
-        if( selPageName && page->GetName().compare_i( selPageName ) == 0 )
-            ComboBox_SetCurSel( hWnd, idx );
+        int idx = ComboBox_AddString(hWnd, page->GetName().c_str());
+        if (selPageName && page->GetName().compare_i(selPageName) == 0)
+            ComboBox_SetCurSel(hWnd, idx);
     }
 
     delete aged;
 }
 
-BOOL plGUIDialogProc::DlgProc( TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
+BOOL plGUIDialogProc::DlgProc(TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-    switch( msg )
+    switch (msg)
     {
         case WM_INITDIALOG:
             // Load the age combo box
             {
                 int     i, idx, selIdx = 0;
-                HWND    ageCombo = GetDlgItem( hWnd, IDC_GUIDLG_AGE );
+                HWND    ageCombo = GetDlgItem(hWnd, IDC_GUIDLG_AGE);
 
                 hsTArray<plFileName> ageList = plAgeDescInterface::BuildAgeFileList();
-                ComboBox_ResetContent( ageCombo );
-                for( i = 0; i < ageList.GetCount(); i++ )
+                ComboBox_ResetContent(ageCombo);
+                for (i = 0; i < ageList.GetCount(); i++)
                 {
                     ST::string ageName = ageList[i].GetFileNameNoExt();
 
-                    idx = ComboBox_AddString( ageCombo, ageName.c_str() );
-                    if( ageName.compare_i( pmap->GetParamBlock()->GetStr( plGUIDialogComponent::kRefAgeName ) ) == 0 )
+                    idx = ComboBox_AddString(ageCombo, ageName.c_str());
+                    if (ageName.compare_i(pmap->GetParamBlock()->GetStr(plGUIDialogComponent::kRefAgeName)) == 0)
                     {
                         selIdx = idx;
                     }
                 }
-                ComboBox_SetCurSel( ageCombo, selIdx );
+                ComboBox_SetCurSel(ageCombo, selIdx);
             }
 
-            ILoadPages( GetDlgItem( hWnd, IDC_GUIDLG_NAME ), pmap->GetParamBlock() );
+            ILoadPages(GetDlgItem(hWnd, IDC_GUIDLG_NAME), pmap->GetParamBlock());
             return true;
 
         case WM_DESTROY:
             break;
 
         case WM_COMMAND:
-            if( HIWORD( wParam ) == CBN_SELCHANGE )
+            if (HIWORD(wParam) == CBN_SELCHANGE)
             {
-                if( LOWORD( wParam ) == IDC_GUIDLG_NAME )
+                if (LOWORD(wParam) == IDC_GUIDLG_NAME)
                 {
-                    int idx = SendDlgItemMessage( hWnd, IDC_GUIDLG_NAME, CB_GETCURSEL, 0, 0 );
-                    if( idx != CB_ERR )
+                    int idx = SendDlgItemMessage(hWnd, IDC_GUIDLG_NAME, CB_GETCURSEL, 0, 0);
+                    if (idx != CB_ERR)
                     {
-                        char    name[ 256 ];
-                        ComboBox_GetLBText( GetDlgItem( hWnd, IDC_GUIDLG_NAME ), idx, name );
-                        pmap->GetParamBlock()->SetValue( plGUIDialogComponent::kRefDialogName, 0, name );
+                        char    name[256];
+                        ComboBox_GetLBText(GetDlgItem(hWnd, IDC_GUIDLG_NAME), idx, name);
+                        pmap->GetParamBlock()->SetValue(plGUIDialogComponent::kRefDialogName, 0, name);
                     }
                 }
-                else if( LOWORD( wParam ) == IDC_GUIDLG_AGE )
+                else if (LOWORD(wParam) == IDC_GUIDLG_AGE)
                 {
-                    int idx = SendDlgItemMessage( hWnd, IDC_GUIDLG_AGE, CB_GETCURSEL, 0, 0 );
-                    if( idx != CB_ERR )
+                    int idx = SendDlgItemMessage(hWnd, IDC_GUIDLG_AGE, CB_GETCURSEL, 0, 0);
+                    if (idx != CB_ERR)
                     {
-                        char    name[ 256 ];
-                        ComboBox_GetLBText( GetDlgItem( hWnd, IDC_GUIDLG_AGE ), idx, name );
-                        pmap->GetParamBlock()->SetValue( plGUIDialogComponent::kRefAgeName, 0, name );
+                        char    name[256];
+                        ComboBox_GetLBText(GetDlgItem(hWnd, IDC_GUIDLG_AGE), idx, name);
+                        pmap->GetParamBlock()->SetValue(plGUIDialogComponent::kRefAgeName, 0, name);
                     }
 
-                    ILoadPages( GetDlgItem( hWnd, IDC_GUIDLG_NAME ), pmap->GetParamBlock() );
+                    ILoadPages(GetDlgItem(hWnd, IDC_GUIDLG_NAME), pmap->GetParamBlock());
                 }
             }
             break;
@@ -1526,30 +1526,30 @@ BOOL plGUIDialogProc::DlgProc( TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT ms
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-void    plGUIControlBase::CollectNonDrawables( INodeTab &nonDrawables )
+void    plGUIControlBase::CollectNonDrawables(INodeTab &nonDrawables)
 {
-/*  if( ICanHaveProxy() )
+/*  if (ICanHaveProxy())
     {
-        bool hideProxy = fCompPB->GetInt( (ParamID)kRefHideProxy ) ? true : false;
-        if( hideProxy )
+        bool hideProxy = fCompPB->GetInt((ParamID)kRefHideProxy) ? true : false;
+        if (hideProxy)
         {
-            INode   *node = fCompPB->GetINode( (ParamID)kRefProxyNode );
-            if( node != nil )
-                nonDrawables.Append( 1, &node );
+            INode   *node = fCompPB->GetINode((ParamID)kRefProxyNode);
+            if (node != nil)
+                nonDrawables.Append(1, &node);
         }
     }
 */
 }
 
-pfGUIDialogMod  *plGUIControlBase::IGetDialogMod( plMaxNode *node )
+pfGUIDialogMod  *plGUIControlBase::IGetDialogMod(plMaxNode *node)
 {
     uint32_t      i;
 
 
-    for( i = 0; i < node->NumAttachedComponents( false ); i++ )
+    for (i = 0; i < node->NumAttachedComponents(false); i++)
     {
-        plComponentBase *comp = node->GetAttachedComponent( i, false );
-        if( comp->ClassID() == GUI_DIALOG_COMP_CLASS_ID )
+        plComponentBase *comp = node->GetAttachedComponent(i, false);
+        if (comp->ClassID() == GUI_DIALOG_COMP_CLASS_ID)
         {
             // Found it!
             pfGUIDialogMod  *dlgMod = ((plGUIDialogComponent *)comp)->GetModifier();
@@ -1560,13 +1560,13 @@ pfGUIDialogMod  *plGUIControlBase::IGetDialogMod( plMaxNode *node )
     return nil;
 }
 
-bool plGUIControlBase::SetupProperties( plMaxNode *pNode, plErrorMsg *pErrMsg )
+bool plGUIControlBase::SetupProperties(plMaxNode *pNode, plErrorMsg *pErrMsg)
 {
-    if( INeedsDynamicText() )
+    if (INeedsDynamicText())
     {
         // If we're going to be using a dynamic text layer, we need to make sure the material
         // is unique for every node we're applied to
-        pNode->SetForceMaterialCopy( true );
+        pNode->SetForceMaterialCopy(true);
     }
 
     return true;
@@ -1578,23 +1578,23 @@ bool plGUIControlBase::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
     fControl = IGetNewControl();
 
     // Add it as a modifier to this node
-    node->AddModifier( fControl, IGetUniqueName(node) );
+    node->AddModifier(fControl, IGetUniqueName(node));
 
     // Look for any tag IDs
-    uint32_t id = plGUITagComponent::GetTagIDOnNode( node );
-    if( id > 0 )
-        fControl->SetTagID( id );
+    uint32_t id = plGUITagComponent::GetTagIDOnNode(node);
+    if (id > 0)
+        fControl->SetTagID(id);
 
     // Now add it to our list of converted nodes
-    uint32_t i = fTargetNodes.Find( node );
-    if( i == fTargetNodes.kMissingIndex )
+    uint32_t i = fTargetNodes.Find(node);
+    if (i == fTargetNodes.kMissingIndex)
     {
-        fTargetNodes.Append( node );
-        fTargetControls.Append( fControl );
+        fTargetNodes.Append(node);
+        fTargetControls.Append(fControl);
     }
     else
     {
-        fTargetControls[ i ] = fControl;
+        fTargetControls[i] = fControl;
     }
 
     return true;
@@ -1604,125 +1604,125 @@ bool plGUIControlBase::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
     // Error check--make sure we're in the same room as our parent (can get confusing with the wrong
     // parent-child relationships)
-    if( !node->GetParentNode()->IsRootNode() )
+    if (!node->GetParentNode()->IsRootNode())
     {
         plMaxNode *parent = (plMaxNode *)node->GetParentNode();
-        if( parent->GetRoomKey() != node->GetRoomKey() )
+        if (parent->GetRoomKey() != node->GetRoomKey())
         {
-            pErrMsg->Set( true, "GUI Control Component Error", "The object %s is assigned to a different GUI dialog than its parent. Make sure both this object and its parent belong to the same GUI dialog (this control will be ignored).", node->GetName() ).Show();
-            pErrMsg->Set( false );
+            pErrMsg->Set(true, "GUI Control Component Error", "The object %s is assigned to a different GUI dialog than its parent. Make sure both this object and its parent belong to the same GUI dialog (this control will be ignored).", node->GetName()).Show();
+            pErrMsg->Set(false);
             return false;
         }
     }
 
-    pfGUIDialogMod *dialog = IGetDialogMod( node );
-    if( dialog == nil )
+    pfGUIDialogMod *dialog = IGetDialogMod(node);
+    if (dialog == nil)
     {
-        pErrMsg->Set( true, "GUI Control Component Error", "The object %s has a GUI control applied but not a GUI Dialog Component. Apply a GUI Dialog Component to this object.", node->GetName() ).Show();
-        pErrMsg->Set( false );
+        pErrMsg->Set(true, "GUI Control Component Error", "The object %s has a GUI control applied but not a GUI Dialog Component. Apply a GUI Dialog Component to this object.", node->GetName()).Show();
+        pErrMsg->Set(false);
         return false;
     }
 
     // Grab fControl from the modifier list on the node, since fControl isn't valid
     // between PreConvert() and Convert() (it might get called multiple times, once per node applied)
-    uint32_t i = fTargetNodes.Find( node );
-    if( i == fTargetNodes.kMissingIndex )
+    uint32_t i = fTargetNodes.Find(node);
+    if (i == fTargetNodes.kMissingIndex)
     {
-        pErrMsg->Set( true, "GUI Control Component Error", "The object %s somehow skipped the GUI control Pre-convert stage. Inform a programmer immediately and seek shelter.", node->GetName() ).Show();
-        pErrMsg->Set( false );
+        pErrMsg->Set(true, "GUI Control Component Error", "The object %s somehow skipped the GUI control Pre-convert stage. Inform a programmer immediately and seek shelter.", node->GetName()).Show();
+        pErrMsg->Set(false);
         return false;
     }
     
-    fControl = fTargetControls[ i ];
+    fControl = fTargetControls[i];
 
-    dialog->AddControlOnExport( fControl );
+    dialog->AddControlOnExport(fControl);
 
-    if( IHasProcRollout() )
+    if (IHasProcRollout())
     {
         // Also common for all controls: process the Procedure rollout--i.e. what kind of control proc do we get?
-        switch( fCompPB->GetInt( kRefChoice ) )
+        switch (fCompPB->GetInt(kRefChoice))
         {
             case 0:
                 // Console command
-                fControl->SetHandler( new pfGUIConsoleCmdProc( fCompPB->GetStr( kRefConsoleCmd ) ) );
+                fControl->SetHandler(new pfGUIConsoleCmdProc(fCompPB->GetStr(kRefConsoleCmd)));
                 break;
 
             case 1:
                 // Inherit from parent dialog - this is a runtime flag, so we don't bother actually setting
                 // a handler here, except to ensure it's nil
-                fControl->SetHandler( nil );
-                fControl->SetFlag( pfGUIControlMod::kInheritProcFromDlg );
+                fControl->SetHandler(nil);
+                fControl->SetFlag(pfGUIControlMod::kInheritProcFromDlg);
                 break;
 
             case 2:
-                fControl->SetHandler( new pfGUICloseDlgProc() );
+                fControl->SetHandler(new pfGUICloseDlgProc());
                 break;
 
             case 3:
                 // Do nothing. Just set a nil proc, but do NOT inherit from the dialog
-                fControl->SetHandler( nil );
-                fControl->ClearFlag( pfGUIControlMod::kInheritProcFromDlg );
+                fControl->SetHandler(nil);
+                fControl->ClearFlag(pfGUIControlMod::kInheritProcFromDlg);
                 break;
         }
     }
 
-    if( INeedsDynamicText() )
+    if (INeedsDynamicText())
     {
         // We're a control that dynamically creates text, so look for the first dynamic layer
         // (and hopefully the ONLY one) and store it on the control
-        Mtl *maxMaterial = hsMaterialConverter::Instance().GetBaseMtl( node );
-        hsTArray<plExportMaterialData> *mtlArray = hsMaterialConverter::Instance().CreateMaterialArray( maxMaterial, node, 0 );
+        Mtl *maxMaterial = hsMaterialConverter::Instance().GetBaseMtl(node);
+        hsTArray<plExportMaterialData> *mtlArray = hsMaterialConverter::Instance().CreateMaterialArray(maxMaterial, node, 0);
         
         uint32_t i, j;
         plDynamicTextMap *dynText = nil;
         plLayerInterface *layerIFace = nil;
 
-        for( i = 0; i < mtlArray->GetCount() && dynText == nil; i++ )
+        for (i = 0; i < mtlArray->GetCount() && dynText == nil; i++)
         {
-            hsGMaterial *plasmaMat = (*mtlArray)[ 0 ].fMaterial;
+            hsGMaterial *plasmaMat = (*mtlArray)[0].fMaterial;
 
-            for( j = 0; j < plasmaMat->GetNumLayers(); j++ )
+            for (j = 0; j < plasmaMat->GetNumLayers(); j++)
             {
-                layerIFace = plasmaMat->GetLayer( j );
-                dynText = plDynamicTextMap::ConvertNoRef( layerIFace->GetTexture() );
-                if( dynText != nil )
+                layerIFace = plasmaMat->GetLayer(j);
+                dynText = plDynamicTextMap::ConvertNoRef(layerIFace->GetTexture());
+                if (dynText != nil)
                     break;
             }
         }
 
-        if( dynText == nil )
+        if (dynText == nil)
         {
-            pErrMsg->Set( true, "GUI Component Error", "The object %s needs a Plasma Dynamic Text Layer in its material. "
-                "This control will not function properly until you apply one.", node->GetName() ).Show();
-            pErrMsg->Set( false );
+            pErrMsg->Set(true, "GUI Component Error", "The object %s needs a Plasma Dynamic Text Layer in its material. "
+                "This control will not function properly until you apply one.", node->GetName()).Show();
+            pErrMsg->Set(false);
         }
         else
-            fControl->SetDynTextMap( layerIFace, dynText );
+            fControl->SetDynTextMap(layerIFace, dynText);
 
         delete mtlArray;
     }
 
-    if( ICanHaveProxy() )
+    if (ICanHaveProxy())
     {
         // No proxy objects just yet, just options for better hit testing
-        if( fCompPB->GetInt( kRefBetterHitTests ) )
-            fControl->SetFlag( pfGUIControlMod::kBetterHitTesting );
+        if (fCompPB->GetInt(kRefBetterHitTests))
+            fControl->SetFlag(pfGUIControlMod::kBetterHitTesting);
     }
 
     return true;
 }
 
-pfGUIControlMod *plGUIControlBase::GrabControlFromObject( INode *node )
+pfGUIControlMod *plGUIControlBase::GrabControlFromObject(INode *node)
 {
     uint32_t  i;
     plMaxNodeBase   *maxNode = (plMaxNodeBase *)node;
 
 
-    for( i = 0; i < maxNode->NumAttachedComponents( false ); i++ )
+    for (i = 0; i < maxNode->NumAttachedComponents(false); i++)
     {
-        plComponentBase *comp = maxNode->GetAttachedComponent( i, false );
-        pfGUIControlMod *ctrl = ConvertCompToControl( comp, maxNode );
-        if( ctrl != nil )
+        plComponentBase *comp = maxNode->GetAttachedComponent(i, false);
+        pfGUIControlMod *ctrl = ConvertCompToControl(comp, maxNode);
+        if (ctrl != nil)
             return ctrl;
     }
 
@@ -1730,20 +1730,20 @@ pfGUIControlMod *plGUIControlBase::GrabControlFromObject( INode *node )
 }
 
 // Given an INode, gives you a pointer to the GUI component if it actually is one, nil otherwise
-plGUIControlBase    *plGUIControlBase::GetGUIComp( INode *node )
+plGUIControlBase    *plGUIControlBase::GetGUIComp(INode *node)
 {
-    if( node == nil )
+    if (node == nil)
         return nil;
 
-    return GetGUIComp( ( ( plMaxNodeBase *)node )->ConvertToComponent() );
+    return GetGUIComp(((plMaxNodeBase *)node)->ConvertToComponent());
 }
 
-plGUIControlBase    *plGUIControlBase::GetGUIComp( plComponentBase *comp )
+plGUIControlBase    *plGUIControlBase::GetGUIComp(plComponentBase *comp)
 {
-    if( comp == nil )
+    if (comp == nil)
         return nil;
 
-    if( comp->ClassID() == GUI_UPDOWNPAIR_CLASSID ||
+    if (comp->ClassID() == GUI_UPDOWNPAIR_CLASSID ||
         comp->ClassID() == GUI_BUTTON_CLASSID ||
         comp->ClassID() == GUI_DRAGGABLE_CLASSID ||
         comp->ClassID() == GUI_LISTBOX_CLASSID ||
@@ -1756,7 +1756,7 @@ plGUIControlBase    *plGUIControlBase::GetGUIComp( plComponentBase *comp )
         comp->ClassID() == GUI_DYNDISPLAY_CLASSID ||
         comp->ClassID() == GUI_MULTILINE_CLASSID ||
         comp->ClassID() == GUI_PROGRESS_CLASSID ||
-        comp->ClassID() == GUI_CLICKMAP_CLASSID )
+        comp->ClassID() == GUI_CLICKMAP_CLASSID)
     {
         return (plGUIControlBase *)comp;
     }
@@ -1764,54 +1764,54 @@ plGUIControlBase    *plGUIControlBase::GetGUIComp( plComponentBase *comp )
     return nil;
 }
 
-pfGUIControlMod *plGUIControlBase::GrabControlMod( INode *node, INode *sceneObjectNode )
+pfGUIControlMod *plGUIControlBase::GrabControlMod(INode *node, INode *sceneObjectNode)
 {
-    if( node == nil )
+    if (node == nil)
         return nil;
 
-    plComponentBase *comp = ( ( plMaxNodeBase *)node )->ConvertToComponent();
-    return ConvertCompToControl( comp, sceneObjectNode );
+    plComponentBase *comp = ((plMaxNodeBase *)node)->ConvertToComponent();
+    return ConvertCompToControl(comp, sceneObjectNode);
 }
 
-pfGUIControlMod *plGUIControlBase::ConvertCompToControl( plComponentBase *comp, INode *sceneObjectNode )
+pfGUIControlMod *plGUIControlBase::ConvertCompToControl(plComponentBase *comp, INode *sceneObjectNode)
 {
-    plGUIControlBase    *base = GetGUIComp( comp );
-    if( base != nil )
+    plGUIControlBase    *base = GetGUIComp(comp);
+    if (base != nil)
     {
-        if( sceneObjectNode == nil )
+        if (sceneObjectNode == nil)
         {
             // Not good, but if you select a component like this, it better only be applied to one object,
             // hence will only have one fTargetControl
-            if( base->fTargetControls.GetCount() > 0 )
-                return base->fTargetControls[ 0 ];
+            if (base->fTargetControls.GetCount() > 0)
+                return base->fTargetControls[0];
         }
         else
         {
-            uint32_t i = base->fTargetNodes.Find( (plMaxNode *)sceneObjectNode );
-            if( i == base->fTargetNodes.kMissingIndex )
+            uint32_t i = base->fTargetNodes.Find((plMaxNode *)sceneObjectNode);
+            if (i == base->fTargetNodes.kMissingIndex)
                 return nil;
 
-            return base->fTargetControls[ i ];
+            return base->fTargetControls[i];
         }
     }
 
     return nil;
 }
 
-const char  *plGUIControlBase::ISetSoundIndex( ParamID checkBoxID, ParamID sndCompID, uint8_t guiCtrlEvent, plMaxNode *maxNode )
+const char  *plGUIControlBase::ISetSoundIndex(ParamID checkBoxID, ParamID sndCompID, uint8_t guiCtrlEvent, plMaxNode *maxNode)
 {
-    if( fCompPB->GetInt( checkBoxID ) )
+    if (fCompPB->GetInt(checkBoxID))
     {
-        plMaxNode *sndNode = (plMaxNode *)fCompPB->GetReferenceTarget( sndCompID );
-        if( sndNode != nil )
+        plMaxNode *sndNode = (plMaxNode *)fCompPB->GetReferenceTarget(sndCompID);
+        if (sndNode != nil)
         {
             plComponentBase *comp = sndNode->ConvertToComponent();
-            if( comp != nil )
+            if (comp != nil)
             {
-                int idx = plAudioComp::GetSoundModIdx( comp, maxNode );
-                if( idx != -1 )
+                int idx = plAudioComp::GetSoundModIdx(comp, maxNode);
+                if (idx != -1)
                 {
-                    fControl->SetSoundIndex( guiCtrlEvent, idx );
+                    fControl->SetSoundIndex(guiCtrlEvent, idx);
                     return nil;
                 }
                 else
@@ -1865,7 +1865,7 @@ public:
 
     void DeleteThis() {}
 
-    BOOL DlgProc( TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
+    BOOL DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 };
 
 
@@ -1918,29 +1918,29 @@ public:
     };
 };
 
-BOOL plGUIButtonProc::DlgProc( TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
+BOOL plGUIButtonProc::DlgProc(TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 
-    switch( msg )
+    switch (msg)
     {
         case WM_INITDIALOG:
-            SendMessage( GetDlgItem( hWnd, IDC_COMBO_BUTTON_NOTIFYTYPE ), CB_RESETCONTENT, 0, 0 );
-            SendMessage( GetDlgItem( hWnd, IDC_COMBO_BUTTON_NOTIFYTYPE ), CB_ADDSTRING, 0, (LPARAM)"Button Up" );
-            SendMessage( GetDlgItem( hWnd, IDC_COMBO_BUTTON_NOTIFYTYPE ), CB_ADDSTRING, 0, (LPARAM)"Button Down" );
-            SendMessage( GetDlgItem( hWnd, IDC_COMBO_BUTTON_NOTIFYTYPE ), CB_ADDSTRING, 0, (LPARAM)"Button Down and Up" );
-            SendMessage( GetDlgItem( hWnd, IDC_COMBO_BUTTON_NOTIFYTYPE ), CB_SETCURSEL, pmap->GetParamBlock()->GetInt( plGUIButtonComponent::kRefNotifyType ), 0 );
+            SendMessage(GetDlgItem(hWnd, IDC_COMBO_BUTTON_NOTIFYTYPE), CB_RESETCONTENT, 0, 0);
+            SendMessage(GetDlgItem(hWnd, IDC_COMBO_BUTTON_NOTIFYTYPE), CB_ADDSTRING, 0, (LPARAM)"Button Up");
+            SendMessage(GetDlgItem(hWnd, IDC_COMBO_BUTTON_NOTIFYTYPE), CB_ADDSTRING, 0, (LPARAM)"Button Down");
+            SendMessage(GetDlgItem(hWnd, IDC_COMBO_BUTTON_NOTIFYTYPE), CB_ADDSTRING, 0, (LPARAM)"Button Down and Up");
+            SendMessage(GetDlgItem(hWnd, IDC_COMBO_BUTTON_NOTIFYTYPE), CB_SETCURSEL, pmap->GetParamBlock()->GetInt(plGUIButtonComponent::kRefNotifyType), 0);
             return true;
 
         case WM_DESTROY:
             break;
 
         case WM_COMMAND:
-            if( LOWORD( wParam ) == IDC_COMBO_BUTTON_NOTIFYTYPE )
+            if (LOWORD(wParam) == IDC_COMBO_BUTTON_NOTIFYTYPE)
             {
-                if( HIWORD( wParam ) == CBN_SELCHANGE )
+                if (HIWORD(wParam) == CBN_SELCHANGE)
                 {
-                    int idx = SendDlgItemMessage( hWnd, IDC_COMBO_BUTTON_NOTIFYTYPE, CB_GETCURSEL, 0, 0 );
-                    pmap->GetParamBlock()->SetValue( plGUIButtonComponent::kRefNotifyType, 0, idx );
+                    int idx = SendDlgItemMessage(hWnd, IDC_COMBO_BUTTON_NOTIFYTYPE, CB_GETCURSEL, 0, 0);
+                    pmap->GetParamBlock()->SetValue(plGUIButtonComponent::kRefNotifyType, 0, idx);
                 }
             }
             break;
@@ -1951,19 +1951,19 @@ BOOL plGUIButtonProc::DlgProc( TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT ms
 class plGUIButtonAccessor : public PBAccessor
 {
 public:
-    void Set( PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t )
+    void Set(PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t)
     {
-        if( id == plGUIButtonComponent::kRefAnimation ||
+        if (id == plGUIButtonComponent::kRefAnimation ||
             id == plGUIButtonComponent::kRefMouseOverAnimation ||
             id == plGUIButtonComponent::kRefMouseDownSoundComp ||
             id == plGUIButtonComponent::kRefMouseUpSoundComp ||
             id == plGUIButtonComponent::kRefMouseOverSoundComp ||
             id == plGUIButtonComponent::kRefMouseOffSoundComp ||
             id == plGUIButtonComponent::kRefAnimationNode ||
-            id == plGUIButtonComponent::kRefMouseOverAnimationNode )
+            id == plGUIButtonComponent::kRefMouseOverAnimationNode)
         {
             plGUIButtonComponent *comp = (plGUIButtonComponent *)owner;
-            comp->NotifyDependents( FOREVER, PART_ALL, REFMSG_USER_COMP_REF_CHANGED );
+            comp->NotifyDependents(FOREVER, PART_ALL, REFMSG_USER_COMP_REF_CHANGED);
         }
     }
 };
@@ -1975,35 +1975,35 @@ Class_ID    sBtnDragClassesToSelect[] = { GUI_DRAGGABLE_CLASSID, plGUISingleCtrl
 
 static plGUIButtonAccessor sGUIButtonAccessor;
 
-static plGUISingleCtrlDlgProc sGUIButtonSndAProc( plGUIButtonComponent::kRefMouseDownSoundComp, IDC_GUI_MDOWNSNDCOMP,
-                                            "Select the sound to play when the mouse clicks this button", sBtnSndClassesToSelect );
-static plGUISingleCtrlDlgProc sGUIButtonSndBProc( plGUIButtonComponent::kRefMouseUpSoundComp, IDC_GUI_MUPSNDCOMP,
-                                            "Select the sound to play when the mouse lets up on this button", sBtnSndClassesToSelect );
-static plGUISingleCtrlDlgProc sGUIButtonSndCProc( plGUIButtonComponent::kRefMouseOverSoundComp, IDC_GUI_MOVERSNDCOMP,
-                                            "Select the sound to play when the mouse moves over this button", sBtnSndClassesToSelect );
-static plGUISingleCtrlDlgProc sGUIButtonSndDProc( plGUIButtonComponent::kRefMouseOffSoundComp, IDC_GUI_MOFFSNDCOMP,
-                                            "Select the sound to play when the mouse moves off of this button", sBtnSndClassesToSelect );
+static plGUISingleCtrlDlgProc sGUIButtonSndAProc(plGUIButtonComponent::kRefMouseDownSoundComp, IDC_GUI_MDOWNSNDCOMP,
+                                            "Select the sound to play when the mouse clicks this button", sBtnSndClassesToSelect);
+static plGUISingleCtrlDlgProc sGUIButtonSndBProc(plGUIButtonComponent::kRefMouseUpSoundComp, IDC_GUI_MUPSNDCOMP,
+                                            "Select the sound to play when the mouse lets up on this button", sBtnSndClassesToSelect);
+static plGUISingleCtrlDlgProc sGUIButtonSndCProc(plGUIButtonComponent::kRefMouseOverSoundComp, IDC_GUI_MOVERSNDCOMP,
+                                            "Select the sound to play when the mouse moves over this button", sBtnSndClassesToSelect);
+static plGUISingleCtrlDlgProc sGUIButtonSndDProc(plGUIButtonComponent::kRefMouseOffSoundComp, IDC_GUI_MOFFSNDCOMP,
+                                            "Select the sound to play when the mouse moves off of this button", sBtnSndClassesToSelect);
 
-static plGUISingleCtrlDlgProc sGUIButtonDragChildProc( plGUIButtonComponent::kRefDraggableChild, IDC_GUI_DRAGCHILD,
-                                            "Select the draggable to use when the mouse is dragged off of this button", sBtnDragClassesToSelect );
+static plGUISingleCtrlDlgProc sGUIButtonDragChildProc(plGUIButtonComponent::kRefDraggableChild, IDC_GUI_DRAGCHILD,
+                                            "Select the draggable to use when the mouse is dragged off of this button", sBtnDragClassesToSelect);
 
 static plGUISingleCtrlDlgProc   *sGUIButtonSubProcs[] = { &sGUIButtonSndAProc, &sGUIButtonSndBProc,
                                                           &sGUIButtonSndCProc, &sGUIButtonSndDProc,
                                                           &sGUIButtonDragChildProc, nil };
 static ParamMap2UserDlgProc *sGUIButtonSubSubProcs[] = { &gGUIButtonProc, nil };
 
-static plGUIMultipleCtrlDlgProc sGUIButtonSels( sGUIButtonSubProcs, sGUIButtonSubSubProcs );
+static plGUIMultipleCtrlDlgProc sGUIButtonSels(sGUIButtonSubProcs, sGUIButtonSubSubProcs);
 
-static plPlasmaAnimSelectDlgProc    sGUIButtonAnimA( plGUIButtonComponent::kRefAnimation, IDC_GUI_COMPSELBTN,
+static plPlasmaAnimSelectDlgProc    sGUIButtonAnimA(plGUIButtonComponent::kRefAnimation, IDC_GUI_COMPSELBTN,
                                                     plGUIButtonComponent::kRefAnimationNode, plGUIButtonComponent::kRefAnimationNodeType, IDC_GUI_ANIMNODESEL,
-                                                    "Select the animation to play when this button is clicked", &sGUIButtonSels );
-static plPlasmaAnimSelectDlgProc    sGUIButtonProc( plGUIButtonComponent::kRefMouseOverAnimation, IDC_GUI_COMPSELBTN2,
+                                                    "Select the animation to play when this button is clicked", &sGUIButtonSels);
+static plPlasmaAnimSelectDlgProc    sGUIButtonProc(plGUIButtonComponent::kRefMouseOverAnimation, IDC_GUI_COMPSELBTN2,
                                                     plGUIButtonComponent::kRefMouseOverAnimationNode, plGUIButtonComponent::kRefMouseOverAnimationNodeType, IDC_GUI_ANIMNODESEL2,
-                                                    "Select the animation to play when the mouse moves over this button", &sGUIButtonAnimA );
+                                                    "Select the animation to play when the mouse moves over this button", &sGUIButtonAnimA);
 
 
-#define GUI_SOUND_REF( comp, evt, allCapsEvt )      \
-        comp##::kRefMouse##evt##Sound,  _T( "mouse##evt##Sound" ), TYPE_BOOL, 0, 0,                 \
+#define GUI_SOUND_REF(comp, evt, allCapsEvt)      \
+        comp##::kRefMouse##evt##Sound,  _T("mouse##evt##Sound"), TYPE_BOOL, 0, 0,                 \
             p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_M##allCapsEvt##SND,      \
             p_default, FALSE,                                                                       \
             p_enable_ctrls, 1, comp##::kRefMouse##evt##SoundComp,                                   \
@@ -2013,7 +2013,7 @@ static plPlasmaAnimSelectDlgProc    sGUIButtonProc( plGUIButtonComponent::kRefMo
             end
 
 //Max desc stuff necessary below.
-CLASS_DESC(plGUIButtonComponent, gGUIButtonDesc, "GUI Button",  "GUIButton", COMP_TYPE_GUI, GUI_BUTTON_CLASSID )
+CLASS_DESC(plGUIButtonComponent, gGUIButtonDesc, "GUI Button",  "GUIButton", COMP_TYPE_GUI, GUI_BUTTON_CLASSID)
 
 ParamBlockDesc2 gGUIButtonBk
 (   // KLUDGE: not the defined block ID, but kept for backwards compat.
@@ -2026,7 +2026,7 @@ ParamBlockDesc2 gGUIButtonBk
 
     &sGUIControlProcParamTemplate,
 
-        plGUIButtonComponent::kRefAnimate,  _T( "animate" ), TYPE_BOOL, 0, 0,
+        plGUIButtonComponent::kRefAnimate,  _T("animate"), TYPE_BOOL, 0, 0,
             p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_ANIMATE,
             p_default, FALSE,
             p_enable_ctrls, 1, plGUIButtonComponent::kRefAnimation,
@@ -2037,7 +2037,7 @@ ParamBlockDesc2 gGUIButtonBk
             p_accessor, &sGUIButtonAccessor,
             end,
 
-        plGUIButtonComponent::kRefMouseOverAnimate, _T( "mouseOverAnimate" ), TYPE_BOOL, 0, 0,
+        plGUIButtonComponent::kRefMouseOverAnimate, _T("mouseOverAnimate"), TYPE_BOOL, 0, 0,
             p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_MOUSEOVERANIM,
             p_default, FALSE,
             p_enable_ctrls, 1, plGUIButtonComponent::kRefMouseOverAnimation,
@@ -2048,10 +2048,10 @@ ParamBlockDesc2 gGUIButtonBk
             p_accessor, &sGUIButtonAccessor,
             end,
 
-        GUI_SOUND_REF( plGUIButtonComponent, Down, DOWN ),
-        GUI_SOUND_REF( plGUIButtonComponent, Up, UP ),
-        GUI_SOUND_REF( plGUIButtonComponent, Over, OVER ),
-        GUI_SOUND_REF( plGUIButtonComponent, Off, OFF ),
+        GUI_SOUND_REF(plGUIButtonComponent, Down, DOWN),
+        GUI_SOUND_REF(plGUIButtonComponent, Up, UP),
+        GUI_SOUND_REF(plGUIButtonComponent, Over, OVER),
+        GUI_SOUND_REF(plGUIButtonComponent, Off, OFF),
 
     sGUIProxyParamTemplate,
 
@@ -2071,13 +2071,13 @@ ParamBlockDesc2 gGUIButtonBk
             p_default, plAnimObjInterface::kUseOwnerNode,
             end,
 
-        plGUIButtonComponent::kRefUseDraggableChild,    _T( "useDragChild" ), TYPE_BOOL, 0, 0,
+        plGUIButtonComponent::kRefUseDraggableChild,    _T("useDragChild"), TYPE_BOOL, 0, 0,
             p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_USEDRAGCHILD,
             p_default, FALSE,
             p_enable_ctrls, 1, plGUIButtonComponent::kRefDraggableChild,
             end,
 
-        plGUIButtonComponent::kRefDraggableChild,   _T( "dragChild" ), TYPE_INODE, 0, 0,
+        plGUIButtonComponent::kRefDraggableChild,   _T("dragChild"), TYPE_INODE, 0, 0,
             p_accessor, &sGUIButtonAccessor,
             end,
 
@@ -2097,108 +2097,108 @@ plGUIButtonComponent::plGUIButtonComponent()
 // of properties on the MaxNode, as it's still indeterminant.
 bool plGUIButtonComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    if( fCompPB->GetInt( kRefAnimate ) )
+    if (fCompPB->GetInt(kRefAnimate))
     {
-        plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( fCompPB->GetINode( kRefAnimation ) );
-        if( iface != nil && iface->MightRequireSeparateMaterial() )
+        plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface(fCompPB->GetINode(kRefAnimation));
+        if (iface != nil && iface->MightRequireSeparateMaterial())
         {
-            INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode )
-                                    ? fCompPB->GetINode( kRefAnimationNode )
+            INode *restrict = (fCompPB->GetInt(kRefAnimationNodeType) == plAnimObjInterface::kUseParamBlockNode)
+                                    ? fCompPB->GetINode(kRefAnimationNode)
                                     : (INode *)node;
 
-            if( restrict != nil )
+            if (restrict != nil)
             {
-                node->SetForceMaterialCopy( true );
+                node->SetForceMaterialCopy(true);
             }
         }
     }
 
-    if( fCompPB->GetInt( kRefMouseOverAnimate ) )
+    if (fCompPB->GetInt(kRefMouseOverAnimate))
     {
-        plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( fCompPB->GetINode( kRefMouseOverAnimation ) );
-        if( iface != nil && iface->MightRequireSeparateMaterial() )
+        plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface(fCompPB->GetINode(kRefMouseOverAnimation));
+        if (iface != nil && iface->MightRequireSeparateMaterial())
         {
-            INode *restrict = ( fCompPB->GetInt( kRefMouseOverAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode )
-                                    ? fCompPB->GetINode( kRefMouseOverAnimationNode )
+            INode *restrict = (fCompPB->GetInt(kRefMouseOverAnimationNodeType) == plAnimObjInterface::kUseParamBlockNode)
+                                    ? fCompPB->GetINode(kRefMouseOverAnimationNode)
                                     : (INode *)node;
 
-            if( restrict != nil )
+            if (restrict != nil)
             {
-                node->SetForceMaterialCopy( true );
+                node->SetForceMaterialCopy(true);
             }
         }
     }
 
-    return plGUIControlBase::SetupProperties( node, pErrMsg );
+    return plGUIControlBase::SetupProperties(node, pErrMsg);
 }
 
 bool plGUIButtonComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    return plGUIControlBase::PreConvert( node, pErrMsg );
+    return plGUIControlBase::PreConvert(node, pErrMsg);
 }
 
 bool plGUIButtonComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
-    if( !plGUIControlBase::Convert( node, pErrMsg ) )
+    if (!plGUIControlBase::Convert(node, pErrMsg))
         return false;
 
     pfGUIButtonMod *button = (pfGUIButtonMod *)fControl;
 
     // set the notify type
-    button->SetNotifyType(fCompPB->GetInt( kRefNotifyType ));
+    button->SetNotifyType(fCompPB->GetInt(kRefNotifyType));
 
-    if( fCompPB->GetInt( kRefAnimate ) )
+    if (fCompPB->GetInt(kRefAnimate))
     {
-        plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( fCompPB->GetINode( kRefAnimation ) );
-        if( iface != nil )
+        plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface(fCompPB->GetINode(kRefAnimation));
+        if (iface != nil)
         {
-            INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode )
-                                    ? fCompPB->GetINode( kRefAnimationNode )
+            INode *restrict = (fCompPB->GetInt(kRefAnimationNodeType) == plAnimObjInterface::kUseParamBlockNode)
+                                    ? fCompPB->GetINode(kRefAnimationNode)
                                     : (INode *)node;
 
 
             hsTArray<plKey> keys;
-            if( iface->GetKeyList( restrict, keys ) && keys.GetCount() > 0 )
-                button->SetAnimationKeys( keys, iface->GetIfaceSegmentName( false ) );
+            if (iface->GetKeyList(restrict, keys) && keys.GetCount() > 0)
+                button->SetAnimationKeys(keys, iface->GetIfaceSegmentName(false));
         }
     }
 
-    if( fCompPB->GetInt( kRefMouseOverAnimate ) )
+    if (fCompPB->GetInt(kRefMouseOverAnimate))
     {
-        plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( fCompPB->GetINode( kRefMouseOverAnimation ) );
-        if( iface != nil )
+        plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface(fCompPB->GetINode(kRefMouseOverAnimation));
+        if (iface != nil)
         {
-            INode *restrict = ( fCompPB->GetInt( kRefMouseOverAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode )
-                                    ? fCompPB->GetINode( kRefMouseOverAnimationNode )
+            INode *restrict = (fCompPB->GetInt(kRefMouseOverAnimationNodeType) == plAnimObjInterface::kUseParamBlockNode)
+                                    ? fCompPB->GetINode(kRefMouseOverAnimationNode)
                                     : (INode *)node;
 
 
             hsTArray<plKey> keys;
-            if( iface->GetKeyList( restrict, keys ) && keys.GetCount() > 0 )
-                button->SetMouseOverAnimKeys( keys, iface->GetIfaceSegmentName( false ) );
+            if (iface->GetKeyList(restrict, keys) && keys.GetCount() > 0)
+                button->SetMouseOverAnimKeys(keys, iface->GetIfaceSegmentName(false));
         }
     }
 
     // Do sound stuff
-    const char *errMsg1 = ISetSoundIndex( kRefMouseDownSound, kRefMouseDownSoundComp, pfGUIButtonMod::kMouseDown, node );
-    const char *errMsg2 = ISetSoundIndex( kRefMouseUpSound, kRefMouseUpSoundComp, pfGUIButtonMod::kMouseUp, node );
-    const char *errMsg3 = ISetSoundIndex( kRefMouseOverSound, kRefMouseOverSoundComp, pfGUIButtonMod::kMouseOver, node );
-    const char *errMsg4 = ISetSoundIndex( kRefMouseOffSound, kRefMouseOffSoundComp, pfGUIButtonMod::kMouseOff, node );
+    const char *errMsg1 = ISetSoundIndex(kRefMouseDownSound, kRefMouseDownSoundComp, pfGUIButtonMod::kMouseDown, node);
+    const char *errMsg2 = ISetSoundIndex(kRefMouseUpSound, kRefMouseUpSoundComp, pfGUIButtonMod::kMouseUp, node);
+    const char *errMsg3 = ISetSoundIndex(kRefMouseOverSound, kRefMouseOverSoundComp, pfGUIButtonMod::kMouseOver, node);
+    const char *errMsg4 = ISetSoundIndex(kRefMouseOffSound, kRefMouseOffSoundComp, pfGUIButtonMod::kMouseOff, node);
 
-    const char *errMsg = ( errMsg1 != nil ) ? errMsg1 : ( errMsg2 != nil ) ? errMsg2 : ( errMsg3 != nil ) ? errMsg3 : errMsg4;
-    if( errMsg != nil )
+    const char *errMsg = (errMsg1 != nil) ? errMsg1 : (errMsg2 != nil) ? errMsg2 : (errMsg3 != nil) ? errMsg3 : errMsg4;
+    if (errMsg != nil)
     {
-        pErrMsg->Set( true, "GUI Sound Event Error", errMsg, node->GetName() ).Show();
-        pErrMsg->Set( false );
+        pErrMsg->Set(true, "GUI Sound Event Error", errMsg, node->GetName()).Show();
+        pErrMsg->Set(false);
     }
 
-    if( fCompPB->GetInt( kRefUseDraggableChild ) )
+    if (fCompPB->GetInt(kRefUseDraggableChild))
     {
-        pfGUIDraggableMod *dragChild = pfGUIDraggableMod::ConvertNoRef( GrabControlMod( fCompPB->GetINode( kRefDraggableChild ) ) );
-        if( dragChild != nil )
+        pfGUIDraggableMod *dragChild = pfGUIDraggableMod::ConvertNoRef(GrabControlMod(fCompPB->GetINode(kRefDraggableChild)));
+        if (dragChild != nil)
         {
-            hsgResMgr::ResMgr()->AddViaNotify( dragChild->GetKey(),
-                                new plGenRefMsg( button->GetKey(), plRefMsg::kOnCreate, -1, pfGUIButtonMod::kRefDraggable ), plRefFlags::kActiveRef );
+            hsgResMgr::ResMgr()->AddViaNotify(dragChild->GetKey(),
+                                new plGenRefMsg(button->GetKey(), plRefMsg::kOnCreate, -1, pfGUIButtonMod::kRefDraggable), plRefFlags::kActiveRef);
         }
     }
 
@@ -2256,41 +2256,41 @@ public:
 class plGUICheckBoxAccessor : public PBAccessor
 {
 public:
-    void Set( PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t )
+    void Set(PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t)
     {
-        if( id == plGUICheckBoxComponent::kRefAnimation ||
+        if (id == plGUICheckBoxComponent::kRefAnimation ||
             id == plGUICheckBoxComponent::kRefMouseDownSoundComp ||
             id == plGUICheckBoxComponent::kRefMouseUpSoundComp ||
             id == plGUICheckBoxComponent::kRefMouseOverSoundComp ||
-            id == plGUICheckBoxComponent::kRefMouseOffSoundComp )
+            id == plGUICheckBoxComponent::kRefMouseOffSoundComp)
         {
             plGUICheckBoxComponent *comp = (plGUICheckBoxComponent *)owner;
-            comp->NotifyDependents( FOREVER, PART_ALL, REFMSG_USER_COMP_REF_CHANGED );
+            comp->NotifyDependents(FOREVER, PART_ALL, REFMSG_USER_COMP_REF_CHANGED);
         }
     }
 };
 static plGUICheckBoxAccessor    sGUICheckBoxAccessor;
 
-static plGUISingleCtrlDlgProc sGUICheckSndAProc( plGUICheckBoxComponent::kRefMouseDownSoundComp, IDC_GUI_MDOWNSNDCOMP,
-                                            "Select the sound to play when the mouse clicks this button", sBtnSndClassesToSelect );
-static plGUISingleCtrlDlgProc sGUICheckSndBProc( plGUICheckBoxComponent::kRefMouseUpSoundComp, IDC_GUI_MUPSNDCOMP,
-                                            "Select the sound to play when the mouse lets up on this button", sBtnSndClassesToSelect );
-static plGUISingleCtrlDlgProc sGUICheckSndCProc( plGUICheckBoxComponent::kRefMouseOverSoundComp, IDC_GUI_MOVERSNDCOMP,
-                                            "Select the sound to play when the mouse moves over this button", sBtnSndClassesToSelect );
-static plGUISingleCtrlDlgProc sGUICheckSndDProc( plGUICheckBoxComponent::kRefMouseOffSoundComp, IDC_GUI_MOFFSNDCOMP,
-                                            "Select the sound to play when the mouse moves off of this button", sBtnSndClassesToSelect );
+static plGUISingleCtrlDlgProc sGUICheckSndAProc(plGUICheckBoxComponent::kRefMouseDownSoundComp, IDC_GUI_MDOWNSNDCOMP,
+                                            "Select the sound to play when the mouse clicks this button", sBtnSndClassesToSelect);
+static plGUISingleCtrlDlgProc sGUICheckSndBProc(plGUICheckBoxComponent::kRefMouseUpSoundComp, IDC_GUI_MUPSNDCOMP,
+                                            "Select the sound to play when the mouse lets up on this button", sBtnSndClassesToSelect);
+static plGUISingleCtrlDlgProc sGUICheckSndCProc(plGUICheckBoxComponent::kRefMouseOverSoundComp, IDC_GUI_MOVERSNDCOMP,
+                                            "Select the sound to play when the mouse moves over this button", sBtnSndClassesToSelect);
+static plGUISingleCtrlDlgProc sGUICheckSndDProc(plGUICheckBoxComponent::kRefMouseOffSoundComp, IDC_GUI_MOFFSNDCOMP,
+                                            "Select the sound to play when the mouse moves off of this button", sBtnSndClassesToSelect);
 
 static plGUISingleCtrlDlgProc   *sGUICheckSubProcs[] = { &sGUICheckSndAProc, &sGUICheckSndBProc,
                                                           &sGUICheckSndCProc, &sGUICheckSndDProc, nil };
 
-static plGUIMultipleCtrlDlgProc sGUICheckSels( sGUICheckSubProcs );
+static plGUIMultipleCtrlDlgProc sGUICheckSels(sGUICheckSubProcs);
 
-static plPlasmaAnimSelectDlgProc    sGUICheckBoxProc( plGUICheckBoxComponent::kRefAnimation, IDC_GUI_COMPSELBTN,
+static plPlasmaAnimSelectDlgProc    sGUICheckBoxProc(plGUICheckBoxComponent::kRefAnimation, IDC_GUI_COMPSELBTN,
                                                     plGUICheckBoxComponent::kRefAnimationNode, plGUICheckBoxComponent::kRefAnimationNodeType, IDC_GUI_ANIMNODESEL,
-                                                    "Select the animation to play when this check box is clicked", &sGUICheckSels );
+                                                    "Select the animation to play when this check box is clicked", &sGUICheckSels);
 
 //Max desc stuff necessary below.
-CLASS_DESC(plGUICheckBoxComponent, gGUICheckBoxDesc, "GUI CheckBox",  "GUICheckBox", COMP_TYPE_GUI, GUI_CHECKBOX_CLASSID )
+CLASS_DESC(plGUICheckBoxComponent, gGUICheckBoxDesc, "GUI CheckBox",  "GUICheckBox", COMP_TYPE_GUI, GUI_CHECKBOX_CLASSID)
 
 ParamBlockDesc2 gGUICheckBoxBk
 (   // KLUDGE: not the defined block ID, but kept for backwards compat.
@@ -2304,7 +2304,7 @@ ParamBlockDesc2 gGUICheckBoxBk
 
     &sGUIControlProcParamTemplate,
 
-        plGUICheckBoxComponent::kRefAnimate,    _T( "animate" ), TYPE_BOOL, 0, 0,
+        plGUICheckBoxComponent::kRefAnimate,    _T("animate"), TYPE_BOOL, 0, 0,
             p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_ANIMATE,
             p_default, FALSE,
             p_enable_ctrls, 1, plGUIButtonComponent::kRefAnimation,
@@ -2325,10 +2325,10 @@ ParamBlockDesc2 gGUICheckBoxBk
             p_default, plAnimObjInterface::kUseOwnerNode,
             end,
 
-        GUI_SOUND_REF( plGUICheckBoxComponent, Down, DOWN ),
-        GUI_SOUND_REF( plGUICheckBoxComponent, Up, UP ),
-        GUI_SOUND_REF( plGUICheckBoxComponent, Over, OVER ),
-        GUI_SOUND_REF( plGUICheckBoxComponent, Off, OFF ),
+        GUI_SOUND_REF(plGUICheckBoxComponent, Down, DOWN),
+        GUI_SOUND_REF(plGUICheckBoxComponent, Up, UP),
+        GUI_SOUND_REF(plGUICheckBoxComponent, Over, OVER),
+        GUI_SOUND_REF(plGUICheckBoxComponent, Off, OFF),
 
     end
 );
@@ -2343,64 +2343,64 @@ plGUICheckBoxComponent::plGUICheckBoxComponent()
 // of properties on the MaxNode, as it's still indeterminant.
 bool plGUICheckBoxComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    if( fCompPB->GetInt( kRefAnimate ) )
+    if (fCompPB->GetInt(kRefAnimate))
     {
-        plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( fCompPB->GetINode( kRefAnimation ) );
-        if( iface != nil && iface->MightRequireSeparateMaterial() )
+        plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface(fCompPB->GetINode(kRefAnimation));
+        if (iface != nil && iface->MightRequireSeparateMaterial())
         {
-            INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode )
-                                    ? fCompPB->GetINode( kRefAnimationNode )
+            INode *restrict = (fCompPB->GetInt(kRefAnimationNodeType) == plAnimObjInterface::kUseParamBlockNode)
+                                    ? fCompPB->GetINode(kRefAnimationNode)
                                     : (INode *)node;
 
-            if( restrict != nil )
+            if (restrict != nil)
             {
-                node->SetForceMaterialCopy( true );
+                node->SetForceMaterialCopy(true);
             }
         }
     }
 
-    return plGUIControlBase::SetupProperties( node, pErrMsg );
+    return plGUIControlBase::SetupProperties(node, pErrMsg);
 }
 
 bool plGUICheckBoxComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    return plGUIControlBase::PreConvert( node, pErrMsg );
+    return plGUIControlBase::PreConvert(node, pErrMsg);
 }
 
 bool plGUICheckBoxComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
-    if( !plGUIControlBase::Convert( node, pErrMsg ) )
+    if (!plGUIControlBase::Convert(node, pErrMsg))
         return false;
 
     pfGUICheckBoxCtrl *button = (pfGUICheckBoxCtrl *)fControl;
     
-    if( fCompPB->GetInt( kRefAnimate ) )
+    if (fCompPB->GetInt(kRefAnimate))
     {
-        plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( fCompPB->GetINode( kRefAnimation ) );
-        if( iface != nil )
+        plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface(fCompPB->GetINode(kRefAnimation));
+        if (iface != nil)
         {
-            INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode )
-                                    ? fCompPB->GetINode( kRefAnimationNode )
+            INode *restrict = (fCompPB->GetInt(kRefAnimationNodeType) == plAnimObjInterface::kUseParamBlockNode)
+                                    ? fCompPB->GetINode(kRefAnimationNode)
                                     : (INode *)node;
 
 
             hsTArray<plKey> keys;
-            if( iface->GetKeyList( restrict, keys ) && keys.GetCount() > 0 )
-                button->SetAnimationKeys( keys, iface->GetIfaceSegmentName( false ) );
+            if (iface->GetKeyList(restrict, keys) && keys.GetCount() > 0)
+                button->SetAnimationKeys(keys, iface->GetIfaceSegmentName(false));
         }
     }
 
     // Do sound stuff
-    const char *errMsg1 = ISetSoundIndex( kRefMouseDownSound, kRefMouseDownSoundComp, pfGUICheckBoxCtrl::kMouseDown, node );
-    const char *errMsg2 = ISetSoundIndex( kRefMouseUpSound, kRefMouseUpSoundComp, pfGUICheckBoxCtrl::kMouseUp, node );
-    const char *errMsg3 = ISetSoundIndex( kRefMouseOverSound, kRefMouseOverSoundComp, pfGUICheckBoxCtrl::kMouseOver, node );
-    const char *errMsg4 = ISetSoundIndex( kRefMouseOffSound, kRefMouseOffSoundComp, pfGUICheckBoxCtrl::kMouseOff, node );
+    const char *errMsg1 = ISetSoundIndex(kRefMouseDownSound, kRefMouseDownSoundComp, pfGUICheckBoxCtrl::kMouseDown, node);
+    const char *errMsg2 = ISetSoundIndex(kRefMouseUpSound, kRefMouseUpSoundComp, pfGUICheckBoxCtrl::kMouseUp, node);
+    const char *errMsg3 = ISetSoundIndex(kRefMouseOverSound, kRefMouseOverSoundComp, pfGUICheckBoxCtrl::kMouseOver, node);
+    const char *errMsg4 = ISetSoundIndex(kRefMouseOffSound, kRefMouseOffSoundComp, pfGUICheckBoxCtrl::kMouseOff, node);
 
-    const char *errMsg = ( errMsg1 != nil ) ? errMsg1 : ( errMsg2 != nil ) ? errMsg2 : ( errMsg3 != nil ) ? errMsg3 : errMsg4;
-    if( errMsg != nil )
+    const char *errMsg = (errMsg1 != nil) ? errMsg1 : (errMsg2 != nil) ? errMsg2 : (errMsg3 != nil) ? errMsg3 : errMsg4;
+    if (errMsg != nil)
     {
-        pErrMsg->Set( true, "GUI Sound Event Error", errMsg, node->GetName() ).Show();
-        pErrMsg->Set( false );
+        pErrMsg->Set(true, "GUI Sound Event Error", errMsg, node->GetName()).Show();
+        pErrMsg->Set(false);
     }
 
     return true;
@@ -2442,7 +2442,7 @@ public:
 };
 
 //Max desc stuff necessary below.
-CLASS_DESC(plGUIDraggableComponent, gGUIDraggableDesc, "GUI Draggable",  "GUIDraggable", COMP_TYPE_GUI, GUI_DRAGGABLE_CLASSID )
+CLASS_DESC(plGUIDraggableComponent, gGUIDraggableDesc, "GUI Draggable",  "GUIDraggable", COMP_TYPE_GUI, GUI_DRAGGABLE_CLASSID)
 
 ParamBlockDesc2 gGUIDraggableBk
 (   // KLUDGE: not the defined block ID, but kept for backwards compat.
@@ -2486,30 +2486,30 @@ plGUIDraggableComponent::plGUIDraggableComponent()
 // of properties on the MaxNode, as it's still indeterminant.
 bool plGUIDraggableComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    node->SetForceLocal( true );
-    return plGUIControlBase::SetupProperties( node, pErrMsg );
+    node->SetForceLocal(true);
+    return plGUIControlBase::SetupProperties(node, pErrMsg);
 }
 
 bool plGUIDraggableComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    return plGUIControlBase::PreConvert( node, pErrMsg );
+    return plGUIControlBase::PreConvert(node, pErrMsg);
 }
 
 bool plGUIDraggableComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
-    if( !plGUIControlBase::Convert( node, pErrMsg ) )
+    if (!plGUIControlBase::Convert(node, pErrMsg))
         return false;
 
     pfGUIDraggableMod *ctrl = (pfGUIDraggableMod *)fControl;
     
-    if( fCompPB->GetInt( kRefReportDragging ) )
-        ctrl->SetFlag( pfGUIDraggableMod::kReportDragging );
+    if (fCompPB->GetInt(kRefReportDragging))
+        ctrl->SetFlag(pfGUIDraggableMod::kReportDragging);
 
-    if( fCompPB->GetInt( kRefHideCursor ) )
-        ctrl->SetFlag( pfGUIDraggableMod::kHideCursorWhileDragging );
+    if (fCompPB->GetInt(kRefHideCursor))
+        ctrl->SetFlag(pfGUIDraggableMod::kHideCursorWhileDragging);
 
-    if( fCompPB->GetInt( kRefAlwaysSnap ) )
-        ctrl->SetFlag( pfGUIDraggableMod::kAlwaysSnapBackToStart );
+    if (fCompPB->GetInt(kRefAlwaysSnap))
+        ctrl->SetFlag(pfGUIDraggableMod::kAlwaysSnapBackToStart);
 
     return true;
 }
@@ -2531,7 +2531,7 @@ protected:
     virtual pfGUIControlMod *IGetNewControl() { return new pfGUIKnobCtrl; }
     virtual bool            ICanHaveProxy() { return true; }
 
-    bool    IGrabAnimationRange( plMaxNode *node, plErrorMsg *pErrMsg, hsMatrix44 &startL2W, hsMatrix44 &endL2W );
+    bool    IGrabAnimationRange(plMaxNode *node, plErrorMsg *pErrMsg, hsMatrix44 &startL2W, hsMatrix44 &endL2W);
 
 public:
     plGUIKnobCtrlComponent();
@@ -2559,12 +2559,12 @@ public:
     };
 };
 
-static plPlasmaAnimSelectDlgProc    sGUIKnobCtrlProc( plGUIKnobCtrlComponent::kRefAnimation, IDC_GUI_COMPSELBTN,
+static plPlasmaAnimSelectDlgProc    sGUIKnobCtrlProc(plGUIKnobCtrlComponent::kRefAnimation, IDC_GUI_COMPSELBTN,
                                                     plGUIKnobCtrlComponent::kRefAnimationNode, plGUIKnobCtrlComponent::kRefAnimationNodeType, IDC_GUI_ANIMNODESEL,
-                                                    "Select the animation to use when displaying this knob control", nil );
+                                                    "Select the animation to use when displaying this knob control", nil);
 
 //Max desc stuff necessary below.
-CLASS_DESC(plGUIKnobCtrlComponent, gGUIKnobCtrlDesc, "GUI Knob Control",  "GUIKnobCtrl", COMP_TYPE_GUI, GUI_KNOBCTRL_CLASSID )
+CLASS_DESC(plGUIKnobCtrlComponent, gGUIKnobCtrlDesc, "GUI Knob Control",  "GUIKnobCtrl", COMP_TYPE_GUI, GUI_KNOBCTRL_CLASSID)
 
 ParamBlockDesc2 gGUIKnobCtrlBk
 (   // KLUDGE: not the defined block ID, but kept for backwards compat.
@@ -2636,7 +2636,7 @@ plGUIKnobCtrlComponent::plGUIKnobCtrlComponent()
     fClassDesc->MakeAutoParamBlocks(this);
 }
 
-bool    plGUIKnobCtrlComponent::IGrabAnimationRange( plMaxNode *node, plErrorMsg *pErrMsg, hsMatrix44 &startL2W, hsMatrix44 &endL2W )
+bool    plGUIKnobCtrlComponent::IGrabAnimationRange(plMaxNode *node, plErrorMsg *pErrMsg, hsMatrix44 &startL2W, hsMatrix44 &endL2W)
 {
     bool    result = false;
 
@@ -2652,8 +2652,8 @@ bool    plGUIKnobCtrlComponent::IGrabAnimationRange( plMaxNode *node, plErrorMsg
 
         float length = tmc->GetLength();
 
-        startL2W = channel->Value( 0.f );
-        endL2W = channel->Value( length );
+        startL2W = channel->Value(0.f);
+        endL2W = channel->Value(length);
 
         delete channel;
         result = true;
@@ -2667,27 +2667,27 @@ bool    plGUIKnobCtrlComponent::IGrabAnimationRange( plMaxNode *node, plErrorMsg
 // of properties on the MaxNode, as it's still indeterminant.
 bool plGUIKnobCtrlComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    node->SetForceLocal( true );
+    node->SetForceLocal(true);
 
-    plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( fCompPB->GetINode( kRefAnimation ) );
-    if( iface != nil && iface->MightRequireSeparateMaterial() )
+    plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface(fCompPB->GetINode(kRefAnimation));
+    if (iface != nil && iface->MightRequireSeparateMaterial())
     {
-        INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode )
-                                ? fCompPB->GetINode( kRefAnimationNode )
+        INode *restrict = (fCompPB->GetInt(kRefAnimationNodeType) == plAnimObjInterface::kUseParamBlockNode)
+                                ? fCompPB->GetINode(kRefAnimationNode)
                                 : (INode *)node;
 
-        if( restrict != nil )
+        if (restrict != nil)
         {
-            node->SetForceMaterialCopy( true );
+            node->SetForceMaterialCopy(true);
         }
     }
 
-    return plGUIControlBase::SetupProperties( node, pErrMsg );
+    return plGUIControlBase::SetupProperties(node, pErrMsg);
 }
 
 bool plGUIKnobCtrlComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    return plGUIControlBase::PreConvert( node, pErrMsg );
+    return plGUIControlBase::PreConvert(node, pErrMsg);
 }
 
 // For hackery below (see warning below)
@@ -2695,29 +2695,29 @@ bool plGUIKnobCtrlComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
 
 bool plGUIKnobCtrlComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
-    if( !plGUIControlBase::Convert( node, pErrMsg ) )
+    if (!plGUIControlBase::Convert(node, pErrMsg))
         return false;
 
     pfGUIKnobCtrl *ctrl = (pfGUIKnobCtrl *)fControl;
     
-    ctrl->SetRange( fCompPB->GetFloat( kRefMinValue ), fCompPB->GetFloat( kRefMaxValue ) );
-    ctrl->SetStep( fCompPB->GetFloat( kRefStep ) );
+    ctrl->SetRange(fCompPB->GetFloat(kRefMinValue), fCompPB->GetFloat(kRefMaxValue));
+    ctrl->SetStep(fCompPB->GetFloat(kRefStep));
 
-    if( fCompPB->GetInt( kReverseValues ) )
-        ctrl->SetFlag( pfGUIKnobCtrl::kReverseValues );
+    if (fCompPB->GetInt(kReverseValues))
+        ctrl->SetFlag(pfGUIKnobCtrl::kReverseValues);
 
     // Get the animation to use
-    plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( fCompPB->GetINode( kRefAnimation ) );
-    if( iface != nil )
+    plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface(fCompPB->GetINode(kRefAnimation));
+    if (iface != nil)
     {
-        INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode )
-                                ? fCompPB->GetINode( kRefAnimationNode )
+        INode *restrict = (fCompPB->GetInt(kRefAnimationNodeType) == plAnimObjInterface::kUseParamBlockNode)
+                                ? fCompPB->GetINode(kRefAnimationNode)
                                 : (INode *)node;
 
 
         hsTArray<plKey> keys;
-        if( iface->GetKeyList( restrict, keys ) && keys.GetCount() > 0 )
-            ctrl->SetAnimationKeys( keys, iface->GetIfaceSegmentName( false ) );
+        if (iface->GetKeyList(restrict, keys) && keys.GetCount() > 0)
+            ctrl->SetAnimationKeys(keys, iface->GetIfaceSegmentName(false));
     }
     else
     {
@@ -2726,40 +2726,40 @@ bool plGUIKnobCtrlComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         // of the master mod of our node, like we would've before
         plAGMasterMod   *master = node->GetAGMasterMod();
         hsTArray<plKey> keys;
-        keys.Append( master->GetKey() );
-        ctrl->SetAnimationKeys( keys, ENTIRE_ANIMATION_NAME );
+        keys.Append(master->GetKey());
+        ctrl->SetAnimationKeys(keys, ENTIRE_ANIMATION_NAME);
     }
 
-    if( fCompPB->GetInt( kRefOrientation ) == 1 )
-        ctrl->SetFlag( pfGUIKnobCtrl::kLeftRightOrientation );
+    if (fCompPB->GetInt(kRefOrientation) == 1)
+        ctrl->SetFlag(pfGUIKnobCtrl::kLeftRightOrientation);
 
     hsMatrix44 startL2W, endL2W;
-    switch( fCompPB->GetInt( kRefMouseMapping ) )
+    switch (fCompPB->GetInt(kRefMouseMapping))
     {
         case 0:     // Default, normal (old) relative behavior
             break;
         case 1:     // Map to the range of animation positions
-            if( !IGrabAnimationRange( node, pErrMsg, startL2W, endL2W ) )
+            if (!IGrabAnimationRange(node, pErrMsg, startL2W, endL2W))
             {
-                pErrMsg->Set( true, "Unable to grab animation range for the GUI Knob Control %s. The Map-To-Screen-Range feature will be disabled.", node->GetName() ).Show();
-                pErrMsg->Set( false );
+                pErrMsg->Set(true, "Unable to grab animation range for the GUI Knob Control %s. The Map-To-Screen-Range feature will be disabled.", node->GetName()).Show();
+                pErrMsg->Set(false);
             }
             else
             {
                 hsPoint3 startPos = startL2W.GetTranslate();
                 hsPoint3 endPos = endL2W.GetTranslate();
 
-                ctrl->SetScreenRange( startPos, endPos );
-                ctrl->SetFlag( pfGUIKnobCtrl::kMapToAnimationRange );
+                ctrl->SetScreenRange(startPos, endPos);
+                ctrl->SetFlag(pfGUIKnobCtrl::kMapToAnimationRange);
             }
             break;
         case 2:     // Map to a range on the screen
-            ctrl->SetFlag( pfGUIKnobCtrl::kMapToScreenRange );
+            ctrl->SetFlag(pfGUIKnobCtrl::kMapToScreenRange);
             break;
     }
 
-    if( fCompPB->GetInt( kRefTriggerOnMouseUp ) )
-        ctrl->SetFlag( pfGUIKnobCtrl::kTriggerOnlyOnMouseUp );
+    if (fCompPB->GetInt(kRefTriggerOnMouseUp))
+        ctrl->SetFlag(pfGUIKnobCtrl::kTriggerOnlyOnMouseUp);
 
     return true;
 }
@@ -2816,12 +2816,12 @@ public:
 class plGUIListBoxAccessor : public PBAccessor
 {
 public:
-    void Set( PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t )
+    void Set(PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t)
     {
-        if( id == plGUIListBoxComponent::kRefScrollCtrl )
+        if (id == plGUIListBoxComponent::kRefScrollCtrl)
         {
             plGUIListBoxComponent *comp = (plGUIListBoxComponent *)owner;
-            comp->NotifyDependents( FOREVER, PART_ALL, REFMSG_USER_COMP_REF_CHANGED );
+            comp->NotifyDependents(FOREVER, PART_ALL, REFMSG_USER_COMP_REF_CHANGED);
         }
     }
 };
@@ -2829,15 +2829,15 @@ public:
 Class_ID    sScrollingClassesToSelect[] = { GUI_UPDOWNPAIR_CLASSID, GUI_KNOBCTRL_CLASSID, plGUISingleCtrlDlgProc::kEndClassList };
 
 static plGUIListBoxAccessor sGUIListBoxAccessor;
-static plGUISingleCtrlDlgProc sGUIListBoxProc( plGUIListBoxComponent::kRefScrollCtrl, IDC_GUI_COMPSELBTN,
-                                            "Select the control to use for scrolling this list box", sScrollingClassesToSelect );
+static plGUISingleCtrlDlgProc sGUIListBoxProc(plGUIListBoxComponent::kRefScrollCtrl, IDC_GUI_COMPSELBTN,
+                                            "Select the control to use for scrolling this list box", sScrollingClassesToSelect);
 
-static plGUISingleCtrlDlgProc sGUILBSkinSelectProc( plGUIListBoxComponent::kRefSkin, IDC_GUI_SKIN,
+static plGUISingleCtrlDlgProc sGUILBSkinSelectProc(plGUIListBoxComponent::kRefSkin, IDC_GUI_SKIN,
                                             "Select the skin to use for this list box", sSkinClassesToSelect,
-                                            &sGUIListBoxProc );
+                                            &sGUIListBoxProc);
 
 //Max desc stuff necessary below.
-CLASS_DESC(plGUIListBoxComponent, gGUIListBoxDesc, "GUI List Box",  "GUIListBox", COMP_TYPE_GUI, GUI_LISTBOX_CLASSID )
+CLASS_DESC(plGUIListBoxComponent, gGUIListBoxDesc, "GUI List Box",  "GUIListBox", COMP_TYPE_GUI, GUI_LISTBOX_CLASSID)
 
 ParamBlockDesc2 gGUIListBoxBk
 (   // KLUDGE: not the defined block ID, but kept for backwards compat.
@@ -2849,7 +2849,7 @@ ParamBlockDesc2 gGUIListBoxBk
     
     &sGUIControlProcParamTemplate,
 
-    plGUIListBoxComponent::kRefUseScroll,   _T( "enableScrolling" ), TYPE_BOOL, 0, 0,
+    plGUIListBoxComponent::kRefUseScroll,   _T("enableScrolling"), TYPE_BOOL, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_SCROLLCTRL,
         p_default, FALSE,
         p_enable_ctrls, 1, plGUIListBoxComponent::kRefScrollCtrl,
@@ -2860,47 +2860,47 @@ ParamBlockDesc2 gGUIListBoxBk
         p_accessor, &sGUIListBoxAccessor,
         end,
 
-    plGUIListBoxComponent::kRefSingleSelect,    _T( "singleSelect" ), TYPE_BOOL, 0, 0,
+    plGUIListBoxComponent::kRefSingleSelect,    _T("singleSelect"), TYPE_BOOL, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_SINGLESEL,
         p_default, FALSE,
         end,
 
-    plGUIListBoxComponent::kRefXparentBgnd, _T( "xparentBgnd" ), TYPE_BOOL, 0, 0,
+    plGUIListBoxComponent::kRefXparentBgnd, _T("xparentBgnd"), TYPE_BOOL, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_XPARENT,
         p_default, FALSE,
         end,
     
-    plGUIListBoxComponent::kRefDragDropSource,  _T( "dragDropCapable" ), TYPE_BOOL, 0, 0,
+    plGUIListBoxComponent::kRefDragDropSource,  _T("dragDropCapable"), TYPE_BOOL, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_DRAGDROPSRC,
         p_default, FALSE,
         end,
 
-    plGUIListBoxComponent::kRefDisableKeys, _T( "disableKeys" ), TYPE_BOOL, 0, 0,
+    plGUIListBoxComponent::kRefDisableKeys, _T("disableKeys"), TYPE_BOOL, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_DISABLEKEYS,
         p_default, FALSE,
         end,
     
-    plGUIListBoxComponent::kRefAllow2DElementGrid,  _T( "allow2DElementGrid" ), TYPE_BOOL, 0, 0,
+    plGUIListBoxComponent::kRefAllow2DElementGrid,  _T("allow2DElementGrid"), TYPE_BOOL, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_ALLOWMULTIROW,
         p_default, FALSE,
         end,
     
-    plGUIListBoxComponent::kRefScrollLeftToRight,   _T( "scrollLeftToRight" ), TYPE_BOOL, 0, 0,
+    plGUIListBoxComponent::kRefScrollLeftToRight,   _T("scrollLeftToRight"), TYPE_BOOL, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_SCROLLL2R,
         p_default, FALSE,
         end,
 
-    plGUIListBoxComponent::kRefScaleWithRes,    _T( "scaleWithRes" ), TYPE_BOOL, 0, 0,
+    plGUIListBoxComponent::kRefScaleWithRes,    _T("scaleWithRes"), TYPE_BOOL, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_SCALERES,
         p_default, FALSE,
         end,
                 
-    plGUIListBoxComponent::kRefPassClicksThrough,   _T( "passClicksThru" ), TYPE_BOOL, 0, 0,
+    plGUIListBoxComponent::kRefPassClicksThrough,   _T("passClicksThru"), TYPE_BOOL, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_PASSTHRU,
         p_default, FALSE,
         end,
         
-    plGUIListBoxComponent::kRefEnableTreeBehavior,  _T( "makeLikeATree" ), TYPE_BOOL, 0, 0,
+    plGUIListBoxComponent::kRefEnableTreeBehavior,  _T("makeLikeATree"), TYPE_BOOL, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_ENABLETREE,
         p_default, FALSE,
         end,
@@ -2908,7 +2908,7 @@ ParamBlockDesc2 gGUIListBoxBk
     plGUIListBoxComponent::kRefSkin, _T("skin"),    TYPE_INODE,     0, 0,
         end,
 
-    plGUIListBoxComponent::kRefHandsOffMultiSelect, _T( "handsOffMultiSelect" ), TYPE_BOOL, 0, 0,
+    plGUIListBoxComponent::kRefHandsOffMultiSelect, _T("handsOffMultiSelect"), TYPE_BOOL, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_HANDSOFF,
         p_default, FALSE,
         end,
@@ -2926,73 +2926,73 @@ plGUIListBoxComponent::plGUIListBoxComponent()
 // of properties on the MaxNode, as it's still indeterminant.
 bool plGUIListBoxComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    return plGUIControlBase::SetupProperties( node, pErrMsg );
+    return plGUIControlBase::SetupProperties(node, pErrMsg);
 }
 
 bool plGUIListBoxComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    return plGUIControlBase::PreConvert( node, pErrMsg );
+    return plGUIControlBase::PreConvert(node, pErrMsg);
 }
 
 bool plGUIListBoxComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
-    if( !plGUIControlBase::Convert( node, pErrMsg ) )
+    if (!plGUIControlBase::Convert(node, pErrMsg))
         return false;
 
     pfGUIListBoxMod *ctrl = (pfGUIListBoxMod *)fControl;
     
-    if( fCompPB->GetInt( kRefUseScroll ) )
+    if (fCompPB->GetInt(kRefUseScroll))
     {
         // Get the scrolling control to use
-        pfGUIValueCtrl *scroll = pfGUIValueCtrl::ConvertNoRef( GrabControlMod( fCompPB->GetINode( kRefScrollCtrl ) ) );
-        if( scroll != nil )
+        pfGUIValueCtrl *scroll = pfGUIValueCtrl::ConvertNoRef(GrabControlMod(fCompPB->GetINode(kRefScrollCtrl)));
+        if (scroll != nil)
         {
-            hsgResMgr::ResMgr()->AddViaNotify( scroll->GetKey(), new plGenRefMsg( ctrl->GetKey(),
-                                        plRefMsg::kOnCreate, -1, pfGUIListBoxMod::kRefScrollCtrl ), plRefFlags::kActiveRef );
+            hsgResMgr::ResMgr()->AddViaNotify(scroll->GetKey(), new plGenRefMsg(ctrl->GetKey(),
+                                        plRefMsg::kOnCreate, -1, pfGUIListBoxMod::kRefScrollCtrl), plRefFlags::kActiveRef);
         }
     }
 
-    if( fCompPB->GetInt( kRefSingleSelect ) )
-        ctrl->SetSingleSelect( true );
+    if (fCompPB->GetInt(kRefSingleSelect))
+        ctrl->SetSingleSelect(true);
 
-    if( fCompPB->GetInt( kRefXparentBgnd ) )
-        ctrl->SetFlag( pfGUIListBoxMod::kXparentBgnd );
+    if (fCompPB->GetInt(kRefXparentBgnd))
+        ctrl->SetFlag(pfGUIListBoxMod::kXparentBgnd);
 
-    if( fCompPB->GetInt( kRefDragDropSource ) )
-        ctrl->SetFlag( pfGUIListBoxMod::kDragAndDropCapable );
+    if (fCompPB->GetInt(kRefDragDropSource))
+        ctrl->SetFlag(pfGUIListBoxMod::kDragAndDropCapable);
 
-    if( fCompPB->GetInt( kRefDisableKeys ) )
-        ctrl->SetFlag( pfGUIListBoxMod::kDisableKeyActions );
+    if (fCompPB->GetInt(kRefDisableKeys))
+        ctrl->SetFlag(pfGUIListBoxMod::kDisableKeyActions);
 
-    if( fCompPB->GetInt( kRefAllow2DElementGrid ) )
-        ctrl->SetFlag( pfGUIListBoxMod::kAllowMultipleElementsPerRow );
+    if (fCompPB->GetInt(kRefAllow2DElementGrid))
+        ctrl->SetFlag(pfGUIListBoxMod::kAllowMultipleElementsPerRow);
 
-    if( fCompPB->GetInt( kRefScrollLeftToRight ) )
-        ctrl->SetFlag( pfGUIListBoxMod::kScrollLeftToRight );
+    if (fCompPB->GetInt(kRefScrollLeftToRight))
+        ctrl->SetFlag(pfGUIListBoxMod::kScrollLeftToRight);
     
-    if( fCompPB->GetInt( kRefScaleWithRes ) )
-        ctrl->SetFlag( pfGUIControlMod::kScaleTextWithResolution );
+    if (fCompPB->GetInt(kRefScaleWithRes))
+        ctrl->SetFlag(pfGUIControlMod::kScaleTextWithResolution);
 
-    if( fCompPB->GetInt( kRefPassClicksThrough ) )
-        ctrl->SetFlag( pfGUIListBoxMod::kAllowMousePassThrough );
+    if (fCompPB->GetInt(kRefPassClicksThrough))
+        ctrl->SetFlag(pfGUIListBoxMod::kAllowMousePassThrough);
 
-    if( fCompPB->GetInt( kRefEnableTreeBehavior ) )
-        ctrl->SetFlag( pfGUIListBoxMod::kGrowLeavesAndProcessOxygen );
+    if (fCompPB->GetInt(kRefEnableTreeBehavior))
+        ctrl->SetFlag(pfGUIListBoxMod::kGrowLeavesAndProcessOxygen);
 
-    if( fCompPB->GetInt( kRefHandsOffMultiSelect ) )
-        ctrl->SetFlag( pfGUIListBoxMod::kHandsOffMultiSelect );
+    if (fCompPB->GetInt(kRefHandsOffMultiSelect))
+        ctrl->SetFlag(pfGUIListBoxMod::kHandsOffMultiSelect);
     
-    INode *sNode = fCompPB->GetINode( kRefSkin );
-    if( sNode != nil )
+    INode *sNode = fCompPB->GetINode(kRefSkin);
+    if (sNode != nil)
     {
-        plComponentBase *comp = ( (plMaxNode *)sNode )->ConvertToComponent();
-        if( comp != nil )
+        plComponentBase *comp = ((plMaxNode *)sNode)->ConvertToComponent();
+        if (comp != nil)
         {
             Class_ID nodeID = comp->ClassID();
-            hsAssert( nodeID == GUI_SKIN_CLASSID, "Bad node param in GUIMenu::Convert()" );
+            hsAssert(nodeID == GUI_SKIN_CLASSID, "Bad node param in GUIMenu::Convert()");
 
             plGUISkinComp *skin = (plGUISkinComp *)comp;
-            hsgResMgr::ResMgr()->AddViaNotify( skin->GetConvertedSkin()->GetKey(), new plGenRefMsg( ctrl->GetKey(), plRefMsg::kOnCreate, -1, pfGUIControlMod::kRefSkin ), plRefFlags::kActiveRef );
+            hsgResMgr::ResMgr()->AddViaNotify(skin->GetConvertedSkin()->GetKey(), new plGenRefMsg(ctrl->GetKey(), plRefMsg::kOnCreate, -1, pfGUIControlMod::kRefSkin), plRefFlags::kActiveRef);
         }
     }
 
@@ -3055,46 +3055,46 @@ public:
 
     void DeleteThis() {}
 
-    BOOL DlgProc( TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
+    BOOL DlgProc(TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
         int i;
-        switch( msg )
+        switch (msg)
         {
             case WM_INITDIALOG:
                 // make sure there is a string to get
-                if ( pmap->GetParamBlock()->GetStr( plGUITextBoxComponent::kRefInitText ) )
+                if (pmap->GetParamBlock()->GetStr(plGUITextBoxComponent::kRefInitText))
                 {
-                    fTranslations = plLocalization::StringToLocal(pmap->GetParamBlock()->GetStr( plGUITextBoxComponent::kRefInitText ) );
-                    SetDlgItemText( hWnd, IDC_GUI_INITTEXT, fTranslations[0].c_str() );
+                    fTranslations = plLocalization::StringToLocal(pmap->GetParamBlock()->GetStr(plGUITextBoxComponent::kRefInitText));
+                    SetDlgItemText(hWnd, IDC_GUI_INITTEXT, fTranslations[0].c_str());
                 }
                 else
                     // if there is no text, then there is nothing to translate
-                    SetDlgItemText( hWnd, IDC_GUI_INITTEXT, pmap->GetParamBlock()->GetStr( plGUITextBoxComponent::kRefInitText ) );
-                SendMessage( GetDlgItem( hWnd, IDC_GUI_LANGUAGE ), CB_RESETCONTENT, 0, 0 );
+                    SetDlgItemText(hWnd, IDC_GUI_INITTEXT, pmap->GetParamBlock()->GetStr(plGUITextBoxComponent::kRefInitText));
+                SendMessage(GetDlgItem(hWnd, IDC_GUI_LANGUAGE), CB_RESETCONTENT, 0, 0);
                 for (i=0; i<plLocalization::kNumLanguages; i++)
-                    SendMessage( GetDlgItem( hWnd, IDC_GUI_LANGUAGE ), CB_ADDSTRING, 0, (LPARAM)plLocalization::GetLanguageName((plLocalization::Language)i) );
-                SendMessage( GetDlgItem( hWnd, IDC_GUI_LANGUAGE ), CB_SETCURSEL, 0, 0 );
+                    SendMessage(GetDlgItem(hWnd, IDC_GUI_LANGUAGE), CB_ADDSTRING, 0, (LPARAM)plLocalization::GetLanguageName((plLocalization::Language)i));
+                SendMessage(GetDlgItem(hWnd, IDC_GUI_LANGUAGE), CB_SETCURSEL, 0, 0);
                 fCurLanguage = 0;
 
-                SetDlgItemText( hWnd, IDC_GUI_LOCALIZATION_PATH, pmap->GetParamBlock()->GetStr( plGUITextBoxComponent::kRefLocalizationPath ) );
+                SetDlgItemText(hWnd, IDC_GUI_LOCALIZATION_PATH, pmap->GetParamBlock()->GetStr(plGUITextBoxComponent::kRefLocalizationPath));
 
-                if ( pmap->GetParamBlock()->GetInt( plGUITextBoxComponent::kRefUseLocalization ) != 0 )
+                if (pmap->GetParamBlock()->GetInt(plGUITextBoxComponent::kRefUseLocalization) != 0)
                 {
                     // disable standard text, enable loc path
-                    EnableWindow( GetDlgItem( hWnd, IDC_GUI_INITTEXT ), false );
-                    EnableWindow( GetDlgItem( hWnd, IDC_GUI_LANGUAGE ), false );
-                    EnableWindow( GetDlgItem( hWnd, IDC_GUI_LOCALIZATION_PATH ), true );
-                    EnableWindow( GetDlgItem( hWnd, IDC_GUI_SELECT_LOC_PATH ), true );
-                    CheckDlgButton( hWnd, IDC_GUI_USE_LOCALIZATION, BST_CHECKED );
+                    EnableWindow(GetDlgItem(hWnd, IDC_GUI_INITTEXT), false);
+                    EnableWindow(GetDlgItem(hWnd, IDC_GUI_LANGUAGE), false);
+                    EnableWindow(GetDlgItem(hWnd, IDC_GUI_LOCALIZATION_PATH), true);
+                    EnableWindow(GetDlgItem(hWnd, IDC_GUI_SELECT_LOC_PATH), true);
+                    CheckDlgButton(hWnd, IDC_GUI_USE_LOCALIZATION, BST_CHECKED);
                 }
                 else
                 {
                     // enable standard text, disable loc path
-                    EnableWindow( GetDlgItem( hWnd, IDC_GUI_INITTEXT ), true );
-                    EnableWindow( GetDlgItem( hWnd, IDC_GUI_LANGUAGE ), true );
-                    EnableWindow( GetDlgItem( hWnd, IDC_GUI_LOCALIZATION_PATH ), false );
-                    EnableWindow( GetDlgItem( hWnd, IDC_GUI_SELECT_LOC_PATH ), false );
-                    CheckDlgButton( hWnd, IDC_GUI_USE_LOCALIZATION, BST_UNCHECKED );
+                    EnableWindow(GetDlgItem(hWnd, IDC_GUI_INITTEXT), true);
+                    EnableWindow(GetDlgItem(hWnd, IDC_GUI_LANGUAGE), true);
+                    EnableWindow(GetDlgItem(hWnd, IDC_GUI_LOCALIZATION_PATH), false);
+                    EnableWindow(GetDlgItem(hWnd, IDC_GUI_SELECT_LOC_PATH), false);
+                    CheckDlgButton(hWnd, IDC_GUI_USE_LOCALIZATION, BST_UNCHECKED);
                 }
                 return true;
 
@@ -3102,104 +3102,104 @@ public:
                 break;
 
             case WM_COMMAND:
-                if( LOWORD( wParam ) == IDC_GUI_INITTEXT )
+                if (LOWORD(wParam) == IDC_GUI_INITTEXT)
                 {
-                    if( HIWORD( wParam ) == EN_CHANGE )
+                    if (HIWORD(wParam) == EN_CHANGE)
                     {
-                        int strLen = SendDlgItemMessage( hWnd, IDC_GUI_INITTEXT, WM_GETTEXTLENGTH, 0, 0 );
-                        if( strLen > 0 )
+                        int strLen = SendDlgItemMessage(hWnd, IDC_GUI_INITTEXT, WM_GETTEXTLENGTH, 0, 0);
+                        if (strLen > 0)
                         {
-                            char *str = new char[ strLen + 1 ];
-                            GetDlgItemText( hWnd, IDC_GUI_INITTEXT, str, strLen + 1 );
-                            str[ strLen ] = 0;
+                            char *str = new char[strLen + 1];
+                            GetDlgItemText(hWnd, IDC_GUI_INITTEXT, str, strLen + 1);
+                            str[strLen] = 0;
                             ISetTranslation(fCurLanguage,str);
                             delete [] str;
 
                             std::string translation = plLocalization::LocalToString(fTranslations);
-                            str = new char[ translation.length() + 1 ];
+                            str = new char[translation.length() + 1];
                             strcpy(str,translation.c_str());
                             str[translation.length()] = 0;
                 
-                            pmap->GetParamBlock()->SetValue( plGUITextBoxComponent::kRefInitText, 0, str );
+                            pmap->GetParamBlock()->SetValue(plGUITextBoxComponent::kRefInitText, 0, str);
                             delete [] str;
                         }
                     }
-                    else if( HIWORD( wParam ) == EN_KILLFOCUS )
+                    else if (HIWORD(wParam) == EN_KILLFOCUS)
                     {
                         plMaxAccelerators::Enable();
                     }
-                    else if( HIWORD( wParam ) == EN_SETFOCUS )
+                    else if (HIWORD(wParam) == EN_SETFOCUS)
                     {
                         plMaxAccelerators::Disable();
                     }
                 }
-                else if( LOWORD( wParam ) == IDC_GUI_LOCALIZATION_PATH )
+                else if (LOWORD(wParam) == IDC_GUI_LOCALIZATION_PATH)
                 {
-                    if( HIWORD( wParam ) == EN_CHANGE )
+                    if (HIWORD(wParam) == EN_CHANGE)
                     {
-                        int strLen = SendDlgItemMessage( hWnd, IDC_GUI_LOCALIZATION_PATH, WM_GETTEXTLENGTH, 0, 0 );
-                        if( strLen > 0 )
+                        int strLen = SendDlgItemMessage(hWnd, IDC_GUI_LOCALIZATION_PATH, WM_GETTEXTLENGTH, 0, 0);
+                        if (strLen > 0)
                         {
-                            char *str = new char[ strLen + 1 ];
-                            GetDlgItemText( hWnd, IDC_GUI_LOCALIZATION_PATH, str, strLen + 1 );
-                            str[ strLen ] = 0;
-                            pmap->GetParamBlock()->SetValue( plGUITextBoxComponent::kRefLocalizationPath, 0, str );
+                            char *str = new char[strLen + 1];
+                            GetDlgItemText(hWnd, IDC_GUI_LOCALIZATION_PATH, str, strLen + 1);
+                            str[strLen] = 0;
+                            pmap->GetParamBlock()->SetValue(plGUITextBoxComponent::kRefLocalizationPath, 0, str);
                             delete [] str;
                         }
                     }
-                    else if( HIWORD( wParam ) == EN_KILLFOCUS )
+                    else if (HIWORD(wParam) == EN_KILLFOCUS)
                     {
                         plMaxAccelerators::Enable();
                     }
-                    else if( HIWORD( wParam ) == EN_SETFOCUS )
+                    else if (HIWORD(wParam) == EN_SETFOCUS)
                     {
                         plMaxAccelerators::Disable();
                     }
                 }
-                else if( LOWORD( wParam ) == IDC_GUI_LANGUAGE )
+                else if (LOWORD(wParam) == IDC_GUI_LANGUAGE)
                 {
-                    if( HIWORD( wParam ) == CBN_SELCHANGE )
+                    if (HIWORD(wParam) == CBN_SELCHANGE)
                     {
-                        int idx = SendDlgItemMessage( hWnd, IDC_GUI_LANGUAGE, CB_GETCURSEL, 0, 0 );
+                        int idx = SendDlgItemMessage(hWnd, IDC_GUI_LANGUAGE, CB_GETCURSEL, 0, 0);
                         if (idx >= fTranslations.size())
-                            SetDlgItemText( hWnd, IDC_GUI_INITTEXT, "" );
+                            SetDlgItemText(hWnd, IDC_GUI_INITTEXT, "");
                         else
-                            SetDlgItemText( hWnd, IDC_GUI_INITTEXT, fTranslations[idx].c_str() );
+                            SetDlgItemText(hWnd, IDC_GUI_INITTEXT, fTranslations[idx].c_str());
                         fCurLanguage = idx;
                     }
                 }
-                else if( LOWORD( wParam ) == IDC_GUI_SELECT_LOC_PATH )
+                else if (LOWORD(wParam) == IDC_GUI_SELECT_LOC_PATH)
                 {
                     char value[512];
-                    GetDlgItemText( hWnd, IDC_GUI_LOCALIZATION_PATH, value, 512 );
-                    plPickLocalizationDlg dlg( value );
-                    if( dlg.DoPick() )
+                    GetDlgItemText(hWnd, IDC_GUI_LOCALIZATION_PATH, value, 512);
+                    plPickLocalizationDlg dlg(value);
+                    if (dlg.DoPick())
                     {
-                        pmap->GetParamBlock()->SetValue( plGUITextBoxComponent::kRefLocalizationPath, 0, (char*)dlg.GetValue() );
-                        SetDlgItemText( hWnd, IDC_GUI_LOCALIZATION_PATH, (char*)dlg.GetValue() );
+                        pmap->GetParamBlock()->SetValue(plGUITextBoxComponent::kRefLocalizationPath, 0, (char*)dlg.GetValue());
+                        SetDlgItemText(hWnd, IDC_GUI_LOCALIZATION_PATH, (char*)dlg.GetValue());
                     }
                 }
-                else if( LOWORD( wParam ) == IDC_GUI_USE_LOCALIZATION )
+                else if (LOWORD(wParam) == IDC_GUI_USE_LOCALIZATION)
                 {
                     // enable/disable the appropriate values
-                    bool useLoc = ( IsDlgButtonChecked( hWnd, IDC_GUI_USE_LOCALIZATION ) == BST_CHECKED );
-                    pmap->GetParamBlock()->SetValue( plGUITextBoxComponent::kRefUseLocalization, 0, useLoc ? 1 : 0 );
+                    bool useLoc = (IsDlgButtonChecked(hWnd, IDC_GUI_USE_LOCALIZATION) == BST_CHECKED);
+                    pmap->GetParamBlock()->SetValue(plGUITextBoxComponent::kRefUseLocalization, 0, useLoc ? 1 : 0);
 
-                    if ( useLoc )
+                    if (useLoc)
                     {
                         // disable standard text, enable loc path
-                        EnableWindow( GetDlgItem( hWnd, IDC_GUI_INITTEXT ), false );
-                        EnableWindow( GetDlgItem( hWnd, IDC_GUI_LANGUAGE ), false );
-                        EnableWindow( GetDlgItem( hWnd, IDC_GUI_LOCALIZATION_PATH ), true );
-                        EnableWindow( GetDlgItem( hWnd, IDC_GUI_SELECT_LOC_PATH ), true );
+                        EnableWindow(GetDlgItem(hWnd, IDC_GUI_INITTEXT), false);
+                        EnableWindow(GetDlgItem(hWnd, IDC_GUI_LANGUAGE), false);
+                        EnableWindow(GetDlgItem(hWnd, IDC_GUI_LOCALIZATION_PATH), true);
+                        EnableWindow(GetDlgItem(hWnd, IDC_GUI_SELECT_LOC_PATH), true);
                     }
                     else
                     {
                         // enable standard text, disable loc path
-                        EnableWindow( GetDlgItem( hWnd, IDC_GUI_INITTEXT ), true );
-                        EnableWindow( GetDlgItem( hWnd, IDC_GUI_LANGUAGE ), true );
-                        EnableWindow( GetDlgItem( hWnd, IDC_GUI_LOCALIZATION_PATH ), false );
-                        EnableWindow( GetDlgItem( hWnd, IDC_GUI_SELECT_LOC_PATH ), false );
+                        EnableWindow(GetDlgItem(hWnd, IDC_GUI_INITTEXT), true);
+                        EnableWindow(GetDlgItem(hWnd, IDC_GUI_LANGUAGE), true);
+                        EnableWindow(GetDlgItem(hWnd, IDC_GUI_LOCALIZATION_PATH), false);
+                        EnableWindow(GetDlgItem(hWnd, IDC_GUI_SELECT_LOC_PATH), false);
                     }
                 }
                 break;
@@ -3210,7 +3210,7 @@ public:
 static plGUITextBoxProc gGUITextBoxProc;
 
 //Max desc stuff necessary below.
-CLASS_DESC(plGUITextBoxComponent, gGUITextBoxDesc, "GUI Text Box",  "GUITextBox", COMP_TYPE_GUI, GUI_TEXTBOX_CLASSID )
+CLASS_DESC(plGUITextBoxComponent, gGUITextBoxDesc, "GUI Text Box",  "GUITextBox", COMP_TYPE_GUI, GUI_TEXTBOX_CLASSID)
 
 ParamBlockDesc2 gGUITextBoxBk
 (   // KLUDGE: not the defined block ID, but kept for backwards compat.
@@ -3226,7 +3226,7 @@ ParamBlockDesc2 gGUITextBoxBk
 //          p_ui,   plGUIControlBase::kRollMain, TYPE_EDITBOX, IDC_GUI_INITTEXT,
             end,
 
-        plGUITextBoxComponent::kRefXparentBgnd, _T( "xparentBgnd" ), TYPE_BOOL, 0, 0,
+        plGUITextBoxComponent::kRefXparentBgnd, _T("xparentBgnd"), TYPE_BOOL, 0, 0,
             p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_XPARENT,
             p_default, FALSE,
             end,
@@ -3236,16 +3236,16 @@ ParamBlockDesc2 gGUITextBoxBk
             p_default, 0,
             end,
 
-        plGUITextBoxComponent::kRefScaleWithRes,    _T( "scaleWithRes" ), TYPE_BOOL, 0, 0,
+        plGUITextBoxComponent::kRefScaleWithRes,    _T("scaleWithRes"), TYPE_BOOL, 0, 0,
             p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_SCALERES,
             p_default, FALSE,
             end,
 
-        plGUITextBoxComponent::kRefUseLocalization, _T( "useLocalization" ), TYPE_BOOL, 0, 0,
+        plGUITextBoxComponent::kRefUseLocalization, _T("useLocalization"), TYPE_BOOL, 0, 0,
             p_default, FALSE,
             end,
 
-        plGUITextBoxComponent::kRefLocalizationPath,_T( "localizationPath" ),TYPE_STRING, 0, 0,
+        plGUITextBoxComponent::kRefLocalizationPath,_T("localizationPath"),TYPE_STRING, 0, 0,
             end,
                 
     end
@@ -3261,37 +3261,37 @@ plGUITextBoxComponent::plGUITextBoxComponent()
 // of properties on the MaxNode, as it's still indeterminant.
 bool plGUITextBoxComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    return plGUIControlBase::SetupProperties( node, pErrMsg );
+    return plGUIControlBase::SetupProperties(node, pErrMsg);
 }
 
 bool plGUITextBoxComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    return plGUIControlBase::PreConvert( node, pErrMsg );
+    return plGUIControlBase::PreConvert(node, pErrMsg);
 }
 
 bool plGUITextBoxComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
-    if( !plGUIControlBase::Convert( node, pErrMsg ) )
+    if (!plGUIControlBase::Convert(node, pErrMsg))
         return false;
 
     pfGUITextBoxMod *ctrl = (pfGUITextBoxMod *)fControl;
 
-    ctrl->SetText( fCompPB->GetStr( kRefInitText ) );
+    ctrl->SetText(fCompPB->GetStr(kRefInitText));
 
-    if( fCompPB->GetInt( kRefXparentBgnd ) )
-        ctrl->SetFlag( pfGUITextBoxMod::kXparentBgnd );
+    if (fCompPB->GetInt(kRefXparentBgnd))
+        ctrl->SetFlag(pfGUITextBoxMod::kXparentBgnd);
 
-    int just = fCompPB->GetInt( kRefJustify );
-    if( just == 1 )
-        ctrl->SetFlag( pfGUITextBoxMod::kCenterJustify );
-    else if( just == 2 )
-        ctrl->SetFlag( pfGUITextBoxMod::kRightJustify );
+    int just = fCompPB->GetInt(kRefJustify);
+    if (just == 1)
+        ctrl->SetFlag(pfGUITextBoxMod::kCenterJustify);
+    else if (just == 2)
+        ctrl->SetFlag(pfGUITextBoxMod::kRightJustify);
 
-    if( fCompPB->GetInt( kRefScaleWithRes ) )
-        ctrl->SetFlag( pfGUIControlMod::kScaleTextWithResolution );
+    if (fCompPB->GetInt(kRefScaleWithRes))
+        ctrl->SetFlag(pfGUIControlMod::kScaleTextWithResolution);
 
-    ctrl->SetUseLocalizationPath( fCompPB->GetInt( kRefUseLocalization ) != 0 );
-    ctrl->SetLocalizationPath( fCompPB->GetStr( kRefLocalizationPath ) );
+    ctrl->SetUseLocalizationPath(fCompPB->GetInt(kRefUseLocalization) != 0);
+    ctrl->SetLocalizationPath(fCompPB->GetStr(kRefLocalizationPath));
 
     return true;
 }
@@ -3331,7 +3331,7 @@ public:
 };
 
 //Max desc stuff necessary below.
-CLASS_DESC(plGUIEditBoxComponent, gGUIEditBoxDesc, "GUI Edit Box",  "GUIEditBox", COMP_TYPE_GUI, GUI_EDITBOX_CLASSID )
+CLASS_DESC(plGUIEditBoxComponent, gGUIEditBoxDesc, "GUI Edit Box",  "GUIEditBox", COMP_TYPE_GUI, GUI_EDITBOX_CLASSID)
 
 ParamBlockDesc2 gGUIEditBoxBk
 (   // KLUDGE: not the defined block ID, but kept for backwards compat.
@@ -3343,12 +3343,12 @@ ParamBlockDesc2 gGUIEditBoxBk
     
     &sGUIControlProcParamTemplate,
 
-    plGUIEditBoxComponent::kRefXparentBgnd, _T( "xparentBgnd" ), TYPE_BOOL, 0, 0,
+    plGUIEditBoxComponent::kRefXparentBgnd, _T("xparentBgnd"), TYPE_BOOL, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_XPARENT,
         p_default, FALSE,
         end,
     
-    plGUIEditBoxComponent::kRefScaleWithRes,    _T( "scaleWithRes" ), TYPE_BOOL, 0, 0,
+    plGUIEditBoxComponent::kRefScaleWithRes,    _T("scaleWithRes"), TYPE_BOOL, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_SCALERES,
         p_default, FALSE,
         end,
@@ -3366,26 +3366,26 @@ plGUIEditBoxComponent::plGUIEditBoxComponent()
 // of properties on the MaxNode, as it's still indeterminant.
 bool plGUIEditBoxComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    return plGUIControlBase::SetupProperties( node, pErrMsg );
+    return plGUIControlBase::SetupProperties(node, pErrMsg);
 }
 
 bool plGUIEditBoxComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    return plGUIControlBase::PreConvert( node, pErrMsg );
+    return plGUIControlBase::PreConvert(node, pErrMsg);
 }
 
 bool plGUIEditBoxComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
-    if( !plGUIControlBase::Convert( node, pErrMsg ) )
+    if (!plGUIControlBase::Convert(node, pErrMsg))
         return false;
 
     pfGUIEditBoxMod *ctrl = (pfGUIEditBoxMod *)fControl;
     
-    if( fCompPB->GetInt( kRefXparentBgnd ) )
-        ctrl->SetFlag( pfGUIEditBoxMod::kXparentBgnd );
+    if (fCompPB->GetInt(kRefXparentBgnd))
+        ctrl->SetFlag(pfGUIEditBoxMod::kXparentBgnd);
 
-    if( fCompPB->GetInt( kRefScaleWithRes ) )
-        ctrl->SetFlag( pfGUIControlMod::kScaleTextWithResolution );
+    if (fCompPB->GetInt(kRefScaleWithRes))
+        ctrl->SetFlag(pfGUIControlMod::kScaleTextWithResolution);
 
     return true;
 }
@@ -3434,62 +3434,62 @@ class plGUIUDPairDlgProc : public ParamMap2UserDlgProc
 protected:
     ParamID         fUpNodeID, fDownNodeID;
     int             fUpDlgItem, fDownDlgItem;
-    TCHAR           fTitle[ 128 ];
+    TCHAR           fTitle[128];
 
 public:
-    plGUIUDPairDlgProc( ParamID upNodeID, int upDlgItem, ParamID downNodeID, int downDlgItem, TCHAR *title )
+    plGUIUDPairDlgProc(ParamID upNodeID, int upDlgItem, ParamID downNodeID, int downDlgItem, TCHAR *title)
     {
         fUpNodeID = upNodeID;
         fDownNodeID = downNodeID;
         fUpDlgItem = upDlgItem;
         fDownDlgItem = downDlgItem;
-        strcpy( fTitle, title );
+        strcpy(fTitle, title);
     }
 
-    BOOL DlgProc( TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
+    BOOL DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
-        switch ( msg )
+        switch (msg)
         {
             case WM_INITDIALOG:
                 {
                     IParamBlock2 *pb = map->GetParamBlock();
 
-                    INode *node = pb->GetINode( fUpNodeID );
-                    TSTR newName( node ? node->GetName() : "Pick" );
-                    ::SetWindowText( ::GetDlgItem( hWnd, fUpDlgItem ), newName );
+                    INode *node = pb->GetINode(fUpNodeID);
+                    TSTR newName(node ? node->GetName() : "Pick");
+                    ::SetWindowText(::GetDlgItem(hWnd, fUpDlgItem), newName);
 
-                    node = pb->GetINode( fDownNodeID );
-                    TSTR newName2( node ? node->GetName() : "Pick" );
-                    ::SetWindowText( ::GetDlgItem( hWnd, fDownDlgItem ), newName2 );
+                    node = pb->GetINode(fDownNodeID);
+                    TSTR newName2(node ? node->GetName() : "Pick");
+                    ::SetWindowText(::GetDlgItem(hWnd, fDownDlgItem), newName2);
                 }
                 return true;
 
             case WM_COMMAND:
-                if( ( HIWORD( wParam ) == BN_CLICKED ) )
+                if ((HIWORD(wParam) == BN_CLICKED))
                 {
-                    if( LOWORD( wParam ) == fUpDlgItem )
+                    if (LOWORD(wParam) == fUpDlgItem)
                     {
                         IParamBlock2 *pb = map->GetParamBlock();
-                        plGUICtrlHitCallback hitCB( (INode *)pb->GetOwner(), pb, fUpNodeID, fTitle, true, GUI_BUTTON_CLASSID );
-                        GetCOREInterface()->DoHitByNameDialog( &hitCB );
+                        plGUICtrlHitCallback hitCB((INode *)pb->GetOwner(), pb, fUpNodeID, fTitle, true, GUI_BUTTON_CLASSID);
+                        GetCOREInterface()->DoHitByNameDialog(&hitCB);
 
-                        INode* node = pb->GetINode( fUpNodeID );
-                        TSTR newName( node ? node->GetName() : "Pick" );
-                        ::SetWindowText( ::GetDlgItem(hWnd, fUpDlgItem ), newName );
-                        map->Invalidate( fUpNodeID );
-                        ::InvalidateRect( hWnd, NULL, TRUE );
+                        INode* node = pb->GetINode(fUpNodeID);
+                        TSTR newName(node ? node->GetName() : "Pick");
+                        ::SetWindowText(::GetDlgItem(hWnd, fUpDlgItem), newName);
+                        map->Invalidate(fUpNodeID);
+                        ::InvalidateRect(hWnd, NULL, TRUE);
                     }
-                    else if( LOWORD( wParam ) == fDownDlgItem )
+                    else if (LOWORD(wParam) == fDownDlgItem)
                     {
                         IParamBlock2 *pb = map->GetParamBlock();
-                        plGUICtrlHitCallback hitCB( (INode *)pb->GetOwner(), pb, fDownNodeID, fTitle, true, GUI_BUTTON_CLASSID );
-                        GetCOREInterface()->DoHitByNameDialog( &hitCB );
+                        plGUICtrlHitCallback hitCB((INode *)pb->GetOwner(), pb, fDownNodeID, fTitle, true, GUI_BUTTON_CLASSID);
+                        GetCOREInterface()->DoHitByNameDialog(&hitCB);
 
-                        INode* node = pb->GetINode( fDownNodeID );
-                        TSTR newName( node ? node->GetName() : "Pick" );
-                        ::SetWindowText( ::GetDlgItem(hWnd, fDownDlgItem ), newName );
-                        map->Invalidate( fDownDlgItem );
-                        ::InvalidateRect( hWnd, NULL, TRUE );
+                        INode* node = pb->GetINode(fDownNodeID);
+                        TSTR newName(node ? node->GetName() : "Pick");
+                        ::SetWindowText(::GetDlgItem(hWnd, fDownDlgItem), newName);
+                        map->Invalidate(fDownDlgItem);
+                        ::InvalidateRect(hWnd, NULL, TRUE);
                     }
                 }
                 return true;
@@ -3508,24 +3508,24 @@ public:
 class plGUIUDAccessor : public PBAccessor
 {
 public:
-    void Set( PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t )
+    void Set(PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t)
     {
-        if( id == plGUIUpDownPairComponent::kRefUpControl
-            || id == plGUIUpDownPairComponent::kRefDownControl )
+        if (id == plGUIUpDownPairComponent::kRefUpControl
+            || id == plGUIUpDownPairComponent::kRefDownControl)
         {
             plGUIUpDownPairComponent *comp = (plGUIUpDownPairComponent *)owner;
-            comp->NotifyDependents( FOREVER, PART_ALL, REFMSG_USER_COMP_REF_CHANGED );
+            comp->NotifyDependents(FOREVER, PART_ALL, REFMSG_USER_COMP_REF_CHANGED);
         }
     }
 };
 
 static plGUIUDAccessor sGUIUDAccessor;
-static plGUIUDPairDlgProc sGUIUDPairDlgProc( plGUIUpDownPairComponent::kRefUpControl, IDC_GUI_COMPSELBTN,
+static plGUIUDPairDlgProc sGUIUDPairDlgProc(plGUIUpDownPairComponent::kRefUpControl, IDC_GUI_COMPSELBTN,
                                             plGUIUpDownPairComponent::kRefDownControl, IDC_GUI_COMPSELBTN2,
-                                            "Select the control to use in this pair" );
+                                            "Select the control to use in this pair");
 
 //Max desc stuff necessary below.
-CLASS_DESC(plGUIUpDownPairComponent, gGUIUDPairDesc, "GUI Up/Down Pair",  "GUIUDPair", COMP_TYPE_GUI, GUI_UPDOWNPAIR_CLASSID )
+CLASS_DESC(plGUIUpDownPairComponent, gGUIUDPairDesc, "GUI Up/Down Pair",  "GUIUDPair", COMP_TYPE_GUI, GUI_UPDOWNPAIR_CLASSID)
 
 ParamBlockDesc2 gGUIUDPairBk
 (   // KLUDGE: not the defined block ID, but kept for backwards compat.
@@ -3575,29 +3575,29 @@ plGUIUpDownPairComponent::plGUIUpDownPairComponent()
 // of properties on the MaxNode, as it's still indeterminant.
 bool plGUIUpDownPairComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    return plGUIControlBase::SetupProperties( node, pErrMsg );
+    return plGUIControlBase::SetupProperties(node, pErrMsg);
 }
 
 bool plGUIUpDownPairComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    return plGUIControlBase::PreConvert( node, pErrMsg );
+    return plGUIControlBase::PreConvert(node, pErrMsg);
 }
 
 bool plGUIUpDownPairComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
-    if( !plGUIControlBase::Convert( node, pErrMsg ) )
+    if (!plGUIControlBase::Convert(node, pErrMsg))
         return false;
 
     pfGUIUpDownPairMod *ctrl = (pfGUIUpDownPairMod *)fControl;
 
     // Get the child controls
-    pfGUIButtonMod *up = pfGUIButtonMod::ConvertNoRef( GrabControlMod( fCompPB->GetINode( kRefUpControl ) ) );
-    pfGUIButtonMod *down = pfGUIButtonMod::ConvertNoRef( GrabControlMod( fCompPB->GetINode( kRefDownControl ) ) );
+    pfGUIButtonMod *up = pfGUIButtonMod::ConvertNoRef(GrabControlMod(fCompPB->GetINode(kRefUpControl)));
+    pfGUIButtonMod *down = pfGUIButtonMod::ConvertNoRef(GrabControlMod(fCompPB->GetINode(kRefDownControl)));
 
-    ctrl->SetControls( up, down );
+    ctrl->SetControls(up, down);
 
-    ctrl->SetRange( fCompPB->GetFloat( kRefMinValue ), fCompPB->GetFloat( kRefMaxValue ) );
-    ctrl->SetStep( fCompPB->GetFloat( kRefStep ) );
+    ctrl->SetRange(fCompPB->GetFloat(kRefMinValue), fCompPB->GetFloat(kRefMaxValue));
+    ctrl->SetStep(fCompPB->GetFloat(kRefStep));
 
     return true;
 }
@@ -3632,7 +3632,7 @@ public:
 };
 
 //Max desc stuff necessary below.
-CLASS_DESC(plGUIDragBarComponent, gGUIDragBarDesc, "GUI Dialog Drag Bar",  "GUIDragBar", COMP_TYPE_GUI, GUI_DRAGBAR_CLASSID )
+CLASS_DESC(plGUIDragBarComponent, gGUIDragBarDesc, "GUI Dialog Drag Bar",  "GUIDragBar", COMP_TYPE_GUI, GUI_DRAGBAR_CLASSID)
 
 ParamBlockDesc2 gGUIDragBarBk
 (   // KLUDGE: not the defined block ID, but kept for backwards compat.
@@ -3661,18 +3661,18 @@ plGUIDragBarComponent::plGUIDragBarComponent()
 // of properties on the MaxNode, as it's still indeterminant.
 bool plGUIDragBarComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    node->SetForceLocal( true );
-    return plGUIControlBase::SetupProperties( node, pErrMsg );
+    node->SetForceLocal(true);
+    return plGUIControlBase::SetupProperties(node, pErrMsg);
 }
 
 bool plGUIDragBarComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    return plGUIControlBase::PreConvert( node, pErrMsg );
+    return plGUIControlBase::PreConvert(node, pErrMsg);
 }
 
 bool plGUIDragBarComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
-    if( !plGUIControlBase::Convert( node, pErrMsg ) )
+    if (!plGUIControlBase::Convert(node, pErrMsg))
         return false;
 
     pfGUIDragBarCtrl *ctrl = (pfGUIDragBarCtrl *)fControl;
@@ -3730,48 +3730,48 @@ public:
     {
     }
 
-    void    SetSpinnerRange( IParamMap2 *pMap )
+    void    SetSpinnerRange(IParamMap2 *pMap)
     {
-        if( pMap == nil )
+        if (pMap == nil)
             return;
 
         HWND    hWnd = pMap->GetHWnd();
-        if( hWnd == nil )
+        if (hWnd == nil)
             return;
 
-        ISpinnerControl *spin = GetISpinner( GetDlgItem( hWnd, IDC_GUI_DEFSEL_SPIN ) );
+        ISpinnerControl *spin = GetISpinner(GetDlgItem(hWnd, IDC_GUI_DEFSEL_SPIN));
 
-        int minValue = pMap->GetParamBlock()->GetInt( plGUIRadioGroupComponent::kRefAllowNoSel ) ? -1 : 0;
-        int maxValue = pMap->GetParamBlock()->Count( plGUIRadioGroupComponent::kRefCheckBoxes );
+        int minValue = pMap->GetParamBlock()->GetInt(plGUIRadioGroupComponent::kRefAllowNoSel) ? -1 : 0;
+        int maxValue = pMap->GetParamBlock()->Count(plGUIRadioGroupComponent::kRefCheckBoxes);
 
-        spin->SetLimits( minValue, maxValue );
+        spin->SetLimits(minValue, maxValue);
 
-        ReleaseISpinner( spin );
+        ReleaseISpinner(spin);
     }
 
-    BOOL DlgProc( TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
+    BOOL DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
-        switch ( msg )
+        switch (msg)
         {
             case WM_INITDIALOG:
                 {
-                    SetSpinnerRange( map );
+                    SetSpinnerRange(map);
                 }
                 return true;
 
             case WM_COMMAND:
-                if( ( HIWORD( wParam ) == BN_CLICKED ) )
+                if ((HIWORD(wParam) == BN_CLICKED))
                 {
-                    if( LOWORD( wParam ) == IDC_GUI_ADDCHECK )
+                    if (LOWORD(wParam) == IDC_GUI_ADDCHECK)
                     {
                         IParamBlock2 *pb = map->GetParamBlock();
 
-                        plGUICtrlHitCallback hitCB( (INode *)pb->GetOwner(), pb, plGUIRadioGroupComponent::kRefCheckBoxes,
-                                    "Select a check box to add to this radio group", true, GUI_CHECKBOX_CLASSID, false );
+                        plGUICtrlHitCallback hitCB((INode *)pb->GetOwner(), pb, plGUIRadioGroupComponent::kRefCheckBoxes,
+                                    "Select a check box to add to this radio group", true, GUI_CHECKBOX_CLASSID, false);
 
-                        GetCOREInterface()->DoHitByNameDialog( &hitCB );
+                        GetCOREInterface()->DoHitByNameDialog(&hitCB);
 
-                        map->Invalidate( plGUIRadioGroupComponent::kRefCheckBoxes );
+                        map->Invalidate(plGUIRadioGroupComponent::kRefCheckBoxes);
                     }
                 }
                 return true;
@@ -3785,7 +3785,7 @@ public:
 static plGUIRadioGroupProc sGUIRadioGroupProc;
 
 //Max desc stuff necessary below.
-CLASS_DESC(plGUIRadioGroupComponent, gGUIRadioGroupDesc, "GUI Radio Group",  "GUIRadioGroup", COMP_TYPE_GUI, GUI_RADIOGROUP_CLASSID )
+CLASS_DESC(plGUIRadioGroupComponent, gGUIRadioGroupDesc, "GUI Radio Group",  "GUIRadioGroup", COMP_TYPE_GUI, GUI_RADIOGROUP_CLASSID)
 
 // When one of our parameters that is a ref changes, send out the component ref
 // changed message.  Normally, messages from component refs are ignored since
@@ -3794,29 +3794,29 @@ CLASS_DESC(plGUIRadioGroupComponent, gGUIRadioGroupDesc, "GUI Radio Group",  "GU
 class plGUIRadioGroupAccessor : public PBAccessor
 {
 public:
-    void Set( PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t )
+    void Set(PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t)
     {
         plGUIRadioGroupComponent *comp = (plGUIRadioGroupComponent *)owner;
         IParamBlock2    *pBlock = comp->fCompPB;
 
-        if( id == plGUIRadioGroupComponent::kRefCheckBoxes )
+        if (id == plGUIRadioGroupComponent::kRefCheckBoxes)
         {
-            comp->NotifyDependents( FOREVER, PART_ALL, REFMSG_USER_COMP_REF_CHANGED );
-            sGUIRadioGroupProc.SetSpinnerRange( pBlock->GetMap( plGUIControlBase::kRollMain ) );
+            comp->NotifyDependents(FOREVER, PART_ALL, REFMSG_USER_COMP_REF_CHANGED);
+            sGUIRadioGroupProc.SetSpinnerRange(pBlock->GetMap(plGUIControlBase::kRollMain));
         }
-        else if( id == plGUIRadioGroupComponent::kRefAllowNoSel )
-            sGUIRadioGroupProc.SetSpinnerRange( pBlock->GetMap( plGUIControlBase::kRollMain ) );
+        else if (id == plGUIRadioGroupComponent::kRefAllowNoSel)
+            sGUIRadioGroupProc.SetSpinnerRange(pBlock->GetMap(plGUIControlBase::kRollMain));
     }
 
-    void    TabChanged( tab_changes changeCode, Tab<PB2Value> *tab, ReferenceMaker *owner, ParamID id, int tabIndex, int count )
+    void    TabChanged(tab_changes changeCode, Tab<PB2Value> *tab, ReferenceMaker *owner, ParamID id, int tabIndex, int count)
     {
         plGUIRadioGroupComponent *comp = (plGUIRadioGroupComponent *)owner;
         IParamBlock2    *pBlock = comp->fCompPB;
 
-        if( id == plGUIRadioGroupComponent::kRefCheckBoxes )
+        if (id == plGUIRadioGroupComponent::kRefCheckBoxes)
         {
-            comp->NotifyDependents( FOREVER, PART_ALL, REFMSG_USER_COMP_REF_CHANGED );
-            sGUIRadioGroupProc.SetSpinnerRange( pBlock->GetMap( plGUIControlBase::kRollMain ) );
+            comp->NotifyDependents(FOREVER, PART_ALL, REFMSG_USER_COMP_REF_CHANGED);
+            sGUIRadioGroupProc.SetSpinnerRange(pBlock->GetMap(plGUIControlBase::kRollMain));
         }
     }
 
@@ -3845,7 +3845,7 @@ ParamBlockDesc2 gGUIRadioGroupBk
         p_ui, plGUIControlBase::kRollMain, TYPE_SPINNER,    EDITTYPE_INT, IDC_GUI_DEFSEL, IDC_GUI_DEFSEL_SPIN, SPIN_AUTOSCALE,
         end,
 
-    plGUIRadioGroupComponent::kRefAllowNoSel,   _T( "allowNoSel" ), TYPE_BOOL, 0, 0,
+    plGUIRadioGroupComponent::kRefAllowNoSel,   _T("allowNoSel"), TYPE_BOOL, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_ALLOWNONE,
         p_default, FALSE,
         p_accessor, &sGUIRadioGroupAccessor,
@@ -3864,35 +3864,35 @@ plGUIRadioGroupComponent::plGUIRadioGroupComponent()
 // of properties on the MaxNode, as it's still indeterminant.
 bool plGUIRadioGroupComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    return plGUIControlBase::SetupProperties( node, pErrMsg );
+    return plGUIControlBase::SetupProperties(node, pErrMsg);
 }
 
 
 bool plGUIRadioGroupComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    return plGUIControlBase::PreConvert( node, pErrMsg );
+    return plGUIControlBase::PreConvert(node, pErrMsg);
 }
 
 bool plGUIRadioGroupComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
-    if( !plGUIControlBase::Convert( node, pErrMsg ) )
+    if (!plGUIControlBase::Convert(node, pErrMsg))
         return false;
 
     pfGUIRadioGroupCtrl *ctrl = (pfGUIRadioGroupCtrl *)fControl;
 
     int i;
     ctrl->ClearControlList();
-    for( i = 0; i < fCompPB->Count( kRefCheckBoxes ); i++ )
+    for (i = 0; i < fCompPB->Count(kRefCheckBoxes); i++)
     {
-        pfGUICheckBoxCtrl *cb = pfGUICheckBoxCtrl::ConvertNoRef( GrabControlMod( fCompPB->GetINode( kRefCheckBoxes, 0, i ) ) );
-        if( cb != nil )
-            ctrl->AddControl( cb );
+        pfGUICheckBoxCtrl *cb = pfGUICheckBoxCtrl::ConvertNoRef(GrabControlMod(fCompPB->GetINode(kRefCheckBoxes, 0, i)));
+        if (cb != nil)
+            ctrl->AddControl(cb);
     }
 
-    if( fCompPB->GetInt( kRefAllowNoSel ) )
-        ctrl->SetFlag( pfGUIRadioGroupCtrl::kAllowNoSelection );
+    if (fCompPB->GetInt(kRefAllowNoSel))
+        ctrl->SetFlag(pfGUIRadioGroupCtrl::kAllowNoSelection);
 
-    ctrl->SetDefaultValue( fCompPB->GetInt( kRefDefaultSel ) );
+    ctrl->SetDefaultValue(fCompPB->GetInt(kRefDefaultSel));
 
     return true;
 }
@@ -3942,38 +3942,38 @@ public:
     {
     }
 
-    BOOL DlgProc( TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
+    BOOL DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
-        switch ( msg )
+        switch (msg)
         {
             case WM_INITDIALOG:
                 {
                     IParamBlock2 *pb = map->GetParamBlock();
 
-                    Texmap *tmap = pb->GetTexmap( plGUIDynDisplayComponent::kRefDynLayer );
-                    if( tmap != nil )
-                        SetDlgItemText( hWnd, IDC_GUI_PICKMAT, (const char *)tmap->GetName() );
+                    Texmap *tmap = pb->GetTexmap(plGUIDynDisplayComponent::kRefDynLayer);
+                    if (tmap != nil)
+                        SetDlgItemText(hWnd, IDC_GUI_PICKMAT, (const char *)tmap->GetName());
                     else
-                        SetDlgItemText( hWnd, IDC_GUI_PICKMAT, "Pick" );
+                        SetDlgItemText(hWnd, IDC_GUI_PICKMAT, "Pick");
                 }
                 return true;
 
             case WM_COMMAND:
-                if( ( HIWORD( wParam ) == BN_CLICKED ) )
+                if ((HIWORD(wParam) == BN_CLICKED))
                 {
-                    if( LOWORD( wParam ) == IDC_GUI_PICKMAT )
+                    if (LOWORD(wParam) == IDC_GUI_PICKMAT)
                     {
                         IParamBlock2 *pb = map->GetParamBlock();
 
-                        if( plPickMaterialMap::PickTexmap( pb, plGUIDynDisplayComponent::kRefDynLayer ) )
+                        if (plPickMaterialMap::PickTexmap(pb, plGUIDynDisplayComponent::kRefDynLayer))
                         {
-                            Texmap *tmap = pb->GetTexmap( plGUIDynDisplayComponent::kRefDynLayer );
-                            if( tmap != nil )
-                                SetDlgItemText( hWnd, IDC_GUI_PICKMAT, (const char *)tmap->GetName() );
+                            Texmap *tmap = pb->GetTexmap(plGUIDynDisplayComponent::kRefDynLayer);
+                            if (tmap != nil)
+                                SetDlgItemText(hWnd, IDC_GUI_PICKMAT, (const char *)tmap->GetName());
                             else
-                                SetDlgItemText( hWnd, IDC_GUI_PICKMAT, "Pick" );
+                                SetDlgItemText(hWnd, IDC_GUI_PICKMAT, "Pick");
 
-                            map->Invalidate( plGUIDynDisplayComponent::kRefDynLayer );
+                            map->Invalidate(plGUIDynDisplayComponent::kRefDynLayer);
                         }
                     }
                 }
@@ -3988,7 +3988,7 @@ public:
 static plGUIDynDisplayProc  sGUIDynDisplayProc;
 
 //Max desc stuff necessary below.
-CLASS_DESC(plGUIDynDisplayComponent, gGUIDynDisplayDesc, "GUI Dynamic Display",  "GUIDynDisplay", COMP_TYPE_GUI, GUI_DYNDISPLAY_CLASSID )
+CLASS_DESC(plGUIDynDisplayComponent, gGUIDynDisplayDesc, "GUI Dynamic Display",  "GUIDynDisplay", COMP_TYPE_GUI, GUI_DYNDISPLAY_CLASSID)
 
 ParamBlockDesc2 gGUIDynDisplayBk
 (   // KLUDGE: not the defined block ID, but kept for backwards compat.
@@ -4014,42 +4014,42 @@ plGUIDynDisplayComponent::plGUIDynDisplayComponent()
 // of properties on the MaxNode, as it's still indeterminant.
 bool plGUIDynDisplayComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    return plGUIControlBase::SetupProperties( node, pErrMsg );
+    return plGUIControlBase::SetupProperties(node, pErrMsg);
 }
 
 bool plGUIDynDisplayComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    return plGUIControlBase::PreConvert( node, pErrMsg );
+    return plGUIControlBase::PreConvert(node, pErrMsg);
 }
 
 bool plGUIDynDisplayComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
-    if( !plGUIControlBase::Convert( node, pErrMsg ) )
+    if (!plGUIControlBase::Convert(node, pErrMsg))
         return false;
 
     pfGUIDynDisplayCtrl *ctrl = (pfGUIDynDisplayCtrl *)fControl;
     
-    Texmap *tmap = fCompPB->GetTexmap( plGUIDynDisplayComponent::kRefDynLayer );
-    plPlasmaMAXLayer *pLayer = plPlasmaMAXLayer::GetPlasmaMAXLayer( tmap );
-    if( pLayer == nil /*|| pLayer->ClassID() != DYN_TEXT_LAYER_CLASS_ID */ )
+    Texmap *tmap = fCompPB->GetTexmap(plGUIDynDisplayComponent::kRefDynLayer);
+    plPlasmaMAXLayer *pLayer = plPlasmaMAXLayer::GetPlasmaMAXLayer(tmap);
+    if (pLayer == nil /*|| pLayer->ClassID() != DYN_TEXT_LAYER_CLASS_ID */)
     {
 
-        pErrMsg->Set(true, "GUI Control Component Error", "The texmap selected for the Dynamic Display Control on object \"%s\" is not a Plasma Dynamic Text Layer. Please fix.", node->GetName() ).Show();
+        pErrMsg->Set(true, "GUI Control Component Error", "The texmap selected for the Dynamic Display Control on object \"%s\" is not a Plasma Dynamic Text Layer. Please fix.", node->GetName()).Show();
         return false;
     }
     
     const hsTArray<hsMaterialConverter::DoneMaterialData> &materials = hsMaterialConverter::Instance().DoneMaterials();
 
     uint32_t i,count = pLayer->GetNumConversionTargets();
-    for( i = 0; i < count; i++ )
+    for (i = 0; i < count; i++)
     {
-        plLayerInterface *layIface = pLayer->GetConversionTarget( i );
+        plLayerInterface *layIface = pLayer->GetConversionTarget(i);
         
-        ctrl->AddLayer( layIface );
+        ctrl->AddLayer(layIface);
 
-        plDynamicTextMap *map = plDynamicTextMap::ConvertNoRef( layIface->GetTexture() );
-        if( map != nil )
-            ctrl->AddMap( map );
+        plDynamicTextMap *map = plDynamicTextMap::ConvertNoRef(layIface->GetTexture());
+        if (map != nil)
+            ctrl->AddMap(map);
 
         uint32_t mat;
         bool found = false;
@@ -4110,11 +4110,11 @@ public:
     };
 };
 
-static plGUISingleCtrlDlgProc sGUIMultiLineProc( plGUIMultiLineEditComp::kRefScrollCtrl, IDC_GUI_COMPSELBTN,
-                                            "Select the control to use for scrolling this multi-line edit box", sScrollingClassesToSelect );
+static plGUISingleCtrlDlgProc sGUIMultiLineProc(plGUIMultiLineEditComp::kRefScrollCtrl, IDC_GUI_COMPSELBTN,
+                                            "Select the control to use for scrolling this multi-line edit box", sScrollingClassesToSelect);
 
 //Max desc stuff necessary below.
-CLASS_DESC(plGUIMultiLineEditComp, gGUIMultiLineEditDesc, "GUI Multi-Line Edit Box",  "GUIMultiLineEdit", COMP_TYPE_GUI, GUI_MULTILINE_CLASSID )
+CLASS_DESC(plGUIMultiLineEditComp, gGUIMultiLineEditDesc, "GUI Multi-Line Edit Box",  "GUIMultiLineEdit", COMP_TYPE_GUI, GUI_MULTILINE_CLASSID)
 
 ParamBlockDesc2 gGUIMultiLineEditBoxBk
 (   // KLUDGE: not the defined block ID, but kept for backwards compat.
@@ -4126,17 +4126,17 @@ ParamBlockDesc2 gGUIMultiLineEditBoxBk
     
     &sGUIControlProcParamTemplate,
 
-    plGUIMultiLineEditComp::kRefXparentBgnd,    _T( "xparentBgnd" ), TYPE_BOOL, 0, 0,
+    plGUIMultiLineEditComp::kRefXparentBgnd,    _T("xparentBgnd"), TYPE_BOOL, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_XPARENT,
         p_default, FALSE,
         end,
     
-    plGUIMultiLineEditComp::kRefScaleWithRes,   _T( "scaleWithRes" ), TYPE_BOOL, 0, 0,
+    plGUIMultiLineEditComp::kRefScaleWithRes,   _T("scaleWithRes"), TYPE_BOOL, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_SCALERES,
         p_default, FALSE,
         end,
             
-    plGUIMultiLineEditComp::kRefUseScroll,  _T( "enableScrolling" ), TYPE_BOOL, 0, 0,
+    plGUIMultiLineEditComp::kRefUseScroll,  _T("enableScrolling"), TYPE_BOOL, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_SCROLLCTRL,
         p_default, FALSE,
         p_enable_ctrls, 1, plGUIMultiLineEditComp::kRefScrollCtrl,
@@ -4160,35 +4160,35 @@ plGUIMultiLineEditComp::plGUIMultiLineEditComp()
 // of properties on the MaxNode, as it's still indeterminant.
 bool plGUIMultiLineEditComp::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    return plGUIControlBase::SetupProperties( node, pErrMsg );
+    return plGUIControlBase::SetupProperties(node, pErrMsg);
 }
 
 bool plGUIMultiLineEditComp::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    return plGUIControlBase::PreConvert( node, pErrMsg );
+    return plGUIControlBase::PreConvert(node, pErrMsg);
 }
 
 bool plGUIMultiLineEditComp::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
-    if( !plGUIControlBase::Convert( node, pErrMsg ) )
+    if (!plGUIControlBase::Convert(node, pErrMsg))
         return false;
 
     pfGUIMultiLineEditCtrl *ctrl = (pfGUIMultiLineEditCtrl *)fControl;
     
-    if( fCompPB->GetInt( kRefXparentBgnd ) )
-        ctrl->SetFlag( pfGUIControlMod::kXparentBgnd );
+    if (fCompPB->GetInt(kRefXparentBgnd))
+        ctrl->SetFlag(pfGUIControlMod::kXparentBgnd);
 
-    if( fCompPB->GetInt( kRefScaleWithRes ) )
-        ctrl->SetFlag( pfGUIControlMod::kScaleTextWithResolution );
+    if (fCompPB->GetInt(kRefScaleWithRes))
+        ctrl->SetFlag(pfGUIControlMod::kScaleTextWithResolution);
 
-    if( fCompPB->GetInt( kRefUseScroll ) )
+    if (fCompPB->GetInt(kRefUseScroll))
     {
         // Get the scrolling control to use
-        pfGUIValueCtrl *scroll = pfGUIValueCtrl::ConvertNoRef( GrabControlMod( fCompPB->GetINode( kRefScrollCtrl ) ) );
-        if( scroll != nil )
+        pfGUIValueCtrl *scroll = pfGUIValueCtrl::ConvertNoRef(GrabControlMod(fCompPB->GetINode(kRefScrollCtrl)));
+        if (scroll != nil)
         {
-            hsgResMgr::ResMgr()->AddViaNotify( scroll->GetKey(), new plGenRefMsg( ctrl->GetKey(),
-                                        plRefMsg::kOnCreate, -1, pfGUIMultiLineEditCtrl::kRefScrollCtrl ), plRefFlags::kActiveRef );
+            hsgResMgr::ResMgr()->AddViaNotify(scroll->GetKey(), new plGenRefMsg(ctrl->GetKey(),
+                                        plRefMsg::kOnCreate, -1, pfGUIMultiLineEditCtrl::kRefScrollCtrl), plRefFlags::kActiveRef);
         }
     }
 
@@ -4243,12 +4243,12 @@ public:
 class plGUIProgressCtrlAccessor : public PBAccessor
 {
 public:
-    void Set( PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t )
+    void Set(PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t)
     {
-        if( id == plGUIProgressCtrlComponent::kRefAnimateSoundComp )
+        if (id == plGUIProgressCtrlComponent::kRefAnimateSoundComp)
         {
             plGUIProgressCtrlComponent *comp = (plGUIProgressCtrlComponent *)owner;
-            comp->NotifyDependents( FOREVER, PART_ALL, REFMSG_USER_COMP_REF_CHANGED );
+            comp->NotifyDependents(FOREVER, PART_ALL, REFMSG_USER_COMP_REF_CHANGED);
         }
     }
 };
@@ -4260,44 +4260,44 @@ class plGUISoundDlgProc : public ParamMap2UserDlgProc
 protected:
     ParamID         fSoundID;
     int             fSoundItem;
-    TCHAR           fTitle[ 128 ];
+    TCHAR           fTitle[128];
     
 public:
-    plGUISoundDlgProc( ParamID soundID, int soundItem, TCHAR *title )
+    plGUISoundDlgProc(ParamID soundID, int soundItem, TCHAR *title)
     {
         fSoundID = soundID;
         fSoundItem = soundItem;
-        strcpy( fTitle, title );
+        strcpy(fTitle, title);
     }
     
-    BOOL DlgProc( TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
+    BOOL DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
-        switch ( msg )
+        switch (msg)
         {
         case WM_INITDIALOG:
             {
                 IParamBlock2 *pb = map->GetParamBlock();
                 
-                INode *node = pb->GetINode( fSoundID );
-                TSTR newName( node ? node->GetName() : "Pick" );
-                ::SetWindowText( ::GetDlgItem( hWnd, fSoundItem ), newName );
+                INode *node = pb->GetINode(fSoundID);
+                TSTR newName(node ? node->GetName() : "Pick");
+                ::SetWindowText(::GetDlgItem(hWnd, fSoundItem), newName);
             }
             return true;
             
         case WM_COMMAND:
-            if( ( HIWORD( wParam ) == BN_CLICKED ) )
+            if ((HIWORD(wParam) == BN_CLICKED))
             {
-                if( LOWORD( wParam ) == fSoundItem )
+                if (LOWORD(wParam) == fSoundItem)
                 {
                     IParamBlock2 *pb = map->GetParamBlock();
-                    plGUICtrlHitCallback hitCB( (INode *)pb->GetOwner(), pb, fSoundID, fTitle, true, GUI_SOUND_COMPONENT_ID );
-                    GetCOREInterface()->DoHitByNameDialog( &hitCB );
+                    plGUICtrlHitCallback hitCB((INode *)pb->GetOwner(), pb, fSoundID, fTitle, true, GUI_SOUND_COMPONENT_ID);
+                    GetCOREInterface()->DoHitByNameDialog(&hitCB);
                     
-                    INode* node = pb->GetINode( fSoundID );
-                    TSTR newName( node ? node->GetName() : "Pick" );
-                    ::SetWindowText( ::GetDlgItem(hWnd, fSoundItem ), newName );
-                    map->Invalidate( fSoundID );
-                    ::InvalidateRect( hWnd, NULL, TRUE );
+                    INode* node = pb->GetINode(fSoundID);
+                    TSTR newName(node ? node->GetName() : "Pick");
+                    ::SetWindowText(::GetDlgItem(hWnd, fSoundItem), newName);
+                    map->Invalidate(fSoundID);
+                    ::InvalidateRect(hWnd, NULL, TRUE);
                     return true;
                 }
             }
@@ -4310,15 +4310,15 @@ public:
     void DeleteThis() {}
 };
 
-static plGUISoundDlgProc            sGUIProgressCtrlSndProc( plGUIProgressCtrlComponent::kRefAnimateSoundComp, IDC_GUI_ANIMSNDCOMP,
-                                            "Select the sound to play when this control animates" );
+static plGUISoundDlgProc            sGUIProgressCtrlSndProc(plGUIProgressCtrlComponent::kRefAnimateSoundComp, IDC_GUI_ANIMSNDCOMP,
+                                            "Select the sound to play when this control animates");
 
-static plPlasmaAnimSelectDlgProc    sGUIProgressCtrlProc( plGUIProgressCtrlComponent::kRefAnimation, IDC_GUI_COMPSELBTN,
+static plPlasmaAnimSelectDlgProc    sGUIProgressCtrlProc(plGUIProgressCtrlComponent::kRefAnimation, IDC_GUI_COMPSELBTN,
                                                     plGUIProgressCtrlComponent::kRefAnimationNode, plGUIProgressCtrlComponent::kRefAnimationNodeType, IDC_GUI_ANIMNODESEL,
-                                                    "Select the animation to use when displaying this knob control", &sGUIProgressCtrlSndProc );
+                                                    "Select the animation to use when displaying this knob control", &sGUIProgressCtrlSndProc);
 
 //Max desc stuff necessary below.
-CLASS_DESC(plGUIProgressCtrlComponent, gGUIProgressCtrlDesc, "GUI Progress Control",  "GUIProgressCtrl", COMP_TYPE_GUI, GUI_PROGRESS_CLASSID )
+CLASS_DESC(plGUIProgressCtrlComponent, gGUIProgressCtrlDesc, "GUI Progress Control",  "GUIProgressCtrl", COMP_TYPE_GUI, GUI_PROGRESS_CLASSID)
 
 ParamBlockDesc2 gGUIProgressCtrlBk
 (   // KLUDGE: not the defined block ID, but kept for backwards compat.
@@ -4362,7 +4362,7 @@ ParamBlockDesc2 gGUIProgressCtrlBk
         p_default, plAnimObjInterface::kUseOwnerNode,
         end,
 
-    plGUIProgressCtrlComponent::kRefAnimateSound,   _T( "animateSound" ), TYPE_BOOL, 0, 0,
+    plGUIProgressCtrlComponent::kRefAnimateSound,   _T("animateSound"), TYPE_BOOL, 0, 0,
         p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_ANIMSND,
         p_default, FALSE,
         p_enable_ctrls, 1, plGUIProgressCtrlComponent::kRefAnimateSoundComp,
@@ -4385,27 +4385,27 @@ plGUIProgressCtrlComponent::plGUIProgressCtrlComponent()
 // of properties on the MaxNode, as it's still indeterminant.
 bool plGUIProgressCtrlComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    node->SetForceLocal( true );
+    node->SetForceLocal(true);
 
-    plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( fCompPB->GetINode( kRefAnimation ) );
-    if( iface != nil && iface->MightRequireSeparateMaterial() )
+    plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface(fCompPB->GetINode(kRefAnimation));
+    if (iface != nil && iface->MightRequireSeparateMaterial())
     {
-        INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode )
-                                ? fCompPB->GetINode( kRefAnimationNode )
+        INode *restrict = (fCompPB->GetInt(kRefAnimationNodeType) == plAnimObjInterface::kUseParamBlockNode)
+                                ? fCompPB->GetINode(kRefAnimationNode)
                                 : (INode *)node;
 
-        if( restrict != nil )
+        if (restrict != nil)
         {
-            node->SetForceMaterialCopy( true );
+            node->SetForceMaterialCopy(true);
         }
     }
 
-    return plGUIControlBase::SetupProperties( node, pErrMsg );
+    return plGUIControlBase::SetupProperties(node, pErrMsg);
 }
 
 bool plGUIProgressCtrlComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    return plGUIControlBase::PreConvert( node, pErrMsg );
+    return plGUIControlBase::PreConvert(node, pErrMsg);
 }
 
 // For hackery below (see warning below)
@@ -4413,29 +4413,29 @@ bool plGUIProgressCtrlComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMs
 
 bool plGUIProgressCtrlComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
-    if( !plGUIControlBase::Convert( node, pErrMsg ) )
+    if (!plGUIControlBase::Convert(node, pErrMsg))
         return false;
 
     pfGUIProgressCtrl *ctrl = (pfGUIProgressCtrl *)fControl;
     
-    ctrl->SetRange( fCompPB->GetFloat( kRefMinValue ), fCompPB->GetFloat( kRefMaxValue ) );
-    ctrl->SetStep( fCompPB->GetFloat( kRefStep ) );
+    ctrl->SetRange(fCompPB->GetFloat(kRefMinValue), fCompPB->GetFloat(kRefMaxValue));
+    ctrl->SetStep(fCompPB->GetFloat(kRefStep));
 
-    if( fCompPB->GetInt( kReverseValues ) )
-        ctrl->SetFlag( pfGUIProgressCtrl::kReverseValues );
+    if (fCompPB->GetInt(kReverseValues))
+        ctrl->SetFlag(pfGUIProgressCtrl::kReverseValues);
 
     // Get the animation to use
-    plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( fCompPB->GetINode( kRefAnimation ) );
-    if( iface != nil )
+    plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface(fCompPB->GetINode(kRefAnimation));
+    if (iface != nil)
     {
-        INode *restrict = ( fCompPB->GetInt( kRefAnimationNodeType ) == plAnimObjInterface::kUseParamBlockNode )
-                                ? fCompPB->GetINode( kRefAnimationNode )
+        INode *restrict = (fCompPB->GetInt(kRefAnimationNodeType) == plAnimObjInterface::kUseParamBlockNode)
+                                ? fCompPB->GetINode(kRefAnimationNode)
                                 : (INode *)node;
 
 
         hsTArray<plKey> keys;
-        if( iface->GetKeyList( restrict, keys ) && keys.GetCount() > 0 )
-            ctrl->SetAnimationKeys( keys, iface->GetIfaceSegmentName( false ) );
+        if (iface->GetKeyList(restrict, keys) && keys.GetCount() > 0)
+            ctrl->SetAnimationKeys(keys, iface->GetIfaceSegmentName(false));
     }
     else
     {
@@ -4444,15 +4444,15 @@ bool plGUIProgressCtrlComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         // of the master mod of our node, like we would've before
         plAGMasterMod   *master = node->GetAGMasterMod();
         hsTArray<plKey> keys;
-        keys.Append( master->GetKey() );
-        ctrl->SetAnimationKeys( keys, ENTIRE_ANIMATION_NAME );
+        keys.Append(master->GetKey());
+        ctrl->SetAnimationKeys(keys, ENTIRE_ANIMATION_NAME);
     }
 
-    const char *errMsg = ISetSoundIndex( kRefAnimateSound, kRefAnimateSoundComp, pfGUIProgressCtrl::kAnimateSound, node );
-    if( errMsg != nil )
+    const char *errMsg = ISetSoundIndex(kRefAnimateSound, kRefAnimateSoundComp, pfGUIProgressCtrl::kAnimateSound, node);
+    if (errMsg != nil)
     {
-        pErrMsg->Set( true, "GUI Sound Event Error", errMsg, node->GetName() ).Show();
-        pErrMsg->Set( false );
+        pErrMsg->Set(true, "GUI Sound Event Error", errMsg, node->GetName()).Show();
+        pErrMsg->Set(false);
     }
 
     return true;
@@ -4492,7 +4492,7 @@ public:
 };
 
 //Max desc stuff necessary below.
-CLASS_DESC(plGUIClickMapComponent, gGUIClickMapDesc, "GUI Clickable Map",  "GUIClickMap", COMP_TYPE_GUI, GUI_CLICKMAP_CLASSID )
+CLASS_DESC(plGUIClickMapComponent, gGUIClickMapDesc, "GUI Clickable Map",  "GUIClickMap", COMP_TYPE_GUI, GUI_CLICKMAP_CLASSID)
 
 ParamBlockDesc2 gGUIClickMapBk
 (   // KLUDGE: not the defined block ID, but kept for backwards compat.
@@ -4522,24 +4522,24 @@ plGUIClickMapComponent::plGUIClickMapComponent()
 // of properties on the MaxNode, as it's still indeterminant.
 bool plGUIClickMapComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    node->SetForceLocal( true );
-    return plGUIControlBase::SetupProperties( node, pErrMsg );
+    node->SetForceLocal(true);
+    return plGUIControlBase::SetupProperties(node, pErrMsg);
 }
 
 bool plGUIClickMapComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-    return plGUIControlBase::PreConvert( node, pErrMsg );
+    return plGUIControlBase::PreConvert(node, pErrMsg);
 }
 
 bool plGUIClickMapComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
-    if( !plGUIControlBase::Convert( node, pErrMsg ) )
+    if (!plGUIControlBase::Convert(node, pErrMsg))
         return false;
 
     pfGUIClickMapCtrl *ctrl = (pfGUIClickMapCtrl *)fControl;
     
-    if( fCompPB->GetInt( kRefReportDragging ) )
-        ctrl->SetFlag( pfGUIClickMapCtrl::kReportDragging );
+    if (fCompPB->GetInt(kRefReportDragging))
+        ctrl->SetFlag(pfGUIClickMapCtrl::kReportDragging);
 
     return true;
 }
@@ -4561,28 +4561,28 @@ public:
 
     void DeleteThis() {}
 
-//  virtual void    Update( TimeValue t, Interval &valid, IParamMap2 *map );
+//  virtual void    Update(TimeValue t, Interval &valid, IParamMap2 *map);
 
-    BOOL DlgProc( TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
+    BOOL DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 };
 
 static pfGUISkinProc gGUISkinProc;
 
 // Component defined in pfGUISkinProc.h
 
-#define kDeclSkinRectValues( ref ) (plGUISkinComp::##ref + 0), _T("f##ref##.left"), TYPE_INT, 0, 0, p_default, 0, end, \
+#define kDeclSkinRectValues(ref) (plGUISkinComp::##ref + 0), _T("f##ref##.left"), TYPE_INT, 0, 0, p_default, 0, end, \
                                     (plGUISkinComp::##ref + 1), _T("f##ref##.top"), TYPE_INT, 0, 0, p_default, 0, end, \
                                     (plGUISkinComp::##ref + 2), _T("f##ref##.width"), TYPE_INT, 0, 0, p_default, 8, end, \
                                     (plGUISkinComp::##ref + 3), _T("f##ref##.height"), TYPE_INT, 0, 0, p_default, 8, end
 
-#define kSetSkinRectValues( pb, ref, l, t, w, h ) { pb->SetValue( ref + 0, 0, (int) l ); \
-                                                    pb->SetValue( ref + 1, 0, (int) t ); \
-                                                    pb->SetValue( ref + 2, 0, (int) r ); \
-                                                    pb->SetValue( ref + 3, 0, (int) b ); }
+#define kSetSkinRectValues(pb, ref, l, t, w, h) { pb->SetValue(ref + 0, 0, (int) l); \
+                                                  pb->SetValue(ref + 1, 0, (int) t); \
+                                                  pb->SetValue(ref + 2, 0, (int) r); \
+                                                  pb->SetValue(ref + 3, 0, (int) b); }
 
 
 //Max desc stuff necessary below.
-CLASS_DESC(plGUISkinComp, gGUISkinDesc, "GUI Skin",  "GUISkin", COMP_TYPE_GUI, GUI_SKIN_CLASSID )
+CLASS_DESC(plGUISkinComp, gGUISkinDesc, "GUI Skin",  "GUISkin", COMP_TYPE_GUI, GUI_SKIN_CLASSID)
 
 static ParamBlockDesc2  gGUISkinBk
 (
@@ -4594,20 +4594,20 @@ static ParamBlockDesc2  gGUISkinBk
     plGUISkinComp::kRefBitmap,  _T("bitmap"),       TYPE_TEXMAP,        0, 0,
         end,
 
-    kDeclSkinRectValues( kRefUpLeftCorner ),
-    kDeclSkinRectValues( kRefTopSpan ),
-    kDeclSkinRectValues( kRefUpRightCorner ),
-    kDeclSkinRectValues( kRefRightSpan ),
-    kDeclSkinRectValues( kRefLowerRightCorner ),
-    kDeclSkinRectValues( kRefBottomSpan ),
-    kDeclSkinRectValues( kRefLowerLeftCorner ),
-    kDeclSkinRectValues( kRefLeftSpan ),
-    kDeclSkinRectValues( kRefMiddleFill ),
-    kDeclSkinRectValues( kRefSelectedFill ),
-    kDeclSkinRectValues( kRefSubMenuArrow ),
-    kDeclSkinRectValues( kRefSelectedSubMenuArrow ),
-    kDeclSkinRectValues( kRefTreeButtonClosed ),
-    kDeclSkinRectValues( kRefTreeButtonOpen ),
+    kDeclSkinRectValues(kRefUpLeftCorner),
+    kDeclSkinRectValues(kRefTopSpan),
+    kDeclSkinRectValues(kRefUpRightCorner),
+    kDeclSkinRectValues(kRefRightSpan),
+    kDeclSkinRectValues(kRefLowerRightCorner),
+    kDeclSkinRectValues(kRefBottomSpan),
+    kDeclSkinRectValues(kRefLowerLeftCorner),
+    kDeclSkinRectValues(kRefLeftSpan),
+    kDeclSkinRectValues(kRefMiddleFill),
+    kDeclSkinRectValues(kRefSelectedFill),
+    kDeclSkinRectValues(kRefSubMenuArrow),
+    kDeclSkinRectValues(kRefSelectedSubMenuArrow),
+    kDeclSkinRectValues(kRefTreeButtonClosed),
+    kDeclSkinRectValues(kRefTreeButtonOpen),
 
     plGUISkinComp::kRefItemMargin,  _T("itemMargin"),       TYPE_INT,       0, 0,
         p_ui,   TYPE_SPINNER, EDITTYPE_POS_INT, IDC_GUI_IMARGIN, IDC_GUI_IMARGIN_SPIN, SPIN_AUTOSCALE,
@@ -4625,7 +4625,7 @@ static ParamBlockDesc2  gGUISkinBk
 // Editor proc
 extern HINSTANCE hInstance;
 
-BOOL pfGUISkinProc::DlgProc( TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
+BOOL pfGUISkinProc::DlgProc(TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     IParamBlock2        *pb = pmap->GetParamBlock();
     plGUISkinComp       *comp = (plGUISkinComp *)pb->GetOwner();
@@ -4633,19 +4633,19 @@ BOOL pfGUISkinProc::DlgProc( TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT msg,
     plLayerTex          *layer = comp->GetSkinBitmap();
     ICustButton         *bmSelectBtn;
 
-    switch( msg )
+    switch (msg)
     {
         case WM_INITDIALOG:
             // Set projection map bitmap name
-            bmSelectBtn = GetICustButton( GetDlgItem( hWnd, IDC_GUI_SKINBMAP ) );
-            if( bmSelectBtn != nil )
+            bmSelectBtn = GetICustButton(GetDlgItem(hWnd, IDC_GUI_SKINBMAP));
+            if (bmSelectBtn != nil)
             {
-                bitmap = ( layer == nil ) ? nil : layer->GetPBBitmap();
-                if( bitmap != nil )
-                    bmSelectBtn->SetText( (TCHAR *)bitmap->bi.Filename() );
+                bitmap = (layer == nil) ? nil : layer->GetPBBitmap();
+                if (bitmap != nil)
+                    bmSelectBtn->SetText((TCHAR *)bitmap->bi.Filename());
                 else
-                    bmSelectBtn->SetText( _T( "<none>" ) );
-                ReleaseICustButton( bmSelectBtn );
+                    bmSelectBtn->SetText(_T("<none>"));
+                ReleaseICustButton(bmSelectBtn);
             }
 
             return true;
@@ -4654,25 +4654,25 @@ BOOL pfGUISkinProc::DlgProc( TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT msg,
             break;
 
         case WM_COMMAND:
-            if( LOWORD( wParam ) == IDC_GUI_EDITELEM )
+            if (LOWORD(wParam) == IDC_GUI_EDITELEM)
             {
-                bitmap = ( layer == nil ) ? nil : layer->GetPBBitmap();
-                if( bitmap != nil )
+                bitmap = (layer == nil) ? nil : layer->GetPBBitmap();
+                if (bitmap != nil)
                 {
-                    pfGUISkinEditProc   proc( comp );
-                    DialogBox( hInstance, MAKEINTRESOURCE( IDD_COMP_SKINEDIT ), GetCOREInterface()->GetMAXHWnd(), proc.DlgProc );
+                    pfGUISkinEditProc   proc(comp);
+                    DialogBox(hInstance, MAKEINTRESOURCE(IDD_COMP_SKINEDIT), GetCOREInterface()->GetMAXHWnd(), proc.DlgProc);
                 }
             }
 
-            else if( LOWORD( wParam ) == IDC_GUI_SKINBMAP )
+            else if (LOWORD(wParam) == IDC_GUI_SKINBMAP)
             {
                 BOOL selectedNewBitmap = layer->HandleBitmapSelection();
-                if( selectedNewBitmap )
+                if (selectedNewBitmap)
                 {
-                    bmSelectBtn = GetICustButton( GetDlgItem( hWnd, IDC_GUI_SKINBMAP ) );
+                    bmSelectBtn = GetICustButton(GetDlgItem(hWnd, IDC_GUI_SKINBMAP));
                     bitmap = layer->GetPBBitmap();
-                    bmSelectBtn->SetText( bitmap != nil ? (TCHAR *)bitmap->bi.Filename() : "");
-                    ReleaseICustButton( bmSelectBtn );
+                    bmSelectBtn->SetText(bitmap != nil ? (TCHAR *)bitmap->bi.Filename() : "");
+                    ReleaseICustButton(bmSelectBtn);
                 }
                 return false;
             }
@@ -4684,7 +4684,7 @@ BOOL pfGUISkinProc::DlgProc( TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT msg,
 
 plKey   plGUISkinComp::GetConvertedSkinKey() const
 {
-    if( fConvertedSkin != nil )
+    if (fConvertedSkin != nil)
         return fConvertedSkin->GetKey();
 
     return nil;
@@ -4695,7 +4695,7 @@ uint32_t  plGUISkinComp::GetNumMtls() const
     return 1;
 }
 
-Texmap  *plGUISkinComp::GetMtl( uint32_t idx )
+Texmap  *plGUISkinComp::GetMtl(uint32_t idx)
 {
     return (Texmap *)GetSkinBitmap();
 }
@@ -4705,17 +4705,17 @@ Texmap  *plGUISkinComp::GetMtl( uint32_t idx )
 plLayerTex  *plGUISkinComp::GetSkinBitmap()
 {
     // If we don't have one, create one
-    plLayerTex  *layer = (plLayerTex *)fCompPB->GetTexmap( kRefBitmap, 0 );
-    if( layer == nil || layer->ClassID() != LAYER_TEX_CLASS_ID )
+    plLayerTex  *layer = (plLayerTex *)fCompPB->GetTexmap(kRefBitmap, 0);
+    if (layer == nil || layer->ClassID() != LAYER_TEX_CLASS_ID)
     {
         layer = new plLayerTex;
 
-        fCompPB->SetValue( kRefBitmap, 0, (Texmap *)layer );
+        fCompPB->SetValue(kRefBitmap, 0, (Texmap *)layer);
     }
-    if( layer )
+    if (layer)
     {
-        IParamBlock2* bitmapPB = layer->GetParamBlockByID( plLayerTex::kBlkBitmap );
-        if( bitmapPB->GetInt(kBmpScaling) != kScalingNone )
+        IParamBlock2* bitmapPB = layer->GetParamBlockByID(plLayerTex::kBlkBitmap);
+        if (bitmapPB->GetInt(kBmpScaling) != kScalingNone)
             bitmapPB->SetValue(kBmpScaling, TimeValue(0), kScalingNone);
     }
 
@@ -4740,21 +4740,21 @@ bool plGUISkinComp::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg)
 bool plGUISkinComp::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
     // Create and assign key here, so other components can grab the key later
-    if( fConvertedSkin != nil )
+    if (fConvertedSkin != nil)
         return true;        // Only convert once, since we don't care what node we're on
 
-    Texmap *texture = fCompPB->GetTexmap( kRefBitmap );
-    if( texture == nil || texture->ClassID() != LAYER_TEX_CLASS_ID || ( (plLayerTex *)texture )->GetPBBitmap() == nil )
+    Texmap *texture = fCompPB->GetTexmap(kRefBitmap);
+    if (texture == nil || texture->ClassID() != LAYER_TEX_CLASS_ID || ((plLayerTex *)texture)->GetPBBitmap() == nil)
     {
-        pErrMsg->Set( true, "GUI Skin Convert Error",
-                            "The GUI skin component %s doesn't have a mipmap associated with it. This skin will not "
-                            "be exported.", GetINode()->GetName() ).CheckAndAsk();
-        pErrMsg->Set( false );
+        pErrMsg->Set(true, "GUI Skin Convert Error",
+                           "The GUI skin component %s doesn't have a mipmap associated with it. This skin will not "
+                           "be exported.", GetINode()->GetName()).CheckAndAsk();
+        pErrMsg->Set(false);
         return true;
     }
 
     fConvertedSkin = new pfGUISkin();
-    hsgResMgr::ResMgr()->NewKey( IGetUniqueName(node), fConvertedSkin, node->GetLocation() );
+    hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), fConvertedSkin, node->GetLocation());
 
     return true;
 }
@@ -4762,32 +4762,32 @@ bool plGUISkinComp::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
 bool plGUISkinComp::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
     // Actually do the work of converting all the skin data
-    if( fConvertedSkin == nil )
+    if (fConvertedSkin == nil)
         return true;        // Eh?
 
 
-    fConvertedSkin->SetMargins( fCompPB->GetInt( kRefItemMargin ), fCompPB->GetInt( kRefBorderMargin ) );
+    fConvertedSkin->SetMargins(fCompPB->GetInt(kRefItemMargin), fCompPB->GetInt(kRefBorderMargin));
 
     uint32_t  i;
-    for( i = 0; i < pfGUISkin::kNumElements; i++ )
+    for (i = 0; i < pfGUISkin::kNumElements; i++)
     {
-        ParamID     id = ( i * 4 ) + kRefUpLeftCorner;
+        ParamID     id = (i * 4) + kRefUpLeftCorner;
 
-        fConvertedSkin->SetElement( i, fCompPB->GetInt( id + 0 ), fCompPB->GetInt( id + 1 ),
-                                    fCompPB->GetInt( id + 2 ), fCompPB->GetInt( id + 3 ) );
+        fConvertedSkin->SetElement(i, fCompPB->GetInt(id + 0), fCompPB->GetInt(id + 1),
+                                   fCompPB->GetInt(id + 2), fCompPB->GetInt(id + 3));
     }
 
-    plLayerTex *layer= (plLayerTex *)fCompPB->GetTexmap( kRefBitmap );
-    if( layer != nil )
+    plLayerTex *layer= (plLayerTex *)fCompPB->GetTexmap(kRefBitmap);
+    if (layer != nil)
     {
         PBBitmap *texture = layer->GetPBBitmap();
-        if( texture != nil )
+        if (texture != nil)
         {
-            plBitmap *bMap = plLayerConverter::Instance().CreateSimpleTexture( texture->bi.Name(), fConvertedSkin->GetKey()->GetUoid().GetLocation(), 0, plMipmap::kForceNonCompressed | plMipmap::kAlphaChannelFlag | plMipmap::kNoMaxSize );
-            if( bMap != nil && plMipmap::ConvertNoRef( bMap ) != nil )
+            plBitmap *bMap = plLayerConverter::Instance().CreateSimpleTexture(texture->bi.Name(), fConvertedSkin->GetKey()->GetUoid().GetLocation(), 0, plMipmap::kForceNonCompressed | plMipmap::kAlphaChannelFlag | plMipmap::kNoMaxSize);
+            if (bMap != nil && plMipmap::ConvertNoRef(bMap) != nil)
             {
-                hsgResMgr::ResMgr()->AddViaNotify( bMap->GetKey(), new plGenRefMsg( fConvertedSkin->GetKey(),
-                                        plRefMsg::kOnCreate, -1, pfGUISkin::kRefMipmap ), plRefFlags::kActiveRef );
+                hsgResMgr::ResMgr()->AddViaNotify(bMap->GetKey(), new plGenRefMsg(fConvertedSkin->GetKey(),
+                                        plRefMsg::kOnCreate, -1, pfGUISkin::kRefMipmap), plRefFlags::kActiveRef);
             }
         }
     }
@@ -4814,23 +4814,23 @@ bool plGUISkinComp::DeInit(plMaxNode *node, plErrorMsg *pErrMsg)
 {
 protected:
 
-    void    ILoadPages( HWND hWnd, IParamBlock2 *pb );
+    void    ILoadPages(HWND hWnd, IParamBlock2 *pb);
 
 public:
 
     void DeleteThis() {}
 
-    BOOL DlgProc( TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
+    BOOL DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 };
 static plGUIMenuProc gGUIMenuProc;
 */
 
-static plGUISingleCtrlDlgProc sGUISkinSelectProc( plGUIMenuComponent::kRefSkin, IDC_GUI_SKIN,
+static plGUISingleCtrlDlgProc sGUISkinSelectProc(plGUIMenuComponent::kRefSkin, IDC_GUI_SKIN,
                                             "Select the skin to use for this pop-up menu", sSkinClassesToSelect,
-                                            &gGUIDialogProc );
+                                            &gGUIDialogProc);
 
 //Max desc stuff necessary below.
-CLASS_DESC(plGUIMenuComponent, gGUIMenuDesc, "GUI Menu",  "GUIMenu", COMP_TYPE_GUI, GUI_MENUANCHOR_CLASSID )
+CLASS_DESC(plGUIMenuComponent, gGUIMenuDesc, "GUI Menu",  "GUIMenu", COMP_TYPE_GUI, GUI_MENUANCHOR_CLASSID)
 
 ParamBlockDesc2 gGUIMenuBk
 (   // KLUDGE: not the defined block ID, but kept for backwards compat.
@@ -4848,7 +4848,7 @@ ParamBlockDesc2 gGUIMenuBk
             end,
 
         plGUIMenuComponent::kRefAgeName,    _T("ageName"),      TYPE_STRING,        0, 0,
-            p_default, _T( "GUI" ),
+            p_default, _T("GUI"),
             end,
             
         plGUIMenuComponent::kRefVersion,    _T("version"),      TYPE_INT,       0, 0,
@@ -4890,7 +4890,7 @@ ParamBlockDesc2 gGUIMenuBk
     end
 );
 
-plGUIMenuComponent::plGUIMenuComponent() : plGUIDialogComponent( true )
+plGUIMenuComponent::plGUIMenuComponent() : plGUIDialogComponent(true)
 {
     fClassDesc = &gGUIMenuDesc;
     fClassDesc->MakeAutoParamBlocks(this);
@@ -4903,7 +4903,7 @@ pfGUIDialogMod  *plGUIMenuComponent::IMakeDialog()
 
 plKey   plGUIMenuComponent::GetConvertedMenuKey() const
 {
-    if( fConvertedMenu == nil )
+    if (fConvertedMenu == nil)
         return nil;
 
     return fConvertedMenu->GetKey();
@@ -4913,7 +4913,7 @@ plKey   plGUIMenuComponent::GetConvertedMenuKey() const
 // of properties on the MaxNode, as it's still indeterminant.
 bool plGUIMenuComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
-//  return plGUIDialogComponent::SetupProperties( node, pErrMsg );
+//  return plGUIDialogComponent::SetupProperties(node, pErrMsg);
     fConvertedMenu = nil;
     return true;
 }
@@ -4922,99 +4922,99 @@ bool plGUIMenuComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
     pfGUIPopUpMenu *menu = fConvertedMenu;
 
-//  bool    b = plGUIDialogComponent::Convert( node, pErrMsg );
-//  if( b )
+//  bool    b = plGUIDialogComponent::Convert(node, pErrMsg);
+//  if (b)
     {
-//      pfGUIPopUpMenu *menu = pfGUIPopUpMenu::ConvertNoRef( fDialogMod );
-//      hsAssert( menu != nil, "Somehow got a bad poitner in GUIMenu::Convert()" );
+//      pfGUIPopUpMenu *menu = pfGUIPopUpMenu::ConvertNoRef(fDialogMod);
+//      hsAssert(menu != nil, "Somehow got a bad poitner in GUIMenu::Convert()");
 
-        INode *sNode = fCompPB->GetINode( kRefSkin );
-        if( sNode != nil )
+        INode *sNode = fCompPB->GetINode(kRefSkin);
+        if (sNode != nil)
         {
-            plComponentBase *comp = ( (plMaxNode *)sNode )->ConvertToComponent();
-            if( comp != nil )
+            plComponentBase *comp = ((plMaxNode *)sNode)->ConvertToComponent();
+            if (comp != nil)
             {
                 Class_ID nodeID = comp->ClassID();
-                hsAssert( nodeID == GUI_SKIN_CLASSID, "Bad node param in GUIMenu::Convert()" );
+                hsAssert(nodeID == GUI_SKIN_CLASSID, "Bad node param in GUIMenu::Convert()");
 
                 plGUISkinComp *skin = (plGUISkinComp *)comp;
-                menu->SetSkin( skin->GetConvertedSkin() );
+                menu->SetSkin(skin->GetConvertedSkin());
             }
         }
 
-        if( fCompPB->GetInt( kRefNeverClose ) )
-            menu->SetFlag( pfGUIPopUpMenu::kStayOpenAfterClick );
+        if (fCompPB->GetInt(kRefNeverClose))
+            menu->SetFlag(pfGUIPopUpMenu::kStayOpenAfterClick);
 
-        if( fCompPB->GetInt( kRefModalOutside ) )
-            menu->SetFlag( pfGUIPopUpMenu::kModalOutsideMenus );
+        if (fCompPB->GetInt(kRefModalOutside))
+            menu->SetFlag(pfGUIPopUpMenu::kModalOutsideMenus);
 
-        if( fCompPB->GetInt( kRefOpenOnHover ) )
-            menu->SetFlag( pfGUIPopUpMenu::kOpenSubMenusOnHover );
+        if (fCompPB->GetInt(kRefOpenOnHover))
+            menu->SetFlag(pfGUIPopUpMenu::kOpenSubMenusOnHover);
 
-        if( fCompPB->GetInt( kRefScaleWithScreenRes ) )
-            menu->SetFlag( pfGUIPopUpMenu::kScaleWithResolution );
+        if (fCompPB->GetInt(kRefScaleWithScreenRes))
+            menu->SetFlag(pfGUIPopUpMenu::kScaleWithResolution);
 
-        switch( fCompPB->GetInt( kRefAlignment ) )
+        switch (fCompPB->GetInt(kRefAlignment))
         {
-            case 0: menu->SetAlignment( pfGUIPopUpMenu::kAlignUpLeft ); break;
-            case 1: menu->SetAlignment( pfGUIPopUpMenu::kAlignUpRight ); break;
-            case 2: menu->SetAlignment( pfGUIPopUpMenu::kAlignDownLeft ); break;
-            case 3: menu->SetAlignment( pfGUIPopUpMenu::kAlignDownRight ); break;
+            case 0: menu->SetAlignment(pfGUIPopUpMenu::kAlignUpLeft); break;
+            case 1: menu->SetAlignment(pfGUIPopUpMenu::kAlignUpRight); break;
+            case 2: menu->SetAlignment(pfGUIPopUpMenu::kAlignDownLeft); break;
+            case 3: menu->SetAlignment(pfGUIPopUpMenu::kAlignDownRight); break;
         }
     }
 
     // Note: we use the owning dialog of our anchor object as the context, i.e. who translates
     // our point at runtime into screen coordinates
-    menu->SetOriginAnchor( node->GetSceneObject(), plGUIDialogComponent::GetNodeDialog( node ) );
+    menu->SetOriginAnchor(node->GetSceneObject(), plGUIDialogComponent::GetNodeDialog(node));
 
     const plLocation &loc = menu->GetKey()->GetUoid().GetLocation();
 
     // Create the rendermod
     plPostEffectMod *renderMod = new plPostEffectMod;
-    hsgResMgr::ResMgr()->NewKey( IGetUniqueName(node), renderMod, loc );
+    hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), renderMod, loc);
 
-    renderMod->SetHither( 0.5f );
-    renderMod->SetYon( 200.f );
-    renderMod->SetNodeKey( fConvertedNode );
+    renderMod->SetHither(0.5f);
+    renderMod->SetYon(200.f);
+    renderMod->SetNodeKey(fConvertedNode);
 
     float scrnWidth = 20.f;
 
     // fovX should be such that scrnWidth is the projected width at z=100
-    float fovX = atan( scrnWidth / ( 2.f * 100.f ) ) * 2.f;
+    float fovX = atan(scrnWidth / (2.f * 100.f)) * 2.f;
     float fovY = fovX;// * 3.f / 4.f;
 
-    renderMod->SetFovX( fovX * 180.f / M_PI );
-    renderMod->SetFovY( fovY * 180.f / M_PI );
+    renderMod->SetFovX(fovX * 180.f / M_PI);
+    renderMod->SetFovY(fovY * 180.f / M_PI);
 
 
-    hsgResMgr::ResMgr()->AddViaNotify( renderMod->GetKey(), new plNodeRefMsg( fConvertedNode, plRefMsg::kOnCreate, -1, plNodeRefMsg::kGeneric ), plRefFlags::kActiveRef );
-    hsgResMgr::ResMgr()->AddViaNotify( fConvertedNode, new plGenRefMsg( renderMod->GetKey(), plRefMsg::kOnCreate, 0, plPostEffectMod::kNodeRef ), plRefFlags::kPassiveRef );
+    hsgResMgr::ResMgr()->AddViaNotify(renderMod->GetKey(), new plNodeRefMsg(fConvertedNode, plRefMsg::kOnCreate, -1, plNodeRefMsg::kGeneric), plRefFlags::kActiveRef);
+    hsgResMgr::ResMgr()->AddViaNotify(fConvertedNode, new plGenRefMsg(renderMod->GetKey(), plRefMsg::kOnCreate, 0, plPostEffectMod::kNodeRef), plRefFlags::kPassiveRef);
 
-    menu->SetRenderMod( renderMod );
-    menu->SetName( fCompPB->GetStr( kRefDialogName ) );
+    menu->SetRenderMod(renderMod);
+    menu->SetName(fCompPB->GetStr(kRefDialogName));
 
     // Create the dummy scene object to hold the menu
     plSceneObject   *newObj = new plSceneObject;
-    hsgResMgr::ResMgr()->NewKey( IGetUniqueName(node), newObj, loc );
+    hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), newObj, loc);
 
     // *#&$(*@&#$ need a coordIface...
     plCoordinateInterface *newCI = new plCoordinateInterface;
-    hsgResMgr::ResMgr()->NewKey( IGetUniqueName(node), newCI, loc );
+    hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), newCI, loc);
 
 
-    hsgResMgr::ResMgr()->AddViaNotify( menu->GetKey(), new plObjRefMsg( newObj->GetKey(), plRefMsg::kOnCreate, -1, plObjRefMsg::kModifier ), plRefFlags::kActiveRef );
+    hsgResMgr::ResMgr()->AddViaNotify(menu->GetKey(), new plObjRefMsg(newObj->GetKey(), plRefMsg::kOnCreate, -1, plObjRefMsg::kModifier), plRefFlags::kActiveRef);
 
-    hsgResMgr::ResMgr()->AddViaNotify( newCI->GetKey(), new plObjRefMsg( newObj->GetKey(), plRefMsg::kOnCreate, -1, plObjRefMsg::kInterface ), plRefFlags::kActiveRef );
-    hsgResMgr::ResMgr()->AddViaNotify( renderMod->GetKey(), new plObjRefMsg( newObj->GetKey(), plRefMsg::kOnCreate, -1, plObjRefMsg::kModifier ), plRefFlags::kActiveRef );
+    hsgResMgr::ResMgr()->AddViaNotify(newCI->GetKey(), new plObjRefMsg(newObj->GetKey(), plRefMsg::kOnCreate, -1, plObjRefMsg::kInterface), plRefFlags::kActiveRef);
+    hsgResMgr::ResMgr()->AddViaNotify(renderMod->GetKey(), new plObjRefMsg(newObj->GetKey(), plRefMsg::kOnCreate, -1, plObjRefMsg::kModifier), plRefFlags::kActiveRef);
 
-    newObj->SetSceneNode( fConvertedNode );
-    menu->SetSceneNodeKey( fConvertedNode );
+    newObj->SetSceneNode(fConvertedNode);
+    menu->SetSceneNodeKey(fConvertedNode);
 
     {
         hsMatrix44 l2w, w2l;
         l2w.Reset();
-        l2w.GetInverse( &w2l );
-        newObj->SetTransform( l2w, w2l );
+        l2w.GetInverse(&w2l);
+        newObj->SetTransform(l2w, w2l);
     }
 
     // Should be done now...
@@ -5024,39 +5024,39 @@ bool plGUIMenuComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 bool plGUIMenuComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
 {
     // Create and assign key here, so other components can grab the key later
-    if( fConvertedMenu != nil )
+    if (fConvertedMenu != nil)
         return true;        // Only convert once, since we don't care what node we're on
 
     /// Create an entirely new sceneNode for us
-    int32_t seqNum = plPageInfoUtils::GetSeqNumFromAgeDesc( fCompPB->GetStr( kRefAgeName ), fCompPB->GetStr( kRefDialogName ) );
-    int32_t newNum = plPluginResManager::ResMgr()->VerifySeqNumber( seqNum, fCompPB->GetStr( kRefAgeName ), fCompPB->GetStr( kRefDialogName ) );
-    if( newNum != seqNum )
+    int32_t seqNum = plPageInfoUtils::GetSeqNumFromAgeDesc(fCompPB->GetStr(kRefAgeName), fCompPB->GetStr(kRefDialogName));
+    int32_t newNum = plPluginResManager::ResMgr()->VerifySeqNumber(seqNum, fCompPB->GetStr(kRefAgeName), fCompPB->GetStr(kRefDialogName));
+    if (newNum != seqNum)
     {
-        if( !fSeqNumValidated )
+        if (!fSeqNumValidated)
         {
-            char errMsg[ 512 ];
-            sprintf( errMsg, "GUI Menu Component %s has an invalid location sequence number (0x%X). Temporarily using a valid one (0x%X).",
-                                node->GetName(), seqNum, newNum );
-            pErrMsg->Set( true, "PageInfo Convert Error", errMsg ).Show();
-            pErrMsg->Set( false );
+            char errMsg[512];
+            sprintf(errMsg, "GUI Menu Component %s has an invalid location sequence number (0x%X). Temporarily using a valid one (0x%X).",
+                                node->GetName(), seqNum, newNum);
+            pErrMsg->Set(true, "PageInfo Convert Error", errMsg).Show();
+            pErrMsg->Set(false);
             fSeqNumValidated = true;
         }
         seqNum = newNum;
     }
 
-    fConvertedNode = plPluginResManager::ResMgr()->NameToLoc( fCompPB->GetStr( kRefAgeName ), fCompPB->GetStr( kRefDialogName ), seqNum );
-    if( !fConvertedNode )
+    fConvertedNode = plPluginResManager::ResMgr()->NameToLoc(fCompPB->GetStr(kRefAgeName), fCompPB->GetStr(kRefDialogName), seqNum);
+    if (!fConvertedNode)
     {
-        pErrMsg->Set( true, "GUI Menu Component Error", "GUI MenuComponent %s has a Missing Location.  Nuke the files in the dat directory and re-export.",((INode*)node)->GetName()).Show();
+        pErrMsg->Set(true, "GUI Menu Component Error", "GUI MenuComponent %s has a Missing Location.  Nuke the files in the dat directory and re-export.",((INode*)node)->GetName()).Show();
         return false;
     }
 
     fConvertedMenu = new pfGUIPopUpMenu();
-    hsgResMgr::ResMgr()->NewKey( IGetUniqueName(node), fConvertedMenu, fConvertedNode->GetUoid().GetLocation() );
+    hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), fConvertedMenu, fConvertedNode->GetUoid().GetLocation());
 
     return true;
 
-//  return plGUIDialogComponent::PreConvert( node, pErrMsg );
+//  return plGUIDialogComponent::PreConvert(node, pErrMsg);
 }
 
 bool plGUIMenuComponent::DeInit(plMaxNode *node, plErrorMsg *pErrMsg)

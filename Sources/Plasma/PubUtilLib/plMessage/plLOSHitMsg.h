@@ -66,8 +66,8 @@ public:
         SetBCastFlag(plMessage::kPropagateToModifiers);
     }
 
-    CLASSNAME_REGISTER( plLOSHitMsg );
-    GETINTERFACE_ANY( plLOSHitMsg, plMessage );
+    CLASSNAME_REGISTER(plLOSHitMsg);
+    GETINTERFACE_ANY(plLOSHitMsg, plMessage);
 
     // IO
     void Read(hsStream* stream, hsResMgr* mgr);

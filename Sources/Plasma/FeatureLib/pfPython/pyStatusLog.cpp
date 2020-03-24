@@ -50,9 +50,9 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "pyStatusLog.h"
 #include "plStatusLog/plStatusLog.h"
 
-pyStatusLog::pyStatusLog( plStatusLog* log/*=nil */)
-: fLog( log )
-, fICreatedLog( false )
+pyStatusLog::pyStatusLog(plStatusLog* log/*=nil */)
+: fLog(log)
+, fICreatedLog(false)
 {
 }
 
@@ -69,7 +69,7 @@ bool pyStatusLog::Open(const ST::string &logName, uint32_t numLines, uint32_t fl
 
     // create a status log guy for this
     fICreatedLog = true;
-    fLog = plStatusLogMgr::GetInstance().CreateStatusLog( (uint8_t)numLines, logName, flags );
+    fLog = plStatusLogMgr::GetInstance().CreateStatusLog((uint8_t)numLines, logName, flags);
     if (fLog)
     {
         fLog->SetForceLog(true);

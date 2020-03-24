@@ -81,15 +81,15 @@ bool plVisLOSMgr::ICheckSpaceTreeRecur(plSpaceTree* space, int which, hsTArray<p
 {
     const plSpaceTreeNode& node = space->GetNode(which);
 
-    if( node.fFlags & plSpaceTreeNode::kDisabled )
+    if (node.fFlags & plSpaceTreeNode::kDisabled)
         return false;
 
     float closest;
     // If it's a hit
-    if( ICheckBound(node.fWorldBounds, closest) )
+    if (ICheckBound(node.fWorldBounds, closest))
     {
         // If it's a leaf,
-        if( node.IsLeaf() )
+        if (node.IsLeaf())
         {
             // add it to the list with the closest intersection point,
             plSpaceHit* hit = hits.Push();
@@ -102,10 +102,10 @@ bool plVisLOSMgr::ICheckSpaceTreeRecur(plSpaceTree* space, int which, hsTArray<p
         else
         {
             bool retVal = false;
-            if( ICheckSpaceTreeRecur(space, node.GetChild(0), hits) )
+            if (ICheckSpaceTreeRecur(space, node.GetChild(0), hits))
                 retVal = true;
 
-            if( ICheckSpaceTreeRecur(space, node.GetChild(1), hits) )
+            if (ICheckSpaceTreeRecur(space, node.GetChild(1), hits))
                 retVal = true;
 
             return retVal;
@@ -116,7 +116,7 @@ bool plVisLOSMgr::ICheckSpaceTreeRecur(plSpaceTree* space, int which, hsTArray<p
 
 struct plCompSpaceHit : public std::binary_function<plSpaceHit, plSpaceHit, bool>
 {
-    bool operator()( const plSpaceHit& lhs, const plSpaceHit& rhs) const
+    bool operator()(const plSpaceHit& lhs, const plSpaceHit& rhs) const
     {
         return lhs.fClosest < rhs.fClosest;
     }
@@ -127,7 +127,7 @@ bool plVisLOSMgr::ICheckSpaceTree(plSpaceTree* space, hsTArray<plSpaceHit>& hits
 {
     hits.SetCount(0);
 
-    if( space->IsEmpty() )
+    if (space->IsEmpty())
         return false;
 
     // Hierarchical search down the tree for bounds intersecting the current ray.
@@ -155,11 +155,11 @@ bool plVisLOSMgr::ISetup(const hsPoint3& pStart, const hsPoint3& pEnd)
 
 bool plVisLOSMgr::Check(const hsPoint3& pStart, const hsPoint3& pEnd, plVisHit& hit)
 {
-    if( !fPageMgr )
+    if (!fPageMgr)
         return false;
 
     // Setup any internals, like fMaxDist
-    if( !ISetup(pStart, pEnd) )
+    if (!ISetup(pStart, pEnd))
         return false;
 
     // Go through the nodes in the PageMgr and find the closest
@@ -167,7 +167,7 @@ bool plVisLOSMgr::Check(const hsPoint3& pStart, const hsPoint3& pEnd, plVisHit& 
     // pEnd, return false.
     // Node come out sorted by closest point, front to back
     static hsTArray<plSpaceHit> hits;
-    if( !ICheckSpaceTree(fPageMgr->GetSpaceTree(), hits) )
+    if (!ICheckSpaceTree(fPageMgr->GetSpaceTree(), hits))
         return false;
 
     // In front to back order, check inside each node.
@@ -177,12 +177,12 @@ bool plVisLOSMgr::Check(const hsPoint3& pStart, const hsPoint3& pEnd, plVisHit& 
     bool retVal = false;
 
     int i;
-    for( i = 0; i < hits.GetCount(); i++ )
+    for (i = 0; i < hits.GetCount(); i++)
     {
-        if( hits[i].fClosest > fMaxDist )
+        if (hits[i].fClosest > fMaxDist)
             break;
 
-        if( ICheckSceneNode(fPageMgr->GetNodes()[hits[i].fIdx], hit)  )
+        if (ICheckSceneNode(fPageMgr->GetNodes()[hits[i].fIdx], hit))
             retVal = true;
     }
 
@@ -192,21 +192,21 @@ bool plVisLOSMgr::Check(const hsPoint3& pStart, const hsPoint3& pEnd, plVisHit& 
 bool plVisLOSMgr::ICheckSceneNode(plSceneNode* node, plVisHit& hit)
 {
     static hsTArray<plSpaceHit> hits;
-    if( !ICheckSpaceTree(node->GetSpaceTree(), hits) )
+    if (!ICheckSpaceTree(node->GetSpaceTree(), hits))
         return false;
 
     bool retVal = false;
     int i;
-    for( i = 0; i < hits.GetCount(); i++ )
+    for (i = 0; i < hits.GetCount(); i++)
     {
-        if( hits[i].fClosest > fMaxDist )
+        if (hits[i].fClosest > fMaxDist)
             break;
 
-        if( (node->GetDrawPool()[hits[i].fIdx]->GetRenderLevel().Level() > 0)
-            && !node->GetDrawPool()[hits[i].fIdx]->GetNativeProperty(plDrawable::kPropHasVisLOS) )
+        if ((node->GetDrawPool()[hits[i].fIdx]->GetRenderLevel().Level() > 0)
+            && !node->GetDrawPool()[hits[i].fIdx]->GetNativeProperty(plDrawable::kPropHasVisLOS))
             continue;
 
-        if( ICheckDrawable(node->GetDrawPool()[hits[i].fIdx], hit) )
+        if (ICheckDrawable(node->GetDrawPool()[hits[i].fIdx], hit))
             retVal = true;
     }
 
@@ -217,11 +217,11 @@ bool plVisLOSMgr::ICheckSceneNode(plSceneNode* node, plVisHit& hit)
 bool plVisLOSMgr::ICheckDrawable(plDrawable* d, plVisHit& hit)
 {
     plDrawableSpans* ds = plDrawableSpans::ConvertNoRef(d);
-    if( !ds )
+    if (!ds)
         return false;
 
     static hsTArray<plSpaceHit> hits;
-    if( !ICheckSpaceTree(ds->GetSpaceTree(), hits) )
+    if (!ICheckSpaceTree(ds->GetSpaceTree(), hits))
         return false;
 
     const bool isOpaque = !ds->GetRenderLevel().Level();
@@ -230,14 +230,14 @@ bool plVisLOSMgr::ICheckDrawable(plDrawable* d, plVisHit& hit)
 
     bool retVal = false;
     int i;
-    for( i = 0; i < hits.GetCount(); i++ )
+    for (i = 0; i < hits.GetCount(); i++)
     {
-        if( hits[i].fClosest > fMaxDist )
+        if (hits[i].fClosest > fMaxDist)
             break;
 
-        if( isOpaque || (spans[hits[i].fIdx]->fProps & plSpan::kVisLOS) )
+        if (isOpaque || (spans[hits[i].fIdx]->fProps & plSpan::kVisLOS))
         {
-            if( ICheckSpan(ds, hits[i].fIdx, hit) )
+            if (ICheckSpan(ds, hits[i].fIdx, hit))
                 retVal = true;
         }
     }
@@ -247,7 +247,7 @@ bool plVisLOSMgr::ICheckDrawable(plDrawable* d, plVisHit& hit)
 
 bool plVisLOSMgr::ICheckSpan(plDrawableSpans* dr, uint32_t spanIdx, plVisHit& hit)
 {
-    if( !(dr->GetSpan(spanIdx)->fTypeMask & plSpan::kIcicleSpan) )
+    if (!(dr->GetSpan(spanIdx)->fTypeMask & plSpan::kIcicleSpan))
         return false;
 
     plAccessSpan src;
@@ -268,29 +268,29 @@ bool plVisLOSMgr::ICheckSpan(plDrawableSpans* dr, uint32_t spanIdx, plVisHit& hi
     currDir /= maxDist;
 
     plAccTriIterator tri(&src.AccessTri());
-    for( tri.Begin(); tri.More(); tri.Advance() )
+    for (tri.Begin(); tri.More(); tri.Advance())
     {
         // Project the current ray onto the tri plane
         hsVector3 norm = hsVector3(&tri.Position(1), &tri.Position(0)) % hsVector3(&tri.Position(2), &tri.Position(0));
         float dotNorm = norm.InnerProduct(currDir);
 
         const float kMinDotNorm = 1.e-3f;
-        if( dotNorm >= -kMinDotNorm )
+        if (dotNorm >= -kMinDotNorm)
         {
-            if( !twoSided )
+            if (!twoSided)
                 continue;
-            if( dotNorm <= kMinDotNorm )
+            if (dotNorm <= kMinDotNorm)
                 continue;
         }
         float dist = hsVector3(&tri.Position(0), &currFrom).InnerProduct(norm);
-        if( dist > 0 )
+        if (dist > 0)
             continue;
         dist /= dotNorm;
         hsPoint3 projPt = currFrom;
         projPt += currDir * dist;
 
         // If the distance from source point to projected point is too long, skip
-        if( dist > maxDist )
+        if (dist > maxDist)
             continue;
 
         // Find the 3 cross products (v[i+1]-v[i]) X (proj - v[i]) dotted with current ray
@@ -307,10 +307,10 @@ bool plVisLOSMgr::ICheckSpan(plDrawableSpans* dr, uint32_t spanIdx, plVisHit& hi
         // If all 3 are positive and we're two sided, projPt is a hit
         // We've already checked for back facing (when we checked for edge on in projection),
         // so we'll accept either case here.
-        if( ((dot0 <= 0) && (dot1 <= 0) && (dot2 <= 0))
-            ||((dot0 >= 0) && (dot1 >= 0) && (dot2 >= 0)) )
+        if (((dot0 <= 0) && (dot1 <= 0) && (dot2 <= 0))
+            ||((dot0 >= 0) && (dot1 >= 0) && (dot2 >= 0)))
         {
-            if( dist < maxDist )
+            if (dist < maxDist)
             {
                 maxDist = dist;
                 hit.fPos = projPt;
@@ -320,7 +320,7 @@ bool plVisLOSMgr::ICheckSpan(plDrawableSpans* dr, uint32_t spanIdx, plVisHit& hi
     }
     plAccessGeometry::Instance()->Close(src);
 
-    if( retVal )
+    if (retVal)
     {
         hit.fPos = src.GetLocalToWorld() * hit.fPos;
         fCurrTarg = hit.fPos;
@@ -332,10 +332,10 @@ bool plVisLOSMgr::ICheckSpan(plDrawableSpans* dr, uint32_t spanIdx, plVisHit& hi
 
 bool plVisLOSMgr::ICheckBound(const hsBounds3Ext& bnd, float& closest)
 {
-    if( bnd.GetType() != kBoundsNormal )
+    if (bnd.GetType() != kBoundsNormal)
         return false;
 
-    if( bnd.IsInside(&fCurrFrom) || bnd.IsInside(&fCurrTarg) )
+    if (bnd.IsInside(&fCurrFrom) || bnd.IsInside(&fCurrTarg))
     {
         closest = 0;
         return true;
@@ -365,7 +365,7 @@ bool plVisLOSMgr::ICheckBound(const hsBounds3Ext& bnd, float& closest)
     currDir *= hsFastMath::InvSqrt(maxDistSq);
 
     int i;
-    for( i = 0; i < 6; i++ )
+    for (i = 0; i < 6; i++)
     {
         const hsPoint3& p0 = corn[face[i][0]];
         const hsPoint3& p1 = corn[face[i][1]];
@@ -377,17 +377,17 @@ bool plVisLOSMgr::ICheckBound(const hsBounds3Ext& bnd, float& closest)
         float dotNorm = norm.InnerProduct(currDir);
 
         const float kMinDotNorm = 1.e-3f;
-        if( dotNorm >= -kMinDotNorm )
+        if (dotNorm >= -kMinDotNorm)
         {
             continue;
         }
         float dist = hsVector3(&p0, &currFrom).InnerProduct(norm);
-        if( dist >= 0 )
+        if (dist >= 0)
             continue;
         dist /= dotNorm;
 
         // If the distance from source point to projected point is too long, skip
-        if( dist > fMaxDist )
+        if (dist > fMaxDist)
             continue;
 
         hsPoint3 projPt = currFrom;
@@ -407,7 +407,7 @@ bool plVisLOSMgr::ICheckBound(const hsBounds3Ext& bnd, float& closest)
         float dot3 = cross3.InnerProduct(currDir);
 
         // If all 4 are negative, projPt is a hit
-        if( (dot0 <= 0) && (dot1 <= 0) && (dot2 <= 0) && (dot3 <= 0) )
+        if ((dot0 <= 0) && (dot1 <= 0) && (dot2 <= 0) && (dot3 <= 0))
         {
             closest = dist;
             return true;
@@ -443,13 +443,13 @@ void VisLOSHackBegin(plPipeline* p, plSceneObject* m)
 
 void VisLOSHackPulse()
 {
-    if( !fPipe )
+    if (!fPipe)
         return;
 
     plVisHit hit;
-    if( plVisLOSMgr::Instance()->CursorCheck(hit) )
+    if (plVisLOSMgr::Instance()->CursorCheck(hit))
     {
-        if( marker )
+        if (marker)
         {
             hsMatrix44 l2w = marker->GetLocalToWorld();
             l2w.fMap[0][3] = hit.fPos.fX;

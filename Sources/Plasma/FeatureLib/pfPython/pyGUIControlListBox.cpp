@@ -76,9 +76,9 @@ class pfColorListElement : public pfGUIListText
             kSelectUseGUIColor,
         };
 
-        pfColorListElement( const char *string1, hsColorRGBA color1, const char *string2, hsColorRGBA color2, uint32_t inheritalpha, int32_t fontsize=-1 )
+        pfColorListElement(const char *string1, hsColorRGBA color1, const char *string2, hsColorRGBA color2, uint32_t inheritalpha, int32_t fontsize=-1)
         {
-            if ( string1 )
+            if (string1)
             {
                 fString1 = hsStringToWString(string1);
                 fText = ST::null;
@@ -99,9 +99,9 @@ class pfColorListElement : public pfGUIListText
             fOverrideFontSize = fontsize;
         }
 
-        pfColorListElement( const wchar_t *string1, hsColorRGBA color1, const wchar_t *string2, hsColorRGBA color2, uint32_t inheritalpha, int32_t fontsize=-1 )
+        pfColorListElement(const wchar_t *string1, hsColorRGBA color1, const wchar_t *string2, hsColorRGBA color2, uint32_t inheritalpha, int32_t fontsize=-1)
         {
-            if ( string1 )
+            if (string1)
             {
                 fString1 = new wchar_t[wcslen(string1)+1];
                 wcscpy(fString1,string1);
@@ -128,33 +128,33 @@ class pfColorListElement : public pfGUIListText
 
         virtual ~pfColorListElement()
         {
-            if ( fString1 )
+            if (fString1)
             {
                 delete [] fString1;
                 fString1 = nil;
                 fText = ST::null;
             }
-            if ( fString2 )
+            if (fString2)
                 delete [] fString2;
         }
 
-        virtual void SetText( const char *text )
+        virtual void SetText(const char *text)
         {
-            if ( fString1 )
+            if (fString1)
                 delete [] fString1;
 
-            if( text != nil )
+            if (text != nil)
                 fString1 = hsStringToWString(text);
             else
                 fString1 = nil;
         }
 
-        virtual void SetText( const wchar_t *text )
+        virtual void SetText(const wchar_t *text)
         {
-            if ( fString1 )
+            if (fString1)
                 delete [] fString1;
 
-            if( text != nil )
+            if (text != nil)
             {
                 fString1 = new wchar_t[wcslen(text)+1];
                 wcscpy(fString1,text);
@@ -163,27 +163,27 @@ class pfColorListElement : public pfGUIListText
                 fString1 = nil;
         }
 
-        virtual bool    Draw( plDynamicTextMap *textGen, uint16_t x, uint16_t y, uint16_t maxWidth, uint16_t maxHeight )
+        virtual bool    Draw(plDynamicTextMap *textGen, uint16_t x, uint16_t y, uint16_t maxWidth, uint16_t maxHeight)
         {
             hsColorRGBA textColor1;
             textColor1 = fTextColor1;
             hsColorRGBA textColor2;
             textColor2 = fTextColor2;
 
-            textGen->SetJustify( (plDynamicTextMap::Justify)fJustify );
-            if( fInheritAlpha == kInheritFromNormal )
+            textGen->SetJustify((plDynamicTextMap::Justify)fJustify);
+            if (fInheritAlpha == kInheritFromNormal)
             {
                 textColor1.a = fColors->fForeColor.a;
                 textColor2.a = fColors->fForeColor.a;
             }
-            else if ( fInheritAlpha == kInheritFromSelect )
+            else if (fInheritAlpha == kInheritFromSelect)
             {
                 textColor1.a = fColors->fSelForeColor.a;
                 textColor2.a = fColors->fSelForeColor.a;
             }
-            else if ( fInheritAlpha == kSelectDetermined )
+            else if (fInheritAlpha == kSelectDetermined)
             {
-                if ( fSelected )
+                if (fSelected)
                 {
                     textColor1.a = fColors->fSelForeColor.a;
                     textColor2.a = fColors->fSelForeColor.a;
@@ -194,9 +194,9 @@ class pfColorListElement : public pfGUIListText
                     textColor2.a = fColors->fForeColor.a;
                 }
             }
-            else if ( fInheritAlpha == kSelectUseGUIColor)
+            else if (fInheritAlpha == kSelectUseGUIColor)
             {
-                if ( fSelected )
+                if (fSelected)
                 {
                     textColor1.r = fColors->fSelForeColor.r;
                     textColor2.r = fColors->fSelForeColor.r;
@@ -217,38 +217,38 @@ class pfColorListElement : public pfGUIListText
             // draw the first string
             if (fString1)
             {
-                if ( fOverrideFontSize != -1 )
-                    textGen->SetFont( fColors->fFontFace, (uint16_t)fOverrideFontSize, fColors->fFontFlags );
-                textGen->SetTextColor( textColor1, fColors->fTransparent && fColors->fBackColor.a == 0.f );
-                textGen->DrawWrappedString( x + 2, y, fString1, maxWidth - 4, maxHeight );
+                if (fOverrideFontSize != -1)
+                    textGen->SetFont(fColors->fFontFace, (uint16_t)fOverrideFontSize, fColors->fFontFlags);
+                textGen->SetTextColor(textColor1, fColors->fTransparent && fColors->fBackColor.a == 0.f);
+                textGen->DrawWrappedString(x + 2, y, fString1, maxWidth - 4, maxHeight);
                 uint16_t width, height;
                 textGen->CalcWrappedStringSize(fString1,&width,&height);
                 x += 2 + width;
-                if ( fString2 == nil )
+                if (fString2 == nil)
                     y += height;
-                if ( fOverrideFontSize != -1 )
-                    textGen->SetFont( fColors->fFontFace, fColors->fFontSize, fColors->fFontFlags );
+                if (fOverrideFontSize != -1)
+                    textGen->SetFont(fColors->fFontFace, fColors->fFontSize, fColors->fFontFlags);
             }
 
             // draw the second string
-            if ( fString2 )
+            if (fString2)
             {
-                textGen->SetTextColor( textColor2, fColors->fTransparent && fColors->fBackColor.a == 0.f );
-                textGen->DrawWrappedString( x + 2, y, fString2, maxWidth - 4 - x, maxHeight );
+                textGen->SetTextColor(textColor2, fColors->fTransparent && fColors->fBackColor.a == 0.f);
+                textGen->DrawWrappedString(x + 2, y, fString2, maxWidth - 4 - x, maxHeight);
             }
 
             return true;
         }
 
-        virtual void    GetSize( plDynamicTextMap *textGen, uint16_t *width, uint16_t *height )
+        virtual void    GetSize(plDynamicTextMap *textGen, uint16_t *width, uint16_t *height)
         {
             bool wemade_string = false;
             wchar_t* thestring;
-            if ( fString1 && fString2 )
+            if (fString1 && fString2)
             {
-                size_t length = wcslen( fString1 ) + wcslen( fString2 ) + 3;
-                thestring = new wchar_t[ length ];
-                hsSnwprintf( thestring, length, L"%s %s", fString1, fString2 );
+                size_t length = wcslen(fString1) + wcslen(fString2) + 3;
+                thestring = new wchar_t[length];
+                hsSnwprintf(thestring, length, L"%s %s", fString1, fString2);
                 wemade_string = true;
             }
             else if (fString1)
@@ -259,21 +259,21 @@ class pfColorListElement : public pfGUIListText
                 thestring = nil;
             *width = textGen->GetVisibleWidth() - 4;
 
-            if ( fOverrideFontSize != -1 )
-                textGen->SetFont( fColors->fFontFace, (uint16_t)fOverrideFontSize, fColors->fFontFlags );
-            textGen->CalcWrappedStringSize( thestring, width, height );
-            if ( fOverrideFontSize != -1 )
-                textGen->SetFont( fColors->fFontFace, fColors->fFontSize, fColors->fFontFlags );
+            if (fOverrideFontSize != -1)
+                textGen->SetFont(fColors->fFontFace, (uint16_t)fOverrideFontSize, fColors->fFontFlags);
+            textGen->CalcWrappedStringSize(thestring, width, height);
+            if (fOverrideFontSize != -1)
+                textGen->SetFont(fColors->fFontFace, fColors->fFontSize, fColors->fFontFlags);
 
-            if( height != nil )
+            if (height != nil)
                 *height += 0;
             *width += 4;
             // clean up thestring if we made it
-            if ( wemade_string )
+            if (wemade_string)
                 delete [] thestring;
         }
 
-        virtual int     CompareTo( pfGUIListElement *rightSide )
+        virtual int     CompareTo(pfGUIListElement *rightSide)
         {
             return -2;
         }
@@ -287,25 +287,25 @@ class pfListTextInBox : public pfGUIListText
         uint32_t              fMinHeight;
 
     public:
-        pfListTextInBox( const ST::string &text, uint32_t min_width=0, uint32_t min_height=0 ) : pfGUIListText( text )
+        pfListTextInBox(const ST::string &text, uint32_t min_width=0, uint32_t min_height=0) : pfGUIListText(text)
         {
             fMinWidth = min_width;
             fMinHeight = min_height;
             fJustify = pfGUIListText::kCenter;
         }
 
-        virtual void    GetSize( plDynamicTextMap *textGen, uint16_t *width, uint16_t *height )
+        virtual void    GetSize(plDynamicTextMap *textGen, uint16_t *width, uint16_t *height)
         {
-            *width = textGen->CalcStringWidth( GetText(), height );
-            if ( *width < fMinWidth )
+            *width = textGen->CalcStringWidth(GetText(), height);
+            if (*width < fMinWidth)
                 *width = (uint16_t)fMinWidth;
-            if( height != nil )
+            if (height != nil)
             {
-                if( *height == 0 )
+                if (*height == 0)
                     *height = 10;       // Never allow zero height elements
                 else
                     *height += 0;       // Add one pixel on each side for padding (or not, 3.21.02 mcn)
-                if ( *height < fMinHeight )
+                if (*height < fMinHeight)
                     *height = (uint16_t)fMinHeight;
             }
         }
@@ -320,7 +320,7 @@ class pfListPictureInBox : public pfGUIListPicture
         uint32_t              fSrcHeight;
 
     public:
-        pfListPictureInBox( plKey mipKey, uint32_t x, uint32_t y, uint32_t width, uint32_t height, bool respectAlpha ) : pfGUIListPicture( mipKey,respectAlpha )
+        pfListPictureInBox(plKey mipKey, uint32_t x, uint32_t y, uint32_t width, uint32_t height, bool respectAlpha) : pfGUIListPicture(mipKey,respectAlpha)
         {
             fSrcX = x;
             fSrcY = y;
@@ -328,49 +328,49 @@ class pfListPictureInBox : public pfGUIListPicture
             fSrcHeight = height;
         }
 
-        virtual bool Draw( plDynamicTextMap *textGen, uint16_t x, uint16_t y, uint16_t maxWidth, uint16_t maxHeight )
+        virtual bool Draw(plDynamicTextMap *textGen, uint16_t x, uint16_t y, uint16_t maxWidth, uint16_t maxHeight)
         {
-            plMipmap *mip = plMipmap::ConvertNoRef( fMipmapKey->ObjectIsLoaded() );
-            if( mip != nil )
+            plMipmap *mip = plMipmap::ConvertNoRef(fMipmapKey->ObjectIsLoaded());
+            if (mip != nil)
             {
-                if( fSrcWidth + fBorderSize + fBorderSize > maxWidth || fSrcHeight + fBorderSize + fBorderSize > maxHeight )
+                if (fSrcWidth + fBorderSize + fBorderSize > maxWidth || fSrcHeight + fBorderSize + fBorderSize > maxHeight)
                     return false;
 
-                if( fSelected )
-                    textGen->FillRect( x, y, (uint16_t)fSrcWidth, (uint16_t)fSrcHeight, fColors->fSelForeColor );
+                if (fSelected)
+                    textGen->FillRect(x, y, (uint16_t)fSrcWidth, (uint16_t)fSrcHeight, fColors->fSelForeColor);
 // hack!!!! This is to get the non-selected items to show up....
 //  ... they need some kinda background to alpha to <whatever>
                 else
                 {
-                    if ( fRespectAlpha )
+                    if (fRespectAlpha)
                     {
                         hsColorRGBA backcolor = fColors->fBackColor;
                         backcolor.a = 1.0;
-                        textGen->FillRect( x, y, (uint16_t)fSrcWidth, (uint16_t)fSrcHeight, backcolor );
+                        textGen->FillRect(x, y, (uint16_t)fSrcWidth, (uint16_t)fSrcHeight, backcolor);
                     }
                 }
 // end of hack
 
-                textGen->DrawClippedImage( x + fBorderSize, y + fBorderSize, mip, (uint16_t)fSrcX, (uint16_t)fSrcY, (uint16_t)fSrcWidth, (uint16_t)fSrcHeight,
-                                            fRespectAlpha ? plDynamicTextMap::kImgBlend : plDynamicTextMap::kImgNoAlpha );
+                textGen->DrawClippedImage(x + fBorderSize, y + fBorderSize, mip, (uint16_t)fSrcX, (uint16_t)fSrcY, (uint16_t)fSrcWidth, (uint16_t)fSrcHeight,
+                                            fRespectAlpha ? plDynamicTextMap::kImgBlend : plDynamicTextMap::kImgNoAlpha);
             }
 
             return true;
         }
 
-        virtual void GetSize( plDynamicTextMap *textGen, uint16_t *width, uint16_t *height )
+        virtual void GetSize(plDynamicTextMap *textGen, uint16_t *width, uint16_t *height)
         {
-            plMipmap *mip = plMipmap::ConvertNoRef( fMipmapKey->ObjectIsLoaded() );
-            if( mip == nil )
+            plMipmap *mip = plMipmap::ConvertNoRef(fMipmapKey->ObjectIsLoaded());
+            if (mip == nil)
             {
                 *width = 16;
-                if( height != nil )
+                if (height != nil)
                     *height = 16;
             }
             else
             {
                 *width = (uint16_t)(fSrcWidth + fBorderSize + fBorderSize);
-                if( height != nil )
+                if (height != nil)
                     *height = (uint16_t)(fSrcHeight + fBorderSize + fBorderSize);
             }
         }
@@ -385,32 +385,32 @@ class pfListPictureInBoxWithSwatches : public pfListPictureInBox
 
         static uint16_t   fSwatchSize, fSwatchOffset;
 
-        pfListPictureInBoxWithSwatches( plKey mipKey, uint32_t x, uint32_t y,
+        pfListPictureInBoxWithSwatches(plKey mipKey, uint32_t x, uint32_t y,
                                                                             uint32_t width, uint32_t height,
                                                                             bool respectAlpha,
-                                                                            const hsColorRGBA &primaryColor, const hsColorRGBA &secondaryColor )
-                                            : pfListPictureInBox( mipKey, x, y, width, height, respectAlpha )
+                                                                            const hsColorRGBA &primaryColor, const hsColorRGBA &secondaryColor)
+                                            : pfListPictureInBox(mipKey, x, y, width, height, respectAlpha)
         {
             fPColor = primaryColor;
             fSColor = secondaryColor;
         }
 
-        virtual bool Draw( plDynamicTextMap *textGen, uint16_t x, uint16_t y, uint16_t maxWidth, uint16_t maxHeight )
+        virtual bool Draw(plDynamicTextMap *textGen, uint16_t x, uint16_t y, uint16_t maxWidth, uint16_t maxHeight)
         {
-            if( !pfListPictureInBox::Draw( textGen, x, y, maxWidth, maxHeight ) )
+            if (!pfListPictureInBox::Draw(textGen, x, y, maxWidth, maxHeight))
                 return false;
 
             // Draw two color swatches
-            if( maxWidth > fSwatchSize * 2 + 1 + fSwatchOffset )
+            if (maxWidth > fSwatchSize * 2 + 1 + fSwatchOffset)
             {
                 // Secondary on right
                 x = x + maxWidth - fSwatchOffset - fSwatchSize;
                 y = y + maxHeight - fSwatchOffset - fSwatchSize;
-                textGen->FillRect( x, y, fSwatchSize, fSwatchSize, fSColor );
+                textGen->FillRect(x, y, fSwatchSize, fSwatchSize, fSColor);
 
                 // Primary before it
                 x -= fSwatchSize + 1;
-                textGen->FillRect( x, y, fSwatchSize, fSwatchSize, fPColor );
+                textGen->FillRect(x, y, fSwatchSize, fSwatchSize, fPColor);
             }
             return true;
         }
@@ -430,91 +430,91 @@ pyGUIControlListBox::pyGUIControlListBox(plKey objkey) : pyGUIControl(objkey)
 
 bool pyGUIControlListBox::IsGUIControlListBox(pyKey& gckey)
 {
-    if ( gckey.getKey() && pfGUIListBoxMod::ConvertNoRef(gckey.getKey()->ObjectIsLoaded()) )
+    if (gckey.getKey() && pfGUIListBoxMod::ConvertNoRef(gckey.getKey()->ObjectIsLoaded()))
         return true;
     return false;
 }
 
 int32_t pyGUIControlListBox::GetSelection()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
             return plbmod->GetSelection();
     }
     return -1;
 }
 
-void pyGUIControlListBox::SetSelection( int32_t item )
+void pyGUIControlListBox::SetSelection(int32_t item)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
             plbmod->SetSelection(item);
     }
 }
 
 void pyGUIControlListBox::Refresh()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
             plbmod->Refresh();
     }
 }
 
-void pyGUIControlListBox::RemoveElement( uint16_t index )
+void pyGUIControlListBox::RemoveElement(uint16_t index)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
             plbmod->RemoveElement(index);
     }
 }
 
 void pyGUIControlListBox::ClearAllElements()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
             plbmod->ClearAllElements();
     }
 }
 
 uint16_t pyGUIControlListBox::GetNumElements()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
             return plbmod->GetNumElements();
     }
     return 0;
 }
 
-void pyGUIControlListBox::SetElement( uint16_t idx, const ST::string& text )
+void pyGUIControlListBox::SetElement(uint16_t idx, const ST::string& text)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
         {
             pfGUIListElement* le = plbmod->GetElement(idx);
-            if ( le )
+            if (le)
             {
-                if ( le->GetType() == pfGUIListElement::kText )
+                if (le->GetType() == pfGUIListElement::kText)
                 {
                     // if its a text element type then it should be safe to cast it to a pfGUIListText
                     pfGUIListText* letext = (pfGUIListText*)le;
@@ -525,22 +525,22 @@ void pyGUIControlListBox::SetElement( uint16_t idx, const ST::string& text )
     }
 }
 
-void pyGUIControlListBox::SetStringJustify( uint16_t idx, uint32_t justify)
+void pyGUIControlListBox::SetStringJustify(uint16_t idx, uint32_t justify)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
         {
             pfGUIListElement* le = plbmod->GetElement(idx);
-            if ( le )
+            if (le)
             {
-                if ( le->GetType() == pfGUIListElement::kText )
+                if (le->GetType() == pfGUIListElement::kText)
                 {
                     // if its a text element type then it should be safe to cast it to a pfGUIListText
                     pfGUIListText* letext = (pfGUIListText*)le;
-                    letext->SetJustify( (pfGUIListText::JustifyTypes)justify );
+                    letext->SetJustify((pfGUIListText::JustifyTypes)justify);
                 }
             }
         }
@@ -548,24 +548,24 @@ void pyGUIControlListBox::SetStringJustify( uint16_t idx, uint32_t justify)
 }
 
 
-ST::string pyGUIControlListBox::GetElement( uint16_t idx )
+ST::string pyGUIControlListBox::GetElement(uint16_t idx)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
         {
             pfGUIListElement* le = plbmod->GetElement(idx);
-            if ( le )
+            if (le)
             {
-                if ( le->GetType() == pfGUIListElement::kText )
+                if (le->GetType() == pfGUIListElement::kText)
                 {
                     // if its a text element type then it should be safe to cast it to a pfGUIListText
                     pfGUIListText* letext = (pfGUIListText*)le;
                     return letext->GetText();
                 }
-                else if ( le->GetType() == pfGUIListElement::kTreeRoot )
+                else if (le->GetType() == pfGUIListElement::kTreeRoot)
                 {
                     pfGUIListTreeRoot* elroot = (pfGUIListTreeRoot*)le;
                     return elroot->GetTitle();
@@ -576,54 +576,54 @@ ST::string pyGUIControlListBox::GetElement( uint16_t idx )
     return "";
 }
 
-int16_t pyGUIControlListBox::AddString( const ST::string &string )
+int16_t pyGUIControlListBox::AddString(const ST::string &string)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
         {
             pfGUIListText *element = new pfGUIListText(string);
-            if( fBuildRoots.GetCount() > 0 )
-                fBuildRoots[ fBuildRoots.GetCount() - 1 ]->AddChild( element );
-            return plbmod->AddElement( element );
+            if (fBuildRoots.GetCount() > 0)
+                fBuildRoots[fBuildRoots.GetCount() - 1]->AddChild(element);
+            return plbmod->AddElement(element);
         }
     }
     return -1;
 }
 
-int16_t   pyGUIControlListBox::AddImage( pyImage& image, bool respectAlpha )
+int16_t   pyGUIControlListBox::AddImage(pyImage& image, bool respectAlpha)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
         {
             pfGUIListPicture *element = new pfGUIListPicture(image.GetKey(),respectAlpha);
-            if( fBuildRoots.GetCount() > 0 )
-                fBuildRoots[ fBuildRoots.GetCount() - 1 ]->AddChild( element );
-            return plbmod->AddElement( element );
+            if (fBuildRoots.GetCount() > 0)
+                fBuildRoots[fBuildRoots.GetCount() - 1]->AddChild(element);
+            return plbmod->AddElement(element);
         }
     }
     return -1;
 }
 
 
-int16_t pyGUIControlListBox::FindString( const ST::string &toCompareTo )
+int16_t pyGUIControlListBox::FindString(const ST::string &toCompareTo)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
             return plbmod->FindString(toCompareTo);
     }
     return -1;
 }
 
-int16_t pyGUIControlListBox::AddTextWColor( const char *str, pyColor& textcolor, uint32_t inheritalpha)
+int16_t pyGUIControlListBox::AddTextWColor(const char *str, pyColor& textcolor, uint32_t inheritalpha)
 {
     wchar_t *wStr = hsStringToWString(str);
     int16_t retVal = AddTextWColorW(wStr,textcolor,inheritalpha);
@@ -631,24 +631,24 @@ int16_t pyGUIControlListBox::AddTextWColor( const char *str, pyColor& textcolor,
     return retVal;
 }
 
-int16_t pyGUIControlListBox::AddTextWColorW( std::wstring str, pyColor& textcolor, uint32_t inheritalpha)
+int16_t pyGUIControlListBox::AddTextWColorW(std::wstring str, pyColor& textcolor, uint32_t inheritalpha)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
         {
-            pfColorListElement *element = new pfColorListElement( str.c_str(), textcolor.getColor(),nil,hsColorRGBA(),inheritalpha );
-            if( fBuildRoots.GetCount() > 0 )
-                fBuildRoots[ fBuildRoots.GetCount() - 1 ]->AddChild( element );
-            return plbmod->AddElement( element );
+            pfColorListElement *element = new pfColorListElement(str.c_str(), textcolor.getColor(),nil,hsColorRGBA(),inheritalpha);
+            if (fBuildRoots.GetCount() > 0)
+                fBuildRoots[fBuildRoots.GetCount() - 1]->AddChild(element);
+            return plbmod->AddElement(element);
         }
     }
     return -1;
 }
 
-int16_t pyGUIControlListBox::AddTextWColorWSize( const char *str, pyColor& textcolor, uint32_t inheritalpha, int32_t fontsize)
+int16_t pyGUIControlListBox::AddTextWColorWSize(const char *str, pyColor& textcolor, uint32_t inheritalpha, int32_t fontsize)
 {
     wchar_t *wStr = hsStringToWString(str);
     int16_t retVal = AddTextWColorWSizeW(wStr,textcolor,inheritalpha,fontsize);
@@ -656,24 +656,24 @@ int16_t pyGUIControlListBox::AddTextWColorWSize( const char *str, pyColor& textc
     return retVal;
 }
 
-int16_t pyGUIControlListBox::AddTextWColorWSizeW( std::wstring str, pyColor& textcolor, uint32_t inheritalpha, int32_t fontsize)
+int16_t pyGUIControlListBox::AddTextWColorWSizeW(std::wstring str, pyColor& textcolor, uint32_t inheritalpha, int32_t fontsize)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
         {
-            pfColorListElement *element = new pfColorListElement( str.c_str(), textcolor.getColor(),nil,hsColorRGBA(),inheritalpha, fontsize );
-            if( fBuildRoots.GetCount() > 0 )
-                fBuildRoots[ fBuildRoots.GetCount() - 1 ]->AddChild( element );
-            return plbmod->AddElement( element );
+            pfColorListElement *element = new pfColorListElement(str.c_str(), textcolor.getColor(),nil,hsColorRGBA(),inheritalpha, fontsize);
+            if (fBuildRoots.GetCount() > 0)
+                fBuildRoots[fBuildRoots.GetCount() - 1]->AddChild(element);
+            return plbmod->AddElement(element);
         }
     }
     return -1;
 }
 
-void pyGUIControlListBox::Add2TextWColor( const char *str1, pyColor& textcolor1,const char *str2, pyColor& textcolor2, uint32_t inheritalpha)
+void pyGUIControlListBox::Add2TextWColor(const char *str1, pyColor& textcolor1,const char *str2, pyColor& textcolor2, uint32_t inheritalpha)
 {
     wchar_t *wStr1 = hsStringToWString(str1);
     wchar_t *wStr2 = hsStringToWString(str2);
@@ -682,82 +682,82 @@ void pyGUIControlListBox::Add2TextWColor( const char *str1, pyColor& textcolor1,
     delete [] wStr1;
 }
 
-void pyGUIControlListBox::Add2TextWColorW( std::wstring str1, pyColor& textcolor1, std::wstring str2, pyColor& textcolor2, uint32_t inheritalpha)
+void pyGUIControlListBox::Add2TextWColorW(std::wstring str1, pyColor& textcolor1, std::wstring str2, pyColor& textcolor2, uint32_t inheritalpha)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
         {
-            pfColorListElement *element = new pfColorListElement(str1.c_str(),textcolor1.getColor(),str2.c_str(),textcolor2.getColor(),inheritalpha );
-            if( fBuildRoots.GetCount() > 0 )
-                fBuildRoots[ fBuildRoots.GetCount() - 1 ]->AddChild( element );
-            plbmod->AddElement( element );
+            pfColorListElement *element = new pfColorListElement(str1.c_str(),textcolor1.getColor(),str2.c_str(),textcolor2.getColor(),inheritalpha);
+            if (fBuildRoots.GetCount() > 0)
+                fBuildRoots[fBuildRoots.GetCount() - 1]->AddChild(element);
+            plbmod->AddElement(element);
         }
     }
 }
 
-int16_t pyGUIControlListBox::AddStringInBox( const ST::string &string, uint32_t min_width, uint32_t min_height )
+int16_t pyGUIControlListBox::AddStringInBox(const ST::string &string, uint32_t min_width, uint32_t min_height)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
         {
-            pfListTextInBox *element = new pfListTextInBox( string, min_width, min_height );
-            if( fBuildRoots.GetCount() > 0 )
-                fBuildRoots[ fBuildRoots.GetCount() - 1 ]->AddChild( element );
-            return plbmod->AddElement( element );
+            pfListTextInBox *element = new pfListTextInBox(string, min_width, min_height);
+            if (fBuildRoots.GetCount() > 0)
+                fBuildRoots[fBuildRoots.GetCount() - 1]->AddChild(element);
+            return plbmod->AddElement(element);
         }
     }
     return -1;
 }
 
-int16_t   pyGUIControlListBox::AddImageInBox( pyImage& image, uint32_t x, uint32_t y, uint32_t width, uint32_t height, bool respectAlpha )
+int16_t   pyGUIControlListBox::AddImageInBox(pyImage& image, uint32_t x, uint32_t y, uint32_t width, uint32_t height, bool respectAlpha)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
         {
             pfListPictureInBox *element = new pfListPictureInBox(image.GetKey(),x,y,width,height,respectAlpha);
-            if( fBuildRoots.GetCount() > 0 )
-                fBuildRoots[ fBuildRoots.GetCount() - 1 ]->AddChild( element );
-            return plbmod->AddElement( element );
+            if (fBuildRoots.GetCount() > 0)
+                fBuildRoots[fBuildRoots.GetCount() - 1]->AddChild(element);
+            return plbmod->AddElement(element);
         }
     }
     return -1;
 }
 
-int16_t   pyGUIControlListBox::AddImageAndSwatchesInBox( pyImage& image, uint32_t x, uint32_t y, uint32_t width, uint32_t height, bool respectAlpha,
-                                                        pyColor &primary, pyColor &secondary )
+int16_t   pyGUIControlListBox::AddImageAndSwatchesInBox(pyImage& image, uint32_t x, uint32_t y, uint32_t width, uint32_t height, bool respectAlpha,
+                                                        pyColor &primary, pyColor &secondary)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
         {
-            pfListPictureInBoxWithSwatches *element = new pfListPictureInBoxWithSwatches( image.GetKey(),x,y,
+            pfListPictureInBoxWithSwatches *element = new pfListPictureInBoxWithSwatches(image.GetKey(),x,y,
                                                                                         width,height,respectAlpha,
-                                                                                        primary.getColor(), secondary.getColor() );
-            if( fBuildRoots.GetCount() > 0 )
-                fBuildRoots[ fBuildRoots.GetCount() - 1 ]->AddChild( element );
-            return plbmod->AddElement( element );
+                                                                                        primary.getColor(), secondary.getColor());
+            if (fBuildRoots.GetCount() > 0)
+                fBuildRoots[fBuildRoots.GetCount() - 1]->AddChild(element);
+            return plbmod->AddElement(element);
         }
     }
     return -1;
 }
 
-void    pyGUIControlListBox::SetSwatchSize( uint32_t size )
+void    pyGUIControlListBox::SetSwatchSize(uint32_t size)
 {
     pfListPictureInBoxWithSwatches::fSwatchSize = (uint16_t)size;
 }
 
-void    pyGUIControlListBox::SetSwatchEdgeOffset( uint32_t set )
+void    pyGUIControlListBox::SetSwatchEdgeOffset(uint32_t set)
 {
     pfListPictureInBoxWithSwatches::fSwatchOffset = (uint16_t)set;
 }
@@ -766,11 +766,11 @@ void    pyGUIControlListBox::SetSwatchEdgeOffset( uint32_t set )
 
 void pyGUIControlListBox::ScrollToBegin()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
             plbmod->ScrollToBegin();
     }
 }
@@ -778,23 +778,23 @@ void pyGUIControlListBox::ScrollToBegin()
 
 void pyGUIControlListBox::ScrollToEnd()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
             plbmod->ScrollToEnd();
     }
 }
 
 
-void pyGUIControlListBox::SetScrollPos( int32_t pos )
+void pyGUIControlListBox::SetScrollPos(int32_t pos)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
             plbmod->SetScrollPos(pos);
     }
 }
@@ -802,11 +802,11 @@ void pyGUIControlListBox::SetScrollPos( int32_t pos )
 
 int32_t pyGUIControlListBox::GetScrollPos()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
             return plbmod->GetScrollPos();
     }
     return 0;
@@ -815,11 +815,11 @@ int32_t pyGUIControlListBox::GetScrollPos()
 
 int32_t pyGUIControlListBox::GetScrollRange()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
             return plbmod->GetScrollRange();
     }
     return 0;
@@ -828,11 +828,11 @@ int32_t pyGUIControlListBox::GetScrollRange()
 
 void pyGUIControlListBox::LockList()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
             plbmod->LockList();
     }
 }
@@ -840,89 +840,89 @@ void pyGUIControlListBox::LockList()
 
 void pyGUIControlListBox::UnlockList()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
             plbmod->UnlockList();
     }
 }
 
 void pyGUIControlListBox::Clickable()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
             plbmod->ClearFlag(pfGUIControlMod::kIntangible);
     }
 }
 
 void pyGUIControlListBox::Unclickable()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
             plbmod->SetFlag(pfGUIControlMod::kIntangible);
     }
 }
 
-void    pyGUIControlListBox::AddBranch( const ST::string &name, bool initiallyOpen )
+void    pyGUIControlListBox::AddBranch(const ST::string &name, bool initiallyOpen)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
         {
             pfGUIListTreeRoot *root = new pfGUIListTreeRoot(name);
-            root->ShowChildren( initiallyOpen );
+            root->ShowChildren(initiallyOpen);
             
-            if( fBuildRoots.GetCount() > 0 )
-                fBuildRoots[ fBuildRoots.GetCount() - 1 ]->AddChild( root );
+            if (fBuildRoots.GetCount() > 0)
+                fBuildRoots[fBuildRoots.GetCount() - 1]->AddChild(root);
 
-            fBuildRoots.Append( root );
-            plbmod->AddElement( root );
+            fBuildRoots.Append(root);
+            plbmod->AddElement(root);
         }
     }
 }
 
 void    pyGUIControlListBox::CloseBranch()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
         {
-            if( fBuildRoots.GetCount() > 0 )
-                fBuildRoots.Remove( fBuildRoots.GetCount() - 1 );
+            if (fBuildRoots.GetCount() > 0)
+                fBuildRoots.Remove(fBuildRoots.GetCount() - 1);
         }
     }
 }
 
-void    pyGUIControlListBox::RemoveSelection( int32_t item )
+void    pyGUIControlListBox::RemoveSelection(int32_t item)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
             plbmod->RemoveSelection(item);
     }
 }
 
-void    pyGUIControlListBox::AddSelection( int32_t item )
+void    pyGUIControlListBox::AddSelection(int32_t item)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
             plbmod->AddSelection(item);
     }
 }
@@ -932,18 +932,18 @@ PyObject*   pyGUIControlListBox::GetSelectionList()
     // create the list
     PyObject* pySL = PyList_New(0);
 
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
         {
             int numItems = plbmod->GetNumElements();
             uint16_t i;
-            for ( i=0; i<numItems; i++ )
+            for (i=0; i<numItems; i++)
             {
                 pfGUIListElement* element = plbmod->GetElement(i);
-                if ( element->IsSelected() )
+                if (element->IsSelected())
                 {
                     PyObject* element = PyInt_FromLong(i);
                     PyList_Append(pySL, element);
@@ -960,20 +960,20 @@ PyObject*   pyGUIControlListBox::GetBranchList()
     // create the list
     PyObject* pySL = PyList_New(0);
 
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIListBoxMod* plbmod = pfGUIListBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( plbmod )
+        if (plbmod)
         {
             int numItems = plbmod->GetNumElements();
             uint16_t i;
-            for ( i=0; i<numItems; i++ )
+            for (i=0; i<numItems; i++)
             {
                 pfGUIListElement* element = plbmod->GetElement(i);
-                if ( element )
+                if (element)
                 {
-                    if ( element->GetType() == pfGUIListElement::kTreeRoot )
+                    if (element->GetType() == pfGUIListElement::kTreeRoot)
                     {
                         pfGUIListTreeRoot* elroot = (pfGUIListTreeRoot*)element;
                         uint16_t showing = elroot->IsShowingChildren();

@@ -109,13 +109,13 @@ void plKeyboardDevice::ReleaseAllKeys()
 
             // fake a key-up command
             plKeyEventMsg* pMsg = new plKeyEventMsg;
-            pMsg->SetKeyCode( (plKeyDef)i );
-            pMsg->SetKeyDown( false );
-            pMsg->SetShiftKeyDown( fShiftKeyDown );
-            pMsg->SetCtrlKeyDown( fCtrlKeyDown );
-            pMsg->SetCapsLockKeyDown( fCapsLockLock );
-            pMsg->SetRepeat( false );
-            plgDispatch::MsgSend( pMsg );
+            pMsg->SetKeyCode((plKeyDef)i);
+            pMsg->SetKeyDown(false);
+            pMsg->SetShiftKeyDown(fShiftKeyDown);
+            pMsg->SetCtrlKeyDown(fCtrlKeyDown);
+            pMsg->SetCapsLockKeyDown(fCapsLockLock);
+            pMsg->SetRepeat(false);
+            plgDispatch::MsgSend(pMsg);
         }
     }
 
@@ -129,13 +129,13 @@ void plKeyboardDevice::ReleaseAllKeys()
         fShiftKeyDown = false;
 
         plKeyEventMsg* pMsg = new plKeyEventMsg;
-        pMsg->SetKeyCode( KEY_SHIFT );
-        pMsg->SetKeyDown( false );
-        pMsg->SetShiftKeyDown( false );
-        pMsg->SetCtrlKeyDown( false );
-        pMsg->SetCapsLockKeyDown( fCapsLockLock );
-        pMsg->SetRepeat( false );
-        plgDispatch::MsgSend( pMsg );
+        pMsg->SetKeyCode(KEY_SHIFT);
+        pMsg->SetKeyDown(false);
+        pMsg->SetShiftKeyDown(false);
+        pMsg->SetCtrlKeyDown(false);
+        pMsg->SetCapsLockKeyDown(fCapsLockLock);
+        pMsg->SetRepeat(false);
+        plgDispatch::MsgSend(pMsg);
     }
     if (fKeyboardState[KEY_CTRL])
     {
@@ -143,13 +143,13 @@ void plKeyboardDevice::ReleaseAllKeys()
         fCtrlKeyDown = false;
 
         plKeyEventMsg* pMsg = new plKeyEventMsg;
-        pMsg->SetKeyCode( KEY_CTRL );
-        pMsg->SetKeyDown( false );
-        pMsg->SetShiftKeyDown( false );
-        pMsg->SetCtrlKeyDown( false );
-        pMsg->SetCapsLockKeyDown( fCapsLockLock );
-        pMsg->SetRepeat( false );
-        plgDispatch::MsgSend( pMsg );
+        pMsg->SetKeyCode(KEY_CTRL);
+        pMsg->SetKeyDown(false);
+        pMsg->SetShiftKeyDown(false);
+        pMsg->SetCtrlKeyDown(false);
+        pMsg->SetCapsLockKeyDown(fCapsLockLock);
+        pMsg->SetRepeat(false);
+        plgDispatch::MsgSend(pMsg);
     }
 }
 
@@ -188,14 +188,14 @@ void plKeyboardDevice::HandleKeyEvent(plOSMsg message, plKeyDef key, bool bKeyDo
 
     // send a key event...
     plKeyEventMsg* pMsg = new plKeyEventMsg;
-    pMsg->SetKeyChar( c );
-    pMsg->SetKeyCode( key );
-    pMsg->SetKeyDown( bKeyDown );
-    pMsg->SetShiftKeyDown( fShiftKeyDown );
-    pMsg->SetCtrlKeyDown( fCtrlKeyDown );
-    pMsg->SetCapsLockKeyDown( fCapsLockLock );
+    pMsg->SetKeyChar(c);
+    pMsg->SetKeyCode(key);
+    pMsg->SetKeyDown(bKeyDown);
+    pMsg->SetShiftKeyDown(fShiftKeyDown);
+    pMsg->SetCtrlKeyDown(fCtrlKeyDown);
+    pMsg->SetCapsLockKeyDown(fCapsLockLock);
     pMsg->SetRepeat(bKeyRepeat);
-    plgDispatch::MsgSend( pMsg );
+    plgDispatch::MsgSend(pMsg);
 }
 
 void plKeyboardDevice::HandleWindowActivate(bool bActive, HWND hWnd)
@@ -237,7 +237,7 @@ plMouseDevice::plMouseDevice()
     fOpacity = 1.f;
 
     fCursor = nil;
-    CreateCursor( fCursorID );
+    CreateCursor(fCursorID);
     plMouseDevice::fInstance = this;
     fXMsg = nil;
     fYMsg = nil;
@@ -254,7 +254,7 @@ plMouseDevice::plMouseDevice()
 
 plMouseDevice::~plMouseDevice()
 {
-    plPlateManager::Instance().DestroyPlate( fCursor );
+    plPlateManager::Instance().DestroyPlate(fCursor);
     fCursor = nil;
     plMouseDevice::fInstance = nil;
 }
@@ -265,30 +265,30 @@ void plMouseDevice::SetDisplayResolution(float Width, float Height)
     IUpdateCursorSize();
 }
 
-void    plMouseDevice::CreateCursor( char* cursor )
+void    plMouseDevice::CreateCursor(char* cursor)
 {
-    if( fCursor == nil )
+    if (fCursor == nil)
     {
-        plPlateManager::Instance().CreatePlate( &fCursor );
+        plPlateManager::Instance().CreatePlate(&fCursor);
         fCursor->CreateFromResource(cursor);
     }
     else
     {
         fCursor->ReloadFromResource(cursor);
     }
-    fCursor->SetPosition( 0, 0, 0 );
+    fCursor->SetPosition(0, 0, 0);
     IUpdateCursorSize();
 
-    fCursor->SetVisible( true );
-    fCursor->SetOpacity( fOpacity );
+    fCursor->SetVisible(true);
+    fCursor->SetOpacity(fOpacity);
 }
 
 void plMouseDevice::IUpdateCursorSize()
 {
-    if(fCursor)
+    if (fCursor)
     {
         // set the size of the cursor based on resolution.
-        fCursor->SetSize( 2*fCursor->GetMipmap()->GetWidth()/fWidth, 2*fCursor->GetMipmap()->GetHeight()/fHeight );
+        fCursor->SetSize(2*fCursor->GetMipmap()->GetWidth()/fWidth, 2*fCursor->GetMipmap()->GetHeight()/fHeight);
     }
 }
 
@@ -323,12 +323,12 @@ void plMouseDevice::AddIDNumToCursor(uint32_t idNum)
 void plMouseDevice::SetCursorX(float x)
 {
     /// Set the cursor position
-    if( fCursor == nil  && !plMouseDevice::bCursorHidden)
-        CreateCursor( fCursorID );
+    if (fCursor == nil  && !plMouseDevice::bCursorHidden)
+        CreateCursor(fCursorID);
     
     if (fCursor)
-        fCursor->SetPosition( ( x * 2.0f ) - 1.0f,
-                          ( fYPos * 2.0f ) - 1.0f );
+        fCursor->SetPosition((x * 2.0f) - 1.0f,
+                          (fYPos * 2.0f) - 1.0f);
 
 //  plDebugText     &txt = plDebugText::Instance();
 //  txt.DrawString(fWXPos + 20,fWYPos - 5,"test");
@@ -337,12 +337,12 @@ void plMouseDevice::SetCursorX(float x)
 void plMouseDevice::SetCursorY(float y)
 {
     /// Set the cursor position
-    if( fCursor == nil && !plMouseDevice::bCursorHidden)
-        CreateCursor( fCursorID );
+    if (fCursor == nil && !plMouseDevice::bCursorHidden)
+        CreateCursor(fCursorID);
     
     if (fCursor)
-        fCursor->SetPosition( ( fXPos * 2.0f ) - 1.0f,
-                          ( y * 2.0f ) - 1.0f );
+        fCursor->SetPosition((fXPos * 2.0f) - 1.0f,
+                          (y * 2.0f) - 1.0f);
 
 //  plDebugText     &txt = plDebugText::Instance();
 //  txt.DrawString(fWXPos + 20,fWYPos - 10,"test");
@@ -352,8 +352,8 @@ void plMouseDevice::SetCursorY(float y)
 
 void plMouseDevice::HideCursor(bool override)
 {
-    if ( fInstance && fInstance->fCursor )
-        fInstance->fCursor->SetVisible( false );
+    if (fInstance && fInstance->fCursor)
+        fInstance->fCursor->SetVisible(false);
 
     plMouseDevice::bCursorOverride = (override != 0);
     plMouseDevice::bCursorHidden = true;
@@ -362,7 +362,7 @@ void plMouseDevice::HideCursor(bool override)
 
 void plMouseDevice::ShowCursor(bool override)
 {
-    if( !plMouseDevice::bCursorHidden )
+    if (!plMouseDevice::bCursorHidden)
         return;
     if (plMouseDevice::bCursorOverride && !override)
         return;
@@ -385,14 +385,14 @@ void plMouseDevice::NewCursor(char* cursor)
     fInstance->SetCursorY(fInstance->GetCursorY());
     
     if (!plMouseDevice::bCursorHidden)
-        fInstance->fCursor->SetVisible( true );
+        fInstance->fCursor->SetVisible(true);
 }
 
-void    plMouseDevice::SetCursorOpacity( float opacity )
+void    plMouseDevice::SetCursorOpacity(float opacity)
 {
     fInstance->fOpacity = opacity;
-    if( fInstance->fCursor != nil )
-        fInstance->fCursor->SetOpacity( opacity );
+    if (fInstance->fCursor != nil)
+        fInstance->fCursor->SetOpacity(opacity);
 }
 
 bool plMouseDevice::MsgReceive(plMessage* msg)
@@ -408,8 +408,8 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
         else
         {
             plMouseEventMsg* pMsg = new plMouseEventMsg;
-            pMsg->SetXPos( fXPos );
-            pMsg->SetYPos( fYPos );
+            pMsg->SetXPos(fXPos);
+            pMsg->SetYPos(fYPos);
             pMsg->SetDX(0);
             pMsg->SetDY(0);
             plgDispatch::MsgSend(pMsg);
@@ -423,14 +423,14 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
         else
         {
             plMouseEventMsg* pMsg = new plMouseEventMsg;
-            pMsg->SetXPos( fXPos );
-            pMsg->SetYPos( fYPos );
+            pMsg->SetXPos(fXPos);
+            pMsg->SetYPos(fYPos);
             pMsg->SetDX(0);
             pMsg->SetDY(0);
             plgDispatch::MsgSend(pMsg);
         }
 
-        if( fB2Msg )
+        if (fB2Msg)
         {
             fB2Msg->Send();
             fB2Msg = nil;
@@ -438,7 +438,7 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
 
         // look for mouse button events in the queues to be sent now
         // ...Left mouse button
-        if ( fLeftBMsg[0] != nil)
+        if (fLeftBMsg[0] != nil)
         {
             fLeftBMsg[0]->Send();
             // slide queue elements over... get 'em on the next eval
@@ -446,7 +446,7 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
             fLeftBMsg[1] = nil;
         }
         // ...Right mouse button
-        if ( fRightBMsg[0] != nil)
+        if (fRightBMsg[0] != nil)
         {
             fRightBMsg[0]->Send();
             // slide queue elements over... get 'em on the next eval
@@ -454,7 +454,7 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
             fRightBMsg[1] = nil;
         }
         // ...middle mouse button
-        if ( fMiddleBMsg[0] != nil)
+        if (fMiddleBMsg[0] != nil)
         {
             fMiddleBMsg[0]->Send();
             // slide queue elements over... get 'em on the next eval
@@ -470,14 +470,14 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
         // send a mouse event
         plMouseEventMsg* pMsg = new plMouseEventMsg;
         if (pXMsg->fX == 999)
-            pMsg->SetXPos( fXPos + 0.001f );
+            pMsg->SetXPos(fXPos + 0.001f);
         else
         if (pXMsg->fX == -999)
-            pMsg->SetXPos( fXPos - 0.001f );
+            pMsg->SetXPos(fXPos - 0.001f);
         else
             pMsg->SetXPos(pXMsg->fX);
-        pMsg->SetYPos( fYPos );
-        pMsg->SetDX( ( fXPos - pMsg->GetXPos())  );
+        pMsg->SetYPos(fYPos);
+        pMsg->SetDX((fXPos - pMsg->GetXPos()));
         pMsg->SetDY(0);
         
         if (pMsg->GetDX() == 0.0f && !plMouseDevice::bMsgAlways)
@@ -507,12 +507,12 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
     {
         // send a mouse event
         plMouseEventMsg* pMsg = new plMouseEventMsg;
-        pMsg->SetXPos( fXPos );
+        pMsg->SetXPos(fXPos);
         if (pYMsg->fY == 999)
-            pMsg->SetYPos( fYPos + 0.01f );
+            pMsg->SetYPos(fYPos + 0.01f);
         else
         if (pYMsg->fY == -999)
-            pMsg->SetYPos( fYPos - 0.01f );
+            pMsg->SetYPos(fYPos - 0.01f);
         else
             pMsg->SetYPos(pYMsg->fY);
         pMsg->SetDX(0);
@@ -546,8 +546,8 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
         
         // send a mouse event
         plMouseEventMsg* pMsg = new plMouseEventMsg;
-        pMsg->SetXPos( fXPos );
-        pMsg->SetYPos( fYPos );
+        pMsg->SetXPos(fXPos);
+        pMsg->SetYPos(fYPos);
         pMsg->SetDX(0);
         pMsg->SetDY(0);
 
@@ -558,7 +558,7 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
         {
             // left button now down
             fButtonState |= kLeftButtonDown;
-            pMsg->SetButton( kLeftButtonDown );
+            pMsg->SetButton(kLeftButtonDown);
             deleteMe = false;
         }
         else
@@ -566,7 +566,7 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
         {
             // left button now up
             fButtonState &= ~kLeftButtonDown;
-            pMsg->SetButton( kLeftButtonUp );
+            pMsg->SetButton(kLeftButtonUp);
             deleteMe = false;
         }
         else
@@ -574,7 +574,7 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
         {
             // right button now down
             fButtonState |= kRightButtonDown;
-            pMsg->SetButton( kRightButtonDown );
+            pMsg->SetButton(kRightButtonDown);
             deleteMe = false;
         }
         else
@@ -582,7 +582,7 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
         {
             // right button now up
             fButtonState &= ~kRightButtonDown;
-            pMsg->SetButton( kRightButtonUp );
+            pMsg->SetButton(kRightButtonUp);
             deleteMe = false;
         }
         else
@@ -590,7 +590,7 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
         {
             // mouse wheel button now down
             fButtonState |= kMiddleButtonDown;
-            pMsg->SetButton( kMiddleButtonDown );
+            pMsg->SetButton(kMiddleButtonDown);
             deleteMe = false;
         }
         else
@@ -598,7 +598,7 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
         {
             // right button now up
             fButtonState &= ~kMiddleButtonDown;
-            pMsg->SetButton( kMiddleButtonUp );
+            pMsg->SetButton(kMiddleButtonUp);
             deleteMe = false;
         }
 
@@ -606,17 +606,17 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
         {
             // right button dbl clicked, send TWO messages
             plMouseEventMsg* pMsg2 = new plMouseEventMsg;
-            pMsg2->SetXPos( fXPos );
-            pMsg2->SetYPos( fYPos );
+            pMsg2->SetXPos(fXPos);
+            pMsg2->SetYPos(fYPos);
             pMsg2->SetDX(0);
             pMsg2->SetDY(0);
-            pMsg2->SetButton( kRightButtonDblClk );
+            pMsg2->SetButton(kRightButtonDblClk);
 
-            if( fB2Msg != nil )
+            if (fB2Msg != nil)
                 delete fB2Msg;
             fB2Msg = pMsg2;
 
-            pMsg->SetButton( kRightButtonDown );
+            pMsg->SetButton(kRightButtonDown);
             deleteMe = false;
         }
         else
@@ -624,21 +624,21 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
         {
             // left button dbl clicked, send TWO messages
             plMouseEventMsg* pMsg2 = new plMouseEventMsg;
-            pMsg2->SetXPos( fXPos );
-            pMsg2->SetYPos( fYPos );
+            pMsg2->SetXPos(fXPos);
+            pMsg2->SetYPos(fYPos);
             pMsg2->SetDX(0);
             pMsg2->SetDY(0);
-            pMsg2->SetButton( kLeftButtonDblClk );
+            pMsg2->SetButton(kLeftButtonDblClk);
 
-            if( fB2Msg != nil )
+            if (fB2Msg != nil)
                 delete fB2Msg;
             fB2Msg = pMsg2;
 
-            pMsg->SetButton( kLeftButtonDown );
+            pMsg->SetButton(kLeftButtonDown);
             deleteMe = false;
         }
 
-        if( deleteMe )
+        if (deleteMe)
         {
             // mouse button state not changed
             delete pMsg;
@@ -649,10 +649,10 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
         // that will be dispatched on the next eval
 
         // which button is this for?
-        if ( pMsg->GetButton() == kLeftButtonDown || pMsg->GetButton() == kLeftButtonUp )
+        if (pMsg->GetButton() == kLeftButtonDown || pMsg->GetButton() == kLeftButtonUp)
         {
             // see if the queue is just empty
-            if ( fLeftBMsg[0] == nil)
+            if (fLeftBMsg[0] == nil)
             {
                 // nothing to think about... goes in first slot
                 fLeftBMsg[0] = pMsg;
@@ -668,7 +668,7 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
                 plMouseEventMsg* lastMsg = plMouseEventMsg::ConvertNoRef(pMsg);
                 // ...if this is an up event and [1] is a down then we need to remove both
                 //    ...because we can't lose the up event and the down will have no match
-                if ( pMsg->GetButton() == kLeftButtonUp && lastMsg && lastMsg->GetButton() == kLeftButtonDown)
+                if (pMsg->GetButton() == kLeftButtonUp && lastMsg && lastMsg->GetButton() == kLeftButtonDown)
                 {
                     delete pMsg;
                     delete fLeftBMsg[1];
@@ -681,10 +681,10 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
                 }
             }
         }
-        else if ( pMsg->GetButton() == kRightButtonDown || pMsg->GetButton() == kRightButtonUp )
+        else if (pMsg->GetButton() == kRightButtonDown || pMsg->GetButton() == kRightButtonUp)
         {
             // see if the queue is just empty
-            if ( fRightBMsg[0] == nil)
+            if (fRightBMsg[0] == nil)
             {
                 // nothing to think about... goes in first slot
                 fRightBMsg[0] = pMsg;
@@ -700,7 +700,7 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
                 plMouseEventMsg* lastMsg = plMouseEventMsg::ConvertNoRef(pMsg);
                 // ...if this is an up event and [1] is a down then we need to remove both
                 //    ...because we can't lose the up event and the down will have no match
-                if ( pMsg->GetButton() == kRightButtonUp && lastMsg && lastMsg->GetButton() == kRightButtonDown)
+                if (pMsg->GetButton() == kRightButtonUp && lastMsg && lastMsg->GetButton() == kRightButtonDown)
                 {
                     delete pMsg;
                     delete fRightBMsg[1];
@@ -713,10 +713,10 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
                 }
             }
         }
-        else if ( pMsg->GetButton() == kMiddleButtonDown || pMsg->GetButton() == kMiddleButtonUp )
+        else if (pMsg->GetButton() == kMiddleButtonDown || pMsg->GetButton() == kMiddleButtonUp)
         {
             // see if the queue is just empty
-            if ( fMiddleBMsg[0] == nil)
+            if (fMiddleBMsg[0] == nil)
             {
                 // nothing to think about... goes in first slot
                 fMiddleBMsg[0] = pMsg;
@@ -732,7 +732,7 @@ bool plMouseDevice::MsgReceive(plMessage* msg)
                 plMouseEventMsg* lastMsg = plMouseEventMsg::ConvertNoRef(pMsg);
                 // ...if this is an up event and [1] is a down then we need to remove both
                 //    ...because we can't lose the up event and the down will have no match
-                if ( pMsg->GetButton() == kMiddleButtonUp && lastMsg && lastMsg->GetButton() == kMiddleButtonDown)
+                if (pMsg->GetButton() == kMiddleButtonUp && lastMsg && lastMsg->GetButton() == kMiddleButtonDown)
                 {
                     delete pMsg;
                     delete fMiddleBMsg[1];

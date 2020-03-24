@@ -178,7 +178,7 @@ protected:
     void ISetTransEnable(IParamMap2* map)
     {
         IParamBlock2* pb = map->GetParamBlock();
-        if( !pb->GetInt(plFilterInheritComp::kActive) )
+        if (!pb->GetInt(plFilterInheritComp::kActive))
         {
             map->Enable(plFilterInheritComp::kNoX, FALSE);
             map->Enable(plFilterInheritComp::kNoY, FALSE);
@@ -255,10 +255,10 @@ plFilterInheritComp::plFilterInheritComp()
 
 bool plFilterInheritComp::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    if( !fCompPB->GetInt(kActive) )
+    if (!fCompPB->GetInt(kActive))
         return true;
 
-    if( node->GetParentNode()->IsRootNode() )
+    if (node->GetParentNode()->IsRootNode())
         return true;
 
     node->SetFilterInherit(true);
@@ -299,26 +299,26 @@ bool plFilterInheritComp::Bail(plMaxNode* node, const char* msg, plErrorMsg* pEr
 
 bool plFilterInheritComp::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    if( !fCompPB->GetInt(kActive) )
+    if (!fCompPB->GetInt(kActive))
         return true;
 
-    if( node->GetParentNode()->IsRootNode() )
+    if (node->GetParentNode()->IsRootNode())
         return true;
 
     plSceneObject* so = node->GetSceneObject();
-    if( !so )
+    if (!so)
     {
         return Bail(node, "Error finding scene object for filtered inheritance", pErrMsg);
     }
 
     const plCoordinateInterface* co = so->GetCoordinateInterface();
-    if( !co )
+    if (!co)
     {
         return Bail(node, "Error setting filtered inheritance - no coordinate interface", pErrMsg);
     }
     
     plFilterCoordInterface* filt = plFilterCoordInterface::ConvertNoRef(const_cast<plCoordinateInterface*>(co));
-    if( !filt )
+    if (!filt)
     {
         return Bail(node, "Error setting filtered inheritance - wrong coordinate interface", pErrMsg);
     }
@@ -333,11 +333,11 @@ bool plFilterInheritComp::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
     }
 
     uint32_t mask = plFilterCoordInterface::kNoRotation;
-    if( fCompPB->GetInt(kNoX) )
+    if (fCompPB->GetInt(kNoX))
         mask |= plFilterCoordInterface::kNoTransX;
-    if( fCompPB->GetInt(kNoY) )
+    if (fCompPB->GetInt(kNoY))
         mask |= plFilterCoordInterface::kNoTransY;
-    if( fCompPB->GetInt(kNoZ) )
+    if (fCompPB->GetInt(kNoZ))
         mask |= plFilterCoordInterface::kNoTransZ;
 
     plMaxNode* parent = (plMaxNode*)node->GetParentNode();
@@ -354,7 +354,7 @@ bool plFilterInheritComp::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
 
 bool plFilterInheritComp::SetMaxInherit(plMaxNodeBase* targ)
 {
-    if( !fCompPB->GetInt(kActive) )
+    if (!fCompPB->GetInt(kActive))
         return KillMaxInherit(targ);
 
     DWORD mask = INHERIT_ROT_X
@@ -364,17 +364,17 @@ bool plFilterInheritComp::SetMaxInherit(plMaxNodeBase* targ)
         | INHERIT_SCL_Y
         | INHERIT_SCL_Z;
 
-    if( fCompPB->GetInt(kNoX) )
+    if (fCompPB->GetInt(kNoX))
         mask |= INHERIT_POS_X;
-    if( fCompPB->GetInt(kNoY) )
+    if (fCompPB->GetInt(kNoY))
         mask |= INHERIT_POS_Y;
-    if( fCompPB->GetInt(kNoZ) )
+    if (fCompPB->GetInt(kNoZ))
         mask |= INHERIT_POS_Z;
 
     // Max documentation is a big fat liar
     mask = ~mask;
 
-    if( targ )
+    if (targ)
     {
         targ->GetTMController()->SetInheritanceFlags(mask, true);
         targ->GetTMController()->NotifyDependents(FOREVER,0,REFMSG_CHANGE);
@@ -385,7 +385,7 @@ bool plFilterInheritComp::SetMaxInherit(plMaxNodeBase* targ)
 
 bool plFilterInheritComp::SetMaxInherit()
 {
-    if( !fCompPB->GetInt(kActive) )
+    if (!fCompPB->GetInt(kActive))
         return KillMaxInherit();
 
     DWORD mask = INHERIT_ROT_X
@@ -395,21 +395,21 @@ bool plFilterInheritComp::SetMaxInherit()
         | INHERIT_SCL_Y
         | INHERIT_SCL_Z;
 
-    if( fCompPB->GetInt(kNoX) )
+    if (fCompPB->GetInt(kNoX))
         mask |= INHERIT_POS_X;
-    if( fCompPB->GetInt(kNoY) )
+    if (fCompPB->GetInt(kNoY))
         mask |= INHERIT_POS_Y;
-    if( fCompPB->GetInt(kNoZ) )
+    if (fCompPB->GetInt(kNoZ))
         mask |= INHERIT_POS_Z;
 
     // Max documentation is a big fat liar
     mask = ~mask;
 
     int i;
-    for( i = 0; i < NumTargets(); i++ )
+    for (i = 0; i < NumTargets(); i++)
     {
         plMaxNodeBase* targ = GetTarget(i);
-        if( targ )
+        if (targ)
         {
             targ->GetTMController()->SetInheritanceFlags(mask, true);
             targ->GetTMController()->NotifyDependents(FOREVER,0,REFMSG_CHANGE);
@@ -432,10 +432,10 @@ bool plFilterInheritComp::KillMaxInherit(plMaxNodeBase* targ)
 bool plFilterInheritComp::KillMaxInherit()
 {
     int i;
-    for( i = 0; i < NumTargets(); i++ )
+    for (i = 0; i < NumTargets(); i++)
     {
         plMaxNodeBase* targ = GetTarget(i);
-        if( targ )
+        if (targ)
         {
             KillMaxInherit(targ);
         }

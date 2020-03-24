@@ -67,7 +67,7 @@ void plClientUnifiedTime::SetSysTime()
 //
 // convert from game clock to unified time
 //
-#pragma optimize( "g", off )    // disable global optimizations
+#pragma optimize("g", off)    // disable global optimizations
 void plClientUnifiedTime::SetFromGameTime(double gameTime, double curGameSecs)
 {
     //double gameTimeOff = curGameSecs-gameTime;    // when did this happen relative to our currrent sysTime
@@ -105,7 +105,7 @@ void plClientUnifiedTime::ConvertToGameTime(double* gameTimeOut, double curGameS
         plUnifiedTime ct = plUnifiedTime::GetCurrent();
         plUnifiedTime ft = GetFrameStartTime();
 
-        plNetObjectDebugger::GetInstance()->LogMsg( hsTempStringF("CTGT: this=%s\n", PrintWMillis()));
+        plNetObjectDebugger::GetInstance()->LogMsg(hsTempStringF("CTGT: this=%s\n", PrintWMillis()));
         plNetObjectDebugger::GetInstance()->LogMsg(hsTempStringF("CTGT: CT=%s\n", ct.PrintWMillis()));
         plNetObjectDebugger::GetInstance()->LogMsg(hsTempStringF("CTGT: FT=%s\n", ft.PrintWMillis()));
         plNetObjectDebugger::GetInstance()->LogMsg(hsTempStringF("CTGT: OT=%s\n", utOff.PrintWMillis()));
@@ -114,7 +114,7 @@ void plClientUnifiedTime::ConvertToGameTime(double* gameTimeOut, double curGameS
     }
 #endif
 }
-#pragma optimize( "", on )  // restore optimizations to their defaults
+#pragma optimize("", on)  // restore optimizations to their defaults
 
 const plClientUnifiedTime & plClientUnifiedTime::operator=(const plUnifiedTime & src)
 {

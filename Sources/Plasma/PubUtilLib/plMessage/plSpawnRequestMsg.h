@@ -59,8 +59,8 @@ public:
                     const double* t){SetBCastFlag(plMessage::kBCastByExactType);}
     ~plSpawnRequestMsg() { }
 
-    CLASSNAME_REGISTER( plSpawnRequestMsg );
-    GETINTERFACE_ANY( plSpawnRequestMsg, plMessage );
+    CLASSNAME_REGISTER(plSpawnRequestMsg);
+    GETINTERFACE_ANY(plSpawnRequestMsg, plMessage);
     
     // IO
     void Read(hsStream* stream, hsResMgr* mgr)

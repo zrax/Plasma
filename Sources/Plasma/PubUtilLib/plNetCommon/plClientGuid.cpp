@@ -58,18 +58,18 @@ plClientGuid::plClientGuid()
     fAccountUUID.Clear();
 }
 
-void plClientGuid::SetAccountUUID(const plUUID * v )
+void plClientGuid::SetAccountUUID(const plUUID * v)
 {
-    fAccountUUID.CopyFrom( v );
-    if ( !fAccountUUID.IsNull() )
+    fAccountUUID.CopyFrom(v);
+    if (!fAccountUUID.IsNull())
         fFlags|=kAccountUUID;
     else
         fFlags&=~kAccountUUID;
 }
 
-void plClientGuid::SetAccountUUID(const plUUID & v )
+void plClientGuid::SetAccountUUID(const plUUID & v)
 {
-    SetAccountUUID( &v );
+    SetAccountUUID(&v);
 }
 
 void plClientGuid::SetBuildType(uint8_t type)
@@ -81,7 +81,7 @@ void plClientGuid::SetBuildType(uint8_t type)
 void plClientGuid::SetPlayerID(uint32_t id)
 {
     fPlayerID=id;
-    if ( fPlayerID )
+    if (fPlayerID)
     {
         fFlags|=kPlayerID;
         fFlags&=~kTempPlayerID;
@@ -93,7 +93,7 @@ void plClientGuid::SetPlayerID(uint32_t id)
 void plClientGuid::SetTempPlayerID(uint32_t id)
 {
     fPlayerID=id;
-    if ( fPlayerID )
+    if (fPlayerID)
     {
         fFlags&=~kPlayerID;
         fFlags|=kTempPlayerID;
@@ -104,10 +104,10 @@ void plClientGuid::SetTempPlayerID(uint32_t id)
     }
 }
 
-void plClientGuid::SetPlayerName( const ST::string & v )
+void plClientGuid::SetPlayerName(const ST::string & v)
 {
     fPlayerName = v;
-    if ( !fPlayerName.empty() )
+    if (!fPlayerName.empty())
         fFlags|=kPlayerName;
     else
         fFlags&=~kPlayerName;
@@ -125,24 +125,24 @@ void plClientGuid::SetProtectedLogin(bool b)
     fFlags |= kProtectedLogin;
 }
 
-void plClientGuid::SetSrcAddr( uint32_t v )
+void plClientGuid::SetSrcAddr(uint32_t v)
 {
     fSrcAddr = v;
-    if ( fSrcAddr )
+    if (fSrcAddr)
         fFlags|=kSrcAddr;
     else
         fFlags&=~kSrcAddr;
 }
 
-void plClientGuid::SetSrcAddrFromStr( const char * s )
+void plClientGuid::SetSrcAddrFromStr(const char * s)
 {
     hsAssert(false, "eric, port me");
 }
 
-void plClientGuid::SetSrcPort( uint16_t v )
+void plClientGuid::SetSrcPort(uint16_t v)
 {
     fSrcPort = v;
-    if ( fSrcPort )
+    if (fSrcPort)
         fFlags|=kSrcPort;
     else
         fFlags&=~kSrcPort;
@@ -157,7 +157,7 @@ void plClientGuid::SetReserved(bool b)
 void plClientGuid::SetClientKey(const ST::string& key)
 {
     fClientKey = key;
-    if ( !fClientKey.empty() )
+    if (!fClientKey.empty())
         fFlags|=kClientKey;
     else
         fFlags&=~kClientKey;
@@ -209,12 +209,12 @@ ST::string plClientGuid::AsString() const
         ss << spacer << "Bld:" << plNetCommon::BuildType::BuildTypeStr(fBuildType);
         spacer = kComma;
     }
-    if ( IsFlagSet(kSrcAddr) )
+    if (IsFlagSet(kSrcAddr))
     {
         ss << spacer << "Addr:" << GetSrcAddrStr();
         spacer = kComma;
     }
-    if ( IsFlagSet(kSrcPort) )
+    if (IsFlagSet(kSrcPort))
     {
         ss << spacer << "Port:" << (int)fSrcPort;
         spacer = kComma;
@@ -224,7 +224,7 @@ ST::string plClientGuid::AsString() const
         ss << spacer << "plUUID:" << fAccountUUID.AsString();
         spacer = kComma;
     }
-    if ( IsFlagSet(kReserved))
+    if (IsFlagSet(kReserved))
     {
         ss << spacer << "Res:" << (int)fReserved;
         spacer = kComma;
@@ -261,12 +261,12 @@ ST::string plClientGuid::AsLogString() const
 //      ss << "tempPlayerID:" << fPlayerID;
 //      ss << spacer;
 //  }
-    if ( IsFlagSet(kSrcAddr) )
+    if (IsFlagSet(kSrcAddr))
     {
         ss << "SrcAddr=" << GetSrcAddrStr();
         ss << spacer;
     }
-    if ( IsFlagSet(kSrcPort) )
+    if (IsFlagSet(kSrcPort))
     {
         ss << "SrcPort=" << (int)fSrcPort;
         ss << spacer;
@@ -307,7 +307,7 @@ void plClientGuid::Read(hsStream * s, hsResMgr* mgr)
     if (IsFlagSet(kAccountUUID))
     {
         s->LogSubStreamPushDesc("AcctUUID");
-        fAccountUUID.Read( s );
+        fAccountUUID.Read(s);
     }
     if (IsFlagSet(kPlayerID))
         s->LogReadLE(&fPlayerID,"PlayerID");
@@ -316,7 +316,7 @@ void plClientGuid::Read(hsStream * s, hsResMgr* mgr)
     if (IsFlagSet(kPlayerName))
     {
         s->LogSubStreamPushDesc("PlayerName");
-        plMsgStdStringHelper::Peek( fPlayerName, s );
+        plMsgStdStringHelper::Peek(fPlayerName, s);
     }
     if (IsFlagSet(kCCRLevel))
         s->LogReadLE(&fCCRLevel,"CCRLevel");
@@ -333,7 +333,7 @@ void plClientGuid::Read(hsStream * s, hsResMgr* mgr)
     if (IsFlagSet(kClientKey))
     {
         s->LogSubStreamPushDesc("ClientKey");
-        plMsgStdStringHelper::Peek( fClientKey, s );
+        plMsgStdStringHelper::Peek(fClientKey, s);
     }
     s->LogSubStreamEnd();
 }
@@ -342,13 +342,13 @@ void plClientGuid::Write(hsStream * s, hsResMgr* mgr)
 {
     s->WriteLE(fFlags);
     if (IsFlagSet(kAccountUUID))
-        fAccountUUID.Write( s );
+        fAccountUUID.Write(s);
     if (IsFlagSet(kPlayerID))
         s->WriteLE(fPlayerID);
     else if (IsFlagSet(kTempPlayerID))
         s->WriteLE(fPlayerID);
     if (IsFlagSet(kPlayerName))
-        plMsgStdStringHelper::Poke( fPlayerName, s );
+        plMsgStdStringHelper::Poke(fPlayerName, s);
     if (IsFlagSet(kCCRLevel))
         s->WriteLE(fCCRLevel);
     if (IsFlagSet(kProtectedLogin))
@@ -362,13 +362,13 @@ void plClientGuid::Write(hsStream * s, hsResMgr* mgr)
     if (IsFlagSet(kReserved))
         s->WriteLE(fReserved);
     if (IsFlagSet(kClientKey))
-        plMsgStdStringHelper::Poke( fClientKey, s );
+        plMsgStdStringHelper::Poke(fClientKey, s);
 }
 
 void plClientGuid::CopyFrom(const plClientGuid * other)
 {
     fFlags = other->fFlags;
-    fAccountUUID.CopyFrom( &other->fAccountUUID );
+    fAccountUUID.CopyFrom(&other->fAccountUUID);
     fPlayerID = other->fPlayerID;
     fPlayerName = other->fPlayerName;
     fCCRLevel = other->fCCRLevel;
@@ -382,39 +382,39 @@ void plClientGuid::CopyFrom(const plClientGuid * other)
 
 void plClientGuid::UpdateFrom(const plClientGuid * other)
 {
-    if ( !HasAccountUUID() && other->HasAccountUUID() )
-        SetAccountUUID( other->GetAccountUUID() );
-    if ( !HasPlayerID() && other->HasPlayerID() )
-        SetPlayerID( other->GetPlayerID() );
-    if ( !HasPlayerName() && other->HasPlayerName() )
-        SetPlayerName( other->GetPlayerName() );
-    if ( !HasProtectedLogin() && other->HasProtectedLogin() )
-        SetProtectedLogin( other->GetProtectedLogin() );
-    if ( !HasCCRLevel() && other->HasCCRLevel() )
-        SetCCRLevel( other->GetCCRLevel() );
-    if ( !HasBuildType() && other->HasBuildType() )
-        SetBuildType( other->GetBuildType() );
-    if ( !HasSrcAddr() && other->HasSrcAddr() )
-        SetSrcAddr( other->GetSrcAddr() );
-    if ( !HasSrcPort() && other->HasSrcPort() )
-        SetSrcPort( other->GetSrcPort() );
-    if ( !HasReservedBit() && other->HasReservedBit() )
-        SetReserved( other->IsReserved() );
-    if ( !HasClientKey() && other->HasClientKey() )
-        SetClientKey( other->GetClientKey() );
+    if (!HasAccountUUID() && other->HasAccountUUID())
+        SetAccountUUID(other->GetAccountUUID());
+    if (!HasPlayerID() && other->HasPlayerID())
+        SetPlayerID(other->GetPlayerID());
+    if (!HasPlayerName() && other->HasPlayerName())
+        SetPlayerName(other->GetPlayerName());
+    if (!HasProtectedLogin() && other->HasProtectedLogin())
+        SetProtectedLogin(other->GetProtectedLogin());
+    if (!HasCCRLevel() && other->HasCCRLevel())
+        SetCCRLevel(other->GetCCRLevel());
+    if (!HasBuildType() && other->HasBuildType())
+        SetBuildType(other->GetBuildType());
+    if (!HasSrcAddr() && other->HasSrcAddr())
+        SetSrcAddr(other->GetSrcAddr());
+    if (!HasSrcPort() && other->HasSrcPort())
+        SetSrcPort(other->GetSrcPort());
+    if (!HasReservedBit() && other->HasReservedBit())
+        SetReserved(other->IsReserved());
+    if (!HasClientKey() && other->HasClientKey())
+        SetClientKey(other->GetClientKey());
 }
 
 void plClientGuid::Clear()
 {
     plClientGuid tmp;
-    CopyFrom( &tmp );
+    CopyFrom(&tmp);
 }
 
 bool plClientGuid::IsEqualTo(const plClientGuid * other) const
 {
     return
         fFlags == other->fFlags &&
-        fAccountUUID.IsEqualTo( &other->fAccountUUID ) &&
+        fAccountUUID.IsEqualTo(&other->fAccountUUID) &&
         fPlayerID == other->fPlayerID &&
         fPlayerName == other->fPlayerName &&
         fCCRLevel == other->fCCRLevel &&
@@ -426,14 +426,14 @@ bool plClientGuid::IsEqualTo(const plClientGuid * other) const
 
 bool operator==(const plClientGuid & X, const plClientGuid & Y)
 {
-    return ( X.fAccountUUID.IsEqualTo( &Y.fAccountUUID )&&X.fPlayerID==Y.fPlayerID&&X.fFlags==Y.fFlags);
+    return (X.fAccountUUID.IsEqualTo(&Y.fAccountUUID)&&X.fPlayerID==Y.fPlayerID&&X.fFlags==Y.fFlags);
 }
 bool operator!=(const plClientGuid & X, const plClientGuid & Y)
 {
-    return ( !X.fAccountUUID.IsEqualTo( &Y.fAccountUUID )||X.fPlayerID!=Y.fPlayerID||X.fFlags!=Y.fFlags);
+    return (!X.fAccountUUID.IsEqualTo(&Y.fAccountUUID)||X.fPlayerID!=Y.fPlayerID||X.fFlags!=Y.fFlags);
 }
 bool operator<(const plClientGuid & X, const plClientGuid & Y)
 {
-    return ( X.fAccountUUID.CompareTo( &Y.fAccountUUID )<0||X.fPlayerID<Y.fPlayerID);
+    return (X.fAccountUUID.CompareTo(&Y.fAccountUUID)<0||X.fPlayerID<Y.fPlayerID);
 }
 

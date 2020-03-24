@@ -87,7 +87,7 @@ int plStateChangeNotifier::RemoveNotificationKey(plKey k)
 int plStateChangeNotifier::RemoveNotificationKeys(KeyList keys)
 {
     KeyList::iterator it=keys.begin();
-    for( ; it != keys.end(); it++)
+    for (; it != keys.end(); it++)
         IRemoveKey(*it);
 
     return fKeys.size();
@@ -96,7 +96,7 @@ int plStateChangeNotifier::RemoveNotificationKeys(KeyList keys)
 void plStateChangeNotifier::AddNotificationKeys(KeyList keys)
 {
     KeyList::iterator it=keys.begin();
-    for( ; it != keys.end(); it++)
+    for (; it != keys.end(); it++)
         IAddKey(*it);
 }
 
@@ -128,7 +128,7 @@ void plStateChangeNotifier::SendNotificationMsg(const plSimpleStateVariable* src
 
     // add receivers
     KeyList::iterator kit=fKeys.begin();
-    for(; kit != fKeys.end(); kit++)
+    for (; kit != fKeys.end(); kit++)
         m->AddReceiver(*kit);
 
     m->fDelta=fDelta;

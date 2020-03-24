@@ -76,14 +76,14 @@ class plPipelineCreate
 {
     protected:
 
-        static plPipeline   *ICreateDXPipeline( hsWinRef hWnd, const hsG3DDeviceModeRecord *devMode );
+        static plPipeline   *ICreateDXPipeline(hsWinRef hWnd, const hsG3DDeviceModeRecord *devMode);
 
     public:
 
-        static plPipeline   *CreatePipeline( hsWinRef hWnd, const hsG3DDeviceModeRecord *devMode )
+        static plPipeline   *CreatePipeline(hsWinRef hWnd, const hsG3DDeviceModeRecord *devMode)
         {
             // Just this for now. Later we'll key off of the devMode
-            return ICreateDXPipeline( hWnd, devMode );
+            return ICreateDXPipeline(hWnd, devMode);
         }
 
 };

@@ -82,10 +82,10 @@ ParamBlockDesc2 *GetBumpLayersPB();
 #include "plBumpMtlBasicPBDec.h"
 #include "plBumpMtlAnimPBDec.h"
 
-plBumpMtl::plBumpMtl(BOOL loading) : plPassMtlBase( loading )
+plBumpMtl::plBumpMtl(BOOL loading) : plPassMtlBase(loading)
 {
-    plBumpMtlDesc.MakeAutoParamBlocks( this );
-    fBasicPB->SetValue( kBumpBasLayer, 0, new plLayerTex );
+    plBumpMtlDesc.MakeAutoParamBlocks(this);
+    fBasicPB->SetValue(kBumpBasLayer, 0, new plLayerTex);
 
     // If we do this later (like, when the dialog loads) something blows up,
     // somewhere in Max.  It didn't in 4, it does in 7.  This seems to fix it.
@@ -134,7 +134,7 @@ Interval plBumpMtl::Validity(TimeValue t)
     Interval v = FOREVER;
     fBasicPB->GetValidity(t, v);
 
-    if( fBasicPB->GetTexmap(kBumpBasLayer) )
+    if (fBasicPB->GetTexmap(kBumpBasLayer))
         v &= fBasicPB->GetTexmap(kBumpBasLayer)->Validity(t);
     return v;
 #endif // mf horse
@@ -144,15 +144,15 @@ Interval plBumpMtl::Validity(TimeValue t)
 //  Note: need to overload because MAX for some reason writes out the
 //  references by their INDEX. ARRRRGH!
 
-RefTargetHandle plBumpMtl::GetReference( int i )
+RefTargetHandle plBumpMtl::GetReference(int i)
 {
-    switch( i )
+    switch (i)
     {
         case kRefBasic:  return fBasicPB;
         case kRefAnim:   return fAnimPB;
     }
 
-    return plPassMtlBase::GetReference( i );
+    return plPassMtlBase::GetReference(i);
 }
 
 //// SetReference ////////////////////////////////////////////////////////////
@@ -166,7 +166,7 @@ void plBumpMtl::SetReference(int i, RefTargetHandle rtarg)
     else if (i == kRefAnim)
         fAnimPB = (IParamBlock2 *)rtarg;
     else
-        plPassMtlBase::SetReference( i, rtarg );
+        plPassMtlBase::SetReference(i, rtarg);
 }
 
 /*===========================================================================*\
@@ -225,7 +225,7 @@ IParamBlock2* plBumpMtl::GetParamBlockByID(BlockID id)
 
 RefResult plBumpMtl::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message)
 {
-    return plPassMtlBase::NotifyRefChanged( changeInt, hTarget, partID, message );
+    return plPassMtlBase::NotifyRefChanged(changeInt, hTarget, partID, message);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -270,11 +270,11 @@ TSTR plBumpMtl::GetSubTexmapTVName(int i)
 RefTargetHandle plBumpMtl::Clone(RemapDir &remap)
 {
     plBumpMtl *mnew = new plBumpMtl(FALSE);
-    plPassMtlBase::ICloneBase( mnew, remap );
+    plPassMtlBase::ICloneBase(mnew, remap);
     return (RefTargetHandle)mnew;
 }
 
-void        plBumpMtl::ICloneRefs( plPassMtlBase *target, RemapDir &remap )
+void        plBumpMtl::ICloneRefs(plPassMtlBase *target, RemapDir &remap)
 {
     target->ReplaceReference(kRefBasic, remap.CloneRef(fBasicPB));
     target->ReplaceReference(kRefAnim, remap.CloneRef(fAnimPB));
@@ -293,7 +293,7 @@ void plBumpMtl::Update(TimeValue t, Interval& valid)
     if (!fIValid.InInterval(t))
     {
         fIValid.SetInfinite();
-        if( fBasicPB->GetTexmap(kBumpBasLayer) )
+        if (fBasicPB->GetTexmap(kBumpBasLayer))
             fBasicPB->GetTexmap(kBumpBasLayer)->Update(t, fIValid);
 
 //      fLayersPB->GetValue(kMtlLayLayer1On, t, fMapOn[0], fIValid);
@@ -342,7 +342,7 @@ void plBumpMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback &
             if (texHandle[i]) {
                 mtl->texture[i].textHandle = texHandle[i]->GetHandle();
                 Texmap *tx = (*maps)[useSubForTex[i]].map;
-                cb.GetGfxTexInfoFromTexmap(t, mtl->texture[i], tx );
+                cb.GetGfxTexInfoFromTexmap(t, mtl->texture[i], tx);
                 SetTexOps(mtl,i,texOpsType[i]);
                 }
             }
@@ -352,8 +352,8 @@ void plBumpMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback &
 
 #if 0   // WTF?!?!?!?
     Texmap *tx[2];
-    int diffChan = stdIDToChannel[ ID_DI ];
-    int opacChan = stdIDToChannel[ ID_OP ];
+    int diffChan = stdIDToChannel[ID_DI];
+    int opacChan = stdIDToChannel[ID_OP];
     tx[0] = (*maps)[diffChan].IsActive()?(*maps)[diffChan].map:NULL;
     tx[1] = (*maps)[opacChan].IsActive()?(*maps)[opacChan].map:NULL;
 #endif
@@ -447,13 +447,13 @@ void plBumpMtl::GetInterpVtxValue(int channel, ShadeContext &sc, Point3 &val)
     Mesh *mesh = sc.globContext->GetRenderInstance(sc.NodeID())->mesh;
     if (mesh != nil)
     {
-        Face *maxFace = &mesh->faces[ sc.FaceNumber() ];
+        Face *maxFace = &mesh->faces[sc.FaceNumber()];
         UVVert *map = mesh->mapVerts(channel);
         if (map != nil)
         {
-            Point3 p0 = map[maxFace->getVert( 0 )];
-            Point3 p1 = map[maxFace->getVert( 1 )];
-            Point3 p2 = map[maxFace->getVert( 2 )];
+            Point3 p0 = map[maxFace->getVert(0)];
+            Point3 p1 = map[maxFace->getVert(1)];
+            Point3 p2 = map[maxFace->getVert(2)];
             Point3 interp = sc.BarycentricCoords();
             val.x = interp.x * p0.x + interp.y * p1.x + interp.z * p2.x;
             val.y = interp.x * p0.y + interp.y * p1.y + interp.z * p2.y;
@@ -482,12 +482,12 @@ void plBumpMtl::Shade(ShadeContext& sc)
 //  Tells MAX what we need to render ourselves properly, such as translucency,
 //  two-sidedness, etc. Flags are in imtl.h in the MAX SDK.
 
-ULONG   plBumpMtl::Requirements( int subMtlNum )
+ULONG   plBumpMtl::Requirements(int subMtlNum)
 {
     ULONG       req = 0;
 
 
-    req = Mtl::Requirements( subMtlNum );
+    req = Mtl::Requirements(subMtlNum);
 
     // Uncomment this to get the background color fed to our ShadeWithBackground()
     // (slower processing tho)
@@ -541,8 +541,8 @@ void plBumpMtl::ShadeWithBackground(ShadeContext &sc, Color background, bool use
 
     // Evaluate Base layer
     Texmap *map = fBasicPB->GetTexmap(kBumpBasLayer);
-    if (map && ( map->ClassID() == LAYER_TEX_CLASS_ID
-                || map->ClassID() == STATIC_ENV_LAYER_CLASS_ID ) )
+    if (map && (map->ClassID() == LAYER_TEX_CLASS_ID
+                || map->ClassID() == STATIC_ENV_LAYER_CLASS_ID))
     {
         plLayerTex *layer = (plLayerTex*)map;
         AColor evalColor = layer->EvalColor(sc);
@@ -612,8 +612,8 @@ void plBumpMtl::ShadeWithBackground(ShadeContext &sc, Color background, bool use
     // will be opaque, so be careful.
     Color outC = ip.diffIllum + ip.specIllum;
 
-    sc.out.c = ( outC * alpha );
-    sc.out.t = Color( 1.f - alpha, 1.f - alpha, 1.f - alpha );
+    sc.out.c = (outC * alpha);
+    sc.out.t = Color(1.f - alpha, 1.f - alpha, 1.f - alpha);
 
 #endif
 }
@@ -683,4 +683,4 @@ int     plBumpMtl::GetTopLayerOn() { return 0; }
 Texmap *plBumpMtl::GetTopLayer() { return nil; }
 int     plBumpMtl::GetLayerBlend() { return 0; }
 int     plBumpMtl::GetOutputAlpha() { return 0; }
-int     plBumpMtl::GetOutputBlend() { return fBasicPB->GetInt( kBumpBasSpecular ) ? plPassMtlBase::kBlendAdd : plPassMtlBase::kBlendAlpha; }
+int     plBumpMtl::GetOutputBlend() { return fBasicPB->GetInt(kBumpBasSpecular) ? plPassMtlBase::kBlendAdd : plPassMtlBase::kBlendAlpha; }

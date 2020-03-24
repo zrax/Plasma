@@ -58,30 +58,30 @@ pyGUIControlRadioGroup::pyGUIControlRadioGroup(plKey objkey) : pyGUIControl(objk
 
 bool pyGUIControlRadioGroup::IsGUIControlRadioGroup(pyKey& gckey)
 {
-    if ( gckey.getKey() && pfGUIRadioGroupCtrl::ConvertNoRef(gckey.getKey()->ObjectIsLoaded()) )
+    if (gckey.getKey() && pfGUIRadioGroupCtrl::ConvertNoRef(gckey.getKey()->ObjectIsLoaded()))
         return true;
     return false;
 }
 
 int32_t pyGUIControlRadioGroup::GetValue()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIRadioGroupCtrl* prgmod = pfGUIRadioGroupCtrl::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( prgmod )
+        if (prgmod)
             return prgmod->GetValue();
     }
     return -1;
 }
 
-void pyGUIControlRadioGroup::SetValue( int32_t value )
+void pyGUIControlRadioGroup::SetValue(int32_t value)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIRadioGroupCtrl* prgmod = pfGUIRadioGroupCtrl::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( prgmod )
+        if (prgmod)
             prgmod->SetValue(value);
     }
 }

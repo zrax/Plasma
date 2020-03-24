@@ -320,11 +320,11 @@ class plReadOnlySubStream: public hsStream
     void    IFixPosition();
 
 public:
-    plReadOnlySubStream(): fBase( nil ), fOffset( 0 ), fLength( 0 ) {}
+    plReadOnlySubStream(): fBase(nil), fOffset(0), fLength(0) {}
     ~plReadOnlySubStream();
 
     virtual bool      Open(const plFileName &, const char *) { hsAssert(0, "plReadOnlySubStream::Open  NotImplemented"); return false; }
-    void              Open( hsStream *base, uint32_t offset, uint32_t length );
+    void              Open(hsStream *base, uint32_t offset, uint32_t length);
     virtual bool      Close() { fBase = nil; fOffset = 0; fLength = 0; return true; }
     virtual bool      AtEnd();
     virtual uint32_t  Read(uint32_t byteCount, void* buffer);
@@ -375,7 +375,7 @@ public:
     virtual void      Truncate();
 
     uint32_t          GetBytesWritten() const { return fBytesRead; }
-    void              Reset( ) { fBytesRead = 0;   }
+    void              Reset() { fBytesRead = 0;   }
 };
 
 // read only mem stream

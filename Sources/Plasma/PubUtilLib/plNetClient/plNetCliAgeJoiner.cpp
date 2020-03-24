@@ -465,7 +465,7 @@ bool plNCAgeJoiner::MsgReceive (plMessage * msg) {
     // Done loading all states. Time to link in!
     //========================================================================
     plInitialAgeStateLoadedMsg * stateMsg = plInitialAgeStateLoadedMsg::ConvertNoRef(msg);
-    if(stateMsg) {
+    if (stateMsg) {
         plNetObjectDebugger::GetInstance()->LogMsg("OnServerInitComplete");
         nc->SetFlagsBit(plNetClientApp::kLoadingInitialAgeState, false);
 

@@ -56,8 +56,8 @@ public:
     plLogicModifier();
     ~plLogicModifier();
 
-    CLASSNAME_REGISTER( plLogicModifier );
-    GETINTERFACE_ANY( plLogicModifier, plLogicModBase );
+    CLASSNAME_REGISTER(plLogicModifier);
+    GETINTERFACE_ANY(plLogicModifier, plLogicModBase);
     
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

@@ -69,8 +69,8 @@ public:
 
 
     // plasma protocol
-    CLASSNAME_REGISTER( plAvatarMsg );
-    GETINTERFACE_ANY( plAvatarMsg, plMessage );
+    CLASSNAME_REGISTER(plAvatarMsg);
+    GETINTERFACE_ANY(plAvatarMsg, plMessage);
 
     virtual void Read(hsStream *stream, hsResMgr *mgr) { plMessage::IMsgRead(stream, mgr); }
     virtual void Write(hsStream *stream, hsResMgr *mgr) { plMessage::IMsgWrite(stream, mgr); }
@@ -101,8 +101,8 @@ public:
     void SetInvis(bool val) { fIsInvis = val; }
 
     // plasma protocol
-    CLASSNAME_REGISTER( plArmatureUpdateMsg );
-    GETINTERFACE_ANY( plArmatureUpdateMsg, plAvatarMsg );
+    CLASSNAME_REGISTER(plArmatureUpdateMsg);
+    GETINTERFACE_ANY(plArmatureUpdateMsg, plAvatarMsg);
 
     virtual void Read(hsStream *stream, hsResMgr *mgr);
     virtual void Write(hsStream *stream, hsResMgr *mgr);
@@ -155,8 +155,8 @@ public:
     plAvTask *GetTask() const { return fTask; }
 
     // plasma protocol
-    CLASSNAME_REGISTER( plAvTaskMsg );
-    GETINTERFACE_ANY( plAvTaskMsg, plAvatarMsg );
+    CLASSNAME_REGISTER(plAvTaskMsg);
+    GETINTERFACE_ANY(plAvTaskMsg, plAvatarMsg);
 
     virtual void Read(hsStream *stream, hsResMgr *mgr);
     virtual void Write(hsStream *stream, hsResMgr *mgr);
@@ -194,8 +194,8 @@ public:
                 uint8_t flags = kSeekFlagForce3rdPersonOnStart, plKey finishKey = nil);
     
     // plasma protocol
-    CLASSNAME_REGISTER( plAvSeekMsg );
-    GETINTERFACE_ANY( plAvSeekMsg, plAvTaskMsg );
+    CLASSNAME_REGISTER(plAvSeekMsg);
+    GETINTERFACE_ANY(plAvSeekMsg, plAvTaskMsg);
     
     bool Force3rdPersonOnStart();
     bool UnForce3rdPersonOnFinish();
@@ -229,8 +229,8 @@ public:
     plAvTaskSeekDoneMsg(const plKey &sender, const plKey &receiver) : plAvatarMsg(sender, receiver), fAborted(false) {}
 
     // plasma protocol
-    CLASSNAME_REGISTER( plAvTaskSeekDoneMsg );
-    GETINTERFACE_ANY( plAvTaskSeekDoneMsg, plAvatarMsg );
+    CLASSNAME_REGISTER(plAvTaskSeekDoneMsg);
+    GETINTERFACE_ANY(plAvTaskSeekDoneMsg, plAvatarMsg);
 
     virtual void Read(hsStream *stream, hsResMgr *mgr);
     virtual void Write(hsStream *stream, hsResMgr *mgr);
@@ -252,8 +252,8 @@ public:
                    const ST::string &animName, bool drivable, bool reversible);
 
     // plasma protocol
-    CLASSNAME_REGISTER( plAvOneShotMsg );
-    GETINTERFACE_ANY( plAvOneShotMsg, plAvSeekMsg );
+    CLASSNAME_REGISTER(plAvOneShotMsg);
+    GETINTERFACE_ANY(plAvOneShotMsg, plAvSeekMsg);
 
     virtual void Read(hsStream *stream, hsResMgr *mgr);
     virtual void Write(hsStream *stream, hsResMgr *mgr);
@@ -321,8 +321,8 @@ public:
     plAvBrainGenericMsg(plKey sender, plKey receiver,
                                              Type type, int stage, int newLoopCount);
     // plasma protocol
-    CLASSNAME_REGISTER( plAvBrainGenericMsg );
-    GETINTERFACE_ANY( plAvBrainGenericMsg, plAvatarMsg );
+    CLASSNAME_REGISTER(plAvBrainGenericMsg);
+    GETINTERFACE_ANY(plAvBrainGenericMsg, plAvatarMsg);
 
     virtual void Read(hsStream *stream, hsResMgr *mgr);
     virtual void Write(hsStream *stream, hsResMgr *mgr);
@@ -347,8 +347,8 @@ public:
     plAvPushBrainMsg();
     plAvPushBrainMsg(const plKey& sender, const plKey &receiver, plArmatureBrain *brain);
 
-    CLASSNAME_REGISTER( plAvPushBrainMsg );
-    GETINTERFACE_ANY( plAvPushBrainMsg, plAvTaskMsg);
+    CLASSNAME_REGISTER(plAvPushBrainMsg);
+    GETINTERFACE_ANY(plAvPushBrainMsg, plAvTaskMsg);
 
     virtual void Read(hsStream *stream, hsResMgr *mgr);
     virtual void Write(hsStream *stream, hsResMgr *mgr);
@@ -369,8 +369,8 @@ public:
     plAvPopBrainMsg(const plKey &sender, const plKey &receiver)
         : plAvTaskMsg(sender, receiver) { }
 
-    CLASSNAME_REGISTER( plAvPopBrainMsg );
-    GETINTERFACE_ANY( plAvPopBrainMsg, plAvTaskMsg);
+    CLASSNAME_REGISTER(plAvPopBrainMsg);
+    GETINTERFACE_ANY(plAvPopBrainMsg, plAvTaskMsg);
 };
 
 #endif // SERVER
@@ -407,8 +407,8 @@ public:
     
     plAvatarBehaviorNotifyMsg() : fType(0),state(false) {}
     
-    CLASSNAME_REGISTER( plAvatarBehaviorNotifyMsg );
-    GETINTERFACE_ANY( plAvatarBehaviorNotifyMsg, plMessage );
+    CLASSNAME_REGISTER(plAvatarBehaviorNotifyMsg);
+    GETINTERFACE_ANY(plAvatarBehaviorNotifyMsg, plMessage);
     
     // Local Only
     virtual void Read(hsStream *stream, hsResMgr *mgr) {}
@@ -422,8 +422,8 @@ public:
     plAvatarOpacityCallbackMsg(plKey receiver, CallbackEvent e, int idx=0, float t=0, int16_t repeats=-1, uint16_t user=0) :
                                plEventCallbackMsg(receiver, e, idx, t, repeats, user) {}
     
-    CLASSNAME_REGISTER( plAvatarOpacityCallbackMsg );
-    GETINTERFACE_ANY( plAvatarOpacityCallbackMsg, plEventCallbackMsg );
+    CLASSNAME_REGISTER(plAvatarOpacityCallbackMsg);
+    GETINTERFACE_ANY(plAvatarOpacityCallbackMsg, plEventCallbackMsg);
     
     // These aren't meant to go across the net, so no IO necessary.
     void Read(hsStream* stream, hsResMgr* mgr) {}
@@ -437,8 +437,8 @@ public:
 
     plAvatarSpawnNotifyMsg() : fAvMod(nil) {}
 
-    CLASSNAME_REGISTER( plAvatarSpawnNotifyMsg );
-    GETINTERFACE_ANY( plAvatarSpawnNotifyMsg, plMessage );
+    CLASSNAME_REGISTER(plAvatarSpawnNotifyMsg);
+    GETINTERFACE_ANY(plAvatarSpawnNotifyMsg, plMessage);
 
     // Local Only
     virtual void Read(hsStream *stream, hsResMgr *mgr) {}
@@ -452,8 +452,8 @@ public:
     plAvatarPhysicsEnableCallbackMsg(plKey receiver, CallbackEvent e, int idx=0, float t=0, int16_t repeats=-1, uint16_t user=0) :
                                      plEventCallbackMsg(receiver, e, idx, t, repeats, user) {}
     
-    CLASSNAME_REGISTER( plAvatarPhysicsEnableCallbackMsg );
-    GETINTERFACE_ANY( plAvatarPhysicsEnableCallbackMsg, plEventCallbackMsg );
+    CLASSNAME_REGISTER(plAvatarPhysicsEnableCallbackMsg);
+    GETINTERFACE_ANY(plAvatarPhysicsEnableCallbackMsg, plEventCallbackMsg);
     
     // These aren't meant to go across the net, so no IO necessary.
     void Read(hsStream* stream, hsResMgr* mgr) {}

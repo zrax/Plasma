@@ -74,8 +74,8 @@ public:
     plLODMipmap(plMipmap* mip);
     virtual ~plLODMipmap();
     
-    CLASSNAME_REGISTER( plLODMipmap );
-    GETINTERFACE_ANY( plLODMipmap, plMipmap );
+    CLASSNAME_REGISTER(plLODMipmap);
+    GETINTERFACE_ANY(plLODMipmap, plMipmap);
 
     virtual bool MsgReceive(plMessage *msg);
 
@@ -83,7 +83,7 @@ public:
     int             GetLOD() const { return fLOD; }
 
     virtual hsGDeviceRef*   GetDeviceRef() const;
-    virtual void            SetDeviceRef( hsGDeviceRef *const devRef );
+    virtual void            SetDeviceRef(hsGDeviceRef *const devRef);
 
     virtual void    Reset();
 

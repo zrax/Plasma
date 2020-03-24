@@ -57,18 +57,18 @@ plDebugText plDebugText::fInstance;
 
 //// DrawString //////////////////////////////////////////////////////////////
 
-void    plDebugText::DrawString( uint16_t x, uint16_t y, const char *string, uint32_t hexColor, uint8_t style )
+void    plDebugText::DrawString(uint16_t x, uint16_t y, const char *string, uint32_t hexColor, uint8_t style)
 {
-    if( IsEnabled() && fManager && string != nil && string[ 0 ] != 0 )
-        fManager->AddString( x, y, string, hexColor, style, fDrawOnTopMode );
+    if (IsEnabled() && fManager && string != nil && string[0] != 0)
+        fManager->AddString(x, y, string, hexColor, style, fDrawOnTopMode);
 }
 
 //// CalcStringWidth /////////////////////////////////////////////////////////
 
-uint32_t  plDebugText::CalcStringWidth( const char *string )
+uint32_t  plDebugText::CalcStringWidth(const char *string)
 {
-    if( IsEnabled() && fManager && string )
-        return fManager->CalcStringWidth( string );
+    if (IsEnabled() && fManager && string)
+        return fManager->CalcStringWidth(string);
 
     return 0;
 }
@@ -78,26 +78,26 @@ uint32_t  plDebugText::CalcStringWidth( const char *string )
 //  to create a background for our console; will be obliterated once we figure
 //  a better way to do so.
 
-void    plDebugText::DrawRect( uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, uint32_t hexColor )
+void    plDebugText::DrawRect(uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, uint32_t hexColor)
 {
-    if( IsEnabled() && fManager )
-        fManager->DrawRect( left, top, right, bottom, hexColor, fDrawOnTopMode );
+    if (IsEnabled() && fManager)
+        fManager->DrawRect(left, top, right, bottom, hexColor, fDrawOnTopMode);
 }
 
 //// Draw3DBorder ////////////////////////////////////////////////////////////
 
-void    plDebugText::Draw3DBorder( uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, uint32_t hexColor1, uint32_t hexColor2 )
+void    plDebugText::Draw3DBorder(uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, uint32_t hexColor1, uint32_t hexColor2)
 {
-    if( IsEnabled() && fManager )
-        fManager->Draw3DBorder( left, top, right, bottom, hexColor1, hexColor2, fDrawOnTopMode );
+    if (IsEnabled() && fManager)
+        fManager->Draw3DBorder(left, top, right, bottom, hexColor1, hexColor2, fDrawOnTopMode);
 }
 
 //// GetScreenSize ///////////////////////////////////////////////////////////
 
-void    plDebugText::GetScreenSize( uint32_t *width, uint32_t *height )
+void    plDebugText::GetScreenSize(uint32_t *width, uint32_t *height)
 {
-    if( fManager )
-        fManager->GetScreenSize( width, height );
+    if (fManager)
+        fManager->GetScreenSize(width, height);
 }
 
 uint16_t plDebugText::GetFontHeight()
@@ -113,19 +113,19 @@ uint16_t plDebugText::GetFontHeight()
 
 //// plDebugTextNode Constructor /////////////////////////////////////////////
 
-plDebugTextManager::plDebugTextNode::plDebugTextNode( const char *s, uint32_t c, uint16_t x, uint16_t y, uint8_t style )
+plDebugTextManager::plDebugTextNode::plDebugTextNode(const char *s, uint32_t c, uint16_t x, uint16_t y, uint8_t style)
 {
-    HSMemory::Clear( fText, sizeof( fText ) );
-    strncpy( fText, s, sizeof( fText ) - 1 );
+    HSMemory::Clear(fText, sizeof(fText));
+    strncpy(fText, s, sizeof(fText) - 1);
     fColor = c;
     fX = x;
     fY = y;
     fStyle = style;
 }
 
-plDebugTextManager::plDebugTextNode::plDebugTextNode( uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, uint32_t c )
+plDebugTextManager::plDebugTextNode::plDebugTextNode(uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, uint32_t c)
 {
-    memset( fText, 0, sizeof( fText ) );
+    memset(fText, 0, sizeof(fText));
     fColor = c;
     fX = left;
     fY = top;
@@ -134,9 +134,9 @@ plDebugTextManager::plDebugTextNode::plDebugTextNode( uint16_t left, uint16_t to
     fStyle = 0xff;
 }
 
-plDebugTextManager::plDebugTextNode::plDebugTextNode( uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, uint32_t c1, uint32_t c2 )
+plDebugTextManager::plDebugTextNode::plDebugTextNode(uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, uint32_t c1, uint32_t c2)
 {
-    memset( fText, 0, sizeof( fText ) );
+    memset(fText, 0, sizeof(fText));
     fColor = c1;
     fDarkColor = c2;
     fX = left;
@@ -150,18 +150,18 @@ plDebugTextManager::plDebugTextNode::plDebugTextNode( uint16_t left, uint16_t to
 
 plDebugTextManager::~plDebugTextManager()
 {
-    if( fFont != nil )
+    if (fFont != nil)
         delete fFont;
 }
 
 //// AddString ///////////////////////////////////////////////////////////////
 
-void    plDebugTextManager::AddString( uint16_t x, uint16_t y, const char *s, uint32_t hexColor, uint8_t style, bool drawOnTop )
+void    plDebugTextManager::AddString(uint16_t x, uint16_t y, const char *s, uint32_t hexColor, uint8_t style, bool drawOnTop)
 {
-    if( drawOnTop )
-        fDrawOnTopList.Append( plDebugTextNode( s, hexColor, x, y, style ) );
+    if (drawOnTop)
+        fDrawOnTopList.Append(plDebugTextNode(s, hexColor, x, y, style));
     else
-        fList.Append( plDebugTextNode( s, hexColor, x, y, style ) );
+        fList.Append(plDebugTextNode(s, hexColor, x, y, style));
 }
 
 //// DrawRect ////////////////////////////////////////////////////////////////
@@ -169,44 +169,44 @@ void    plDebugTextManager::AddString( uint16_t x, uint16_t y, const char *s, ui
 //  to create a background for our console; will be obliterated once we figure
 //  a better way to do so.
 
-void    plDebugTextManager::DrawRect( uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, uint32_t hexColor, bool drawOnTop )
+void    plDebugTextManager::DrawRect(uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, uint32_t hexColor, bool drawOnTop)
 {
-    if( drawOnTop )
-        fDrawOnTopList.Append( plDebugTextNode( left, top, right, bottom, hexColor ) );
+    if (drawOnTop)
+        fDrawOnTopList.Append(plDebugTextNode(left, top, right, bottom, hexColor));
     else
-        fList.Append( plDebugTextNode( left, top, right, bottom, hexColor ) );
+        fList.Append(plDebugTextNode(left, top, right, bottom, hexColor));
 }
 
 //// Draw3DBorder ////////////////////////////////////////////////////////////
 
-void    plDebugTextManager::Draw3DBorder( uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, uint32_t hexColor1, uint32_t hexColor2, bool drawOnTop )
+void    plDebugTextManager::Draw3DBorder(uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, uint32_t hexColor1, uint32_t hexColor2, bool drawOnTop)
 {
-    if( drawOnTop )
-        fDrawOnTopList.Append( plDebugTextNode( left, top, right, bottom, hexColor1, hexColor2 ) );
+    if (drawOnTop)
+        fDrawOnTopList.Append(plDebugTextNode(left, top, right, bottom, hexColor1, hexColor2));
     else
-        fList.Append( plDebugTextNode( left, top, right, bottom, hexColor1, hexColor2 ) );
+        fList.Append(plDebugTextNode(left, top, right, bottom, hexColor1, hexColor2));
 }
 
 //// DrawToDevice ////////////////////////////////////////////////////////////
 
-void    plDebugTextManager::DrawToDevice( plPipeline *pipe )
+void    plDebugTextManager::DrawToDevice(plPipeline *pipe)
 {
     int                         i, j;
     hsTArray<plDebugTextNode>   *list;
 
 
-    if( fList.GetCount() == 0 && fDrawOnTopList.GetCount() == 0 )
+    if (fList.GetCount() == 0 && fDrawOnTopList.GetCount() == 0)
     {
         return;
     }
 
-    if( fFont == nil )
+    if (fFont == nil)
     {
         // Create font first time around
-        fFont = pipe->MakeTextFont( (char *)plDebugText::Instance().GetFontFace(),
-                                        plDebugText::Instance().GetFontSize() );
+        fFont = pipe->MakeTextFont((char *)plDebugText::Instance().GetFontFace(),
+                                        plDebugText::Instance().GetFontSize());
 
-        if( fFont == nil )
+        if (fFont == nil)
         {
             plDebugText::Instance().DisablePermanently();
             return;
@@ -220,26 +220,26 @@ void    plDebugTextManager::DrawToDevice( plPipeline *pipe )
     // Start other stuff
     fFont->SaveStates();
 
-    for( j = 0; j < 2; j++ )
+    for (j = 0; j < 2; j++)
     {
-        if( j == 0 )
+        if (j == 0)
             list = &fList;
         else
             list = &fDrawOnTopList;
 
-        for( i = 0; i < list->GetCount(); i++ )
+        for (i = 0; i < list->GetCount(); i++)
         {
             plDebugTextNode& node = (*list)[i];
 
-            if( node.fStyle == 0xff )
+            if (node.fStyle == 0xff)
             {
-                fFont->DrawRect( node.fX, node.fY,
-                                 node.fRight, node.fBottom, node.fColor );
+                fFont->DrawRect(node.fX, node.fY,
+                                node.fRight, node.fBottom, node.fColor);
             }
-            else if( node.fStyle == 0xfe )
+            else if (node.fStyle == 0xfe)
             {
-                fFont->Draw3DBorder( node.fX, node.fY,
-                                 node.fRight, node.fBottom, node.fColor, node.fDarkColor );
+                fFont->Draw3DBorder(node.fX, node.fY,
+                                 node.fRight, node.fBottom, node.fColor, node.fDarkColor);
             }
             else
             {
@@ -271,21 +271,21 @@ void    plDebugTextManager::DrawToDevice( plPipeline *pipe )
 
 //// CalcStringWidth /////////////////////////////////////////////////////////
 
-uint32_t  plDebugTextManager::CalcStringWidth( const char *string )
+uint32_t  plDebugTextManager::CalcStringWidth(const char *string)
 {
-    if( !plDebugText::Instance().IsEnabled() || fFont == nil )
+    if (!plDebugText::Instance().IsEnabled() || fFont == nil)
         return 0;
 
-    return fFont->CalcStringWidth( string );
+    return fFont->CalcStringWidth(string);
 }
 
 //// GetScreenSize ///////////////////////////////////////////////////////////
 
-void    plDebugTextManager::GetScreenSize( uint32_t *width, uint32_t *height )
+void    plDebugTextManager::GetScreenSize(uint32_t *width, uint32_t *height)
 {
-    if( width != nil )
+    if (width != nil)
         *width = fSWidth;
-    if( height != nil )
+    if (height != nil)
         *height = fSHeight;
 }
 

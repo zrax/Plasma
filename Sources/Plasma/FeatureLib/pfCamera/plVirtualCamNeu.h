@@ -117,8 +117,8 @@ public:
     plVirtualCam1();
     virtual ~plVirtualCam1();
 
-    CLASSNAME_REGISTER( plVirtualCam1 );
-    GETINTERFACE_ANY( plVirtualCam1, hsKeyedObject );
+    CLASSNAME_REGISTER(plVirtualCam1);
+    GETINTERFACE_ANY(plVirtualCam1, hsKeyedObject);
 
     void SetPipeline(plPipeline* p);
     void Init();

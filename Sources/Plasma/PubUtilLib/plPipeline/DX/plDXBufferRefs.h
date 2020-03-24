@@ -90,7 +90,7 @@ class plDXVertexBufferRef : public plDXDeviceRef
         };
 
         bool HasFlag(uint32_t f) const { return 0 != (fFlags & f); }
-        void SetFlag(uint32_t f, bool on) { if(on) fFlags |= f; else fFlags &= ~f; }
+        void SetFlag(uint32_t f, bool on) { if (on) fFlags |= f; else fFlags &= ~f; }
 
         bool RebuiltSinceUsed() const { return HasFlag(kRebuiltSinceUsed); }
         void SetRebuiltSinceUsed(bool b) { SetFlag(kRebuiltSinceUsed, b); }
@@ -104,7 +104,7 @@ class plDXVertexBufferRef : public plDXDeviceRef
         bool Expired(uint32_t t) const { return Volatile() && (IsDirty() || (fRefTime != t)); }
         void SetRefTime(uint32_t t) { fRefTime = t; }
 
-        void                    Link( plDXVertexBufferRef **back ) { plDXDeviceRef::Link( (plDXDeviceRef **)back ); }
+        void                    Link(plDXVertexBufferRef **back) { plDXDeviceRef::Link((plDXDeviceRef **)back); }
         plDXVertexBufferRef*    GetNext() { return (plDXVertexBufferRef *)fNext; }
 
         plDXVertexBufferRef() :
@@ -142,7 +142,7 @@ class plDXIndexBufferRef : public plDXDeviceRef
         };
 
         bool HasFlag(uint32_t f) const { return 0 != (fFlags & f); }
-        void SetFlag(uint32_t f, bool on) { if(on) fFlags |= f; else fFlags &= ~f; }
+        void SetFlag(uint32_t f, bool on) { if (on) fFlags |= f; else fFlags &= ~f; }
 
         bool RebuiltSinceUsed() const { return HasFlag(kRebuiltSinceUsed); }
         void SetRebuiltSinceUsed(bool b) { SetFlag(kRebuiltSinceUsed, b); }
@@ -153,7 +153,7 @@ class plDXIndexBufferRef : public plDXDeviceRef
         bool Expired(uint32_t t) const { return Volatile() && (IsDirty() || (fRefTime != t)); }
         void SetRefTime(uint32_t t) { fRefTime = t; }
 
-        void                    Link( plDXIndexBufferRef **back ) { plDXDeviceRef::Link( (plDXDeviceRef **)back ); }
+        void                    Link(plDXIndexBufferRef **back) { plDXDeviceRef::Link((plDXDeviceRef **)back); }
         plDXIndexBufferRef* GetNext() { return (plDXIndexBufferRef *)fNext; }
 
         plDXIndexBufferRef() :

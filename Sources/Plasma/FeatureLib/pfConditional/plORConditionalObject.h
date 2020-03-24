@@ -56,8 +56,8 @@ public:
     plORConditionalObject();
     ~plORConditionalObject();
     
-    CLASSNAME_REGISTER( plORConditionalObject );
-    GETINTERFACE_ANY( plORConditionalObject, plConditionalObject );
+    CLASSNAME_REGISTER(plORConditionalObject);
+    GETINTERFACE_ANY(plORConditionalObject, plConditionalObject);
     
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

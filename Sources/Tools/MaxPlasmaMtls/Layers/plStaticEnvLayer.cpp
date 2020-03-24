@@ -78,9 +78,9 @@ plStaticEnvLayer::plStaticEnvLayer() :
 {
     int i;
 
-    for( i = 0; i < 6; i++ )
+    for (i = 0; i < 6; i++)
     {
-        fBitmaps[ i ] = NULL;
+        fBitmaps[i] = NULL;
     }
 
     plStaticEnvLayerDesc.MakeAutoParamBlocks(this);
@@ -92,10 +92,10 @@ plStaticEnvLayer::~plStaticEnvLayer()
     int     i;
 
 
-    for( i = 0; i < 6; i++ )
+    for (i = 0; i < 6; i++)
     {
-        if( fBitmaps[ i ] )
-            fBitmaps[ i ]->DeleteThis();
+        if (fBitmaps[i])
+            fBitmaps[i]->DeleteThis();
     }
 
     IDiscardTexHandle();
@@ -110,9 +110,9 @@ void plStaticEnvLayer::GetClassName(TSTR& s)
 void plStaticEnvLayer::Reset()
 {
     GetStaticEnvLayerDesc()->Reset(this, TRUE); // reset all pb2's
-    for( int i = 0; i < 6; i++ )
+    for (int i = 0; i < 6; i++)
     {
-        SetBitmap( NULL, i );
+        SetBitmap(NULL, i);
     }
 
     fIValid.SetEmpty();
@@ -158,7 +158,7 @@ ParamDlg* plStaticEnvLayer::CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp)
     IAutoMParamDlg* masterDlg = plStaticEnvLayerDesc.CreateParamDlgs(hwMtlEdit, imp, this);
 
     SELBitmapDlgProc *paramDlg =  (SELBitmapDlgProc *)gBitmapParamBlk.GetUserDlgProc();
-    if( paramDlg )
+    if (paramDlg)
         paramDlg->fMtlParams = imp;
 
     return masterDlg;
@@ -193,8 +193,8 @@ void plStaticEnvLayer::SetReference(int i, RefTargetHandle rtarg)
     {
         case kRefUVGen:
             fUVGen = (UVGen *)rtarg;
-            if( fUVGen )
-                fUVGen->Update( TimeValue( 0 ), garbage );
+            if (fUVGen)
+                fUVGen->Update(TimeValue(0), garbage);
             break;
         case kRefBitmap:
             fBitmapPB = (IParamBlock2 *)rtarg;
@@ -342,7 +342,7 @@ IOResult plStaticEnvLayer::Load(ILoad *iload)
 
 inline Point2 CompUV(float x, float y, float z)
 {
-    return Point2( 0.5f * ( x / z + 1.0f ), 0.5f * ( y / z + 1.0f ) );
+    return Point2(0.5f * (x / z + 1.0f), 0.5f * (y / z + 1.0f));
 }
 
 AColor plStaticEnvLayer::EvalColor(ShadeContext& sc)
@@ -359,8 +359,8 @@ AColor plStaticEnvLayer::EvalColor(ShadeContext& sc)
 
     // Evaluate the Bitmap
 
-//  Point3  v = sc.VectorTo( sc.V(), REF_OBJECT );//WORLD );
-    Point3  v = sc.VectorTo( sc.Normal(), REF_OBJECT );
+//  Point3  v = sc.VectorTo(sc.V(), REF_OBJECT);//WORLD);
+    Point3  v = sc.VectorTo(sc.Normal(), REF_OBJECT);
     float   wx,wy,wz;
     Color   rcol;
     Bitmap  *refmap = NULL;
@@ -368,91 +368,91 @@ AColor plStaticEnvLayer::EvalColor(ShadeContext& sc)
     Point2  uv;
     int     size;
 
-    wx = (float)fabs( v.x );
-    wy = (float)fabs( v.y );
-    wz = (float)fabs( v.z );
-    if( wx >= wy && wx >= wz )
+    wx = (float)fabs(v.x);
+    wy = (float)fabs(v.y);
+    wz = (float)fabs(v.z);
+    if (wx >= wy && wx >= wz)
     {
-        if( v.x < 0 )
+        if (v.x < 0)
         {
-            refmap = fBitmaps[ kLeftFace ];
-            uv = CompUV( -v.y, -v.z,  v.x );
+            refmap = fBitmaps[kLeftFace];
+            uv = CompUV(-v.y, -v.z,  v.x);
         }
         else
         {
-            refmap = fBitmaps[ kRightFace ];
-            uv = CompUV( v.y, -v.z, -v.x );
+            refmap = fBitmaps[kRightFace];
+            uv = CompUV(v.y, -v.z, -v.x);
         }
     }
-    else if( wy >= wx && wy >= wz )
+    else if (wy >= wx && wy >= wz)
     {
-        if( v.y > 0 )
+        if (v.y > 0)
         {
-            refmap = fBitmaps[ kBackFace ];
-            uv = CompUV( -v.x, -v.z, -v.y );
+            refmap = fBitmaps[kBackFace];
+            uv = CompUV(-v.x, -v.z, -v.y);
         }
         else
         {
-            refmap = fBitmaps[ kFrontFace ];
-            uv = CompUV(  v.x, -v.z,  v.y );
+            refmap = fBitmaps[kFrontFace];
+            uv = CompUV(v.x, -v.z,  v.y);
         }
     }
-    else if( wz >= wx && wz >= wy )
+    else if (wz >= wx && wz >= wy)
     {
-        if( v.z < 0 )
+        if (v.z < 0)
         {
-            refmap = fBitmaps[ kBottomFace ];
-            uv = CompUV( -v.x, -v.y,  v.z );
+            refmap = fBitmaps[kBottomFace];
+            uv = CompUV(-v.x, -v.y,  v.z);
         }
         else
         {
-            refmap = fBitmaps[ kTopFace ];
-            uv = CompUV( -v.x,  v.y, -v.z );
+            refmap = fBitmaps[kTopFace];
+            uv = CompUV(-v.x,  v.y, -v.z);
         }
     }
 
-    if( refmap == NULL )
+    if (refmap == NULL)
         color.White();
     else
     {
-        if( uv.x < 0.0f )
+        if (uv.x < 0.0f)
             uv.x = 0.0f;
-        else if( uv.x > 1.0f )
+        else if (uv.x > 1.0f)
             uv.x = 1.0f;
-        if( uv.y < 0.0f )
+        if (uv.y < 0.0f)
             uv.y = 0.0f;
-        else if( uv.y > 1.0f )
+        else if (uv.y > 1.0f)
             uv.y = 1.0f;
         size = refmap->Width();
-        int x = (int)( uv.x * (float)( size - 1 ) );
-        int y = (int)( ( 1.0f - uv.y ) * (float)( size - 1 ) );
+        int x = (int)(uv.x * (float)(size - 1));
+        int y = (int)((1.0f - uv.y) * (float)(size - 1));
 
         BMM_Color_64 c;
-        refmap->GetLinearPixels( x, y, 1, &c );
-        color = AColor( c.r / 65535.f, c.g / 65535.f, c.b / 65535.f, c.a / 65535.f );
+        refmap->GetLinearPixels(x, y, 1, &c);
+        color = AColor(c.r / 65535.f, c.g / 65535.f, c.b / 65535.f, c.a / 65535.f);
     }
 
     // Invert color if specified
-    if( fBitmapPB->GetInt( kBmpInvertColor ) )
+    if (fBitmapPB->GetInt(kBmpInvertColor))
     {
         color.r = 1.0f - color.r;
         color.g = 1.0f - color.g;
         color.b = 1.0f - color.b;
     }
     // Discard color if specified
-    if( fBitmapPB->GetInt( kBmpDiscardColor ) )
+    if (fBitmapPB->GetInt(kBmpDiscardColor))
         color.r = color.g = color.b = 1.0f;
 
     // Invert alpha if specified
-    if( fBitmapPB->GetInt( kBmpInvertAlpha ) )
+    if (fBitmapPB->GetInt(kBmpInvertAlpha))
         color.a = 1.0f - color.a;
     // Discard alpha if specified
-    if( fBitmapPB->GetInt( kBmpDiscardAlpha ) )
+    if (fBitmapPB->GetInt(kBmpDiscardAlpha))
         color.a = 1.0f;
 
     // If RGB output is set to alpha, show RGB as grayscale of the alpha
-    if( fBitmapPB->GetInt( kBmpRGBOutput ) == 1 )
-        color = AColor( color.a, color.a, color.a, 1.0f );
+    if (fBitmapPB->GetInt(kBmpRGBOutput) == 1)
+        color = AColor(color.a, color.a, color.a, 1.0f);
 
     sc.PutCache(this, color);
     return color;
@@ -474,7 +474,7 @@ Point3 plStaticEnvLayer::EvalNormalPerturb(ShadeContext& sc)
 
 ULONG plStaticEnvLayer::LocalRequirements(int subMtlNum)
 {
-    if( fBitmapPB->GetInt( kBmpUseMAXAtmosphere ) )
+    if (fBitmapPB->GetInt(kBmpUseMAXAtmosphere))
         return MTLREQ_VIEW_DEP;
 
     return MTLREQ_VIEW_DEP | MTLREQ_NOATMOS;
@@ -505,7 +505,7 @@ BITMAPINFO *plStaticEnvLayer::GetVPDisplayDIB(TimeValue t, TexHandleMaker& thmak
 
     if (fBitmapPB->GetInt(kBmpRGBOutput) == 1)
         xflags |= EX_RGB_FROM_ALPHA;
-    bmi = thmaker.BitmapToDIB(fBitmaps[ 0 ], fUVGen->SymFlags(), xflags, forceW, forceH);
+    bmi = thmaker.BitmapToDIB(fBitmaps[0], fUVGen->SymFlags(), xflags, forceW, forceH);
 
     return bmi;
 }
@@ -528,11 +528,11 @@ DWORD plStaticEnvLayer::GetActiveTexHandle(TimeValue t, TexHandleMaker& thmaker)
     }
 }
 
-const char *plStaticEnvLayer::GetTextureName( int which )
+const char *plStaticEnvLayer::GetTextureName(int which)
 {
 //  if (fBitmapPB->GetInt(kBmpUseBitmap))
     {
-        PBBitmap *pbbm = fBitmapPB->GetBitmap( kBmpFrontBitmap + which );
+        PBBitmap *pbbm = fBitmapPB->GetBitmap(kBmpFrontBitmap + which);
         if (pbbm)
             return pbbm->bi.Name();
     }
@@ -542,43 +542,43 @@ const char *plStaticEnvLayer::GetTextureName( int which )
 
 //// Set/GetBaseFilename //////////////////////////////////////////////////////
 
-void    plStaticEnvLayer::SetBaseFilename( const TCHAR *name, TimeValue t )
+void    plStaticEnvLayer::SetBaseFilename(const TCHAR *name, TimeValue t)
 {
-    fBitmapPB->SetValue( kBmpBaseFilename, t, (TCHAR *)name );
+    fBitmapPB->SetValue(kBmpBaseFilename, t, (TCHAR *)name);
 }
 
-const TCHAR *plStaticEnvLayer::GetBaseFilename( TimeValue t )
+const TCHAR *plStaticEnvLayer::GetBaseFilename(TimeValue t)
 {
     return (const TCHAR*)fBitmapPB->GetStr(kBmpBaseFilename, t);
 }
 
 //// IGetViewTM ///////////////////////////////////////////////////////////////
 
-Matrix3 plStaticEnvLayer::IGetViewTM( int i )
+Matrix3 plStaticEnvLayer::IGetViewTM(int i)
 {
     Matrix3 m;
     m.IdentityMatrix();
-    switch( i )
+    switch (i)
     {
         case kTopFace:
-            m.RotateX( -M_PI );
+            m.RotateX(-M_PI);
             break;
         case kBottomFace:
             break;
         case kLeftFace:
-            m.RotateX( -.5f * M_PI );
-            m.RotateY( -.5f * M_PI );
+            m.RotateX(-.5f * M_PI);
+            m.RotateY(-.5f * M_PI);
             break;
         case kRightFace:
-            m.RotateX( -.5f * M_PI );
-            m.RotateY( +.5f * M_PI );
+            m.RotateX(-.5f * M_PI);
+            m.RotateY(+.5f * M_PI);
             break;
         case kFrontFace:
-            m.RotateX( -.5f * M_PI );
-            m.RotateY( M_PI );
+            m.RotateX(-.5f * M_PI);
+            m.RotateY(M_PI);
             break;
         case kBackFace:
-            m.RotateX( -.5f * M_PI );
+            m.RotateX(-.5f * M_PI);
             break;
     }
     return m;
@@ -586,14 +586,14 @@ Matrix3 plStaticEnvLayer::IGetViewTM( int i )
 
 //// IWriteBM /////////////////////////////////////////////////////////////////
 
-int plStaticEnvLayer::IWriteBM( BitmapInfo *bi, Bitmap *bm, TCHAR *name )
+int plStaticEnvLayer::IWriteBM(BitmapInfo *bi, Bitmap *bm, TCHAR *name)
 {
-    bi->SetName( name );
-    if( bm->OpenOutput( bi ) == BMMRES_SUCCESS )
+    bi->SetName(name);
+    if (bm->OpenOutput(bi) == BMMRES_SUCCESS)
     {
-        if( bm->Write( bi, BMM_SINGLEFRAME ) == BMMRES_SUCCESS )
+        if (bm->Write(bi, BMM_SINGLEFRAME) == BMMRES_SUCCESS)
         {
-            bm->Close( bi );
+            bm->Close(bi);
             return 1;
         }
     }
@@ -604,7 +604,7 @@ int plStaticEnvLayer::IWriteBM( BitmapInfo *bi, Bitmap *bm, TCHAR *name )
 //// RenderCubicMap ///////////////////////////////////////////////////////////
 //  Generates the 6 faces for a cubic map based on a picked node
 
-void    plStaticEnvLayer::RenderCubicMap( INode *node )
+void    plStaticEnvLayer::RenderCubicMap(INode *node)
 {
     int         res, size;
     BOOL        success = 0;
@@ -613,39 +613,39 @@ void    plStaticEnvLayer::RenderCubicMap( INode *node )
     TSTR        path, filename, ext, thisFilename;
     BitmapInfo  biOutFile;
 
-    static TCHAR    suffixes[ 6 ][ 4 ] = { "_FR", "_BK", "_LF", "_RT", "_UP", "_DN" };
+    static TCHAR    suffixes[6][4] = { "_FR", "_BK", "_LF", "_RT", "_UP", "_DN" };
 
 
     Interface *ip = GetCOREInterface();
-    size = fBitmapPB->GetInt( kBmpTextureSize, ip->GetTime() );
-    if( size <= 0 )
+    size = fBitmapPB->GetInt(kBmpTextureSize, ip->GetTime());
+    if (size <= 0)
     {
         return;
     }
 
-    thisFilename = fBitmapPB->GetStr( kBmpBaseFilename, ip->GetTime() );
-    if( thisFilename.isNull() )
+    thisFilename = fBitmapPB->GetStr(kBmpBaseFilename, ip->GetTime());
+    if (thisFilename.isNull())
     {
         return;
     }
 
-    SplitFilename( thisFilename, &path, &filename, &ext );
+    SplitFilename(thisFilename, &path, &filename, &ext);
 
     BOOL    wasHid = node->IsNodeHidden();
-    node->Hide( TRUE );
+    node->Hide(TRUE);
 
     // Create a blank bitmap
-    biOutFile.SetWidth( size );
-    biOutFile.SetHeight( size );
-    biOutFile.SetType( BMM_TRUE_64 );
-    biOutFile.SetAspect( 1.0f );
-    biOutFile.SetCurrentFrame( 0 );
-    bm = TheManager->Create( &biOutFile );
+    biOutFile.SetWidth(size);
+    biOutFile.SetHeight(size);
+    biOutFile.SetType(BMM_TRUE_64);
+    biOutFile.SetAspect(1.0f);
+    biOutFile.SetCurrentFrame(0);
+    bm = TheManager->Create(&biOutFile);
 
-    Matrix3 nodeTM = node->GetNodeTM( ip->GetTime() );
+    Matrix3 nodeTM = node->GetNodeTM(ip->GetTime());
     Matrix3 tm;
     INode *root = ip->GetRootNode();
-    bm->Display( GetString( IDS_CUBIC_RENDER_TITLE ) );
+    bm->Display(GetString(IDS_CUBIC_RENDER_TITLE));
 
     /// Set up rendering contexts
     ViewParams vp;
@@ -653,64 +653,64 @@ void    plStaticEnvLayer::RenderCubicMap( INode *node )
     vp.hither = .001f;
     vp.yon = 1.0e30f;
     vp.fov = M_PI/2.0f;
-    if( fBitmapPB->GetInt( kBmpUseMAXAtmosphere ) )
+    if (fBitmapPB->GetInt(kBmpUseMAXAtmosphere))
     {
         vp.nearRange = 0;
-        vp.farRange = fBitmapPB->GetFloat( kBmpFarDistance );
+        vp.farRange = fBitmapPB->GetFloat(kBmpFarDistance);
     }
     else
     {
         vp.nearRange = vp.farRange = 1.0e30f;
     }
     BOOL    saveUseEnvMap = ip->GetUseEnvironmentMap();
-    ip->SetUseEnvironmentMap( false );
+    ip->SetUseEnvironmentMap(false);
 
-    res = ip->OpenCurRenderer( &vp );
-    for( int i = 0; i < 6; i++ )
+    res = ip->OpenCurRenderer(&vp);
+    for (int i = 0; i < 6; i++)
     {
-        tm = IGetViewTM( i );
-        tm.PreTranslate( -nodeTM.GetTrans() );
+        tm = IGetViewTM(i);
+        tm.PreTranslate(-nodeTM.GetTrans());
         vp.affineTM = tm;
 
         // Construct filename
-        thisFilename.printf( _T( "%s\\%s%s%s" ), path, filename, suffixes[ i ], ext );
+        thisFilename.printf(_T("%s\\%s%s%s"), path, filename, suffixes[i], ext);
 
-        res = ip->CurRendererRenderFrame( ip->GetTime(), bm, NULL, 1.0f, &vp );
-        if( !res )
+        res = ip->CurRendererRenderFrame(ip->GetTime(), bm, NULL, 1.0f, &vp);
+        if (!res)
             goto fail;
 
-        if( !IWriteBM( &biOutFile, bm, thisFilename ) )
+        if (!IWriteBM(&biOutFile, bm, thisFilename))
             goto fail;
     }
 
     success = 1;
 fail:
     ip->CloseCurRenderer();
-    ip->SetUseEnvironmentMap( saveUseEnvMap );
+    ip->SetUseEnvironmentMap(saveUseEnvMap);
 
     bm->DeleteThis();
-    node->Hide( wasHid );
-    if( success )
+    node->Hide(wasHid);
+    if (success)
     {
-        for(int i = 0; i < 6; i++ )
+        for (int i = 0; i < 6; i++)
         {
             BitmapInfo  bi;
-            thisFilename.printf( _T( "%s\\%s%s%s" ), path, filename, suffixes[ i ], ext );
-            bi.SetName( thisFilename );
+            thisFilename.printf(_T("%s\\%s%s%s"), path, filename, suffixes[i], ext);
+            bi.SetName(thisFilename);
 
-            PBBitmap    pbBitmap( bi );
-            fBitmapPB->SetValue( kBmpFrontBitmap + i, ip->GetTime(), &pbBitmap );
+            PBBitmap    pbBitmap(bi);
+            fBitmapPB->SetValue(kBmpFrontBitmap + i, ip->GetTime(), &pbBitmap);
         }
-        fBitmapPB->GetMap()->UpdateUI( ip->GetTime() );
+        fBitmapPB->GetMap()->UpdateUI(ip->GetTime());
     }
 }
 
 PBBitmap *plStaticEnvLayer::GetPBBitmap(int index /* = 0 */)
 {
-    return fBitmapPB->GetBitmap( ParamID( kBmpFrontBitmap + index ) );
+    return fBitmapPB->GetBitmap(ParamID(kBmpFrontBitmap + index));
 }
 
-void plStaticEnvLayer::ISetPBBitmap( PBBitmap *pbbm, int index )
+void plStaticEnvLayer::ISetPBBitmap(PBBitmap *pbbm, int index)
 {
-    fBitmapPB->SetValue( ParamID( kBmpFrontBitmap + index ), 0, pbbm );
+    fBitmapPB->SetValue(ParamID(kBmpFrontBitmap + index), 0, pbbm);
 }

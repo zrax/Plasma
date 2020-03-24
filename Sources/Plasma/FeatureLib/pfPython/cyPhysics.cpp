@@ -75,7 +75,7 @@ void cyPhysics::SetSender(plKey &sender)
 
 void cyPhysics::AddRecvr(plKey &recvr)
 {
-    if ( recvr != nil )
+    if (recvr != nil)
         fRecvr.Append(recvr);
 }
 
@@ -89,36 +89,36 @@ void cyPhysics::AddRecvr(plKey &recvr)
 void cyPhysics::EnableT(bool state)
 {
     // must have a receiver!
-    if ( fRecvr.Count() > 0 )
+    if (fRecvr.Count() > 0)
     {
         // create message
         plEnableMsg* pMsg = new plEnableMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         // jump back to frame 0
         pMsg->SetCmd(plEnableMsg::kPhysical);
         // which way are we doin' it?
-        if ( state )
+        if (state)
             pMsg->SetCmd(plEnableMsg::kEnable);
         else
             pMsg->SetCmd(plEnableMsg::kDisable);
         // make sure to propagate this to the modifiers to tell things like the clickables to disable.
         pMsg->SetBCastFlag(plMessage::kPropagateToModifiers);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 }
 
@@ -136,26 +136,26 @@ void  cyPhysics::EnableCollision()
     hsAssert(0, "Who uses this?");
     /*
     // must have a receiver!
-    if ( fRecvr.Count() > 0 )
+    if (fRecvr.Count() > 0)
     {
         plEventGroupEnableMsg* pMsg = new plEventGroupEnableMsg;
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         pMsg->SetFlags(plEventGroupEnableMsg::kCollideOn);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
     */
 }
@@ -165,26 +165,26 @@ void  cyPhysics::DisableCollision()
     hsAssert(0, "Who uses this?");
     /*
     // must have a receiver!
-    if ( fRecvr.Count() > 0 )
+    if (fRecvr.Count() > 0)
     {
         plEventGroupEnableMsg* pMsg = new plEventGroupEnableMsg;
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         pMsg->SetFlags(plEventGroupEnableMsg::kCollideOff);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
     */
 }
@@ -236,28 +236,28 @@ void cyPhysics::WarpObj(pyKey& obj)
 void cyPhysics::WarpMat(pyMatrix44& mat)
 {
     // must have a receiver!
-    if ( fRecvr.Count() > 0 )
+    if (fRecvr.Count() > 0)
     {
         // create message
         plWarpMsg* pMsg = new plWarpMsg(mat.fMatrix);
         pMsg->SetWarpFlags(plWarpMsg::kFlushTransform);
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 }
 
@@ -275,16 +275,16 @@ void cyPhysics::Move(pyVector3& direction, float distance)
 {
     //move each receiver (object) separately
     int i;
-    for ( i=0; i<fRecvr.Count(); i++ )
+    for (i=0; i<fRecvr.Count(); i++)
     {
         // get the object pointer of just the first one in the list
         // (We really can't tell which one the user is thinking of if they are
         // referring to multiple objects, so the first one in the list will do.)
         plSceneObject* obj = plSceneObject::ConvertNoRef(fRecvr[i]->GetObjectPtr());
-        if ( obj )
+        if (obj)
         {
             const plCoordinateInterface* ci = obj->GetCoordinateInterface();
-            if ( ci )
+            if (ci)
             {
                 hsVector3 offset = direction.fVector * distance;
                 hsMatrix44 trans;
@@ -295,22 +295,22 @@ void cyPhysics::Move(pyVector3& direction, float distance)
 
                 // see if this has a physical interface, if so, then its physical, therefore use warp
                 const plSimulationInterface* si = obj->GetSimulationInterface();
-                if ( si )
+                if (si)
                 {
                     // create message for each receiver
                     plWarpMsg* pMsg = new plWarpMsg(target_matrix);
                     // check if this needs to be network forced to all clients
-                    if (fNetForce )
+                    if (fNetForce)
                     {
                         // set the network propagate flag to make sure it gets to the other clients
                         pMsg->SetBCastFlag(plMessage::kNetPropagate);
                         pMsg->SetBCastFlag(plMessage::kNetForce);
                     }
-                    if ( fSender )
+                    if (fSender)
                         pMsg->SetSender(fSender);
                     // must have a receiver!
                     pMsg->AddReceiver(fRecvr[i]);
-                    plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+                    plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
                 }
                 else
                 {
@@ -344,16 +344,16 @@ void cyPhysics::Rotate(float rad, pyVector3& axis)
 {
     // rotate each receiver (object) separately
     int i;
-    for ( i=0; i<fRecvr.Count(); i++ )
+    for (i=0; i<fRecvr.Count(); i++)
     {
         // get the object pointer of just the first one in the list
         // (We really can't tell which one the user is thinking of if they are
         // referring to multiple objects, so the first one in the list will do.)
         plSceneObject* obj = plSceneObject::ConvertNoRef(fRecvr[i]->GetObjectPtr());
-        if ( obj )
+        if (obj)
         {
             const plCoordinateInterface* ci = obj->GetCoordinateInterface();
-            if ( ci )
+            if (ci)
             {
                 hsQuat q(rad, &axis.fVector);
                 q.Normalize();
@@ -365,22 +365,22 @@ void cyPhysics::Rotate(float rad, pyVector3& axis)
 
                 // see if this has a physical interface, then its physical, therefore use warp
                 const plSimulationInterface* si = obj->GetSimulationInterface();
-                if ( si )
+                if (si)
                 {
                     // create message for each receiver
                     plWarpMsg* pMsg = new plWarpMsg(target_matrix);
                     // check if this needs to be network forced to all clients
-                    if (fNetForce )
+                    if (fNetForce)
                     {
                         // set the network propagate flag to make sure it gets to the other clients
                         pMsg->SetBCastFlag(plMessage::kNetPropagate);
                         pMsg->SetBCastFlag(plMessage::kNetForce);
                     }
-                    if ( fSender )
+                    if (fSender)
                         pMsg->SetSender(fSender);
                     // must have a receiver!
                     pMsg->AddReceiver(fRecvr[i]);
-                    plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+                    plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
                 }
                 else
                 {
@@ -412,28 +412,28 @@ void cyPhysics::Force(pyVector3& force)
 {
     hsAssert(0, "Who uses this?");
     // must have a receiver!
-/*  if ( fRecvr.Count() > 0 )
+/*  if (fRecvr.Count() > 0)
     {
         // create message
         plForceMsg* pMsg = new plForceMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         pMsg->SetForce(force.fVector);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 */
 }
@@ -451,29 +451,29 @@ void cyPhysics::ForceWithOffset(pyVector3& force, pyPoint3& offset)
 {
     hsAssert(0, "Who uses this?");
     // must have a receiver!
-/*  if ( fRecvr.Count() > 0 )
+/*  if (fRecvr.Count() > 0)
     {
         // create message
         plOffsetForceMsg* pMsg = new plOffsetForceMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         pMsg->SetForce(force.fVector);
         pMsg->SetPoint(offset.fPoint);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 */
 }
@@ -491,28 +491,28 @@ void cyPhysics::Torque(pyVector3& torque)
 {
     hsAssert(0, "Who uses this?");
     // must have a receiver!
-/*  if ( fRecvr.Count() > 0 )
+/*  if (fRecvr.Count() > 0)
     {
         // create message
         plTorqueMsg* pMsg = new plTorqueMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         pMsg->SetTorque(torque.fVector);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 */
 }
@@ -529,28 +529,28 @@ void cyPhysics::Impulse(pyVector3& impulse)
 {
     hsAssert(0, "Who uses this?");
     // must have a receiver!
-/*  if ( fRecvr.Count() > 0 )
+/*  if (fRecvr.Count() > 0)
     {
         // create message
         plImpulseMsg* pMsg = new plImpulseMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         pMsg->SetImpulse(impulse.fVector);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 */
 }
@@ -568,29 +568,29 @@ void cyPhysics::ImpulseWithOffset(pyVector3& impulse, pyPoint3& offset)
 {
     hsAssert(0, "Who uses this?");
     // must have a receiver!
-/*  if ( fRecvr.Count() > 0 )
+/*  if (fRecvr.Count() > 0)
     {
         // create message
         plOffsetImpulseMsg* pMsg = new plOffsetImpulseMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         pMsg->SetImpulse(impulse.fVector);
         pMsg->SetPoint(offset.fPoint);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 */
 }
@@ -607,28 +607,28 @@ void cyPhysics::AngularImpulse(pyVector3& impulse)
 {
     hsAssert(0, "Who uses this?");
     // must have a receiver!
-/*  if ( fRecvr.Count() > 0 )
+/*  if (fRecvr.Count() > 0)
     {
         // create message
         plAngularImpulseMsg* pMsg = new plAngularImpulseMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         pMsg->SetImpulse(impulse.fVector);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 */
 }
@@ -647,28 +647,28 @@ void cyPhysics::Damp(float damp)
 {
     hsAssert(0, "Who uses this?");
     // must have a receiver!
-/*  if ( fRecvr.Count() > 0 )
+/*  if (fRecvr.Count() > 0)
     {
         // create message
         plDampMsg* pMsg = new plDampMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         pMsg->SetDamp(damp);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 */
 }
@@ -686,28 +686,28 @@ void cyPhysics::ShiftMass(pyVector3& offset)
 {
     hsAssert(0, "Who uses this?");
     // must have a receiver!
-/*  if ( fRecvr.Count() > 0 )
+/*  if (fRecvr.Count() > 0)
     {
         // create message
         plShiftMassMsg* pMsg = new plShiftMassMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         pMsg->SetOffset(offset.fVector);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 */
 }
@@ -737,55 +737,55 @@ void cyPhysics::Suppress(bool doSuppress)
 //
 void cyPhysics::SetLinearVelocity(pyVector3& velocity)
 {
-    if ( fRecvr.Count() > 0 )
+    if (fRecvr.Count() > 0)
     {
         // create message
         plLinearVelocityMsg* pMsg = new plLinearVelocityMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         
         pMsg->Velocity(velocity.fVector);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 }
 void cyPhysics::SetAngularVelocity(pyVector3& angVel)
 {
-    if ( fRecvr.Count() > 0 )
+    if (fRecvr.Count() > 0)
     {
         // create message
         plAngularVelocityMsg* pMsg = new plAngularVelocityMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         pMsg->AngularVelocity(angVel.fVector);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 
 }

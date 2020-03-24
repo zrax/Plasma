@@ -90,8 +90,8 @@ public:
     plObjInterface();
     ~plObjInterface();
 
-    CLASSNAME_REGISTER( plObjInterface );
-    GETINTERFACE_ANY( plObjInterface, plSynchedObject );
+    CLASSNAME_REGISTER(plObjInterface);
+    GETINTERFACE_ANY(plObjInterface, plSynchedObject);
 
     virtual bool MsgReceive(plMessage* msg);
 

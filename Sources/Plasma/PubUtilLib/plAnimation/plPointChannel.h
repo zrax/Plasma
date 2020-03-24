@@ -97,8 +97,8 @@ public:
     virtual plAGChannel * MakeTimeScale(plScalarChannel *timeSource);
 
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plPointChannel );
-    GETINTERFACE_ANY( plPointChannel, plAGChannel );
+    CLASSNAME_REGISTER(plPointChannel);
+    GETINTERFACE_ANY(plPointChannel, plAGChannel);
 };
 
 //////////////////
@@ -115,8 +115,8 @@ public:
     void Set(const hsPoint3 &the_Point) { fResult = the_Point; }
 
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plPointConstant );
-    GETINTERFACE_ANY( plPointConstant, plPointChannel );
+    CLASSNAME_REGISTER(plPointConstant);
+    GETINTERFACE_ANY(plPointConstant, plPointChannel);
 
     void Read(hsStream *stream, hsResMgr *mgr);
     void Write(hsStream *stream, hsResMgr *mgr);
@@ -144,8 +144,8 @@ public:
     virtual plAGChannel * Detach(plAGChannel * channel);
 
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plPointTimeScale );
-    GETINTERFACE_ANY( plPointTimeScale, plPointChannel );
+    CLASSNAME_REGISTER(plPointTimeScale);
+    GETINTERFACE_ANY(plPointTimeScale, plPointChannel);
 };
 
 // PLPOINTBLEND
@@ -180,8 +180,8 @@ public:
     virtual plAGChannel * Detach(plAGChannel * channel);
 
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plPointBlend );
-    GETINTERFACE_ANY( plPointBlend, plPointChannel );
+    CLASSNAME_REGISTER(plPointBlend);
+    GETINTERFACE_ANY(plPointBlend, plPointChannel);
 
 protected:
     plPointChannel *fPointA;
@@ -218,8 +218,8 @@ public:
     
     // PLASMA PROTOCOL
     // rtti
-    CLASSNAME_REGISTER( plPointControllerChannel );
-    GETINTERFACE_ANY( plPointControllerChannel, plPointChannel );
+    CLASSNAME_REGISTER(plPointControllerChannel);
+    GETINTERFACE_ANY(plPointControllerChannel, plPointChannel);
     
     // persistence
     virtual void Write(hsStream *stream, hsResMgr *mgr);
@@ -246,8 +246,8 @@ public:
     virtual plAGChannel * Detach(plAGChannel * channel);
     
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plPointControllerCacheChannel );
-    GETINTERFACE_ANY( plPointControllerCacheChannel, plPointChannel );
+    CLASSNAME_REGISTER(plPointControllerCacheChannel);
+    GETINTERFACE_ANY(plPointControllerCacheChannel, plPointChannel);
     
     // Created at runtime only, so no Read/Write
 };
@@ -262,8 +262,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plPointChannelApplicator );
-    GETINTERFACE_ANY( plPointChannelApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plPointChannelApplicator);
+    GETINTERFACE_ANY(plPointChannelApplicator, plAGApplicator);
 };
 
 class plLightDiffuseApplicator : public plAGApplicator
@@ -272,8 +272,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plLightDiffuseApplicator );
-    GETINTERFACE_ANY( plLightDiffuseApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plLightDiffuseApplicator);
+    GETINTERFACE_ANY(plLightDiffuseApplicator, plAGApplicator);
 };
 
 class plLightAmbientApplicator : public plAGApplicator
@@ -282,8 +282,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plLightAmbientApplicator );
-    GETINTERFACE_ANY( plLightAmbientApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plLightAmbientApplicator);
+    GETINTERFACE_ANY(plLightAmbientApplicator, plAGApplicator);
 };
 
 class plLightSpecularApplicator : public plAGApplicator
@@ -292,8 +292,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plLightSpecularApplicator );
-    GETINTERFACE_ANY( plLightSpecularApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plLightSpecularApplicator);
+    GETINTERFACE_ANY(plLightSpecularApplicator, plAGApplicator);
 };
 
 

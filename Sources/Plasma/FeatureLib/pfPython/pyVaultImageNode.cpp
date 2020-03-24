@@ -111,7 +111,7 @@ pyVaultImageNode::~pyVaultImageNode () {
 //==================================================================
 // class RelVaultNode : public plVaultNode
 //
-void pyVaultImageNode::Image_SetTitle( const char * text )
+void pyVaultImageNode::Image_SetTitle(const char * text)
 {
     if (!fNode)
         return;
@@ -120,7 +120,7 @@ void pyVaultImageNode::Image_SetTitle( const char * text )
     image.SetImageTitle(text);
 }
 
-void pyVaultImageNode::Image_SetTitleW( const wchar_t* text )
+void pyVaultImageNode::Image_SetTitleW(const wchar_t* text)
 {
     if (!fNode)
         return;
@@ -183,7 +183,7 @@ void pyVaultImageNode::Image_SetImage(pyImage& image)
     }
 }
 
-void pyVaultImageNode::SetImageFromBuf( PyObject * pybuf )
+void pyVaultImageNode::SetImageFromBuf(PyObject * pybuf)
 {
     if (!fNode)
         return;

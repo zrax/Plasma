@@ -127,8 +127,8 @@ public:
     plResponderModifier();
     ~plResponderModifier();
 
-    CLASSNAME_REGISTER( plResponderModifier );
-    GETINTERFACE_ANY( plResponderModifier, plSingleModifier );
+    CLASSNAME_REGISTER(plResponderModifier);
+    GETINTERFACE_ANY(plResponderModifier, plSingleModifier);
     
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

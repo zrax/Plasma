@@ -57,7 +57,7 @@ void plNodeLock::Lock(BOOL on)
 void plNodeLock::ISetLockRecur(INode* node, BOOL on)
 {
     BOOL isSel = node->Selected();
-    if( isSel )
+    if (isSel)
     {
         node->SetTransformLock(INODE_LOCKPOS, INODE_LOCK_X, on);
         node->SetTransformLock(INODE_LOCKPOS, INODE_LOCK_Y, on);
@@ -72,6 +72,6 @@ void plNodeLock::ISetLockRecur(INode* node, BOOL on)
         node->SetTransformLock(INODE_LOCKSCL, INODE_LOCK_Z, on);
     }
     int i;
-    for( i = 0; i < node->NumberOfChildren(); i++ )
+    for (i = 0; i < node->NumberOfChildren(); i++)
         ISetLockRecur(node->GetChildNode(i), on);
 }

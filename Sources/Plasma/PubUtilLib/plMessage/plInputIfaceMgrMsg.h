@@ -87,14 +87,14 @@ class plInputIfaceMgrMsg : public plMessage
             kSetShareAgeInstanceGuid,
         };
 
-        plInputIfaceMgrMsg() : plMessage( nil, nil, nil ) { SetBCastFlag( kBCastByExactType ); fInterface = nil; fAvKey = nil; }
-        plInputIfaceMgrMsg( plKey &receiver, uint8_t command ) : plMessage( nil, nil, nil ) { AddReceiver( receiver ); fCommand = command; fInterface = nil; fAvKey = nil; }
-        plInputIfaceMgrMsg( uint8_t command ) : plMessage( nil, nil, nil ) { SetBCastFlag( kBCastByExactType ); fCommand = command; fInterface = nil; fAvKey = nil; }
-        plInputIfaceMgrMsg( uint8_t command, uint32_t pageID ) : plMessage( nil, nil, nil ) { SetBCastFlag( kBCastByExactType ); fCommand = command; fPageID = pageID; fInterface = nil; fAvKey = nil; }
+        plInputIfaceMgrMsg() : plMessage(nil, nil, nil) { SetBCastFlag(kBCastByExactType); fInterface = nil; fAvKey = nil; }
+        plInputIfaceMgrMsg(plKey &receiver, uint8_t command) : plMessage(nil, nil, nil) { AddReceiver(receiver); fCommand = command; fInterface = nil; fAvKey = nil; }
+        plInputIfaceMgrMsg(uint8_t command) : plMessage(nil, nil, nil) { SetBCastFlag(kBCastByExactType); fCommand = command; fInterface = nil; fAvKey = nil; }
+        plInputIfaceMgrMsg(uint8_t command, uint32_t pageID) : plMessage(nil, nil, nil) { SetBCastFlag(kBCastByExactType); fCommand = command; fPageID = pageID; fInterface = nil; fAvKey = nil; }
         ~plInputIfaceMgrMsg();
 
-        CLASSNAME_REGISTER( plInputIfaceMgrMsg );
-        GETINTERFACE_ANY( plInputIfaceMgrMsg, plMessage );
+        CLASSNAME_REGISTER(plInputIfaceMgrMsg);
+        GETINTERFACE_ANY(plInputIfaceMgrMsg, plMessage);
 
         virtual void Read(hsStream* s, hsResMgr* mgr);
         virtual void Write(hsStream* s, hsResMgr* mgr);
@@ -112,7 +112,7 @@ class plInputIfaceMgrMsg : public plMessage
         void              SetIFace(plInputInterface *iface);
         plInputInterface* GetIFace() const { return fInterface; }
         plKey             GetAvKey() const { return fAvKey; }
-        void              SetAvKey(const plKey& k ) { fAvKey = k; }
+        void              SetAvKey(const plKey& k) { fAvKey = k; }
 };
 
 #endif // _plInputIfaceMgrMsg_h

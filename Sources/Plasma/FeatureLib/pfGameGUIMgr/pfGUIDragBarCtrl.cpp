@@ -67,7 +67,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 pfGUIDragBarCtrl::pfGUIDragBarCtrl()
 {
-    SetFlag( kWantsInterest );
+    SetFlag(kWantsInterest);
     fDragging = false;
     fAnchored = false;
 }
@@ -78,74 +78,74 @@ pfGUIDragBarCtrl::~pfGUIDragBarCtrl()
 
 //// IEval ///////////////////////////////////////////////////////////////////
 
-bool    pfGUIDragBarCtrl::IEval( double secs, float del, uint32_t dirty )
+bool    pfGUIDragBarCtrl::IEval(double secs, float del, uint32_t dirty)
 {
-    return pfGUIControlMod::IEval( secs, del, dirty );
+    return pfGUIControlMod::IEval(secs, del, dirty);
 }
 
 //// MsgReceive //////////////////////////////////////////////////////////////
 
-bool    pfGUIDragBarCtrl::MsgReceive( plMessage *msg )
+bool    pfGUIDragBarCtrl::MsgReceive(plMessage *msg)
 {
-    return pfGUIControlMod::MsgReceive( msg );
+    return pfGUIControlMod::MsgReceive(msg);
 }
 
 //// Read/Write //////////////////////////////////////////////////////////////
 
-void    pfGUIDragBarCtrl::Read( hsStream *s, hsResMgr *mgr )
+void    pfGUIDragBarCtrl::Read(hsStream *s, hsResMgr *mgr)
 {
     pfGUIControlMod::Read(s, mgr);
 }
 
-void    pfGUIDragBarCtrl::Write( hsStream *s, hsResMgr *mgr )
+void    pfGUIDragBarCtrl::Write(hsStream *s, hsResMgr *mgr)
 {
-    pfGUIControlMod::Write( s, mgr );
+    pfGUIControlMod::Write(s, mgr);
 }
 
 //// UpdateBounds ////////////////////////////////////////////////////////////
 
-void    pfGUIDragBarCtrl::UpdateBounds( hsMatrix44 *invXformMatrix, bool force )
+void    pfGUIDragBarCtrl::UpdateBounds(hsMatrix44 *invXformMatrix, bool force)
 {
-    pfGUIControlMod::UpdateBounds( invXformMatrix, force );
+    pfGUIControlMod::UpdateBounds(invXformMatrix, force);
     fBoundsValid = false;
 }
 
 //// HandleMouseDown/Up //////////////////////////////////////////////////////
 
-void    pfGUIDragBarCtrl::HandleMouseDown( hsPoint3 &mousePt, uint8_t modifiers )
+void    pfGUIDragBarCtrl::HandleMouseDown(hsPoint3 &mousePt, uint8_t modifiers)
 {
     // if we are anchored <to the floor> then don't let it be moved
-    if ( fAnchored )
+    if (fAnchored)
         return;
 
     fDragging = true;
     fDragOffset = fScreenCenter - mousePt;
 
-    SetObjectCenter( mousePt.fX + fDragOffset.fX, mousePt.fY + fDragOffset.fY );
+    SetObjectCenter(mousePt.fX + fDragOffset.fX, mousePt.fY + fDragOffset.fY);
 
     // We know that the entire dialog is going to move, so we better make
     // sure to update the bounds on all the controls
     fDialog->UpdateAllBounds();
 }
 
-void    pfGUIDragBarCtrl::HandleMouseUp( hsPoint3 &mousePt, uint8_t modifiers )
+void    pfGUIDragBarCtrl::HandleMouseUp(hsPoint3 &mousePt, uint8_t modifiers)
 {
     // if we are anchored <to the floor> then don't let it be moved
-    if ( fAnchored )
+    if (fAnchored)
         return;
 
     fDragging = false;
-    SetObjectCenter( mousePt.fX + fDragOffset.fX, mousePt.fY + fDragOffset.fY );
+    SetObjectCenter(mousePt.fX + fDragOffset.fX, mousePt.fY + fDragOffset.fY);
     fDialog->UpdateAllBounds();
 }
 
-void    pfGUIDragBarCtrl::HandleMouseDrag( hsPoint3 &mousePt, uint8_t modifiers )
+void    pfGUIDragBarCtrl::HandleMouseDrag(hsPoint3 &mousePt, uint8_t modifiers)
 {
     // if we are anchored <to the floor> then don't let it be moved
-    if ( fAnchored )
+    if (fAnchored)
         return;
 
-    SetObjectCenter( mousePt.fX + fDragOffset.fX, mousePt.fY + fDragOffset.fY );
+    SetObjectCenter(mousePt.fX + fDragOffset.fX, mousePt.fY + fDragOffset.fY);
     fDialog->UpdateAllBounds();
 }
 
@@ -154,10 +154,10 @@ void    pfGUIDragBarCtrl::HandleMouseDrag( hsPoint3 &mousePt, uint8_t modifiers 
 uint32_t      pfGUIDragBarCtrl::IGetDesiredCursor() const
 {
     // if we are anchored, then no cursors that say we can move
-    if ( fAnchored )
+    if (fAnchored)
         return 0;
 
-    if( fDragging )
+    if (fDragging)
         return plInputInterface::kCursor4WayDragging;
 
     return plInputInterface::kCursor4WayDraggable;

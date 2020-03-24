@@ -69,9 +69,9 @@ void plGenericType::CopyFrom(const plGenericType& c)
 
 int32_t plGenericType::IToInt() const
 {
-    hsAssert( fType == kInt || fType == kAny, "Trying to use a non-int parameter as an int!" );
+    hsAssert(fType == kInt || fType == kAny, "Trying to use a non-int parameter as an int!");
 
-    if( fType == kAny )
+    if (fType == kAny)
     {
         return fS.to_int();
     }
@@ -81,9 +81,9 @@ int32_t plGenericType::IToInt() const
 
 uint32_t plGenericType::IToUInt() const
 {
-    hsAssert( fType == kUInt || fType == kAny, "Trying to use a non-int parameter as an int!" );
+    hsAssert(fType == kUInt || fType == kAny, "Trying to use a non-int parameter as an int!");
 
-    if( fType == kAny )
+    if (fType == kAny)
     {
         return fS.to_uint();
     }
@@ -93,9 +93,9 @@ uint32_t plGenericType::IToUInt() const
 
 double plGenericType::IToDouble() const
 {
-    hsAssert( fType == kDouble || fType == kAny, "Trying to use a non-float parameter as a Double!" );
+    hsAssert(fType == kDouble || fType == kAny, "Trying to use a non-float parameter as a Double!");
 
-    if( fType == kAny )
+    if (fType == kAny)
     {
         return fS.to_double();
     }
@@ -105,9 +105,9 @@ double plGenericType::IToDouble() const
 
 float plGenericType::IToFloat() const
 {
-    hsAssert( fType == kFloat || fType == kAny, "Trying to use a non-float parameter as a float!" );
+    hsAssert(fType == kFloat || fType == kAny, "Trying to use a non-float parameter as a float!");
 
-    if( fType == kAny )
+    if (fType == kAny)
     {
         return fS.to_float();
     }
@@ -117,9 +117,9 @@ float plGenericType::IToFloat() const
 
 bool plGenericType::IToBool() const
 {
-    hsAssert( fType == kBool || fType == kAny, "Trying to use a non-bool parameter as a bool!" );
+    hsAssert(fType == kBool || fType == kAny, "Trying to use a non-bool parameter as a bool!");
 
-    if( fType == kAny )
+    if (fType == kAny)
     {
         return fS.to_bool();
     }
@@ -129,16 +129,16 @@ bool plGenericType::IToBool() const
 
 ST::string plGenericType::IToString() const
 {
-    hsAssert( fType == kString || fType == kAny, "Trying to use a non-string parameter as a string!" );
+    hsAssert(fType == kString || fType == kAny, "Trying to use a non-string parameter as a string!");
 
     return fS;
 }
 
 char plGenericType::IToChar() const
 {
-    hsAssert( fType == kChar || fType == kAny, "Trying to use a non-char parameter as a char!" );
+    hsAssert(fType == kChar || fType == kAny, "Trying to use a non-char parameter as a char!");
 
-    if( fType == kAny )
+    if (fType == kAny)
     {
         return fS.front();
     }
@@ -150,7 +150,7 @@ void    plGenericType::Read(hsStream* s)
 {
     s->ReadLE(&fType);
 
-    switch ( fType )
+    switch (fType)
     {
     case kString:
     case kAny:
@@ -158,23 +158,23 @@ void    plGenericType::Read(hsStream* s)
         break;
     case kBool:
         {int8_t b;
-        s->ReadLE( &b );
+        s->ReadLE(&b);
         fB = b?true:false;}
         break;
     case kChar:
-        s->ReadLE( &fC );
+        s->ReadLE(&fC);
         break;
     case kInt   :
-        s->ReadLE( &fI );
+        s->ReadLE(&fI);
         break;
     case kUInt:
-        s->ReadLE( &fU );
+        s->ReadLE(&fU);
         break;
     case kFloat:
-        s->ReadLE( &fF );
+        s->ReadLE(&fF);
         break;
     case kDouble:
-        s->ReadLE( &fD );
+        s->ReadLE(&fD);
         break;
     case kNone :
         break;
@@ -185,7 +185,7 @@ void    plGenericType::Write(hsStream* s)
 {
     s->WriteLE(fType);
 
-    switch ( fType )
+    switch (fType)
     {
     case kString:
     case kAny:
@@ -193,22 +193,22 @@ void    plGenericType::Write(hsStream* s)
         break;
     case kBool:
         {int8_t b = fB?1:0;
-        s->WriteLE( b );}
+        s->WriteLE(b);}
         break;
     case kChar:
-        s->WriteLE( fC );
+        s->WriteLE(fC);
         break;
     case kInt   :
-        s->WriteLE( fI );
+        s->WriteLE(fI);
         break;
     case kUInt:
-        s->WriteLE( fU );
+        s->WriteLE(fU);
         break;
     case kFloat:
-        s->WriteLE( fF );
+        s->WriteLE(fF);
         break;
     case kDouble:
-        s->WriteLE( fD );
+        s->WriteLE(fD);
         break;
     case kNone :
         break;

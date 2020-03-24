@@ -149,7 +149,7 @@ bool plAvBrainDrive::Apply(double timeNow, float elapsed)
     hsMatrix44 rot;
     float angle = 0;
 
-    if ( fAvMod->GetInputFlag( B_CONTROL_ROTATE_RIGHT ) || fAvMod->GetInputFlag( B_CONTROL_ROTATE_LEFT ) || fAvMod->GetInputFlag( A_CONTROL_TURN ) )
+    if (fAvMod->GetInputFlag(B_CONTROL_ROTATE_RIGHT) || fAvMod->GetInputFlag(B_CONTROL_ROTATE_LEFT) || fAvMod->GetInputFlag(A_CONTROL_TURN))
     {
         angle = fTurnRate * eTime * fAvMod->GetTurnStrength();
     }
@@ -158,10 +158,10 @@ bool plAvBrainDrive::Apply(double timeNow, float elapsed)
     hsPoint3 zero(0,0,0);
     justRot.SetTranslate(&zero);
 
-    if( angle ) {
-        hsQuat q( angle, &rotUp );
+    if (angle) {
+        hsQuat q(angle, &rotUp);
         q.NormalizeIfNeeded();
-        q.MakeMatrix( &rot );
+        q.MakeMatrix(&rot);
 
         justRot = rot * justRot;
 
@@ -170,9 +170,9 @@ bool plAvBrainDrive::Apply(double timeNow, float elapsed)
 
     // use the desired rotation matrix to set position and rotation:
     hsMatrix44 inv;
-    targetMatrix.SetTranslate( &desiredPosition );
-    targetMatrix.GetInverse( &inv );
-    avSO->SetTransform( targetMatrix, inv );
+    targetMatrix.SetTranslate(&desiredPosition);
+    targetMatrix.GetInverse(&inv);
+    avSO->SetTransform(targetMatrix, inv);
     avSO->FlushTransform();
 
     return true;
@@ -182,11 +182,11 @@ bool plAvBrainDrive::Apply(double timeNow, float elapsed)
 bool plAvBrainDrive::MsgReceive(plMessage* msg)
 {
     plControlEventMsg *ctrlMsg = plControlEventMsg::ConvertNoRef(msg);
-    if(ctrlMsg)
+    if (ctrlMsg)
     {
-        if( ctrlMsg->ControlActivated() )
+        if (ctrlMsg->ControlActivated())
         {
-            if(ctrlMsg->GetControlCode() == B_CONTROL_TOGGLE_PHYSICAL)
+            if (ctrlMsg->GetControlCode() == B_CONTROL_TOGGLE_PHYSICAL)
             {
                 fAvMod->PopBrain();
                 return true;

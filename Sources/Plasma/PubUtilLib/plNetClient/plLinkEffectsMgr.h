@@ -83,8 +83,8 @@ public:
     ~plLinkEffectsMgr();
     void Init();
 
-    CLASSNAME_REGISTER( plLinkEffectsMgr );
-    GETINTERFACE_ANY( plLinkEffectsMgr, hsKeyedObject );
+    CLASSNAME_REGISTER(plLinkEffectsMgr);
+    GETINTERFACE_ANY(plLinkEffectsMgr, hsKeyedObject);
 
     void WaitForEffect(plKey linkKey, float time);
     void WaitForPseudoEffect(plKey linkKey, float time);

@@ -135,7 +135,7 @@ public:
     plPythonParameter& Copy(const plPythonParameter& other)
     {
         fID = other.fID;
-        switch ( other.fValueType )
+        switch (other.fValueType)
         {
             case kInt:
                 SetToInt(other.datarecord.fIntNumber);
@@ -357,7 +357,7 @@ public:
 
         // read the different types of data
         int count;
-        switch ( fValueType )
+        switch (fValueType)
         {
             case kInt:
                 datarecord.fIntNumber = stream->ReadLE32();
@@ -374,7 +374,7 @@ public:
             case kString:
             case kAnimationName:
                 count = stream->ReadLE32();
-                if ( count != 0 )
+                if (count != 0)
                 {
                     ST::char_buffer str;
                     str.allocate(count - 1);
@@ -413,7 +413,7 @@ public:
         int count;
         stream->WriteLE32(fID);
         stream->WriteLE32(fValueType);
-        switch ( fValueType )
+        switch (fValueType)
         {
             case kInt:
                 stream->WriteLE32(datarecord.fIntNumber);
@@ -429,7 +429,7 @@ public:
 
             case kString:
             case kAnimationName:
-                if ( !fString.empty() )
+                if (!fString.empty())
                     count = fString.size()+1;
                 else
                     count = 0;

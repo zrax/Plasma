@@ -215,18 +215,18 @@ protected:
         HWND hPageCombo = GetDlgItem(fhDlg, IDC_COMP_LOCATION_PAGECOMBO);
         ComboBox_ResetContent(hPageCombo);
 
-        int idx = ComboBox_GetCurSel( GetDlgItem( fhDlg, IDC_COMP_LOCATION_AGECOMBO ) );
-        if( idx == CB_ERR )
+        int idx = ComboBox_GetCurSel(GetDlgItem(fhDlg, IDC_COMP_LOCATION_AGECOMBO));
+        if (idx == CB_ERR)
             return;
-        char *agePath = (char *)ComboBox_GetItemData( GetDlgItem( fhDlg, IDC_COMP_LOCATION_AGECOMBO ), idx );
-        if( agePath == nil )
+        char *agePath = (char *)ComboBox_GetItemData(GetDlgItem(fhDlg, IDC_COMP_LOCATION_AGECOMBO), idx);
+        if (agePath == nil)
             return;
 
         // Get the age description
-        plAgeDescription aged( agePath );
+        plAgeDescription aged(agePath);
 
         // Set the seqPrefix here. (Where else would you suggest?)
-        fPB->SetValue( plPageInfoComponent::kInfoSeqPrefix, 0, (int)aged.GetSequencePrefix() );
+        fPB->SetValue(plPageInfoComponent::kInfoSeqPrefix, 0, (int)aged.GetSequencePrefix());
 
         const char *curPage = fPB->GetStr(plPageInfoComponent::kInfoPage);
         if (curPage && *curPage == '\0')
@@ -235,30 +235,30 @@ protected:
         // Load the page combo and select the saved page (if it's in there)
         plAgePage *page;
         aged.SeekFirstPage();
-        while( ( page = aged.GetNextPage() ) != nil )
+        while ((page = aged.GetNextPage()) != nil)
         {
-            int idx = ComboBox_AddString(hPageCombo, page->GetName().c_str() );
+            int idx = ComboBox_AddString(hPageCombo, page->GetName().c_str());
             if (curPage && (page->GetName() == curPage))
                 ComboBox_SetCurSel(hPageCombo, idx);
-            ComboBox_SetItemData( hPageCombo, idx, (int)page->GetSeqSuffix() );
+            ComboBox_SetItemData(hPageCombo, idx, (int)page->GetSeqSuffix());
         }
     }
 
-    void    IClearAges( HWND combo )
+    void    IClearAges(HWND combo)
     {
-        while( ComboBox_GetCount( combo ) > 0 )
+        while (ComboBox_GetCount(combo) > 0)
         {
-            char *path = (char *)ComboBox_GetItemData( combo, 0 );
-            if( path != nil )
+            char *path = (char *)ComboBox_GetItemData(combo, 0);
+            if (path != nil)
                 delete [] path;
-            ComboBox_DeleteString( combo, 0 );
+            ComboBox_DeleteString(combo, 0);
         }
     }
 
     bool ILoadAges()
     {
         HWND hAgeCombo = GetDlgItem(fhDlg, IDC_COMP_LOCATION_AGECOMBO);
-        IClearAges( hAgeCombo );
+        IClearAges(hAgeCombo);
 
         hsTArray<plFileName> ageFiles = plAgeDescInterface::BuildAgeFileList();
 
@@ -266,16 +266,16 @@ protected:
         if (!curAge || *curAge == '\0')
             curAge = "";
 
-        for( int i = 0; i < ageFiles.GetCount(); i++ )
+        for (int i = 0; i < ageFiles.GetCount(); i++)
         {
             ST::string ageName = ageFiles[i].GetFileNameNoExt();
 
-            int idx = ComboBox_AddString( hAgeCombo, ageName.c_str() );
+            int idx = ComboBox_AddString(hAgeCombo, ageName.c_str());
             // Store the pathas the item data for later (so don't free it yet!)
-            ComboBox_SetItemData( hAgeCombo, idx, (LPARAM)hsStrcpy(ageFiles[i].AsString().c_str()) );
+            ComboBox_SetItemData(hAgeCombo, idx, (LPARAM)hsStrcpy(ageFiles[i].AsString().c_str()));
 
             if (ageName == curAge)
-                ComboBox_SetCurSel( hAgeCombo, idx );
+                ComboBox_SetCurSel(hAgeCombo, idx);
         }
         
         return true;
@@ -298,7 +298,7 @@ public:
             }
 
         case WM_DESTROY:
-            IClearAges( GetDlgItem( hWnd, IDC_COMP_LOCATION_AGECOMBO ) );
+            IClearAges(GetDlgItem(hWnd, IDC_COMP_LOCATION_AGECOMBO));
             return TRUE;
 
         case WM_COMMAND:
@@ -312,7 +312,7 @@ public:
                     ComboBox_GetText(hAgeCombo, buf, sizeof(buf));
                     fPB->SetValue(plPageInfoComponent::kInfoAge, 0, buf);
                     fPB->SetValue(plPageInfoComponent::kInfoPage, 0, "");
-                    fPB->SetValue(plPageInfoComponent::kInfoSeqSuffix, 0, (int)-1 );
+                    fPB->SetValue(plPageInfoComponent::kInfoSeqSuffix, 0, (int)-1);
                     ILoadPages();
                 }
 
@@ -326,8 +326,8 @@ public:
                 {
                     char buf[256];
                     ComboBox_GetText(hPageCombo, buf, sizeof(buf));
-                    fPB->SetValue( plPageInfoComponent::kInfoPage, 0, buf );
-                    fPB->SetValue( plPageInfoComponent::kInfoSeqSuffix, 0, ComboBox_GetItemData( hPageCombo, idx ) );
+                    fPB->SetValue(plPageInfoComponent::kInfoPage, 0, buf);
+                    fPB->SetValue(plPageInfoComponent::kInfoSeqSuffix, 0, ComboBox_GetItemData(hPageCombo, idx));
                 }
 
                 return TRUE;
@@ -364,7 +364,7 @@ ParamBlockDesc2 gPageInfoCompBk
     plPageInfoComponent::kInfoSeqSuffix, _T("sequenceSuffix"), TYPE_INT, 0, 0,
         end,
 
-    plPageInfoComponent::kRefVolatile_PageInfoUpdated, _T( "pageInfoUpdated" ), TYPE_BOOL, 0, 0,
+    plPageInfoComponent::kRefVolatile_PageInfoUpdated, _T("pageInfoUpdated"), TYPE_BOOL, 0, 0,
         p_default, 0,
         end,
         
@@ -376,7 +376,7 @@ ParamBlockDesc2 gPageInfoCompBk
     end
 );
 
-char    plPageInfoComponent::fCurrExportedAge[ 256 ] = "";
+char    plPageInfoComponent::fCurrExportedAge[256] = "";
 
 plPageInfoComponent::plPageInfoComponent()
 {
@@ -415,23 +415,23 @@ bool plPageInfoComponent::SetupProperties(plMaxNode *pNode, plErrorMsg *pErrMsg)
     }
 
     // Check to make sure we don't try to export more than one age at a time
-    if( fCurrExportedAge[ 0 ] == 0 )
-        strncpy( fCurrExportedAge, age, sizeof( fCurrExportedAge ) );
+    if (fCurrExportedAge[0] == 0)
+        strncpy(fCurrExportedAge, age, sizeof(fCurrExportedAge));
     else
     {
-        if( stricmp( fCurrExportedAge, age ) != 0 )
+        if (stricmp(fCurrExportedAge, age) != 0)
         {
             // Our only currently accepted exception (eh?) is GlobalClothing and GlobalAvatars
-            if( ( stricmp( age, "GlobalAvatars" ) == 0 && stricmp( fCurrExportedAge, "GlobalClothing" ) == 0 ) ||
-                ( stricmp( age, "GlobalClothing" ) == 0 && stricmp( fCurrExportedAge, "GlobalAvatars" ) == 0 ) )
+            if ((stricmp(age, "GlobalAvatars") == 0 && stricmp(fCurrExportedAge, "GlobalClothing") == 0) ||
+                (stricmp(age, "GlobalClothing") == 0 && stricmp(fCurrExportedAge, "GlobalAvatars") == 0))
             {
             }
             else
             {
-                pErrMsg->Set( true, "PageInfo Component Error",
+                pErrMsg->Set(true, "PageInfo Component Error",
                                 "The scene you are trying to export is attempting to export to both ages %s and"
                                 " %s. You are only allowed to export to one age at a time.",
-                                fCurrExportedAge, age ).Show();
+                                fCurrExportedAge, age).Show();
 
                 // Reset for next time
                 return false;
@@ -440,28 +440,28 @@ bool plPageInfoComponent::SetupProperties(plMaxNode *pNode, plErrorMsg *pErrMsg)
     }
 
     // Make sure our sequence partitions are up-to-date
-    IUpdateSeqNumbersFromAgeFile( pErrMsg );
+    IUpdateSeqNumbersFromAgeFile(pErrMsg);
 
     // Need to re-get our age and page name here, since IUpdate() might change them
-    age = fCompPB->GetStr( kInfoAge );
-    room = fCompPB->GetStr( kInfoPage );
+    age = fCompPB->GetStr(kInfoAge);
+    room = fCompPB->GetStr(kInfoPage);
     fItinerant = fCompPB->GetInt(kItinerant);
 
     // Build our sequence number
     int32_t newNum, seqNum;
-    seqNum = plPageInfoUtils::CombineSeqNum( fCompPB->GetInt( kInfoSeqPrefix ), fCompPB->GetInt( kInfoSeqSuffix ) );
-    newNum = plPluginResManager::ResMgr()->VerifySeqNumber( seqNum, age, room );
-    if( newNum != seqNum )
+    seqNum = plPageInfoUtils::CombineSeqNum(fCompPB->GetInt(kInfoSeqPrefix), fCompPB->GetInt(kInfoSeqSuffix));
+    newNum = plPluginResManager::ResMgr()->VerifySeqNumber(seqNum, age, room);
+    if (newNum != seqNum)
     {
-        if( !fSeqNumValidated && seqNum != 0 )
+        if (!fSeqNumValidated && seqNum != 0)
         {
             // What error was it, exactly?
-            char        errMsg[ 1024 ];
+            char        errMsg[1024];
             const plPageInfo *lastPage = plPluginResManager::ResMgr()->GetLastVerifyPage();
 
-            if( plPluginResManager::ResMgr()->GetLastVerifyError() == plPluginResManager::kErrRightPageWrongSeq )
+            if (plPluginResManager::ResMgr()->GetLastVerifyError() == plPluginResManager::kErrRightPageWrongSeq)
             {
-                sprintf( errMsg, "The Page Info component for %s>%s applied to object %s is attempting to export with a sequence number "
+                sprintf(errMsg, "The Page Info component for %s>%s applied to object %s is attempting to export with a sequence number "
                     "different from what is already exported. Further, the already-exported page %s>%s has "
                     "the same sequence number as this Page Info component now. This is most likely due to the .age "
                     "files having been changed since the old page was exported. The recommended solution would be to "
@@ -470,11 +470,11 @@ bool plPageInfoComponent::SetupProperties(plMaxNode *pNode, plErrorMsg *pErrMsg)
                     "for playing over the network or released for external use.\n\n"
                     "\t(Original sequence #: 0x%X)\n\t(Temporary sequence #: 0x%X)",
                                     age, room, pNode->GetName(),
-                                    lastPage->GetAge().c_str(), lastPage->GetPage().c_str(), age, room, seqNum, newNum );
+                                    lastPage->GetAge().c_str(), lastPage->GetPage().c_str(), age, room, seqNum, newNum);
             }
-            else if( plPluginResManager::ResMgr()->GetLastVerifyError() == plPluginResManager::kErrSeqAlreadyTaken )
+            else if (plPluginResManager::ResMgr()->GetLastVerifyError() == plPluginResManager::kErrSeqAlreadyTaken)
             {
-                sprintf( errMsg, "The Page Info component for %s>%s applied to object %s is attempting to export with "
+                sprintf(errMsg, "The Page Info component for %s>%s applied to object %s is attempting to export with "
                     "an identical sequence number to the already-exported page %s>%s. This is usually due to "
                     "either page having been exported with an invalid or missing .age file. Please verify that both "
                     "pages have valid .age files and their sequence numbers do not conflict in the Age Description "
@@ -483,38 +483,38 @@ bool plPageInfoComponent::SetupProperties(plMaxNode *pNode, plErrorMsg *pErrMsg)
                     "for playing over the network or released for external use.\n\n"
                     "\t(Original sequence #: 0x%X)\n\t(Temporary sequence #: 0x%X)",
                                     age, room, pNode->GetName(),
-                                    lastPage->GetAge().c_str(), lastPage->GetPage().c_str(), age, room, seqNum, newNum );
+                                    lastPage->GetAge().c_str(), lastPage->GetPage().c_str(), age, room, seqNum, newNum);
             }
-            else if( plPluginResManager::ResMgr()->GetLastVerifyError() == plPluginResManager::kErrCantFindValid )
+            else if (plPluginResManager::ResMgr()->GetLastVerifyError() == plPluginResManager::kErrCantFindValid)
             {
-                sprintf( errMsg, "The Page Info component for %s>%s applied to object %s is attempting to export with "
+                sprintf(errMsg, "The Page Info component for %s>%s applied to object %s is attempting to export with "
                     "an invalid sequence number. The exporter could not find a valid, free sequence number to use, so this "
                     "page cannot be exported. Contact mcn (ext 264) immediately!\n\n"
                     "\t(Original sequence #: 0x%X)",
-                    age, room, pNode->GetName(), seqNum );
-                pErrMsg->Set( true, "PageInfo Convert Error", errMsg ).Show();
+                    age, room, pNode->GetName(), seqNum);
+                pErrMsg->Set(true, "PageInfo Convert Error", errMsg).Show();
                 return false;
             }
             else
             {
-                sprintf( errMsg, "The Page Info component for %s>%s applied to object %s is attempting to export with "
+                sprintf(errMsg, "The Page Info component for %s>%s applied to object %s is attempting to export with "
                     "a sequence number that is invalid for an unknown reason.\n\n"
                     "The exporter has assigned a valid temporary sequence number, but this data should not be used "
                     "for playing over the network or released for external use.\n\n"
                     "\t(Original sequence #: 0x%X)\n\t(Temporary sequence #: 0x%X)",
-                    age, room, pNode->GetName(), seqNum, newNum );
+                    age, room, pNode->GetName(), seqNum, newNum);
             }
-            pErrMsg->Set( true, "PageInfo Convert Error", errMsg ).Show();
-            pErrMsg->Set( false );
+            pErrMsg->Set(true, "PageInfo Convert Error", errMsg).Show();
+            pErrMsg->Set(false);
             fSeqNumValidated = true;
         }
         seqNum = newNum;
     }
     if (fItinerant)
         int i = 0;
-    plKey roomKey = plPluginResManager::ResMgr()->NameToLoc(age, room, seqNum, fItinerant );
+    plKey roomKey = plPluginResManager::ResMgr()->NameToLoc(age, room, seqNum, fItinerant);
 
-    if(!roomKey)
+    if (!roomKey)
     {
         pErrMsg->Set(true,
             "PageInfo Convert Error",
@@ -534,7 +534,7 @@ bool plPageInfoComponent::SetupProperties(plMaxNode *pNode, plErrorMsg *pErrMsg)
 bool plPageInfoComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
     // Make sure we clear this flag so that the next time around it's clear
-    fCompPB->SetValue( kRefVolatile_PageInfoUpdated, 0, (int)false );
+    fCompPB->SetValue(kRefVolatile_PageInfoUpdated, 0, (int)false);
     fSeqNumValidated = false;
         
     return true;
@@ -544,7 +544,7 @@ bool plPageInfoComponent::DeInit(plMaxNode *node, plErrorMsg *pErrMsg)
 {
     plKey snKey = node->GetRoomKey();
     plSceneObject *so = node->GetSceneObject();
-    if(so)
+    if (so)
     {
         if (node->GetSwappableGeom())
         {
@@ -574,13 +574,13 @@ const char *plPageInfoComponent::GetAgeName()
 //  Checks in assetMan to make sure we have the latest .age file to export
 //  with.
 
-void    plPageInfoComponent::IVerifyLatestAgeAsset( const ST::string &ageName, const plFileName &localPath, plErrorMsg *errMsg )
+void    plPageInfoComponent::IVerifyLatestAgeAsset(const ST::string &ageName, const plFileName &localPath, plErrorMsg *errMsg)
 {
 #ifdef MAXASS_AVAILABLE
     plFileName ageFileName, assetPath;
 
    MaxAssInterface *assetMan = GetMaxAssInterface();
-   if( assetMan == nil )
+   if (assetMan == nil)
        return;      // No AssetMan available
 
     // Try to find it in assetMan
@@ -591,9 +591,9 @@ void    plPageInfoComponent::IVerifyLatestAgeAsset( const ST::string &ageName, c
         // Get the latest version
         if (!assetMan->GetLatestVersionFile(assetId, assetPath, sizeof(assetPath)))
         {
-            errMsg->Set( true, "PageInfo Convert Error",
-                "Unable to update age file for '%s' because AssetMan was unable to get the latest version. Using local copy instead.", ageName.c_str() ).Show();
-            errMsg->Set( false );
+            errMsg->Set(true, "PageInfo Convert Error",
+                "Unable to update age file for '%s' because AssetMan was unable to get the latest version. Using local copy instead.", ageName.c_str()).Show();
+            errMsg->Set(false);
             return;
         }
 
@@ -613,101 +613,101 @@ void    plPageInfoComponent::IVerifyLatestAgeAsset( const ST::string &ageName, c
 //  we use to export are synched up with the latest .age files. This function
 //  makes sure that we're synched before we start using 'em.
 
-void    plPageInfoComponent::IUpdateSeqNumbersFromAgeFile( plErrorMsg *errMsg )
+void    plPageInfoComponent::IUpdateSeqNumbersFromAgeFile(plErrorMsg *errMsg)
 {
     // Check to see if we've updated already
-    if( fCompPB->GetInt( kRefVolatile_PageInfoUpdated ) )
+    if (fCompPB->GetInt(kRefVolatile_PageInfoUpdated))
         return; // Already updated this pass!
 
     // Mark us as updated
-    fCompPB->SetValue( kRefVolatile_PageInfoUpdated, 0, (int)true );
+    fCompPB->SetValue(kRefVolatile_PageInfoUpdated, 0, (int)true);
 
     plFileName ageFolder = plPageInfoUtils::GetAgeFolder();
     if (!ageFolder.IsValid())
     {
-        errMsg->Set( true,
-                     "PageInfo Convert Error",
-                     "There was a problem converting the PageInfo Component %s (the age folder couldn't be located). "
-                     "The exporter will assign a temporary sequence number to this page, but you'll be lucky if it works at all.",
-                    GetINode()->GetName() ).Show();
-        errMsg->Set( false );
-        fCompPB->SetValue( kInfoSeqPrefix, 0, 0 );
-        fCompPB->SetValue( kInfoSeqSuffix, 0, 0 );
+        errMsg->Set(true,
+                    "PageInfo Convert Error",
+                    "There was a problem converting the PageInfo Component %s (the age folder couldn't be located). "
+                    "The exporter will assign a temporary sequence number to this page, but you'll be lucky if it works at all.",
+                    GetINode()->GetName()).Show();
+        errMsg->Set(false);
+        fCompPB->SetValue(kInfoSeqPrefix, 0, 0);
+        fCompPB->SetValue(kInfoSeqSuffix, 0, 0);
         return;
     }
-    const char *curAge = fCompPB->GetStr( kInfoAge );
-    if( !curAge || *curAge == '\0' )
+    const char *curAge = fCompPB->GetStr(kInfoAge);
+    if (!curAge || *curAge == '\0')
     {
-        errMsg->Set( true,
-                     "PageInfo Convert Error",
-                     "There was a problem converting the PageInfo Component %s (no age name was selected). "
-                     "The exporter will assign a temporary sequence number to this page, but you'll be lucky if it works at all.",
+        errMsg->Set(true,
+                    "PageInfo Convert Error",
+                    "There was a problem converting the PageInfo Component %s (no age name was selected). "
+                    "The exporter will assign a temporary sequence number to this page, but you'll be lucky if it works at all.",
                     GetINode()->GetName()).Show();
-        errMsg->Set( false );
-        fCompPB->SetValue( kInfoSeqPrefix, 0, 0 );
-        fCompPB->SetValue( kInfoSeqSuffix, 0, 0 );
+        errMsg->Set(false);
+        fCompPB->SetValue(kInfoSeqPrefix, 0, 0);
+        fCompPB->SetValue(kInfoSeqSuffix, 0, 0);
         return;
     }
     plFileName path = plFileName::Join(ageFolder, ST::format("{}.age", curAge));
 
-    IVerifyLatestAgeAsset( curAge, path, errMsg );
+    IVerifyLatestAgeAsset(curAge, path, errMsg);
     std::unique_ptr<plAgeDescription> aged(plPageInfoUtils::GetAgeDesc(curAge));
 
     if (!aged)
     {
-        errMsg->Set( true,
-                     "PageInfo Convert Error",
-                     "There was a problem converting the PageInfo Component %s (the age name \"%s\" is invalid). "
-                     "The exporter will assign a temporary sequence number to this page, but you'll be lucky if it works at all.",
-                    GetINode()->GetName(), curAge ).Show();
-        errMsg->Set( false );
-        fCompPB->SetValue( kInfoSeqPrefix, 0, 0 );
-        fCompPB->SetValue( kInfoSeqSuffix, 0, 0 );
+        errMsg->Set(true,
+                    "PageInfo Convert Error",
+                    "There was a problem converting the PageInfo Component %s (the age name \"%s\" is invalid). "
+                    "The exporter will assign a temporary sequence number to this page, but you'll be lucky if it works at all.",
+                    GetINode()->GetName(), curAge).Show();
+        errMsg->Set(false);
+        fCompPB->SetValue(kInfoSeqPrefix, 0, 0);
+        fCompPB->SetValue(kInfoSeqSuffix, 0, 0);
         return;
     }
 
     // Update based on the age file now
-    fCompPB->SetValue( kInfoSeqPrefix, 0, (int)aged->GetSequencePrefix() );
+    fCompPB->SetValue(kInfoSeqPrefix, 0, (int)aged->GetSequencePrefix());
 
     // Find our page
-    const char *compPBPageName = fCompPB->GetStr( kInfoPage );
-    if( compPBPageName == nil )
+    const char *compPBPageName = fCompPB->GetStr(kInfoPage);
+    if (compPBPageName == nil)
     {
-        errMsg->Set( true,
-                     "PageInfo Convert Error",
-                     "There was a problem converting the PageInfo Component %s (no page name was specified). "
-                     "The exporter will assign a temporary sequence number to this page, but you'll be lucky if it works at all.",
-                    GetINode()->GetName() ).Show();
-        errMsg->Set( false );
-        fCompPB->SetValue( kInfoSeqPrefix, 0, 0 );
-        fCompPB->SetValue( kInfoSeqSuffix, 0, 0 );
+        errMsg->Set(true,
+                    "PageInfo Convert Error",
+                    "There was a problem converting the PageInfo Component %s (no page name was specified). "
+                    "The exporter will assign a temporary sequence number to this page, but you'll be lucky if it works at all.",
+                    GetINode()->GetName()).Show();
+        errMsg->Set(false);
+        fCompPB->SetValue(kInfoSeqPrefix, 0, 0);
+        fCompPB->SetValue(kInfoSeqSuffix, 0, 0);
         return;
     }
 
     plAgePage   *page;
     aged->SeekFirstPage();
 
-    while( ( page = aged->GetNextPage() ) != nil )
+    while ((page = aged->GetNextPage()) != nil)
     {
-        if( page->GetName().compare_i( compPBPageName ) == 0 )
+        if (page->GetName().compare_i(compPBPageName) == 0)
         {
-            fCompPB->SetValue( kInfoSeqSuffix, 0, (int)page->GetSeqSuffix() );
+            fCompPB->SetValue(kInfoSeqSuffix, 0, (int)page->GetSeqSuffix());
 
             // Also re-copy the page name, just to make sure the case is correct
-            fCompPB->SetValue( kInfoPage, 0, const_cast<char*>(page->GetName().c_str()) );
+            fCompPB->SetValue(kInfoPage, 0, const_cast<char*>(page->GetName().c_str()));
             return;
         }
     }
 
     // If we got here, the page name is invalid
-    char msg[ 512 ];
-    sprintf( msg, "There was a problem converting the PageInfo Component %s (the page \"%s\" wasn't found in the age file for age \"%s\"). "
-                  "The exporter will assign a temporary sequence number to this page, but you'll be lucky if it works at all.",
-                  GetINode()->GetName(), compPBPageName, curAge );
-    errMsg->Set( true, "PageInfo Convert Error", msg ).Show();
-    errMsg->Set( false );
-    fCompPB->SetValue( kInfoSeqPrefix, 0, 0 );
-    fCompPB->SetValue( kInfoSeqSuffix, 0, 0 );
+    char msg[512];
+    sprintf(msg, "There was a problem converting the PageInfo Component %s (the page \"%s\" wasn't found in the age file for age \"%s\"). "
+                 "The exporter will assign a temporary sequence number to this page, but you'll be lucky if it works at all.",
+                 GetINode()->GetName(), compPBPageName, curAge);
+    errMsg->Set(true, "PageInfo Convert Error", msg).Show();
+    errMsg->Set(false);
+    fCompPB->SetValue(kInfoSeqPrefix, 0, 0);
+    fCompPB->SetValue(kInfoSeqSuffix, 0, 0);
 }
 
 plFileName plPageInfoUtils::GetAgeFolder()
@@ -726,39 +726,39 @@ plFileName plPageInfoUtils::GetAgeFolder()
     return ageFolder;
 }
 
-int32_t   plPageInfoUtils::CombineSeqNum( int prefix, int suffix )
+int32_t   plPageInfoUtils::CombineSeqNum(int prefix, int suffix)
 {
     hsAssert(abs(prefix) < 0xFF, "Sequence prefix must be less then the max 8-bit number");
     hsAssert(suffix <= 0xFFFF, "Sequence suffix must be less then the max 16-bit number");
     hsAssert(suffix >= 0, "Sequence suffix must be unsigned");
-    if( prefix < 0 )
-        return -( ( ( -prefix ) << 16 ) + suffix );
+    if (prefix < 0)
+        return -(((-prefix) << 16) + suffix);
     else
-        return ( prefix << 16 ) + suffix;
+        return (prefix << 16) + suffix;
 }
 
-int32_t   plPageInfoUtils::GetCommonSeqNumFromNormal( int32_t normalSeqNumber, int whichCommonPage )
+int32_t   plPageInfoUtils::GetCommonSeqNumFromNormal(int32_t normalSeqNumber, int whichCommonPage)
 {
     int     prefix;
     const int kFirstCommonSeqSuffix = 0xffff;
 
-    hsAssert( whichCommonPage < plAgeDescription::kNumCommonPages, "Invalid common page index in GetCommonSeqNumFromNormal()" );
+    hsAssert(whichCommonPage < plAgeDescription::kNumCommonPages, "Invalid common page index in GetCommonSeqNumFromNormal()");
 
-    if( normalSeqNumber < 0 )
+    if (normalSeqNumber < 0)
     {
-        prefix = -( (-normalSeqNumber) >> 16 );
+        prefix = -((-normalSeqNumber) >> 16);
     }
     else
         prefix = normalSeqNumber >> 16;
     
-    return CombineSeqNum( prefix, kFirstCommonSeqSuffix - whichCommonPage );
+    return CombineSeqNum(prefix, kFirstCommonSeqSuffix - whichCommonPage);
 }
 
-int32_t   plPageInfoUtils::GetSeqNumFromAgeDesc( const char *ageName, const char *pageName )
+int32_t   plPageInfoUtils::GetSeqNumFromAgeDesc(const char *ageName, const char *pageName)
 {
     int             seqPrefix, seqSuffix = 0;
-    plAgeDescription *aged = GetAgeDesc( ageName );
-    if( aged == nil )
+    plAgeDescription *aged = GetAgeDesc(ageName);
+    if (aged == nil)
     {
         // ???? This ain't good...attempt to get the resMgr to give us a temporary seqNum...
         return 0;
@@ -769,7 +769,7 @@ int32_t   plPageInfoUtils::GetSeqNumFromAgeDesc( const char *ageName, const char
     // Find our page
     plAgePage *page;
     aged->SeekFirstPage();
-    while( ( page = aged->GetNextPage() ) != nil )
+    while ((page = aged->GetNextPage()) != nil)
     {
         if (page->GetName().compare_i(pageName) == 0)
         {
@@ -780,10 +780,10 @@ int32_t   plPageInfoUtils::GetSeqNumFromAgeDesc( const char *ageName, const char
 
     delete aged;
 
-    return CombineSeqNum( seqPrefix, seqSuffix );
+    return CombineSeqNum(seqPrefix, seqSuffix);
 }
 
-plAgeDescription *plPageInfoUtils::GetAgeDesc( const ST::string &ageName )
+plAgeDescription *plPageInfoUtils::GetAgeDesc(const ST::string &ageName)
 {
     plFileName ageFolder = plPageInfoUtils::GetAgeFolder();
     if (!ageFolder.IsValid() || ageName.empty())
@@ -842,7 +842,7 @@ void plPageInfoComponent::NotifyProc(void *param, NotifyInfo *info)
     {
         const char *ageName = CheckPageInfoCompsRecur((plMaxNode*)GetCOREInterface()->GetRootNode());
         if (ageName != nil)
-            strncpy( fCurrExportedAge, ageName, sizeof( fCurrExportedAge ) );
+            strncpy(fCurrExportedAge, ageName, sizeof(fCurrExportedAge));
     }
     else if (info->intcode == NOTIFY_SYSTEM_POST_RESET ||
         info->intcode == NOTIFY_SYSTEM_POST_NEW)
@@ -991,13 +991,13 @@ plViewFacingComponent::plViewFacingComponent()
 
 static bool NodeHasTMAnimation(plMaxNode* node)
 {
-    if( node->GetUnBounded() )
+    if (node->GetUnBounded())
         return true;
 
     plPhysicalProps* props = node->GetPhysicalProps();
-    if( props && props->IsUsed() )
+    if (props && props->IsUsed())
     {
-        if( (props->GetMass() > 0) && !props->GetPinned() )
+        if ((props->GetMass() > 0) && !props->GetPinned())
             return true;
     }
 
@@ -1006,16 +1006,16 @@ static bool NodeHasTMAnimation(plMaxNode* node)
 
 static bool FindTMAnimatedChildrenRecur(plMaxNode* node)
 {
-    if( !node->CanConvert() )
+    if (!node->CanConvert())
         return false;
 
-    if( NodeHasTMAnimation(node) )
+    if (NodeHasTMAnimation(node))
         return true;
 
     int i;
-    for( i = 0; i < node->NumChildren(); i++ )
+    for (i = 0; i < node->NumChildren(); i++)
     {
-        if( FindTMAnimatedChildrenRecur((plMaxNode*)node->GetChildNode(i)) )
+        if (FindTMAnimatedChildrenRecur((plMaxNode*)node->GetChildNode(i)))
             return true;
     }
     return false;
@@ -1023,11 +1023,11 @@ static bool FindTMAnimatedChildrenRecur(plMaxNode* node)
 
 static void FindRecursiveBounds(plMaxNode* node, hsBounds3Ext& bnd)
 {
-    if( !node->CanConvert() )
+    if (!node->CanConvert())
         return;
 
     int i;
-    for( i = 0; i < node->NumChildren(); i++ )
+    for (i = 0; i < node->NumChildren(); i++)
     {
         FindRecursiveBounds((plMaxNode*)node->GetChildNode(i), bnd);
     }
@@ -1035,25 +1035,25 @@ static void FindRecursiveBounds(plMaxNode* node, hsBounds3Ext& bnd)
     const TimeValue currTime(0);
 
     Object *obj = node->EvalWorldState(currTime).obj;
-    if( !obj )
+    if (!obj)
         return;
 
-    if( obj->CanConvertToType(triObjectClassID) )
+    if (obj->CanConvertToType(triObjectClassID))
     {
         TriObject   *meshObj = (TriObject *)obj->ConvertToType(currTime, triObjectClassID);
-        if( !meshObj )
+        if (!meshObj)
             return;
 
         Matrix3 l2w = node->GetObjectTM(currTime);
         Box3 box = meshObj->mesh.getBoundingBox(&l2w);
 
-        if( !box.IsEmpty() )
+        if (!box.IsEmpty())
         {
             bnd.Union(&hsPoint3(box.Min().x, box.Min().y, box.Min().z));
             bnd.Union(&hsPoint3(box.Max().x, box.Max().y, box.Max().z));
         }
 
-        if( meshObj != obj )
+        if (meshObj != obj)
             meshObj->DeleteThis();
     }
     return;
@@ -1065,19 +1065,19 @@ static bool FindMaxBounds(plMaxNode* node, hsBounds3Ext& bnd)
 
     // First, look from the node up to the root. If anything is animated, we can't do this.
     plMaxNode* parent = node;
-    while( !parent->IsRootNode() )
+    while (!parent->IsRootNode())
     {
         // We shouldn't ever hit this, but whatever.
-        if( !parent->CanConvert() )
+        if (!parent->CanConvert())
             return false;
 
-        if( NodeHasTMAnimation(parent) )
+        if (NodeHasTMAnimation(parent))
             return false;
         parent = (plMaxNode*)parent->GetParentNode();
     }
 
     // Second, look down the children. If any of them are animated, we can't do this.
-    if( FindTMAnimatedChildrenRecur(node) )
+    if (FindTMAnimatedChildrenRecur(node))
         return false;
 
     // Now find the recursive world space bounds of us and all our children.
@@ -1098,11 +1098,11 @@ bool plViewFacingComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     plViewFaceModifier* pMod = new plViewFaceModifier;
 
     hsBounds3Ext maxBnd;
-    if( FindMaxBounds(node, maxBnd) )
+    if (FindMaxBounds(node, maxBnd))
         pMod->SetMaxBounds(maxBnd);
     
 //  int ChosenType = fCompPB->GetInt(kTypeofView);
-//  switch(ChosenType)
+//  switch (ChosenType)
 //  {
 //  case 0:
 //      pMod->SetFlag(plViewFaceModifier::kPivotFace);
@@ -1119,7 +1119,7 @@ bool plViewFacingComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 //  }
 
 #if 0
-    if(fCompPB->GetFloat(kViewFaceScaleX) || fCompPB->GetFloat(kViewFaceScaleY) || fCompPB->GetFloat(kViewFaceScaleZ))
+    if (fCompPB->GetFloat(kViewFaceScaleX) || fCompPB->GetFloat(kViewFaceScaleY) || fCompPB->GetFloat(kViewFaceScaleZ))
     {
         pMod->SetFlag(plViewFaceModifier::kScale);
         
@@ -1190,7 +1190,7 @@ bool plSpriteComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     plViewFaceModifier* pMod = new plViewFaceModifier;
 
     hsBounds3Ext maxBnd;
-    if( FindMaxBounds(node, maxBnd) )
+    if (FindMaxBounds(node, maxBnd))
         pMod->SetMaxBounds(maxBnd);
 
     pMod->SetFlag(plViewFaceModifier::kPivotFace);
@@ -1359,13 +1359,13 @@ bool plCamViewComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     Object* obj = node->EvalWorldState(timeVal).obj;
 
     GenCamera* cam = nil;
-    if( obj->CanConvertToType(Class_ID(LOOKAT_CAM_CLASS_ID, 0)) )
+    if (obj->CanConvertToType(Class_ID(LOOKAT_CAM_CLASS_ID, 0)))
         cam = (GenCamera *) obj->ConvertToType(timeVal, Class_ID(LOOKAT_CAM_CLASS_ID, 0));
     else
-    if( obj->CanConvertToType(Class_ID(SIMPLE_CAM_CLASS_ID, 0)) )
+    if (obj->CanConvertToType(Class_ID(SIMPLE_CAM_CLASS_ID, 0)))
         cam = (GenCamera *) obj->ConvertToType(timeVal, Class_ID(SIMPLE_CAM_CLASS_ID, 0));
 
-    if( !cam )
+    if (!cam)
     {
         hsAssert(false, "Should have checked for the camera in PreConvert");
         return false;
@@ -1374,7 +1374,7 @@ bool plCamViewComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     plPostEffectMod* mod = new plPostEffectMod;
 
     float hither = cam->GetEnvRange(timeVal, ENV_NEAR_RANGE);
-    if( hither < 0.5f )
+    if (hither < 0.5f)
         hither = 0.5f;
     float yon = cam->GetEnvRange(timeVal, ENV_FAR_RANGE);
     mod->SetHither(hither);
@@ -1385,7 +1385,7 @@ bool plCamViewComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     // convert
     int FOVType = cam->GetFOVType();
     float fovX, fovY;
-    switch(FOVType)
+    switch (FOVType)
     {
     case 0: // FOV_W
         {
@@ -1419,16 +1419,16 @@ bool plCamViewComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
     TimeValue timeVal(0);
     Object* obj = node->EvalWorldState(timeVal).obj;
 
-    if( obj->CanConvertToType(Class_ID(LOOKAT_CAM_CLASS_ID, 0))
-        || obj->CanConvertToType(Class_ID(SIMPLE_CAM_CLASS_ID, 0)) )
+    if (obj->CanConvertToType(Class_ID(LOOKAT_CAM_CLASS_ID, 0))
+        || obj->CanConvertToType(Class_ID(SIMPLE_CAM_CLASS_ID, 0)))
         fBogus = false;
     else
         fBogus = true;
 
-    if( fBogus )
+    if (fBogus)
         pErrMsg->Set(true, node->GetName(), "CamView component attached to non-camera").CheckAndAsk();
 
-    if( !fBogus )
+    if (!fBogus)
         IMakeEveryoneOpaque(node);
 
     return true;
@@ -1439,20 +1439,20 @@ void plCamViewComponent::IMakeEveryoneOpaque(plMaxNode* node)
     plMaxNode* root = (plMaxNode *)node->GetInterface()->GetRootNode();
 
     int i;
-    for( i = 0; i < root->NumberOfChildren(); i++ )
+    for (i = 0; i < root->NumberOfChildren(); i++)
         IMakeEveryoneOpaqueRecur((plMaxNode*)(root->GetChildNode(i)));
 
 }
 
 void plCamViewComponent::IMakeEveryoneOpaqueRecur(plMaxNode* node)
 {
-    if( node->CanConvert() )
+    if (node->CanConvert())
     {
         node->SetNoSpanReSort(true);
         node->SetNoSpanSort(true);
 
         int i;
-        for( i = 0; i < node->NumberOfChildren(); i++ )
+        for (i = 0; i < node->NumberOfChildren(); i++)
         {
             IMakeEveryoneOpaqueRecur((plMaxNode *)(node->GetChildNode(i)));
         }
@@ -1493,7 +1493,7 @@ class plLeaderObjAccessor : public PBAccessor
 public:
     void Set(PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t)
     {
-        if( (id == kLeaderObjectSel) )
+        if ((id == kLeaderObjectSel))
         {
             plComponentBase *comp = (plComponentBase*)owner;
             comp->NotifyDependents(FOREVER, PART_ALL, REFMSG_USER_COMP_REF_CHANGED);
@@ -1512,8 +1512,8 @@ public:
         case WM_INITDIALOG:
             {
                     IParamBlock2 *pb = map->GetParamBlock();
-                    map->SetTooltip(kLeaderObjectSel, TRUE, "Press the button, & select the object to follow in one of the Viewports" );
-                    if( pb->GetInt(kLeaderTypeRadio) == int32_t(plFollowMod::kObject) )
+                    map->SetTooltip(kLeaderObjectSel, TRUE, "Press the button, & select the object to follow in one of the Viewports");
+                    if (pb->GetInt(kLeaderTypeRadio) == int32_t(plFollowMod::kObject))
                         map->Enable(kLeaderObjectSel, TRUE);
                     else
                         map->Enable(kLeaderObjectSel, FALSE);
@@ -1523,13 +1523,13 @@ public:
 //////////////////
         case WM_COMMAND:
             {
-                if( (LOWORD(wParam) == IDC_F_RADIO_PLAYER)
+                if ((LOWORD(wParam) == IDC_F_RADIO_PLAYER)
                     ||(LOWORD(wParam) == IDC_F_RADIO_LISTENER)
                     || (LOWORD(wParam) == IDC_F_RADIO_CAMERA)
-                    || (LOWORD(wParam) == IDC_F_RADIO_OBJECT) )
+                    || (LOWORD(wParam) == IDC_F_RADIO_OBJECT))
                 {
                     IParamBlock2 *pb = map->GetParamBlock();
-                    if( pb->GetInt(kLeaderTypeRadio) == int32_t(plFollowMod::kObject) )
+                    if (pb->GetInt(kLeaderTypeRadio) == int32_t(plFollowMod::kObject))
                         map->Enable(kLeaderObjectSel, TRUE);
                     else
                         map->Enable(kLeaderObjectSel, FALSE);
@@ -1625,16 +1625,16 @@ plFollowMod* plFollowComponent::IMakeFollowMod(plMaxNode* pNode, plErrorMsg* pEr
 
     hsgResMgr::ResMgr()->NewKey(IGetUniqueName(pNode), follow, pNode->GetLocation());
 
-    if( plFollowMod::kObject == lType )
+    if (plFollowMod::kObject == lType)
     {
-        if(fCompPB->GetINode(kLeaderObjectSel) != NULL)
+        if (fCompPB->GetINode(kLeaderObjectSel) != NULL)
         {
             plMaxNode* targNode = (plMaxNode*)fCompPB->GetINode(kLeaderObjectSel);
 
-            if( targNode->CanConvert() )
+            if (targNode->CanConvert())
             {
                 plSceneObject* targObj = targNode->GetSceneObject();
-                if( targObj )
+                if (targObj)
                 {
                     plGenRefMsg* refMsg = new plGenRefMsg(follow->GetKey(), plRefMsg::kOnCreate, 0, plFollowMod::kRefLeader);
                     hsgResMgr::ResMgr()->AddViaNotify(targObj->GetKey(), refMsg, plRefFlags::kPassiveRef);
@@ -1650,16 +1650,16 @@ plFollowMod* plFollowComponent::IMakeFollowMod(plMaxNode* pNode, plErrorMsg* pEr
     }
 
     uint32_t mode = 0;
-    if( fCompPB->GetInt(kAffectX) )
+    if (fCompPB->GetInt(kAffectX))
         mode |= plFollowMod::kPositionX;
-    if( fCompPB->GetInt(kAffectY) )
+    if (fCompPB->GetInt(kAffectY))
         mode |= plFollowMod::kPositionY;
-    if( fCompPB->GetInt(kAffectZ) )
+    if (fCompPB->GetInt(kAffectZ))
         mode |= plFollowMod::kPositionZ;
-    if( fCompPB->GetInt(kAffectRotate) )
+    if (fCompPB->GetInt(kAffectRotate))
         mode |= plFollowMod::kRotate;
 
-    if( !mode )
+    if (!mode)
         mode = plFollowMod::kFullTransform;
 
     follow->SetMode(mode);
@@ -1669,12 +1669,12 @@ plFollowMod* plFollowComponent::IMakeFollowMod(plMaxNode* pNode, plErrorMsg* pEr
 
 bool plFollowComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
-    if( !fValid )
+    if (!fValid)
         return true;
 
     plFollowMod* follow = IMakeFollowMod(node, pErrMsg);
 
-    if( follow )
+    if (follow)
         node->AddModifier(follow, IGetUniqueName(node));
 
     return true;
@@ -1684,9 +1684,9 @@ bool plFollowComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *pErrMsg)
 {
     fValid = false;
 
-    if( plFollowMod::kObject == fCompPB->GetInt(kLeaderTypeRadio) )
+    if (plFollowMod::kObject == fCompPB->GetInt(kLeaderTypeRadio))
     {
-        if( !fCompPB->GetINode(kLeaderObjectSel) )
+        if (!fCompPB->GetINode(kLeaderObjectSel))
         {
             return true;
         }
@@ -1699,14 +1699,14 @@ bool plFollowComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *pErrMsg)
 
 bool plFollowComponent::PreConvert(plMaxNode* pNode, plErrorMsg* pErrMsg)
 {
-    if( !fValid )
+    if (!fValid)
         return true;
     fValid = false;
 
-    if( plFollowMod::kObject == fCompPB->GetInt(kLeaderTypeRadio) )
+    if (plFollowMod::kObject == fCompPB->GetInt(kLeaderTypeRadio))
     {
         plMaxNode* followNode = (plMaxNode*)fCompPB->GetINode(kLeaderObjectSel);
-        if( !followNode->CanConvert() )
+        if (!followNode->CanConvert())
         {
             return true;
         }
@@ -1855,7 +1855,7 @@ public:
         case WM_INITDIALOG:
             {
                 IParamBlock2 *pb = map->GetParamBlock();
-                if( !pb->GetInt(plGeoDiceComponent::kOverride) )
+                if (!pb->GetInt(plGeoDiceComponent::kOverride))
                 {
                     pb->SetValue(plGeoDiceComponent::kMaxFaces, t, kDefMaxFaces);
                     pb->SetValue(plGeoDiceComponent::kMaxSize, t, kDefMaxSize);
@@ -1877,10 +1877,10 @@ public:
 //////////////////
         case WM_COMMAND:
             {
-                if( LOWORD(wParam) == IDC_COMP_GEO_DICE_OVERRIDE )
+                if (LOWORD(wParam) == IDC_COMP_GEO_DICE_OVERRIDE)
                 {
                     IParamBlock2 *pb = map->GetParamBlock();
-                    if( !pb->GetInt(plGeoDiceComponent::kOverride) )
+                    if (!pb->GetInt(plGeoDiceComponent::kOverride))
                     {
                         pb->SetValue(plGeoDiceComponent::kMaxFaces, t, kDefMaxFaces);
                         pb->SetValue(plGeoDiceComponent::kMaxSize, t, kDefMaxSize);
@@ -1961,7 +1961,7 @@ plGeoDiceComponent::plGeoDiceComponent()
 // of properties on the MaxNode, as it's still indeterminant.
 bool plGeoDiceComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *pErrMsg)
 {
-    if( fCompPB->GetInt(kActive) )
+    if (fCompPB->GetInt(kActive))
     {
         pNode->SetGeoDice(true, fCompPB->GetInt(kMaxFaces), fCompPB->GetFloat(kMaxSize), fCompPB->GetInt(kMinFaces));
     }
@@ -2317,34 +2317,34 @@ class pfImageLibProc : public ParamMap2UserDlgProc
 {
 protected:
 
-    void    IRefreshImageList( HWND hDlg, pfImageLibComponent *comp )
+    void    IRefreshImageList(HWND hDlg, pfImageLibComponent *comp)
     {
-        HWND ctrl = GetDlgItem( hDlg, IDC_IMAGE_LIST );
-        HDC dc = GetDC( ctrl );
+        HWND ctrl = GetDlgItem(hDlg, IDC_IMAGE_LIST);
+        HDC dc = GetDC(ctrl);
 
         LONG maxWidth = 0;
-        SendMessage( ctrl, LB_RESETCONTENT, 0, 0 );
+        SendMessage(ctrl, LB_RESETCONTENT, 0, 0);
     
-        for( int i = 0; i < comp->GetNumBitmaps(); i++ )
+        for (int i = 0; i < comp->GetNumBitmaps(); i++)
         {
-            plLayerTex *layer = comp->GetBitmap( i );
-            if( layer != nil )
+            plLayerTex *layer = comp->GetBitmap(i);
+            if (layer != nil)
             {
                 const char *str = layer->GetPBBitmap()->bi.Filename();
-                int idx = SendMessage( ctrl, LB_ADDSTRING, 0, (LPARAM)str );
-                SendMessage( ctrl, LB_SETITEMDATA, (WPARAM)idx, (LPARAM)i );
+                int idx = SendMessage(ctrl, LB_ADDSTRING, 0, (LPARAM)str);
+                SendMessage(ctrl, LB_SETITEMDATA, (WPARAM)idx, (LPARAM)i);
 
                 SIZE strSize;
-                GetTextExtentPoint32( dc, str, strlen(str), &strSize );
-                if( strSize.cx > maxWidth )
+                GetTextExtentPoint32(dc, str, strlen(str), &strSize);
+                if (strSize.cx > maxWidth)
                     maxWidth = strSize.cx;
             }
         }
-        SendMessage( ctrl, LB_SETHORIZONTALEXTENT, (WPARAM)maxWidth, NULL );
-        ReleaseDC( ctrl, dc );
+        SendMessage(ctrl, LB_SETHORIZONTALEXTENT, (WPARAM)maxWidth, NULL);
+        ReleaseDC(ctrl, dc);
 
-        EnableWindow( GetDlgItem( hDlg, IDC_IMAGE_EDIT ), false );
-        EnableWindow( GetDlgItem( hDlg, IDC_IMAGE_REMOVE ), false );
+        EnableWindow(GetDlgItem(hDlg, IDC_IMAGE_EDIT), false);
+        EnableWindow(GetDlgItem(hDlg, IDC_IMAGE_REMOVE), false);
 
         CheckDlgButton(hDlg, IDC_IL_COMPRESS, BST_UNCHECKED);
         CheckDlgButton(hDlg, IDC_IL_FORCEPOW2, BST_UNCHECKED);
@@ -2356,65 +2356,65 @@ public:
 
     void DeleteThis() {}
 
-//  virtual void    Update( TimeValue t, Interval &valid, IParamMap2 *map );
+//  virtual void    Update(TimeValue t, Interval &valid, IParamMap2 *map);
 
-    BOOL DlgProc( TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
+    BOOL DlgProc(TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
         IParamBlock2            *pb = pmap->GetParamBlock();
         pfImageLibComponent     *comp = (pfImageLibComponent *)pb->GetOwner();
 
 
-        switch( msg )
+        switch (msg)
         {
             case WM_INITDIALOG:
                 // Fill our list with bitmap filenames
                 comp->Validate();
-                IRefreshImageList( hWnd, comp );
+                IRefreshImageList(hWnd, comp);
                 return true;
 
             case WM_DESTROY:
                 break;
 
             case WM_COMMAND:
-                if( LOWORD( wParam ) == IDC_IMAGE_ADD )
+                if (LOWORD(wParam) == IDC_IMAGE_ADD)
                 {
                     plLayerTex *newLayer = new plLayerTex;
 
-                    if( newLayer->HandleBitmapSelection() )
+                    if (newLayer->HandleBitmapSelection())
                     {
-                        comp->AppendBitmap( newLayer );
-                        IRefreshImageList( hWnd, comp );
+                        comp->AppendBitmap(newLayer);
+                        IRefreshImageList(hWnd, comp);
                     }
                 }
-                else if( LOWORD( wParam ) == IDC_IMAGE_EDIT )
+                else if (LOWORD(wParam) == IDC_IMAGE_EDIT)
                 {
-                    int idx = SendDlgItemMessage( hWnd, IDC_IMAGE_LIST, LB_GETCURSEL, 0, 0 );
-                    if( idx != LB_ERR )
+                    int idx = SendDlgItemMessage(hWnd, IDC_IMAGE_LIST, LB_GETCURSEL, 0, 0);
+                    if (idx != LB_ERR)
                     {
-                        idx = SendDlgItemMessage( hWnd, IDC_IMAGE_LIST, LB_GETITEMDATA, (WPARAM)idx, 0 );
-                        plLayerTex *layer = comp->GetBitmap( idx );
-                        if( layer != nil && layer->HandleBitmapSelection() )
+                        idx = SendDlgItemMessage(hWnd, IDC_IMAGE_LIST, LB_GETITEMDATA, (WPARAM)idx, 0);
+                        plLayerTex *layer = comp->GetBitmap(idx);
+                        if (layer != nil && layer->HandleBitmapSelection())
                         {
-                            IRefreshImageList( hWnd, comp );
+                            IRefreshImageList(hWnd, comp);
                         }
                     }
                 }
-                else if( LOWORD( wParam ) == IDC_IMAGE_REMOVE )
+                else if (LOWORD(wParam) == IDC_IMAGE_REMOVE)
                 {
-                    int idx = SendDlgItemMessage( hWnd, IDC_IMAGE_LIST, LB_GETCURSEL, 0, 0 );
-                    if( idx != LB_ERR )
+                    int idx = SendDlgItemMessage(hWnd, IDC_IMAGE_LIST, LB_GETCURSEL, 0, 0);
+                    if (idx != LB_ERR)
                     {
-                        idx = SendDlgItemMessage( hWnd, IDC_IMAGE_LIST, LB_GETITEMDATA, (WPARAM)idx, 0 );
-                        comp->RemoveBitmap( idx );
-                        IRefreshImageList( hWnd, comp );
+                        idx = SendDlgItemMessage(hWnd, IDC_IMAGE_LIST, LB_GETITEMDATA, (WPARAM)idx, 0);
+                        comp->RemoveBitmap(idx);
+                        IRefreshImageList(hWnd, comp);
                     }
                     return false;
                 }
-                else if( LOWORD( wParam ) == IDC_IMAGE_LIST && HIWORD( wParam ) == LBN_SELCHANGE )
+                else if (LOWORD(wParam) == IDC_IMAGE_LIST && HIWORD(wParam) == LBN_SELCHANGE)
                 {
-                    int idx = SendDlgItemMessage( hWnd, IDC_IMAGE_LIST, LB_GETCURSEL, 0, 0 );
-                    EnableWindow( GetDlgItem( hWnd, IDC_IMAGE_EDIT ), idx != LB_ERR );
-                    EnableWindow( GetDlgItem( hWnd, IDC_IMAGE_REMOVE ), idx != LB_ERR );
+                    int idx = SendDlgItemMessage(hWnd, IDC_IMAGE_LIST, LB_GETCURSEL, 0, 0);
+                    EnableWindow(GetDlgItem(hWnd, IDC_IMAGE_EDIT), idx != LB_ERR);
+                    EnableWindow(GetDlgItem(hWnd, IDC_IMAGE_REMOVE), idx != LB_ERR);
 
                     EnableWindow(GetDlgItem(hWnd, IDC_IL_COMPRESS), TRUE);
                     CheckDlgButton(hWnd, IDC_IL_COMPRESS, comp->GetCompress(idx) ? BST_CHECKED : BST_UNCHECKED);
@@ -2435,7 +2435,7 @@ public:
 static pfImageLibProc   gImageLibProc;
 
 //Max desc stuff necessary below.
-CLASS_DESC(pfImageLibComponent, gImageLibDesc, "Image Library",  "ImageLib", COMP_TYPE_MISC, IMAGE_LIB_CID )
+CLASS_DESC(pfImageLibComponent, gImageLibDesc, "Image Library",  "ImageLib", COMP_TYPE_MISC, IMAGE_LIB_CID)
 
 ParamBlockDesc2 gImageLibBlock
 (   // KLUDGE: not the defined block ID, but kept for backwards compat.
@@ -2468,36 +2468,36 @@ void pfImageLibComponent::Validate()
 
 int pfImageLibComponent::GetNumBitmaps() const
 {
-    return fCompPB->Count( (ParamID)kRefImageList );
+    return fCompPB->Count((ParamID)kRefImageList);
 }
 
-plLayerTex  *pfImageLibComponent::GetBitmap( int idx )
+plLayerTex  *pfImageLibComponent::GetBitmap(int idx)
 {
     // If we don't have one, create one
-    plLayerTex  *layer = (plLayerTex *)fCompPB->GetTexmap( (ParamID)kRefImageList, 0, idx );
-    if( layer == nil || layer->ClassID() != LAYER_TEX_CLASS_ID )
+    plLayerTex  *layer = (plLayerTex *)fCompPB->GetTexmap((ParamID)kRefImageList, 0, idx);
+    if (layer == nil || layer->ClassID() != LAYER_TEX_CLASS_ID)
     {
         layer = new plLayerTex;
-        fCompPB->SetValue( (ParamID)kRefImageList, 0, (Texmap *)layer, idx );
+        fCompPB->SetValue((ParamID)kRefImageList, 0, (Texmap *)layer, idx);
     }
 
     return layer;
 }
 
-int     pfImageLibComponent::AppendBitmap( plLayerTex *tex )
+int     pfImageLibComponent::AppendBitmap(plLayerTex *tex)
 {
     int idx = GetNumBitmaps();
-    fCompPB->Resize( (ParamID)kRefImageList, idx + 1 );
-    fCompPB->SetValue( (ParamID)kRefImageList, 0, (Texmap *)tex, idx );
+    fCompPB->Resize((ParamID)kRefImageList, idx + 1);
+    fCompPB->SetValue((ParamID)kRefImageList, 0, (Texmap *)tex, idx);
 
     fCompPB->Resize(kCompressImage, idx + 1);
 
     return idx;
 }
 
-void    pfImageLibComponent::RemoveBitmap( int idx )
+void    pfImageLibComponent::RemoveBitmap(int idx)
 {
-    fCompPB->Delete( (ParamID)kRefImageList, idx, 1 );
+    fCompPB->Delete((ParamID)kRefImageList, idx, 1);
     fCompPB->Delete(kCompressImage, idx, 1);
 }
 
@@ -2520,16 +2520,16 @@ bool pfImageLibComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *pErrMsg
 bool pfImageLibComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
     plImageLibMod *lib = new plImageLibMod;
-    node->AddModifier( lib, IGetUniqueName(node) );
+    node->AddModifier(lib, IGetUniqueName(node));
 
     int i;
-    for( i = 0; i < GetNumBitmaps(); i++ )
+    for (i = 0; i < GetNumBitmaps(); i++)
     {
-        plLayerTex *layer = GetBitmap( i );
-        if( layer != nil )
+        plLayerTex *layer = GetBitmap(i);
+        if (layer != nil)
         {
             PBBitmap *texture = layer->GetPBBitmap();
-            if( texture != nil )
+            if (texture != nil)
             {
                 uint32_t flags = plBitmap::kAlphaChannelFlag;
 
@@ -2537,14 +2537,14 @@ bool pfImageLibComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                 if (fCompPB->GetInt(kCompressImage, 0, i) == 0)
                 {
                     flags |= plBitmap::kForceNonCompressed;
-                    bMap = plLayerConverter::Instance().CreateSimpleTexture( texture->bi.Name(), lib->GetKey()->GetUoid().GetLocation(), 0, flags );
+                    bMap = plLayerConverter::Instance().CreateSimpleTexture(texture->bi.Name(), lib->GetKey()->GetUoid().GetLocation(), 0, flags);
                 }
                 else // compress using PNG compression scheme
-                    bMap = plLayerConverter::Instance().CreateSimpleTexture( texture->bi.Name(), lib->GetKey()->GetUoid().GetLocation(), 0, flags, true );
-                if( bMap != nil )
+                    bMap = plLayerConverter::Instance().CreateSimpleTexture(texture->bi.Name(), lib->GetKey()->GetUoid().GetLocation(), 0, flags, true);
+                if (bMap != nil)
                 {
-                    hsgResMgr::ResMgr()->AddViaNotify( bMap->GetKey(), new plGenRefMsg( lib->GetKey(),
-                                            plRefMsg::kOnCreate, lib->GetNumImages(), plImageLibMod::kRefImage ), plRefFlags::kActiveRef );
+                    hsgResMgr::ResMgr()->AddViaNotify(bMap->GetKey(), new plGenRefMsg(lib->GetKey(),
+                                            plRefMsg::kOnCreate, lib->GetNumImages(), plImageLibMod::kRefImage), plRefFlags::kActiveRef);
                 }
             }
         }

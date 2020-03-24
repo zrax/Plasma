@@ -98,8 +98,8 @@ public:
     plViewFaceModifier();
     virtual ~plViewFaceModifier();
 
-    CLASSNAME_REGISTER( plViewFaceModifier );
-    GETINTERFACE_ANY( plViewFaceModifier, plSingleModifier );
+    CLASSNAME_REGISTER(plViewFaceModifier);
+    GETINTERFACE_ANY(plViewFaceModifier, plSingleModifier);
     
     virtual void SetTarget(plSceneObject* so);
 
@@ -129,7 +129,7 @@ public:
     FollowMode      GetFollowMode() const;
     plSceneObject*  GetFollowObject() const { return fFaceObj; }
 
-    void                SetOffsetActive(bool on) { if(on) SetFlag(kOffset); else ClearFlag(kOffset); }
+    void                SetOffsetActive(bool on) { if (on) SetFlag(kOffset); else ClearFlag(kOffset); }
     bool                GetOffsetActive() const { return HasFlag(kOffset); }
 
     void                SetOffset(const hsVector3& off, bool local=true);

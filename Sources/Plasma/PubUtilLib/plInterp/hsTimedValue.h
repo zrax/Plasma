@@ -104,7 +104,7 @@ void hsTimedValue<T>::WriteScalar(hsStream* s, float currSecs)
 
     s->WriteLEScalar(fValue);
     
-    if( !(fFlags & kIdle) )
+    if (!(fFlags & kIdle))
     {
         s->WriteLEScalar(fDuration);
         s->WriteLEScalar(currSecs - fStartTime);
@@ -121,7 +121,7 @@ void hsTimedValue<T>::Write(hsStream* s, float currSecs)
 
     fValue.Write(s);
     
-    if( !(fFlags & kIdle) )
+    if (!(fFlags & kIdle))
     {
         s->WriteLEScalar(fDuration);
         s->WriteLEScalar(currSecs - fStartTime);
@@ -138,7 +138,7 @@ void hsTimedValue<T>::ReadScalar(hsStream* s, float currSecs)
 
     fValue = s->ReadLEScalar();
 
-    if( !(fFlags & kIdle) )
+    if (!(fFlags & kIdle))
     {
         fDuration = s->ReadLEScalar();
         fStartTime = currSecs - s->ReadLEScalar();
@@ -155,7 +155,7 @@ void hsTimedValue<T>::Read(hsStream* s, float currSecs)
 
     fValue.Read(s);
 
-    if( !(fFlags & kIdle) )
+    if (!(fFlags & kIdle))
     {
         fDuration = s->ReadLEScalar();
         fStartTime = currSecs - s->ReadLEScalar();
@@ -169,7 +169,7 @@ template <class T>
 void hsTimedValue<T>::SetDuration(float duration)
 {
     fDuration = duration;
-    if( fDuration > 0 )
+    if (fDuration > 0)
         fFlags &= ~kInstant;
     else
         fFlags |= kInstant;
@@ -196,7 +196,7 @@ void hsTimedValue<T>::StartClock(float s)
 {
     fStartTime = s;
 
-    if( fFlags & kInstant )
+    if (fFlags & kInstant)
     {
         fFlags |= kIdle;
         fValue = fGoal;
@@ -205,7 +205,7 @@ void hsTimedValue<T>::StartClock(float s)
 
     fFlags &= ~kIdle;
 
-    if( fValue == fGoal )
+    if (fValue == fGoal)
         fFlags |= kIdle;
 
     fFrom = fValue;
@@ -214,14 +214,14 @@ void hsTimedValue<T>::StartClock(float s)
 template <class T>
 void hsTimedValue<T>::Update(float s)
 {
-    if( fFlags & kIdle )
+    if (fFlags & kIdle)
         return;
 
     hsAssert(fDuration > 0, "Instant should always be idle");
 
     float interp = (s - fStartTime) / fDuration;
 
-    if( interp >= 1.f )
+    if (interp >= 1.f)
     {
         fValue = fGoal;
         interp = 1.f;

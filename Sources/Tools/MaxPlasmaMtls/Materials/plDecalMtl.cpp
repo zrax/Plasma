@@ -90,11 +90,11 @@ ParamBlockDesc2 *GetDecalLayersPB();
 #include "plDecalMtlLayersPBDec.h"
 #include "plDecalMtlAnimPBDec.h"
 
-plDecalMtl::plDecalMtl(BOOL loading) : plPassMtlBase( loading )
+plDecalMtl::plDecalMtl(BOOL loading) : plPassMtlBase(loading)
 {
-    plDecalMtlDesc.MakeAutoParamBlocks( this );
-    fLayersPB->SetValue( kDecalLayBase, 0, new plLayerTex );
-    fLayersPB->SetValue( kDecalLayTop, 0, new plLayerTex );
+    plDecalMtlDesc.MakeAutoParamBlocks(this);
+    fLayersPB->SetValue(kDecalLayBase, 0, new plLayerTex);
+    fLayersPB->SetValue(kDecalLayTop, 0, new plLayerTex);
 
     // If we do this later (like, when the dialog loads) something blows up,
     // somewhere in Max.  It didn't in 4, it does in 7.  This seems to fix it.
@@ -144,9 +144,9 @@ Interval plDecalMtl::Validity(TimeValue t)
     fBasicPB->GetValidity(t, v);
     fAdvPB->GetValidity(t, v);
 
-    if( fLayersPB->GetTexmap(kDecalLayBase) )
+    if (fLayersPB->GetTexmap(kDecalLayBase))
         v &= fLayersPB->GetTexmap(kDecalLayBase)->Validity(t);
-    if( fLayersPB->GetTexmap(kDecalLayTop) )
+    if (fLayersPB->GetTexmap(kDecalLayTop))
         v &= fLayersPB->GetTexmap(kDecalLayTop)->Validity(t);
     return v;
 #endif // mf horse
@@ -156,9 +156,9 @@ Interval plDecalMtl::Validity(TimeValue t)
 //  Note: need to overload because MAX for some reason writes out the
 //  references by their INDEX. ARRRRGH!
 
-RefTargetHandle plDecalMtl::GetReference( int i )
+RefTargetHandle plDecalMtl::GetReference(int i)
 {
-    switch( i )
+    switch (i)
     {
         case kRefBasic:  return fBasicPB;
         case kRefAdv:    return fAdvPB;
@@ -166,7 +166,7 @@ RefTargetHandle plDecalMtl::GetReference( int i )
         case kRefAnim:   return fAnimPB;
     }
 
-    return plPassMtlBase::GetReference( i );
+    return plPassMtlBase::GetReference(i);
 }
 
 //// SetReference ////////////////////////////////////////////////////////////
@@ -184,7 +184,7 @@ void plDecalMtl::SetReference(int i, RefTargetHandle rtarg)
     else if (i == kRefAnim)
         fAnimPB = (IParamBlock2 *)rtarg;
     else
-        plPassMtlBase::SetReference( i, rtarg );
+        plPassMtlBase::SetReference(i, rtarg);
 }
 
 
@@ -256,7 +256,7 @@ IParamBlock2* plDecalMtl::GetParamBlockByID(BlockID id)
 
 RefResult plDecalMtl::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message)
 {
-    return plPassMtlBase::NotifyRefChanged( changeInt, hTarget, partID, message );
+    return plPassMtlBase::NotifyRefChanged(changeInt, hTarget, partID, message);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -318,11 +318,11 @@ int plDecalMtl::SubTexmapOn(int i)
 RefTargetHandle plDecalMtl::Clone(RemapDir &remap)
 {
     plDecalMtl *mnew = new plDecalMtl(FALSE);
-    plPassMtlBase::ICloneBase( mnew, remap );
+    plPassMtlBase::ICloneBase(mnew, remap);
     return (RefTargetHandle)mnew;
 }
 
-void    plDecalMtl::ICloneRefs( plPassMtlBase *target, RemapDir &remap )
+void    plDecalMtl::ICloneRefs(plPassMtlBase *target, RemapDir &remap)
 {
     target->ReplaceReference(kRefBasic, remap.CloneRef(fBasicPB));
     target->ReplaceReference(kRefAdv, remap.CloneRef(fAdvPB));
@@ -343,9 +343,9 @@ void plDecalMtl::Update(TimeValue t, Interval& valid)
     if (!fIValid.InInterval(t))
     {
         fIValid.SetInfinite();
-        if( fLayersPB->GetTexmap(kDecalLayBase) )
+        if (fLayersPB->GetTexmap(kDecalLayBase))
             fLayersPB->GetTexmap(kDecalLayBase)->Update(t, fIValid);
-        if( fLayersPB->GetTexmap(kDecalLayTop) )
+        if (fLayersPB->GetTexmap(kDecalLayTop))
             fLayersPB->GetTexmap(kDecalLayTop)->Update(t, fIValid);
 
 //      fLayersPB->GetValue(kMtlLayLayer1On, t, fMapOn[0], fIValid);
@@ -361,21 +361,21 @@ void plDecalMtl::Update(TimeValue t, Interval& valid)
     // Our wonderful way of version handling--if the runtimeColor is (-1,-1,-1), we know it's
     // just been initialized, so set it to the static color (this lets us do the right thing for
     // loading old paramBlocks)
-    if( fBasicPB )
+    if (fBasicPB)
     {
-        Color   run = fBasicPB->GetColor( kDecalBasRunColor, 0 );
-        if( run == Color(-1,-1,-1) )
+        Color   run = fBasicPB->GetColor(kDecalBasRunColor, 0);
+        if (run == Color(-1,-1,-1))
         {
-            fBasicPB->SetValue( kDecalBasRunColor, 0, fBasicPB->GetColor( kDecalBasColor, 0 ) );
+            fBasicPB->SetValue(kDecalBasRunColor, 0, fBasicPB->GetColor(kDecalBasColor, 0));
         }
 
         // Also, if shineStr is anything other than -1, then it must be an old paramblock and we need
         // to convert to our new specColor (we know this because the original valid range was 0-100)
-        int shine = fBasicPB->GetInt( kDecalBasShineStr, 0 );
-        if( shine != -1 )
+        int shine = fBasicPB->GetInt(kDecalBasShineStr, 0);
+        if (shine != -1)
         {
-            fBasicPB->SetValue( kDecalBasSpecColor, 0, Color( (float)shine / 100.f, (float)shine / 100.f, (float)shine / 100.f ) );
-            fBasicPB->SetValue( kDecalBasShineStr, 0, (int)-1 );
+            fBasicPB->SetValue(kDecalBasSpecColor, 0, Color((float)shine / 100.f, (float)shine / 100.f, (float)shine / 100.f));
+            fBasicPB->SetValue(kDecalBasShineStr, 0, (int)-1);
         }
     }
 
@@ -397,8 +397,8 @@ Color plDecalMtl::GetSpecular(int mtlNum, BOOL backFace)    { return Color(0,0,0
 
 float plDecalMtl::GetXParency(int mtlNum, BOOL backFace)
 {
-    int         opacity = fBasicPB->GetInt( kDecalBasOpacity, 0 );
-    float       alpha = 1.0f - ( (float)opacity / 100.0f );
+    int         opacity = fBasicPB->GetInt(kDecalBasOpacity, 0);
+    float       alpha = 1.0f - ((float)opacity / 100.0f);
 
     return alpha;
 }
@@ -418,7 +418,7 @@ void plDecalMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback 
             if (texHandle[i]) {
                 mtl->texture[i].textHandle = texHandle[i]->GetHandle();
                 Texmap *tx = (*maps)[useSubForTex[i]].map;
-                cb.GetGfxTexInfoFromTexmap(t, mtl->texture[i], tx );
+                cb.GetGfxTexInfoFromTexmap(t, mtl->texture[i], tx);
                 SetTexOps(mtl,i,texOpsType[i]);
                 }
             }
@@ -428,8 +428,8 @@ void plDecalMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback 
 
 #if 0   // WTF?!?!?!?
     Texmap *tx[2];
-    int diffChan = stdIDToChannel[ ID_DI ];
-    int opacChan = stdIDToChannel[ ID_OP ];
+    int diffChan = stdIDToChannel[ID_DI];
+    int opacChan = stdIDToChannel[ID_OP];
     tx[0] = (*maps)[diffChan].IsActive()?(*maps)[diffChan].map:NULL;
     tx[1] = (*maps)[opacChan].IsActive()?(*maps)[opacChan].map:NULL;
 #endif
@@ -531,27 +531,27 @@ void plDecalMtl::Shade(ShadeContext& sc)
 //  Tells MAX what we need to render ourselves properly, such as translucency,
 //  two-sidedness, etc. Flags are in imtl.h in the MAX SDK.
 
-ULONG   plDecalMtl::Requirements( int subMtlNum )
+ULONG   plDecalMtl::Requirements(int subMtlNum)
 {
     ULONG       req = 0;
 
 
-    req = Mtl::Requirements( subMtlNum );
+    req = Mtl::Requirements(subMtlNum);
 
     // Uncomment this to get the background color fed to our ShadeWithBackground()
     // (slower processing tho)
 //  req |= MTLREQ_BGCOL;
     req |= MTLREQ_UV;
 
-    int blendType = fLayersPB->GetInt( kDecalLayOutputBlend );
-    if( blendType == kBlendAdd )
+    int blendType = fLayersPB->GetInt(kDecalLayOutputBlend);
+    if (blendType == kBlendAdd)
         req |= MTLREQ_ADDITIVE_TRANSP | MTLREQ_TRANSP;
-    else if( blendType == kBlendAlpha )
+    else if (blendType == kBlendAlpha)
         req |= MTLREQ_TRANSP;
-    else if( fBasicPB->GetInt( kDecalBasOpacity, 0 ) != 100 )
+    else if (fBasicPB->GetInt(kDecalBasOpacity, 0) != 100)
         req |= MTLREQ_TRANSP;
 
-    if( fAdvPB->GetInt( kPBAdvTwoSided ) )
+    if (fAdvPB->GetInt(kPBAdvTwoSided))
         req |= MTLREQ_2SIDE;
 
     return req;
@@ -596,8 +596,8 @@ void plDecalMtl::ShadeWithBackground(ShadeContext &sc, Color background)
 
     // Evaluate Base layer
     Texmap *map = fLayersPB->GetTexmap(kDecalLayBase);
-    if (map && ( map->ClassID() == LAYER_TEX_CLASS_ID
-                || map->ClassID() == STATIC_ENV_LAYER_CLASS_ID ) )
+    if (map && (map->ClassID() == LAYER_TEX_CLASS_ID
+                || map->ClassID() == STATIC_ENV_LAYER_CLASS_ID))
     {
         plLayerTex *layer = (plLayerTex*)map;
         AColor evalColor = layer->EvalColor(sc);
@@ -610,8 +610,8 @@ void plDecalMtl::ShadeWithBackground(ShadeContext &sc, Color background)
     if (fLayersPB->GetInt(kDecalLayTopOn))
     {
         Texmap *map = fLayersPB->GetTexmap(kDecalLayTop);
-        if (map && ( map->ClassID() == LAYER_TEX_CLASS_ID
-                    || map->ClassID() == STATIC_ENV_LAYER_CLASS_ID ) )
+        if (map && (map->ClassID() == LAYER_TEX_CLASS_ID
+                    || map->ClassID() == STATIC_ENV_LAYER_CLASS_ID))
         {
             plLayerTex *layer = (plLayerTex*)map;
             AColor evalColor = layer->EvalColor(sc);
@@ -674,7 +674,7 @@ void plDecalMtl::ShadeWithBackground(ShadeContext &sc, Color background)
         if (fBasicPB->GetInt(kDecalBasUseSpec, t))
         {
             ip.sh_str = 1.f;
-            ip.spec = fBasicPB->GetColor( kDecalBasSpecColor, t );
+            ip.spec = fBasicPB->GetColor(kDecalBasSpecColor, t);
             ip.ph_exp = (float)pow(2.0f,float(fBasicPB->GetInt(kDecalBasShine, t)) / 10.0f);
             ip.shine = float(fBasicPB->GetInt(kDecalBasShine, t)) / 100.0f;
         }
@@ -726,8 +726,8 @@ void plDecalMtl::ShadeWithBackground(ShadeContext &sc, Color background)
     // will be opaque, so be careful.
     Color outC = ip.diffIllum + ip.specIllum;
 
-    sc.out.c = ( outC * alpha );
-    sc.out.t = Color( 1.f - alpha, 1.f - alpha, 1.f - alpha );
+    sc.out.c = (outC * alpha);
+    sc.out.t = Color(1.f - alpha, 1.f - alpha, 1.f - alpha);
 
 #endif
 }

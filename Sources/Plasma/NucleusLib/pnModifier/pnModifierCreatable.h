@@ -47,23 +47,23 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "plModifier.h"
 
-REGISTER_NONCREATABLE( plModifier );
+REGISTER_NONCREATABLE(plModifier);
 
 #include "plSingleModifier.h"
 
-REGISTER_NONCREATABLE( plSingleModifier );
+REGISTER_NONCREATABLE(plSingleModifier);
 
 #include "plMultiModifier.h"
 
-REGISTER_NONCREATABLE( plMultiModifier );
+REGISTER_NONCREATABLE(plMultiModifier);
 
 #include "plConditionalObject.h"
 
-REGISTER_NONCREATABLE( plConditionalObject );
+REGISTER_NONCREATABLE(plConditionalObject);
 
 #include "plLogicModBase.h"
 
-REGISTER_NONCREATABLE( plLogicModBase );
+REGISTER_NONCREATABLE(plLogicModBase);
 
 
 

@@ -51,8 +51,8 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plVault/plVault.h"
 
 // should only be created from C++ side
-pyVaultFolderNode::pyVaultFolderNode( RelVaultNode* nfsNode )
-: pyVaultNode( nfsNode )
+pyVaultFolderNode::pyVaultFolderNode(RelVaultNode* nfsNode)
+: pyVaultNode(nfsNode)
 {
 }
 
@@ -69,7 +69,7 @@ pyVaultFolderNode::~pyVaultFolderNode () {
 //==================================================================
 // class RelVaultNode : public plVaultNode
 //
-void pyVaultFolderNode::Folder_SetType( int type )
+void pyVaultFolderNode::Folder_SetType(int type)
 {
     if (!fNode)
         return;

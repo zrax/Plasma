@@ -170,7 +170,7 @@ void plNetObjectDebugger::ICreateStatusLog() const
     if (!fStatusLog)
     {
         fStatusLog = plStatusLogMgr::GetInstance().CreateStatusLog(40, "NetObject.log",
-            plStatusLog::kFilledBackground | plStatusLog::kAlignToTop | plStatusLog::kTimestamp );
+            plStatusLog::kFilledBackground | plStatusLog::kAlignToTop | plStatusLog::kTimestamp);
     }
 }
 
@@ -237,9 +237,9 @@ bool plNetObjectDebugger::RemoveDebugObject(const char* objName, const char* pag
     if (!pageName)
     {
         DebugObjectList::iterator it =fDebugObjects.begin();
-        for( ; it != fDebugObjects.end(); )
+        for (; it != fDebugObjects.end(); )
         {
-            if ( (*it) && (*it)->ObjectMatches(objName, pageName))
+            if ((*it) && (*it)->ObjectMatches(objName, pageName))
             {
                 delete *it;
                 it = fDebugObjects.erase(it);
@@ -256,7 +256,7 @@ bool plNetObjectDebugger::RemoveDebugObject(const char* objName, const char* pag
 void plNetObjectDebugger::ClearAllDebugObjects()
 {
     DebugObjectList::iterator it =fDebugObjects.begin();
-    for( ; it != fDebugObjects.end(); it++)
+    for (; it != fDebugObjects.end(); it++)
     {
         delete *it;
     }
@@ -281,19 +281,19 @@ void plNetObjectDebugger::LogMsgIfMatch(const char* msg) const
         c+=objTag.size();
 
         // move past spaces
-        while ( *c || *c==' ' )
+        while (*c || *c==' ')
             c++;
 
         char objName[128];
         int i=0;
 
         // copy objName token
-        while(*c && *c != ',' && *c != ' ' && i<127)
+        while (*c && *c != ',' && *c != ' ' && i<127)
             objName[i++] = *c++;
         objName[i]=0;
 
         DebugObjectList::const_iterator it = fDebugObjects.begin();
-        for(; it != fDebugObjects.end(); it++)
+        for (; it != fDebugObjects.end(); it++)
         {
             if ((*it) && (*it)->StringMatches(objName))
             {
@@ -312,7 +312,7 @@ void plNetObjectDebugger::LogMsg(const char* msg) const
 bool plNetObjectDebugger::IsDebugObject(const hsKeyedObject* obj) const
 {
     DebugObjectList::const_iterator it =fDebugObjects.begin();
-    for( ; it != fDebugObjects.end(); it++)
+    for (; it != fDebugObjects.end(); it++)
         if ((*it) && (*it)->ObjectMatches(obj))
         {
             return true;

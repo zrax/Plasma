@@ -49,12 +49,12 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 ///////////////////////////////////////////////////////////////////////////
 
 pySDLStateDataRecord::pySDLStateDataRecord()
-: fRec( nil )
+: fRec(nil)
 {
 }
 
-pySDLStateDataRecord::pySDLStateDataRecord( plStateDataRecord * rec )
-: fRec( rec )
+pySDLStateDataRecord::pySDLStateDataRecord(plStateDataRecord * rec)
+: fRec(rec)
 {
 }
 
@@ -67,16 +67,16 @@ plStateDataRecord * pySDLStateDataRecord::GetRec() const
     return fRec;
 }
 
-PyObject * pySDLStateDataRecord::FindVar( const ST::string & name ) const
+PyObject * pySDLStateDataRecord::FindVar(const ST::string & name) const
 {
-    if ( !fRec )
+    if (!fRec)
         PYTHON_RETURN_NONE;
 
-    plSimpleStateVariable * var = fRec->FindVar( name );
-    if ( !var )
+    plSimpleStateVariable * var = fRec->FindVar(name);
+    if (!var)
         PYTHON_RETURN_NONE;
 
-    return pySimpleStateVariable::New( var );
+    return pySimpleStateVariable::New(var);
 }
 
 ST::string pySDLStateDataRecord::GetName() const
@@ -114,12 +114,12 @@ void pySDLStateDataRecord::SetFromDefaults(bool timeStampNow)
 ///////////////////////////////////////////////////////////////////////////
 
 pySimpleStateVariable::pySimpleStateVariable()
-: fVar( nil )
+: fVar(nil)
 {
 }
 
-pySimpleStateVariable::pySimpleStateVariable( plSimpleStateVariable * var )
-: fVar( var )
+pySimpleStateVariable::pySimpleStateVariable(plSimpleStateVariable * var)
+: fVar(var)
 {
 }
 
@@ -128,115 +128,115 @@ plSimpleStateVariable * pySimpleStateVariable::GetVar() const
     return fVar;
 }
 
-bool pySimpleStateVariable::SetByte( uint8_t v, int idx )
+bool pySimpleStateVariable::SetByte(uint8_t v, int idx)
 {
-    if ( !fVar )
+    if (!fVar)
         return false;
-    return fVar->Set( v, idx );
+    return fVar->Set(v, idx);
 }
 
-bool pySimpleStateVariable::SetShort( short v, int idx )
+bool pySimpleStateVariable::SetShort(short v, int idx)
 {
-    if ( !fVar )
+    if (!fVar)
         return false;
-    return fVar->Set( v, idx );
+    return fVar->Set(v, idx);
 }
 
-bool pySimpleStateVariable::SetFloat( float v, int idx )
+bool pySimpleStateVariable::SetFloat(float v, int idx)
 {
-    if ( !fVar )
+    if (!fVar)
         return false;
-    return fVar->Set( v, idx );
+    return fVar->Set(v, idx);
 }
 
-bool pySimpleStateVariable::SetDouble( double v, int idx )
+bool pySimpleStateVariable::SetDouble(double v, int idx)
 {
-    if ( !fVar )
+    if (!fVar)
         return false;
-    return fVar->Set( v, idx );
+    return fVar->Set(v, idx);
 }
 
-bool pySimpleStateVariable::SetInt( int v, int idx )
+bool pySimpleStateVariable::SetInt(int v, int idx)
 {
-    if ( !fVar )
+    if (!fVar)
         return false;
-    return fVar->Set( v, idx );
+    return fVar->Set(v, idx);
 }
 
-bool pySimpleStateVariable::SetString( const char * v, int idx )
+bool pySimpleStateVariable::SetString(const char * v, int idx)
 {
-    if ( !fVar )
+    if (!fVar)
         return false;
-    return fVar->Set( v, idx );
+    return fVar->Set(v, idx);
 }
 
-bool pySimpleStateVariable::SetBool( bool v, int idx )
+bool pySimpleStateVariable::SetBool(bool v, int idx)
 {
-    if ( !fVar )
+    if (!fVar)
         return false;
-    return fVar->Set( v, idx );
+    return fVar->Set(v, idx);
 }
 
-uint8_t pySimpleStateVariable::GetByte( int idx ) const
+uint8_t pySimpleStateVariable::GetByte(int idx) const
 {
     uint8_t v = 0;
-    if ( fVar )
-        fVar->Get( &v, idx );
+    if (fVar)
+        fVar->Get(&v, idx);
     return v;
 }
 
-short pySimpleStateVariable::GetShort( int idx ) const
+short pySimpleStateVariable::GetShort(int idx) const
 {
     short v = 0;
-    if ( fVar )
-        fVar->Get( &v, idx );
+    if (fVar)
+        fVar->Get(&v, idx);
     return v;
 }
 
-int pySimpleStateVariable::GetInt( int idx ) const
+int pySimpleStateVariable::GetInt(int idx) const
 {
     int v = 0;
-    if ( fVar )
-        fVar->Get( &v, idx );
+    if (fVar)
+        fVar->Get(&v, idx);
     return v;
 }
 
-float pySimpleStateVariable::GetFloat( int idx ) const
+float pySimpleStateVariable::GetFloat(int idx) const
 {
     float v = 0.f;
-    if ( fVar )
-        fVar->Get( &v, idx );
+    if (fVar)
+        fVar->Get(&v, idx);
     return v;
 }
 
-double pySimpleStateVariable::GetDouble( int idx ) const
+double pySimpleStateVariable::GetDouble(int idx) const
 {
     double v = 0.0;
-    if ( fVar )
-        fVar->Get( &v, idx );
+    if (fVar)
+        fVar->Get(&v, idx);
     return v;
 }
 
-bool pySimpleStateVariable::GetBool( int idx ) const
+bool pySimpleStateVariable::GetBool(int idx) const
 {
     bool v = false;
-    if ( fVar )
-        fVar->Get( &v, idx );
+    if (fVar)
+        fVar->Get(&v, idx);
     return v;
 }
 
-ST::string pySimpleStateVariable::GetString( int idx ) const
+ST::string pySimpleStateVariable::GetString(int idx) const
 {
-    if ( fVar )
+    if (fVar)
     {
         char v[256];
-        if ( fVar->Get( v, idx ) )
+        if (fVar->Get(v, idx))
             return ST::string::from_utf8(v);
     }
     return "";
 }
 
-plKey pySimpleStateVariable::GetKey( int idx ) const
+plKey pySimpleStateVariable::GetKey(int idx) const
 {
     plKey theKey = nil;
     if (fVar)

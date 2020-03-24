@@ -162,7 +162,7 @@ bool VaultSDLNode::GetStateDataRecord (plStateDataRecord * rec, unsigned readOpt
     // out of (relto door will be closed, window shut, etc).
     // rec->SetFromDefaults(false);
 
-    if (!rec->Read( &ram, 0, readOptions))
+    if (!rec->Read(&ram, 0, readOptions))
         return false;
         
     // If we converted the record to a newer version, re-save it.
@@ -285,14 +285,14 @@ bool VaultImageNode::ExtractImage (plMipmap ** dst) {
 struct MatchesSpawnPointTitle
 {
     ST::string fTitle;
-    MatchesSpawnPointTitle( const ST::string & title ):fTitle( title ){}
-    bool operator ()( const plSpawnPointInfo & p ) const { return ( p.fTitle==fTitle ); }
+    MatchesSpawnPointTitle(const ST::string & title):fTitle(title){}
+    bool operator ()(const plSpawnPointInfo & p) const { return (p.fTitle==fTitle); }
 };
 struct MatchesSpawnPointName
 {
     ST::string fName;
-    MatchesSpawnPointName( const ST::string & name ):fName( name ){}
-    bool operator ()( const plSpawnPointInfo & p ) const { return ( p.fSpawnPt==fName ); }
+    MatchesSpawnPointName(const ST::string & name):fName(name){}
+    bool operator ()(const plSpawnPointInfo & p) const { return (p.fSpawnPt==fName); }
 };
 #endif
 
@@ -316,17 +316,17 @@ bool VaultAgeLinkNode::CopyTo (plAgeLinkStruct * link) {
 void VaultAgeLinkNode::AddSpawnPoint (const plSpawnPointInfo & point) {
 
     plSpawnPointVec points;
-    GetSpawnPoints( &points );
-    if ( std::find_if( points.begin(), points.end(), MatchesSpawnPointTitle( point.fTitle ) )!=points.end() )
+    GetSpawnPoints(&points);
+    if (std::find_if(points.begin(), points.end(), MatchesSpawnPointTitle(point.fTitle))!=points.end())
         return;
 
     // only check to see if the titles are the same...
     //... so we can add the same spawnpoint as long as they have different titles
-        //if ( std::find_if( points.begin(), points.end(), MatchesSpawnPointName( point.fSpawnPt.c_str() ) )!=points.end() )
+        //if (std::find_if(points.begin(), points.end(), MatchesSpawnPointName(point.fSpawnPt.c_str()))!=points.end())
         //  return;
 
-    points.push_back( point );
-    SetSpawnPoints( points );
+    points.push_back(point);
+    SetSpawnPoints(points);
 }
 #endif
 
@@ -335,13 +335,13 @@ void VaultAgeLinkNode::AddSpawnPoint (const plSpawnPointInfo & point) {
 void VaultAgeLinkNode::RemoveSpawnPoint (const ST::string & spawnPtName) {
 
     plSpawnPointVec points;
-    GetSpawnPoints( &points );
-    plSpawnPointVec::iterator it = std::find_if( points.begin(), points.end(), MatchesSpawnPointName( spawnPtName ) );
-    while ( it!=points.end() )
+    GetSpawnPoints(&points);
+    plSpawnPointVec::iterator it = std::find_if(points.begin(), points.end(), MatchesSpawnPointName(spawnPtName));
+    while (it!=points.end())
     {
-        points.erase( it );
-        SetSpawnPoints( points );
-        it = std::find_if( points.begin(), points.end(), MatchesSpawnPointName( spawnPtName ) );
+        points.erase(it);
+        SetSpawnPoints(points);
+        it = std::find_if(points.begin(), points.end(), MatchesSpawnPointName(spawnPtName));
     }
 }
 #endif
@@ -351,8 +351,8 @@ void VaultAgeLinkNode::RemoveSpawnPoint (const ST::string & spawnPtName) {
 bool VaultAgeLinkNode::HasSpawnPoint (const ST::string & spawnPtName) const {
 
     plSpawnPointVec points;
-    GetSpawnPoints( &points );
-    return ( std::find_if( points.begin(), points.end(), MatchesSpawnPointName( spawnPtName ) )!=points.end() );
+    GetSpawnPoints(&points);
+    return (std::find_if(points.begin(), points.end(), MatchesSpawnPointName(spawnPtName))!=points.end());
 }
 #endif
 
@@ -374,11 +374,11 @@ void VaultAgeLinkNode::GetSpawnPoints (plSpawnPointVec * out) const {
     {
         plSpawnPointInfo point;
         std::vector<ST::string> izer2 = token1->tokenize(":");
-        if ( izer2.size() > 0)
+        if (izer2.size() > 0)
             point.fTitle = izer2[0];
-        if ( izer2.size() > 1)
+        if (izer2.size() > 1)
             point.fSpawnPt = izer2[1];
-        if ( izer2.size() > 2)
+        if (izer2.size() > 2)
             point.fCameraStack = izer2[2];
 
         out->push_back(point);
@@ -391,7 +391,7 @@ void VaultAgeLinkNode::GetSpawnPoints (plSpawnPointVec * out) const {
 void VaultAgeLinkNode::SetSpawnPoints (const plSpawnPointVec & in) {
 
     ST::string_stream ss;
-    for ( unsigned i=0; i<in.size(); i++ ) {
+    for (unsigned i=0; i<in.size(); i++) {
         ss
             << in[i].fTitle << ":"
             << in[i].fSpawnPt << ":"

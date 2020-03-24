@@ -87,7 +87,7 @@ public:
     virtual bool MsgReceive(plMessage* msg);
 
     virtual void AddTarget(plSceneObject* so);
-    virtual void RemoveTarget( plSceneObject *so );
+    virtual void RemoveTarget(plSceneObject *so);
 
     void AddSafePoint(plKey& key);
     void UseSmartSeek() { fSeek = true; }

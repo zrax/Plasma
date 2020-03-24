@@ -96,14 +96,14 @@ public:
         switch (msg)
         {
         case WM_COMMAND:
-            if( (HIWORD(wParam) == BN_CLICKED) && (LOWORD(wParam) == IDC_CLUSTER_DO_THE_DANCE) )
+            if ((HIWORD(wParam) == BN_CLICKED) && (LOWORD(wParam) == IDC_CLUSTER_DO_THE_DANCE))
             {
                 plClusterComponent* cc = (plClusterComponent*)map->GetParamBlock()->GetOwner();
                 cc->Cluster(nil);
 
                 return TRUE;
             }
-            if( (HIWORD(wParam) == BN_CLICKED) && (LOWORD(wParam) == IDC_CLUSTER_CLEAR) )
+            if ((HIWORD(wParam) == BN_CLICKED) && (LOWORD(wParam) == IDC_CLUSTER_CLEAR))
             {
                 plClusterComponent* cc = (plClusterComponent*)map->GetParamBlock()->GetOwner();
                 cc->Clear();
@@ -127,7 +127,7 @@ class plClusterCompAccessor : public PBAccessor
 public:
     void Set(PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t)
     {
-        if( id == plClusterComponent::kWindBones )
+        if (id == plClusterComponent::kWindBones)
         {
             plClusterComponent *comp = (plClusterComponent*)owner;
             comp->NotifyDependents(FOREVER, PART_ALL, REFMSG_USER_COMP_REF_CHANGED);
@@ -188,9 +188,9 @@ bool plClusterComponent::SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg)
 
     int numClust = fCompPB->Count(kClusters);
     int i;
-    for( i = numClust-1; i >= 0; --i )
+    for (i = numClust-1; i >= 0; --i)
     {
-        if( !fCompPB->GetINode(kClusters, TimeValue(0), i) )
+        if (!fCompPB->GetINode(kClusters, TimeValue(0), i))
             fCompPB->Delete(kClusters, i, 1);
     }
 
@@ -205,15 +205,15 @@ static int CompTemplNodes(const void *elem1, const void *elem2)
     plMaxNode* a = (plMaxNode*)distA->fNode;
     plMaxNode* b = (plMaxNode*)distB->fNode;
     
-    if( a == b )
+    if (a == b)
         return 0;
     
-    if( a->GetRenderLevel(!a->GetNoDeferDraw()) < b->GetRenderLevel(!b->GetNoDeferDraw()) )
+    if (a->GetRenderLevel(!a->GetNoDeferDraw()) < b->GetRenderLevel(!b->GetNoDeferDraw()))
         return -1;
-    if( a->GetRenderLevel(!a->GetNoDeferDraw()) > b->GetRenderLevel(!b->GetNoDeferDraw()) )
+    if (a->GetRenderLevel(!a->GetNoDeferDraw()) > b->GetRenderLevel(!b->GetNoDeferDraw()))
         return 1;
     
-    if( a < b )
+    if (a < b)
         return -1;
     
     return 1;
@@ -221,14 +221,14 @@ static int CompTemplNodes(const void *elem1, const void *elem2)
 
 bool plClusterComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
-    if( !fSetupDone )
+    if (!fSetupDone)
     {
         int numClust = fCompPB->Count(kClusters);
         int i;
-        for( i = 0; i < numClust; i++ )
+        for (i = 0; i < numClust; i++)
         {
             plMaxNodeBase* clust = (plMaxNodeBase*)fCompPB->GetINode(kClusters, TimeValue(0), i);
-            if( clust )
+            if (clust)
             {
                 Box3 fade(fCompPB->GetPoint3(kFadeIns, TimeValue(0), i), fCompPB->GetPoint3(kFadeOuts, TimeValue(0), i));
 
@@ -241,17 +241,17 @@ bool plClusterComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
                 const float kMinDistantFadeIn = 70.f;
                 const float kMaxDistantFadeOut = 10.f;
                 BOOL faceSort = false;
-                if( fade.Min()[2] < 0 )
+                if (fade.Min()[2] < 0)
                 {
-                    if( fade.Min()[0] > kMinDistantFadeIn )
+                    if (fade.Min()[0] > kMinDistantFadeIn)
                         faceSort = true;
                 }
-                else if( fade.Max()[2] > 0 )
+                else if (fade.Max()[2] > 0)
                 {
-                    if( fade.Max()[1] < kMaxDistantFadeOut )
+                    if (fade.Max()[1] < kMaxDistantFadeOut)
                         faceSort = true;
                 }
-                if( faceSort )
+                if (faceSort)
                     faceSort = true;
 
                 clust->SetFade(fade);
@@ -259,13 +259,13 @@ bool plClusterComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
                 clust->SetNoFaceSort(!faceSort);
                 clust->SetNormalChan(plDistributor::kNormMapChan);
 
-                if( i < fCompPB->Count(kWindBones) )
+                if (i < fCompPB->Count(kWindBones))
                 {
                     plMaxNodeBase* windBone = (plMaxNodeBase*)fCompPB->GetINode(kWindBones, TimeValue(0), i);
                     // FISHHACK
                     // BoneUpdate
                     // Add clust as first bone, windBone as second.
-                    if( windBone && (windBone != clust) )
+                    if (windBone && (windBone != clust))
                         clust->AddBone(windBone);
                 }
             }
@@ -280,7 +280,7 @@ bool plClusterComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
             hsBitVector doneBits;
             
             IBuildDistribTab();
-            if( !fDistribTab.Count() )
+            if (!fDistribTab.Count())
             {
                 fSetupDone = true;
                 return true;
@@ -289,19 +289,19 @@ bool plClusterComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
             plDistribInstTab nodes;
             
             plExportProgressBar bar;
-            if( IBuildNodeTab(nodes, pErrMsg, bar) )
+            if (IBuildNodeTab(nodes, pErrMsg, bar))
             {
                 nodes.Sort(CompTemplNodes);
                 
                 plClusterUtil util;
                 
                 int i = 0;
-                while( i < nodes.Count() )
+                while (i < nodes.Count())
                 {
                     plMaxNode* repNode = (plMaxNode*)nodes[i].fNode;
                     
                     int nextNode;
-                    for( nextNode = i+1; (nextNode < nodes.Count()) && (nodes[i].fNode == nodes[nextNode].fNode); nextNode++ )
+                    for (nextNode = i+1; (nextNode < nodes.Count()) && (nodes[i].fNode == nodes[nextNode].fNode); nextNode++)
                     {} // intentional, we just want the i value
 
                     // As far as I can tell, we don't actually use the templates generated here, we just use the count
@@ -309,7 +309,7 @@ bool plClusterComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
                     // Looks like a hack that never got cleaned up.
                     plSpanTemplTab templs = util.MakeTemplates(repNode);
                     int j;
-                    for( j = 0; j < templs.Count(); j++ )
+                    for (j = 0; j < templs.Count(); j++)
                     {
                         fClusterGroups.push_back(util.CreateGroup(repNode, GetINode()->GetName()));
                         delete templs[j];
@@ -329,12 +329,12 @@ bool plClusterComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
 
 bool plClusterComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
-    if( !fExported && (fCompPB->GetInt(kAutoInstance)) )
+    if (!fExported && (fCompPB->GetInt(kAutoInstance)))
     {
         hsBitVector doneBits;
 
         IBuildDistribTab();
-        if( !fDistribTab.Count() )
+        if (!fDistribTab.Count())
         {
             fExported = true;
             return true;
@@ -343,7 +343,7 @@ bool plClusterComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         plDistribInstTab nodes;
 
         plExportProgressBar bar;
-        if( IBuildNodeTab(nodes, pErrMsg, bar) )
+        if (IBuildNodeTab(nodes, pErrMsg, bar))
         {
             nodes.Sort(CompTemplNodes);
 
@@ -354,7 +354,7 @@ bool plClusterComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 
             int groupIdx = 0;
             int i = 0;
-            while( i < nodes.Count() )
+            while (i < nodes.Count())
             {
                 plL2WTab l2wTab;
                 plMaxNode* repNode = (plMaxNode*)nodes[i].fNode;
@@ -363,14 +363,14 @@ bool plClusterComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                 l2wTab.Append(1, &l2w);
 
                 int nextNode;
-                for( nextNode = i+1; (nextNode < nodes.Count()) && (nodes[i].fNode == nodes[nextNode].fNode); nextNode++ )
+                for (nextNode = i+1; (nextNode < nodes.Count()) && (nodes[i].fNode == nodes[nextNode].fNode); nextNode++)
                 {
                     l2wTab.Append(1, &nodes[nextNode].fObjectTM);
                 }
 
                 plSpanTemplTab templs = util.MakeTemplates(repNode);
                 int j;
-                for( j = 0; j < templs.Count(); j++ )
+                for (j = 0; j < templs.Count(); j++)
                 {
                     util.SetupGroup(fClusterGroups[groupIdx], repNode, templs[j]);
                     groupIdx++;
@@ -412,7 +412,7 @@ void plClusterComponent::ICheckWindBone()
 
 BOOL plClusterComponent::AutoGen(plErrorMsg* pErrMsg)
 {
-    if( !fCompPB->Count(kClusters) && fCompPB->GetInt(kAutoGen) )
+    if (!fCompPB->Count(kClusters) && fCompPB->GetInt(kAutoGen))
     {
         fAutoGen = true;
         return Cluster(pErrMsg);
@@ -422,7 +422,7 @@ BOOL plClusterComponent::AutoGen(plErrorMsg* pErrMsg)
 
 void plClusterComponent::AutoClear(plErrorMsg* pErrMsg)
 {
-    if( fAutoGen )
+    if (fAutoGen)
     {
         Clear();
         fAutoGen = false;
@@ -440,29 +440,29 @@ void plClusterComponent::IBuildDistribTab()
     // For each target
     int numTarg = NumTargets();
     int i;
-    for( i = 0; i < numTarg; i++ )
+    for (i = 0; i < numTarg; i++)
     {
         plMaxNodeBase* targ = GetTarget(i);
-        if( targ )
+        if (targ)
         {
             uint32_t count = targ->NumAttachedComponents();
             int j;
-            for( j = 0; j < count; j++ )
+            for (j = 0; j < count; j++)
             // For each DistribComponent
             {
                 plComponentBase *comp = targ->GetAttachedComponent(j);
-                if( comp && (comp->ClassID() == DISTRIBUTOR_COMP_CID) )
+                if (comp && (comp->ClassID() == DISTRIBUTOR_COMP_CID))
                 {
                     // Add DistribComponent replicants to nodeTab
                     // making sure we don't add any nodes twice.
                     plDistribComponent* distComp = (plDistribComponent*)comp;
                     int k;
-                    for( k = 0; k < sortTab.Count(); k++ )
+                    for (k = 0; k < sortTab.Count(); k++)
                     {
-                        if( distComp == sortTab[k] )
+                        if (distComp == sortTab[k])
                             break;
                     }
-                    if( k == sortTab.Count() )
+                    if (k == sortTab.Count())
                     {
                         sortTab.Append(1, &distComp);
                         float val = distComp->GetIsoPriority();
@@ -474,15 +474,15 @@ void plClusterComponent::IBuildDistribTab()
         }
     }
     BitArray gotten(sortTab.Count());
-    while( tab.Count() < sortTab.Count() )
+    while (tab.Count() < sortTab.Count())
     {
         float maxVal = -1.f;
         int maxIdx = -1;
-        for( i = 0; i < sortTab.Count(); i++ )
+        for (i = 0; i < sortTab.Count(); i++)
         {
-            if( !gotten[i] )
+            if (!gotten[i])
             {
-                if( valTab[i] > maxVal )
+                if (valTab[i] > maxVal)
                 {
                     maxVal = valTab[i];
                     maxIdx = i;
@@ -497,7 +497,7 @@ void plClusterComponent::IBuildDistribTab()
 void plClusterComponent::IClearDistribTab()
 {
     int i;
-    for( i = 0; i < fDistribTab.Count(); i++ )
+    for (i = 0; i < fDistribTab.Count(); i++)
         fDistribTab[i]->Done();
 
     fDistribTab.ZeroCount();
@@ -506,9 +506,9 @@ void plClusterComponent::IClearDistribTab()
 BOOL plClusterComponent::IsFlexible() const
 {
     int i;
-    for( i = 0; i < fDistribTab.Count(); i++ )
+    for (i = 0; i < fDistribTab.Count(); i++)
     {
-        if( fDistribTab[i]->IsFlexible() )
+        if (fDistribTab[i]->IsFlexible())
             return true;
     }
     return false;
@@ -520,26 +520,26 @@ BOOL plClusterComponent::IBuildNodeTab(plDistribInstTab& nodes, plErrorMsg* pErr
     plDistTree distTree;
     nodes.ZeroCount();
     int numDistrib = fDistribTab.Count();
-    if( numDistrib )
+    if (numDistrib)
     {
         int progCnt = 0;
         int i;
-        for( i = 0; i < numDistrib; i++ )
+        for (i = 0; i < numDistrib; i++)
             progCnt += fDistribTab[i]->NumTargets();
-        if( !progCnt )
+        if (!progCnt)
             progCnt = 1;
 
         bar.Start("Compiling", progCnt << 4);
 
-        if( bar.Update(nil, 0) )
+        if (bar.Update(nil, 0))
             return false;
 
-        for( i = 0; i < numDistrib; i++ )
+        for (i = 0; i < numDistrib; i++)
         {
             plDistribInstTab reps;
-            if( !fDistribTab[i]->Distribute(reps, pErrMsg, bar, &distTree) )
+            if (!fDistribTab[i]->Distribute(reps, pErrMsg, bar, &distTree))
                 return false;
-            if( reps.Count() )
+            if (reps.Count())
                 nodes.Append(reps.Count(), &reps[0]);
         }
     }
@@ -549,7 +549,7 @@ BOOL plClusterComponent::IBuildNodeTab(plDistribInstTab& nodes, plErrorMsg* pErr
 void plClusterComponent::IClearNodeTab()
 {
     int i;
-    for( i = 0; i < fDistribTab.Count(); i++ )
+    for (i = 0; i < fDistribTab.Count(); i++)
         fDistribTab[i]->Done();
 }
 
@@ -558,10 +558,10 @@ void plClusterComponent::Select()
     INodeTab nodeTab;
     int numClust = fCompPB->Count(kClusters);
     int i;
-    for( i = 0; i < numClust; i++ )
+    for (i = 0; i < numClust; i++)
     {
         INode* clust = fCompPB->GetINode(kClusters, TimeValue(0), i);
-        if( clust )
+        if (clust)
         {
             nodeTab.Append(1, &clust);
         }
@@ -578,7 +578,7 @@ void plClusterComponent::Select()
 void plClusterComponent::Clear()
 {
     int numClust = fCompPB->Count(kClusters);
-    if( !numClust )
+    if (!numClust)
         return;
 
     GetCOREInterface()->DisableSceneRedraw();
@@ -588,26 +588,26 @@ void plClusterComponent::Clear()
     const int log2freq = 2;
     const int maskfreq = (1 << log2freq)-1;
     int totalSteps = numClust >> log2freq;
-    if( !totalSteps )
+    if (!totalSteps)
         totalSteps = 1;
     bar.Start("Deleting", totalSteps);
 
     bar.Update(nil, 0);
 
     int i;
-    for( i = 0; i < numClust; i++ )
+    for (i = 0; i < numClust; i++)
     {
         plMaxNode* cluster = (plMaxNode*)fCompPB->GetINode(kClusters, TimeValue(0), i);
-        if( cluster )
+        if (cluster)
         {
             // HACK FISH - till we get a real fix for the slowdown caused by
             // deleting things with a location component on them.
             int numComp = cluster->NumAttachedComponents();
             int j;
-            for( j = numComp-1; j >= 0; --j )
+            for (j = numComp-1; j >= 0; --j)
             {
                 plComponentBase* comp = cluster->GetAttachedComponent(j);
-                if( comp )
+                if (comp)
                 {
                     comp->DeleteTarget(cluster);
                 }
@@ -617,7 +617,7 @@ void plClusterComponent::Clear()
             cluster->Delete(TimeValue(0), true);
         }
 
-        if( !(i & maskfreq) )
+        if (!(i & maskfreq))
             bar.Update(nil);
     }
 
@@ -657,34 +657,34 @@ BOOL plClusterComponent::Cluster(plErrorMsg* pErrMsg)
     plDistribInstTab nodes;
 
     BOOL failed = true;
-    if( IBuildNodeTab(nodes, pErrMsg, bar) )
+    if (IBuildNodeTab(nodes, pErrMsg, bar))
     {
         failed = false;
 
-        if( nodes.Count() )
+        if (nodes.Count())
         {
             bar.Start("Optimizing", nodes.Count());
             bar.Update(nil, 0);
         }
 
         int i;
-        for( i = 0; i < nodes.Count(); i++ )
+        for (i = 0; i < nodes.Count(); i++)
         {
-            if( doneBits.IsBitSet(i) )
+            if (doneBits.IsBitSet(i))
                 continue;
 
-            if( !nodes[i].fNode )
+            if (!nodes[i].fNode)
                 continue;
 
-            if( !ICanCluster(nodes[i]) )
+            if (!ICanCluster(nodes[i]))
                 continue;
 
             plDistribInstTab shared;
             shared.Append(1, &nodes[i]);
             int j;
-            for( j = 0; j < nodes.Count(); j++ )
+            for (j = 0; j < nodes.Count(); j++)
             {
-                if( !doneBits.IsBitSet(j) && ICanCluster(nodes[i], nodes[j]) )
+                if (!doneBits.IsBitSet(j) && ICanCluster(nodes[i], nodes[j]))
                 {
                     shared.Append(1, &nodes[j]);
                     doneBits.SetBit(j);
@@ -692,10 +692,10 @@ BOOL plClusterComponent::Cluster(plErrorMsg* pErrMsg)
             }
             INodeTab cluster;
             failed = !IClusterGroup(shared, cluster, bar);
-            if( cluster.Count() )
+            if (cluster.Count())
             {
                 int j;
-                for( j = 0; j < cluster.Count(); j++ )
+                for (j = 0; j < cluster.Count(); j++)
                 {
                     fade.Append(1, &shared[0].fFade);
                     bone.Append(1, &shared[0].fBone);
@@ -714,7 +714,7 @@ BOOL plClusterComponent::Cluster(plErrorMsg* pErrMsg)
                 doneNodes.Append(cluster.Count(), &cluster[0]);
 
             }
-            if( failed )
+            if (failed)
                 break;
         }
 
@@ -726,7 +726,7 @@ BOOL plClusterComponent::Cluster(plErrorMsg* pErrMsg)
 
     IFinishDoneNodes(doneNodes, fade, bone, boneIsParent);
 
-    if( failed )
+    if (failed)
         Clear();
     else
         Select();
@@ -738,16 +738,16 @@ BOOL plClusterComponent::Cluster(plErrorMsg* pErrMsg)
 
 void plClusterComponent::IFinishDoneNodes(INodeTab& doneNodes, plBox3Tab& fade, INodeTab& bones, hsBitVector& boneIsParent)
 {
-    if( !doneNodes.Count() )
+    if (!doneNodes.Count())
         return;
 
     NameMaker *nn = GetCOREInterface()->NewNameMaker();
 
     TSTR nodeName(GetINode()->GetName());
     int i;
-    for( i = 0; i < doneNodes.Count(); i++ )
+    for (i = 0; i < doneNodes.Count(); i++)
     {
-        if( doneNodes[i] )
+        if (doneNodes[i])
         {
             nn->MakeUniqueName(nodeName);
             doneNodes[i]->SetName(nodeName);
@@ -761,9 +761,9 @@ void plClusterComponent::IFinishDoneNodes(INodeTab& doneNodes, plBox3Tab& fade, 
         fCompPB->Append(kFadeOuts, 1, &p3p);
 
         INode* nilNode = nil;
-        if( bones[i] )
+        if (bones[i])
         {
-            if( boneIsParent.IsBitSet(i) )
+            if (boneIsParent.IsBitSet(i))
             {
         
                 bones[i]->AttachChild(doneNodes[i], true);
@@ -791,13 +791,13 @@ void plClusterComponent::ISetupRenderDependencies()
 
     int numClust = fCompPB->Count(kClusters);
 
-    if( !numClust )
+    if (!numClust)
         return;
 
     scratchList.SetCount(numClust);
 
     int i;
-    for( i = 0; i < numClust; i++ )
+    for (i = 0; i < numClust; i++)
     {
         listTrav = &scratchList[i];
         listTrav->fBody = (void*)i;
@@ -819,9 +819,9 @@ void plClusterComponent::ISetupRenderDependencies()
     float currFade = listTrav->fKey.fFloat;
     listTrav = listTrav->fNext;
 
-    while( listTrav )
+    while (listTrav)
     {
-        if( listTrav->fKey.fFloat != currFade )
+        if (listTrav->fKey.fFloat != currFade)
         {
             IAssignRenderDependencies(prevStart, prevEnd, sortedList, listTrav);
 
@@ -842,21 +842,21 @@ void plClusterComponent::ISetupRenderDependencies()
 void plClusterComponent::IAssignRenderDependencies(hsRadixSortElem*& prevStart, hsRadixSortElem*& prevEnd,
                                                    hsRadixSortElem*& currStart, hsRadixSortElem*& currEnd)
 {
-    if( !prevStart )
+    if (!prevStart)
     {
         hsRadixSort::Elem* q;
-        for( q = currStart; q != currEnd; q = q->fNext )
+        for (q = currStart; q != currEnd; q = q->fNext)
         {
             int iNode = (int)q->fBody;
             plMaxNodeBase* clust = (plMaxNodeBase*)fCompPB->GetINode(kClusters, TimeValue(0), iNode);
 
-            if( clust )
+            if (clust)
             {
                 int i;
-                for( i = 0; i < NumTargets(); i++ )
+                for (i = 0; i < NumTargets(); i++)
                 {
                     plMaxNodeBase* targ = GetTarget(i);
-                    if( targ )
+                    if (targ)
                         clust->AddRenderDependency(targ);
                 }
             }
@@ -865,16 +865,16 @@ void plClusterComponent::IAssignRenderDependencies(hsRadixSortElem*& prevStart, 
     else
     {
         hsRadixSort::Elem* q;
-        for( q = currStart; q != currEnd; q = q->fNext )
+        for (q = currStart; q != currEnd; q = q->fNext)
         {
             int iNode = (int)q->fBody;
             plMaxNodeBase* clust = (plMaxNodeBase*)fCompPB->GetINode(kClusters, TimeValue(0), iNode);
 
-            if( clust )
+            if (clust)
             {
 #if 0
                 hsRadixSort::Elem* p;
-                for( p = prevStart; p != prevEnd; p = p->fNext )
+                for (p = prevStart; p != prevEnd; p = p->fNext)
                 {
                     iNode = (int)p->fBody;
                     plMaxNodeBase* targ = (plMaxNodeBase*)fCompPB->GetINode(kClusters, TimeValue(0), iNode);
@@ -895,7 +895,7 @@ void plClusterComponent::IAssignRenderDependencies(hsRadixSortElem*& prevStart, 
 
 BOOL plClusterComponent::ICanCluster(plDistribInstance& node)
 {
-    if( !node.fNode )
+    if (!node.fNode)
         return false;
 
     return true;
@@ -903,20 +903,20 @@ BOOL plClusterComponent::ICanCluster(plDistribInstance& node)
 
 BOOL plClusterComponent::ICanCluster(plDistribInstance& node0, plDistribInstance& node1)
 {
-    if( !(node0.fNode && node1.fNode) )
+    if (!(node0.fNode && node1.fNode))
         return false;
 
-    if( !ICanCluster(node1) )
+    if (!ICanCluster(node1))
         return false;
 
-    if( node0.fNode->GetMtl() != node1.fNode->GetMtl() )
+    if (node0.fNode->GetMtl() != node1.fNode->GetMtl())
         return false;
 
-    if( (node0.fFade.Min() != node1.fFade.Min())
-        ||(node0.fFade.Max() != node1.fFade.Max()) )
+    if ((node0.fFade.Min() != node1.fFade.Min())
+        ||(node0.fFade.Max() != node1.fFade.Max()))
         return false;
 
-    if( node0.fBone != node1.fBone )
+    if (node0.fBone != node1.fBone)
         return false;
 
     return true;
@@ -924,12 +924,12 @@ BOOL plClusterComponent::ICanCluster(plDistribInstance& node0, plDistribInstance
 
 Box3 plClusterComponent::IPartition(plDistribInstTab& nodes)
 {
-    if( !nodes.Count() )
+    if (!nodes.Count())
         return Box3();
     
     Box3 retVal;
     int i;
-    for( i = 0; i < nodes.Count(); i++ )
+    for (i = 0; i < nodes.Count(); i++)
     {
         retVal += nodes[i].fNodeTM.GetTrans();
     }
@@ -940,9 +940,9 @@ Box3 plClusterComponent::IPartition(plDistribInstTab& nodes)
 //  maxs -= Point3(fClusterSize, fClusterSize, fClusterSize) * 1.5f;
 //  maxs -= Point3(fClusterSize, fClusterSize, fClusterSize) * 1.0f;
 
-    for( i = 0; i < 3; i++ )
+    for (i = 0; i < 3; i++)
     {
-        if( mins[i] >= maxs[i] )
+        if (mins[i] >= maxs[i])
         {
             float mid = (mins[i] + maxs[i]) * 0.5f;
             mins[i] = mid - 1.f;
@@ -957,10 +957,10 @@ Box3 plClusterComponent::IPartition(plDistribInstTab& nodes)
 void plClusterComponent::IClusterBins(plDistribInstTab& nodes, Box3& box)
 {
     int i;
-    for( i = 0; i < 3; i++ )
+    for (i = 0; i < 3; i++)
     {
         fSizes[i] = int((box.Max()[i] - box.Min()[i]) / fClusterSize);
-        if( !fSizes[i] )
+        if (!fSizes[i])
             fSizes[i] = 1;
     }
 
@@ -969,7 +969,7 @@ void plClusterComponent::IClusterBins(plDistribInstTab& nodes, Box3& box)
 
     memset(fClusterBins, 0, sizeof(*fClusterBins) * totSize);
 
-    for( i = 0; i < nodes.Count(); i++ )
+    for (i = 0; i < nodes.Count(); i++)
     {
         Matrix3 l2w = nodes[i].fNodeTM;
         Point3 loc = l2w.GetTrans();
@@ -988,7 +988,7 @@ void plClusterComponent::IDeleteClusterBins()
 {
     int totSize = IGetBinCount();
     int i;
-    for( i = 0; i < totSize; i++ )
+    for (i = 0; i < totSize; i++)
         delete fClusterBins[i];
     delete [] fClusterBins;
     fClusterBins = nil;
@@ -998,16 +998,16 @@ plDistribInstTab* plClusterComponent::IGetClusterBin(const Box3& box, const Poin
 {
     int coord[3];
     int j;
-    for( j = 0; j < 3; j++ )
+    for (j = 0; j < 3; j++)
     {
         coord[j] = int((loc[j] - box.Min()[j]) / fClusterSize);
-        if( coord[j] < 0 )
+        if (coord[j] < 0)
             coord[j] = 0;
-        else if( coord[j] >= fSizes[j] )
+        else if (coord[j] >= fSizes[j])
             coord[j] = fSizes[j] - 1;
     }
     int idx = coord[0] * fSizes[1] * fSizes[2] + coord[1] * fSizes[2] + coord[2];
-    if( !fClusterBins[idx] )
+    if (!fClusterBins[idx])
         fClusterBins[idx] = new plDistribInstTab;
     return fClusterBins[idx];
 }
@@ -1030,15 +1030,15 @@ BOOL plClusterComponent::IClusterGroup(plDistribInstTab& nodes, INodeTab& cluste
 
     fClusterSize = minClusterSize;
     Box3 fade = nodes[0].fFade;
-    if( fade.Min().z < 0 )
+    if (fade.Min().z < 0)
     {
         fClusterSize = fade.Min().x;
     }
-    else if( fade.Max().z < 0 )
+    else if (fade.Max().z < 0)
     {
         fClusterSize = fade.Max().x;
     }
-    if( fClusterSize < minClusterSize )
+    if (fClusterSize < minClusterSize)
         fClusterSize = minClusterSize;
 
     Box3 box = IPartition(nodes);
@@ -1047,25 +1047,25 @@ BOOL plClusterComponent::IClusterGroup(plDistribInstTab& nodes, INodeTab& cluste
 
     int totSize = IGetBinCount();
     int i;
-    for( i = 0; i < totSize; i++ )
+    for (i = 0; i < totSize; i++)
     {
-        if( fClusterBins[i] )
+        if (fClusterBins[i])
         {
             INode* grp = IMakeOne(*fClusterBins[i]);
-            if( grp )
+            if (grp)
             {
                 INodeTab subGrp;
                 plDicer dicer;
                 dicer.SetMaxFaces(maxFaces);
                 dicer.Dice(grp, subGrp);
                 int j;
-                for( j = 0; j < subGrp.Count(); j++ )
+                for (j = 0; j < subGrp.Count(); j++)
                 {
                     clusters.Append(1, &subGrp[j]);
                 }
             }
 
-            if( bar.Update(nil, fClusterBins[i]->Count()) )
+            if (bar.Update(nil, fClusterBins[i]->Count()))
             {
                 retVal = false;
                 break;
@@ -1079,7 +1079,7 @@ BOOL plClusterComponent::IClusterGroup(plDistribInstTab& nodes, INodeTab& cluste
 
 INode* plClusterComponent::IMakeOne(plDistribInstTab& nodes)
 {
-    if( !nodes.Count() )
+    if (!nodes.Count())
         return nil;
 
     TriObject* triObj = CreateNewTriObject();
@@ -1095,7 +1095,7 @@ INode* plClusterComponent::IMakeOne(plDistribInstTab& nodes)
     MeshDelta meshDelta(*outMesh);
 
     int i;
-    for( i = 1; i < nodes.Count(); i++ )
+    for (i = 1; i < nodes.Count(); i++)
     {
         Mesh nextMesh(*nodes[i].fMesh);
 
@@ -1106,11 +1106,11 @@ INode* plClusterComponent::IMakeOne(plDistribInstTab& nodes)
         // automatically by meshDelta.AttachMesh (hence passing in the matrix),
         // but the meshDelta hasn't a clue that the normal map channel isn't
         // just more UVs. No problem, I'll handle it myself.
-        if( nextMesh.mapVerts(plDistributor::kNormMapChan) )
+        if (nextMesh.mapVerts(plDistributor::kNormMapChan))
         {
             Point3* norms = nextMesh.mapVerts(plDistributor::kNormMapChan);
             int k;
-            for( k = 0; k < nextMesh.getNumMapVerts(plDistributor::kNormMapChan); k++ )
+            for (k = 0; k < nextMesh.getNumMapVerts(plDistributor::kNormMapChan); k++)
             {
                 norms[k] = relativeTransform.VectorTransform(norms[k]);
             }
@@ -1143,19 +1143,19 @@ BOOL plClusterComponent::IGetLocation()
     fLocationComp = nil;
     int numTarg = NumTargets();
     int i;
-    for( i = 0; i < numTarg; i++ )
+    for (i = 0; i < numTarg; i++)
     {
         plMaxNodeBase* targ = GetTarget(i);
-        if( targ )
+        if (targ)
         {
             uint32_t numComp = targ->NumAttachedComponents(false);
             int j;
-            for( j = 0; j < numComp; j++ )
+            for (j = 0; j < numComp; j++)
             {
                 plComponentBase* comp = targ->GetAttachedComponent(j, false);
-                if( comp && (comp->ClassID() == ROOM_CID || comp->ClassID() == PAGEINFO_CID) )
+                if (comp && (comp->ClassID() == ROOM_CID || comp->ClassID() == PAGEINFO_CID))
                 {
-                    if( fLocationComp && (fLocationComp != comp) )
+                    if (fLocationComp && (fLocationComp != comp))
                     {
                         fLocationComp = nil;
                         return false;
@@ -1170,7 +1170,7 @@ BOOL plClusterComponent::IGetLocation()
 
 void plClusterComponent::ISetLocation(plMaxNode* node)
 {
-    if( fLocationComp )
+    if (fLocationComp)
         fLocationComp->AddTarget(node);
 }
 
@@ -1188,11 +1188,11 @@ void plClusterComponent::IRandomizeSkinWeights(Mesh* mesh, const Point3& flex) c
 
     float r = interMeshRandomNess > 0 ? random.RandRangeF(1.f - interMeshRandomNess, 1.f) : 1.f;
     int i;
-    for( i = 0; i < numWgtVerts; i++ )
+    for (i = 0; i < numWgtVerts; i++)
     {
         UVVert uvw = wgtMap[i];
         float s = r;
-        if( intraMeshRandomNess > 0 )
+        if (intraMeshRandomNess > 0)
             s *= random.RandRangeF(1.f - intraMeshRandomNess, 1.f);
         uvw *= s;
         mesh->setMapVert(iWgtMap, i, uvw);

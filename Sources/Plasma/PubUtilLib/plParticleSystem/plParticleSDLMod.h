@@ -62,8 +62,8 @@ public:
     // var labels
     static char kStrNumParticles[];
     
-    CLASSNAME_REGISTER( plParticleSDLMod );
-    GETINTERFACE_ANY( plParticleSDLMod, plSDLModifier);
+    CLASSNAME_REGISTER(plParticleSDLMod);
+    GETINTERFACE_ANY(plParticleSDLMod, plSDLModifier);
     
     plParticleSDLMod(bool attachedToAvatar = false): fAttachedToAvatar(attachedToAvatar) {}
     

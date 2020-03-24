@@ -60,10 +60,10 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 cyCamera::cyCamera()
 {
     // get _the_ virtual camera
-    plUoid pU( kVirtualCamera1_KEY );
+    plUoid pU(kVirtualCamera1_KEY);
     hsResMgr* hrm = hsgResMgr::ResMgr();
-    if ( hrm)
-        fTheCam = hrm->FindKey( pU );
+    if (hrm)
+        fTheCam = hrm->FindKey(pU);
     else
         fTheCam = nil;
 }
@@ -88,11 +88,11 @@ void cyCamera::Push(pyKey& newCamKey)
 {
     // create message
     plCameraMsg* pMsg = new plCameraMsg;
-    if ( fSender )
+    if (fSender)
         pMsg->SetSender(fSender);
 
     // if we're sending to the virtual camera
-    if ( fTheCam )
+    if (fTheCam)
         pMsg->AddReceiver(fTheCam);
     else
         // otherwise, broadcast by type
@@ -104,7 +104,7 @@ void cyCamera::Push(pyKey& newCamKey)
     // set the new camera
     pMsg->SetNewCam(newCamKey.getKey());
 
-    plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+    plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -118,11 +118,11 @@ void cyCamera::Pop(pyKey& oldCamKey)
 {
     // create message
     plCameraMsg* pMsg = new plCameraMsg;
-    if ( fSender )
+    if (fSender)
         pMsg->SetSender(fSender);
 
     // if we're sending to the virtual camera
-    if ( fTheCam )
+    if (fTheCam)
         pMsg->AddReceiver(fTheCam);
     else
         // otherwise, broadcast by type
@@ -133,7 +133,7 @@ void cyCamera::Pop(pyKey& oldCamKey)
     // set the new camera
     pMsg->SetNewCam(oldCamKey.getKey());
 
-    plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+    plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -147,11 +147,11 @@ void cyCamera::Pop(pyKey& oldCamKey)
 void cyCamera::ControlKey(int32_t controlKey, bool activated)
 {
     // make sure that we have a virtual camera to send this to
-    if ( fTheCam )
+    if (fTheCam)
     {
         plControlEventMsg* pMsg = new plControlEventMsg;
         // set sender if there is one
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // if we're sending to the virtual camera
@@ -161,7 +161,7 @@ void cyCamera::ControlKey(int32_t controlKey, bool activated)
         pMsg->SetControlCode((ControlEventCode)controlKey);
         pMsg->SetControlActivated(activated);
 
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 }
 
@@ -192,11 +192,11 @@ void cyCamera::TransitionTo(pyKey& newCamKey, double time, bool save)
 void cyCamera::SetEnableFirstPersonOverride(bool state) const
 {
     // must have a receiver!
-    if ( fTheCam )
+    if (fTheCam)
     {
         // create message
         plCameraMsg* pMsg = new plCameraMsg;
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         pMsg->AddReceiver(fTheCam);
@@ -205,7 +205,7 @@ void cyCamera::SetEnableFirstPersonOverride(bool state) const
         // set the state
         pMsg->SetActivated(state);
 
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 }
 
@@ -224,13 +224,13 @@ void cyCamera::UndoFirstPerson()
 
 float cyCamera::GetFOV()
 {
-    if ( fTheCam )
+    if (fTheCam)
     {
-        plVirtualCam1* virtCam = plVirtualCam1::ConvertNoRef( fTheCam->ObjectIsLoaded() );
-        if ( virtCam )
+        plVirtualCam1* virtCam = plVirtualCam1::ConvertNoRef(fTheCam->ObjectIsLoaded());
+        if (virtCam)
         {
             plCameraModifier1* curCam = virtCam->GetCurrentCamera();
-            if ( curCam )
+            if (curCam)
             {
                 return curCam->GetFOVh();
             }
@@ -241,13 +241,13 @@ float cyCamera::GetFOV()
 
 void cyCamera::SetFOV(float fov, double t)
 {
-    if ( fTheCam )
+    if (fTheCam)
     {
-        plVirtualCam1* virtCam = plVirtualCam1::ConvertNoRef( fTheCam->ObjectIsLoaded() );
-        if ( virtCam )
+        plVirtualCam1* virtCam = plVirtualCam1::ConvertNoRef(fTheCam->ObjectIsLoaded());
+        if (virtCam)
         {
             plCameraModifier1* curCam = virtCam->GetCurrentCamera();
-            if ( curCam )
+            if (curCam)
             {
                 plCameraBrain1* camBrain = curCam->GetBrain();
                 if (camBrain)
@@ -262,10 +262,10 @@ void cyCamera::SetFOV(float fov, double t)
 
 void cyCamera::SetSmootherCam(bool state)
 {
-    if ( fTheCam )
+    if (fTheCam)
     {
-        plVirtualCam1* virtCam = plVirtualCam1::ConvertNoRef( fTheCam->ObjectIsLoaded() );
-        if ( virtCam )
+        plVirtualCam1* virtCam = plVirtualCam1::ConvertNoRef(fTheCam->ObjectIsLoaded());
+        if (virtCam)
         {
             if (state)
             {
@@ -285,12 +285,12 @@ void cyCamera::SetSmootherCam(bool state)
 
 bool cyCamera::IsSmootherCam()
 {
-    if ( fTheCam )
+    if (fTheCam)
     {
-        plVirtualCam1* virtCam = plVirtualCam1::ConvertNoRef( fTheCam->ObjectIsLoaded() );
-        if ( virtCam )
+        plVirtualCam1* virtCam = plVirtualCam1::ConvertNoRef(fTheCam->ObjectIsLoaded());
+        if (virtCam)
         {
-            if ( virtCam->fUseAccelOverride )
+            if (virtCam->fUseAccelOverride)
                 return false;
             else
                 return true;
@@ -302,10 +302,10 @@ bool cyCamera::IsSmootherCam()
 
 void cyCamera::SetWalkAndVerticalPan(bool state)
 {
-    if ( fTheCam )
+    if (fTheCam)
     {
-        plVirtualCam1* virtCam = plVirtualCam1::ConvertNoRef( fTheCam->ObjectIsLoaded() );
-        if ( virtCam )
+        plVirtualCam1* virtCam = plVirtualCam1::ConvertNoRef(fTheCam->ObjectIsLoaded());
+        if (virtCam)
         {
             if (state)
                 virtCam->WalkPan3rdPerson = true;
@@ -319,10 +319,10 @@ void cyCamera::SetWalkAndVerticalPan(bool state)
 
 bool cyCamera::IsWalkAndVerticalPan()
 {
-    if ( fTheCam )
+    if (fTheCam)
     {
-        plVirtualCam1* virtCam = plVirtualCam1::ConvertNoRef( fTheCam->ObjectIsLoaded() );
-        if ( virtCam )
+        plVirtualCam1* virtCam = plVirtualCam1::ConvertNoRef(fTheCam->ObjectIsLoaded());
+        if (virtCam)
         {
             return virtCam->WalkPan3rdPerson;
         }
@@ -333,10 +333,10 @@ bool cyCamera::IsWalkAndVerticalPan()
 
 void cyCamera::SetStayInFirstPerson(bool state)
 {
-    if ( fTheCam )
+    if (fTheCam)
     {
-        plVirtualCam1* virtCam = plVirtualCam1::ConvertNoRef( fTheCam->ObjectIsLoaded() );
-        if ( virtCam )
+        plVirtualCam1* virtCam = plVirtualCam1::ConvertNoRef(fTheCam->ObjectIsLoaded());
+        if (virtCam)
         {
             if (state)
                 virtCam->StayInFirstPersonForever = true;
@@ -348,10 +348,10 @@ void cyCamera::SetStayInFirstPerson(bool state)
 
 bool cyCamera::IsStayInFirstPerson()
 {
-    if ( fTheCam )
+    if (fTheCam)
     {
-        plVirtualCam1* virtCam = plVirtualCam1::ConvertNoRef( fTheCam->ObjectIsLoaded() );
-        if ( virtCam )
+        plVirtualCam1* virtCam = plVirtualCam1::ConvertNoRef(fTheCam->ObjectIsLoaded());
+        if (virtCam)
         {
             return virtCam->StayInFirstPersonForever;
         }

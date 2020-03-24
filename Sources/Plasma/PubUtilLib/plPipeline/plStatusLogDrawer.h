@@ -63,7 +63,7 @@ class plStatusLogDrawer : public plStatusLogDrawerStub
 
     public:
 
-        plStatusLogDrawer( plPipeline *pipe ) : fPipeline( pipe ) {}
+        plStatusLogDrawer(plPipeline *pipe) : fPipeline(pipe) {}
         virtual ~plStatusLogDrawer() {}
 
         virtual void    Draw(plStatusLog* curLog, plStatusLog* firstLog);

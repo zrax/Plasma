@@ -55,8 +55,8 @@ public:
     plHardRegionComplex();
     virtual ~plHardRegionComplex();
 
-    CLASSNAME_REGISTER( plHardRegionComplex );
-    GETINTERFACE_ANY( plHardRegionComplex, plHardRegion );
+    CLASSNAME_REGISTER(plHardRegionComplex);
+    GETINTERFACE_ANY(plHardRegionComplex, plHardRegion);
 
     // Don't propagate the settransform to our children, they move independently
     virtual void SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l) {}
@@ -78,8 +78,8 @@ public:
     plHardRegionUnion();
     virtual ~plHardRegionUnion();
 
-    CLASSNAME_REGISTER( plHardRegionUnion );
-    GETINTERFACE_ANY( plHardRegionUnion, plHardRegionComplex );
+    CLASSNAME_REGISTER(plHardRegionUnion);
+    GETINTERFACE_ANY(plHardRegionUnion, plHardRegionComplex);
 
     virtual bool    IIsInside(const hsPoint3& pos) const;
     virtual bool    ICameraInside() const;
@@ -93,8 +93,8 @@ public:
     plHardRegionIntersect();
     virtual ~plHardRegionIntersect();
 
-    CLASSNAME_REGISTER( plHardRegionIntersect );
-    GETINTERFACE_ANY( plHardRegionIntersect, plHardRegionComplex );
+    CLASSNAME_REGISTER(plHardRegionIntersect);
+    GETINTERFACE_ANY(plHardRegionIntersect, plHardRegionComplex);
 
     virtual bool    IIsInside(const hsPoint3& pos) const;
     virtual bool    ICameraInside() const;
@@ -108,8 +108,8 @@ public:
     plHardRegionInvert();
     virtual ~plHardRegionInvert();
 
-    CLASSNAME_REGISTER( plHardRegionInvert );
-    GETINTERFACE_ANY( plHardRegionInvert, plHardRegionComplex );
+    CLASSNAME_REGISTER(plHardRegionInvert);
+    GETINTERFACE_ANY(plHardRegionInvert, plHardRegionComplex);
 
     virtual bool    IIsInside(const hsPoint3& pos) const;
     virtual bool    ICameraInside() const;

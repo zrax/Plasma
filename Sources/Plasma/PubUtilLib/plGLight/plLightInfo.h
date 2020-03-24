@@ -159,21 +159,21 @@ public:
     plLightInfo();
     virtual ~plLightInfo();
 
-    CLASSNAME_REGISTER( plLightInfo );
-    GETINTERFACE_ANY( plLightInfo, plObjInterface );
+    CLASSNAME_REGISTER(plLightInfo);
+    GETINTERFACE_ANY(plLightInfo, plObjInterface);
 
     void SetDeviceRef(hsGDeviceRef* ref);
     hsGDeviceRef* GetDeviceRef() const { return fDeviceRef; }
 
     // Dirty state is local to this machine, so shouldn't be in the network synchronized properties.
     bool    IsDirty() const { return 0 != (fVolFlags & kVolDirty); }
-    void    SetDirty(bool on=true) { if(on)fVolFlags |= kVolDirty; else fVolFlags &= ~kVolDirty; }
+    void    SetDirty(bool on=true) { if (on) fVolFlags |= kVolDirty; else fVolFlags &= ~kVolDirty; }
 
     bool    IsEmpty() const { return 0 != (fVolFlags & kVolEmpty); }
-    void    SetEmpty(bool on=true) { if(on)fVolFlags |= kVolEmpty; else fVolFlags &= ~kVolEmpty; }
+    void    SetEmpty(bool on=true) { if (on) fVolFlags |= kVolEmpty; else fVolFlags &= ~kVolEmpty; }
 
     bool    IsZero() const { return 0 != (fVolFlags & kVolZero); }
-    void    SetZero(bool on) { if(on)fVolFlags |= kVolZero; else fVolFlags &= ~kVolZero; }
+    void    SetZero(bool on) { if (on) fVolFlags |= kVolZero; else fVolFlags &= ~kVolZero; }
 
     inline bool     IsIdle() const;
 
@@ -182,7 +182,7 @@ public:
     bool IsShadowCaster() const { return GetProperty(kLPCastShadows); }
     void SetShadowCaster(bool on) { SetProperty(kLPCastShadows, on); }
 
-    void Refresh() { if( IsDirty() ) { IRefresh(); SetDirty(false); } }
+    void Refresh() { if (IsDirty()) { IRefresh(); SetDirty(false); } }
     virtual void GetStrengthAndScale(const hsBounds3Ext& bnd, float& strength, float& scale) const;
 
     bool AffectsBound(const hsBounds3Ext& bnd) { return IGetIsect() ? IGetIsect()->Test(bnd) != kVolumeCulled : true; }
@@ -222,9 +222,9 @@ public:
     virtual bool        MsgReceive(plMessage* msg);
 
     virtual void        Unlink();
-    virtual void        Link( plLightInfo **back );
+    virtual void        Link(plLightInfo **back);
     virtual plLightInfo *GetNext() { return fNextDevPtr; }
-    virtual bool        IsLinked() { return ( fNextDevPtr != nil || fPrevDevPtr != nil ) ? true : false; }
+    virtual bool        IsLinked() { return (fNextDevPtr != nil || fPrevDevPtr != nil) ? true : false; }
 
     // New shadow
     void                ClearSlaveBits() { fSlaveBits.Clear(); }
@@ -253,8 +253,8 @@ public:
     plDirectionalLightInfo();
     virtual ~plDirectionalLightInfo();
 
-    CLASSNAME_REGISTER( plDirectionalLightInfo );
-    GETINTERFACE_ANY( plDirectionalLightInfo, plLightInfo );
+    CLASSNAME_REGISTER(plDirectionalLightInfo);
+    GETINTERFACE_ANY(plDirectionalLightInfo, plLightInfo);
 
     virtual void GetStrengthAndScale(const hsBounds3Ext& bnd, float& strength, float& scale) const;
 
@@ -285,8 +285,8 @@ public:
     plLimitedDirLightInfo();
     virtual ~plLimitedDirLightInfo();
 
-    CLASSNAME_REGISTER( plLimitedDirLightInfo );
-    GETINTERFACE_ANY( plLimitedDirLightInfo, plDirectionalLightInfo );
+    CLASSNAME_REGISTER(plLimitedDirLightInfo);
+    GETINTERFACE_ANY(plLimitedDirLightInfo, plDirectionalLightInfo);
 
     virtual void GetStrengthAndScale(const hsBounds3Ext& bnd, float& strength, float& scale) const;
 
@@ -326,14 +326,14 @@ public:
     plOmniLightInfo();
     virtual ~plOmniLightInfo();
 
-    CLASSNAME_REGISTER( plOmniLightInfo );
-    GETINTERFACE_ANY( plOmniLightInfo, plLightInfo );
+    CLASSNAME_REGISTER(plOmniLightInfo);
+    GETINTERFACE_ANY(plOmniLightInfo, plLightInfo);
 
     virtual void GetStrengthAndScale(const hsBounds3Ext& bnd, float& strength, float& scale) const;
 
     virtual hsVector3 GetNegativeWorldDirection(const hsPoint3& pos) const;
 
-    bool        IsAttenuated() const { return (fAttenLinear != 0)||(fAttenQuadratic != 0) || ( fAttenCutoff != 0 ); }
+    bool        IsAttenuated() const { return (fAttenLinear != 0)||(fAttenQuadratic != 0) || (fAttenCutoff != 0); }
     float    GetRadius() const;
 
     float    GetConstantAttenuation() const { return fAttenConst; }
@@ -345,7 +345,7 @@ public:
     void        SetConstantAttenuation(float a) { fAttenConst = a; SetDirty(true); }
     void        SetLinearAttenuation(float a) { fAttenLinear = a; SetDirty(true); }
     void        SetQuadraticAttenuation(float a) { fAttenQuadratic = a; SetDirty(true); }
-    void        SetCutoffAttenuation( float a ) { fAttenCutoff = a; SetDirty( true ); }
+    void        SetCutoffAttenuation(float a) { fAttenCutoff = a; SetDirty(true); }
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);
@@ -378,8 +378,8 @@ public:
     plSpotLightInfo();
     virtual ~plSpotLightInfo();
 
-    CLASSNAME_REGISTER( plSpotLightInfo );
-    GETINTERFACE_ANY( plSpotLightInfo, plOmniLightInfo );
+    CLASSNAME_REGISTER(plSpotLightInfo);
+    GETINTERFACE_ANY(plSpotLightInfo, plOmniLightInfo);
 
     virtual void GetStrengthAndScale(const hsBounds3Ext& bnd, float& strength, float& scale) const;
 
@@ -404,13 +404,13 @@ public:
 
 inline bool plLightInfo::IsIdle() const
 {
-    if( GetProperty(kDisable) )
+    if (GetProperty(kDisable))
         return true;
 
-    if( IsZero() )
+    if (IsZero())
         return true;
 
-    if( IsEmpty() )
+    if (IsEmpty())
         return true;
 
     return false;

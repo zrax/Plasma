@@ -73,17 +73,17 @@ public:
     };
     
     plPhysicalSndGroup();
-    plPhysicalSndGroup( uint32_t grp );
+    plPhysicalSndGroup(uint32_t grp);
     virtual ~plPhysicalSndGroup();
 
-    CLASSNAME_REGISTER( plPhysicalSndGroup );
-    GETINTERFACE_ANY( plPhysicalSndGroup, hsKeyedObject );
+    CLASSNAME_REGISTER(plPhysicalSndGroup);
+    GETINTERFACE_ANY(plPhysicalSndGroup, hsKeyedObject);
 
     // Our required virtual
-    virtual bool    MsgReceive( plMessage *pMsg );
+    virtual bool    MsgReceive(plMessage *pMsg);
 
-    virtual void Read( hsStream *s, hsResMgr *mgr );
-    virtual void Write( hsStream *s, hsResMgr *mgr );
+    virtual void Read(hsStream *s, hsResMgr *mgr);
+    virtual void Write(hsStream *s, hsResMgr *mgr);
 
     void PlaySlideSound(uint32_t against);
     void StopSlideSound(uint32_t against);
@@ -95,8 +95,8 @@ public:
     uint32_t GetGroup() const { return fGroup; }
 
     // Export only
-    void    AddImpactSound( uint32_t against, plKey receiver );
-    void    AddSlideSound( uint32_t against, plKey receiver );
+    void    AddImpactSound(uint32_t against, plKey receiver);
+    void    AddSlideSound(uint32_t against, plKey receiver);
     bool    IsSliding() { return fPlayingSlideSound; }
 
 protected:

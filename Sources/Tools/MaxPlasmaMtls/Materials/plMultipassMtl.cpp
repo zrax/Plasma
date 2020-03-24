@@ -187,7 +187,7 @@ IParamBlock2 *plMultipassMtl::GetParamBlockByID(BlockID id)
 }
 
 RefResult plMultipassMtl::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
-   PartID& partID, RefMessage message )
+   PartID& partID, RefMessage message)
 {
     switch (message)
     {
@@ -262,7 +262,7 @@ IOResult plMultipassMtl::Load(ILoad *iload)
     int id;
     while (IO_OK==(res=iload->OpenChunk()))
     {
-        switch(id = iload->CurChunkID())
+        switch (id = iload->CurChunkID())
         {
             case MTL_HDR_CHUNK:
                 res = MtlBase::Load(iload);

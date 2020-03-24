@@ -52,7 +52,7 @@ class plBumpMtl : public plPassMtlBase
 {
 protected:
 
-    virtual void        ICloneRefs( plPassMtlBase *target, RemapDir &remap );
+    virtual void        ICloneRefs(plPassMtlBase *target, RemapDir &remap);
 
 public:
 
@@ -91,8 +91,8 @@ public:
     float EvalDisplacement(ShadeContext& sc);
     Interval DisplacementValidity(TimeValue t);
 
-    virtual RefTargetHandle GetReference( int i );
-    virtual void            SetReference( int i, RefTargetHandle rtarg );
+    virtual RefTargetHandle GetReference(int i);
+    virtual void            SetReference(int i, RefTargetHandle rtarg);
 
     // SubTexmap access methods
     int NumSubTexmaps();
@@ -103,7 +103,7 @@ public:
     
     BOOL SetDlgThing(ParamDlg* dlg);
 
-    RefTargetHandle Clone( RemapDir &remap );
+    RefTargetHandle Clone(RemapDir &remap);
     RefResult NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
         PartID& partID,  RefMessage message);
 
@@ -133,7 +133,7 @@ public:
     float GetShinStr(int mtlNum=0, BOOL backFace=FALSE);
     float WireSize(int mtlNum=0, BOOL backFace=FALSE);
 
-    ULONG   Requirements( int subMtlNum );
+    ULONG   Requirements(int subMtlNum);
 
     virtual bool    HasAlpha();
     // Massive list of inherited accessor functions for ParamBlock data

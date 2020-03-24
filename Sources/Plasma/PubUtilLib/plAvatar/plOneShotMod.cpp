@@ -111,14 +111,14 @@ bool plOneShotMod::MsgReceive(plMessage* msg)
         plKey avKey = oneShotMsg->fPlayerKey;
         hsAssert(avKey,"The avatar key is missing in the one shot!");
 
-        if ( avKey )
+        if (avKey)
         {
             plSceneObject *avObj = (plSceneObject *)avKey->ObjectIsLoaded();
-            if(avObj)
+            if (avObj)
             {
                 const plArmatureMod *avMod = (plArmatureMod*)avObj->GetModifierByType(plArmatureMod::Index());
 
-                if(avMod)
+                if (avMod)
                 {
                     ST::string animName = avMod->MakeAnimationName(fAnimName);
 

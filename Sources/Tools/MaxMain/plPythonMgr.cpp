@@ -83,7 +83,7 @@ static char* kGetVisInfo = "glue_getVisInfo";
 bool ICallVoidFunc(PyObject *dict, char *funcName, PyObject*& val)
 {
     PyObject *func = PyDict_GetItemString(dict, (char*)funcName);
-    if (func )
+    if (func)
     {
         if (PyCallable_Check(func))
         {
@@ -236,7 +236,7 @@ bool plPythonMgr::IQueryPythonFile(const char *fileName)
     if (module)
     {
         // attach the glue python code to the end
-        if ( !PythonInterface::RunString("execfile('.\\python\\plasma\\glue.py')", module) )
+        if (!PythonInterface::RunString("execfile('.\\python\\plasma\\glue.py')", module))
         {
             // display any output (NOTE: this would be disabled in production)
             // get the messages

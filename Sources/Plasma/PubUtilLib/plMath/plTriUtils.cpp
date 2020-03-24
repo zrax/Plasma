@@ -73,7 +73,7 @@ plTriUtils::Bary plTriUtils::ComputeBarycentricProjection(const hsPoint3& p0, co
     hsVector3 norm = Cross(v12, v02);
 
     float invLenSq12 = norm.MagnitudeSquared();
-    if( invLenSq12 < kAlmostZero )
+    if (invLenSq12 < kAlmostZero)
         return kDegenerateTri; // degenerate triangle
 
     invLenSq12 = 1.f / invLenSq12;
@@ -93,7 +93,7 @@ plTriUtils::Bary plTriUtils::ComputeBarycentric(const hsPoint3& p0, const hsPoin
     hsVector3 v02(&p0, &p2);
     hsVector3 norm = Cross(v12, v02);
     float invLenSq12 = norm.MagnitudeSquared();
-    if( invLenSq12 < kAlmostZero )
+    if (invLenSq12 < kAlmostZero)
         return kDegenerateTri; // degenerate triangle
 
     invLenSq12 = 1.f / invLenSq12;
@@ -111,7 +111,7 @@ plTriUtils::Bary plTriUtils::IComputeBarycentric(const hsVector3& v12, float inv
     uint32_t  state = 0;
 
     float lenSq0 = v0.MagnitudeSquared();
-    if( lenSq0 < kAlmostZeroSquared )
+    if (lenSq0 < kAlmostZeroSquared)
     {
         // On edge p1-p2;
         out[0] = 0;
@@ -122,19 +122,19 @@ plTriUtils::Bary plTriUtils::IComputeBarycentric(const hsVector3& v12, float inv
         out[0] = lenSq0 * invLenSq12;
         out[0] = sqrt(out[0]);
         //
-        if( v0.InnerProduct(v12) < 0 )
+        if (v0.InnerProduct(v12) < 0)
         {
             out[0] = -out[0];
             state |= kOutsideTri;
         }
-        else if( out[0] > kPastOne )
+        else if (out[0] > kPastOne)
             state |= kOutsideTri;
-        else if( out[0] > kAlmostOne )
+        else if (out[0] > kAlmostOne)
             state |= kOnVertex0;
     }
     
     float lenSq1 = v1.MagnitudeSquared();
-    if( lenSq1 < kAlmostZeroSquared )
+    if (lenSq1 < kAlmostZeroSquared)
     {
         // On edge p0-p2
         out[1] = 0;
@@ -145,14 +145,14 @@ plTriUtils::Bary plTriUtils::IComputeBarycentric(const hsVector3& v12, float inv
         out[1] = lenSq1 * invLenSq12;
         out[1] = sqrt(out[1]);
 
-        if( v1.InnerProduct(v12) < 0 )
+        if (v1.InnerProduct(v12) < 0)
         {
             out[1] = -out[1];
             state |= kOutsideTri;
         }
-        else if( out[1] > kPastOne )
+        else if (out[1] > kPastOne)
             state |= kOutsideTri;
-        else if( out[1] > kAlmostOne )
+        else if (out[1] > kAlmostOne)
             state |= kOnVertex1;
     }
 
@@ -161,29 +161,29 @@ plTriUtils::Bary plTriUtils::IComputeBarycentric(const hsVector3& v12, float inv
     // so sum(out[i]) = 1.f
     out[2] = 1.f - out[0] - out[1];
 
-    if( out[2] < kPastZero )
+    if (out[2] < kPastZero)
         state |= kOutsideTri;
-    else if( out[2] < kAlmostZero )
+    else if (out[2] < kAlmostZero)
         state |= kOnEdge01;
-    else if( out[2] > kAlmostOne )
+    else if (out[2] > kAlmostOne)
         state |= kOnVertex2;
 
     /*
-    if( a,b,c outside range [0..1] )
+    if (a,b,c outside range [0..1])
         p is outside tri;
-    else if( a,b,c == 1 )
+    else if (a,b,c == 1)
         p is on vert;
-    else if( a,b,c == 0 )
+    else if (a,b,c == 0)
         p is on edge;
     */
 
-    if( state & kOutsideTri )
+    if (state & kOutsideTri)
         return kOutsideTri;
 
-    if( state & kOnVertex )
+    if (state & kOnVertex)
         return Bary(state & kOnVertex);
 
-    if( state & kOnEdge )
+    if (state & kOnEdge)
         return Bary(state & kOnEdge);
 
     return kInsideTri;
@@ -197,14 +197,14 @@ int plTriUtils::ISelectAxis(const hsVector3& norm)
     int retVal = -2;
     float maxDim = 0;
     int i;
-    for( i = 0; i < 3; i++ )
+    for (i = 0; i < 3; i++)
     {
-        if( norm[i] > maxDim )
+        if (norm[i] > maxDim)
         {
             maxDim = norm[i];
             retVal = i;
         }
-        else if( -norm[i] > maxDim )
+        else if (-norm[i] > maxDim)
         {
             maxDim = -norm[i];
             retVal = i;
@@ -215,10 +215,10 @@ int plTriUtils::ISelectAxis(const hsVector3& norm)
 
 bool plTriUtils::IFastBarycentric(int iAx, const hsPoint3& p0, const hsPoint3& p1, const hsPoint3& p2, const hsPoint3&p, hsPoint3& out)
 {
-    if( --iAx < 0 )
+    if (--iAx < 0)
         iAx = 2;
     int jAx = iAx - 1;
-    if( jAx < 0 )
+    if (jAx < 0)
         jAx = 2;
 
     hsVector3 v02(&p0, &p2);
@@ -249,7 +249,7 @@ bool plTriUtils::FastBarycentricProjection(const hsPoint3& p0, const hsPoint3& p
 
     hsVector3 norm = Cross(v12, v02);
     float invLenSq12 = norm.MagnitudeSquared();
-    if( invLenSq12 < kAlmostZero )
+    if (invLenSq12 < kAlmostZero)
         return false; // degenerate triangle
 
     invLenSq12 = 1.f / invLenSq12;
@@ -270,7 +270,7 @@ bool plTriUtils::FastBarycentric(const hsPoint3& p0, const hsPoint3& p1, const h
     hsVector3 v02(&p0, &p2);
     hsVector3 v12(&p1, &p2);
     int iAx = ISelectAxis(Cross(v12, v02));
-    if( iAx < 0 )
+    if (iAx < 0)
         return false;
     return IFastBarycentric(iAx, p0, p1, p2, p, out);
 }
@@ -281,7 +281,7 @@ bool plTriUtils::FastBarycentric(const hsPoint3& p0, const hsPoint3& p1, const h
 bool plTriUtils::ProjectOntoPlane(const hsVector3& norm, float dist, hsPoint3& p)
 {
     float normMagSq = norm.MagnitudeSquared();
-    if( normMagSq > kAlmostZero )
+    if (normMagSq > kAlmostZero)
     {
         dist /= normMagSq;
 
@@ -308,7 +308,7 @@ bool plTriUtils::ProjectOntoPlaneAlongVector(const hsVector3& norm, float dist, 
 {
     float s = norm.InnerProduct(vec);
     const float kAlmostZero = 1.e-5f;
-    if( (s > kAlmostZero)||(s < kPastZero) )
+    if ((s > kAlmostZero)||(s < kPastZero))
     {
         dist /= s;
 

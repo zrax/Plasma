@@ -76,10 +76,10 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 class plCommonBitmapLib : public plCommonObjLib
 {
     public:
-        virtual bool    IsInteresting( const plKey &objectKey )
+        virtual bool    IsInteresting(const plKey &objectKey)
         {
-            if( objectKey->GetUoid().GetClassType() == plCubicEnvironmap::Index() ||
-                objectKey->GetUoid().GetClassType() == plMipmap::Index() )
+            if (objectKey->GetUoid().GetClassType() == plCubicEnvironmap::Index() ||
+                objectKey->GetUoid().GetClassType() == plMipmap::Index())
             {
                 return true;
             }
@@ -104,7 +104,7 @@ plBitmapCreator &plBitmapCreator::Instance()
     return fInstance;
 }
 
-void    plBitmapCreator::Init( bool save, plErrorMsg *msg )
+void    plBitmapCreator::Init(bool save, plErrorMsg *msg)
 {
     fErrorMsg = msg;
 }
@@ -119,10 +119,10 @@ void    plBitmapCreator::CleanUpMaps()
     sCommonBitmapLib.ClearObjectList();
 }
 
-void    plBitmapCreator::DeleteExportedBitmap( const plKey &constKey )
+void    plBitmapCreator::DeleteExportedBitmap(const plKey &constKey)
 {
     plKey key = constKey;
-    sCommonBitmapLib.RemoveObjectAndKey( key );
+    sCommonBitmapLib.RemoveObjectAndKey(key);
 }
 
 //
@@ -173,12 +173,12 @@ plMipmap *plBitmapCreator::ICreateBitmap(plBitmapData *bd)
     // Create a plMipmap
     //
     plMipmap *hBitmap = new plMipmap;
-    if( (bm->Width() ^ (bm->Width() & -bm->Width()))
-        ||(bm->Height() ^ (bm->Height() & -bm->Height())) )
+    if ((bm->Width() ^ (bm->Width() & -bm->Width()))
+        ||(bm->Height() ^ (bm->Height() & -bm->Height())))
     {
         IResampBitmap(bm, *hBitmap);
     }
-    else if( ((bm->Width() >> 3) > bm->Height())||((bm->Height() >> 3) > bm->Width()) )
+    else if (((bm->Width() >> 3) > bm->Height())||((bm->Height() >> 3) > bm->Width()))
     {
         IResampBitmap(bm, *hBitmap);
     }
@@ -188,7 +188,7 @@ plMipmap *plBitmapCreator::ICreateBitmap(plBitmapData *bd)
     }
     bm->DeleteThis();
 
-    if( bd->invertAlpha )
+    if (bd->invertAlpha)
         IInvertAlpha(*hBitmap);
 
     // Do it
@@ -206,17 +206,17 @@ plMipmap *plBitmapCreator::ICreateBitmap(plBitmapData *bd)
     delete hBitmap;
 
     /// Clamp the border if we're using clamping
-    if( bd->clampFlags != 0 )
+    if (bd->clampFlags != 0)
     {
-        hMipmap->EnsureKonstantBorder( ( bd->clampFlags & plBitmapData::kClampU ) ? true : false,
-                                       ( bd->clampFlags & plBitmapData::kClampV ) ? true : false );
+        hMipmap->EnsureKonstantBorder((bd->clampFlags & plBitmapData::kClampU) ? true : false,
+                                      (bd->clampFlags & plBitmapData::kClampV) ? true : false);
     }
 
     /// Cut this down to whatever size we were told to :)
-    if( bd->maxDimension != 0 )
-        hMipmap->ClipToMaxSize( bd->maxDimension );
+    if (bd->maxDimension != 0)
+        hMipmap->ClipToMaxSize(bd->maxDimension);
 
-    if( notMipped )
+    if (notMipped)
     {
         // Done AFTER ClipToMaxSize() so we still get the export size specified
         hMipmap->RemoveMipping();
@@ -226,14 +226,14 @@ plMipmap *plBitmapCreator::ICreateBitmap(plBitmapData *bd)
         
     uint32_t  flagsToSet = 0;
 
-    if( bd->texFlags & plMipmap::kNoMaxSize )
+    if (bd->texFlags & plMipmap::kNoMaxSize)
         flagsToSet |= plMipmap::kNoMaxSize;
-    if( bd->texFlags & plMipmap::kHalfSize )
+    if (bd->texFlags & plMipmap::kHalfSize)
         flagsToSet |= plMipmap::kHalfSize;
-    if( bd->texFlags & plMipmap::kDontThrowAwayImage )
+    if (bd->texFlags & plMipmap::kDontThrowAwayImage)
         flagsToSet |= plMipmap::kDontThrowAwayImage;
 
-    hBitmap->SetFlags( hBitmap->GetFlags() | flagsToSet );
+    hBitmap->SetFlags(hBitmap->GetFlags() | flagsToSet);
     if (bd->usePNG)
         hBitmap->fCompressionType = plMipmap::kPNGCompression;
 
@@ -245,7 +245,7 @@ plMipmap *plBitmapCreator::ICreateBitmap(plBitmapData *bd)
             {
                 delete hBitmap;
                 hBitmap = compressed;
-                hBitmap->SetFlags( hBitmap->GetFlags() | flagsToSet );
+                hBitmap->SetFlags(hBitmap->GetFlags() | flagsToSet);
             }
         }
 
@@ -286,16 +286,16 @@ int plBitmapCreator::IResampBitmap(Bitmap *bm, plMipmap &hBitmap)
 
     int dbgW = bm->Width(), dbgH = bm->Height();
     int it;
-    for( it = 1; it <= bm->Width(); it <<= 1 );
+    for (it = 1; it <= bm->Width(); it <<= 1);
     it >>= 1;
     hBitmap.fWidth = it;
-    for( it = 1; it <= bm->Height(); it <<= 1 );
+    for (it = 1; it <= bm->Height(); it <<= 1);
     it >>= 1;
     hBitmap.fHeight = it;
-    if( (hBitmap.fHeight >> 3) > hBitmap.fWidth )
+    if ((hBitmap.fHeight >> 3) > hBitmap.fWidth)
         hBitmap.fHeight = hBitmap.fWidth << 3;
     else
-    if( (hBitmap.fWidth >> 3) > hBitmap.fHeight )
+    if ((hBitmap.fWidth >> 3) > hBitmap.fHeight)
         hBitmap.fWidth = hBitmap.fHeight << 3;
 
     hBitmap.fPixelSize  = 32;
@@ -307,7 +307,7 @@ int plBitmapCreator::IResampBitmap(Bitmap *bm, plMipmap &hBitmap)
 #ifdef COLOR_BLACK_WHITE
     hBitmap.fFlags |= plMipmap::kColorWhite | plMipmap::kColorBlack;
 #endif // COLOR_BLACK_WHITE
-    hBitmap.fFlags &= ~( plMipmap::kAlphaBitFlag | plMipmap::kAlphaChannelFlag );
+    hBitmap.fFlags &= ~(plMipmap::kAlphaBitFlag | plMipmap::kAlphaChannelFlag);
 
     int y,x;
     float scaleY, scaleX;
@@ -361,22 +361,22 @@ int plBitmapCreator::IResampBitmap(Bitmap *bm, plMipmap &hBitmap)
 
 
 #ifdef COLOR_BLACK_WHITE
-            if( dstColor->r | dstColor->g | dstColor->b )
+            if (dstColor->r | dstColor->g | dstColor->b)
                 hBitmap.fFlags &= ~plMipmap::kColorBlack;
-            if( ~(dstColor->r & dstColor->g & dstColor->b) )
+            if (~(dstColor->r & dstColor->g & dstColor->b))
                 hBitmap.fFlags &= ~plMipmap::kColorWhite;
 #endif // COLOR_BLACK_WHITE
 
-            if( dstColor->a < 255 )
+            if (dstColor->a < 255)
             {
                 hBitmap.fFlags |= plMipmap::kAlphaBitFlag;
-                if( dstColor->a > 0 )
+                if (dstColor->a > 0)
                     hBitmap.fFlags |= plMipmap::kAlphaChannelFlag;
             }
             dstColor++;
         }
     }
-    if( hBitmap.fFlags & plMipmap::kAlphaChannelFlag )
+    if (hBitmap.fFlags & plMipmap::kAlphaChannelFlag)
         hBitmap.fFlags &= ~plMipmap::kAlphaBitFlag;
 
     return 0;
@@ -401,7 +401,7 @@ int plBitmapCreator::ICopyBitmap(Bitmap *bm, plMipmap &hBitmap)
 #ifdef COLOR_BLACK_WHITE
     hBitmap.fFlags |= plMipmap::kColorWhite | plMipmap::kColorBlack;
 #endif // COLOR_BLACK_WHITE
-    hBitmap.fFlags &= ~( plMipmap::kAlphaBitFlag | plMipmap::kAlphaChannelFlag );
+    hBitmap.fFlags &= ~(plMipmap::kAlphaBitFlag | plMipmap::kAlphaChannelFlag);
 
     int y,x;
     hsRGBAColor32  *dstColor;
@@ -423,22 +423,22 @@ int plBitmapCreator::ICopyBitmap(Bitmap *bm, plMipmap &hBitmap)
             dstColor->a = (char)(255.0*c64.a/65535.0);
 
 #ifdef COLOR_BLACK_WHITE
-            if( dstColor->r | dstColor->g | dstColor->b )
+            if (dstColor->r | dstColor->g | dstColor->b)
                 hBitmap.fFlags &= ~plMipmap::kColorBlack;
-            if( ~(dstColor->r & dstColor->g & dstColor->b) )
+            if (~(dstColor->r & dstColor->g & dstColor->b))
                 hBitmap.fFlags &= ~plMipmap::kColorWhite;
 #endif // COLOR_BLACK_WHITE
 
-            if( dstColor->a < 255 )
+            if (dstColor->a < 255)
             {
                 hBitmap.fFlags |= plMipmap::kAlphaBitFlag;
-                if( dstColor->a > 0 )
+                if (dstColor->a > 0)
                     hBitmap.fFlags |= plMipmap::kAlphaChannelFlag;
             }
             dstColor++;
         }
     }
-    if( hBitmap.fFlags & plMipmap::kAlphaChannelFlag )
+    if (hBitmap.fFlags & plMipmap::kAlphaChannelFlag)
         hBitmap.fFlags &= ~plMipmap::kAlphaBitFlag;
 
     return 0;
@@ -450,13 +450,13 @@ int plBitmapCreator::IInvertAlpha(plMipmap& hBitmap)
     hsGuardBegin("hsConverterUtils::ICopyBitmap");
 
     hsAssert(hBitmap.fPixelSize == 32, "Only RGBA32 implemented");
-    if( hBitmap.fPixelSize != 32 )
+    if (hBitmap.fPixelSize != 32)
         return -1;
 
     hsRGBAColor32* dstColor = (hsRGBAColor32*)hBitmap.fImage;
     int n = hBitmap.GetWidth() * hBitmap.GetHeight();
     int i;
-    for( i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
     {
         dstColor->a = 255 - dstColor->a;
         dstColor++;
@@ -496,22 +496,22 @@ plBitmap *plBitmapCreator::CreateTexture(plBitmapData *bd, const plLocation &loc
 //  3.29.2002 mcn - Moved to plBitmapCreator, where it really belongs, and
 //  added code to handle tracking/cleaning up all materials that are exported.
 
-plBitmap *plBitmapCreator::ICreateTexture( plBitmapData *bd, const plLocation &loc, int clipID )
+plBitmap *plBitmapCreator::ICreateTexture(plBitmapData *bd, const plLocation &loc, int clipID)
 {
-    hsGuardBegin( "plBitmapCreator::CreateTexture" );
+    hsGuardBegin("plBitmapCreator::CreateTexture");
 
-    const plLocation &textureLoc = plPluginResManager::ResMgr()->GetCommonPage( loc, plAgeDescription::kTextures );
+    const plLocation &textureLoc = plPluginResManager::ResMgr()->GetCommonPage(loc, plAgeDescription::kTextures);
 
-    if( !bd )
+    if (!bd)
     {
-        fErrorMsg->Set( true, "Bitmap Error", "No bitmap data" ).Show();
+        fErrorMsg->Set(true, "Bitmap Error", "No bitmap data").Show();
         fErrorMsg->Set();
         return nil;
     }
 
     if (!bd->fileName.IsValid())
     {
-        fErrorMsg->Set( true, "Bitmap Error", "Material texture has null bitmap name." ).Show();
+        fErrorMsg->Set(true, "Bitmap Error", "Material texture has null bitmap name.").Show();
         fErrorMsg->Set();
         return nil;
     }
@@ -526,23 +526,23 @@ plBitmap *plBitmapCreator::ICreateTexture( plBitmapData *bd, const plLocation &l
     temp = temp.to_lower();
 
     /// Mangle name for detail textures, so we don't end up overwriting settings elsewhere
-    if( bd->createFlags & plMipmap::kCreateDetailMask )
+    if (bd->createFlags & plMipmap::kCreateDetailMask)
     {
         // Mangle of the form: name@dropStart&dropStop&max&min
-        if( clipID != -1 )
+        if (clipID != -1)
             name = ST::format("{}*{x}#{}@{}&{3.2f}&{3.2f}&{3.2f}&{3.2f}", temp, bd->texFlags, clipID,
-                    bd->createFlags & plMipmap::kCreateDetailAlpha ? "al" : ( bd->createFlags & plMipmap::kCreateDetailAdd ? "ad" : "mu" ),
-                    bd->detailDropoffStart, bd->detailDropoffStop, bd->detailMax, bd->detailMin );
+                    bd->createFlags & plMipmap::kCreateDetailAlpha ? "al" : (bd->createFlags & plMipmap::kCreateDetailAdd ? "ad" : "mu"),
+                    bd->detailDropoffStart, bd->detailDropoffStop, bd->detailMax, bd->detailMin);
         else
             name = ST::format("{}*{x}@{}&{3.2f}&{3.2f}&{3.2f}&{3.2f}", temp, bd->texFlags,
-                    bd->createFlags & plMipmap::kCreateDetailAlpha ? "al" : ( bd->createFlags == plMipmap::kCreateDetailAdd ? "ad" : "mu" ),
-                    bd->detailDropoffStart, bd->detailDropoffStop, bd->detailMax, bd->detailMin );
+                    bd->createFlags & plMipmap::kCreateDetailAlpha ? "al" : (bd->createFlags == plMipmap::kCreateDetailAdd ? "ad" : "mu"),
+                    bd->detailDropoffStart, bd->detailDropoffStop, bd->detailMax, bd->detailMin);
     }
-    else if( clipID != -1 )
+    else if (clipID != -1)
         name = ST::format("{}*{x}#{}", temp, bd->texFlags, clipID);
     else
         name = ST::format("{}*{x}", temp, bd->texFlags);
-    if( bd->invertAlpha )
+    if (bd->invertAlpha)
         name += "_inva";
     name += ".hsm";
 
@@ -550,11 +550,11 @@ plBitmap *plBitmapCreator::ICreateTexture( plBitmapData *bd, const plLocation &l
     // Has this texture been used before?
     plKey key;
 
-    plBitmap *texture = plBitmap::ConvertNoRef( sCommonBitmapLib.FindObject( name, ( bd->isStaticCubicEnvMap ) ? plCubicEnvironmap::Index() : plMipmap::Index() ) );
-    //hsAssert( texture == nil || texture->GetKey()->GetUoid().GetLocation() == textureLoc, "Somehow our texture objectLib has a texture not in the right page? Should be harmless tho..." );
+    plBitmap *texture = plBitmap::ConvertNoRef(sCommonBitmapLib.FindObject(name, (bd->isStaticCubicEnvMap) ? plCubicEnvironmap::Index() : plMipmap::Index()));
+    //hsAssert(texture == nil || texture->GetKey()->GetUoid().GetLocation() == textureLoc, "Somehow our texture objectLib has a texture not in the right page? Should be harmless tho...");
 
     // Texture reuse optimization
-    if( texture )
+    if (texture)
     {
         WIN32_FILE_ATTRIBUTE_DATA fileAttrib;
         GetFileAttributesExW(bd->fileName.WideString().data(), GetFileExInfoStandard, &fileAttrib);
@@ -563,50 +563,50 @@ plBitmap *plBitmapCreator::ICreateTexture( plBitmapData *bd, const plLocation &l
         // If this texture has been modified since the last export, delete the old version but reuse the key
         if (!texture->IsSameModifiedTime(fileTime.dwLowDateTime, fileTime.dwHighDateTime))
         {
-            DeleteExportedBitmap( texture->GetKey() );
+            DeleteExportedBitmap(texture->GetKey());
             texture = nil;
             key = nil;
         }
     }
 
-    if( texture )
+    if (texture)
     {
         // If it's in the registry, great, use it.
-        if( bd->texFlags & plMipmap::kNoMaxSize )
-            texture->SetFlags( texture->GetFlags() | plMipmap::kNoMaxSize );
+        if (bd->texFlags & plMipmap::kNoMaxSize)
+            texture->SetFlags(texture->GetFlags() | plMipmap::kNoMaxSize);
 
-        if( bd->texFlags & plMipmap::kHalfSize )
-            texture->SetFlags( texture->GetFlags() | plMipmap::kHalfSize );
+        if (bd->texFlags & plMipmap::kHalfSize)
+            texture->SetFlags(texture->GetFlags() | plMipmap::kHalfSize);
     }
     else
     {
         // If it hasn't been used before, make a new texture
-        if( bd->isStaticCubicEnvMap )
+        if (bd->isStaticCubicEnvMap)
         {
             plCubicEnvironmap *cubic = new plCubicEnvironmap;
             
             plMipmap    *face;
 
             /// Build and set the faces
-            bd->fileName = bd->faceNames[ plStaticEnvLayer::kTopFace ];
-            face = ICreateBitmap( bd );
-            if( face == nil ) return nil;
-            cubic->CopyToFace( face, plCubicEnvironmap::kTopFace );
+            bd->fileName = bd->faceNames[plStaticEnvLayer::kTopFace];
+            face = ICreateBitmap(bd);
+            if (face == nil) return nil;
+            cubic->CopyToFace(face, plCubicEnvironmap::kTopFace);
 
-            bd->fileName = bd->faceNames[ plStaticEnvLayer::kBottomFace ];
-            face = ICreateBitmap( bd );
-            if( face == nil ) return nil;
-            cubic->CopyToFace( face, plCubicEnvironmap::kBottomFace );
+            bd->fileName = bd->faceNames[plStaticEnvLayer::kBottomFace];
+            face = ICreateBitmap(bd);
+            if (face == nil) return nil;
+            cubic->CopyToFace(face, plCubicEnvironmap::kBottomFace);
 
-            bd->fileName = bd->faceNames[ plStaticEnvLayer::kLeftFace ];
-            face = ICreateBitmap( bd );
-            if( face == nil ) return nil;
-            cubic->CopyToFace( face, plCubicEnvironmap::kLeftFace );
+            bd->fileName = bd->faceNames[plStaticEnvLayer::kLeftFace];
+            face = ICreateBitmap(bd);
+            if (face == nil) return nil;
+            cubic->CopyToFace(face, plCubicEnvironmap::kLeftFace);
 
-            bd->fileName = bd->faceNames[ plStaticEnvLayer::kRightFace ];
-            face = ICreateBitmap( bd );
-            if( face == nil ) return nil;
-            cubic->CopyToFace( face, plCubicEnvironmap::kRightFace );
+            bd->fileName = bd->faceNames[plStaticEnvLayer::kRightFace];
+            face = ICreateBitmap(bd);
+            if (face == nil) return nil;
+            cubic->CopyToFace(face, plCubicEnvironmap::kRightFace);
 
             /// NOTE: For whatever reason, MAX decided that the front and back faces should be'
             /// switched, literally. It's as if the cube for the cube map starts at the back face
@@ -615,18 +615,18 @@ plBitmap *plBitmapCreator::ICreateTexture( plBitmapData *bd, const plLocation &l
             /// two here. If you convert this to the real MAX UI, make sure the faces are still
             /// flipped!!!!!!!!
 
-            bd->fileName = bd->faceNames[ plStaticEnvLayer::kBackFace ];
-            face = ICreateBitmap( bd );
-            if( face == nil ) return nil;
-            cubic->CopyToFace( face, plCubicEnvironmap::kFrontFace );
+            bd->fileName = bd->faceNames[plStaticEnvLayer::kBackFace];
+            face = ICreateBitmap(bd);
+            if (face == nil) return nil;
+            cubic->CopyToFace(face, plCubicEnvironmap::kFrontFace);
 
-            bd->fileName = bd->faceNames[ plStaticEnvLayer::kFrontFace ];
-            face = ICreateBitmap( bd );
-            if( face == nil ) return nil;
-            cubic->CopyToFace( face, plCubicEnvironmap::kBackFace );
+            bd->fileName = bd->faceNames[plStaticEnvLayer::kFrontFace];
+            face = ICreateBitmap(bd);
+            if (face == nil) return nil;
+            cubic->CopyToFace(face, plCubicEnvironmap::kBackFace);
 
 
-            key = hsgResMgr::ResMgr()->NewKey( name, cubic, textureLoc );
+            key = hsgResMgr::ResMgr()->NewKey(name, cubic, textureLoc);
 
             texture = (plBitmap *)cubic;
         }
@@ -636,7 +636,7 @@ plBitmap *plBitmapCreator::ICreateTexture( plBitmapData *bd, const plLocation &l
             if (!mipmap)
                 return nil;
 
-            key = hsgResMgr::ResMgr()->NewKey( name, mipmap, textureLoc );
+            key = hsgResMgr::ResMgr()->NewKey(name, mipmap, textureLoc);
 
             texture = (plBitmap *)mipmap;
         }
@@ -648,7 +648,7 @@ plBitmap *plBitmapCreator::ICreateTexture( plBitmapData *bd, const plLocation &l
         texture->SetModifiedTime(fileTime.dwLowDateTime, fileTime.dwHighDateTime);
 
         // Add to our list of created textures and ref, since we have a hold of them
-        IAddBitmap( texture );
+        IAddBitmap(texture);
     }
 
     return texture;
@@ -658,36 +658,36 @@ plBitmap *plBitmapCreator::ICreateTexture( plBitmapData *bd, const plLocation &l
 
 //// IAddBitmap ///////////////////////////////////////////////////////////////
 
-void    plBitmapCreator::IAddBitmap( plBitmap *bitmap, bool dontRef )
+void    plBitmapCreator::IAddBitmap(plBitmap *bitmap, bool dontRef)
 {
-    sCommonBitmapLib.AddObject( bitmap );
+    sCommonBitmapLib.AddObject(bitmap);
 }
 
 //// CreateBlankMipmap ////////////////////////////////////////////////////////
 //  Simple mipmap creator, but importantly, it also adds the mipmap to the list
 //  of "converted" maps to clean up at the end of export.
 
-plMipmap    *plBitmapCreator::CreateBlankMipmap( uint32_t width, uint32_t height, unsigned config, uint8_t numLevels,
-                                                 const ST::string &keyName, const plLocation &keyLocation )
+plMipmap    *plBitmapCreator::CreateBlankMipmap(uint32_t width, uint32_t height, unsigned config, uint8_t numLevels,
+                                                const ST::string &keyName, const plLocation &keyLocation)
 {
-    hsGuardBegin( "plBitmapCreator::CreateBlankMipmap" );
+    hsGuardBegin("plBitmapCreator::CreateBlankMipmap");
 
     // Get our real location
-    const plLocation &textureLoc = plPluginResManager::ResMgr()->GetCommonPage( keyLocation, plAgeDescription::kTextures );
+    const plLocation &textureLoc = plPluginResManager::ResMgr()->GetCommonPage(keyLocation, plAgeDescription::kTextures);
 
     // Is it already created?
-    plKey key = hsgResMgr::ResMgr()->FindKey( plUoid( textureLoc, plMipmap::Index(), keyName ) );
-    if( key != nil )
-        return plMipmap::ConvertNoRef( key->GetObjectPtr() );
+    plKey key = hsgResMgr::ResMgr()->FindKey(plUoid(textureLoc, plMipmap::Index(), keyName));
+    if (key != nil)
+        return plMipmap::ConvertNoRef(key->GetObjectPtr());
 
     // Create
-    plMipmap    *mip = new plMipmap( width, height, config, numLevels );
+    plMipmap    *mip = new plMipmap(width, height, config, numLevels);
 
     // Assign key
-    hsgResMgr::ResMgr()->NewKey( keyName, mip, textureLoc );
+    hsgResMgr::ResMgr()->NewKey(keyName, mip, textureLoc);
 
     // Add to our list
-    IAddBitmap( mip );
+    IAddBitmap(mip);
 
     return mip;
 

@@ -152,7 +152,7 @@ ST::string plKeysAndValues::GetValue(const ST::string & key, const ST::string & 
     Keys::const_iterator ki = fKeys.find(key);
     if (outFound)
         *outFound = (ki!=fKeys.end());
-    if(ki != fKeys.end())
+    if (ki != fKeys.end())
         return ki->second.front();
 //  fKeys[key].push_front(defval);
     return defval;
@@ -192,7 +192,7 @@ bool plKeysAndValues::GetKeyIterators(Keys::const_iterator & iter, Keys::const_i
 bool plKeysAndValues::GetValueIterators(const ST::string & key, Values::const_iterator & iter, Values::const_iterator & end) const
 {
     Keys::const_iterator ki = fKeys.find(key);
-    if(ki != fKeys.end())
+    if (ki != fKeys.end())
     {
         iter = ki->second.begin();
         end  = ki->second.end();

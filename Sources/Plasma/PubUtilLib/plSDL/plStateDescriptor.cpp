@@ -57,7 +57,7 @@ plStateDescriptor::~plStateDescriptor()
 void plStateDescriptor::IDeInit()
 {
     int i;
-    for(i=0;i<fVarsList.size();i++)
+    for (i=0;i<fVarsList.size();i++)
         delete fVarsList[i];
     fVarsList.clear();
 }
@@ -65,7 +65,7 @@ void plStateDescriptor::IDeInit()
 plVarDescriptor* plStateDescriptor::FindVar(const ST::string& name, int* idx) const
 {
     VarsList::const_iterator it;
-    for(it=fVarsList.begin(); it != fVarsList.end(); it++)
+    for (it=fVarsList.begin(); it != fVarsList.end(); it++)
     {
         if (!(*it)->GetName().compare_i(name))
         {
@@ -103,7 +103,7 @@ bool plStateDescriptor::Read(hsStream* s)
     fVarsList.reserve(numVars);
 
     int i;
-    for(i=0;i<numVars; i++)
+    for (i=0;i<numVars; i++)
     {
         uint8_t SDVar=s->ReadByte();
         plVarDescriptor* var = nil;
@@ -135,7 +135,7 @@ void plStateDescriptor::Write(hsStream* s) const
     s->WriteLE(numVars);
 
     VarsList::const_iterator it;
-    for(it=fVarsList.begin(); it!=fVarsList.end(); it++)
+    for (it=fVarsList.begin(); it!=fVarsList.end(); it++)
     {
         uint8_t SDVar = ((*it)->GetAsSDVarDescriptor() != nil);
         s->WriteByte(SDVar);

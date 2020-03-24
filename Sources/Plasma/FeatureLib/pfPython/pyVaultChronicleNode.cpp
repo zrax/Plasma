@@ -70,7 +70,7 @@ pyVaultChronicleNode::pyVaultChronicleNode(int n)
 //==================================================================
 // class RelVaultNode : public plVaultNode
 //
-void pyVaultChronicleNode::Chronicle_SetName( const char * text )
+void pyVaultChronicleNode::Chronicle_SetName(const char * text)
 {
     if (!fNode)
         return;
@@ -88,7 +88,7 @@ ST::string pyVaultChronicleNode::Chronicle_GetName() const
     return ST::null;
 }
 
-void pyVaultChronicleNode::Chronicle_SetValue( const char * text )
+void pyVaultChronicleNode::Chronicle_SetValue(const char * text)
 {
     if (fNode) {
         VaultChronicleNode chron(fNode);
@@ -105,7 +105,7 @@ ST::string pyVaultChronicleNode::Chronicle_GetValue() const
     return ST::null;
 }
 
-void pyVaultChronicleNode::Chronicle_SetType( uint32_t type )
+void pyVaultChronicleNode::Chronicle_SetType(uint32_t type)
 {
     if (!fNode)
         return;

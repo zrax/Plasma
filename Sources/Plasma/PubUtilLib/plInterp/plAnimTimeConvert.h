@@ -113,14 +113,14 @@ protected:
     plATCState *IGetState(double wSecs) const;
     plATCState *IGetLatestState() const;
     
-    plAnimTimeConvert& SetFlag(uint8_t f, bool on) { if(on)fFlags |= f; else fFlags &= ~f; return *this; }
+    plAnimTimeConvert& SetFlag(uint8_t f, bool on) { if (on) fFlags |= f; else fFlags &= ~f; return *this; }
 
 public:
     plAnimTimeConvert();
     virtual ~plAnimTimeConvert();
 
-    CLASSNAME_REGISTER( plAnimTimeConvert );
-    GETINTERFACE_ANY( plAnimTimeConvert, plCreatable );
+    CLASSNAME_REGISTER(plAnimTimeConvert);
+    GETINTERFACE_ANY(plAnimTimeConvert, plCreatable);
 
     void SetOwner(plSynchedObject* o);
     const plSynchedObject* GetOwner() const { return fOwner; }
@@ -233,8 +233,8 @@ protected:
     float fNormLength;
 
 public:
-    CLASSNAME_REGISTER( plATCEaseCurve );
-    GETINTERFACE_ANY( plATCEaseCurve, plCreatable );
+    CLASSNAME_REGISTER(plATCEaseCurve);
+    GETINTERFACE_ANY(plATCEaseCurve, plCreatable);
 
     double fBeginWorldTime;
     float fLength;
@@ -267,8 +267,8 @@ public:
     plConstAccelEaseCurve(float minLength, float maxLength, float length,
                           float startSpeed, float goalSpeed);
 
-    CLASSNAME_REGISTER( plConstAccelEaseCurve );
-    GETINTERFACE_ANY( plConstAccelEaseCurve, plATCEaseCurve );
+    CLASSNAME_REGISTER(plConstAccelEaseCurve);
+    GETINTERFACE_ANY(plConstAccelEaseCurve, plATCEaseCurve);
 
     virtual plATCEaseCurve *Clone() const;
     virtual void SetLengthOnDistance(float dist);
@@ -284,8 +284,8 @@ public:
     plSplineEaseCurve(float minLength, float maxLength, float length,
                       float startSpeed, float goalSpeed);
 
-    CLASSNAME_REGISTER( plSplineEaseCurve );
-    GETINTERFACE_ANY( plSplineEaseCurve, plATCEaseCurve );
+    CLASSNAME_REGISTER(plSplineEaseCurve);
+    GETINTERFACE_ANY(plSplineEaseCurve, plATCEaseCurve);
 
     virtual void Read(hsStream *s, hsResMgr *mgr);
     virtual void Write(hsStream *s, hsResMgr *mgr);

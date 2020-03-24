@@ -166,7 +166,7 @@ public:
     {
         ValidateInput(chan, i, j);
         uint8_t* base = fData + i * fStride;
-        switch(chan)
+        switch (chan)
         {
         case kPosition:
             return base;
@@ -212,7 +212,7 @@ public:
 
     bool ValidateInput(Channel chan, int i, int j) const
     {
-        switch(chan)
+        switch (chan)
         {
         case kPosition:
             hsAssert(NumPos(), "Invalid data request");

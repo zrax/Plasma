@@ -70,8 +70,8 @@ protected:
     uint32_t IApplyModFlags(uint32_t sendFlags) { return (sendFlags | plSynchedObject::kDontPersistOnServer | plSynchedObject::kIsAvatarState); }
 
 public:
-    CLASSNAME_REGISTER( plAvatarPhysicalSDLModifier );
-    GETINTERFACE_ANY( plAvatarPhysicalSDLModifier, plSDLModifier);
+    CLASSNAME_REGISTER(plAvatarPhysicalSDLModifier);
+    GETINTERFACE_ANY(plAvatarPhysicalSDLModifier, plSDLModifier);
         
     const char* GetSDLName() const { return kSDLAvatarPhysical; }
 
@@ -152,8 +152,8 @@ protected:
     uint32_t IApplyModFlags(uint32_t sendFlags) { return (sendFlags | plSynchedObject::kDontPersistOnServer | plSynchedObject::kIsAvatarState); }
 
 public:
-    CLASSNAME_REGISTER( plAvatarSDLModifier );
-    GETINTERFACE_ANY( plAvatarSDLModifier, plSDLModifier);
+    CLASSNAME_REGISTER(plAvatarSDLModifier);
+    GETINTERFACE_ANY(plAvatarSDLModifier, plSDLModifier);
         
     const char* GetSDLName() const { return kSDLAvatar; }
 

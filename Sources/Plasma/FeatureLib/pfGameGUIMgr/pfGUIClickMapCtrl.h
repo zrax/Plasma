@@ -60,7 +60,7 @@ class pfGUIClickMapCtrl : public pfGUIControlMod
         bool            fTracking;
         int32_t           fCustomCursor;
 
-        virtual bool IEval( double secs, float del, uint32_t dirty ); // called only by owner object's Eval()
+        virtual bool IEval(double secs, float del, uint32_t dirty); // called only by owner object's Eval()
 
         virtual uint32_t      IGetDesiredCursor() const;    // As specified in plInputInterface.h
 
@@ -69,8 +69,8 @@ class pfGUIClickMapCtrl : public pfGUIControlMod
         pfGUIClickMapCtrl();
         virtual ~pfGUIClickMapCtrl();
 
-        CLASSNAME_REGISTER( pfGUIClickMapCtrl );
-        GETINTERFACE_ANY( pfGUIClickMapCtrl, pfGUIControlMod );
+        CLASSNAME_REGISTER(pfGUIClickMapCtrl);
+        GETINTERFACE_ANY(pfGUIClickMapCtrl, pfGUIControlMod);
 
         enum OurFlags
         {
@@ -85,21 +85,21 @@ class pfGUIClickMapCtrl : public pfGUIControlMod
             kMouseHovered
         };
 
-        virtual void    HandleMouseDown( hsPoint3 &mousePt, uint8_t modifiers );
-        virtual void    HandleMouseUp( hsPoint3 &mousePt, uint8_t modifiers );
-        virtual void    HandleMouseDrag( hsPoint3 &mousePt, uint8_t modifiers );
-        virtual void    HandleMouseHover( hsPoint3 &mousePt, uint8_t modifiers );
+        virtual void    HandleMouseDown(hsPoint3 &mousePt, uint8_t modifiers);
+        virtual void    HandleMouseUp(hsPoint3 &mousePt, uint8_t modifiers);
+        virtual void    HandleMouseDrag(hsPoint3 &mousePt, uint8_t modifiers);
+        virtual void    HandleMouseHover(hsPoint3 &mousePt, uint8_t modifiers);
 
-        virtual bool    MsgReceive( plMessage* pMsg );
+        virtual bool    MsgReceive(plMessage* pMsg);
         
-        virtual void Read( hsStream* s, hsResMgr* mgr );
-        virtual void Write( hsStream* s, hsResMgr* mgr );
+        virtual void Read(hsStream* s, hsResMgr* mgr);
+        virtual void Write(hsStream* s, hsResMgr* mgr);
 
         const hsPoint3  &GetLastMousePt() const { return fLastMousePt; }
         const hsPoint3  &GetLastMouseUpPt() const { return fLastMouseUpPt; }
         const hsPoint3  &GetLastMouseDragPt() const { return fLastMouseDragPt; }
 
-        void    SetCustomCursor( int32_t cursor = -1 ) { fCustomCursor = cursor; }
+        void    SetCustomCursor(int32_t cursor = -1) { fCustomCursor = cursor; }
 };
 
 #endif // _pfGUIClickMapCtrl_h

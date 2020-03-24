@@ -416,7 +416,7 @@ DWORD plMAXCameraLayer::GetActiveTexHandle(TimeValue t, TexHandleMaker& thmaker)
     return 0;
 }
 
-const char *plMAXCameraLayer::GetTextureName( int which )
+const char *plMAXCameraLayer::GetTextureName(int which)
 {
     return NULL;
 }

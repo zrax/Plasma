@@ -66,46 +66,46 @@ pfGUIValueCtrl::~pfGUIValueCtrl()
 
 //// SetCurrValue ////////////////////////////////////////////////////////////
 
-void    pfGUIValueCtrl::SetCurrValue( float v )
+void    pfGUIValueCtrl::SetCurrValue(float v)
 {
     fValue = v;
-    if( fValue < fMin )
+    if (fValue < fMin)
         fValue = fMin;
-    else if( fValue > fMax )
+    else if (fValue > fMax)
         fValue = fMax;
 }
 
 //// SetRange ////////////////////////////////////////////////////////////////
 
-void    pfGUIValueCtrl::SetRange( float min, float max )
+void    pfGUIValueCtrl::SetRange(float min, float max)
 {
     fMin = min;
     fMax = max;
-    if( fValue < fMin )
-        SetCurrValue( fMin );
-    else if( fValue > fMax )
-        SetCurrValue( fMax );
+    if (fValue < fMin)
+        SetCurrValue(fMin);
+    else if (fValue > fMax)
+        SetCurrValue(fMax);
 }
 
 //// Read/Write //////////////////////////////////////////////////////////////
 
-void    pfGUIValueCtrl::Read( hsStream *s, hsResMgr *mgr )
+void    pfGUIValueCtrl::Read(hsStream *s, hsResMgr *mgr)
 {
     pfGUIControlMod::Read(s, mgr);
 
-    s->ReadLE( &fMin );
-    s->ReadLE( &fMax );
-    s->ReadLE( &fStep );
+    s->ReadLE(&fMin);
+    s->ReadLE(&fMax);
+    s->ReadLE(&fStep);
 
     fValue = fMin;
 }
 
-void    pfGUIValueCtrl::Write( hsStream *s, hsResMgr *mgr )
+void    pfGUIValueCtrl::Write(hsStream *s, hsResMgr *mgr)
 {
-    pfGUIControlMod::Write( s, mgr );
+    pfGUIControlMod::Write(s, mgr);
 
-    s->WriteLE( fMin );
-    s->WriteLE( fMax );
-    s->WriteLE( fStep );
+    s->WriteLE(fMin);
+    s->WriteLE(fMax);
+    s->WriteLE(fStep);
 }
 

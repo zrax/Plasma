@@ -89,7 +89,7 @@ bool plNetClientMgr::IApplyNewListenList(std::vector<DistSqInfo>& newListenList,
         changed=true;
     else
     {
-        for(i=0;i<newListenList.size(); i++)
+        for (i=0;i<newListenList.size(); i++)
         {
             if (GetListenList()->FindMember(newListenList[i].fMbr)==-1)
             {
@@ -113,13 +113,13 @@ bool plNetClientMgr::IApplyNewListenList(std::vector<DistSqInfo>& newListenList,
         //
         llu.Receivers()->Clear();
         llu.SetAdding(false);
-        for(i=0;i<GetListenList()->GetNumMembers(); i++)
+        for (i=0;i<GetListenList()->GetNumMembers(); i++)
         {
             bool found=false;
             if (!forceSynch)
             {
                 int j;
-                for(j=0;j<newListenList.size(); j++)
+                for (j=0;j<newListenList.size(); j++)
                 {
                     if (newListenList[j].fMbr==GetListenList()->GetMember(i))
                     {
@@ -139,7 +139,7 @@ bool plNetClientMgr::IApplyNewListenList(std::vector<DistSqInfo>& newListenList,
         {
             // DEBUGGING
             int i;
-            for(i=0;i<llu.Receivers()->GetNumReceivers(); i++)
+            for (i=0;i<llu.Receivers()->GetNumReceivers(); i++)
             {
                 int idx=fTransport.FindMember(llu.Receivers()->GetReceiverClientNum(i));
                 plNetTransportMember* mbr=fTransport.GetMember(idx);
@@ -156,7 +156,7 @@ bool plNetClientMgr::IApplyNewListenList(std::vector<DistSqInfo>& newListenList,
         //
         llu.Receivers()->Clear();
         llu.SetAdding(true);
-        for(i=0;i<newListenList.size(); i++)
+        for (i=0;i<newListenList.size(); i++)
         {
             if (forceSynch || GetListenList()->FindMember(newListenList[i].fMbr)==-1)
             {
@@ -170,7 +170,7 @@ bool plNetClientMgr::IApplyNewListenList(std::vector<DistSqInfo>& newListenList,
         {
             // DEBUGGING
             int i;
-            for(i=0;i<llu.Receivers()->GetNumReceivers(); i++)
+            for (i=0;i<llu.Receivers()->GetNumReceivers(); i++)
             {
                 int cNum=llu.Receivers()->GetReceiverClientNum(i);
                 int idx=fTransport.FindMember(cNum);
@@ -190,7 +190,7 @@ bool plNetClientMgr::IApplyNewListenList(std::vector<DistSqInfo>& newListenList,
 #ifdef HS_DEBUGGING
         DebugMsg("New ListenList, size={}\n", newListenList.size());
 #endif
-        for(i=0;i<newListenList.size(); i++)
+        for (i=0;i<newListenList.size(); i++)
         {
             GetListenList()->AddMember(newListenList[i].fMbr);
 #ifdef HS_DEBUGGING
@@ -244,13 +244,13 @@ bool plNetClientMgr::IUpdateListenList(double secs)
                 hsPoint3 locPlayerPos=l2w.GetTranslate();
 
                 int i;
-                for(i=0;i<fTransport.GetNumMembers();i++)
+                for (i=0;i<fTransport.GetNumMembers();i++)
                 {
                     fTransport.GetMember(i)->SetDistSq(FLT_MAX);
 
                     if (fTransport.GetMember(i)->IsServer())
                         continue;
-                    if(VaultAmIgnoringPlayer(fTransport.GetMember(i)->GetPlayerID()))
+                    if (VaultAmIgnoringPlayer(fTransport.GetMember(i)->GetPlayerID()))
                     {
                         continue;
                     }
@@ -277,7 +277,7 @@ bool plNetClientMgr::IUpdateListenList(double secs)
                         if (distSq>plNetListenList::kMaxListenDistSq)
                             continue;
                         // if we are p2p and member isn't, skip them.
-                        if ( IsPeerToPeer() && !fTransport.GetMember(i)->IsPeerToPeer() )
+                        if (IsPeerToPeer() && !fTransport.GetMember(i)->IsPeerToPeer())
                             continue;
                         // otherwise, we aren't p2p so just update the listen list
                         // normally so it will update in the gui as distance changes.
@@ -289,7 +289,7 @@ bool plNetClientMgr::IUpdateListenList(double secs)
                         // keep the list (3) elements sorted.
                         if (plNetListenList::kMaxListenListSize==-1 ||
                             newListenList.size()<plNetListenList::kMaxListenListSize ||
-                            (distSq<newListenList[plNetListenList::kMaxListenListSize-1].fDistSq) )
+                            (distSq<newListenList[plNetListenList::kMaxListenListSize-1].fDistSq))
                         {
                             DistSqInfo dsi(fTransport.GetMember(i), distSq);
                             if (plNetListenList::kMaxListenListSize==-1 ||
@@ -350,7 +350,7 @@ void plNetClientMgr::SynchTalkList()
 {
     GetTalkList()->Clear();
     int i;
-    for(i=0;i<GetListenList()->GetNumMembers(); i++)
+    for (i=0;i<GetListenList()->GetNumMembers(); i++)
         GetTalkList()->AddMember(GetListenList()->GetMember(i));
 }
 
@@ -384,14 +384,14 @@ void plNetClientMgr::IHandleNetVoiceListMsg(plNetVoiceListMsg* msg)
         for (i = 0; i < msg->GetClientList()->Count(); i++)
         {
             plNetTransportMember **members = nil;
-            plNetClientMgr::GetInstance()->TransportMgr().GetMemberListDistSorted( members );
+            plNetClientMgr::GetInstance()->TransportMgr().GetMemberListDistSorted(members);
                     
-            if( members != nil)
+            if (members != nil)
             {
-                for(int j= 0; j < plNetClientMgr::GetInstance()->TransportMgr().GetNumMembers(); j++ )
+                for (int j= 0; j < plNetClientMgr::GetInstance()->TransportMgr().GetNumMembers(); j++)
                 {
-                    plNetTransportMember *mbr = members[ j ];
-                    if( mbr != nil && mbr->GetAvatarKey() != nil && mbr->GetPlayerID() == msg->GetClientList()->AcquireArray()[i])
+                    plNetTransportMember *mbr = members[j];
+                    if (mbr != nil && mbr->GetAvatarKey() != nil && mbr->GetPlayerID() == msg->GetClientList()->AcquireArray()[i])
                     {
                         plNetClientMgr::GetInstance()->GetListenList()->AddMember(mbr);
                     }

@@ -53,7 +53,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 namespace {
     DWORD WINAPI ProgressDummyFunc(LPVOID arg)
     {
-        return(0);
+        return (0);
     }
 }
 
@@ -78,7 +78,7 @@ void plExportProgressBar::Start(char *name, uint32_t steps)
     fInterface->ProgressStart(name, TRUE, ProgressDummyFunc, nil);
    
    GUP* exportServerGup = OpenGupPlugIn(Class_ID(470000004,99));
-   if(exportServerGup && name)
+   if (exportServerGup && name)
    {
       exportServerGup->Control(-3); // means next control will be progress task
       exportServerGup->Control((DWORD)name);
@@ -92,11 +92,11 @@ bool plExportProgressBar::Update(char *name, uint32_t inc)
    // Check to see if we are running an export server
    // If so, then pass the update on to the export server
    GUP* exportServerGup = OpenGupPlugIn(Class_ID(470000004,99));
-   if(exportServerGup)
+   if (exportServerGup)
    {
       exportServerGup->Control(-2);  // means next control will be progress pct
       exportServerGup->Control((int)((fCurStep * 100) / fTotalSteps));  // send pct
-      if(name)
+      if (name)
       {
          exportServerGup->Control(-4); // means next control will be progress subtask
          exportServerGup->Control((DWORD)name);

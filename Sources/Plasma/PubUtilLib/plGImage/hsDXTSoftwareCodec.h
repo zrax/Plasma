@@ -61,10 +61,10 @@ public:
     plMipmap *CreateCompressedMipmap(plMipmap *uncompressed);
 
     // Uncompresses the given source into a new destination mipmap
-    plMipmap *CreateUncompressedMipmap( plMipmap *compressed, uint8_t flags = 0 );
+    plMipmap *CreateUncompressedMipmap(plMipmap *compressed, uint8_t flags = 0);
 
     // Colorize a compressed mipmap
-    bool    ColorizeCompMipmap( plMipmap *bMap, const uint8_t *colorMask );
+    bool    ColorizeCompMipmap(plMipmap *bMap, const uint8_t *colorMask);
 
 private:
     enum {
@@ -72,7 +72,7 @@ private:
         kThreeColorEncoding
     };
 
-    void    CompressMipmapLevel( plMipmap *uncompressed, plMipmap *compressed );
+    void    CompressMipmapLevel(plMipmap *uncompressed, plMipmap *compressed);
 
     uint16_t BlendColors16(uint16_t weight1, uint16_t color1, uint16_t weight2, uint16_t color2);
     hsRGBAColor32 BlendColors32(uint32_t weight1, hsRGBAColor32 color1, uint32_t weight2, hsRGBAColor32 color2);
@@ -80,72 +80,72 @@ private:
     uint16_t Color32To16(hsRGBAColor32 color);
 
     // Calculates the DXT format based on a mipmap
-    uint8_t   ICalcCompressedFormat( plMipmap *bMap );
+    uint8_t   ICalcCompressedFormat(plMipmap *bMap);
 
     // Copy over a block from a mipmap level to a destination mipmap, converting if necessary
-    void    IXlateColorBlock( plMipmap *destBMap, uint32_t *srcBlock, uint8_t flags = 0 );
+    void    IXlateColorBlock(plMipmap *destBMap, uint32_t *srcBlock, uint8_t flags = 0);
 
     // Creates an uncompressed mipmap with the settings to match
-    plMipmap    *ICreateUncompressedMipmap( plMipmap *compressed, uint8_t flags );
+    plMipmap    *ICreateUncompressedMipmap(plMipmap *compressed, uint8_t flags);
 
     // Dispatcher for all the decompression functions
-    void inline UncompressMipmap( plMipmap *uncompressed, plMipmap *compressed,
-                                  uint8_t flags = 0 );
+    void inline UncompressMipmap(plMipmap *uncompressed, plMipmap *compressed,
+                                 uint8_t flags = 0);
 
     // Decompresses a DXT5 compressed mipmap into a RGB4444 mipmap
-    void    IUncompressMipmapDXT5To16( plMipmap *destBMap, plMipmap *srcBMap );
+    void    IUncompressMipmapDXT5To16(plMipmap *destBMap, plMipmap *srcBMap);
     // Decompresses a DXT5 compressed mipmap into a RGB4444 reversed mipmap
-    void    IUncompressMipmapDXT5To16Weird( plMipmap *destBMap, plMipmap *srcBMap );
+    void    IUncompressMipmapDXT5To16Weird(plMipmap *destBMap, plMipmap *srcBMap);
     // Decompresses a DXT5 compressed mipmap into a RGB8888 mipmap
-    void    IUncompressMipmapDXT5To32( plMipmap *destBMap, plMipmap *srcBMap );
+    void    IUncompressMipmapDXT5To32(plMipmap *destBMap, plMipmap *srcBMap);
 
     // Decompresses a DXT1 compressed mipmap into a RGB1555 mipmap
-    void    IUncompressMipmapDXT1To16( plMipmap *destBMap, plMipmap *srcBMap );
+    void    IUncompressMipmapDXT1To16(plMipmap *destBMap, plMipmap *srcBMap);
     // Decompresses a DXT1 compressed mipmap into a RGB5551 mipmap
-    void    IUncompressMipmapDXT1To16Weird( plMipmap *destBMap, plMipmap *srcBMap );
+    void    IUncompressMipmapDXT1To16Weird(plMipmap *destBMap, plMipmap *srcBMap);
     // Decompresses a DXT1 compressed mipmap into a RGB8888 mipmap
-    void    IUncompressMipmapDXT1To32( plMipmap *destBMap, plMipmap *srcBMap );
+    void    IUncompressMipmapDXT1To32(plMipmap *destBMap, plMipmap *srcBMap);
 
     // Decompresses a DXT1 compressed mipmap into an intensity map
-    void    IUncompressMipmapDXT1ToInten( plMipmap *destBMap, plMipmap *srcBMap );
+    void    IUncompressMipmapDXT1ToInten(plMipmap *destBMap, plMipmap *srcBMap);
     // Decompresses a DXT5 compressed mipmap into an alpha-intensity map
-    void    IUncompressMipmapDXT5ToAInten( plMipmap *destBMap, plMipmap *srcBMap );
+    void    IUncompressMipmapDXT5ToAInten(plMipmap *destBMap, plMipmap *srcBMap);
 
     // Mixes two RGB8888 colors equally
-    uint32_t inline IMixEqualRGB32( uint32_t color1, uint32_t color2 );
+    uint32_t inline IMixEqualRGB32(uint32_t color1, uint32_t color2);
     // Mixes two-thirds of the first RGB8888 color and one-third of the second
-    uint32_t inline IMixTwoThirdsRGB32( uint32_t twoThirds, uint32_t oneThird );
+    uint32_t inline IMixTwoThirdsRGB32(uint32_t twoThirds, uint32_t oneThird);
 
     // Mixes two RGB1555 colors equally
-    uint16_t inline IMixEqualRGB1555( uint16_t color1, uint16_t color2 );
+    uint16_t inline IMixEqualRGB1555(uint16_t color1, uint16_t color2);
     // Mixes two-thirds of the first RGB1555 color and one-third of the second
-    uint16_t inline IMixTwoThirdsRGB1555( uint16_t twoThirds, uint16_t oneThird );
+    uint16_t inline IMixTwoThirdsRGB1555(uint16_t twoThirds, uint16_t oneThird);
 
     // Mixes two RGB5551 colors equally
-    uint16_t inline IMixEqualRGB5551( uint16_t color1, uint16_t color2 );
+    uint16_t inline IMixEqualRGB5551(uint16_t color1, uint16_t color2);
     // Mixes two-thirds of the first RGB5551 color and one-third of the second
-    uint16_t inline IMixTwoThirdsRGB5551( uint16_t twoThirds, uint16_t oneThird );
+    uint16_t inline IMixTwoThirdsRGB5551(uint16_t twoThirds, uint16_t oneThird);
 
     // Mixes two RGB4444 colors equally
-    uint16_t inline IMixEqualRGB4444( uint16_t color1, uint16_t color2 );
+    uint16_t inline IMixEqualRGB4444(uint16_t color1, uint16_t color2);
     // Mixes two-thirds of the first RGB4444 color and one-third of the second
-    uint16_t inline IMixTwoThirdsRGB4444( uint16_t twoThirds, uint16_t oneThird );
+    uint16_t inline IMixTwoThirdsRGB4444(uint16_t twoThirds, uint16_t oneThird);
     
     // Mixes two intensity values equally
-    uint8_t  inline IMixEqualInten( uint8_t color1, uint8_t color2 );
+    uint8_t  inline IMixEqualInten(uint8_t color1, uint8_t color2);
     // Mixes two-thirds of the first intensity and one-third of the second
-    uint8_t  inline IMixTwoThirdsInten( uint8_t twoThirds, uint8_t oneThird );
+    uint8_t  inline IMixTwoThirdsInten(uint8_t twoThirds, uint8_t oneThird);
 
     // Converts a color from RGB565 to RGB8888 format, with alpha=0
-    uint32_t inline IRGB16To32Bit( uint16_t color );
+    uint32_t inline IRGB16To32Bit(uint16_t color);
     // Converts a color from RGB565 to RGB4444 format, with alpha=0
-    uint16_t inline IRGB565To4444( uint16_t color );
+    uint16_t inline IRGB565To4444(uint16_t color);
     // Converts a color from RGB565 to RGB1555 format, with alpha=0
-    uint16_t inline IRGB565To1555( uint16_t color );
+    uint16_t inline IRGB565To1555(uint16_t color);
     // Converts a color from RGB565 to RGB5551 format, with alpha=0
-    uint16_t inline IRGB565To5551( uint16_t color );
+    uint16_t inline IRGB565To5551(uint16_t color);
     // Converts a color from RGB565 to RGB4444 reversed format, with alpha=0
-    uint16_t inline IRGB565To4444Rev( uint16_t color );
+    uint16_t inline IRGB565To4444Rev(uint16_t color);
 
     static bool Register();
     static bool fRegistered;

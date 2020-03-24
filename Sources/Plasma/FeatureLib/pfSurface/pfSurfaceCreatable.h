@@ -47,22 +47,22 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "plLayerMovie.h"
 
-REGISTER_NONCREATABLE( plLayerMovie );
+REGISTER_NONCREATABLE(plLayerMovie);
 
 #include "plLayerAVI.h"
 
-REGISTER_CREATABLE( plLayerAVI );
+REGISTER_CREATABLE(plLayerAVI);
 
 #include "plFadeOpacityLay.h"
 
-REGISTER_CREATABLE( plFadeOpacityLay );
+REGISTER_CREATABLE(plFadeOpacityLay);
 
 #include "plFadeOpacityMod.h"
 
-REGISTER_CREATABLE( plFadeOpacityMod );
+REGISTER_CREATABLE(plFadeOpacityMod);
 
 #include "plDistOpacityMod.h"
 
-REGISTER_CREATABLE( plDistOpacityMod );
+REGISTER_CREATABLE(plDistOpacityMod);
 
 #endif //  pfSurfaceCreatable_inc

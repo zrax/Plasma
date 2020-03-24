@@ -123,7 +123,7 @@ void plClothingSDLModifier::IPutCurrentStateIn(plStateDataRecord* dstState)
 
     int lowerCount = (itemCount <= optionsCount ? itemCount : optionsCount);
     int i;
-    for(i = 0; i < lowerCount; i++)
+    for (i = 0; i < lowerCount; i++)
     {
         plClosetItem closetItem;
         closetItem.fItem = items[i];
@@ -145,7 +145,7 @@ void plClothingSDLModifier::IPutCurrentStateIn(plStateDataRecord* dstState)
     int numBlends = plClothingElement::kLayerSkinLast - plClothingElement::kLayerSkinFirst;
     if (faceBlends->GetCount() != numBlends)
         faceBlends->Alloc(numBlends);
-    for(i = 0; i < numBlends; i++)
+    for (i = 0; i < numBlends; i++)
         faceBlends->Set((uint8_t)(clothing->fSkinBlends[i] * 255), i);
 
     SDRs.Append(appearanceStateDesc->GetStateDataRecord(0));
@@ -187,7 +187,7 @@ void plClothingSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcSta
     hsAssert(sobj, "plClothingSDLModifier, nil target");
 
     plClothingOutfit* clothing = GetClothingOutfit();
-    if( clothing == nil )
+    if (clothing == nil)
     {
         hsAssert(clothing, "nil clothingOutfit");
         return;
@@ -203,7 +203,7 @@ void plClothingSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcSta
     clothing->StripAccessories();
 
     int i;
-    for(i=0;i<num;i++)
+    for (i=0;i<num;i++)
     {
         // get clothes item from clothes list
         plStateDataRecord* clothingItemState=clothesStateDesc->GetStateDataRecord(i);
@@ -298,7 +298,7 @@ void plClothingSDLModifier::HandleSingleSDR(const plStateDataRecord *sdr, plClot
         if (faceBlends->IsUsed())
         {
             int numBlends = plClothingElement::kLayerSkinLast - plClothingElement::kLayerSkinFirst;
-            for(i = 0; i < numBlends && i < faceBlends->GetCount(); i++)
+            for (i = 0; i < numBlends && i < faceBlends->GetCount(); i++)
             {
                 uint8_t blend;
                 faceBlends->Get(&blend, i);
@@ -318,7 +318,7 @@ const plClothingSDLModifier *plClothingSDLModifier::FindClothingSDLModifier(cons
     {
         const plModifier *mod = obj->GetModifier(i);
         const plClothingSDLModifier *sdlMod = plClothingSDLModifier::ConvertNoRef(mod);
-        if(sdlMod)
+        if (sdlMod)
             return sdlMod;
     }
     return nil;

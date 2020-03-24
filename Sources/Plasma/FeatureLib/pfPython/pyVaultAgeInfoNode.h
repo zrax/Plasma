@@ -99,19 +99,19 @@ public:
     void     SetAgeUserDefinedName(const ST::string& v);
 
     plUUID  GetAgeInstanceGuid() const;
-    void    SetAgeInstanceGuid( const char * guid );
+    void    SetAgeInstanceGuid(const char * guid);
 
     ST::string GetAgeDescription() const;
     void     SetAgeDescription(const ST::string& v);
 
     int32_t  GetSequenceNumber() const;
-    void     SetSequenceNumber( int32_t v );
+    void     SetSequenceNumber(int32_t v);
 
     int32_t  GetAgeLanguage() const;
-    void     SetAgeLanguage( int32_t v );
+    void     SetAgeLanguage(int32_t v);
 
     uint32_t GetAgeID() const;
-    void     SetAgeID( uint32_t v );
+    void     SetAgeID(uint32_t v);
 
     uint32_t GetCzarID() const;
 

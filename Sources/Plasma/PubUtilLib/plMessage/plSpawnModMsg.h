@@ -61,8 +61,8 @@ public:
                     const double* t) { }
     ~plSpawnModMsg() { }
 
-    CLASSNAME_REGISTER( plSpawnModMsg );
-    GETINTERFACE_ANY( plSpawnModMsg, plMessage );
+    CLASSNAME_REGISTER(plSpawnModMsg);
+    GETINTERFACE_ANY(plSpawnModMsg, plMessage);
     
     hsPoint3    fPos;
     plUoid      fObj;

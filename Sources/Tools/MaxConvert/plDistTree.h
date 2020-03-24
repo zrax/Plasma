@@ -64,7 +64,7 @@ public:
     const Box3& GetBox() const { return fBox; }
 
     BOOL        IsLeaf() const { return 0 != (fFlags & kIsLeaf); }
-    void        SetIsLeaf(BOOL on) { if(on)fFlags |= kIsLeaf; else fFlags &= ~kIsLeaf; }
+    void        SetIsLeaf(BOOL on) { if (on) fFlags |= kIsLeaf; else fFlags &= ~kIsLeaf; }
 };
 
 class plDistTree

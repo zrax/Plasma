@@ -57,8 +57,8 @@ protected:
 public:
     plNetOwnershipMsg() { SetBCastFlag(plMessage::kBCastByType); }
     
-    CLASSNAME_REGISTER( plNetOwnershipMsg );
-    GETINTERFACE_ANY( plNetOwnershipMsg, plMessage );
+    CLASSNAME_REGISTER(plNetOwnershipMsg);
+    GETINTERFACE_ANY(plNetOwnershipMsg, plMessage);
     
     // getters
     int GetNumGroups() const { return fGroups.size(); }

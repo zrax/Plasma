@@ -66,14 +66,14 @@ public:
     friend class plFactory;
 };
 
-#define REGISTER_CREATABLE( plClassName )                                           \
+#define REGISTER_CREATABLE(plClassName)                                           \
                                                                                     \
 class plClassName##__Creator : public plCreator                                     \
 {                                                                                   \
 public:                                                                             \
     plClassName##__Creator()                                                        \
     {                                                                               \
-        plFactory::Register( CLASS_INDEX_SCOPED(plClassName), this);                \
+        plFactory::Register(CLASS_INDEX_SCOPED(plClassName), this);                \
         plClassName::SetClassIndex(ClassIndex());                                   \
     }                                                                               \
     virtual ~plClassName##__Creator()                                               \
@@ -92,14 +92,14 @@ public:                                                                         
 static plClassName##__Creator   static##plClassName##__Creator;                     \
 uint16_t plClassName::plClassName##ClassIndex = 0;                                    //
 
-#define REGISTER_NONCREATABLE( plClassName )                                        \
+#define REGISTER_NONCREATABLE(plClassName)                                        \
                                                                                     \
 class plClassName##__Creator : public plCreator                                     \
 {                                                                                   \
 public:                                                                             \
     plClassName##__Creator()                                                        \
     {                                                                               \
-        plFactory::Register( CLASS_INDEX_SCOPED(plClassName), this);                \
+        plFactory::Register(CLASS_INDEX_SCOPED(plClassName), this);                \
         plClassName::SetClassIndex(ClassIndex());                                   \
     }                                                                               \
     virtual ~plClassName##__Creator()                                               \
@@ -118,7 +118,7 @@ public:                                                                         
 static plClassName##__Creator   static##plClassName##__Creator;                     \
 uint16_t plClassName::plClassName##ClassIndex = 0;                                    //
 
-#define DECLARE_EXTERNAL_CREATABLE( plClassName )                                   \
+#define DECLARE_EXTERNAL_CREATABLE(plClassName)                                   \
                                                                                     \
 class plClassName##__Creator : public plCreator                                     \
 {                                                                                   \
@@ -132,7 +132,7 @@ public:                                                                         
     }                                                                               \
     void Register()                                                                 \
     {                                                                               \
-        plFactory::Register( EXTERN_CLASS_INDEX_SCOPED(plClassName), this);         \
+        plFactory::Register(EXTERN_CLASS_INDEX_SCOPED(plClassName), this);         \
         plClassName::SetClassIndex(ClassIndex());                                   \
     }                                                                               \
     void UnRegister()                                                               \
@@ -157,14 +157,14 @@ static##plClassName##__Creator.Register();                                      
 #define UNREGISTER_EXTERNAL_CREATABLE(plClassName)                                  \
 plFactory::UnRegister(EXTERN_CLASS_INDEX_SCOPED(plClassName), &static##plClassName##__Creator);
 
-#define REGISTER_EXTERNAL_NONCREATABLE( plClassName )                               \
+#define REGISTER_EXTERNAL_NONCREATABLE(plClassName)                               \
                                                                                     \
 class plClassName##__Creator : public plCreator                                     \
 {                                                                                   \
 public:                                                                             \
     plClassName##__Creator()                                                        \
     {                                                                               \
-        plFactory::Register( EXTERN_CLASS_INDEX_SCOPED(plClassName), this);         \
+        plFactory::Register(EXTERN_CLASS_INDEX_SCOPED(plClassName), this);         \
         plClassName::SetClassIndex(ClassIndex());                                   \
     }                                                                               \
     virtual ~plClassName##__Creator()                                               \

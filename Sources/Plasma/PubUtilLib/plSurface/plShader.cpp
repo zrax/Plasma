@@ -172,10 +172,10 @@ plFloat44 plShader::GetMatrix(int i) const
     // untranspose
     plFloat44 xfm;
     int j;
-    for( j = 0; j < 4; j++ )
+    for (j = 0; j < 4; j++)
     {
         int k;
-        for( k = 0; k < 4; k++ )
+        for (k = 0; k < 4; k++)
             xfm.m[j][k] = fConsts[i+k].fArray[j];
     }
     return xfm;
@@ -186,10 +186,10 @@ plFloat44 plShader::GetMatrix3(int i) const
     // untranspose
     plFloat44 xfm;
     int j;
-    for( j = 0; j < 4; j++ )
+    for (j = 0; j < 4; j++)
     {
         int k;
-        for( k = 0; k < 3; k++ )
+        for (k = 0; k < 3; k++)
             xfm.m[j][k] = fConsts[i+k].fArray[j];
     }
     xfm.m[0][3] = xfm.m[1][3] = xfm.m[2][3] = 0;
@@ -202,10 +202,10 @@ hsMatrix44 plShader::GetMatrix44(int i) const
     hsMatrix44 xfm;
     xfm.NotIdentity();
     int j;
-    for( j = 0; j < 4; j++ )
+    for (j = 0; j < 4; j++)
     {
         int k;
-        for( k = 0; k < 4; k++ )
+        for (k = 0; k < 4; k++)
             xfm.fMap[j][k] = fConsts[i+j][k];
     }
 
@@ -217,10 +217,10 @@ hsMatrix44 plShader::GetMatrix34(int i) const
     hsMatrix44 xfm;
     xfm.NotIdentity();
     int j;
-    for( j = 0; j < 3; j++ )
+    for (j = 0; j < 3; j++)
     {
         int k;
-        for( k = 0; k < 4; k++ )
+        for (k = 0; k < 4; k++)
             xfm.fMap[j][k] = fConsts[i+j][k];
     }
     xfm.fMap[3][0] = xfm.fMap[3][1] = xfm.fMap[3][2] = 0;
@@ -234,10 +234,10 @@ hsMatrix44 plShader::GetMatrix24(int i) const
     hsMatrix44 xfm;
     xfm.NotIdentity();
     int j;
-    for( j = 0; j < 2; j++ )
+    for (j = 0; j < 2; j++)
     {
         int k;
-        for( k = 0; k < 4; k++ )
+        for (k = 0; k < 4; k++)
             xfm.fMap[j][k] = fConsts[i+j][k];
     }
     xfm.fMap[2][0] = xfm.fMap[2][1] = xfm.fMap[2][2] = xfm.fMap[2][3] = 0;
@@ -289,7 +289,7 @@ void plShader::Read(hsStream* s, hsResMgr* mgr)
     uint32_t n = s->ReadLE32();
     fConsts.SetCount(n);
     int i;
-    for( i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
         fConsts[i].Read(s);
 
     plShaderID::ID id = plShaderID::ID(s->ReadLE32());
@@ -305,7 +305,7 @@ void plShader::Write(hsStream* s, hsResMgr* mgr)
 
     s->WriteLE32(fConsts.GetCount());
     int i;
-    for( i = 0; i < fConsts.GetCount(); i++ )
+    for (i = 0; i < fConsts.GetCount(); i++)
         fConsts[i].Write(s);
 
     s->WriteLE32(fDecl->GetID());
@@ -327,7 +327,7 @@ void plShader::SetDecl(plShaderID::ID id)
 void plShader::SetNumPipeConsts(int n)
 {
     int nOld = fPipeConsts.GetCount();
-    if( n > nOld )
+    if (n > nOld)
     {
         // This will copy forward any existing entries.
         fPipeConsts.Expand(n);

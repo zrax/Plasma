@@ -56,19 +56,19 @@ static Mesh* ExtractMesh(INode* pNode, TriObject** ppDeleteMe)
     Object *obj = pNode->EvalWorldState(0).obj;
     Mesh *pRetMesh = nil;
 
-    if( obj ) {
+    if (obj) {
 
-        if( obj->CanConvertToType(triObjectClassID) ) {
+        if (obj->CanConvertToType(triObjectClassID)) {
 
             // Convert to triangle object
             TriObject *tri = (TriObject*)obj->ConvertToType(0, triObjectClassID);
 
             if (tri != obj) *ppDeleteMe = tri;  // if Convert allocated, pass back so caller can delete.
 
-            if( tri ) {
+            if (tri) {
                 Mesh *pTMesh = &tri->mesh;
 
-                if( pTMesh->getNumFaces() ) {
+                if (pTMesh->getNumFaces()) {
                     pRetMesh = pTMesh;
                 }
             }
@@ -124,9 +124,9 @@ static bool MakeNormalMesh(plMaxNode *node, plMaxMeshExtractor::NeutralMesh& mes
         Face* pFace = &pMesh->faces[i];
         uint16_t* pNFace = &mesh.fFaces[i * 3];
 
-        pNFace[0] = pFace->v[ parity ? 2 : 0 ]; // reverse winding if parity backwards
+        pNFace[0] = pFace->v[parity ? 2 : 0]; // reverse winding if parity backwards
         pNFace[1] = pFace->v[1];
-        pNFace[2] = pFace->v[ parity ? 0 : 2 ]; // ''
+        pNFace[2] = pFace->v[parity ? 0 : 2]; // ''
     }
 
     if (pDeleteMe)

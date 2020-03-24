@@ -103,7 +103,7 @@ class plDXGeneralSettings
         DWORD                           fCurrFVFFormat;
 
         HRESULT                 fDXError;
-        char                    fErrorStr[ 256 ];
+        char                    fErrorStr[256];
 
         void    Reset();
 };
@@ -131,7 +131,7 @@ class plDXFogSettings
             fIsShader = 0;
             fHexColor = 0;
             fStart = fEnd = fDensity = 0.0f;
-            fColor.Set( 0, 0, 0, 0 );
+            fColor.Set(0, 0, 0, 0);
         }
 };
 
@@ -162,13 +162,13 @@ class plDXLightSettings
         plDXLightSettings();
 
         // Sets member variables to initial states. Does NOT release anything.
-        void    Reset( plDXPipeline *pipe );
+        void    Reset(plDXPipeline *pipe);
         // Releases/deletes anything associated with these settings
         void    Release();
         // Reserve a D3D light index
         uint32_t  ReserveD3DIndex();
         // Release a reserved D3D light index
-        void    ReleaseD3DIndex( uint32_t idx );
+        void    ReleaseD3DIndex(uint32_t idx);
 };
 
 //// Stencil Settings /////////////////////////////////////////////////////////

@@ -85,12 +85,12 @@ void plViewFaceModifier::Read(hsStream* s, hsResMgr* mgr)
     fOrigLocalToParent.Read(s);
     fOrigParentToLocal.Read(s);
 
-    if( HasFlag(kFaceObj) )
+    if (HasFlag(kFaceObj))
         mgr->ReadKeyNotifyMe(s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, 0, kRefFaceObj), plRefFlags::kPassiveRef);
 
     fOffset.Read(s);
 
-    if( HasFlag(kMaxBounds) )
+    if (HasFlag(kMaxBounds))
         fMaxBounds.Read(s);
 }
 
@@ -103,12 +103,12 @@ void plViewFaceModifier::Write(hsStream* s, hsResMgr* mgr)
     fOrigLocalToParent.Write(s);
     fOrigParentToLocal.Write(s);
 
-    if( HasFlag(kFaceObj) )
+    if (HasFlag(kFaceObj))
         mgr->WriteKey(s, fFaceObj);
 
     fOffset.Write(s);
 
-    if( HasFlag(kMaxBounds) )
+    if (HasFlag(kMaxBounds))
         fMaxBounds.Write(s);
 }
 
@@ -123,9 +123,9 @@ void plViewFaceModifier::SetTarget(plSceneObject* so)
     plSingleModifier::SetTarget(so);
 
     plgDispatch::Dispatch()->RegisterForExactType(plRenderMsg::Index(), GetKey());
-    if( HasFlag(kFaceList) )
+    if (HasFlag(kFaceList))
         plgDispatch::Dispatch()->RegisterForExactType(plListenerMsg::Index(), GetKey());
-    if( HasFlag(kFacePlay) )
+    if (HasFlag(kFacePlay))
         plgDispatch::Dispatch()->RegisterForExactType(plArmatureUpdateMsg::Index(), GetKey());
 }
 
@@ -138,19 +138,19 @@ bool plViewFaceModifier::IFacePoint(plPipeline* pipe, const hsPoint3& at)
 {
 #if 1 // BOUNDSTEST
     extern int mfCurrentTest;
-    if( mfCurrentTest != 101 )
-    if( HasFlag(kMaxBounds) )
+    if (mfCurrentTest != 101)
+    if (HasFlag(kMaxBounds))
     {
-        if( !pipe->TestVisibleWorld(fMaxBounds) )
+        if (!pipe->TestVisibleWorld(fMaxBounds))
             return false;
     }
 #endif // BOUNDSTEST
 
-    if( !(GetTarget() && GetTarget()->GetCoordinateInterface()) )
+    if (!(GetTarget() && GetTarget()->GetCoordinateInterface()))
         return false;
         
     hsMatrix44 worldToLocal = fOrigParentToLocal;   // parentToLocal
-    if( GetTarget()->GetCoordinateInterface()->GetParent() && GetTarget()->GetCoordinateInterface()->GetParent() )
+    if (GetTarget()->GetCoordinateInterface()->GetParent() && GetTarget()->GetCoordinateInterface()->GetParent())
     {
         hsMatrix44 m;
         worldToLocal = worldToLocal *  GetTarget()->GetCoordinateInterface()->GetParent()->GetWorldToLocal();
@@ -158,35 +158,35 @@ bool plViewFaceModifier::IFacePoint(plPipeline* pipe, const hsPoint3& at)
     
     hsPoint3 localAt = worldToLocal * at;
     float len = localAt.MagnitudeSquared();
-    if( len <= 0 )
+    if (len <= 0)
         return false;
     len = -hsFastMath::InvSqrtAppr(len);
     
     hsVector3 dirX, dirY, dirZ;
     dirZ.Set(localAt.fX * len, localAt.fY * len, localAt.fZ * len);
     
-    if( HasFlag(kPivotFace) )
+    if (HasFlag(kPivotFace))
     {
         dirY.Set(0.f, 0.f, 1.f);
         dirX = dirY % dirZ;
         dirX = hsFastMath::NormalizeAppr(dirX);
         dirY = dirZ % dirX;
     }
-    else if( HasFlag(kPivotFavorY) )
+    else if (HasFlag(kPivotFavorY))
     {
         dirY.Set(0.f, 1.f, 0.f);
         dirX = dirY % dirZ;
         dirX = hsFastMath::NormalizeAppr(dirX);
         dirY = dirZ % dirX;
     }
-    else if( HasFlag(kPivotY) )
+    else if (HasFlag(kPivotY))
     {
         dirY.Set(0.f, 1.f, 0.f);
         dirX = dirY % dirZ;
         dirX = hsFastMath::NormalizeAppr(dirX);
         dirZ = dirX % dirY;
     }
-    else if( HasFlag(kPivotTumble) )
+    else if (HasFlag(kPivotTumble))
     {
         dirY = fLastDirY;
         dirX = dirY % dirZ;
@@ -225,7 +225,7 @@ bool plViewFaceModifier::IFacePoint(plPipeline* pipe, const hsPoint3& at)
     x.NotIdentity();
     xInv.NotIdentity();
 
-    if( HasFlag(kScale) )
+    if (HasFlag(kScale))
     {
         x.fMap[0][0] *= fScale.fX;
         x.fMap[0][1] *= fScale.fX;
@@ -258,7 +258,7 @@ bool plViewFaceModifier::IFacePoint(plPipeline* pipe, const hsPoint3& at)
     hsMatrix44 l2p = fOrigLocalToParent * x;
     hsMatrix44 p2l = xInv * fOrigParentToLocal;
 
-    if( l2p != IGetTargetCoordinateInterface(0)->GetLocalToParent() ) // TERRORDAN
+    if (l2p != IGetTargetCoordinateInterface(0)->GetLocalToParent()) // TERRORDAN
     {
         IGetTargetCoordinateInterface(0)->SetLocalToParent(l2p, p2l);
         IGetTargetCoordinateInterface(0)->FlushTransform(false);
@@ -276,16 +276,16 @@ bool plViewFaceModifier::MsgReceive(plMessage* msg)
 {
     plRenderMsg* rend = plRenderMsg::ConvertNoRef(msg);
 
-    if( rend )
+    if (rend)
     {
         plProfile_BeginLap(ViewFace, this->GetKey()->GetUoid().GetObjectName().c_str());
 
-        if( HasFlag(kFaceCam) )
+        if (HasFlag(kFaceCam))
         {
             fFacePoint = rend->Pipeline()->GetViewPositionWorld();
-            if( HasFlag(kOffset) )
+            if (HasFlag(kOffset))
             {
-                if( HasFlag(kOffsetLocal) )
+                if (HasFlag(kOffsetLocal))
                 {
                     fFacePoint += rend->Pipeline()->GetViewAcrossWorld() * fOffset.fX;
                     fFacePoint += rend->Pipeline()->GetViewUpWorld() * fOffset.fY;
@@ -298,14 +298,14 @@ bool plViewFaceModifier::MsgReceive(plMessage* msg)
             }
         }
         else
-        if( HasFlag(kFaceObj) )
+        if (HasFlag(kFaceObj))
         {
-            if( !fFaceObj )
+            if (!fFaceObj)
                 return true;
             fFacePoint = fFaceObj->GetLocalToWorld().GetTranslate();
-            if( HasFlag(kOffset) )
+            if (HasFlag(kOffset))
             {
-                if( HasFlag(kOffsetLocal) )
+                if (HasFlag(kOffsetLocal))
                     fFacePoint += fFaceObj->GetLocalToWorld() * fOffset;
                 else
                     fFacePoint += fOffset;
@@ -318,15 +318,15 @@ bool plViewFaceModifier::MsgReceive(plMessage* msg)
         return true;
     }
     plArmatureUpdateMsg* armMsg = plArmatureUpdateMsg::ConvertNoRef(msg);
-    if( armMsg && armMsg->IsLocal() )
+    if (armMsg && armMsg->IsLocal())
     {
         const plSceneObject* head = armMsg->fArmature->FindBone(plAvBrainHuman::Head);
-        if( head )
+        if (head)
         {
             fFacePoint = head->GetLocalToWorld().GetTranslate();
-            if( HasFlag(kOffset) )
+            if (HasFlag(kOffset))
             {
-                if( HasFlag(kOffsetLocal) )
+                if (HasFlag(kOffsetLocal))
                     fFacePoint += head->GetLocalToWorld() * fOffset;
                 else
                     fFacePoint += fOffset;
@@ -336,13 +336,13 @@ bool plViewFaceModifier::MsgReceive(plMessage* msg)
         return true;
     }
     plListenerMsg* list = plListenerMsg::ConvertNoRef(msg);
-    if( list )
+    if (list)
     {
         fFacePoint = list->GetPosition();
 
-        if( HasFlag(kOffset) )
+        if (HasFlag(kOffset))
         {
-            if( HasFlag(kOffsetLocal) )
+            if (HasFlag(kOffsetLocal))
             {
                 fFacePoint += (list->GetDirection() % list->GetUp()) * fOffset.fX;
                 fFacePoint += list->GetDirection() * fOffset.fY;
@@ -357,9 +357,9 @@ bool plViewFaceModifier::MsgReceive(plMessage* msg)
         return true;
     }
     plGenRefMsg* refMsg = plGenRefMsg::ConvertNoRef(msg);
-    if( refMsg )
+    if (refMsg)
     {
-        if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+        if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
             IOnReceive(refMsg);
         else
             IOnRemove(refMsg);
@@ -370,7 +370,7 @@ bool plViewFaceModifier::MsgReceive(plMessage* msg)
 
 void plViewFaceModifier::IOnReceive(plGenRefMsg* refMsg)
 {
-    switch(refMsg->fType)
+    switch (refMsg->fType)
     {
     case kRefFaceObj:
         fFaceObj = plSceneObject::ConvertNoRef(refMsg->GetRef());
@@ -380,7 +380,7 @@ void plViewFaceModifier::IOnReceive(plGenRefMsg* refMsg)
 
 void plViewFaceModifier::IOnRemove(plGenRefMsg* refMsg)
 {
-    switch(refMsg->fType)
+    switch (refMsg->fType)
     {
     case kRefFaceObj:
         fFaceObj = nil;
@@ -400,7 +400,7 @@ void plViewFaceModifier::SetFollowMode(FollowMode m, plKey soKey)
     ClearFlag(kFacePlay);
     ClearFlag(kFaceObj);
     
-    switch(m)
+    switch (m)
     {
     case kFollowCamera:
         SetFlag(kFaceCam);
@@ -424,13 +424,13 @@ void plViewFaceModifier::SetFollowMode(FollowMode m, plKey soKey)
 
 plViewFaceModifier::FollowMode plViewFaceModifier::GetFollowMode() const
 {
-    if( HasFlag(kFaceCam) )
+    if (HasFlag(kFaceCam))
         return kFollowCamera;
-    if( HasFlag(kFaceList) )
+    if (HasFlag(kFaceList))
         return kFollowListener;
-    if( HasFlag(kFacePlay) )
+    if (HasFlag(kFacePlay))
         return kFollowPlayer;
-    if( HasFlag(kFaceObj) )
+    if (HasFlag(kFaceObj))
         return kFollowObject;
 
     hsAssert(false, "Have no follow mode");
@@ -441,7 +441,7 @@ plViewFaceModifier::FollowMode plViewFaceModifier::GetFollowMode() const
 void plViewFaceModifier::SetOffset(const hsVector3& off, bool local)
 {
     fOffset = off;
-    if( local )
+    if (local)
         SetFlag(kOffsetLocal);
     else
         ClearFlag(kOffsetLocal);

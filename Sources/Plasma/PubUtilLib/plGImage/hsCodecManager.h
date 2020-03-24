@@ -67,9 +67,9 @@ public:
     ~hsCodecManager()       { }
     static hsCodecManager& Instance();
 
-    plMipmap    *CreateCompressedMipmap( uint32_t compressionFormat, plMipmap *uncompressed );
-    plMipmap    *CreateUncompressedMipmap( plMipmap *compressed, uint8_t bitDepth = 0 );
-    bool        ColorizeCompMipmap( plMipmap *bMap, const uint8_t *colorMask );
+    plMipmap    *CreateCompressedMipmap(uint32_t compressionFormat, plMipmap *uncompressed);
+    plMipmap    *CreateUncompressedMipmap(plMipmap *compressed, uint8_t bitDepth = 0);
+    bool        ColorizeCompMipmap(plMipmap *bMap, const uint8_t *colorMask);
 
     bool        Register(hsCodec *codec, uint32_t compressionFormat, float priority);
 

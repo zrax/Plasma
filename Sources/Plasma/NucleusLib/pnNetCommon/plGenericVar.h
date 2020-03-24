@@ -115,23 +115,23 @@ public:
     ST::string GetAsString() const;
 
     // implicit set
-    void    Set( int32_t i )    { fI = i; fType = kInt; }
-    void    Set( uint32_t i )   { fU = i; fType = kUInt; }
-    void    Set( float f )      { fF = f; fType = kFloat; }
-    void    Set( double d )     { fD = d; fType = kDouble; }
-    void    Set( bool b )       { fB = b; fType = kBool; }
-    void    Set( const ST::string& s )  { fS = s; fType = kString; }
-    void    Set( char c )       { fC = c; fType = kChar; }
+    void    Set(int32_t i)    { fI = i; fType = kInt; }
+    void    Set(uint32_t i)   { fU = i; fType = kUInt; }
+    void    Set(float f)      { fF = f; fType = kFloat; }
+    void    Set(double d)     { fD = d; fType = kDouble; }
+    void    Set(bool b)       { fB = b; fType = kBool; }
+    void    Set(const ST::string& s)  { fS = s; fType = kString; }
+    void    Set(char c)       { fC = c; fType = kChar; }
 
     // explicit set
-    void    SetInt( int32_t i )     { fI = i; fType = kInt; }
-    void    SetUInt( uint32_t i )   { fU = i; fType = kUInt; }
-    void    SetFloat( float f )     { fF = f; fType = kFloat; }
-    void    SetDouble( double d )   { fD = d; fType = kDouble; }
-    void    SetBool( bool b )       { fB = b; fType = kBool; }
-    void    SetString( const ST::string& s )  { fS = s; fType = kString; }
-    void    SetChar( char c )       { fC = c; fType = kChar; }
-    void    SetAny( const ST::string& s )     { fS = s; fType = kAny; }
+    void    SetInt(int32_t i)     { fI = i; fType = kInt; }
+    void    SetUInt(uint32_t i)   { fU = i; fType = kUInt; }
+    void    SetFloat(float f)     { fF = f; fType = kFloat; }
+    void    SetDouble(double d)   { fD = d; fType = kDouble; }
+    void    SetBool(bool b)       { fB = b; fType = kBool; }
+    void    SetString(const ST::string& s)  { fS = s; fType = kString; }
+    void    SetChar(char c)       { fC = c; fType = kChar; }
+    void    SetAny(const ST::string& s)     { fS = s; fType = kAny; }
     void    SetNone()         { fType = kNone; }
 
     virtual void    Read(hsStream* s);

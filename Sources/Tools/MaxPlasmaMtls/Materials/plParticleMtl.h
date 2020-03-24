@@ -146,7 +146,7 @@ public:
     IOResult Load(ILoad *iload);
     IOResult Save(ISave *isave);
 
-    RefTargetHandle Clone( RemapDir &remap );
+    RefTargetHandle Clone(RemapDir &remap);
     RefResult NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
         PartID& partID,  RefMessage message);
 
@@ -186,7 +186,7 @@ public:
     float GetShinStr(int mtlNum=0, BOOL backFace=FALSE);
     float WireSize(int mtlNum=0, BOOL backFace=FALSE);
 
-    ULONG   Requirements( int subMtlNum );
+    ULONG   Requirements(int subMtlNum);
 };
 
 #endif //PL_PARTICLEMTL_H

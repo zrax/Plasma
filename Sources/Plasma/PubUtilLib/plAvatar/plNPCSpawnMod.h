@@ -54,8 +54,8 @@ public:
     void SetNotify(plNotifyMsg *notify);
     plNotifyMsg * GetNotify();
     
-    CLASSNAME_REGISTER( plNPCSpawnMod );
-    GETINTERFACE_ANY( plNPCSpawnMod, plSingleModifier );
+    CLASSNAME_REGISTER(plNPCSpawnMod);
+    GETINTERFACE_ANY(plNPCSpawnMod, plSingleModifier);
     
     virtual void AddTarget(plSceneObject* so);
 //  bool MsgReceive(plMessage* msg);

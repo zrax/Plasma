@@ -63,7 +63,7 @@ class pfGUITextBoxMod : public pfGUIControlMod
         bool            fUseLocalizationPath;
 
 
-        virtual bool IEval( double secs, float del, uint32_t dirty ); // called only by owner object's Eval()
+        virtual bool IEval(double secs, float del, uint32_t dirty); // called only by owner object's Eval()
 
         virtual void    IUpdate();
         virtual void    IPostSetUpDynTextMap();
@@ -73,8 +73,8 @@ class pfGUITextBoxMod : public pfGUIControlMod
         pfGUITextBoxMod();
         virtual ~pfGUITextBoxMod();
 
-        CLASSNAME_REGISTER( pfGUITextBoxMod );
-        GETINTERFACE_ANY( pfGUITextBoxMod, pfGUIControlMod );
+        CLASSNAME_REGISTER(pfGUITextBoxMod);
+        GETINTERFACE_ANY(pfGUITextBoxMod, pfGUIControlMod);
 
         enum OurFlags
         {
@@ -82,22 +82,22 @@ class pfGUITextBoxMod : public pfGUIControlMod
             kRightJustify
         };
 
-        virtual bool    MsgReceive( plMessage* pMsg );
+        virtual bool    MsgReceive(plMessage* pMsg);
         
-        virtual void Read( hsStream* s, hsResMgr* mgr );
-        virtual void Write( hsStream* s, hsResMgr* mgr );
+        virtual void Read(hsStream* s, hsResMgr* mgr);
+        virtual void Write(hsStream* s, hsResMgr* mgr);
 
-        virtual void    HandleMouseDown( hsPoint3 &mousePt, uint8_t modifiers );
-        virtual void    HandleMouseUp( hsPoint3 &mousePt, uint8_t modifiers );
-        virtual void    HandleMouseDrag( hsPoint3 &mousePt, uint8_t modifiers );
+        virtual void    HandleMouseDown(hsPoint3 &mousePt, uint8_t modifiers);
+        virtual void    HandleMouseUp(hsPoint3 &mousePt, uint8_t modifiers);
+        virtual void    HandleMouseDrag(hsPoint3 &mousePt, uint8_t modifiers);
 
         virtual void    PurgeDynaTextMapImage();
 
         virtual const wchar_t*  GetText() { return fText; }
 
         // Export only
-        void    SetText( const char *text );
-        void    SetText( const wchar_t *text );
+        void    SetText(const char *text);
+        void    SetText(const wchar_t *text);
 
         void    SetLocalizationPath(const ST::string& path);
         void    SetUseLocalizationPath(bool use);

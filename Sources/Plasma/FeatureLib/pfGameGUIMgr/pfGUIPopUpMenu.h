@@ -118,7 +118,7 @@ class pfGUIPopUpMenu : public pfGUIDialogMod
 
         hsGMaterial *ICreateDynMaterial();
 
-        void        IHandleMenuSomething( uint32_t idx, pfGUIControlMod *ctrl, int32_t extended = -1 );
+        void        IHandleMenuSomething(uint32_t idx, pfGUIControlMod *ctrl, int32_t extended = -1);
 
         void        ISeekToOrigin();
 
@@ -127,8 +127,8 @@ class pfGUIPopUpMenu : public pfGUIDialogMod
         pfGUIPopUpMenu();
         virtual ~pfGUIPopUpMenu();
 
-        CLASSNAME_REGISTER( pfGUIPopUpMenu );
-        GETINTERFACE_ANY( pfGUIPopUpMenu, pfGUIDialogMod );
+        CLASSNAME_REGISTER(pfGUIPopUpMenu);
+        GETINTERFACE_ANY(pfGUIPopUpMenu, pfGUIDialogMod);
 
         enum MenuFlags
         {
@@ -147,24 +147,24 @@ class pfGUIPopUpMenu : public pfGUIDialogMod
             kRefParentNode
         };
 
-        virtual bool    MsgReceive( plMessage* pMsg );
+        virtual bool    MsgReceive(plMessage* pMsg);
         
-        virtual void Read( hsStream* s, hsResMgr* mgr );
-        virtual void Write( hsStream* s, hsResMgr* mgr );
+        virtual void Read(hsStream* s, hsResMgr* mgr);
+        virtual void Write(hsStream* s, hsResMgr* mgr);
 
-        virtual void    SetEnabled( bool e );
-        virtual bool    HandleMouseEvent( pfGameGUIMgr::EventType event, float mouseX, float mouseY, uint8_t modifiers );
+        virtual void    SetEnabled(bool e);
+        virtual bool    HandleMouseEvent(pfGameGUIMgr::EventType event, float mouseX, float mouseY, uint8_t modifiers);
 
-        void            Show( float x, float y );
+        void            Show(float x, float y);
 
-        void    SetOriginAnchor( plSceneObject *anchor, pfGUIDialogMod *context );
-        void    SetAlignment( Alignment a ) { fAlignment = a; }
+        void    SetOriginAnchor(plSceneObject *anchor, pfGUIDialogMod *context);
+        void    SetAlignment(Alignment a) { fAlignment = a; }
         void    ClearItems();
-        void    AddItem( const char *name, pfGUICtrlProcObject *handler, pfGUIPopUpMenu *subMenu = nil );
-        void    AddItem( const wchar_t *name, pfGUICtrlProcObject *handler, pfGUIPopUpMenu *subMenu = nil );
-        void    SetSkin( pfGUISkin *skin );
+        void    AddItem(const char *name, pfGUICtrlProcObject *handler, pfGUIPopUpMenu *subMenu = nil);
+        void    AddItem(const wchar_t *name, pfGUICtrlProcObject *handler, pfGUIPopUpMenu *subMenu = nil);
+        void    SetSkin(pfGUISkin *skin);
 
-        static pfGUIPopUpMenu   *Build( const char *name, pfGUIDialogMod *parent, float x, float y, const plLocation &destLoc = plLocation::kGlobalFixedLoc );
+        static pfGUIPopUpMenu   *Build(const char *name, pfGUIDialogMod *parent, float x, float y, const plLocation &destLoc = plLocation::kGlobalFixedLoc);
 
 };
 
@@ -198,42 +198,42 @@ class pfGUISkin : public hsKeyedObject
                 uint16_t  fX, fY, fWidth, fHeight;
 
                 void    Empty() { fX = fY = fWidth = fHeight = 0; }
-                void    Read( hsStream *s );
-                void    Write( hsStream *s );
+                void    Read(hsStream *s);
+                void    Write(hsStream *s);
         };
 
     protected:
 
         plMipmap    *fTexture;
-        pfSRect     fElements[ kNumElements ];
+        pfSRect     fElements[kNumElements];
         uint16_t      fItemMargin, fBorderMargin;
 
     public:
 
         pfGUISkin();
-        pfGUISkin( plMipmap *texture );
+        pfGUISkin(plMipmap *texture);
         virtual ~pfGUISkin();
 
-        CLASSNAME_REGISTER( pfGUISkin );
-        GETINTERFACE_ANY( pfGUISkin, hsKeyedObject );
+        CLASSNAME_REGISTER(pfGUISkin);
+        GETINTERFACE_ANY(pfGUISkin, hsKeyedObject);
 
         enum Refs
         {
             kRefMipmap
         };
 
-        virtual void    Read( hsStream *s, hsResMgr *mgr );
-        virtual void    Write( hsStream *s, hsResMgr *mgr );
-        virtual bool    MsgReceive( plMessage *msg );
+        virtual void    Read(hsStream *s, hsResMgr *mgr);
+        virtual void    Write(hsStream *s, hsResMgr *mgr);
+        virtual bool    MsgReceive(plMessage *msg);
 
         plMipmap        *GetTexture() const { return fTexture; }
-        void            SetTexture( plMipmap *tex );
+        void            SetTexture(plMipmap *tex);
 
-        const pfSRect   &GetElement( uint32_t idx ) const { return fElements[ idx ]; }
-        bool            IsElementSet( uint32_t idx ) const { return ( fElements[ idx ].fWidth > 0 && fElements[ idx ].fHeight > 0 ); }
-        void            SetElement( uint32_t idx, uint16_t x, uint16_t y, uint16_t w, uint16_t h );
+        const pfSRect   &GetElement(uint32_t idx) const { return fElements[idx]; }
+        bool            IsElementSet(uint32_t idx) const { return (fElements[idx].fWidth > 0 && fElements[idx].fHeight > 0); }
+        void            SetElement(uint32_t idx, uint16_t x, uint16_t y, uint16_t w, uint16_t h);
 
-        void            SetMargins( uint16_t item, uint16_t border ) { fItemMargin = item; fBorderMargin = border; }
+        void            SetMargins(uint16_t item, uint16_t border) { fItemMargin = item; fBorderMargin = border; }
         uint16_t          GetItemMargin() const { return fItemMargin; }
         uint16_t          GetBorderMargin() const { return fBorderMargin; }
 };

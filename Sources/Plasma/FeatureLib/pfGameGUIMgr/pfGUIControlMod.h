@@ -86,17 +86,17 @@ class pfGUIColorScheme : public hsRefCnt
         };
 
         pfGUIColorScheme();
-        pfGUIColorScheme( hsColorRGBA &foreColor, hsColorRGBA &backColor );
-        pfGUIColorScheme( const ST::string &face, uint8_t size, uint8_t fontFlags );
+        pfGUIColorScheme(hsColorRGBA &foreColor, hsColorRGBA &backColor);
+        pfGUIColorScheme(const ST::string &face, uint8_t size, uint8_t fontFlags);
 
         void    SetFontFace(const ST::string &face) { fFontFace = face; }
 
-        void    Read( hsStream *s );
-        void    Write( hsStream *s );
+        void    Read(hsStream *s);
+        void    Write(hsStream *s);
 
-        bool    IsBold() const { return ( fFontFlags & kFontBold ) ? true : false; }
-        bool    IsItalic() const { return ( fFontFlags & kFontItalic ) ? true : false; }
-        bool    IsShadowed() const { return ( fFontFlags & kFontShadowed ) ? true : false; }
+        bool    IsBold() const { return (fFontFlags & kFontBold) ? true : false; }
+        bool    IsItalic() const { return (fFontFlags & kFontItalic) ? true : false; }
+        bool    IsShadowed() const { return (fFontFlags & kFontShadowed) ? true : false; }
 
     protected:
 
@@ -139,20 +139,20 @@ class pfGUIControlMod : public plSingleModifier
         pfGUISkin       *fSkin;
 
 
-        bool            ISetUpDynTextMap( plPipeline *pipe );
+        bool            ISetUpDynTextMap(plPipeline *pipe);
         virtual void    IPostSetUpDynTextMap() {}
-        virtual void    IGrowDTMDimsToDesiredSize( uint16_t &width, uint16_t &height ) { }
+        virtual void    IGrowDTMDimsToDesiredSize(uint16_t &width, uint16_t &height) { }
 
-        virtual bool    IEval( double secs, float del, uint32_t dirty ); // called only by owner object's Eval()
+        virtual bool    IEval(double secs, float del, uint32_t dirty); // called only by owner object's Eval()
 
-        void            ISetDialog( pfGUIDialogMod *mod ) { fDialog = mod; }
-        void            IScreenToLocalPt( hsPoint3 &pt );
+        void            ISetDialog(pfGUIDialogMod *mod) { fDialog = mod; }
+        void            IScreenToLocalPt(hsPoint3 &pt);
 
         virtual void    IUpdate() { }
-        void            ISetHandler( pfGUICtrlProcObject *h, bool clearInheritFlag = false );
+        void            ISetHandler(pfGUICtrlProcObject *h, bool clearInheritFlag = false);
 
-        void            IPlaySound( uint8_t guiCtrlEvent, bool loop = false );
-        void            IStopSound( uint8_t guiCtrlEvent );
+        void            IPlaySound(uint8_t guiCtrlEvent, bool loop = false);
+        void            IStopSound(uint8_t guiCtrlEvent);
 
         virtual uint32_t      IGetDesiredCursor() const { return 0; }   // As specified in plInputInterface.h
 
@@ -161,63 +161,63 @@ class pfGUIControlMod : public plSingleModifier
         pfGUIControlMod();
         virtual ~pfGUIControlMod();
 
-        CLASSNAME_REGISTER( pfGUIControlMod );
-        GETINTERFACE_ANY( pfGUIControlMod, plSingleModifier );
+        CLASSNAME_REGISTER(pfGUIControlMod);
+        GETINTERFACE_ANY(pfGUIControlMod, plSingleModifier);
 
 
-        virtual bool    MsgReceive( plMessage* pMsg );
+        virtual bool    MsgReceive(plMessage* pMsg);
         
-        virtual void Read( hsStream* s, hsResMgr* mgr );
-        virtual void Write( hsStream* s, hsResMgr* mgr );
+        virtual void Read(hsStream* s, hsResMgr* mgr);
+        virtual void Write(hsStream* s, hsResMgr* mgr);
 
         uint32_t      GetTagID() { return fTagID; }
 
-        virtual void    SetEnabled( bool e );
+        virtual void    SetEnabled(bool e);
         virtual bool    IsEnabled() { return fEnabled; }
-        virtual void    SetFocused( bool e );
+        virtual void    SetFocused(bool e);
         virtual bool    IsFocused() { return fFocused; }
-        virtual void    SetVisible( bool vis );
+        virtual void    SetVisible(bool vis);
         virtual bool    IsVisible() { return fVisible; }
 
-        virtual void    SetInteresting( bool i );
+        virtual void    SetInteresting(bool i);
         bool            IsInteresting() { return fInteresting; }
 
-        virtual void    SetNotifyOnInteresting( bool state ) { fNotifyOnInteresting = state; }
+        virtual void    SetNotifyOnInteresting(bool state) { fNotifyOnInteresting = state; }
 
         pfGUIDialogMod  *GetOwnerDlg() { return fDialog; }
         
         virtual void    Refresh();
 
-        virtual void    UpdateBounds( hsMatrix44 *invXformMatrix = nil, bool force = false );
-        void            SetObjectCenter( float x, float y );
+        virtual void    UpdateBounds(hsMatrix44 *invXformMatrix = nil, bool force = false);
+        void            SetObjectCenter(float x, float y);
         virtual hsPoint3 GetObjectCenter() { return fScreenCenter; }
         float        GetScreenMinZ() { return fScreenMinZ; }
         void            CalcInitialBounds();
 
         const hsBounds3 &GetBounds();
-        bool            PointInBounds( const hsPoint3 &point );
+        bool            PointInBounds(const hsPoint3 &point);
 
-        virtual void    SetTarget( plSceneObject *object );
+        virtual void    SetTarget(plSceneObject *object);
 
         // Return false if you actually DON'T want the mouse clicked at this point (should only be used for non-rectangular region rejection)
-        virtual bool    FilterMousePosition( hsPoint3 &mousePt ) { return true; }
+        virtual bool    FilterMousePosition(hsPoint3 &mousePt) { return true; }
 
-        virtual void    HandleMouseDown( hsPoint3 &mousePt, uint8_t modifiers ) { }
-        virtual void    HandleMouseUp( hsPoint3 &mousePt, uint8_t modifiers ) { }
-        virtual void    HandleMouseDrag( hsPoint3 &mousePt, uint8_t modifiers ) { }
-        virtual void    HandleMouseHover( hsPoint3 &mousePt, uint8_t modifiers ) { }
-        virtual void    HandleMouseDblClick( hsPoint3 &mousePt, uint8_t modifiers ) { }
+        virtual void    HandleMouseDown(hsPoint3 &mousePt, uint8_t modifiers) { }
+        virtual void    HandleMouseUp(hsPoint3 &mousePt, uint8_t modifiers) { }
+        virtual void    HandleMouseDrag(hsPoint3 &mousePt, uint8_t modifiers) { }
+        virtual void    HandleMouseHover(hsPoint3 &mousePt, uint8_t modifiers) { }
+        virtual void    HandleMouseDblClick(hsPoint3 &mousePt, uint8_t modifiers) { }
 
-        virtual bool    HandleKeyPress( wchar_t key, uint8_t modifiers );
-        virtual bool    HandleKeyEvent( pfGameGUIMgr::EventType event, plKeyDef key, uint8_t modifiers );
+        virtual bool    HandleKeyPress(wchar_t key, uint8_t modifiers);
+        virtual bool    HandleKeyEvent(pfGameGUIMgr::EventType event, plKeyDef key, uint8_t modifiers);
 
-        void            SetHandler( pfGUICtrlProcObject *h ) { ISetHandler( h, true ); }
+        void            SetHandler(pfGUICtrlProcObject *h) { ISetHandler(h, true); }
         void            DoSomething();                        // Will call the handler
-        void            HandleExtendedEvent( uint32_t event );        // Will call the handler
+        void            HandleExtendedEvent(uint32_t event);        // Will call the handler
 
         pfGUICtrlProcObject *GetHandler() const { return fHandler; }
 
-        void                    SetDropTargetHdlr( pfGUIDropTargetProc *drop );
+        void                    SetDropTargetHdlr(pfGUIDropTargetProc *drop);
         pfGUIDropTargetProc     *GetDropTargetHdlr() { return fDropTargetHdlr; }
 
         enum
@@ -243,7 +243,7 @@ class pfGUIControlMod : public plSingleModifier
             kDerivedFlagsStart = 32
         };
 
-        virtual void        SetColorScheme( pfGUIColorScheme *newScheme );
+        virtual void        SetColorScheme(pfGUIColorScheme *newScheme);
         pfGUIColorScheme    *GetColorScheme() const;
 
         virtual void    UpdateColorScheme() { IPostSetUpDynTextMap(); IUpdate(); }
@@ -255,13 +255,13 @@ class pfGUIControlMod : public plSingleModifier
         virtual void SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l);
 
         // Forces an immediate play of the given GUI control event sound
-        void    PlaySound( uint8_t guiCtrlEvent, bool loop = false ) { IPlaySound( guiCtrlEvent, loop ); }
-        void    StopSound( uint8_t guiCtrlEvent ) { IStopSound( guiCtrlEvent ); }
+        void    PlaySound(uint8_t guiCtrlEvent, bool loop = false) { IPlaySound(guiCtrlEvent, loop); }
+        void    StopSound(uint8_t guiCtrlEvent) { IStopSound(guiCtrlEvent); }
 
         // Export only
-        void        SetTagID( uint32_t id ) { fTagID = id; }
-        void        SetDynTextMap( plLayerInterface *layer, plDynamicTextMap *dynText );
-        void        SetSoundIndex( uint8_t guiCtrlEvent, int soundIndex );
+        void        SetTagID(uint32_t id) { fTagID = id; }
+        void        SetDynTextMap(plLayerInterface *layer, plDynamicTextMap *dynText);
+        void        SetSoundIndex(uint8_t guiCtrlEvent, int soundIndex);
 };
 
 #endif // _pfGUIControlMod_h

@@ -131,7 +131,7 @@ void hsHashTable<T>::clear()
 {
     fItemList.SetCount(1);
     for (int32_t i=0; i<fClearList.Count(); i++)
-        fHashTable[ fClearList[i] ] = 0;
+        fHashTable[fClearList[i]] = 0;
     fClearList.Reset();
 }
 
@@ -143,7 +143,7 @@ void hsHashTable<T>::insert(T& item)
     h %= fSize;
     while (uint32_t it = fHashTable[h])
     {
-        if ( fItemList[it] == item)
+        if (fItemList[it] == item)
         {
             fItemList[it] = item;
             return;
@@ -164,7 +164,7 @@ void hsHashTable<T>::erase(T& item)
     h %= fSize;
     while (uint32_t it = fHashTable[h])
     {
-        if ( fItemList[it] == item )
+        if (fItemList[it] == item)
         {
             fHashTable[h] = 0;
             return;
@@ -179,7 +179,7 @@ hsHashTableIterator<T> hsHashTable<T>::find(const T& item)
     h %= fSize;
     while (uint32_t it = fHashTable[h])
     {
-        if ( fItemList[it] == item )
+        if (fItemList[it] == item)
         {
             return iterator(&fItemList,it);
         }

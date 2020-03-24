@@ -92,14 +92,14 @@ protected:
 
     plCoordinateInterface*  IGetParent() const;
 
-    void        ISetHasMaster(bool on) { if(on)SetFlag(kHasMaster); else ClearFlag(kHasMaster); }
+    void        ISetHasMaster(bool on) { if (on) SetFlag(kHasMaster); else ClearFlag(kHasMaster); }
 
 public:
     plStereizer();
     virtual ~plStereizer();
 
-    CLASSNAME_REGISTER( plStereizer );
-    GETINTERFACE_ANY( plStereizer, plSingleModifier );
+    CLASSNAME_REGISTER(plStereizer);
+    GETINTERFACE_ANY(plStereizer, plSingleModifier);
     
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);
@@ -124,7 +124,7 @@ public:
     void SetSepAngle(float rads);
     float GetSepAngle() const;
 
-    void SetAsLeftChannel(bool on) { if(on)SetFlag(kLeftChannel); else ClearFlag(kLeftChannel); }
+    void SetAsLeftChannel(bool on) { if (on) SetFlag(kLeftChannel); else ClearFlag(kLeftChannel); }
     bool IsLeftChannel() const { return HasFlag(kLeftChannel); }
 
     void SetParentInitPos(const hsPoint3& pos) { fInitPos = pos; }

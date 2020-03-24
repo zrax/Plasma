@@ -89,7 +89,7 @@ void plMaxNodeBase::SetMaxNodeData(plMaxNodeData * pdat)
     // If pointer is nil, remove any data
     if (!pdat)
     {
-        if( adc )
+        if (adc)
         {
             plMaxNodeData *pDataChunk = (plMaxNodeData*)adc->data;
             pDataChunk->DeInit();
@@ -251,8 +251,8 @@ void            plMaxNodeBase::SetAnimCompress(uint8_t v)             { GetMD; p
 void            plMaxNodeBase::SetKeyReduceThreshold(float v)    { GetMD; pMD->SetKeyReduceThreshold(v); }
 void            plMaxNodeBase::ClearRenderDependencies()            { GetMD; pMD->ClearRenderDependencies(); }
 
-void            plMaxNodeBase::AddBone(plMaxNodeBase* m)            { GetMD; if(pMD) pMD->AddBone(m);       }
-void            plMaxNodeBase::ClearBones()                         { GetMD; if(pMD) pMD->ClearBones();     }
+void            plMaxNodeBase::AddBone(plMaxNodeBase* m)            { GetMD; if (pMD) pMD->AddBone(m);       }
+void            plMaxNodeBase::ClearBones()                         { GetMD; if (pMD) pMD->ClearBones();     }
 
 plLocation plMaxNodeBase::GetLocation()
 {
@@ -300,13 +300,13 @@ void plMaxNodeBase::AddLoadMask(const plLoadMask& m)
 
 bool plMaxNodeBase::RenderDependsOn(plMaxNodeBase* m)
 {
-    if( m == this )
+    if (m == this)
         return true;
 
     int i;
-    for( i = 0; i < NumRenderDependencies(); i++ )
+    for (i = 0; i < NumRenderDependencies(); i++)
     {
-        if( GetRenderDependency(i)->RenderDependsOn(m) )
+        if (GetRenderDependency(i)->RenderDependsOn(m))
             return true;
     }
     return false;
@@ -314,7 +314,7 @@ bool plMaxNodeBase::RenderDependsOn(plMaxNodeBase* m)
 
 bool plMaxNodeBase::AddRenderDependency(plMaxNodeBase* m)
 {
-    if( m->RenderDependsOn(this) )
+    if (m->RenderDependsOn(this))
         return false;
     GetMD;
     pMD->AddRenderDependency(m);
@@ -357,12 +357,12 @@ bool plMaxNodeBase::CanConvert(bool recalculate)
             || obj->ClassID() == Class_ID(DUMMY_CLASS_ID,0) // Dummy boxes are accepted here
             || obj->SuperClassID() == CAMERA_CLASS_ID       // All Camera types are accepted here
             || obj->ClassID() == Class_ID(UTILITY_CLASS_ID, 0)      // All Camera targets are accepted here
-            || (  obj->ClassID() ==  RTOMNI_LIGHT_CLASSID
+            || (   obj->ClassID() ==  RTOMNI_LIGHT_CLASSID
                 || obj->ClassID() == RTSPOT_LIGHT_CLASSID
                 || obj->ClassID() == RTDIR_LIGHT_CLASSID
-                || obj->ClassID() == RTPDIR_LIGHT_CLASSID )
-            || (  obj->SuperClassID() == LIGHT_CLASS_ID     // All run time lights are accepted here
-               && UserPropExists("RunTimeLight"))
+                || obj->ClassID() == RTPDIR_LIGHT_CLASSID)
+            || (   obj->SuperClassID() == LIGHT_CLASS_ID     // All run time lights are accepted here
+                && UserPropExists("RunTimeLight"))
 
             || IsGroupMember()                              // Group objects are accepted here
             )
@@ -383,9 +383,9 @@ bool plMaxNodeBase::IsTMAnimatedRecur()
     const char* dbgNodeName = GetName();
     bool        shouldBe = false;
 
-    if( !CanConvert() )
+    if (!CanConvert())
         return false;
-    if( IsTMAnimated() )
+    if (IsTMAnimated())
         return true;
 
     return ((plMaxNodeBase*)GetParentNode())->IsTMAnimatedRecur();
@@ -399,25 +399,25 @@ bool plMaxNodeBase::IsMovable()
     bool        shouldBe = false;
 
 
-    if( !CanConvert() )
+    if (!CanConvert())
         return false;
 
-    if( GetMovable() )
+    if (GetMovable())
         return true;
 
-    if( GetItinerant() )
+    if (GetItinerant())
         shouldBe = true;
-    else if( FindSkinModifier() )
+    else if (FindSkinModifier())
         shouldBe = true;
 
     // Moved this to plAnimComponent (so GetMovable() will reveal it)
     /*
-    else if( IsTMAnimated() )
+    else if (IsTMAnimated())
         shouldBe = true;
     */
-    if( shouldBe )
+    if (shouldBe)
     {
-        SetMovable( true );
+        SetMovable(true);
         return true;
     }
 
@@ -429,14 +429,14 @@ void plMaxNodeBase::SetItinerant(bool b)
 {
     const char* dbgNodeName = GetName();
 
-    if( !CanConvert() )
+    if (!CanConvert())
         return;
 
     GetMD;
     pMD->SetItinerant(b);
 
     int i;
-    for( i = 0; i < NumChildren(); i++ )
+    for (i = 0; i < NumChildren(); i++)
     {
         ((plMaxNodeBase*)GetChildNode(i))->SetItinerant(b);
     }
@@ -451,25 +451,25 @@ ISkin* plMaxNodeBase::FindSkinModifier()
 
     // Get object from node. Abort if no object.
     Object *pObj = GetObjectRef();
-    if( pObj == nil )
+    if (pObj == nil)
         return nil;
 
     // Is derived object ?
-    while( pObj->SuperClassID() == GEN_DERIVOB_CLASS_ID )
+    while (pObj->SuperClassID() == GEN_DERIVOB_CLASS_ID)
     {
         IDerivedObject *pDerObj = (IDerivedObject *)pObj;
 
         // Iterate over all entries of the modifier stack.
-        for( modStackIndex = 0; modStackIndex < pDerObj->NumModifiers(); modStackIndex++ )
+        for (modStackIndex = 0; modStackIndex < pDerObj->NumModifiers(); modStackIndex++)
         {
             // Get current modifier.
-            Modifier *mod = pDerObj->GetModifier( modStackIndex );
+            Modifier *mod = pDerObj->GetModifier(modStackIndex);
 
             // Is this Skin ?
-            if( mod->ClassID() == SKIN_CLASSID )
+            if (mod->ClassID() == SKIN_CLASSID)
             {
                 ISkin* skin = (ISkin*)mod->GetInterface(I_SKIN);
-                if( skin->GetNumBones() > 0 )
+                if (skin->GetNumBones() > 0)
                     return skin;
             }
         }
@@ -632,7 +632,7 @@ plComponentBase *plMaxNodeBase::IRefMakerToComponent(ReferenceMaker *maker, bool
 bool plMaxNodeBase::IRenderLevelSet(bool forBlend)
 {
     plMaxNodeData* md = GetMaxNodeData();
-    if( md )
+    if (md)
         return forBlend ? md->BlendLevelSet() : md->OpaqueLevelSet();
     return false;
 }
@@ -640,9 +640,9 @@ bool plMaxNodeBase::IRenderLevelSet(bool forBlend)
 void plMaxNodeBase::ISetRenderLevel(const plRenderLevel& l, bool forBlend)
 {
     plMaxNodeData* md = GetMaxNodeData();
-    if( md )
+    if (md)
     {
-        if( forBlend )
+        if (forBlend)
             md->SetBlendLevel(l);
         else
             md->SetOpaqueLevel(l);
@@ -652,7 +652,7 @@ void plMaxNodeBase::ISetRenderLevel(const plRenderLevel& l, bool forBlend)
 const plRenderLevel& plMaxNodeBase::IGetRenderLevel(bool forBlend)
 {
     plMaxNodeData* md = GetMaxNodeData();
-    if( !md )
+    if (!md)
     {
         static plRenderLevel defRenderLevel;
         return defRenderLevel;
@@ -662,28 +662,28 @@ const plRenderLevel& plMaxNodeBase::IGetRenderLevel(bool forBlend)
 
 uint32_t plMaxNodeBase::IGetMajorRenderLevel(bool forBlend)
 {
-    if( GetBlendToFB() )
+    if (GetBlendToFB())
         return plRenderLevel::kFBMajorLevel;
 
-    if( GetNoDeferDraw() || GetAvatarSO() )
+    if (GetNoDeferDraw() || GetAvatarSO())
         forBlend = false;
 
     int numDep = NumRenderDependencies();
-    if( !numDep )
+    if (!numDep)
         return forBlend ? plRenderLevel::kBlendRendMajorLevel : plRenderLevel::kDefRendMajorLevel;
 
     int iMaxDep = 0;
     const char* dbgNodeName = GetName();
 
     int i;
-    for( i = 0; i < numDep; i++ )
+    for (i = 0; i < numDep; i++)
     {
         plMaxNodeBase* dep = GetRenderDependency(i);
-        if( dep )
+        if (dep)
         {
             const char* depNodeName = dep->GetName();
             int iDep = GetRenderDependency(i)->GetRenderLevel(forBlend).Major();
-            if( iDep > iMaxDep )
+            if (iDep > iMaxDep)
                 iMaxDep = iDep;
         }
     }
@@ -693,11 +693,11 @@ uint32_t plMaxNodeBase::IGetMajorRenderLevel(bool forBlend)
 
 uint32_t plMaxNodeBase::IGetMinorRenderLevel(bool forBlend)
 {
-    if( GetAvatarSO() )
+    if (GetAvatarSO())
         return plRenderLevel::kAvatarRendMinorLevel;
 
     int numDep = NumRenderDependencies();
-    if( !numDep )
+    if (!numDep)
         return plRenderLevel::kDefRendMinorLevel;
 
     int iMaxDep = 0;
@@ -705,14 +705,14 @@ uint32_t plMaxNodeBase::IGetMinorRenderLevel(bool forBlend)
     const char* dbgNodeName = GetName();
 
     int i;
-    for( i = 0; i < numDep; i++ )
+    for (i = 0; i < numDep; i++)
     {
         plMaxNodeBase* dep = GetRenderDependency(i);
-        if( dep )
+        if (dep)
         {
             const char* depNodeName = dep->GetName();
             int iDep = GetRenderDependency(i)->GetRenderLevel(forBlend).Minor();
-            if( iDep > iMaxDep )
+            if (iDep > iMaxDep)
                 iMaxDep = iDep;
         }
     }
@@ -722,17 +722,17 @@ uint32_t plMaxNodeBase::IGetMinorRenderLevel(bool forBlend)
 
 plRenderLevel plMaxNodeBase::ICalcRenderLevel(bool forBlend)
 {
-    if( GetBlendToFB() )
+    if (GetBlendToFB())
         return plRenderLevel::kFBMajorLevel;
 
-    if( GetAvatarSO() )
+    if (GetAvatarSO())
         return plRenderLevel(plRenderLevel::kOpaqueMajorLevel, plRenderLevel::kAvatarRendMinorLevel);
 
-    if( GetNoDeferDraw() )
+    if (GetNoDeferDraw())
         forBlend = false;
 
     int numDep = NumRenderDependencies();
-    if( !numDep )
+    if (!numDep)
         return forBlend
             ? plRenderLevel(plRenderLevel::kBlendRendMajorLevel, plRenderLevel::kDefRendMinorLevel)
             : plRenderLevel(plRenderLevel::kDefRendMajorLevel, plRenderLevel::kDefRendMinorLevel);
@@ -742,15 +742,15 @@ plRenderLevel plMaxNodeBase::ICalcRenderLevel(bool forBlend)
     const char* dbgNodeName = GetName();
 
     int i;
-    for( i = 0; i < numDep; i++ )
+    for (i = 0; i < numDep; i++)
     {
         plMaxNodeBase* dep = GetRenderDependency(i);
-        if( dep )
+        if (dep)
         {
             const char* depNodeName = dep->GetName();
 
             plRenderLevel depLev = GetRenderDependency(i)->GetRenderLevel(forBlend);
-            if( depLev > maxLevel )
+            if (depLev > maxLevel)
                 maxLevel = depLev;
         }
     }
@@ -761,13 +761,13 @@ plRenderLevel plMaxNodeBase::ICalcRenderLevel(bool forBlend)
 
 const plRenderLevel& plMaxNodeBase::GetRenderLevel(bool forBlend)
 {
-    if( !CanConvert() )
+    if (!CanConvert())
     {
         static plRenderLevel retVal;
         return retVal;
     }
 
-    if( !IRenderLevelSet(forBlend) )
+    if (!IRenderLevelSet(forBlend))
     {
 #if 0
 
@@ -786,7 +786,7 @@ const plRenderLevel& plMaxNodeBase::GetRenderLevel(bool forBlend)
 BOOL plMaxNodeBase::GetGeoDice(int& maxFaces, float& maxSize, int& minFaces)
 {
     plMaxNodeData* md = GetMaxNodeData();
-    if( md && md->GetGeoDice() )
+    if (md && md->GetGeoDice())
     {
         maxFaces = md->GetGeoDiceMaxFaces();
         maxSize = md->GetGeoDiceMaxSize();
@@ -802,7 +802,7 @@ BOOL plMaxNodeBase::GetGeoDice(int& maxFaces, float& maxSize, int& minFaces)
 void plMaxNodeBase::SetGeoDice(BOOL on, int maxFaces, float maxSize, int minFaces)
 {
     plMaxNodeData* md = GetMaxNodeData();
-    if( md )
+    if (md)
     {
         md->SetGeoDice(on);
         md->SetGeoDiceMaxFaces(maxFaces);
@@ -815,37 +815,37 @@ bool plMaxNodeBase::Contains(const Point3& worldPt)
 {
     TimeValue currTime = 0;//hsConverterUtils::Instance().GetTime(GetInterface());
     Object *obj = EvalWorldState(currTime).obj;
-    if( !obj )
+    if (!obj)
         return false;
 
     Matrix3 l2w = GetObjectTM(currTime);
     Matrix3 w2l = Inverse(l2w);
     Point3 pt = w2l * worldPt;
 
-    if( obj->ClassID() == Class_ID(DUMMY_CLASS_ID,0) )
+    if (obj->ClassID() == Class_ID(DUMMY_CLASS_ID,0))
     {
         DummyObject* dummy = (DummyObject*)obj;
         Box3 bnd = dummy->GetBox();
         return bnd.Contains(pt);
     }
-    if( obj->CanConvertToType(triObjectClassID) )
+    if (obj->CanConvertToType(triObjectClassID))
     {
         TriObject   *meshObj = (TriObject *)obj->ConvertToType(currTime, triObjectClassID);
-        if( !meshObj )
+        if (!meshObj)
             return false;
 
         Mesh& mesh = meshObj->mesh;
         Box3 bnd = mesh.getBoundingBox();
-        if( !bnd.Contains(pt) )
+        if (!bnd.Contains(pt))
         {
-            if( meshObj != obj )
+            if (meshObj != obj)
                 meshObj->DeleteThis();
             return false;
         }
 
         bool retVal = true;
         int i;
-        for( i = 0; i < mesh.getNumFaces(); i++ )
+        for (i = 0; i < mesh.getNumFaces(); i++)
         {
             Face& face = mesh.faces[i];
 
@@ -855,14 +855,14 @@ bool plMaxNodeBase::Contains(const Point3& worldPt)
 
             Point3 n = CrossProd(p1 - p0, p2 - p0);
 
-            if( DotProd(pt, n) > DotProd(p0, n) )
+            if (DotProd(pt, n) > DotProd(p0, n))
             {
                 retVal = false;
                 break;
             }
         }
 
-        if( meshObj != obj )
+        if (meshObj != obj)
             meshObj->DeleteThis();
 
         return retVal;
@@ -875,9 +875,9 @@ bool plMaxNodeBase::Contains(const Point3& worldPt)
 bool plMaxNodeBase::Contains(const Box3& bnd, const Matrix3& l2w)
 {
     int i;
-    for( i = 0; i < 8; i++ )
+    for (i = 0; i < 8; i++)
     {
-        if( !Contains(l2w * bnd[i]) )
+        if (!Contains(l2w * bnd[i]))
             return false;
     }
     return true;
@@ -899,12 +899,12 @@ float plMaxNodeBase::RegionPriority()
 {
     TimeValue currTime = 0;//hsConverterUtils::Instance().GetTime(GetInterface());
     Object *obj = EvalWorldState(currTime).obj;
-    if( !obj )
+    if (!obj)
         return 0;
 
     Matrix3 l2w = GetObjectTM(currTime);
 
-    if( obj->ClassID() == Class_ID(DUMMY_CLASS_ID,0) )
+    if (obj->ClassID() == Class_ID(DUMMY_CLASS_ID,0))
     {
         DummyObject* dummy = (DummyObject*)obj;
         Box3 bnd = dummy->GetBox();
@@ -912,16 +912,16 @@ float plMaxNodeBase::RegionPriority()
         return BoxVolume(bnd, l2w);
     }
 
-    if( obj->CanConvertToType(triObjectClassID) )
+    if (obj->CanConvertToType(triObjectClassID))
     {
         TriObject   *meshObj = (TriObject *)obj->ConvertToType(currTime, triObjectClassID);
-        if( !meshObj )
+        if (!meshObj)
             return 0;
 
         Mesh& mesh = meshObj->mesh;
         Box3 bnd = mesh.getBoundingBox();
         
-        if( meshObj != obj )
+        if (meshObj != obj)
             meshObj->DeleteThis();
 
         return BoxVolume(bnd, l2w);
@@ -1013,7 +1013,7 @@ Matrix3 plMaxNodeBase::GetWorldToParent(TimeValue t)
     // Note that we only go through this charade if we've got
     // filtering of inheritance active for this node.
     plMaxNodeBase* parent = (plMaxNodeBase*)GetParentNode();
-    if( !GetFilterInherit() )
+    if (!GetFilterInherit())
         return parent->GetWorldToLocal(t);
 
     // l2w = l2p * parentL2W
@@ -1032,7 +1032,7 @@ Matrix3 plMaxNodeBase::GetWorldToParent(TimeValue t)
     GetTMController()->GetLocalTMComponents(t, cmpts, parentMatrix);
 
     Quat q;
-    if( cmpts.rotRep == TMComponentsArg::kQuat )
+    if (cmpts.rotRep == TMComponentsArg::kQuat)
         q = Quat(rot);
     else
         EulerToQuat(rot, q, cmpts.rotRep);
@@ -1055,7 +1055,7 @@ Matrix3 plMaxNodeBase::GetLocalToParent(TimeValue t)
     // l2w * parentW2L = l2p
     Matrix3 l2w = GetLocalToWorld(t);
     Matrix3 w2p(true);
-    if( !GetParentNode()->IsRootNode() )
+    if (!GetParentNode()->IsRootNode())
         w2p = GetWorldToParent(t);
 
     Matrix3 l2p = l2w * w2p;
@@ -1071,7 +1071,7 @@ Matrix3 plMaxNodeBase::GetParentToLocal(TimeValue t)
 
 Matrix3 plMaxNodeBase::GetLocalToWorld(TimeValue t)
 {
-    if( GetForceLocal() )
+    if (GetForceLocal())
     {
         // v2l * l2w = objectTM
         // l2w = Inverse(v2l) * objectTM;
@@ -1080,7 +1080,7 @@ Matrix3 plMaxNodeBase::GetLocalToWorld(TimeValue t)
         Matrix3 l2w = GetLocalToVert(t) * objectTM ;
         return l2w;
     }
-    if( !GetParentNode()->IsRootNode() )
+    if (!GetParentNode()->IsRootNode())
         return GetParentToWorld(t);
 
     return Matrix3(true);
@@ -1112,7 +1112,7 @@ Matrix3 plMaxNodeBase::GetVertToLocal(TimeValue t)
     // If animated or we want forced into local space
     // still return OTM to fold into vertices
     //
-    if( GetForceLocal() )
+    if (GetForceLocal())
     {
         return GetOTM(t);
     }
@@ -1129,7 +1129,7 @@ Matrix3 plMaxNodeBase::GetVertToLocal(TimeValue t)
     objectTM = GetObjectTM(t);
 
     Matrix3 w2p(true);
-    if( !GetParentNode()->IsRootNode() )
+    if (!GetParentNode()->IsRootNode())
         w2p = GetWorldToParent(t);
 
     Matrix3 v2l = objectTM * w2p;

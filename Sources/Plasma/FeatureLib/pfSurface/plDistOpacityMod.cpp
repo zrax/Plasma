@@ -93,12 +93,12 @@ float plDistOpacityMod::ICalcOpacity(const hsPoint3& targPos, const hsPoint3& re
 {
     float dist = hsVector3(&targPos, &refPos).Magnitude();
 
-    if( dist > fDists[kFarTrans] )
+    if (dist > fDists[kFarTrans])
         return 0;
-    if( dist < fDists[kNearTrans] )
+    if (dist < fDists[kNearTrans])
         return 0;
 
-    if( dist > fDists[kFarOpaq] )
+    if (dist > fDists[kFarOpaq])
     {
         dist -= fDists[kFarOpaq];
         dist /= (fDists[kFarTrans] - fDists[kFarOpaq]);
@@ -108,7 +108,7 @@ float plDistOpacityMod::ICalcOpacity(const hsPoint3& targPos, const hsPoint3& re
         return 1.f - dist;
     }
 
-    if( dist < fDists[kNearOpaq] )
+    if (dist < fDists[kNearOpaq])
     {
         dist -= fDists[kNearTrans];
         dist /= (fDists[kNearOpaq] - fDists[kNearTrans]);
@@ -123,17 +123,17 @@ float plDistOpacityMod::ICalcOpacity(const hsPoint3& targPos, const hsPoint3& re
 
 void plDistOpacityMod::ISetOpacity()
 {
-    if( !GetTarget() )
+    if (!GetTarget())
         return;
 
-    if( !fSetup )
+    if (!fSetup)
         ISetup();
 
     float opacity = ICalcOpacity(GetTarget()->GetLocalToWorld().GetTranslate(), fRefPos);
 
     const int num = fFadeLays.GetCount();
     int i;
-    for( i = 0; i < num; i++ )
+    for (i = 0; i < num; i++)
         fFadeLays[i]->SetOpacity(opacity);
 
 }
@@ -141,7 +141,7 @@ void plDistOpacityMod::ISetOpacity()
 bool plDistOpacityMod::MsgReceive(plMessage* msg)
 {
     plArmatureUpdateMsg* arm = plArmatureUpdateMsg::ConvertNoRef(msg);
-    if( arm && arm->IsLocal() )
+    if (arm && arm->IsLocal())
     {
         arm->fArmature->GetPositionAndRotationSim(&fRefPos, nil);
 
@@ -149,9 +149,9 @@ bool plDistOpacityMod::MsgReceive(plMessage* msg)
     }
 
     plRenderMsg* rend = plRenderMsg::ConvertNoRef(msg);
-    if( rend )
+    if (rend)
     {
-        if( HasFlag(kTrackCamera) )
+        if (HasFlag(kTrackCamera))
             fRefPos = rend->Pipeline()->GetViewPositionWorld();
 
         ISetOpacity();
@@ -160,16 +160,16 @@ bool plDistOpacityMod::MsgReceive(plMessage* msg)
     }
 
     plGenRefMsg* ref = plGenRefMsg::ConvertNoRef(msg);
-    if( ref )
+    if (ref)
     {
-        switch(ref->fType)
+        switch (ref->fType)
         {
         case kRefFadeLay:
-            if( ref->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+            if (ref->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
             {
                 plFadeOpacityLay* lay = plFadeOpacityLay::ConvertNoRef(ref->GetRef());
                 int idx = fFadeLays.Find(lay);
-                if( idx != fFadeLays.kMissingIndex )
+                if (idx != fFadeLays.kMissingIndex)
                     fFadeLays.Remove(idx);
             }
             break;
@@ -185,7 +185,7 @@ void plDistOpacityMod::Read(hsStream* s, hsResMgr* mgr)
     plSingleModifier::Read(s, mgr);
 
     int i;
-    for( i = 0; i < kNumDists; i++ )
+    for (i = 0; i < kNumDists; i++)
         fDists[i] = s->ReadLEScalar();
 
     ICheckDists();
@@ -198,7 +198,7 @@ void plDistOpacityMod::Write(hsStream* s, hsResMgr* mgr)
     plSingleModifier::Write(s, mgr);
 
     int i;
-    for( i = 0; i < kNumDists; i++ )
+    for (i = 0; i < kNumDists; i++)
         s->WriteLEScalar(fDists[i]);
 }
 
@@ -238,11 +238,11 @@ void plDistOpacityMod::ISetup()
     fFadeLays.Reset();
 
     plSceneObject* so = GetTarget();
-    if( !so )
+    if (!so)
         return;
 
     const plDrawInterface* di = so->GetDrawInterface();
-    if( !di )
+    if (!di)
         return;
 
     hsTArray<MatLayer> todo;
@@ -258,23 +258,23 @@ void plDistOpacityMod::ISetup()
     // This would be grossly inefficient if the numbers involved weren't all
     // very small. So an n^2 search isn't bad if n <= 2.
     int i;
-    for( i = 0; i < src.GetCount(); i++ )
+    for (i = 0; i < src.GetCount(); i++)
     {
         hsGMaterial* mat = src[i].GetMaterial();
 
         int j;
-        for( j = 0; j < mat->GetNumLayers(); j++ )
+        for (j = 0; j < mat->GetNumLayers(); j++)
         {
             plLayerInterface* lay = mat->GetLayer(j);
-            if( !j || !(lay->GetZFlags() & hsGMatState::kZNoZWrite) || (lay->GetMiscFlags() & hsGMatState::kMiscRestartPassHere) )
+            if (!j || !(lay->GetZFlags() & hsGMatState::kZNoZWrite) || (lay->GetMiscFlags() & hsGMatState::kMiscRestartPassHere))
             {
                 int k;
-                for( k = 0; k < todo.GetCount(); k++ )
+                for (k = 0; k < todo.GetCount(); k++)
                 {
-                    if( lay == todo[k].fLay )
+                    if (lay == todo[k].fLay)
                         break;
                 }
-                if( k == todo.GetCount() )
+                if (k == todo.GetCount())
                 {
                     MatLayer* push = todo.Push();
                     push->fMat = mat;
@@ -286,7 +286,7 @@ void plDistOpacityMod::ISetup()
 
     plAccessGeometry::Instance()->Close(src);
 
-    for( i = 0; i < todo.GetCount(); i++ )
+    for (i = 0; i < todo.GetCount(); i++)
     {
         hsGMaterial* mat = todo[i].fMat;
         plLayerInterface* lay = todo[i].fLay;

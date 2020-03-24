@@ -173,7 +173,7 @@ class DecalBasicPBAccessor : public PBAccessor
     bool        fColorLocked;
 
 public:
-    DecalBasicPBAccessor() : fColorLocked( false ) {}
+    DecalBasicPBAccessor() : fColorLocked(false) {}
 
     void Set(PB2Value& val, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t)
     {
@@ -195,7 +195,7 @@ public:
         case kDecalBasColor:
         case kDecalBasColorAmb:
         case kDecalBasRunColor:
-            ISyncLockedColors( id, pb, val, t );
+            ISyncLockedColors(id, pb, val, t);
             break;
         }
     }
@@ -203,40 +203,40 @@ public:
     {
     }
 
-    void    ISyncLockedColors( ParamID settingID, IParamBlock2 *pb, PB2Value &val, TimeValue t )
+    void    ISyncLockedColors(ParamID settingID, IParamBlock2 *pb, PB2Value &val, TimeValue t)
     {
         int         i, numToSet = 0;
-        ParamID     toSet[ 2 ];
+        ParamID     toSet[2];
 
 
-        if( fColorLocked )
+        if (fColorLocked)
             return;
         fColorLocked = true;
 
-        if( settingID == kDecalBasColorAmb && pb->GetInt( kDecalBasColorLock, t ) )
+        if (settingID == kDecalBasColorAmb && pb->GetInt(kDecalBasColorLock, t))
         {
-            toSet[ numToSet++ ] = kDecalBasColor;
-            if( pb->GetInt( kDecalBasDiffuseLock, t ) )
-                toSet[ numToSet++ ] = kDecalBasRunColor;
+            toSet[numToSet++] = kDecalBasColor;
+            if (pb->GetInt(kDecalBasDiffuseLock, t))
+                toSet[numToSet++] = kDecalBasRunColor;
         }
-        else if( settingID == kDecalBasRunColor && pb->GetInt( kDecalBasDiffuseLock, t ) )
+        else if (settingID == kDecalBasRunColor && pb->GetInt(kDecalBasDiffuseLock, t))
         {
-            toSet[ numToSet++ ] = kDecalBasColor;
-            if( pb->GetInt( kDecalBasColorLock, t ) )
-                toSet[ numToSet++ ] = kDecalBasColorAmb;
+            toSet[numToSet++] = kDecalBasColor;
+            if (pb->GetInt(kDecalBasColorLock, t))
+                toSet[numToSet++] = kDecalBasColorAmb;
         }
-        else if( settingID == kDecalBasColor )
+        else if (settingID == kDecalBasColor)
         {
-            if( pb->GetInt( kDecalBasColorLock, t ) )
-                toSet[ numToSet++ ] = kDecalBasColorAmb;
-            if( pb->GetInt( kDecalBasDiffuseLock, t ) )
-                toSet[ numToSet++ ] = kDecalBasRunColor;
+            if (pb->GetInt(kDecalBasColorLock, t))
+                toSet[numToSet++] = kDecalBasColorAmb;
+            if (pb->GetInt(kDecalBasDiffuseLock, t))
+                toSet[numToSet++] = kDecalBasRunColor;
         }
 
-        for( i = 0; i < numToSet; i++ )
+        for (i = 0; i < numToSet; i++)
         {
-            pb->SetValue( toSet[ i ], t, *val.p );
-            pb->GetMap()->Invalidate( toSet[ i ] );
+            pb->SetValue(toSet[i], t, *val.p);
+            pb->GetMap()->Invalidate(toSet[i]);
         }
 
         fColorLocked = false;

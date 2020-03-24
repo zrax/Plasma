@@ -63,11 +63,11 @@ private:
     static bool fUseDInput;
 public:
     plInputManager();
-    plInputManager( hsWindowHndl hWnd );
+    plInputManager(hsWindowHndl hWnd);
     ~plInputManager();
     
-    CLASSNAME_REGISTER( plInputManager );
-    GETINTERFACE_ANY( plInputManager, hsKeyedObject );
+    CLASSNAME_REGISTER(plInputManager);
+    GETINTERFACE_ANY(plInputManager, hsKeyedObject);
 
 
     void AddInputDevice(plInputDevice* pDev);
@@ -83,10 +83,10 @@ public:
     static void RecenterCursor();
     void CreateInterfaceMod(plPipeline* p);
 
-    void    Activate( bool activating );
+    void    Activate(bool activating);
 
     float    GetMouseScale() const { return fMouseScale; }
-    void        SetMouseScale( float s );
+    void        SetMouseScale(float s);
     
     static plKeyDef UntranslateKey(plKeyDef key, bool extended);
     

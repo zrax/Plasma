@@ -94,268 +94,268 @@ void plNetCoreStatsSummary::Write(hsStream* s, hsResMgr*)
 ////////////////////////////////////////////////////////////////////
 
 plCreatableListHelper::plCreatableListHelper()
-: fCompressionThreshold( kDefaultCompressionThreshold )
-, fFlags( kWantCompression )
+: fCompressionThreshold(kDefaultCompressionThreshold)
+, fFlags(kWantCompression)
 {
 }
 
 void plCreatableListHelper::IClearItems()
 {
-    std::for_each( fManagedItems.begin(), fManagedItems.end(),
+    std::for_each(fManagedItems.begin(), fManagedItems.end(),
         [](plCreatable * cre) { delete cre; }
     );
     fManagedItems.clear();
     fItems.clear();
 }
 
-void plCreatableListHelper::CopyFrom( const plCreatableListHelper * other, bool manageItems )
+void plCreatableListHelper::CopyFrom(const plCreatableListHelper * other, bool manageItems)
 {
     IClearItems();
     fFlags = other->fFlags;
-    std::copy( other->fItems.begin(), other->fItems.end(), std::inserter(fItems, fItems.begin() ) );
+    std::copy(other->fItems.begin(), other->fItems.end(), std::inserter(fItems, fItems.begin()));
     fCompressionThreshold = other->fCompressionThreshold;
     fWritten = other->fWritten;
-    if ( manageItems )
+    if (manageItems)
     {
-        std::copy( other->fManagedItems.begin(), other->fManagedItems.end(), std::back_inserter( fManagedItems ) );
+        std::copy(other->fManagedItems.begin(), other->fManagedItems.end(), std::back_inserter(fManagedItems));
         other->fManagedItems.clear();   // we'll take responsibility for these.
     }
 }
 
 
-void plCreatableListHelper::AddItem( uint16_t id, plCreatable * item, bool manageItem )
+void plCreatableListHelper::AddItem(uint16_t id, plCreatable * item, bool manageItem)
 {
-    RemoveItem( id );
+    RemoveItem(id);
     fItems[id] = item;
-    if ( manageItem )
-        fManagedItems.push_back( item );
+    if (manageItem)
+        fManagedItems.push_back(item);
 }
 
-void plCreatableListHelper::AddItem( uint16_t id, const plCreatable * item, bool manageItem )
+void plCreatableListHelper::AddItem(uint16_t id, const plCreatable * item, bool manageItem)
 {
-    AddItem( id, const_cast<plCreatable*>( item ), manageItem );
+    AddItem(id, const_cast<plCreatable*>(item), manageItem);
 }
 
-void plCreatableListHelper::RemoveItem( uint16_t id, bool unManageItem )
+void plCreatableListHelper::RemoveItem(uint16_t id, bool unManageItem)
 {
-    plCreatable * item = GetItem( id );
-    if ( !item )
+    plCreatable * item = GetItem(id);
+    if (!item)
         return;
-    std::vector<plCreatable*>::iterator ii = std::find( fManagedItems.begin(),fManagedItems.end(), item );
-    if ( ii!=fManagedItems.end() )
+    std::vector<plCreatable*>::iterator ii = std::find(fManagedItems.begin(),fManagedItems.end(), item);
+    if (ii!=fManagedItems.end())
     {
-        if ( !unManageItem )
-            delete ( *ii );
-        fManagedItems.erase( ii );
+        if (!unManageItem)
+            delete (*ii);
+        fManagedItems.erase(ii);
     }
-    fItems.erase( id );
+    fItems.erase(id);
 }
 
-plCreatable * plCreatableListHelper::GetItem( uint16_t id, bool unManageItem/*=false */) const
+plCreatable * plCreatableListHelper::GetItem(uint16_t id, bool unManageItem/*=false */) const
 {
-    std::map<uint16_t,plCreatable*>::const_iterator it=fItems.find( id );
-    if ( it!=fItems.end() )
+    std::map<uint16_t,plCreatable*>::const_iterator it=fItems.find(id);
+    if (it!=fItems.end())
     {
-        if ( unManageItem )
+        if (unManageItem)
         {
-            std::vector<plCreatable*>::iterator ii = std::find( fManagedItems.begin(),fManagedItems.end(), it->second );
-            if ( ii!=fManagedItems.end() )
-                fManagedItems.erase( ii );
+            std::vector<plCreatable*>::iterator ii = std::find(fManagedItems.begin(),fManagedItems.end(), it->second);
+            if (ii!=fManagedItems.end())
+                fManagedItems.erase(ii);
         }
         return it->second;
     }
     return nil;
 }
 
-bool plCreatableListHelper::ItemExists( uint16_t id ) const
+bool plCreatableListHelper::ItemExists(uint16_t id) const
 {
-    return ( fItems.find( id )!=fItems.end() );
+    return (fItems.find(id)!=fItems.end());
 }
 
 void plCreatableListHelper::AddString(uint16_t id, const char * value)
 {
     plCreatableGenericValue * V = new plCreatableGenericValue();
-    V->Value().SetString( (char*)value );
-    AddItem( id, V, true );
+    V->Value().SetString((char*)value);
+    AddItem(id, V, true);
 }
 
-void plCreatableListHelper::AddString( uint16_t id, std::string & value )
+void plCreatableListHelper::AddString(uint16_t id, std::string & value)
 {
-    AddString( id, value.c_str() );
+    AddString(id, value.c_str());
 }
 
-void plCreatableListHelper::AddInt( uint16_t id, int32_t value )
+void plCreatableListHelper::AddInt(uint16_t id, int32_t value)
 {
     plCreatableGenericValue * V = new plCreatableGenericValue();
     V->Value().SetInt(value);
-    AddItem( id, V, true );
+    AddItem(id, V, true);
 }
 
-void plCreatableListHelper::AddDouble( uint16_t id, double value )
+void plCreatableListHelper::AddDouble(uint16_t id, double value)
 {
     plCreatableGenericValue * V = new plCreatableGenericValue();
     V->Value().SetDouble(value);
-    AddItem( id, V, true );
+    AddItem(id, V, true);
 }
 
-ST::string plCreatableListHelper::GetString( uint16_t id )
+ST::string plCreatableListHelper::GetString(uint16_t id)
 {
-    plCreatableGenericValue * V = plCreatableGenericValue::ConvertNoRef( GetItem( id ) );
-    if ( !V ) return ST::null;
+    plCreatableGenericValue * V = plCreatableGenericValue::ConvertNoRef(GetItem(id));
+    if (!V) return ST::null;
     return (ST::string)V->Value();
 }
 
-int32_t plCreatableListHelper::GetInt( uint16_t id )
+int32_t plCreatableListHelper::GetInt(uint16_t id)
 {
-    plCreatableGenericValue * V = plCreatableGenericValue::ConvertNoRef( GetItem( id ) );
-    if ( !V ) return 0;
+    plCreatableGenericValue * V = plCreatableGenericValue::ConvertNoRef(GetItem(id));
+    if (!V) return 0;
     return (int32_t)V->Value();
 }
 
-double plCreatableListHelper::GetDouble( uint16_t id )
+double plCreatableListHelper::GetDouble(uint16_t id)
 {
-    plCreatableGenericValue * V = plCreatableGenericValue::ConvertNoRef( GetItem( id ) );
-    if ( !V ) return 0;
+    plCreatableGenericValue * V = plCreatableGenericValue::ConvertNoRef(GetItem(id));
+    if (!V) return 0;
     return (double)V->Value();
 }
 
-void plCreatableListHelper::Read( hsStream* s, hsResMgr* mgr )
+void plCreatableListHelper::Read(hsStream* s, hsResMgr* mgr)
 {
     IClearItems();
 
     s->LogSubStreamStart("CreatableListHelper");
 
-    s->LogReadLE( &fFlags, "Flags" );
+    s->LogReadLE(&fFlags, "Flags");
 
     fFlags &= ~kWritten;
 
     uint32_t bufSz;
-    s->LogReadLE( &bufSz, "BufSz" );
+    s->LogReadLE(&bufSz, "BufSz");
     std::string buf;
-    buf.resize( bufSz );
+    buf.resize(bufSz);
 
-    if ( fFlags&kCompressed )
+    if (fFlags&kCompressed)
     {
         uint32_t zBufSz;
-        s->LogReadLE( &zBufSz, "Compressed BufSz" );
+        s->LogReadLE(&zBufSz, "Compressed BufSz");
         std::string zBuf;
-        zBuf.resize( zBufSz );
+        zBuf.resize(zBufSz);
         s->LogSubStreamPushDesc("Compressed Data");
-        s->Read( zBufSz, (void*)zBuf.data() );
+        s->Read(zBufSz, (void*)zBuf.data());
         plZlibCompress compressor;
         uint32_t tmp;
-        bool ans = compressor.Uncompress( (uint8_t*)buf.data(), &tmp, (uint8_t*)zBuf.data(), zBufSz );
-        hsAssert( ans!=0, "plCreatableListHelper: Failed to uncompress buffer." );
-        hsAssert( tmp==bufSz, "compression size mismatch" );
+        bool ans = compressor.Uncompress((uint8_t*)buf.data(), &tmp, (uint8_t*)zBuf.data(), zBufSz);
+        hsAssert(ans!=0, "plCreatableListHelper: Failed to uncompress buffer.");
+        hsAssert(tmp==bufSz, "compression size mismatch");
         fFlags&=~kCompressed;
-        hsLogEntry( plNetApp::StaticDebugMsg( "plCreatableListHelper: uncompressed from {} to {}", zBufSz, bufSz ) );
+        hsLogEntry(plNetApp::StaticDebugMsg("plCreatableListHelper: uncompressed from {} to {}", zBufSz, bufSz));
     }
     else
     {
         s->LogSubStreamPushDesc("Uncompressed Data");
-        s->Read( bufSz, (void*)buf.data() );
+        s->Read(bufSz, (void*)buf.data());
     }
 
-    hsReadOnlyStream ram( bufSz, (void*)buf.data() );
+    hsReadOnlyStream ram(bufSz, (void*)buf.data());
 
     uint16_t nItems;
-    ram.ReadLE( &nItems );
-    for ( int i=0; i<nItems; i++ )
+    ram.ReadLE(&nItems);
+    for (int i=0; i<nItems; i++)
     {
         uint16_t id;
         uint16_t classIdx;
-        ram.ReadLE( &id );
-        ram.ReadLE( &classIdx );
-        plCreatable * object = plFactory::Create( classIdx );
-        hsAssert( object,"plCreatableListHelper: Failed to create plCreatable object (invalid class index?)" );
-        if ( object )
+        ram.ReadLE(&id);
+        ram.ReadLE(&classIdx);
+        plCreatable * object = plFactory::Create(classIdx);
+        hsAssert(object,"plCreatableListHelper: Failed to create plCreatable object (invalid class index?)");
+        if (object)
         {
-            fManagedItems.push_back( object );
-            object->Read( &ram, mgr );
+            fManagedItems.push_back(object);
+            object->Read(&ram, mgr);
             fItems[id] = object;
         }
     }
 }
 
-void plCreatableListHelper::Write( hsStream* s, hsResMgr* mgr )
+void plCreatableListHelper::Write(hsStream* s, hsResMgr* mgr)
 {
-    if ( !( fFlags&kWritten ) )
+    if (!(fFlags&kWritten))
     {
         // write items to ram stream
         hsRAMStream ram;
         uint16_t nItems = fItems.size();
-        ram.WriteLE( nItems );
-        for ( std::map<uint16_t,plCreatable*>::iterator ii=fItems.begin(); ii!=fItems.end(); ++ii )
+        ram.WriteLE(nItems);
+        for (std::map<uint16_t,plCreatable*>::iterator ii=fItems.begin(); ii!=fItems.end(); ++ii)
         {
             uint16_t id = ii->first;
             plCreatable * item = ii->second;
             uint16_t classIdx = item->ClassIndex();
-            ram.WriteLE( id );
-            ram.WriteLE( classIdx );
-            item->Write( &ram, mgr );
+            ram.WriteLE(id);
+            ram.WriteLE(classIdx);
+            item->Write(&ram, mgr);
         }
 
         // read ram stream into a buffer
         uint32_t bufSz = ram.GetPosition();
         ram.Rewind();
         std::string buf;
-        buf.resize( bufSz );
-        ram.Read( bufSz, (void*)buf.data() );
+        buf.resize(bufSz);
+        ram.Read(bufSz, (void*)buf.data());
 
         // maybe compress the buffer
-        if ( fFlags&kWantCompression && bufSz>fCompressionThreshold )
+        if (fFlags&kWantCompression && bufSz>fCompressionThreshold)
         {
             plZlibCompress compressor;
             uint32_t zBufSz;
             std::string zBuf;
-            zBuf.resize( bufSz );
-            bool ans = compressor.Compress( (uint8_t*)zBuf.data(), &zBufSz, (const uint8_t*)buf.data(), bufSz );
-            bool compressed = ( ans && zBufSz );
-            hsAssert( compressed, "plCreatableListHelper: Failed to compress buffer." );
-            if ( compressed )
+            zBuf.resize(bufSz);
+            bool ans = compressor.Compress((uint8_t*)zBuf.data(), &zBufSz, (const uint8_t*)buf.data(), bufSz);
+            bool compressed = (ans && zBufSz);
+            hsAssert(compressed, "plCreatableListHelper: Failed to compress buffer.");
+            if (compressed)
             {
-                zBuf.resize( zBufSz );
+                zBuf.resize(zBufSz);
                 buf = zBuf;
                 fFlags |= kCompressed;
-                hsLogEntry( plNetApp::StaticDebugMsg( "plCreatableListHelper: compressed from {} to {}", bufSz, zBufSz ) );
+                hsLogEntry(plNetApp::StaticDebugMsg("plCreatableListHelper: compressed from {} to {}", bufSz, zBufSz));
             }
         }
 
         ram.Truncate();
 
-        ram.WriteLE( fFlags );
-        ram.WriteLE( bufSz );
+        ram.WriteLE(fFlags);
+        ram.WriteLE(bufSz);
 
-        if ( fFlags&kCompressed )
+        if (fFlags&kCompressed)
         {
             uint32_t zBufSz = buf.size();
-            ram.WriteLE( zBufSz );
+            ram.WriteLE(zBufSz);
         }
 
-        ram.Write( buf.size(), buf.data() );
+        ram.Write(buf.size(), buf.data());
         uint32_t sz = ram.GetPosition();
         ram.Rewind();
 
-        fWritten.resize( sz );
-        ram.Read( sz, (void*)fWritten.data() );
+        fWritten.resize(sz);
+        ram.Read(sz, (void*)fWritten.data());
 
         fFlags |= kWritten;
     }
 
-    s->Write( fWritten.size(), fWritten.data() );
+    s->Write(fWritten.size(), fWritten.data());
 }
 
-void plCreatableListHelper::GetItemsAsVec( std::vector<plCreatable*>& out )
+void plCreatableListHelper::GetItemsAsVec(std::vector<plCreatable*>& out)
 {
-    for ( std::map<uint16_t,plCreatable*>::iterator ii=fItems.begin(); ii!=fItems.end(); ++ii )
+    for (std::map<uint16_t,plCreatable*>::iterator ii=fItems.begin(); ii!=fItems.end(); ++ii)
     {
-        out.push_back( ii->second );
+        out.push_back(ii->second);
     }
 }
 
-void plCreatableListHelper::GetItems( std::map<uint16_t,plCreatable*>& out )
+void plCreatableListHelper::GetItems(std::map<uint16_t,plCreatable*>& out)
 {
-    for ( std::map<uint16_t,plCreatable*>::iterator ii=fItems.begin(); ii!=fItems.end(); ++ii )
+    for (std::map<uint16_t,plCreatable*>::iterator ii=fItems.begin(); ii!=fItems.end(); ++ii)
     {
         out[ii->first] = ii->second;
     }

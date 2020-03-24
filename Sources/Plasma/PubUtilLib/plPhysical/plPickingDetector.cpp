@@ -56,16 +56,16 @@ bool plPickingDetector::MsgReceive(plMessage* msg)
 {
     
     plObjRefMsg* refMsg = plObjRefMsg::ConvertNoRef(msg);
-    if( refMsg )
+    if (refMsg)
     {
-        if( refMsg->fType == plObjRefMsg::kModifier)
+        if (refMsg->fType == plObjRefMsg::kModifier)
         {
-            if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+            if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
             {
                 plModifier* mod = plModifier::ConvertNoRef(refMsg->GetRef());
                 SetRemote(mod);
             }
-            else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+            else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
             {
                 SetRemote(nil);
             }
@@ -79,11 +79,11 @@ bool plPickingDetector::MsgReceive(plMessage* msg)
         for (int i = 0; i < fReceivers.Count(); i++)
         {
             plActivatorMsg* pMsg = new plActivatorMsg;
-            pMsg->AddReceiver( fReceivers[i] );
+            pMsg->AddReceiver(fReceivers[i]);
             if (pPMsg->fPicked)
-                pMsg->SetTriggerType( plActivatorMsg::kPickedTrigger );
+                pMsg->SetTriggerType(plActivatorMsg::kPickedTrigger);
             else
-                pMsg->SetTriggerType( plActivatorMsg::kUnPickedTrigger );
+                pMsg->SetTriggerType(plActivatorMsg::kUnPickedTrigger);
             // pass on the hit point
             pMsg->fHitPoint = pPMsg->fHitPoint;
 
@@ -98,7 +98,7 @@ bool plPickingDetector::MsgReceive(plMessage* msg)
                 pMsg->fHitterObj = locPlayerKey;
 
             pMsg->SetSender(GetKey());
-            plgDispatch::MsgSend( pMsg );
+            plgDispatch::MsgSend(pMsg);
             hsStatusMessageF("%s sending activate message to %s\n",GetKey()->GetName().c_str(), fReceivers[i]->GetName().c_str());
         }
     }

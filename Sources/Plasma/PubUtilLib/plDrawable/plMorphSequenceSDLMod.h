@@ -80,8 +80,8 @@ public:
     static char kStrMorphs[];
     
 
-    CLASSNAME_REGISTER( plMorphSequenceSDLMod );
-    GETINTERFACE_ANY( plMorphSequenceSDLMod, plSDLModifier);
+    CLASSNAME_REGISTER(plMorphSequenceSDLMod);
+    GETINTERFACE_ANY(plMorphSequenceSDLMod, plSDLModifier);
     
     plMorphSequenceSDLMod() : fIsAvatar(false) {}
     

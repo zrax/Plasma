@@ -87,23 +87,23 @@ class plCubicRenderTarget : public plRenderTarget
 
         //// Public Members ////
 
-        CLASSNAME_REGISTER( plCubicRenderTarget );
-        GETINTERFACE_ANY( plCubicRenderTarget, plRenderTarget );
+        CLASSNAME_REGISTER(plCubicRenderTarget);
+        GETINTERFACE_ANY(plCubicRenderTarget, plRenderTarget);
 
         plCubicRenderTarget()
         {
             fFaces[0] = fFaces[1] = fFaces[2] = fFaces[3] = fFaces[4] = fFaces[5] = nil;
         }
 
-        plCubicRenderTarget( uint16_t flags, uint16_t width, uint16_t height, uint8_t bitDepth, uint8_t zDepth = -1, uint8_t sDepth = -1 )
-            : plRenderTarget( flags, width, height, bitDepth, zDepth, sDepth )
+        plCubicRenderTarget(uint16_t flags, uint16_t width, uint16_t height, uint8_t bitDepth, uint8_t zDepth = -1, uint8_t sDepth = -1)
+            : plRenderTarget(flags, width, height, bitDepth, zDepth, sDepth)
         {
             int     i;
 
 
-            for( i = 0; i < 6; i++ )
+            for (i = 0; i < 6; i++)
             {
-                fFaces[i] = new plRenderTarget( flags, width, height, bitDepth, zDepth, sDepth );
+                fFaces[i] = new plRenderTarget(flags, width, height, bitDepth, zDepth, sDepth);
                 fFaces[i]->fParent = this;
                 fWorldToCameras[i].Reset();
                 fCameraToWorlds[i].Reset();
@@ -115,7 +115,7 @@ class plCubicRenderTarget : public plRenderTarget
             int         i;
 
 
-            for( i = 0; i < 6; i++ )
+            for (i = 0; i < 6; i++)
                 delete fFaces[i];
         }
 

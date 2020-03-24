@@ -74,7 +74,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 void plCaptureRenderRequest::Render(plPipeline* pipe, plPageTreeMgr* pageMgr)
 {
     // If we don't have a render target, something has gone horribly wrong.
-    if( !GetRenderTarget() )
+    if (!GetRenderTarget())
     {
         hsAssert(false, "CaptureRenderRequest with no render target");
         return;
@@ -177,7 +177,7 @@ bool plCaptureRender::IProcess(plPipeline* pipe, const plKey& ack, plRenderTarge
     
     // Copy that into a plMipmap
     plMipmap* mipMap = pipe->ExtractMipMap(targ);
-    if( !mipMap )
+    if (!mipMap)
         return false;
 
     static int currentCapIndex = 0;
@@ -198,7 +198,7 @@ bool plCaptureRender::IProcess(plPipeline* pipe, const plKey& ack, plRenderTarge
 void plCaptureRender::Update()
 {
     int i;
-    for( i = 0; i < fProcessed.GetCount(); i++ )
+    for (i = 0; i < fProcessed.GetCount(); i++)
     {
         fProcessed[i]->Send();
     }
@@ -214,7 +214,7 @@ void plCaptureRender::Update(plPipeline* pipe)
 {
     int i;
 
-    for( i = 0; i < fCapReqs.GetCount(); i++ )
+    for (i = 0; i < fCapReqs.GetCount(); i++)
     {
         plMipmap* mipmap = new plMipmap(fCapReqs[i].fWidth, fCapReqs[i].fHeight, plMipmap::kARGB32Config, 1);
 

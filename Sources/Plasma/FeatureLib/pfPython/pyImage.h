@@ -127,7 +127,7 @@ public:
     bool operator==(const pyImage &image) const
     {
         // only thing that needs testing is the plKey, which is unique for all
-        if ( fMipMapKey == ((pyImage&)image).GetKey() )
+        if (fMipMapKey == ((pyImage&)image).GetKey())
             return true;
         else
             return false;

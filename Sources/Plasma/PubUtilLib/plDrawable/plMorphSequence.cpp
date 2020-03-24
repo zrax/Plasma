@@ -73,7 +73,7 @@ void plMorphDataSet::Read(hsStream* s, hsResMgr* mgr)
     int n = s->ReadLE32();
     fMorphs.SetCount(n);
     int i;
-    for( i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
         fMorphs[i].Read(s, mgr);
 }
 
@@ -83,7 +83,7 @@ void plMorphDataSet::Write(hsStream* s, hsResMgr* mgr)
 
     s->WriteLE32(fMorphs.GetCount());
     int i;
-    for( i = 0; i < fMorphs.GetCount(); i++ )
+    for (i = 0; i < fMorphs.GetCount(); i++)
         fMorphs[i].Write(s, mgr);
 }
 
@@ -125,31 +125,31 @@ plMorphSequence::~plMorphSequence()
 bool plMorphSequence::MsgReceive(plMessage* msg)
 {
     plRenderMsg* rend = plRenderMsg::ConvertNoRef(msg);
-    if( rend )
+    if (rend)
     {
         // For now, I'm ignoring the target weight stuff for shared meshes.
         // Can always add it in later if desired.
-        if( fTgtWgts.GetCount() )
+        if (fTgtWgts.GetCount())
         {
             float delWgt = hsTimer::GetDelSysSeconds() / (kMorphTime > 0 ? float(kMorphTime) : 1.e-3f);
             int i;
-            for( i = 0; i < fTgtWgts.GetCount(); i++ )
+            for (i = 0; i < fTgtWgts.GetCount(); i++)
             {
                 float currWgt = GetWeight(fTgtWgts[i].fLayer, fTgtWgts[i].fDelta);
-                if( fTgtWgts[i].fWeight < currWgt )
+                if (fTgtWgts[i].fWeight < currWgt)
                 {
-                    if( fTgtWgts[i].fWeight >= (currWgt -= delWgt) )
+                    if (fTgtWgts[i].fWeight >= (currWgt -= delWgt))
                         currWgt = fTgtWgts[i].fWeight;
                 }
-                else if( fTgtWgts[i].fWeight > currWgt )
+                else if (fTgtWgts[i].fWeight > currWgt)
                 {
-                    if( fTgtWgts[i].fWeight <= (currWgt += delWgt) )
+                    if (fTgtWgts[i].fWeight <= (currWgt += delWgt))
                         currWgt = fTgtWgts[i].fWeight;
                 }
                 
                 fMorphs[fTgtWgts[i].fLayer].SetWeight(fTgtWgts[i].fDelta, currWgt);
 
-                if( fTgtWgts[i].fWeight == currWgt )
+                if (fTgtWgts[i].fWeight == currWgt)
                 {
                     fTgtWgts.Remove(i);
                     i--;
@@ -158,7 +158,7 @@ bool plMorphSequence::MsgReceive(plMessage* msg)
             ISetDirty(true);
         }
 
-        if( !(fMorphFlags & kDirty) )
+        if (!(fMorphFlags & kDirty))
         {
             // We went a whole frame without getting dirty,
             // we can stop refreshing now.
@@ -167,10 +167,10 @@ bool plMorphSequence::MsgReceive(plMessage* msg)
             return true;
         }
         ISetDirty(false);
-        if( fMorphFlags & kDirtyIndices )
+        if (fMorphFlags & kDirtyIndices)
             IFindIndices();
 
-        if( fMorphFlags & kHaveShared )
+        if (fMorphFlags & kHaveShared)
         {
             IApplyShared();
         }
@@ -194,18 +194,18 @@ bool plMorphSequence::MsgReceive(plMessage* msg)
         plSharedMesh *mesh = plSharedMesh::ConvertNoRef(refMsg->GetRef());
         if (mesh)
         {
-            if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest) )
+            if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest))
             {
                 AddSharedMesh(mesh);
             }
-            else if( refMsg->GetContext() & plRefMsg::kOnReplace)
+            else if (refMsg->GetContext() & plRefMsg::kOnReplace)
             {
                 plSharedMesh *oldMesh = plSharedMesh::ConvertNoRef(refMsg->GetOldRef());
                 if (oldMesh)
                     RemoveSharedMesh(oldMesh);
                 AddSharedMesh(mesh);
             }
-            else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+            else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
                 RemoveSharedMesh(mesh);
             
             return true;
@@ -247,14 +247,14 @@ void plMorphSequence::SetWeight(int iLay, int iDel, float w, plKey meshKey /* = 
     int index = IFindSharedMeshIndex(meshKey);
 
     // Only dirty if the weight isn't for a pending mesh
-    if(meshKey == nil || index >= 0)
+    if (meshKey == nil || index >= 0)
         ISetDirty(true);
 
     if (meshKey == nil)
     {
-        if( iLay < fMorphs.GetCount() )
+        if (iLay < fMorphs.GetCount())
         {
-            if( kMorphTime > 0 )
+            if (kMorphTime > 0)
             {
                 plMorphTarget tgt;
                 tgt.fLayer = iLay;
@@ -295,7 +295,7 @@ void plMorphSequence::SetWeight(int iLay, int iDel, float w, plKey meshKey /* = 
 
             fPendingStates[index].fArrayWeights.Swap(temp);
             int i;
-            for( i = had; i < iLay+1; i++ )
+            for (i = had; i < iLay+1; i++)
                 fPendingStates[index].fArrayWeights[i].fDeltaWeights.Reset();
         }
         if (fPendingStates[index].fArrayWeights[iLay].fDeltaWeights.GetCount() <= iDel)
@@ -307,9 +307,9 @@ void plMorphSequence::SetWeight(int iLay, int iDel, float w, plKey meshKey /* = 
 
 void plMorphSequence::ISetDirty(bool on)
 {
-    if( on )
+    if (on)
     {
-        if( !(fMorphFlags & kDirty) )
+        if (!(fMorphFlags & kDirty))
             plgDispatch::Dispatch()->RegisterForExactType(plRenderMsg::Index(), GetKey());
         fMorphFlags |= kDirty;
 
@@ -334,13 +334,13 @@ void plMorphSequence::ISetDirty(bool on)
 // MorphSequence - Init
 void plMorphSequence::Init()
 {
-    if( fMorphFlags & kHaveShared )
+    if (fMorphFlags & kHaveShared)
     {
         IFindIndices();
     }
     else
     {
-        if( !GetHaveSnap() )
+        if (!GetHaveSnap())
         {
             // Take an access snapshot of all our spans
             const plDrawInterface* di = IGetDrawInterface();
@@ -360,7 +360,7 @@ void plMorphSequence::Activate()
 
 void plMorphSequence::DeActivate()
 {
-    if( fMorphFlags & kHaveShared )
+    if (fMorphFlags & kHaveShared)
     {
         IReleaseIndices();
     }
@@ -370,18 +370,18 @@ void plMorphSequence::DeActivate()
 // MorphSequence - DeInit
 void plMorphSequence::DeInit()
 {
-    if( fMorphFlags & kHaveShared )
+    if (fMorphFlags & kHaveShared)
     {
         IReleaseIndices();
     }
     else
     {
-        if( GetHaveSnap() )
+        if (GetHaveSnap())
         {
             // Release all our snapshot data
             const plDrawInterface* di = IGetDrawInterface();
 
-            if( di )
+            if (di)
                 plAccessGeometry::Instance()->ReleaseSnapShot(di);
 
             ISetHaveSnap(false);
@@ -392,12 +392,12 @@ void plMorphSequence::DeInit()
 void plMorphSequence::IRenormalize(hsTArray<plAccessSpan>& dst) const
 {
     int i;
-    for( i = 0; i < dst.GetCount(); i++ )
+    for (i = 0; i < dst.GetCount(); i++)
     {
         hsAssert(dst[i].HasAccessVtx(), "Come on, everyone has vertices");
         plAccessVtxSpan& accVtx = dst[i].AccessVtx();
         int j;
-        for( j = 0; j < accVtx.VertCount(); j++ )
+        for (j = 0; j < accVtx.VertCount(); j++)
         {
             hsFastMath::Normalize(accVtx.Normal(j));
         }
@@ -408,7 +408,7 @@ void plMorphSequence::IRenormalize(hsTArray<plAccessSpan>& dst) const
 void plMorphSequence::Apply() const
 {
     const plDrawInterface* di = IGetDrawInterface();
-    if( !di )
+    if (!di)
         return;
 
     // Reset to initial.
@@ -420,7 +420,7 @@ void plMorphSequence::Apply() const
 
     // For each MorphArray
     int i;
-    for( i = 0; i < fMorphs.GetCount(); i++ )
+    for (i = 0; i < fMorphs.GetCount(); i++)
     {
         // Apply Delta
         fMorphs[i].Apply(dst);
@@ -435,20 +435,20 @@ void plMorphSequence::Apply() const
 // MorphSequence - Reset to initial
 void plMorphSequence::Reset(const plDrawInterface* di) const
 {
-    if( !di )
+    if (!di)
     {
         di = IGetDrawInterface();
     }
 
     // Use access span RestoreSnapshot
-    if( di )
+    if (di)
         plAccessGeometry::Instance()->RestoreSnapShot(di, kChanMask);
 }
 
 const plDrawInterface* plMorphSequence::IGetDrawInterface() const
 {
     plSceneObject* so = GetTarget();
-    if( !so )
+    if (!so)
         return nil;
 
     const plDrawInterface* di = so->GetDrawInterface();
@@ -488,11 +488,11 @@ void plMorphSequence::Read(hsStream* s, hsResMgr* mgr)
     int n = s->ReadLE32();
     fMorphs.SetCount(n);
     int i;
-    for( i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
         fMorphs[i].Read(s, mgr);
     
     n = s->ReadLE32();
-    for( i = 0; i < n; i++)
+    for (i = 0; i < n; i++)
         mgr->ReadKeyNotifyMe(s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, -1), plRefFlags::kActiveRef);
 }
 
@@ -502,11 +502,11 @@ void plMorphSequence::Write(hsStream* s, hsResMgr* mgr)
 
     s->WriteLE32(fMorphs.GetCount());
     int i;
-    for( i = 0; i < fMorphs.GetCount(); i++ )
+    for (i = 0; i < fMorphs.GetCount(); i++)
         fMorphs[i].Write(s, mgr);
 
     s->WriteLE32(fSharedMeshes.GetCount());
-    for( i = 0; i < fSharedMeshes.GetCount(); i++ )
+    for (i = 0; i < fSharedMeshes.GetCount(); i++)
         mgr->WriteKey(s, fSharedMeshes[i].fMesh);
 }
 
@@ -552,21 +552,21 @@ void plMorphSequence::IFindIndices()
     fMorphFlags &= ~kDirtyIndices;
 
     int i;
-    for( i = 0; i < fSharedMeshes.GetCount(); i++ )
+    for (i = 0; i < fSharedMeshes.GetCount(); i++)
         IFindIndices(i);
 }
 
 void plMorphSequence::IReleaseIndices()
 {
     int i;
-    for( i = 0; i < fSharedMeshes.GetCount(); i++ )
+    for (i = 0; i < fSharedMeshes.GetCount(); i++)
         IReleaseIndices(i);
 }
 
 
 void plMorphSequence::IApplyShared(int iShare)
 {
-    if( iShare >= fSharedMeshes.GetCount() || fSharedMeshes[iShare].fCurrDraw == nil)
+    if (iShare >= fSharedMeshes.GetCount() || fSharedMeshes[iShare].fCurrDraw == nil)
         return;
 
     plSharedMeshInfo& mInfo = fSharedMeshes[iShare];
@@ -575,7 +575,7 @@ void plMorphSequence::IApplyShared(int iShare)
     // Now copy each shared mesh geometryspan into the drawable
     // to get it back to it's pristine condition.
     int i;
-    for( i = 0; i < mInfo.fMesh->fSpans.GetCount(); i++ )
+    for (i = 0; i < mInfo.fMesh->fSpans.GetCount(); i++)
     {
         plAccessSpan dstAcc;
         plAccessGeometry::Instance()->OpenRW(mInfo.fCurrDraw, mInfo.fCurrIdx[i], dstAcc);
@@ -584,7 +584,7 @@ void plMorphSequence::IApplyShared(int iShare)
     }
 
     // For each MorphArray
-    for( i = 0; i < mInfo.fMesh->fMorphSet->fMorphs.GetCount(); i++ )
+    for (i = 0; i < mInfo.fMesh->fMorphSet->fMorphs.GetCount(); i++)
     {
         // Apply Delta
         mInfo.fMesh->fMorphSet->fMorphs[i].Apply(dst, &mInfo.fArrayWeights[i].fDeltaWeights);
@@ -599,7 +599,7 @@ void plMorphSequence::IApplyShared(int iShare)
 
 bool plMorphSequence::IResetShared(int iShare)
 {
-    if( iShare >= fSharedMeshes.GetCount() || fSharedMeshes[iShare].fCurrDraw == nil)
+    if (iShare >= fSharedMeshes.GetCount() || fSharedMeshes[iShare].fCurrDraw == nil)
         return false;
 
     plSharedMeshInfo& mInfo = fSharedMeshes[iShare];
@@ -607,7 +607,7 @@ bool plMorphSequence::IResetShared(int iShare)
     // Now copy each shared mesh geometryspan into the drawable
     // to get it back to it's pristine condition.
     int i;
-    for( i = 0; i < mInfo.fMesh->fSpans.GetCount(); i++ )
+    for (i = 0; i < mInfo.fMesh->fSpans.GetCount(); i++)
     {
         plAccessSpan srcAcc;
         plAccessGeometry::Instance()->AccessSpanFromGeometrySpan(srcAcc, mInfo.fMesh->fSpans[i]);
@@ -619,13 +619,13 @@ bool plMorphSequence::IResetShared(int iShare)
 
         const int numUVWs = srcAcc.AccessVtx().NumUVWs();
 
-        for( srcIter.Begin(), dstIter.Begin(); srcIter.More(); srcIter.Advance(), dstIter.Advance() )
+        for (srcIter.Begin(), dstIter.Begin(); srcIter.More(); srcIter.Advance(), dstIter.Advance())
         {
             *dstIter.Position() = *srcIter.Position();
             *dstIter.Normal() = *srcIter.Normal();
 
             int j;
-            for( j = 0; j < numUVWs; j++ )
+            for (j = 0; j < numUVWs; j++)
                 *dstIter.UVW(j) = *srcIter.UVW(j);
         }
     }
@@ -639,15 +639,15 @@ bool plMorphSequence::IFindIndices(int iShare)
     mInfo.fCurrDraw = nil; // In case we fail.
 
     const plInstanceDrawInterface* di = plInstanceDrawInterface::ConvertNoRef(IGetDrawInterface());
-    if( !di )
+    if (!di)
         return false;
 
     int32_t meshIdx = di->GetSharedMeshIndex(mInfo.fMesh);
-    if( meshIdx < 0 )
+    if (meshIdx < 0)
         return false;
 
     plDrawableSpans* dr = plDrawableSpans::ConvertNoRef(di->GetDrawable((uint8_t)meshIdx));
-    if( !dr )
+    if (!dr)
         return false;
 
     mInfo.fCurrDraw = dr;
@@ -659,7 +659,7 @@ bool plMorphSequence::IFindIndices(int iShare)
     mInfo.fCurrIdx.SetCount(diIndex.GetCount());
 
     int i;
-    for( i = 0; i < diIndex.GetCount(); i++ )
+    for (i = 0; i < diIndex.GetCount(); i++)
         mInfo.fCurrIdx[i] = diIndex[i];
 
     return true;
@@ -674,7 +674,7 @@ void plMorphSequence::IReleaseIndices(int iShare)
 int32_t plMorphSequence::IFindSharedMeshIndex(plKey meshKey) const
 {
     int i;
-    for( i = 0; i < fSharedMeshes.GetCount(); i++ )
+    for (i = 0; i < fSharedMeshes.GetCount(); i++)
     {
         if (fSharedMeshes[i].fMesh->GetKey() == meshKey)
             return i;
@@ -686,7 +686,7 @@ int32_t plMorphSequence::IFindSharedMeshIndex(plKey meshKey) const
 int32_t plMorphSequence::IFindPendingStateIndex(plKey meshKey) const
 {
     int i;
-    for( i = 0; i < fPendingStates.GetCount(); i++ )
+    for (i = 0; i < fPendingStates.GetCount(); i++)
     {
         if (fPendingStates[i].fSharedMeshKey == meshKey)
             return i;

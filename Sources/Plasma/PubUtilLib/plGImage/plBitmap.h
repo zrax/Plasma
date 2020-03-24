@@ -154,28 +154,28 @@ class plBitmap : public hsKeyedObject
         plBitmap();
         virtual ~plBitmap();
 
-        CLASSNAME_REGISTER( plBitmap );
-        GETINTERFACE_ANY( plBitmap, hsKeyedObject );
+        CLASSNAME_REGISTER(plBitmap);
+        GETINTERFACE_ANY(plBitmap, hsKeyedObject);
 
         // Get the total size in bytes
         virtual uint32_t  GetTotalSize() const = 0;
 
         // Read and write
-        virtual void    Read( hsStream *s, hsResMgr *mgr ) { hsKeyedObject::Read( s, mgr ); this->Read( s ); }
-        virtual void    Write( hsStream *s, hsResMgr *mgr ) { hsKeyedObject::Write( s, mgr ); this->Write( s ); }
+        virtual void    Read(hsStream *s, hsResMgr *mgr) { hsKeyedObject::Read(s, mgr); this->Read(s); }
+        virtual void    Write(hsStream *s, hsResMgr *mgr) { hsKeyedObject::Write(s, mgr); this->Write(s); }
 
         uint16_t          GetFlags() const { return fFlags; }
-        void            SetFlags( uint16_t flags ) { fFlags = flags; }
+        void            SetFlags(uint16_t flags) { fFlags = flags; }
 
         uint8_t           GetPixelSize() const { return fPixelSize; }
 
-        bool            IsCompressed() const { return ( fCompressionType == kDirectXCompression ); }
+        bool            IsCompressed() const { return (fCompressionType == kDirectXCompression); }
 
         virtual void            MakeDirty();
         virtual hsGDeviceRef    *GetDeviceRef() const { return fDeviceRef; }
-        virtual void            SetDeviceRef( hsGDeviceRef *const devRef );
+        virtual void            SetDeviceRef(hsGDeviceRef *const devRef);
 
-        static void     SetGlobalLevelChopCount( uint8_t count ) { fGlobalNumLevelsToChop = count; }
+        static void     SetGlobalLevelChopCount(uint8_t count) { fGlobalNumLevelsToChop = count; }
         static uint8_t    GetGlobalLevelChopCount() { return fGlobalNumLevelsToChop; }
 
         // Compares and sets the modified time for the source texture
@@ -199,8 +199,8 @@ class plBitmap : public hsKeyedObject
         uint32_t fLowModifiedTime;
         uint32_t fHighModifiedTime;
 
-        virtual uint32_t  Read( hsStream *s );
-        virtual uint32_t  Write( hsStream *s );
+        virtual uint32_t  Read(hsStream *s);
+        virtual uint32_t  Write(hsStream *s);
 };
 
 #endif // _plBitmap_h

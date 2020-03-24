@@ -58,8 +58,8 @@ public:
     plFacingConditionalObject();
     ~plFacingConditionalObject() { }
     
-    CLASSNAME_REGISTER( plFacingConditionalObject );
-    GETINTERFACE_ANY( plFacingConditionalObject, plConditionalObject );
+    CLASSNAME_REGISTER(plFacingConditionalObject);
+    GETINTERFACE_ANY(plFacingConditionalObject, plConditionalObject);
     
     bool MsgReceive(plMessage* msg);
 

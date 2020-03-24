@@ -70,8 +70,8 @@ protected:
     float           fDistSq;            // from local player, temp
     uint8_t         fCCRLevel;
 public:
-    CLASSNAME_REGISTER( plNetTransportMember);
-    GETINTERFACE_ANY( plNetTransportMember, plNetMember);
+    CLASSNAME_REGISTER(plNetTransportMember);
+    GETINTERFACE_ANY(plNetTransportMember, plNetMember);
 
     plNetTransportMember() : fAvatarKey(nil),
         fTransportFlags(0),fPlayerID(0),fDistSq(-1),fCCRLevel(0) {}

@@ -134,7 +134,7 @@ bool plParticleCoreComponent::NodeHasSystem(plMaxNode *pNode)
 
 bool plParticleCoreComponent::PreConvert(plMaxNode *pNode, plErrorMsg *pErrMsg)
 {
-    GetParamVals( pNode );
+    GetParamVals(pNode);
     pNode->SetForceLocal(true);
     pNode->SetDrawable(false);
     pNode->SetParticleRelated(true);
@@ -156,10 +156,10 @@ bool plParticleCoreComponent::PreConvert(plMaxNode *pNode, plErrorMsg *pErrMsg)
 
     // Moving this from Convert so the DrawInterface will appear sooner. Other components expect
     // the interfaces to be fully set up by the Convert pass.
-    plSceneNode *sNode = plSceneNode::ConvertNoRef( pNode->GetRoomKey()->GetObjectPtr() );
+    plSceneNode *sNode = plSceneNode::ConvertNoRef(pNode->GetRoomKey()->GetObjectPtr());
     plDrawInterface *di = new plDrawInterface;
     hsgResMgr::ResMgr()->NewKey(IGetUniqueName(pNode), di, pNode->GetLocation(), pNode->GetLoadMask());
-    hsgResMgr::ResMgr()->AddViaNotify( di->GetKey(), new plObjRefMsg(pNode->GetSceneObject()->GetKey(), plRefMsg::kOnCreate, 0, plObjRefMsg::kInterface ), plRefFlags::kActiveRef );
+    hsgResMgr::ResMgr()->AddViaNotify(di->GetKey(), new plObjRefMsg(pNode->GetSceneObject()->GetKey(), plRefMsg::kOnCreate, 0, plObjRefMsg::kInterface), plRefFlags::kActiveRef);
     pNode->SetDISceneNodeSpans(di, true);
 
     return true;
@@ -308,7 +308,7 @@ bool plParticleCoreComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                     if (bezKey)
                         curVal = bezKey->fValue;
 
-                    if( curVal > maxPps )
+                    if (curVal > maxPps)
                         maxPps = curVal;
                 }
                 maxAnimParticles = maxPps * (partLifeMax - (partLifeMax - partLifeMin) / 2);
@@ -420,12 +420,12 @@ bool plParticleCoreComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     // Init and attach to the scene object
     sys->Init(xTiles, yTiles, maxTotalParticles, maxEmitters, ambientCtl, diffuseCtl, opacityCtl,
               widthCtl, heightCtl);
-    hsgResMgr::ResMgr()->AddViaNotify( particleMat->GetKey(), new plGenRefMsg( sys->GetKey(), plRefMsg::kOnCreate, 0, 0 ), plRefFlags::kActiveRef );
-    hsgResMgr::ResMgr()->AddViaNotify( sys->GetKey(), new plObjRefMsg( sObj->GetKey(), plRefMsg::kOnCreate, -1, plObjRefMsg::kModifier ), plRefFlags::kActiveRef );
+    hsgResMgr::ResMgr()->AddViaNotify(particleMat->GetKey(), new plGenRefMsg(sys->GetKey(), plRefMsg::kOnCreate, 0, 0), plRefFlags::kActiveRef);
+    hsgResMgr::ResMgr()->AddViaNotify(sys->GetKey(), new plObjRefMsg(sObj->GetKey(), plRefMsg::kOnCreate, -1, plObjRefMsg::kModifier), plRefFlags::kActiveRef);
 
     // Set up normals and orientation
     uint32_t miscFlags = 0;
-    switch(fUserInput.fNormal)
+    switch (fUserInput.fNormal)
     {
     case plParticleMtl::kNormalViewFacing:
         miscFlags |= plParticleEmitter::kNormalViewFacing;
@@ -446,7 +446,7 @@ bool plParticleCoreComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         break;
     }
 
-    switch(fUserInput.fOrientation)
+    switch (fUserInput.fOrientation)
     {
     case plParticleMtl::kOrientVelocity:
         miscFlags |= plParticleEmitter::kOrientationVelocityBased;
@@ -477,10 +477,10 @@ bool plParticleCoreComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         }
         pErrMsg->Set(false);
     }
-    if( maxEmitters > 1 )
+    if (maxEmitters > 1)
         miscFlags |= plParticleEmitter::kOnReserve;
 
-    sys->AddEmitter( maxTotalParticles, generator, miscFlags );
+    sys->AddEmitter(maxTotalParticles, generator, miscFlags);
     sys->SetGravity(gravity);
     sys->SetDrag(drag);
     sys->SetWindMult(windMult);
@@ -500,7 +500,7 @@ bool plParticleCoreComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     {
         plParticleFollowSystemEffect *effect = new plParticleFollowSystemEffect;
         hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), effect, node->GetLocation(), node->GetLoadMask());
-        hsgResMgr::ResMgr()->AddViaNotify( effect->GetKey(), new plGenRefMsg( sys->GetKey(), plRefMsg::kOnCreate, 0, plParticleSystem::kEffectMisc ), plRefFlags::kActiveRef );
+        hsgResMgr::ResMgr()->AddViaNotify(effect->GetKey(), new plGenRefMsg(sys->GetKey(), plRefMsg::kOnCreate, 0, plParticleSystem::kEffectMisc), plRefFlags::kActiveRef);
     }
 
     return true;
@@ -510,7 +510,7 @@ void plParticleCoreComponent::IHandleLights(plLightGrpComponent* liGrp, plPartic
 {
     const hsTArray<plLightInfo*>& liInfo = liGrp->GetLightInfos();
     int i;
-    for( i = 0; i < liInfo.GetCount(); i++ )
+    for (i = 0; i < liInfo.GetCount(); i++)
     {
         sys->AddLight(liInfo[i]->GetKey());
     }
@@ -665,7 +665,7 @@ public:
     {
         uint32_t minIndex, maxIndex;
         bool adjustMin;
-        switch(id)
+        switch (id)
         {
         case IDC_COMP_PARTICLE_VELMIN:
         case IDC_COMP_PARTICLE_VELMIN_SPIN:
@@ -967,7 +967,7 @@ bool plParticleEffectComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
 void plParticleFadeComponent::AddToParticleSystem(plParticleSystem *sys, plMaxNode *node)
 {
     plParticleFadeVolumeEffect *effect = nil;
-    if( !fEffect )
+    if (!fEffect)
     {
         effect = new plParticleFadeVolumeEffect();
         hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), effect, node->GetLocation(), node->GetLoadMask());
@@ -982,7 +982,7 @@ void plParticleFadeComponent::AddToParticleSystem(plParticleSystem *sys, plMaxNo
         effect = plParticleFadeVolumeEffect::ConvertNoRef(fEffect);
     }
     hsAssert(effect, "Our effect pointer was wrong type?");
-    hsgResMgr::ResMgr()->AddViaNotify( effect->GetKey(), new plGenRefMsg( sys->GetKey(), plRefMsg::kOnCreate, 0, plParticleSystem::kEffectMisc ), plRefFlags::kActiveRef );
+    hsgResMgr::ResMgr()->AddViaNotify(effect->GetKey(), new plGenRefMsg(sys->GetKey(), plRefMsg::kOnCreate, 0, plParticleSystem::kEffectMisc), plRefFlags::kActiveRef);
 }
 
 CLASS_DESC(plParticleFadeComponent, gParticleFadeDesc, "Fade Volume Effect",  "Fade Volume Effect", COMP_TYPE_PARTICLE, PARTICLE_FADE_COMPONENT_CLASS_ID)
@@ -1023,7 +1023,7 @@ plParticleFadeComponent::plParticleFadeComponent()
 void plParticleVolumeComponent::CollectNonDrawables(INodeTab& nonDrawables)
 {
     INode* source = fCompPB->GetINode(kSourceNode);
-    if( source )
+    if (source)
         nonDrawables.Append(1, &source);
 }
 
@@ -1065,7 +1065,7 @@ void plParticleVolumeComponent::BuildVolume(plMaxNode *node)
 void plParticleVolumeComponent::AddToParticleSystem(plParticleSystem *sys, plMaxNode *node)
 {
     plParticleCollisionEffect *effect = nil;
-    if( !fEffect )
+    if (!fEffect)
     {
         plMaxNode *source = (plMaxNode *)fCompPB->GetINode(kSourceNode);
 
@@ -1073,7 +1073,7 @@ void plParticleVolumeComponent::AddToParticleSystem(plParticleSystem *sys, plMax
             return; // No source selected, user has already been warned.
 
         BuildVolume(source);
-        switch( fCompPB->GetInt(kOnImpact) )
+        switch (fCompPB->GetInt(kOnImpact))
         {
         default:
         case kImpDefault:
@@ -1094,7 +1094,7 @@ void plParticleVolumeComponent::AddToParticleSystem(plParticleSystem *sys, plMax
 
         hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), effect, node->GetLocation(), node->GetLoadMask());
         plSceneObject *sObj = source->GetSceneObject();
-        hsgResMgr::ResMgr()->AddViaNotify( sObj->GetKey(), new plGenRefMsg( effect->GetKey(), plRefMsg::kOnCreate, 0, 0 ), plRefFlags::kPassiveRef );
+        hsgResMgr::ResMgr()->AddViaNotify(sObj->GetKey(), new plGenRefMsg(effect->GetKey(), plRefMsg::kOnCreate, 0, 0), plRefFlags::kPassiveRef);
 
         fEffect = effect;
     }
@@ -1103,7 +1103,7 @@ void plParticleVolumeComponent::AddToParticleSystem(plParticleSystem *sys, plMax
         effect = plParticleCollisionEffect::ConvertNoRef(fEffect);
     }
     hsAssert(effect, "Our effect pointer was wrong type?");
-    hsgResMgr::ResMgr()->AddViaNotify( effect->GetKey(), new plGenRefMsg( sys->GetKey(), plRefMsg::kOnCreate, 0, plParticleSystem::kEffectConstraint ), plRefFlags::kActiveRef );
+    hsgResMgr::ResMgr()->AddViaNotify(effect->GetKey(), new plGenRefMsg(sys->GetKey(), plRefMsg::kOnCreate, 0, plParticleSystem::kEffectConstraint), plRefFlags::kActiveRef);
 }
 
 CLASS_DESC(plParticleVolumeComponent, gParticleVolumeDesc, "Collision Volume Effect",  "Collision Volume Effect", COMP_TYPE_PARTICLE, PARTICLE_VOLUME_COMPONENT_CLASS_ID)
@@ -1159,7 +1159,7 @@ static hsVector3 IGetRefDir(plMaxNode* node, INode* refNode, float clampAngDeg)
 {
     clampAngDeg *= 0.5f;
     float vecLen = 100.f;
-    if( clampAngDeg > 1.f )
+    if (clampAngDeg > 1.f)
     {
         float rads = hsDegreesToRadians(clampAngDeg);
         float sinAng = sinf(rads);
@@ -1168,7 +1168,7 @@ static hsVector3 IGetRefDir(plMaxNode* node, INode* refNode, float clampAngDeg)
 
 #if 0
         float cosAng = cosf(rads);
-        if( cosAng < 0.01f )
+        if (cosAng < 0.01f)
             vecLen = 0;
         else
             vecLen = cosAng / sinAng;
@@ -1177,7 +1177,7 @@ static hsVector3 IGetRefDir(plMaxNode* node, INode* refNode, float clampAngDeg)
 #endif
 
     }
-    if( !refNode )
+    if (!refNode)
         refNode = node;
 
     Matrix3 nodeTM = refNode->GetNodeTM(TimeValue(0));
@@ -1193,7 +1193,7 @@ static hsVector3 IGetRefDir(plMaxNode* node, INode* refNode, float clampAngDeg)
 void plParticleWindComponent::AddToParticleSystem(plParticleSystem *sys, plMaxNode *node)
 {
     plParticleLocalWind* effect = nil;
-    if( !fEffect )
+    if (!fEffect)
     {
         effect = new plParticleLocalWind();
         effect->SetScale(hsVector3(fCompPB->GetFloat(kScaleX), fCompPB->GetFloat(kScaleY), fCompPB->GetFloat(kScaleZ)));
@@ -1215,7 +1215,7 @@ void plParticleWindComponent::AddToParticleSystem(plParticleSystem *sys, plMaxNo
         effect = plParticleLocalWind::ConvertNoRef(fEffect);
     }
     hsAssert(effect, "Our effect pointer was wrong type?");
-    hsgResMgr::ResMgr()->AddViaNotify( effect->GetKey(), new plGenRefMsg( sys->GetKey(), plRefMsg::kOnCreate, 0, plParticleSystem::kEffectForce ), plRefFlags::kActiveRef );
+    hsgResMgr::ResMgr()->AddViaNotify(effect->GetKey(), new plGenRefMsg(sys->GetKey(), plRefMsg::kOnCreate, 0, plParticleSystem::kEffectForce), plRefFlags::kActiveRef);
 }
 
 CLASS_DESC(plParticleWindComponent, gParticleWindDesc, "Wind Effect",  "WindEffect", COMP_TYPE_PARTICLE, PARTICLE_WIND_COMPONENT_CLASS_ID)
@@ -1314,7 +1314,7 @@ plParticleWindComponent::plParticleWindComponent()
 void plParticleUniWindComponent::AddToParticleSystem(plParticleSystem *sys, plMaxNode *node)
 {
     plParticleUniformWind* effect = nil;
-    if( !fEffect )
+    if (!fEffect)
     {
         effect = new plParticleUniformWind();
         hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), effect, node->GetLocation(), node->GetLoadMask());
@@ -1336,7 +1336,7 @@ void plParticleUniWindComponent::AddToParticleSystem(plParticleSystem *sys, plMa
         effect = plParticleUniformWind::ConvertNoRef(fEffect);
     }
     hsAssert(effect, "Our effect pointer was wrong type?");
-    hsgResMgr::ResMgr()->AddViaNotify( effect->GetKey(), new plGenRefMsg( sys->GetKey(), plRefMsg::kOnCreate, 0, plParticleSystem::kEffectForce ), plRefFlags::kActiveRef );
+    hsgResMgr::ResMgr()->AddViaNotify(effect->GetKey(), new plGenRefMsg(sys->GetKey(), plRefMsg::kOnCreate, 0, plParticleSystem::kEffectForce), plRefFlags::kActiveRef);
 }
 
 CLASS_DESC(plParticleUniWindComponent, gParticleUniWindDesc, "Uniform Wind",  "UniWind", COMP_TYPE_PARTICLE, PARTICLE_UNIWIND_COMPONENT_CLASS_ID)
@@ -1431,7 +1431,7 @@ public:
     {
         uint32_t minIndex, maxIndex;
         bool adjustMin;
-        switch(id)
+        switch (id)
         {
         case IDC_FLOCK_GOAL_DIST:
         case IDC_FLOCK_GOAL_DIST_SPIN:
@@ -1485,7 +1485,7 @@ static ParticleFlockEffectDlgProc gParticleFlockEffectDlgProc;
 void plParticleFlockComponent::AddToParticleSystem(plParticleSystem *sys, plMaxNode *node)
 {
     plParticleFlockEffect* effect = nil;
-    if( !fEffect )
+    if (!fEffect)
     {
         effect = new plParticleFlockEffect();
         hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), effect, node->GetLocation(), node->GetLoadMask());
@@ -1517,7 +1517,7 @@ void plParticleFlockComponent::AddToParticleSystem(plParticleSystem *sys, plMaxN
         effect = plParticleFlockEffect::ConvertNoRef(fEffect);
     }
     hsAssert(effect, "Our effect pointer was wrong type?");
-    hsgResMgr::ResMgr()->AddViaNotify( effect->GetKey(), new plGenRefMsg( sys->GetKey(), plRefMsg::kOnCreate, 0, plParticleSystem::kEffectForce ), plRefFlags::kActiveRef );
+    hsgResMgr::ResMgr()->AddViaNotify(effect->GetKey(), new plGenRefMsg(sys->GetKey(), plRefMsg::kOnCreate, 0, plParticleSystem::kEffectForce), plRefFlags::kActiveRef);
 }
 
 CLASS_DESC(plParticleFlockComponent, gParticleFlockDesc, "Particle Flock",  "Flock", COMP_TYPE_PARTICLE, PARTICLE_FLOCK_COMPONENT_CLASS_ID)

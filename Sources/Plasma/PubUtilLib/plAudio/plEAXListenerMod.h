@@ -64,21 +64,21 @@ public:
     plEAXListenerMod();
     virtual ~plEAXListenerMod();
 
-    CLASSNAME_REGISTER( plEAXListenerMod );
-    GETINTERFACE_ANY( plEAXListenerMod, plSingleModifier );
+    CLASSNAME_REGISTER(plEAXListenerMod);
+    GETINTERFACE_ANY(plEAXListenerMod, plSingleModifier);
 
     enum Refs
     {
         kRefSoftRegion = 0,
     };
 
-    virtual bool    MsgReceive( plMessage* pMsg );
-    virtual void    Read( hsStream* s, hsResMgr* mgr );
-    virtual void    Write( hsStream* s, hsResMgr* mgr );
+    virtual bool    MsgReceive(plMessage* pMsg);
+    virtual void    Read(hsStream* s, hsResMgr* mgr);
+    virtual void    Write(hsStream* s, hsResMgr* mgr);
     float           GetStrength();
 
     EAXREVERBPROPERTIES *   GetListenerProps() { return fListenerProps; }
-    void                    SetFromPreset( uint32_t preset );
+    void                    SetFromPreset(uint32_t preset);
 
 protected:
     plSoftVolume    *fSoftRegion;
@@ -87,7 +87,7 @@ protected:
 
     void            IRegister();
     void            IUnRegister();
-    virtual bool    IEval( double secs, float del, uint32_t dirty ); // called only by owner object's Eval()
+    virtual bool    IEval(double secs, float del, uint32_t dirty); // called only by owner object's Eval()
 };
 
 #endif // _plEAXListenerMod_h

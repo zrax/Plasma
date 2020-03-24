@@ -54,8 +54,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time) = 0;
 
 public:
-    CLASSNAME_REGISTER( plParticleApplicator );
-    GETINTERFACE_ANY( plParticleApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plParticleApplicator);
+    GETINTERFACE_ANY(plParticleApplicator, plAGApplicator);
 };
 
 class plParticleLifeMinApplicator : public plParticleApplicator
@@ -64,8 +64,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plParticleLifeMinApplicator );
-    GETINTERFACE_ANY( plParticleLifeMinApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plParticleLifeMinApplicator);
+    GETINTERFACE_ANY(plParticleLifeMinApplicator, plAGApplicator);
 };
 
 class plParticleLifeMaxApplicator : public plParticleApplicator
@@ -74,8 +74,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plParticleLifeMaxApplicator );
-    GETINTERFACE_ANY( plParticleLifeMaxApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plParticleLifeMaxApplicator);
+    GETINTERFACE_ANY(plParticleLifeMaxApplicator, plAGApplicator);
 };
 
 class plParticlePPSApplicator : public plParticleApplicator
@@ -84,8 +84,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plParticlePPSApplicator );
-    GETINTERFACE_ANY( plParticlePPSApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plParticlePPSApplicator);
+    GETINTERFACE_ANY(plParticlePPSApplicator, plAGApplicator);
 };
 
 class plParticleAngleApplicator : public plParticleApplicator
@@ -94,8 +94,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plParticleAngleApplicator );
-    GETINTERFACE_ANY( plParticleAngleApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plParticleAngleApplicator);
+    GETINTERFACE_ANY(plParticleAngleApplicator, plAGApplicator);
 };
 
 class plParticleVelMinApplicator : public plParticleApplicator
@@ -104,8 +104,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plParticleVelMinApplicator );
-    GETINTERFACE_ANY( plParticleVelMinApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plParticleVelMinApplicator);
+    GETINTERFACE_ANY(plParticleVelMinApplicator, plAGApplicator);
 };
 
 class plParticleVelMaxApplicator : public plParticleApplicator
@@ -114,8 +114,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plParticleVelMaxApplicator );
-    GETINTERFACE_ANY( plParticleVelMaxApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plParticleVelMaxApplicator);
+    GETINTERFACE_ANY(plParticleVelMaxApplicator, plAGApplicator);
 };
 
 class plParticleScaleMinApplicator : public plParticleApplicator
@@ -124,8 +124,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plParticleScaleMinApplicator );
-    GETINTERFACE_ANY( plParticleScaleMinApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plParticleScaleMinApplicator);
+    GETINTERFACE_ANY(plParticleScaleMinApplicator, plAGApplicator);
 };
 
 class plParticleScaleMaxApplicator : public plParticleApplicator
@@ -134,8 +134,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plParticleScaleMaxApplicator );
-    GETINTERFACE_ANY( plParticleScaleMaxApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plParticleScaleMaxApplicator);
+    GETINTERFACE_ANY(plParticleScaleMaxApplicator, plAGApplicator);
 };
 
 class plParticleGravityApplicator : public plParticleApplicator
@@ -144,8 +144,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plParticleGravityApplicator );
-    GETINTERFACE_ANY( plParticleGravityApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plParticleGravityApplicator);
+    GETINTERFACE_ANY(plParticleGravityApplicator, plAGApplicator);
 };
 
 class plParticleDragApplicator : public plParticleApplicator
@@ -154,8 +154,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plParticleDragApplicator );
-    GETINTERFACE_ANY( plParticleDragApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plParticleDragApplicator);
+    GETINTERFACE_ANY(plParticleDragApplicator, plAGApplicator);
 };
 
 #endif

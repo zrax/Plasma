@@ -55,7 +55,7 @@ plLODMipmap::plLODMipmap()
     fLOD(0)
 {
     int i;
-    for( i = 0; i < kNumLODs; i++ )
+    for (i = 0; i < kNumLODs; i++)
         fDeviceRefs[i] = nil;
 }
 
@@ -64,7 +64,7 @@ plLODMipmap::plLODMipmap(plMipmap* mip)
     fLOD(0)
 {
     int i;
-    for( i = 0; i < kNumLODs; i++ )
+    for (i = 0; i < kNumLODs; i++)
         fDeviceRefs[i] = nil;
 
     hsgResMgr::ResMgr()->NewKey(mip->GetKey()->GetName(), this, mip->GetKey()->GetUoid().GetLocation());
@@ -85,7 +85,7 @@ plLODMipmap::~plLODMipmap()
     fImage = nil;
 
     int i;
-    for( i = 0; i < kNumLODs; i++ )
+    for (i = 0; i < kNumLODs; i++)
     {
         hsRefCnt_SafeUnRef(fDeviceRefs[i]);
         fDeviceRefs[i] = nil;
@@ -97,7 +97,7 @@ hsGDeviceRef* plLODMipmap::GetDeviceRef() const
     return fDeviceRefs[GetLOD()];
 }
 
-void plLODMipmap::SetDeviceRef( hsGDeviceRef *const devRef )
+void plLODMipmap::SetDeviceRef(hsGDeviceRef *const devRef)
 {
     hsRefCnt_SafeAssign(fDeviceRefs[GetLOD()], devRef);
 }
@@ -108,12 +108,12 @@ void plLODMipmap::SetLOD(int lod)
     hsAssert(fBase, "UnInitialized");
 
     const int kMaxLOD = 5;
-    if( lod > kMaxLOD )
+    if (lod > kMaxLOD)
         lod = kMaxLOD;
-    if( lod >= fBase->GetNumLevels() )
+    if (lod >= fBase->GetNumLevels())
         lod = fBase->GetNumLevels() - 1;
 
-    if( fLOD != lod )
+    if (fLOD != lod)
     {
         fLOD = lod;
         ISetup();
@@ -134,7 +134,7 @@ void plLODMipmap::ISetup()
     fFlags = fBase->GetFlags();
 
     fCompressionType = fBase->fCompressionType;
-    if( !fBase->IsCompressed() )
+    if (!fBase->IsCompressed())
     {
         fUncompressedInfo = fBase->fUncompressedInfo;
     }
@@ -150,7 +150,7 @@ void plLODMipmap::ISetup()
 
     fRowBytes = fBase->GetRowBytes();
 
-    if( !fLevelSizes )
+    if (!fLevelSizes)
         fLevelSizes = new uint32_t[fBase->GetNumLevels()];
         
     fNumLevels = fBase->GetNumLevels() - GetLOD();
@@ -158,7 +158,7 @@ void plLODMipmap::ISetup()
 
     fTotalSize = 0;
     int i;
-    for( i = 0; i < fNumLevels; i++ )
+    for (i = 0; i < fNumLevels; i++)
     {
         fLevelSizes[i] = fBase->GetLevelSize(i + GetLOD());
         fTotalSize += fBase->GetLevelSize(i + GetLOD());
@@ -209,7 +209,7 @@ void plLODMipmap::INilify()
     fLevelSizes = nil;
 
     int i;
-    for( i = 0; i < kNumLODs; i++ )
+    for (i = 0; i < kNumLODs; i++)
     {
         hsRefCnt_SafeUnRef(fDeviceRefs[i]);
         fDeviceRefs[i] = nil;
@@ -219,9 +219,9 @@ void plLODMipmap::INilify()
 void plLODMipmap::IMarkDirty()
 {
     int i;
-    for( i = 0; i < kNumLODs; i++ )
+    for (i = 0; i < kNumLODs; i++)
     {
-        if( fDeviceRefs[i] )
+        if (fDeviceRefs[i])
             fDeviceRefs[i]->SetDirty(true);
     }
 }
@@ -267,12 +267,12 @@ void plLODMipmap::Composite(plMipmap *source, uint16_t x, uint16_t y, CompositeO
 bool plLODMipmap::MsgReceive(plMessage *msg)
 {
     plGenRefMsg* ref = plGenRefMsg::ConvertNoRef(msg);
-    if( ref )
+    if (ref)
     {
-        if( ref->fType == kRefBase )
+        if (ref->fType == kRefBase)
         {
             INilify();
-            if( ref->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+            if (ref->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
             {
                 fBase = plMipmap::ConvertNoRef(ref->GetRef());
                 ISetup();

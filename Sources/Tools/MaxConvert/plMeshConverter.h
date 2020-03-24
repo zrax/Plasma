@@ -91,13 +91,13 @@ public:
     ~plMeshConverter();
     static plMeshConverter& Instance();
 
-    void    Init( bool save, plErrorMsg *msg );
-    void    DeInit( bool deInitLongRecur = true );
+    void    Init(bool save, plErrorMsg *msg);
+    void    DeInit(bool deInitLongRecur = true);
 
     void StuffPositionsAndNormals(plMaxNode *node, hsTArray<hsPoint3> *pos, hsTArray<hsVector3> *normals);
-    plConvexVolume *CreateConvexVolume( plMaxNode *node );
+    plConvexVolume *CreateConvexVolume(plMaxNode *node);
     // doPreshading - If true, do crappy flat shading now (since we won't do any shading later)
-    bool    CreateSpans( plMaxNode *node, hsTArray<plGeometrySpan *> &spanArray, bool doPreshading );
+    bool    CreateSpans(plMaxNode *node, hsTArray<plGeometrySpan *> &spanArray, bool doPreshading);
 
 private:
     bool IValidateUVs(plMaxNode* node);
@@ -116,12 +116,12 @@ private:
                                         Mesh *mesh, int faceIdx,
                                         int iUV);
 
-    int     IGenerateUVs( plMaxNode *node, Mtl *maxMtl, Mesh *mesh, int faceIdx, int numChan, int numBlend,
-                          hsPoint3 *uvs1, hsPoint3 *uvs2, hsPoint3 *uvs3 );
-    void    IGetUVTransform( plMaxNode *node, Mtl *mtl, Matrix3 *uvTransform, int which );
+    int     IGenerateUVs(plMaxNode *node, Mtl *maxMtl, Mesh *mesh, int faceIdx, int numChan, int numBlend,
+                         hsPoint3 *uvs1, hsPoint3 *uvs2, hsPoint3 *uvs3);
+    void    IGetUVTransform(plMaxNode *node, Mtl *mtl, Matrix3 *uvTransform, int which);
 
-    uint32_t  ICreateHexColor( float r, float g, float b );
-    uint32_t  ISetHexAlpha( uint32_t color, float alpha );
+    uint32_t  ICreateHexColor(float r, float g, float b);
+    uint32_t  ISetHexAlpha(uint32_t color, float alpha);
 
     Mesh*       IGetNodeMesh(plMaxNode *node);
     void        IDeleteTempGeometry();

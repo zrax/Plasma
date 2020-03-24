@@ -60,7 +60,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 plStateDataRecord * GetAgeSDL()
 {
     const plPythonSDLModifier * mod = plPythonSDLModifier::FindAgeSDL();
-    if ( mod )
+    if (mod)
         return mod->GetStateCache();
     return nil;
 }

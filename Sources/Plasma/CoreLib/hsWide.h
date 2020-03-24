@@ -59,8 +59,8 @@ struct hsWide {
 
     bool operator==(const hsWide& b) const { return fHi == b.fHi && fLo == b.fLo; }
     bool operator<(const hsWide& b) const { return fHi < b.fHi || (fHi == b.fHi && fLo < b.fLo); }
-    bool operator>( const hsWide& b) const { return fHi > b.fHi || (fHi == b.fHi && fLo > b.fLo); }
-    bool operator!=( const hsWide& b) const { return !( *this == b); }
+    bool operator>(const hsWide& b) const { return fHi > b.fHi || (fHi == b.fHi && fLo > b.fLo); }
+    bool operator!=(const hsWide& b) const { return !(*this == b); }
     bool operator<=(const hsWide& b) const { return !(*this > b); }
     bool operator>=(const hsWide& b) const { return !(*this < b); }
 

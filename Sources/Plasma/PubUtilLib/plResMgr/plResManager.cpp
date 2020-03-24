@@ -94,7 +94,7 @@ static void ILog(uint8_t level, const char* format, _Args&&... args)
 plResManager::plResManager():
     fInited(false),
     fDispatch(nil),
-    fReadingObject( false ),
+    fReadingObject(false),
     fCurCloneID(0),
     fCurClonePlayerID(0),
     fCloningCounter(0),
@@ -153,7 +153,7 @@ bool plResManager::IInit()
     // Init our helper
     fMyHelper = new plResManagerHelper(this);
     fMyHelper->Init();
-    hsAssert(fMyHelper->GetKey() != nil, "ResManager helper didn't init properly!" );
+    hsAssert(fMyHelper->GetKey() != nil, "ResManager helper didn't init properly!");
 
     kResMgrLog(1, ILog(1, "   ...Init was successful!"));
 
@@ -497,9 +497,9 @@ void plResManager::IPageOutSceneNodes(bool forceAll)
 
     if (forceAll)
     {
-        hsStatusMessage( "--- plResManager Object Leak Report (BEGIN) ---" );
+        hsStatusMessage("--- plResManager Object Leak Report (BEGIN) ---");
         plPageOutIterator iter(this, static_cast<uint16_t>(-1));
-        hsStatusMessage( "--- plResManager Object Leak Report (END) ---" );
+        hsStatusMessage("--- plResManager Object Leak Report (END) ---");
     }
     else
     {
@@ -702,7 +702,7 @@ plKey plResManager::ReadKeyNotifyMe(hsStream* stream, plRefMsg* msg, plRefFlags:
         hsRefCnt_SafeUnRef(msg);
         return nil;
     }
-    if(key->GetUoid().GetLoadMask().DontLoad())
+    if (key->GetUoid().GetLoadMask().DontLoad())
     {
         hsStatusMessageF("%s being skipped because of load mask", key->GetName().c_str());
         hsRefCnt_SafeUnRef(msg);
@@ -725,7 +725,7 @@ plKey plResManager::ReadKeyNotifyMe(hsStream* stream, plRefMsg* msg, plRefFlags:
 //  Creates a new key and assigns it to the given keyed object, also placing
 //  it into the registry.
 
-plKey plResManager::NewKey(const ST::string& name, hsKeyedObject* object, const plLocation& loc, const plLoadMask& m )
+plKey plResManager::NewKey(const ST::string& name, hsKeyedObject* object, const plLocation& loc, const plLoadMask& m)
 {
     hsAssert(!name.empty(), "No name for new key");
     plUoid newUoid(loc, object->ClassIndex(), name, m);
@@ -935,7 +935,7 @@ plCreatable* plResManager::IReadCreatable(hsStream* s) const
     uint16_t hClass = s->ReadLE16();
     plCreatable* pCre = plFactory::Create(hClass);
     if (!pCre)
-        hsAssert( hClass == 0x8000, "Invalid creatable index" );
+        hsAssert(hClass == 0x8000, "Invalid creatable index");
 
     return pCre;
 }
@@ -997,7 +997,7 @@ class plResAgeHolder : public hsRefCnt
         ST::string      fAge;
 
         plResAgeHolder() {}
-        plResAgeHolder( const ST::string& age ) : fAge( age ) {}
+        plResAgeHolder(const ST::string& age) : fAge(age) {}
 };
 
 //// plResHolderIterator /////////////////////////////////////////////////////
@@ -1113,18 +1113,18 @@ class plOurRefferAndFinder : public plRegistryKeyIterator
 
     public:
 
-        plOurRefferAndFinder( hsTArray<plKey> &refArray, uint16_t classToFind, plKey &foundKey )
-                : fRefArray( refArray ), fClassToFind( classToFind ), fFoundKey( foundKey ) { }
+        plOurRefferAndFinder(hsTArray<plKey> &refArray, uint16_t classToFind, plKey &foundKey)
+                : fRefArray(refArray), fClassToFind(classToFind), fFoundKey(foundKey) { }
 
-        virtual bool EatKey( const plKey& key )
+        virtual bool EatKey(const plKey& key)
         {
             // This is cute. Thanks to our new plKey smart pointers, all we have to
             // do is append the key to our ref array. This automatically guarantees us
             // an extra ref on the key, which is what we're trying to do. Go figure.
-            fRefArray.Append( key );
+            fRefArray.Append(key);
 
             // Also do our find
-            if( key->GetUoid().GetClassType() == fClassToFind )
+            if (key->GetUoid().GetClassType() == fClassToFind)
                 fFoundKey = key;
             
             return true;
@@ -1193,7 +1193,7 @@ void plResManager::PageInRoom(const plLocation& page, uint16_t objClassToRef, pl
     {
         kResMgrLog(1, ILog(1, "...SceneNode not found to base page-in op on. Aborting..."));
         // This is coming up a lot lately; too intrusive to be an assert.
-        // hsAssert( false, "No object found on which to base our PageInRoom()" );
+        // hsAssert(false, "No object found on which to base our PageInRoom()");
         pageNode->CloseStream();
         return;
     }

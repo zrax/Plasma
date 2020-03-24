@@ -72,39 +72,39 @@ class pfGUIRadioGroupCtrl : public pfGUIControlMod
 
         int32_t                           fValue, fDefaultValue;
 
-        virtual bool IEval( double secs, float del, uint32_t dirty ); // called only by owner object's Eval()
+        virtual bool IEval(double secs, float del, uint32_t dirty); // called only by owner object's Eval()
 
     public:
 
         pfGUIRadioGroupCtrl();
         virtual ~pfGUIRadioGroupCtrl();
 
-        CLASSNAME_REGISTER( pfGUIRadioGroupCtrl );
-        GETINTERFACE_ANY( pfGUIRadioGroupCtrl, pfGUIControlMod );
+        CLASSNAME_REGISTER(pfGUIRadioGroupCtrl);
+        GETINTERFACE_ANY(pfGUIRadioGroupCtrl, pfGUIControlMod);
 
         enum OurFlags
         {
             kAllowNoSelection = kDerivedFlagsStart
         };
 
-        virtual bool    MsgReceive( plMessage* pMsg );
+        virtual bool    MsgReceive(plMessage* pMsg);
         
-        virtual void Read( hsStream* s, hsResMgr* mgr );
-        virtual void Write( hsStream* s, hsResMgr* mgr );
+        virtual void Read(hsStream* s, hsResMgr* mgr);
+        virtual void Write(hsStream* s, hsResMgr* mgr);
 
         int32_t   GetValue() { return fValue; }
-        void    SetValue( int32_t value );
+        void    SetValue(int32_t value);
 
-        virtual void    SetEnabled( bool e );
-        virtual void    SetInteresting( bool e );
-        virtual void    SetVisible( bool vis );
-        virtual void    SetControlsFlag( int flag );
-        virtual void    ClearControlsFlag( int flag );
+        virtual void    SetEnabled(bool e);
+        virtual void    SetInteresting(bool e);
+        virtual void    SetVisible(bool vis);
+        virtual void    SetControlsFlag(int flag);
+        virtual void    ClearControlsFlag(int flag);
 
         /// Export ONLY
         void    ClearControlList();
-        void    AddControl( pfGUICheckBoxCtrl *ctrl );
-        void    SetDefaultValue( int32_t value ) { fDefaultValue = value; }
+        void    AddControl(pfGUICheckBoxCtrl *ctrl);
+        void    SetDefaultValue(int32_t value) { fDefaultValue = value; }
 };
 
 #endif // _pfGUIRadioGroupCtrl_h

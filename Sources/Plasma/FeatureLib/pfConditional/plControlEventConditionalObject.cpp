@@ -53,15 +53,15 @@ plControlEventConditionalObject::plControlEventConditionalObject()
 bool plControlEventConditionalObject::MsgReceive(plMessage* msg)
 {
     plControlEventMsg* pControlMsg = plControlEventMsg::ConvertNoRef(msg);
-    if( pControlMsg )
+    if (pControlMsg)
     {
-        if (pControlMsg->GetControlCode() == fControlEvent && pControlMsg->ControlActivated() && !Satisfied() )
+        if (pControlMsg->GetControlCode() == fControlEvent && pControlMsg->ControlActivated() && !Satisfied())
         {
             SetSatisfied(true);
     //      fLogicMod->RequestTrigger();
         }
         else
-        if (pControlMsg->GetControlCode() == fControlEvent && !pControlMsg->ControlActivated() && Satisfied() )
+        if (pControlMsg->GetControlCode() == fControlEvent && !pControlMsg->ControlActivated() && Satisfied())
         {
             SetSatisfied(false);
         }

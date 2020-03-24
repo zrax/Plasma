@@ -66,8 +66,8 @@ public:
     void Init(plConvexVolume *bounds);
     plConvexVolume *GetVolume() { return fBounds; }
 
-    CLASSNAME_REGISTER( plBoundInterface );
-    GETINTERFACE_ANY( plBoundInterface, plObjInterface );
+    CLASSNAME_REGISTER(plBoundInterface);
+    GETINTERFACE_ANY(plBoundInterface, plObjInterface);
     
     virtual int32_t GetNumProperties() const { return kNumProps; }
     virtual void SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l);

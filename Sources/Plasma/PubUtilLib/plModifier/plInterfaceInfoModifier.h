@@ -58,8 +58,8 @@ public:
     plInterfaceInfoModifier();
     ~plInterfaceInfoModifier();
 
-    CLASSNAME_REGISTER( plInterfaceInfoModifier );
-    GETINTERFACE_ANY( plInterfaceInfoModifier, plSingleModifier );
+    CLASSNAME_REGISTER(plInterfaceInfoModifier);
+    GETINTERFACE_ANY(plInterfaceInfoModifier, plSingleModifier);
 
     void AddRefdKey(plKey &k) { fKeyList.Append(k); }
 

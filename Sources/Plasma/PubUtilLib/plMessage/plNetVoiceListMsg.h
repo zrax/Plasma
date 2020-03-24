@@ -62,15 +62,15 @@ public:
         kDistanceMode,
     };
 
-    plNetVoiceListMsg() : plMessage(nil, nil, nil), fCmd( 0 ) { SetBCastFlag(kBCastByExactType); }
-    plNetVoiceListMsg( uint32_t cmd ) :
-                plMessage(nil, nil, nil), fCmd( cmd )
-                { SetBCastFlag( kBCastByExactType ); }
+    plNetVoiceListMsg() : plMessage(nil, nil, nil), fCmd(0) { SetBCastFlag(kBCastByExactType); }
+    plNetVoiceListMsg(uint32_t cmd) :
+                plMessage(nil, nil, nil), fCmd(cmd)
+                { SetBCastFlag(kBCastByExactType); }
     
     ~plNetVoiceListMsg() { }
 
-    CLASSNAME_REGISTER( plNetVoiceListMsg );
-    GETINTERFACE_ANY( plNetVoiceListMsg, plMessage );
+    CLASSNAME_REGISTER(plNetVoiceListMsg);
+    GETINTERFACE_ANY(plNetVoiceListMsg, plMessage);
 
     uint32_t      GetCmd() { return fCmd; }
     hsTArray<uint32_t>* GetClientList() { return &fClientIDs; };

@@ -58,8 +58,8 @@ public:
                     const double* t){SetBCastFlag(plMessage::kBCastByExactType | plMessage::kPropagateToModifiers);}
     ~plTriggerMsg() { }
 
-    CLASSNAME_REGISTER( plTriggerMsg );
-    GETINTERFACE_ANY( plTriggerMsg, plMessage );
+    CLASSNAME_REGISTER(plTriggerMsg);
+    GETINTERFACE_ANY(plTriggerMsg, plMessage);
 
     // IO
     void Read(hsStream* stream, hsResMgr* mgr) {    plMessage::IMsgRead(stream, mgr);   }

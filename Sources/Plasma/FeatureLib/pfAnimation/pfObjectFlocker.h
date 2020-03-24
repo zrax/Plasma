@@ -400,8 +400,8 @@ public:
     pfObjectFlocker();
     ~pfObjectFlocker();
 
-    CLASSNAME_REGISTER( pfObjectFlocker );
-    GETINTERFACE_ANY( pfObjectFlocker, plSingleModifier );
+    CLASSNAME_REGISTER(pfObjectFlocker);
+    GETINTERFACE_ANY(pfObjectFlocker, plSingleModifier);
 
     virtual void SetTarget(plSceneObject* so);
     virtual bool MsgReceive(plMessage* msg);

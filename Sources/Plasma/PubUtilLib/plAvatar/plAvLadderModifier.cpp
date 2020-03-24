@@ -241,23 +241,23 @@ void plAvLadderMod::EmitCommand(const plKey receiver)
 {
     hsKeyedObject *object = receiver->ObjectIsLoaded();
     plSceneObject *SO = plSceneObject::ConvertNoRef(object);
-    if(SO)
+    if (SO)
     {
         const plArmatureMod *constAvMod = (plArmatureMod*)SO->GetModifierByType(plArmatureMod::Index());
-        if(constAvMod)
+        if (constAvMod)
         {
             plAvBrainGeneric *curGenBrain = (plAvBrainGeneric *)constAvMod->FindBrainByClass(plAvBrainGeneric::Index());
             // *** warning; if there's more than one generic brain active, this will only look at the first
-            bool alreadyOnLadder =  ( curGenBrain  && curGenBrain->GetType() == plAvBrainGeneric::kLadder );
+            bool alreadyOnLadder =  (curGenBrain  && curGenBrain->GetType() == plAvBrainGeneric::kLadder);
 
-            if( ! alreadyOnLadder)
+            if (! alreadyOnLadder)
             {
                 plSceneObject *seekObj = GetTarget();
                 plKey seekKey = seekObj->GetKey();      // this modifier's target is the seek object
 
                 const char *mountName, *dismountName, *traverseName;
 
-                if(fGoingUp)
+                if (fGoingUp)
                 {
                     mountName = "LadderUpOn";
                     dismountName = "LadderUpOff";
@@ -277,12 +277,12 @@ void plAvLadderMod::EmitCommand(const plKey receiver)
                                                   plAnimStage::kAdvanceAuto,
                                                   plAnimStage::kRegressAuto,
                                                   0);
-                if( ! fGoingUp)
+                if (! fGoingUp)
                     s1->SetReverseOnIdle(true);
                 v->push_back(s1);
                 
                 // if loops is zero, we don't need the traverse animation at all.
-                if(fLoops)
+                if (fLoops)
                 {
                     plAnimStage *s2 = new plAnimStage(traverseName,
                                                       0,
@@ -294,7 +294,7 @@ void plAvLadderMod::EmitCommand(const plKey receiver)
                                                                     // play this anim once, 1 loop means "loop
                                                                     // once after reaching the end."
                                                       );
-                    if( ! fGoingUp)
+                    if (! fGoingUp)
                         s2->SetReverseOnIdle(true);
                     v->push_back(s2);
                 }
@@ -305,7 +305,7 @@ void plAvLadderMod::EmitCommand(const plKey receiver)
                                                   plAnimStage::kAdvanceAuto,
                                                   plAnimStage::kRegressAuto,
                                                   0);
-                if( ! fGoingUp)
+                if (! fGoingUp)
                     s3->SetReverseOnIdle(true);
                 v->push_back(s3);
 
@@ -386,7 +386,7 @@ int plAvLadderMod::GetType() const
 
 void plAvLadderMod::SetType(int type)
 {
-    if(type >= kNumOfTypeFields || type < 0)
+    if (type >= kNumOfTypeFields || type < 0)
     {
         hsStatusMessage("Invalid param to plAvLadderMod::SetType: defaulting to kBig");
         fType = kBig;

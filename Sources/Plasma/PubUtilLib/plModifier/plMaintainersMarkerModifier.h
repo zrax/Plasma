@@ -63,8 +63,8 @@ protected:
 public:
     plMaintainersMarkerModifier() : fCalibrated(0) { }
 
-    CLASSNAME_REGISTER( plMaintainersMarkerModifier );
-    GETINTERFACE_ANY( plMaintainersMarkerModifier, plMultiModifier );
+    CLASSNAME_REGISTER(plMaintainersMarkerModifier);
+    GETINTERFACE_ANY(plMaintainersMarkerModifier, plMultiModifier);
     
     virtual void AddTarget(plSceneObject* so);
     virtual void RemoveTarget(plSceneObject* so);

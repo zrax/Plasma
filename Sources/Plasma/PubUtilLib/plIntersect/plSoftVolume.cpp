@@ -90,12 +90,12 @@ float plSoftVolume::GetStrength(const hsPoint3& pos) const
 
 float plSoftVolume::GetListenerStrength() const
 {
-    if( !(fListenState & kListenPosSet) )
+    if (!(fListenState & kListenPosSet))
     {
         // Some screw-up, haven't received a pos yet. Turn it off till we do.
         return fListenStrength = IRemapStrength(0);
     }
-    if( fListenState & kListenDirty )
+    if (fListenState & kListenDirty)
     {
         fListenStrength = IUpdateListenerStrength();
         fListenState &= ~kListenDirty;
@@ -111,7 +111,7 @@ void plSoftVolume::UpdateListenerPosition(const hsPoint3& pos)
 
 void plSoftVolume::SetCheckListener(bool on)
 {
-    if( on )
+    if (on)
     {
         plgDispatch::Dispatch()->RegisterForExactType(plListenerMsg::Index(), GetKey());
         fListenState |= kListenCheck | kListenDirty | kListenRegistered;
@@ -126,7 +126,7 @@ void plSoftVolume::SetCheckListener(bool on)
 bool plSoftVolume::MsgReceive(plMessage* msg)
 {
     plListenerMsg* list = plListenerMsg::ConvertNoRef(msg);
-    if( list )
+    if (list)
     {
         UpdateListenerPosition(list->GetPosition());
         return true;
@@ -142,18 +142,18 @@ float plSoftVolume::IUpdateListenerStrength() const
 
 void plSoftVolume::SetInsideStrength(float s)
 {
-    if( s < 0 )
+    if (s < 0)
         s = 0;
-    else if( s > 1.f )
+    else if (s > 1.f)
         s = 1.f;
     fInsideStrength = s;
 }
 
 void plSoftVolume::SetOutsideStrength(float s)
 {
-    if( s < 0 )
+    if (s < 0)
         s = 0;
-    else if( s > 1.f )
+    else if (s > 1.f)
         s = 1.f;
     fOutsideStrength = s;
 }

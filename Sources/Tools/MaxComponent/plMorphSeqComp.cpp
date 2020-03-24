@@ -115,14 +115,14 @@ bool plMorphLayComp::SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg)
 {
     const int num = fCompPB->Count(kDeltas);
     int i;
-    for( i = 0; i < num; i++ )
+    for (i = 0; i < num; i++)
     {
         plMaxNode* deltaNode = (plMaxNode*)fCompPB->GetINode(kDeltas, TimeValue(0), i);
-        if( deltaNode )
+        if (deltaNode)
         {
             const char* deltaName = deltaNode->GetName();
             
-            if( !deltaNode->GetSwappableGeom() )
+            if (!deltaNode->GetSwappableGeom())
                 deltaNode->SetSwappableGeom(new plSharedMesh);
 //          deltaNode->SetForceLocal(true);
         }
@@ -146,10 +146,10 @@ bool plMorphLayComp::SetupLayer(plMorphArray& morphArr, plMaxNode* baseNode, hsT
     const int num = fCompPB->Count(kDeltas);
     int i;
     // For each delta
-    for( i = 0; i < num; i++ )
+    for (i = 0; i < num; i++)
     {
         plMaxNode* deltaNode = (plMaxNode*)fCompPB->GetINode(kDeltas, TimeValue(0), i);
-        if( !deltaNode )
+        if (!deltaNode)
             continue;
         const char* dbgNodeName = deltaNode->GetName();
 
@@ -179,7 +179,7 @@ bool plMorphLayComp::SetupLayer(plMorphArray& morphArr, plMaxNode* baseNode, hsT
         d2b.GetInverse(&d2bTInv);
         d2bTInv.GetTranspose(&d2bTInv);
         // Error check - movedSpans->GetCount() == baseSpans->GetCount();
-        if( movedSpans->GetCount() != baseSpans->GetCount() )
+        if (movedSpans->GetCount() != baseSpans->GetCount())
         {
             pErrMsg->Set(true, deltaNode->GetName(), "Delta mesh mismatch with base").CheckAndAsk();
             pErrMsg->Set(false);
@@ -280,13 +280,13 @@ ParamBlockDesc2 gMorphSeqBk
 bool plMorphSeqComp::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
 {
     plMaxNode* baseNode = (plMaxNode*)fCompPB->GetINode(kBaseNode);
-    if( !baseNode )
+    if (!baseNode)
     {
         pErrMsg->Set(true, node->GetName(), "Missing base (neutral) geometry node").CheckAndAsk();
         pErrMsg->Set(false);
         return true;
     }
-    if( !baseNode->GetSwappableGeom() )
+    if (!baseNode->GetSwappableGeom())
         baseNode->SetSwappableGeom(new plSharedMesh);
 //  baseNode->SetForceLocal(true);
 
@@ -325,17 +325,17 @@ bool plMorphSeqComp::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
     const int num = fCompPB->Count(kLayers);
     int i;
     // For each layer that we have
-    for( i = 0; i < num; i++ )
+    for (i = 0; i < num; i++)
     {
         plMorphLayComp* layComp = IGetLayerComp(i);
-        if( !layComp )
+        if (!layComp)
             continue;
 
         // Layer is a sequence of geometry deltas. A layer will
         // become a plMorphArray.
         plMorphArray morphArr;
 
-        if( layComp->SetupLayer(morphArr, baseNode, baseSpans, pErrMsg) )
+        if (layComp->SetupLayer(morphArr, baseNode, baseSpans, pErrMsg))
         {
             //morphSeq->AddLayer(morphArr);
             set->fMorphs.Append(morphArr);
@@ -356,14 +356,14 @@ bool plMorphSeqComp::DeInit(plMaxNode *node, plErrorMsg *pErrMsg)
 plMorphLayComp* plMorphSeqComp::IGetLayerComp(int i)
 {
     plMaxNode* node = (plMaxNode*)fCompPB->GetINode(kLayers, TimeValue(0), i);
-    if( !node )
+    if (!node)
         return nil;
 
     plComponentBase *comp = ((plMaxNodeBase*)node)->ConvertToComponent();
-    if( !comp )
+    if (!comp)
         return nil;
 
-    if( comp->ClassID() == MORPHLAY_COMP_CID )
+    if (comp->ClassID() == MORPHLAY_COMP_CID)
     {
         return (plMorphLayComp*)comp;
     }

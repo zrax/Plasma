@@ -128,8 +128,8 @@ public:
     virtual void Write(hsStream *stream, hsResMgr *mgr);
 
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plAGModifier );
-    GETINTERFACE_ANY( plAGModifier, plSingleModifier );
+    CLASSNAME_REGISTER(plAGModifier);
+    GETINTERFACE_ANY(plAGModifier, plSingleModifier);
     
 protected:
     typedef std::vector<plAGApplicator*> plAppTable;

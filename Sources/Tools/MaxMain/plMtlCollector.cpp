@@ -108,7 +108,7 @@ void GetMtlsRecur(MtlBase *mtlBase, MtlSet* mtls, TexSet* texmaps, uint32_t flag
         if (texmaps && IsTexmapOK(tex, flags))
             texmaps->insert(tex);
     }
-    else if(mtlBase->SuperClassID() == MATERIAL_CLASS_ID)
+    else if (mtlBase->SuperClassID() == MATERIAL_CLASS_ID)
     {
         Mtl* mtl = (Mtl*)mtlBase;
 
@@ -147,15 +147,15 @@ static void GetTexmapPBs(Texmap* tex, PBSet& pbs)
     if (!tex)
         return;
 
-    plPlasmaMAXLayer *plasma = plPlasmaMAXLayer::GetPlasmaMAXLayer( tex );
-    if( plasma != nil )
+    plPlasmaMAXLayer *plasma = plPlasmaMAXLayer::GetPlasmaMAXLayer(tex);
+    if (plasma != nil)
     {
         int i;
-        for( i = 0; i < plasma->GetNumBitmaps(); i++ )
+        for (i = 0; i < plasma->GetNumBitmaps(); i++)
         {
-            PBBitmap *pbbm = plasma->GetPBBitmap( i );
-            if( pbbm != nil )
-                pbs.insert( pbbm );
+            PBBitmap *pbbm = plasma->GetPBBitmap(i);
+            if (pbbm != nil)
+                pbs.insert(pbbm);
         }
     }
     else
@@ -195,35 +195,35 @@ static void GetNodeMtlsRecur(INode *node, MtlSet* mtls, TexSet* texmaps, uint32_
         GetMtlsRecur(texmap, mtls, texmaps, flags);
     }
 
-    plGUIControlBase *gui = plGUIControlBase::GetGUIComp( node );
-    if( gui != nil )
+    plGUIControlBase *gui = plGUIControlBase::GetGUIComp(node);
+    if (gui != nil)
     {
         uint32_t i;
-        for( i = 0; i < gui->GetNumMtls(); i++ )
-            GetMtlsRecur( gui->GetMtl( i ), mtls, texmaps, flags );
+        for (i = 0; i < gui->GetNumMtls(); i++)
+            GetMtlsRecur(gui->GetMtl(i), mtls, texmaps, flags);
     }
     else
     {
         // Skins aren't controls
-        plGUISkinComp *guiSkin = plGUISkinComp::GetGUIComp( node );
-        if( guiSkin != nil )
+        plGUISkinComp *guiSkin = plGUISkinComp::GetGUIComp(node);
+        if (guiSkin != nil)
         {
             uint32_t i;
-            for( i = 0; i < guiSkin->GetNumMtls(); i++ )
-                GetMtlsRecur( guiSkin->GetMtl( i ), mtls, texmaps, flags );
+            for (i = 0; i < guiSkin->GetNumMtls(); i++)
+                GetMtlsRecur(guiSkin->GetMtl(i), mtls, texmaps, flags);
         }
         else
         {
             // Um, other components
-            plComponentBase *base = ( ( plMaxNodeBase *)node )->ConvertToComponent();
-            if( base != nil )
+            plComponentBase *base = ((plMaxNodeBase *)node)->ConvertToComponent();
+            if (base != nil)
             {
-                if( base->ClassID() == IMAGE_LIB_CID )
+                if (base->ClassID() == IMAGE_LIB_CID)
                 {
                     pfImageLibComponent *iLib = (pfImageLibComponent *)base;
                     uint32_t i;
-                    for( i = 0; i < iLib->GetNumBitmaps(); i++ )
-                        GetMtlsRecur( iLib->GetBitmap( i ), mtls, texmaps, flags );
+                    for (i = 0; i < iLib->GetNumBitmaps(); i++)
+                        GetMtlsRecur(iLib->GetBitmap(i), mtls, texmaps, flags);
                 }
             }
         }
@@ -251,7 +251,7 @@ void plMtlCollector::GetMtls(MtlSet* mtls, TexSet* texmaps, uint32_t flags)
 
     // Make a list of all the textures from the GetSceneMtls() func
     MtlBaseLib* sceneMtls = ip->GetSceneMtls();
-    for(int i = 0; i < sceneMtls->Count(); i++)
+    for (int i = 0; i < sceneMtls->Count(); i++)
     {
         GetMtlsRecur((*sceneMtls)[i], mtls, texmaps, flags);
     }

@@ -76,7 +76,7 @@ class plVoiceSound : public plWin32Sound
 public:
     plVoiceSound();
 
-    bool LoadSound( bool is3D );
+    bool LoadSound(bool is3D);
     void AddVoiceData(const void *data, size_t bytes);
     void Update();
     void Play();
@@ -88,7 +88,7 @@ private:
     virtual void    IUnloadDataBuffer(){}
 
     virtual void    IDerivedActuallyPlay();
-    virtual void    ISetActualTime( double t ){}
+    virtual void    ISetActualTime(double t){}
     virtual float   GetActualTimeSec() { return 0.0f; }
     virtual void    IRefreshParams();
 

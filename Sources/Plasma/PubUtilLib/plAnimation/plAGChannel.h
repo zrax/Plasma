@@ -184,8 +184,8 @@ public:
 
     // PLASMA PROTOCOL
     // rtti
-    CLASSNAME_REGISTER( plAGChannel );
-    GETINTERFACE_ANY( plAGChannel, plCreatable );
+    CLASSNAME_REGISTER(plAGChannel);
+    GETINTERFACE_ANY(plAGChannel, plCreatable);
 
     // persistence
     virtual void Write(hsStream *stream, hsResMgr *mgr);

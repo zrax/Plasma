@@ -66,7 +66,7 @@ public:
     plLayerTex  *GetSkinBitmap();
 
     virtual uint32_t  GetNumMtls() const;
-    virtual Texmap  *GetMtl( uint32_t idx );
+    virtual Texmap  *GetMtl(uint32_t idx);
 
     enum
     {
@@ -93,7 +93,7 @@ public:
     plKey       GetConvertedSkinKey() const;
 
     // Given an INode, gives you a pointer to the GUI component if it actually is one, nil otherwise
-    static plGUISkinComp        *GetGUIComp( INode *node );
+    static plGUISkinComp        *GetGUIComp(INode *node);
     
 protected:
 
@@ -124,7 +124,7 @@ class pfGUISkinEditProc
         int             fDragOffsetX, fDragOffsetY;
         HCURSOR         fOrigCursor;
 
-        pfGUISkin::pfSRect  fBackups[ pfGUISkin::kNumElements ];
+        pfGUISkin::pfSRect  fBackups[pfGUISkin::kNumElements];
 
 
         void    IRefreshDblBuffer();
@@ -139,9 +139,9 @@ class pfGUISkinEditProc
             kRangeSlop = 4
         };
 
-        bool    IPointWithinRange( int x, int y, int ptX, int ptY );
-        bool    IPointWithinVertRange( int x, int y, int ptX, int ptY1, int ptY2 );
-        bool    IPointWithinHorzRange( int x, int y, int ptX1, int ptX2, int ptY );
+        bool    IPointWithinRange(int x, int y, int ptX, int ptY);
+        bool    IPointWithinVertRange(int x, int y, int ptX, int ptY1, int ptY2);
+        bool    IPointWithinHorzRange(int x, int y, int ptX1, int ptX2, int ptY);
 
         enum DragTypeFlags
         {
@@ -152,18 +152,18 @@ class pfGUISkinEditProc
             kDragAll = kLeft | kTop | kRight | kBottom
         };
 
-        uint8_t   IGetDragTypeFlags( int x, int y );
+        uint8_t   IGetDragTypeFlags(int x, int y);
 
-        void    IJustDrawOneRect( int whichElement, IParamBlock2 *pb, HDC hDC, HPEN whichPen, int refToIgnore );
+        void    IJustDrawOneRect(int whichElement, IParamBlock2 *pb, HDC hDC, HPEN whichPen, int refToIgnore);
 
     public:
 
-        pfGUISkinEditProc( plGUISkinComp *comp );
+        pfGUISkinEditProc(plGUISkinComp *comp);
         ~pfGUISkinEditProc();
 
-        static INT_PTR CALLBACK DlgProc( HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam );
+        static INT_PTR CALLBACK DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam);
 
-        INT_PTR CALLBACK    DialogProc( HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam );
+        INT_PTR CALLBACK    DialogProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam);
 };
 
 

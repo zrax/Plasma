@@ -633,10 +633,10 @@ public:
         return fDevice.GetErrorString();
     }
 
-    //virtual void GetSupportedDisplayModes(std::vector<plDisplayMode> *res, int ColorDepth = 32 ) = 0;
+    //virtual void GetSupportedDisplayModes(std::vector<plDisplayMode> *res, int ColorDepth = 32) = 0;
     //virtual int GetMaxAnisotropicSamples() = 0;
     //virtual int GetMaxAntiAlias(int Width, int Height, int ColorDepth) = 0;
-    //virtual void ResetDisplayDevice(int Width, int Height, int ColorDepth, bool Windowed, int NumAASamples, int MaxAnisotropicSamples, bool vSync = false  ) = 0;
+    //virtual void ResetDisplayDevice(int Width, int Height, int ColorDepth, bool Windowed, int NumAASamples, int MaxAnisotropicSamples, bool vSync = false) = 0;
 
     /** Push a piggy back onto the stack. */
     virtual plLayerInterface* PushPiggyBackLayer(plLayerInterface* li);

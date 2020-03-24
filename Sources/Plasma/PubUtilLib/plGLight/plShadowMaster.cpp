@@ -69,9 +69,9 @@ float plShadowMaster::fGlobalVisParm = 1.f;
 
 void plShadowMaster::SetGlobalShadowQuality(float s)
 {
-    if( s < 0 )
+    if (s < 0)
         s = 0;
-    else if( s > 1.f )
+    else if (s > 1.f)
         s = 1.f;
     fGlobalVisParm = s;
 }
@@ -82,20 +82,20 @@ void plShadowMaster::SetGlobalMaxSize(uint32_t s)
     const uint32_t kMinMaxGlobalSize = 32;
 
     // Make sure it's a power of two.
-    if( ((s-1) & ~s) != (s-1) )
+    if (((s-1) & ~s) != (s-1))
     {
         int i;
-        for( i = 31; i >= 0; i-- )
+        for (i = 31; i >= 0; i--)
         {
-            if( (1 << i) & s )
+            if ((1 << i) & s)
                 break;
         }
         s = 1 << i;
     }
 
-    if( s > kMaxMaxGlobalSize )
+    if (s > kMaxMaxGlobalSize)
         s = kMaxMaxGlobalSize;
-    if( s < kMinMaxGlobalSize )
+    if (s < kMinMaxGlobalSize)
         s = kMinMaxGlobalSize;
 
     fGlobalMaxSize = s;
@@ -118,7 +118,7 @@ plShadowMaster::~plShadowMaster()
 
     fSlavePool.SetCount(fSlavePool.GetNumAlloc());
     int i;
-    for( i = 0; i < fSlavePool.GetCount(); i++ )
+    for (i = 0; i < fSlavePool.GetCount(); i++)
         delete fSlavePool[i];
 }
 
@@ -178,7 +178,7 @@ plProfile_CreateTimer("ShadowMaster", "RenderSetup", ShadowMaster);
 bool plShadowMaster::MsgReceive(plMessage* msg)
 {
     plRenderMsg* rendMsg = plRenderMsg::ConvertNoRef(msg);
-    if( rendMsg )
+    if (rendMsg)
     {
         plProfile_BeginLap(ShadowMaster, this->GetKey()->GetUoid().GetObjectName().c_str());
         IBeginRender();
@@ -187,7 +187,7 @@ bool plShadowMaster::MsgReceive(plMessage* msg)
     }
 
     plShadowCastMsg* castMsg = plShadowCastMsg::ConvertNoRef(msg);
-    if( castMsg )
+    if (castMsg)
     {
         IOnCastMsg(castMsg);
         return true;
@@ -199,7 +199,7 @@ bool plShadowMaster::MsgReceive(plMessage* msg)
 void plShadowMaster::IBeginRender()
 {
     fSlavePool.SetCount(0);
-    if( ISetLightInfo() )
+    if (ISetLightInfo())
         fLightInfo->ClearSlaveBits();
 }
 
@@ -208,20 +208,20 @@ bool plShadowMaster::IOnCastMsg(plShadowCastMsg* castMsg)
 //  // HACKTEST
 //  return false;
 
-    if( !fLightInfo )
+    if (!fLightInfo)
         return false;
 
-    if( !fLightInfo->InVisSet(plGlobalVisMgr::Instance()->GetVisSet())
-        || fLightInfo->InVisNot(plGlobalVisMgr::Instance()->GetVisNot()) )
+    if (!fLightInfo->InVisSet(plGlobalVisMgr::Instance()->GetVisSet())
+        || fLightInfo->InVisNot(plGlobalVisMgr::Instance()->GetVisNot()))
         return false;
 
     const uint8_t shadowQuality = uint8_t(plShadowMaster::GetGlobalShadowQuality() * 3.9f);
-    if( !GetKey()->GetUoid().GetLoadMask().MatchesQuality(shadowQuality) )
+    if (!GetKey()->GetUoid().GetLoadMask().MatchesQuality(shadowQuality))
         return false;
 
     plShadowCaster* caster = castMsg->Caster();
 
-    if( !caster->Spans().GetCount() )
+    if (!caster->Spans().GetCount())
         return false;
 
     hsBounds3Ext casterBnd;
@@ -232,9 +232,9 @@ bool plShadowMaster::IOnCastMsg(plShadowCastMsg* castMsg)
     static float kVisShadowPower = 1.e-1f;
     static float kMinShadowPower = 2.e-1f;
     static float kKneeShadowPower = 3.e-1f;
-    if( power < kMinShadowPower )
+    if (power < kMinShadowPower)
         return false;
-    if( power < kKneeShadowPower )
+    if (power < kKneeShadowPower)
     {
         power -= kMinShadowPower;
         power /= kKneeShadowPower - kMinShadowPower;
@@ -245,7 +245,7 @@ bool plShadowMaster::IOnCastMsg(plShadowCastMsg* castMsg)
     // Create ShadowSlave focused on ShadowCaster
     // ShadowSlave extent just enough to cover ShadowCaster (including nearplane)
     plShadowSlave* slave = ICreateShadowSlave(castMsg, casterBnd, power);
-    if( !slave )
+    if (!slave)
         return false;
 
     // !!!IMPORTANT
@@ -261,7 +261,7 @@ bool plShadowMaster::IOnCastMsg(plShadowCastMsg* castMsg)
     slave->fIndex = uint32_t(-1);
     castMsg->Pipeline()->SubmitShadowSlave(slave);
     
-    if( slave->fIndex == uint32_t(-1) )
+    if (slave->fIndex == uint32_t(-1))
     {
         IRecycleSlave(slave);
         return false;
@@ -279,7 +279,7 @@ plLightInfo* plShadowMaster::ISetLightInfo()
 {
     fLightInfo = nil;
     plSceneObject* owner = IGetOwner();
-    if( owner )
+    if (owner)
     {
         fLightInfo = plLightInfo::ConvertNoRef(owner->GetGenericInterface(plLightInfo::Index()));
     }
@@ -291,7 +291,7 @@ void plShadowMaster::IComputeCasterBounds(const plShadowCaster* caster, hsBounds
     casterBnd.MakeEmpty();
     const hsTArray<plShadowCastSpan>& castSpans = caster->Spans();
     int i;
-    for( i = 0; i < castSpans.GetCount(); i++ )
+    for (i = 0; i < castSpans.GetCount(); i++)
     {
         plDrawableSpans* dr = castSpans[i].fDraw;
         uint32_t index = castSpans[i].fIndex;
@@ -311,7 +311,7 @@ plShadowSlave* plShadowMaster::INextSlave(const plShadowCaster* caster)
     int iSlave = fSlavePool.GetCount();
     fSlavePool.ExpandAndZero(iSlave+1);
     plShadowSlave* slave = fSlavePool[iSlave];
-    if( !slave )
+    if (!slave)
     {
         fSlavePool[iSlave] = slave = INewSlave(caster);
     }
@@ -368,7 +368,7 @@ plShadowSlave* plShadowMaster::ILastChanceToBail(plShadowCastMsg* castMsg, plSha
     const hsBounds3Ext& wBnd = slave->fWorldBounds;
 
     // If the bounds of the cast shadow aren't visible, forget it.
-    if( !castMsg->Pipeline()->TestVisibleWorld(wBnd) )
+    if (!castMsg->Pipeline()->TestVisibleWorld(wBnd))
         return IRecycleSlave(slave);
 
     float maxDist = fMaxDist > 0
@@ -382,7 +382,7 @@ plShadowSlave* plShadowMaster::ILastChanceToBail(plShadowCastMsg* castMsg, plSha
 
     // If we haven't got a max distance at which the shadow stays visible
     // then we just need to go with it.
-    if( maxDist <= 0 )
+    if (maxDist <= 0)
         return slave;
 
     plConst(float) kMinFadeFrac(0.90f);
@@ -413,14 +413,14 @@ plShadowSlave* plShadowMaster::ILastChanceToBail(plShadowCastMsg* castMsg, plSha
 
     // If it's not far enough to be fading, just go with it as is.
     dist -= minDist;
-    if( dist < 0 )
+    if (dist < 0)
         return slave;
 
     dist /= maxDist - minDist;
     dist = 1.f - dist;
 
     // If it's totally faded out, recycle the slave and return nil;
-    if( dist <= 0 )
+    if (dist <= 0)
         return IRecycleSlave(slave);
 
     slave->fPower *= dist;
@@ -432,7 +432,7 @@ plShadowSlave* plShadowMaster::ILastChanceToBail(plShadowCastMsg* castMsg, plSha
 float plShadowMaster::IComputePower(const plShadowCaster* caster, const hsBounds3Ext& casterBnd) const
 {
     float power = 0;
-    if( fLightInfo && !fLightInfo->IsIdle() )
+    if (fLightInfo && !fLightInfo->IsIdle())
     {
         power = caster->fMaxOpacity;
         float strength, scale;
@@ -450,12 +450,12 @@ void plShadowMaster::IComputeWidthAndHeight(plShadowCastMsg* castMsg, plShadowSl
     slave->fWidth = fMaxSize;
     slave->fHeight = fMaxSize;
 
-    if( GetGlobalShadowQuality() <= 0.5f )
+    if (GetGlobalShadowQuality() <= 0.5f)
     {
         slave->fWidth >>= 1;
         slave->fHeight >>= 1;
     }
-    if( castMsg->Caster()->GetLimitRes() )
+    if (castMsg->Caster()->GetLimitRes())
     {
         slave->fWidth >>= 1;
         slave->fHeight >>= 1;
@@ -467,7 +467,7 @@ void plShadowMaster::IComputeWidthAndHeight(plShadowCastMsg* castMsg, plShadowSl
     wBnd.TestPlane(castMsg->Pipeline()->GetViewDirWorld(), depth);
     float eyeDist = castMsg->Pipeline()->GetViewDirWorld().InnerProduct(castMsg->Pipeline()->GetViewPositionWorld());
     float dist = depth.fX - eyeDist;
-    if( dist < 0 )
+    if (dist < 0)
         dist = 0;
 
     slave->fPriority = dist; // Might want to boost the local players priority.
@@ -478,15 +478,15 @@ void plShadowMaster::IComputeWidthAndHeight(plShadowCastMsg* castMsg, plShadowSl
     slave->fWidth >>= iShift;
     slave->fHeight >>= iShift;
 
-    if( slave->fWidth > fGlobalMaxSize )
+    if (slave->fWidth > fGlobalMaxSize)
         slave->fWidth = fGlobalMaxSize;
-    if( slave->fHeight > fGlobalMaxSize )
+    if (slave->fHeight > fGlobalMaxSize)
         slave->fHeight = fGlobalMaxSize;
 
     const int kMinSize = 32;
-    if( slave->fWidth < kMinSize )
+    if (slave->fWidth < kMinSize)
         slave->fWidth = kMinSize;
-    if( slave->fHeight < kMinSize )
+    if (slave->fHeight < kMinSize)
         slave->fHeight = kMinSize;
 }
 
@@ -532,7 +532,7 @@ void plShadowMaster::IComputeLUT(plShadowCastMsg* castMsg, plShadowSlave* slave)
     lightToLut.fMap[0][3] += kSelfBias;
 #endif // MF_NOSELF
 
-    if( slave->CastInCameraSpace() )
+    if (slave->CastInCameraSpace())
     {
         slave->fCastLUT = lightToLut * slave->fWorldToLight;
     }

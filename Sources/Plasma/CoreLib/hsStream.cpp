@@ -98,13 +98,13 @@ uint32_t hsStream::GetSizeLeft()
 
 uint32_t hsStream::GetEOF()
 {
-    hsThrow( "GetEOF() unimplemented by subclass of stream");
+    hsThrow("GetEOF() unimplemented by subclass of stream");
     return 0;
 }
 
 void hsStream::CopyToMem(void* mem)
 {
-    hsThrow( "CopyToMem unimplemented by subclass of stream");
+    hsThrow("CopyToMem unimplemented by subclass of stream");
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -189,7 +189,7 @@ uint32_t hsStream::WriteSafeString(const ST::string &string)
 {
     int len = string.size();
     hsAssert(len<0xf000, ST::format("string len of {} is too long for WriteSafeString {}, use WriteSafeStringLong",
-        len, string).c_str() );
+        len, string).c_str());
 
     WriteLE16(len | 0xf000);
     if (len > 0)
@@ -211,7 +211,7 @@ uint32_t hsStream::WriteSafeWString(const ST::string &string)
     ST::utf16_buffer wbuff = string.to_utf16();
     uint32_t len = wbuff.size();
     hsAssert(len<0xf000, ST::format("string len of {} is too long for WriteSafeWString, use WriteSafeWStringLong",
-        len).c_str() );
+        len).c_str());
 
     WriteLE16(len | 0xf000);
     if (len > 0)
@@ -347,41 +347,41 @@ bool hsStream::GetToken(char *s, uint32_t maxLen, const char beginComment, const
     char endCom;
         endCom = endComment;
 
-    while( true )
+    while (true)
     {
-        while( !AtEnd() && IsTokenSeparator(c = ReadByte()) )
+        while (!AtEnd() && IsTokenSeparator(c = ReadByte()))
             /* empty */;
 
-        if( AtEnd() )
+        if (AtEnd())
             return false;
 
-        if( beginComment != c )
+        if (beginComment != c)
             break;
 
         // skip to end of comment
-        while( !AtEnd() && (endCom != (c = ReadByte())) )
+        while (!AtEnd() && (endCom != (c = ReadByte())))
             /* empty */;
     }
 
     s[0] = c;
     uint32_t k = 1;
-    while( !AtEnd() && !IsTokenSeparator(c = ReadByte()) )
+    while (!AtEnd() && !IsTokenSeparator(c = ReadByte()))
     {
-        if( k < maxLen )
+        if (k < maxLen)
             s[k++] = c;
     }
     s[k] = 0;
 
 
-    if( (k > 0)&&!stricmp(s, "skip") )
+    if ((k > 0)&&!stricmp(s, "skip"))
     {
         int depth = 1;
-        while( depth && GetToken(s, maxLen, beginComment, endCom) )
+        while (depth && GetToken(s, maxLen, beginComment, endCom))
         {
-            if( !stricmp(s, "skip") )
+            if (!stricmp(s, "skip"))
                 depth++;
             else
-            if( !stricmp(s, "piks") )
+            if (!stricmp(s, "piks"))
                 depth--;
         }
         return GetToken(s, maxLen, beginComment, endCom);
@@ -396,41 +396,41 @@ bool hsStream::ReadLn(char *s, uint32_t maxLen, const char beginComment, const c
     char endCom;
         endCom = endComment;
 
-    while( true )
+    while (true)
     {
-        while( !AtEnd() && strchr("\r\n",c = ReadByte()) )
+        while (!AtEnd() && strchr("\r\n",c = ReadByte()))
             /* empty */;
 
-        if( AtEnd() )
+        if (AtEnd())
             return false;
 
-        if( beginComment != c )
+        if (beginComment != c)
             break;
 
         // skip to end of comment
-        while( !AtEnd() && (endCom != (c = ReadByte())) )
+        while (!AtEnd() && (endCom != (c = ReadByte())))
             /* empty */;
     }
 
     s[0] = c;
     uint32_t k = 1;
-    while( !AtEnd() && !strchr("\r\n",c = ReadByte()) )
+    while (!AtEnd() && !strchr("\r\n",c = ReadByte()))
     {
-        if( k < maxLen )
+        if (k < maxLen)
             s[k++] = c;
     }
     s[k] = 0;
 
 
-    if( (k > 0)&&!stricmp(s, "skip") )
+    if ((k > 0)&&!stricmp(s, "skip"))
     {
         int depth = 1;
-        while( depth && ReadLn(s, maxLen, beginComment, endCom) )
+        while (depth && ReadLn(s, maxLen, beginComment, endCom))
         {
-            if( !stricmp(s, "skip") )
+            if (!stricmp(s, "skip"))
                 depth++;
             else
-            if( !stricmp(s, "piks") )
+            if (!stricmp(s, "piks"))
                 depth--;
         }
         return ReadLn(s, maxLen, beginComment, endCom);
@@ -716,13 +716,13 @@ void hsUNIXStream::FastFwd()
 
 uint32_t  hsUNIXStream::GetEOF()
 {
-    if( !fRef )
+    if (!fRef)
         return 0;
 
-    long oldPos = ftell( fRef );
-    (void)::fseek( fRef, 0, SEEK_END );
-    uint32_t end = (uint32_t)ftell( fRef );
-    (void)::fseek( fRef, oldPos, SEEK_SET );
+    long oldPos = ftell(fRef);
+    (void)::fseek(fRef, 0, SEEK_END);
+    uint32_t end = (uint32_t)ftell(fRef);
+    (void)::fseek(fRef, oldPos, SEEK_SET);
 
     return end;
 }
@@ -753,13 +753,13 @@ plReadOnlySubStream::~plReadOnlySubStream()
 {
 }
 
-void    plReadOnlySubStream::Open( hsStream *base, uint32_t offset, uint32_t length )
+void    plReadOnlySubStream::Open(hsStream *base, uint32_t offset, uint32_t length)
 {
     fBase = base;
     fOffset = offset;
     fLength = length;
 
-    fBase->SetPosition( fOffset );
+    fBase->SetPosition(fOffset);
     IFixPosition();
 }
 
@@ -770,51 +770,51 @@ void    plReadOnlySubStream::IFixPosition()
 
 bool  plReadOnlySubStream::AtEnd()
 {
-    if( fPosition >= fLength )
+    if (fPosition >= fLength)
         return true;
     return false;
 }
 
 uint32_t  plReadOnlySubStream::Read(uint32_t byteCount, void* buffer)
 {
-    if( byteCount > GetSizeLeft() )
+    if (byteCount > GetSizeLeft())
     {
         hsThrow("Attempting to read past end of stream");
         byteCount = GetSizeLeft();
     }
 
-    uint32_t read = fBase->Read( byteCount, buffer );
+    uint32_t read = fBase->Read(byteCount, buffer);
     IFixPosition();
     return read;
 }
 
 uint32_t  plReadOnlySubStream::Write(uint32_t byteCount, const void* buffer)
 {
-    hsAssert( false, "Write not allowed on an plReadOnlySubStream" );
+    hsAssert(false, "Write not allowed on an plReadOnlySubStream");
     return 0;
 }
 
 void    plReadOnlySubStream::Skip(uint32_t deltaByteCount)
 {
-    fBase->Skip( deltaByteCount );
+    fBase->Skip(deltaByteCount);
     IFixPosition();
 }
 
 void    plReadOnlySubStream::Rewind()
 {
-    fBase->SetPosition( fOffset );
+    fBase->SetPosition(fOffset);
     IFixPosition();
 }
 
 void    plReadOnlySubStream::FastFwd()
 {
-    fBase->SetPosition( fOffset + fLength );
+    fBase->SetPosition(fOffset + fLength);
     IFixPosition();
 }
 
 void    plReadOnlySubStream::Truncate()
 {
-    hsAssert( false, "Can't truncate a read-only stream" );
+    hsAssert(false, "Can't truncate a read-only stream");
 }
 
 uint32_t  plReadOnlySubStream::GetEOF()
@@ -960,7 +960,7 @@ uint32_t hsReadOnlyStream::Read(uint32_t byteCount, void* buffer)
 
 uint32_t hsReadOnlyStream::Write(uint32_t byteCount, const void* buffer)
 {
-    hsThrow( "can't write to a readonly stream");
+    hsThrow("can't write to a readonly stream");
     return 0;
 }
 
@@ -970,7 +970,7 @@ void hsReadOnlyStream::Skip(uint32_t deltaByteCount)
     fPosition += deltaByteCount;
     fData += deltaByteCount;
     if (fData > fStop)
-        hsThrow( "Skip went past end of stream");
+        hsThrow("Skip went past end of stream");
 }
 
 void hsReadOnlyStream::Rewind()
@@ -982,7 +982,7 @@ void hsReadOnlyStream::Rewind()
 
 void hsReadOnlyStream::Truncate()
 {
-    hsThrow( "can't write to a readonly stream");
+    hsThrow("can't write to a readonly stream");
 }
 
 void hsReadOnlyStream::CopyToMem(void* mem)
@@ -995,7 +995,7 @@ void hsReadOnlyStream::CopyToMem(void* mem)
 ////////////////////////////////////////////////////////////////////////////////////
 uint32_t hsWriteOnlyStream::Read(uint32_t byteCount, void* buffer)
 {
-    hsThrow( "can't read to a writeonly stream");
+    hsThrow("can't read to a writeonly stream");
     return 0;
 }
 

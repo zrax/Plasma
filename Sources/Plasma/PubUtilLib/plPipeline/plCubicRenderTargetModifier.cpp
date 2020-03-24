@@ -75,7 +75,7 @@ plCubicRenderTargetModifier::plCubicRenderTargetModifier()
     fTarget = nil;
     fCubic = nil;
 
-    fRequests[ 0 ] = fRequests[ 1 ] = fRequests[ 2 ] = fRequests[ 3 ] = fRequests[ 4 ] = fRequests[ 5 ] = nil;
+    fRequests[0] = fRequests[1] = fRequests[2] = fRequests[3] = fRequests[4] = fRequests[5] = nil;
 }
 
 plCubicRenderTargetModifier::~plCubicRenderTargetModifier()
@@ -83,62 +83,62 @@ plCubicRenderTargetModifier::~plCubicRenderTargetModifier()
     int     i;
 
 
-    for( i = 0; i < 6; i++ )
-        delete fRequests[ i ];
+    for (i = 0; i < 6; i++)
+        delete fRequests[i];
 }
 
 //// ICreateRenderRequest /////////////////////////////////////////////////////
 //  Creates a blank renderRequest to use for fun stuff.
 
-void    plCubicRenderTargetModifier::ICreateRenderRequest( int face )
+void    plCubicRenderTargetModifier::ICreateRenderRequest(int face)
 {
-    plRenderRequest *rr = fRequests[ face ];
+    plRenderRequest *rr = fRequests[face];
     hsColorRGBA     c;
     
     
-    if( rr == nil )
-        rr = fRequests[ face ] = new plRenderRequest;
+    if (rr == nil)
+        rr = fRequests[face] = new plRenderRequest;
 
     uint32_t renderState
         = plPipeline::kRenderNormal
         | plPipeline::kRenderClearColor
         | plPipeline::kRenderClearDepth;
-    rr->SetRenderState( renderState );
+    rr->SetRenderState(renderState);
 
-    rr->SetDrawableMask( plDrawable::kNormal );
-    rr->SetSubDrawableMask( plDrawable::kSubAllTypes );
+    rr->SetDrawableMask(plDrawable::kNormal);
+    rr->SetSubDrawableMask(plDrawable::kSubAllTypes);
 
     rr->SetHither(0.3f); // MF_HORSE ????
     rr->SetYon(1000.f); // MF_HORSE ????
 
-    rr->SetFovX( 90 );
-    rr->SetFovY( 90 );
+    rr->SetFovX(90);
+    rr->SetFovY(90);
 
-    c.Set( 0, 0, 0, 1 );
-    rr->SetClearColor( c );
-    rr->SetClearDepth( 1.f );
+    c.Set(0, 0, 0, 1);
+    rr->SetClearColor(c);
+    rr->SetClearDepth(1.f);
 
-    rr->SetClearDrawable( nil );
-    rr->SetRenderTarget( fCubic->GetFace( face ) );
+    rr->SetClearDrawable(nil);
+    rr->SetRenderTarget(fCubic->GetFace(face));
 }
 
 //// IEval ////////////////////////////////////////////////////////////////////
 
-bool    plCubicRenderTargetModifier::IEval( double secs, float del, uint32_t dirty )
+bool    plCubicRenderTargetModifier::IEval(double secs, float del, uint32_t dirty)
 {
     hsPoint3    center;
 
     plRenderRequestMsg  *msg;
 
 
-    if( fCubic == nil || fTarget == nil )
+    if (fCubic == nil || fTarget == nil)
         return true;
 
     /// Get center point for RT
-    plCoordinateInterface   *ci = IGetTargetCoordinateInterface( 0 );
-    if( ci == nil )
+    plCoordinateInterface   *ci = IGetTargetCoordinateInterface(0);
+    if (ci == nil)
     {
-        plDrawInterface *di = IGetTargetDrawInterface( 0 );
+        plDrawInterface *di = IGetTargetDrawInterface(0);
         center = di->GetWorldBounds().GetCenter();
     }
     else
@@ -150,12 +150,12 @@ bool    plCubicRenderTargetModifier::IEval( double secs, float del, uint32_t dir
     /// Submit render requests!
     for (int i = 0; i < 6; i++)
     {
-        if( fRequests[ i ] != nil )
+        if (fRequests[i] != nil)
         {
-            fRequests[ i ]->SetCameraTransform(fCubic->GetWorldToCamera(i), fCubic->GetCameraToWorld(i));
+            fRequests[i]->SetCameraTransform(fCubic->GetWorldToCamera(i), fCubic->GetCameraToWorld(i));
 
-            msg = new plRenderRequestMsg( nil, fRequests[ i ] );
-            plgDispatch::MsgSend( msg );
+            msg = new plRenderRequestMsg(nil, fRequests[i]);
+            plgDispatch::MsgSend(msg);
         }
     }
 
@@ -165,7 +165,7 @@ bool    plCubicRenderTargetModifier::IEval( double secs, float del, uint32_t dir
 
 //// MsgReceive ///////////////////////////////////////////////////////////////
 
-bool    plCubicRenderTargetModifier::MsgReceive( plMessage* msg )
+bool    plCubicRenderTargetModifier::MsgReceive(plMessage* msg)
 {
     plEvalMsg* eval = plEvalMsg::ConvertNoRef(msg);
     if (eval)
@@ -216,42 +216,42 @@ bool    plCubicRenderTargetModifier::MsgReceive( plMessage* msg )
 
 //// AddTarget ////////////////////////////////////////////////////////////////
 
-void    plCubicRenderTargetModifier::AddTarget( plSceneObject *so )
+void    plCubicRenderTargetModifier::AddTarget(plSceneObject *so)
 {
-    if( fTarget != nil )
-        RemoveTarget( fTarget );
+    if (fTarget != nil)
+        RemoveTarget(fTarget);
 
     fTarget = so;
-    plgDispatch::Dispatch()->RegisterForExactType( plEvalMsg::Index(), GetKey() );
+    plgDispatch::Dispatch()->RegisterForExactType(plEvalMsg::Index(), GetKey());
 }
 
 //// RemoveTarget /////////////////////////////////////////////////////////////
 
-void    plCubicRenderTargetModifier::RemoveTarget( plSceneObject *so )
+void    plCubicRenderTargetModifier::RemoveTarget(plSceneObject *so)
 {
     fTarget = nil;
 }
 
 //// Read /////////////////////////////////////////////////////////////////////
 
-void    plCubicRenderTargetModifier::Read( hsStream *s, hsResMgr *mgr )
+void    plCubicRenderTargetModifier::Read(hsStream *s, hsResMgr *mgr)
 {
-    hsKeyedObject::Read( s, mgr );
+    hsKeyedObject::Read(s, mgr);
 
     plGenRefMsg* msg;
-    msg = new plGenRefMsg( GetKey(), plRefMsg::kOnCreate, 0, 0 ); // SceneObject
-    mgr->ReadKeyNotifyMe( s, msg, plRefFlags::kActiveRef );
+    msg = new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, 0, 0); // SceneObject
+    mgr->ReadKeyNotifyMe(s, msg, plRefFlags::kActiveRef);
 
-    msg = new plGenRefMsg( GetKey(), plRefMsg::kOnCreate, 0, 0 ); // cubicRT
-    mgr->ReadKeyNotifyMe( s, msg, plRefFlags::kActiveRef );
+    msg = new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, 0, 0); // cubicRT
+    mgr->ReadKeyNotifyMe(s, msg, plRefFlags::kActiveRef);
 }
 
 //// Write ////////////////////////////////////////////////////////////////////
 
-void    plCubicRenderTargetModifier::Write( hsStream *s, hsResMgr *mgr )
+void    plCubicRenderTargetModifier::Write(hsStream *s, hsResMgr *mgr)
 {
     hsKeyedObject::Write(s, mgr);
 
-    mgr->WriteKey( s, fTarget ); // Write the SceneNode
-    mgr->WriteKey( s, fCubic ); // Write the cubicRT
+    mgr->WriteKey(s, fTarget); // Write the SceneNode
+    mgr->WriteKey(s, fCubic); // Write the cubicRT
 }

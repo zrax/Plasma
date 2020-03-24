@@ -70,7 +70,7 @@ void pyDrawControl::SetGamma2(float gamma)
     pMsg->SetControlCode(B_CONTROL_CONSOLE_COMMAND);
     pMsg->SetControlActivated(true);
     pMsg->SetCmdString(command);
-    plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+    plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
 #endif
 }
 
@@ -127,9 +127,9 @@ bool pyDrawControl::CanShadowCast()
 void pyDrawControl::DisableRenderScene()
 {
 #ifndef BUILDING_PYPLASMA
-    plKey clientKey = hsgResMgr::ResMgr()->FindKey( kClient_KEY );
+    plKey clientKey = hsgResMgr::ResMgr()->FindKey(kClient_KEY);
     plClientMsg* msg = new plClientMsg(plClientMsg::kDisableRenderScene);
-    msg->AddReceiver( clientKey );
+    msg->AddReceiver(clientKey);
     msg->Send();
 #endif
 }
@@ -137,9 +137,9 @@ void pyDrawControl::DisableRenderScene()
 void pyDrawControl::EnableRenderScene()
 {
 #ifndef BUILDING_PYPLASMA
-    plKey clientKey = hsgResMgr::ResMgr()->FindKey( kClient_KEY );
+    plKey clientKey = hsgResMgr::ResMgr()->FindKey(kClient_KEY);
     plClientMsg* msg = new plClientMsg(plClientMsg::kEnableRenderScene);
-    msg->AddReceiver( clientKey );
+    msg->AddReceiver(clientKey);
     msg->Send();
 #endif
 }

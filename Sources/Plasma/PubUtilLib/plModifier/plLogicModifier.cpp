@@ -93,7 +93,7 @@ bool plLogicModifier::MsgReceive(plMessage* msg)
     plCondRefMsg* pCondMsg = plCondRefMsg::ConvertNoRef(msg);
     if (pCondMsg)
     {
-        plConditionalObject* pCond = plConditionalObject::ConvertNoRef( pCondMsg->GetRef() );
+        plConditionalObject* pCond = plConditionalObject::ConvertNoRef(pCondMsg->GetRef());
         if (pCond && (pCondMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace)))
         {
             if (fConditionList.Count() <= pCondMsg->fWhich)
@@ -169,7 +169,7 @@ bool plLogicModifier::MsgReceive(plMessage* msg)
             // try to determine the reasons for not displaying cursor
             if (plSceneInputInterface::fShowLOS)
             {
-                if ( Disabled() )
+                if (Disabled())
                 {
                     plDetectorLog::Red("{}: LogicMod is disabled", GetKeyName());
                 }
@@ -179,9 +179,9 @@ bool plLogicModifier::MsgReceive(plMessage* msg)
                     {
                         if (!fConditionList[i]->Verify(msg))
                         {
-                            if ( plObjectInBoxConditionalObject::ConvertNoRef(fConditionList[i]) )
+                            if (plObjectInBoxConditionalObject::ConvertNoRef(fConditionList[i]))
                                 plDetectorLog::Red("{}: LogicMod InRegion conditional not met", fConditionList[i]->GetKeyName());
-                            else if ( plFacingConditionalObject::ConvertNoRef(fConditionList[i]) )
+                            else if (plFacingConditionalObject::ConvertNoRef(fConditionList[i]))
                                 plDetectorLog::Red("{}: LogicMod Facing conditional not met", fConditionList[i]->GetKeyName());
                             else
                                 plDetectorLog::Red("{}: LogicMod <unknown> conditional not met", fConditionList[i]->GetKeyName());
@@ -193,7 +193,7 @@ bool plLogicModifier::MsgReceive(plMessage* msg)
             pMsg = new plCursorChangeMsg(plCursorChangeMsg::kNullCursor, 1);
         }
         
-        pMsg->AddReceiver( pFakeMsg->GetSender() );
+        pMsg->AddReceiver(pFakeMsg->GetSender());
         pMsg->SetSender(GetKey());
         plgDispatch::MsgSend(pMsg);
 
@@ -221,7 +221,7 @@ void plLogicModifier::PreTrigger(bool netRequest)
 
     if (fTimer)
     {
-        plgTimerCallbackMgr::NewTimer( fTimer, new plTimerCallbackMsg( GetKey() ) );
+        plgTimerCallbackMgr::NewTimer(fTimer, new plTimerCallbackMsg(GetKey()));
         return;
     }
     plLogicModBase::PreTrigger(netRequest);
@@ -242,7 +242,7 @@ void plLogicModifier::Read(hsStream* stream, hsResMgr* mgr)
     int n = stream->ReadLE32();
     fConditionList.SetCountAndZero(n);
     int i;
-    for(i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
     {
         refMsg = new plCondRefMsg(GetKey(), i);
         mgr->ReadKeyNotifyMe(stream,refMsg, plRefFlags::kActiveRef);
@@ -254,7 +254,7 @@ void plLogicModifier::Write(hsStream* stream, hsResMgr* mgr)
 {
     plLogicModBase::Write(stream, mgr);
     stream->WriteLE32(fConditionList.GetCount());
-    for( int i = 0; i < fConditionList.GetCount(); i++ )
+    for (int i = 0; i < fConditionList.GetCount(); i++)
         mgr->WriteKey(stream, fConditionList[i]);
     stream->WriteLE32(fMyCursor);
 }

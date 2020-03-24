@@ -65,26 +65,26 @@ class PickAnchorNode : public PickObjectProc
 
         PickAnchorNode() { fLayer = NULL; }
 
-        BOOL    Pick( INode *node )
+        BOOL    Pick(INode *node)
         {
             const char *dbgNodeName = node->GetName();
 
-            if( fLayer )
-                fLayer->GetParamBlockByID( plDynamicEnvLayer::kBlkBitmap )->SetValue( plDynamicEnvLayer::kBmpAnchorNode, TimeValue( 0 ), node );
+            if (fLayer)
+                fLayer->GetParamBlockByID(plDynamicEnvLayer::kBlkBitmap)->SetValue(plDynamicEnvLayer::kBmpAnchorNode, TimeValue(0), node);
 
             return TRUE;
         }
 
-        void    EnterMode()     { ISetButton( TRUE ); }
-        void    ExitMode()      { ISetButton( FALSE ); }
+        void    EnterMode()     { ISetButton(TRUE); }
+        void    ExitMode()      { ISetButton(FALSE); }
 
-        BOOL    Filter( INode *node )
+        BOOL    Filter(INode *node)
         {
-            Object  *obj = node->EvalWorldState( 0 ).obj;
-            if( obj != NULL )
+            Object  *obj = node->EvalWorldState(0).obj;
+            if (obj != NULL)
             {
-                if( obj->CanConvertToType( triObjectClassID ) ||
-                    obj->ClassID() == Class_ID( DUMMY_CLASS_ID, 0 ) )
+                if (obj->CanConvertToType(triObjectClassID) ||
+                    obj->ClassID() == Class_ID(DUMMY_CLASS_ID, 0))
                     return TRUE;
             }
             return FALSE;
@@ -92,19 +92,19 @@ class PickAnchorNode : public PickObjectProc
 
     protected:
 
-        void    ISetButton( BOOL checkIt )
+        void    ISetButton(BOOL checkIt)
         {
-            ICustButton     *iBut = GetICustButton( GetDlgItem( fHWnd, IDC_ANCHOR_NODE ) );
-            if( iBut )
+            ICustButton     *iBut = GetICustButton(GetDlgItem(fHWnd, IDC_ANCHOR_NODE));
+            if (iBut)
             {
-                iBut->SetCheck( checkIt );
-                if( fLayer )
+                iBut->SetCheck(checkIt);
+                if (fLayer)
                 {
-                    if( fLayer->GetParamBlockByID( plDynamicEnvLayer::kBlkBitmap )->GetINode( plDynamicEnvLayer::kBmpAnchorNode ) == NULL )
-                        iBut->SetText( _T( "<self>" ) );
+                    if (fLayer->GetParamBlockByID(plDynamicEnvLayer::kBlkBitmap)->GetINode(plDynamicEnvLayer::kBmpAnchorNode) == NULL)
+                        iBut->SetText(_T("<self>"));
                 }
             }
-            ReleaseICustButton( iBut );
+            ReleaseICustButton(iBut);
         }
 };
 
@@ -119,50 +119,50 @@ public:
     PickAnchorNode  fPickAnchorCallback;
 
     /// Called to update the controls of the dialog
-    virtual void    Update( TimeValue t, Interval &valid, IParamMap2 *map )
+    virtual void    Update(TimeValue t, Interval &valid, IParamMap2 *map)
     {
         IParamBlock2    *pblock;
         int             i;
 
 
-        ParamMap2UserDlgProc::Update( t, valid, map );
+        ParamMap2UserDlgProc::Update(t, valid, map);
 
         pblock = map->GetParamBlock();
 
-        i = pblock->GetInt( plDynamicEnvLayer::kBmpTextureSize, t );
-        pblock->SetValue( plDynamicEnvLayer::kBmpLastTextureSize, t, i );
+        i = pblock->GetInt(plDynamicEnvLayer::kBmpTextureSize, t);
+        pblock->SetValue(plDynamicEnvLayer::kBmpLastTextureSize, t, i);
 
-        if( pblock->GetINode( plDynamicEnvLayer::kBmpAnchorNode ) == NULL )
+        if (pblock->GetINode(plDynamicEnvLayer::kBmpAnchorNode) == NULL)
         {
-            ICustButton     *bmSelectBtn = GetICustButton( GetDlgItem( pblock->GetMap()->GetHWnd(), IDC_ANCHOR_NODE ) );
-            bmSelectBtn->SetText( _T( "<self>" ) );
-            ReleaseICustButton( bmSelectBtn );
+            ICustButton     *bmSelectBtn = GetICustButton(GetDlgItem(pblock->GetMap()->GetHWnd(), IDC_ANCHOR_NODE));
+            bmSelectBtn->SetText(_T("<self>"));
+            ReleaseICustButton(bmSelectBtn);
         }
     }
 
     /// Clamp texture sizes to a power of 2
-    void    IClampTexSizeSpinner( TimeValue t, IParamMap2 *map )
+    void    IClampTexSizeSpinner(TimeValue t, IParamMap2 *map)
     {
         IParamBlock2 *pblock = map->GetParamBlock();
 
-        int     lastVal = pblock->GetInt( plDynamicEnvLayer::kBmpLastTextureSize, t );
-        int     tempVal, newVal = pblock->GetInt( plDynamicEnvLayer::kBmpTextureSize, t );
+        int     lastVal = pblock->GetInt(plDynamicEnvLayer::kBmpLastTextureSize, t);
+        int     tempVal, newVal = pblock->GetInt(plDynamicEnvLayer::kBmpTextureSize, t);
 
-        if( newVal < lastVal )
+        if (newVal < lastVal)
         {
             lastVal = newVal;
-            for( tempVal = 1; tempVal < newVal; tempVal <<= 1 );
+            for (tempVal = 1; tempVal < newVal; tempVal <<= 1);
             newVal = tempVal >> 1;
         }
         else
         {
             lastVal = newVal;
-            for( tempVal = 1; tempVal < newVal; tempVal <<= 1 );
+            for (tempVal = 1; tempVal < newVal; tempVal <<= 1);
             newVal = tempVal;
         }
 
-        pblock->SetValue( plDynamicEnvLayer::kBmpTextureSize, t, newVal );
-        pblock->SetValue( plDynamicEnvLayer::kBmpLastTextureSize, t, newVal );
+        pblock->SetValue(plDynamicEnvLayer::kBmpTextureSize, t, newVal);
+        pblock->SetValue(plDynamicEnvLayer::kBmpLastTextureSize, t, newVal);
     }
 
     /// Main message proc
@@ -174,16 +174,16 @@ public:
                 break;
 
             case CC_SPINNER_CHANGE:
-                if( LOWORD( wParam ) == IDC_TEXSIZE_SPIN )
-                    IClampTexSizeSpinner( t, map );
+                if (LOWORD(wParam) == IDC_TEXSIZE_SPIN)
+                    IClampTexSizeSpinner(t, map);
                 break;
 
             case WM_COMMAND:
 
-                if( HIWORD( wParam ) == EN_CHANGE && LOWORD( wParam ) == IDC_TEXSIZE_EDIT )
-                    IClampTexSizeSpinner( t, map );
+                if (HIWORD(wParam) == EN_CHANGE && LOWORD(wParam) == IDC_TEXSIZE_EDIT)
+                    IClampTexSizeSpinner(t, map);
 
-                else if( LOWORD( wParam ) == IDC_ANCHOR_NODE )
+                else if (LOWORD(wParam) == IDC_ANCHOR_NODE)
                 {
                     plDynamicEnvLayer *layer = (plDynamicEnvLayer *)map->GetParamBlock()->GetOwner();
 
@@ -191,7 +191,7 @@ public:
                     fPickAnchorCallback.fHWnd = hWnd;
                     fPickAnchorCallback.fLayer = layer;
 
-                    layer->fIMtlParams->SetPickMode( &fPickAnchorCallback );
+                    layer->fIMtlParams->SetPickMode(&fPickAnchorCallback);
                     break;
                 }
                 break;
@@ -211,19 +211,19 @@ public:
     void Set(PB2Value& val, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t)
     {
         plDynamicEnvLayer* layer = (plDynamicEnvLayer *)owner;
-        IParamBlock2 *pb = layer->GetParamBlockByID( plDynamicEnvLayer::kBlkBitmap );
+        IParamBlock2 *pb = layer->GetParamBlockByID(plDynamicEnvLayer::kBlkBitmap);
 
         switch (id)
         {
             case plDynamicEnvLayer::kBmpAnchorNode:
                 INode   *newNode = (INode *)val.r;
-                if( newNode == NULL )
+                if (newNode == NULL)
                 {
                     // Instead of displaying "none", display "<self>", since that's what nil means
                     // for us
-                    ICustButton     *bmSelectBtn = GetICustButton( GetDlgItem( pb->GetMap()->GetHWnd(), IDC_ANCHOR_NODE ) );
-                    bmSelectBtn->SetText( _T( "<self>" ) );
-                    ReleaseICustButton( bmSelectBtn );
+                    ICustButton     *bmSelectBtn = GetICustButton(GetDlgItem(pb->GetMap()->GetHWnd(), IDC_ANCHOR_NODE));
+                    bmSelectBtn->SetText(_T("<self>"));
+                    ReleaseICustButton(bmSelectBtn);
                 }
                 break;
         }

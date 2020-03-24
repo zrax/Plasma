@@ -119,16 +119,16 @@ plAvBrainCoop::plAvBrainCoop(uint32_t exitFlags, float fadeIn, float fadeOut,
 bool plAvBrainCoop::MsgReceive(plMessage *msg)
 {
     plPickedMsg *pickM = plPickedMsg::ConvertNoRef(msg);
-    if(pickM)
+    if (pickM)
     {
-        if(fWaitingForClick)
+        if (fWaitingForClick)
         {
             fWaitingForClick = false;
             // clicks are never network propagated, so we can be sure that the
             // click was performed by the local player.
             plKey localPlayer = plNetClientApp::GetInstance()->GetLocalPlayerKey();
 
-            if(localPlayer == fGuestKey)
+            if (localPlayer == fGuestKey)
             {
                 plAvCoopMsg *coopM = new plAvCoopMsg(plAvCoopMsg::kGuestAccepted, fInitiatorID, fInitiatorSerial);
                 coopM->SetBCastFlag(plMessage::kNetPropagate);
@@ -148,10 +148,10 @@ bool plAvBrainCoop::RelayNotifyMsg(plNotifyMsg *msg)
     msg->AddCoopEvent(fInitiatorID, fInitiatorSerial);
 
     proMultiStageEventData * mtevt = static_cast<proMultiStageEventData *>(msg->FindEventRecord(proEventData::kMultiStage));
-    if(mtevt)
+    if (mtevt)
         DebugMsg("COOP: Relaying multi-stage event to %d recipients (via plAvBrainCoop)", fRecipients.size());
 
-    if(fRecipients.size() != 0)
+    if (fRecipients.size() != 0)
     {
         bool foundARecipient = false;
         for (unsigned curRecipient = 0; curRecipient < fRecipients.size(); curRecipient++)
@@ -202,11 +202,11 @@ void plAvBrainCoop::Read(hsStream *stream, hsResMgr *mgr)
     fInitiatorID = stream->ReadLE32();
     fInitiatorSerial = stream->ReadLE16();
 
-    if(stream->ReadBool())
+    if (stream->ReadBool())
     {
         fHostKey = mgr->ReadKey(stream);
     }
-    if(stream->ReadBool())
+    if (stream->ReadBool())
     {
         fGuestKey = mgr->ReadKey(stream);
     }
@@ -230,11 +230,11 @@ void plAvBrainCoop::Write(hsStream *stream, hsResMgr *mgr)
     bool hasGuestKey = (fGuestKey != nil);
 
     stream->WriteBool(hasHostKey);
-    if(hasHostKey)
+    if (hasHostKey)
         mgr->WriteKey(stream, fHostKey);
 
     stream->WriteBool(hasGuestKey);
-    if(hasGuestKey)
+    if (hasGuestKey)
         mgr->WriteKey(stream, fGuestKey);
 
     stream->WriteBool(fWaitingForClick);

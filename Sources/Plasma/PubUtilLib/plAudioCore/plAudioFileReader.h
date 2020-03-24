@@ -77,12 +77,12 @@ public:
     virtual uint32_t  GetDataSize() = 0;
     virtual float   GetLengthInSecs() = 0;
 
-    virtual bool    SetPosition( uint32_t numBytes ) = 0;
-    virtual bool    Read( uint32_t numBytes, void *buffer ) = 0;
+    virtual bool    SetPosition(uint32_t numBytes) = 0;
+    virtual bool    Read(uint32_t numBytes, void *buffer) = 0;
     virtual uint32_t  NumBytesLeft() = 0;
 
-    virtual bool    OpenForWriting( const plFileName& path, plWAVHeader &header ) { return false; }
-    virtual uint32_t  Write( uint32_t bytes, void *buffer ) { return 0; }
+    virtual bool    OpenForWriting(const plFileName& path, plWAVHeader &header) { return false; }
+    virtual uint32_t  Write(uint32_t bytes, void *buffer) { return 0; }
 
     virtual bool    IsValid() = 0;
 

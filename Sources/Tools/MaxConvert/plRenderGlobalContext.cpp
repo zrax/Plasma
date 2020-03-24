@@ -92,7 +92,7 @@ plRenderGlobalContext::plRenderGlobalContext(Interface* ip, TimeValue t)
 plRenderGlobalContext::~plRenderGlobalContext()
 {
     int i;
-    for( i = 0; i < fInstList.GetCount(); i++ )
+    for (i = 0; i < fInstList.GetCount(); i++)
     {
         fInstList[i].Cleanup();
     }
@@ -103,7 +103,7 @@ void plRenderGlobalContext::Update(TimeValue t)
     time = t;
 
     int i;
-    for( i = 0; i < fInstList.GetCount(); i++ )
+    for (i = 0; i < fInstList.GetCount(); i++)
         fInstList[i].Update(time);
 }
 
@@ -111,10 +111,10 @@ void plRenderGlobalContext::MakeRenderInstances(plMaxNode* root, TimeValue t)
 {
     time = t;
     int i;
-    for( i = 0; i < root->NumberOfChildren(); i++ )
+    for (i = 0; i < root->NumberOfChildren(); i++)
         IMakeRenderInstances((plMaxNode*)root->GetChildNode(i), t, false);
 
-    for( i = 0; i < fInstList.GetCount() - 1; i++ )
+    for (i = 0; i < fInstList.GetCount() - 1; i++)
         fInstList[i].SetNext(&fInstList[i+1]);
 }
 
@@ -129,23 +129,23 @@ RenderInstance* plRenderGlobalContext::GetRenderInstance(int i)
 void plRenderGlobalContext::IMakeRenderInstances(plMaxNode* node, TimeValue t, bool isBarney)
 {
     const char* dbgNodeName = node->GetName();
-    if( !isBarney )
+    if (!isBarney)
         isBarney = node->GetIsBarney();
 
     bool doMe = isBarney || (node->CanConvert() && node->GetDrawable());
 
-    if( !doMe )
+    if (!doMe)
         return;
 
     int idx = fInstList.GetCount();
 
     plRenderInstance* inst = fInstList.Push();
     
-    if( !inst->GetFromNode(node, t, idx) )
+    if (!inst->GetFromNode(node, t, idx))
         fInstList.Pop();
 
     int i;
-    for( i = 0; i < node->NumberOfChildren(); i++ )
+    for (i = 0; i < node->NumberOfChildren(); i++)
         IMakeRenderInstances((plMaxNode *)node->GetChildNode(i), t, isBarney);
 }
 
@@ -153,7 +153,7 @@ void plRenderGlobalContext::IntersectRay(RenderInstance *inst, Ray& origRay, ISe
 {
     const float kFarAway = 1.e5f;
     Ray ray;
-    if( findExit )
+    if (findExit)
     {
         ray.p = origRay.p + origRay.dir * kFarAway;
         ray.dir = -ray.dir;
@@ -167,7 +167,7 @@ void plRenderGlobalContext::IntersectRay(RenderInstance *inst, Ray& origRay, ISe
     DWORD faceIdx;
     Point3 bary;
     int hit = inst->mesh->IntersectRay(ray, at, norm, faceIdx, bary);
-    if( hit )
+    if (hit)
     {
         ISect thisHit;
         thisHit.t = findExit ? kFarAway - at : at;
@@ -186,7 +186,7 @@ void plRenderGlobalContext::IntersectRay(RenderInstance *inst, Ray& origRay, ISe
 
         thisHit.next = nil;
 
-        if( thisHit.matreq & (MTLREQ_TRANSP | MTLREQ_ADDITIVE_TRANSP) )
+        if (thisHit.matreq & (MTLREQ_TRANSP | MTLREQ_ADDITIVE_TRANSP))
         {
             // advance the ray and try again. This one goes in the xplist.
             ISect* xHit = GetNewISect();
@@ -212,16 +212,16 @@ BOOL plRenderGlobalContext::IntersectWorld(Ray &ray, int skipID, ISect &hit, ISe
     hit.t = -1.f;
     xplist.Init();
     int i;
-    for( i = 0; i < fInstList.GetCount(); i++ )
+    for (i = 0; i < fInstList.GetCount(); i++)
     {
-        if( skipID != i )
+        if (skipID != i)
         {
             ISect thisHit;
             hit.t = -1.f;
             IntersectRay(&fInstList[i], ray, thisHit, xplist, false);
-            if( thisHit.t >= 0 )
+            if (thisHit.t >= 0)
             {
-                if( (hit.t < 0) || (thisHit.t < hit.t) )
+                if ((hit.t < 0) || (thisHit.t < hit.t))
                 {
                     // grab our new winner.
                     hit = thisHit;

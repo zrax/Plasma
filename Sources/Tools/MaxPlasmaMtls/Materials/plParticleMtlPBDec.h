@@ -108,13 +108,13 @@ public:
             {
                 if (!layer)
                     return FALSE;
-                if( pb->GetInt(plParticleMtl::kNoFilter) )
+                if (pb->GetInt(plParticleMtl::kNoFilter))
                 {
-                    layer->GetParamBlockByID( plLayerTex::kBlkBitmap )->SetValue(kBmpNoFilter, t, 1);
+                    layer->GetParamBlockByID(plLayerTex::kBlkBitmap)->SetValue(kBmpNoFilter, t, 1);
                 }
                 else
                 {
-                    layer->GetParamBlockByID( plLayerTex::kBlkBitmap )->SetValue(kBmpNoFilter, t, 0);
+                    layer->GetParamBlockByID(plLayerTex::kBlkBitmap)->SetValue(kBmpNoFilter, t, 0);
                 }
                 return TRUE;
             }

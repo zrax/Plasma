@@ -174,7 +174,7 @@ static ActionDescription spActions[] =
 // callback for action exection
 bool DoAction(int id)
 {
-    switch(id)
+    switch (id)
     {
     case kActionSaveSel:
         plSaveSelected();

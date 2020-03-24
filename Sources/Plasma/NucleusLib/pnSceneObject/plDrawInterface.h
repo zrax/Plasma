@@ -85,8 +85,8 @@ public:
     plDrawInterface();
     virtual ~plDrawInterface();
 
-    CLASSNAME_REGISTER( plDrawInterface );
-    GETINTERFACE_ANY( plDrawInterface, plObjInterface );
+    CLASSNAME_REGISTER(plDrawInterface);
+    GETINTERFACE_ANY(plDrawInterface, plObjInterface);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);
@@ -107,17 +107,17 @@ public:
     virtual void    ReleaseData();
 
     /// Funky particle system functions
-    void    SetUpForParticleSystem( uint32_t maxNumEmitters, uint32_t maxNumParticles, hsGMaterial *material, hsTArray<plKey>& lights );
+    void    SetUpForParticleSystem(uint32_t maxNumEmitters, uint32_t maxNumParticles, hsGMaterial *material, hsTArray<plKey>& lights);
     void    ResetParticleSystem();
-    void    AssignEmitterToParticleSystem( plParticleEmitter *emitter );
+    void    AssignEmitterToParticleSystem(plParticleEmitter *emitter);
 
     /// EXPORT-ONLY
     void    SetDrawable(uint8_t which, plDrawable* dr);
-    plDrawable* GetDrawable( uint8_t which ) const { return which < fDrawables.GetCount() ? fDrawables[which] : nil; }
+    plDrawable* GetDrawable(uint8_t which) const { return which < fDrawables.GetCount() ? fDrawables[which] : nil; }
     uint32_t  GetNumDrawables() const { return fDrawables.GetCount(); }
     // Sets the triMesh index to be used when referring to our spans in the drawable
-    void    SetDrawableMeshIndex( uint8_t which, uint32_t index );
-    uint32_t  GetDrawableMeshIndex( uint8_t which ) const { return which < fDrawableIndices.GetCount() ? fDrawableIndices[which] : uint32_t(-1); }
+    void    SetDrawableMeshIndex(uint8_t which, uint32_t index);
+    uint32_t  GetDrawableMeshIndex(uint8_t which) const { return which < fDrawableIndices.GetCount() ? fDrawableIndices[which] : uint32_t(-1); }
 };
 
 

@@ -147,8 +147,8 @@ public:
     plCutter() {}
     virtual ~plCutter() {}
 
-    CLASSNAME_REGISTER( plCutter );
-    GETINTERFACE_ANY( plCutter, plCreatable );
+    CLASSNAME_REGISTER(plCutter);
+    GETINTERFACE_ANY(plCutter, plCreatable);
 
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);

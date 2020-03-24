@@ -82,7 +82,7 @@ void plQuatChannel::Value(hsQuat &quat, double time)
 // CANCOMBINE
 bool plQuatChannel::CanCombine(plAGChannel *channelA)
 {
-    if(plPointChannel::ConvertNoRef(channelA))
+    if (plPointChannel::ConvertNoRef(channelA))
         return true;
     else
         return false;
@@ -92,7 +92,7 @@ bool plQuatChannel::CanCombine(plAGChannel *channelA)
 plAGChannel * plQuatChannel::MakeCombine(plAGChannel *channelA)
 {
     plPointChannel* channel = plPointChannel::ConvertNoRef(channelA);
-    if(channel)
+    if (channel)
         return new plQuatPointCombine(this, channel);
     else
         return nullptr;
@@ -103,7 +103,7 @@ plAGChannel *plQuatChannel::MakeBlend(plAGChannel *channelB, plScalarChannel *ch
 {
     plQuatChannel *chanB = plQuatChannel::ConvertNoRef(channelB);
     plScalarChannel *chanBias = plScalarChannel::ConvertNoRef(channelBias);
-    if(chanB && chanBias)
+    if (chanB && chanBias)
     {
         return new plQuatBlend(this, chanB, chanBias);
     } else {
@@ -202,7 +202,7 @@ plAGChannel * plQuatTimeScale::Detach(plAGChannel * channel)
 
     fChannelIn = plQuatChannel::ConvertNoRef(fChannelIn->Detach(channel));
 
-    if(!fChannelIn || channel == this)
+    if (!fChannelIn || channel == this)
         result = nil;
 
     if (result != this)
@@ -282,12 +282,12 @@ plAGChannel * plQuatBlend::Detach(plAGChannel *remove)
         else
         {
             fQuatA = (plQuatChannel *)fQuatA->Detach(remove);
-            if(fQuatA)
+            if (fQuatA)
             {
                 // channel a still here(although children may be gone); try channel b
                 fQuatB = (plQuatChannel *)fQuatB->Detach(remove);
 
-                if(!fQuatB)
+                if (!fQuatB)
                 {
                     result = fQuatA;    // channel b is gone: return channel a as blender's replacement
                 }

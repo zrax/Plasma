@@ -103,7 +103,7 @@ void plSceneNode::Read(hsStream* s, hsResMgr* mgr)
 
     n = s->ReadLE32();
     fSceneObjects.clear();
-    for( i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
     {
         plNodeRefMsg* refMsg = new plNodeRefMsg(GetKey(), plRefMsg::kOnCreate, i, plNodeRefMsg::kObject);
         plKey key = mgr->ReadKeyNotifyMe(s, refMsg, plRefFlags::kActiveRef);
@@ -111,7 +111,7 @@ void plSceneNode::Read(hsStream* s, hsResMgr* mgr)
 
     n = s->ReadLE32();
     fGenericPool.clear();
-    for( i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
     {
         plNodeRefMsg* refMsg = new plNodeRefMsg(GetKey(), plRefMsg::kOnCreate, -1, plNodeRefMsg::kGeneric);
         mgr->ReadKeyNotifyMe(s, refMsg, plRefFlags::kActiveRef);
@@ -125,11 +125,11 @@ void plSceneNode::Write(hsStream* s, hsResMgr* mgr)
     int i;
 
     s->WriteLE32(fSceneObjects.size());
-    for( i = 0; i < fSceneObjects.size(); i++ )
+    for (i = 0; i < fSceneObjects.size(); i++)
         mgr->WriteKey(s,fSceneObjects[i]);
 
     s->WriteLE32(fGenericPool.size());
-    for( i = 0; i < fGenericPool.size(); i++ )
+    for (i = 0; i < fGenericPool.size(); i++)
         mgr->WriteKey(s, fGenericPool[i]);
 }
 
@@ -142,11 +142,11 @@ void plSceneNode::Harvest(plVolumeIsect* isect, hsTArray<plDrawVisList>& levList
     visSpans.SetCount(0);
 
     int i;
-    for( i = 0; i < visList.GetCount(); i++ )
+    for (i = 0; i < visList.GetCount(); i++)
     {
         int idx = visList[i];
         fDrawPool[idx]->GetSpaceTree()->HarvestLeaves(isect, visSpans);
-        if( visSpans.GetCount() )
+        if (visSpans.GetCount())
         {
             plDrawVisList* drawVis = levList.Push();
             drawVis->fDrawable = fDrawPool[idx];
@@ -164,10 +164,10 @@ void plSceneNode::CollectForRender(plPipeline* pipe, hsTArray<plDrawVisList>& le
     visSpans.SetCount(0);
 
     int i;
-    for( i = 0; i < visList.GetCount(); i++ )
+    for (i = 0; i < visList.GetCount(); i++)
     {
         int idx = visList[i];
-        if( pipe->PreRender(fDrawPool[idx], visSpans, visMgr) )
+        if (pipe->PreRender(fDrawPool[idx], visSpans, visMgr))
         {
             plDrawVisList* drawVis = levList.Push();
             drawVis->fDrawable = fDrawPool[idx];
@@ -191,9 +191,9 @@ plSpaceTree* plSceneNode::IBuildSpaceTree()
     bnd.Reset(&zero);
     
     int i;
-    for( i = 0; i < fDrawPool.size(); i++ )
+    for (i = 0; i < fDrawPool.size(); i++)
     {
-        if( fDrawPool[i] )
+        if (fDrawPool[i])
             maker.AddLeaf(fDrawPool[i]->GetSpaceTree()->GetWorldBounds());
         else
             maker.AddLeaf(bnd, true);
@@ -216,7 +216,7 @@ void plSceneNode::IDirtySpaceTree()
     for (size_t i = 0; i < fDrawPool.size(); ++i)
     {
         plDrawable* drawable = fDrawPool[i];
-        if (drawable && drawable->GetSpaceTree()->IsDirty() )
+        if (drawable && drawable->GetSpaceTree()->IsDirty())
         {
             drawable->GetSpaceTree()->Refresh();
             fSpaceTree->MoveLeaf(i, drawable->GetSpaceTree()->GetWorldBounds());
@@ -234,7 +234,7 @@ plSpaceTree* plSceneNode::GetSpaceTree()
 
 void plSceneNode::ISetDrawable(plDrawable* d)
 {
-    if( !d )
+    if (!d)
         return;
 
     if (std::find(fDrawPool.begin(), fDrawPool.end(), d) == fDrawPool.end()) {
@@ -245,7 +245,7 @@ void plSceneNode::ISetDrawable(plDrawable* d)
 
 void plSceneNode::ISetAudible(plAudible* a)
 {
-    if( !a )
+    if (!a)
         return;
 
     if (std::find(fAudioPool.begin(), fAudioPool.end(), a) == fAudioPool.end())
@@ -254,7 +254,7 @@ void plSceneNode::ISetAudible(plAudible* a)
 
 void plSceneNode::ISetPhysical(plPhysical* p)
 {
-    if( !p )
+    if (!p)
         return;
 
     if (std::find(fSimulationPool.begin(), fSimulationPool.end(), p) == fSimulationPool.end())
@@ -284,7 +284,7 @@ void plSceneNode::ISetLight(plLightInfo* l)
 
 void plSceneNode::ISetOccluder(plOccluder* o)
 {
-    if( fOccluders.kMissingIndex == fOccluders.Find(o) )
+    if (fOccluders.kMissingIndex == fOccluders.Find(o))
     {
         fOccluders.Append(o);
     }
@@ -354,7 +354,7 @@ void plSceneNode::IRemoveLight(plLightInfo* l)
 void plSceneNode::IRemoveOccluder(plOccluder* o)
 {
     int idx = fOccluders.Find(o);
-    if( idx != fOccluders.kMissingIndex )
+    if (idx != fOccluders.kMissingIndex)
         fOccluders.Remove(idx);
 }
 
@@ -368,7 +368,7 @@ void plSceneNode::IRemoveGeneric(hsKeyedObject* k)
 bool plSceneNode::IOnRemove(plNodeRefMsg* refMsg)
 {
 
-    switch( refMsg->fType )
+    switch (refMsg->fType)
     {
     case plNodeRefMsg::kDrawable:
         IRemoveDrawable(plDrawable::ConvertNoRef(refMsg->GetRef()));
@@ -392,7 +392,7 @@ bool plSceneNode::IOnRemove(plNodeRefMsg* refMsg)
         IRemoveGeneric(refMsg->GetRef());
         break;
     }
-    if( refMsg->GetRef() && (refMsg->GetContext() & plRefMsg::kOnRemove) )
+    if (refMsg->GetRef() && (refMsg->GetContext() & plRefMsg::kOnRemove))
         GetKey()->Release(refMsg->GetRef()->GetKey());
         
     return true;
@@ -402,7 +402,7 @@ bool plSceneNode::IOnAdd(plNodeRefMsg* refMsg)
 {
     int which = refMsg->fWhich;
 
-    switch( refMsg->fType )
+    switch (refMsg->fType)
     {
     case plNodeRefMsg::kDrawable:
         ISetDrawable(plDrawable::ConvertNoRef(refMsg->GetRef()));
@@ -430,9 +430,9 @@ bool plSceneNode::IOnAdd(plNodeRefMsg* refMsg)
 
 bool plSceneNode::MsgReceive(plMessage* msg)
 {
-    plNodeCleanupMsg    *cleanMsg = plNodeCleanupMsg::ConvertNoRef( msg );
+    plNodeCleanupMsg    *cleanMsg = plNodeCleanupMsg::ConvertNoRef(msg);
 
-    if( cleanMsg )
+    if (cleanMsg)
     {
         ICleanUp();
         return true;
@@ -440,11 +440,11 @@ bool plSceneNode::MsgReceive(plMessage* msg)
 
     plNodeRefMsg* refMsg = plNodeRefMsg::ConvertNoRef(msg);
     
-    if( refMsg )
+    if (refMsg)
     {
-        if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+        if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
             return IOnAdd(refMsg);
-        else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+        else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
             return IOnRemove(refMsg);
 
     }
@@ -464,17 +464,17 @@ void    plSceneNode::ICleanUp()
     if (fFilterGenerics)
     {
         int i;
-        for ( i = fSceneObjects.size() - 1; i >= 0; i--)
+        for (i = fSceneObjects.size() - 1; i >= 0; i--)
             GetKey()->Release(fSceneObjects[i]->GetKey());
-        for ( i = fDrawPool.size() - 1; i >= 0; i--)
+        for (i = fDrawPool.size() - 1; i >= 0; i--)
             GetKey()->Release(fDrawPool[i]->GetKey());
-        for ( i = fSimulationPool.size() - 1; i >= 0; i--)
+        for (i = fSimulationPool.size() - 1; i >= 0; i--)
             GetKey()->Release(fSimulationPool[i]->GetKey());
-        for ( i = fAudioPool.size() - 1; i >= 0; i--)
+        for (i = fAudioPool.size() - 1; i >= 0; i--)
             GetKey()->Release(fAudioPool[i]->GetKey());
-        for ( i = fOccluders.GetCount() - 1; i >= 0; i--)
+        for (i = fOccluders.GetCount() - 1; i >= 0; i--)
             GetKey()->Release(fOccluders[i]->GetKey());
-        for ( i = fLightPool.size() - 1; i >= 0; i--)
+        for (i = fLightPool.size() - 1; i >= 0; i--)
             GetKey()->Release(fLightPool[i]->GetKey());
     }
 
@@ -484,7 +484,7 @@ void    plSceneNode::ICleanUp()
 //// GetMatchingDrawable /////////////////////////////////////////////////////
 //  Export only: Query for a given drawable.
 
-plDrawable  *plSceneNode::GetMatchingDrawable( const plDrawableCriteria& crit )
+plDrawable  *plSceneNode::GetMatchingDrawable(const plDrawableCriteria& crit)
 {
     for (auto draw : fDrawPool) {
         if (draw->DoIMatch(crit))

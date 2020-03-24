@@ -64,8 +64,8 @@ public:
                     const double* t){ SetBCastFlag(plMessage::kBCastByExactType);    }
     ~plPlayerMsg() { }
 
-    CLASSNAME_REGISTER( plPlayerMsg );
-    GETINTERFACE_ANY( plPlayerMsg, plMessage );
+    CLASSNAME_REGISTER(plPlayerMsg);
+    GETINTERFACE_ANY(plPlayerMsg, plMessage);
 
     enum ModCmds
     {

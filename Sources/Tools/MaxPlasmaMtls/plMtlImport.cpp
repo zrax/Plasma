@@ -62,7 +62,7 @@ int         plPlasmaMtlImport::GetNumMtlDescs()
     return 15;
 }
 
-ClassDesc2  *plPlasmaMtlImport::GetMtlDesc( int i )
+ClassDesc2  *plPlasmaMtlImport::GetMtlDesc(int i)
 {
     switch (i)
     {

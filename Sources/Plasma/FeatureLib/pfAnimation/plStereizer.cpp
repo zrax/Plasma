@@ -70,7 +70,7 @@ plStereizer::plStereizer()
 
 plStereizer::~plStereizer()
 {
-    if( !HasMaster() )
+    if (!HasMaster())
         plgDispatch::Dispatch()->UnRegisterForExactType(plListenerMsg::Index(), GetKey());
 }
 
@@ -88,7 +88,7 @@ void plStereizer::Read(hsStream* stream, hsResMgr* mgr)
 
     fInitPos.Read(stream);
 
-    if( !HasMaster() )
+    if (!HasMaster())
         plgDispatch::Dispatch()->RegisterForExactType(plListenerMsg::Index(), GetKey());
 }
 
@@ -110,7 +110,7 @@ void plStereizer::Write(hsStream* stream, hsResMgr* mgr)
 bool plStereizer::MsgReceive(plMessage* msg)
 {
     plListenerMsg* listenMsg = plListenerMsg::ConvertNoRef(msg);
-    if( listenMsg )
+    if (listenMsg)
     {
         SetFromListenerMsg(listenMsg);
         return Stereize();
@@ -127,7 +127,7 @@ bool plStereizer::IEval(double secs, float del, uint32_t dirty)
 bool plStereizer::Stereize()
 {
     plSceneObject* targ = GetTarget();
-    if( !targ )
+    if (!targ)
         return true;
 
     targ->FlushTransform();
@@ -147,11 +147,11 @@ bool plStereizer::Stereize()
     //      Calc pure ambient position
     //      Calc pure localized position
     //      Interpolate between the two.
-    if( dist <= fAmbientDist )
+    if (dist <= fAmbientDist)
     {
         ISetNewPos(IGetAmbientPos());
     }
-    else if( dist >= fAmbientDist + fTransition )
+    else if (dist >= fAmbientDist + fTransition)
     {
         ISetNewPos(IGetLocalizedPos(posToList, dist));
     }
@@ -200,7 +200,7 @@ hsPoint3 plStereizer::IGetAmbientPos() const
     hsPoint3 pos = fListPos;
     hsVector3 axOut = fListDirection % fListUp;
     hsFastMath::NormalizeAppr(axOut);
-    if( IsLeftChannel() )
+    if (IsLeftChannel())
         axOut *= -fMinSepDist;
     else
         axOut *= fMinSepDist;
@@ -218,11 +218,11 @@ hsPoint3 plStereizer::IGetLocalizedPos(const hsVector3& posToList, float distToL
     hsFastMath::NormalizeAppr(axOut);
 
     float distOut = distToList * fTanAng;
-    if( distOut > fMaxSepDist )
+    if (distOut > fMaxSepDist)
         distOut = fMaxSepDist;
-    else if( distOut < fMinSepDist )
+    else if (distOut < fMinSepDist)
         distOut = fMinSepDist;
-    if( IsLeftChannel() )
+    if (IsLeftChannel())
         distOut = -distOut;
 
     axOut *= distOut;
@@ -250,7 +250,7 @@ hsPoint3 plStereizer::IGetUnStereoPos() const
 void plStereizer::SetWorldInitPos(const hsPoint3& pos)
 {
     plCoordinateInterface* parent = IGetParent();
-    if( parent )
+    if (parent)
         fInitPos = parent->GetWorldToLocal() * pos;
     else
         fInitPos = pos;
@@ -259,7 +259,7 @@ void plStereizer::SetWorldInitPos(const hsPoint3& pos)
 hsPoint3 plStereizer::GetWorldInitPos() const
 {
     plCoordinateInterface* parent = IGetParent();
-    if( parent )
+    if (parent)
         return parent->GetLocalToWorld() * fInitPos;
 
     return fInitPos;
@@ -268,7 +268,7 @@ hsPoint3 plStereizer::GetWorldInitPos() const
 plCoordinateInterface* plStereizer::IGetParent() const
 {
     plCoordinateInterface* coord = IGetTargetCoordinateInterface(0);
-    if( coord )
+    if (coord)
     {
         return coord->GetParent();
     }
@@ -290,15 +290,15 @@ bool plStereizer::CheckForMaster()
 {
     ISetHasMaster(false);
     plSceneObject* targ = GetTarget();
-    if( !targ )
+    if (!targ)
         return false;
 
     int n = targ->GetNumModifiers();
     int i;
-    for( i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
     {
         plLineFollowMod* line = plLineFollowMod::ConvertNoRef(IGetTargetModifier(0, i));
-        if( line )
+        if (line)
         {
             ISetHasMaster(true);
             line->AddStereizer(GetKey());

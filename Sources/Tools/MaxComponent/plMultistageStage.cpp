@@ -147,7 +147,7 @@ void plStandardStage::Read(hsStream *stream)
     fStageRegress = stream->ReadByte();
     fNotify = stream->ReadByte();
     fUseGlobalCoord = stream->ReadBool();
-    if(version > 1)
+    if (version > 1)
     {
         // these guys were added in version 2
         fDoAdvanceTo = stream->ReadBool();

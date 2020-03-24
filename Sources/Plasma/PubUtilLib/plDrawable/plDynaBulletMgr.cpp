@@ -105,12 +105,12 @@ bool plDynaBulletMgr::IHandleShot(plBulletMsg* bull)
 
     plDynaDecalInfo& info = IGetDecalInfo(uintptr_t(this), GetKey());
 
-    if( bull->PartyTime() > 0 )
+    if (bull->PartyTime() > 0)
         fPartyTime = bull->PartyTime();
 
     double secs = hsTimer::GetSysSeconds();
 
-    if( ICutoutTargets(secs) )
+    if (ICutoutTargets(secs))
         info.fLastTime = secs;
     
     return true;
@@ -119,9 +119,9 @@ bool plDynaBulletMgr::IHandleShot(plBulletMsg* bull)
 bool plDynaBulletMgr::MsgReceive(plMessage* msg)
 {
     plBulletMsg* bullMsg = plBulletMsg::ConvertNoRef(msg);
-    if( bullMsg )
+    if (bullMsg)
     {
-        if( bullMsg->Shot() )
+        if (bullMsg->Shot())
         {
             return IHandleShot(bullMsg);
         }

@@ -52,8 +52,8 @@ class hsStream;
 class plAgeLoadedMsg : public plMessage
 {
 public:
-    CLASSNAME_REGISTER( plAgeLoadedMsg );
-    GETINTERFACE_ANY( plAgeLoadedMsg, plMessage );
+    CLASSNAME_REGISTER(plAgeLoadedMsg);
+    GETINTERFACE_ANY(plAgeLoadedMsg, plMessage);
 
     plAgeLoadedMsg() : fLoaded(true) { SetBCastFlag(kBCastByType); }
 
@@ -69,8 +69,8 @@ public:
 class plAgeLoaded2Msg : public plMessage
 {
 public:
-    CLASSNAME_REGISTER( plAgeLoaded2Msg );
-    GETINTERFACE_ANY( plAgeLoaded2Msg, plMessage );
+    CLASSNAME_REGISTER(plAgeLoaded2Msg);
+    GETINTERFACE_ANY(plAgeLoaded2Msg, plMessage);
 
     plAgeLoaded2Msg() { SetBCastFlag(kBCastByType); }
     
@@ -104,8 +104,8 @@ public:
 class plInitialAgeStateLoadedMsg : public plMessage
 {
 public:
-   CLASSNAME_REGISTER( plInitialAgeStateLoadedMsg );
-   GETINTERFACE_ANY( plInitialAgeStateLoadedMsg, plMessage );
+   CLASSNAME_REGISTER(plInitialAgeStateLoadedMsg);
+   GETINTERFACE_ANY(plInitialAgeStateLoadedMsg, plMessage);
 
    plInitialAgeStateLoadedMsg() { SetBCastFlag(kBCastByType);   }
 

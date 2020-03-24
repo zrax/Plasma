@@ -66,8 +66,8 @@ class ReferenceMaker;
 class plRTProjPBAccessor : public PBAccessor
 {
     public:
-        void Set( PB2Value& val, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t );
-        void Get( PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t, Interval &valid );
+        void Set(PB2Value& val, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t);
+        void Get(PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t, Interval &valid);
 
         static plRTProjPBAccessor   *Instance() { return &fAccessor; }
 
@@ -122,41 +122,41 @@ class plRTProjDirLight : public plRTLightBase
         Class_ID    ClassID() { return RTPDIR_LIGHT_CLASSID; }
         SClass_ID   SuperClassID() { return LIGHT_CLASS_ID; }
 
-        ObjLightDesc    *CreateLightDesc( INode *n, BOOL forceShadowBuf = FALSE );
-        GenLight        *NewLight( int type ) { return new plRTProjDirLight(); }
-        RefTargetHandle Clone( RemapDir &remap );
+        ObjLightDesc    *CreateLightDesc(INode *n, BOOL forceShadowBuf = FALSE);
+        GenLight        *NewLight(int type) { return new plRTProjDirLight(); }
+        RefTargetHandle Clone(RemapDir &remap);
 
-        int             CanConvertToType( Class_ID obtype ) { return ( obtype ==  RTPDIR_LIGHT_CLASSID ) ? 1 : 0; }
+        int             CanConvertToType(Class_ID obtype) { return (obtype ==  RTPDIR_LIGHT_CLASSID) ? 1 : 0; }
 
-        virtual void    GetLocalBoundBox( TimeValue t, INode *node, ViewExp *vpt, Box3 &box );
-        virtual int     DrawConeAndLine( TimeValue t, INode* inode, GraphicsWindow *gw, int drawing );
-        virtual void    DrawCone( TimeValue t, GraphicsWindow *gw, float dist );
+        virtual void    GetLocalBoundBox(TimeValue t, INode *node, ViewExp *vpt, Box3 &box);
+        virtual int     DrawConeAndLine(TimeValue t, INode* inode, GraphicsWindow *gw, int drawing);
+        virtual void    DrawCone(TimeValue t, GraphicsWindow *gw, float dist);
 
         virtual BOOL            IsDir()   { return TRUE; }
-        virtual RefTargetHandle GetReference( int i );
-        virtual void            SetReference( int ref, RefTargetHandle rtarg );
+        virtual RefTargetHandle GetReference(int i);
+        virtual void            SetReference(int ref, RefTargetHandle rtarg);
         virtual int             NumRefs() { return kNumRefs; }
 
         virtual int             NumSubs() { return 2; }
-        virtual TSTR            SubAnimName( int i );
-        virtual Animatable      *SubAnim( int i );
+        virtual TSTR            SubAnimName(int i);
+        virtual Animatable      *SubAnim(int i);
 
         virtual int             NumParamBlocks();
-        virtual IParamBlock2    *GetParamBlock( int i );
+        virtual IParamBlock2    *GetParamBlock(int i);
         virtual IParamBlock2    *GetParamBlock2() { return fLightPB; }
-        virtual IParamBlock2    *GetParamBlockByID( BlockID id );
+        virtual IParamBlock2    *GetParamBlockByID(BlockID id);
 
         virtual Texmap          *GetProjMap();
         
-        virtual void            InitNodeName( TSTR &s ) { s = _T( "RTProjDirLight" ); }
+        virtual void            InitNodeName(TSTR &s) { s = _T("RTProjDirLight"); }
 
         // To get using-light-as-camera-viewport to work
         virtual int             GetSpotShape() { return RECT_LIGHT; }
-        virtual float           GetAspect( TimeValue t, Interval &valid = Interval(0,0) );
-        virtual float           GetFallsize( TimeValue t, Interval &valid = Interval(0,0) );
+        virtual float           GetAspect(TimeValue t, Interval &valid = Interval(0,0));
+        virtual float           GetFallsize(TimeValue t, Interval &valid = Interval(0,0));
         virtual int             Type() { return DIR_LIGHT; }
-        virtual float           GetTDist( TimeValue t, Interval &valid = Interval(0,0) );
-        virtual void            SetFallsize( TimeValue time, float f );
+        virtual float           GetTDist(TimeValue t, Interval &valid = Interval(0,0));
+        virtual void            SetFallsize(TimeValue time, float f);
 
         RefResult               EvalLightState(TimeValue t, Interval& valid, LightState *ls);
 
@@ -164,9 +164,9 @@ class plRTProjDirLight : public plRTLightBase
 
         IParamBlock2    *fProjPB;
 
-        virtual void    IBuildMeshes( BOOL isNew );
+        virtual void    IBuildMeshes(BOOL isNew);
         
-        void            IBuildRectangle( float width, float height, float z, Point3 *pts );
+        void            IBuildRectangle(float width, float height, float z, Point3 *pts);
 };
 
 #endif  // _plRTProjDirLight_h

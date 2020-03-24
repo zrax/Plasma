@@ -108,14 +108,14 @@ class plInputInterface : public hsRefCnt
         hsBitVector     fDisabledControls;
         bool            fEnabled;
 
-        void        ISetMessageQueue( hsTArray<plCtrlCmd *> *queue ) { fMessageQueue = queue; }
+        void        ISetMessageQueue(hsTArray<plCtrlCmd *> *queue) { fMessageQueue = queue; }
         plKeyMap    *IGetControlMap() const { return fControlMap; }
-        bool        IOwnsControlCode( ControlEventCode code );
-        bool        IVerifyShiftKey( plKeyDef key, int index );
+        bool        IOwnsControlCode(ControlEventCode code);
+        bool        IVerifyShiftKey(plKeyDef key, int index);
 
         bool    IHasKeyControlFlag(int f) const { return fKeyControlFlags.IsBitSet(f); }
         void    ISetKeyControlFlag(int f)       { fKeyControlFlags.SetBit(f); }
-        void    IClearKeyControlFlag(int which) { fKeyControlFlags.ClearBit( which ); }
+        void    IClearKeyControlFlag(int which) { fKeyControlFlags.ClearBit(which); }
         void    IDisableControl(int which)      { fDisabledControls.SetBit(which); }
         void    IEnableControl(int which)       { fDisabledControls.ClearBit(which); }
 
@@ -125,16 +125,16 @@ class plInputInterface : public hsRefCnt
 
 
         // Gets called once per IUpdate(), just like normal IEval()s
-        virtual bool IEval( double secs, float del, uint32_t dirty ) { return false; }
+        virtual bool IEval(double secs, float del, uint32_t dirty) { return false; }
 
         // Override to handle special-cased control messages of your own (same as receiving them via a message, but if you process them, nobody else gets them). Return false if you don't handle it.
-        virtual bool    IHandleCtrlCmd( plCtrlCmd *cmd ) { return false; }
+        virtual bool    IHandleCtrlCmd(plCtrlCmd *cmd) { return false; }
 
         // Override to let the input interfaces control when a binding is truly active. If this function returns false,
         // ProcessKeyBindings will ignore the keypress for the given control. This way, the interfaces can be selective
         // about which bindings are active when. By default, always returns true, since there are very few and rare
         // cases where you'd want to return false
-        virtual bool    IControlCodeEnabled( ControlEventCode code );
+        virtual bool    IControlCodeEnabled(ControlEventCode code);
 
         // Some helpers for derived classes to avoid including the manager unnecessariliy
 
@@ -171,14 +171,14 @@ class plInputInterface : public hsRefCnt
             kCursorUpward,
         };
 
-        virtual void    Read( hsStream* s, hsResMgr* mgr );
-        virtual void    Write( hsStream* s, hsResMgr* mgr );
+        virtual void    Read(hsStream* s, hsResMgr* mgr);
+        virtual void    Write(hsStream* s, hsResMgr* mgr);
 
         // Returns the priority of this interface layer, based on the Priorities enum
         virtual uint32_t      GetPriorityLevel() const = 0;
 
         // Returns true if the message was handled, false if not and we want to pass it on to others in the stack
-        virtual bool        InterpretInputEvent( plInputEventMsg *pMsg ) = 0;
+        virtual bool        InterpretInputEvent(plInputEventMsg *pMsg) = 0;
 
         // Returns the currently active mouse cursor for this layer, as defined in pnMessage/plCursorChangeMsg.h
         virtual uint32_t      GetCurrentCursorID() const = 0;
@@ -190,10 +190,10 @@ class plInputInterface : public hsRefCnt
         virtual bool        HasInterestingCursorID() const = 0;
 
         // Gets called by the manager. If you want a message to come to you, set your manager as the destination
-        virtual bool        MsgReceive( plMessage *msg ) { return false; }
+        virtual bool        MsgReceive(plMessage *msg) { return false; }
 
         // Any initialization that requires a pointer to the manager needs to be done on Init()/Shutdown()
-        virtual void        Init( plInputInterfaceMgr *manager ) { fManager = manager; RestoreDefaultKeyMappings(); }
+        virtual void        Init(plInputInterfaceMgr *manager) { fManager = manager; RestoreDefaultKeyMappings(); }
         virtual void        Shutdown() {}
 
         // Gets called when any of the key mappings are changed, so that the interface layer can refresh the ones its interested in
@@ -203,12 +203,12 @@ class plInputInterface : public hsRefCnt
         virtual void        RestoreDefaultKeyMappings() {}
 
         // Called on each interface layer that gets missed when processing inputEvents in the manager (i.e. you either get this call or InterpretInputEvent)
-        virtual void        MissedInputEvent( plInputEventMsg *pMsg ) {}
+        virtual void        MissedInputEvent(plInputEventMsg *pMsg) {}
 
         // Non-virtual, can't override--processes an inputEventMsg to see if we can handle it via a key binding (if so, InterpretInputEvent won't be called)
-        bool                ProcessKeyBindings( plInputEventMsg *keyMsg );
+        bool                ProcessKeyBindings(plInputEventMsg *keyMsg);
 
-        void        SetEnabled( bool e ) { fEnabled = e; }
+        void        SetEnabled(bool e) { fEnabled = e; }
         bool        IsEnabled() const { return fEnabled; }
         
         // clear all keys from map

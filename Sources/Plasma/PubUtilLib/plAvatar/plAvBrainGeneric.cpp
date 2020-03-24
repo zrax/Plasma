@@ -150,7 +150,7 @@ plAvBrainGeneric::~plAvBrainGeneric()
 {
     int fNumStages = fStages->size();
 
-    for(int i = 0; i < fNumStages; i++)
+    for (int i = 0; i < fNumStages; i++)
     {
         plAnimStage *stage = (*fStages)[i];
         (*fStages)[i] = nil;
@@ -181,15 +181,15 @@ void plAvBrainGeneric::Activate(plArmatureModBase *avMod)
     if (fMoveMode == kMoveRelative || fMoveMode == kMoveAbsolute)
     {
         // enable kinematic... ignore outside forces... but still collide with detector regions
-        fAvMod->EnablePhysicsKinematic( true );
+        fAvMod->EnablePhysicsKinematic(true);
     }
-    else if(fMoveMode == kMoveStandstill)
+    else if (fMoveMode == kMoveStandstill)
     {
         // Avatar stands still automatically now, so we do nothing here
     }
     if (stage->Attach(fAvMod, this, initialBlend, worldTime))
     {
-        if(fStartMessage)
+        if (fStartMessage)
         {
             fStartMessage->Send();
             fStartMessage = nil;
@@ -202,7 +202,7 @@ void plAvBrainGeneric::Activate(plArmatureModBase *avMod)
             pMsg->SetBCastFlag(plMessage::kBCastByExactType);
             pMsg->SetCmd(plCameraMsg::kResponderSetThirdPerson);
             pMsg->SetBCastFlag(plMessage::kNetPropagate, false);
-            plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+            plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
         }
         
     }
@@ -216,7 +216,7 @@ void plAvBrainGeneric::Activate(plArmatureModBase *avMod)
 
 bool plAvBrainGeneric::IsRunningTask() const
 {
-    if ( fStages->size() > 0 )
+    if (fStages->size() > 0)
         return true;
     return false;
 }
@@ -242,7 +242,7 @@ bool plAvBrainGeneric::Apply(double time, float elapsed)
 {
     bool result = false;
 
-    switch(fMode)
+    switch (fMode)
     {
     case kAbort:
         break;
@@ -281,7 +281,7 @@ void plAvBrainGeneric::Deactivate()
     if (fMoveMode == kMoveRelative || fMoveMode == kMoveAbsolute)
     {
         // re-enable normal physics... outside forces affect us
-        fAvMod->EnablePhysicsKinematic( false );
+        fAvMod->EnablePhysicsKinematic(false);
     }
     else if (fMoveMode == kMoveStandstill)
     {
@@ -303,7 +303,7 @@ void plAvBrainGeneric::Deactivate()
         pMsg->SetBCastFlag(plMessage::kBCastByExactType);
         pMsg->SetBCastFlag(plMessage::kNetPropagate, false);
         pMsg->SetCmd(plCameraMsg::kResponderUndoThirdPerson);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
         
     plArmatureBrain::Deactivate();
@@ -324,7 +324,7 @@ void plAvBrainGeneric::SetRecipient(const plKey &recipient)
 // RELAYNOTIFYMSG
 bool plAvBrainGeneric::RelayNotifyMsg(plNotifyMsg *msg)
 {
-    if(fRecipient)
+    if (fRecipient)
     {
         msg->AddReceiver(fRecipient);
         msg->Send();
@@ -346,12 +346,12 @@ float plAvBrainGeneric::IGetAnimDelta(double time, float elapsed)
     bool backIsDown = (fReverseFBControlsOnRelease && fAvMod->IsFBReversed()) ? fAvMod->ForwardKeyDown() : fAvMod->BackwardKeyDown();
 
     // forward with a key down gets top priority
-    if(forward == plAnimStage::kForwardKey && fwdIsDown)
+    if (forward == plAnimStage::kForwardKey && fwdIsDown)
     {
         // key drive forward, forward key is down
         delta = elapsed;
         fForward = true;
-    } else if(back == plAnimStage::kBackKey && backIsDown)
+    } else if (back == plAnimStage::kBackKey && backIsDown)
     {
         // key drive back, back key is down
         delta = -elapsed;
@@ -373,18 +373,18 @@ float plAvBrainGeneric::IGetAnimDelta(double time, float elapsed)
 bool plAvBrainGeneric::IProcessNormal(double time, float elapsed)
 {
     plAnimStage *curStage = (*fStages)[fCurStage];
-    if(curStage)
+    if (curStage)
     {
         float animDelta = IGetAnimDelta(time, elapsed);     // how far to move the anim (may be negative)
         float overage;
         bool done = curStage->MoveRelative(time, animDelta, overage, fAvMod);
 
-        if(done)
+        if (done)
         {
             bool forward = animDelta > 0.0f;
             int nextStage = forward ? curStage->GetNextStage(fCurStage) : curStage->GetPrevStage(fCurStage);
 
-            if((nextStage == -1) || (nextStage >= fStages->size()))
+            if ((nextStage == -1) || (nextStage >= fStages->size()))
             {
                 // ran off one end; we're done.
                 fMode = kExit;
@@ -406,26 +406,26 @@ bool plAvBrainGeneric::IProcessFadeIn(double time, float elapsed)
 {
     plAnimStage *curStage = (*fStages)[fCurStage];
 
-    if(fMode != kFadingIn)
+    if (fMode != kFadingIn)
     {
         bool needFade = fFadeIn != 0.0f;
 
-        if(fFadeIn == 0.0f)
+        if (fFadeIn == 0.0f)
         {
             IEnterMoveMode(time);   // if fadeIn's not zero, we have to wait until fade's done
                                             // before animating
         } else {
             plAGAnimInstance *curAnim = curStage->GetAnimInstance();
-            if(curAnim)
+            if (curAnim)
                 curAnim->Fade(1.0f, fFadeIn);
         }
         fMode = kFadingIn;
     } else {
         plAGAnimInstance *curAnim = curStage->GetAnimInstance();
         float curBlend = 1.0f;
-        if(curAnim)
+        if (curAnim)
             curBlend = curAnim->GetBlend();
-        if(curBlend == 1.0f)
+        if (curBlend == 1.0f)
         {
             IEnterMoveMode(time);
         }
@@ -439,13 +439,13 @@ bool plAvBrainGeneric::IProcessFadeOut(double time, float elapsed)
 {
     plAnimStage *curStage = (*fStages)[fCurStage];
 
-    if(fMode != kFadingOut)
+    if (fMode != kFadingOut)
     {
         // haven't actually started fading; see if we need to
-        if(fFadeOut > 0.0f)
+        if (fFadeOut > 0.0f)
         {
             plAGAnimInstance *curAnim = curStage->GetAnimInstance();
-            if(curAnim)
+            if (curAnim)
             {
                 curAnim->Fade(0.0f, fFadeOut);
                 IExitMoveMode();
@@ -463,9 +463,9 @@ bool plAvBrainGeneric::IProcessFadeOut(double time, float elapsed)
         // already fading; just keeping looking for the anim to zero out.
         plAGAnimInstance *curAnim = curStage->GetAnimInstance();
         float curBlend = 0.0f;
-        if(curAnim)
+        if (curAnim)
             curBlend = curAnim->GetBlend();
-        if(curBlend == 0.0f)
+        if (curBlend == 0.0f)
         {
             curStage->Detach(fAvMod);
             fMode = kAbort;
@@ -484,10 +484,10 @@ bool plAvBrainGeneric::ISwitchStages(int oldStageNum, int newStageNum, float del
     sprintf(sbuf,"ISwitchStage - old=%d new=%d (fCurStage=%d)",oldStageNum,newStageNum,fCurStage);
     plAvatarMgr::GetInstance()->GetLog()->AddLine(sbuf);
 #endif
-    if(oldStageNum != newStageNum) {
+    if (oldStageNum != newStageNum) {
         plAnimStage *newStage = fStages->at(newStageNum);
         plAnimStage *oldStage = fStages->at(oldStageNum);
-        if(setTime)
+        if (setTime)
             newStage->SetLocalTime(newTime);
 
         hsAssert(oldStageNum < fStages->size(), "PLAVBRAINGENERIC: Stage out of range.");
@@ -498,19 +498,19 @@ bool plAvBrainGeneric::ISwitchStages(int oldStageNum, int newStageNum, float del
         fCurStage = newStageNum;
         fAvMod->DirtySynchState(kSDLAvatar, 0);     // write our new stage to the server
     }
-    if(setTime) {
+    if (setTime) {
         plAnimStage *curStage = fStages->at(fCurStage);
         curStage->SetLocalTime(newTime);
     }
 
-    if(fMoveMode == kMoveRelative)
+    if (fMoveMode == kMoveRelative)
         fAvMod->GetRootAnimator()->Reset(worldTime);
     return true;
 }
 
 void plAvBrainGeneric::IEnterMoveMode(double time)
 {
-    if(fMoveMode == kMoveRelative)
+    if (fMoveMode == kMoveRelative)
     {
         fAvMod->GetRootAnimator()->Enable(true);
         fAvMod->GetRootAnimator()->Reset(time);
@@ -520,11 +520,11 @@ void plAvBrainGeneric::IEnterMoveMode(double time)
 
 void plAvBrainGeneric::IExitMoveMode()
 {
-    if(fAvMod)
+    if (fAvMod)
     {
-        if(fMoveMode == kMoveRelative)
+        if (fMoveMode == kMoveRelative)
         {
-            if(fAvMod->GetRootAnimator())
+            if (fAvMod->GetRootAnimator())
                 fAvMod->GetRootAnimator()->Enable(false);
         }
 
@@ -557,24 +557,24 @@ bool plAvBrainGeneric::MsgReceive(plMessage *msg)
     plControlEventMsg *ctrlMsg = plControlEventMsg::ConvertNoRef(msg);
     
 
-    if(genMsg)
+    if (genMsg)
     {
         result = IHandleGenBrainMsg(genMsg);
     }
-//  else if(exitMsg) {
+//  else if (exitMsg) {
 //      fMode = kExit;
 //      result = true;
 //  }
     else if (taskMsg) {
         result =  IHandleTaskMsg(taskMsg);
     }
-    else if (ctrlMsg && (fExitFlags & kExitAnyInput) ) {
+    else if (ctrlMsg && (fExitFlags & kExitAnyInput)) {
         fMode = kExit;
     }
 
-    if(result == false)                                     // if still haven't handled msg
+    if (result == false)                                     // if still haven't handled msg
     {
-        if(fMode == kExit)                                      // if we're exiting
+        if (fMode == kExit)                                      // if we're exiting
         {
             result = fAvMod->GetNextBrain(this)->MsgReceive(msg);       // pass msg to next brain
         } else {                                                // otherwise
@@ -595,7 +595,7 @@ bool plAvBrainGeneric::IHandleGenBrainMsg(const plAvBrainGenericMsg *msg)
     bool newDirection = msg->fNewDirection ? true : false;
     double worldTime = hsTimer::GetSysSeconds();
 
-    switch(msg->fType)
+    switch (msg->fType)
     {
     case plAvBrainGenericMsg::kGotoStage:
         {
@@ -605,15 +605,15 @@ bool plAvBrainGeneric::IHandleGenBrainMsg(const plAvBrainGenericMsg *msg)
             sprintf(sbuf,"GenericMsg - Goto Stage %d (oldstage %d)",wantStage,fCurStage);
             plAvatarMgr::GetInstance()->GetLog()->AddLine(sbuf);
 #endif
-            if(wantStage == -1) {
+            if (wantStage == -1) {
                 fMode = kExit;
             } else {
                 int count = fStages->size();
-                if(wantStage < count && wantStage >= 0)
+                if (wantStage < count && wantStage >= 0)
                 {
                     ISwitchStages(fCurStage, wantStage, 0.0f, setTime, newTime, 1.0f, -1.0f, worldTime);
                     // direction is set within the brain, not the stage
-                    if(setDirection)
+                    if (setDirection)
                         fForward = newDirection;
                 }
             }
@@ -627,12 +627,12 @@ bool plAvBrainGeneric::IHandleGenBrainMsg(const plAvBrainGenericMsg *msg)
             sprintf(sbuf,"GenericMsg - Next Stage %d (oldstage %d)",wantStage,fCurStage);
             plAvatarMgr::GetInstance()->GetLog()->AddLine(sbuf);
 #endif
-            if(wantStage == fStages->size())
+            if (wantStage == fStages->size())
             {
                 fMode = kExit;  // walked off the end of the brain
             } else {
                 ISwitchStages(fCurStage, wantStage, 0.0f, setTime, newTime, 1.0f, -1.0f, worldTime);
-                if(setDirection)
+                if (setDirection)
                     fForward = newDirection;
             }
         }
@@ -645,12 +645,12 @@ bool plAvBrainGeneric::IHandleGenBrainMsg(const plAvBrainGenericMsg *msg)
             sprintf(sbuf,"GenericMsg - PrevStage %d (oldstage %d)",wantStage,fCurStage);
             plAvatarMgr::GetInstance()->GetLog()->AddLine(sbuf);
 #endif
-            if(wantStage < 0)
+            if (wantStage < 0)
             {
                 fMode = kExit;  // walked off the beginning of the brain
             } else {
                 ISwitchStages(fCurStage, wantStage, 0.0f, setTime, 0.0f, 1.0f, -1.0f, worldTime);
-                if(setDirection)
+                if (setDirection)
                     fForward = newDirection;
             }
         }
@@ -673,13 +673,13 @@ bool plAvBrainGeneric::IHandleTaskMsg(plAvTaskMsg *msg)
     plAvTask *task = msg->GetTask();
     plAvTaskBrain *brainTask = plAvTaskBrain::ConvertNoRef(task);
 
-    if(brainTask)
+    if (brainTask)
     {
         plArmatureBrain * brain = brainTask->GetBrain();
 
-        if(brain)
+        if (brain)
         {
-            if(fExitFlags & kExitNewBrain)
+            if (fExitFlags & kExitNewBrain)
             {
                 // RULE 1: if kExitNewBrain, exit on any new brain
                 fMode = kExit;
@@ -687,13 +687,13 @@ bool plAvBrainGeneric::IHandleTaskMsg(plAvTaskMsg *msg)
             } else {
                 plAvBrainGeneric * gBrain = plAvBrainGeneric::ConvertNoRef(brain);
 
-                if(gBrain && IBrainIsCompatible(gBrain))
+                if (gBrain && IBrainIsCompatible(gBrain))
                 {
                     // RULE 2: if not kExitNewBrain and brain is compatible, apply it
                     QueueTask(brainTask);
                     return true;
                 } else {
-                    if(fMode == kExit || fMode == kFadingOut)
+                    if (fMode == kExit || fMode == kFadingOut)
                     {
                         // RULE 3: if brain is incompatible and we're exiting anyway,
                         // queue it to be next
@@ -712,10 +712,10 @@ bool plAvBrainGeneric::IHandleTaskMsg(plAvTaskMsg *msg)
         // note that this check has to come after the brain task check; if it's a brain
         // task we need to examine it so we can say whether we consumed it or not.
         // popbrain messages get consumed, even if we exit on any task.
-        if(fExitFlags & kExitAnyTask)
+        if (fExitFlags & kExitAnyTask)
         {
             // RULE 4: if kExitAnyTask, exit on any task (but if it was an exit brain task,
-            //          make sure to consume it )
+            //          make sure to consume it)
             fMode = kExit;
             return false;
         }
@@ -729,19 +729,19 @@ bool plAvBrainGeneric::IBrainIsCompatible(plAvBrainGeneric *otherBrain)
 {
     plAGAnim::BodyUsage otherUsage = otherBrain->GetBodyUsage();
 
-    switch(fBodyUsage)
+    switch (fBodyUsage)
     {
     case plAGAnim::kBodyUnknown:
         return false;
     case plAGAnim::kBodyFull:
         return false;
     case plAGAnim::kBodyUpper:
-        if(otherUsage == plAGAnim::kBodyLower)
+        if (otherUsage == plAGAnim::kBodyLower)
             return true;
         else
             return false;
     case plAGAnim::kBodyLower:
-        if(otherUsage == plAGAnim::kBodyUpper)
+        if (otherUsage == plAGAnim::kBodyUpper)
             return true;
         else
             return false;
@@ -764,7 +764,7 @@ void plAvBrainGeneric::Write(hsStream *stream, hsResMgr *mgr)
     int numStages = fStages->size();
     stream->WriteLE32(numStages);
 
-    for(int i = 0; i < numStages; i++)
+    for (int i = 0; i < numStages; i++)
     {
         plAnimStage *stage = (*fStages)[i];
         plCreatable *cre = reinterpret_cast<plCreatable *>(stage);
@@ -779,14 +779,14 @@ void plAvBrainGeneric::Write(hsStream *stream, hsResMgr *mgr)
     stream->WriteByte(fMode);
     stream->WriteBool(fForward);
 
-    if(fStartMessage) {
+    if (fStartMessage) {
         stream->WriteBool(true);
         mgr->WriteCreatable(stream, fStartMessage);
     } else {
         stream->WriteBool(false);
     }
 
-    if(fEndMessage) {
+    if (fEndMessage) {
         stream->WriteBool(true);
         mgr->WriteCreatable(stream, fEndMessage);
     } else {
@@ -807,7 +807,7 @@ void plAvBrainGeneric::Read(hsStream *stream, hsResMgr *mgr)
     plArmatureBrain::Read(stream, mgr);
     int numStages = stream->ReadLE32();
 
-    for(int i = 0; i < numStages; i++)
+    for (int i = 0; i < numStages; i++)
     {
         plCreatable *created = mgr->ReadCreatable(stream);              // load base state
         plAnimStage *stage = reinterpret_cast<plAnimStage *>(created);
@@ -823,12 +823,12 @@ void plAvBrainGeneric::Read(hsStream *stream, hsResMgr *mgr)
     fMode = static_cast<Mode>(stream->ReadByte());
     fForward = stream->ReadBool();
 
-    if(stream->ReadBool()) {
+    if (stream->ReadBool()) {
         fStartMessage = plMessage::ConvertNoRef(mgr->ReadCreatable(stream));
     } else {
         fStartMessage = nil;
     }
-    if(stream->ReadBool()) {
+    if (stream->ReadBool()) {
         fEndMessage = plMessage::ConvertNoRef(mgr->ReadCreatable(stream));
     } else {
         fEndMessage = nil;
@@ -861,7 +861,7 @@ bool plAvBrainGeneric::LeaveAge()
 // ---------
 int plAvBrainGeneric::AddStage(plAnimStage *stage)
 {
-    if(!fStages)
+    if (!fStages)
         fStages = new plAnimStageVec;
     fStages->push_back(stage);
     return fStages->size() - 1;
@@ -872,10 +872,10 @@ int plAvBrainGeneric::AddStage(plAnimStage *stage)
 int plAvBrainGeneric::GetStageNum(plAnimStage *stage)
 {
     int count = fStages->size();
-    for(int i = 0; i < count; i++)
+    for (int i = 0; i < count; i++)
     {
         plAnimStage *any = (*fStages)[i];
-        if(any == stage)
+        if (any == stage)
         {
             return i;
         }
@@ -952,7 +952,7 @@ void plAvBrainGeneric::DumpToDebugDisplay(int &x, int &y, int lineHeight, plDebu
     y += lineHeight;
 
     int stageCount = fStages->size();
-    for(int i = 0; i < stageCount; i++)
+    for (int i = 0; i < stageCount; i++)
     {
         plAnimStage *stage = (*fStages)[i];
         stage->DumpDebug(i == fCurStage, x, y, lineHeight, debugTxt);

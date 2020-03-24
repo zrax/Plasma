@@ -158,7 +158,7 @@ inline float hsFastMath::InvSqrt(float x)
 inline void hsFastMath::SinCosAppr(float rads, float& sinRads, float& cosRads)
 {
     rads = fmodf(rads, kTwoPI);
-    if( rads < 0 )
+    if (rads < 0)
         rads += kTwoPI;
     SinCosInRangeAppr(rads, sinRads, cosRads);
 }
@@ -187,7 +187,7 @@ inline void hsFastMath::SinCosInRangeAppr(float rads, float& sinRads, float& cos
 inline float hsFastMath::Sin(float rads)
 {
     rads = fmodf(rads, kTwoPI);
-    if( rads < 0 )
+    if (rads < 0)
         rads += kTwoPI;
 
     return SinInRange(rads);
@@ -196,7 +196,7 @@ inline float hsFastMath::Sin(float rads)
 inline float hsFastMath::Cos(float rads)
 {
     rads = fmodf(rads, kTwoPI);
-    if( rads < 0 )
+    if (rads < 0)
         rads += kTwoPI;
 
     return CosInRange(rads);
@@ -206,9 +206,9 @@ inline float hsFastMath::SinInRange(float ang)
 {
     float sgn = 1.f;
 
-    if(ang >= (0.75f * kTwoPI))
+    if (ang >= (0.75f * kTwoPI))
         ang -= kTwoPI;
-    else if(ang >= (0.25f * kTwoPI))
+    else if (ang >= (0.25f * kTwoPI))
     {
         ang -= 3.141592654f;
         sgn = -1.0f;
@@ -221,9 +221,9 @@ inline float hsFastMath::CosInRange(float ang)
 {
     float sgn = 1.f;
     
-    if(ang >= (0.75f * kTwoPI))
+    if (ang >= (0.75f * kTwoPI))
         ang -= kTwoPI;
-    else if(ang >= (0.25f * kTwoPI))
+    else if (ang >= (0.25f * kTwoPI))
     {
         ang -= 3.141592654f;
         sgn = -1.0f;
@@ -235,7 +235,7 @@ inline float hsFastMath::CosInRange(float ang)
 inline void hsFastMath::SinCos(float rads, float& sinRads, float& cosRads)
 {
     rads = fmodf(rads, kTwoPI);
-    if( rads < 0 )
+    if (rads < 0)
         rads += kTwoPI;
     SinCosInRange(rads, sinRads, cosRads);
 }
@@ -244,9 +244,9 @@ inline void hsFastMath::SinCosInRange(float ang, float& sinRads, float& cosRads)
 {
     float sgn = 1.f;
     
-    if(ang >= (0.75f * kTwoPI))
+    if (ang >= (0.75f * kTwoPI))
         ang -= kTwoPI;
-    else if(ang >= (0.25f * kTwoPI))
+    else if (ang >= (0.25f * kTwoPI))
     {
         ang -= 3.141592654f;
         sgn = -1.0f;
@@ -291,9 +291,9 @@ float ang, sgn;
         ang = (Angle & 65535) * ((1.0f/65536.0f) * TwoPI);
 
         sgn = 1.0f;
-        if(ang >= (0.75f * TwoPI))
+        if (ang >= (0.75f * TwoPI))
                 ang -= TwoPI;
-        else if(ang >= (0.25f * TwoPI))
+        else if (ang >= (0.25f * TwoPI))
         {
                 ang -= 3.141592654f;
                 sgn = -1.0f;

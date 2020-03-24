@@ -73,11 +73,11 @@ bool hsG3DDeviceMode::operator< (const hsG3DDeviceMode &mode) const
     if (fDepth < mode.GetColorDepth())
         return true;
     // Only compare width and height if the color depth is the same
-    else if (fDepth == mode.GetColorDepth() )
+    else if (fDepth == mode.GetColorDepth())
     {
-        if( fWidth < mode.GetWidth() )
+        if (fWidth < mode.GetWidth())
             return true;
-        else if( fWidth == mode.GetWidth() && fHeight < mode.GetHeight() )
+        else if (fWidth == mode.GetWidth() && fHeight < mode.GetHeight())
             return true;
     }
 
@@ -99,11 +99,11 @@ hsG3DDeviceRecord::hsG3DDeviceRecord()
     fG3DDeviceType(hsG3DDeviceSelector::kDevTypeUnknown),
     fLayersAtOnce(0), fMemoryBytes(0),
     fG3DHALorHEL(hsG3DDeviceSelector::kHHTypeUnknown),
-    fZBiasRating( 0 ), fLODBiasRating( 0 ),
-    fFogExpApproxStart( 0.0 ), fFogExp2ApproxStart( 0.0 ), fFogEndBias( 0.0 ), fMaxAnisotropicSamples( 1 )
+    fZBiasRating(0), fLODBiasRating(0),
+    fFogExpApproxStart(0.0), fFogExp2ApproxStart(0.0), fFogEndBias(0.0), fMaxAnisotropicSamples(1)
 {
-    SetFogKneeParams( kFogExp, 0, 0 );
-    SetFogKneeParams( kFogExp2, 0, 0 );
+    SetFogKneeParams(kFogExp, 0, 0);
+    SetFogKneeParams(kFogExp2, 0, 0);
 }
 
 hsG3DDeviceRecord::~hsG3DDeviceRecord()
@@ -115,9 +115,9 @@ hsG3DDeviceRecord::hsG3DDeviceRecord(const hsG3DDeviceRecord& src)
 :   fFlags(kNone),
     fG3DDeviceType(hsG3DDeviceSelector::kDevTypeUnknown),
     fG3DHALorHEL(hsG3DDeviceSelector::kHHTypeUnknown),
-    fZBiasRating( src.fZBiasRating ), fLODBiasRating( 0 ),
-    fFogExpApproxStart( src.fFogExpApproxStart ), fFogExp2ApproxStart( src.fFogExp2ApproxStart ),
-    fFogEndBias( src.fFogEndBias ), fMaxAnisotropicSamples( src.fMaxAnisotropicSamples )
+    fZBiasRating(src.fZBiasRating), fLODBiasRating(0),
+    fFogExpApproxStart(src.fFogExpApproxStart), fFogExp2ApproxStart(src.fFogExp2ApproxStart),
+    fFogEndBias(src.fFogEndBias), fMaxAnisotropicSamples(src.fMaxAnisotropicSamples)
 {
     *this = src;
 }
@@ -145,13 +145,13 @@ hsG3DDeviceRecord& hsG3DDeviceRecord::operator=(const hsG3DDeviceRecord& src)
 
     fModes.SetCount(src.fModes.GetCount());
     int i;
-    for( i = 0; i < fModes.GetCount(); i++ )
+    for (i = 0; i < fModes.GetCount(); i++)
         fModes[i] = src.fModes[i];
 
-    fFogKnees[ 0 ] = src.fFogKnees[ 0 ];
-    fFogKnees[ 1 ] = src.fFogKnees[ 1 ];
-    fFogKneeVals[ 0 ] = src.fFogKneeVals[ 0 ];
-    fFogKneeVals[ 1 ] = src.fFogKneeVals[ 1 ];
+    fFogKnees[0] = src.fFogKnees[0];
+    fFogKnees[1] = src.fFogKnees[1];
+    fFogKneeVals[0] = src.fFogKneeVals[0];
+    fFogKneeVals[1] = src.fFogKneeVals[1];
 
     fAASetting = src.fAASetting;
 
@@ -169,7 +169,7 @@ const char* hsG3DDeviceRecord::GetG3DDeviceTypeName() const
     };
 
     uint32_t devType = GetG3DDeviceType();
-    if( devType > hsG3DDeviceSelector::kNumDevTypes )
+    if (devType > hsG3DDeviceSelector::kNumDevTypes)
         devType = hsG3DDeviceSelector::kDevTypeUnknown;
     
     return deviceNames[devType];
@@ -178,9 +178,9 @@ const char* hsG3DDeviceRecord::GetG3DDeviceTypeName() const
 void hsG3DDeviceRecord::RemoveDiscarded()
 {
     int i;
-    for( i = 0; i < fModes.GetCount(); )
+    for (i = 0; i < fModes.GetCount(); )
     {
-        if( fModes[i].GetDiscarded() )
+        if (fModes[i].GetDiscarded())
         {
             fModes[i].Clear();
             fModes.Remove(i);
@@ -188,14 +188,14 @@ void hsG3DDeviceRecord::RemoveDiscarded()
         else
             i++;
     }
-    if( !fModes.GetCount() )
+    if (!fModes.GetCount())
         SetDiscarded(true);
 }
 
 void hsG3DDeviceRecord::ClearModes()
 {
     int i;
-    for( i = 0; i < fModes.GetCount(); i++ )
+    for (i = 0; i < fModes.GetCount(); i++)
         fModes[i].Clear();
     fModes.Reset();
 }
@@ -213,7 +213,7 @@ void hsG3DDeviceRecord::Clear()
     fLayersAtOnce = 0;
 
     int i;
-    for( i = 0; i < fModes.GetCount(); i++ )
+    for (i = 0; i < fModes.GetCount(); i++)
         fModes[i].Clear();
     fModes.Reset();
 
@@ -223,8 +223,8 @@ void hsG3DDeviceRecord::Clear()
     fFogExp2ApproxStart = 0;
     fFogEndBias = 0;
 
-    SetFogKneeParams( kFogExp, 0, 0 );
-    SetFogKneeParams( kFogExp2, 0, 0 );
+    SetFogKneeParams(kFogExp, 0, 0);
+    SetFogKneeParams(kFogExp2, 0, 0);
 
     fAASetting = 0;
     fMaxAnisotropicSamples = 1;
@@ -258,11 +258,11 @@ hsG3DDeviceSelector::~hsG3DDeviceSelector()
 void hsG3DDeviceSelector::IRemoveDiscarded()
 {
     int i;
-    for( i = 0; i < fRecords.GetCount(); )
+    for (i = 0; i < fRecords.GetCount(); )
     {
         fRecords[i].RemoveDiscarded();
 
-        if( fRecords[i].GetDiscarded() )
+        if (fRecords[i].GetDiscarded())
         {
             fRecords[i].Clear();
             fRecords.Remove(i);
@@ -275,7 +275,7 @@ void hsG3DDeviceSelector::IRemoveDiscarded()
 void hsG3DDeviceSelector::IClear()
 {
     int i;
-    for( i = 0; i < fRecords.GetCount(); i++ )
+    for (i = 0; i < fRecords.GetCount(); i++)
         fRecords[i].Clear();
     fRecords.Reset();
 }
@@ -331,20 +331,20 @@ void hsG3DDeviceSelector::RemoveUnusableDevModes(bool bTough)
 //  Microsoft, the best way to do this is to add in the memory necessary for
 //  the entire desktop. Okay, whatever...
 
-uint32_t  hsG3DDeviceSelector::IAdjustDirectXMemory( uint32_t cardMem )
+uint32_t  hsG3DDeviceSelector::IAdjustDirectXMemory(uint32_t cardMem)
 {
 #if HS_BUILD_FOR_WIN32
     HDC         deskDC;
     int         width, height, bpp, total;
 
-    deskDC = GetDC( nil );
-    width = GetDeviceCaps( deskDC, HORZRES );
-    height = GetDeviceCaps( deskDC, VERTRES );
-    bpp = GetDeviceCaps( deskDC, BITSPIXEL );
+    deskDC = GetDC(nil);
+    width = GetDeviceCaps(deskDC, HORZRES);
+    height = GetDeviceCaps(deskDC, VERTRES);
+    bpp = GetDeviceCaps(deskDC, BITSPIXEL);
     
     total = width * height;
-    if( bpp > 8 )
-        total *= ( bpp >> 3 );
+    if (bpp > 8)
+        total *= (bpp >> 3);
 
     return cardMem + total;
 #else
@@ -360,19 +360,19 @@ void hsG3DDeviceSelector::Enumerate(hsWinRef winRef)
     /// 9.6.2000 - Create the class to use as our temporary window class
     WNDCLASS    tempClass;
 
-    strcpy( fTempWinClass, "DSTestClass" );
-    memset( &tempClass, 0, sizeof( tempClass ) );
+    strcpy(fTempWinClass, "DSTestClass");
+    memset(&tempClass, 0, sizeof(tempClass));
     tempClass.lpfnWndProc = DefWindowProc;
-    tempClass.hInstance = GetModuleHandle( nil );
-    tempClass.hbrBackground = (HBRUSH)GetStockObject( BLACK_BRUSH );
+    tempClass.hInstance = GetModuleHandle(nil);
+    tempClass.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
     tempClass.lpszClassName = fTempWinClass;
     uint16_t ret = RegisterClass(&tempClass);
-    hsAssert(ret, "Cannot create temporary window class to test for device modes" );
+    hsAssert(ret, "Cannot create temporary window class to test for device modes");
 
     ITryDirect3DTnL(winRef);
 
     /// Get rid of the class
-    UnregisterClass( fTempWinClass, GetModuleHandle( nil ) );
+    UnregisterClass(fTempWinClass, GetModuleHandle(nil));
 #endif
 }
 
@@ -495,7 +495,7 @@ namespace
     /// to the linear fog-end parameter AFTER ALL CALCULATIONS. This is so we can, for
     /// example, tweak the end of the fog on the ATI Rage cards to not fog out as quickly.
     /// 9.14.2000 - fog end bias now has a new meaning. What it *really* represents is the
-    /// quantization of fog on a particular card, where the end bias = ( 2^bitdepth - 2 ) / ( 2^bitdepth - 1 )
+    /// quantization of fog on a particular card, where the end bias = (2^bitdepth - 2) / (2^bitdepth - 1)
     /// So, for 8 bit fog, we end up with 254 / 255, etc. So far, everything is set to 8
     /// bit fog, but we have it here just in case we need to change it in the future.
 
@@ -576,26 +576,26 @@ namespace
 //  flags and bias values, etc, accordingly
 
 #ifdef PLASMA_PIPELINE_DX
-void    hsG3DDeviceSelector::IFudgeDirectXDevice( hsG3DDeviceRecord &record,
+void    hsG3DDeviceSelector::IFudgeDirectXDevice(hsG3DDeviceRecord &record,
                                                     D3DEnum_DriverInfo *driverInfo,
-                                                    D3DEnum_DeviceInfo *deviceInfo )
+                                                    D3DEnum_DeviceInfo *deviceInfo)
 {
     uint32_t    vendorID, deviceID;
     char        *szDriver, *szDesc;
 
 
     /// Send it off to each D3D device, respectively
-    if( record.GetG3DDeviceType() == kDevTypeDirect3D )
+    if (record.GetG3DDeviceType() == kDevTypeDirect3D)
     {
-        if( !IGetD3DCardInfo( record, driverInfo, deviceInfo, &vendorID, &deviceID, &szDriver, &szDesc ) )
+        if (!IGetD3DCardInfo(record, driverInfo, deviceInfo, &vendorID, &deviceID, &szDriver, &szDesc))
         {
             // {} to make VC6 happy in release build
-            hsAssert( false, "Trying to fudge D3D device but D3D support isn't in this EXE!" );
+            hsAssert(false, "Trying to fudge D3D device but D3D support isn't in this EXE!");
         }
     }
     else
     {
-        hsAssert( false, "IFudgeDirectXDevice got a device type that support wasn't compiled for!" );
+        hsAssert(false, "IFudgeDirectXDevice got a device type that support wasn't compiled for!");
     }
 
     /// So capitalization won't matter in our tests
@@ -611,12 +611,12 @@ void    hsG3DDeviceSelector::IFudgeDirectXDevice( hsG3DDeviceRecord &record,
         if (radeon >= 0)
         {
             const char* str = desc.c_str() + radeon + strlen("radeon");
-            if( 1 == sscanf(str, "%d", &series) )
+            if (1 == sscanf(str, "%d", &series))
             {
-                if( (series >= 8000) && (series < 9000) )
+                if ((series >= 8000) && (series < 9000))
                 {
-                    hsStatusMessage( "== Using fudge factors for ATI Radeon 8X00 chipset ==\n" );
-                    ISetFudgeFactors( kATIR8X00Chipset, record );
+                    hsStatusMessage("== Using fudge factors for ATI Radeon 8X00 chipset ==\n");
+                    ISetFudgeFactors(kATIR8X00Chipset, record);
                 }
                 else if (series >= 9000)
                 {
@@ -638,24 +638,24 @@ void    hsG3DDeviceSelector::IFudgeDirectXDevice( hsG3DDeviceRecord &record,
 
     //// Other Cards //////////////////////////////////////////////////////////
     /// Detect Intel i810 chipset
-    else if( deviceID == 0x00007125 &&
-                ( stricmp( szDriver, "i81xdd.dll" ) == 0
-                  || ( desc.find("intel") >= 0 && desc.find("810") >= 0 ) ) )
+    else if (deviceID == 0x00007125 &&
+                (stricmp(szDriver, "i81xdd.dll") == 0
+                  || (desc.find("intel") >= 0 && desc.find("810") >= 0)))
     {
-        hsStatusMessage( "== Using fudge factors for an Intel i810 chipset ==\n" );
-        ISetFudgeFactors( kIntelI810Chipset, record );
+        hsStatusMessage("== Using fudge factors for an Intel i810 chipset ==\n");
+        ISetFudgeFactors(kIntelI810Chipset, record);
     }
     /// Detect for a GeForc FX card. We only need to nerf the really low end one.
-    else if( desc.find("nvidia") >= 0 && desc.find("geforce fx 5200") >= 0 )
+    else if (desc.find("nvidia") >= 0 && desc.find("geforce fx 5200") >= 0)
     {
-        hsStatusMessage( "== Using fudge factors for an NVidia GeForceFX-based chipset ==\n" );
-        ISetFudgeFactors( kNVidiaGeForceFXChipset, record );
+        hsStatusMessage("== Using fudge factors for an NVidia GeForceFX-based chipset ==\n");
+        ISetFudgeFactors(kNVidiaGeForceFXChipset, record);
     }
     /// Default fudge values
     else
     {
-        hsStatusMessage( "== Using default fudge factors ==\n" );
-        ISetFudgeFactors( kDefaultChipset, record );
+        hsStatusMessage("== Using default fudge factors ==\n");
+        ISetFudgeFactors(kDefaultChipset, record);
     }
 }
 #endif
@@ -664,56 +664,56 @@ void    hsG3DDeviceSelector::IFudgeDirectXDevice( hsG3DDeviceRecord &record,
 //  Given a chipset ID, looks the values up in the CFT and sets the appropriate
 //  values.
 
-void    hsG3DDeviceSelector::ISetFudgeFactors( uint8_t chipsetID, hsG3DDeviceRecord &record )
+void    hsG3DDeviceSelector::ISetFudgeFactors(uint8_t chipsetID, hsG3DDeviceRecord &record)
 {
     int     i, maxIDs, j;
 
 
-    maxIDs = sizeof( dsCFTable ) / sizeof( dsCFTable[ 0 ] );
+    maxIDs = sizeof(dsCFTable) / sizeof(dsCFTable[0]);
 
     /// Search for our chipset
-    for( i = 0; i < maxIDs; i++ )
+    for (i = 0; i < maxIDs; i++)
     {
-        if( dsCFTable[ i ].fType == chipsetID )
+        if (dsCFTable[i].fType == chipsetID)
         {
             /// Found it!
 
             // Flags to force set
-            if( dsCFTable[ i ].fFlagsToSet != nil )
+            if (dsCFTable[i].fFlagsToSet != nil)
             {
-                for( j = 0; j < dsCFTable[ i ].fFlagsToSet[ 0 ]; j++ )
-                    record.SetCap( dsCFTable[ i ].fFlagsToSet[ j + 1 ] );
+                for (j = 0; j < dsCFTable[i].fFlagsToSet[0]; j++)
+                    record.SetCap(dsCFTable[i].fFlagsToSet[j + 1]);
             }
 
             // Flags to force clear
-            if( dsCFTable[ i ].fFlagsToClear != nil )
+            if (dsCFTable[i].fFlagsToClear != nil)
             {
-                for( j = 0; j < dsCFTable[ i ].fFlagsToClear[ 0 ]; j++ )
-                    record.SetCap( dsCFTable[ i ].fFlagsToClear[ j + 1 ], false );
+                for (j = 0; j < dsCFTable[i].fFlagsToClear[0]; j++)
+                    record.SetCap(dsCFTable[i].fFlagsToClear[j + 1], false);
             }
 
             // Suckiness
-            record.SetZBiasRating( dsCFTable[ i ].fZSuckiness );
+            record.SetZBiasRating(dsCFTable[i].fZSuckiness);
 
             // Max # of layers
-            if( dsCFTable[ i ].fForceMaxLayers > 0 )
-                record.SetLayersAtOnce( dsCFTable[ i ].fForceMaxLayers );
+            if (dsCFTable[i].fForceMaxLayers > 0)
+                record.SetLayersAtOnce(dsCFTable[i].fForceMaxLayers);
 
             // LOD bias rating
-            record.SetLODBiasRating( dsCFTable[ i ].fLODRating );
+            record.SetLODBiasRating(dsCFTable[i].fLODRating);
 
             // Fog tweaks
-            FogTweakTable   *fogTweaks = dsCFTable[ i ].fFogTweaks;
+            FogTweakTable   *fogTweaks = dsCFTable[i].fFogTweaks;
 
-            record.SetFogApproxStarts( fogTweaks->fFogExpApproxStart, fogTweaks->fFogExp2ApproxStart );
-            record.SetFogEndBias( fogTweaks->fFogEndBias );
-            record.SetFogKneeParams( hsG3DDeviceRecord::kFogExp, fogTweaks->fFogExpKnee, fogTweaks->fFogExpKneeVal );
-            record.SetFogKneeParams( hsG3DDeviceRecord::kFogExp2, fogTweaks->fFogExp2Knee, fogTweaks->fFogExp2KneeVal );
+            record.SetFogApproxStarts(fogTweaks->fFogExpApproxStart, fogTweaks->fFogExp2ApproxStart);
+            record.SetFogEndBias(fogTweaks->fFogEndBias);
+            record.SetFogKneeParams(hsG3DDeviceRecord::kFogExp, fogTweaks->fFogExpKnee, fogTweaks->fFogExpKneeVal);
+            record.SetFogKneeParams(hsG3DDeviceRecord::kFogExp2, fogTweaks->fFogExp2Knee, fogTweaks->fFogExp2KneeVal);
 
-            if( record.GetCap(kCapsNoAA) )
+            if (record.GetCap(kCapsNoAA))
             {
                 int j;
-                for( j = 0; j < record.GetModes().GetCount(); j++ )
+                for (j = 0; j < record.GetModes().GetCount(); j++)
                     record.GetModes()[j].ClearFSAATypes();
             }
 

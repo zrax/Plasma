@@ -124,7 +124,7 @@ public:
 
 inline plAccessVtxSpan& plAccessSpan::AccessVtx()
 {
-    switch( fType )
+    switch (fType)
     {
     case kTri:
         return fAccess.fAccessTri;

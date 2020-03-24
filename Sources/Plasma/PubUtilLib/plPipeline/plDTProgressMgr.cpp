@@ -100,7 +100,7 @@ void    plDTProgressMgr::Activate()
 
     if (fActivePlate == nil)
     {
-        plPlateManager::Instance().CreatePlate( &fActivePlate );
+        plPlateManager::Instance().CreatePlate(&fActivePlate);
 
         fActivePlate->CreateFromResource(plProgressMgr::GetLoadingFrameID(fCurrentImage));
         fActivePlate->SetVisible(true);
@@ -115,21 +115,21 @@ void    plDTProgressMgr::Deactivate()
     if (fStaticTextPlate)
     {
         fStaticTextPlate->SetVisible(false);
-        plPlateManager::Instance().DestroyPlate( fStaticTextPlate );
+        plPlateManager::Instance().DestroyPlate(fStaticTextPlate);
         fStaticTextPlate = nil;
     }
 
     if (fActivePlate)
     {
         fActivePlate->SetVisible(false);
-        plPlateManager::Instance().DestroyPlate( fActivePlate );
+        plPlateManager::Instance().DestroyPlate(fActivePlate);
         fActivePlate = nil;
     }
 }
 
 //// Draw ////////////////////////////////////////////////////////////////////
 
-void    plDTProgressMgr::Draw( plPipeline *p )
+void    plDTProgressMgr::Draw(plPipeline *p)
 {
     uint16_t      scrnWidth, scrnHeight, width, height, x, y;
     plDebugText &text = plDebugText::Instance();
@@ -137,7 +137,7 @@ void    plDTProgressMgr::Draw( plPipeline *p )
     plOperationProgress *prog;
 
 
-    if( fOperations == nil )
+    if (fOperations == nil)
         return;
 
     scrnWidth = (uint16_t)p->Width();
@@ -145,11 +145,11 @@ void    plDTProgressMgr::Draw( plPipeline *p )
 
     width = scrnWidth - 64;
     height = 16;
-    x = ( scrnWidth - width ) >> 1;
+    x = (scrnWidth - width) >> 1;
     y = scrnHeight - 44 - (2 * height) - text.GetFontSize();
 
 
-    text.SetDrawOnTopMode( true );
+    text.SetDrawOnTopMode(true);
 
     if (fActivePlate)
     {
@@ -170,13 +170,13 @@ void    plDTProgressMgr::Draw( plPipeline *p )
         }
     }
 
-    for( prog = fOperations; prog != nil; prog = prog->GetNext() )
+    for (prog = fOperations; prog != nil; prog = prog->GetNext())
     {
         if (IDrawTheStupidThing(p, prog, x, y, width, height))
             y -= text.GetFontSize() + 8 + height + 4;
     }
 
-    text.SetDrawOnTopMode( false );
+    text.SetDrawOnTopMode(false);
 }
 
 //// IDrawTheStupidThing /////////////////////////////////////////////////////

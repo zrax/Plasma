@@ -75,7 +75,7 @@ void plAnimPath::Reset()
 void plAnimPath::SetCurTime(float t, uint32_t calcFlags)
 {
     fTime = t;
-    if( !fController )
+    if (!fController)
     {
         fPos.Set(0,0,0);
         fXform.Reset();
@@ -86,13 +86,13 @@ void plAnimPath::SetCurTime(float t, uint32_t calcFlags)
 
     float t0, t1, t2;
 
-    if( t < kSmallDelTime )
+    if (t < kSmallDelTime)
     {
         t0 = t;
         t1 = t + kSmallDelTime;
         t2 = t + 2 * kSmallDelTime;
     }
-    else if( t > fLength - kSmallDelTime )
+    else if (t > fLength - kSmallDelTime)
     {
         t0 = t - 2 * kSmallDelTime;
         t1 = t - kSmallDelTime;
@@ -139,7 +139,7 @@ void plAnimPath::SetCurTime(float t, uint32_t calcFlags)
 
 void plAnimPath::ICalcBounds()
 {
-    if( !fController )
+    if (!fController)
         return;
 
     plController* pc = fController->GetPosController();
@@ -149,7 +149,7 @@ void plAnimPath::ICalcBounds()
     hsTArray<float> keyTimes;
     pc->GetKeyTimes(keyTimes);
     fCenter.Set(0,0,0);
-    for( i = 0; i < keyTimes.GetCount() ; i++ )
+    for (i = 0; i < keyTimes.GetCount() ; i++)
     {
         pc->Interp(keyTimes[i], &pos);
         fCenter += pos;
@@ -157,18 +157,18 @@ void plAnimPath::ICalcBounds()
     fCenter *= hsInvert((float)keyTimes.GetCount());
 
     fRadius = 0;
-    for( i = 0; i < keyTimes.GetCount(); i++ )
+    for (i = 0; i < keyTimes.GetCount(); i++)
     {
         pc->Interp(keyTimes[i], &pos);
         float rad = (pos - fCenter).Magnitude();
-        if( rad > fRadius )
+        if (rad > fRadius)
             fRadius = rad;
     }
 }
 
 float plAnimPath::ICalcTotalLength()
 {
-    if( !(fController && fController->GetPosController()) )
+    if (!(fController && fController->GetPosController()))
         return 0;
 
     fLength = fController->GetPosController()->GetLength();
@@ -236,12 +236,12 @@ bool plAnimPath::OutOfRange(hsPoint3 &worldPt, float range) const
     hsPoint3 pt = fWorldToLocal * worldPt;
 
     float radius = (pt - fCenter).Magnitude() - fRadius;
-    return( radius > range );
+    return (radius > range);
 }
 
 float plAnimPath::GetExtremePoint(hsPoint3 &worldPt) const
 {
-    if( !fController )
+    if (!fController)
         return 0;
 
     hsPoint3 pt = fWorldToLocal * worldPt;
@@ -254,19 +254,19 @@ float plAnimPath::GetExtremePoint(hsPoint3 &worldPt) const
     int i;
     hsTArray<float> keyTimes;
     pc->GetKeyTimes(keyTimes);
-    for( i = 0; i < keyTimes.GetCount(); i++ )
+    for (i = 0; i < keyTimes.GetCount(); i++)
     {
         float t = keyTimes[i];
         hsPoint3 pos;
         pc->Interp(t, &pos);    // handles easing
         float distSq = (pt - pos).MagnitudeSquared();
-        if( distSq < minDistSq )
+        if (distSq < minDistSq)
         {
             minDistSq = distSq;
             minTime = t;
-            if( 0 == i )
+            if (0 == i)
                 delTime = keyTimes[i+1] - t;
-            else if( keyTimes.GetCount() - 1 == i )
+            else if (keyTimes.GetCount() - 1 == i)
                 delTime = t - keyTimes[i - 1];
             else
             {
@@ -282,7 +282,7 @@ float plAnimPath::GetExtremePoint(hsPoint3 &worldPt) const
 
 float plAnimPath::GetExtremePoint(float lastTime, float delTime, hsPoint3 &worldPt) const
 {
-    if( !fController )
+    if (!fController)
         return 0;
 
     hsPoint3 pt = fWorldToLocal * worldPt;
@@ -293,44 +293,44 @@ float plAnimPath::GetExtremePoint(float lastTime, float delTime, hsPoint3 &world
 
 float plAnimPath::ICheckInterval(hsPoint3 &pt) const
 {
-    if( fDelTime <= kTerminateDelTime &&
+    if (fDelTime <= kTerminateDelTime &&
         hsVector3(&fCurPos, &fPrevPos).MagnitudeSquared() < kTerminateDelDistSq)
     {
         return IBestTime();
     }
 
-    if( fThisTime < 0 )
+    if (fThisTime < 0)
         return 0;
 
-    if( fThisTime > fLength )
+    if (fThisTime > fLength)
         return fLength;
 
-    if( GetFarthest() )
+    if (GetFarthest())
     {
-        if( (fLastDistSq > fThisDistSq)&&(fLastDistSq >= fNextDistSq) )
+        if ((fLastDistSq > fThisDistSq)&&(fLastDistSq >= fNextDistSq))
             return IShiftBack(pt);
 
-        if( (fNextDistSq > fThisDistSq)&&(fNextDistSq >= fLastDistSq) )
+        if ((fNextDistSq > fThisDistSq)&&(fNextDistSq >= fLastDistSq))
             return IShiftFore(pt);
 
-        if( (fThisDistSq >= fLastDistSq)&&(fLastDistSq >= fNextDistSq) )
+        if ((fThisDistSq >= fLastDistSq)&&(fLastDistSq >= fNextDistSq))
             return ISubDivBack(pt);
 
-        if( (fThisDistSq >= fNextDistSq)&&(fNextDistSq >= fLastDistSq) )
+        if ((fThisDistSq >= fNextDistSq)&&(fNextDistSq >= fLastDistSq))
             return ISubDivFore(pt);
     }
     else
     {
-        if( (fLastDistSq < fThisDistSq)&&(fLastDistSq <= fNextDistSq) )
+        if ((fLastDistSq < fThisDistSq)&&(fLastDistSq <= fNextDistSq))
             return IShiftBack(pt);
 
-        if( (fNextDistSq < fThisDistSq)&&(fNextDistSq <= fLastDistSq) )
+        if ((fNextDistSq < fThisDistSq)&&(fNextDistSq <= fLastDistSq))
             return IShiftFore(pt);
 
-        if( (fThisDistSq <= fLastDistSq)&&(fLastDistSq <= fNextDistSq) )
+        if ((fThisDistSq <= fLastDistSq)&&(fLastDistSq <= fNextDistSq))
             return ISubDivBack(pt);
 
-        if( (fThisDistSq <= fNextDistSq)&&(fNextDistSq <= fLastDistSq) )
+        if ((fThisDistSq <= fNextDistSq)&&(fNextDistSq <= fLastDistSq))
             return ISubDivFore(pt);
     }
 
@@ -345,23 +345,23 @@ void plAnimPath::IInitInterval(float time, float delTime, hsPoint3 &pt) const
     hsPoint3 pos;
 
     fDelTime = delTime;
-    if( fDelTime <= kTerminateDelTime )
+    if (fDelTime <= kTerminateDelTime)
         fDelTime = kTerminateDelTime * 2;
     else
-    if( fDelTime > fLength * 0.5f )
+    if (fDelTime > fLength * 0.5f)
         fDelTime = fLength * 0.5f;
 
     fThisTime = time;
-    if( fThisTime < fDelTime )
+    if (fThisTime < fDelTime)
         fThisTime = fDelTime;
-    else if( fThisTime > fLength - fDelTime )
+    else if (fThisTime > fLength - fDelTime)
         fThisTime = fLength - fDelTime;
     pc->Interp(fThisTime, &pos);
     fPrevPos=fCurPos=pos;
     fThisDistSq = (pos - pt).MagnitudeSquared();
     
     fNextTime = fThisTime + delTime;
-    if( fNextTime > fLength )
+    if (fNextTime > fLength)
         fNextTime = fLength;
     if (!(GetAnimPathFlags() & kFavorBwdSearch))
     {
@@ -374,7 +374,7 @@ void plAnimPath::IInitInterval(float time, float delTime, hsPoint3 &pt) const
     }
 
     fLastTime = fThisTime - delTime;
-    if( fLastTime < 0 )
+    if (fLastTime < 0)
         fLastTime = 0;
     if (!(GetAnimPathFlags() & kFavorFwdSearch))
     {
@@ -386,18 +386,18 @@ void plAnimPath::IInitInterval(float time, float delTime, hsPoint3 &pt) const
         fLastDistSq = 1.e33f;
     }
 
-    if( fMinDistSq != 0 )
+    if (fMinDistSq != 0)
     {
         fThisDistSq -= fMinDistSq;
-        if( fThisDistSq < 0 )
+        if (fThisDistSq < 0)
             fThisDistSq = -fThisDistSq;
 
         fNextDistSq -= fMinDistSq;
-        if( fNextDistSq < 0 )
+        if (fNextDistSq < 0)
             fNextDistSq = -fNextDistSq;
 
         fLastDistSq -= fMinDistSq;
-        if( fLastDistSq < 0 )
+        if (fLastDistSq < 0)
             fLastDistSq = -fLastDistSq;
     }
 }
@@ -417,7 +417,7 @@ float plAnimPath::ISubDivBack(hsPoint3 &pt) const
     hsPoint3 pos;
     pc->Interp(fThisTime, &pos);
     fThisDistSq = (pos - pt).MagnitudeSquared() - fMinDistSq;
-    if( fThisDistSq < 0 )
+    if (fThisDistSq < 0)
         fThisDistSq = -fThisDistSq;
 
     fPrevPos=fCurPos;
@@ -441,7 +441,7 @@ float plAnimPath::ISubDivFore(hsPoint3 &pt) const
     hsPoint3 pos;
     pc->Interp(fThisTime, &pos);
     fThisDistSq = (pos - pt).MagnitudeSquared() - fMinDistSq;
-    if( fThisDistSq < 0 )
+    if (fThisDistSq < 0)
         fThisDistSq = -fThisDistSq;
 
     fPrevPos=fCurPos;
@@ -452,7 +452,7 @@ float plAnimPath::ISubDivFore(hsPoint3 &pt) const
 
 float plAnimPath::IShiftBack(hsPoint3 &pt) const
 {
-    if( !GetWrap() && (fLastTime <= 0) )
+    if (!GetWrap() && (fLastTime <= 0))
         return ISubDivBack(pt);
 
     fNextTime = fThisTime;
@@ -462,13 +462,13 @@ float plAnimPath::IShiftBack(hsPoint3 &pt) const
     fThisDistSq = fLastDistSq;
 
     fLastTime -= fDelTime;
-    if( fLastTime < 0 )
+    if (fLastTime < 0)
         fLastTime = GetWrap() ? fLength + fLastTime : 0;
     plController* pc = fController->GetPosController();
     hsPoint3 pos;
     pc->Interp(fLastTime, &pos);
     fLastDistSq = (pos - pt).MagnitudeSquared() - fMinDistSq;
-    if( fLastDistSq < 0 )
+    if (fLastDistSq < 0)
         fLastDistSq = -fLastDistSq;
 
     fPrevPos=fCurPos;
@@ -479,7 +479,7 @@ float plAnimPath::IShiftBack(hsPoint3 &pt) const
 
 float plAnimPath::IShiftFore(hsPoint3 &pt) const
 {
-    if( !GetWrap() &&(fNextTime >= fLength) )
+    if (!GetWrap() &&(fNextTime >= fLength))
         return ISubDivFore(pt);
 
     fLastTime = fThisTime;
@@ -489,13 +489,13 @@ float plAnimPath::IShiftFore(hsPoint3 &pt) const
     fThisDistSq = fNextDistSq;
 
     fNextTime += fDelTime;
-    if( fNextTime > fLength )
+    if (fNextTime > fLength)
         fNextTime = GetWrap() ? fNextTime - fLength : fLength;
     plController* pc = fController->GetPosController();
     hsPoint3 pos;
     pc->Interp(fNextTime, &pos);
     fNextDistSq = (pos - pt).MagnitudeSquared() - fMinDistSq;
-    if( fNextDistSq < 0 )
+    if (fNextDistSq < 0)
         fNextDistSq = -fNextDistSq;
 
     fPrevPos=fCurPos;
@@ -520,7 +520,7 @@ void plAnimPath::IMakeSegment(hsTArray<uint16_t>& idx, hsTArray<hsPoint3>& pos,
 
     hsVector3 a = del % up;
     float magSq = a.MagnitudeSquared();
-    if( magSq < 1.e-3f )
+    if (magSq < 1.e-3f)
     {
         a.Set(kOutLength, 0, 0);
     }
@@ -570,7 +570,7 @@ void plAnimPath::IMakeSegment(hsTArray<uint16_t>& idx, hsTArray<hsPoint3>& pos,
     pos.Append(p2out);
 
     int i;
-    for( i = 0; i < 4; i++ )
+    for (i = 0; i < 4; i++)
     {
         int outIdx = baseIdx + 2 + i * 2;
         idx.Append(baseIdx);
@@ -605,7 +605,7 @@ void plAnimPath::MakeDrawList(hsTArray<uint16_t>& idx, hsTArray<hsPoint3>& pos)
 
     time += timeInc;
     bool quit=false;
-    while(! quit && time < animLen+timeInc)
+    while (! quit && time < animLen+timeInc)
     {
         if (time > animLen)
         {
@@ -653,7 +653,7 @@ void plAnimPath::ComputeArcLenDeltas(int32_t numSamples)
     time += timeInc;
 
     bool quit=false;
-    while(!quit && time<animLen+timeInc)
+    while (!quit && time<animLen+timeInc)
     {
         if (time > animLen || cnt+1 == numSamples)
         {
@@ -703,7 +703,7 @@ float plAnimPath::GetLookAheadTime(float startTime, float arcLengthIn, bool bwd,
     // find nearest (forward) arcLen sample point, use starting srch index provided
     bool found=false;
     int32_t i;
-    for(i=(*startSrchIdx); i<fArcLenDeltas.GetCount()-1; i++)
+    for (i=(*startSrchIdx); i<fArcLenDeltas.GetCount()-1; i++)
     {
         if (fArcLenDeltas[i].fT<=startTime && startTime<fArcLenDeltas[i+1].fT)
         {
@@ -723,7 +723,7 @@ float plAnimPath::GetLookAheadTime(float startTime, float arcLengthIn, bool bwd,
         }
         else
         {
-            for(i=0; i<*startSrchIdx; i++)
+            for (i=0; i<*startSrchIdx; i++)
             {
                 if (fArcLenDeltas[i].fT<=startTime && startTime<fArcLenDeltas[i+1].fT)
                 {
@@ -755,7 +755,7 @@ float plAnimPath::GetLookAheadTime(float startTime, float arcLengthIn, bool bwd,
     // now sum distance deltas until we exceed the desired arcLen
     if (curArcLen<arcLengthIn)
     {
-        for(i=bwd ? nearestIdx : nearestIdx+inc; i<fArcLenDeltas.GetCount() && i>=0; i+=inc)
+        for (i=bwd ? nearestIdx : nearestIdx+inc; i<fArcLenDeltas.GetCount() && i>=0; i+=inc)
         {
             if (curArcLen+fArcLenDeltas[i].fArcLenDelta>arcLengthIn)
             {
@@ -767,7 +767,7 @@ float plAnimPath::GetLookAheadTime(float startTime, float arcLengthIn, bool bwd,
             curArcLen += fArcLenDeltas[i].fArcLenDelta;
         }
         
-        if ( (i==fArcLenDeltas.GetCount() && !bwd) || (i<0 && bwd) )
+        if ((i==fArcLenDeltas.GetCount() && !bwd) || (i<0 && bwd))
         {
             quit=true;
             timeOut = bwd ? 0 : GetLength();

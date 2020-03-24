@@ -84,22 +84,22 @@ public:
     plAgeInfoStruct * GetAgeInfo() { return &fAgeInfo; }
     const plAgeInfoStruct * GetAgeInfo() const { return &fAgeInfo; }
     static void PythonModDef();
-    void    CopyFrom( const pyAgeInfoStruct & other );
-    void    CopyFromRef( const pyAgeInfoStructRef & other );
+    void    CopyFrom(const pyAgeInfoStruct & other);
+    void    CopyFromRef(const pyAgeInfoStructRef & other);
     ST::string GetAgeFilename() const;
-    void    SetAgeFilename( const ST::string & v );
+    void    SetAgeFilename(const ST::string & v);
     ST::string GetAgeInstanceName() const;
-    void    SetAgeInstanceName( const ST::string & v );
+    void    SetAgeInstanceName(const ST::string & v);
     ST::string GetAgeUserDefinedName() const;
-    void    SetAgeUserDefinedName( const ST::string & v );
+    void    SetAgeUserDefinedName(const ST::string & v);
     ST::string GetAgeDescription() const;
-    void    SetAgeDescription( const ST::string & v );
+    void    SetAgeDescription(const ST::string & v);
     const char * GetAgeInstanceGuid() const;
-    void    SetAgeInstanceGuid( const char * guid );
+    void    SetAgeInstanceGuid(const char * guid);
     int32_t   GetAgeSequenceNumber() const;
-    void    SetAgeSequenceNumber( int32_t v );
+    void    SetAgeSequenceNumber(int32_t v);
     int32_t   GetAgeLanguage() const;
-    void    SetAgeLanguage( int32_t v );
+    void    SetAgeLanguage(int32_t v);
     ST::string GetDisplayName() const;
 };
 
@@ -113,8 +113,8 @@ private:
     mutable ST::string fDisplayName;          // used by GetDisplayName()
 
 protected:
-    pyAgeInfoStructRef(): fAgeInfo( fDefaultAgeInfo ) {} // only here for the python glue... do NOT call directly
-    pyAgeInfoStructRef(plAgeInfoStruct & info): fAgeInfo( info ){}
+    pyAgeInfoStructRef(): fAgeInfo(fDefaultAgeInfo) {} // only here for the python glue... do NOT call directly
+    pyAgeInfoStructRef(plAgeInfoStruct & info): fAgeInfo(info){}
 
 public:
     ~pyAgeInfoStructRef() {}
@@ -129,18 +129,18 @@ public:
 
     plAgeInfoStruct * GetAgeInfo() { return &fAgeInfo; }
     const plAgeInfoStruct * GetAgeInfo() const { return &fAgeInfo; }
-    void    CopyFrom( const pyAgeInfoStruct & other );
-    void    CopyFromRef( const pyAgeInfoStructRef & other );
+    void    CopyFrom(const pyAgeInfoStruct & other);
+    void    CopyFromRef(const pyAgeInfoStructRef & other);
     ST::string GetAgeFilename() const;
-    void    SetAgeFilename( const ST::string & v );
+    void    SetAgeFilename(const ST::string & v);
     ST::string GetAgeInstanceName() const;
-    void    SetAgeInstanceName( const ST::string & v );
+    void    SetAgeInstanceName(const ST::string & v);
     ST::string GetAgeUserDefinedName() const;
-    void    SetAgeUserDefinedName( const ST::string & v );
+    void    SetAgeUserDefinedName(const ST::string & v);
     const char * GetAgeInstanceGuid() const;
-    void    SetAgeInstanceGuid( const char * guid );
+    void    SetAgeInstanceGuid(const char * guid);
     int32_t   GetAgeSequenceNumber() const;
-    void    SetAgeSequenceNumber( int32_t v );
+    void    SetAgeSequenceNumber(int32_t v);
     ST::string GetDisplayName() const;
 };
 

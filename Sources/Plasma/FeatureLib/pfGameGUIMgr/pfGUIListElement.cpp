@@ -61,14 +61,14 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 //// Base Stuff //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
-void    pfGUIListElement::Read( hsStream *s, hsResMgr *mgr )
+void    pfGUIListElement::Read(hsStream *s, hsResMgr *mgr)
 {
     fSelected = s->ReadBool();
 }
 
-void    pfGUIListElement::Write( hsStream *s, hsResMgr *mgr )
+void    pfGUIListElement::Write(hsStream *s, hsResMgr *mgr)
 {
-    s->WriteBool( fSelected );
+    s->WriteBool(fSelected);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -82,70 +82,70 @@ pfGUIListText::pfGUIListText()
 {
 }
 
-pfGUIListText::pfGUIListText( const ST::string &text )
+pfGUIListText::pfGUIListText(const ST::string &text)
     : pfGUIListElement(kText), fText(text), fJustify(kLeftJustify)
 {
 }
 
 //// Virtuals ////////////////////////////////////////////////////////////////
 
-void    pfGUIListText::Read( hsStream *s, hsResMgr *mgr )
+void    pfGUIListText::Read(hsStream *s, hsResMgr *mgr)
 {
-    pfGUIListElement::Read( s, mgr );
+    pfGUIListElement::Read(s, mgr);
 
     fText = s->ReadSafeString();
 }
 
-void    pfGUIListText::Write( hsStream *s, hsResMgr *mgr )
+void    pfGUIListText::Write(hsStream *s, hsResMgr *mgr)
 {
-    pfGUIListElement::Write( s, mgr );
+    pfGUIListElement::Write(s, mgr);
 
     s->WriteSafeString(fText);
 }
 
-bool    pfGUIListText::Draw( plDynamicTextMap *textGen, uint16_t x, uint16_t y, uint16_t maxWidth, uint16_t maxHeight )
+bool    pfGUIListText::Draw(plDynamicTextMap *textGen, uint16_t x, uint16_t y, uint16_t maxWidth, uint16_t maxHeight)
 {
-    textGen->SetJustify( (plDynamicTextMap::Justify)fJustify );
-    if( fSelected )
+    textGen->SetJustify((plDynamicTextMap::Justify)fJustify);
+    if (fSelected)
     {
-        textGen->FillRect( x, y, maxWidth, maxHeight, fColors->fSelBackColor );
-        textGen->SetTextColor( fColors->fSelForeColor, fColors->fTransparent && fColors->fSelBackColor.a == 0.f );
+        textGen->FillRect(x, y, maxWidth, maxHeight, fColors->fSelBackColor);
+        textGen->SetTextColor(fColors->fSelForeColor, fColors->fTransparent && fColors->fSelBackColor.a == 0.f);
     }
     else
     {
         // Normal back color will be cleared for us
-        textGen->SetTextColor( fColors->fForeColor, fColors->fTransparent && fColors->fBackColor.a == 0.f );
+        textGen->SetTextColor(fColors->fForeColor, fColors->fTransparent && fColors->fBackColor.a == 0.f);
     }
 
-    textGen->DrawClippedString( x + 4, y, GetText(), maxWidth - 8, maxHeight );
+    textGen->DrawClippedString(x + 4, y, GetText(), maxWidth - 8, maxHeight);
     return true;
 }
 
-void    pfGUIListText::GetSize( plDynamicTextMap *textGen, uint16_t *width, uint16_t *height )
+void    pfGUIListText::GetSize(plDynamicTextMap *textGen, uint16_t *width, uint16_t *height)
 {
-    *width = textGen->CalcStringWidth( GetText(), height );
-    if( height != nil )
+    *width = textGen->CalcStringWidth(GetText(), height);
+    if (height != nil)
     {
-        if( *height == 0 )
+        if (*height == 0)
             *height = 10;       // Never allow zero height elements
         else
             *height += 0;       // Add one pixel on each side for padding (or not, 3.21.02 mcn)
     }
 }
 
-int     pfGUIListText::CompareTo( pfGUIListElement *rightSide )
+int     pfGUIListText::CompareTo(pfGUIListElement *rightSide)
 {
     pfGUIListText *text = (pfGUIListText *)rightSide;
     
-    if( text->fType != kText )
+    if (text->fType != kText)
         return -2;
 
     return GetText().compare(text->GetText());
 }
 
-void    pfGUIListText::SetJustify( JustifyTypes justify )
+void    pfGUIListText::SetJustify(JustifyTypes justify)
 {
-    switch( justify )
+    switch (justify)
     {
         case kRightJustify:
             fJustify = plDynamicTextMap::kRightJustify;
@@ -167,25 +167,25 @@ void    pfGUIListText::SetJustify( JustifyTypes justify )
 
 //// Constructor/Destructor //////////////////////////////////////////////////
 
-pfGUIListPicture::pfGUIListPicture() : pfGUIListElement( kPicture )
+pfGUIListPicture::pfGUIListPicture() : pfGUIListElement(kPicture)
 {
     fBorderSize = 2;
     fMipmapKey = nil;
 }
 
-pfGUIListPicture::pfGUIListPicture( plKey mipKey, bool respectAlpha ) : pfGUIListElement( kPicture )
+pfGUIListPicture::pfGUIListPicture(plKey mipKey, bool respectAlpha) : pfGUIListElement(kPicture)
 {
     fBorderSize = 2;
     fMipmapKey = mipKey;
     fRespectAlpha = respectAlpha;
 
-    plMipmap *mip = plMipmap::ConvertNoRef( fMipmapKey->ObjectIsLoaded() );
-    if( mip != nil && mip->IsCompressed() )
+    plMipmap *mip = plMipmap::ConvertNoRef(fMipmapKey->ObjectIsLoaded());
+    if (mip != nil && mip->IsCompressed())
     {
         // Gotta make and grab an uncompressed one
-        plMipmap *uncompBuffer = hsCodecManager::Instance().CreateUncompressedMipmap( mip, hsCodecManager::k32BitDepth );
+        plMipmap *uncompBuffer = hsCodecManager::Instance().CreateUncompressedMipmap(mip, hsCodecManager::k32BitDepth);
         ST::string str = ST::format("{}_uncomp", mip->GetKeyName());
-        fMipmapKey = hsgResMgr::ResMgr()->NewKey( str, uncompBuffer, fMipmapKey->GetUoid().GetLocation() );
+        fMipmapKey = hsgResMgr::ResMgr()->NewKey(str, uncompBuffer, fMipmapKey->GetUoid().GetLocation());
         fMipmapKey->RefObject();
     }
 }
@@ -198,55 +198,55 @@ pfGUIListPicture::~pfGUIListPicture()
 
 //// Virtuals ////////////////////////////////////////////////////////////////
 
-void    pfGUIListPicture::Read( hsStream *s, hsResMgr *mgr )
+void    pfGUIListPicture::Read(hsStream *s, hsResMgr *mgr)
 {
-    pfGUIListElement::Read( s, mgr );
+    pfGUIListElement::Read(s, mgr);
 
 }
 
-void    pfGUIListPicture::Write( hsStream *s, hsResMgr *mgr )
+void    pfGUIListPicture::Write(hsStream *s, hsResMgr *mgr)
 {
-    pfGUIListElement::Write( s, mgr );
+    pfGUIListElement::Write(s, mgr);
 
 }
 
-bool    pfGUIListPicture::Draw( plDynamicTextMap *textGen, uint16_t x, uint16_t y, uint16_t maxWidth, uint16_t maxHeight )
+bool    pfGUIListPicture::Draw(plDynamicTextMap *textGen, uint16_t x, uint16_t y, uint16_t maxWidth, uint16_t maxHeight)
 {
-    if( fSelected )
-        textGen->FillRect( x, y, maxWidth, maxHeight, fColors->fSelBackColor );
+    if (fSelected)
+        textGen->FillRect(x, y, maxWidth, maxHeight, fColors->fSelBackColor);
 
-    plMipmap *mip = plMipmap::ConvertNoRef( fMipmapKey->ObjectIsLoaded() );
-    if( mip != nil )
+    plMipmap *mip = plMipmap::ConvertNoRef(fMipmapKey->ObjectIsLoaded());
+    if (mip != nil)
     {
-        if( mip->GetWidth() + fBorderSize + fBorderSize > maxWidth || mip->GetHeight() + fBorderSize + fBorderSize > maxHeight )
+        if (mip->GetWidth() + fBorderSize + fBorderSize > maxWidth || mip->GetHeight() + fBorderSize + fBorderSize > maxHeight)
             return false;
 
-        textGen->DrawImage( x + fBorderSize, y + fBorderSize, mip, fRespectAlpha ? plDynamicTextMap::kImgBlend : plDynamicTextMap::kImgNoAlpha );
+        textGen->DrawImage(x + fBorderSize, y + fBorderSize, mip, fRespectAlpha ? plDynamicTextMap::kImgBlend : plDynamicTextMap::kImgNoAlpha);
     }
 
     return true;
 }
 
-void    pfGUIListPicture::GetSize( plDynamicTextMap *textGen, uint16_t *width, uint16_t *height )
+void    pfGUIListPicture::GetSize(plDynamicTextMap *textGen, uint16_t *width, uint16_t *height)
 {
-    plMipmap *mip = plMipmap::ConvertNoRef( fMipmapKey->ObjectIsLoaded() );
-    if( mip == nil )
+    plMipmap *mip = plMipmap::ConvertNoRef(fMipmapKey->ObjectIsLoaded());
+    if (mip == nil)
     {
         *width = 16;
-        if( height != nil )
+        if (height != nil)
             *height = 16;
     }
 
     *width = (uint16_t)(mip->GetWidth() + fBorderSize + fBorderSize);
-    if( height != nil )
+    if (height != nil)
         *height = (uint16_t)(mip->GetHeight() + fBorderSize + fBorderSize);
 }
 
-int     pfGUIListPicture::CompareTo( pfGUIListElement *rightSide )
+int     pfGUIListPicture::CompareTo(pfGUIListElement *rightSide)
 {
     pfGUIListPicture *text = (pfGUIListPicture *)rightSide;
     
-    if( text->fType != kPicture )
+    if (text->fType != kPicture)
         return -2;
 
     return -2;
@@ -263,70 +263,70 @@ pfGUIListTreeRoot::pfGUIListTreeRoot()
 {
 }
 
-pfGUIListTreeRoot::pfGUIListTreeRoot( const ST::string &text )
+pfGUIListTreeRoot::pfGUIListTreeRoot(const ST::string &text)
     : pfGUIListElement(kTreeRoot), fText(text)
 {
 }
 
 //// Virtuals ////////////////////////////////////////////////////////////////
 
-void    pfGUIListTreeRoot::Read( hsStream *s, hsResMgr *mgr )
+void    pfGUIListTreeRoot::Read(hsStream *s, hsResMgr *mgr)
 {
-    pfGUIListElement::Read( s, mgr );
+    pfGUIListElement::Read(s, mgr);
 
     fText = s->ReadSafeString();
 }
 
-void    pfGUIListTreeRoot::Write( hsStream *s, hsResMgr *mgr )
+void    pfGUIListTreeRoot::Write(hsStream *s, hsResMgr *mgr)
 {
-    pfGUIListElement::Write( s, mgr );
+    pfGUIListElement::Write(s, mgr);
 
     s->WriteSafeString(fText);
 }
 
-bool    pfGUIListTreeRoot::Draw( plDynamicTextMap *textGen, uint16_t x, uint16_t y, uint16_t maxWidth, uint16_t maxHeight )
+bool    pfGUIListTreeRoot::Draw(plDynamicTextMap *textGen, uint16_t x, uint16_t y, uint16_t maxWidth, uint16_t maxHeight)
 {
-    textGen->SetJustify( plDynamicTextMap::kLeftJustify );
-    if( fSelected )
+    textGen->SetJustify(plDynamicTextMap::kLeftJustify);
+    if (fSelected)
     {
-        textGen->FillRect( x, y, maxWidth, maxHeight, fColors->fSelBackColor );
-        textGen->SetTextColor( fColors->fSelForeColor, fColors->fTransparent && fColors->fSelBackColor.a == 0.f );
+        textGen->FillRect(x, y, maxWidth, maxHeight, fColors->fSelBackColor);
+        textGen->SetTextColor(fColors->fSelForeColor, fColors->fTransparent && fColors->fSelBackColor.a == 0.f);
     }
     else
     {
         // Normal back color will be cleared for us
-        textGen->SetTextColor( fColors->fForeColor, fColors->fTransparent && fColors->fBackColor.a == 0.f );
+        textGen->SetTextColor(fColors->fForeColor, fColors->fTransparent && fColors->fBackColor.a == 0.f);
     }
 
-    if( fSkin != nil )
+    if (fSkin != nil)
     {
-        const pfGUISkin::pfSRect &r = fSkin->GetElement( fShowChildren ? pfGUISkin::kTreeButtonOpen : pfGUISkin::kTreeButtonClosed );
+        const pfGUISkin::pfSRect &r = fSkin->GetElement(fShowChildren ? pfGUISkin::kTreeButtonOpen : pfGUISkin::kTreeButtonClosed);
 
-        int16_t e = ( maxHeight - r.fHeight );
-        if( e < 0 )
+        int16_t e = (maxHeight - r.fHeight);
+        if (e < 0)
             e = 0;
         e >>= 1;
 
-        textGen->DrawClippedImage( x + 2, y + e, fSkin->GetTexture(), r.fX, r.fY, r.fWidth, r.fHeight, plDynamicTextMap::kImgSprite );
+        textGen->DrawClippedImage(x + 2, y + e, fSkin->GetTexture(), r.fX, r.fY, r.fWidth, r.fHeight, plDynamicTextMap::kImgSprite);
         x += r.fWidth + 4;
     }
 
-    textGen->DrawClippedString( x + 4, y, GetTitle(), maxWidth - 8, maxHeight );
+    textGen->DrawClippedString(x + 4, y, GetTitle(), maxWidth - 8, maxHeight);
     return true;
 }
 
-bool    pfGUIListTreeRoot::MouseClicked( uint16_t localX, uint16_t localY )
+bool    pfGUIListTreeRoot::MouseClicked(uint16_t localX, uint16_t localY)
 {
-    if( fSkin != nil )
+    if (fSkin != nil)
     {
-        const pfGUISkin::pfSRect &r = fSkin->GetElement( fShowChildren ? pfGUISkin::kTreeButtonOpen : pfGUISkin::kTreeButtonClosed );
+        const pfGUISkin::pfSRect &r = fSkin->GetElement(fShowChildren ? pfGUISkin::kTreeButtonOpen : pfGUISkin::kTreeButtonClosed);
 
         // For now, I can't think of a clean way of getting the current visible height to this function,
         // but just testing the X value for tree controls is good enough for now. If we need Y testing for
         // other elements, I'll figure out something.
-        if( localX >= 2 && localX <= 2 + r.fWidth )
+        if (localX >= 2 && localX <= 2 + r.fWidth)
         {
-            ShowChildren( !fShowChildren );
+            ShowChildren(!fShowChildren);
             return true;
         }
     }
@@ -334,66 +334,66 @@ bool    pfGUIListTreeRoot::MouseClicked( uint16_t localX, uint16_t localY )
     return false;
 }
 
-void    pfGUIListTreeRoot::GetSize( plDynamicTextMap *textGen, uint16_t *width, uint16_t *height )
+void    pfGUIListTreeRoot::GetSize(plDynamicTextMap *textGen, uint16_t *width, uint16_t *height)
 {
-    *width = textGen->CalcStringWidth( GetTitle(), height );
-    if( height != nil )
+    *width = textGen->CalcStringWidth(GetTitle(), height);
+    if (height != nil)
     {
-        if( *height == 0 )
+        if (*height == 0)
             *height = 10;       // Never allow zero height elements
         else
             *height += 0;       // Add one pixel on each side for padding (or not, 3.21.02 mcn)
 
-        if( fSkin != nil )
+        if (fSkin != nil)
         {
-            uint16_t h = fSkin->GetElement( pfGUISkin::kTreeButtonClosed ).fHeight;
-            if( *height < h )
+            uint16_t h = fSkin->GetElement(pfGUISkin::kTreeButtonClosed).fHeight;
+            if (*height < h)
                 *height = h;
         }
     }
 
-    if( fSkin != nil )
-        *width += fSkin->GetElement( pfGUISkin::kTreeButtonClosed ).fWidth;
+    if (fSkin != nil)
+        *width += fSkin->GetElement(pfGUISkin::kTreeButtonClosed).fWidth;
 }
 
-int     pfGUIListTreeRoot::CompareTo( pfGUIListElement *rightSide )
+int     pfGUIListTreeRoot::CompareTo(pfGUIListElement *rightSide)
 {
     pfGUIListTreeRoot *text = (pfGUIListTreeRoot *)rightSide;
     
-    if( text->fType != kTreeRoot )
+    if (text->fType != kTreeRoot)
         return -2;
 
     return GetTitle().compare(text->GetTitle());
 }
 
-void    pfGUIListTreeRoot::AddChild( pfGUIListElement *el )
+void    pfGUIListTreeRoot::AddChild(pfGUIListElement *el)
 {
-    fChildren.Append( el );
-    el->SetIndentLevel( GetIndentLevel() + 1 );
-    el->SetCollapsed( !fShowChildren );
+    fChildren.Append(el);
+    el->SetIndentLevel(GetIndentLevel() + 1);
+    el->SetCollapsed(!fShowChildren);
 }
 
-void    pfGUIListTreeRoot::RemoveChild( uint32_t idx )
+void    pfGUIListTreeRoot::RemoveChild(uint32_t idx)
 {
-    fChildren.Remove( idx );
+    fChildren.Remove(idx);
 }
 
-void    pfGUIListTreeRoot::ShowChildren( bool s )
+void    pfGUIListTreeRoot::ShowChildren(bool s)
 {
     uint32_t i;
 
 
     fShowChildren = s;
-    for( i = 0; i < fChildren.GetCount(); i++ )
-        fChildren[ i ]->SetCollapsed( !s );
+    for (i = 0; i < fChildren.GetCount(); i++)
+        fChildren[i]->SetCollapsed(!s);
 }
 
-void    pfGUIListTreeRoot::SetCollapsed( bool c )
+void    pfGUIListTreeRoot::SetCollapsed(bool c)
 {
     uint32_t i;
 
     
-    pfGUIListElement::SetCollapsed( c );
-    for( i = 0; i < fChildren.GetCount(); i++ )
-        fChildren[ i ]->SetCollapsed( c ? true : !fShowChildren );
+    pfGUIListElement::SetCollapsed(c);
+    for (i = 0; i < fChildren.GetCount(); i++)
+        fChildren[i]->SetCollapsed(c ? true : !fShowChildren);
 }

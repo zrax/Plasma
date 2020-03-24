@@ -117,7 +117,7 @@ void plDispatch::BeginShutdown()
 
 void plDispatch::ITrashUndelivered()
 {
-    while( fFutureMsgQueue )
+    while (fFutureMsgQueue)
     {
         plMsgWrap* nuke = fFutureMsgQueue;
         fFutureMsgQueue = fFutureMsgQueue->fNext;
@@ -129,9 +129,9 @@ void plDispatch::ITrashUndelivered()
     // point are just trashed. Slave dispatches just go away and
     // leave their messages to be delivered when the main dispatch
     // gets around to it.
-    if( this == plgDispatch::Dispatch() )
+    if (this == plgDispatch::Dispatch())
     {
-        while( fMsgHead )
+        while (fMsgHead)
         {
             plMsgWrap* nuke = fMsgHead;
             fMsgHead = fMsgHead->fNext;
@@ -150,7 +150,7 @@ plMsgWrap* plDispatch::IInsertToQueue(plMsgWrap** curr, plMsgWrap* isert)
 {
     isert->fNext = *curr;
     isert->fBack = curr;
-    if( *curr )
+    if (*curr)
         (*curr)->fBack = &isert->fNext;
     *curr = isert;
     return isert;
@@ -159,13 +159,13 @@ plMsgWrap* plDispatch::IInsertToQueue(plMsgWrap** curr, plMsgWrap* isert)
 plMsgWrap* plDispatch::IDequeue(plMsgWrap** head, plMsgWrap** tail)
 {
     plMsgWrap* retVal = *head;
-    if( *head )
+    if (*head)
     {
         *head = (*head)->fNext;
-        if( *head )
+        if (*head)
             (*head)->fBack = head;
     }
-    if( tail && (*tail == retVal) )
+    if (tail && (*tail == retVal))
         *tail = *head;
     return retVal;
 }
@@ -173,21 +173,21 @@ plMsgWrap* plDispatch::IDequeue(plMsgWrap** head, plMsgWrap** tail)
 bool plDispatch::ISortToDeferred(plMessage* msg)
 {
     plMsgWrap* msgWrap = new plMsgWrap(msg);
-    if( !fFutureMsgQueue )
+    if (!fFutureMsgQueue)
     {
-        if( IGetOwner() )
+        if (IGetOwner())
             plgDispatch::Dispatch()->RegisterForExactType(plTimeMsg::Index(), IGetOwnerKey());
 
         IInsertToQueue(&fFutureMsgQueue, msgWrap);
         return false;
     }
-    if( fFutureMsgQueue->fMsg->fTimeStamp > msgWrap->fMsg->fTimeStamp )
+    if (fFutureMsgQueue->fMsg->fTimeStamp > msgWrap->fMsg->fTimeStamp)
     {
         IInsertToQueue(&fFutureMsgQueue, msgWrap);
         return false;
     }
     plMsgWrap* after = fFutureMsgQueue;
-    while( after->fNext && (after->fNext->fMsg->fTimeStamp < msgWrap->fMsg->fTimeStamp) )
+    while (after->fNext && (after->fNext->fMsg->fTimeStamp < msgWrap->fMsg->fTimeStamp))
         after = after->fNext;
 
     IInsertToQueue(&after->fNext, msgWrap);
@@ -197,7 +197,7 @@ bool plDispatch::ISortToDeferred(plMessage* msg)
 
 void plDispatch::ICheckDeferred(double secs)
 {
-    while( fFutureMsgQueue && (fFutureMsgQueue->fMsg->fTimeStamp < secs) )
+    while (fFutureMsgQueue && (fFutureMsgQueue->fMsg->fTimeStamp < secs))
     {
         plMsgWrap* send = IDequeue(&fFutureMsgQueue, nil);
         MsgSend(send->fMsg);
@@ -205,7 +205,7 @@ void plDispatch::ICheckDeferred(double secs)
     }
 
     int timeIdx = plTimeMsg::Index();
-    if( IGetOwner()
+    if (IGetOwner()
         && !fFutureMsgQueue
         &&
             (
@@ -219,7 +219,7 @@ void plDispatch::ICheckDeferred(double secs)
 
 bool plDispatch::IListeningForExactType(uint16_t hClass)
 {
-    if( (hClass == plTimeMsg::Index()) && fFutureMsgQueue )
+    if ((hClass == plTimeMsg::Index()) && fFutureMsgQueue)
         return true;
 
     return false;
@@ -241,7 +241,7 @@ void plDispatch::IMsgEnqueue(plMsgWrap* msgWrap, bool async)
             fMsgTail = IInsertToQueue(&fMsgHead, msgWrap);
     }
 
-    if( !async )
+    if (!async)
         // Test for fMsgActive in IMsgDispatch(), properly wrapped inside a mutex -mcn
         IMsgDispatch();
 }
@@ -285,7 +285,7 @@ void plDispatch::IMsgDispatch()
     std::unique_lock<std::mutex> msgCurrentLock(fMsgCurrentMutex);
 
     plMsgWrap* origTail = fMsgTail;
-    while((fMsgCurrent = fMsgHead))
+    while ((fMsgCurrent = fMsgHead))
     {
         IDequeue(&fMsgHead, &fMsgTail);
         msgCurrentLock.unlock();
@@ -295,7 +295,7 @@ void plDispatch::IMsgDispatch()
 
 #ifdef HS_DEBUGGING
         int watchIdx = fMsgWatch.Find(msg);
-        if( fMsgWatch.kMissingIndex != watchIdx )
+        if (fMsgWatch.kMissingIndex != watchIdx)
         {
             fMsgWatch.Remove(watchIdx);
 #if HS_BUILD_FOR_WIN32
@@ -309,17 +309,17 @@ void plDispatch::IMsgDispatch()
             startTicks = hsTimer::GetTicks();
 
         int i, numReceivers=0;
-        for( i = 0; fMsgCurrent && i < fMsgCurrent->GetNumReceivers(); i++ )
+        for (i = 0; fMsgCurrent && i < fMsgCurrent->GetNumReceivers(); i++)
         {
             const plKey& rcvKey = fMsgCurrent->GetReceiver(i);
             plReceiver* rcv = rcvKey ? plReceiver::ConvertNoRef(rcvKey->ObjectIsLoaded()) : nil;
-            if( rcv )
+            if (rcv)
             {
                 if (nonLocalMsg)
                 {
                     // localOnly objects should not get remote messages
                     plSynchedObject* synchedObj = plSynchedObject::ConvertNoRef(rcv);
-                    if (synchedObj && !synchedObj->IsNetSynched() )
+                    if (synchedObj && !synchedObj->IsNetSynched())
                     {
                         continue;
                     }
@@ -424,11 +424,11 @@ bool plDispatch::IMsgNetPropagate(plMessage* msg)
     // part of a net cascade. We still want to inherit net status flags (but ignore them)
     // so that response messages obey cascading rules.  In other words, we are not
     // halting the cascade, just overriding the send rule for this message.
-    if( msg->HasBCastFlag(plMessage::kNetPropagate) &&
+    if (msg->HasBCastFlag(plMessage::kNetPropagate) &&
         (!msg->HasBCastFlag(plMessage::kNetSent) ||
         msg->HasBCastFlag(plMessage::kNetForce) ||
         msg->HasBCastFlag(plMessage::kNetNonDeterministic) ||
-        msg->HasBCastFlag(plMessage::kCCRSendToAllPlayers )) )
+        msg->HasBCastFlag(plMessage::kCCRSendToAllPlayers)))
     {
         // send it off...
         hsAssert(!msg->HasBCastFlag(plMessage::kNetStartCascade), "initial net cascade msg getting sent over the net again?");
@@ -452,33 +452,33 @@ bool plDispatch::IMsgNetPropagate(plMessage* msg)
 
 bool plDispatch::MsgSend(plMessage* msg, bool async)
 {
-    if( IMsgNetPropagate(msg) )
+    if (IMsgNetPropagate(msg))
         return true;
 
     plTimeMsg* timeMsg;
-    if( msg->GetTimeStamp() > hsTimer::GetSysSeconds() )
+    if (msg->GetTimeStamp() > hsTimer::GetSysSeconds())
         return ISortToDeferred(msg);
-    else if((timeMsg = plTimeMsg::ConvertNoRef(msg)))
+    else if ((timeMsg = plTimeMsg::ConvertNoRef(msg)))
         ICheckDeferred(timeMsg->DSeconds());
 
     plMsgWrap* msgWrap = new plMsgWrap(msg);
     hsRefCnt_SafeUnRef(msg);
 
     // broadcast
-    if( msg->HasBCastFlag(plMessage::kBCastByExactType) | msg->HasBCastFlag(plMessage::kBCastByType) )
+    if (msg->HasBCastFlag(plMessage::kBCastByExactType) | msg->HasBCastFlag(plMessage::kBCastByType))
     {
         int idx = msg->ClassIndex();
-        if( idx < fRegisteredExactTypes.GetCount() )
+        if (idx < fRegisteredExactTypes.GetCount())
         {
             plTypeFilter* filt = fRegisteredExactTypes[idx];
-            if( filt )
+            if (filt)
             {
                 int j;
-                for( j = 0; j < filt->fReceivers.GetCount(); j++ )
+                for (j = 0; j < filt->fReceivers.GetCount(); j++)
                 {
                     msgWrap->AddReceiver(filt->fReceivers[j]);
                 }
-                if( msg->HasBCastFlag(plMessage::kClearAfterBCast) )
+                if (msg->HasBCastFlag(plMessage::kClearAfterBCast))
                 {
                     delete filt;
                     fRegisteredExactTypes[idx] = nil;
@@ -488,7 +488,7 @@ bool plDispatch::MsgSend(plMessage* msg, bool async)
     }
     // Direct communique
     else
-    if( msg->GetNumReceivers() )
+    if (msg->GetNumReceivers())
     {
         msgWrap->fReceivers = msg->fReceivers;
     }
@@ -537,9 +537,9 @@ void plDispatch::MsgQueueProcess()
 void plDispatch::RegisterForType(uint16_t hClass, const plKey& receiver)
 {
     int i;
-    for( i = 0; i < plFactory::GetNumClasses(); i++ )
+    for (i = 0; i < plFactory::GetNumClasses(); i++)
     {
-        if( plFactory::DerivesFrom(hClass, i) )
+        if (plFactory::DerivesFrom(hClass, i))
             RegisterForExactType(i, receiver);
     }
 }
@@ -549,23 +549,23 @@ void plDispatch::RegisterForExactType(uint16_t hClass, const plKey& receiver)
     int idx = hClass;
     fRegisteredExactTypes.ExpandAndZero(idx+1);
     plTypeFilter* filt = fRegisteredExactTypes[idx];
-    if( !filt )
+    if (!filt)
     {
         filt = new plTypeFilter;
         fRegisteredExactTypes[idx] = filt;
         filt->fHClass = hClass;
     }
 
-    if( filt->fReceivers.kMissingIndex == filt->fReceivers.Find(receiver) )
+    if (filt->fReceivers.kMissingIndex == filt->fReceivers.Find(receiver))
         filt->fReceivers.Append(receiver);
 }
 
 void plDispatch::UnRegisterForType(uint16_t hClass, const plKey& receiver)
 {
     int i;
-    for( i = 0; i < fRegisteredExactTypes.GetCount(); i++ )
+    for (i = 0; i < fRegisteredExactTypes.GetCount(); i++)
     {
-        if( plFactory::DerivesFrom(hClass, i) )
+        if (plFactory::DerivesFrom(hClass, i))
             IUnRegisterForExactType(i , receiver);
     }
 
@@ -578,13 +578,13 @@ bool plDispatch::IUnRegisterForExactType(int idx, const plKey& receiver)
     if (!filt)
         return false;
     int j;
-    for( j = 0; j < filt->fReceivers.GetCount(); j++ )
+    for (j = 0; j < filt->fReceivers.GetCount(); j++)
     {
-        if( receiver == filt->fReceivers[j] )
+        if (receiver == filt->fReceivers[j])
         {
-            if( filt->fReceivers.GetCount() > 1 )
+            if (filt->fReceivers.GetCount() > 1)
             {
-                if( j < filt->fReceivers.GetCount() - 1 )
+                if (j < filt->fReceivers.GetCount() - 1)
                     filt->fReceivers[j] = filt->fReceivers[filt->fReceivers.GetCount() - 1];
                 filt->fReceivers[filt->fReceivers.GetCount()-1] = nil;
                 filt->fReceivers.SetCount(filt->fReceivers.GetCount()-1);
@@ -604,17 +604,17 @@ bool plDispatch::IUnRegisterForExactType(int idx, const plKey& receiver)
 void plDispatch::UnRegisterAll(const plKey& receiver)
 {
     int i;
-    for( i = 0; i < fRegisteredExactTypes.GetCount(); i++ )
+    for (i = 0; i < fRegisteredExactTypes.GetCount(); i++)
     {
         plTypeFilter* filt = fRegisteredExactTypes[i];
-        if( filt )
+        if (filt)
         {
             int idx = filt->fReceivers.Find(receiver);
-            if( idx != filt->fReceivers.kMissingIndex )
+            if (idx != filt->fReceivers.kMissingIndex)
             {
-                if( filt->fReceivers.GetCount() > 1 )
+                if (filt->fReceivers.GetCount() > 1)
                 {
-                    if( idx < filt->fReceivers.GetCount() - 1 )
+                    if (idx < filt->fReceivers.GetCount() - 1)
                         filt->fReceivers[idx] = filt->fReceivers[filt->fReceivers.GetCount() - 1];
                     filt->fReceivers[filt->fReceivers.GetCount()-1] = nil;
                     filt->fReceivers.SetCount(filt->fReceivers.GetCount()-1);
@@ -632,10 +632,10 @@ void plDispatch::UnRegisterAll(const plKey& receiver)
 void plDispatch::UnRegisterForExactType(uint16_t hClass, const plKey& receiver)
 {
     int idx = hClass;
-    if( idx >= fRegisteredExactTypes.GetCount() )
+    if (idx >= fRegisteredExactTypes.GetCount())
         return;
     plTypeFilter* filt = fRegisteredExactTypes[idx];
-    if( !filt )
+    if (!filt)
         return;
 
     IUnRegisterForExactType(idx, receiver);

@@ -70,7 +70,7 @@ void plRingBuffer::Compress()
         fStartPos = 0;
         fEndPos = 0;
     }
-    else if(fStartPos >= GetBufferSize() / 2)
+    else if (fStartPos >= GetBufferSize() / 2)
     {
         ForceWindowSlide();
     }
@@ -135,7 +135,7 @@ char * plRingBuffer::GetBufferOpen()
 void plRingBuffer::ForceWindowSlide()
 {
     int len = AmountBuffered();
-    if(len > 0 && fStartPos != 0)
+    if (len > 0 && fStartPos != 0)
     {
         memmove(fBuffer, GetBufferStart(), len);
         fStartPos = 0;

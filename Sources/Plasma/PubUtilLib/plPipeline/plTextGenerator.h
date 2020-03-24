@@ -83,39 +83,39 @@ class plTextGenerator : public hsKeyedObject
         uint8_t       *fWinAlphaBits;
 #endif
 
-        uint32_t      *IAllocateOSSurface( uint16_t width, uint16_t height );
+        uint32_t      *IAllocateOSSurface(uint16_t width, uint16_t height);
         void        IDestroyOSSurface();
 
     public:
 
         plTextGenerator();
-        plTextGenerator( plMipmap *host, uint16_t width, uint16_t height );
+        plTextGenerator(plMipmap *host, uint16_t width, uint16_t height);
         virtual ~plTextGenerator();
 
-        void    Attach( plMipmap *host, uint16_t width, uint16_t height );
+        void    Attach(plMipmap *host, uint16_t width, uint16_t height);
         void    Detach();
 
         /// Operations to perform on the text block
         
-        void    ClearToColor( hsColorRGBA &color );
+        void    ClearToColor(hsColorRGBA &color);
 
-        void    SetFont( const char *face, uint16_t size, bool antiAliasRGB = true );
-        void    SetTextColor( hsColorRGBA &color, bool blockRGB = false );
+        void    SetFont(const char *face, uint16_t size, bool antiAliasRGB = true);
+        void    SetTextColor(hsColorRGBA &color, bool blockRGB = false);
 
-        void        DrawString( uint16_t x, uint16_t y, const char *text );
-        void        DrawString( uint16_t x, uint16_t y, const wchar_t *text );
-        void        DrawClippedString( int16_t x, int16_t y, const char *text, uint16_t width, uint16_t height );
-        void        DrawClippedString( int16_t x, int16_t y, const wchar_t *text, uint16_t width, uint16_t height );
-        void        DrawClippedString( int16_t x, int16_t y, const char *text, uint16_t clipX, uint16_t clipY, uint16_t width, uint16_t height );
-        void        DrawClippedString( int16_t x, int16_t y, const wchar_t *text, uint16_t clipX, uint16_t clipY, uint16_t width, uint16_t height );
-        void        DrawWrappedString( uint16_t x, uint16_t y, const char *text, uint16_t width, uint16_t height );
-        void        DrawWrappedString( uint16_t x, uint16_t y, const wchar_t *text, uint16_t width, uint16_t height );
-        uint16_t      CalcStringWidth( const char *text, uint16_t *height = nil );
-        uint16_t      CalcStringWidth( const wchar_t *text, uint16_t *height = nil );
-        void        CalcWrappedStringSize( const char *text, uint16_t *width, uint16_t *height );
-        void        CalcWrappedStringSize( const wchar_t *text, uint16_t *width, uint16_t *height );
-        void        FillRect( uint16_t x, uint16_t y, uint16_t width, uint16_t height, hsColorRGBA &color );
-        void        FrameRect( uint16_t x, uint16_t y, uint16_t width, uint16_t height, hsColorRGBA &color );
+        void        DrawString(uint16_t x, uint16_t y, const char *text);
+        void        DrawString(uint16_t x, uint16_t y, const wchar_t *text);
+        void        DrawClippedString(int16_t x, int16_t y, const char *text, uint16_t width, uint16_t height);
+        void        DrawClippedString(int16_t x, int16_t y, const wchar_t *text, uint16_t width, uint16_t height);
+        void        DrawClippedString(int16_t x, int16_t y, const char *text, uint16_t clipX, uint16_t clipY, uint16_t width, uint16_t height);
+        void        DrawClippedString(int16_t x, int16_t y, const wchar_t *text, uint16_t clipX, uint16_t clipY, uint16_t width, uint16_t height);
+        void        DrawWrappedString(uint16_t x, uint16_t y, const char *text, uint16_t width, uint16_t height);
+        void        DrawWrappedString(uint16_t x, uint16_t y, const wchar_t *text, uint16_t width, uint16_t height);
+        uint16_t      CalcStringWidth(const char *text, uint16_t *height = nil);
+        uint16_t      CalcStringWidth(const wchar_t *text, uint16_t *height = nil);
+        void        CalcWrappedStringSize(const char *text, uint16_t *width, uint16_t *height);
+        void        CalcWrappedStringSize(const wchar_t *text, uint16_t *width, uint16_t *height);
+        void        FillRect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, hsColorRGBA &color);
+        void        FrameRect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, hsColorRGBA &color);
 
         void    FlushToHost();
 
@@ -132,7 +132,7 @@ class plTextGenerator : public hsKeyedObject
         hsMatrix44  GetLayerTransform();
 
 
-        virtual bool MsgReceive( plMessage *msg );
+        virtual bool MsgReceive(plMessage *msg);
 };
 
 

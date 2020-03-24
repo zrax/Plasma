@@ -97,8 +97,8 @@ public:
     virtual plAGChannel * MakeTimeScale(plScalarChannel *timeSource);
 
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plScalarChannel );
-    GETINTERFACE_ANY( plScalarChannel, plAGChannel );
+    CLASSNAME_REGISTER(plScalarChannel);
+    GETINTERFACE_ANY(plScalarChannel, plAGChannel);
 };
 
 ///////////////////
@@ -116,8 +116,8 @@ public:
     float Get() { return fResult; }
 
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plScalarConstant );
-    GETINTERFACE_ANY( plScalarConstant, plScalarChannel );
+    CLASSNAME_REGISTER(plScalarConstant);
+    GETINTERFACE_ANY(plScalarConstant, plScalarChannel);
 
     void Read(hsStream *stream, hsResMgr *mgr);
     void Write(hsStream *stream, hsResMgr *mgr);
@@ -145,8 +145,8 @@ public:
     virtual plAGChannel * Detach(plAGChannel * channel);
 
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plScalarTimeScale );
-    GETINTERFACE_ANY( plScalarTimeScale, plScalarChannel );
+    CLASSNAME_REGISTER(plScalarTimeScale);
+    GETINTERFACE_ANY(plScalarTimeScale, plScalarChannel);
 };
 
 ////////////////
@@ -185,8 +185,8 @@ public:
     virtual plAGChannel * Detach(plAGChannel * channel);
     
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plScalarBlend );
-    GETINTERFACE_ANY( plScalarBlend, plScalarChannel );
+    CLASSNAME_REGISTER(plScalarBlend);
+    GETINTERFACE_ANY(plScalarBlend, plScalarChannel);
 };
 
 ////////////////////////////
@@ -212,8 +212,8 @@ public:
         
     // PLASMA PROTOCOL
     // rtti
-    CLASSNAME_REGISTER( plScalarControllerChannel );
-    GETINTERFACE_ANY( plScalarControllerChannel, plScalarChannel );
+    CLASSNAME_REGISTER(plScalarControllerChannel);
+    GETINTERFACE_ANY(plScalarControllerChannel, plScalarChannel);
     
     // persistence
     virtual void Write(hsStream *stream, hsResMgr *mgr);
@@ -240,8 +240,8 @@ public:
     virtual plAGChannel * Detach(plAGChannel * channel);
     
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plScalarControllerCacheChannel );
-    GETINTERFACE_ANY( plScalarControllerCacheChannel, plScalarChannel );
+    CLASSNAME_REGISTER(plScalarControllerCacheChannel);
+    GETINTERFACE_ANY(plScalarControllerCacheChannel, plScalarChannel);
     
     // Created at runtime only, so no Read/Write
 };
@@ -264,8 +264,8 @@ public:
     virtual const float & Value(double time, bool peek = false);
 
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plATCChannel );
-    GETINTERFACE_ANY( plATCChannel, plScalarChannel );
+    CLASSNAME_REGISTER(plATCChannel);
+    GETINTERFACE_ANY(plATCChannel, plScalarChannel);
 };
 
 ////////////////////
@@ -289,8 +289,8 @@ public:
     void SetVar(plSimpleStateVariable *var) { fVar = var; }
 
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plScalarSDLChannel );
-    GETINTERFACE_ANY( plScalarSDLChannel, plScalarChannel );
+    CLASSNAME_REGISTER(plScalarSDLChannel);
+    GETINTERFACE_ANY(plScalarSDLChannel, plScalarChannel);
 };
 
 
@@ -304,8 +304,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plScalarChannelApplicator );
-    GETINTERFACE_ANY( plScalarChannelApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plScalarChannelApplicator);
+    GETINTERFACE_ANY(plScalarChannelApplicator, plAGApplicator);
 };
 
 class plSpotInnerApplicator : public plAGApplicator
@@ -314,8 +314,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plSpotInnerApplicator );
-    GETINTERFACE_ANY( plSpotInnerApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plSpotInnerApplicator);
+    GETINTERFACE_ANY(plSpotInnerApplicator, plAGApplicator);
 };
 
 class plSpotOuterApplicator : public plAGApplicator
@@ -324,8 +324,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plSpotOuterApplicator );
-    GETINTERFACE_ANY( plSpotOuterApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plSpotOuterApplicator);
+    GETINTERFACE_ANY(plSpotOuterApplicator, plAGApplicator);
 };
 
 class plOmniApplicator : public plAGApplicator
@@ -334,8 +334,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plOmniApplicator );
-    GETINTERFACE_ANY( plOmniApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plOmniApplicator);
+    GETINTERFACE_ANY(plOmniApplicator, plAGApplicator);
 };
 
 class plOmniSqApplicator : public plAGApplicator
@@ -344,8 +344,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plOmniSqApplicator );
-    GETINTERFACE_ANY( plOmniSqApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plOmniSqApplicator);
+    GETINTERFACE_ANY(plOmniSqApplicator, plAGApplicator);
 };
 
 class plOmniCutoffApplicator : public plAGApplicator
@@ -354,8 +354,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plOmniCutoffApplicator );
-    GETINTERFACE_ANY( plOmniCutoffApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plOmniCutoffApplicator);
+    GETINTERFACE_ANY(plOmniCutoffApplicator, plAGApplicator);
 };
 
 

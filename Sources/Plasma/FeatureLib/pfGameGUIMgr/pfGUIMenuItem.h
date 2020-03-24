@@ -73,20 +73,20 @@ class pfGUIMenuItem : public pfGUIButtonMod
         HowToSkin       fHowToSkin;
         bool            fSkinBuffersUpdated;
 
-        virtual void    IGrowDTMDimsToDesiredSize( uint16_t &width, uint16_t &height );
+        virtual void    IGrowDTMDimsToDesiredSize(uint16_t &width, uint16_t &height);
         virtual void    IPostSetUpDynTextMap();
         virtual void    IUpdate();
 
         void            IUpdateSkinBuffers();
-        void            IUpdateSingleSkinBuffer( uint16_t y, bool sel );
+        void            IUpdateSingleSkinBuffer(uint16_t y, bool sel);
 
     public:
 
         pfGUIMenuItem();
         virtual ~pfGUIMenuItem();
 
-        CLASSNAME_REGISTER( pfGUIMenuItem );
-        GETINTERFACE_ANY( pfGUIMenuItem, pfGUIButtonMod );
+        CLASSNAME_REGISTER(pfGUIMenuItem);
+        GETINTERFACE_ANY(pfGUIMenuItem, pfGUIButtonMod);
 
         enum ItemFlags
         {
@@ -101,28 +101,28 @@ class pfGUIMenuItem : public pfGUIButtonMod
             kMouseExit
         };
 
-        virtual bool    MsgReceive( plMessage* pMsg );
+        virtual bool    MsgReceive(plMessage* pMsg);
         
-        virtual void Read( hsStream* s, hsResMgr* mgr );
-        virtual void Write( hsStream* s, hsResMgr* mgr );
+        virtual void Read(hsStream* s, hsResMgr* mgr);
+        virtual void Write(hsStream* s, hsResMgr* mgr);
 
-        virtual void    SetInteresting( bool i );
+        virtual void    SetInteresting(bool i);
 
-        virtual void    HandleMouseDown( hsPoint3 &mousePt, uint8_t modifiers );
-        virtual void    HandleMouseUp( hsPoint3 &mousePt, uint8_t modifiers );
-        virtual void    HandleMouseDrag( hsPoint3 &mousePt, uint8_t modifiers );
-        virtual void    HandleMouseHover( hsPoint3 &mousePt, uint8_t modifiers );
+        virtual void    HandleMouseDown(hsPoint3 &mousePt, uint8_t modifiers);
+        virtual void    HandleMouseUp(hsPoint3 &mousePt, uint8_t modifiers);
+        virtual void    HandleMouseDrag(hsPoint3 &mousePt, uint8_t modifiers);
+        virtual void    HandleMouseHover(hsPoint3 &mousePt, uint8_t modifiers);
 
         virtual void    PurgeDynaTextMapImage();
 
 
-        void        SetName( const char *name );
-        void        SetName( const wchar_t *name );
+        void        SetName(const char *name);
+        void        SetName(const wchar_t *name);
         const wchar_t   *GetName() const { return fName; }
     
-        void    GetTextExtents( uint16_t &width, uint16_t &height );
+        void    GetTextExtents(uint16_t &width, uint16_t &height);
 
-        void    SetSkin( pfGUISkin *skin, HowToSkin s );
+        void    SetSkin(pfGUISkin *skin, HowToSkin s);
 };
 
 #endif // _pfGUIMenuItem_h

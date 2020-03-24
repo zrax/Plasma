@@ -168,7 +168,7 @@ public:
     {
         fControlFlags.SetBit(f);
     }
-    void    ClearControlFlag(int which) { fControlFlags.ClearBit( which ); }
+    void    ClearControlFlag(int which) { fControlFlags.ClearBit(which); }
     void    SetCursorX(float x);
     void    SetCursorY(float y);
     float GetCursorX() { return fXPos; }
@@ -186,7 +186,7 @@ public:
     static void NewCursor(char* cursor);
     static void HideCursor(bool override = false);
     static bool GetHideCursor() { return plMouseDevice::bCursorHidden; }
-    static void SetCursorOpacity( float opacity = 1.f );
+    static void SetCursorOpacity(float opacity = 1.f);
     static bool GetInverted() { return plMouseDevice::bInverted; }
     static void SetInverted(bool inverted) { plMouseDevice::bInverted = inverted; }
     static void AddNameToCursor(const ST::string& name);
@@ -217,7 +217,7 @@ protected:
 
     static plMouseDevice* fInstance;
     static plMouseInfo  fDefaultMouseControlMap[];
-    void    CreateCursor( char* cursor );
+    void    CreateCursor(char* cursor);
     void IUpdateCursorSize();
     static bool bMsgAlways;
     static bool bCursorHidden;

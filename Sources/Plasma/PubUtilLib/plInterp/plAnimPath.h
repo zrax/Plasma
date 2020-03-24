@@ -132,8 +132,8 @@ public:
     plAnimPath();
     virtual ~plAnimPath();
 
-    CLASSNAME_REGISTER( plAnimPath );
-    GETINTERFACE_ANY( plAnimPath, plCreatable );
+    CLASSNAME_REGISTER(plAnimPath);
+    GETINTERFACE_ANY(plAnimPath, plCreatable);
     
     void Reset();
 
@@ -147,10 +147,10 @@ public:
     void SetAnimPathFlags(uint32_t f) { fAnimPathFlags=f; }
     uint32_t GetAnimPathFlags() const { return fAnimPathFlags; }
 
-    void SetWrap(bool on) { if(on)fAnimPathFlags |= kWrap; else fAnimPathFlags &= ~kWrap; }
+    void SetWrap(bool on) { if (on) fAnimPathFlags |= kWrap; else fAnimPathFlags &= ~kWrap; }
     bool GetWrap() const { return 0 != (fAnimPathFlags & kWrap); }
 
-    void SetFarthest(bool on) { if(on)fAnimPathFlags |= kFarthest; else fAnimPathFlags &= ~kFarthest; }
+    void SetFarthest(bool on) { if (on) fAnimPathFlags |= kFarthest; else fAnimPathFlags &= ~kFarthest; }
     bool GetFarthest() const { return 0 != (fAnimPathFlags & kFarthest); }
 
     void SetCurTime(float t, uint32_t calcFlags=0);

@@ -158,7 +158,7 @@ float plLightMapComponent::GetScale() const
 {
     int resBut = fCompPB->GetInt(kResSpinControl);
     float res = 1.f;
-    switch( resBut )
+    switch (resBut)
     {
     case 4:
         res = 9.f;

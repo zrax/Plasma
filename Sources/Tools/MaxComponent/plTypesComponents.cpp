@@ -266,10 +266,10 @@ void SetupVehiclePhys(plMaxNode* physNode, plMaxNode* node, plErrorMsg* pErrMsg,
     if (chassis)
     {
         physProps->SetMemberGroup(plPhysicsGroups::kDynamicSimulated, node, pErrMsg);
-        physProps->SetBounceGroup(  plPhysicsGroups::kStaticSimulated |
-                                    plPhysicsGroups::kDynamicSimulated |
-                                    plPhysicsGroups::kAnimated,
-                                    node, pErrMsg);
+        physProps->SetBounceGroup(plPhysicsGroups::kStaticSimulated |
+                                  plPhysicsGroups::kDynamicSimulated |
+                                  plPhysicsGroups::kAnimated,
+                                  node, pErrMsg);
         physProps->SetPinned(true, node, pErrMsg);
     }
 
@@ -698,7 +698,7 @@ bool plGameMarkerComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg
     physProps->SetBoundsType(plSimDefs::kSphereBounds, node, pErrMsg);
     physProps->SetPinned(true, node, pErrMsg);
     // only if movable will it have mass (then it will keep track of movements in PhysX)
-    if ( node->IsMovable() || node->IsTMAnimated() )
+    if (node->IsMovable() || node->IsTMAnimated())
         physProps->SetMass(1.0, node, pErrMsg);
     physProps->SetGroup(plSimDefs::kGroupDetector, node, pErrMsg);
     physProps->SetReportGroup(1<<plSimDefs::kGroupAvatar, node, pErrMsg);

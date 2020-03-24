@@ -107,8 +107,8 @@ public:
     plShadowCaster();
     virtual ~plShadowCaster();
 
-    CLASSNAME_REGISTER( plShadowCaster );
-    GETINTERFACE_ANY( plShadowCaster, plMultiModifier );
+    CLASSNAME_REGISTER(plShadowCaster);
+    GETINTERFACE_ANY(plShadowCaster, plMultiModifier);
     
     virtual bool IEval(double secs, float del, uint32_t dirty) { return true; }
 
@@ -121,13 +121,13 @@ public:
     const hsTArray<DrawSpan>& Spans() const { return fSpans; }
 
     bool    GetSelfShadow() const { return 0 != (fCastFlags & kSelfShadow); }
-    void    SetSelfShadow(bool on) { if(on) fCastFlags |= kSelfShadow; else fCastFlags &= ~kSelfShadow; }
+    void    SetSelfShadow(bool on) { if (on) fCastFlags |= kSelfShadow; else fCastFlags &= ~kSelfShadow; }
 
     bool    GetPerspective() const { return 0 != (fCastFlags & kPerspective); }
-    void    SetPerspective(bool on) { if(on) fCastFlags |= kPerspective; else fCastFlags &= ~kPerspective; }
+    void    SetPerspective(bool on) { if (on) fCastFlags |= kPerspective; else fCastFlags &= ~kPerspective; }
 
     bool    GetLimitRes() const { return 0 != (fCastFlags & kLimitRes); }
-    void    SetLimitRes(bool on) { if(on) fCastFlags |= kLimitRes; else fCastFlags &= ~kLimitRes; }
+    void    SetLimitRes(bool on) { if (on) fCastFlags |= kLimitRes; else fCastFlags &= ~kLimitRes; }
 
     float GetAttenScale() const { return fAttenScale; }
     void SetAttenScale(float s) { fAttenScale = s; }

@@ -51,10 +51,10 @@ bool plTcpListenSocket::OpenForListen(plNetAddress & inAddess, int backlogSize)
     
     SetReuseAddress();
     
-    if(plNet::Bind(fSocket, &inAddess.GetAddressInfo()) != 0)
+    if (plNet::Bind(fSocket, &inAddess.GetAddressInfo()) != 0)
         return ErrorClose();
     
-    if(plNet::Listen(fSocket, backlogSize) != 0)
+    if (plNet::Listen(fSocket, backlogSize) != 0)
         return ErrorClose();
     
     return true;
@@ -70,10 +70,10 @@ bool plTcpListenSocket::OpenForListenNonBlocking(plNetAddress & inAddess, int ba
     SetReuseAddress();
     SetBlocking(false); // so GetIncomingConnection() won't block.
     
-    if(plNet::Bind(fSocket, &inAddess.GetAddressInfo()) != 0)
+    if (plNet::Bind(fSocket, &inAddess.GetAddressInfo()) != 0)
         return ErrorClose();
     
-    if(plNet::Listen(fSocket, backlogSize) != 0)
+    if (plNet::Listen(fSocket, backlogSize) != 0)
         return ErrorClose();
     
     return true;
@@ -84,7 +84,7 @@ bool plTcpListenSocket::OpenForListenNonBlocking(plNetAddress & inAddess, int ba
 bool  plTcpListenSocket::GetIncomingConnection(SOCKET & outNewSession, plNetAddress & outAddress)
 {
     outNewSession = plNet::Accept(fSocket, &outAddress.GetAddressInfo());
-    if(outNewSession == kBadSocket)
+    if (outNewSession == kBadSocket)
         return false;
     return true;
 }

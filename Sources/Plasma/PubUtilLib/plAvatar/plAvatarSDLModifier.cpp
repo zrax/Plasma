@@ -112,11 +112,11 @@ void plAvatarPhysicalSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* 
 {
     plSceneObject* sObj = GetTarget();
     hsAssert(sObj, "plAvatarPhysicalSDLModifier, nil target");
-    if(sObj)
+    if (sObj)
     {
         const plArmatureMod* kAvMod = (plArmatureMod*)sObj->GetModifierByType(plArmatureMod::Index());
         plArmatureMod * avMod = const_cast<plArmatureMod *>(kAvMod);
-        if(avMod)
+        if (avMod)
         {
             plSimpleStateVariable* worldVar = srcState->FindVar(kStrSubworld);
             if (worldVar->IsDirty() && avMod->fController)
@@ -148,7 +148,7 @@ void plAvatarPhysicalSDLModifier::IPutCurrentStateIn(plStateDataRecord* dstState
     plArmatureMod * avMod = const_cast<plArmatureMod *>(kAvMod);
     hsAssert(avMod, "nil avMod");
 
-    if(avMod && avMod->GetController())
+    if (avMod && avMod->GetController())
     {
         hsPoint3 pos;
         float zRot;
@@ -164,11 +164,11 @@ void plAvatarSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcState
 {
     plSceneObject* sObj = GetTarget();
     hsAssert(sObj, "plAvatarSDLModifier, nil target");
-    if(sObj)
+    if (sObj)
     {
         const plArmatureMod* kAvMod = (plArmatureMod*)sObj->GetModifierByType(plArmatureMod::Index());
         plArmatureMod * avMod = const_cast<plArmatureMod *>(kAvMod);
-        if(avMod)
+        if (avMod)
         {
             ISetBaseAvatarStateFrom(avMod, srcState);
             
@@ -177,10 +177,10 @@ void plAvatarSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcState
             // This is acceptable because we should only receive this state when
             // we're loading another player for the first time after entering an age.
             int brainCount = avMod->GetBrainCount();
-            if(brainCount > 1)
+            if (brainCount > 1)
             {
                 // remove all non-default brains
-                for(int i = 0; i < brainCount - 1; i++)
+                for (int i = 0; i < brainCount - 1; i++)
                 {
                     plArmatureBrain* current = avMod->GetCurrentBrain();
                     avMod->PopBrain();
@@ -192,14 +192,14 @@ void plAvatarSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcState
             if (brainsVar->IsUsed())
             {
                 int nBrains = brainsVar->GetCount();
-                for(int i = 0; i < nBrains; i++)
+                for (int i = 0; i < nBrains; i++)
                 {
                     // get the record containing the brain union structure
                     plStateDataRecord* brainUnion = brainsVar->GetStateDataRecord(i);
                     
                     // get the (one element) generic brain list, if populated
                     plSDStateVariable *genBrainListVar = brainUnion->FindSDVar(BrainUnionVarNames::kGenericBrain);
-                    if(genBrainListVar->IsUsed() && genBrainListVar->GetCount() > 0)
+                    if (genBrainListVar->IsUsed() && genBrainListVar->GetCount() > 0)
                     {
                         // get the state for the generic brain from the list (there's only allowed to be one per list
                         plStateDataRecord *genBrainVar = genBrainListVar->GetStateDataRecord(0);
@@ -207,7 +207,7 @@ void plAvatarSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcState
                     } else {
                         // get the (one element) climb brain list, if populated
                         plSDStateVariable *climbBrainListVar = brainUnion->FindSDVar(BrainUnionVarNames::kClimbBrain);
-                        if(climbBrainListVar->IsUsed() && climbBrainListVar->GetCount() > 0)
+                        if (climbBrainListVar->IsUsed() && climbBrainListVar->GetCount() > 0)
                         {
                             // TEMP: Not read/writing the climb brain until it gets an overhaul
                             // get the state for the climb brain from the list (there's only allowed to be one per list
@@ -216,7 +216,7 @@ void plAvatarSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcState
                         } else {
                             // get the (one element) drive brain list, if populated
                             plSDStateVariable *driveBrainListVar = brainUnion->FindSDVar(BrainUnionVarNames::kDriveBrain);
-                            if(driveBrainListVar->IsUsed() && driveBrainListVar->GetCount() > 0)
+                            if (driveBrainListVar->IsUsed() && driveBrainListVar->GetCount() > 0)
                             {
                                 // get the state for the drive brain from the list (there's only allowed to be one per list
                                 plStateDataRecord *driveBrainVar = driveBrainListVar->GetStateDataRecord(0);
@@ -240,7 +240,7 @@ void plAvatarSDLModifier::IPutCurrentStateIn(plStateDataRecord* dstState)
     plArmatureMod * avMod = const_cast<plArmatureMod *>(kAvMod);
     hsAssert(avMod, "nil avMod");
 
-    if(avMod)
+    if (avMod)
     {
         IPutBaseAvatarStateIn(avMod, dstState);
         // create a brainUnion nested record
@@ -272,7 +272,7 @@ void plAvatarSDLModifier::IPutCurrentStateIn(plStateDataRecord* dstState)
                 //IPutClimbBrainIn(avMod, climbBrain, climbStateVar->GetStateDataRecord(0));
             }
             else
-            if(plAvBrainGeneric *genBrain = plAvBrainGeneric::ConvertNoRef(brain))
+            if (plAvBrainGeneric *genBrain = plAvBrainGeneric::ConvertNoRef(brain))
             {
                 genStateVar->Resize(1);
                 // put the brain into the first slot in the array
@@ -332,7 +332,7 @@ void plAvatarSDLModifier::IPutGenericBrainIn(plArmatureMod * avMod, plAvBrainGen
     plSDStateVariable* stagesVar = dstState->FindSDVar(GenericBrainVarNames::kStrStages);
     stagesVar->Resize(stageCount);
 
-    for(int i = 0; i < stageCount; i++)
+    for (int i = 0; i < stageCount; i++)
     {
         plAnimStage *stage = genBrain->GetStage(i);
         IPutStageIn(avMod, stage, stagesVar->GetStateDataRecord(i));
@@ -437,19 +437,19 @@ plAnimStage * plAvatarSDLModifier::IGetStageFrom(plArmatureMod *avMod, const plS
     
     bool notifyEnter, notifyLoop, notifyAdv, notifyRegress;
     if (srcState->FindVar(StandardStageVarNames::kStrNotifyEnter)->Get(&notifyEnter))
-        if(notifyEnter)
+        if (notifyEnter)
             notifyFlags &= plAnimStage::kNotifyEnter;
 
     if (srcState->FindVar(StandardStageVarNames::kStrNotifyLoop)->Get(&notifyLoop))
-        if(notifyLoop)
+        if (notifyLoop)
             notifyFlags &= plAnimStage::kNotifyLoop;
 
     if (srcState->FindVar(StandardStageVarNames::kStrNotifyStageAdvance)->Get(&notifyAdv))
-        if(notifyAdv)
+        if (notifyAdv)
             notifyFlags &= plAnimStage::kNotifyAdvance;
 
     if (srcState->FindVar(StandardStageVarNames::kStrNotifyStageRegress)->Get(&notifyRegress))
-        if(notifyRegress)
+        if (notifyRegress)
             notifyFlags &= plAnimStage::kNotifyRegress;
 
     bool useLocal;
@@ -513,7 +513,7 @@ plAnimStage * plAvatarSDLModifier::IGetStageFrom(plArmatureMod *avMod, const plS
 // IPutStageIn ---------------------------------------------------------------------------------------------
 bool plAvatarSDLModifier::IPutStageIn(plArmatureMod *avMod, plAnimStage *stage, plStateDataRecord* dstState)
 {
-    if(stage)
+    if (stage)
     {
         dstState->FindVar(StandardStageVarNames::kStrName)->Set(stage->GetAnimName().c_str());
         dstState->FindVar(StandardStageVarNames::kStrNumLoops)->Set(stage->GetNumLoops());

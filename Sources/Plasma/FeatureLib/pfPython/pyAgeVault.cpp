@@ -150,7 +150,7 @@ PyObject* pyAgeVault::GetPublicAgesFolder()
     PYTHON_RETURN_NONE;
 }
 
-PyObject* pyAgeVault::GetSubAgeLink( const pyAgeInfoStruct & info )
+PyObject* pyAgeVault::GetSubAgeLink(const pyAgeInfoStruct & info)
 {
     hsRef<RelVaultNode> rvn = VaultFindAgeSubAgeLink(info.GetAgeInfo());
     if (rvn)
@@ -173,7 +173,7 @@ plUUID pyAgeVault::GetAgeGuid()
 
 ///////////////
 // Chronicle
-PyObject* pyAgeVault::FindChronicleEntry( const ST::string& entryName )
+PyObject* pyAgeVault::FindChronicleEntry(const ST::string& entryName)
 {
     if (hsRef<RelVaultNode> rvn = VaultFindAgeChronicleEntry(entryName))
         return pyVaultChronicleNode::New(rvn);
@@ -182,37 +182,37 @@ PyObject* pyAgeVault::FindChronicleEntry( const ST::string& entryName )
     PYTHON_RETURN_NONE;
 }
 
-void pyAgeVault::AddChronicleEntry( const ST::string& name, uint32_t type, const ST::string& value )
+void pyAgeVault::AddChronicleEntry(const ST::string& name, uint32_t type, const ST::string& value)
 {
     VaultAddAgeChronicleEntry(name, type, value);
 }
 
 // AGE DEVICES. AKA IMAGERS, WHATEVER.
 // Add a new device.
-void pyAgeVault::AddDevice( const char * deviceName, PyObject * cbObject, uint32_t cbContext )
+void pyAgeVault::AddDevice(const char * deviceName, PyObject * cbObject, uint32_t cbContext)
 {
-    pyVaultNode::pyVaultNodeOperationCallback * cb = new pyVaultNode::pyVaultNodeOperationCallback( cbObject );
-    cb->VaultOperationStarted( cbContext );
+    pyVaultNode::pyVaultNodeOperationCallback * cb = new pyVaultNode::pyVaultNodeOperationCallback(cbObject);
+    cb->VaultOperationStarted(cbContext);
 
     if (hsRef<RelVaultNode> rvn = VaultAgeAddDeviceAndWait(deviceName))
         cb->SetNode(rvn);
 
-    cb->VaultOperationComplete( cbContext, cb->GetNode() ? hsOK : hsFail);  // cbHolder deletes itself here.
+    cb->VaultOperationComplete(cbContext, cb->GetNode() ? hsOK : hsFail);  // cbHolder deletes itself here.
 }
 
 // Remove a device.
-void pyAgeVault::RemoveDevice( const char * deviceName )
+void pyAgeVault::RemoveDevice(const char * deviceName)
 {
     VaultAgeRemoveDevice(deviceName);
 }
 
 // True if device exists in age.
-bool pyAgeVault::HasDevice( const char * deviceName )
+bool pyAgeVault::HasDevice(const char * deviceName)
 {
     return VaultAgeHasDevice(deviceName);
 }
 
-PyObject * pyAgeVault::GetDevice( const char * deviceName )
+PyObject * pyAgeVault::GetDevice(const char * deviceName)
 {
     if (hsRef<RelVaultNode> rvn = VaultAgeGetDevice(deviceName))
         return pyVaultTextNoteNode::New(rvn);
@@ -221,18 +221,18 @@ PyObject * pyAgeVault::GetDevice( const char * deviceName )
 }
 
 // Sets the inbox associated with a device.
-void pyAgeVault::SetDeviceInbox( const char * deviceName, const char * inboxName, PyObject * cbObject, uint32_t cbContext )
+void pyAgeVault::SetDeviceInbox(const char * deviceName, const char * inboxName, PyObject * cbObject, uint32_t cbContext)
 {
-    pyVaultNode::pyVaultNodeOperationCallback * cb = new pyVaultNode::pyVaultNodeOperationCallback( cbObject );
-    cb->VaultOperationStarted( cbContext );
+    pyVaultNode::pyVaultNodeOperationCallback * cb = new pyVaultNode::pyVaultNodeOperationCallback(cbObject);
+    cb->VaultOperationStarted(cbContext);
 
     if (hsRef<RelVaultNode> rvn = VaultAgeSetDeviceInboxAndWait(deviceName, inboxName))
         cb->SetNode(rvn);
 
-    cb->VaultOperationComplete( cbContext, cb->GetNode() ? hsOK : hsFail ); // cbHolder deletes itself here.
+    cb->VaultOperationComplete(cbContext, cb->GetNode() ? hsOK : hsFail); // cbHolder deletes itself here.
 }
 
-PyObject * pyAgeVault::GetDeviceInbox( const char * deviceName )
+PyObject * pyAgeVault::GetDeviceInbox(const char * deviceName)
 {
     if (hsRef<RelVaultNode> rvn = VaultAgeGetDeviceInbox(deviceName))
         return pyVaultTextNoteNode::New(rvn);
@@ -248,20 +248,20 @@ PyObject * pyAgeVault::GetAgeSDL() const
         PYTHON_RETURN_NONE;
     }
     else {
-        return pySDLStateDataRecord::New( rec );
+        return pySDLStateDataRecord::New(rec);
     }
 }
 
-void pyAgeVault::UpdateAgeSDL( pySDLStateDataRecord & pyrec )
+void pyAgeVault::UpdateAgeSDL(pySDLStateDataRecord & pyrec)
 {
     plStateDataRecord * rec = pyrec.GetRec();
-    if ( !rec )
+    if (!rec)
         return;
         
     VaultAgeUpdateAgeSDL(rec);
 }
 
-PyObject* pyAgeVault::FindNode( pyVaultNode* templateNode ) const
+PyObject* pyAgeVault::FindNode(pyVaultNode* templateNode) const
 {
     if (hsRef<RelVaultNode> rvn = VaultGetAgeNode()) {
         hsRef<RelVaultNode> find = rvn->GetChildNode(templateNode->fNode, 1);

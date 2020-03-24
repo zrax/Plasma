@@ -76,17 +76,17 @@ public:
 
     virtual void    Clickable();
     virtual void    Unclickable();
-    virtual void    SetScrollPosition( int32_t topLine );
+    virtual void    SetScrollPosition(int32_t topLine);
     virtual int32_t GetScrollPosition();
     virtual bool    IsAtEnd();
-    virtual void    MoveCursor( int32_t dir );
+    virtual void    MoveCursor(int32_t dir);
     virtual void    ClearBuffer();
-    virtual void    SetText( const char *asciiText );
-    virtual void    SetTextW( const wchar_t *asciiText );
+    virtual void    SetText(const char *asciiText);
+    virtual void    SetTextW(const wchar_t *asciiText);
     virtual const char* GetText();        // returns a python string object
     virtual const wchar_t* GetTextW();
-    virtual void    SetEncodedBuffer( PyObject* buffer_object );
-    virtual void    SetEncodedBufferW( PyObject* buffer_object );
+    virtual void    SetEncodedBuffer(PyObject* buffer_object);
+    virtual void    SetEncodedBufferW(PyObject* buffer_object);
     virtual const char* GetEncodedBuffer();
     virtual const wchar_t* GetEncodedBufferW();
     virtual uint32_t  GetBufferSize();
@@ -94,12 +94,12 @@ public:
     virtual void    SetBufferLimit(int32_t limit);
     virtual int32_t   GetBufferLimit();
 
-    virtual void    InsertChar( char c );
-    virtual void    InsertCharW( wchar_t c );
-    virtual void    InsertString( const char *string );
-    virtual void    InsertStringW( const wchar_t *string );
-    virtual void    InsertColor( pyColor& color );
-    virtual void    InsertStyle( uint8_t fontStyle );
+    virtual void    InsertChar(char c);
+    virtual void    InsertCharW(wchar_t c);
+    virtual void    InsertString(const char *string);
+    virtual void    InsertStringW(const wchar_t *string);
+    virtual void    InsertColor(pyColor& color);
+    virtual void    InsertStyle(uint8_t fontStyle);
     virtual void    DeleteChar();
 
     virtual void    Lock();
@@ -109,10 +109,10 @@ public:
     virtual void    EnableScrollControl();
     virtual void    DisableScrollControl();
 
-    virtual void    DeleteLinesFromTop( int lines );
+    virtual void    DeleteLinesFromTop(int lines);
 
     virtual uint32_t  GetFontSize() const;
-    virtual void    SetFontSize( uint32_t fontsize );
+    virtual void    SetFontSize(uint32_t fontsize);
 
     void BeginUpdate();
     void EndUpdate(bool redraw);

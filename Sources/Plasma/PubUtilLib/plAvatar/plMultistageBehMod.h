@@ -67,8 +67,8 @@ public:
     plMultistageBehMod(plAnimStageVec* stages, bool freezePhys, bool smartSeek, bool reverseFBControlsOnRelease, std::vector<plKey>* receivers);
     virtual ~plMultistageBehMod();
     
-    CLASSNAME_REGISTER( plMultistageBehMod );
-    GETINTERFACE_ANY( plMultistageBehMod, plSingleModifier );
+    CLASSNAME_REGISTER(plMultistageBehMod);
+    GETINTERFACE_ANY(plMultistageBehMod, plSingleModifier);
 
     bool NetProp() { return fNetProp; }
     bool NetForce() { return fNetForce; }

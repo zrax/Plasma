@@ -48,41 +48,41 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /*
 #include "hsGMipmap.h"
 
-REGISTER_CREATABLE( hsGBitmapClass );
+REGISTER_CREATABLE(hsGBitmapClass);
 
-REGISTER_CREATABLE( hsGMipmapClass );
+REGISTER_CREATABLE(hsGMipmapClass);
 */
 
 #include "plBitmap.h"
 
-REGISTER_NONCREATABLE( plBitmap );
+REGISTER_NONCREATABLE(plBitmap);
 
 #include "plMipmap.h"
 
-REGISTER_CREATABLE( plMipmap );
+REGISTER_CREATABLE(plMipmap);
 
 #include "plCubicEnvironmap.h"
 
-REGISTER_CREATABLE( plCubicEnvironmap );
+REGISTER_CREATABLE(plCubicEnvironmap);
 
 #include "plDynamicTextMap.h"
 
-REGISTER_CREATABLE( plDynamicTextMap );
+REGISTER_CREATABLE(plDynamicTextMap);
 
 #include "plAVIWriter.h"
 
-REGISTER_NONCREATABLE( plAVIWriter );
+REGISTER_NONCREATABLE(plAVIWriter);
 
 #include "plFont.h"
 
-REGISTER_CREATABLE( plFont );
+REGISTER_CREATABLE(plFont);
 
 #include "plFontCache.h"
 
-REGISTER_CREATABLE( plFontCache );
+REGISTER_CREATABLE(plFontCache);
 
 #include "plLODMipmap.h"
 
-REGISTER_CREATABLE( plLODMipmap );
+REGISTER_CREATABLE(plLODMipmap);
 
 #endif // plGImageCreatable_inc

@@ -70,7 +70,7 @@ pyVaultSDLNode::pyVaultSDLNode()
 //==================================================================
 // class RelVaultNode : public plVaultNode
 //
-void pyVaultSDLNode::SetIdent( int v )
+void pyVaultSDLNode::SetIdent(int v)
 {
     if (!fNode)
         return;
@@ -103,7 +103,7 @@ PyObject * pyVaultSDLNode::GetStateDataRecord() const
     PYTHON_RETURN_NONE;
 }
 
-void pyVaultSDLNode::InitStateDataRecord( const char* agename, int flags)
+void pyVaultSDLNode::InitStateDataRecord(const char* agename, int flags)
 {
     if (fNode) {
         VaultSDLNode sdl(fNode);
@@ -111,7 +111,7 @@ void pyVaultSDLNode::InitStateDataRecord( const char* agename, int flags)
     }
 }
 
-void pyVaultSDLNode::SetStateDataRecord( const pySDLStateDataRecord & rec, int writeOptions/*=0 */)
+void pyVaultSDLNode::SetStateDataRecord(const pySDLStateDataRecord & rec, int writeOptions/*=0 */)
 {
     if (!fNode)
         return;

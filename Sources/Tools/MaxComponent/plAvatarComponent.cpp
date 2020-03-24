@@ -157,7 +157,7 @@ bool plArmatureComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
 
 
 //  float mass, friction, restitution;
-//  if(ClassID() == AVATAR_CLASS_ID || ClassID() == LOD_AVATAR_CLASS_ID)
+//  if (ClassID() == AVATAR_CLASS_ID || ClassID() == LOD_AVATAR_CLASS_ID)
 //  {
 //      mass = 12;  // *** good number from old physical player
 //      restitution = 0.5f;
@@ -165,12 +165,12 @@ bool plArmatureComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
 //  }
     plMaxNode *animRoot = nil;
 
-    if(ClassID() == AVATAR_CLASS_ID)
+    if (ClassID() == AVATAR_CLASS_ID)
         animRoot = (plMaxNode *)fCompPB->GetINode(plAvatarComponent::kRootNode);
     else if (ClassID() == LOD_AVATAR_CLASS_ID)
         animRoot = (plMaxNode *)fCompPB->GetINode(plLODAvatarComponent::kRootNodeAddBtn);
 
-    if(animRoot)
+    if (animRoot)
     {
         const char *nodeName = animRoot->GetName();
         animRoot->SetDrawable(false);       // make sure our root bone is invisible
@@ -219,7 +219,7 @@ bool plArmatureComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
     pl2WayWinAudible* pAudible = new pl2WayWinAudible;
 
     // Add a key for it
-    plKey key = hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), pAudible, node->GetLocation() );
+    plKey key = hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), pAudible, node->GetLocation());
 
     plAudioInterface* ai = new plAudioInterface;
     plKey pAiKey = hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), (hsKeyedObject*)ai,node->GetLocation());
@@ -227,7 +227,7 @@ bool plArmatureComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
     hsgResMgr::ResMgr()->AddViaNotify(pAiKey, new plObjRefMsg(node->GetKey(), plRefMsg::kOnCreate, 0, plObjRefMsg::kInterface), plRefFlags::kActiveRef);
         
     plIntRefMsg* pMsg = new plIntRefMsg(node->GetKey(), plRefMsg::kOnCreate, 0, plIntRefMsg::kAudible);
-    hsgResMgr::ResMgr()->AddViaNotify(pAudible->GetKey(), pMsg, plRefFlags::kActiveRef );
+    hsgResMgr::ResMgr()->AddViaNotify(pAudible->GetKey(), pMsg, plRefFlags::kActiveRef);
 
     ISetArmatureSORecurse(node, node->GetSceneObject());
     
@@ -260,7 +260,7 @@ bool plArmatureComponent::Convert(plMaxNode* node, plErrorMsg *pErrMsg)
     plAGModifier *agMod = const_cast<plAGModifier *>(temp);
 
     hsAssert(agMod, "Armature root didn't get a agmod. I'll make one for you.");
-    if( ! agMod)
+    if (! agMod)
     {
         // MakeCharacterHierarchy will attach agmodifiers to all the bones in the hierarchy;
         // have to manually add any for non-bone objects...
@@ -287,11 +287,11 @@ bool plArmatureComponent::Convert(plMaxNode* node, plErrorMsg *pErrMsg)
 
 bool plArmatureComponent::IVerifyUsedNode(INode* thisNode, plErrorMsg* pErrMsg, bool IsHull)
 {
-    if(thisNode != NULL)
+    if (thisNode != NULL)
     {
-        if(((plMaxNode*)thisNode)->CanConvert())
+        if (((plMaxNode*)thisNode)->CanConvert())
         {
-            if(IsHull)
+            if (IsHull)
                 ((plMaxNode*)thisNode)->SetDrawable(false);
 
         }else
@@ -311,7 +311,7 @@ bool plArmatureComponent::IVerifyUsedNode(INode* thisNode, plErrorMsg* pErrMsg, 
 
 void plArmatureComponent::IAttachShadowCastModifiersRecur(plMaxNode* node, plShadowCaster* caster)
 {
-    if( !node || !caster )
+    if (!node || !caster)
         return;
 
     // Add test here for whether we want this guy to cast a shadow.
@@ -319,7 +319,7 @@ void plArmatureComponent::IAttachShadowCastModifiersRecur(plMaxNode* node, plSha
     plShadowCastComponent::AddShadowCastModifier(node, caster);
 
     int i;
-    for( i = 0; i < node->NumberOfChildren(); i++ )
+    for (i = 0; i < node->NumberOfChildren(); i++)
         IAttachShadowCastModifiersRecur((plMaxNode*)node->GetChildNode(i), caster);
 }
 
@@ -466,7 +466,7 @@ void plAvatarComponent::IAttachModifiers(plMaxNode *node, plErrorMsg *pErrMsg)
     avMod->SetRootName(name);
     avMod->AppendMeshKey(meshKey);
     int skeletonType = fCompPB->GetInt(ParamID(kSkeleton));
-    avMod->SetBodyType( skeletonType );
+    avMod->SetBodyType(skeletonType);
 
     // only make a human brain if we're a human
     if (skeletonType == plArmatureMod::kBoneBaseCritter)
@@ -478,7 +478,7 @@ void plAvatarComponent::IAttachModifiers(plMaxNode *node, plErrorMsg *pErrMsg)
     avMod->SetBodyFootstepSoundPage(fCompPB->GetStr(ParamID(kBodyFootstepSoundPage)));
     avMod->SetAnimationPrefix(ST::string::from_utf8(fCompPB->GetStr(ParamID(kAnimationPrefix))));
 
-    //AddLinkSound(node, node->GetSceneObject()->GetKey(), pErrMsg );
+    //AddLinkSound(node, node->GetSceneObject()->GetKey(), pErrMsg);
 
     plKey avKey = hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), avMod, node->GetLocation());
     plObjRefMsg *objRefMsg = new plObjRefMsg(bodySO->GetKey(), plRefMsg::kOnCreate,-1, plObjRefMsg::kModifier);
@@ -570,15 +570,15 @@ bool plAvatarComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
 {
     node->SetItinerant(true);
 
-//  if(!IVerifyUsedNode(fCompPB->GetINode(plAvatarComponent::kPhysicsProxyFeet), pErrMsg, true))
+//  if (!IVerifyUsedNode(fCompPB->GetINode(plAvatarComponent::kPhysicsProxyFeet), pErrMsg, true))
 //      return false;
-//  if(!IVerifyUsedNode(fCompPB->GetINode(plAvatarComponent::kPhysicsProxyTorso), pErrMsg, true))
+//  if (!IVerifyUsedNode(fCompPB->GetINode(plAvatarComponent::kPhysicsProxyTorso), pErrMsg, true))
 //      return false;
-//  if(!IVerifyUsedNode(fCompPB->GetINode(plAvatarComponent::kPhysicsProxyHead), pErrMsg, true))
+//  if (!IVerifyUsedNode(fCompPB->GetINode(plAvatarComponent::kPhysicsProxyHead), pErrMsg, true))
 //      return false;
-    if(!IVerifyUsedNode(fCompPB->GetINode(plAvatarComponent::kMeshNode), pErrMsg, false))
+    if (!IVerifyUsedNode(fCompPB->GetINode(plAvatarComponent::kMeshNode), pErrMsg, false))
         return false;
-    if(!IVerifyUsedNode(fCompPB->GetINode(plAvatarComponent::kRootNode), pErrMsg, false))
+    if (!IVerifyUsedNode(fCompPB->GetINode(plAvatarComponent::kRootNode), pErrMsg, false))
         return false;
 
     plMaxNode *meshNode = (plMaxNode *)fCompPB->GetINode(plAvatarComponent::kMeshNode);
@@ -831,15 +831,15 @@ public:
             {
                 int LodBeginState   = map->GetParamBlock()->GetInt(plLODAvatarComponent::kLODState);
                 
-                if(fPB->GetINode(plLODAvatarComponent::kMeshNodeAddBtn,t))
+                if (fPB->GetINode(plLODAvatarComponent::kMeshNodeAddBtn,t))
                     fPB->SetValue(plLODAvatarComponent::kMeshNodeTab, t, fPB->GetINode(plLODAvatarComponent::kMeshNodeAddBtn,t), LodBeginState);
                     
-                if(LOWORD(wParam) == IDC_COMP_LOD_AVATAR_STATE && HIWORD(wParam) == CBN_SELCHANGE)
+                if (LOWORD(wParam) == IDC_COMP_LOD_AVATAR_STATE && HIWORD(wParam) == CBN_SELCHANGE)
                 {
                     int idx = SendMessage((HWND)lParam, CB_GETCURSEL, 0, 0);
                     fPB->SetValue(plLODAvatarComponent::kLODState, 0, idx);
                     
-                    if(fPB->GetINode(plLODAvatarComponent::kMeshNodeTab, t, idx))
+                    if (fPB->GetINode(plLODAvatarComponent::kMeshNodeTab, t, idx))
                         fPB->SetValue(plLODAvatarComponent::kMeshNodeAddBtn, t, fPB->GetINode(plLODAvatarComponent::kMeshNodeTab,t, idx));
                     else
                         fPB->Reset(plLODAvatarComponent::kMeshNodeAddBtn);
@@ -853,7 +853,7 @@ public:
             {
                 int LodBeginState   = map->GetParamBlock()->GetInt(plLODAvatarComponent::kLODState);
 
-                if(fPB->GetINode(plLODAvatarComponent::kMeshNodeAddBtn,t))
+                if (fPB->GetINode(plLODAvatarComponent::kMeshNodeAddBtn,t))
                     fPB->SetValue(plLODAvatarComponent::kMeshNodeTab, t, fPB->GetINode(plLODAvatarComponent::kMeshNodeAddBtn,t), LodBeginState);
 
                 return false;
@@ -1050,7 +1050,7 @@ plLODAvatarComponent::plLODAvatarComponent() : fMaterial(nil)
 
 }
 
-void plLODAvatarComponent::IAttachModifiers(    plMaxNode *node, plErrorMsg *pErrMsg)
+void plLODAvatarComponent::IAttachModifiers(plMaxNode *node, plErrorMsg *pErrMsg)
 {
     ST::string avatarName = node->GetKey()->GetName();
     plMaxNode *animRoot = (plMaxNode *)fCompPB->GetINode(plLODAvatarComponent::kRootNodeAddBtn);
@@ -1058,7 +1058,7 @@ void plLODAvatarComponent::IAttachModifiers(    plMaxNode *node, plErrorMsg *pEr
     plArmatureLODMod* avMod = new plArmatureLODMod(avatarName);
 
     int skeletonType = fCompPB->GetInt(ParamID(kSkeleton));
-    avMod->SetBodyType( skeletonType );
+    avMod->SetBodyType(skeletonType);
     if (skeletonType == plArmatureLODMod::kBoneBaseCritter)
         avMod->PushBrain(new plAvBrainCritter());
     else
@@ -1085,15 +1085,15 @@ bool plLODAvatarComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
 {
     node->SetItinerant(true);
     
-//  if(!IVerifyUsedNode(fCompPB->GetINode(plLODAvatarComponent::kPhysicsProxyFeet), pErrMsg, true))
+//  if (!IVerifyUsedNode(fCompPB->GetINode(plLODAvatarComponent::kPhysicsProxyFeet), pErrMsg, true))
 //      return false;
-//  if(!IVerifyUsedNode(fCompPB->GetINode(plLODAvatarComponent::kPhysicsProxyTorso), pErrMsg, true))
+//  if (!IVerifyUsedNode(fCompPB->GetINode(plLODAvatarComponent::kPhysicsProxyTorso), pErrMsg, true))
 //      return false;
-//  if(!IVerifyUsedNode(fCompPB->GetINode(plLODAvatarComponent::kPhysicsProxyHead), pErrMsg, true))
+//  if (!IVerifyUsedNode(fCompPB->GetINode(plLODAvatarComponent::kPhysicsProxyHead), pErrMsg, true))
 //      return false;
-    if(!IVerifyUsedNode(fCompPB->GetINode(plLODAvatarComponent::kRootNodeAddBtn), pErrMsg, false))
+    if (!IVerifyUsedNode(fCompPB->GetINode(plLODAvatarComponent::kRootNodeAddBtn), pErrMsg, false))
         return false;
-    for(int i = 0; i < plLODAvatarComponent::kMaxNumLODLevels; i++)
+    for (int i = 0; i < plLODAvatarComponent::kMaxNumLODLevels; i++)
     {
         plMaxNode *meshNode = (plMaxNode *)fCompPB->GetINode(plLODAvatarComponent::kMeshNodeTab, 0, i);
         if (!IVerifyUsedNode(meshNode, pErrMsg, false))
@@ -1163,14 +1163,14 @@ void plLODAvatarComponent::ISetupClothes(plMaxNode *node, plArmatureMod *mod, pl
 
 void plLODAvatarComponent::IAttachShadowCastModifiersRecur(plMaxNode* node, plShadowCaster* caster)
 {
-    if( !node || !caster )
+    if (!node || !caster)
         return;
 
-    if( !node->GetSwappableGeom() && node->GetObjectRef()->ClassID() != Class_ID(DUMMY_CLASS_ID, 0))
+    if (!node->GetSwappableGeom() && node->GetObjectRef()->ClassID() != Class_ID(DUMMY_CLASS_ID, 0))
         plShadowCastComponent::AddShadowCastModifier(node, caster);
 
     int i;
-    for( i = 0; i < node->NumberOfChildren(); i++ )
+    for (i = 0; i < node->NumberOfChildren(); i++)
         IAttachShadowCastModifiersRecur((plMaxNode*)node->GetChildNode(i), caster);
 }
 
@@ -1185,7 +1185,7 @@ void plLODAvatarComponent::IAttachShadowCastToLODs(plMaxNode* rootNode)
     for (int i = 0; i < iLODCount; i++)
     {
         plMaxNode *meshNode = (plMaxNode *)fCompPB->GetINode(plLODAvatarComponent::kMeshNodeTab, 0, i);
-        if( meshNode )
+        if (meshNode)
         {
             plShadowCastComponent::AddShadowCastModifier(meshNode, caster); // The LOD roots are a special case.
             IAttachShadowCastModifiersRecur(meshNode, caster);

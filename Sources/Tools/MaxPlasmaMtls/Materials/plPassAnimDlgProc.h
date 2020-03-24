@@ -90,12 +90,12 @@ class plPassAnimDlgProc : public ParamMap2UserDlgProc, public plMtlChangeCallbac
         void IInitControls(Animatable *anim, IParamBlock2 *pb);
         void IEnableGlobal(HWND hWnd, bool enable);
 
-        void ILoadNames( IParamBlock2 *pb );
+        void ILoadNames(IParamBlock2 *pb);
 
-        void    IExposeStealthNode( HelperObject *stealth, IParamMap2 *thisMap );
-        void    IUpdateSegmentSel( IParamMap2 *thisMap, bool clear = false );
+        void    IExposeStealthNode(HelperObject *stealth, IParamMap2 *thisMap);
+        void    IUpdateSegmentSel(IParamMap2 *thisMap, bool clear = false);
 
-        void    IEnableEaseStopPoints( IParamMap2 *pm, bool enable );
+        void    IEnableEaseStopPoints(IParamMap2 *pm, bool enable);
 };
 
 #endif //_plPassAnimDlgProc_h

@@ -83,10 +83,10 @@ protected:
     IParamBlock2*   fPB;
     ParamID         fNodeListID;
     BOOL            fSingleSel;
-    TCHAR           fTitle[ 128 ];
+    TCHAR           fTitle[128];
 
 public:
-    plVolumeHitCallback(INode* owner, IParamBlock2 *pb, ParamID nodeListID, TCHAR *title = nil, BOOL singleSel=false );
+    plVolumeHitCallback(INode* owner, IParamBlock2 *pb, ParamID nodeListID, TCHAR *title = nil, BOOL singleSel=false);
 
     virtual TCHAR *dialogTitle() { return fTitle; }
     virtual TCHAR *buttonText() { return "OK"; }
@@ -102,32 +102,32 @@ plVolumeHitCallback::plVolumeHitCallback(INode* owner, IParamBlock2 *pb, ParamID
     fNodeListID(nodeListID),
     fSingleSel(singleSel)
 {
-    strcpy( fTitle, title );
+    strcpy(fTitle, title);
 }
 
 int plVolumeHitCallback::filter(INode *node)
 {
-    if( node == fOwner )
+    if (node == fOwner)
         return FALSE;
 
     plComponentBase *comp = ((plMaxNodeBase*)node)->ConvertToComponent();
 
     // If this is an activator type component
-    if( comp )
+    if (comp)
     {
-        if( (comp->ClassID() == SOFTVOLUME_CID)
+        if ((comp->ClassID() == SOFTVOLUME_CID)
             || (comp->ClassID() == SOFTVOLUME_UNION_CID)
             || (comp->ClassID() == SOFTVOLUME_ISECT_CID)
-            || (comp->ClassID() == SOFTVOLUME_NEGATE_CID) )
+            || (comp->ClassID() == SOFTVOLUME_NEGATE_CID))
         {
 
-            if( !fSingleSel )
+            if (!fSingleSel)
             {
                 // And we don't already reference it
                 int i;
-                for( i = 0; i < fPB->Count(fNodeListID); i++ )
+                for (i = 0; i < fPB->Count(fNodeListID); i++)
                 {
-                    if( fPB->GetINode(fNodeListID, 0, i) == node )
+                    if (fPB->GetINode(fNodeListID, 0, i) == node)
                         return FALSE;
                 }
             }
@@ -145,9 +145,9 @@ int plVolumeHitCallback::filter(INode *node)
 
 void plVolumeHitCallback::proc(INodeTab &nodeTab)
 {
-    if( fSingleSel )
+    if (fSingleSel)
     {
-        if( nodeTab.Count() )
+        if (nodeTab.Count())
             fPB->SetValue(fNodeListID, TimeValue(0), nodeTab[0]);
         else
             fPB->SetValue(fNodeListID, TimeValue(0), (INode*)nil);
@@ -162,7 +162,7 @@ void plVolumeHitCallback::proc(INodeTab &nodeTab)
 
 plSingleCompSelProc::plSingleCompSelProc(ParamID nodeID, int dlgItem, TCHAR *title) : fNodeID(nodeID), fDlgItem(dlgItem)
 {
-    strcpy( fTitle, title );
+    strcpy(fTitle, title);
 }
 
 BOOL plSingleCompSelProc::DlgProc(TimeValue t, IParamMap2 *paramMap, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -179,11 +179,11 @@ BOOL plSingleCompSelProc::DlgProc(TimeValue t, IParamMap2 *paramMap, HWND hWnd, 
         return true;
 
     case WM_COMMAND:
-        if( (HIWORD(wParam) == BN_CLICKED) && (LOWORD(wParam) == fDlgItem) )
+        if ((HIWORD(wParam) == BN_CLICKED) && (LOWORD(wParam) == fDlgItem))
         {
             // Adding a volume.  Set it and refresh the UI to show it in our list.
             IParamBlock2 *pb = paramMap->GetParamBlock();
-            plVolumeHitCallback hitCB((INode*)pb->GetOwner(), pb, fNodeID, fTitle, true );
+            plVolumeHitCallback hitCB((INode*)pb->GetOwner(), pb, fNodeID, fTitle, true);
             GetCOREInterface()->DoHitByNameDialog(&hitCB);
             INode* node = pb->GetINode(fNodeID);
             TSTR newName(node ? node->GetName() : "Pick");
@@ -215,30 +215,30 @@ bool plSoftVolBaseComponent::SetupProperties(plMaxNode* pNode, plErrorMsg* errMs
 
 plKey plSoftVolBaseComponent::GetSoftVolume()
 {
-    if( !fSoftKey )
+    if (!fSoftKey)
         ICreateSoftVolume();
     return fSoftKey;
 }
 
 plSoftVolBaseComponent* plSoftVolBaseComponent::GetSoftComponent(INode* node)
 {
-    if( node == nil )
+    if (node == nil)
         return nil;
 
     plComponentBase *comp = ((plMaxNodeBase*)node)->ConvertToComponent();
-    if( comp == nil )
+    if (comp == nil)
         return nil;
 
-    return GetSoftComponent( comp );
+    return GetSoftComponent(comp);
 }
 
 plSoftVolBaseComponent* plSoftVolBaseComponent::GetSoftComponent(plComponentBase *comp)
 {
-    if( comp != nil &&
+    if (comp != nil &&
            (comp->ClassID() == SOFTVOLUME_CID)
         || (comp->ClassID() == SOFTVOLUME_UNION_CID)
         || (comp->ClassID() == SOFTVOLUME_ISECT_CID)
-        || (comp->ClassID() == SOFTVOLUME_NEGATE_CID) )
+        || (comp->ClassID() == SOFTVOLUME_NEGATE_CID))
     {
         return (plSoftVolBaseComponent*)comp;
     }
@@ -247,16 +247,16 @@ plSoftVolBaseComponent* plSoftVolBaseComponent::GetSoftComponent(plComponentBase
 
 void plSoftVolBaseComponent::IAddSubVolume(plKey masterKey, plKey subKey)
 {
-    if( masterKey && subKey )
+    if (masterKey && subKey)
         hsgResMgr::ResMgr()->AddViaNotify(subKey, new plGenRefMsg(masterKey, plRefMsg::kOnCreate, 0, plSoftVolume::kSubVolume), plRefFlags::kActiveRef);
 }
 
 plKey plSoftVolBaseComponent::ISetVolumeKey(plSoftVolume* vol)
 {
     int i;
-    for( i = 0; i < NumTargets(); i++ )
+    for (i = 0; i < NumTargets(); i++)
     {
-        if( GetTarget(i) )
+        if (GetTarget(i))
             break;
     }
     hsAssert(i < NumTargets(), "We're not attached to anything?");
@@ -267,7 +267,7 @@ plKey plSoftVolBaseComponent::ISetVolumeKey(plSoftVolume* vol)
 
 plKey plSoftVolBaseComponent::IInvertVolume(plKey subKey)
 {
-    if( !subKey )
+    if (!subKey)
         return nil;
 
     plSoftVolumeInvert* invert = new plSoftVolumeInvert;
@@ -343,7 +343,7 @@ public:
         case WM_INITDIALOG:
             {
                     IParamBlock2 *pb = map->GetParamBlock();
-                    map->SetTooltip(plSoftVolComponent::kSoftDistance, TRUE, "Distance effect fades in and out." );
+                    map->SetTooltip(plSoftVolComponent::kSoftDistance, TRUE, "Distance effect fades in and out.");
             }
             return true;
 
@@ -406,16 +406,16 @@ plSoftVolComponent::plSoftVolComponent()
 
 bool plSoftVolComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *errMsg)
 {
-    if( !plSoftVolBaseComponent::SetupProperties(pNode, errMsg) )
+    if (!plSoftVolBaseComponent::SetupProperties(pNode, errMsg))
         return false;
 
     int i;
-    for( i = 0; i < pNode->NumAttachedComponents(); i++ )
+    for (i = 0; i < pNode->NumAttachedComponents(); i++)
     {
         plComponentBase* comp = pNode->GetAttachedComponent(i);
-        if( comp
+        if (comp
             && (comp != this)
-            && (comp->ClassID() == ClassID()) )
+            && (comp->ClassID() == ClassID()))
         {
             errMsg->Set(true, pNode->GetName(), "Multiple SoftRegion components attached, there can be only one").CheckAndAsk();
             errMsg->Set(false);
@@ -428,16 +428,16 @@ bool plSoftVolComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *errMsg)
     // The node must either point to a Mesh or a dummy box, otherwise skip it.
     //
     Object *obj = pNode->EvalWorldState(TimeValue(0)).obj;
-    if( !obj )
+    if (!obj)
     {
         return true;
     }
 
-    if( obj->ClassID() == Class_ID(DUMMY_CLASS_ID,0) )
+    if (obj->ClassID() == Class_ID(DUMMY_CLASS_ID,0))
     {
         fValid = true;
     }
-    else if( obj->CanConvertToType(triObjectClassID) )
+    else if (obj->CanConvertToType(triObjectClassID))
     {
         fValid = true;
     }
@@ -448,13 +448,13 @@ bool plSoftVolComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *errMsg)
 
 plKey plSoftVolComponent::ICreateSoftVolume()
 {
-    if( !fValid )
+    if (!fValid)
         return nil;
 
-    if( !NumTargets() )
+    if (!NumTargets())
         return nil;
 
-    if( NumTargets() < 2 )
+    if (NumTargets() < 2)
     {
         return fSoftKey = ICreateFromNode(GetTarget(0));
     }
@@ -463,15 +463,15 @@ plKey plSoftVolComponent::ICreateSoftVolume()
     fSoftKey = ISetVolumeKey(compound);
 
     int i;
-    for( i = 0; i < NumTargets(); i++ )
+    for (i = 0; i < NumTargets(); i++)
     {
-        if( GetTarget(i) )
+        if (GetTarget(i))
         {
             plKey subKey = ICreateFromNode(GetTarget(i));
             IAddSubVolume(fSoftKey, subKey);
         }
     }
-    if( !compound->GetNumSubs() )
+    if (!compound->GetNumSubs())
     {
         delete compound;
         compound = nil;
@@ -483,23 +483,23 @@ plKey plSoftVolComponent::ICreateSoftVolume()
 
 plKey plSoftVolComponent::ICreateFromNode(plMaxNodeBase* pNode)
 {
-    if( !pNode )
+    if (!pNode)
         return nil;
 
-    if( !fValid )
+    if (!fValid)
         return nil;
 
-    if( !pNode->GetSceneObject() )
+    if (!pNode->GetSceneObject())
         return nil;
 
     // Go ahead and make it here, so it'll be available for aggregaters in the Convert pass
     Object *obj = pNode->EvalWorldState(TimeValue(0)).obj;
 
-    if( obj->ClassID() == Class_ID(DUMMY_CLASS_ID,0) )
+    if (obj->ClassID() == Class_ID(DUMMY_CLASS_ID,0))
     {
         return ICreateFromDummyObject(pNode, obj);
     }
-    else if( obj->CanConvertToType(triObjectClassID) )
+    else if (obj->CanConvertToType(triObjectClassID))
     {
         return ICreateFromTriObject(pNode, obj);
     }
@@ -522,7 +522,7 @@ plKey plSoftVolComponent::ICreateFromDummyObject(plMaxNodeBase* pNode, Object* o
     hsVector3 axis(bnd.pmax.x - bnd.pmin.x, bnd.pmax.y - bnd.pmin.y, bnd.pmax.z - bnd.pmin.z);
 
     int i;
-    for( i = 0; i < 3; i++ )
+    for (i = 0; i < 3; i++)
     {
         hsPoint3 bot = v2l * corner;
         hsPoint3 top = corner;
@@ -546,13 +546,13 @@ plKey plSoftVolComponent::ICreateFromTriObject(plMaxNodeBase* pNode, Object* obj
 
     plConvexIsect* isect = new plConvexIsect;
     int i;
-    for( i = 0; i < mesh->getNumFaces(); i++ )
+    for (i = 0; i < mesh->getNumFaces(); i++)
     {
-        Face        *maxFace = &mesh->faces[ i ];
+        Face        *maxFace = &mesh->faces[i];
 
-        Point3 v0 = mesh->verts[ maxFace->v[ 0 ] ];
-        Point3 v1 = mesh->verts[ maxFace->v[ 1 ] ];
-        Point3 v2 = mesh->verts[ maxFace->v[ 2 ] ];
+        Point3 v0 = mesh->verts[maxFace->v[0]];
+        Point3 v1 = mesh->verts[maxFace->v[1]];
+        Point3 v2 = mesh->verts[maxFace->v[2]];
 
         hsPoint3 p0(v0.x, v0.y, v0.z);
         hsPoint3 p1(v1.x, v1.y, v1.z);
@@ -569,7 +569,7 @@ plKey plSoftVolComponent::ICreateFromTriObject(plMaxNodeBase* pNode, Object* obj
     
     plKey retVal = ISetFromIsect(pNode, isect);
 
-    if( meshObj != obj )
+    if (meshObj != obj)
         meshObj->DeleteThis();
 
     return retVal;
@@ -583,7 +583,7 @@ plKey plSoftVolComponent::ISetFromIsect(plMaxNodeBase* pNode, plVolumeIsect* ise
     simple->SetVolume(isect);
     simple->SetDistance(fCompPB->GetFloat(kSoftDistance));
 
-    if( fCompPB->GetInt(kPartialEnabled) )
+    if (fCompPB->GetInt(kPartialEnabled))
     {
         simple->SetInsideStrength(fCompPB->GetFloat(kInsidePower) * 0.01f);
         simple->SetOutsideStrength(fCompPB->GetFloat(kOutsidePower) * 0.01f);
@@ -653,7 +653,7 @@ public:
         case WM_INITDIALOG:
             {
                     IParamBlock2 *pb = map->GetParamBlock();
-                    map->SetTooltip(plSoftVolUnionComponent::kSubVolumes, TRUE, "Select sub-volumes to combine into larger." );
+                    map->SetTooltip(plSoftVolUnionComponent::kSubVolumes, TRUE, "Select sub-volumes to combine into larger.");
             }
             return true;
 
@@ -731,17 +731,17 @@ bool plSoftVolUnionComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *err
 plKey plSoftVolUnionComponent::ICreateSoftVolume()
 {
     int numSubs = fCompPB->Count(kSubVolumes);
-    if( numSubs < 0 )
+    if (numSubs < 0)
         return nil;
 
-    if( numSubs < 2 )
+    if (numSubs < 2)
         return fSoftKey = plSoftVolBaseComponent::GetSoftComponent(fCompPB->GetINode(kSubVolumes, 0, 0))->GetSoftVolume();
 
     plSoftVolumeUnion* compound = new plSoftVolumeUnion;
     fSoftKey = ISetVolumeKey(compound);
 
     int i;
-    for( i = 0; i < numSubs; i++ )
+    for (i = 0; i < numSubs; i++)
     {
         plSoftVolBaseComponent *comp = plSoftVolBaseComponent::GetSoftComponent(fCompPB->GetINode(kSubVolumes, 0, i));
         if (comp)
@@ -751,7 +751,7 @@ plKey plSoftVolUnionComponent::ICreateSoftVolume()
         }
     }
 
-    if( fCompPB->GetInt(kPartialEnabled) )
+    if (fCompPB->GetInt(kPartialEnabled))
     {
         compound->SetInsideStrength(fCompPB->GetFloat(kInsidePower) * 0.01f);
         compound->SetOutsideStrength(fCompPB->GetFloat(kOutsidePower) * 0.01f);
@@ -814,7 +814,7 @@ public:
         case WM_INITDIALOG:
             {
                     IParamBlock2 *pb = map->GetParamBlock();
-                    map->SetTooltip(plSoftVolIsectComponent::kSubVolumes, TRUE, "Select sub-volumes to combine into larger." );
+                    map->SetTooltip(plSoftVolIsectComponent::kSubVolumes, TRUE, "Select sub-volumes to combine into larger.");
             }
             return true;
 
@@ -892,23 +892,23 @@ bool plSoftVolIsectComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *err
 plKey plSoftVolIsectComponent::ICreateSoftVolume()
 {
     int numSubs = fCompPB->Count(kSubVolumes);
-    if( numSubs < 0 )
+    if (numSubs < 0)
         return nil;
 
-    if( numSubs < 2 )
+    if (numSubs < 2)
         return fSoftKey = plSoftVolBaseComponent::GetSoftComponent(fCompPB->GetINode(kSubVolumes, 0, 0))->GetSoftVolume();
 
     plSoftVolumeIntersect* compound = new plSoftVolumeIntersect;
     fSoftKey = ISetVolumeKey(compound);
 
     int i;
-    for( i = 0; i < numSubs; i++ )
+    for (i = 0; i < numSubs; i++)
     {
         plKey subKey = plSoftVolBaseComponent::GetSoftComponent(fCompPB->GetINode(kSubVolumes, 0, i))->GetSoftVolume();
         IAddSubVolume(fSoftKey, subKey);
     }
 
-    if( fCompPB->GetInt(kPartialEnabled) )
+    if (fCompPB->GetInt(kPartialEnabled))
     {
         compound->SetInsideStrength(fCompPB->GetFloat(kInsidePower) * 0.01f);
         compound->SetOutsideStrength(fCompPB->GetFloat(kOutsidePower) * 0.01f);
@@ -1018,21 +1018,21 @@ bool plSoftVolNegateComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *er
 
 plKey plSoftVolNegateComponent::ICreateSoftVolume()
 {
-    if( NumTargets() < 1 )
+    if (NumTargets() < 1)
         return nil;
 
     INode* subNode = fCompPB->GetINode(kSubVolume);
-    if( subNode )
+    if (subNode)
     {
         plKey subKey = plSoftVolBaseComponent::GetSoftComponent(fCompPB->GetINode(kSubVolume))->GetSoftVolume();
-        if( subKey )
+        if (subKey)
         {
             fSoftKey = IInvertVolume(subKey);
 
-            if( fCompPB->GetInt(kPartialEnabled) )
+            if (fCompPB->GetInt(kPartialEnabled))
             {
                 plSoftVolumeInvert* invert = plSoftVolumeInvert::ConvertNoRef(fSoftKey->GetObjectPtr());
-                if( invert )
+                if (invert)
                 {
                     invert->SetInsideStrength(fCompPB->GetFloat(kInsidePower) * 0.01f);
                     invert->SetOutsideStrength(fCompPB->GetFloat(kOutsidePower) * 0.01f);
@@ -1115,23 +1115,23 @@ plLightRegionComponent::plLightRegionComponent()
 
 bool plLightRegionComponent::Convert(plMaxNode *node, plErrorMsg *errMsg)
 {
-    if( !fCompPB->GetINode(kSoftVolume) )
+    if (!fCompPB->GetINode(kSoftVolume))
         return true;
 
     plSceneObject* sceneObj = node->GetSceneObject();
-    if( !sceneObj )
+    if (!sceneObj)
         return true;
 
     plLightInfo* li = plLightInfo::ConvertNoRef(sceneObj->GetGenericInterface(plLightInfo::Index()));
-    if( !li )
+    if (!li)
         return true;
 
     plSoftVolBaseComponent* softComp = plSoftVolBaseComponent::GetSoftComponent(fCompPB->GetINode(kSoftVolume));
-    if( !softComp )
+    if (!softComp)
         return true;
 
     plKey softKey = softComp->GetSoftVolume();
-    if( !softKey )
+    if (!softKey)
         return true;
 
     hsgResMgr::ResMgr()->AddViaNotify(softKey, new plGenRefMsg(li->GetKey(), plRefMsg::kOnCreate, 0, plLightInfo::kSoftVolume), plRefFlags::kActiveRef);
@@ -1175,7 +1175,7 @@ public:
         case WM_INITDIALOG:
             {
                 IParamBlock2 *pb = map->GetParamBlock();
-                if( pb->GetInt(plVisRegionComponent::kExcludes) )
+                if (pb->GetInt(plVisRegionComponent::kExcludes))
                 {
                     map->Enable(plVisRegionComponent::kDisableNormal, FALSE);
                     map->Enable(plVisRegionComponent::kAffectDraw, TRUE);
@@ -1185,7 +1185,7 @@ public:
                 else
                 {
                     map->Enable(plVisRegionComponent::kDisableNormal, TRUE);
-                    if( pb->GetInt(plVisRegionComponent::kDisableNormal) )
+                    if (pb->GetInt(plVisRegionComponent::kDisableNormal))
                     {
                         map->Enable(plVisRegionComponent::kAffectDraw, FALSE);
                         map->Enable(plVisRegionComponent::kAffectLight, FALSE);
@@ -1202,10 +1202,10 @@ public:
             break;
         case WM_COMMAND:
             {
-                if( (LOWORD(wParam) == IDC_COMP_VISREGION_NOT) || (LOWORD(wParam) == IDC_COMP_VISREGION_DIS) )
+                if ((LOWORD(wParam) == IDC_COMP_VISREGION_NOT) || (LOWORD(wParam) == IDC_COMP_VISREGION_DIS))
                 {
                     IParamBlock2 *pb = map->GetParamBlock();
-                    if( pb->GetInt(plVisRegionComponent::kExcludes) )
+                    if (pb->GetInt(plVisRegionComponent::kExcludes))
                     {
                         map->Enable(plVisRegionComponent::kDisableNormal, FALSE);
                         map->Enable(plVisRegionComponent::kAffectDraw, TRUE);
@@ -1215,7 +1215,7 @@ public:
                     else
                     {
                         map->Enable(plVisRegionComponent::kDisableNormal, TRUE);
-                        if( pb->GetInt(plVisRegionComponent::kDisableNormal) )
+                        if (pb->GetInt(plVisRegionComponent::kDisableNormal))
                         {
                             map->Enable(plVisRegionComponent::kAffectDraw, FALSE);
                             map->Enable(plVisRegionComponent::kAffectLight, FALSE);
@@ -1290,17 +1290,17 @@ plVisRegionComponent::plVisRegionComponent()
 
 void plVisRegionComponent::ICheckVisRegion(const plLocation& loc)
 {
-    if( !fVisReg )
+    if (!fVisReg)
     {
-        if( !fCompPB->GetINode(kSoftVolume) )
+        if (!fCompPB->GetINode(kSoftVolume))
             return;
 
         plSoftVolBaseComponent* softComp = plSoftVolBaseComponent::GetSoftComponent(fCompPB->GetINode(kSoftVolume));
-        if( !softComp )
+        if (!softComp)
             return;
 
         plKey softKey = softComp->GetSoftVolume();
-        if( !softKey )
+        if (!softKey)
             return;
 
         fVisReg = new plVisRegion;
@@ -1323,7 +1323,7 @@ bool plVisRegionComponent::Convert(plMaxNode *node, plErrorMsg *errMsg)
 {
     const char* dbgNodeName = node->GetName();
     plSceneObject* obj = node->GetSceneObject();
-    if( !obj )
+    if (!obj)
         return true;
 
     bool excludes = fCompPB->GetInt(kExcludes);
@@ -1335,27 +1335,27 @@ bool plVisRegionComponent::Convert(plMaxNode *node, plErrorMsg *errMsg)
     const plDrawInterface* di = affectDraw ? obj->GetDrawInterface() : nil;
     plOccluder* occ = affectOcc ? (plOccluder*)obj->GetGenericInterface(plOccluder::Index()) : nil;
     plLightInfo* li = affectLight ? (plLightInfo*)obj->GetGenericInterface(plLightInfo::Index()) : nil;
-    if( !(disableNormal || di || occ || li) )
+    if (!(disableNormal || di || occ || li))
         return true;
 
     ICheckVisRegion(node->GetLocation());
-    if( !fVisReg )
+    if (!fVisReg)
         return true;
 
-    if( di )
+    if (di)
         hsgResMgr::ResMgr()->AddViaNotify(fVisReg->GetKey(), new plGenRefMsg(di->GetKey(), plRefMsg::kOnCreate, 0, plDrawInterface::kRefVisRegion), plRefFlags::kActiveRef);
 
-    if( occ )
+    if (occ)
     {
         hsgResMgr::ResMgr()->AddViaNotify(fVisReg->GetKey(), new plGenRefMsg(occ->GetKey(), plRefMsg::kOnCreate, 0, plOccluder::kRefVisRegion), plRefFlags::kActiveRef);
     }
 
-    if( li )
+    if (li)
     {
         hsgResMgr::ResMgr()->AddViaNotify(fVisReg->GetKey(), new plGenRefMsg(li->GetKey(), plRefMsg::kOnCreate, 0, plLightInfo::kVisRegion), plRefFlags::kActiveRef);
     }
 
-    if( !(di || occ || li) )
+    if (!(di || occ || li))
     {
         hsgResMgr::ResMgr()->AddViaNotify(fVisReg->GetKey(), new plObjRefMsg(obj->GetKey(), plRefMsg::kOnCreate, -1, plObjRefMsg::kInterface), plRefFlags::kActiveRef);
     }
@@ -1381,16 +1381,16 @@ bool plVisRegionComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *errMsg
 void plVisRegionComponent::CollectRegions(plMaxNode* node, hsTArray<plVisRegion*>& regions)
 {
     int i;
-    for( i = 0; i < node->NumAttachedComponents(); i++ )
+    for (i = 0; i < node->NumAttachedComponents(); i++)
     {
         plComponentBase* comp = node->GetAttachedComponent(i);
-        if( comp && comp->ClassID() == VISREGION_CID )
+        if (comp && comp->ClassID() == VISREGION_CID)
         {
             plVisRegionComponent* regComp = (plVisRegionComponent*)comp;
-            if( regComp )
+            if (regComp)
             {
                 regComp->ICheckVisRegion(node->GetLocation());
-                if( regComp->fVisReg )
+                if (regComp->fVisReg)
                     regions.Append(regComp->fVisReg);
             }
         }
@@ -1453,20 +1453,20 @@ bool plRelevanceRegionComponent::Convert(plMaxNode *node, plErrorMsg *errMsg)
 {
     const char* dbgNodeName = node->GetName();
     plSceneObject* obj = node->GetSceneObject();
-    if( !obj )
+    if (!obj)
         return true;
 
-    if( !fRegion )
+    if (!fRegion)
     {
-        if( !fCompPB->GetINode(kSoftVolume) )
+        if (!fCompPB->GetINode(kSoftVolume))
             return true;
 
         plSoftVolBaseComponent* softComp = plSoftVolBaseComponent::GetSoftComponent(fCompPB->GetINode(kSoftVolume));
-        if( !softComp )
+        if (!softComp)
             return true;
 
         plKey softKey = softComp->GetSoftVolume();
-        if( !softKey )
+        if (!softKey)
             return true;
 
         fRegion = new plRelevanceRegion;
@@ -1524,27 +1524,27 @@ bool plEffVisSetComponent::Convert(plMaxNode *node, plErrorMsg *errMsg)
 {
     const char* dbgNodeName = node->GetName();
     plSceneObject* obj = node->GetSceneObject();
-    if( !obj )
+    if (!obj)
         return true;
 
     const plDrawInterface* di = obj->GetDrawInterface();
     plOccluder* occ = (plOccluder*)obj->GetGenericInterface(plOccluder::Index());
     plLightInfo* li = (plLightInfo*)obj->GetGenericInterface(plLightInfo::Index());
-    if( !(di || occ || li) )
+    if (!(di || occ || li))
         return true;
 
-    if( !GetVisRegion(node) )
+    if (!GetVisRegion(node))
         return false;
 
-    if( di )
+    if (di)
         hsgResMgr::ResMgr()->AddViaNotify(fVisReg->GetKey(), new plGenRefMsg(di->GetKey(), plRefMsg::kOnCreate, 0, plDrawInterface::kRefVisRegion), plRefFlags::kActiveRef);
 
-    if( occ )
+    if (occ)
     {
         hsgResMgr::ResMgr()->AddViaNotify(fVisReg->GetKey(), new plGenRefMsg(occ->GetKey(), plRefMsg::kOnCreate, 0, plOccluder::kRefVisRegion), plRefFlags::kActiveRef);
     }
 
-    if( li )
+    if (li)
     {
         hsgResMgr::ResMgr()->AddViaNotify(fVisReg->GetKey(), new plGenRefMsg(li->GetKey(), plRefMsg::kOnCreate, 0, plLightInfo::kVisRegion), plRefFlags::kActiveRef);
     }
@@ -1563,7 +1563,7 @@ bool plEffVisSetComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *errMsg
 
 plVisRegion* plEffVisSetComponent::GetVisRegion(plMaxNode* node)
 {
-    if( !fVisReg )
+    if (!fVisReg)
     {
         fVisReg = new plVisRegion;
         plKey key = hsgResMgr::ResMgr()->NewKey(ST::string::from_utf8(GetINode()->GetName()), fVisReg, node->GetLocation());
@@ -1579,15 +1579,15 @@ plVisRegion* plEffVisSetComponent::GetVisRegion(plMaxNode* node)
 
 plEffVisSetComponent* plEffVisSetComponent::ConvertToEffVisSetComponent(plMaxNode* node)
 {
-    if( !node )
+    if (!node)
         return nil;
 
     plComponentBase *comp = node->ConvertToComponent();
 
     // If this is an activator type component
-    if( comp )
+    if (comp)
     {
-        if( comp->ClassID() == EFFVISSET_CID )
+        if (comp->ClassID() == EFFVISSET_CID)
         {
             return (plEffVisSetComponent*)comp;
         }
@@ -1598,15 +1598,15 @@ plEffVisSetComponent* plEffVisSetComponent::ConvertToEffVisSetComponent(plMaxNod
 void plEffVisSetComponent::CollectRegions(plMaxNode* node, hsTArray<plVisRegion*>& regions)
 {
     int i;
-    for( i = 0; i < node->NumAttachedComponents(); i++ )
+    for (i = 0; i < node->NumAttachedComponents(); i++)
     {
         plComponentBase* comp = node->GetAttachedComponent(i);
-        if( comp && comp->ClassID() == EFFVISSET_CID )
+        if (comp && comp->ClassID() == EFFVISSET_CID)
         {
             plEffVisSetComponent* regComp = (plEffVisSetComponent*)comp;
-            if( regComp )
+            if (regComp)
             {
-                if( regComp->fVisReg )
+                if (regComp->fVisReg)
                     regions.Append(regComp->fVisReg);
             }
         }

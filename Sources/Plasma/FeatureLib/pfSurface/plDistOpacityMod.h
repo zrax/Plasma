@@ -102,8 +102,8 @@ public:
     plDistOpacityMod();
     virtual ~plDistOpacityMod();
 
-    CLASSNAME_REGISTER( plDistOpacityMod );
-    GETINTERFACE_ANY( plDistOpacityMod, plSingleModifier );
+    CLASSNAME_REGISTER(plDistOpacityMod);
+    GETINTERFACE_ANY(plDistOpacityMod, plSingleModifier);
 
     virtual void            SetKey(plKey k);
 

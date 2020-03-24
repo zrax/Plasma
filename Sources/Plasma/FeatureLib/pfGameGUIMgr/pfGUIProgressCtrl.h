@@ -65,7 +65,7 @@ class pfGUIProgressCtrl : public pfGUIValueCtrl
         bool            fAnimTimesCalced;
         bool            fPlaySound;
 
-        virtual bool IEval( double secs, float del, uint32_t dirty ); // called only by owner object's Eval()
+        virtual bool IEval(double secs, float del, uint32_t dirty); // called only by owner object's Eval()
 
         bool            ICalcAnimTimes();
 
@@ -75,8 +75,8 @@ class pfGUIProgressCtrl : public pfGUIValueCtrl
 
         pfGUIProgressCtrl();
 
-        CLASSNAME_REGISTER( pfGUIProgressCtrl );
-        GETINTERFACE_ANY( pfGUIProgressCtrl, pfGUIValueCtrl );
+        CLASSNAME_REGISTER(pfGUIProgressCtrl);
+        GETINTERFACE_ANY(pfGUIProgressCtrl, pfGUIValueCtrl);
 
 
         enum OurFlags
@@ -84,15 +84,15 @@ class pfGUIProgressCtrl : public pfGUIValueCtrl
             kReverseValues = kDerivedFlagsStart
         };
 
-        virtual bool    MsgReceive( plMessage* pMsg );
+        virtual bool    MsgReceive(plMessage* pMsg);
         
-        virtual void Read( hsStream* s, hsResMgr* mgr );
-        virtual void Write( hsStream* s, hsResMgr* mgr );
+        virtual void Read(hsStream* s, hsResMgr* mgr);
+        virtual void Write(hsStream* s, hsResMgr* mgr);
 
-        virtual void    UpdateBounds( hsMatrix44 *invXformMatrix = nil, bool force = false );
+        virtual void    UpdateBounds(hsMatrix44 *invXformMatrix = nil, bool force = false);
 
-        virtual void    SetCurrValue( float v );
-        virtual void    AnimateToPercentage( float percent );
+        virtual void    SetCurrValue(float v);
+        virtual void    AnimateToPercentage(float percent);
 
         enum SoundEvents
         {
@@ -102,7 +102,7 @@ class pfGUIProgressCtrl : public pfGUIValueCtrl
         void DontPlaySounds() { fPlaySound = false; }
 
         // Export only
-        void    SetAnimationKeys( hsTArray<plKey> &keys, const ST::string &name );
+        void    SetAnimationKeys(hsTArray<plKey> &keys, const ST::string &name);
 };
 
 #endif // _pfGUIProgressCtrl_h

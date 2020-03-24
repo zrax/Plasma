@@ -58,12 +58,12 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 //
 plExportLogErrorMsg::~plExportLogErrorMsg()
 {
-    if ( fErrfile )
+    if (fErrfile)
     {
         fprintf(fErrfile, "\n%d total number of error!!!! ", fNumberErrors);
-        if ( fNumberErrors > 10 )
-            if ( fNumberErrors > 20 )
-                if ( fNumberErrors > 50 )
+        if (fNumberErrors > 10)
+            if (fNumberErrors > 20)
+                if (fNumberErrors > 50)
                     fprintf(fErrfile, "(CRISIS CRISIS!)");
                 else
                     fprintf(fErrfile, "(which is a disaster!)");
@@ -85,7 +85,7 @@ plExportLogErrorMsg::~plExportLogErrorMsg()
 
 bool plExportLogErrorMsg::Show()
 {
-    if( GetBogus() )
+    if (GetBogus())
     {
         IWriteErrorFile(GetLabel(),GetMsg());
     }
@@ -93,7 +93,7 @@ bool plExportLogErrorMsg::Show()
 }
 bool plExportLogErrorMsg::Ask()
 {
-    if( GetBogus() )
+    if (GetBogus())
     {
         IWriteErrorFile(GetLabel(),GetMsg());
     }
@@ -102,7 +102,7 @@ bool plExportLogErrorMsg::Ask()
 
 bool plExportLogErrorMsg::CheckAndAsk()
 {
-    if( GetBogus() )
+    if (GetBogus())
     {
         strncat(GetMsg(), " - File corruption possible!", 255);
         IWriteErrorFile(GetLabel(),GetMsg());
@@ -112,7 +112,7 @@ bool plExportLogErrorMsg::CheckAndAsk()
 
 bool plExportLogErrorMsg::CheckAskOrCancel()
 {
-    if( GetBogus() )
+    if (GetBogus())
     {
         IWriteErrorFile(GetLabel(),GetMsg());
     }
@@ -121,7 +121,7 @@ bool plExportLogErrorMsg::CheckAskOrCancel()
 
 bool plExportLogErrorMsg::CheckAndShow()
 {
-    if ( GetBogus() )
+    if (GetBogus())
     {
         Show();
         Check();
@@ -133,7 +133,7 @@ bool plExportLogErrorMsg::CheckAndShow()
 
 bool plExportLogErrorMsg::Check()
 {
-    if( GetBogus() )
+    if (GetBogus())
     {
         // ... how many ways can you say something is bad?
         strncat(GetMsg(), " !Output File Corrupt!", 255);
@@ -149,12 +149,12 @@ bool plExportLogErrorMsg::Check()
 //
 void plExportLogErrorMsg::Quit()
 {
-    if( GetBogus() )
+    if (GetBogus())
     {
         strncat(GetMsg(), " -- Quit! (must be real bad!)", 255);
         IWriteErrorFile(GetLabel(),GetMsg());
         SetBogus(false);
-        hsThrow( *this );
+        hsThrow(*this);
     }
 }
 
@@ -167,7 +167,7 @@ void plExportLogErrorMsg::IWriteErrorFile(const char* label, const char* msg)
     if (fErrfile_name[0] != '\0')
     {
         // do we have it open, yet?
-        if ( !fErrfile )
+        if (!fErrfile)
         {
             // must be the first write... open the error file
             fErrfile = fopen(fErrfile_name, "wt");
@@ -181,7 +181,7 @@ void plExportLogErrorMsg::IWriteErrorFile(const char* label, const char* msg)
    // Check to see if we are running an export server
    // If so, then pass the update on to the export server
    GUP* exportServerGup = OpenGupPlugIn(Class_ID(470000004,99));
-   if(exportServerGup)
+   if (exportServerGup)
    {
       exportServerGup->Control(-5);  // means next control will be error msg
       char buf[1024];
@@ -198,8 +198,8 @@ void plExportLogErrorMsg::IDebugThrow()
         DebugBreak();
 #endif // HS_BUILD_FOR_WIN32
     }
-    catch(...)
+    catch (...)
     {
-        hsThrow( *this );
+        hsThrow(*this);
     }
 }

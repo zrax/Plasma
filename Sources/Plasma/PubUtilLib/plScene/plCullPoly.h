@@ -74,8 +74,8 @@ public:
     const hsPoint3&         GetCenter() const { return fCenter; }
     float                GetRadius() const { return fRadius; }
 
-    void                    SetHole(bool on) { if( on )fFlags |= kHole; else fFlags &= ~kHole; }
-    void                    SetTwoSided(bool on) { if( on )fFlags |= kTwoSided; else fFlags &= ~kTwoSided; }
+    void                    SetHole(bool on) { if (on) fFlags |= kHole; else fFlags &= ~kHole; }
+    void                    SetTwoSided(bool on) { if (on) fFlags |= kTwoSided; else fFlags &= ~kTwoSided; }
 
     bool                    IsHole() const { return fFlags & kHole; } // Assumes kHole is 0x1
     bool                    IsTwoSided() const { return 0 != (fFlags & kTwoSided); }

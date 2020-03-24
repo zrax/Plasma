@@ -105,12 +105,12 @@ uint32_t plLoadMask::ValidateReps(int num, const int quals[], const int caps[])
 {
     uint32_t retVal = 0;
     int i;
-    for( i = 1; i < num; i++ )
+    for (i = 1; i < num; i++)
     {
         int j;
-        for( j = 0; j < i; j++ )
+        for (j = 0; j < i; j++)
         {
-            if( (quals[i] >= quals[j]) && (caps[i] >= caps[j]) )
+            if ((quals[i] >= quals[j]) && (caps[i] >= caps[j]))
             {
                 // Bogus, this would double load.
                 retVal |= (1 << i);
@@ -124,18 +124,18 @@ uint32_t plLoadMask::ValidateMasks(int num, plLoadMask masks[])
 {
     uint32_t retVal = 0;
     int i;
-    for( i = 0; i < num; i++ )
+    for (i = 0; i < num; i++)
     {
-        if( !masks[i].fQuality[0] && !masks[i].fQuality[1] )
+        if (!masks[i].fQuality[0] && !masks[i].fQuality[1])
             retVal |= (1 << i);
 
         int j;
-        for( j = 0; j < i; j++ )
+        for (j = 0; j < i; j++)
         {
             int k;
-            for( k = 0; k <= kMaxCap; k++ )
+            for (k = 0; k <= kMaxCap; k++)
             {
-                if( masks[i].fQuality[k] & masks[j].fQuality[k] )
+                if (masks[i].fQuality[k] & masks[j].fQuality[k])
                 {
                     masks[i].fQuality[k] &= ~masks[j].fQuality[k];
                     retVal |= (1 << i);
@@ -155,32 +155,32 @@ bool plLoadMask::ComputeRepMasks(
     bool retVal = false; // Okay till proven otherwise.
 
     int i;
-    for( i = 0; i < num; i++ )
+    for (i = 0; i < num; i++)
     {
         int k;
-        for( k = 0; k <= kMaxCap; k++ )
+        for (k = 0; k <= kMaxCap; k++)
         {
             // Q starts off the bits higher than or equal to 1 << qual.
             // I.e. we just turned off all lower quality bits.
-            uint8_t q = ~( (1 << quals[i]) - 1 );
+            uint8_t q = ~((1 << quals[i]) - 1);
 
             // For this cap level, if we require higher caps,
             // turn off our quality (i.e. we won't load at this
             // cap for any quality setting.
             uint8_t c = caps[i] > kMaxCap ? kMaxCap : caps[i];
-            if( c > k )
+            if (c > k)
                 q = 0;
 
             // Turn off all bits already covered for this cap level
             // so we never double load.
             int j;
-            for( j = 0; j < i; j++ )
+            for (j = 0; j < i; j++)
             {
                 q &= ~masks[j].fQuality[k];
             }
             masks[i].fQuality[k] = q;
         }
-        if( masks[i].NeverLoads() )
+        if (masks[i].NeverLoads())
             retVal = true;
     }
 

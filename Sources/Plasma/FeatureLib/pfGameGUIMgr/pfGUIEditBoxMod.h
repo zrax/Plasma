@@ -73,7 +73,7 @@ class pfGUIEditBoxMod : public pfGUIControlMod
         plKeyDef        fSavedKey;
         uint8_t           fSavedModifiers;
 
-        virtual bool IEval( double secs, float del, uint32_t dirty ); // called only by owner object's Eval()
+        virtual bool IEval(double secs, float del, uint32_t dirty); // called only by owner object's Eval()
 
         virtual void    IPostSetUpDynTextMap();
         virtual void    IUpdate();
@@ -88,30 +88,30 @@ class pfGUIEditBoxMod : public pfGUIControlMod
         pfGUIEditBoxMod();
         virtual ~pfGUIEditBoxMod();
 
-        CLASSNAME_REGISTER( pfGUIEditBoxMod );
-        GETINTERFACE_ANY( pfGUIEditBoxMod, pfGUIControlMod );
+        CLASSNAME_REGISTER(pfGUIEditBoxMod);
+        GETINTERFACE_ANY(pfGUIEditBoxMod, pfGUIControlMod);
 
-        virtual bool    MsgReceive( plMessage* pMsg );
+        virtual bool    MsgReceive(plMessage* pMsg);
         
-        virtual void Read( hsStream* s, hsResMgr* mgr );
-        virtual void Write( hsStream* s, hsResMgr* mgr );
+        virtual void Read(hsStream* s, hsResMgr* mgr);
+        virtual void Write(hsStream* s, hsResMgr* mgr);
 
-        virtual void    HandleMouseDown( hsPoint3 &mousePt, uint8_t modifiers );
-        virtual void    HandleMouseUp( hsPoint3 &mousePt, uint8_t modifiers );
-        virtual void    HandleMouseDrag( hsPoint3 &mousePt, uint8_t modifiers );
+        virtual void    HandleMouseDown(hsPoint3 &mousePt, uint8_t modifiers);
+        virtual void    HandleMouseUp(hsPoint3 &mousePt, uint8_t modifiers);
+        virtual void    HandleMouseDrag(hsPoint3 &mousePt, uint8_t modifiers);
 
-        virtual bool    HandleKeyPress( wchar_t key, uint8_t modifiers );
-        virtual bool    HandleKeyEvent( pfGameGUIMgr::EventType event, plKeyDef key, uint8_t modifiers );
+        virtual bool    HandleKeyPress(wchar_t key, uint8_t modifiers);
+        virtual bool    HandleKeyEvent(pfGameGUIMgr::EventType event, plKeyDef key, uint8_t modifiers);
 
         virtual void    PurgeDynaTextMapImage();
 
-        void    SetBufferSize( uint32_t size );
+        void    SetBufferSize(uint32_t size);
 
         std::string GetBuffer();
         std::wstring    GetBufferW() { return fBuffer; }
         void        ClearBuffer();
-        void        SetText( const char *str );
-        void        SetText( const wchar_t *str );
+        void        SetText(const char *str);
+        void        SetText(const wchar_t *str);
 
         void        SetCursorToHome();
         void        SetCursorToEnd();

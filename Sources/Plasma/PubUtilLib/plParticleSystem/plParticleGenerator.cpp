@@ -210,10 +210,10 @@ bool plSimpleParticleGenerator::AddAutoParticles(plParticleEmitter *emitter, flo
 
         float invMass = fPartInvMassMin;
         // Might be faster to just do the math instead of checking for zero...
-        if( fPartInvMassRange > 0 )
+        if (fPartInvMassRange > 0)
             invMass += fPartInvMassRange * sRandom.RandZeroToOne();
 
-        if( fPartRadsPerSecRange > 0 )
+        if (fPartRadsPerSecRange > 0)
             radsPerSec = fPartRadsPerSecRange * sRandom.RandMinusOneToOne();
 
         hsVector3 tmp = initDirection * initVelocity;
@@ -405,7 +405,7 @@ bool plOneTimeParticleGenerator::AddAutoParticles(plParticleEmitter *emitter, fl
         tile = (float)(sRandom.Rand() % emitter->GetNumTiles());
         currSizeVar = scale + scaleRange * sRandom.RandMinusOneToOne();
 
-        if( fPartRadsPerSecRange > 0 )
+        if (fPartRadsPerSecRange > 0)
             radsPerSec = fPartRadsPerSecRange * sRandom.RandMinusOneToOne();
 
         emitter->AddParticle(currStart, zeroVel, (uint32_t)tile, fXSize, fYSize, currSizeVar,

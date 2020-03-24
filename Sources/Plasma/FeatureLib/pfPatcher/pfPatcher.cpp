@@ -488,7 +488,7 @@ void pfPatcherWorker::Run()
 
         // This makes sure both queues are empty before exiting.
         if (!fRequestActive)
-            if(!IssueRequest())
+            if (!IssueRequest())
                 break;
     } while (fStarted);
 

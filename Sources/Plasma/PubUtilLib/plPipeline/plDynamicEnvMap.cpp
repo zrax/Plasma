@@ -81,7 +81,7 @@ plDynamicEnvMap::plDynamicEnvMap()
 {
     fColor.Set(0,0,0,1.f);
     int i;
-    for( i = 0; i < 6; i++ )
+    for (i = 0; i < 6; i++)
         fReqMsgs[i] = new plRenderRequestMsg(nil, &fReqs[i]);;
 
     SetPosition(fPos);
@@ -102,7 +102,7 @@ plDynamicEnvMap::plDynamicEnvMap(uint16_t width, uint16_t height, uint8_t bitDep
 {
     fColor.Set(0,0,0,1.f);
     int i;
-    for( i = 0; i < 6; i++ )
+    for (i = 0; i < 6; i++)
         fReqMsgs[i] = new plRenderRequestMsg(nil, &fReqs[i]);;
 
     SetPosition(fPos);
@@ -113,7 +113,7 @@ plDynamicEnvMap::~plDynamicEnvMap()
     SetDeviceRef(nil);
 
     int i;
-    for( i = 0; i < 6; i++ )
+    for (i = 0; i < 6; i++)
         delete fReqMsgs[i];
 }
 
@@ -189,7 +189,7 @@ void plDynamicEnvMap::ISetupRenderRequests()
         | plPipeline::kRenderClearDepth;
 
     int i;
-    for( i = 0; i < 6; i++ )
+    for (i = 0; i < 6; i++)
     {
         fReqs[i].SetRenderState(renderState);
 
@@ -230,7 +230,7 @@ void plDynamicEnvMap::ISubmitRenderRequests()
 {
     IUpdatePosition();
     int i;
-    for( i = 0; i < 6; i++ )
+    for (i = 0; i < 6; i++)
         fReqMsgs[i]->SendAndKeep();
     fLastRefresh = hsTimer::GetSysSeconds();
     fOutStanding += 6;
@@ -238,13 +238,13 @@ void plDynamicEnvMap::ISubmitRenderRequests()
 
 void plDynamicEnvMap::ICheckForRefresh(double t, plPipeline *pipe)
 {
-    if( fLastRefresh <= 0 )
+    if (fLastRefresh <= 0)
     {
         ISubmitRenderRequests();
         return;
     }
 
-    if( fRefreshRate <= 0 )
+    if (fRefreshRate <= 0)
         return;
 
 #ifndef PLASMA_EXTERNAL_RELEASE
@@ -255,15 +255,15 @@ void plDynamicEnvMap::ICheckForRefresh(double t, plPipeline *pipe)
     }
 #endif // PLASMA_EXTERNAL_RELEASE
 
-    if( t > fLastRefresh + 6.f * fRefreshRate )
+    if (t > fLastRefresh + 6.f * fRefreshRate)
     {
         ISubmitRenderRequests();
         return;
     }
-    while( t > fLastRefresh + fRefreshRate )
+    while (t > fLastRefresh + fRefreshRate)
     {
         int nextRender = fLastRender+1;
-        if( nextRender > 5 )
+        if (nextRender > 5)
             nextRender = 0;
         ISubmitRenderRequest(nextRender);
         fLastRefresh += fRefreshRate;
@@ -286,57 +286,57 @@ bool plDynamicEnvMap::INeedReRender()
 bool plDynamicEnvMap::MsgReceive(plMessage* msg)
 {
     plRenderRequestAck* ack = plRenderRequestAck::ConvertNoRef(msg);
-    if( ack )
+    if (ack)
     {
         fOutStanding--;
         return true;
     }
     plRenderMsg* rendMsg = plRenderMsg::ConvertNoRef(msg);
-    if( rendMsg )
+    if (rendMsg)
     {
-        if( fOutStanding )
+        if (fOutStanding)
             INeedReRender();
 
         ICheckForRefresh(hsTimer::GetSysSeconds(), rendMsg->Pipeline());
         return true;
     }
-    if( plPipeRTMakeMsg::ConvertNoRef(msg) )
+    if (plPipeRTMakeMsg::ConvertNoRef(msg))
     {
         INeedReRender();
         plCubicRenderTarget::MsgReceive(msg);
         return true;
     }
     plAgeLoadedMsg* ageLoaded = plAgeLoadedMsg::ConvertNoRef(msg);
-    if( ageLoaded && ageLoaded->fLoaded )
+    if (ageLoaded && ageLoaded->fLoaded)
         return INeedReRender();
 
-    if( plInitialAgeStateLoadedMsg::ConvertNoRef(msg) )
+    if (plInitialAgeStateLoadedMsg::ConvertNoRef(msg))
         return INeedReRender();
 
     plDynamicEnvMapMsg* cmd = plDynamicEnvMapMsg::ConvertNoRef(msg);
-    if( cmd )
+    if (cmd)
     {
-        if( cmd->fCmd & plDynamicEnvMapMsg::kSetPosition )
+        if (cmd->fCmd & plDynamicEnvMapMsg::kSetPosition)
             SetPosition(cmd->fPos);
 
-        if( cmd->fCmd & plDynamicEnvMapMsg::kSetHither )
+        if (cmd->fCmd & plDynamicEnvMapMsg::kSetHither)
             SetHither(cmd->fHither);
 
-        if( cmd->fCmd & plDynamicEnvMapMsg::kSetFogStart )
+        if (cmd->fCmd & plDynamicEnvMapMsg::kSetFogStart)
             SetFogStart(cmd->fFogStart);
 
-        if( cmd->fCmd & plDynamicEnvMapMsg::kSetYon )
+        if (cmd->fCmd & plDynamicEnvMapMsg::kSetYon)
             SetYon(cmd->fYon);
 
-        if( cmd->fCmd & plDynamicEnvMapMsg::kSetColor )
+        if (cmd->fCmd & plDynamicEnvMapMsg::kSetColor)
             SetColor(cmd->fColor);
 
-        if( cmd->fCmd & plDynamicEnvMapMsg::kSetRefresh )
+        if (cmd->fCmd & plDynamicEnvMapMsg::kSetRefresh)
             SetRefreshRate(cmd->fRefresh);
 
         // If we're going to ReRender, make sure we've gotten any
         // parameter changes first.
-        if( cmd->fCmd & plDynamicEnvMapMsg::kReRender )
+        if (cmd->fCmd & plDynamicEnvMapMsg::kReRender)
         {
             ISetupRenderRequests();
             INeedReRender();
@@ -345,9 +345,9 @@ bool plDynamicEnvMap::MsgReceive(plMessage* msg)
         return true;
     }
     plGenRefMsg* refMsg = plGenRefMsg::ConvertNoRef(msg);
-    if( refMsg )
+    if (refMsg)
     {
-        if( IOnRefMsg(refMsg) )
+        if (IOnRefMsg(refMsg))
             return true;
     }
 
@@ -356,14 +356,14 @@ bool plDynamicEnvMap::MsgReceive(plMessage* msg)
 
 bool plDynamicEnvMap::IOnRefMsg(plGenRefMsg* refMsg)
 {
-    switch( refMsg->fType)
+    switch (refMsg->fType)
     {
     case kRefVisSet:
-        if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+        if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
         {
             plVisRegion* reg = plVisRegion::ConvertNoRef(refMsg->GetRef());
             int idx = fVisRegions.Find(reg);
-            if( reg && (fVisRegions.kMissingIndex == idx) )
+            if (reg && (fVisRegions.kMissingIndex == idx))
             {
                 fVisRegions.Append(reg);
                 fVisSet.SetBit(reg->GetIndex());
@@ -375,7 +375,7 @@ bool plDynamicEnvMap::IOnRefMsg(plGenRefMsg* refMsg)
         {
             plVisRegion* reg = plVisRegion::ConvertNoRef(refMsg->GetRef());
             int idx = fVisRegions.Find(reg);
-            if( reg && (fVisRegions.kMissingIndex != idx) )
+            if (reg && (fVisRegions.kMissingIndex != idx))
             {
                 fVisRegions.Remove(idx);
                 fVisSet.ClearBit(reg->GetIndex());
@@ -387,7 +387,7 @@ bool plDynamicEnvMap::IOnRefMsg(plGenRefMsg* refMsg)
 
     case kRefRootNode:
         plSceneObject *so = plSceneObject::ConvertNoRef(refMsg->GetRef());
-        if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+        if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
             fRootNode = so;
         else
             fRootNode = nil;
@@ -400,7 +400,7 @@ bool plDynamicEnvMap::IOnRefMsg(plGenRefMsg* refMsg)
 void plDynamicEnvMap::SetIncludeCharacters(bool b)
 {
     fIncCharacters = b;
-    if( b )
+    if (b)
         fVisSet.SetBit(plVisMgr::kCharacter);
     else
         fVisSet.ClearBit(plVisMgr::kCharacter);
@@ -433,11 +433,11 @@ void plDynamicEnvMap::Read(hsStream* s, hsResMgr* mgr)
     SetIncludeCharacters(fIncCharacters);
     int nVis = s->ReadLE32();
     int i;
-    for( i = 0; i < nVis; i++ )
+    for (i = 0; i < nVis; i++)
         mgr->ReadKeyNotifyMe(s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, kRefVisSet), plRefFlags::kActiveRef);
 
     nVis = s->ReadLE32();
-    for( i = 0; i < nVis; i++)
+    for (i = 0; i < nVis; i++)
     {
         plKey key = plKeyFinder::Instance().StupidSearch("", "", plVisRegion::Index(), s->ReadSafeString());
         if (key)
@@ -468,11 +468,11 @@ void plDynamicEnvMap::Write(hsStream* s, hsResMgr* mgr)
     s->WriteByte(fIncCharacters);
     s->WriteLE32(fVisRegions.GetCount());
     int i;
-    for( i = 0; i < fVisRegions.GetCount(); i++ )
+    for (i = 0; i < fVisRegions.GetCount(); i++)
         mgr->WriteKey(s, fVisRegions[i]);
 
     s->WriteLE32(fVisRegionNames.Count());
-    for( i = 0; i < fVisRegionNames.Count(); i++)
+    for (i = 0; i < fVisRegionNames.Count(); i++)
     {
         s->WriteSafeString(fVisRegionNames[i]);
     }
@@ -658,13 +658,13 @@ void plDynamicCamMap::ICheckForRefresh(double t, plPipeline *pipe)
     if (!inView)
         return;
 
-    if( fLastRefresh <= 0 )
+    if (fLastRefresh <= 0)
     {
         ISubmitRenderRequest(pipe);
         return;
     }
 
-    if( fRefreshRate <= 0 )
+    if (fRefreshRate <= 0)
         return;
 
 #ifndef PLASMA_EXTERNAL_RELEASE
@@ -691,51 +691,51 @@ bool plDynamicCamMap::INeedReRender()
 bool plDynamicCamMap::MsgReceive(plMessage* msg)
 {
     plRenderRequestAck* ack = plRenderRequestAck::ConvertNoRef(msg);
-    if( ack )
+    if (ack)
     {
         fOutStanding--;
         return true;
     }
     plRenderMsg* rendMsg = plRenderMsg::ConvertNoRef(msg);
-    if( rendMsg )
+    if (rendMsg)
     {
-        if( fOutStanding )
+        if (fOutStanding)
             INeedReRender();
 
         ICheckForRefresh(hsTimer::GetSysSeconds(), rendMsg->Pipeline());
         return true;
     }
-    if( plPipeRTMakeMsg::ConvertNoRef(msg) )
+    if (plPipeRTMakeMsg::ConvertNoRef(msg))
     {
         INeedReRender();
         plRenderTarget::MsgReceive(msg);
         return true;
     }
     plAgeLoadedMsg* ageLoaded = plAgeLoadedMsg::ConvertNoRef(msg);
-    if( ageLoaded && ageLoaded->fLoaded )
+    if (ageLoaded && ageLoaded->fLoaded)
         return INeedReRender();
 
-    if( plInitialAgeStateLoadedMsg::ConvertNoRef(msg) )
+    if (plInitialAgeStateLoadedMsg::ConvertNoRef(msg))
         return INeedReRender();
 
     plDynamicEnvMapMsg* cmd = plDynamicEnvMapMsg::ConvertNoRef(msg);
-    if( cmd )
+    if (cmd)
     {
-        if( cmd->fCmd & plDynamicEnvMapMsg::kSetFogStart )
+        if (cmd->fCmd & plDynamicEnvMapMsg::kSetFogStart)
             fFogStart = cmd->fFogStart;
 
-        if( cmd->fCmd & plDynamicEnvMapMsg::kSetColor )
+        if (cmd->fCmd & plDynamicEnvMapMsg::kSetColor)
             fColor = cmd->fColor;
 
-        if( cmd->fCmd & plDynamicEnvMapMsg::kSetRefresh )
+        if (cmd->fCmd & plDynamicEnvMapMsg::kSetRefresh)
             SetRefreshRate(cmd->fRefresh);
 
         return true;
     }
     plRefMsg* refMsg = plRefMsg::ConvertNoRef(msg);
-    if( refMsg )
+    if (refMsg)
     {
-        if( IOnRefMsg(refMsg) )
+        if (IOnRefMsg(refMsg))
             return true;
     }
 
@@ -873,7 +873,7 @@ bool plDynamicCamMap::IOnRefMsg(plRefMsg* refMsg)
 void plDynamicCamMap::SetIncludeCharacters(bool b)
 {
     fIncCharacters = b;
-    if( b )
+    if (b)
         fVisSet.SetBit(plVisMgr::kCharacter);
     else
         fVisSet.ClearBit(plVisMgr::kCharacter);
@@ -881,7 +881,7 @@ void plDynamicCamMap::SetIncludeCharacters(bool b)
 
 void plDynamicCamMap::AddVisRegion(plVisRegion* reg)
 {
-    hsgResMgr::ResMgr()->AddViaNotify( reg->GetKey(), new plGenRefMsg( GetKey(), plGenRefMsg::kOnReplace, -1, kRefVisSet ), plRefFlags::kActiveRef );
+    hsgResMgr::ResMgr()->AddViaNotify(reg->GetKey(), new plGenRefMsg(GetKey(), plGenRefMsg::kOnReplace, -1, kRefVisSet), plRefFlags::kActiveRef);
 }
 
 void plDynamicCamMap::SetEnabled(bool enable)
@@ -922,11 +922,11 @@ void plDynamicCamMap::Read(hsStream* s, hsResMgr* mgr)
         mgr->ReadKeyNotifyMe(s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, i, kRefTargetNode), plRefFlags::kPassiveRef);
 
     int nVis = s->ReadLE32();
-    for( i = 0; i < nVis; i++ )
+    for (i = 0; i < nVis; i++)
         mgr->ReadKeyNotifyMe(s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, 0, kRefVisSet), plRefFlags::kActiveRef);
 
     nVis = s->ReadLE32();
-    for( i = 0; i < nVis; i++)
+    for (i = 0; i < nVis; i++)
     {
         plKey key = plKeyFinder::Instance().StupidSearch("", "", plVisRegion::Index(), s->ReadSafeString());
         if (key)
@@ -965,11 +965,11 @@ void plDynamicCamMap::Write(hsStream* s, hsResMgr* mgr)
         mgr->WriteKey(s, fTargetNodes[i]);
 
     s->WriteLE32(fVisRegions.GetCount());
-    for( i = 0; i < fVisRegions.GetCount(); i++ )
+    for (i = 0; i < fVisRegions.GetCount(); i++)
         mgr->WriteKey(s, fVisRegions[i]);
 
     s->WriteLE32(fVisRegionNames.Count());
-    for( i = 0; i < fVisRegionNames.Count(); i++)
+    for (i = 0; i < fVisRegionNames.Count(); i++)
     {
         s->WriteSafeString(fVisRegionNames[i]);
     }

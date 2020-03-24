@@ -55,8 +55,8 @@ public:
 
     virtual ~plCaptureRenderMsg();
     
-    CLASSNAME_REGISTER( plCaptureRenderMsg );
-    GETINTERFACE_ANY( plCaptureRenderMsg, plMessage );
+    CLASSNAME_REGISTER(plCaptureRenderMsg);
+    GETINTERFACE_ANY(plCaptureRenderMsg, plMessage);
 
     // Mipmap will be unref'd on destruction of message. If you plan to
     // hang onto it, you need to ref it when you receive this message.

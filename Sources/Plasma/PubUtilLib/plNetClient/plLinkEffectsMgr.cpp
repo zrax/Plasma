@@ -79,15 +79,15 @@ plLinkEffectsMgr::plLinkEffectsMgr()
 plLinkEffectsMgr::~plLinkEffectsMgr()
 {
     int i;
-    for( i = 0; i < fLinks.GetCount(); i++ )
+    for (i = 0; i < fLinks.GetCount(); i++)
     {
         hsRefCnt_SafeUnRef(fLinks[i]);
     }
-    for( i = 0; i < fWaitlist.GetCount(); i++ )
+    for (i = 0; i < fWaitlist.GetCount(); i++)
     {
         hsRefCnt_SafeUnRef(fWaitlist[i]);
     }
-    for( i = 0; i < fDeadlist.GetCount(); i++ )
+    for (i = 0; i < fDeadlist.GetCount(); i++)
     {
         hsRefCnt_SafeUnRef(fDeadlist[i]);
     }
@@ -204,7 +204,7 @@ void plLinkEffectsMgr::ISendAllReadyCallbacks()
                 if (fLinks[i]->GetLinkKey() == plNetClientApp::GetInstance()->GetLocalPlayerKey())
                 {
                     plLinkOutUnloadMsg* lam = new plLinkOutUnloadMsg;   // derived from LoadAgeMsg
-                    lam->SetAgeFilename( NetCommGetAge()->ageDatasetName );
+                    lam->SetAgeFilename(NetCommGetAge()->ageDatasetName);
                     lam->AddReceiver(plNetClientMgr::GetInstance()->GetKey());
                     lam->SetPlayerID(plNetClientMgr::GetInstance()->GetPlayerID());
                     lam->Send();
@@ -278,7 +278,7 @@ bool plLinkEffectsMgr::MsgReceive(plMessage *msg)
                 {
                     pMsg->AddReceiver(pCamKey);
                 }
-                plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+                plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
                 // now make him re-appear
                 plPseudoLinkAnimTriggerMsg* pTrigMsg = new plPseudoLinkAnimTriggerMsg(false, pSeudoCallback->fAvatarKey);
                 pTrigMsg->SetSender(GetKey());
@@ -373,14 +373,14 @@ bool plLinkEffectsMgr::MsgReceive(plMessage *msg)
         // Also, check if you're going to/from the ACA, or through the fissure, and mute sound if you are.
         if (linkKey == nc->GetLocalPlayerKey())
         {
-            if(lm) {
+            if (lm) {
                 ST::string ageName = lm->GetAgeLink()->GetAgeInfo()->GetAgeFilename();
                 ST::string prevAgeName = lm->GetPrevAgeLink()->GetAgeInfo()->GetAgeFilename();
 
                 bool linkToStartup = ageName.compare_i(kStartUpAgeFilename) == 0;      // To Startup
                 bool linkFromStartup = prevAgeName.compare_i(kStartUpAgeFilename) == 0;   // Leaving Startup
 
-                bool cleftSolved = VaultHasChronicleEntry( kCleftSolved );
+                bool cleftSolved = VaultHasChronicleEntry(kCleftSolved);
 
                 bool linkToACA = ageName.compare_i(kAvCustomizationFilename) == 0;
                 bool linkFromACA = prevAgeName.compare_i(kAvCustomizationFilename) == 0;
@@ -391,7 +391,7 @@ bool plLinkEffectsMgr::MsgReceive(plMessage *msg)
                 bool linkToDsntFromShell = lm &&
                                         lm->GetAgeLink()->HasSpawnPt() &&
                                         !lm->GetAgeLink()->SpawnPoint().GetTitle().compare_i(kDescentLinkFromShell);
-                if ( linkToACA || linkFromACA || linkToStartup || linkFromStartup || linkToFissureDrop || linkToDsntFromShell)
+                if (linkToACA || linkFromACA || linkToStartup || linkFromStartup || linkToFissureDrop || linkToDsntFromShell)
                 {
                     BCMsg->SetLinkFlag(plLinkEffectBCMsg::kMute);
                 }
@@ -453,7 +453,7 @@ bool plLinkEffectsMgr::MsgReceive(plMessage *msg)
         plNetApp::GetInstance()->DebugMsg("Received pLinkCallbackMsg, localmsg={}\n",
             !msg->HasBCastFlag(plMessage::kNetNonLocal));
 
-        static char str[ 128 ];
+        static char str[128];
         plLinkEffectsTriggerMsg *pTriggerMsg = IFindLinkTriggerMsg(pLinkCallbackMsg->fLinkKey);
         if (pTriggerMsg == nil)
         {
@@ -463,10 +463,10 @@ bool plLinkEffectsMgr::MsgReceive(plMessage *msg)
 
         if (--pTriggerMsg->fEffects == 0)
         {
-            plNetApp::GetInstance()->DebugMsg("All link callbacks received.\n" );
+            plNetApp::GetInstance()->DebugMsg("All link callbacks received.\n");
             plgDispatch::Dispatch()->RegisterForExactType(plTimeMsg::Index(), GetKey());
         }
-        else if (pTriggerMsg->fEffects < 0 )
+        else if (pTriggerMsg->fEffects < 0)
         {
             plNetApp::GetInstance()->DebugMsg("Too many link callbacks received for avatar {}. Ignoring extras.\n",
                     pTriggerMsg->GetLinkKey()->GetName());
@@ -543,8 +543,8 @@ void plLinkEffectsMgr::WaitForEffect(plKey linkKey, float time)
     callback->fRepeats = 0;
     callback->fLinkKey = linkKey;
     double timeToDeliver = hsTimer::GetSysSeconds() + time;
-    callback->SetTimeStamp( timeToDeliver );
-    callback->Send( GetKey() );
+    callback->SetTimeStamp(timeToDeliver);
+    callback->Send(GetKey());
 }
 
 plMessage *plLinkEffectsMgr::WaitForEffect(plKey linkKey)
@@ -562,7 +562,7 @@ plMessage *plLinkEffectsMgr::WaitForEffect(plKey linkKey)
     callback->fEvent = kStop;
     callback->fRepeats = 0;
     callback->fLinkKey = linkKey;
-    callback->AddReceiver( GetKey() );
+    callback->AddReceiver(GetKey());
     return callback;
 }
 
@@ -578,8 +578,8 @@ void plLinkEffectsMgr::WaitForPseudoEffect(plKey linkKey, float time)
     plPseudoLinkAnimCallbackMsg* callback = new plPseudoLinkAnimCallbackMsg();
     callback->fAvatarKey = linkKey;
     double timeToDeliver = hsTimer::GetSysSeconds() + time;
-    callback->SetTimeStamp( timeToDeliver );
-    callback->Send( GetKey() );
+    callback->SetTimeStamp(timeToDeliver);
+    callback->Send(GetKey());
 }
 
 plPseudoLinkEffectMsg* plLinkEffectsMgr::IFindPseudo(plKey avatarKey)

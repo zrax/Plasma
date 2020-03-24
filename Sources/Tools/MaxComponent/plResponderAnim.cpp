@@ -430,11 +430,11 @@ plMessage* plResponderCmdAnim::ICreateSndMsg(plMaxNode* node, plErrorMsg *pErrMs
                 msg->fTime = 0;
                 msg->SetCmd(plSoundMsg::kGoToTime);
             }
-            else if(type == kRespondSyncedPlaySound)
+            else if (type == kRespondSyncedPlaySound)
                 msg->SetCmd(plSoundMsg::kSynchedPlay);
 
-            if( plAudioComp::IsLocalOnly( comp ) )
-                msg->SetCmd( plSoundMsg::kIsLocalOnly );
+            if (plAudioComp::IsLocalOnly(comp))
+                msg->SetCmd(plSoundMsg::kIsLocalOnly);
 
             return msg;
         }

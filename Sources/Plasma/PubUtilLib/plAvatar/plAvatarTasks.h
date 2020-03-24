@@ -98,8 +98,8 @@ public:
     virtual void LeaveAge(plArmatureMod *avatar);
 
     // plasma protocol
-    CLASSNAME_REGISTER( plAvAnimTask );
-    GETINTERFACE_ANY( plAvAnimTask, plAvTask );
+    CLASSNAME_REGISTER(plAvAnimTask);
+    GETINTERFACE_ANY(plAvAnimTask, plAvTask);
 
     virtual void Write(hsStream *stream, hsResMgr *mgr);
     virtual void Read(hsStream *stream, hsResMgr *mgr);
@@ -140,8 +140,8 @@ public:
     virtual void LeaveAge(plArmatureMod *avatar);
     
     // plasma protocol
-    CLASSNAME_REGISTER( plAvSeekTask );
-    GETINTERFACE_ANY( plAvSeekTask, plAvTask );
+    CLASSNAME_REGISTER(plAvSeekTask);
+    GETINTERFACE_ANY(plAvSeekTask, plAvTask);
 
     // *** implement reader and writer if needed for network propagation
 protected:
@@ -200,8 +200,8 @@ public:
     static bool fForce3rdPerson;
 
     // plasma protocol
-    CLASSNAME_REGISTER( plAvOneShotTask );
-    GETINTERFACE_ANY( plAvOneShotTask, plAvTask );
+    CLASSNAME_REGISTER(plAvOneShotTask);
+    GETINTERFACE_ANY(plAvOneShotTask, plAvTask);
 
     bool fBackwards;                  // play the anim backwards
     bool fDisableLooping;             // explicitly kill looping on this anim;
@@ -247,8 +247,8 @@ public:
     virtual bool Start(plArmatureMod *avatar, plArmatureBrain *brain, double time, float elapsed);
     virtual bool Process(plArmatureMod *avatar, plArmatureBrain *brain, double time, float elapsed);
 
-    CLASSNAME_REGISTER( plAvOneShotLinkTask );
-    GETINTERFACE_ANY( plAvOneShotLinkTask, plAvOneShotTask );
+    CLASSNAME_REGISTER(plAvOneShotLinkTask);
+    GETINTERFACE_ANY(plAvOneShotLinkTask, plAvOneShotTask);
 
     // only read/writes enough to send an unstarted task across the net. Not intended for
     // use with a running task.

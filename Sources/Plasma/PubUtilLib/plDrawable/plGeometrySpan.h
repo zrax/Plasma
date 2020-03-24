@@ -89,7 +89,7 @@ class plGeometrySpan
         enum Formats
         {
             kUVCountMask    = 0x0f, // Problem is, we need enough bits to store the max #, which means
-                                    // we really want ( max # << 1 ) - 1
+                                    // we really want (max # << 1) - 1
 
             kSkinNoWeights  = 0x00, // 0000000
             kSkin1Weight    = 0x10, // 0010000
@@ -152,9 +152,9 @@ class plGeometrySpan
         uint32_t        fNumVerts, fNumIndices;
 
         /// Current vertex format:
-        ///     float   position[ 3 ];
-        ///     float   normal[ 3 ];
-        ///     float   uvCoords[ ][ 3 ];
+        ///     float   position[3];
+        ///     float   normal[3];
+        ///     float   uvCoords[][3];
         ///     float   weights[];              // 0-3 blending weights
         ///     uint32_t  weightIndices;          // Only if there are >= 1 blending weights
 
@@ -187,38 +187,38 @@ class plGeometrySpan
         hsMatrix44      fOBBToLocal;
 
         plGeometrySpan();
-        plGeometrySpan( const plGeometrySpan *instance );
+        plGeometrySpan(const plGeometrySpan *instance);
         ~plGeometrySpan();
 
         /// UV stuff
-        uint8_t   GetNumUVs() const { return ( fFormat & kUVCountMask ); }
-        void    SetNumUVs( uint8_t numUVs )
+        uint8_t   GetNumUVs() const { return (fFormat & kUVCountMask); }
+        void    SetNumUVs(uint8_t numUVs)
         {
-            hsAssert( numUVs < kMaxNumUVChannels, "Invalid UV count to plGeometrySpan" );
-            fFormat = ( fFormat & ~kUVCountMask ) | numUVs;
+            hsAssert(numUVs < kMaxNumUVChannels, "Invalid UV count to plGeometrySpan");
+            fFormat = (fFormat & ~kUVCountMask) | numUVs;
         }
 
-        static uint8_t CalcNumUVs( uint8_t format ) { return ( format & kUVCountMask ); }
-        static uint8_t UVCountToFormat( uint8_t numUVs ) { return numUVs & kUVCountMask; }
+        static uint8_t CalcNumUVs(uint8_t format) { return (format & kUVCountMask); }
+        static uint8_t UVCountToFormat(uint8_t numUVs) { return numUVs & kUVCountMask; }
  
         /// Creation functions
-        void    BeginCreate( hsGMaterial *material, const hsMatrix44 &l2wMatrix, uint8_t format );
+        void    BeginCreate(hsGMaterial *material, const hsMatrix44 &l2wMatrix, uint8_t format);
 
         // Phasing these in...
         // Note: uvArray should be a fixed array with enough pointers for the max # of uv channels.
         // Any unused UVs should be nil
-        uint16_t  AddVertex( hsPoint3 *position, hsPoint3 *normal, hsColorRGBA& multColor, hsColorRGBA& addColor,
-                            hsPoint3 **uvPtrArray, float weight1 = -1.0f, float weight2 = -1.0f, float weight3 = -1.0f, uint32_t weightIndices = 0 );
-        uint16_t  AddVertex( hsPoint3 *position, hsPoint3 *normal, uint32_t hexColor, uint32_t specularColor = 0,
-                            hsPoint3 **uvPtrArray = nil, float weight1 = -1.0f, float weight2 = -1.0f, float weight3 = -1.0f, uint32_t weightIndices = 0 );
+        uint16_t  AddVertex(hsPoint3 *position, hsPoint3 *normal, hsColorRGBA& multColor, hsColorRGBA& addColor,
+                            hsPoint3 **uvPtrArray, float weight1 = -1.0f, float weight2 = -1.0f, float weight3 = -1.0f, uint32_t weightIndices = 0);
+        uint16_t  AddVertex(hsPoint3 *position, hsPoint3 *normal, uint32_t hexColor, uint32_t specularColor = 0,
+                            hsPoint3 **uvPtrArray = nil, float weight1 = -1.0f, float weight2 = -1.0f, float weight3 = -1.0f, uint32_t weightIndices = 0);
 
-        void    AddIndex( uint16_t index );
-        void    AddTriIndices( uint16_t index1, uint16_t index2, uint16_t index3 );
-        void    AddTriangle( hsPoint3 *vert1, hsPoint3 *vert2, hsPoint3 *vert3, uint32_t color );
+        void    AddIndex(uint16_t index);
+        void    AddTriIndices(uint16_t index1, uint16_t index2, uint16_t index3);
+        void    AddTriangle(hsPoint3 *vert1, hsPoint3 *vert2, hsPoint3 *vert3, uint32_t color);
 
         // uvws is an array count*uvwsPerVtx long in order [uvw(s) for vtx0, uvw(s) for vtx1, ...], or is nil
-        void    AddVertexArray( uint32_t count, hsPoint3 *positions, hsVector3 *normals, uint32_t *colors, hsPoint3 *uvws=nil, int uvwsPerVtx=0 );
-        void    AddIndexArray( uint32_t count, uint16_t *indices );
+        void    AddVertexArray(uint32_t count, hsPoint3 *positions, hsVector3 *normals, uint32_t *colors, hsPoint3 *uvws=nil, int uvwsPerVtx=0);
+        void    AddIndexArray(uint32_t count, uint16_t *indices);
 
         void    EndCreate();
 
@@ -226,28 +226,28 @@ class plGeometrySpan
         /// Manipulation--currently only used for applying static lighting, which of course needs individual vertices
         // Wrong. Also used for the interleaving of the multiple vertex data streams here into single vertex
         //      stream within the plGBufferGroups. mf.
-        void    ExtractInitColor( uint32_t index, hsColorRGBA *multColor, hsColorRGBA *addColor) const;
-        void    ExtractVertex( uint32_t index, hsPoint3 *pos, hsVector3 *normal, hsColorRGBA *color, hsColorRGBA *specColor = nil );
-        void    ExtractVertex( uint32_t index, hsPoint3 *pos, hsVector3 *normal, uint32_t *color, uint32_t *specColor = nil );
-        void    ExtractUv( uint32_t vIdx, uint8_t uvIdx, hsPoint3* uv );
-        void    ExtractWeights( uint32_t vIdx, float *weightArray, uint32_t *indices );
-        void    StuffVertex( uint32_t index, hsPoint3 *pos, hsPoint3 *normal, hsColorRGBA *color, hsColorRGBA *specColor = nil );
-        void    StuffVertex( uint32_t index, hsColorRGBA *color, hsColorRGBA *specColor = nil );
+        void    ExtractInitColor(uint32_t index, hsColorRGBA *multColor, hsColorRGBA *addColor) const;
+        void    ExtractVertex(uint32_t index, hsPoint3 *pos, hsVector3 *normal, hsColorRGBA *color, hsColorRGBA *specColor = nil);
+        void    ExtractVertex(uint32_t index, hsPoint3 *pos, hsVector3 *normal, uint32_t *color, uint32_t *specColor = nil);
+        void    ExtractUv(uint32_t vIdx, uint8_t uvIdx, hsPoint3* uv);
+        void    ExtractWeights(uint32_t vIdx, float *weightArray, uint32_t *indices);
+        void    StuffVertex(uint32_t index, hsPoint3 *pos, hsPoint3 *normal, hsColorRGBA *color, hsColorRGBA *specColor = nil);
+        void    StuffVertex(uint32_t index, hsColorRGBA *color, hsColorRGBA *specColor = nil);
 
         // Clear out the buffers
         void            ClearBuffers();
 
         // Duplicate this span from a given span
-        void            CopyFrom( const plGeometrySpan *source );
+        void            CopyFrom(const plGeometrySpan *source);
 
         // Make this span an instance of the given span. Handles the instance ref array as well as copying over pointers
-        void            MakeInstanceOf( const plGeometrySpan *instance );
+        void            MakeInstanceOf(const plGeometrySpan *instance);
 
         // Get the size of one vertex in a span, based on a format
-        static uint32_t   GetVertexSize( uint8_t format );
+        static uint32_t   GetVertexSize(uint8_t format);
 
-        void    Read( hsStream *stream );
-        void    Write( hsStream *stream );
+        void    Read(hsStream *stream);
+        void    Write(hsStream *stream);
 
         static uint32_t   AllocateNewGroupID() { return IAllocateNewGroupID(); }
 
@@ -265,8 +265,8 @@ class plGeometrySpan
             hsPoint3    fNormal;
             uint32_t      fColor, fSpecularColor;
             hsColorRGBA fMultColor, fAddColor;
-            hsPoint3    fUVs[ kMaxNumUVChannels ];
-            float       fWeights[ 3 ];
+            hsPoint3    fUVs[kMaxNumUVChannels];
+            float       fWeights[3];
             uint32_t      fIndices;
         };
 
@@ -275,7 +275,7 @@ class plGeometrySpan
         hsTArray<uint16_t>        fIndexAccum;
 
         void        IUnShareData();
-        void        IDuplicateUniqueData( const plGeometrySpan *source );
+        void        IDuplicateUniqueData(const plGeometrySpan *source);
         void        IClearMembers();
 
         // Please don't yell at me. We can't write out the instanceRef pointers, and we can't write
@@ -303,9 +303,9 @@ class plGeometrySpan
         static uint32_t   fHighestReadInstanceGroup;
 
         static uint32_t   IAllocateNewGroupID();
-        static void     IClearGroupID( uint32_t groupID );
+        static void     IClearGroupID(uint32_t groupID);
 
-        static hsTArray<plGeometrySpan *>   *IGetInstanceGroup( uint32_t groupID, uint32_t expectedCount );
+        static hsTArray<plGeometrySpan *>   *IGetInstanceGroup(uint32_t groupID, uint32_t expectedCount);
 };
 
 

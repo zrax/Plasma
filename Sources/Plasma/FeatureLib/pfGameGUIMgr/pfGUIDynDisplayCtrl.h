@@ -79,35 +79,35 @@ class pfGUIDynDisplayCtrl : public pfGUIControlMod
 
         hsTArray<hsGMaterial *>         fMaterials;
 
-        virtual bool IEval( double secs, float del, uint32_t dirty ); // called only by owner object's Eval()
+        virtual bool IEval(double secs, float del, uint32_t dirty); // called only by owner object's Eval()
 
     public:
 
         pfGUIDynDisplayCtrl();
         virtual ~pfGUIDynDisplayCtrl();
 
-        CLASSNAME_REGISTER( pfGUIDynDisplayCtrl );
-        GETINTERFACE_ANY( pfGUIDynDisplayCtrl, pfGUIControlMod );
+        CLASSNAME_REGISTER(pfGUIDynDisplayCtrl);
+        GETINTERFACE_ANY(pfGUIDynDisplayCtrl, pfGUIControlMod);
 
 
-        virtual bool    MsgReceive( plMessage* pMsg );
+        virtual bool    MsgReceive(plMessage* pMsg);
         
-        virtual void Read( hsStream* s, hsResMgr* mgr );
-        virtual void Write( hsStream* s, hsResMgr* mgr );
+        virtual void Read(hsStream* s, hsResMgr* mgr);
+        virtual void Write(hsStream* s, hsResMgr* mgr);
 
         uint32_t              GetNumMaps() const { return fTextMaps.GetCount(); }
-        plDynamicTextMap    *GetMap( uint32_t i ) const { return fTextMaps[ i ]; }
+        plDynamicTextMap    *GetMap(uint32_t i) const { return fTextMaps[i]; }
 
         uint32_t              GetNumLayers() const { return fLayers.GetCount(); }
-        plLayerInterface    *GetLayer( uint32_t i ) const { return fLayers[ i ]; }
+        plLayerInterface    *GetLayer(uint32_t i) const { return fLayers[i]; }
 
         uint32_t              GetNumMaterials() const { return fMaterials.GetCount(); }
-        hsGMaterial         *GetMaterial( uint32_t i ) const { return fMaterials[ i ]; }
+        hsGMaterial         *GetMaterial(uint32_t i) const { return fMaterials[i]; }
 
         // Export only
-        void    AddMap( plDynamicTextMap *map );
-        void    AddLayer( plLayerInterface *layer );
-        void    AddMaterial( hsGMaterial *material );
+        void    AddMap(plDynamicTextMap *map);
+        void    AddLayer(plLayerInterface *layer);
+        void    AddMaterial(hsGMaterial *material);
 };
 
 #endif // _pfGUIDynDisplayCtrl_h

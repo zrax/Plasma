@@ -61,7 +61,7 @@ plSimpleModifier::plSimpleModifier()
 
 plSimpleModifier::~plSimpleModifier()
 {
-    if( !fTimeConvert.IsStopped() )
+    if (!fTimeConvert.IsStopped())
         IEnd();
 }
 
@@ -71,7 +71,7 @@ void plSimpleModifier::Read(hsStream* s, hsResMgr* mgr)
 
     fTimeConvert.Read(s, mgr);
 
-    if( !fTimeConvert.IsStopped() )
+    if (!fTimeConvert.IsStopped())
         IBegin();       // TEMP TILL Message causes IBEGIN
 }
 
@@ -85,7 +85,7 @@ void plSimpleModifier::Write(hsStream* s, hsResMgr* mgr)
 void plSimpleModifier::AddTarget(plSceneObject* o)
 {
     fTarget = o;
-    if( !fTimeConvert.IsStopped() )
+    if (!fTimeConvert.IsStopped())
         IBegin();       // TEMP TILL Message causes IBEGIN
 }
 
@@ -97,7 +97,7 @@ void plSimpleModifier::RemoveTarget(plSceneObject* o)
 
 void plSimpleModifier::IBegin()
 {
-    if( fTarget )
+    if (fTarget)
     {
         fTimeConvert.Start();
         plgDispatch::Dispatch()->RegisterForExactType(plEvalMsg::Index(), GetKey());
@@ -108,7 +108,7 @@ void plSimpleModifier::IBegin()
 void plSimpleModifier::IEnd()
 {
     fTimeConvert.Stop();
-    if( fTarget )
+    if (fTarget)
     {
         plgDispatch::Dispatch()->UnRegisterForExactType(plEvalMsg::Index(), GetKey());
     }
@@ -122,12 +122,12 @@ bool plSimpleModifier::IEval(double secs, float del, uint32_t dirty)
 bool plSimpleModifier::MsgReceive(plMessage* msg)
 {
     plRefMsg* refMsg = plRefMsg::ConvertNoRef(msg);
-    if( refMsg )
+    if (refMsg)
     {
         return IHandleRef(refMsg);
     }
     plAnimCmdMsg* modMsg = plAnimCmdMsg::ConvertNoRef(msg);
-    if( modMsg )
+    if (modMsg)
     {
         return IHandleCmd(modMsg);
     }
@@ -136,7 +136,7 @@ bool plSimpleModifier::MsgReceive(plMessage* msg)
 
 bool plSimpleModifier::IHandleRef(plRefMsg* refMsg)
 {
-    if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+    if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
         AddTarget(plSceneObject::ConvertNoRef(refMsg->GetRef()));
     else
         RemoveTarget(plSceneObject::ConvertNoRef(refMsg->GetRef()));
@@ -152,9 +152,9 @@ bool plSimpleModifier::IHandleCmd(plAnimCmdMsg* modMsg)
 
     bool isStopped = fTimeConvert.IsStopped();
 
-    if( wasStopped != isStopped )
+    if (wasStopped != isStopped)
     {
-        if( isStopped )
+        if (isStopped)
         {
             IEnd();
         }
@@ -183,12 +183,12 @@ bool plSimpleModifier::IHandleCmd(plAnimCmdMsg* modMsg)
 bool plSimpleModifier::IHandleTime(double wSecs, float del)
 {
 
-    if( !fTarget )
+    if (!fTarget)
         return true;
 
     float secs = fTimeConvert.WorldToAnimTime(wSecs);
     
-    if( secs != fCurrentTime )
+    if (secs != fCurrentTime)
     {
         fCurrentTime = secs;
 

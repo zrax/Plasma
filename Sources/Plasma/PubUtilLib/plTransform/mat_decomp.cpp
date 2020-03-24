@@ -53,15 +53,15 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #define mat_pad(A) (A[W][X]=A[X][W]=A[W][Y]=A[Y][W]=A[W][Z]=A[Z][W]=0,A[W][W]=1)
 
 /** Copy nxn matrix A to C using "gets" for assignment **/
-#define mat_copy(C,gets,A,n) {int i,j; for(i=0;i<n;i++) for(j=0;j<n;j++)\
+#define mat_copy(C,gets,A,n) {int i,j; for (i=0;i<n;i++) for (j=0;j<n;j++)\
     C[i][j] gets (A[i][j]);}
 
 /** Copy transpose of nxn matrix A to C using "gets" for assignment **/
-#define mat_tpose(AT,gets,A,n) {int i,j; for(i=0;i<n;i++) for(j=0;j<n;j++)\
+#define mat_tpose(AT,gets,A,n) {int i,j; for (i=0;i<n;i++) for (j=0;j<n;j++)\
     AT[i][j] gets (A[j][i]);}
 
 /** Assign nxn matrix C the element-wise combination of A and B using "op" **/
-#define mat_binop(C,gets,A,op,B,n) {int i,j; for(i=0;i<n;i++) for(j=0;j<n;j++)\
+#define mat_binop(C,gets,A,op,B,n) {int i,j; for (i=0;i<n;i++) for (j=0;j<n;j++)\
     C[i][j] gets (A[i][j]) op (B[i][j]);}
 
 /** Multiply the upper left 3x3 parts of A and B to get AB **/
@@ -162,7 +162,7 @@ gemQuat Qt_FromMatrix(HMatrix mat)
         switch (h) {
 #define caseMacro(i,j,k,I,J,K) \
         case I:\
-        s = sqrt( (mat[I][I] - (mat[J][J]+mat[K][K])) + mat[W][W] );\
+        s = sqrt((mat[I][I] - (mat[J][J]+mat[K][K])) + mat[W][W]);\
         qu.i = static_cast<float>(s*0.5);\
         s = 0.5 / s;\
         qu.j = static_cast<float>((mat[I][J] + mat[J][I]) * s);\

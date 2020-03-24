@@ -57,12 +57,12 @@ ControlEventCode plInputMap::ConvertCharToControlCode(const char* c)
     return (END_CONTROLS);
 }
 
-const char      *plInputMap::ConvertControlCodeToString( ControlEventCode code )
+const char      *plInputMap::ConvertControlCodeToString(ControlEventCode code)
 {
-    for( int i = 0; fCmdConvert[ i ].fCode != END_CONTROLS; i++ )
+    for (int i = 0; fCmdConvert[i].fCode != END_CONTROLS; i++)
     {
-        if( fCmdConvert[ i ].fCode == code )
-            return fCmdConvert[ i ].fDesc;
+        if (fCmdConvert[i].fCode == code)
+            return fCmdConvert[i].fDesc;
     }
     return nil;
 }
@@ -112,7 +112,7 @@ bool plKeyCombo::IsSatisfiedBy(const plKeyCombo &combo) const
 }
 
 // Handy konstant for plKeyCombos
-plKeyCombo  plKeyCombo::kUnmapped = plKeyCombo( KEY_UNMAPPED, 0 );
+plKeyCombo  plKeyCombo::kUnmapped = plKeyCombo(KEY_UNMAPPED, 0);
 
 
 
@@ -125,13 +125,13 @@ plKeyBinding::plKeyBinding()
     fString = nil;
 }
 
-plKeyBinding::plKeyBinding( ControlEventCode code, uint32_t codeFlags, const plKeyCombo &key1, const plKeyCombo &key2, const char *string /*= nil*/ )
+plKeyBinding::plKeyBinding(ControlEventCode code, uint32_t codeFlags, const plKeyCombo &key1, const plKeyCombo &key2, const char *string /*= nil*/)
 {
     fCode = code;
     fCodeFlags = codeFlags;
     fKey1 = key1;
     fKey2 = key2;
-    fString = ( string == nil ) ? nil : hsStrcpy( string );
+    fString = (string == nil) ? nil : hsStrcpy(string);
 }
 
 plKeyBinding::~plKeyBinding()
@@ -139,7 +139,7 @@ plKeyBinding::~plKeyBinding()
     delete [] fString;
 }
 
-const plKeyCombo &plKeyBinding::GetMatchingKey( plKeyDef keyDef ) const
+const plKeyCombo &plKeyBinding::GetMatchingKey(plKeyDef keyDef) const
 {
     if (fKey1.fKey == keyDef)
         return fKey1;
@@ -149,12 +149,12 @@ const plKeyCombo &plKeyBinding::GetMatchingKey( plKeyDef keyDef ) const
     return plKeyCombo::kUnmapped;
 }
 
-void    plKeyBinding::SetKey1( const plKeyCombo &newCombo )
+void    plKeyBinding::SetKey1(const plKeyCombo &newCombo)
 {
     fKey1 = newCombo;
 }
 
-void    plKeyBinding::SetKey2( const plKeyCombo &newCombo )
+void    plKeyBinding::SetKey2(const plKeyCombo &newCombo)
 {
     fKey2 = newCombo;
 }
@@ -187,8 +187,8 @@ void    plKeyMap::ClearAll()
     uint32_t  i;
 
 
-    for( i = 0; i < fBindings.GetCount(); i++ )
-        delete fBindings[ i ];
+    for (i = 0; i < fBindings.GetCount(); i++)
+        delete fBindings[i];
     fBindings.Reset();
 }
 
@@ -196,12 +196,12 @@ void    plKeyMap::ClearAll()
 //  Adds a given control code to the map. Once you add it, you can't change its flags.
 //  Returns false if the code is already present
 
-bool    plKeyMap::AddCode( ControlEventCode code, uint32_t codeFlags )
+bool    plKeyMap::AddCode(ControlEventCode code, uint32_t codeFlags)
 {
-    if( IFindBinding( code ) != nil )
+    if (IFindBinding(code) != nil)
         return false;
 
-    fBindings.Append( new plKeyBinding( code, codeFlags, plKeyCombo::kUnmapped, plKeyCombo::kUnmapped ) );
+    fBindings.Append(new plKeyBinding(code, codeFlags, plKeyCombo::kUnmapped, plKeyCombo::kUnmapped));
     return true;
 }
 
@@ -209,30 +209,30 @@ bool    plKeyMap::AddCode( ControlEventCode code, uint32_t codeFlags )
 //  Same but for console commands. No flags b/c console commands always use
 //  the same flags.
 
-bool    plKeyMap::AddConsoleCommand( const char *command )
+bool    plKeyMap::AddConsoleCommand(const char *command)
 {
-    if( IFindConsoleBinding( command ) != nil )
+    if (IFindConsoleBinding(command) != nil)
         return false;
 
-    fBindings.Append( new plKeyBinding( B_CONTROL_CONSOLE_COMMAND,
+    fBindings.Append(new plKeyBinding(B_CONTROL_CONSOLE_COMMAND,
                                         kControlFlagDownEvent | kControlFlagNoRepeat | kControlFlagNoDeactivate,
                                         plKeyCombo::kUnmapped, plKeyCombo::kUnmapped,
-                                        command ) );
+                                        command));
     return true;
 }
 
 //// IFindBinding ////////////////////////////////////////////////////////////
 //  Find the binding for a given code.
 
-plKeyBinding    *plKeyMap::IFindBinding( ControlEventCode code ) const
+plKeyBinding    *plKeyMap::IFindBinding(ControlEventCode code) const
 {
     uint32_t  i;
 
 
-    for( i = 0; i < fBindings.GetCount(); i++ )
+    for (i = 0; i < fBindings.GetCount(); i++)
     {
-        if( fBindings[ i ]->GetCode() == code )
-            return fBindings[ i ];
+        if (fBindings[i]->GetCode() == code)
+            return fBindings[i];
     }
 
     return nil;
@@ -241,15 +241,15 @@ plKeyBinding    *plKeyMap::IFindBinding( ControlEventCode code ) const
 //// IFindBindingByKey ///////////////////////////////////////////////////////
 //  Find the binding for a given key.
 
-plKeyBinding    *plKeyMap::IFindBindingByKey( const plKeyCombo &combo ) const
+plKeyBinding    *plKeyMap::IFindBindingByKey(const plKeyCombo &combo) const
 {
     uint32_t  i;
 
 
-    for( i = 0; i < fBindings.GetCount(); i++ )
+    for (i = 0; i < fBindings.GetCount(); i++)
     {
-        if( fBindings[ i ]->GetKey1() == combo || fBindings[ i ]->GetKey2() == combo )
-            return fBindings[ i ];
+        if (fBindings[i]->GetKey1() == combo || fBindings[i]->GetKey2() == combo)
+            return fBindings[i];
     }
 
     return nil;
@@ -287,17 +287,17 @@ void plKeyMap::IFindAllBindingsByKey(const plKeyCombo &combo, hsTArray<plKeyBind
 //// IFindConsoleBinding /////////////////////////////////////////////////////
 //  You should be able to figure this out by now.
 
-plKeyBinding    *plKeyMap::IFindConsoleBinding( const char *command ) const
+plKeyBinding    *plKeyMap::IFindConsoleBinding(const char *command) const
 {
     uint32_t  i;
 
 
-    for( i = 0; i < fBindings.GetCount(); i++ )
+    for (i = 0; i < fBindings.GetCount(); i++)
     {
-        if( fBindings[ i ]->GetCode() == B_CONTROL_CONSOLE_COMMAND )
+        if (fBindings[i]->GetCode() == B_CONTROL_CONSOLE_COMMAND)
         {
-            if( stricmp( fBindings[ i ]->GetExtendedString(), command ) == 0 )
-                return fBindings[ i ];
+            if (stricmp(fBindings[i]->GetExtendedString(), command) == 0)
+                return fBindings[i];
         }
     }
 
@@ -307,43 +307,43 @@ plKeyBinding    *plKeyMap::IFindConsoleBinding( const char *command ) const
 //// IActuallyBind ///////////////////////////////////////////////////////////
 //  Does the nitty gritty of binding by pref
 
-void    plKeyMap::IActuallyBind( plKeyBinding *binding, const plKeyCombo &combo, BindPref pref )
+void    plKeyMap::IActuallyBind(plKeyBinding *binding, const plKeyCombo &combo, BindPref pref)
 {
     // Bind according to preference
-    switch( pref )
+    switch (pref)
     {
         case kNoPreference:
             // Pick a free slot, or 1st one if none
-            if( binding->GetKey1() == plKeyCombo::kUnmapped )
-                binding->SetKey1( combo );
-            else if( binding->GetKey2() == plKeyCombo::kUnmapped )
-                binding->SetKey2( combo );
+            if (binding->GetKey1() == plKeyCombo::kUnmapped)
+                binding->SetKey1(combo);
+            else if (binding->GetKey2() == plKeyCombo::kUnmapped)
+                binding->SetKey2(combo);
             else
-                binding->SetKey1( combo );
+                binding->SetKey1(combo);
             break;
 
         case kNoPreference2nd:
             // Pick a free slot, or 2nd one if none
-            if( binding->GetKey1() == plKeyCombo::kUnmapped )
-                binding->SetKey1( combo );
-            else if( binding->GetKey2() == plKeyCombo::kUnmapped )
-                binding->SetKey2( combo );
+            if (binding->GetKey1() == plKeyCombo::kUnmapped)
+                binding->SetKey1(combo);
+            else if (binding->GetKey2() == plKeyCombo::kUnmapped)
+                binding->SetKey2(combo);
             else
-                binding->SetKey2( combo );
+                binding->SetKey2(combo);
             break;
 
         case kFirstAlways:
             // Always bind to the first key
-            binding->SetKey1( combo );
+            binding->SetKey1(combo);
             break;
 
         case kSecondAlways:
             // You get the idea
-            binding->SetKey2( combo );
+            binding->SetKey2(combo);
             break;
 
         default:
-            hsAssert( false, "Invalid bind preference in IActuallyBind()" );
+            hsAssert(false, "Invalid bind preference in IActuallyBind()");
     }
 }
 
@@ -351,82 +351,82 @@ void    plKeyMap::IActuallyBind( plKeyBinding *binding, const plKeyCombo &combo,
 //  Adds a key binding to a given code. Returns false if the code isn't in
 //  this map or if key is already mapped.
 
-bool    plKeyMap::BindKey( const plKeyCombo &combo, ControlEventCode code, BindPref pref /*= kNoPreference*/ )
+bool    plKeyMap::BindKey(const plKeyCombo &combo, ControlEventCode code, BindPref pref /*= kNoPreference*/)
 {
     plKeyBinding* binding = nil;
 
     // Control combos are ok. Binding directly to control is not.
-    if ( combo.fKey == KEY_CTRL )
+    if (combo.fKey == KEY_CTRL)
         return false;
 
     // unless we are bindind to unmappped...
-    if ( combo.fKey != KEY_UNMAPPED)
+    if (combo.fKey != KEY_UNMAPPED)
     {
         // Make sure key isn't already used
-        binding = IFindBindingByKey( combo );
-        if( binding != nil )
+        binding = IFindBindingByKey(combo);
+        if (binding != nil)
             return false;
     }
 
     // Get binding for this code
-    binding = IFindBinding( code );
-    if( binding == nil )
+    binding = IFindBinding(code);
+    if (binding == nil)
         return false;
 
-    IActuallyBind( binding, combo, pref );
+    IActuallyBind(binding, combo, pref);
     return true;
 }
 
 //// BindKeyToConsoleCmd /////////////////////////////////////////////////////
 //  Console command version
 
-bool    plKeyMap::BindKeyToConsoleCmd( const plKeyCombo &combo, const char *command, BindPref pref /*= kNoPreference*/ )
+bool    plKeyMap::BindKeyToConsoleCmd(const plKeyCombo &combo, const char *command, BindPref pref /*= kNoPreference*/)
 {
     plKeyBinding* binding = nil;
 
     // Control combos are ok. Binding directly to control is not.
-    if ( combo.fKey == KEY_CTRL )
+    if (combo.fKey == KEY_CTRL)
         return false;
 
     // unless we are bindind to unmappped...
-    if ( combo.fKey != KEY_UNMAPPED)
+    if (combo.fKey != KEY_UNMAPPED)
     {
         // Make sure key isn't already used
-        binding = IFindBindingByKey( combo );
-        if( binding != nil )
+        binding = IFindBindingByKey(combo);
+        if (binding != nil)
             return false;
     }
 
     // Get binding for this code
-    binding = IFindConsoleBinding( command );
-    if( binding == nil )
+    binding = IFindConsoleBinding(command);
+    if (binding == nil)
         return false;
 
-    IActuallyBind( binding, combo, pref );
+    IActuallyBind(binding, combo, pref);
     return true;
 }
 
 //// FindBinding /////////////////////////////////////////////////////////////
 //  Searches for the binding for a given code. Returns nil if not found
 
-const plKeyBinding  *plKeyMap::FindBinding( ControlEventCode code ) const
+const plKeyBinding  *plKeyMap::FindBinding(ControlEventCode code) const
 {
-    return IFindBinding( code );
+    return IFindBinding(code);
 }
 
 //// FindBindingByKey ////////////////////////////////////////////////////////
 //  Same thing but by key
 
-const plKeyBinding  *plKeyMap::FindBindingByKey( const plKeyCombo &combo ) const
+const plKeyBinding  *plKeyMap::FindBindingByKey(const plKeyCombo &combo) const
 {
-    return IFindBindingByKey( combo );
+    return IFindBindingByKey(combo);
 }
 
 //  Same thing, but returns multiple matches (see IFindAllBindingsByKey)
-void plKeyMap::FindAllBindingsByKey( const plKeyCombo &combo, hsTArray<const plKeyBinding*> &result ) const
+void plKeyMap::FindAllBindingsByKey(const plKeyCombo &combo, hsTArray<const plKeyBinding*> &result) const
 {
     hsTArray<plKeyBinding*> bindings;
-    IFindAllBindingsByKey( combo, bindings );
+    IFindAllBindingsByKey(combo, bindings);
 
     int i;
     for (i = 0; i < bindings.GetCount(); i++)
@@ -434,7 +434,7 @@ void plKeyMap::FindAllBindingsByKey( const plKeyCombo &combo, hsTArray<const plK
 }
 
 
-const plKeyBinding* plKeyMap::FindConsoleBinding( const char *command ) const
+const plKeyBinding* plKeyMap::FindConsoleBinding(const char *command) const
 {
     return IFindConsoleBinding(command);
 }
@@ -443,22 +443,22 @@ const plKeyBinding* plKeyMap::FindConsoleBinding( const char *command ) const
 //  Basically UnmapKey(), but for two keys at once and won't assert if you
 //  give it unmapped keys
 
-void    plKeyMap::EnsureKeysClear( const plKeyCombo &key1, const plKeyCombo &key2 )
+void    plKeyMap::EnsureKeysClear(const plKeyCombo &key1, const plKeyCombo &key2)
 {
-    if( key1 != plKeyCombo::kUnmapped )
-        UnmapKey( key1 );
-    if( key2 != plKeyCombo::kUnmapped )
-        UnmapKey( key2 );
+    if (key1 != plKeyCombo::kUnmapped)
+        UnmapKey(key1);
+    if (key2 != plKeyCombo::kUnmapped)
+        UnmapKey(key2);
 }
 
 //// UnmapKey ////////////////////////////////////////////////////////////////
 //  Unmaps the given key, no matter what binding it is in
 
-void    plKeyMap::UnmapKey( const plKeyCombo &combo )
+void    plKeyMap::UnmapKey(const plKeyCombo &combo)
 {
-    if( combo == plKeyCombo::kUnmapped )
+    if (combo == plKeyCombo::kUnmapped)
     {
-        hsAssert( false, "Trying to unbind invalid key" );
+        hsAssert(false, "Trying to unbind invalid key");
         return;
     }
 
@@ -466,22 +466,22 @@ void    plKeyMap::UnmapKey( const plKeyCombo &combo )
 
     // Just in case we're in multiple bindings, even tho we are guarding against
     // that
-    while( ( binding = IFindBindingByKey( combo ) ) != nil )
+    while ((binding = IFindBindingByKey(combo)) != nil)
     {
-        if( binding->GetKey1() == combo )
-            binding->SetKey1( plKeyCombo::kUnmapped );
-        if( binding->GetKey2() == combo )
-            binding->SetKey2( plKeyCombo::kUnmapped );
+        if (binding->GetKey1() == combo)
+            binding->SetKey1(plKeyCombo::kUnmapped);
+        if (binding->GetKey2() == combo)
+            binding->SetKey2(plKeyCombo::kUnmapped);
     }
 }
 
 //// UnmapBinding ////////////////////////////////////////////////////////////
 //  Unmaps the keys for a single binding
 
-void    plKeyMap::UnmapBinding( ControlEventCode code )
+void    plKeyMap::UnmapBinding(ControlEventCode code)
 {
-    plKeyBinding *binding = IFindBinding( code );
-    if( binding != nil )
+    plKeyBinding *binding = IFindBinding(code);
+    if (binding != nil)
         binding->ClearKeys();
 }
 
@@ -492,32 +492,32 @@ void    plKeyMap::UnmapAllBindings()
 {
     uint32_t  i;
 
-    for( i = 0; i < fBindings.GetCount(); i++ )
-        fBindings[ i ]->ClearKeys();
+    for (i = 0; i < fBindings.GetCount(); i++)
+        fBindings[i]->ClearKeys();
 }
 
 //// EraseBinding ////////////////////////////////////////////////////////////
 //  Erases the given code binding. Note: should never really be used, but
 //  provided here for completeness
 
-void    plKeyMap::EraseBinding( ControlEventCode code )
+void    plKeyMap::EraseBinding(ControlEventCode code)
 {
     uint32_t  i;
 
 
-    for( i = 0; i < fBindings.GetCount(); i++ )
+    for (i = 0; i < fBindings.GetCount(); i++)
     {
-        if( fBindings[ i ]->GetCode() == code )
+        if (fBindings[i]->GetCode() == code)
         {
-            delete fBindings[ i ];
-            fBindings.Remove( i );
+            delete fBindings[i];
+            fBindings.Remove(i);
             return;
         }
     }
 }
 
 
-const char* plKeyMap::ConvertVKeyToChar( uint32_t vk )
+const char* plKeyMap::ConvertVKeyToChar(uint32_t vk)
 {
     Win32keyConvert* keyConvert = &fKeyConversionEnglish[0];
     switch (plLocalization::GetLanguage())
@@ -547,7 +547,7 @@ const char* plKeyMap::ConvertVKeyToChar( uint32_t vk )
     return nil;
 }
 
-plKeyDef plKeyMap::ConvertCharToVKey( const char *c )
+plKeyDef plKeyMap::ConvertCharToVKey(const char *c)
 {
     Win32keyConvert* keyConvert = &fKeyConversionEnglish[0];
     switch (plLocalization::GetLanguage())
@@ -575,13 +575,13 @@ plKeyDef plKeyMap::ConvertCharToVKey( const char *c )
     }
 
     // Is it just a single character?
-    if( isalnum( *c ) && strlen( c ) == 1 )
-        return (plKeyDef)toupper( *c );
+    if (isalnum(*c) && strlen(c) == 1)
+        return (plKeyDef)toupper(*c);
 
     // if we didn't find anything yet...
     // ...then look thru all the other language mappings that we know about,
     // ...just in case they keep switching languages on us
-    if ( plLocalization::GetLanguage() != plLocalization::kEnglish)
+    if (plLocalization::GetLanguage() != plLocalization::kEnglish)
     {
         for (int i = 0; fKeyConversionEnglish[i].fVKey != 0xffffffff; i++)
         {
@@ -589,7 +589,7 @@ plKeyDef plKeyMap::ConvertCharToVKey( const char *c )
                 return (plKeyDef)(fKeyConversionEnglish[i].fVKey);
         }
     }
-    if ( plLocalization::GetLanguage() != plLocalization::kFrench)
+    if (plLocalization::GetLanguage() != plLocalization::kFrench)
     {
         for (int i = 0; fKeyConversionFrench[i].fVKey != 0xffffffff; i++)
         {
@@ -597,7 +597,7 @@ plKeyDef plKeyMap::ConvertCharToVKey( const char *c )
                 return (plKeyDef)(fKeyConversionFrench[i].fVKey);
         }
     }
-    if ( plLocalization::GetLanguage() != plLocalization::kGerman)
+    if (plLocalization::GetLanguage() != plLocalization::kGerman)
     {
         for (int i = 0; fKeyConversionGerman[i].fVKey != 0xffffffff; i++)
         {
@@ -606,7 +606,7 @@ plKeyDef plKeyMap::ConvertCharToVKey( const char *c )
         }
     }
     /*
-    if ( plLocalization::GetLanguage() != plLocalization::kSpanish)
+    if (plLocalization::GetLanguage() != plLocalization::kSpanish)
     {
         for (int i = 0; fKeyConversionSpanish[i].fVKey != 0xffffffff; i++)
         {
@@ -614,7 +614,7 @@ plKeyDef plKeyMap::ConvertCharToVKey( const char *c )
                 return (plKeyDef)(fKeyConversionSpanish[i].fVKey);
         }
     }
-    if ( plLocalization::GetLanguage() != plLocalization::kItalian)
+    if (plLocalization::GetLanguage() != plLocalization::kItalian)
     {
         for (int i = 0; fKeyConversionItalian[i].fVKey != 0xffffffff; i++)
         {

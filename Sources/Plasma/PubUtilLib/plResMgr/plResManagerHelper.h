@@ -100,27 +100,27 @@ class plResManagerHelper : public hsKeyedObject
         plResMgrDebugInterface  *fDebugInput;
 #endif
 
-        void    IUpdateDebugScreen( bool force = false );
+        void    IUpdateDebugScreen(bool force = false);
 
     public:
 
-        plResManagerHelper( plResManager *resMgr );
+        plResManagerHelper(plResManager *resMgr);
         virtual ~plResManagerHelper();
 
-        CLASSNAME_REGISTER( plResManagerHelper );
-        GETINTERFACE_ANY( plResManagerHelper, hsKeyedObject );
+        CLASSNAME_REGISTER(plResManagerHelper);
+        GETINTERFACE_ANY(plResManagerHelper, hsKeyedObject);
 
-        virtual bool    MsgReceive( plMessage *msg );
+        virtual bool    MsgReceive(plMessage *msg);
     
-        virtual void    Read( hsStream *s, hsResMgr *mgr );
-        virtual void    Write( hsStream *s, hsResMgr *mgr );
+        virtual void    Read(hsStream *s, hsResMgr *mgr);
+        virtual void    Write(hsStream *s, hsResMgr *mgr);
 
         void    Init();
         void    Shutdown();
 
-        void    LoadAndHoldPageKeys( plRegistryPageNode *page );
+        void    LoadAndHoldPageKeys(plRegistryPageNode *page);
 
-        void    EnableDebugScreen( bool enable );
+        void    EnableDebugScreen(bool enable);
 
         // Please let the res manager handle telling this.
         void    SetInShutdown(bool b) { fInShutdown = b; }
@@ -139,7 +139,7 @@ class plResPageKeyRefList : public plKeyCollector
 
     public:
 
-        plResPageKeyRefList() : plKeyCollector( fKeyList ) {}
+        plResPageKeyRefList() : plKeyCollector(fKeyList) {}
 };
 
 #endif // _plResManagerHelper_h

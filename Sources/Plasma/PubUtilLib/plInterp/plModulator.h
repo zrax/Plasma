@@ -60,8 +60,8 @@ public:
     plModulator();
     virtual ~plModulator();
 
-    CLASSNAME_REGISTER( plModulator );
-    GETINTERFACE_ANY( plModulator, plCreatable );
+    CLASSNAME_REGISTER(plModulator);
+    GETINTERFACE_ANY(plModulator, plCreatable);
 
     const plVolumeIsect*    GetVolume() const { return fVolume; }
     void                    SetVolume(plVolumeIsect* vol); // Takes ownership, so don't delete after handing it in.

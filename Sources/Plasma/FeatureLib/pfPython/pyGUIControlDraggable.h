@@ -78,7 +78,7 @@ public:
 
     static bool IsGUIControlDraggable(pyKey& gckey);
 
-    void StopDragging( bool cancel );
+    void StopDragging(bool cancel);
     PyObject* GetLastMousePt(); // returns pyPoint3
 
 };

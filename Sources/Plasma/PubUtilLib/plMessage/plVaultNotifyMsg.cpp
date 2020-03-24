@@ -46,10 +46,10 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plVaultNotifyMsg.h"
 
 plVaultNotifyMsg::plVaultNotifyMsg()
-: fType( kNothing )
-, fResultCode( hsOK )
+: fType(kNothing)
+, fResultCode(hsOK)
 {
-    SetBCastFlag( kBCastByType );
+    SetBCastFlag(kBCastByType);
 }
 
 plVaultNotifyMsg::~plVaultNotifyMsg()
@@ -58,15 +58,15 @@ plVaultNotifyMsg::~plVaultNotifyMsg()
 
 void plVaultNotifyMsg::Read(hsStream* stream, hsResMgr* mgr)
 {
-    stream->ReadLE( &fType );
-    stream->ReadLE( &fResultCode );
-    fArgs.Read( stream, mgr );
+    stream->ReadLE(&fType);
+    stream->ReadLE(&fResultCode);
+    fArgs.Read(stream, mgr);
 }
 
 void plVaultNotifyMsg::Write(hsStream* stream, hsResMgr* mgr)
 {
-    stream->WriteLE( fType );
-    stream->WriteLE( fResultCode );
-    fArgs.Write( stream, mgr );
+    stream->WriteLE(fType);
+    stream->WriteLE(fResultCode);
+    fArgs.Write(stream, mgr);
 }
 

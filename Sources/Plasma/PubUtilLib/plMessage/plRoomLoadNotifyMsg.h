@@ -76,8 +76,8 @@ public:
         : plMessage(s, r, t) { IInit(); }
     virtual ~plRoomLoadNotifyMsg() { }
 
-    CLASSNAME_REGISTER( plRoomLoadNotifyMsg );
-    GETINTERFACE_ANY( plRoomLoadNotifyMsg, plMessage );
+    CLASSNAME_REGISTER(plRoomLoadNotifyMsg);
+    GETINTERFACE_ANY(plRoomLoadNotifyMsg, plMessage);
 
     enum NotifyType
     {

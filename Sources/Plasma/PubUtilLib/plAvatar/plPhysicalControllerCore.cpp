@@ -798,31 +798,31 @@ John Burkardt
 Parameters:
 
 Input, float X1, Y1, X2, Y2, X3, Y3, define the rays
-( X1-X2, Y1-Y2 ) and ( X3-X2, Y3-Y2 ) which in turn define the
-angle, counterclockwise from ( X1-X2, Y1-Y2 ).
+(X1-X2, Y1-Y2) and (X3-X2, Y3-Y2) which in turn define the
+angle, counterclockwise from (X1-X2, Y1-Y2).
 
 Output, float ANGLE_RAD_2D, the angle swept out by the rays, measured
 in radians.  0 <= ANGLE_DEG_2D < 2 PI.  If either ray has zero length,
 then ANGLE_RAD_2D is set to 0.
 */
 
-static float AngleRad2d( float x1, float y1, float x3, float y3 )
+static float AngleRad2d(float x1, float y1, float x3, float y3)
 {
     float value;
     float x;
     float y;
 
-    x = ( x1 ) * ( x3 ) + ( y1 ) * ( y3 );
-    y = ( x1 ) * ( y3 ) - ( y1 ) * ( x3 );
+    x = (x1) * (x3) + (y1) * (y3);
+    y = (x1) * (y3) - (y1) * (x3);
 
-    if ( x == 0.0 && y == 0.0 ) {
+    if (x == 0.0 && y == 0.0) {
         value = 0.0;
     }
     else
     {
-        value = atan2 ( y, x );
+        value = atan2(y, x);
 
-        if ( value < 0.0 )
+        if (value < 0.0)
         {
             value = (float)(value + TWO_PI);
         }

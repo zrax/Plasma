@@ -176,8 +176,8 @@ public:
         kCompressionDont        // don't compress
     };
 
-    CLASSNAME_REGISTER( plNetMessage );
-    GETINTERFACE_ANY( plNetMessage, plCreatable );
+    CLASSNAME_REGISTER(plNetMessage);
+    GETINTERFACE_ANY(plNetMessage, plCreatable);
 
     // plCreatable
     void Read(hsStream* s, hsResMgr* mgr);
@@ -224,7 +224,7 @@ public:
 
     // setters
     void SetTimeSent(const plUnifiedTime& t) { fTimeSent=t;SetHasTimeSent(true); }
-    void SetHasTimeSent(bool value) { SetBit( kHasTimeSent, value ); }
+    void SetHasTimeSent(bool value) { SetBit(kHasTimeSent, value); }
     void SetTimeReceived(double t) { fTimeRecvd=t; }
     void SetBit(int b, bool on=true) { if (on) fFlags |= b; else fFlags &= ~b; }
     void SetNetCoreMsg(const plNetCommonMessage* ncmsg) { fNetCoreMsg=ncmsg; }
@@ -234,10 +234,10 @@ public:
     void SetTransactionID(uint32_t value) { fTransactionID=value; SetHasTransactionID(true);}
     void SetHasPlayerID(bool value) { SetBit(kHasPlayerID,value);}
     void SetPlayerID(uint32_t value) { fPlayerID=value; SetHasPlayerID(true);}
-    void SetHasAcctUUID( bool v ) { SetBit( kHasAcctUUID,v ); }
-    void SetAcctUUID(const plUUID * v ) { fAcctUUID.CopyFrom(v); SetHasAcctUUID(true); }
+    void SetHasAcctUUID(bool v) { SetBit(kHasAcctUUID,v); }
+    void SetAcctUUID(const plUUID * v) { fAcctUUID.CopyFrom(v); SetHasAcctUUID(true); }
     void SetVersion(uint8_t maj=kVerMajor, uint8_t min=kVerMinor) { SetBit(kHasVersion); fProtocolVerMajor=maj; fProtocolVerMinor=min;  }
-    void SetNetProtocol (ENetProtocol v ) { fNetProtocol = v; }
+    void SetNetProtocol (ENetProtocol v) { fNetProtocol = v; }
 
     // init fContext, fTransactionID, etc. if needed.
     void InitReplyFieldsFrom(plNetMessage * msg);
@@ -248,22 +248,22 @@ public:
         const char* delim = "";
 
         ST::string_stream ss;
-        if ( GetHasPlayerID() )
+        if (GetHasPlayerID())
         {
             ss << delim << "p:" << GetPlayerID();
             delim = ",";
         }
-        if ( GetHasTransactionID() )
+        if (GetHasTransactionID())
         {
             ss << delim << "x:" << GetTransactionID();
             delim = ",";
         }
-        if ( GetHasAcctUUID() )
+        if (GetHasAcctUUID())
         {
             ss << delim << "a:" << GetAcctUUID()->AsString();
             delim = ",";
         }
-        if ( IsBitSet(kHasVersion) )
+        if (IsBitSet(kHasVersion))
         {
             ss << delim << "v:" << (int)fProtocolVerMajor << "." << (int)fProtocolVerMinor;
             delim = ",";
@@ -281,8 +281,8 @@ class plNetMsgServerToClient : public plNetMessage
 public:
     plNetMsgServerToClient() { SetBit(kIsSystemMessage|kNeedsReliableSend); }
 
-    CLASSNAME_REGISTER( plNetMsgServerToClient );
-    GETINTERFACE_ANY( plNetMsgServerToClient, plNetMessage );
+    CLASSNAME_REGISTER(plNetMsgServerToClient);
+    GETINTERFACE_ANY(plNetMsgServerToClient, plNetMessage);
 };
 
 ////////////////////////////////////////////////////////////////////
@@ -296,7 +296,7 @@ protected:
     int IPokeBuffer(hsStream* stream, uint32_t peekOptions=0);
     int IPeekBuffer(hsStream* stream, uint32_t peekOptions=0);
 public:
-    CLASSNAME_REGISTER( plNetMsgStream );
+    CLASSNAME_REGISTER(plNetMsgStream);
     GETINTERFACE_ANY_AUX(plNetMsgStream,plNetMessage,plNetMsgStreamHelper,fStreamHelper)
 
     plNetMsgStreamHelper* StreamInfo() { return &fStreamHelper; }
@@ -318,7 +318,7 @@ protected:
     int IPokeBuffer(hsStream* stream, uint32_t peekOptions=0);
     int IPeekBuffer(hsStream* stream, uint32_t peekOptions=0);
 public:
-    CLASSNAME_REGISTER( plNetMsgObject );
+    CLASSNAME_REGISTER(plNetMsgObject);
     GETINTERFACE_ANY_AUX(plNetMsgObject,plNetMessage,plNetMsgObjectHelper,fObjectHelper)
 
     plNetMsgObjectHelper* ObjectInfo() { return &fObjectHelper; }
@@ -354,7 +354,7 @@ public:
     plNetMsgStreamedObject() {}
     ~plNetMsgStreamedObject() {}
 
-    CLASSNAME_REGISTER( plNetMsgStreamedObject );
+    CLASSNAME_REGISTER(plNetMsgStreamedObject);
     GETINTERFACE_ANY_AUX(plNetMsgStreamedObject,plNetMsgObject,plNetMsgStreamHelper,fStreamHelper)
 
     plNetMsgStreamHelper* StreamInfo() { return &fStreamHelper; }
@@ -391,7 +391,7 @@ protected:
     bool fIsAvatarState;
     mutable std::string fDescName;      // for debugging output only, not read/written
 public:
-    CLASSNAME_REGISTER( plNetMsgSDLState );
+    CLASSNAME_REGISTER(plNetMsgSDLState);
     GETINTERFACE_ANY(plNetMsgSDLState, plNetMsgStreamedObject);
 
     plNetMsgSDLState() : fIsInitialState(0), fPersistOnServer(true), fIsAvatarState(false) { SetBit(kNeedsReliableSend); }
@@ -405,7 +405,7 @@ public:
     // debug
     ST::string AsString() const HS_OVERRIDE;
     bool IsInitialState() const {return fIsInitialState!=0; }
-    void SetIsInitialState( bool v ) { fIsInitialState=v; }
+    void SetIsInitialState(bool v) { fIsInitialState=v; }
 
     void ReadVersion(hsStream* s, hsResMgr* mgr);
     void WriteVersion(hsStream* s, hsResMgr* mgr);
@@ -420,7 +420,7 @@ protected:
     int IPokeBuffer(hsStream* stream, uint32_t peekOptions=0);
     int IPeekBuffer(hsStream* stream, uint32_t peekOptions=0);
 public:
-    CLASSNAME_REGISTER( plNetMsgSDLStateBCast );
+    CLASSNAME_REGISTER(plNetMsgSDLStateBCast);
     GETINTERFACE_ANY(plNetMsgSDLStateBCast, plNetMsgSDLState);
 
     // virtuals
@@ -438,8 +438,8 @@ class plNetMsgObjStateRequest : public plNetMsgObject
 public:
     plNetMsgObjStateRequest() { SetBit(kIsSystemMessage|kNeedsReliableSend);    }
 
-    CLASSNAME_REGISTER( plNetMsgObjStateRequest );
-    GETINTERFACE_ANY( plNetMsgObjStateRequest, plNetMsgObject );
+    CLASSNAME_REGISTER(plNetMsgObjStateRequest);
+    GETINTERFACE_ANY(plNetMsgObjStateRequest, plNetMsgObject);
 };
 
 
@@ -458,8 +458,8 @@ public:
     plNetMsgRoomsList() {}
     ~plNetMsgRoomsList() {};
 
-    CLASSNAME_REGISTER( plNetMsgRoomsList );
-    GETINTERFACE_ANY( plNetMsgRoomsList, plNetMessage );
+    CLASSNAME_REGISTER(plNetMsgRoomsList);
+    GETINTERFACE_ANY(plNetMsgRoomsList, plNetMessage);
 
     void AddRoom(plKey rmKey);
     void AddRoomLocation(plLocation loc, const ST::string& rmName);
@@ -485,8 +485,8 @@ protected:
 public:
     plNetMsgGameMessage() { SetBit(kNeedsReliableSend);     }
 
-    CLASSNAME_REGISTER( plNetMsgGameMessage );
-    GETINTERFACE_ANY( plNetMsgGameMessage, plNetMsgStream );
+    CLASSNAME_REGISTER(plNetMsgGameMessage);
+    GETINTERFACE_ANY(plNetMsgGameMessage, plNetMsgStream);
     enum ContentsFlags
     {
         kNetGameMsgDeliveryTime,
@@ -533,7 +533,7 @@ protected:
     int IPeekBuffer(hsStream* stream, uint32_t peekOptions=0);
 public:
 
-    CLASSNAME_REGISTER( plNetMsgLoadClone );
+    CLASSNAME_REGISTER(plNetMsgLoadClone);
     GETINTERFACE_ANY_AUX(plNetMsgLoadClone, plNetMsgGameMessage,plNetMsgObjectHelper,fObjectHelper)
 
     plNetMsgLoadClone() : fIsPlayer(true),fIsLoading(true),fIsInitialState(false) {}
@@ -576,8 +576,8 @@ public:
     plNetMsgPlayerPage() : fUnload(false) { SetBit(kNeedsReliableSend); }
     plNetMsgPlayerPage(plUoid uoid, bool unload) : fUoid(uoid),   fUnload(unload) { }
 
-    CLASSNAME_REGISTER( plNetMsgPlayerPage );
-    GETINTERFACE_ANY( plNetMsgPlayerPage, plNetMessage);
+    CLASSNAME_REGISTER(plNetMsgPlayerPage);
+    GETINTERFACE_ANY(plNetMsgPlayerPage, plNetMessage);
 };
 
 //
@@ -596,7 +596,7 @@ protected:
     int IPokeBuffer(hsStream* stream, uint32_t peekOptions=0);
     int IPeekBuffer(hsStream* stream, uint32_t peekOptions=0);
 public:
-    CLASSNAME_REGISTER( plNetMsgGameMessageDirected );
+    CLASSNAME_REGISTER(plNetMsgGameMessageDirected);
     GETINTERFACE_ANY_AUX(plNetMsgGameMessageDirected,plNetMsgGameMessage,
         plNetMsgReceiversListHelper,fReceivers)
 
@@ -629,8 +629,8 @@ public:
     plNetMsgPagingRoom() : fPageFlags(0) { SetBit(kIsSystemMessage|kNeedsReliableSend); }
     ~plNetMsgPagingRoom() {}
 
-    CLASSNAME_REGISTER( plNetMsgPagingRoom );
-    GETINTERFACE_ANY( plNetMsgPagingRoom, plNetMsgRoomsList );
+    CLASSNAME_REGISTER(plNetMsgPagingRoom);
+    GETINTERFACE_ANY(plNetMsgPagingRoom, plNetMsgRoomsList);
 
     void SetPageFlags(uint8_t f) { fPageFlags=f; }
     uint8_t GetPageFlags() const { return fPageFlags; }
@@ -662,8 +662,8 @@ class plNetMsgGameStateRequest : public plNetMsgRoomsList
 public:
     plNetMsgGameStateRequest() { SetBit(kIsSystemMessage|kNeedsReliableSend); }
 
-    CLASSNAME_REGISTER( plNetMsgGameStateRequest );
-    GETINTERFACE_ANY( plNetMsgGameStateRequest, plNetMsgRoomsList );
+    CLASSNAME_REGISTER(plNetMsgGameStateRequest);
+    GETINTERFACE_ANY(plNetMsgGameStateRequest, plNetMsgRoomsList);
 };
 
 //
@@ -690,8 +690,8 @@ protected:
     int IPokeBuffer(hsStream* stream, uint32_t peekOptions=0);
     int IPeekBuffer(hsStream* stream, uint32_t peekOptions=0);
 public:
-    CLASSNAME_REGISTER( plNetMsgGroupOwner );
-    GETINTERFACE_ANY( plNetMsgGroupOwner, plNetMsgServerToClient );
+    CLASSNAME_REGISTER(plNetMsgGroupOwner);
+    GETINTERFACE_ANY(plNetMsgGroupOwner, plNetMsgServerToClient);
 
     // getters
     int GetNumGroups() const { return fGroups.size(); }
@@ -730,7 +730,7 @@ public:
     plNetMsgVoice(): fFlags(0), fNumFrames(0) {  }
     ~plNetMsgVoice() {}
 
-    CLASSNAME_REGISTER( plNetMsgVoice );
+    CLASSNAME_REGISTER(plNetMsgVoice);
     GETINTERFACE_ANY_AUX(plNetMsgVoice,plNetMessage,plNetMsgReceiversListHelper,fReceivers)
         
     void SetFlag(int f) { fFlags |= f; }
@@ -739,7 +739,7 @@ public:
     void SetNumFrames(uint8_t f) { fNumFrames = f; }
     uint8_t GetNumFrames() const { return fNumFrames; }
     
-    void SetVoiceData(const void* data, size_t len );
+    void SetVoiceData(const void* data, size_t len);
     int GetVoiceDataLen() const { return fVoiceData.length(); }
     const char *GetVoiceData() const;
     
@@ -778,7 +778,7 @@ public:
     plNetMsgSharedState() : fLockRequest(false) {}
     ~plNetMsgSharedState() {}
 
-    CLASSNAME_REGISTER( plNetMsgSharedState );
+    CLASSNAME_REGISTER(plNetMsgSharedState);
     GETINTERFACE_ANY(plNetMsgSharedState, plNetMsgStreamedObject);
 
     void CopySharedState(plNetSharedState* ss);
@@ -805,7 +805,7 @@ class plNetMsgTestAndSet : public plNetMsgSharedState
 public:
     plNetMsgTestAndSet() { SetBit(kNeedsReliableSend); }
 
-    CLASSNAME_REGISTER( plNetMsgTestAndSet );
+    CLASSNAME_REGISTER(plNetMsgTestAndSet);
     GETINTERFACE_ANY(plNetMsgTestAndSet, plNetMsgSharedState);
 };
 
@@ -823,8 +823,8 @@ public:
     plNetMsgGetSharedState()  { *fSharedStateName=0; SetBit(kNeedsReliableSend); }
     ~plNetMsgGetSharedState() {}
 
-    CLASSNAME_REGISTER( plNetMsgGetSharedState );
-    GETINTERFACE_ANY( plNetMsgGetSharedState, plNetMsgObject );
+    CLASSNAME_REGISTER(plNetMsgGetSharedState);
+    GETINTERFACE_ANY(plNetMsgGetSharedState, plNetMsgObject);
 
     void SetSharedStateName(char* n) { if (n) hsStrncpy(fSharedStateName, n, kMaxNameLen); }
     char* GetSharedStateName() { return fSharedStateName; }
@@ -845,7 +845,7 @@ public:
     plNetMsgObjectUpdateFilter() : fMaxUpdateFreq(-1) {}
     ~plNetMsgObjectUpdateFilter() {}
 
-    CLASSNAME_REGISTER( plNetMsgObjectUpdateFilter );
+    CLASSNAME_REGISTER(plNetMsgObjectUpdateFilter);
     GETINTERFACE_ANY_AUX(plNetMsgObjectUpdateFilter,plNetMessage,plNetMsgObjectListHelper,fObjectListHelper)
 
     plNetMsgObjectListHelper* ObjectListInfo() { return &fObjectListHelper; }
@@ -862,8 +862,8 @@ class plNetMsgMembersListReq : public plNetMessage
 public:
     plNetMsgMembersListReq() { SetBit(kIsSystemMessage|kNeedsReliableSend); }
 
-    CLASSNAME_REGISTER( plNetMsgMembersListReq );
-    GETINTERFACE_ANY( plNetMsgMembersListReq, plNetMessage );
+    CLASSNAME_REGISTER(plNetMsgMembersListReq);
+    GETINTERFACE_ANY(plNetMsgMembersListReq, plNetMessage);
 };
 
 //
@@ -877,7 +877,7 @@ protected:
     int IPokeBuffer(hsStream* stream, uint32_t peekOptions=0);
     int IPeekBuffer(hsStream* stream, uint32_t peekOptions=0);
 public:
-    CLASSNAME_REGISTER( plNetMsgMembersList );
+    CLASSNAME_REGISTER(plNetMsgMembersList);
     GETINTERFACE_ANY_AUX(plNetMsgMembersList,plNetMsgServerToClient,plNetMsgMemberListHelper,fMemberListHelper)
 
     plNetMsgMemberListHelper* MemberListInfo() { return &fMemberListHelper; }
@@ -895,7 +895,7 @@ protected:
     int IPokeBuffer(hsStream* stream, uint32_t peekOptions=0);
     int IPeekBuffer(hsStream* stream, uint32_t peekOptions=0);
 public:
-    CLASSNAME_REGISTER( plNetMsgMemberUpdate );
+    CLASSNAME_REGISTER(plNetMsgMemberUpdate);
     GETINTERFACE_ANY_AUX(plNetMsgMemberUpdate,plNetMsgServerToClient,plNetMsgMemberInfoHelper,fMemberInfo)
 
     bool AddingMember() { return fAddMember; }
@@ -923,7 +923,7 @@ public:
     plNetMsgListenListUpdate() : fAdding(false) {}
     ~plNetMsgListenListUpdate() {}
 
-    CLASSNAME_REGISTER( plNetMsgListenListUpdate );
+    CLASSNAME_REGISTER(plNetMsgListenListUpdate);
     GETINTERFACE_ANY_AUX(plNetMsgListenListUpdate,plNetMessage,plNetMsgReceiversListHelper,fReceivers)
     
     plNetMsgReceiversListHelper* Receivers() { return &fReceivers; }
@@ -944,9 +944,9 @@ class plNetMsgInitialAgeStateSent : public plNetMsgServerToClient
     int IPeekBuffer(hsStream* stream, uint32_t peekOptions=0);
 public:
     plNetMsgInitialAgeStateSent():fNumInitialSDLStates(0){}
-    CLASSNAME_REGISTER( plNetMsgInitialAgeStateSent );
-    GETINTERFACE_ANY( plNetMsgInitialAgeStateSent, plNetMsgServerToClient);
-    void SetNumInitialSDLStates( uint32_t n ) { fNumInitialSDLStates=n; }
+    CLASSNAME_REGISTER(plNetMsgInitialAgeStateSent);
+    GETINTERFACE_ANY(plNetMsgInitialAgeStateSent, plNetMsgServerToClient);
+    void SetNumInitialSDLStates(uint32_t n) { fNumInitialSDLStates=n; }
     uint32_t GetNumInitialSDLStates() const { return fNumInitialSDLStates; }
 };
 
@@ -965,7 +965,7 @@ public:
     plNetMsgRelevanceRegions() { SetBit(kNeedsReliableSend); }
     ~plNetMsgRelevanceRegions() {}
 
-    CLASSNAME_REGISTER( plNetMsgRelevanceRegions );
+    CLASSNAME_REGISTER(plNetMsgRelevanceRegions);
     GETINTERFACE_ANY(plNetMsgRelevanceRegions, plNetMessage)
 
     void SetRegionsICareAbout(const hsBitVector& r) { fRegionsICareAbout=r; }
@@ -978,9 +978,9 @@ public:
     {
         ST::string b1, b2;
         int i;
-        for(i=0;i<fRegionsImIn.GetNumBitVectors(); i++)
+        for (i=0;i<fRegionsImIn.GetNumBitVectors(); i++)
             b1 += ST::format("{#x} ", fRegionsImIn.GetBitVector(i));
-        for(i=0;i<fRegionsICareAbout.GetNumBitVectors(); i++)
+        for (i=0;i<fRegionsICareAbout.GetNumBitVectors(); i++)
             b2 += ST::format("{#x} ", fRegionsICareAbout.GetBitVector(i));
         return ST::format("rgnsImIn:{}, rgnsICareAbout:{}, {}",
             b1, b2, plNetMessage::AsString());

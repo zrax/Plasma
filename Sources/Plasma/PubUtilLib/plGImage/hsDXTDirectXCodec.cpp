@@ -69,7 +69,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #if HS_BUILD_FOR_WIN32
 namespace {
-    typedef HRESULT(WINAPI * DIRECTDRAWCREATEEX)( GUID*, VOID**, REFIID, IUnknown* );
+    typedef HRESULT(WINAPI * DIRECTDRAWCREATEEX)(GUID*, VOID**, REFIID, IUnknown*);
 }
 
 enum
@@ -91,7 +91,7 @@ hsDXTDirectXCodec& hsDXTDirectXCodec::Instance()
     return the_instance;
 }
 
-hsDXTDirectXCodec::hsDXTDirectXCodec() : fDirectDraw( nil ), fDDLibraryInstance( nil ), fFlags( 0 )
+hsDXTDirectXCodec::hsDXTDirectXCodec() : fDirectDraw(nil), fDDLibraryInstance(nil), fFlags(0)
 {
 }
 
@@ -118,13 +118,13 @@ hsDXTDirectXCodec::~hsDXTDirectXCodec()
 
 bool hsDXTDirectXCodec::Register()
 {
-    return hsCodecManager::Instance().Register( &(Instance()), plMipmap::kDirectXCompression, 500 );
+    return hsCodecManager::Instance().Register(&(Instance()), plMipmap::kDirectXCompression, 500);
 }
 
 #if HS_BUILD_FOR_WIN32
 //// Initialize ///////////////////////////////////////////////////////////////
 
-void hsDXTDirectXCodec::Initialize( IDirect3DDevice8 *directDraw )
+void hsDXTDirectXCodec::Initialize(IDirect3DDevice8 *directDraw)
 {
 /*  if (directDraw)
     {
@@ -169,7 +169,7 @@ bool    hsDXTDirectXCodec::IInitialize()
 //  decompressor better know how to deal with this!) Also cleaned up so I can
 //  read it :)
 
-plMipmap *hsDXTDirectXCodec::CreateCompressedMipmap( plMipmap *uncompressed )
+plMipmap *hsDXTDirectXCodec::CreateCompressedMipmap(plMipmap *uncompressed)
 {
 #if HS_BUILD_FOR_WIN32
     const plMipmap  *b = uncompressed;
@@ -181,30 +181,30 @@ plMipmap *hsDXTDirectXCodec::CreateCompressedMipmap( plMipmap *uncompressed )
 
 
     /// Sanity checks, initialization, etc.
-    if( !Initialized() )
+    if (!Initialized())
     {
-        if( !IInitialize() )
+        if (!IInitialize())
             return nil;
     }
 
-    hsAssert( fRegistered, "Calling member of unregistered codec." );
-    hsAssert( !uncompressed->IsCompressed(), "Trying to re-compress compressed bitmap." );
+    hsAssert(fRegistered, "Calling member of unregistered codec.");
+    hsAssert(!uncompressed->IsCompressed(), "Trying to re-compress compressed bitmap.");
 
-    if( !fDirectDraw )
+    if (!fDirectDraw)
         return nil;
 
     /// Check width and height
-    if( ( uncompressed->GetWidth() | uncompressed->GetHeight() ) & 0x03 )
+    if ((uncompressed->GetWidth() | uncompressed->GetHeight()) & 0x03)
         return nil;     /// Width and height must be multiple of 4
 
     /// This used to be checked later--but WHY? We can check it now and
     /// potentially avoid a lot of headache
-    compFormat = ICompressedFormat( b );
-    if( !compFormat )
+    compFormat = ICompressedFormat(b);
+    if (!compFormat)
         return nil;
 
     /// Precalc this
-    blockSize = ( compFormat == D3DTEXTURE_FMT_FOURCC_DXT1 ) ? 8 : 16;
+    blockSize = (compFormat == D3DTEXTURE_FMT_FOURCC_DXT1) ? 8 : 16;
 
 
     {
@@ -215,9 +215,9 @@ plMipmap *hsDXTDirectXCodec::CreateCompressedMipmap( plMipmap *uncompressed )
         height = uncompressed->GetHeight();
 
         /// Count the levels we're going to compress
-        for( i = 0; i < uncompressed->GetNumLevels(); i++ )
+        for (i = 0; i < uncompressed->GetNumLevels(); i++)
         {
-            if( ( width | height ) & 0x03 )
+            if ((width | height) & 0x03)
                 break;
 
             numCompLevels++;
@@ -229,9 +229,9 @@ plMipmap *hsDXTDirectXCodec::CreateCompressedMipmap( plMipmap *uncompressed )
         /// NEW 8.15.2000 mcn - Now count up remaining levels down to 1x1
         totalSize = compSize;
         numLevels = numCompLevels;
-        for( ; i < uncompressed->GetNumLevels(); i++ )
+        for (; i < uncompressed->GetNumLevels(); i++)
         {
-            totalSize += uncompressed->GetLevelSize( (uint8_t)i );
+            totalSize += uncompressed->GetLevelSize((uint8_t)i);
 
             width >>= 1;
             height >>= 1;
@@ -241,36 +241,36 @@ plMipmap *hsDXTDirectXCodec::CreateCompressedMipmap( plMipmap *uncompressed )
 
 
     /// Create source DirectDraw surface
-    IDirectDrawSurface7 *srcSurface = IMakeDirect3DSurface( D3DTEXTURE_FMT_ARGB32_8888,
-                                                            numCompLevels, uncompressed->GetWidth(),
-                                                            uncompressed->GetHeight() );
+    IDirectDrawSurface7 *srcSurface = IMakeDirect3DSurface(D3DTEXTURE_FMT_ARGB32_8888,
+                                                           numCompLevels, uncompressed->GetWidth(),
+                                                           uncompressed->GetHeight());
 
-    IFillSurface( (hsRGBAColor32 *)uncompressed->GetImage(), numCompLevels, srcSurface );
+    IFillSurface((hsRGBAColor32 *)uncompressed->GetImage(), numCompLevels, srcSurface);
 
     /// Create destination DirectDraw surface
-    IDirectDrawSurface7 *destSurface = IMakeDirect3DSurface( compFormat, numCompLevels,
+    IDirectDrawSurface7 *destSurface = IMakeDirect3DSurface(compFormat, numCompLevels,
                                                             uncompressed->GetWidth(),
-                                                            uncompressed->GetHeight() );
-    ICopySurface( destSurface, srcSurface, numCompLevels );
+                                                            uncompressed->GetHeight());
+    ICopySurface(destSurface, srcSurface, numCompLevels);
 
 
     /// Now set up the data structures
-    compressed = new plMipmap( uncompressed->GetWidth(), uncompressed->GetHeight(), plMipmap::kARGB32Config,
+    compressed = new plMipmap(uncompressed->GetWidth(), uncompressed->GetHeight(), plMipmap::kARGB32Config,
                                 uncompressed->GetNumLevels(), plMipmap::kDirectXCompression,
-                                ( compFormat == D3DTEXTURE_FMT_FOURCC_DXT1 ) ?
-                                        plMipmap::DirectXInfo::kDXT1 : plMipmap::DirectXInfo::kDXT5 );
+                                (compFormat == D3DTEXTURE_FMT_FOURCC_DXT1) ?
+                                        plMipmap::DirectXInfo::kDXT1 : plMipmap::DirectXInfo::kDXT5);
     
     /// Copy compressed data back from the surface
-    IFillFromSurface( (hsRGBAColor32 *)compressed->GetImage(), numCompLevels, destSurface );
+    IFillFromSurface((hsRGBAColor32 *)compressed->GetImage(), numCompLevels, destSurface);
 
     /// Finally, copy back any remaining data
-    if( numCompLevels < numLevels )
+    if (numCompLevels < numLevels)
     {
         /// Now copy the rest straight over
-        for( i = numCompLevels; i < numLevels; i++ )
+        for (i = numCompLevels; i < numLevels; i++)
         {
-            memcpy( compressed->GetLevelPtr( (uint8_t)i ), uncompressed->GetLevelPtr( (uint8_t)i ),
-                    uncompressed->GetLevelSize( (uint8_t)i ) );
+            memcpy(compressed->GetLevelPtr((uint8_t)i), uncompressed->GetLevelPtr((uint8_t)i),
+                   uncompressed->GetLevelSize((uint8_t)i));
         }
     }
 
@@ -286,8 +286,8 @@ plMipmap *hsDXTDirectXCodec::CreateCompressedMipmap( plMipmap *uncompressed )
 //  CreateCompressedMipmap(). Also cleaned up the code a bit (too tired to
 //  clean it ALL up)
 
-plMipmap *hsDXTDirectXCodec::CreateUncompressedMipmap( plMipmap *compressed,
-                                                            uint8_t bitDepth )
+plMipmap *hsDXTDirectXCodec::CreateUncompressedMipmap(plMipmap *compressed,
+                                                            uint8_t bitDepth)
 {
     /// Use software decompression ALWAYS
     return nil;
@@ -299,45 +299,45 @@ plMipmap *hsDXTDirectXCodec::CreateUncompressedMipmap( plMipmap *compressed,
 
 
     /// Check bit depth--if it's 16 bit, we don't support it (for now)
-    if( ( bitDepth & hsCodecManager::kBitDepthMask ) != hsCodecManager::k16BitDepth )
+    if ((bitDepth & hsCodecManager::kBitDepthMask) != hsCodecManager::k16BitDepth)
         return nil;
 
-    if( !Initialized() )
+    if (!Initialized())
     {
-        if( !IInitialize() )
+        if (!IInitialize())
             return nil;
     }
 
     /// Sanity checks
-    hsAssert( fRegistered, "Calling member of unregistered codec." );
-    hsAssert( compressed->fFlags & hsGMipmap::kCompressed, "Trying to uncompress already uncompressed bitmap." );
-    hsAssert( compressed->fCompressionFormat == hsGMipmap::kDirectXCompression, "Uncompressing wrong format." );
-    hsAssert( ( compressed->fDirectXInfo.fCompressionType == hsGMipmap::DirectXInfo::kDXT1 ) ||
-        ( compressed->fDirectXInfo.fCompressionType == hsGMipmap::DirectXInfo::kDXT5 ),
-        "Unsupported directX compression format." );
+    hsAssert(fRegistered, "Calling member of unregistered codec.");
+    hsAssert(compressed->fFlags & hsGMipmap::kCompressed, "Trying to uncompress already uncompressed bitmap.");
+    hsAssert(compressed->fCompressionFormat == hsGMipmap::kDirectXCompression, "Uncompressing wrong format.");
+    hsAssert((compressed->fDirectXInfo.fCompressionType == hsGMipmap::DirectXInfo::kDXT1) ||
+        (compressed->fDirectXInfo.fCompressionType == hsGMipmap::DirectXInfo::kDXT5),
+        "Unsupported directX compression format.");
 
-    if( !fDirectDraw )
+    if (!fDirectDraw)
         return nil;
 
-    if( compressed->fDirectXInfo.fCompressionType == hsGMipmap::DirectXInfo::kDXT5 )
+    if (compressed->fDirectXInfo.fCompressionType == hsGMipmap::DirectXInfo::kDXT5)
     {
         // Fall out since directX software decompressor doesn't work...
         return nil;
     }
 
-    if( compressed->fFlags & hsGMipmap::kMipMap )
+    if (compressed->fFlags & hsGMipmap::kMipMap)
     {
-        mmCompressed->SetLevel( 0 );
+        mmCompressed->SetLevel(0);
         mmlvs = mmCompressed->GetNumLevels();
 
-        for( i = 0, numCompLevels = 0; i < mmlvs; i++ )
+        for (i = 0, numCompLevels = 0; i < mmlvs; i++)
         {
-            mmCompressed->SetLevel( i );
-            if( ( mmCompressed->fWidth | mmCompressed->fHeight ) & 0x03 )
+            mmCompressed->SetLevel(i);
+            if ((mmCompressed->fWidth | mmCompressed->fHeight) & 0x03)
                 break;
             numCompLevels++;
         }
-        mmCompressed->SetLevel( 0 );
+        mmCompressed->SetLevel(0);
     }
     else
     {
@@ -345,22 +345,22 @@ plMipmap *hsDXTDirectXCodec::CreateUncompressedMipmap( plMipmap *compressed,
     }
 
     /// Get format type
-    formatType = ( compressed->fDirectXInfo.fCompressionType == hsGMipmap::DirectXInfo::kDXT1 ) ?
+    formatType = (compressed->fDirectXInfo.fCompressionType == hsGMipmap::DirectXInfo::kDXT1) ?
                             D3DTEXTURE_FMT_FOURCC_DXT1 : D3DTEXTURE_FMT_FOURCC_DXT5;
 
     /// Make the surfaces (decompress in the process)
-    IDirectDrawSurface7 *srcSurface = IMakeDirect3DSurface( formatType, numCompLevels,
-                                                            compressed->fWidth, compressed->fHeight );
-    IFillSurface( (hsRGBAColor32 *)compressed->fImage, numCompLevels, srcSurface );
+    IDirectDrawSurface7 *srcSurface = IMakeDirect3DSurface(formatType, numCompLevels,
+                                                           compressed->fWidth, compressed->fHeight);
+    IFillSurface((hsRGBAColor32 *)compressed->fImage, numCompLevels, srcSurface);
 
 
-    IDirectDrawSurface7 *destSurface = IMakeDirect3DSurface( D3DTEXTURE_FMT_ARGB32_8888, numCompLevels,
-                                                        compressed->fWidth, compressed->fHeight );
-    ICopySurface( destSurface, srcSurface, numCompLevels );
+    IDirectDrawSurface7 *destSurface = IMakeDirect3DSurface(D3DTEXTURE_FMT_ARGB32_8888, numCompLevels,
+                                                            compressed->fWidth, compressed->fHeight);
+    ICopySurface(destSurface, srcSurface, numCompLevels);
 
 
     /// Set up the uncompressed data structure
-    if( compressed->fFlags & hsGMipmap::kMipMap )
+    if (compressed->fFlags & hsGMipmap::kMipMap)
     {
         mmUncompressed = new hsGMipmapClass;
         uncompressed = mmUncompressed;
@@ -381,42 +381,42 @@ plMipmap *hsDXTDirectXCodec::CreateUncompressedMipmap( plMipmap *compressed,
     uncompressed->fDirectXInfo.fCompressionType = hsGMipmap::DirectXInfo::kError;
 
     /// Handle mipmaps or single image?
-    if( mmUncompressed )
+    if (mmUncompressed)
     {
         totalSize = 0;
         width = compressed->fWidth;
         height = compressed->fHeight;
-        for( i = 0; i < mmlvs; i++ )
+        for (i = 0; i < mmlvs; i++)
         {
             totalSize += width * height * uncompressed->fPixelSize >> 3;
             width >>= 1;
             height >>= 1;
         }
-        mmUncompressed->fImage = HSMemory::New( totalSize );
-        mmUncompressed->SetData( mmUncompressed->fImage );
-        mmUncompressed->SetNumLevels( mmlvs );
+        mmUncompressed->fImage = HSMemory::New(totalSize);
+        mmUncompressed->SetData(mmUncompressed->fImage);
+        mmUncompressed->SetNumLevels(mmlvs);
     }
     else
     {
-        uncompressed->fImage = HSMemory::New( uncompressed->fWidth * uncompressed->fHeight *
-                                                uncompressed->fPixelSize >> 3 );
+        uncompressed->fImage = HSMemory::New(uncompressed->fWidth * uncompressed->fHeight *
+                                                uncompressed->fPixelSize >> 3);
     }
 
     /// Copy over compressed levels
-    IFillFromSurface( (hsRGBAColor32 *)uncompressed->fImage, numCompLevels, destSurface );
+    IFillFromSurface((hsRGBAColor32 *)uncompressed->fImage, numCompLevels, destSurface);
 
     /// Now take care of the remainder levels
-    if( mmUncompressed )
+    if (mmUncompressed)
     {
-        for( i = numCompLevels; i < mmlvs; i++ )
+        for (i = numCompLevels; i < mmlvs; i++)
         {
-            mmUncompressed->SetLevel( i );
-            mmCompressed->SetLevel( i );
+            mmUncompressed->SetLevel(i);
+            mmCompressed->SetLevel(i);
 
-            memcpy( mmUncompressed->fImage, mmCompressed->fImage, mmCompressed->ImageSize() );
+            memcpy(mmUncompressed->fImage, mmCompressed->fImage, mmCompressed->ImageSize());
         }
-        mmUncompressed->SetLevel( 0 );
-        mmCompressed->SetLevel( 0 );
+        mmUncompressed->SetLevel(0);
+        mmCompressed->SetLevel(0);
     }
 
     /// All done!
@@ -427,7 +427,7 @@ plMipmap *hsDXTDirectXCodec::CreateUncompressedMipmap( plMipmap *compressed,
 #if HS_BUILD_FOR_WIN32
 uint32_t hsDXTDirectXCodec::ICompressedFormat(const plMipmap *uncompressed)
 {
-    if( uncompressed->GetFlags() & plMipmap::kAlphaChannelFlag )
+    if (uncompressed->GetFlags() & plMipmap::kAlphaChannelFlag)
         return D3DTEXTURE_FMT_FOURCC_DXT5;
 
     return D3DTEXTURE_FMT_FOURCC_DXT1;
@@ -440,7 +440,7 @@ uint32_t hsDXTDirectXCodec::ICompressedFormat(const plMipmap *uncompressed)
 DDPIXELFORMAT   IFindTextureFormat(uint32_t formatType)
 {
     DDPIXELFORMAT ddPixelFormat;
-    memset( &ddPixelFormat, 0x00, sizeof(DDPIXELFORMAT) );
+    memset(&ddPixelFormat, 0x00, sizeof(DDPIXELFORMAT));
     ddPixelFormat.dwSize = sizeof(DDPIXELFORMAT);
 
     switch (formatType)
@@ -472,11 +472,11 @@ IDirectDrawSurface7 *hsDXTDirectXCodec::IMakeDirect3DSurface(uint32_t formatType
                                                               uint32_t width, uint32_t height)
 {
     DDSURFACEDESC2 ddsd2;
-    memset( &ddsd2, 0x00, sizeof(DDSURFACEDESC2) );
+    memset(&ddsd2, 0x00, sizeof(DDSURFACEDESC2));
     ddsd2.dwSize          = sizeof(DDSURFACEDESC2);
     ddsd2.dwFlags         = DDSD_CAPS|DDSD_WIDTH|DDSD_HEIGHT|DDSD_PIXELFORMAT;
     ddsd2.ddsCaps.dwCaps  = DDSCAPS_TEXTURE;
-    if(mipMapLevels > 1 )
+    if (mipMapLevels > 1)
     {
         ddsd2.dwFlags |= DDSD_MIPMAPCOUNT;
         ddsd2.ddsCaps.dwCaps |= DDSCAPS_MIPMAP|DDSCAPS_COMPLEX;
@@ -489,8 +489,8 @@ IDirectDrawSurface7 *hsDXTDirectXCodec::IMakeDirect3DSurface(uint32_t formatType
     ddsd2.ddpfPixelFormat = IFindTextureFormat(formatType);
 
     IDirectDrawSurface7 *lpDDsTex;
-    HRESULT res = fDirectDraw->CreateSurface( &ddsd2, &lpDDsTex, NULL );
-    if( S_OK != res )
+    HRESULT res = fDirectDraw->CreateSurface(&ddsd2, &lpDDsTex, NULL);
+    if (S_OK != res)
         CheckErrorCode(res);
     return lpDDsTex;
 }
@@ -503,18 +503,18 @@ void hsDXTDirectXCodec::IFillSurface(hsRGBAColor32* src, uint32_t mmlvs, IDirect
     HRESULT     hr;
     DDSCAPS2    ddsCaps2;
 
-    for( WORD wNum=0; wNum < mmlvs; wNum++ )
+    for (WORD wNum=0; wNum < mmlvs; wNum++)
     {
         DDSURFACEDESC2 ddsd2;
-        memset( &ddsd2, 0x00, sizeof(DDSURFACEDESC2) );
-        ddsd2.dwSize = sizeof( DDSURFACEDESC2 );
+        memset(&ddsd2, 0x00, sizeof(DDSURFACEDESC2));
+        ddsd2.dwSize = sizeof(DDSURFACEDESC2);
 
-        hr  = pddsDest->Lock( NULL, &ddsd2, DDLOCK_WAIT | DDLOCK_WRITEONLY | DDLOCK_DISCARDCONTENTS, NULL );
+        hr  = pddsDest->Lock(NULL, &ddsd2, DDLOCK_WAIT | DDLOCK_WRITEONLY | DDLOCK_DISCARDCONTENTS, NULL);
         if (ddsd2.ddpfPixelFormat.dwFlags == DDPF_FOURCC)
         {
             int32_t blockSize = (ddsd2.ddpfPixelFormat.dwFourCC == FOURCC_DXT1) ? 8 : 16;
             cap = ddsd2.dwHeight * ddsd2.dwWidth * blockSize >> 4;
-            memcpy( (char*)ddsd2.lpSurface, pTexDat, cap );
+            memcpy((char*)ddsd2.lpSurface, pTexDat, cap);
             pTexDat += cap;
         }
         else
@@ -526,15 +526,15 @@ void hsDXTDirectXCodec::IFillSurface(hsRGBAColor32* src, uint32_t mmlvs, IDirect
             int32_t j;
             for (j = 0; j < pixelCount; ++j)
             {
-                dest[j] =  ( ( src->a << 24 ) | ( src->r << 16 ) | ( src->g << 8 ) | src->b );
+                dest[j] =  ((src->a << 24) | (src->r << 16) | (src->g << 8) | src->b);
                 src++;
             }
         }
-        hr = pddsDest->Unlock( NULL );
+        hr = pddsDest->Unlock(NULL);
 
-        memset( &ddsCaps2, 0x00, sizeof(DDSCAPS2) );
+        memset(&ddsCaps2, 0x00, sizeof(DDSCAPS2));
         ddsCaps2.dwCaps = DDSCAPS_TEXTURE | DDSCAPS_MIPMAP;
-        if( SUCCEEDED( pddsDest->GetAttachedSurface( &ddsCaps2, &pddsDest ) ) )
+        if (SUCCEEDED(pddsDest->GetAttachedSurface(&ddsCaps2, &pddsDest)))
             pddsDest->Release();
     }
 }
@@ -549,25 +549,25 @@ void hsDXTDirectXCodec::IFillFromSurface(hsRGBAColor32* dest, uint32_t mmlvs, ID
     DDSURFACEDESC2  ddsd2;
 
 
-    for( WORD wNum = 0; wNum < mmlvs; wNum++ )
+    for (WORD wNum = 0; wNum < mmlvs; wNum++)
     {
-        memset( &ddsd2, 0, sizeof( DDSURFACEDESC2 ) );
-        ddsd2.dwSize = sizeof( DDSURFACEDESC2 );
+        memset(&ddsd2, 0, sizeof(DDSURFACEDESC2));
+        ddsd2.dwSize = sizeof(DDSURFACEDESC2);
 
-        hr = pddsSrc->Lock( NULL, &ddsd2, DDLOCK_WAIT | DDLOCK_READONLY |
-                                            DDLOCK_DISCARDCONTENTS, NULL );
+        hr = pddsSrc->Lock(NULL, &ddsd2, DDLOCK_WAIT | DDLOCK_READONLY |
+                                            DDLOCK_DISCARDCONTENTS, NULL);
 
-        if( ddsd2.ddpfPixelFormat.dwFlags == DDPF_FOURCC )
+        if (ddsd2.ddpfPixelFormat.dwFlags == DDPF_FOURCC)
         {
-            int32_t blockSize = ( ddsd2.ddpfPixelFormat.dwFourCC == FOURCC_DXT1 ) ? 8 : 16;
+            int32_t blockSize = (ddsd2.ddpfPixelFormat.dwFourCC == FOURCC_DXT1) ? 8 : 16;
 
             cap = ddsd2.dwHeight * ddsd2.dwWidth * blockSize >> 4;
-            memcpy( pTexDat, (char*)ddsd2.lpSurface, cap );
+            memcpy(pTexDat, (char*)ddsd2.lpSurface, cap);
             pTexDat += cap;
         }
         else
         {
-            hsAssert( ddsd2.ddpfPixelFormat.dwRGBBitCount == 32, "Format not supported." );
+            hsAssert(ddsd2.ddpfPixelFormat.dwRGBBitCount == 32, "Format not supported.");
 
             int32_t* src = (int32_t*)ddsd2.lpSurface;
             int32_t pixelCount = ddsd2.dwHeight * ddsd2.dwWidth;
@@ -581,12 +581,12 @@ void hsDXTDirectXCodec::IFillFromSurface(hsRGBAColor32* dest, uint32_t mmlvs, ID
                 dest++;
             }
         }
-        hr = pddsSrc->Unlock( NULL );
+        hr = pddsSrc->Unlock(NULL);
 
-        memset( &ddsCaps2, 0, sizeof( DDSCAPS2 ) );
+        memset(&ddsCaps2, 0, sizeof(DDSCAPS2));
         ddsCaps2.dwCaps = DDSCAPS_TEXTURE | DDSCAPS_MIPMAP;
 
-        if( SUCCEEDED( pddsSrc->GetAttachedSurface( &ddsCaps2, &pddsSrc ) ) )
+        if (SUCCEEDED(pddsSrc->GetAttachedSurface(&ddsCaps2, &pddsSrc)))
             pddsSrc->Release();
     }
 }
@@ -594,8 +594,8 @@ void hsDXTDirectXCodec::IFillFromSurface(hsRGBAColor32* dest, uint32_t mmlvs, ID
 void hsDXTDirectXCodec::ICopySurface(IDirectDrawSurface7 *dest, IDirectDrawSurface7 *src, int32_t mipMapLevels)
 {
     DDSURFACEDESC2 ddsd2;
-    memset( &ddsd2, 0x00, sizeof(DDSURFACEDESC2) );
-    ddsd2.dwSize = sizeof( DDSURFACEDESC2 );
+    memset(&ddsd2, 0x00, sizeof(DDSURFACEDESC2));
+    ddsd2.dwSize = sizeof(DDSURFACEDESC2);
 
     DDSCAPS2 ddsCaps;
     
@@ -611,9 +611,9 @@ void hsDXTDirectXCodec::ICopySurface(IDirectDrawSurface7 *dest, IDirectDrawSurfa
 
     HRESULT hr;
     int i;
-    for( i = 0; i < mmlvs; i++ )
+    for (i = 0; i < mmlvs; i++)
     {
-        if( FAILED(hr = lpDst->Blt(NULL, lpSrc, NULL, DDBLT_WAIT, NULL)) )
+        if (FAILED(hr = lpDst->Blt(NULL, lpSrc, NULL, DDBLT_WAIT, NULL)))
         {
             hsAssert(false, "Uh oh!");
         }
@@ -630,7 +630,7 @@ void hsDXTDirectXCodec::ICopySurface(IDirectDrawSurface7 *dest, IDirectDrawSurfa
 
 void hsDXTDirectXCodec::CheckErrorCode(HRESULT res)
 {
-    switch( res )
+    switch (res)
     {
         // This object is already initialized
         case DDERR_ALREADYINITIALIZED:
@@ -1245,7 +1245,7 @@ void hsDXTDirectXCodec::CheckErrorCode(HRESULT res)
 }
 #endif
 
-bool hsDXTDirectXCodec::ColorizeCompMipmap( plMipmap *bMap, const uint8_t *colorMask )
+bool hsDXTDirectXCodec::ColorizeCompMipmap(plMipmap *bMap, const uint8_t *colorMask)
 {
     return false;
 }

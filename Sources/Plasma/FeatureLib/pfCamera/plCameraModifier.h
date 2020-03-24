@@ -103,8 +103,8 @@ public:
     plCameraModifier1();
     virtual ~plCameraModifier1();
 
-    CLASSNAME_REGISTER( plCameraModifier1 );
-    GETINTERFACE_ANY( plCameraModifier1, plSingleModifier );
+    CLASSNAME_REGISTER(plCameraModifier1);
+    GETINTERFACE_ANY(plCameraModifier1, plSingleModifier);
 
     virtual bool MsgReceive(plMessage* msg);
 

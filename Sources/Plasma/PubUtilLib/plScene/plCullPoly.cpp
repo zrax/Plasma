@@ -62,7 +62,7 @@ plCullPoly& plCullPoly::InitFromVerts(uint32_t f)
 
     fCenter.Set(0,0,0);
     int i;
-    for( i = 0; i < fVerts.GetCount(); i++ )
+    for (i = 0; i < fVerts.GetCount(); i++)
     {
         fCenter += fVerts[i];
     }
@@ -77,10 +77,10 @@ float plCullPoly::ICalcRadius() const
 {
     float radSq = 0;
     int i;
-    for( i = 0; i < fVerts.GetCount(); i++ )
+    for (i = 0; i < fVerts.GetCount(); i++)
     {
         float tmpSq = hsVector3(&fVerts[i], &fCenter).MagnitudeSquared();
-        if( tmpSq > radSq )
+        if (tmpSq > radSq)
             radSq = tmpSq;
     }
     return radSq * hsFastMath::InvSqrt(radSq);
@@ -98,7 +98,7 @@ plCullPoly& plCullPoly::Flip(const plCullPoly& p)
     int n = p.fVerts.GetCount();
     fVerts.SetCount(n);
     int i;
-    for( i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
         fVerts[n-i-1] = p.fVerts[i];
 
     return *this;
@@ -114,7 +114,7 @@ plCullPoly& plCullPoly::Transform(const hsMatrix44& l2w, const hsMatrix44& w2l, 
     dst.fVerts.SetCount(fVerts.GetCount());
 
     int i;
-    for( i = 0; i < fVerts.GetCount(); i++ )
+    for (i = 0; i < fVerts.GetCount(); i++)
     {
         dst.fVerts[i] = l2w * fVerts[i];
     }
@@ -142,7 +142,7 @@ void plCullPoly::Read(hsStream* s, hsResMgr* mgr)
     int n = s->ReadLE32();
     fVerts.SetCount(n);
     int i;
-    for( i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
         fVerts[i].Read(s);
 }
 
@@ -158,7 +158,7 @@ void plCullPoly::Write(hsStream* s, hsResMgr* mgr)
 
     s->WriteLE32(fVerts.GetCount());
     int i;
-    for( i = 0; i < fVerts.GetCount(); i++ )
+    for (i = 0; i < fVerts.GetCount(); i++)
         fVerts[i].Write(s);
 }
 
@@ -171,24 +171,24 @@ bool plCullPoly::Validate() const
 {
     const float kMinMag = 1.e-8f;
     float magSq = fNorm.MagnitudeSquared();
-    if( magSq < kMinMag )
+    if (magSq < kMinMag)
         return false;
-    if( fVerts.GetCount() < 3 )
+    if (fVerts.GetCount() < 3)
         return false;
     hsVector3 norm = hsVector3(&fVerts[1], &fVerts[0]) % hsVector3(&fVerts[2], &fVerts[0]);
     magSq = norm.MagnitudeSquared();
-    if( magSq < kMinMag )
+    if (magSq < kMinMag)
         return false;
     norm *= hsFastMath::InvSqrtAppr(magSq);
     int i;
-    for( i = 3; i < fVerts.GetCount(); i++ )
+    for (i = 3; i < fVerts.GetCount(); i++)
     {
         hsVector3 nextNorm = hsVector3(&fVerts[i-1], &fVerts[0]) % hsVector3(&fVerts[i], &fVerts[0]);
         magSq = nextNorm.MagnitudeSquared();
-        if( magSq < kMinMag )
+        if (magSq < kMinMag)
             return false;
         nextNorm *= hsFastMath::InvSqrtAppr(magSq);
-        if( nextNorm.InnerProduct(norm) < kMinMag )
+        if (nextNorm.InnerProduct(norm) < kMinMag)
             return false;
     }
     return true;

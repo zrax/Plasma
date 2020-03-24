@@ -96,26 +96,26 @@ class plAgeInfoStruct : public plCreatable
         kHasAgeLanguage         = 1<<6,
     };
 
-    void    SetFlag( uint8_t bit, bool on=true ) const { (on)?fFlags|=bit:fFlags&=~bit;}
-    void    ClearFlag( uint8_t bit ) { fFlags&=~bit;}
-    bool    IsFlagSet( uint8_t bit ) const { return (fFlags&bit)!=0;}
+    void    SetFlag(uint8_t bit, bool on=true) const { (on)?fFlags|=bit:fFlags&=~bit;}
+    void    ClearFlag(uint8_t bit) { fFlags&=~bit;}
+    bool    IsFlagSet(uint8_t bit) const { return (fFlags&bit)!=0;}
 
 public:
     plAgeInfoStruct()
-    : fFlags( 0 )
-    , fAgeSequenceNumber( 0 )
-    , fAgeLanguage( -1 )
+    : fFlags(0)
+    , fAgeSequenceNumber(0)
+    , fAgeLanguage(-1)
     {}
 
-    CLASSNAME_REGISTER( plAgeInfoStruct );
-    GETINTERFACE_ANY( plAgeInfoStruct, plCreatable );
+    CLASSNAME_REGISTER(plAgeInfoStruct);
+    GETINTERFACE_ANY(plAgeInfoStruct, plCreatable);
 
     void    Clear();
     void    UpdateFlags() const;
-    void    CopyFrom( const plAgeInfoStruct * other );
-    void    CopyFrom( const plVaultAgeInfoNode * node );
+    void    CopyFrom(const plAgeInfoStruct * other);
+    void    CopyFrom(const plVaultAgeInfoNode * node);
     void    CopyFrom(const struct NetAgeInfo & info);
-    bool    IsEqualTo( const plAgeInfoStruct * other ) const;
+    bool    IsEqualTo(const plAgeInfoStruct * other) const;
 
     ST::string  GetAgeFilename() const { return fAgeFilename; }
     ST::string  GetAgeInstanceName() const { return fAgeInstanceName; }
@@ -125,24 +125,24 @@ public:
     uint32_t  GetAgeSequenceNumber() const { return fAgeSequenceNumber; }
     uint32_t  GetAgeLanguage() const { return fAgeLanguage; }
 
-    void    SetAgeFilename( const ST::string & v );
-    void    SetAgeInstanceName( const ST::string & v );
-    void    SetAgeInstanceGuid( const plUUID * v );
-    void    SetAgeUserDefinedName( const ST::string & v );
-    void    SetAgeDescription( const ST::string & v );
-    void    SetAgeSequenceNumber( uint32_t v );
-    void    SetAgeLanguage( uint32_t v );
+    void    SetAgeFilename(const ST::string & v);
+    void    SetAgeInstanceName(const ST::string & v);
+    void    SetAgeInstanceGuid(const plUUID * v);
+    void    SetAgeUserDefinedName(const ST::string & v);
+    void    SetAgeDescription(const ST::string & v);
+    void    SetAgeSequenceNumber(uint32_t v);
+    void    SetAgeLanguage(uint32_t v);
 
-    bool    HasAgeFilename() const { return IsFlagSet( kHasAgeFilename ); }
-    bool    HasAgeInstanceName() const { return IsFlagSet( kHasAgeInstanceName ); }
-    bool    HasAgeInstanceGuid() const { return IsFlagSet( kHasAgeInstanceGuid ) && fAgeInstanceGuid.IsSet(); }
-    bool    HasAgeUserDefinedName() const { return IsFlagSet( kHasAgeUserDefinedName ); }
-    bool    HasAgeDescription() const { return IsFlagSet( kHasAgeDescription ); }
-    bool    HasAgeSequenceNumber() const { return IsFlagSet( kHasAgeSequenceNumber ); }
-    bool    HasAgeLanguage() const { return IsFlagSet( kHasAgeLanguage ); }
+    bool    HasAgeFilename() const { return IsFlagSet(kHasAgeFilename); }
+    bool    HasAgeInstanceName() const { return IsFlagSet(kHasAgeInstanceName); }
+    bool    HasAgeInstanceGuid() const { return IsFlagSet(kHasAgeInstanceGuid) && fAgeInstanceGuid.IsSet(); }
+    bool    HasAgeUserDefinedName() const { return IsFlagSet(kHasAgeUserDefinedName); }
+    bool    HasAgeDescription() const { return IsFlagSet(kHasAgeDescription); }
+    bool    HasAgeSequenceNumber() const { return IsFlagSet(kHasAgeSequenceNumber); }
+    bool    HasAgeLanguage() const { return IsFlagSet(kHasAgeLanguage); }
 
-    void    Read( hsStream * s, hsResMgr* );
-    void    Write( hsStream * s, hsResMgr* );
+    void    Read(hsStream * s, hsResMgr*);
+    void    Write(hsStream * s, hsResMgr*);
 
     ST::string AsString() const;
 };
@@ -180,42 +180,42 @@ class plAgeLinkStruct : public plCreatable
         kHasParentAgeFilename   = 1<<6,
     };
 
-    void    SetFlag( uint16_t bit, bool on=true ) { (on)?fFlags|=bit:fFlags&=~bit;}
-    void    ClearFlag( uint16_t bit ) { fFlags&=~bit;}
-    bool    IsFlagSet( uint16_t bit ) const { return (fFlags&bit)!=0;}
+    void    SetFlag(uint16_t bit, bool on=true) { (on)?fFlags|=bit:fFlags&=~bit;}
+    void    ClearFlag(uint16_t bit) { fFlags&=~bit;}
+    bool    IsFlagSet(uint16_t bit) const { return (fFlags&bit)!=0;}
 
 public:
     plAgeLinkStruct();
-    CLASSNAME_REGISTER( plAgeLinkStruct );
-    GETINTERFACE_ANY( plAgeLinkStruct, plCreatable );
+    CLASSNAME_REGISTER(plAgeLinkStruct);
+    GETINTERFACE_ANY(plAgeLinkStruct, plCreatable);
 
     plAgeInfoStruct * GetAgeInfo() { return &fAgeInfo; }
     const plAgeInfoStruct * GetAgeInfo() const { return &fAgeInfo; }
 
     const char * GetParentAgeFilename() const { return fParentAgeFilename.c_str(); }
-    void    SetParentAgeFilename( const char * v );
+    void    SetParentAgeFilename(const char * v);
 
-    void    CopyFrom( const plAgeLinkStruct * other );
-    void    CopyFrom( const plVaultAgeLinkNode * node );
-    bool    IsEqualTo( const plAgeLinkStruct * other ) const;
+    void    CopyFrom(const plAgeLinkStruct * other);
+    void    CopyFrom(const plVaultAgeLinkNode * node);
+    bool    IsEqualTo(const plAgeLinkStruct * other) const;
     void    Clear();
 
-    bool    HasAgeInfo() const { return IsFlagSet( kHasAgeInfo ); }
-    bool    HasLinkingRules() const { return IsFlagSet( kHasLinkingRules ); }
-    bool    HasSpawnPt() const { return IsFlagSet( kHasSpawnPt ); }
-    bool    HasAmCCR() const { return IsFlagSet( kHasAmCCR ); }
-    bool    HasParentAgeFilename() const { return IsFlagSet( kHasParentAgeFilename ); }
+    bool    HasAgeInfo() const { return IsFlagSet(kHasAgeInfo); }
+    bool    HasLinkingRules() const { return IsFlagSet(kHasLinkingRules); }
+    bool    HasSpawnPt() const { return IsFlagSet(kHasSpawnPt); }
+    bool    HasAmCCR() const { return IsFlagSet(kHasAmCCR); }
+    bool    HasParentAgeFilename() const { return IsFlagSet(kHasParentAgeFilename); }
 
-    void    SetLinkingRules( int v ) { SetFlag( kHasLinkingRules ); fLinkingRules=v; }
+    void    SetLinkingRules(int v) { SetFlag(kHasLinkingRules); fLinkingRules=v; }
     int     GetLinkingRules() const { return fLinkingRules; }
-    void    SetSpawnPoint( const plSpawnPointInfo & point ) { SetFlag( kHasSpawnPt ); fSpawnPoint=point; }
+    void    SetSpawnPoint(const plSpawnPointInfo & point) { SetFlag(kHasSpawnPt); fSpawnPoint=point; }
     plSpawnPointInfo & SpawnPoint() { return fSpawnPoint; }
     const plSpawnPointInfo & SpawnPoint() const { return fSpawnPoint; }
-    void    SetAmCCR( bool v ) { SetFlag( kHasAmCCR ); fAmCCR=v?1:0; }
+    void    SetAmCCR(bool v) { SetFlag(kHasAmCCR); fAmCCR=v?1:0; }
     bool    GetAmCCR() const { return fAmCCR!=0; }
 
-    void    Read( hsStream * s, hsResMgr* );
-    void    Write( hsStream * s, hsResMgr* );
+    void    Read(hsStream * s, hsResMgr*);
+    void    Write(hsStream * s, hsResMgr*);
 
     ST::string AsString() const;
 };
@@ -243,9 +243,9 @@ class plNetServerSessionInfo : public plCreatable
         kHasServerGuid  = 1<<4,
     };
 
-    void    SetFlag( uint8_t bit ) { fFlags|=bit;}
-    void    ClearFlag( uint8_t bit ) { fFlags&=~bit;}
-    bool    IsFlagSet( uint8_t bit ) const { return (fFlags&bit)!=0;}
+    void    SetFlag(uint8_t bit) { fFlags|=bit;}
+    void    ClearFlag(uint8_t bit) { fFlags&=~bit;}
+    bool    IsFlagSet(uint8_t bit) const { return (fFlags&bit)!=0;}
 
 public:
     plNetServerSessionInfo()
@@ -253,8 +253,8 @@ public:
     , fServerPort(0)
     , fFlags(0)
     {}
-    CLASSNAME_REGISTER( plNetServerSessionInfo );
-    GETINTERFACE_ANY( plNetServerSessionInfo, plCreatable );
+    CLASSNAME_REGISTER(plNetServerSessionInfo);
+    GETINTERFACE_ANY(plNetServerSessionInfo, plCreatable);
 
     void SetServerName(const ST::string & val);
     void SetServerType(uint8_t val);

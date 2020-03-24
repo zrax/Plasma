@@ -126,7 +126,7 @@ bool hsGlobalSemaphore::Wait(hsMilliseconds timeToWait)
 {
 #ifdef USE_SEMA  // SHOULDN'T THIS USE timeToWait??!?!? -rje
     // shouldn't this use sem_timedwait? -dpogue (2012-03-04)
-    hsAssert( timeToWait==kPosInfinity32, "sem_t does not support wait with timeout. #undef USE_SEMA and recompile." );
+    hsAssert(timeToWait==kPosInfinity32, "sem_t does not support wait with timeout. #undef USE_SEMA and recompile.");
     int status = sem_wait(fPSema);
     hsThrowIfOSErr(status);
     return true;

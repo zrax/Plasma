@@ -61,8 +61,8 @@ public:
     plActivePrintShape();
     virtual ~plActivePrintShape();
 
-    CLASSNAME_REGISTER( plActivePrintShape );
-    GETINTERFACE_ANY( plActivePrintShape, plPrintShape );
+    CLASSNAME_REGISTER(plActivePrintShape);
+    GETINTERFACE_ANY(plActivePrintShape, plPrintShape);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

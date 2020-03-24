@@ -52,8 +52,8 @@ class hsStream;
 class plConnectedToVaultMsg : public plMessage
 {
 public:
-   CLASSNAME_REGISTER( plConnectedToVaultMsg );
-   GETINTERFACE_ANY( plConnectedToVaultMsg, plMessage );
+   CLASSNAME_REGISTER(plConnectedToVaultMsg);
+   GETINTERFACE_ANY(plConnectedToVaultMsg, plMessage);
 
    plConnectedToVaultMsg() { SetBCastFlag(kBCastByType);   }
 

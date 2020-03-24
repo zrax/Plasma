@@ -65,15 +65,15 @@ public:
         kExecuteLine
     };
 
-    plConsoleMsg() : plMessage(nil, nil, nil), fCmd( 0 ), fString( nil ) { SetBCastFlag(kBCastByExactType); }
-    plConsoleMsg( uint32_t cmd, const char *str ) :
-                plMessage(nil, nil, nil), fCmd( cmd ), fString(hsStrcpy(str))
-                { SetBCastFlag( kBCastByExactType ); }
+    plConsoleMsg() : plMessage(nil, nil, nil), fCmd(0), fString(nil) { SetBCastFlag(kBCastByExactType); }
+    plConsoleMsg(uint32_t cmd, const char *str) :
+                plMessage(nil, nil, nil), fCmd(cmd), fString(hsStrcpy(str))
+                { SetBCastFlag(kBCastByExactType); }
     
     ~plConsoleMsg() { free(fString); }
 
-    CLASSNAME_REGISTER( plConsoleMsg );
-    GETINTERFACE_ANY( plConsoleMsg, plMessage );
+    CLASSNAME_REGISTER(plConsoleMsg);
+    GETINTERFACE_ANY(plConsoleMsg, plMessage);
 
     uint32_t      GetCmd() const { return fCmd; }
     const char  *GetString() const { return fString; };

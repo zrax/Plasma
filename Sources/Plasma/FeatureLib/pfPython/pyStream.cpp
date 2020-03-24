@@ -51,7 +51,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plFile/plEncryptedStream.h"
 
 pyStream::pyStream()
-: fStream( nil )
+: fStream(nil)
 {
 }
 
@@ -74,13 +74,13 @@ bool pyStream::Open(const plFileName& fileName, const char* flags)
             bool writeflag = false;
             bool encryptflag = false;
             int i;
-            for (i=0 ; i < strlen(flags) ; i++ )
+            for (i=0 ; i < strlen(flags) ; i++)
             {
-                if ( flags[i] == 'r' || flags[i] == 'R' )
+                if (flags[i] == 'r' || flags[i] == 'R')
                     readflag = true;
-                if ( flags[i] == 'w' || flags[i] == 'W' )
+                if (flags[i] == 'w' || flags[i] == 'W')
                     writeflag = true;
-                if ( flags[i] == 'e' || flags[i] == 'E' )
+                if (flags[i] == 'e' || flags[i] == 'E')
                     encryptflag = true;
             }
             // if there is a write flag, it takes priorty over read
@@ -129,7 +129,7 @@ bool pyStream::WriteLines(const std::vector<std::string> & lines)
     if (fStream)
     {
         int i;
-        for ( i=0 ; i<lines.size() ; i++ )
+        for (i=0 ; i<lines.size() ; i++)
         {
             std::string element = lines[i];
             fStream->Write(element.length(),element.c_str());

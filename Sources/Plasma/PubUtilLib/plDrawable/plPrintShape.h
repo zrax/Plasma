@@ -55,8 +55,8 @@ public:
     plPrintShape();
     virtual ~plPrintShape();
 
-    CLASSNAME_REGISTER( plPrintShape );
-    GETINTERFACE_ANY( plPrintShape, plObjInterface );
+    CLASSNAME_REGISTER(plPrintShape);
+    GETINTERFACE_ANY(plPrintShape, plObjInterface);
 
 
     virtual int32_t   GetNumProperties() const { return 1; }

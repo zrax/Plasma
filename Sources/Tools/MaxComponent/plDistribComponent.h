@@ -215,9 +215,9 @@ public:
     // Also, as a convenience, if the transparent distance is less than the opaque distance
     // (signifying a fade out), then the Z component will be -1, else if it's off, zero, else 1.
     // In Summario:
-    //  if( box.Min()[0] < box.Min()[1] ) // Transparent less than Opaque
+    //  if (box.Min()[0] < box.Min()[1]) // Transparent less than Opaque
     //      box.Min()[2] = -1.f;
-    //  else if( box.Min()[0] == box.Min()[1] ) // Tran same as Opaque, disabled
+    //  else if (box.Min()[0] == box.Min()[1]) // Tran same as Opaque, disabled
     //      box.Min()[2] = 0;
     //  else                                // Leaves Opaque less than Transparent.
     //      box.Min()[2] = 1.f;

@@ -93,8 +93,8 @@ public:
     plFollowMod();
     ~plFollowMod();
 
-    CLASSNAME_REGISTER( plFollowMod );
-    GETINTERFACE_ANY( plFollowMod, plSingleModifier );
+    CLASSNAME_REGISTER(plFollowMod);
+    GETINTERFACE_ANY(plFollowMod, plSingleModifier);
 
     virtual bool MsgReceive(plMessage* msg);
 

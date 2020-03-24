@@ -239,7 +239,7 @@ plClient::~plClient()
 {
     hsStatusMessage("Destructing client\n");
 
-    plClient::SetInstance( nil );
+    plClient::SetInstance(nil);
 
     delete fPageMgr;
     delete [] fpAuxInitDir;
@@ -281,10 +281,10 @@ bool plClient::Shutdown()
     if (plAVIWriter::IsInitialized())
         plAVIWriter::Instance().Shutdown();
 
-    hsStatusMessage( "Shutting down client...\n" );
+    hsStatusMessage("Shutting down client...\n");
 
     // First, before anybody else goes away, write out our key mappings
-    if( plInputInterfaceMgr::GetInstance() )
+    if (plInputInterfaceMgr::GetInstance())
         plInputInterfaceMgr::GetInstance()->WriteKeyMap();
 
     // tell Python that its ok to shutdown
@@ -295,8 +295,8 @@ bool plClient::Shutdown()
 
     /// Take down the KI
     pfGameGUIMgr    *mgr = pfGameGUIMgr::GetInstance();
-    if( mgr )
-        mgr->UnloadDialog( "KIBlackBar" );  // unload the blackbar which will bootstrap in the rest of the KI dialogs
+    if (mgr)
+        mgr->UnloadDialog("KIBlackBar");  // unload the blackbar which will bootstrap in the rest of the KI dialogs
 
     // Take down our GUI control generator
     pfGUICtrlGenerator::Instance().Shutdown();
@@ -391,15 +391,15 @@ void plClient::InitAuxInits()
 {
     // Use another init directory specified in Command line Arg -i
     if (fpAuxInitDir)
-        pfConsoleDirSrc     dirSrc( fConsoleEngine, fpAuxInitDir, "*.ini" );
+        pfConsoleDirSrc     dirSrc(fConsoleEngine, fpAuxInitDir, "*.ini");
 }
 
 void plClient::InitInputs()
 {
     hsStatusMessage("InitInputs client\n");
-    fInputManager = new plInputManager( fWindowHndl );
+    fInputManager = new plInputManager(fWindowHndl);
     fInputManager->CreateInterfaceMod(fPipeline);
-    fInputManager->RegisterAs( kInput_KEY );
+    fInputManager->RegisterAs(kInput_KEY);
     plgDispatch::Dispatch()->RegisterForExactType(plIMouseXEventMsg::Index(), fInputManager->GetKey());
     plgDispatch::Dispatch()->RegisterForExactType(plIMouseYEventMsg::Index(), fInputManager->GetKey());
     plgDispatch::Dispatch()->RegisterForExactType(plIMouseBEventMsg::Index(), fInputManager->GetKey());
@@ -410,8 +410,8 @@ void plClient::InitInputs()
     plInputDevice* pMouse = new plMouseDevice();
     fInputManager->AddInputDevice(pMouse);
 
-    if( fWindowActive )
-        fInputManager->Activate( true );
+    if (fWindowActive)
+        fInputManager->Activate(true);
 }
 
 void plClient::ISetGraphicsDefaults()
@@ -426,7 +426,7 @@ void plClient::ISetGraphicsDefaults()
     plPipeline::fInitialPipeParams.VSync = plPipeline::fDefaultPipeParams.VSync;
     plShadowCaster::EnableShadowCast(plPipeline::fDefaultPipeParams.Shadows ? true : false);
     plQuality::SetQuality(plPipeline::fDefaultPipeParams.VideoQuality);
-    if( (fClampCap >= 0) && (fClampCap < plQuality::GetCapability()) )
+    if ((fClampCap >= 0) && (fClampCap < plQuality::GetCapability()))
         plQuality::SetCapability(fClampCap);
     plDynamicCamMap::SetEnabled(plPipeline::fDefaultPipeParams.PlanarReflections ? true : false);
 }
@@ -450,10 +450,10 @@ bool plClient::InitPipeline()
     hsG3DDeviceRecord *rec = (hsG3DDeviceRecord *)dmr.GetDevice();
     int res = -1;
 
-    if(!plPipeline::fInitialPipeParams.Windowed)
+    if (!plPipeline::fInitialPipeParams.Windowed)
     {
         // find our resolution if we're not in windowed mode
-        for ( int i = 0; i < rec->GetModes().GetCount(); i++ )
+        for (int i = 0; i < rec->GetModes().GetCount(); i++)
         {
             hsG3DDeviceMode *mode = rec->GetMode(i);
             if ((mode->GetWidth() == plPipeline::fInitialPipeParams.Width) &&
@@ -464,7 +464,7 @@ bool plClient::InitPipeline()
                 break;
             }
         }
-        if(res != -1)
+        if (res != -1)
         {
             // found it set it as the current mode.
             dmr = hsG3DDeviceModeRecord(*rec, *rec->GetMode(res));
@@ -475,31 +475,31 @@ bool plClient::InitPipeline()
         }
     }
 
-    if(plPipeline::fInitialPipeParams.TextureQuality == -1)
+    if (plPipeline::fInitialPipeParams.TextureQuality == -1)
     {
         plPipeline::fInitialPipeParams.TextureQuality = dmr.GetDevice()->GetCap(hsG3DDeviceSelector::kCapsPixelShader) ? 2 : 1;
     }
     else
     {
         // clamp value to range
-        if(plPipeline::fInitialPipeParams.TextureQuality > 2) plPipeline::fInitialPipeParams.TextureQuality = 2;
-        if(plPipeline::fInitialPipeParams.TextureQuality < 0) plPipeline::fInitialPipeParams.TextureQuality = 0;
+        if (plPipeline::fInitialPipeParams.TextureQuality > 2) plPipeline::fInitialPipeParams.TextureQuality = 2;
+        if (plPipeline::fInitialPipeParams.TextureQuality < 0) plPipeline::fInitialPipeParams.TextureQuality = 0;
         plBitmap::SetGlobalLevelChopCount(2 - plPipeline::fInitialPipeParams.TextureQuality);
     }
 
-    plPipeline *pipe = plPipelineCreate::CreatePipeline( hWnd, &dmr );
-    if( pipe->GetErrorString() != nil )
+    plPipeline *pipe = plPipelineCreate::CreatePipeline(hWnd, &dmr);
+    if (pipe->GetErrorString() != nil)
     {
         ISetGraphicsDefaults();
 #ifdef PLASMA_EXTERNAL_RELEASE
         hsMessageBox("There was an error initializing the video card.\nSetting defaults.", "Error", hsMessageBoxNormal);
 #else
-        hsMessageBox( pipe->GetErrorString(), "Error creating pipeline", hsMessageBoxNormal );
+        hsMessageBox(pipe->GetErrorString(), "Error creating pipeline", hsMessageBoxNormal);
 #endif
         delete pipe;
         devSel.GetDefault(&dmr);
-        pipe = plPipelineCreate::CreatePipeline( hWnd, &dmr );
-        if(pipe->GetErrorString() != nil)
+        pipe = plPipelineCreate::CreatePipeline(hWnd, &dmr);
+        if (pipe->GetErrorString() != nil)
         {
             // not much else we can do
             return true;
@@ -523,27 +523,27 @@ bool plClient::InitPipeline()
     hsMatrix44 id;
     id.Reset();
 
-    pipe->SetWorldToCamera( cam, id );
+    pipe->SetWorldToCamera(cam, id);
     pipe->RefreshMatrices();
 
     // Do this so we're still black before we show progress bars, but the correct color coming out of 'em
-    fClearColor.Set( 0.f, 0.f, 0.f, 1.f );
+    fClearColor.Set(0.f, 0.f, 0.f, 1.f);
     pipe->SetClear(&fClearColor);
     pipe->ClearRenderTarget();
 
     plAccessGeometry::Init(pipe);
 
-    if( fPipeline )
+    if (fPipeline)
         fPipeline->LoadResources();
 
     return false;
 }
 
 //============================================================================
-void    plClient::SetClearColor( hsColorRGBA &color )
+void    plClient::SetClearColor(hsColorRGBA &color)
 {
     fClearColor = color;
-    if( fPipeline != nil )
+    if (fPipeline != nil)
     {
         fPipeline->SetClear(&fClearColor, nil);
     }
@@ -574,11 +574,11 @@ bool plClient::MsgReceive(plMessage* msg)
     plClientRefMsg* pRefMsg = plClientRefMsg::ConvertNoRef(msg);
     if (pRefMsg)
     {
-        switch(pRefMsg->fType)
+        switch (pRefMsg->fType)
         {
         case plClientRefMsg::kLoadRoom :
             #ifndef PLASMA_EXTERNAL_RELEASE
-            plStatusLog::AddLineSF( "pageouts.log", ".. ClientRefMsg received for room {}", pRefMsg->GetRef() ? pRefMsg->GetRef()->GetKey()->GetUoid().GetObjectName() : ST_LITERAL("nilref") );
+            plStatusLog::AddLineSF("pageouts.log", ".. ClientRefMsg received for room {}", pRefMsg->GetRef() ? pRefMsg->GetRef()->GetKey()->GetUoid().GetObjectName() : ST_LITERAL("nilref"));
             #endif
 
             // was it that the room was loaded?
@@ -622,7 +622,7 @@ bool plClient::MsgReceive(plMessage* msg)
                     {
                         if (pNode)
                         {
-                            fRooms.Append( plRoomRec( pNode, 0 ) );
+                            fRooms.Append(plRoomRec(pNode, 0));
                             fPageMgr->AddNode(pNode);
                         }
                     }
@@ -630,7 +630,7 @@ bool plClient::MsgReceive(plMessage* msg)
                 else
                 {
                     plSceneNode* node = plSceneNode::ConvertNoRef(pRefMsg->GetRef());
-                    if(node)
+                    if (node)
                     {
                         int i;
                         for (i = 0; i < fRooms.Count(); i++)
@@ -653,7 +653,7 @@ bool plClient::MsgReceive(plMessage* msg)
     plClientMsg* pMsg = plClientMsg::ConvertNoRef(msg);
     if (pMsg)
     {
-        switch(pMsg->GetClientMsgFlag())
+        switch (pMsg->GetClientMsgFlag())
         {
         case plClientMsg::kQuit:
             SetDone(true);
@@ -680,25 +680,25 @@ bool plClient::MsgReceive(plMessage* msg)
         case plClientMsg::kLoadAgeKeys:
             {
                 plResManager *mgr = (plResManager *)hsgResMgr::ResMgr();
-                mgr->LoadAgeKeys( pMsg->GetAgeName() );
+                mgr->LoadAgeKeys(pMsg->GetAgeName());
             }
             break;
 
         case plClientMsg::kReleaseAgeKeys:
             {
                 plResManager *mgr = (plResManager *)hsgResMgr::ResMgr();
-                mgr->DropAgeKeys( pMsg->GetAgeName() );
+                mgr->DropAgeKeys(pMsg->GetAgeName());
             }
             break;
             
         case plClientMsg::kDisableRenderScene:
             {
-                plClient::GetInstance()->SetFlag( plClient::kFlagDBGDisableRender, true );
+                plClient::GetInstance()->SetFlag(plClient::kFlagDBGDisableRender, true);
             }
             break;
         case plClientMsg::kEnableRenderScene:
             {
-                plClient::GetInstance()->SetFlag( plClient::kFlagDBGDisableRender, false );
+                plClient::GetInstance()->SetFlag(plClient::kFlagDBGDisableRender, false);
             }
             break;
 
@@ -725,24 +725,24 @@ bool plClient::MsgReceive(plMessage* msg)
         return true;
     }
     plRenderRequestMsg* rendReq = plRenderRequestMsg::ConvertNoRef(msg);
-    if( rendReq )
+    if (rendReq)
     {
         IAddRenderRequest(rendReq->Request());
         return true;
     }
     plEventCallbackMsg* callback = plEventCallbackMsg::ConvertNoRef(msg);
-    if( callback )
+    if (callback)
     {
         ST::string str = ST::format("Callback event from {}\n", callback->GetSender()
                             ? callback->GetSender()->GetName()
                             : ST_LITERAL("Unknown"));
         hsStatusMessage(str.c_str());
         static int gotten = 0;
-        if( ++gotten > 5 )
+        if (++gotten > 5)
         {
             plSimpleModifier* simpMod = plSimpleModifier::ConvertNoRef(callback->GetSender()->ObjectIsLoaded());
             plAudible* aud = plAudible::ConvertNoRef(callback->GetSender()->ObjectIsLoaded());
-            if( simpMod )
+            if (simpMod)
             {
                 plAnimCmdMsg* cmd = new plAnimCmdMsg;
                 cmd->AddReceiver(simpMod->GetKey());
@@ -751,7 +751,7 @@ bool plClient::MsgReceive(plMessage* msg)
                 plgDispatch::MsgSend(cmd);
                 hsRefCnt_SafeUnRef(callback);
             }
-            else if( aud )
+            else if (aud)
             {
                 plSoundMsg* cmd = new plSoundMsg;
                 cmd->AddReceiver(aud->GetKey());
@@ -766,7 +766,7 @@ bool plClient::MsgReceive(plMessage* msg)
         return true;
     }
     plMovieMsg* mov = plMovieMsg::ConvertNoRef(msg);
-    if( mov )
+    if (mov)
     {
         return IHandleMovieMsg(mov);
     }
@@ -1233,7 +1233,7 @@ void plClient::IReadKeyedObjCallback(plKey key)
 //============================================================================
 void plClient::IProgressMgrCallbackProc(plOperationProgress * progress)
 {
-    if(!fInstance)
+    if (!fInstance)
         return;
 
     // Increments the taskbar progress [Windows 7+]
@@ -1285,14 +1285,14 @@ void plClient::IIncProgress (float byHowMuch, const char * text)
 {
     if (fProgressBar) {
 #ifndef PLASMA_EXTERNAL_RELEASE
-        fProgressBar->SetStatusText( text );
+        fProgressBar->SetStatusText(text);
 #endif
-        fProgressBar->Increment( byHowMuch );
+        fProgressBar->Increment(byHowMuch);
     }
 }
 
 //============================================================================
-void    plClient::IStartProgress( const char *title, float len )
+void    plClient::IStartProgress(const char *title, float len)
 {
     if (fProgressBar)
     {
@@ -1313,7 +1313,7 @@ void    plClient::IStartProgress( const char *title, float len )
     }
     // Workaround for NVidia driver bug, showing up as BCO not there first time.
     // See Mantis bug 0014590.
-    if( fPipeline )
+    if (fPipeline)
         fPipeline->LoadResources();
 }
 
@@ -1356,12 +1356,12 @@ extern  bool    gDataServerLocal;
 bool plClient::StartInit()
 {
     hsStatusMessage("Init client\n");
-    fFlags.SetBit( kFlagIniting );
+    fFlags.SetBit(kFlagIniting);
 
     pfLocalizationMgr::Initialize("dat");
 
     plQuality::SetQuality(fQuality);
-    if( (GetClampCap() >= 0) && (GetClampCap() < plQuality::GetCapability()) )
+    if ((GetClampCap() >= 0) && (GetClampCap() < plQuality::GetCapability()))
         plQuality::SetCapability(GetClampCap());
 
     /// 2.16.2001 mcn - Moved console engine init to constructor,
@@ -1371,7 +1371,7 @@ bool plClient::StartInit()
 
     // Set our callback for the progress manager so everybody else can use it
     fLastProgressUpdate = 0.f;
-    plProgressMgr::GetInstance()->SetCallbackProc( IProgressMgrCallbackProc );
+    plProgressMgr::GetInstance()->SetCallbackProc(IProgressMgrCallbackProc);
 
     // Check the registry, which deletes data files that are either corrupt or
     // have old version numbers.  If the file still exists on the file server
@@ -1382,7 +1382,7 @@ bool plClient::StartInit()
     plgAudioSys::Init();
     gAudio = plgAudioSys::Sys();
 
-    RegisterAs( kClient_KEY );
+    RegisterAs(kClient_KEY);
 
     InitDLLs();
     
@@ -1408,26 +1408,26 @@ bool plClient::StartInit()
     /// everything in code that works with the console does so through the console engine
 
     fConsole = new pfConsole();
-    pfConsole::SetPipeline( fPipeline );
-    fConsole->RegisterAs( kConsoleObject_KEY );     // fixedKey from plFixedKey.h
-    fConsole->Init( fConsoleEngine );
+    pfConsole::SetPipeline(fPipeline);
+    fConsole->RegisterAs(kConsoleObject_KEY);     // fixedKey from plFixedKey.h
+    fConsole->Init(fConsoleEngine);
 
     /// Init the font cache
     fFontCache = new plFontCache();
 
     /// Init the transition manager
     fTransitionMgr = new plTransitionMgr();
-    fTransitionMgr->RegisterAs( kTransitionMgr_KEY );       // fixedKey from plFixedKey.h
+    fTransitionMgr->RegisterAs(kTransitionMgr_KEY);       // fixedKey from plFixedKey.h
     fTransitionMgr->Init();
 
     // Init the Age Linking effects manager
     fLinkEffectsMgr = new plLinkEffectsMgr();
-    fLinkEffectsMgr->RegisterAs( kLinkEffectsMgr_KEY ); // fixedKey from plFixedKey.h
+    fLinkEffectsMgr->RegisterAs(kLinkEffectsMgr_KEY); // fixedKey from plFixedKey.h
     fLinkEffectsMgr->Init();
     
     /// Init the in-game GUI manager
     fGameGUIMgr = new pfGameGUIMgr();
-    fGameGUIMgr->RegisterAs( kGameGUIMgr_KEY );
+    fGameGUIMgr->RegisterAs(kGameGUIMgr_KEY);
     fGameGUIMgr->Init();
 
     plgAudioSys::Activate(true);
@@ -1447,12 +1447,12 @@ bool plClient::StartInit()
 
     // create new virtual camera
     fNewCamera = new plVirtualCam1;
-    fNewCamera->RegisterAs( kVirtualCamera1_KEY );
+    fNewCamera->RegisterAs(kVirtualCamera1_KEY);
     fNewCamera->Init();
-    fNewCamera->SetPipeline( GetPipeline() );
+    fNewCamera->SetPipeline(GetPipeline());
 
     plVirtualCam1::Refresh();
-    pfGameGUIMgr::GetInstance()->SetAspectRatio( (float)fPipeline->Width() / (float)fPipeline->Height() );
+    pfGameGUIMgr::GetInstance()->SetAspectRatio((float)fPipeline->Width() / (float)fPipeline->Height());
     plMouseDevice::Instance()->SetDisplayResolution((float)fPipeline->Width(), (float)fPipeline->Height());
     plInputManager::SetRecenterMouse(false);
 
@@ -1460,7 +1460,7 @@ bool plClient::StartInit()
 
     // create the listener for the audio system:
     plListener* pLMod = new plListener;
-    pLMod->RegisterAs(kListenerMod_KEY );
+    pLMod->RegisterAs(kListenerMod_KEY);
 
     plgDispatch::Dispatch()->RegisterForExactType(plEvalMsg::Index(), pLMod->GetKey());
     plgDispatch::Dispatch()->RegisterForExactType(plAudioSysMsg::Index(), pLMod->GetKey());
@@ -1517,10 +1517,10 @@ void plClient::InitDLLs()
 void plClient::ShutdownDLLs()
 {
     int j;
-    for( j = 0; j < fLoadedDLLs.GetCount(); j++ )
+    for (j = 0; j < fLoadedDLLs.GetCount(); j++)
     {
         BOOL ret = FreeLibrary(fLoadedDLLs[j]);
-        if( !ret )
+        if (!ret)
             hsStatusMessage("Failed to free lib\n");
     }
     fLoadedDLLs.Reset();
@@ -1552,7 +1552,7 @@ bool plClient::MainLoop()
     }
 #endif
 
-    if(plClient::fDelayMS)
+    if (plClient::fDelayMS)
         Sleep(5);
     
     // Reset our stats
@@ -1701,7 +1701,7 @@ bool plClient::IDrawProgress() {
     plProfileManager::Instance().BeginFrame();
 
     plProfile_BeginTiming(DrawTime);
-    if( fPipeline->BeginRender() )
+    if (fPipeline->BeginRender())
     {
         return IFlushRenderRequests();
     }
@@ -1709,11 +1709,11 @@ bool plClient::IDrawProgress() {
     fPipeline->ClearRenderTarget(&hsColorRGBA().Set(0.f, 0.f, 0.f, 1.f));
 
 #ifndef PLASMA_EXTERNAL_RELEASE
-    fConsole->Draw( fPipeline );
+    fConsole->Draw(fPipeline);
 #endif
 
     plStatusLogMgr::GetInstance().Draw();
-    plProgressMgr::GetInstance()->Draw( fPipeline );
+    plProgressMgr::GetInstance()->Draw(fPipeline);
     fPipeline->RenderScreenElements();
     fPipeline->EndRender();
     plProfile_EndTiming(DrawTime);
@@ -1750,7 +1750,7 @@ bool plClient::IDraw()
     // needs to be AFTER the plRenderMsg is sent, and
     // BEFORE BeginRender. (plRenderMsg causes construction of
     // Dynamic objects (e.g. RT's), BeginRender uses them (e.g. shadows).
-    if( plPipeResReq::Check() || fPipeline->CheckResources() )
+    if (plPipeResReq::Check() || fPipeline->CheckResources())
     {
         fPipeline->LoadResources();
     }
@@ -1760,7 +1760,7 @@ bool plClient::IDraw()
     plProfile_BeginTiming(DrawTime);
 
     plProfile_BeginTiming(BeginRender);
-    if( fPipeline->BeginRender() )
+    if (fPipeline->BeginRender())
     {
         plProfile_EndTiming(BeginRender);
         return IFlushRenderRequests();
@@ -1772,17 +1772,17 @@ bool plClient::IDraw()
     plProfile_EndTiming(ClearRender);
 
     plProfile_BeginTiming(PreRender);
-    if( !fFlags.IsBitSet( kFlagDBGDisableRRequests ) )
+    if (!fFlags.IsBitSet(kFlagDBGDisableRRequests))
         IProcessPreRenderRequests();
     plProfile_EndTiming(PreRender);
 
     plProfile_BeginTiming(MainRender);
-    if( !fFlags.IsBitSet( kFlagDBGDisableRender ) )
+    if (!fFlags.IsBitSet(kFlagDBGDisableRender))
         fPageMgr->Render(fPipeline);
     plProfile_EndTiming(MainRender);
 
     plProfile_BeginTiming(PostRender);
-    if( !fFlags.IsBitSet( kFlagDBGDisableRRequests ) )
+    if (!fFlags.IsBitSet(kFlagDBGDisableRRequests))
         IProcessPostRenderRequests();
     plProfile_EndTiming(PostRender);
 
@@ -1792,7 +1792,7 @@ bool plClient::IDraw()
 
 #ifndef PLASMA_EXTERNAL_RELEASE
     plProfile_BeginTiming(Console);
-    fConsole->Draw( fPipeline );
+    fConsole->Draw(fPipeline);
     plProfile_EndTiming(Console);
 #endif
 
@@ -1801,7 +1801,7 @@ bool plClient::IDraw()
     plProfile_EndTiming(StatusLog);
 
     plProfile_BeginTiming(ProgressMgr);
-    plProgressMgr::GetInstance()->Draw( fPipeline );
+    plProgressMgr::GetInstance()->Draw(fPipeline);
     plProfile_EndTiming(ProgressMgr);
 
     fLastProgressUpdate = hsTimer::GetSeconds();
@@ -1896,11 +1896,11 @@ bool plClient::IFlushRenderRequests()
     // mail telling them their request was ill-timed. But hopefully,
     // the lack of an acknowledgement will serve as notice.
     int i;
-    for( i = 0; i < fPreRenderRequests.GetCount(); i++ )
+    for (i = 0; i < fPreRenderRequests.GetCount(); i++)
         hsRefCnt_SafeUnRef(fPreRenderRequests[i]);
     fPreRenderRequests.Reset();
 
-    for( i = 0; i < fPostRenderRequests.GetCount(); i++ )
+    for (i = 0; i < fPostRenderRequests.GetCount(); i++)
         hsRefCnt_SafeUnRef(fPostRenderRequests[i]);
     fPostRenderRequests.Reset();
 
@@ -1910,7 +1910,7 @@ bool plClient::IFlushRenderRequests()
 void plClient::IProcessRenderRequests(hsTArray<plRenderRequest*>& reqs)
 {
     int i;
-    for( i = 0; i < reqs.GetCount(); i++ )
+    for (i = 0; i < reqs.GetCount(); i++)
     {
         reqs[i]->Render(fPipeline, fPageMgr);
         hsRefCnt_SafeUnRef(reqs[i]);
@@ -1930,12 +1930,12 @@ void plClient::IProcessPostRenderRequests()
 
 void plClient::IAddRenderRequest(plRenderRequest* req)
 {
-    if( req->GetPriority() < 0 )
+    if (req->GetPriority() < 0)
     {
         int i;
-        for( i = 0; i < fPreRenderRequests.GetCount(); i++ )
+        for (i = 0; i < fPreRenderRequests.GetCount(); i++)
         {
-            if( req->GetPriority() < fPreRenderRequests[i]->GetPriority() )
+            if (req->GetPriority() < fPreRenderRequests[i]->GetPriority())
                 break;
         }
         fPreRenderRequests.Insert(i, req);
@@ -1944,9 +1944,9 @@ void plClient::IAddRenderRequest(plRenderRequest* req)
     else
     {
         int i;
-        for( i = 0; i < fPostRenderRequests.GetCount(); i++ )
+        for (i = 0; i < fPostRenderRequests.GetCount(); i++)
         {
-            if( req->GetPriority() < fPostRenderRequests[i]->GetPriority() )
+            if (req->GetPriority() < fPostRenderRequests[i]->GetPriority())
                 break;
         }
         fPostRenderRequests.Insert(i, req);
@@ -1956,7 +1956,7 @@ void plClient::IAddRenderRequest(plRenderRequest* req)
 
 void plClient::ResetDisplayDevice(int Width, int Height, int ColorDepth, bool Windowed, int NumAASamples, int MaxAnisotropicSamples, bool VSync)
 {
-    if(!fPipeline) return;
+    if (!fPipeline) return;
 
     WindowActivate(false);
 
@@ -1975,14 +1975,14 @@ void plClient::ResizeDisplayDevice(int Width, int Height, bool Windowed)
 
     float aspectratio = (float)Width / (float)Height;
     if (pfGameGUIMgr::GetInstance())
-        pfGameGUIMgr::GetInstance()->SetAspectRatio( aspectratio );
+        pfGameGUIMgr::GetInstance()->SetAspectRatio(aspectratio);
 
     // Direct3D no longer uses exclusive fullscreen mode, ergo, we must resize the display
     if (!Windowed)
         IChangeResolution(Width, Height);
 
     uint32_t winStyle, winExStyle;
-    if( Windowed )
+    if (Windowed)
     {
         // WS_VISIBLE appears necessary to avoid leaving behind framebuffer junk when going from windowed to a smaller window
         winStyle = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_VISIBLE;
@@ -1997,7 +1997,7 @@ void plClient::ResizeDisplayDevice(int Width, int Height, bool Windowed)
 
     uint32_t flags = SWP_NOCOPYBITS | SWP_SHOWWINDOW | SWP_FRAMECHANGED;
     uint32_t OutsideWidth, OutsideHeight;
-    if( Windowed )
+    if (Windowed)
     {
         RECT winRect = { 0, 0, Width, Height };
         AdjustWindowRectEx(&winRect, winStyle, false, winExStyle);
@@ -2007,7 +2007,7 @@ void plClient::ResizeDisplayDevice(int Width, int Height, bool Windowed)
         OutsideWidth = Width;
         OutsideHeight = Height;
     }
-    SetWindowPos( fWindowHndl, HWND_NOTOPMOST, 0, 0, OutsideWidth, OutsideHeight, flags );
+    SetWindowPos(fWindowHndl, HWND_NOTOPMOST, 0, 0, OutsideWidth, OutsideHeight, flags);
 }
 
 void plClient::IChangeResolution(int width, int height)
@@ -2036,14 +2036,14 @@ void plClient::IChangeResolution(int width, int height)
     ChangeDisplaySettingsExW(moninfo.szDevice, &devmode, nullptr, CDS_FULLSCREEN, nullptr);
 }
 
-void WriteBool(hsStream *stream, char *name, bool on )
+void WriteBool(hsStream *stream, char *name, bool on)
 {
     char command[256];
     sprintf(command, "%s %s\r\n", name, on ? "true" : "false");
     stream->WriteString(command);
 }
 
-void WriteInt(hsStream *stream, char *name, int val )
+void WriteInt(hsStream *stream, char *name, int val)
 {
     char command[256];
     sprintf(command, "%s %d\r\n", name, val);
@@ -2082,7 +2082,7 @@ void plClient::IDetectAudioVideoSettings()
 #endif
 
     // Use current desktop resolution for fullscreen mode
-    if(!plPipeline::fDefaultPipeParams.Windowed)
+    if (!plPipeline::fDefaultPipeParams.Windowed)
     {
         plPipeline::fDefaultPipeParams.Width = GetSystemMetrics(SM_CXSCREEN);
         plPipeline::fDefaultPipeParams.Height = GetSystemMetrics(SM_CYSCREEN);
@@ -2144,7 +2144,7 @@ void plClient::IDetectAudioVideoSettings()
         WriteInt(stream, "Audio.SetChannelVolume Ambience", 1);
         WriteInt(stream, "Audio.SetChannelVolume NPCVoice", 1);
         WriteInt(stream, "Audio.EnableVoiceRecording", 1);
-        WriteString(stream, "Audio.SetDeviceName", deviceName );
+        WriteString(stream, "Audio.SetDeviceName", deviceName);
         stream->Close();
         delete stream;
         stream = nil;
@@ -2170,7 +2170,7 @@ void plClient::IWriteDefaultGraphicsSettings(const plFileName& destFile)
     WriteInt(stream, "Graphics.ColorDepth", plPipeline::fDefaultPipeParams.ColorDepth);
     WriteBool(stream, "Graphics.Windowed", plPipeline::fDefaultPipeParams.Windowed);
     WriteInt(stream, "Graphics.AntiAliasAmount", plPipeline::fDefaultPipeParams.AntiAliasingAmount);
-    WriteInt(stream, "Graphics.AnisotropicLevel", plPipeline::fDefaultPipeParams.AnisotropicLevel );
+    WriteInt(stream, "Graphics.AnisotropicLevel", plPipeline::fDefaultPipeParams.AnisotropicLevel);
     WriteInt(stream, "Graphics.TextureQuality", plPipeline::fDefaultPipeParams.TextureQuality);
     WriteInt(stream, "Quality.Level", plPipeline::fDefaultPipeParams.VideoQuality);
     WriteInt(stream, "Graphics.Shadow.Enable", plPipeline::fDefaultPipeParams.Shadows);
@@ -2187,7 +2187,7 @@ void plClient::WindowActivate(bool active)
     if (GetDone())
         return;
         
-    if (fWindowActive != active ) {
+    if (fWindowActive != active) {
         if (fInputManager)
             fInputManager->Activate(active);
         plArmatureMod::WindowActivate(active);
@@ -2216,11 +2216,11 @@ void plClient::FlashWindow()
 void plClient::IOnAsyncInitComplete () {
     // Init State Desc Language (files should now be downloaded and in place)
     plSDLMgr::GetInstance()->SetNetApp(plNetClientMgr::GetInstance());
-    plSDLMgr::GetInstance()->Init( plSDL::kDisallowTimeStamping );
+    plSDLMgr::GetInstance()->Init(plSDL::kDisallowTimeStamping);
 
     PythonInterface::initPython();
     // set the pipeline for the python cyMisc module so that it can do a screen capture
-    cyMisc::SetPipeline( fPipeline );
+    cyMisc::SetPipeline(fPipeline);
 
     // Load our custom fonts from our current dat directory
     fFontCache->LoadCustomFonts("dat");
@@ -2234,7 +2234,7 @@ void plClient::IOnAsyncInitComplete () {
 
     /// Init the KI
     pfGameGUIMgr    *mgr = pfGameGUIMgr::GetInstance();
-    mgr->LoadDialog( "KIBlackBar" );    // load the blackbar which will bootstrap in the rest of the KI dialogs
+    mgr->LoadDialog("KIBlackBar");    // load the blackbar which will bootstrap in the rest of the KI dialogs
 
     // Init the journal book API
     pfJournalBook::SingletonInit();
@@ -2279,7 +2279,7 @@ void plClient::IOnAsyncInitComplete () {
 
     // Tell the transition manager to start faded out. This is so we don't
     // get a frame or two of non-faded drawing before we do our initial fade in
-    (void)(new plTransitionMsg( plTransitionMsg::kFadeOut, 0.0f, true ))->Send();
+    (void)(new plTransitionMsg(plTransitionMsg::kFadeOut, 0.0f, true))->Send();
 
     fFlags.SetBit(kFlagAsyncInitComplete);
     if (fFlags.IsBitSet(kFlagGlobalDataLoaded))
@@ -2289,11 +2289,11 @@ void plClient::IOnAsyncInitComplete () {
 //============================================================================
 void plClient::ICompleteInit () {
     // Reset clear color on the pipeline
-//  fPipeline->ClearRenderTarget( &fClearColor, &depth );
+//  fPipeline->ClearRenderTarget(&fClearColor, &depth);
 
     plSimulationMgr::GetInstance()->Resume();               // start the sim at the last possible minute
 
-    fFlags.SetBit( kFlagIniting, false );
+    fFlags.SetBit(kFlagIniting, false);
     hsStatusMessage("Client init complete.");
 
     // Tell everyone we're ready to rock.

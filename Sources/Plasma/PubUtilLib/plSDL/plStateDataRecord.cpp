@@ -95,13 +95,13 @@ void plSDL::VariableLengthWrite(hsStream* s, int size, int val)
 // State Data
 /////////////////////////////////////////////////////////////////////////////////
 plStateDataRecord::plStateDataRecord(const ST::string& name, int version) : fFlags(0)
-, fDescriptor( nil )
+, fDescriptor(nil)
 {
     SetDescriptor(name, version);
 }
 
 plStateDataRecord::plStateDataRecord(plStateDescriptor* sd) : fFlags(0)
-, fDescriptor( nil )
+, fDescriptor(nil)
 {
     IInitDescriptor(sd);
 }
@@ -120,7 +120,7 @@ void plStateDataRecord::SetDescriptor(const ST::string& name, int version)
 
 void plStateDataRecord::IDeleteVarsList(VarsList& vars)
 {
-    std::for_each( vars.begin(), vars.end(),
+    std::for_each(vars.begin(), vars.end(),
         [](plStateVariable* var) { delete var; }
     );
     vars.clear();
@@ -129,7 +129,7 @@ void plStateDataRecord::IDeleteVarsList(VarsList& vars)
 void plStateDataRecord::IInitDescriptor(const ST::string& name, int version)
 {
     plStateDescriptor* sd = plSDLMgr::GetInstance()->FindDescriptor(name, version);
-    //hsAssert( sd, ST::format("Failed to find sdl descriptor: {},{}. Missing legacy descriptor?", name, version ).c_str() );
+    //hsAssert(sd, ST::format("Failed to find sdl descriptor: {},{}. Missing legacy descriptor?", name, version).c_str());
     if (sd)
         IInitDescriptor(sd);
 }
@@ -150,7 +150,7 @@ void plStateDataRecord::IInitDescriptor(const plStateDescriptor* sd)
     // create vars defined by state desc
     if (sd)
     {
-        for(int i = 0; i < sd->GetNumVars(); ++i)
+        for (int i = 0; i < sd->GetNumVars(); ++i)
         {
             if (plVarDescriptor* vd = sd->GetVar(i))
             {
@@ -174,7 +174,7 @@ void plStateDataRecord::IInitDescriptor(const plStateDescriptor* sd)
 int plStateDataRecord::IGetNumDirtyVars(const VarsList& vars) const
 {
     int i, cnt=0;
-    for(i=0;i<vars.size();i++)
+    for (i=0;i<vars.size();i++)
         if (vars[i]->IsDirty())
             cnt++;
     return cnt;
@@ -183,7 +183,7 @@ int plStateDataRecord::IGetNumDirtyVars(const VarsList& vars) const
 int plStateDataRecord::IGetDirtyVars(const VarsList& varsIn, VarsList* varsOut) const
 {
     int i;
-    for(i=0;i<varsIn.size();i++)
+    for (i=0;i<varsIn.size();i++)
         if (varsIn[i]->IsDirty())
             varsOut->push_back(varsIn[i]);
     return varsOut->size();
@@ -192,7 +192,7 @@ int plStateDataRecord::IGetDirtyVars(const VarsList& varsIn, VarsList* varsOut) 
 bool plStateDataRecord::IHasDirtyVars(const VarsList& vars) const
 {
     int i;
-    for(i=0;i<vars.size();i++)
+    for (i=0;i<vars.size();i++)
         if (vars[i]->IsDirty())
             return true;
     return false;
@@ -204,7 +204,7 @@ bool plStateDataRecord::IHasDirtyVars(const VarsList& vars) const
 int plStateDataRecord::IGetNumUsedVars(const VarsList& vars) const
 {
     int i, cnt=0;
-    for(i=0;i<vars.size();i++)
+    for (i=0;i<vars.size();i++)
         if (vars[i]->IsUsed())
             cnt++;
     return cnt;
@@ -213,7 +213,7 @@ int plStateDataRecord::IGetNumUsedVars(const VarsList& vars) const
 int plStateDataRecord::IGetUsedVars(const VarsList& varsIn, VarsList* varsOut) const
 {
     int i;
-    for(i=0;i<varsIn.size();i++)
+    for (i=0;i<varsIn.size();i++)
         if (varsIn[i]->IsUsed())
             varsOut->push_back(varsIn[i]);
     return varsOut->size();
@@ -222,7 +222,7 @@ int plStateDataRecord::IGetUsedVars(const VarsList& varsIn, VarsList* varsOut) c
 bool plStateDataRecord::IHasUsedVars(const VarsList& vars) const
 {
     int i;
-    for(i=0;i<vars.size();i++)
+    for (i=0;i<vars.size();i++)
         if (vars[i]->IsUsed())
             return true;
     return false;
@@ -250,7 +250,7 @@ bool plStateDataRecord::Read(hsStream* s, float timeConvert, uint32_t readOption
         return false;
 
     int num;
-    plSDL::VariableLengthRead(s, fDescriptor->GetNumVars(), &num );
+    plSDL::VariableLengthRead(s, fDescriptor->GetNumVars(), &num);
 
     // if we are readeing the entire list, we don't need to read each index
     bool all = (num==fVarsList.size());
@@ -258,11 +258,11 @@ bool plStateDataRecord::Read(hsStream* s, float timeConvert, uint32_t readOption
     int i;
     try
     {
-        for(i=0;i<num;i++)
+        for (i=0;i<num;i++)
         {
             int idx;
             if (!all)
-                plSDL::VariableLengthRead(s, fDescriptor->GetNumVars(), &idx );
+                plSDL::VariableLengthRead(s, fDescriptor->GetNumVars(), &idx);
             else
                 idx=i;
             if (idx>=fVarsList.size() || !fVarsList[idx]->ReadData(s, timeConvert, readOptions))
@@ -292,18 +292,18 @@ bool plStateDataRecord::Read(hsStream* s, float timeConvert, uint32_t readOption
     //
     // read nested var data
     //
-    plSDL::VariableLengthRead(s, fDescriptor->GetNumVars(), &num );
+    plSDL::VariableLengthRead(s, fDescriptor->GetNumVars(), &num);
 
     // if we are readeing the entire list, we don't need to write each index
     all = (num==fSDVarsList.size());
 
     try
     {
-        for(i=0;i<num;i++)
+        for (i=0;i<num;i++)
         {
             int idx;
             if (!all)
-                plSDL::VariableLengthRead(s, fDescriptor->GetNumVars(), &idx );
+                plSDL::VariableLengthRead(s, fDescriptor->GetNumVars(), &idx);
             else
                 idx=i;
             if (idx>=fSDVarsList.size() || !fSDVarsList[idx]->ReadData(s, timeConvert, readOptions))    // calls plStateDataRecord::Read recursively
@@ -335,11 +335,11 @@ bool plStateDataRecord::Read(hsStream* s, float timeConvert, uint32_t readOption
     plStateDescriptor* latestDesc=plSDLMgr::GetInstance()->FindDescriptor(fDescriptor->GetName(), plSDL::kLatestVersion);
     hsAssert(latestDesc, ST::format("Failed to find latest sdl descriptor for: {}", fDescriptor->GetName()).c_str());
     bool forceConvert = (readOptions&plSDL::kForceConvert)!=0;
-    if ( latestDesc && ( forceConvert || ( fDescriptor->GetVersion()!=latestDesc->GetVersion() ) ) )
+    if (latestDesc && (forceConvert || (fDescriptor->GetVersion()!=latestDesc->GetVersion())))
     {
-        DumpToObjectDebugger( "PreConvert" );
-        ConvertTo( latestDesc, forceConvert );
-        DumpToObjectDebugger( "PostConvert" );
+        DumpToObjectDebugger("PreConvert");
+        ConvertTo(latestDesc, forceConvert);
+        DumpToObjectDebugger("PostConvert");
     }
 
     return true;    // ok
@@ -351,9 +351,9 @@ bool plStateDataRecord::Read(hsStream* s, float timeConvert, uint32_t readOption
 void plStateDataRecord::Write(hsStream* s, float timeConvert, uint32_t writeOptions) const
 {
 #ifdef HS_DEBUGGING
-    if ( !plSDLMgr::GetInstance()->AllowTimeStamping() && (writeOptions & plSDL::kWriteTimeStamps) )
+    if (!plSDLMgr::GetInstance()->AllowTimeStamping() && (writeOptions & plSDL::kWriteTimeStamps))
     {
-        hsAssert( false, "SDL behavior flags disallow var timestamping on write.\nRemoving kWriteTimeStamps flag from writeOptions..." );
+        hsAssert(false, "SDL behavior flags disallow var timestamping on write.\nRemoving kWriteTimeStamps flag from writeOptions...");
         writeOptions &= ~plSDL::kWriteTimeStamps;
     }
 #endif
@@ -366,19 +366,19 @@ void plStateDataRecord::Write(hsStream* s, float timeConvert, uint32_t writeOpti
     //
     bool dirtyOnly = (writeOptions & plSDL::kDirtyOnly) != 0;
     int num = dirtyOnly ? GetNumDirtyVars() : GetNumUsedVars();
-    plSDL::VariableLengthWrite(s, fDescriptor->GetNumVars(), num ); // write affected vars count
+    plSDL::VariableLengthWrite(s, fDescriptor->GetNumVars(), num); // write affected vars count
 
     // if we are writing he entire list, we don't need to write each index
     bool all = (num==fVarsList.size());
 
     int i;
-    for(i=0;i<fVarsList.size(); i++)
+    for (i=0;i<fVarsList.size(); i++)
     {
-        if ( (dirtyOnly && fVarsList[i]->IsDirty()) ||
-            (!dirtyOnly && fVarsList[i]->IsUsed()) )
+        if ((dirtyOnly && fVarsList[i]->IsDirty()) ||
+            (!dirtyOnly && fVarsList[i]->IsUsed()))
         {
             if (!all)
-                plSDL::VariableLengthWrite(s, fDescriptor->GetNumVars(), i );   // index
+                plSDL::VariableLengthWrite(s, fDescriptor->GetNumVars(), i);   // index
             fVarsList[i]->WriteData(s, timeConvert, writeOptions);              // data
         }
     }
@@ -387,18 +387,18 @@ void plStateDataRecord::Write(hsStream* s, float timeConvert, uint32_t writeOpti
     // write nested vars
     //
     num = dirtyOnly ? GetNumDirtySDVars() : GetNumUsedSDVars();
-    plSDL::VariableLengthWrite(s, fDescriptor->GetNumVars(), num ); // write affected vars count
+    plSDL::VariableLengthWrite(s, fDescriptor->GetNumVars(), num); // write affected vars count
 
     // if we are writing he entire list, we don't need to write each index
     all = (num==fSDVarsList.size());
 
-    for(i=0;i<fSDVarsList.size(); i++)
+    for (i=0;i<fSDVarsList.size(); i++)
     {
-        if ( (dirtyOnly && fSDVarsList[i]->IsDirty()) ||
-            (!dirtyOnly && fSDVarsList[i]->IsUsed()) )
+        if ((dirtyOnly && fSDVarsList[i]->IsDirty()) ||
+            (!dirtyOnly && fSDVarsList[i]->IsUsed()))
         {
             if (!all)
-                plSDL::VariableLengthWrite(s, fDescriptor->GetNumVars(), i );   // index
+                plSDL::VariableLengthWrite(s, fDescriptor->GetNumVars(), i);   // index
             fSDVarsList[i]->WriteData(s, timeConvert, writeOptions);            // data, calls plStateDataRecord::Write recursively
         }
     }
@@ -484,13 +484,13 @@ void plStateDataRecord::CopyFrom(const plStateDataRecord& other, uint32_t writeO
     fFlags = other.GetFlags();
     IInitDescriptor(other.GetDescriptor());
     int i;
-    for(i=0;i<other.GetNumVars();i++)
+    for (i=0;i<other.GetNumVars();i++)
     {
         if (other.GetVar(i)->IsUsed())
             GetVar(i)->CopyData(other.GetVar(i),writeOptions);
     }
 
-    for(i=0;i<other.GetNumSDVars();i++)
+    for (i=0;i<other.GetNumSDVars();i++)
     {
         if (other.GetSDVar(i)->IsUsed())
             GetSDVar(i)->CopyFrom(other.GetSDVar(i),writeOptions);
@@ -504,12 +504,12 @@ void plStateDataRecord::CopyFrom(const plStateDataRecord& other, uint32_t writeO
 //
 void plStateDataRecord::UpdateFrom(const plStateDataRecord& other, uint32_t writeOptions/*=0*/)
 {
-    if ( GetDescriptor()->GetVersion()!=other.GetDescriptor()->GetVersion() )
+    if (GetDescriptor()->GetVersion()!=other.GetDescriptor()->GetVersion())
     {
-        plStateDescriptor* sd=plSDLMgr::GetInstance()->FindDescriptor( other.GetDescriptor()->GetName(), other.GetDescriptor()->GetVersion() );
+        plStateDescriptor* sd=plSDLMgr::GetInstance()->FindDescriptor(other.GetDescriptor()->GetName(), other.GetDescriptor()->GetVersion());
         hsAssert(sd, ST::format("Failed to find sdl descriptor {},{}. Missing legacy descriptor?",
                                 other.GetDescriptor()->GetName(), other.GetDescriptor()->GetVersion()).c_str());
-        ConvertTo( sd );
+        ConvertTo(sd);
     }
 
     hsAssert(other.GetDescriptor()==fDescriptor,
@@ -520,18 +520,18 @@ void plStateDataRecord::UpdateFrom(const plStateDataRecord& other, uint32_t writ
     bool dirtyOnly = (writeOptions & plSDL::kDirtyOnly);
 
     int i;
-    for(i=0;i<other.GetNumVars();i++)
+    for (i=0;i<other.GetNumVars();i++)
     {
-        if ( (dirtyOnly && other.GetVar(i)->IsDirty()) || (!dirtyOnly && other.GetVar(i)->IsUsed()) )
+        if ((dirtyOnly && other.GetVar(i)->IsDirty()) || (!dirtyOnly && other.GetVar(i)->IsUsed()))
         {
             GetVar(i)->NotifyStateChange(other.GetVar(i), GetDescriptor()->GetName());  // see if there is enough difference to send state chg notification
-            GetVar(i)->CopyData(other.GetVar(i), writeOptions );    // simple vars get copied completely, non-partial
+            GetVar(i)->CopyData(other.GetVar(i), writeOptions);    // simple vars get copied completely, non-partial
         }
     }
 
-    for(i=0;i<other.GetNumSDVars();i++)
+    for (i=0;i<other.GetNumSDVars();i++)
     {
-        if ( (dirtyOnly && other.GetSDVar(i)->IsDirty()) || (!dirtyOnly && other.GetSDVar(i)->IsUsed()) )
+        if ((dirtyOnly && other.GetSDVar(i)->IsDirty()) || (!dirtyOnly && other.GetSDVar(i)->IsUsed()))
             GetSDVar(i)->UpdateFrom(other.GetSDVar(i), writeOptions);
     }
 }
@@ -545,15 +545,15 @@ void plStateDataRecord::FlagDifferentState(const plStateDataRecord& other)
     if (other.GetDescriptor()==fDescriptor)
     {
         int i;
-        for(i=0;i<other.GetNumVars();i++)
+        for (i=0;i<other.GetNumVars();i++)
         {
-            bool diff = (GetVar(i)->IsUsed() && ! (*other.GetVar(i) == *GetVar(i)) );
+            bool diff = (GetVar(i)->IsUsed() && ! (*other.GetVar(i) == *GetVar(i)));
             GetVar(i)->SetDirty(diff);
         }
 
-        for(i=0;i<other.GetNumSDVars();i++)
+        for (i=0;i<other.GetNumSDVars();i++)
         {
-            bool diff = (GetSDVar(i)->IsUsed() && ! (*other.GetSDVar(i) == *GetSDVar(i)) );
+            bool diff = (GetSDVar(i)->IsUsed() && ! (*other.GetSDVar(i) == *GetSDVar(i)));
             GetSDVar(i)->SetDirty(diff);
         }
     }
@@ -571,13 +571,13 @@ void plStateDataRecord::FlagDifferentState(const plStateDataRecord& other)
 void plStateDataRecord::FlagAlwaysNewState()
 {
     int i;
-    for(i=0;i<GetNumVars();i++)
+    for (i=0;i<GetNumVars();i++)
     {
         bool newer= (GetVar(i)->IsUsed() && GetVar(i)->GetVarDescriptor()->IsAlwaysNew());  // flagged to be always new
         GetVar(i)->SetDirty(newer);
     }
 
-    for(i=0;i<GetNumSDVars();i++)
+    for (i=0;i<GetNumSDVars();i++)
     {
         if (GetSDVar(i)->IsUsed())
         {
@@ -595,15 +595,15 @@ void plStateDataRecord::FlagNewerState(const plStateDataRecord& other, bool resp
     if (other.GetDescriptor()==fDescriptor)
     {
         int i;
-        for(i=0;i<other.GetNumVars();i++)
+        for (i=0;i<other.GetNumVars();i++)
         {
             bool newer= (GetVar(i)->IsUsed() &&
                 (GetVar(i)->GetTimeStamp() > other.GetVar(i)->GetTimeStamp() ||         // later timestamp
-                (respectAlwaysNew && GetVar(i)->GetVarDescriptor()->IsAlwaysNew())) );  // flagged to be always new
+                (respectAlwaysNew && GetVar(i)->GetVarDescriptor()->IsAlwaysNew())));  // flagged to be always new
             GetVar(i)->SetDirty(newer);
         }
 
-        for(i=0;i<other.GetNumSDVars();i++)
+        for (i=0;i<other.GetNumSDVars();i++)
         {
             if (GetSDVar(i)->IsUsed())
             {
@@ -629,15 +629,15 @@ bool plStateDataRecord::operator==(const plStateDataRecord &other) const
         return false;
 
     int i;
-    for(i=0;i<other.GetNumVars();i++)
+    for (i=0;i<other.GetNumVars();i++)
     {
-        if (! (*other.GetVar(i) == *GetVar(i)) )
+        if (! (*other.GetVar(i) == *GetVar(i)))
             return false;
     }
 
-    for(i=0;i<other.GetNumSDVars();i++)
+    for (i=0;i<other.GetNumSDVars();i++)
     {
-        if (! (*other.GetSDVar(i) == *GetSDVar(i)) )
+        if (! (*other.GetSDVar(i) == *GetSDVar(i)))
             return false;
     }
 
@@ -685,20 +685,20 @@ plStateVariable* plStateDataRecord::IFindVar(const VarsList& vars, const ST::str
 // try to convert our data (old version) to other's (new) version.
 // return false on err.
 //
-bool plStateDataRecord::ConvertTo( plStateDescriptor* other, bool force )
+bool plStateDataRecord::ConvertTo(plStateDescriptor* other, bool force)
 {
     if (!other && !force)
         return false;   // err
 
     hsAssert(!fDescriptor->GetName().compare_i(other->GetName()), "descriptor mismatch");
 
-    if ( !force && (other == fDescriptor || other->GetVersion()==fDescriptor->GetVersion()))
+    if (!force && (other == fDescriptor || other->GetVersion()==fDescriptor->GetVersion()))
         return true;    // ok, nothing to do
 
     hsAssert(other->GetVersion()>=fDescriptor->GetVersion(), "converting to an older state descriptor version?");
 
-    hsLogEntry( plNetApp::StaticDebugMsg( "SDR(0x{x}) converting sdl record {} from version {} to {} (force:{})",
-        uintptr_t(this), fDescriptor->GetName(), fDescriptor->GetVersion(), other->GetVersion(), force ) );
+    hsLogEntry(plNetApp::StaticDebugMsg("SDR(0x{x}) converting sdl record {} from version {} to {} (force:{})",
+        uintptr_t(this), fDescriptor->GetName(), fDescriptor->GetVersion(), other->GetVersion(), force));
 
     // make other StateData to represent other descriptor,
     // this will be the destination for the convert operation
@@ -708,7 +708,7 @@ bool plStateDataRecord::ConvertTo( plStateDescriptor* other, bool force )
     //      use the corresponding value in mine (type converted if necessary),
     //      or use other's default value.  Put the final value in the otherData buffer
     int i;
-    for(i=0;i<otherStateData.GetNumVars(); i++)
+    for (i=0;i<otherStateData.GetNumVars(); i++)
     {
         // get other var info
         plSimpleStateVariable* otherVar = otherStateData.GetVar(i);
@@ -721,7 +721,7 @@ bool plStateDataRecord::ConvertTo( plStateDescriptor* other, bool force )
     
     // for each nested stateDesc in the other guy,
     // run the convert operation on it recursively.
-    for(i=0;i<otherStateData.GetNumSDVars(); i++)
+    for (i=0;i<otherStateData.GetNumSDVars(); i++)
     {
         plSDStateVariable* otherSDVar = otherStateData.GetSDVar(i);
         ST::string otherSDVarName = otherSDVar->GetVarDescriptor()->GetName();
@@ -730,8 +730,8 @@ bool plStateDataRecord::ConvertTo( plStateDescriptor* other, bool force )
         plSDStateVariable* mySDVar=FindSDVar(otherSDVarName);
         if (mySDVar)
         {
-            mySDVar->ConvertTo( otherSDVar, force );
-            otherSDVar->CopyFrom( mySDVar );
+            mySDVar->ConvertTo(otherSDVar, force);
+            otherSDVar->CopyFrom(mySDVar);
         }
     }
 
@@ -765,7 +765,7 @@ void plStateDataRecord::DumpToObjectDebugger(const char* msg, bool dirtyOnly, in
     // dump simple vars
     for (size_t i=0; i<fVarsList.size(); i++)
     {
-        if ( (dirtyOnly && fVarsList[i]->IsDirty()) ||  (!dirtyOnly && fVarsList[i]->IsUsed()) )
+        if ((dirtyOnly && fVarsList[i]->IsDirty()) ||  (!dirtyOnly && fVarsList[i]->IsUsed()))
         {
             fVarsList[i]->DumpToObjectDebugger(dirtyOnly, level+1);
         }
@@ -774,7 +774,7 @@ void plStateDataRecord::DumpToObjectDebugger(const char* msg, bool dirtyOnly, in
     // dump nested vars
     for (size_t i=0; i<fSDVarsList.size(); i++)
     {
-        if ( (dirtyOnly && fSDVarsList[i]->IsDirty()) || (!dirtyOnly && fSDVarsList[i]->IsUsed()) )
+        if ((dirtyOnly && fSDVarsList[i]->IsDirty()) || (!dirtyOnly && fSDVarsList[i]->IsUsed()))
         {
             fSDVarsList[i]->DumpToObjectDebugger(dirtyOnly, level+1);
         }
@@ -804,7 +804,7 @@ void plStateDataRecord::DumpToStream(hsStream* stream, const char* msg, bool dir
     // dump simple vars
     for (size_t i=0; i<fVarsList.size(); i++)
     {
-        if ( (dirtyOnly && fVarsList[i]->IsDirty()) ||  (!dirtyOnly && fVarsList[i]->IsUsed()) )
+        if ((dirtyOnly && fVarsList[i]->IsDirty()) ||  (!dirtyOnly && fVarsList[i]->IsUsed()))
         {
             fVarsList[i]->DumpToStream(stream, dirtyOnly, level+1);
         }
@@ -813,7 +813,7 @@ void plStateDataRecord::DumpToStream(hsStream* stream, const char* msg, bool dir
     // dump nested vars
     for (size_t i=0; i<fSDVarsList.size(); i++)
     {
-        if ( (dirtyOnly && fSDVarsList[i]->IsDirty()) || (!dirtyOnly && fSDVarsList[i]->IsUsed()) )
+        if ((dirtyOnly && fSDVarsList[i]->IsDirty()) || (!dirtyOnly && fSDVarsList[i]->IsUsed()))
         {
             fSDVarsList[i]->DumpToStream(stream, dirtyOnly, level+1);
         }
@@ -827,13 +827,13 @@ void plStateDataRecord::SetFromDefaults(bool timeStampNow)
 {
     int i;
     // set simple vars
-    for(i=0;i<fVarsList.size(); i++)
+    for (i=0;i<fVarsList.size(); i++)
     {
         fVarsList[i]->SetFromDefaults(timeStampNow);
     }
  
     // set nested vars
-    for(i=0;i<fSDVarsList.size(); i++)
+    for (i=0;i<fSDVarsList.size(); i++)
     {
         fSDVarsList[i]->SetFromDefaults(timeStampNow);
     }
@@ -843,16 +843,16 @@ void plStateDataRecord::TimeStampDirtyVars()
 {
     int i;
     // set simple vars
-    for(i=0;i<fVarsList.size(); i++)
+    for (i=0;i<fVarsList.size(); i++)
     {
-        if ( fVarsList[i]->IsDirty() )
+        if (fVarsList[i]->IsDirty())
             fVarsList[i]->TimeStamp();
     }
  
     // set nested vars
-    for(i=0;i<fSDVarsList.size(); i++)
+    for (i=0;i<fSDVarsList.size(); i++)
     {
-        if ( fSDVarsList[i]->IsDirty() )
+        if (fSDVarsList[i]->IsDirty())
             fSDVarsList[i]->TimeStamp();
     }
 }

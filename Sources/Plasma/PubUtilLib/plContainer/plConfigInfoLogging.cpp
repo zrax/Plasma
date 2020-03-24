@@ -83,7 +83,7 @@ bool plConfigInfoLogging::GetValueAny(bool &retval, const ST::string & key, cons
     fLog.AddValue("ANY SECTION",key,desc,kReplaceIfExists);
 
     bool found;
-    retval = ( fConfigInfo.GetValueAny(key,(int)defval,&found)!=0 );
+    retval = (fConfigInfo.GetValueAny(key,(int)defval,&found)!=0);
     return found;
 }
 
@@ -121,7 +121,7 @@ bool plConfigInfoLogging::GetValueIn(ST::string& retval, const ST::string & key,
     std::vector<ST::string> sections;
     while (section)
     {
-        sections.push_back( section );
+        sections.push_back(section);
         section = va_arg(va,const char *);
     }
     va_end(va);
@@ -129,7 +129,7 @@ bool plConfigInfoLogging::GetValueIn(ST::string& retval, const ST::string & key,
     return GetValueIn(retval,key,desc,defval,sections);
 }
 
-bool plConfigInfoLogging::GetValueIn(ST::string& retval, const ST::string & key,  const ST::string & desc, const ST::string & defval, std::vector<ST::string> & sections )
+bool plConfigInfoLogging::GetValueIn(ST::string& retval, const ST::string & key,  const ST::string & desc, const ST::string & defval, std::vector<ST::string> & sections)
 {
     std::vector<ST::string>::iterator si = sections.begin();
     while (si != sections.end())
@@ -151,7 +151,7 @@ bool plConfigInfoLogging::GetValueIn(int& retval, const ST::string & key,  const
     std::vector<ST::string> sections;
     while (section)
     {
-        sections.push_back( section );
+        sections.push_back(section);
         section = va_arg(va,const char *);
     }
     va_end(va);
@@ -159,7 +159,7 @@ bool plConfigInfoLogging::GetValueIn(int& retval, const ST::string & key,  const
     return GetValueIn(retval,key,desc,defval,sections);
 }
 
-bool plConfigInfoLogging::GetValueIn(int& retval, const ST::string & key,  const ST::string & desc, int defval, std::vector<ST::string> & sections )
+bool plConfigInfoLogging::GetValueIn(int& retval, const ST::string & key,  const ST::string & desc, int defval, std::vector<ST::string> & sections)
 {
     std::vector<ST::string>::iterator si = sections.begin();
     while (si != sections.end())
@@ -181,7 +181,7 @@ bool plConfigInfoLogging::GetValueIn(bool& retval, const ST::string & key,  cons
     std::vector<ST::string> sections;
     while (section)
     {
-        sections.push_back( section );
+        sections.push_back(section);
         section = va_arg(va,const char *);
     }
     va_end(va);
@@ -189,7 +189,7 @@ bool plConfigInfoLogging::GetValueIn(bool& retval, const ST::string & key,  cons
     return GetValueIn(retval,key,desc,defval,sections);
 }
 
-bool plConfigInfoLogging::GetValueIn(bool& retval, const ST::string & key,  const ST::string & desc, bool defval, std::vector<ST::string> & sections )
+bool plConfigInfoLogging::GetValueIn(bool& retval, const ST::string & key,  const ST::string & desc, bool defval, std::vector<ST::string> & sections)
 {
     std::vector<ST::string>::iterator si = sections.begin();
     while (si != sections.end())
@@ -199,7 +199,7 @@ bool plConfigInfoLogging::GetValueIn(bool& retval, const ST::string & key,  cons
     }
 
     bool found;
-    retval = ( fConfigInfo.GetValueIn(key,(int)defval,&found,sections)!=0 );
+    retval = (fConfigInfo.GetValueIn(key,(int)defval,&found,sections)!=0);
     return found;
 }
 
@@ -211,7 +211,7 @@ bool plConfigInfoLogging::GetValueIn(float& retval, const ST::string & key,  con
     std::vector<ST::string> sections;
     while (section)
     {
-        sections.push_back( section );
+        sections.push_back(section);
         section = va_arg(va,const char *);
     }
     va_end(va);
@@ -219,7 +219,7 @@ bool plConfigInfoLogging::GetValueIn(float& retval, const ST::string & key,  con
     return GetValueIn(retval,key,desc,defval,sections);
 }
 
-bool plConfigInfoLogging::GetValueIn(float& retval, const ST::string & key,  const ST::string & desc, double defval, std::vector<ST::string> & sections )
+bool plConfigInfoLogging::GetValueIn(float& retval, const ST::string & key,  const ST::string & desc, double defval, std::vector<ST::string> & sections)
 {
     std::vector<ST::string>::iterator si = sections.begin();
     while (si != sections.end())
@@ -241,7 +241,7 @@ bool plConfigInfoLogging::GetValueIn(double& retval, const ST::string & key,  co
     std::vector<ST::string> sections;
     while (section)
     {
-        sections.push_back( section );
+        sections.push_back(section);
         section = va_arg(va,const char *);
     }
     va_end(va);
@@ -249,7 +249,7 @@ bool plConfigInfoLogging::GetValueIn(double& retval, const ST::string & key,  co
     return GetValueIn(retval,key,desc,defval,sections);
 }
 
-bool plConfigInfoLogging::GetValueIn(double& retval, const ST::string & key,  const ST::string & desc, double defval, std::vector<ST::string> & sections )
+bool plConfigInfoLogging::GetValueIn(double& retval, const ST::string & key,  const ST::string & desc, double defval, std::vector<ST::string> & sections)
 {
     std::vector<ST::string>::iterator si = sections.begin();
     while (si != sections.end())

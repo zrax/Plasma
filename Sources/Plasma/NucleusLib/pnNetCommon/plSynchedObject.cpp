@@ -103,7 +103,7 @@ void plSynchedObject::IAppendSynchedValueAddrOffset(AddrOffsetType synchedValueA
     // copy to new larger array
     AddrOffsetType* tmp = new AddrOffsetType[fNumSynchedValues+1];
     int32_t i;
-    for(i=0;i<fNumSynchedValues;i++)
+    for (i=0;i<fNumSynchedValues;i++)
         tmp[i] = fSynchedValueAddrOffsets[i];
 
     // delete old one
@@ -119,7 +119,7 @@ void plSynchedObject::IAppendSynchedValueFriend(plSynchedValueBase* v)
     // copy to new larger array
     plSynchedValueBase** tmp = new plSynchedValueBase*[fNumSynchedValueFriends+1];
     int32_t i;
-    for(i=0;i<fNumSynchedValueFriends;i++)
+    for (i=0;i<fNumSynchedValueFriends;i++)
         tmp[i] = fSynchedValueFriends[i];
 
     // delete old one
@@ -144,7 +144,7 @@ uint8_t plSynchedObject::RegisterSynchedValue(plSynchedValueBase* v)
 bool plSynchedObject::RemoveSynchedValue(plSynchedValueBase* v)
 {
     int i;
-    for(i=0;i<GetNumSynchedValues(); i++)
+    for (i=0;i<GetNumSynchedValues(); i++)
         if (GetSynchedValue(i)==v)
             break;
     
@@ -156,9 +156,9 @@ bool plSynchedObject::RemoveSynchedValue(plSynchedValueBase* v)
     if (idx<fNumSynchedValues)
     {
         AddrOffsetType* tmp = new AddrOffsetType[fNumSynchedValues-1];
-        for(i=0;i<idx;i++)
+        for (i=0;i<idx;i++)
             tmp[i] = fSynchedValueAddrOffsets[i];
-        for(i=idx+1;i<fNumSynchedValues;i++)
+        for (i=idx+1;i<fNumSynchedValues;i++)
             tmp[i-1] = fSynchedValueAddrOffsets[i];
         delete [] fSynchedValueAddrOffsets;
         fSynchedValueAddrOffsets=tmp;
@@ -168,9 +168,9 @@ bool plSynchedObject::RemoveSynchedValue(plSynchedValueBase* v)
     {
         idx -= fNumSynchedValues;
         plSynchedValueBase** tmp = new plSynchedValueBase*[fNumSynchedValueFriends-1];
-        for(i=0;i<idx;i++)
+        for (i=0;i<idx;i++)
             tmp[i] = fSynchedValueFriends[i];
-        for(i=idx+1;i<fNumSynchedValueFriends;i++)
+        for (i=idx+1;i<fNumSynchedValueFriends;i++)
             tmp[i-1] = fSynchedValueFriends[i];
         delete [] fSynchedValueFriends;
         fSynchedValueFriends=tmp;
@@ -260,7 +260,7 @@ void plSynchedObject::IAddDirtyState(plKey objKey, const ST::string& sdlName, ui
 {
     bool found=false;
     std::vector<StateDefn>::iterator it=fDirtyStates.begin();
-    for( ; it != fDirtyStates.end(); it++)
+    for (; it != fDirtyStates.end(); it++)
     {
         if (it->fObjKey == objKey && it->fSDLName.compare_i(sdlName) == 0)
         {
@@ -293,7 +293,7 @@ void plSynchedObject::IAddDirtyState(plKey objKey, const ST::string& sdlName, ui
 void plSynchedObject::IRemoveDirtyState(plKey objKey, const ST::string& sdlName)
 {
     std::vector<StateDefn>::iterator it=fDirtyStates.begin();
-    for( ; it != fDirtyStates.end(); it++)
+    for (; it != fDirtyStates.end(); it++)
     {
         if (it->fObjKey == objKey && it->fSDLName.compare_i(sdlName) == 0)
         {
@@ -340,7 +340,7 @@ void    plSynchedObject::Read(hsStream* stream, hsResMgr* mgr)
         stream->ReadLE(&num);
         fSDLExcludeList.clear();
         int i;
-        for(i=0;i<num;i++)
+        for (i=0;i<num;i++)
         {
             ST::string s;
             plMsgStdStringHelper::Peek(s, stream);
@@ -354,7 +354,7 @@ void    plSynchedObject::Read(hsStream* stream, hsResMgr* mgr)
         stream->ReadLE(&num);
         fSDLVolatileList.clear();
         int i;
-        for(i=0;i<num;i++)
+        for (i=0;i<num;i++)
         {
             ST::string s;
             plMsgStdStringHelper::Peek(s, stream);
@@ -373,7 +373,7 @@ void    plSynchedObject::Write(hsStream* stream, hsResMgr* mgr)
         stream->WriteLE((uint16_t)fSDLExcludeList.size());
 
         SDLStateList::iterator it=fSDLExcludeList.begin();
-        for(; it != fSDLExcludeList.end(); it++)
+        for (; it != fSDLExcludeList.end(); it++)
         {
             plMsgStdStringHelper::Poke(*it, stream);
         }
@@ -384,7 +384,7 @@ void    plSynchedObject::Write(hsStream* stream, hsResMgr* mgr)
         stream->WriteLE((uint16_t)fSDLVolatileList.size());
 
         SDLStateList::iterator it=fSDLVolatileList.begin();
-        for(; it != fSDLVolatileList.end(); it++)
+        for (; it != fSDLVolatileList.end(); it++)
         {
             plMsgStdStringHelper::Poke(*it, stream);
         }
@@ -437,7 +437,7 @@ void plSynchedObject::RemoveDirtyNotifier(plDirtyNotifier* dn)
 void plSynchedObject::CallDirtyNotifiers()
 {
     int i;
-    for(i=0;i<fDirtyNotifiers.size();i++)
+    for (i=0;i<fDirtyNotifiers.size();i++)
         fDirtyNotifiers[i]->Callback();
 }
 #else
@@ -483,7 +483,7 @@ bool plSynchedObject::IOKToNetwork(const ST::string& sdlName, uint32_t* synchFla
     }
     else
     {   // not bcasting, must be sending to server only
-        hsAssert( ((*synchFlags) & kDontPersistOnServer)==0, "invalid synchedObject msg flag");
+        hsAssert(((*synchFlags) & kDontPersistOnServer)==0, "invalid synchedObject msg flag");
         dstServerOnly=true;
     }
 
@@ -500,11 +500,11 @@ bool plSynchedObject::IOKToNetwork(const ST::string& sdlName, uint32_t* synchFla
 
     if (dstClientsAndServer)
     {
-        if ( !netSynched )
+        if (!netSynched)
         {
             *synchFlags &= ~kBCastToClients;        // don't send to clients
         }
-        if ( inExcludeList )
+        if (inExcludeList)
         {
             *synchFlags |= kDontPersistOnServer;    // don't store on server
         }
@@ -527,7 +527,7 @@ plSynchedObject::SDLStateList::const_iterator plSynchedObject::IFindInSDLStateLi
         return list.end();  // false
 
     SDLStateList::const_iterator it = list.begin();
-    for(; it != list.end(); it++)
+    for (; it != list.end(); it++)
         if (it->compare_i(sdlName) == 0)
             return it;
 

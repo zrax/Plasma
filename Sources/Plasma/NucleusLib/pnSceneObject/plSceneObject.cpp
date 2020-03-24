@@ -98,9 +98,9 @@ plSceneObject::~plSceneObject()
     int knt;
 
     knt = fModifiers.GetCount();
-    for( i = 0; i < knt; i++ )
+    for (i = 0; i < knt; i++)
     {
-        if( fModifiers[i] )
+        if (fModifiers[i])
             fModifiers[i]->RemoveTarget(this);
     }
 }
@@ -126,7 +126,7 @@ void plSceneObject::Read(hsStream* stream, hsResMgr* mgr)
 
     int nGen = stream->ReadLE32();
     fGenerics.SetCount(0);
-    for( i = 0; i < nGen; i++ )
+    for (i = 0; i < nGen; i++)
     {
         mgr->ReadKeyNotifyMe(stream, new plObjRefMsg(GetKey(), plRefMsg::kOnCreate, 0, plObjRefMsg::kInterface), plRefFlags::kActiveRef);
     }
@@ -136,7 +136,7 @@ void plSceneObject::Read(hsStream* stream, hsResMgr* mgr)
     int nOldMods=fModifiers.GetCount();     // existng modifiers created during interface loading
     int nNewMods = stream->ReadLE32();
     fModifiers.ExpandAndZero(nOldMods+nNewMods);    // reserve space for new modifiers+existing modifiers
-    for( i = nOldMods; i < nOldMods+nNewMods; i++ )
+    for (i = nOldMods; i < nOldMods+nNewMods; i++)
     {
         refMsg = new plObjRefMsg(GetKey(), plRefMsg::kOnCreate, i, plObjRefMsg::kModifier);
         mgr->ReadKeyNotifyMe(stream,refMsg, plRefFlags::kActiveRef);
@@ -160,15 +160,15 @@ void plSceneObject::Write(hsStream* stream, hsResMgr* mgr)
     int i;
 
     stream->WriteLE32(fGenerics.GetCount());
-    for( i = 0; i < fGenerics.GetCount(); i++ )
+    for (i = 0; i < fGenerics.GetCount(); i++)
         mgr->WriteKey(stream, fGenerics[i]);
 
-    for( i = fModifiers.GetCount() - 1; i >= 0; i--)
+    for (i = fModifiers.GetCount() - 1; i >= 0; i--)
         if (fModifiers[i]->GetKey() == nil)
             RemoveModifier(fModifiers[i]);
 
     stream->WriteLE32(fModifiers.GetCount());
-    for( i = 0; i < fModifiers.GetCount(); i++ )
+    for (i = 0; i < fModifiers.GetCount(); i++)
         mgr->WriteKey(stream,fModifiers[i]);
 
     mgr->WriteKey(stream, fSceneNode);
@@ -180,26 +180,26 @@ void plSceneObject::Write(hsStream* stream, hsResMgr* mgr)
 
 void    plSceneObject::ReleaseData()
 {
-    if( fDrawInterface )
+    if (fDrawInterface)
         fDrawInterface->ReleaseData();
-    if( fSimulationInterface )
+    if (fSimulationInterface)
         fSimulationInterface->ReleaseData();
-    if( fCoordinateInterface )
+    if (fCoordinateInterface)
         fCoordinateInterface->ReleaseData();
-    if( fAudioInterface )
+    if (fAudioInterface)
         fAudioInterface->ReleaseData();
 
     int i;
-    for( i = 0; i < fGenerics.GetCount(); i++ )
+    for (i = 0; i < fGenerics.GetCount(); i++)
     {
-        if( fGenerics[i] )
+        if (fGenerics[i])
             fGenerics[i]->ReleaseData();
     }
 }
 
 void plSceneObject::FlushTransform()
 {
-    if( fCoordinateInterface )
+    if (fCoordinateInterface)
         fCoordinateInterface->FlushTransform();
 }
 
@@ -217,17 +217,17 @@ void plSceneObject::ISetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l)
 {
     plProfile_BeginTiming(SOTrans);
     plProfile_BeginTiming(SODITrans);
-    if( fDrawInterface )
+    if (fDrawInterface)
         fDrawInterface->SetTransform(l2w, w2l);
     plProfile_EndTiming(SODITrans);
 
     plProfile_BeginTiming(SOSITrans);
-    if( fSimulationInterface )
+    if (fSimulationInterface)
     {
-        if(fCoordinateInterface)
+        if (fCoordinateInterface)
         {
             uint16_t whyTransformed = fCoordinateInterface->GetReasons();
-            if(whyTransformed != plCoordinateInterface::kReasonPhysics)
+            if (whyTransformed != plCoordinateInterface::kReasonPhysics)
             {
                 // if we were transformed by anything but physics, let physics know
                 // otherwise we're not even going to tell physics
@@ -244,24 +244,24 @@ void plSceneObject::ISetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l)
     plProfile_EndTiming(SOSITrans);
 
     plProfile_BeginTiming(SOAITrans);
-    if( fAudioInterface )
+    if (fAudioInterface)
         fAudioInterface->SetTransform(l2w, w2l);
     plProfile_EndTiming(SOAITrans);
 
     plProfile_BeginTiming(SOGITrans);
     int i;
-    for( i = 0; i < fGenerics.GetCount(); i++ )
+    for (i = 0; i < fGenerics.GetCount(); i++)
     {
-        if( fGenerics[i] )
+        if (fGenerics[i])
             fGenerics[i]->SetTransform(l2w, w2l);
     }
     plProfile_EndTiming(SOGITrans);
 
 
     plProfile_BeginTiming(SOMOTrans);
-    for( i = 0; i < fModifiers.GetCount(); i++ )
+    for (i = 0; i < fModifiers.GetCount(); i++)
     {
-        if( fModifiers[i] )
+        if (fModifiers[i])
             fModifiers[i]->SetTransform(l2w, w2l);
     }
     plProfile_EndTiming(SOMOTrans);
@@ -270,14 +270,14 @@ void plSceneObject::ISetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l)
 
 void plSceneObject::SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l)
 {
-    if( fCoordinateInterface )
+    if (fCoordinateInterface)
         fCoordinateInterface->SetTransform(l2w, w2l);
 }
 
 hsMatrix44 plSceneObject::GetLocalToWorld() const
 {
     hsMatrix44 l2w;
-    if( fCoordinateInterface )
+    if (fCoordinateInterface)
         l2w = fCoordinateInterface->GetLocalToWorld();
     else
         l2w.Reset();
@@ -287,7 +287,7 @@ hsMatrix44 plSceneObject::GetLocalToWorld() const
 hsMatrix44 plSceneObject::GetWorldToLocal() const
 {
     hsMatrix44 w2l;
-    if( fCoordinateInterface )
+    if (fCoordinateInterface)
         w2l = fCoordinateInterface->GetWorldToLocal();
     else
         w2l.Reset();
@@ -297,7 +297,7 @@ hsMatrix44 plSceneObject::GetWorldToLocal() const
 hsMatrix44 plSceneObject::GetLocalToParent() const
 {
     hsMatrix44 l2p;
-    if( fCoordinateInterface )
+    if (fCoordinateInterface)
         l2p = fCoordinateInterface->GetLocalToParent();
     else
         l2p.Reset();
@@ -307,7 +307,7 @@ hsMatrix44 plSceneObject::GetLocalToParent() const
 hsMatrix44 plSceneObject::GetParentToLocal() const
 {
     hsMatrix44 p2l;
-    if( fCoordinateInterface )
+    if (fCoordinateInterface)
         p2l = fCoordinateInterface->GetParentToLocal();
     else
         p2l.Reset();
@@ -316,10 +316,10 @@ hsMatrix44 plSceneObject::GetParentToLocal() const
 
 void plSceneObject::IAddModifier(plModifier* mo, int i)
 {
-    if( !mo )
+    if (!mo)
         return;
 
-    if( i < 0 )
+    if (i < 0)
         i = fModifiers.GetCount();
     fModifiers.ExpandAndZero(i+1);
     fModifiers.Set(i, mo);
@@ -328,11 +328,11 @@ void plSceneObject::IAddModifier(plModifier* mo, int i)
 
 void plSceneObject::IRemoveModifier(plModifier* mo)
 {
-    if( !mo )
+    if (!mo)
         return;
 
     int idx = fModifiers.Find(mo);
-    if( idx != fModifiers.kMissingIndex )
+    if (idx != fModifiers.kMissingIndex)
     {
         mo->RemoveTarget(this);
         fModifiers.Remove(idx);
@@ -342,30 +342,30 @@ void plSceneObject::IRemoveModifier(plModifier* mo)
 void plSceneObject::ISetInterface(plObjInterface* iface)
 {
     hsAssert(iface, "Setting nil interface");
-    if( plDrawInterface::ConvertNoRef(iface) )
+    if (plDrawInterface::ConvertNoRef(iface))
         ISetDrawInterface(plDrawInterface::ConvertNoRef(iface));
-    else if( plSimulationInterface::ConvertNoRef(iface) )
+    else if (plSimulationInterface::ConvertNoRef(iface))
         ISetSimulationInterface(plSimulationInterface::ConvertNoRef(iface));
-    else if( plCoordinateInterface::ConvertNoRef(iface) )
+    else if (plCoordinateInterface::ConvertNoRef(iface))
         ISetCoordinateInterface(plCoordinateInterface::ConvertNoRef(iface));
-    else if( plAudioInterface::ConvertNoRef(iface) )
+    else if (plAudioInterface::ConvertNoRef(iface))
         ISetAudioInterface(plAudioInterface::ConvertNoRef(iface));
     else
         IAddGeneric(iface);
 
-    if( iface )
+    if (iface)
         iface->ISetSceneNode(GetSceneNode());
 }
 
 void plSceneObject::IRemoveInterface(int16_t idx, plObjInterface* who)
 {
-    if( plFactory::DerivesFrom(plDrawInterface::Index(), idx) )
+    if (plFactory::DerivesFrom(plDrawInterface::Index(), idx))
         ISetDrawInterface(nil);
-    else if( plFactory::DerivesFrom(plSimulationInterface::Index(), idx) )
+    else if (plFactory::DerivesFrom(plSimulationInterface::Index(), idx))
         ISetSimulationInterface(nil);
-    else if( plFactory::DerivesFrom(plCoordinateInterface::Index(), idx) )
+    else if (plFactory::DerivesFrom(plCoordinateInterface::Index(), idx))
         ISetCoordinateInterface(nil);
-    else if( plFactory::DerivesFrom(plAudioInterface::Index(), idx) )
+    else if (plFactory::DerivesFrom(plAudioInterface::Index(), idx))
         ISetAudioInterface(nil);
     else
         IRemoveGeneric(who);
@@ -377,9 +377,9 @@ bool plSceneObject::IPropagateToModifiers(plMessage* msg)
     int i;
     int nMods = fModifiers.GetCount();
 
-    for( i = 0; i < nMods; i++ )
+    for (i = 0; i < nMods; i++)
     {
-        if( fModifiers[i] )
+        if (fModifiers[i])
         {
             plModifier *mod = fModifiers[i];
             retVal |= mod->MsgReceive(msg);
@@ -393,9 +393,9 @@ bool plSceneObject::Eval(double secs, float delSecs)
     uint32_t dirty = ~0L;
     bool retVal = false;
     int i;
-    for( i = 0; i < fModifiers.GetCount(); i++ )
+    for (i = 0; i < fModifiers.GetCount(); i++)
     {
-        if( fModifiers[i] )
+        if (fModifiers[i])
             retVal |= fModifiers[i]->IEval(secs, delSecs, dirty);
     }
     return retVal;
@@ -404,31 +404,31 @@ bool plSceneObject::Eval(double secs, float delSecs)
 void plSceneObject::SetSceneNode(plKey newNode)
 {
     plKey curNode=GetSceneNode();
-    if( curNode == newNode )
+    if (curNode == newNode)
         return;
-    if( fDrawInterface )
+    if (fDrawInterface)
         fDrawInterface->ISetSceneNode(newNode);
-    if( fSimulationInterface )
+    if (fSimulationInterface)
         fSimulationInterface->ISetSceneNode(newNode);
-    if( fAudioInterface )
+    if (fAudioInterface)
         fAudioInterface->ISetSceneNode(newNode);
-    if( fCoordinateInterface )
+    if (fCoordinateInterface)
         fCoordinateInterface->ISetSceneNode(newNode);
 
     int i;
-    for( i = 0; i < GetNumGenerics(); i++ )
+    for (i = 0; i < GetNumGenerics(); i++)
     {
-        if( fGenerics[i] )
+        if (fGenerics[i])
             fGenerics[i]->ISetSceneNode(newNode);
     }
 
-    if( newNode )
+    if (newNode)
     {
         plNodeRefMsg* refMsg = new plNodeRefMsg(newNode, plNodeRefMsg::kOnRequest, -1, plNodeRefMsg::kObject);
         plKey key = GetKey();   // for linux build
         hsgResMgr::ResMgr()->AddViaNotify(key, refMsg, plRefFlags::kActiveRef);
     }
-    if( curNode)
+    if (curNode)
     {
         curNode->Release(GetKey());
     }
@@ -442,7 +442,7 @@ plKey plSceneObject::GetSceneNode() const
 
 void plSceneObject::SetNetGroup(plNetGroupId netGroup)
 {
-    if( !fCoordinateInterface )
+    if (!fCoordinateInterface)
         plSynchedObject::SetNetGroup(netGroup);
     else
         fCoordinateInterface->ISetNetGroupRecur(netGroup);
@@ -478,7 +478,7 @@ bool plSceneObject::MsgReceive(plMessage* msg)
     plTransformMsg* trans;
     plEvalMsg* eval = plEvalMsg::ConvertNoRef(msg);
     plAttachMsg* att = nil;
-    if( eval )
+    if (eval)
     {
         // Switched things over so that modifiers register for the eval message themselves,
         // and can be smart about not evaluating if they know it's unneccessary.
@@ -487,9 +487,9 @@ bool plSceneObject::MsgReceive(plMessage* msg)
         return true;
     }
     else
-    if((trans = plTransformMsg::ConvertNoRef(msg))) // also catches the derived plDelayedTransformMsg
+    if ((trans = plTransformMsg::ConvertNoRef(msg))) // also catches the derived plDelayedTransformMsg
     {
-        if( fCoordinateInterface )
+        if (fCoordinateInterface)
         {
             // flush any dirty transforms
             fCoordinateInterface->ITransformChanged(false, 0, trans->ClassIndex() == plTransformMsg::Index());
@@ -497,22 +497,22 @@ bool plSceneObject::MsgReceive(plMessage* msg)
         return true;
     }
     else
-    if((att = plAttachMsg::ConvertNoRef(msg)))
+    if ((att = plAttachMsg::ConvertNoRef(msg)))
     {
-        if( fCoordinateInterface )
+        if (fCoordinateInterface)
         {
             plSceneObject *child = plSceneObject::ConvertNoRef(att->GetRef());
             
-            if( child )
+            if (child)
             {
-                if( !fCoordinateInterface )
+                if (!fCoordinateInterface)
                 {
                     // If we have no coordinate interface, we could make ourselves one here,
                     // but for now it's an error.
                     hsAssert(false, "Trying to attach a child when we have no coordinateInterface");
                     return true;
                 }
-                if( !child->GetVolatileCoordinateInterface() )
+                if (!child->GetVolatileCoordinateInterface())
                 {
                     // If the child has no coordinate interface, we could add one to it here,
                     // but for now it's an error.
@@ -530,7 +530,7 @@ bool plSceneObject::MsgReceive(plMessage* msg)
         retVal = IMsgHandle(msg);
     }
 
-    if( msg->HasBCastFlag(plMessage::kPropagateToModifiers) )
+    if (msg->HasBCastFlag(plMessage::kPropagateToModifiers))
     {
         retVal |= IPropagateToModifiers(msg);
     }
@@ -556,18 +556,18 @@ bool plSceneObject::IMsgHandle(plMessage* msg)
     // To start with, plSceneObject only handles messages to add or remove
     // references. Current references are other plSceneObjects and plModifiers
     plObjRefMsg* refMsg = plObjRefMsg::ConvertNoRef(msg);
-    if( refMsg )
+    if (refMsg)
     {
-        switch( refMsg->fType )
+        switch (refMsg->fType)
         {
         case plObjRefMsg::kModifier:
             {
-                if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+                if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
                 {
                     plModifier* mod = plModifier::ConvertNoRef(refMsg->GetRef());
                     IAddModifier(mod, refMsg->fWhich);
                 }
-                else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+                else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
                 {
                     plModifier* mod = (plModifier*)refMsg->GetRef();
                     IRemoveModifier(mod);
@@ -576,13 +576,13 @@ bool plSceneObject::IMsgHandle(plMessage* msg)
             return true;
         case plObjRefMsg::kInterface:
             {
-                if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+                if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
                 {
                     plObjInterface* oi = plObjInterface::ConvertNoRef(refMsg->GetRef());
                     ISetInterface(oi);
                 }
                 else
-                if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+                if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
                 {
                     plObjInterface* oi = (plObjInterface*)refMsg->GetRef();
                     // TODO - This will crash if oi's already been deleted
@@ -596,13 +596,13 @@ bool plSceneObject::IMsgHandle(plMessage* msg)
         return false;
     }
     plNodeChangeMsg* nodeChange = plNodeChangeMsg::ConvertNoRef(msg);
-    if( nodeChange )
+    if (nodeChange)
     {
         SetSceneNode(nodeChange->GetNodeKey());
         return true;
     }
     
-    if( plIntRefMsg::ConvertNoRef(msg) )
+    if (plIntRefMsg::ConvertNoRef(msg))
     {
         if (fCoordinateInterface)
             fCoordinateInterface->MsgReceive(msg);
@@ -623,24 +623,24 @@ bool plSceneObject::IMsgHandle(plMessage* msg)
     
     // check for generic enable/disable message (passed to interfaces)
 
-    plEnableMsg* pEnableMsg = plEnableMsg::ConvertNoRef( msg );
+    plEnableMsg* pEnableMsg = plEnableMsg::ConvertNoRef(msg);
     if (pEnableMsg)
     {
-        if( pEnableMsg->Cmd(plEnableMsg::kDrawable) )
+        if (pEnableMsg->Cmd(plEnableMsg::kDrawable))
         {
             plDrawInterface* di = GetVolatileDrawInterface();
-            if( di )
+            if (di)
                 di->MsgReceive(msg);
             plObjInterface* li = GetVolatileGenericInterface(CLASS_INDEX_SCOPED(plLightInfo));
-            if( li )
+            if (li)
                 li->MsgReceive(msg);
         }
-        if ( pEnableMsg->Cmd(plEnableMsg::kAll) && GetDrawInterface() )
+        if (pEnableMsg->Cmd(plEnableMsg::kAll) && GetDrawInterface())
             GetVolatileDrawInterface()->MsgReceive(msg);
         
-        if ( pEnableMsg->Cmd( plEnableMsg::kPhysical ) || pEnableMsg->Cmd( plEnableMsg::kAll) )
+        if (pEnableMsg->Cmd(plEnableMsg::kPhysical) || pEnableMsg->Cmd(plEnableMsg::kAll))
         {
-            if ( GetSimulationInterface() )
+            if (GetSimulationInterface())
             {
                 GetVolatileSimulationInterface()->MsgReceive(msg);
             }
@@ -653,14 +653,14 @@ bool plSceneObject::IMsgHandle(plMessage* msg)
             }
         }
         
-        if ( (pEnableMsg->Cmd( plEnableMsg::kAudible ) || pEnableMsg->Cmd( plEnableMsg::kAll )) && GetAudioInterface() )
+        if ((pEnableMsg->Cmd(plEnableMsg::kAudible) || pEnableMsg->Cmd(plEnableMsg::kAll)) && GetAudioInterface())
             GetVolatileAudioInterface()->MsgReceive(msg);
         
-        if( pEnableMsg->Cmd( plEnableMsg::kAll ) )
+        if (pEnableMsg->Cmd(plEnableMsg::kAll))
         {
             IPropagateToGenerics(pEnableMsg);
         }
-        else if( pEnableMsg->Cmd( plEnableMsg::kByType ) )
+        else if (pEnableMsg->Cmd(plEnableMsg::kByType))
         {
             IPropagateToGenerics(pEnableMsg->Types(), pEnableMsg);
         }
@@ -668,12 +668,12 @@ bool plSceneObject::IMsgHandle(plMessage* msg)
     }
     
     // warp message
-    if( plWarpMsg::ConvertNoRef(msg) )
+    if (plWarpMsg::ConvertNoRef(msg))
     {
         // if there's a simulation interface, it needs to know about the warp
         // *** it would probably be better if it got this from the coordinate interface, as
         // *** only the coordinate interface knows to propagate it to children.
-    //  if(fSimulationInterface)
+    //  if (fSimulationInterface)
     //  {
     //      fSimulationInterface->MsgReceive(msg);
     //  }
@@ -686,9 +686,9 @@ bool plSceneObject::IMsgHandle(plMessage* msg)
         return true;
     }
 
-    if ( plSimulationMsg::ConvertNoRef(msg) )
+    if (plSimulationMsg::ConvertNoRef(msg))
     {
-        if(fSimulationInterface)
+        if (fSimulationInterface)
         {
             fSimulationInterface->MsgReceive(msg);
         }
@@ -696,10 +696,10 @@ bool plSceneObject::IMsgHandle(plMessage* msg)
     }
 
     // audio message
-    if (plSoundMsg::ConvertNoRef(msg) )
+    if (plSoundMsg::ConvertNoRef(msg))
     {
-        if( fAudioInterface )
-            return(GetVolatileAudioInterface()->MsgReceive(msg));
+        if (fAudioInterface)
+            return (GetVolatileAudioInterface()->MsgReceive(msg));
         return true;
     }
 
@@ -710,13 +710,13 @@ void plSceneObject::IPropagateToGenerics(const hsBitVector& types, plMessage* ms
 {
     hsBitIterator iter(types);
     int i;
-    for( i = 0; i < fGenerics.GetCount(); i++ )
+    for (i = 0; i < fGenerics.GetCount(); i++)
     {
-        if( fGenerics[i] )
+        if (fGenerics[i])
         {
-            for( iter.Begin(); !iter.End(); iter.Advance() )
+            for (iter.Begin(); !iter.End(); iter.Advance())
             {
-                if( plFactory::DerivesFrom(iter.Current(), fGenerics[i]->ClassIndex()) )
+                if (plFactory::DerivesFrom(iter.Current(), fGenerics[i]->ClassIndex()))
                 {
                     fGenerics[i]->MsgReceive(msg);
                     break;
@@ -729,9 +729,9 @@ void plSceneObject::IPropagateToGenerics(const hsBitVector& types, plMessage* ms
 void plSceneObject::IPropagateToGenerics(plMessage* msg)
 {
     int i;
-    for( i = 0; i < fGenerics.GetCount(); i++ )
+    for (i = 0; i < fGenerics.GetCount(); i++)
     {
-        if( fGenerics[i] )
+        if (fGenerics[i])
             fGenerics[i]->MsgReceive(msg);
     }
 }
@@ -739,9 +739,9 @@ void plSceneObject::IPropagateToGenerics(plMessage* msg)
 plObjInterface* plSceneObject::GetVolatileGenericInterface(uint16_t classIdx) const
 {
     int i;
-    for( i = 0; i < fGenerics.GetCount(); i++ )
+    for (i = 0; i < fGenerics.GetCount(); i++)
     {
-        if( fGenerics[i] && plFactory::DerivesFrom(classIdx, fGenerics[i]->ClassIndex()) )
+        if (fGenerics[i] && plFactory::DerivesFrom(classIdx, fGenerics[i]->ClassIndex()))
             return fGenerics[i];
     }
     return nil;
@@ -749,9 +749,9 @@ plObjInterface* plSceneObject::GetVolatileGenericInterface(uint16_t classIdx) co
 
 void plSceneObject::IAddGeneric(plObjInterface* gen)
 {
-    if( gen )
+    if (gen)
     {
-        if( fGenerics.kMissingIndex == fGenerics.Find(gen) )
+        if (fGenerics.kMissingIndex == fGenerics.Find(gen))
         {
             fGenerics.Append(gen);
             gen->ISetOwner(this);
@@ -761,10 +761,10 @@ void plSceneObject::IAddGeneric(plObjInterface* gen)
 
 void plSceneObject::IRemoveGeneric(plObjInterface* gen)
 {
-    if( gen )
+    if (gen)
     {
         int idx = fGenerics.Find(gen);
-        if( fGenerics.kMissingIndex != idx )
+        if (fGenerics.kMissingIndex != idx)
         {
             gen->ISetOwner(nil);
             fGenerics.Remove(idx);
@@ -775,9 +775,9 @@ void plSceneObject::IRemoveGeneric(plObjInterface* gen)
 void plSceneObject::IRemoveAllGenerics()
 {
     int i;
-    for( i = 0; i < fGenerics.GetCount(); i++ )
+    for (i = 0; i < fGenerics.GetCount(); i++)
     {
-        if( fGenerics[i] )
+        if (fGenerics[i])
             fGenerics[i]->ISetOwner(nil);
     }
     fGenerics.Reset();
@@ -785,51 +785,51 @@ void plSceneObject::IRemoveAllGenerics()
 
 void plSceneObject::ISetDrawInterface(plDrawInterface* di)
 {
-    if( fDrawInterface != di )
+    if (fDrawInterface != di)
     {
-        if( fDrawInterface )
+        if (fDrawInterface)
             fDrawInterface->ISetOwner(nil);
 
         fDrawInterface = di;
-        if( di )
+        if (di)
             di->ISetOwner(this);
     }
 }
 
 void plSceneObject::ISetSimulationInterface(plSimulationInterface* si)
 {
-    if( fSimulationInterface != si )
+    if (fSimulationInterface != si)
     {
-        if( fSimulationInterface )
+        if (fSimulationInterface)
             fSimulationInterface->ISetOwner(nil);
 
         fSimulationInterface = si;
-        if( si )
+        if (si)
             si->ISetOwner(this);
     }
 }
 
 void plSceneObject::ISetAudioInterface(plAudioInterface* ai)
 {
-    if( fAudioInterface != ai )
+    if (fAudioInterface != ai)
     {
-        if( fAudioInterface )
+        if (fAudioInterface)
             fAudioInterface->ISetOwner(nil);
         fAudioInterface = ai;
-        if( ai )
+        if (ai)
             ai->ISetOwner(this);
     }
 }
 
 void plSceneObject::ISetCoordinateInterface(plCoordinateInterface* ci)
 {
-    if( fCoordinateInterface != ci )
+    if (fCoordinateInterface != ci)
     {
-        if( fCoordinateInterface )
+        if (fCoordinateInterface)
             fCoordinateInterface->ISetOwner(nil);
 
         fCoordinateInterface = ci;
-        if( ci )
+        if (ci)
             ci->ISetOwner(this);
     }
 }
@@ -843,7 +843,7 @@ bool  plSceneObject::IsFinal()
         return false;
 
     int i;
-    for(i=0;i<GetNumModifiers(); i++)
+    for (i=0;i<GetNumModifiers(); i++)
         if (fModifiers[i] && !fModifiers[i]->IsFinal())
             return false;
 

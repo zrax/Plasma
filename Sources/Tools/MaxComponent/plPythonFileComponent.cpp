@@ -102,12 +102,12 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 class plCommonPythonLib : public plCommonObjLib
 {
     public:
-        virtual bool    IsInteresting( const plKey &objectKey )
+        virtual bool    IsInteresting(const plKey &objectKey)
         {
-            if( objectKey->GetUoid().GetClassType() == plPythonFileMod::Index() )
+            if (objectKey->GetUoid().GetClassType() == plPythonFileMod::Index())
                 return true;
-            if( objectKey->GetUoid().GetClassType() == plSceneObject::Index() &&
-                objectKey->GetUoid().GetObjectName().compare( plSDL::kAgeSDLObjectName ) == 0 )
+            if (objectKey->GetUoid().GetClassType() == plSceneObject::Index() &&
+                objectKey->GetUoid().GetObjectName().compare(plSDL::kAgeSDLObjectName) == 0)
                 return true;
             return false;
         }
@@ -275,27 +275,27 @@ bool plPythonFileComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
     // create the modifier key ourselves so that we can get the name of the modifier in the name
     plSceneObject *obj = node->GetSceneObject();
     plKey modKey;
-    if( fCompPB->GetInt( kPythonFileIsGlobal ) )
+    if (fCompPB->GetInt(kPythonFileIsGlobal))
     {
         // Do we already have this guy?
-        plPythonFileMod *existingOne = plPythonFileMod::ConvertNoRef( sCommonPythonLib.FindObject( plPythonFileMod::kGlobalNameKonstant ) );
-        if( existingOne != nil )
+        plPythonFileMod *existingOne = plPythonFileMod::ConvertNoRef(sCommonPythonLib.FindObject(plPythonFileMod::kGlobalNameKonstant));
+        if (existingOne != nil)
         {
             // This component already exists, which can happen since it's in a common page. So we need
             // to nuke the key and its object so we can reuse it.
             modKey = existingOne->GetKey();
 
             // But first detach it from its target sceneObject
-            if( existingOne->GetTarget( 0 ) != nil )
-                existingOne->GetTarget( 0 )->GetKey()->Release( modKey );
+            if (existingOne->GetTarget(0) != nil)
+                existingOne->GetTarget(0)->GetKey()->Release(modKey);
 
-            if( !sCommonPythonLib.RemoveObjectAndKey( modKey ) )
+            if (!sCommonPythonLib.RemoveObjectAndKey(modKey))
             {
-                pErrMsg->Set( true, "Python File Component Error",
-                                    "The global Python File Component %s is attempting to export over an already "
-                                    "existing component of the same name, and the exporter is unable to delete the "
-                                    "old object to replace it. This would be a good time to call mcn for help.", GetINode()->GetName() ).Show();
-                pErrMsg->Set( false );
+                pErrMsg->Set(true, "Python File Component Error",
+                                   "The global Python File Component %s is attempting to export over an already "
+                                   "existing component of the same name, and the exporter is unable to delete the "
+                                   "old object to replace it. This would be a good time to call mcn for help.", GetINode()->GetName()).Show();
+                pErrMsg->Set(false);
             }
 
             // Pointer is invalid now anyways...
@@ -303,17 +303,17 @@ bool plPythonFileComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
         }
 
         // Also make sure we have an age SDL object to attach to (currently only used for python, hence why it's safe here)
-        obj = plSceneObject::ConvertNoRef( sCommonPythonLib.FindObject( plSDL::kAgeSDLObjectName ) );
-        if( obj != nil )
+        obj = plSceneObject::ConvertNoRef(sCommonPythonLib.FindObject(plSDL::kAgeSDLObjectName));
+        if (obj != nil)
         {
             plKey foo = obj->GetKey();
-            if( !sCommonPythonLib.RemoveObjectAndKey( foo ) )
+            if (!sCommonPythonLib.RemoveObjectAndKey(foo))
             {
-                pErrMsg->Set( true, "Python File Component Error",
-                                    "The global Python File Component %s is attempting to export over an already "
-                                    "existing component of the same name, and the exporter is unable to delete the "
-                                    "old sceneObject to replace it. This would be a good time to call mcn for help.", GetINode()->GetName() ).Show();
-                pErrMsg->Set( false );
+                pErrMsg->Set(true, "Python File Component Error",
+                                   "The global Python File Component %s is attempting to export over an already "
+                                   "existing component of the same name, and the exporter is unable to delete the "
+                                   "old sceneObject to replace it. This would be a good time to call mcn for help.", GetINode()->GetName()).Show();
+                pErrMsg->Set(false);
             }
 
             // Pointer is invalid now anyways...
@@ -323,12 +323,12 @@ bool plPythonFileComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
         // Create us a new sceneObject to attach to
         obj = new plSceneObject;
 
-        const plLocation &globalLoc = plPluginResManager::ResMgr()->GetCommonPage( node->GetLocation(), plAgeDescription::kGlobal );
-        hsAssert( globalLoc.IsValid(), "Invalid common page location!!!" );
-        modKey = hsgResMgr::ResMgr()->NewKey(plPythonFileMod::kGlobalNameKonstant, mod, globalLoc );
+        const plLocation &globalLoc = plPluginResManager::ResMgr()->GetCommonPage(node->GetLocation(), plAgeDescription::kGlobal);
+        hsAssert(globalLoc.IsValid(), "Invalid common page location!!!");
+        modKey = hsgResMgr::ResMgr()->NewKey(plPythonFileMod::kGlobalNameKonstant, mod, globalLoc);
 
         // Make a key for our special sceneObject too
-        plKey sdlObjectKey = hsgResMgr::ResMgr()->NewKey( plSDL::kAgeSDLObjectName, obj, globalLoc );
+        plKey sdlObjectKey = hsgResMgr::ResMgr()->NewKey(plSDL::kAgeSDLObjectName, obj, globalLoc);
         plPluginResManager::ResMgr()->AddLooseEnd(sdlObjectKey);
     }
     else
@@ -337,7 +337,7 @@ bool plPythonFileComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
         {
             // yup, then only create one modifier that will all the objects will attach to
             // in other words, one python module with many attached sceneobjects
-            if ( fModKeys.empty())
+            if (fModKeys.empty())
             {
                 // its empty so create the first and only one
                 modKey = hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), mod, node->GetLocation());
@@ -364,7 +364,7 @@ bool plPythonFileComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
     fModKeys[node] = modKey;
 
     // only let non-multimodifier or multimodifier then only the main node register for notifies
-    if ( !block->IsMultiModifier() || mainMultiModierNode )
+    if (!block->IsMultiModifier() || mainMultiModierNode)
     {
         int nParams = block->NumParams();
         for (int i = 0; i < nParams; i++)
@@ -377,7 +377,7 @@ bool plPythonFileComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
                 // We'll let the modifier know the activator key when it's available,
                 // in the convert pass.
                 int numcomps = param->GetCount(pb);
-                for (int j=0; j< numcomps; j++ )
+                for (int j=0; j< numcomps; j++)
                 {
                     plComponentBase *comp = param->GetComponent(pb,j);
                     if (comp)
@@ -391,10 +391,10 @@ bool plPythonFileComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
                 // We'll let the modifier know the activator key when it's available,
                 // in the convert pass.
                 int numcomps = param->GetCount(pb);
-                for (int j=0; j< numcomps; j++ )
+                for (int j=0; j< numcomps; j++)
                 {
                     plComponentBase *comp = param->GetComponent(pb,j);
-                    if (comp && comp->ClassID() == GUI_DIALOG_COMP_CLASS_ID )
+                    if (comp && comp->ClassID() == GUI_DIALOG_COMP_CLASS_ID)
                     {
                         // convert the comp to a GUIDialog component, so we can talk to it
                         plGUIDialogComponent *dialog_comp = (plGUIDialogComponent*)comp;
@@ -469,7 +469,7 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                 for (int i = 0; i < numKeys; i++)
                 {
                     plKey skey = param->GetKey(pb, i);
-                    if ( skey != nil )
+                    if (skey != nil)
                     {
                         pyParam.SetToSceneObject(skey, true);
                         // make sure that there really was a sceneobject
@@ -477,7 +477,7 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                         found_atleast_one_good_one = true;
                     }
                 }
-                if ( !found_atleast_one_good_one )
+                if (!found_atleast_one_good_one)
                 {
                     char buf[512];
                     sprintf(buf,"The sceneobject attribute (ID=%d) that was selected in %s PythonFile, somehow does not exist!?",
@@ -500,14 +500,14 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                         for (int j = 0; j < comp->NumTargets(); j++)
                         {
                             plKey responderKey = Responder::GetKey(comp, comp->GetTarget(j));
-                            if ( responderKey != nil )
+                            if (responderKey != nil)
                             {
                                 pyParam.SetToResponder(responderKey);
                                 mod->AddParameter(pyParam);
                                 found_atleast_one_good_one = true;
                             }
                         }
-                        if ( !found_atleast_one_good_one )
+                        if (!found_atleast_one_good_one)
                         {
                             char buf[512];
                             sprintf(buf,"The responder attribute %s that was selected in %s PythonFile, somehow does not exist!?",
@@ -573,7 +573,7 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                 {
                     plKey key = param->GetKey(pb, i);
                     // make sure we got a key and that it is a DynamicTextMap
-                    if (key && plDynamicTextMap::ConvertNoRef(key->GetObjectPtr()) )
+                    if (key && plDynamicTextMap::ConvertNoRef(key->GetObjectPtr()))
                     {
                         pyParam.SetToDynamicText(key);
                         mod->AddParameter(pyParam);
@@ -590,13 +590,13 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                     plComponentBase *comp = param->GetComponent(pb, i);
                     if (comp)
                     {
-                        if (comp && comp->ClassID() == GUI_DIALOG_COMP_CLASS_ID )
+                        if (comp && comp->ClassID() == GUI_DIALOG_COMP_CLASS_ID)
                         {
                             // convert the comp to a GUIDialog component, so we can talk to it
                             plGUIDialogComponent *dialog_comp = (plGUIDialogComponent*)comp;
                             plKey dialogKey = dialog_comp->GetModifierKey();
                             pyParam.SetToGUIDialog(dialogKey);
-                            if ( pyParam.fObjectKey == nil )
+                            if (pyParam.fObjectKey == nil)
                             {
                                 char buf[512];
                                 sprintf(buf,"The GUIDialog attribute %s that was selected in %s PythonFile, somehow does not exist!?",
@@ -620,13 +620,13 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                     plComponentBase *comp = param->GetComponent(pb, i);
                     if (comp)
                     {
-                        if (comp && comp->ClassID() == GUI_MENUANCHOR_CLASSID )
+                        if (comp && comp->ClassID() == GUI_MENUANCHOR_CLASSID)
                         {
                             // convert the comp to a GUIPopUpMenu component, so we can talk to it
                             plGUIMenuComponent *guiComp = (plGUIMenuComponent*)comp;
                             plKey key = guiComp->GetConvertedMenuKey();
-                            pyParam.SetToGUIPopUpMenu( key );
-                            if ( pyParam.fObjectKey == nil )
+                            pyParam.SetToGUIPopUpMenu(key);
+                            if (pyParam.fObjectKey == nil)
                             {
                                 char buf[512];
                                 sprintf(buf,"The GUIPopUpMenu attribute %s that was selected in %s PythonFile, somehow does not exist!?",
@@ -650,13 +650,13 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                     plComponentBase *comp = param->GetComponent(pb, i);
                     if (comp)
                     {
-                        if (comp && comp->ClassID() == GUI_SKIN_CLASSID )
+                        if (comp && comp->ClassID() == GUI_SKIN_CLASSID)
                         {
                             // convert the comp to a GUISkin component, so we can talk to it
                             plGUISkinComp *guiComp = (plGUISkinComp *)comp;
                             plKey key = guiComp->GetConvertedSkinKey();
-                            pyParam.SetToGUISkin( key );
-                            if ( pyParam.fObjectKey == nil )
+                            pyParam.SetToGUISkin(key);
+                            if (pyParam.fObjectKey == nil)
                             {
                                 char buf[512];
                                 sprintf(buf,"The GUISkin attribute %s that was selected in %s PythonFile, somehow does not exist!?",
@@ -679,16 +679,16 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                 for (int i = 0; i < count; i++)
                 {
                     plComponentBase *comp = param->GetComponent(pb, i);
-                    if (comp && comp->ClassID() == XREGION_CID )
+                    if (comp && comp->ClassID() == XREGION_CID)
                     {
                         for (int j = 0; j < comp->NumTargets(); j++)
                         {
                             plExcludeRegionComponent *excomp = (plExcludeRegionComponent*)comp;
                             plKey exKey = excomp->GetKey((plMaxNode*)(comp->GetTarget(j)));
-                            if ( exKey != nil )
+                            if (exKey != nil)
                             {
                                 // only get one real target, just count the rest
-                                if ( number_of_real_targets_found == 0 )
+                                if (number_of_real_targets_found == 0)
                                 {
                                     pyParam.SetToExcludeRegion(exKey);
                                     mod->AddParameter(pyParam);
@@ -696,11 +696,11 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                                 number_of_real_targets_found += 1;
                             }
                         }
-                        if ( number_of_real_targets_found != 1 )
+                        if (number_of_real_targets_found != 1)
                         {
                             // there is zero or more than one node attached to this exclude region
                             char buf[512];
-                            if ( number_of_real_targets_found == 0 )
+                            if (number_of_real_targets_found == 0)
                                 sprintf(buf,"The ExcludeRegion %s that was selected as an attribute in %s PythonFile, has no scene nodes attached.",
                                             comp->GetINode()->GetName(),this->GetINode()->GetName());
                             else
@@ -727,7 +727,7 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                     if (wsb != nil)
                     {
                         plKey waterKey = wsb->GetKey();
-                        if ( waterKey != nil )
+                        if (waterKey != nil)
                         {
                             pyParam.SetToWaterComponent(waterKey);
                             mod->AddParameter(pyParam);
@@ -752,7 +752,7 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                     {
                         mnode = (plMaxNode*)swimcomp->GetTarget(i);
                         containsNode = swimcomp->fSwimRegions.find(mnode);
-                        if ( containsNode != swimcomp->fSwimRegions.end() )
+                        if (containsNode != swimcomp->fSwimRegions.end())
                         {
                             sri = swimcomp->fSwimRegions[mnode];
                             break;
@@ -762,7 +762,7 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                     if (sri != nil)
                     {
                         plKey swimKey = sri->GetKey();
-                        if ( swimKey != nil )
+                        if (swimKey != nil)
                         {
                             pyParam.SetToSwimCurrentInterface(swimKey);
                             mod->AddParameter(pyParam);
@@ -802,7 +802,7 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                 for (int i = 0; i < count; i++)
                 {
                     plComponentBase *comp = param->GetComponent(pb, i);
-                    if (comp && ( comp->ClassID() == ANIM_COMP_CID || comp->ClassID() == ANIM_GROUP_COMP_CID ) )
+                    if (comp && (comp->ClassID() == ANIM_COMP_CID || comp->ClassID() == ANIM_GROUP_COMP_CID))
                     {
                         plAnimComponentBase *animcomp = (plAnimComponentBase*)comp;
                         // save out the animation name first
@@ -814,7 +814,7 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                         mod->AddParameter(pyParam);
                         // gather up all the modkeys for all the targets attached to this animation component
                         int j;
-                        for ( j=0; j<comp->NumTargets(); j++ )
+                        for (j=0; j<comp->NumTargets(); j++)
                         {
                             pyParam.SetToAnimation(animcomp->GetModKey((plMaxNode*)(comp->GetTarget(j))));
                             mod->AddParameter(pyParam);
@@ -835,17 +835,17 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                 for (int i = 0; i < count; i++)
                 {
                     plComponentBase *comp = param->GetComponent(pb, i);
-                    if (comp && comp->ClassID() == ONESHOTCLASS_ID )
+                    if (comp && comp->ClassID() == ONESHOTCLASS_ID)
                     {
                         // gather up all the modkeys for all the targets attached to this animation component
                         int j;
-                        for ( j=0; j<comp->NumTargets(); j++ )
+                        for (j=0; j<comp->NumTargets(); j++)
                         {
                             plKey behKey = OneShotComp::GetOneShotKey(comp,(plMaxNode*)(comp->GetTarget(j)));
-                            if ( behKey != nil )
+                            if (behKey != nil)
                             {
                                 // only get one real target, just count the rest
-                                if ( number_of_real_targets_found == 0 )
+                                if (number_of_real_targets_found == 0)
                                 {
                                     pyParam.SetToBehavior(behKey);
                                     mod->AddParameter(pyParam);
@@ -854,17 +854,17 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                             }
                         }
                     }
-                    else if (comp && comp->ClassID() == MULTISTAGE_BEH_CID )
+                    else if (comp && comp->ClassID() == MULTISTAGE_BEH_CID)
                     {
                         // gather up all the modkeys for all the targets attached to this animation component
                         int j;
-                        for ( j=0; j<comp->NumTargets(); j++ )
+                        for (j=0; j<comp->NumTargets(); j++)
                         {
                             plKey behKey = MultiStageBeh::GetMultiStageBehKey(comp,(plMaxNode*)(comp->GetTarget(j)));
-                            if ( behKey != nil )
+                            if (behKey != nil)
                             {
                                 // only get one real target, just count the rest
-                                if ( number_of_real_targets_found == 0 )
+                                if (number_of_real_targets_found == 0)
                                 {
                                     pyParam.SetToBehavior(behKey);
                                     mod->AddParameter(pyParam);
@@ -873,11 +873,11 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                             }
                         }
                     }
-                    if ( number_of_real_targets_found != 1 )
+                    if (number_of_real_targets_found != 1)
                     {
                         // there is zero or more than one node attached to this exclude region
                         char buf[512];
-                        if ( number_of_real_targets_found == 0 )
+                        if (number_of_real_targets_found == 0)
                             sprintf(buf,"The Behavior component %s that was selected as an attribute in %s PythonFile, has no scene nodes attached.",
                                         comp->GetINode()->GetName(),this->GetINode()->GetName());
                         else
@@ -899,7 +899,7 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                 {
                     plKey key = param->GetKey(pb, i);
                     // make sure we got a key and that it is a plMipmap
-                    if (key && plMipmap::ConvertNoRef(key->GetObjectPtr()) )
+                    if (key && plMipmap::ConvertNoRef(key->GetObjectPtr()))
                     {
                         pyParam.SetToMaterial(key);
                         mod->AddParameter(pyParam);
@@ -918,7 +918,7 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                 {
                     plKey key = param->GetKey(pb, i);
                     
-                    if ( key )
+                    if (key)
                     {
                         pyParam.SetToMaterialAnimation(key);
                         mod->AddParameter(pyParam);
@@ -946,7 +946,7 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                     if (shader != nil)
                     {
                         plKey shaderKey = shader->GetKey();
-                        if ( shaderKey != nil )
+                        if (shaderKey != nil)
                         {
                             pyParam.SetToGrassShaderComponent(shaderKey);
                             mod->AddParameter(pyParam);

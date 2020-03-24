@@ -138,8 +138,8 @@ public:
     plLayerInterface();
     virtual ~plLayerInterface();
 
-    CLASSNAME_REGISTER( plLayerInterface );
-    GETINTERFACE_ANY( plLayerInterface, plSynchedObject );
+    CLASSNAME_REGISTER(plLayerInterface);
+    GETINTERFACE_ANY(plLayerInterface, plSynchedObject);
 
     plLayerInterface*       BottomOfStack() { return fUnderLay ? fUnderLay->BottomOfStack() : this; }
     plLayerInterface*       TopOfStack() { return fOverLay ? fOverLay->TopOfStack() : this; }

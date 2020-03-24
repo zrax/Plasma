@@ -137,13 +137,13 @@ public:
     plMessage& SetTimeStamp(double t) { fTimeStamp = t; return *this; }
 
     bool HasBCastFlag(uint32_t f) const { return 0 != (fBCastFlags & f); }
-    plMessage& SetBCastFlag(uint32_t f, bool on=true) { if( on )fBCastFlags |= f; else fBCastFlags &= ~f; return *this; }
+    plMessage& SetBCastFlag(uint32_t f, bool on=true) { if (on) fBCastFlags |= f; else fBCastFlags &= ~f; return *this; }
 
     void SetAllBCastFlags(uint32_t f) { fBCastFlags=f; }
     uint32_t GetAllBCastFlags() const { return fBCastFlags; }
 
-    void AddNetReceiver( uint32_t plrID );
-    void AddNetReceivers( const std::vector<uint32_t> & plrIDs );
+    void AddNetReceiver(uint32_t plrID);
+    void AddNetReceivers(const std::vector<uint32_t> & plrIDs);
     std::vector<uint32_t>* GetNetReceivers() const { return fNetRcvrPlayerIDs; }
 
     // just before dispatching this message, drop into debugger

@@ -74,7 +74,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 class plBDFConvertCallback
 {
     public:
-        virtual void    NumChars( uint16_t chars ) {}
+        virtual void    NumChars(uint16_t chars) {}
         virtual void    CharDone() {}
 };
 
@@ -179,8 +179,8 @@ class plFont : public hsKeyedObject
                 }
 
                 plCharacter();
-                void    Read( hsStream *s );
-                void    Write( hsStream *s );
+                void    Read(hsStream *s);
+                void    Write(hsStream *s);
         };
 
         // First character we encode--everything below this we don't render
@@ -193,7 +193,7 @@ class plFont : public hsKeyedObject
         uint32_t  fMaxCharHeight;
         int32_t   fFontAscent, fFontDescent;
 
-        typedef void (plFont::*CharRenderFunc)( const plCharacter &c );
+        typedef void (plFont::*CharRenderFunc)(const plCharacter &c);
 
         // Render info
         class plRenderInfo
@@ -219,25 +219,25 @@ class plFont : public hsKeyedObject
 
         plRenderInfo    fRenderInfo;
 
-        void    IClear( bool onConstruct = false );
+        void    IClear(bool onConstruct = false);
         void    ICalcFontAscent();
 
-        uint8_t   *IGetFreeCharData( uint32_t &newOffset );
+        uint8_t   *IGetFreeCharData(uint32_t &newOffset);
 
-        void    IRenderLoop( const wchar_t *string, int32_t maxCount );
-        void    IRenderString( plMipmap *mip, uint16_t x, uint16_t y, const wchar_t *string, bool justCalc );
+        void    IRenderLoop(const wchar_t *string, int32_t maxCount);
+        void    IRenderString(plMipmap *mip, uint16_t x, uint16_t y, const wchar_t *string, bool justCalc);
 
         // Various render functions
-        void    IRenderChar1To32( const plCharacter &c );
-        void    IRenderChar1To32AA( const plCharacter &c );
-        void    IRenderChar8To32( const plCharacter &c );
-        void    IRenderChar8To32Alpha( const plCharacter &c );
-        void    IRenderChar8To32FullAlpha( const plCharacter &c );
-        void    IRenderChar8To32AlphaPremultiplied( const plCharacter &c );
-        void    IRenderChar8To32AlphaPremShadow( const plCharacter &c );
-        void    IRenderCharNull( const plCharacter &c );
+        void    IRenderChar1To32(const plCharacter &c);
+        void    IRenderChar1To32AA(const plCharacter &c);
+        void    IRenderChar8To32(const plCharacter &c);
+        void    IRenderChar8To32Alpha(const plCharacter &c);
+        void    IRenderChar8To32FullAlpha(const plCharacter &c);
+        void    IRenderChar8To32AlphaPremultiplied(const plCharacter &c);
+        void    IRenderChar8To32AlphaPremShadow(const plCharacter &c);
+        void    IRenderCharNull(const plCharacter &c);
 
-        uint32_t IGetCharPixel( const plCharacter &c, int32_t x, int32_t y )
+        uint32_t IGetCharPixel(const plCharacter &c, int32_t x, int32_t y)
         {
             // only for 8-bit characters
             return (x < 0 || y < 0 || (uint32_t)x >= fWidth || (uint32_t)y >= c.fHeight) ? 0 : *(fBMapData + c.fBitmapOff + y*fWidth + x);
@@ -248,11 +248,11 @@ class plFont : public hsKeyedObject
         plFont();
         virtual ~plFont();
 
-        CLASSNAME_REGISTER( plFont );
-        GETINTERFACE_ANY( plFont, hsKeyedObject );
+        CLASSNAME_REGISTER(plFont);
+        GETINTERFACE_ANY(plFont, hsKeyedObject);
 
-        virtual void    Read( hsStream *s, hsResMgr *mgr );
-        virtual void    Write( hsStream *s, hsResMgr *mgr );
+        virtual void    Read(hsStream *s, hsResMgr *mgr);
+        virtual void    Write(hsStream *s, hsResMgr *mgr);
 
         ST::string  GetFace() const { return fFace; }
         uint8_t     GetSize() const { return fSize; }
@@ -266,43 +266,43 @@ class plFont : public hsKeyedObject
         uint32_t      GetBitmapHeight() const { return fHeight; }
         uint8_t       GetBitmapBPP() const { return fBPP; }
 
-        void    SetFace( const ST::string &face ) { fFace = face; }
-        void    SetSize( uint8_t size ) { fSize = size; }
-        void    SetFlags( uint32_t flags ) { fFlags = flags; }
-        void    SetFlag( uint32_t flag, bool on ) { if( on ) fFlags |= flag; else fFlags &= ~flag; }
-        bool    IsFlagSet( uint32_t flag ) { if( fFlags & flag ) return true; return false; }
+        void    SetFace(const ST::string &face) { fFace = face; }
+        void    SetSize(uint8_t size) { fSize = size; }
+        void    SetFlags(uint32_t flags) { fFlags = flags; }
+        void    SetFlag(uint32_t flag, bool on) { if (on) fFlags |= flag; else fFlags &= ~flag; }
+        bool    IsFlagSet(uint32_t flag) { if (fFlags & flag) return true; return false; }
 
-        void    SetRenderColor( uint32_t color );
-        void    SetRenderFlag( uint32_t flag, bool on ) { if( on ) fRenderInfo.fFlags |= flag; else fRenderInfo.fFlags &= ~flag; }
-        bool    IsRenderFlagSet( uint32_t flag ) { return ( fRenderInfo.fFlags & flag ) ? true : false; }
-        void    SetRenderClipRect( int16_t x, int16_t y, int16_t width, int16_t height );
-        void    SetRenderXJustify( uint32_t j ) { fRenderInfo.fFlags &= ~kRenderJustXMask; fRenderInfo.fFlags |= j; }
-        void    SetRenderYJustify( uint32_t j ) { fRenderInfo.fFlags &= ~kRenderJustYMask; fRenderInfo.fFlags |= j; }
-        void    SetRenderFirstLineIndent( int16_t indent ) { fRenderInfo.fFirstLineIndent = indent; }
-        void    SetRenderLineSpacing( int16_t spacing ) { fRenderInfo.fLineSpacing = spacing; }
+        void    SetRenderColor(uint32_t color);
+        void    SetRenderFlag(uint32_t flag, bool on) { if (on) fRenderInfo.fFlags |= flag; else fRenderInfo.fFlags &= ~flag; }
+        bool    IsRenderFlagSet(uint32_t flag) { return (fRenderInfo.fFlags & flag) ? true : false; }
+        void    SetRenderClipRect(int16_t x, int16_t y, int16_t width, int16_t height);
+        void    SetRenderXJustify(uint32_t j) { fRenderInfo.fFlags &= ~kRenderJustXMask; fRenderInfo.fFlags |= j; }
+        void    SetRenderYJustify(uint32_t j) { fRenderInfo.fFlags &= ~kRenderJustYMask; fRenderInfo.fFlags |= j; }
+        void    SetRenderFirstLineIndent(int16_t indent) { fRenderInfo.fFirstLineIndent = indent; }
+        void    SetRenderLineSpacing(int16_t spacing) { fRenderInfo.fLineSpacing = spacing; }
 
         // Sets flags too
-        void    SetRenderClipping( int16_t x, int16_t y, int16_t width, int16_t height );
-        void    SetRenderWrapping( int16_t x, int16_t y, int16_t width, int16_t height );
+        void    SetRenderClipping(int16_t x, int16_t y, int16_t width, int16_t height);
+        void    SetRenderWrapping(int16_t x, int16_t y, int16_t width, int16_t height);
 
-        void    RenderString( plMipmap *mip, uint16_t x, uint16_t y, const ST::string &string, uint16_t *lastX = nil, uint16_t *lastY = nil );
-        void    RenderString( plMipmap *mip, uint16_t x, uint16_t y, const wchar_t *string, uint16_t *lastX = nil, uint16_t *lastY = nil );
+        void    RenderString(plMipmap *mip, uint16_t x, uint16_t y, const ST::string &string, uint16_t *lastX = nil, uint16_t *lastY = nil);
+        void    RenderString(plMipmap *mip, uint16_t x, uint16_t y, const wchar_t *string, uint16_t *lastX = nil, uint16_t *lastY = nil);
 
-        uint16_t  CalcStringWidth( const ST::string &string );
-        uint16_t  CalcStringWidth( const wchar_t *string );
-        void    CalcStringExtents( const ST::string &string, uint16_t &width, uint16_t &height, uint16_t &ascent, uint32_t &firstClippedChar, uint16_t &lastX, uint16_t &lastY );
-        void    CalcStringExtents( const wchar_t *string, uint16_t &width, uint16_t &height, uint16_t &ascent, uint32_t &firstClippedChar, uint16_t &lastX, uint16_t &lastY );
+        uint16_t  CalcStringWidth(const ST::string &string);
+        uint16_t  CalcStringWidth(const wchar_t *string);
+        void    CalcStringExtents(const ST::string &string, uint16_t &width, uint16_t &height, uint16_t &ascent, uint32_t &firstClippedChar, uint16_t &lastX, uint16_t &lastY);
+        void    CalcStringExtents(const wchar_t *string, uint16_t &width, uint16_t &height, uint16_t &ascent, uint32_t &firstClippedChar, uint16_t &lastX, uint16_t &lastY);
 
-        bool    LoadFromFNT( const plFileName &path );
-        bool    LoadFromFNTStream( hsStream *stream );
+        bool    LoadFromFNT(const plFileName &path);
+        bool    LoadFromFNTStream(hsStream *stream);
 
-        bool    LoadFromBDF( const plFileName &path, plBDFConvertCallback *callback );
-        bool    LoadFromBDFStream( hsStream *stream, plBDFConvertCallback *callback );
+        bool    LoadFromBDF(const plFileName &path, plBDFConvertCallback *callback);
+        bool    LoadFromBDFStream(hsStream *stream, plBDFConvertCallback *callback);
 
-        bool    LoadFromP2FFile( const plFileName &path );
+        bool    LoadFromP2FFile(const plFileName &path);
 
-        bool    ReadRaw( hsStream *stream );
-        bool    WriteRaw( hsStream *stream );
+        bool    ReadRaw(hsStream *stream);
+        bool    WriteRaw(hsStream *stream);
 };
 
 #endif // _plFont_h

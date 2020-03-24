@@ -154,7 +154,7 @@ inline void plWorldWave7::Accumulate(hsPoint3& accumPos, hsVector3& accumNorm) c
 #ifndef PLASMA_EXTERNAL_RELEASE
 inline void plWaveSet7::GraphLen(float len) const
 {
-    if( fStatusGraph )
+    if (fStatusGraph)
     {
         float maxLen = TexState().fMaxLength * kCompositeSize / State().fRippleScale;
         int32_t val = int32_t(len / maxLen * 100.f);
@@ -164,7 +164,7 @@ inline void plWaveSet7::GraphLen(float len) const
 
 inline void plWaveSet7::IRestartGraph() const
 {
-    if( fStatusGraph )
+    if (fStatusGraph)
         fStatusGraph->ClearData();
 }
 
@@ -186,7 +186,7 @@ void plWaveSet7::StopGraph()
 
 inline void plWaveSet7::IRestartLog() const
 {
-    if( fStatusLog )
+    if (fStatusLog)
         fStatusLog->Clear();
 }
 
@@ -278,28 +278,28 @@ plWaveSet7::plWaveSet7()
     IInitWaveConsts();
 
     int i;
-    for( i = 0; i < kNumWaves; i++ )
+    for (i = 0; i < kNumWaves; i++)
     {
         fFreqMod[i] = 1.f;
         IInitWave(i);
     }
-    for( i = 0; i < 4; i++ )
+    for (i = 0; i < 4; i++)
     {
         fFixedLayers[i] = nil;
     }
-    for( i = 0; i < kNumBumpShaders; i++ )
+    for (i = 0; i < kNumBumpShaders; i++)
     {
         fBumpVShader[i] = nil;
         fBumpPShader[i] = nil;
     }
     fBiasLayer[0] = nil;
     fBiasLayer[1] = nil;
-    for( i = 0; i < kNumTexWaves; i++ )
+    for (i = 0; i < kNumTexWaves; i++)
     {
         fBumpLayers[i] = nil;
         fTexWaveFade[i] = 1.f;
     }
-    for( i = 0; i < kGraphShorePasses; i++ )
+    for (i = 0; i < kGraphShorePasses; i++)
     {
         fGraphVShader[i] = nil;
         fGraphPShader[i] = nil;
@@ -310,9 +310,9 @@ plWaveSet7::plWaveSet7()
         fGraphReq[i] = nil;
         fGraphReqMsg[i] = nil;
     }
-    for( i = 0; i < kNumDecalVShaders; i++ )
+    for (i = 0; i < kNumDecalVShaders; i++)
         fDecalVShaders[i] = nil;
-    for( i = 0; i < kNumDecalPShaders; i++ )
+    for (i = 0; i < kNumDecalPShaders; i++)
         fDecalPShaders[i] = nil;
 }
 
@@ -324,7 +324,7 @@ plWaveSet7::~plWaveSet7()
     delete fBumpReq;
 
     int i;
-    for( i = 0; i < kGraphShorePasses; i++ )
+    for (i = 0; i < kGraphShorePasses; i++)
     {
         delete fGraphReqMsg[i];
         delete fGraphReq[i];
@@ -342,25 +342,25 @@ void plWaveSet7::Read(hsStream* stream, hsResMgr* mgr)
 
     int n = stream->ReadLE32();
     int i;
-    for( i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
     {
         mgr->ReadKeyNotifyMe(stream, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, kRefShore), plRefFlags::kPassiveRef);
     }
     n = stream->ReadLE32();
-    for( i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
     {
         mgr->ReadKeyNotifyMe(stream, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, kRefDecal), plRefFlags::kPassiveRef);
     }
     mgr->ReadKeyNotifyMe(stream, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, kRefEnvMap), plRefFlags::kActiveRef);
 
-    if( HasFlag(kHasRefObject) )
+    if (HasFlag(kHasRefObject))
     {
         mgr->ReadKeyNotifyMe(stream, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, kRefRefObj), plRefFlags::kPassiveRef);
     }
 
     ISetupTextureWaves();
 
-    for( i = 0; i < kNumWaves; i++ )
+    for (i = 0; i < kNumWaves; i++)
     {
         fFreqMod[i] = 1.f;
         IInitWave(i);
@@ -382,18 +382,18 @@ void plWaveSet7::Write(hsStream* stream, hsResMgr* mgr)
 
     stream->WriteLE32(fShores.GetCount());
     int i;
-    for( i = 0; i < fShores.GetCount(); i++ )
+    for (i = 0; i < fShores.GetCount(); i++)
     {
         mgr->WriteKey(stream, fShores[i]);
     }
     stream->WriteLE32(fDecals.GetCount());
-    for( i = 0; i < fDecals.GetCount(); i++ )
+    for (i = 0; i < fDecals.GetCount(); i++)
     {
         mgr->WriteKey(stream, fDecals[i]);
     }
     mgr->WriteKey(stream, fEnvMap);
 
-    if( HasFlag(kHasRefObject) )
+    if (HasFlag(kHasRefObject))
     {
         mgr->WriteKey(stream, fRefObj);
     }
@@ -402,7 +402,7 @@ void plWaveSet7::Write(hsStream* stream, hsResMgr* mgr)
 bool plWaveSet7::MsgReceive(plMessage* msg)
 {
     plEvalMsg* update = plEvalMsg::ConvertNoRef(msg);
-    if( update )
+    if (update)
     {
         if (fFixedVShader == nil)
         {
@@ -414,10 +414,10 @@ bool plWaveSet7::MsgReceive(plMessage* msg)
         IRestartGraph();
 
         plCONST(bool) reRender(false);
-        if( reRender || (fTrialUpdate & kReRenderEnvMap) )
+        if (reRender || (fTrialUpdate & kReRenderEnvMap))
         {
             plDynamicEnvMap* envMap = plDynamicEnvMap::ConvertNoRef(fEnvMap);
-            if( envMap )
+            if (envMap)
             {
                 envMap->ReRender();
 
@@ -426,7 +426,7 @@ bool plWaveSet7::MsgReceive(plMessage* msg)
         }
 
         float dt = update->DelSeconds();
-        if( dt > kTimeClamp )
+        if (dt > kTimeClamp)
             dt = kTimeClamp;
 
         IUpdateWindDir(dt);
@@ -436,15 +436,15 @@ bool plWaveSet7::MsgReceive(plMessage* msg)
     }
 
     plRenderMsg* rend = plRenderMsg::ConvertNoRef(msg);
-    if( rend )
+    if (rend)
     {
-        if( !IAnyBoundsVisible(rend->Pipeline()) )
+        if (!IAnyBoundsVisible(rend->Pipeline()))
             return true;
 
         fCurrTime = hsTimer::GetSysSeconds();
         // Can't just use GetDelSysSeconds() or else we lose time if we skip a frame render because of high FPS.
         float dt = fLastTime > 0 ? float(fCurrTime - fLastTime) : hsTimer::GetDelSysSeconds();
-        if( dt > kTimeClamp )
+        if (dt > kTimeClamp)
             dt = kTimeClamp;
 
         IUpdateRefObject();
@@ -463,7 +463,7 @@ bool plWaveSet7::MsgReceive(plMessage* msg)
     }
 
     plAgeLoadedMsg* ageLoaded = plAgeLoadedMsg::ConvertNoRef(msg);
-    if( (ageLoaded && ageLoaded->fLoaded) || plInitialAgeStateLoadedMsg::ConvertNoRef(msg) )
+    if ((ageLoaded && ageLoaded->fLoaded) || plInitialAgeStateLoadedMsg::ConvertNoRef(msg))
     {
         ICheckTargetMaterials();
         ICheckShoreMaterials();
@@ -472,9 +472,9 @@ bool plWaveSet7::MsgReceive(plMessage* msg)
     }
 
     plGenRefMsg* refMsg = plGenRefMsg::ConvertNoRef(msg);
-    if( refMsg )
+    if (refMsg)
     {
-        if( refMsg->GetContext() & (plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace) )
+        if (refMsg->GetContext() & (plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace))
         {
             IOnReceive(refMsg);
         }
@@ -491,9 +491,9 @@ bool plWaveSet7::MsgReceive(plMessage* msg)
 bool plWaveSet7::IAnyBoundsVisible(plPipeline* pipe) const
 {
     int i;
-    for( i = 0; i < fTargBnds.GetCount(); i++ )
+    for (i = 0; i < fTargBnds.GetCount(); i++)
     {
-        if( pipe->TestVisibleWorld(fTargBnds[i]) )
+        if (pipe->TestVisibleWorld(fTargBnds[i]))
             return true;
     }
     return false;
@@ -501,7 +501,7 @@ bool plWaveSet7::IAnyBoundsVisible(plPipeline* pipe) const
 
 bool plWaveSet7::IOnReceive(plGenRefMsg* refMsg)
 {
-    switch( refMsg->fType )
+    switch (refMsg->fType)
     {
     case kRefRefObj:
         fRefObj = plSceneObject::ConvertNoRef(refMsg->GetRef());
@@ -587,7 +587,7 @@ bool plWaveSet7::IOnReceive(plGenRefMsg* refMsg)
     case kRefDynaDecalMgr:
         {
             plDynaDecalMgr* dyna = plDynaDecalMgr::ConvertNoRef(refMsg->GetRef());
-            if( fDecalMgrs.Find(dyna) == fDecalMgrs.kMissingIndex )
+            if (fDecalMgrs.Find(dyna) == fDecalMgrs.kMissingIndex)
             {
                 fDecalMgrs.Append(dyna);
             }
@@ -596,7 +596,7 @@ bool plWaveSet7::IOnReceive(plGenRefMsg* refMsg)
     case kRefBuoy:
         {
             plSceneObject* so = plSceneObject::ConvertNoRef(refMsg->GetRef());
-            if( fBuoys.Find(so) == fBuoys.kMissingIndex )
+            if (fBuoys.Find(so) == fBuoys.kMissingIndex)
             {
                 IShiftCenter(so);
                 fBuoys.Append(so);
@@ -609,7 +609,7 @@ bool plWaveSet7::IOnReceive(plGenRefMsg* refMsg)
 
 bool plWaveSet7::IOnRemove(plGenRefMsg* refMsg)
 {
-    switch( refMsg->fType )
+    switch (refMsg->fType)
     {
     case kRefRefObj:
         fRefObj = nil;
@@ -624,7 +624,7 @@ bool plWaveSet7::IOnRemove(plGenRefMsg* refMsg)
         {
             plSceneObject* shore = (plSceneObject*)refMsg->GetRef();
             int idx = fShores.Find(shore);
-            if( idx != fShores.kMissingIndex )
+            if (idx != fShores.kMissingIndex)
                 fShores.Remove(idx);
         }
         return true;
@@ -632,7 +632,7 @@ bool plWaveSet7::IOnRemove(plGenRefMsg* refMsg)
         {
             plSceneObject* decal = (plSceneObject*)refMsg->GetRef();
             int idx = fDecals.Find(decal);
-            if( idx != fDecals.kMissingIndex )
+            if (idx != fDecals.kMissingIndex)
                 fDecals.Remove(idx);
         }
         return true;
@@ -706,7 +706,7 @@ bool plWaveSet7::IOnRemove(plGenRefMsg* refMsg)
         {
             plDynaDecalMgr* dyna = (plDynaDecalMgr*)refMsg->GetRef();
             int idx = fDecalMgrs.Find(dyna);
-            if( fDecalMgrs.kMissingIndex != idx )
+            if (fDecalMgrs.kMissingIndex != idx)
                 fDecalMgrs.Remove(idx);
         }
         return true;
@@ -714,7 +714,7 @@ bool plWaveSet7::IOnRemove(plGenRefMsg* refMsg)
         {
             plSceneObject* so = (plSceneObject*)refMsg->GetRef();
             int idx = fBuoys.Find(so);
-            if( fBuoys.kMissingIndex != idx )
+            if (fBuoys.kMissingIndex != idx)
                 fBuoys.Remove(idx);
         }
         return true;
@@ -726,7 +726,7 @@ void plWaveSet7::SetState(const plFixedWaterState7& state, float dur)
 {
     fState.Set(state, dur);
 
-    if( fFixedLayers[0] )
+    if (fFixedLayers[0])
     {
         plLayer* lay = plLayer::ConvertNoRef(fFixedLayers[0]->BottomOfStack());
         lay->SetRuntimeColor(state.fWaterTint);
@@ -740,7 +740,7 @@ void plWaveSet7::IUpdateWaves(float dt)
     ICalcScale();
     fScrunchLen = 1.e33f;
 
-    if( fTrialUpdate & kReInitWaves )
+    if (fTrialUpdate & kReInitWaves)
     {
         IReInitWaves();
         ISetupTextureWaves();
@@ -748,7 +748,7 @@ void plWaveSet7::IUpdateWaves(float dt)
     }
 
     int i;
-    for( i = 0; i < kNumWaves; i++ )
+    for (i = 0; i < kNumWaves; i++)
     {
         IUpdateWave(dt, i);
     }
@@ -759,7 +759,7 @@ bool plWaveSet7::ITransContinue(float dt)
 {
     float currFade = (fFreqMod[fTransistor] += fTransDel * dt);
 
-    if( currFade <= 0 )
+    if (currFade <= 0)
     {
         // Done fading down, time to fade back up.
         fTransDel = -fTransDel;
@@ -772,7 +772,7 @@ bool plWaveSet7::ITransContinue(float dt)
         return false;
     }
     
-    if( currFade >= 1.f )
+    if (currFade >= 1.f)
     {
         fFreqMod[fTransistor] = 1.f;
         fTransDel = 0;
@@ -786,7 +786,7 @@ bool plWaveSet7::ITransContinue(float dt)
 void plWaveSet7::IStartTransition(float dt)
 {
     // select the next wave for transitioning
-    if( ++fTransistor >= kNumWaves )
+    if (++fTransistor >= kNumWaves)
         fTransistor = 0;
 
     // set the transFade to be fading down.
@@ -803,13 +803,13 @@ float plWaveSet7::ITransitionDelay() const
 void plWaveSet7::ITransition(float dt)
 {
     // If we're in a transition, keep transitioning till it's done.
-    if( fTransDel != 0 )
+    if (fTransDel != 0)
     {
-        if( ITransContinue(dt) )
+        if (ITransContinue(dt))
             fTransCountDown = ITransitionDelay();
     }
     // else if our transition countdown has gone to zero, start a new one.
-    else if( (fTransCountDown -= dt) <= 0 )
+    else if ((fTransCountDown -= dt) <= 0)
     {
         IStartTransition(dt);
     }
@@ -820,7 +820,7 @@ bool plWaveSet7::ITransTexContinue(float dt)
 {
     float currFade = (fTexWaveFade[fTexTrans] += fTexTransDel * dt);
 
-    if( currFade <= 0 )
+    if (currFade <= 0)
     {
         // Done fading down, time to fade back up.
         fTexTransDel = -fTexTransDel;
@@ -832,7 +832,7 @@ bool plWaveSet7::ITransTexContinue(float dt)
         return false;
     }
 
-    if( currFade >= 1.f )
+    if (currFade >= 1.f)
     {
         // This one is back to full on, time to pick on another one.
         fTexWaveFade[fTexTrans] = 1.f;
@@ -846,7 +846,7 @@ bool plWaveSet7::ITransTexContinue(float dt)
 
 void plWaveSet7::IStartTexTransition(float dt)
 {
-    if( ++fTexTrans >= kNumTexWaves )
+    if (++fTexTrans >= kNumTexWaves)
         fTexTrans = 0;
 
     plConst(float) kTexTransDel(4.f);
@@ -857,14 +857,14 @@ void plWaveSet7::ITransTex(float dt)
 {
 
     // If we're in a transition, keep with it.
-    if( fTexTransDel != 0 )
+    if (fTexTransDel != 0)
     {
         plConst(float) kTexTransDelay(0);
-        if( ITransTexContinue(dt) )
+        if (ITransTexContinue(dt))
             fTexTransCountDown = kTexTransDelay;
     }
     // else if it's time to start another...
-    else if( (fTexTransCountDown -= dt) <= 0 )
+    else if ((fTexTransCountDown -= dt) <= 0)
     {
         IStartTexTransition(dt);
     }
@@ -885,7 +885,7 @@ void plWaveSet7::IUpdateWave(float dt, int i)
     static float speedHack = 1.f;
     speed *= speedHack;
     wave.fPhase += speed * dt;
-//  wave.fPhase = fmod( speed * t, 2.f * M_PI);
+//  wave.fPhase = fmod(speed * t, 2.f * M_PI);
 
     float amp = GeoState().fAmpOverLen * len / float(kNumWaves);
 
@@ -898,7 +898,7 @@ void plWaveSet7::IUpdateWave(float dt, int i)
 void plWaveSet7::IReInitWaves()
 {
     int i;
-    for( i = 0; i < kNumWaves; i++ )
+    for (i = 0; i < kNumWaves; i++)
     {
         IInitWave(i);
     }
@@ -962,7 +962,7 @@ float plWaveSet7::EvalPoint(hsPoint3& pos, hsVector3& norm)
     accumNorm.Set(0,0,0);
 
     int i;
-    for( i = 0; i < kNumWaves; i++ )
+    for (i = 0; i < kNumWaves; i++)
         fWorldWaves[i].Accumulate(accumPos, accumNorm);
 
     accumNorm.fZ = 1.f;
@@ -990,7 +990,7 @@ void plWaveSet7::IUpdateWindDir(float dt)
 
 void plWaveSet7::IUpdateRefObject()
 {
-    if( fRefObj )
+    if (fRefObj)
     {
         hsMatrix44 l2w = fRefObj->GetLocalToWorld();
         
@@ -1024,10 +1024,10 @@ void plWaveSet7::IFloatBuoy(float dt, plSceneObject* so)
     float surfDepth = surfNorm.InnerProduct(surfPos);
     float depth = surfDepth - boxDepth.fX;
 
-    if( depth < 0 )
+    if (depth < 0)
         return;
 
-    if( depth > wBnd.GetMaxs().fZ - wBnd.GetMins().fZ )
+    if (depth > wBnd.GetMaxs().fZ - wBnd.GetMins().fZ)
         depth = wBnd.GetMaxs().fZ - wBnd.GetMins().fZ;
 
     // We really want the cross section area as facing into the water,
@@ -1059,7 +1059,7 @@ void plWaveSet7::IFloatBuoy(float dt, plSceneObject* so)
 
     plCONST(float) kDampener(0.1f);
     plCONST(float) kBaseDamp(0.1f);
-    if( wBnd.GetMaxs().fZ > wBnd.GetMins().fZ )
+    if (wBnd.GetMaxs().fZ > wBnd.GetMins().fZ)
     {
         // Remember, we've already limited depth to be <= Max.fZ - Min.fZ;
         float damp = depth / (wBnd.GetMaxs().fZ - wBnd.GetMins().fZ);
@@ -1074,9 +1074,9 @@ void plWaveSet7::IFloatBuoy(float dt, plSceneObject* so)
 void plWaveSet7::IFloatBuoys(float dt)
 {
     int i;
-    for( i = 0; i < fBuoys.GetCount(); i++ )
+    for (i = 0; i < fBuoys.GetCount(); i++)
     {
-        if( fBuoys[i] && fBuoys[i]->GetSimulationInterface() && fBuoys[i]->GetSimulationInterface()->GetPhysical() && fBuoys[i]->GetDrawInterface() )
+        if (fBuoys[i] && fBuoys[i]->GetSimulationInterface() && fBuoys[i]->GetSimulationInterface()->GetPhysical() && fBuoys[i]->GetDrawInterface())
         {
             IFloatBuoy(dt, fBuoys[i]);
         }
@@ -1086,7 +1086,7 @@ void plWaveSet7::IFloatBuoys(float dt)
 void plWaveSet7::IShiftCenter(plSceneObject* so) const
 {
     // HACKAGE
-    if( 0 && so->GetSimulationInterface() && so->GetSimulationInterface()->GetPhysical() && so->GetDrawInterface() )
+    if (0 && so->GetSimulationInterface() && so->GetSimulationInterface()->GetPhysical() && so->GetDrawInterface())
     {
         hsPoint3 center = so->GetDrawInterface()->GetWorldBounds().GetCenter();
         hsPoint3 pos = so->GetLocalToWorld().GetTranslate();
@@ -1101,14 +1101,14 @@ void plWaveSet7::ICheckTargetMaterials()
     hsBounds3Ext targBnd;
     targBnd.MakeEmpty();
     int i;
-    for( i = 0; i < GetNumTargets(); i++ )
+    for (i = 0; i < GetNumTargets(); i++)
     {
         plSceneObject* so = GetTarget(i);
-        if( !so )
+        if (!so)
             continue;
 
         const plDrawInterface* di = so->GetDrawInterface();
-        if( !di )
+        if (!di)
             continue;
 
         hsTArray<plAccessSpan> src;
@@ -1116,7 +1116,7 @@ void plWaveSet7::ICheckTargetMaterials()
 
         const int numUVWs = src.GetCount() && src[0].AccessVtx().HasUVWs() ? src[0].AccessVtx().NumUVWs() : 0;
         int j;
-        for( j = 0; j < src.GetCount(); j++ )
+        for (j = 0; j < src.GetCount(); j++)
         {
             hsAssert(src[j].AccessVtx().NumUVWs() == numUVWs, "Must have same number uvws on each water mesh");
             ICreateFixedMat(src[j].GetMaterial(), numUVWs); // no-op if it's already setup.
@@ -1126,18 +1126,18 @@ void plWaveSet7::ICheckTargetMaterials()
 
         plAccessGeometry::Instance()->Close(src);
 
-        for( j = 0; j < di->GetNumDrawables(); j++ )
+        for (j = 0; j < di->GetNumDrawables(); j++)
         {
             plDrawableSpans* dr = plDrawableSpans::ConvertNoRef(di->GetDrawable(j));
-            if( dr )
+            if (dr)
             {
                 dr->SetNativeProperty(di->GetDrawableMeshIndex(j), plSpan::kPropRunTimeLight | plSpan::kPropSkipProjection | plSpan::kPropNoShadow | plSpan::kLiteVtxNonPreshaded | plSpan::kPropReverseSort, true);
             }
         }
     }
-    if( targBnd.GetType() == kBoundsNormal )
+    if (targBnd.GetType() == kBoundsNormal)
     {
-        if( !fTargBnds.GetCount() )
+        if (!fTargBnds.GetCount())
             fTargBnds.SetCount(1);
         
         plConst(float) kMaxWaveHeight(5.f);
@@ -1156,7 +1156,7 @@ void plWaveSet7::ICheckTargetMaterials()
 void plWaveSet7::IAddTarget(const plKey& key)
 {
     plObjRefMsg* refMsg = new plObjRefMsg(key, plRefMsg::kOnRequest, -1, plObjRefMsg::kModifier);
-    hsgResMgr::ResMgr()->AddViaNotify( GetKey(), refMsg, plRefFlags::kActiveRef);
+    hsgResMgr::ResMgr()->AddViaNotify(GetKey(), refMsg, plRefFlags::kActiveRef);
 }
 
 void plWaveSet7::IRemoveTarget(const plKey& key)
@@ -1212,13 +1212,13 @@ class plFilterMask
 
     public:
 
-        plFilterMask( float sig );
+        plFilterMask(float sig);
         virtual ~plFilterMask();
 
         int     Begin() const { return -fExt; }
         int     End() const { return fExt; }
 
-        float    Mask( int i, int j ) const { return fMask[ i ][ j ]; }
+        float    Mask(int i, int j) const { return fMask[i][j]; }
 };
 // End evil.
 
@@ -1310,7 +1310,7 @@ void plWaveSet7::IInitWaveConsts()
         { 1.f,      30.f,   16.f }
     };
     int i;
-    for( i = 0; i < kNumTexWaves; i++ )
+    for (i = 0; i < kNumTexWaves; i++)
         fWaveKs[i] = waveKs[i];
 
     TexWaveWindDep windDeps[] = {
@@ -1323,7 +1323,7 @@ void plWaveSet7::IInitWaveConsts()
         { 25.f,     0.1f,       0.3f }
     };
 
-    for( i = 0; i < kNumWindDep; i++ )
+    for (i = 0; i < kNumWindDep; i++)
         fWindDeps[i] = windDeps[i];
 
     ISetupTextureWaves();
@@ -1345,7 +1345,7 @@ void plWaveSet7::ISetupTextureWaves()
     //          // Half the wavelen to match higher mip level
     //          // If a wavelen falls below min (4), discard it and smaller lens
     //          len /= 2
-    //          if( len < 4 )
+    //          if (len < 4)
     //          {
     //              numLen = iLen
     //              break;
@@ -1363,7 +1363,7 @@ void plWaveSet7::ISetupTextureWaves()
     // round the scaled direction components to be integral, then
     // figure out what wavelength we actually came up with.
     int i;
-    for( i = 0; i < kNumTexWaves; i++ )
+    for (i = 0; i < kNumTexWaves; i++)
     {
         IInitTexWave(i);
     }
@@ -1450,13 +1450,13 @@ void plWaveSet7::IUpdateBumpLayers(float dt)
 {
     plCONST(float) speedHack(1.f / 3.f);
     int i;
-    for( i = 0; i < kNumTexWaves; i++ )
+    for (i = 0; i < kNumTexWaves; i++)
     {
         float speed = hsFastMath::InvSqrtAppr(fTexWaves[i].fLen / (2.f * M_PI * kGravConst)) * speedHack;
         fTexWaves[i].fPhase -= dt * speed;
         fTexWaves[i].fPhase -= int(fTexWaves[i].fPhase);
 
-        if( fBumpLayers[i] )
+        if (fBumpLayers[i])
         {
             hsMatrix44 xfm = fBumpLayers[i]->GetTransform();
 
@@ -1476,13 +1476,13 @@ void plWaveSet7::IUpdateBumpLayers(float dt)
 
 void plWaveSet7::ISubmitRenderRequests()
 {
-    if( fBumpReqMsg )
+    if (fBumpReqMsg)
         fBumpReqMsg->SendAndKeep();
 
     int i;
-    for( i = 0; i < kGraphShorePasses; i++ )
+    for (i = 0; i < kGraphShorePasses; i++)
     {
-        if( fGraphReqMsg[i] )
+        if (fGraphReqMsg[i])
             fGraphReqMsg[i]->SendAndKeep();
     }
 }
@@ -1590,10 +1590,10 @@ plMipmap* plWaveSet7::ICreateBiasNoiseMap()
     hsgResMgr::ResMgr()->NewKey(buff, mipMap, GetKey()->GetUoid().GetLocation());
 
     int i;
-    for( i = 0; i < size; i++ )
+    for (i = 0; i < size; i++)
     {
         int j;
-        for( j = 0; j < size; j++ )
+        for (j = 0; j < size; j++)
         {
             float x = fRand.RandMinusOneToOne();
             float y = fRand.RandMinusOneToOne();
@@ -1622,7 +1622,7 @@ plMipmap* plWaveSet7::ICreateBumpMipmapPS()
     const int kNumLevels = 8; // must be log2(kCompositeSize)
     hsAssert(kCompositeSize == (1 << kNumLevels), "Mismatch on size and num mip levels");
 
-    if( !fCosineLUT )
+    if (!fCosineLUT)
     {
         plMipmap* mipMap = new plMipmap(
         kCompositeSize, sizeV,
@@ -1639,14 +1639,14 @@ plMipmap* plWaveSet7::ICreateBumpMipmapPS()
     hsAssert(fCosineLUT, "Failed to make cosine lookup table");
 
     int k;
-    for( k = 0; k < kNumLevels; k++ )
+    for (k = 0; k < kNumLevels; k++)
     {
         fCosineLUT->SetCurrLevel(k);
         
         const int sizeU = kCompositeSize >> k;
 
         int i;
-        for( i = 0; i < sizeU; i++ )
+        for (i = 0; i < sizeU; i++)
         {
             float y = float(i);
             float dist = float(i) / float(sizeU-1) * 2.f * M_PI;
@@ -1658,7 +1658,7 @@ plMipmap* plWaveSet7::ICreateBumpMipmapPS()
             c *= s;
             uint8_t cosDist = uint8_t((c * 0.5 + 0.5) * 255.999f);
             int j;
-            for( j = 0; j < sizeV; j++ )
+            for (j = 0; j < sizeV; j++)
             {
                 uint32_t* val = fCosineLUT->GetAddr32(i, j);
                 *val = (0xff << 24)
@@ -1675,12 +1675,12 @@ plMipmap* plWaveSet7::ICreateBumpMipmapPS()
 
 void plWaveSet7::IAddBumpBiasLayer(hsGMaterial* mat)
 {
-    if( !fBiasLayer[0] )
+    if (!fBiasLayer[0])
     {
         plMipmap* mipMap = ICreateBiasNoiseMap();
 
         int i;
-        for( i = 0; i < 2; i++ )
+        for (i = 0; i < 2; i++)
         {
             plLayer* layer = new plLayer;
             ST::string buff = ST::format("{}_Bias_{}", GetKey()->GetName(), i);
@@ -1729,7 +1729,7 @@ plLayer* plWaveSet7::ICreateBumpLayerPS(plMipmap* mipMap, hsGMaterial* bumpMat, 
         | hsGMatState::kShadeWhite);
     layer->SetClampFlags(0);
     layer->SetMiscFlags(0);
-    if( (which / kBumpPerPass) * kBumpPerPass == which )
+    if ((which / kBumpPerPass) * kBumpPerPass == which)
         layer->SetMiscFlags(hsGMatState::kMiscRestartPassHere);
 
     layer->SetAmbientColor(hsColorRGBA().Set(0.f, 0.f, 0.f, 1.f));
@@ -1759,7 +1759,7 @@ plLayer* plWaveSet7::ICreateBumpLayerPS(plMipmap* mipMap, hsGMaterial* bumpMat, 
 
 hsGMaterial* plWaveSet7::ICreateBumpLayersPS()
 {
-    if( fBumpMat )
+    if (fBumpMat)
         return fBumpMat;
 
     // Create four bitmaps, each containing a single cycle of values:
@@ -1787,12 +1787,12 @@ hsGMaterial* plWaveSet7::ICreateBumpLayersPS()
     //          Rotation is by wave[0].fDir
     //  Add bitmap 0.
     int i;
-    for( i = 0; i < kNumBumpShaders; i++ )
+    for (i = 0; i < kNumBumpShaders; i++)
     {
         int nBegin = bumpMat->GetNumLayers();
 
         int j;
-        for( j = 0; j < kBumpPerPass; j++ )
+        for (j = 0; j < kBumpPerPass; j++)
             fBumpLayers[i*kBumpPerPass + j] = ICreateBumpLayerPS(mipMap, bumpMat, i*kBumpPerPass + j);
 
         IAddBumpVertexShader(bumpMat, i, nBegin, nBegin + kBumpPerPass-1);
@@ -1812,7 +1812,7 @@ hsGMaterial* plWaveSet7::ICreateBumpLayersPS()
 
 void plWaveSet7::IAddBumpBiasShaders(plLayer* layer)
 {
-    if( !fBiasVShader )
+    if (!fBiasVShader)
     {
         plShader* vShader = new plShader;
 
@@ -1875,7 +1875,7 @@ void plWaveSet7::IAddBumpBiasShaders(plLayer* layer)
     hsgResMgr::ResMgr()->SendRef(fBiasVShader->GetKey(), refMsg, plRefFlags::kActiveRef);
 
 
-    if( !fBiasPShader )
+    if (!fBiasPShader)
     {
         plShader* pShader = new plShader;
 
@@ -1904,10 +1904,10 @@ void plWaveSet7::IAddBumpBiasShaders(plLayer* layer)
 
 void plWaveSet7::IAddBumpVertexShader(hsGMaterial* mat, int iShader, int iFirst, int iLast)
 {
-    if( !fBumpVShader[0] )
+    if (!fBumpVShader[0])
     {
         int iBase = 0;
-        while( iBase < kNumTexWaves )
+        while (iBase < kNumTexWaves)
         {
             int iShader = iBase / kBumpPerPass;
 
@@ -1929,7 +1929,7 @@ void plWaveSet7::IAddBumpVertexShader(hsGMaterial* mat, int iShader, int iFirst,
 
             vShader->SetNumPipeConsts(kBumpPerPass);
             int i;
-            for( i = 0; i < kBumpPerPass; i++ )
+            for (i = 0; i < kBumpPerPass; i++)
             {
                 vShader->SetPipeConst(i, static_cast<plPipeConst::Type>(plPipeConst::kTex1x4_0 + i), plBumpVS::kUXform0 + i);
             }
@@ -1949,10 +1949,10 @@ void plWaveSet7::IAddBumpVertexShader(hsGMaterial* mat, int iShader, int iFirst,
 
 void plWaveSet7::IAddBumpPixelShader(hsGMaterial* mat, int iShader, int iFirst, int iLast)
 {
-    if( !fBumpPShader[0] )
+    if (!fBumpPShader[0])
     {
         int iBase = 0;
-        while( iBase < kNumTexWaves )
+        while (iBase < kNumTexWaves)
         {
             int iShader = iBase / kBumpPerPass;
 
@@ -1964,7 +1964,7 @@ void plWaveSet7::IAddBumpPixelShader(hsGMaterial* mat, int iShader, int iFirst, 
             pShader->SetNumConsts(plBumpPS::kNumConsts);
 
             int iLay;
-            for( iLay = 0; iLay < kBumpPerPass; iLay++ )
+            for (iLay = 0; iLay < kBumpPerPass; iLay++)
             {
                 pShader->SetVector(plBumpPS::kWave0,
                     -fTexWaves[iBase + iLay].fDirX * (1.f / float(kBumpPerPass)),
@@ -2066,7 +2066,7 @@ plDrawableSpans* plWaveSet7::ICreateClearDrawable(plDrawableSpans* drawable, hsG
     idx[5] = 3;
 
 
-    plDrawableGenerator::GenerateDrawable( 4, pos, norm,
+    plDrawableGenerator::GenerateDrawable(4, pos, norm,
                                                         uvw, 1,
                                                         nil, false, nil,
                                                         6, idx,
@@ -2123,7 +2123,7 @@ plRenderTarget* plWaveSet7::ICreateTransferRenderTarget(const char* name, int si
 plLayer* plWaveSet7::ICreateTotalLayer(plBitmap* bm, hsGMaterial* mat, int which, const char* suff)
 {
     plLayer* layer = mat->GetNumLayers() > which ? plLayer::ConvertNoRef(mat->GetLayer(which)->BottomOfStack()) : nil;
-    if( !layer )
+    if (!layer)
     {
         layer = new plLayer;
         ST::string buff = ST::format("{}_{}LayerPS_{}", GetKey()->GetName(), suff, which);
@@ -2195,14 +2195,14 @@ hsGMaterial* plWaveSet7::ICreateFixedMatPS(hsGMaterial* mat, const int numUVWs)
     hsAssert(mat, "Nil mat should have been filtered out before calling this");
 
     // Check if we've already done this one.
-    if( (mat->GetNumLayers() == 4)
-        &&(mat->GetLayer(3) == fFixedLayers[3]) )
+    if ((mat->GetNumLayers() == 4)
+        &&(mat->GetLayer(3) == fFixedLayers[3]))
         return mat;
 
     // First, strip off whatever's on there now.
     // If this is the
     int i;
-    for( i = mat->GetNumLayers()-1; i > 0; i-- )
+    for (i = mat->GetNumLayers()-1; i > 0; i--)
     {
         plMatRefMsg* refMsg = new plMatRefMsg(mat->GetKey(), plRefMsg::kOnRemove, i, plMatRefMsg::kLayer);
         hsgResMgr::ResMgr()->SendRef(mat->GetLayer(i)->GetKey(), refMsg, plRefFlags::kActiveRef);
@@ -2210,7 +2210,7 @@ hsGMaterial* plWaveSet7::ICreateFixedMatPS(hsGMaterial* mat, const int numUVWs)
 
     plRenderTarget* rt = ICreateTransferRenderTarget("CompRT", kCompositeSize);
 
-    if( mat->GetNumLayers() && mat->GetLayer(0) )
+    if (mat->GetNumLayers() && mat->GetLayer(0))
     {
         fState.fWaterTint = mat->GetLayer(0)->GetRuntimeColor();
     }
@@ -2232,10 +2232,10 @@ hsGMaterial* plWaveSet7::ICreateFixedMatPS(hsGMaterial* mat, const int numUVWs)
 
 void plWaveSet7::ICreateFixedMat(hsGMaterial* mat, const int numUVWs)
 {
-    if( !mat )
+    if (!mat)
         return;
 
-    if( !fEnvMap )
+    if (!fEnvMap)
     {
         plDynamicEnvMap* env = new plDynamicEnvMap((uint16_t)fEnvSize, (uint16_t)fEnvSize, 32);
         hsgResMgr::ResMgr()->NewKey(GetKey()->GetName(), env, GetKey()->GetUoid().GetLocation());
@@ -2255,7 +2255,7 @@ void plWaveSet7::ICreateFixedMat(hsGMaterial* mat, const int numUVWs)
 
 void plWaveSet7::IAddShoreVertexShader(hsGMaterial* mat)
 {
-    if( !fShoreVShader )
+    if (!fShoreVShader)
     {
 
         plShader* vShader = new plShader;
@@ -2309,7 +2309,7 @@ void plWaveSet7::IAddShoreVertexShader(hsGMaterial* mat)
 
 void plWaveSet7::IAddShorePixelShader(hsGMaterial* mat)
 {
-    if( !fShorePShader )
+    if (!fShorePShader)
     {
         plShader* pShader = new plShader;
 
@@ -2331,7 +2331,7 @@ void plWaveSet7::IAddShorePixelShader(hsGMaterial* mat)
 
 void plWaveSet7::IAddFixedVertexShader(hsGMaterial* mat, const int numUVWs)
 {
-    if( !fFixedVShader )
+    if (!fFixedVShader)
     {
 
         plShader* vShader = new plShader;
@@ -2380,17 +2380,17 @@ void plWaveSet7::IAddFixedVertexShader(hsGMaterial* mat, const int numUVWs)
 // type is either plLayRefMsg::kVertexShader or plLayRefMsg::kPixelShader.
 void plWaveSet7::IAddShaderToLayers(hsGMaterial* mat, int iFirst, int iLast, uint8_t type, plShader* shader)
 {
-    if( iFirst < 0 )
+    if (iFirst < 0)
         iFirst = 0;
-    if( uint32_t(iLast) >= mat->GetNumLayers() )
+    if (uint32_t(iLast) >= mat->GetNumLayers())
         iLast = mat->GetNumLayers()-1;
     int i;
-    for( i = iFirst; i <= iLast; i++ )
+    for (i = iFirst; i <= iLast; i++)
     {
         plLayer* layer = plLayer::ConvertNoRef(mat->GetLayer(i)->BottomOfStack());
-        if( layer
+        if (layer
             && (layer->GetVertexShader() != shader)
-            && (layer->GetPixelShader() != shader) )
+            && (layer->GetPixelShader() != shader))
         {
             plLayRefMsg* refMsg = new plLayRefMsg(layer->GetKey(), plRefMsg::kOnCreate, 0, type);
             hsgResMgr::ResMgr()->SendRef(shader->GetKey(), refMsg, plRefFlags::kActiveRef);
@@ -2402,7 +2402,7 @@ void plWaveSet7::IAddShaderToLayers(hsGMaterial* mat, int iFirst, int iLast, uin
 
 void plWaveSet7::IAddFixedPixelShader(hsGMaterial* mat)
 {
-    if( !fFixedPShader )
+    if (!fFixedPShader)
     {
         plShader* pShader = new plShader;
         ST::string buff = ST::format("{}_FixedPS", GetKey()->GetName());
@@ -2430,7 +2430,7 @@ void plWaveSet7::IAddFixedPixelShader(hsGMaterial* mat)
 
 void plWaveSet7::IAddRipVertexShader(hsGMaterial* mat, const plRipVSConsts& ripConsts)
 {
-    if( !fRipVShader )
+    if (!fRipVShader)
     {
         plShader* vShader = new plShader;
         ST::string buff = ST::format("{}_RipVS", GetKey()->GetName());
@@ -2515,7 +2515,7 @@ void plWaveSet7::IAddRipVertexShader(hsGMaterial* mat, const plRipVSConsts& ripC
 
 void plWaveSet7::IAddRipPixelShader(hsGMaterial* mat, const plRipVSConsts& ripConsts)
 {
-    if( !fRipPShader )
+    if (!fRipPShader)
     {
         plShader* pShader = new plShader;
         ST::string buff = ST::format("{}_RipPS", GetKey()->GetName());
@@ -2541,7 +2541,7 @@ void plWaveSet7::IAddRipPixelShader(hsGMaterial* mat, const plRipVSConsts& ripCo
 
 plShader* plWaveSet7::ICreateDecalVShader(DecalVType t)
 {
-    if( !fDecalVShaders[t] )
+    if (!fDecalVShaders[t])
     {
         static const char* fname[kNumDecalVShaders] = {
             "vs_WaveDec1Lay_7",
@@ -2629,7 +2629,7 @@ plShader* plWaveSet7::ICreateDecalVShader(DecalVType t)
         vShader->SetPipeConst(3, plPipeConst::kCamPosWorld, plWaveDecVS::kCameraPos);
         vShader->SetPipeConst(4, plPipeConst::kFogSet, plWaveDecVS::kFogSet);
         int i;
-        for( i = 0; i < numLayXfms[t]; i++ )
+        for (i = 0; i < numLayXfms[t]; i++)
         {
             vShader->SetPipeConst(kNumPipe + i, plPipeConst::Type(plPipeConst::kTex2x4_0+i), plWaveDecVS::kTex0Transform + i);
         }
@@ -2646,17 +2646,17 @@ plShader* plWaveSet7::ICreateDecalVShader(DecalVType t)
 
 plShader* plWaveSet7::IGetDecalVShader(hsGMaterial* mat)
 {
-    if( mat->GetLayer(0)->GetShadeFlags() & hsGMatState::kShadeEnvironMap )
+    if (mat->GetLayer(0)->GetShadeFlags() & hsGMatState::kShadeEnvironMap)
         return ICreateDecalVShader(kDecalVEnv);
 
-    switch( mat->GetNumLayers() )
+    switch (mat->GetNumLayers())
     {
     case 1:
         return ICreateDecalVShader(kDecalV1Lay);
     case 2:
         hsAssert(mat->GetLayer(0)->GetUVWSrc() == 0, "First layer must use uvw channel 1");
         hsAssert(mat->GetLayer(1)->GetUVWSrc() < 2, "Second layer must use uvw channel 1 or 2");
-        switch( mat->GetLayer(1)->GetUVWSrc() )
+        switch (mat->GetLayer(1)->GetUVWSrc())
         {
         case 0:
             return ICreateDecalVShader(kDecalV2Lay11);
@@ -2674,7 +2674,7 @@ plShader* plWaveSet7::IGetDecalVShader(hsGMaterial* mat)
 
 plShader* plWaveSet7::ICreateDecalPShader(DecalPType t)
 {
-    if( !fDecalPShaders[t] )
+    if (!fDecalPShaders[t])
     {
         static const char* fname[kNumDecalPShaders] = {
             "ps_CbaseAbase",
@@ -2723,19 +2723,19 @@ plShader* plWaveSet7::ICreateDecalPShader(DecalPType t)
 
 plShader* plWaveSet7::IGetDecalPShader(hsGMaterial* mat)
 {
-    if( mat->GetLayer(0)->GetShadeFlags() & hsGMatState::kShadeEnvironMap )
+    if (mat->GetLayer(0)->GetShadeFlags() & hsGMatState::kShadeEnvironMap)
         return ICreateDecalPShader(kDecalPEnv);
 
     hsAssert(mat->GetNumLayers() < 3, "Only 2 layers supported on water decal");
-    if( mat->GetNumLayers() >= 3 )
+    if (mat->GetNumLayers() >= 3)
         return nil;
 
-    if( mat->GetNumLayers() == 1 )
+    if (mat->GetNumLayers() == 1)
         return ICreateDecalPShader(kDecalPBB);
 
     DecalPType t = kNumDecalPShaders; // Initialize to illegal value.
 
-    switch( mat->GetLayer(1)->GetBlendFlags() & (hsGMatState::kBlendMask | hsGMatState::kBlendAlphaMult | hsGMatState::kBlendAlphaAdd) )
+    switch (mat->GetLayer(1)->GetBlendFlags() & (hsGMatState::kBlendMask | hsGMatState::kBlendAlphaMult | hsGMatState::kBlendAlphaAdd))
     {
     case 0:
     case hsGMatState::kBlendTest:
@@ -2800,11 +2800,11 @@ void plWaveSet7::IUpdateBumpPShader(plPipeline* pipe, const hsMatrix44& l2w, con
 {
     plCONST(int32_t)      skip(0);
     int i;
-    for( i = 0; i < kNumBumpShaders; i++ )
+    for (i = 0; i < kNumBumpShaders; i++)
     {
 
         int j;
-        for( j = 0; j < kBumpPerPass; j++ )
+        for (j = 0; j < kBumpPerPass; j++)
         {
             int iTex = i*kBumpPerPass + j;
 
@@ -2843,7 +2843,7 @@ static inline float IRound(float f)
 void plWaveSet7::IUpdateBiasVShader()
 {
 
-    if( fBiasVShader )
+    if (fBiasVShader)
     {
         // Can't just use GetDelSysSeconds() or else we lose time if we skip a frame render because of high FPS.
         float dt = fLastTime > 0 ? float(fCurrTime - fLastTime) : hsTimer::GetDelSysSeconds();
@@ -2910,7 +2910,7 @@ void plWaveSet7::IUpdateRipPShader(plPipeline* pipe, const hsMatrix44& l2w, cons
 
 void plWaveSet7::IUpdateRipVShader(plPipeline* pipe, const hsMatrix44& l2w, const hsMatrix44& w2l)
 {
-    if( fRipVShader )
+    if (fRipVShader)
     {
         fRipVShader->SetVector(plRipVS::kFrequency,
             fWorldWaves[0].fFreq,
@@ -2957,7 +2957,7 @@ void plWaveSet7::IUpdateRipVShader(plPipeline* pipe, const hsMatrix44& l2w, cons
         fRipVShader->SetFloat(plRipVS::kLifeConsts, 1, float(hsTimer::GetSysSeconds()));
         float normQ[kNumWaves];
         int i;
-        for( i = 0; i < kNumWaves; i++ )
+        for (i = 0; i < kNumWaves; i++)
         {
             normQ[i] = GeoState().fChop / (2.f*M_PI * GeoState().fAmpOverLen * kNumWaves);
         }
@@ -2980,14 +2980,14 @@ void plWaveSet7::IUpdateRipVShader(plPipeline* pipe, const hsMatrix44& l2w, cons
 void plWaveSet7::IUpdateDecVShaders(plPipeline* pipe, const hsMatrix44& l2w, const hsMatrix44& w2l)
 {
     int i;
-    for( i = 0; i < kNumDecalVShaders; i++ )
+    for (i = 0; i < kNumDecalVShaders; i++)
         IUpdateDecVShader(i, pipe);
 }
 
 void plWaveSet7::IUpdateDecVShader(int t, plPipeline* pipe)
 {
     plShader* shader = fDecalVShaders[t];
-    if( shader )
+    if (shader)
     {
         shader->SetVector(plWaveDecVS::kFrequency,
             fWorldWaves[0].fFreq,
@@ -3025,7 +3025,7 @@ void plWaveSet7::IUpdateDecVShader(int t, plPipeline* pipe)
             fWorldWaves[2].fLength,
             fWorldWaves[3].fLength);
 
-        if( t == kDecalVEnv )
+        if (t == kDecalVEnv)
         {
             hsPoint3 worldCam = pipe->GetViewTransform().GetCameraToWorld().GetTranslate();
 
@@ -3041,7 +3041,7 @@ void plWaveSet7::IUpdateDecVShader(int t, plPipeline* pipe)
 
         float normQ[kNumWaves];
         int i;
-        for( i = 0; i < kNumWaves; i++ )
+        for (i = 0; i < kNumWaves; i++)
         {
             normQ[i] = GeoState().fChop / (2.f*M_PI * GeoState().fAmpOverLen * kNumWaves);
         }
@@ -3099,7 +3099,7 @@ void plWaveSet7::IUpdateDecVShader(int t, plPipeline* pipe)
 
 void plWaveSet7::IUpdateShoreVShader(plPipeline* pipe, const hsMatrix44& l2w, const hsMatrix44& w2l)
 {
-    if( fShoreVShader )
+    if (fShoreVShader)
     {
 
         fShoreVShader->SetVector(plShoreVS::kFrequency,
@@ -3168,7 +3168,7 @@ void plWaveSet7::IUpdateShoreVShader(plPipeline* pipe, const hsMatrix44& l2w, co
 
         float normQ[kNumWaves];
         int i;
-        for( i = 0; i < kNumWaves; i++ )
+        for (i = 0; i < kNumWaves; i++)
         {
             normQ[i] = GeoState().fChop / (2.f*M_PI * GeoState().fAmpOverLen * kNumWaves);
         }
@@ -3186,16 +3186,16 @@ void plWaveSet7::IUpdateShoreVShader(plPipeline* pipe, const hsMatrix44& l2w, co
             fWorldWaves[3].fAmplitude * fWorldWaves[3].fDir.fY * normQ[3]);
 
 
-        if( fTrialUpdate & kRemakeBubble )
+        if (fTrialUpdate & kRemakeBubble)
             IRefillBubbleShoreTex();
-        if( fTrialUpdate & kRemakeEdge )
+        if (fTrialUpdate & kRemakeEdge)
             IRefillEdgeShoreTex();
     }
 }
 
 void plWaveSet7::IUpdateFixedVShader(plPipeline* pipe, const hsMatrix44& l2w, const hsMatrix44& w2l)
 {
-    if( fFixedVShader )
+    if (fFixedVShader)
     {
         fFixedVShader->SetVector(plFixedVS7::kFrequency,
             fWorldWaves[0].fFreq,
@@ -3261,7 +3261,7 @@ void plWaveSet7::IUpdateFixedVShader(plPipeline* pipe, const hsMatrix44& l2w, co
 
         float specStart = specVec[State().kSpecStart];
         float specEnd = specVec[State().kSpecEnd];
-        if( specStart > specEnd )
+        if (specStart > specEnd)
             specEnd = specStart + 1.f;
         fFixedVShader->SetVector(plFixedVS7::kSpecAtten,
             -specEnd,
@@ -3270,7 +3270,7 @@ void plWaveSet7::IUpdateFixedVShader(plPipeline* pipe, const hsMatrix44& l2w, co
             0.f);
 
         hsColorRGBA envTint = State().fSpecularTint;
-        if( fFixedLayers[0] && (fFixedLayers[0]->GetShadeFlags() & hsGMatState::kShadeSpecular) )
+        if (fFixedLayers[0] && (fFixedLayers[0]->GetShadeFlags() & hsGMatState::kShadeSpecular))
         {
             envTint *= fFixedLayers[0]->GetSpecularColor();
         }
@@ -3316,7 +3316,7 @@ void plWaveSet7::IUpdateFixedVShader(plPipeline* pipe, const hsMatrix44& l2w, co
 
         float normQ[kNumWaves];
         int i;
-        for( i = 0; i < kNumWaves; i++ )
+        for (i = 0; i < kNumWaves; i++)
         {
             normQ[i] = GeoState().fChop / (2.f*M_PI * GeoState().fAmpOverLen * kNumWaves);
         }
@@ -3380,27 +3380,27 @@ void plWaveSet7::IUpdateFixedVShader(plPipeline* pipe, const hsMatrix44& l2w, co
 void plWaveSet7::ICheckShoreMaterials()
 {
     int i;
-    for( i = 0; i < fShores.GetCount(); i++ )
+    for (i = 0; i < fShores.GetCount(); i++)
         ICheckShoreMaterial(fShores[i]);
 }
 
 void plWaveSet7::ICheckShoreMaterial(plSceneObject* so)
 {
-    if( !so )
+    if (!so)
         return;
 
     const plDrawInterface* di = so->GetDrawInterface();
-    if( !di )
+    if (!di)
         return;
 
     hsTArray<plAccessSpan> src;
     plAccessGeometry::Instance()->OpenRO(di, src);
 
-    if( !src.GetCount() )
+    if (!src.GetCount())
         return;
 
     int i;
-    for( i = 0; i < src.GetCount(); i++ )
+    for (i = 0; i < src.GetCount(); i++)
     {
         ISetupGraphShore(src[i].GetMaterial());
     }
@@ -3412,27 +3412,27 @@ void plWaveSet7::ICheckShoreMaterial(plSceneObject* so)
 void plWaveSet7::ICheckDecalMaterials()
 {
     int i;
-    for( i = 0; i < fDecals.GetCount(); i++ )
+    for (i = 0; i < fDecals.GetCount(); i++)
         ICheckDecalMaterial(fDecals[i]);
 }
 
 void plWaveSet7::ICheckDecalMaterial(plSceneObject* so)
 {
-    if( !so )
+    if (!so)
         return;
 
     const plDrawInterface* di = so->GetDrawInterface();
-    if( !di )
+    if (!di)
         return;
 
     hsTArray<plAccessSpan> src;
     plAccessGeometry::Instance()->OpenRO(di, src);
 
-    if( !src.GetCount() )
+    if (!src.GetCount())
         return;
 
     int i;
-    for( i = 0; i < src.GetCount(); i++ )
+    for (i = 0; i < src.GetCount(); i++)
     {
         ISetupDecal(src[i].GetMaterial());
     }
@@ -3453,7 +3453,7 @@ void plWaveSet7::ICheckDecalEnvLayers(hsGMaterial* mat)
     // Lay3 == fEnvMap.
 
     // If we haven't done this already
-    if( !fDecalVShaders[kDecalVEnv] || (mat->GetLayer(0)->GetVertexShader() != fDecalVShaders[kDecalVEnv]) )
+    if (!fDecalVShaders[kDecalVEnv] || (mat->GetLayer(0)->GetVertexShader() != fDecalVShaders[kDecalVEnv]))
     {
         plLayer* lay3 = nil;
 
@@ -3461,7 +3461,7 @@ void plWaveSet7::ICheckDecalEnvLayers(hsGMaterial* mat)
 
         const int numLayers = mat->GetNumLayers();
         int i;
-        for( i = numLayers-1; i >= 0; i-- )
+        for (i = numLayers-1; i >= 0; i--)
         {
             plLayer* lay0 = plLayer::ConvertNoRef(mat->GetLayer(i)->BottomOfStack());
             lay0->SetBlendFlags(hsGMatState::kBlendAddColorTimesAlpha);
@@ -3473,7 +3473,7 @@ void plWaveSet7::ICheckDecalEnvLayers(hsGMaterial* mat)
 
             // If we are just creating lay3, then by creating it we've added (appended) it to mat.
             // Otherwise, we need to add it as i+1.
-            if( !lay3 )
+            if (!lay3)
             {
                 lay3 = ICreateTotalEnvLayer(fEnvMap, mat, 3, "Dec");
                 lay3->SetBlendFlags(hsGMatState::kBlendAlpha);
@@ -3495,20 +3495,20 @@ void plWaveSet7::ICheckDecalEnvLayers(hsGMaterial* mat)
 
 void plWaveSet7::ISetupDecal(hsGMaterial* mat)
 {
-    if( mat->GetLayer(0)->GetShadeFlags() & hsGMatState::kShadeEnvironMap )
+    if (mat->GetLayer(0)->GetShadeFlags() & hsGMatState::kShadeEnvironMap)
     {
         ICheckDecalEnvLayers(mat);
     }
 
     plShader* vShader = IGetDecalVShader(mat);
-    if( mat->GetLayer(0)->GetVertexShader() != vShader )
+    if (mat->GetLayer(0)->GetVertexShader() != vShader)
         IAddShaderToLayers(mat, 0, -1, plLayRefMsg::kVertexShader, vShader);
 
     int i;
-    for( i = 0; i < mat->GetNumLayers(); i++ )
+    for (i = 0; i < mat->GetNumLayers(); i++)
     {
         plLayer* lay = plLayer::ConvertNoRef(mat->GetLayer(i)->BottomOfStack());
-        if( lay )
+        if (lay)
             lay->SetZFlags(lay->GetZFlags() | hsGMatState::kZNoZWrite | hsGMatState::kZIncLayer);
     }
 
@@ -3518,7 +3518,7 @@ void plWaveSet7::ISetupDecal(hsGMaterial* mat)
 // #define MF_USE_FFP
 #ifndef MF_USE_FFP
     plShader* pShader = IGetDecalPShader(mat);
-    if( mat->GetLayer(0)->GetPixelShader() != pShader )
+    if (mat->GetLayer(0)->GetPixelShader() != pShader)
         IAddShaderToLayers(mat, 0, -1, plLayRefMsg::kPixelShader, pShader);
 #endif // MF_USE_FFP
 }
@@ -3536,14 +3536,14 @@ void plWaveSet7::AddShoreTest(plKey& key)
 bool plWaveSet7::SetupRippleMat(hsGMaterial* mat, const plRipVSConsts& ripConsts)
 {
     // We'll assume that if we set the vertexshader, we set the pixelshader too.
-    if( fRipVShader && (mat->GetLayer(0)->GetVertexShader() == fRipVShader) )
+    if (fRipVShader && (mat->GetLayer(0)->GetVertexShader() == fRipVShader))
         return true;
 
     int i;
-    for( i = 0; i < mat->GetNumLayers(); i++ )
+    for (i = 0; i < mat->GetNumLayers(); i++)
     {
         plLayer* lay = plLayer::ConvertNoRef(mat->GetLayer(i)->BottomOfStack());
-        if( lay )
+        if (lay)
             lay->SetZFlags(lay->GetZFlags() | hsGMatState::kZNoZWrite | hsGMatState::kZIncLayer);
     }
 
@@ -3574,7 +3574,7 @@ plDrawableSpans* plWaveSet7::ICreateGraphDrawable(plDrawableSpans* drawable, hsG
 #endif // TEST_UVWS
 
     int i;
-    for( i = 0; i < nWid; i++ )
+    for (i = 0; i < nWid; i++)
     {
         int iDn = i << 1;
         int iUp = iDn + 1;
@@ -3614,7 +3614,7 @@ plDrawableSpans* plWaveSet7::ICreateGraphDrawable(plDrawableSpans* drawable, hsG
     uint16_t* idx = idxArr.AcquireArray();
 
     int iBase = 0;
-    for( i = 0; i < nTris; i += 2 )
+    for (i = 0; i < nTris; i += 2)
     {
         *idx++ = i;
         *idx++ = i + 2;
@@ -3626,7 +3626,7 @@ plDrawableSpans* plWaveSet7::ICreateGraphDrawable(plDrawableSpans* drawable, hsG
     }
 
 
-    plDrawableGenerator::GenerateDrawable( nVerts, pos.AcquireArray(), norm.AcquireArray(),
+    plDrawableGenerator::GenerateDrawable(nVerts, pos.AcquireArray(), norm.AcquireArray(),
 #ifndef TEST_UVWS
                                                         nil, 0,
 #else // TEST_UVWS
@@ -3702,7 +3702,7 @@ plMipmap* plWaveSet7::ICreateGraphShoreTex(int width, int height)
     //      then drops off sharply to transparent just before the top.
 
     // If we haven't already made one...
-    if( !fGraphShoreTex )
+    if (!fGraphShoreTex)
     {
         plMipmap* mipMap = ICreateBlankTex("Graph", width, height, kRefGraphShoreTex);
 
@@ -3710,23 +3710,23 @@ plMipmap* plWaveSet7::ICreateGraphShoreTex(int width, int height)
         plConst(float) kTruncFrac(0.8f);
         const int rampEnd = int(kRampFrac * height + 0.5f);
         int truncEnd = int(kTruncFrac * height);
-        if( truncEnd >= (height-1) )
+        if (truncEnd >= (height-1))
             truncEnd = height-2;
         int j;
-        for( j = 0; j < height; j++ )
+        for (j = 0; j < height; j++)
         {
             uint32_t alpha = 255;
             plConst(int) kRampStart(4);
-            if( j <= kRampStart )
+            if (j <= kRampStart)
             {
                 alpha = 0;
             }
             else
-            if( j - kRampStart < rampEnd )
+            if (j - kRampStart < rampEnd)
             {
                 alpha = ((j-kRampStart) * 255) / rampEnd;
             }
-            else if( j > truncEnd )
+            else if (j > truncEnd)
             {
                 alpha = 0;
             }
@@ -3736,7 +3736,7 @@ plMipmap* plWaveSet7::ICreateGraphShoreTex(int width, int height)
                     | 0xff;
 
             int i;
-            for( i = 0; i < width; i++ )
+            for (i = 0; i < width; i++)
             {
                 uint32_t* val = mipMap->GetAddr32(i, j);
                 *val = color;
@@ -3762,7 +3762,7 @@ void plWaveSet7::IRefillBubbleShoreTex()
     plConst(int) kMaxNumBub(6000);
     const int kNumBub = (int)(kMinNumBub + State().fWispiness * (kMaxNumBub - kMinNumBub));
     int k;
-    for( k = 0; k < kNumBub; k++ )
+    for (k = 0; k < kNumBub; k++)
     {
         // Select a random location.
         int iLoc = (int)(fRand.RandZeroToOne() * width);
@@ -3776,25 +3776,25 @@ void plWaveSet7::IRefillBubbleShoreTex()
 
         // Carve out a hole.
         int j;
-        for( j = -radius; j < radius; j++ )
+        for (j = -radius; j < radius; j++)
         {
             int jj = jLoc + j;
-            if( jj < 0 )
+            if (jj < 0)
                 jj += height;
-            else if( jj >= height )
+            else if (jj >= height)
                 jj -= height;
 
             int i;
-            for( i = -radius; i < radius; i++ )
+            for (i = -radius; i < radius; i++)
             {
                 int ii = iLoc + i;
-                if( ii < 0 )
+                if (ii < 0)
                     ii += width;
-                else if( ii >= width )
+                else if (ii >= width)
                     ii -= width;
 
                 float f = float(i*i + j*j) * invRadiusSq;
-                if( f > 1.f )
+                if (f > 1.f)
                     f = 1.f;
                 plConst(float) kMinAlpha(0.8f);
                 plConst(float) kMaxAlpha(1.f);
@@ -3813,10 +3813,10 @@ void plWaveSet7::IRefillBubbleShoreTex()
     const hsColorRGBA maxColor = State().fMaxColor;
     const hsColorRGBA minColor = State().fMinColor;
     int j;
-    for( j = 0; j < height; j++ )
+    for (j = 0; j < height; j++)
     {
         int i;
-        for( i = 0; i < width; i++ )
+        for (i = 0; i < width; i++)
         {
             uint32_t* val = mipMap->GetAddr32(i, j);
             hsColorRGBA col;
@@ -3842,7 +3842,7 @@ plMipmap* plWaveSet7::ICreateBubbleShoreTex(int width, int height)
     // Tile in U and V
 
     // If we haven't already made one...
-    if( !fBubbleShoreTex )
+    if (!fBubbleShoreTex)
     {
         plMipmap* mipMap = ICreateBlankTex("Bubble", width, height, kRefBubbleShoreTex);
 
@@ -3874,10 +3874,10 @@ void plWaveSet7::IRefillEdgeShoreTex()
 
     const float maxAlpha = State().fEdgeOpac * 255.9f;
     int j;
-    for( j = 0; j < height; j++ )
+    for (j = 0; j < height; j++)
     {
         uint32_t alpha = 0;
-        if( (j > bot)&&(j < top) )
+        if ((j > bot)&&(j < top))
         {
 #if 0 // like x^2
             float a = float(j-center);
@@ -3886,7 +3886,7 @@ void plWaveSet7::IRefillEdgeShoreTex()
             a = 1.f - a;
 #elif 1 // like 1/x^2
             float a = float(j-center);
-            if( a < 0 )
+            if (a < 0)
                 a = -a;
             a /= float(radius);
             a = 1.f - a;
@@ -3904,7 +3904,7 @@ void plWaveSet7::IRefillEdgeShoreTex()
         }
 
         int i;
-        for( i = 0; i < width; i++ )
+        for (i = 0; i < width; i++)
         {
             uint32_t* val = mipMap->GetAddr32(i, j);
             *val = (alpha << 24)
@@ -3927,7 +3927,7 @@ plMipmap* plWaveSet7::ICreateEdgeShoreTex(int width, int height)
     // Tile in U, clamp in V.
 
     // If we haven't already made one...
-    if( !fEdgeShoreTex )
+    if (!fEdgeShoreTex)
     {
         plMipmap* mipMap = ICreateBlankTex("Edge", width, height, kRefEdgeShoreTex);
 
@@ -4056,7 +4056,7 @@ void plWaveSet7::ICreateGraphEdgeLayer(hsGMaterial* mat, int iPass)
 void plWaveSet7::ICreateGraphShoreMaterials()
 {
     int i;
-    for( i = 0; i < kGraphShorePasses; i++ )
+    for (i = 0; i < kGraphShorePasses; i++)
     {
         // Create our material
         // and send ourselves a ref.
@@ -4087,7 +4087,7 @@ void plWaveSet7::ICreateGraphShoreMaterials()
 
 void plWaveSet7::IAddGraphVShader(hsGMaterial* mat, int iPass)
 {
-    if( !fGraphVShader[iPass] )
+    if (!fGraphVShader[iPass])
     {
         plShader* vShader = new plShader;
         ST::string buff = ST::format("{}_GraphVS_{}", GetKey()->GetName(), iPass);
@@ -4121,7 +4121,7 @@ void plWaveSet7::IAddGraphVShader(hsGMaterial* mat, int iPass)
 
 void plWaveSet7::IAddGraphPShader(hsGMaterial* mat, int iPass)
 {
-    if( !fGraphPShader[iPass] )
+    if (!fGraphPShader[iPass])
     {
         plShader* pShader = new plShader;
         ST::string buff = ST::format("{}_GraphPS_{}", GetKey()->GetName(), iPass);
@@ -4161,13 +4161,13 @@ plRenderTarget* plWaveSet7::ISetupGraphShoreRenderReq(int which)
 
 void plWaveSet7::ISetupGraphShore(hsGMaterial* mat)
 {
-    if( !fGraphShoreRT[0] )
+    if (!fGraphShoreRT[0])
     {
         // Create the material
         ICreateGraphShoreMaterials();
 
         int i;
-        for( i = 0; i < kGraphShorePasses; i++ )
+        for (i = 0; i < kGraphShorePasses; i++)
         {
             // Create the mesh
             plDrawableSpans* drawable = ICreateEmptyGraphDrawable("GraphShore", kRefGraphShoreDraw, i);
@@ -4183,7 +4183,7 @@ void plWaveSet7::ISetupGraphShore(hsGMaterial* mat)
 
     // If we've already done this material, we're done (it may be shared
     // with another shore mesh).
-    if( fShoreVShader && mat->GetLayer(0) && (fShoreVShader == mat->GetLayer(0)->GetVertexShader()) )
+    if (fShoreVShader && mat->GetLayer(0) && (fShoreVShader == mat->GetLayer(0)->GetVertexShader()))
         return;
 
     // We now have all our render target textures. Set them up as
@@ -4194,7 +4194,7 @@ void plWaveSet7::ISetupGraphShore(hsGMaterial* mat)
 
 void plWaveSet7::IMakeShoreLayer(hsGMaterial* mat, int which)
 {
-    if( which >= mat->GetNumLayers() )
+    if (which >= mat->GetNumLayers())
     {
         plLayer* lay = new plLayer;
         ST::string name = ST::format("{}_lay_{}", mat->GetKey()->GetName(), which);
@@ -4285,7 +4285,7 @@ void plWaveSet7::IInitGraph(int iPass)
     // Now the rest we have to think about a little, and
     // think about four times.
     int i;
-    for( i = 0; i < 4; i++ )
+    for (i = 0; i < 4; i++)
     {
         // Okay, phase we don't have to think too hard about,
         // it doesn't matter as long as it's random.
@@ -4297,7 +4297,7 @@ void plWaveSet7::IInitGraph(int iPass)
         // so we'll always put a big one in first, and then a bunch of
         // smaller ones to noise it up nice.
         int k;
-        if( !i )
+        if (!i)
         {
             k = fRand.RandZeroToOne() > 0.5 ? 1 : 2;
         }
@@ -4343,7 +4343,7 @@ void plWaveSet7::IInitGraph(int iPass)
 void plWaveSet7::IShuffleDownGraphs(int iPass)
 {
     int i;
-    for( i = iPass+1; i < kGraphShorePasses; i++ )
+    for (i = iPass+1; i < kGraphShorePasses; i++)
     {
         fGraphState[i-1] = fGraphState[i];
         fGraphVShader[i-1]->CopyConsts(fGraphVShader[i]);
@@ -4353,14 +4353,14 @@ void plWaveSet7::IShuffleDownGraphs(int iPass)
 
 void plWaveSet7::IUpdateGraphShader(float dt, int iPass)
 {
-    if( fGraphShoreDraw[iPass] )
+    if (fGraphShoreDraw[iPass])
     {
         GraphState& gs = fGraphState[iPass];
         plShader* shader = fGraphVShader[iPass];
 
         gs.fAge += dt;
         float rads = gs.fAge * gs.fInvLife;
-        if( rads >= M_PI )
+        if (rads >= M_PI)
         {
             // Recycle this one and restart the upper.
             IShuffleDownGraphs(iPass);
@@ -4397,10 +4397,10 @@ void plWaveSet7::IUpdateGraphShader(float dt, int iPass)
 
 void plWaveSet7::IUpdateGraphShaders(plPipeline* pipe, float dt)
 {
-    if( fGraphShoreDraw[0] )
+    if (fGraphShoreDraw[0])
     {
         int i;
-        for( i = kGraphShorePasses-1; i >= 0; i-- )
+        for (i = kGraphShorePasses-1; i >= 0; i--)
         {
             IUpdateGraphShader(dt, i);
         }

@@ -323,11 +323,11 @@ protected:
 
     void                ISetCameraToNDC() const;
     bool                ICameraToNDCSet() const { return IHasFlag(kCameraToNDCSet); }
-    const hsMatrix44&   ICheckCameraToNDC() const { if( !ICameraToNDCSet() ) ISetCameraToNDC(); return fCameraToNDC; }
+    const hsMatrix44&   ICheckCameraToNDC() const { if (!ICameraToNDCSet()) ISetCameraToNDC(); return fCameraToNDC; }
 
     void                ISetWorldToNDC() const { fWorldToNDC = GetCameraToNDC() * fWorldToCamera; ISetFlag(kWorldToNDCSet); }
     bool                IWorldToNDCSet() const { return IHasFlag(kWorldToNDCSet); }
-    const hsMatrix44&   ICheckWorldToNDC() const { if( !IWorldToNDCSet() ) ISetWorldToNDC(); return fWorldToNDC; }
+    const hsMatrix44&   ICheckWorldToNDC() const { if (!IWorldToNDCSet()) ISetWorldToNDC(); return fWorldToNDC; }
 
     bool                IGetMaxMinsFromBnd(const hsBounds3& bnd, hsPoint3& mins, hsPoint3& maxs) const;
 
@@ -335,7 +335,7 @@ protected:
 
     // Flags - generic
     bool                IHasFlag(uint32_t f) const { return 0 != (fFlags & f); }
-    void                ISetFlag(uint32_t f, bool on=true) const { if(on) fFlags |= f; else fFlags &= ~f; }
+    void                ISetFlag(uint32_t f, bool on=true) const { if (on) fFlags |= f; else fFlags &= ~f; }
 
 };
 

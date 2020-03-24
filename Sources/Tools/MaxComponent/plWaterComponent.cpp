@@ -388,8 +388,8 @@ IOResult plWaterComponent::Load(ILoad* iLoad)
 
 void plWaterComponent::CheckForObsoleteParams()
 {
-    if( (fCompPB->GetFloat(kDispersion) >= 0)
-        ||(fCompPB->GetFloat(kWindSpeed) >= 0) )
+    if ((fCompPB->GetFloat(kDispersion) >= 0)
+        ||(fCompPB->GetFloat(kWindSpeed) >= 0))
     {
         // Okay, these are old. Need to set some default values based
         // on the old obsolete ones. Basically, we need to go from:
@@ -426,7 +426,7 @@ void plWaterComponent::CheckForObsoleteParams()
         const float kGravConst(32.f); // ft/s^2
         float waveLen = windSpeed * windSpeed / kGravConst;
         waveLen /= 2.f;
-        if( waveLen < 1.f )
+        if (waveLen < 1.f)
             waveLen = 1.f;
         fCompPB->SetValue(kGeoMinLen, TimeValue(0), waveLen/2.f);
         fCompPB->SetValue(kGeoMaxLen, TimeValue(0), waveLen*2.f);
@@ -437,7 +437,7 @@ void plWaterComponent::CheckForObsoleteParams()
         fCompPB->SetValue(kTexMaxLen, TimeValue(0), 32.f / 256.f * rippleScale);
         float amp = 0.01f;
         float specMute = 0.5f;
-        if( windSpeed < 15.f )
+        if (windSpeed < 15.f)
         {
             float p = windSpeed / 15.f;
             amp += p * (0.1f - 0.01f);
@@ -499,7 +499,7 @@ bool plWaterComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
 
 bool plWaterComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    if( !fWaveSet )
+    if (!fWaveSet)
         IMakeWaveSet(node, pErrMsg);
 
     // Do it again in case some idiot is trying to override.XXX
@@ -512,7 +512,7 @@ bool plWaterComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
 
 bool plWaterComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    if( !fWaveSet )
+    if (!fWaveSet)
         return true;
 
     plObjRefMsg* refMsg = new plObjRefMsg(node->GetKey(), plRefMsg::kOnRequest, -1, plObjRefMsg::kModifier);
@@ -523,7 +523,7 @@ bool plWaterComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
 
 bool plWaterComponent::DeInit(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    if( fWaveSet )
+    if (fWaveSet)
         fWaveSet->GetKey()->UnRefObject();
     fWaveSet = nil;
 
@@ -533,11 +533,11 @@ bool plWaterComponent::DeInit(plMaxNode* node, plErrorMsg* pErrMsg)
 bool plWaterComponent::IReadRefObject(plMaxNodeBase* node, plFixedWaterState7& ws)
 {
     INode* ref = fCompPB->GetINode(kRefObject);
-    if( !ref )
+    if (!ref)
     {
         ref = node;
     }
-    if( !ref )
+    if (!ref)
         return false;
 
     Matrix3 xfm = ref->GetNodeTM(TimeValue(0));
@@ -554,18 +554,18 @@ bool plWaterComponent::IReadRefObject(plMaxNodeBase* node, plFixedWaterState7& w
 bool plWaterComponent::IReadEnvObject(plMaxNode* node, plErrorMsg* pErrMsg, plFixedWaterState7& ws)
 {
     INode* ref = fCompPB->GetINode(kEnvObject);
-    if( !ref )
+    if (!ref)
     {
         ref = node;
     }
     plDynamicEnvMap* env = plEnvMapComponent::GetEnvMap((plMaxNode*)ref);
-    if( !env )
+    if (!env)
     {
         uint32_t size = fCompPB->GetInt(kEnvSize);
         uint32_t i;
-        for( i = 9; i > 5; i-- )
+        for (i = 9; i > 5; i--)
         {
-            if( (1UL << i) <= size )
+            if ((1UL << i) <= size)
                 break;
         }
         size = uint32_t(1 << i);
@@ -578,7 +578,7 @@ bool plWaterComponent::IReadEnvObject(plMaxNode* node, plErrorMsg* pErrMsg, plFi
         env->SetYon(10000.f);
         env->SetRefreshRate(fCompPB->GetFloat(kEnvRefresh));
     }
-    if( !env )
+    if (!env)
         return false;
 
     ws.fEnvCenter = env->GetPosition();
@@ -599,9 +599,9 @@ bool plWaterComponent::IReadEnvObject(plMaxNode* node, plErrorMsg* pErrMsg, plFi
 bool plWaterComponent::IGetRefObject(plMaxNode* node)
 {
     plMaxNode* ref = (plMaxNode*)fCompPB->GetINode(kRefObject);
-    if( (ref != node)           // We have an exterior reference node
+    if ((ref != node)           // We have an exterior reference node
         && ref->CanConvert()    // it's being exported
-        && ref->IsTMAnimated() )
+        && ref->IsTMAnimated())
     {
         plSceneObject* refObj = ref->GetSceneObject();
 
@@ -618,7 +618,7 @@ bool plWaterComponent::IMakeWaveSet(plMaxNode* node, plErrorMsg* pErrMsg)
     // Go ahead and create the WaveSet modifier. There will be just
     // one created by this component, everyone has to share.
     fWaveSet = new plWaveSet7;
-    hsgResMgr::ResMgr()->NewKey( IGetUniqueName(node), fWaveSet, node->GetLocation(), node->GetLoadMask());
+    hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), fWaveSet, node->GetLocation(), node->GetLoadMask());
 
     // Set up the parameters
     plFixedWaterState7 ws;
@@ -693,10 +693,10 @@ float plWaterComponent::IGetWaterHeight()
     plMaxNodeBase* node = nil;
     
     int i;
-    for( i = 0; i < NumTargets(); i++ )
+    for (i = 0; i < NumTargets(); i++)
     {
         node = GetTarget(i);
-        if( node )
+        if (node)
             break;
     }
 
@@ -708,14 +708,14 @@ float plWaterComponent::IGetWaterHeight()
 
 float plWaterComponent::GetWaterHeight(INode* node)
 {
-    if( !node )
+    if (!node)
         return 0.f;
 
     plComponentBase *comp = ((plMaxNodeBase*)node)->ConvertToComponent();
-    if( !comp )
+    if (!comp)
         return 0.f;
 
-    if( comp->ClassID() != WATER_COMP_CID )
+    if (comp->ClassID() != WATER_COMP_CID)
         return 0.f;
 
     plWaterComponent* water = (plWaterComponent*)comp;
@@ -725,14 +725,14 @@ float plWaterComponent::GetWaterHeight(INode* node)
 
 plWaveSetBase* plWaterComponent::GetWaveSet(INode* node)
 {
-    if( !node )
+    if (!node)
         return nil;
 
     plComponentBase *comp = ((plMaxNodeBase*)node)->ConvertToComponent();
-    if( !comp )
+    if (!comp)
         return nil;
 
-    if( comp->ClassID() != WATER_COMP_CID )
+    if (comp->ClassID() != WATER_COMP_CID)
         return nil;
 
     plWaterComponent* water = (plWaterComponent*)comp;
@@ -741,15 +741,15 @@ plWaveSetBase* plWaterComponent::GetWaveSet(INode* node)
 
 plWaveSetBase* plWaterComponent::GetWaveSetFromNode(plMaxNode* node)
 {
-    if( !node )
+    if (!node)
         return nil;
 
     int n = node->NumAttachedComponents();
     int i;
-    for( i = 0; i < n; i++ )
+    for (i = 0; i < n; i++)
     {
         plComponentBase* comp = node->GetAttachedComponent(i);
-        if( comp && (comp->ClassID() == WATER_COMP_CID) )
+        if (comp && (comp->ClassID() == WATER_COMP_CID))
         {
             plWaterComponent* water = (plWaterComponent*)comp;
             return water->IGetWaveSet();
@@ -760,22 +760,22 @@ plWaveSetBase* plWaterComponent::GetWaveSetFromNode(plMaxNode* node)
 
 static void ISetWaterDependencies(plMaxNode* node, INode* waterNode)
 {
-    if( !waterNode )
+    if (!waterNode)
         return;
 
     plComponentBase *comp = ((plMaxNodeBase*)waterNode)->ConvertToComponent();
-    if( !comp )
+    if (!comp)
         return;
 
-    if( comp->ClassID() != WATER_COMP_CID )
+    if (comp->ClassID() != WATER_COMP_CID)
         return;
 
     INodeTab nodeList;
     comp->AddTargetsToList(nodeList);
     int i;
-    for( i = 0; i < nodeList.Count(); i++ )
+    for (i = 0; i < nodeList.Count(); i++)
     {
-        if( nodeList[i] )
+        if (nodeList[i])
             node->AddRenderDependency((plMaxNodeBase*)nodeList[i]);
     }
 }
@@ -808,12 +808,12 @@ BOOL plShoreCompSelProc::DlgProc(TimeValue t, IParamMap2 *paramMap, HWND hWnd, U
         return true;
 
     case WM_COMMAND:
-        if( (HIWORD(wParam) == BN_CLICKED) && (LOWORD(wParam) == IDC_COMP_SHORE_CHOSE) )
+        if ((HIWORD(wParam) == BN_CLICKED) && (LOWORD(wParam) == IDC_COMP_SHORE_CHOSE))
         {
             IParamBlock2 *pb = paramMap->GetParamBlock();
             std::vector<Class_ID> cids;
             cids.push_back(WATER_COMP_CID);
-            if( plPick::Node(pb, plShoreComponent::kWaveSet, &cids, true, true) )
+            if (plPick::Node(pb, plShoreComponent::kWaveSet, &cids, true, true))
             {
                 INode* node = pb->GetINode(plShoreComponent::kWaveSet);
                 TSTR newName(node ? node->GetName() : "Pick");
@@ -898,10 +898,10 @@ bool plShoreComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
 bool plShoreComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
 {
     plWaveSetBase* waveSet = plWaterComponent::GetWaveSet(fCompPB->GetINode(kWaveSet, 0, 0));
-    if( waveSet )
+    if (waveSet)
     {
         plSceneObject* obj = node->GetSceneObject();
-        if( obj )
+        if (obj)
         {
             waveSet->AddShore(obj->GetKey());
         }
@@ -946,12 +946,12 @@ BOOL plWDecalCompSelProc::DlgProc(TimeValue t, IParamMap2 *paramMap, HWND hWnd, 
         return true;
 
     case WM_COMMAND:
-        if( (HIWORD(wParam) == BN_CLICKED) && (LOWORD(wParam) == IDC_COMP_WDECAL_CHOSE) )
+        if ((HIWORD(wParam) == BN_CLICKED) && (LOWORD(wParam) == IDC_COMP_WDECAL_CHOSE))
         {
             IParamBlock2 *pb = paramMap->GetParamBlock();
             std::vector<Class_ID> cids;
             cids.push_back(WATER_COMP_CID);
-            if( plPick::Node(pb, plWDecalComponent::kWaveSet, &cids, true, true) )
+            if (plPick::Node(pb, plWDecalComponent::kWaveSet, &cids, true, true))
             {
                 INode* node = pb->GetINode(plWDecalComponent::kWaveSet);
                 TSTR newName(node ? node->GetName() : "Pick");
@@ -1012,7 +1012,7 @@ bool plWDecalComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
     node->SetNoPreShade(true);
 
     // This should be optional.
-    if( fCompPB->GetInt(kEnv) )
+    if (fCompPB->GetInt(kEnv))
         node->SetWaterDecEnv(true);
 
     ISetWaterDependencies(node, fCompPB->GetINode(kWaveSet, 0, 0));
@@ -1045,10 +1045,10 @@ bool plWDecalComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
 bool plWDecalComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
 {
     plWaveSetBase* waveSet = plWaterComponent::GetWaveSet(fCompPB->GetINode(kWaveSet, 0, 0));
-    if( waveSet )
+    if (waveSet)
     {
         plSceneObject* obj = node->GetSceneObject();
-        if( obj )
+        if (obj)
         {
             waveSet->AddDecal(obj->GetKey());
         }
@@ -1081,7 +1081,7 @@ public:
         {
         case WM_INITDIALOG:
             {
-                for(int i = 0; i < map->GetParamBlock()->Count(plEnvMapComponent::kVisSetNames); i++ )
+                for (int i = 0; i < map->GetParamBlock()->Count(plEnvMapComponent::kVisSetNames); i++)
                 {
                     HWND hList = GetDlgItem(hWnd, IDC_COMP_ENVMAP_NAMES_LISTBOX);
                     ListBox_AddString(hList, map->GetParamBlock()->GetStr(plEnvMapComponent::kVisSetNames, 0, i));
@@ -1100,7 +1100,7 @@ public:
                 map->Invalidate(plEnvMapComponent::kVisSets);
                 return TRUE;
             }
-            else if(HIWORD(wParam) == BN_CLICKED && LOWORD(wParam) == IDC_COMP_ENVMAP_ADD_STRING)
+            else if (HIWORD(wParam) == BN_CLICKED && LOWORD(wParam) == IDC_COMP_ENVMAP_ADD_STRING)
             {
                 char str[256];
                 char *pStr = str;
@@ -1108,7 +1108,7 @@ public:
                 custEdit->GetText(str, 256);
                 custEdit->SetText("");  // clear text box
 
-                if(!strcmp(str, ""))    // don't allow empty strings
+                if (!strcmp(str, ""))    // don't allow empty strings
                     return TRUE;
 
                 HWND hList = GetDlgItem(hWnd, IDC_COMP_ENVMAP_NAMES_LISTBOX);
@@ -1116,7 +1116,7 @@ public:
                 map->GetParamBlock()->Append(plEnvMapComponent::kVisSetNames, 1, &pStr);
                 return TRUE;
             }
-            else if(HIWORD(wParam) == BN_CLICKED && LOWORD(wParam) == IDC_COMP_ENVMAP_REMOVE_STRING)
+            else if (HIWORD(wParam) == BN_CLICKED && LOWORD(wParam) == IDC_COMP_ENVMAP_REMOVE_STRING)
             {
                 HWND hList = GetDlgItem(hWnd, IDC_COMP_ENVMAP_NAMES_LISTBOX);
                 int curSel = ((int)(DWORD)SNDMSG((hList), LB_GETCURSEL, 0L, 0L));
@@ -1259,23 +1259,23 @@ plRenderTarget* plEnvMapComponent::IGetMap()
     plMaxNode* firstTarg = nil;
     int numTarg = NumTargets();
     int i;
-    for( i = 0; i < numTarg; i++ )
+    for (i = 0; i < numTarg; i++)
     {
-        if( GetTarget(i) )
+        if (GetTarget(i))
         {
             firstTarg = (plMaxNode*)GetTarget(i);
             break;
         }
     }
-    if( !firstTarg )
+    if (!firstTarg)
         return nil;
 
-    if( !fMap )
+    if (!fMap)
     {
         uint32_t size = fCompPB->GetInt(kEnvSize);
-        for( i = 9; i > 5; i-- )
+        for (i = 9; i > 5; i--)
         {
-            if( (1UL << uint32_t(i)) <= size )
+            if ((1UL << uint32_t(i)) <= size)
                 break;
         }
         size = 1 << uint32_t(i);
@@ -1317,13 +1317,13 @@ plRenderTarget* plEnvMapComponent::IGetMap()
 
         int visGot = 0;
         int numVis = fCompPB->Count(kVisSets);
-        for( i = 0; i < numVis; i++ )
+        for (i = 0; i < numVis; i++)
         {
             plEffVisSetComponent* effComp = plEffVisSetComponent::ConvertToEffVisSetComponent((plMaxNode*)fCompPB->GetINode(kVisSets, 0, i));
-            if( effComp )
+            if (effComp)
             {
                 plVisRegion* effReg = effComp->GetVisRegion(firstTarg);
-                if( effReg )
+                if (effReg)
                 {
                     plGenRefMsg* refMsg = new plGenRefMsg(fMap->GetKey(), plRefMsg::kOnCreate, -1, plDynamicEnvMap::kRefVisSet);
                     hsgResMgr::ResMgr()->SendRef(effReg->GetKey(), refMsg, plRefFlags::kPassiveRef);
@@ -1336,7 +1336,7 @@ plRenderTarget* plEnvMapComponent::IGetMap()
         // This allows you to enter the name of an effect vis set(key name), from another max file and use it
         // as if it we're in the same max file.
         int numVisNames = fCompPB->Count(kVisSetNames);
-        for( i = 0; i < numVisNames; i++)
+        for (i = 0; i < numVisNames; i++)
         {
             fMap->SetVisRegionName((char*)fCompPB->GetStr(kVisSetNames, 0, i));
         }

@@ -121,33 +121,33 @@ bool HasPhysicalComponent(plComponentBase *comp)
     return false;
 }
 
-bool    plAnimComponentBase::GetAnimKey( plMaxNode *node, hsTArray<plKey> &outKeys )
+bool    plAnimComponentBase::GetAnimKey(plMaxNode *node, hsTArray<plKey> &outKeys)
 {
     plComponentBase *comp = node->ConvertToComponent();
-    if( comp != nil )
+    if (comp != nil)
     {
-        if( IsAnimComponent( comp ) )
+        if (IsAnimComponent(comp))
         {
             plAnimComponentBase *base = (plAnimComponentBase *)comp;
             // Grab this guy's key
         }
     }
-//  else if( )
+//  else if ()
     {
     }
     return true;
 }
 
-plAnimObjInterface  *plAnimComponentBase::GetAnimInterface( INode *inode )
+plAnimObjInterface  *plAnimComponentBase::GetAnimInterface(INode *inode)
 {
-    if( inode == nil )
+    if (inode == nil)
         return nil;
 
     plMaxNode *node = (plMaxNode *)inode;
     plComponentBase *comp = node->ConvertToComponent();
-    if( comp != nil )
+    if (comp != nil)
     {
-        if( IsAnimComponent( comp ) )
+        if (IsAnimComponent(comp))
         {
             plAnimComponentBase *base = (plAnimComponentBase *)comp;
             return (plAnimObjInterface *)base;
@@ -155,8 +155,8 @@ plAnimObjInterface  *plAnimComponentBase::GetAnimInterface( INode *inode )
     }
     else
     {
-        plAnimStealthNode *stealth = plAnimStealthNode::ConvertToStealth( node );
-        if( stealth != nil )
+        plAnimStealthNode *stealth = plAnimStealthNode::ConvertToStealth(node);
+        if (stealth != nil)
             return (plAnimObjInterface *)stealth;
     }
 
@@ -267,7 +267,7 @@ BOOL plAnimComponentProc::DlgProc(TimeValue t, IParamMap2 *pMap, HWND hWnd, UINT
     return false;
 }
 
-void plAnimComponentProc::Update( TimeValue t, Interval &valid, IParamMap2 *pmap )
+void plAnimComponentProc::Update(TimeValue t, Interval &valid, IParamMap2 *pmap)
 {
     HWND hWnd = pmap->GetHWnd();
     IParamBlock2 *pb = pmap->GetParamBlock();
@@ -539,20 +539,20 @@ plKey plAnimComponent::GetModKey(plMaxNode *node)
     return nil;
 }
 
-bool    plAnimComponent::GetKeyList( INode *restrictedNode, hsTArray<plKey> &outKeys )
+bool    plAnimComponent::GetKeyList(INode *restrictedNode, hsTArray<plKey> &outKeys)
 {
-    if( restrictedNode != nil )
+    if (restrictedNode != nil)
     {
-        if( fMods.find( (plMaxNode *)restrictedNode ) != fMods.end() )
+        if (fMods.find((plMaxNode *)restrictedNode) != fMods.end())
         {
-            outKeys.Append( fMods[ (plMaxNode *)restrictedNode ]->GetKey() );
+            outKeys.Append(fMods[(plMaxNode *)restrictedNode]->GetKey());
             return true;
         }
         return false;
     }
     else
     {
-        hsAssert( false, "DO SOMETHING!" );
+        hsAssert(false, "DO SOMETHING!");
         return false;
     }
 }
@@ -565,16 +565,16 @@ plAnimGroupedComponent::plAnimGroupedComponent() : fForward(nil)
 
 plKey plAnimGroupedComponent::GetModKey(plMaxNode *node)
 {
-    if( fForward )
+    if (fForward)
         return fForward->GetKey();
     return nil;
 }
 
-bool    plAnimGroupedComponent::GetKeyList( INode *restrictedNode, hsTArray<plKey> &outKeys )
+bool    plAnimGroupedComponent::GetKeyList(INode *restrictedNode, hsTArray<plKey> &outKeys)
 {
-    if( fForward )
+    if (fForward)
     {
-        outKeys.Append( fForward->GetKey() );
+        outKeys.Append(fForward->GetKey());
         return true;
     }
     return false;
@@ -665,7 +665,7 @@ bool plAnimComponentBase::SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg)
             parent->SetForceLocal(true);
 
             //char str[512];
-            //sprintf(str, "Forcing local on '%s' because of animated child '%s'\n",parent->GetName(),node->GetName() );
+            //sprintf(str, "Forcing local on '%s' because of animated child '%s'\n",parent->GetName(),node->GetName());
             //OutputDebugString(str);
         }
     }
@@ -936,7 +936,7 @@ bool plAnimComponentBase::DeInit(plMaxNode *node, plErrorMsg *pErrMsg)
     return true;
 }
 
-void plAnimComponentBase::SetupCtl( plAGAnim *anim, plController *ctl, plAGApplicator *app, plMaxNode *node )
+void plAnimComponentBase::SetupCtl(plAGAnim *anim, plController *ctl, plAGApplicator *app, plMaxNode *node)
 {
     plScalarControllerChannel *channel = new plScalarControllerChannel(ctl);
     app->SetChannel(channel);
@@ -989,16 +989,16 @@ public:
     }
 };
 
-void    plAnimComponentBase::PickTargetNode( IParamBlock2 *destPB, ParamID destParamID, ParamID destTypeID )
+void    plAnimComponentBase::PickTargetNode(IParamBlock2 *destPB, ParamID destParamID, ParamID destTypeID)
 {
-    plPickAnimCompNode pick( destPB, destParamID, destTypeID, (plComponentBase *)this );
+    plPickAnimCompNode pick(destPB, destParamID, destTypeID, (plComponentBase *)this);
     pick.DoPick();
 }
 
-ST::string plAnimComponentBase::GetIfaceSegmentName( bool allowNil )
+ST::string plAnimComponentBase::GetIfaceSegmentName(bool allowNil)
 {
     ST::string name = GetAnimName();
-    if( allowNil || !name.empty() )
+    if (allowNil || !name.empty())
         return name;
     return ENTIRE_ANIMATION_NAME;
 }
@@ -1010,39 +1010,39 @@ class plPlasmaAnimHitCallback : public HitByNameDlgCallback
 protected:
     IParamBlock2*   fPB;
     ParamID         fParamID;
-    TCHAR           fTitle[ 128 ];
+    TCHAR           fTitle[128];
 
 public:
-    plPlasmaAnimHitCallback( IParamBlock2 *pb, ParamID paramID, TCHAR *title = nil )
-        : fPB( pb ), fParamID( paramID )
+    plPlasmaAnimHitCallback(IParamBlock2 *pb, ParamID paramID, TCHAR *title = nil)
+        : fPB(pb), fParamID(paramID)
 
     {
-        strcpy( fTitle, title );
+        strcpy(fTitle, title);
     }
 
     virtual TCHAR *dialogTitle() { return fTitle; }
     virtual TCHAR *buttonText() { return "OK"; }
 
-    virtual int filter( INode *node )
+    virtual int filter(INode *node)
     {
-        plComponentBase *comp = ( (plMaxNodeBase *)node )->ConvertToComponent();
-        if( comp != nil && plAnimComponentBase::IsAnimComponent( comp ) )
+        plComponentBase *comp = ((plMaxNodeBase *)node)->ConvertToComponent();
+        if (comp != nil && plAnimComponentBase::IsAnimComponent(comp))
         {
             // Make sure it won't create a cyclical reference (Max doesn't like those)
-            if( comp->TestForLoop( FOREVER, fPB ) == REF_FAIL )
+            if (comp->TestForLoop(FOREVER, fPB) == REF_FAIL)
                 return FALSE;
 
             return TRUE;
         }
         else
         {
-            plAnimStealthNode *stealth = plAnimStealthNode::ConvertToStealth( node );
-            if( stealth != nil )
+            plAnimStealthNode *stealth = plAnimStealthNode::ConvertToStealth(node);
+            if (stealth != nil)
             {
-                if( stealth->TestForLoop( FOREVER, fPB ) == REF_FAIL )
+                if (stealth->TestForLoop(FOREVER, fPB) == REF_FAIL)
                     return FALSE;
 
-                if( !stealth->IsParentUsedInScene() )
+                if (!stealth->IsParentUsedInScene())
                     return FALSE;
 
                 return TRUE;
@@ -1052,9 +1052,9 @@ public:
         return FALSE;
     }
 
-    virtual void proc( INodeTab &nodeTab )
+    virtual void proc(INodeTab &nodeTab)
     {
-        fPB->SetValue( fParamID, (TimeValue)0, nodeTab[ 0 ] );
+        fPB->SetValue(fParamID, (TimeValue)0, nodeTab[0]);
     }
 
     virtual BOOL showHiddenAndFrozen() { return TRUE; }
@@ -1063,17 +1063,17 @@ public:
 
 //// Dialog Proc For Anim Selection /////////////////////////////////////////////////////////////
 
-plPlasmaAnimSelectDlgProc::plPlasmaAnimSelectDlgProc( ParamID paramID, int dlgItem, TCHAR *promptTitle, ParamMap2UserDlgProc *chainedDlgProc )
+plPlasmaAnimSelectDlgProc::plPlasmaAnimSelectDlgProc(ParamID paramID, int dlgItem, TCHAR *promptTitle, ParamMap2UserDlgProc *chainedDlgProc)
 {
     fParamID = paramID;
     fDlgItem = dlgItem;
     fUseNode = false;
-    strcpy( fTitle, promptTitle );
+    strcpy(fTitle, promptTitle);
     fChain = chainedDlgProc;
 }
 
-plPlasmaAnimSelectDlgProc::plPlasmaAnimSelectDlgProc( ParamID paramID, int dlgItem, ParamID nodeParamID, ParamID typeParamID, int nodeDlgItem,
-                                                      TCHAR *promptTitle, ParamMap2UserDlgProc *chainedDlgProc )
+plPlasmaAnimSelectDlgProc::plPlasmaAnimSelectDlgProc(ParamID paramID, int dlgItem, ParamID nodeParamID, ParamID typeParamID, int nodeDlgItem,
+                                                     TCHAR *promptTitle, ParamMap2UserDlgProc *chainedDlgProc)
 {
     fParamID = paramID;
     fDlgItem = dlgItem;
@@ -1081,96 +1081,96 @@ plPlasmaAnimSelectDlgProc::plPlasmaAnimSelectDlgProc( ParamID paramID, int dlgIt
     fNodeParamID = nodeParamID;
     fTypeParamID = typeParamID;
     fNodeDlgItem = nodeDlgItem;
-    strcpy( fTitle, promptTitle );
+    strcpy(fTitle, promptTitle);
     fChain = chainedDlgProc;
 }
 
-void    plPlasmaAnimSelectDlgProc::SetThing( ReferenceTarget *m )
+void    plPlasmaAnimSelectDlgProc::SetThing(ReferenceTarget *m)
 {
-    if( fChain != nil )
-        fChain->SetThing( m );
+    if (fChain != nil)
+        fChain->SetThing(m);
 }
 
-void    plPlasmaAnimSelectDlgProc::Update( TimeValue t, Interval &valid, IParamMap2 *pmap )
+void    plPlasmaAnimSelectDlgProc::Update(TimeValue t, Interval &valid, IParamMap2 *pmap)
 {
-    if( fChain != nil )
-        fChain->Update( t, valid, pmap );
+    if (fChain != nil)
+        fChain->Update(t, valid, pmap);
 }
 
-void    plPlasmaAnimSelectDlgProc::IUpdateNodeBtn( HWND hWnd, IParamBlock2 *pb )
+void    plPlasmaAnimSelectDlgProc::IUpdateNodeBtn(HWND hWnd, IParamBlock2 *pb)
 {
-    if( fUseNode )
+    if (fUseNode)
     {
-        int type = pb->GetInt( fTypeParamID );
-        if( type == plAnimObjInterface::kUseOwnerNode )
-            ::SetWindowText( ::GetDlgItem( hWnd, fNodeDlgItem ), kUseOwnerNodeString );
+        int type = pb->GetInt(fTypeParamID);
+        if (type == plAnimObjInterface::kUseOwnerNode)
+            ::SetWindowText(::GetDlgItem(hWnd, fNodeDlgItem), kUseOwnerNodeString);
         else
         {
-            INode *node = pb->GetINode( fNodeParamID );
-            TSTR newName( node ? node->GetName() : kUseParamBlockNodeString );
-            ::SetWindowText( ::GetDlgItem( hWnd, fNodeDlgItem ), newName );
+            INode *node = pb->GetINode(fNodeParamID);
+            TSTR newName(node ? node->GetName() : kUseParamBlockNodeString);
+            ::SetWindowText(::GetDlgItem(hWnd, fNodeDlgItem), newName);
         }
 
-        plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( pb->GetINode( fParamID ) );
-        if( iface == nil || !iface->IsNodeRestricted() )
-            ::EnableWindow( ::GetDlgItem( hWnd, fNodeDlgItem ), false );
+        plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface(pb->GetINode(fParamID));
+        if (iface == nil || !iface->IsNodeRestricted())
+            ::EnableWindow(::GetDlgItem(hWnd, fNodeDlgItem), false);
         else
         {
-            ::EnableWindow( ::GetDlgItem( hWnd, fNodeDlgItem ), true );
+            ::EnableWindow(::GetDlgItem(hWnd, fNodeDlgItem), true);
         }
     }
 }
 
-BOOL    plPlasmaAnimSelectDlgProc::DlgProc( TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
+BOOL    plPlasmaAnimSelectDlgProc::DlgProc(TimeValue t, IParamMap2 *pmap, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-    switch ( msg )
+    switch (msg)
     {
         case WM_INITDIALOG:
             {
                 IParamBlock2 *pb = pmap->GetParamBlock();
 
-                INode *node = pb->GetINode( fParamID );
-                TSTR newName( node ? node->GetName() : "Pick" );
-                ::SetWindowText( ::GetDlgItem( hWnd, fDlgItem ), newName );
+                INode *node = pb->GetINode(fParamID);
+                TSTR newName(node ? node->GetName() : "Pick");
+                ::SetWindowText(::GetDlgItem(hWnd, fDlgItem), newName);
 
-                IUpdateNodeBtn( hWnd, pb );
+                IUpdateNodeBtn(hWnd, pb);
             }
             break;
 
         case WM_COMMAND:
-            if( ( HIWORD( wParam ) == BN_CLICKED ) )
+            if ((HIWORD(wParam) == BN_CLICKED))
             {
-                if( LOWORD( wParam ) == fDlgItem )
+                if (LOWORD(wParam) == fDlgItem)
                 {
                     IParamBlock2 *pb = pmap->GetParamBlock();
-                    plPlasmaAnimHitCallback hitCB( pb, fParamID, fTitle );
-                    GetCOREInterface()->DoHitByNameDialog( &hitCB );
+                    plPlasmaAnimHitCallback hitCB(pb, fParamID, fTitle);
+                    GetCOREInterface()->DoHitByNameDialog(&hitCB);
 
-                    INode *node = pb->GetINode( fParamID );
-                    TSTR newName( node ? node->GetName() : "Pick" );
-                    ::SetWindowText( ::GetDlgItem(hWnd, fDlgItem ), newName );
-                    pmap->Invalidate( fParamID );
-                    ::InvalidateRect( hWnd, NULL, TRUE );
+                    INode *node = pb->GetINode(fParamID);
+                    TSTR newName(node ? node->GetName() : "Pick");
+                    ::SetWindowText(::GetDlgItem(hWnd, fDlgItem), newName);
+                    pmap->Invalidate(fParamID);
+                    ::InvalidateRect(hWnd, NULL, TRUE);
 
-                    IUpdateNodeBtn( hWnd, pb );
+                    IUpdateNodeBtn(hWnd, pb);
                     return true;
                 }
-                else if( fUseNode && LOWORD( wParam ) == fNodeDlgItem )
+                else if (fUseNode && LOWORD(wParam) == fNodeDlgItem)
                 {
                     IParamBlock2 *pb = pmap->GetParamBlock();
 
-                    plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface( pb->GetINode( fParamID ) );
-                    iface->PickTargetNode( pb, fNodeParamID, fTypeParamID );
+                    plAnimObjInterface *iface = plAnimComponentBase::GetAnimInterface(pb->GetINode(fParamID));
+                    iface->PickTargetNode(pb, fNodeParamID, fTypeParamID);
 
-                    IUpdateNodeBtn( hWnd, pb );
+                    IUpdateNodeBtn(hWnd, pb);
                     return true;
                 }
             }
             break;
     }
 
-    if( fChain != nil )
-        return fChain->DlgProc( t, pmap, hWnd, msg, wParam, lParam );
+    if (fChain != nil)
+        return fChain->DlgProc(t, pmap, hWnd, msg, wParam, lParam);
 
     return false;
 }

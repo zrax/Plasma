@@ -65,8 +65,8 @@ class plNetCoreStatsSummary : public plCreatable
     uint32_t fDLDroppedPackets;
 public:
     plNetCoreStatsSummary();
-    CLASSNAME_REGISTER( plNetCoreStatsSummary );
-    GETINTERFACE_ANY( plNetCoreStatsSummary, plCreatable );
+    CLASSNAME_REGISTER(plNetCoreStatsSummary);
+    GETINTERFACE_ANY(plNetCoreStatsSummary, plCreatable);
     void Read(hsStream* s, hsResMgr* mgr=nil);
     void Write(hsStream* s, hsResMgr* mgr=nil);
     float GetULBitsPS() const { return fULBitsPS; }
@@ -102,36 +102,36 @@ public:
     plCreatableListHelper();
     ~plCreatableListHelper() { IClearItems();}
 
-    CLASSNAME_REGISTER( plCreatableListHelper );
-    GETINTERFACE_ANY( plCreatableListHelper, plCreatable );
+    CLASSNAME_REGISTER(plCreatableListHelper);
+    GETINTERFACE_ANY(plCreatableListHelper, plCreatable);
 
-    void    Read( hsStream* s, hsResMgr* mgr );
-    void    Write( hsStream* s, hsResMgr* mgr );
+    void    Read(hsStream* s, hsResMgr* mgr);
+    void    Write(hsStream* s, hsResMgr* mgr);
     void    Clear() { IClearItems();    }
-    void    CopyFrom( const plCreatableListHelper * other, bool manageItems );
+    void    CopyFrom(const plCreatableListHelper * other, bool manageItems);
 
-    void    SetWantCompression( bool v ) { if ( v ) fFlags|=kWantCompression; else fFlags&=~kWantCompression; }
-    bool    WantCompression() const { return ( fFlags&kWantCompression )!=0; }
+    void    SetWantCompression(bool v) { if (v) fFlags|=kWantCompression; else fFlags&=~kWantCompression; }
+    bool    WantCompression() const { return (fFlags&kWantCompression)!=0; }
     uint32_t  GetCompressionThreshold() const { return fCompressionThreshold; }
-    void    SetCompressionThreshold( uint32_t v ) { fCompressionThreshold=v; }
+    void    SetCompressionThreshold(uint32_t v) { fCompressionThreshold=v; }
     
     // support for generic arguments
-    void    AddItem( uint16_t id, plCreatable * item, bool manageItem=false );
-    void    AddItem( uint16_t id, const plCreatable * item, bool manageItem=false );
-    plCreatable* GetItem( uint16_t id, bool unManageItem=false ) const;
-    void    RemoveItem( uint16_t id, bool unManageItem=false );
-    bool    ItemExists( uint16_t id ) const;
+    void    AddItem(uint16_t id, plCreatable * item, bool manageItem=false);
+    void    AddItem(uint16_t id, const plCreatable * item, bool manageItem=false);
+    plCreatable* GetItem(uint16_t id, bool unManageItem=false) const;
+    void    RemoveItem(uint16_t id, bool unManageItem=false);
+    bool    ItemExists(uint16_t id) const;
     int     GetNumItems() const { return fItems.size();}
     // helpers for typed arguments
-    void    AddString( uint16_t id, const char * value );
-    void    AddString( uint16_t id, std::string & value );
-    ST::string  GetString( uint16_t id );
-    void    AddInt( uint16_t id, int32_t value );
-    int32_t   GetInt( uint16_t id );
-    void    AddDouble( uint16_t id, double value );
-    double  GetDouble( uint16_t id );
-    void    GetItemsAsVec( std::vector<plCreatable*>& out );
-    void    GetItems( std::map<uint16_t,plCreatable*>& out );
+    void    AddString(uint16_t id, const char * value);
+    void    AddString(uint16_t id, std::string & value);
+    ST::string  GetString(uint16_t id);
+    void    AddInt(uint16_t id, int32_t value);
+    int32_t   GetInt(uint16_t id);
+    void    AddDouble(uint16_t id, double value);
+    double  GetDouble(uint16_t id);
+    void    GetItemsAsVec(std::vector<plCreatable*>& out);
+    void    GetItems(std::map<uint16_t,plCreatable*>& out);
 };
 
 /////////////////////////////////////////////////////////////////////
@@ -144,35 +144,35 @@ struct plOperationTimer
     ST::string fSpacer;
     bool    fPrintAtStart;
     ST::string fTag;
-    plOperationTimer( const char * tag="", bool printAtStart=false )
-        : fRunning( false )
-        , fTag( tag )
-        , fStartTime( 0.0 )
-        , fEndTime( 0.0 )
-        , fPrintAtStart( printAtStart )
+    plOperationTimer(const char * tag="", bool printAtStart=false)
+        : fRunning(false)
+        , fTag(tag)
+        , fStartTime(0.0)
+        , fEndTime(0.0)
+        , fPrintAtStart(printAtStart)
     {}
     ~plOperationTimer() { Stop(); }
-    void Start( const char * comment, int level=0 )
+    void Start(const char * comment, int level=0)
     {
         fSpacer = ST::string::fill(level, '\t');
         Stop();
         fRunning = true;
         fComment = comment;
         fStartTime = hsTimer::GetSeconds();
-        if ( fPrintAtStart )
+        if (fPrintAtStart)
         {
-            hsLogEntry( plNetApp::StaticDebugMsg( "{}{} Timing: {}",
-                fSpacer, fTag, fComment ) );
+            hsLogEntry(plNetApp::StaticDebugMsg("{}{} Timing: {}",
+                fSpacer, fTag, fComment));
         }
     }
     void Stop()
     {
-        if ( !fRunning )
+        if (!fRunning)
             return;
         fRunning = false;
         fEndTime = hsTimer::GetSeconds()-fStartTime;
-        hsLogEntry( plNetApp::StaticDebugMsg( "{}{} Timed: {f} secs: {}",
-            fSpacer, fTag, fEndTime, fComment ) );
+        hsLogEntry(plNetApp::StaticDebugMsg("{}{} Timed: {f} secs: {}",
+            fSpacer, fTag, fEndTime, fComment));
     }
     double GetTime() const { return fEndTime;}
 };

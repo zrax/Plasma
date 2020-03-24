@@ -53,7 +53,7 @@ plPageInfo::plPageInfo()
     IInit();
 }
 
-plPageInfo::plPageInfo( const plLocation &loc )
+plPageInfo::plPageInfo(const plLocation &loc)
 {
     IInit();
     fLocation = loc;
@@ -74,23 +74,23 @@ plPageInfo::~plPageInfo()
     SetStrings("", "");
 }
 
-plPageInfo::plPageInfo( const plPageInfo &src )
+plPageInfo::plPageInfo(const plPageInfo &src)
 {
     IInit();
-    ISetFrom( src );
+    ISetFrom(src);
 }
 
-plPageInfo &plPageInfo::operator=( const plPageInfo &src )
+plPageInfo &plPageInfo::operator=(const plPageInfo &src)
 {
-    ISetFrom( src );
+    ISetFrom(src);
     return *this;
 }
 
-void    plPageInfo::ISetFrom( const plPageInfo &src )
+void    plPageInfo::ISetFrom(const plPageInfo &src)
 {
     fLocation = src.fLocation;
 
-    SetStrings( src.fAge, src.fPage );
+    SetStrings(src.fAge, src.fPage);
     fMajorVersion = src.fMajorVersion;
     fClassVersions = src.fClassVersions;
     fChecksum = src.fChecksum;
@@ -104,7 +104,7 @@ void    plPageInfo::SetStrings(const ST::string& age, const ST::string& page)
     fPage = page;
 }
 
-void    plPageInfo::SetLocation( const plLocation &loc )
+void    plPageInfo::SetLocation(const plLocation &loc)
 {
     fLocation = loc;
 }
@@ -117,7 +117,7 @@ void plPageInfo::AddClassVersion(uint16_t classIdx, uint16_t version)
     fClassVersions.push_back(cv);
 }
 
-void plPageInfo::Read( hsStream *s )
+void plPageInfo::Read(hsStream *s)
 {
     IInit();
 
@@ -127,18 +127,18 @@ void plPageInfo::Read( hsStream *s )
     uint32_t version = s->ReadLE32();
     if (version > sCurrPageInfoVersion || version < 5)
     {
-        hsAssert( false, "Invalid header version in plPageInfo::Read()" );
+        hsAssert(false, "Invalid header version in plPageInfo::Read()");
         return;
     }
     if (version >= 5)
     {
-        fLocation.Read( s );
+        fLocation.Read(s);
         fAge = s->ReadSafeString();
         if (version < 6)
             s->ReadSafeString(); // fChapter was never used, and always "District".
         fPage = s->ReadSafeString();
 
-        s->ReadLE( &fMajorVersion );
+        s->ReadLE(&fMajorVersion);
 
         if (version < 6)
         {
@@ -150,9 +150,9 @@ void plPageInfo::Read( hsStream *s )
             s->ReadLE(&unusedFlags);
         }
 
-        s->ReadLE( &fChecksum );
-        s->ReadLE( &fDataStart );
-        s->ReadLE( &fIndexStart );
+        s->ReadLE(&fChecksum);
+        s->ReadLE(&fDataStart);
+        s->ReadLE(&fIndexStart);
     }
 
     if (version >= 6)
@@ -169,16 +169,16 @@ void plPageInfo::Read( hsStream *s )
     }
 }
 
-void    plPageInfo::Write( hsStream *s )
+void    plPageInfo::Write(hsStream *s)
 {
-    s->WriteLE32( sCurrPageInfoVersion );
-    fLocation.Write( s );
-    s->WriteSafeString( fAge );
-    s->WriteSafeString( fPage );
-    s->WriteLE( fMajorVersion );
-    s->WriteLE( fChecksum );
-    s->WriteLE( fDataStart );
-    s->WriteLE( fIndexStart );
+    s->WriteLE32(sCurrPageInfoVersion);
+    fLocation.Write(s);
+    s->WriteSafeString(fAge);
+    s->WriteSafeString(fPage);
+    s->WriteLE(fMajorVersion);
+    s->WriteLE(fChecksum);
+    s->WriteLE(fDataStart);
+    s->WriteLE(fIndexStart);
     uint16_t numClassVersions = uint16_t(fClassVersions.size());
     s->WriteLE16(numClassVersions);
     for (uint16_t i = 0; i < numClassVersions; i++)

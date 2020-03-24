@@ -174,10 +174,10 @@ void plUoid::Read(hsStream* s)
     // conditional cloneIDs read
     if (contents & kHasCloneIDs)
     {
-        s->LogReadLE( &fCloneID ,"CloneID");
+        s->LogReadLE(&fCloneID ,"CloneID");
         uint16_t dummy;
         s->LogReadLE(&dummy, "dummy"); // To avoid breaking format
-        s->LogReadLE( &fClonePlayerID ,"ClonePlayerID");
+        s->LogReadLE(&fClonePlayerID ,"ClonePlayerID");
     }
     else
     {
@@ -200,9 +200,9 @@ void plUoid::Write(hsStream* s) const
     if (contents & kHasLoadMask)
         fLoadMask.Write(s);
 
-    s->WriteLE( fClassType );
-    s->WriteLE( fObjectID );
-    s->WriteSafeString( fObjectName );
+    s->WriteLE(fClassType);
+    s->WriteLE(fObjectID);
+    s->WriteSafeString(fObjectName);
 
     // conditional cloneIDs write
     if (contents & kHasCloneIDs)

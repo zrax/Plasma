@@ -61,7 +61,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 
 plAudioInterface::plAudioInterface()
-: fAudible(nil), fAudibleInited( false )
+: fAudible(nil), fAudibleInited(false)
 {
     fRegisteredForASysMsg = false;
 }
@@ -75,20 +75,20 @@ void plAudioInterface::SetProperty(int prop, bool on)
 {
     plObjInterface::SetProperty(prop, on);
 
-    if( fAudible )
+    if (fAudible)
         fAudible->SetProperty(prop, on);
 }
 
 plSound* plAudioInterface::GetSound(int i) const
 {
-    if( fAudible )
+    if (fAudible)
         return fAudible->GetSound(i);
     return nil;
 }
 
 int plAudioInterface::GetSoundIndex(const char *keyname)
 {
-    if( fAudible )
+    if (fAudible)
         return fAudible->GetSoundIndex(keyname);
     else
         return -1;
@@ -96,7 +96,7 @@ int plAudioInterface::GetSoundIndex(const char *keyname)
 
 int plAudioInterface::GetNumSounds() const
 {
-    if( fAudible )
+    if (fAudible)
         return fAudible->GetNumSounds();
     return 0;
 }
@@ -104,26 +104,26 @@ int plAudioInterface::GetNumSounds() const
 // set the filename of sound[index] within the audible
 void plAudioInterface::SetSoundFilename(int index, const char *filename, bool isCompressed)
 {
-    if(fAudible)
+    if (fAudible)
         fAudible->SetFilename(index, filename, isCompressed);
 }
 
 void plAudioInterface::ISetSceneNode(plKey key)
 {
-    if( fAudible )
+    if (fAudible)
     {
         fAudible->SetSceneNode(key);
-        if( !fAudibleInited )
+        if (!fAudibleInited)
         {
             int isLocal = IsLocallyOwned();
 
-            plKey localKey = ( plNetClientApp::GetInstance() != nil ) ? plNetClientApp::GetInstance()->GetLocalPlayerKey() : nil;
-            if( fOwner && fOwner->GetKey() == localKey )
+            plKey localKey = (plNetClientApp::GetInstance() != nil) ? plNetClientApp::GetInstance()->GetLocalPlayerKey() : nil;
+            if (fOwner && fOwner->GetKey() == localKey)
                 isLocal = true;
             else
                 isLocal = false;
 
-            fAudible->Init( isLocal );//( isLocal == plSynchedObject::kYes ) );
+            fAudible->Init(isLocal);//(isLocal == plSynchedObject::kYes));
             fAudibleInited = true;
         }
     }
@@ -133,12 +133,12 @@ void plAudioInterface::ISetOwner(plSceneObject* owner)
 {
     plObjInterface::ISetOwner(owner);
 
-    if( owner && !fRegisteredForASysMsg )
+    if (owner && !fRegisteredForASysMsg)
     {
         plgDispatch::Dispatch()->RegisterForExactType(plAudioSysMsg::Index(), GetKey());
         fRegisteredForASysMsg = true;
     }
-    else if( owner == nil && fRegisteredForASysMsg )
+    else if (owner == nil && fRegisteredForASysMsg)
     {
         plgDispatch::Dispatch()->UnRegisterForExactType(plAudioSysMsg::Index(), GetKey());
         fRegisteredForASysMsg = false;
@@ -151,7 +151,7 @@ void plAudioInterface::ISetOwner(plSceneObject* owner)
 
 void plAudioInterface::SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l)
 {
-    if( fAudible )
+    if (fAudible)
         fAudible->SetTransform(l2w, w2l);
 }
 
@@ -173,17 +173,17 @@ void plAudioInterface::Write(hsStream* s, hsResMgr* mgr)
 void plAudioInterface::ISetAudible(plAudible* aud)
 {
     fAudible = aud;
-    if( fAudible )
+    if (fAudible)
     {
         fAudible->SetSceneNode(GetSceneNode());
         if (fOwner)
             fAudible->SetSceneObject(fOwner->GetKey());
     }
 
-    plAudioSysMsg* pMsg = new plAudioSysMsg( plAudioSysMsg::kPing );
+    plAudioSysMsg* pMsg = new plAudioSysMsg(plAudioSysMsg::kPing);
     pMsg->SetSender(GetKey());
 //  pMsg->SetBCastFlag(plMessage::kBCastByExactType, false);
-    plgDispatch::MsgSend( pMsg );
+    plgDispatch::MsgSend(pMsg);
 }
 
 void plAudioInterface::IRemoveAudible(plAudible* aud)
@@ -195,12 +195,12 @@ void plAudioInterface::IRemoveAudible(plAudible* aud)
 bool plAudioInterface::MsgReceive(plMessage* msg)
 {
     plIntRefMsg* intRefMsg = plIntRefMsg::ConvertNoRef(msg);
-    if( intRefMsg )
+    if (intRefMsg)
     {
-        switch( intRefMsg->fType )
+        switch (intRefMsg->fType)
         {
         case plIntRefMsg::kAudible:
-            if( intRefMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+            if (intRefMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
             {
                 IRemoveAudible(plAudible::ConvertNoRef(intRefMsg->GetRef()));
             }
@@ -214,71 +214,71 @@ bool plAudioInterface::MsgReceive(plMessage* msg)
         }
     }
 
-    plSoundMsg* pSoundMsg = plSoundMsg::ConvertNoRef( msg );
+    plSoundMsg* pSoundMsg = plSoundMsg::ConvertNoRef(msg);
     if (pSoundMsg)
     {
         if (!fAudible)
             return false;
-        if (pSoundMsg->Cmd( plSoundMsg::kAddCallbacks))
-            fAudible->AddCallbacks( pSoundMsg );
-        if (pSoundMsg->Cmd( plSoundMsg::kRemoveCallbacks))
-            fAudible->RemoveCallbacks( pSoundMsg );
-        if (pSoundMsg->Cmd( plSoundMsg::kStop ) )
+        if (pSoundMsg->Cmd(plSoundMsg::kAddCallbacks))
+            fAudible->AddCallbacks(pSoundMsg);
+        if (pSoundMsg->Cmd(plSoundMsg::kRemoveCallbacks))
+            fAudible->RemoveCallbacks(pSoundMsg);
+        if (pSoundMsg->Cmd(plSoundMsg::kStop))
             fAudible->Stop(pSoundMsg->fIndex);
-        if (pSoundMsg->Cmd( plSoundMsg::kGoToTime ) )
+        if (pSoundMsg->Cmd(plSoundMsg::kGoToTime))
             fAudible->SetTime(pSoundMsg->fTime, pSoundMsg->fIndex);
-        if (pSoundMsg->Cmd( plSoundMsg::kPlay ) )
+        if (pSoundMsg->Cmd(plSoundMsg::kPlay))
             fAudible->Play(pSoundMsg->fIndex);
-        if(pSoundMsg->Cmd( plSoundMsg::kSynchedPlay))
+        if (pSoundMsg->Cmd(plSoundMsg::kSynchedPlay))
             fAudible->SynchedPlay(pSoundMsg->fIndex);
-        if (pSoundMsg->Cmd( plSoundMsg::kSetLooping ) )
+        if (pSoundMsg->Cmd(plSoundMsg::kSetLooping))
             fAudible->SetLooping(true,pSoundMsg->fIndex);
-        if (pSoundMsg->Cmd( plSoundMsg::kUnSetLooping ) )
+        if (pSoundMsg->Cmd(plSoundMsg::kUnSetLooping))
             fAudible->SetLooping(false,pSoundMsg->fIndex);
-        if (pSoundMsg->Cmd( plSoundMsg::kToggleState ) )
+        if (pSoundMsg->Cmd(plSoundMsg::kToggleState))
         {
             if (fAudible->IsPlaying(pSoundMsg->fIndex))
                 fAudible->Stop(pSoundMsg->fIndex);
             else
                 fAudible->Play(pSoundMsg->fIndex);
         }
-        if (pSoundMsg->Cmd( plSoundMsg::kGetStatus ) )
+        if (pSoundMsg->Cmd(plSoundMsg::kGetStatus))
         {
             fAudible->GetStatus(pSoundMsg);
         }
-        if (pSoundMsg->Cmd( plSoundMsg::kGetNumSounds ) )
+        if (pSoundMsg->Cmd(plSoundMsg::kGetNumSounds))
         {
             plSoundMsg* pReply = new plSoundMsg;
             pReply->fIndex = fAudible->GetNumSounds();
             pReply->AddReceiver(pSoundMsg->GetSender());
-            pReply->SetCmd( plSoundMsg::kGetNumSounds );
+            pReply->SetCmd(plSoundMsg::kGetNumSounds);
             plgDispatch::MsgSend(pReply);
         }
-        if( pSoundMsg->Cmd( plSoundMsg::kSetVolume ) )
+        if (pSoundMsg->Cmd(plSoundMsg::kSetVolume))
         {
-            fAudible->SetVolume( pSoundMsg->fVolume, pSoundMsg->fIndex );
+            fAudible->SetVolume(pSoundMsg->fVolume, pSoundMsg->fIndex);
         }
-        if ( pSoundMsg->Cmd( plSoundMsg::kSetTalkIcon ) )
+        if (pSoundMsg->Cmd(plSoundMsg::kSetTalkIcon))
         {
             fAudible->SetTalkIcon(pSoundMsg->fIndex, pSoundMsg->fNameStr);
         }
-        if ( pSoundMsg->Cmd( plSoundMsg::kClearTalkIcon ) )
+        if (pSoundMsg->Cmd(plSoundMsg::kClearTalkIcon))
         {
             fAudible->ClearTalkIcon();
         }
-        if ( pSoundMsg->Cmd( plSoundMsg::kSetFadeIn ) )
+        if (pSoundMsg->Cmd(plSoundMsg::kSetFadeIn))
         {
-            fAudible->SetFadeIn( (int)pSoundMsg->fFadeType, pSoundMsg->fVolume, pSoundMsg->fIndex );
+            fAudible->SetFadeIn((int)pSoundMsg->fFadeType, pSoundMsg->fVolume, pSoundMsg->fIndex);
         }
-        if ( pSoundMsg->Cmd( plSoundMsg::kSetFadeOut ) )
+        if (pSoundMsg->Cmd(plSoundMsg::kSetFadeOut))
         {
-            fAudible->SetFadeOut( (int)pSoundMsg->fFadeType, pSoundMsg->fVolume, pSoundMsg->fIndex );
+            fAudible->SetFadeOut((int)pSoundMsg->fFadeType, pSoundMsg->fVolume, pSoundMsg->fIndex);
         }
-        if( pSoundMsg->Cmd( plSoundMsg::kFastForwardPlay ) )
+        if (pSoundMsg->Cmd(plSoundMsg::kFastForwardPlay))
         {
             fAudible->FastForwardPlay(pSoundMsg->fIndex);
         }
-        if(pSoundMsg->Cmd(plSoundMsg::kFastForwardToggle) )
+        if (pSoundMsg->Cmd(plSoundMsg::kFastForwardToggle))
         {
             fAudible->FastForwardToggle(pSoundMsg->fIndex);
         }
@@ -287,27 +287,27 @@ bool plAudioInterface::MsgReceive(plMessage* msg)
     }
 
 
-    plAudioSysMsg* pASMsg = plAudioSysMsg::ConvertNoRef( msg );
+    plAudioSysMsg* pASMsg = plAudioSysMsg::ConvertNoRef(msg);
     if (pASMsg)
     {
         if (pASMsg->GetAudFlag() == plAudioSysMsg::kActivate)
         {
-            if( fAudible )
+            if (fAudible)
             {
-                if( !fAudibleInited )
+                if (!fAudibleInited)
                 {
                     int isLocal = IsLocallyOwned();
-                    fAudible->Init( ( isLocal == plSynchedObject::kYes ) );
+                    fAudible->Init((isLocal == plSynchedObject::kYes));
                     fAudibleInited = true;
                 }
-                if( !fAudibleInited )
+                if (!fAudibleInited)
                 {
                     // Arrgh, can't activate yet, so attempt to re-activate some time in the near future
-                    pASMsg = new plAudioSysMsg( plAudioSysMsg::kActivate );
-                    pASMsg->SetBCastFlag( plMessage::kBCastByExactType, false );
-                    pASMsg->SetBCastFlag( plMessage::kNetPropagate, false );
-                    pASMsg->SetTimeStamp( hsTimer::GetSysSeconds() + 1.f );
-                    pASMsg->Send( GetKey() );
+                    pASMsg = new plAudioSysMsg(plAudioSysMsg::kActivate);
+                    pASMsg->SetBCastFlag(plMessage::kBCastByExactType, false);
+                    pASMsg->SetBCastFlag(plMessage::kNetPropagate, false);
+                    pASMsg->SetTimeStamp(hsTimer::GetSysSeconds() + 1.f);
+                    pASMsg->Send(GetKey());
                     return true;
                 }
                 fAudible->Activate();
@@ -321,39 +321,39 @@ bool plAudioInterface::MsgReceive(plMessage* msg)
         }
         if (pASMsg->GetAudFlag() == plAudioSysMsg::kDeActivate)
         {
-            if( fAudible )
+            if (fAudible)
                 fAudible->DeActivate();
         }
-        if( pASMsg->GetAudFlag() == plAudioSysMsg::kMuteAll )
+        if (pASMsg->GetAudFlag() == plAudioSysMsg::kMuteAll)
         {
-            if( fAudible )
-                fAudible->SetMuted( true );
+            if (fAudible)
+                fAudible->SetMuted(true);
         }
-        else if( pASMsg->GetAudFlag() == plAudioSysMsg::kUnmuteAll )
+        else if (pASMsg->GetAudFlag() == plAudioSysMsg::kUnmuteAll)
         {
-            if( fAudible )
-                fAudible->SetMuted( false );
+            if (fAudible)
+                fAudible->SetMuted(false);
         }
-        else if( pASMsg->GetAudFlag() == plAudioSysMsg::kChannelVolChanged )
+        else if (pASMsg->GetAudFlag() == plAudioSysMsg::kChannelVolChanged)
         {
-            if( fAudible )
-                return fAudible->MsgReceive( msg );
+            if (fAudible)
+                return fAudible->MsgReceive(msg);
         }
     }
 
-    plEnableMsg* pEnableMsg = plEnableMsg::ConvertNoRef( msg );
+    plEnableMsg* pEnableMsg = plEnableMsg::ConvertNoRef(msg);
     if (pEnableMsg)
     {
-        SetProperty( kDisable, pEnableMsg->Cmd(kDisable) );
+        SetProperty(kDisable, pEnableMsg->Cmd(kDisable));
         return true;
     }
 
     // proxyDrawMsg handling--just pass it on to the audible
-    plProxyDrawMsg *pdMsg = plProxyDrawMsg::ConvertNoRef( msg );
-    if( pdMsg != nil )
+    plProxyDrawMsg *pdMsg = plProxyDrawMsg::ConvertNoRef(msg);
+    if (pdMsg != nil)
     {
-        if( fAudible )
-            return fAudible->MsgReceive( pdMsg );
+        if (fAudible)
+            return fAudible->MsgReceive(pdMsg);
 
         return true;
     }

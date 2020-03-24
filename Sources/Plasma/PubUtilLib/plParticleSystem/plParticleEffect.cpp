@@ -85,7 +85,7 @@ bool plParticleCollisionEffect::MsgReceive(plMessage* msg)
     {
         if ((so = plSceneObject::ConvertNoRef(refMsg->GetRef())))
         {
-            if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+            if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
                 fSceneObj = so;
             else
                 fSceneObj = nil;
@@ -124,7 +124,7 @@ bool plParticleCollisionEffectBeat::ApplyEffect(const plEffectTargetInfo &target
 {
     hsAssert(i >= 0, "Use of default argument doesn't make sense for plParticleCollisionEffect");
 
-    if( !fBounds )
+    if (!fBounds)
         return false;
 
     hsPoint3 *currPos = (hsPoint3 *)(target.fPos + i * target.fPosStride);
@@ -143,7 +143,7 @@ bool plParticleCollisionEffectDie::ApplyEffect(const plEffectTargetInfo &target,
 {
     hsAssert(i >= 0, "Use of default argument doesn't make sense for plParticleCollisionEffect");
 
-    if( !fBounds )
+    if (!fBounds)
         return false;
 
     hsPoint3 *currPos = (hsPoint3 *)(target.fPos + i * target.fPosStride);
@@ -162,7 +162,7 @@ bool plParticleCollisionEffectBounce::ApplyEffect(const plEffectTargetInfo &targ
 {
     hsAssert(i >= 0, "Use of default argument doesn't make sense for plParticleCollisionEffect");
 
-    if( !fBounds )
+    if (!fBounds)
         return false;
 
     hsPoint3* currPos = (hsPoint3 *)(target.fPos + i * target.fPosStride);
@@ -276,69 +276,69 @@ bool plParticleFadeVolumeEffect::ApplyEffect(const plEffectTargetInfo& target, i
     float fade = 1.f;
 
     parm = (currPos->fX - fMin.fX) * fNorm.fX;
-    if( parm < 0 )
+    if (parm < 0)
     {
         parm -= int(parm);
         currPos->fX = fMax.fX + parm * (fMax.fX - fMin.fX);
         parm += 1.f;
     }
-    else if( parm > 1.f )
+    else if (parm > 1.f)
     {
         parm -= int(parm);
         currPos->fX = fMin.fX + parm * (fMax.fX - fMin.fX);
     }
-    if( parm > kFadeParm )
+    if (parm > kFadeParm)
     {
         parm = 1.f - parm;
         parm *= kInvFadeFrac;
-        if( parm < fade )
+        if (parm < fade)
             fade = parm;
     }
 
     parm = (currPos->fY - fMin.fY) * fNorm.fY;
-    if( parm < 0 )
+    if (parm < 0)
     {
         parm -= int(parm);
         currPos->fY = fMax.fY + parm * (fMax.fY - fMin.fY);
         parm += 1.f;
     }
-    else if( parm > 1.f )
+    else if (parm > 1.f)
     {
         parm -= int(parm);
         currPos->fY = fMin.fY + parm * (fMax.fY - fMin.fY);
     }
-    if( parm > kFadeParm )
+    if (parm > kFadeParm)
     {
         parm = 1.f - parm;
         parm *= kInvFadeFrac;
-        if( parm < fade )
+        if (parm < fade)
             fade = parm;
     }
 
-    if( !fIgnoreZ )
+    if (!fIgnoreZ)
     {
         parm = (currPos->fZ - fMin.fZ) * fNorm.fZ;
-        if( parm < 0 )
+        if (parm < 0)
         {
             parm -= int(parm);
             currPos->fZ = fMax.fZ + parm * (fMax.fZ - fMin.fZ);
             parm += 1.f;
         }
-        else if( parm > 1.f )
+        else if (parm > 1.f)
         {
             parm -= int(parm);
             currPos->fZ = fMin.fZ + parm * (fMax.fZ - fMin.fZ);
         }
-        if( parm > kFadeParm )
+        if (parm > kFadeParm)
         {
             parm = 1.f - parm;
             parm *= kInvFadeFrac;
-            if( parm < fade )
+            if (parm < fade)
                 fade = parm;
         }
     }
 
-    if( fade < 1.f )
+    if (fade < 1.f)
     {
         uint32_t *color = (uint32_t *)(target.fColor + i * target.fColorStride);
         uint32_t alpha = (uint32_t)((*color >> 24) * fade);
@@ -412,7 +412,7 @@ void plParticleWindEffect::SetRefDirection(const hsVector3& v)
 {
     fRefDir = v;
     float lenSq = fRefDir.MagnitudeSquared();
-    if( lenSq > 1.e-1f )
+    if (lenSq > 1.e-1f)
     {
         fDir = fRefDir * hsFastMath::InvSqrtAppr(lenSq);
         fRandDir = fDir;
@@ -421,12 +421,12 @@ void plParticleWindEffect::SetRefDirection(const hsVector3& v)
 
 void plParticleWindEffect::PrepareEffect(const plEffectTargetInfo& target)
 {
-    if( fLastDirSecs != target.fContext.fSecs )
+    if (fLastDirSecs != target.fContext.fSecs)
     {
         static plRandom random;
         fRandDir.fX += random.RandMinusOneToOne() * fSwirl;
         fRandDir.fY += random.RandMinusOneToOne() * fSwirl;
-        if( !GetHorizontal() )
+        if (!GetHorizontal())
             fRandDir.fZ += random.RandMinusOneToOne() * fSwirl;
         hsFastMath::NormalizeAppr(fRandDir);
         fDir = fRandDir + fRefDir;
@@ -471,7 +471,7 @@ void plParticleLocalWind::Write(hsStream *s, hsResMgr *mgr)
 
 void plParticleLocalWind::PrepareEffect(const plEffectTargetInfo& target)
 {
-    if( fLastPhaseSecs != target.fContext.fSecs )
+    if (fLastPhaseSecs != target.fContext.fSecs)
     {
         plParticleWindEffect::PrepareEffect(target);
 
@@ -493,19 +493,19 @@ bool plParticleLocalWind::ApplyEffect(const plEffectTargetInfo& target, int32_t 
 
     const float kMinToBother = 0;
 
-    float strength = 1.f / ( (1.f + fConstancy) * (1.f + fConstancy) );
+    float strength = 1.f / ((1.f + fConstancy) * (1.f + fConstancy));
     float s, c, t;
     t = (pos[0] - fPhase[0]) * fInvScale[0];
     hsFastMath::SinCosAppr(t, s, c);
     c += fConstancy;
-    if( c <= kMinToBother )
+    if (c <= kMinToBother)
         return false;
     strength *= c;
 
     t = (pos[1] - fPhase[1]) * fInvScale[1];
     hsFastMath::SinCosAppr(t, s, c);
     c += fConstancy;
-    if( c <= kMinToBother )
+    if (c <= kMinToBother)
         return false;
     strength *= c;
 
@@ -513,7 +513,7 @@ bool plParticleLocalWind::ApplyEffect(const plEffectTargetInfo& target, int32_t 
     t = (pos[2] - fPhase[2]) * fInvScale[2];
     hsFastMath::SinCosAppr(t, s, c);
     c += fConstancy;
-    if( c <= kMinToBother )
+    if (c <= kMinToBother)
         return false;
     strength *= c;
 #endif
@@ -574,12 +574,12 @@ void plParticleUniformWind::Write(hsStream *s, hsResMgr *mgr)
 void plParticleUniformWind::SetFrequencyRange(float minSecsPerCycle, float maxSecsPerCycle)
 {
     const float kMinSecsPerCycle = 1.f;
-    if( minSecsPerCycle < kMinSecsPerCycle )
+    if (minSecsPerCycle < kMinSecsPerCycle)
         minSecsPerCycle = kMinSecsPerCycle;
-    if( minSecsPerCycle < kMinSecsPerCycle )
+    if (minSecsPerCycle < kMinSecsPerCycle)
         minSecsPerCycle = kMinSecsPerCycle;
 
-    if( minSecsPerCycle < maxSecsPerCycle )
+    if (minSecsPerCycle < maxSecsPerCycle)
     {
         fFreqMin = 1.f / maxSecsPerCycle;
         fFreqMax = 1.f / minSecsPerCycle;
@@ -594,7 +594,7 @@ void plParticleUniformWind::SetFrequencyRange(float minSecsPerCycle, float maxSe
 void plParticleUniformWind::SetFrequencyRate(float secsPerCycle)
 {
     const float kMinSecsPerCycle = 1.f;
-    if( secsPerCycle < kMinSecsPerCycle )
+    if (secsPerCycle < kMinSecsPerCycle)
         secsPerCycle = kMinSecsPerCycle;
     fFreqRate = 1.f / secsPerCycle;
 }
@@ -604,7 +604,7 @@ void plParticleUniformWind::PrepareEffect(const plEffectTargetInfo& target)
 {
     plParticleWindEffect::PrepareEffect(target);
 
-    if( fLastFreqSecs != target.fContext.fSecs )
+    if (fLastFreqSecs != target.fContext.fSecs)
     {
         static plRandom random;
 
@@ -615,12 +615,12 @@ void plParticleUniformWind::PrepareEffect(const plEffectTargetInfo& target)
 
         fFreqCurr += fFreqRate * target.fContext.fDelSecs * random.RandZeroToOne();
 
-        if( fFreqCurr > fFreqMax )
+        if (fFreqCurr > fFreqMax)
         {
             fFreqCurr = fFreqMax;
             fFreqRate = -fFreqRate;
         }
-        else if( fFreqCurr < fFreqMin )
+        else if (fFreqCurr < fFreqMin)
         {
             fFreqCurr = fFreqMin;
             fFreqRate = -fFreqRate;
@@ -635,7 +635,7 @@ void plParticleUniformWind::PrepareEffect(const plEffectTargetInfo& target)
         fCurrentStrength += fConstancy;
         fCurrentStrength /= (1.f + fConstancy);
         
-        if( fCurrentStrength < 0 )
+        if (fCurrentStrength < 0)
             fCurrentStrength = 0;
         
         fLastFreqSecs = target.fContext.fSecs;

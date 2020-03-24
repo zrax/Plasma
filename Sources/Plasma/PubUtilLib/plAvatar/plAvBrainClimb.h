@@ -110,8 +110,8 @@ public:
     // plasma protocol
     virtual bool MsgReceive(plMessage *msg);
 
-    CLASSNAME_REGISTER( plAvBrainClimb );
-    GETINTERFACE_ANY( plAvBrainClimb, plArmatureBrain);
+    CLASSNAME_REGISTER(plAvBrainClimb);
+    GETINTERFACE_ANY(plAvBrainClimb, plArmatureBrain);
 
 private:
     bool IAdvanceCurrentStage(double time, float elapsed, float &overage);

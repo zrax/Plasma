@@ -124,7 +124,7 @@ bool plSeekPointComponent::PreConvert(plMaxNode *pNode, plErrorMsg *pErrMsg)
 /*bool IsValidNodeType(plMaxNode *pNode)
 {
     Object *obj = pNode->EvalWorldState(hsConverterUtils::Instance().GetTime(pNode->GetInterface())).obj;
-    if(obj->SuperClassID() == CAMERA_CLASS_ID)
+    if (obj->SuperClassID() == CAMERA_CLASS_ID)
         return true;
     else
         return false;

@@ -106,7 +106,7 @@ int plNetClientMgr::ISendDirtyState(double secs)
     }
 #endif
     int32_t i;
-    for(i=0;i<num;i++)
+    for (i=0;i<num;i++)
     {
         plSynchedObject::StateDefn* state=plSynchedObject::GetDirtyState(i);
         
@@ -146,20 +146,20 @@ void plNetClientMgr::ISendCCRPetition(plCCRPetitionMsg* petMsg)
     const char* note = petMsg->GetNote();
 
     std::string work = note;
-    std::replace( work.begin(), work.end(), '\n', '\t' );
+    std::replace(work.begin(), work.end(), '\n', '\t');
     note = work.c_str();
 
     // stuff petition info fields into a config info object
     plConfigInfo info;
-    info.AddValue( "Petition", "Type", type );
-    info.AddValue( "Petition", "Content", note );
-    info.AddValue( "Petition", "Title", title );
-    info.AddValue( "Petition", "Language", plLocalization::GetLanguageName( plLocalization::GetLanguage() ) );
-    info.AddValue( "Petition", "AcctName", NetCommGetAccount()->accountName.c_str() );
+    info.AddValue("Petition", "Type", type);
+    info.AddValue("Petition", "Content", note);
+    info.AddValue("Petition", "Title", title);
+    info.AddValue("Petition", "Language", plLocalization::GetLanguageName(plLocalization::GetLanguage()));
+    info.AddValue("Petition", "AcctName", NetCommGetAccount()->accountName.c_str());
     char buffy[20];
     sprintf(buffy, "%u", GetPlayerID());
-    info.AddValue( "Petition", "PlayerID", buffy );
-    info.AddValue( "Petition", "PlayerName", GetPlayerName() );
+    info.AddValue("Petition", "PlayerID", buffy);
+    info.AddValue("Petition", "PlayerName", GetPlayerName());
 
     // write config info formatted like an ini file to a buffer
     hsRAMStream ram;
@@ -168,8 +168,8 @@ void plNetClientMgr::ISendCCRPetition(plCCRPetitionMsg* petMsg)
     int size = ram.GetPosition();
     ram.Rewind();
     std::string buf;
-    buf.resize( size );
-    ram.CopyToMem( (void*)buf.data() );
+    buf.resize(size);
+    ram.CopyToMem((void*)buf.data());
 
     NetCliAuthSendCCRPetition(buf.c_str());
 }
@@ -251,9 +251,9 @@ int plNetClientMgr::ISendGameMessage(plMessage* msg)
     plNetPlayerIDList* dstIDs = msg->GetNetReceivers();
 
 #ifdef HS_DEBUGGING
-    if ( dstIDs )
+    if (dstIDs)
     {
-        DebugMsg( "Preparing to send {} to specific players.", msg->ClassName() );
+        DebugMsg("Preparing to send {} to specific players.", msg->ClassName());
     }
 #endif
 
@@ -261,7 +261,7 @@ int plNetClientMgr::ISendGameMessage(plMessage* msg)
     plSynchedObject* synchedObj = msg->GetSender() ? plSynchedObject::ConvertNoRef(msg->GetSender()->ObjectIsLoaded()) : nil;
 
     // if sender is flagged as localOnly, he shouldn't talk to the network
-    if (synchedObj && !synchedObj->IsNetSynched() )
+    if (synchedObj && !synchedObj->IsNetSynched())
         return hsOK;
 
     // choose appropriate type of net game msg wrapper
@@ -283,13 +283,13 @@ int plNetClientMgr::ISendGameMessage(plMessage* msg)
     {
         netMsgWrap = new plNetMsgGameMessageDirected;
         int i;
-        for(i=0;i<dstIDs->size();i++)
+        for (i=0;i<dstIDs->size();i++)
         {
             uint32_t playerID = (*dstIDs)[i];
             if (playerID == NetCommGetPlayer()->playerInt)
                 continue;
-            hsLogEntry( DebugMsg( "\tAdding receiver: {}" , playerID ) );
-            ((plNetMsgGameMessageDirected*)netMsgWrap)->Receivers()->AddReceiverPlayerID( playerID );
+            hsLogEntry(DebugMsg("\tAdding receiver: {}" , playerID));
+            ((plNetMsgGameMessageDirected*)netMsgWrap)->Receivers()->AddReceiverPlayerID(playerID);
         }
     }
     else
@@ -308,21 +308,21 @@ int plNetClientMgr::ISendGameMessage(plMessage* msg)
     // put stream in net msg wrapper
     netMsgWrap->StreamInfo()->CopyStream(&stream);
     
-    // hsLogEntry( DebugMsg(plDispatchLog::GetInstance()->MakeMsgInfoString(msg, "\tActionMsg:",0)) );
+    // hsLogEntry(DebugMsg(plDispatchLog::GetInstance()->MakeMsgInfoString(msg, "\tActionMsg:",0)));
 
     // check if this msg uses direct communication (sent to specific rcvrs)
     // if so the server can filter it
     bool bCast = msg->HasBCastFlag(plMessage::kBCastByExactType) ||
         msg->HasBCastFlag(plMessage::kBCastByType);
     bool directCom = msg->GetNumReceivers()>0;
-    if( directCom )
+    if (directCom)
     {
         // It's direct if we have receivers AND any of them are in non-virtual locations
         int     i;
-        for( i = 0, directCom = false; i < msg->GetNumReceivers(); i++ )
+        for (i = 0, directCom = false; i < msg->GetNumReceivers(); i++)
         {
-            if( !msg->GetReceiver( i )->GetUoid().GetLocation().IsVirtual() &&
-                !msg->GetReceiver( i )->GetUoid().GetLocation().IsReserved()
+            if (!msg->GetReceiver(i)->GetUoid().GetLocation().IsVirtual() &&
+                !msg->GetReceiver(i)->GetUoid().GetLocation().IsReserved()
                 // && !IsBuiltIn
                 )
             {
@@ -357,25 +357,25 @@ int plNetClientMgr::ISendGameMessage(plMessage* msg)
     //
     bool ccrSendToAllPlayers = false;
 #ifndef PLASMA_EXTERNAL_RELEASE
-    ccrSendToAllPlayers = msg->HasBCastFlag( plMessage::kCCRSendToAllPlayers );
-    if ( ccrSendToAllPlayers )
-        netMsgWrap->SetBit( plNetMessage::kRouteToAllPlayers );
+    ccrSendToAllPlayers = msg->HasBCastFlag(plMessage::kCCRSendToAllPlayers);
+    if (ccrSendToAllPlayers)
+        netMsgWrap->SetBit(plNetMessage::kRouteToAllPlayers);
 #endif
 
     //
     // check for inter-age routing. if set, online rcvrs not in current age will receive
     // this msg courtesy of pls routing.
     //
-    if ( !ccrSendToAllPlayers )
+    if (!ccrSendToAllPlayers)
     {
-        bool allowInterAge = msg->HasBCastFlag( plMessage::kNetAllowInterAge );
-        if ( allowInterAge )
+        bool allowInterAge = msg->HasBCastFlag(plMessage::kNetAllowInterAge);
+        if (allowInterAge)
             netMsgWrap->SetBit(plNetMessage::kInterAgeRouting);
     }
 
     // check for reliable send
     if (msg->HasBCastFlag(plMessage::kNetSendUnreliable) &&
-        !(synchedObj && (synchedObj->GetSynchFlags() & plSynchedObject::kSendReliably)) )
+        !(synchedObj && (synchedObj->GetSynchFlags() & plSynchedObject::kSendReliably)))
         netMsgWrap->SetBit(plNetMessage::kNeedsReliableSend, 0);    // clear reliable net send bit
 
 #ifdef HS_DEBUGGING
@@ -422,7 +422,7 @@ int plNetClientMgr::SendMsg(plNetMessage* msg)
     msg->SetTimeSent(plUnifiedTime::GetCurrent());
     int channel = IPrepMsg(msg);
     
-//  hsLogEntry( DebugMsg( "<SND> {} {}", msg->ClassName(), msg->AsStdString()) );
+//  hsLogEntry(DebugMsg("<SND> {} {}", msg->ClassName(), msg->AsStdString()));
     
     int ret=fTransport.SendMsg(channel, msg);
 

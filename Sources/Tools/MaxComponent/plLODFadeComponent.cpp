@@ -112,7 +112,7 @@ ParamBlockDesc2 gLODFadeBk
 
 void plLODFadeComponent::ISetToFadeBase(plMaxNode* node, plMaxNode* base, plErrorMsg* pErrMsg)
 {
-    if( fCompPB->GetInt(kBaseFirst) )
+    if (fCompPB->GetInt(kBaseFirst))
         node->AddRenderDependency(base);
     else
         base->AddRenderDependency(node);
@@ -120,7 +120,7 @@ void plLODFadeComponent::ISetToFadeBase(plMaxNode* node, plMaxNode* base, plErro
     Box3 fade = base->GetFade();
     Point3 maxs = fade.Max();
     float fadeInStart = fCompPB->GetFloat(kDistance) - fCompPB->GetFloat(kTransition);
-    if( fadeInStart < 0 )
+    if (fadeInStart < 0)
         fadeInStart = 0;
     float fadeInEnd = fCompPB->GetFloat(kDistance);
     Point3 mins(fadeInStart, fadeInEnd, -1.f);
@@ -133,12 +133,12 @@ void plLODFadeComponent::ISetToFadeBase(plMaxNode* node, plMaxNode* base, plErro
 
 bool plLODFadeComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
 {
-    if( fCompPB->GetInt(kHasBase) )
+    if (fCompPB->GetInt(kHasBase))
     {
         plMaxNode* base = (plMaxNode*)fCompPB->GetINode(kBase, TimeValue(0));
-        if( base )
+        if (base)
         {
-            if( fCompPB->GetInt(kFadeBase) )
+            if (fCompPB->GetInt(kFadeBase))
             {
                 ISetToFadeBase(node, base, pErrMsg);
             }
@@ -205,21 +205,21 @@ bool plBlendOntoComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
     bool someBase = false;
     int numBase = fCompPB->Count(kBaseNodes);
     int i;
-    for( i = 0; i < numBase; i++ )
+    for (i = 0; i < numBase; i++)
     {
         plMaxNode* base = (plMaxNode*)fCompPB->GetINode(kBaseNodes, TimeValue(0), i);
 
-        if( base )
+        if (base)
         {
             node->AddRenderDependency(base);
             node->SetNoDeferDraw(true);
-            if( !fCompPB->GetInt(kSortFaces) )
+            if (!fCompPB->GetInt(kSortFaces))
                 node->SetNoFaceSort(true);
 
             someBase = true;
         }
     }
-    if( !someBase )
+    if (!someBase)
     {
         node->SetBlendToFB(true);
     }
@@ -282,22 +282,22 @@ bool plBlendOntoAdvComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrM
     bool someBase = false;
     int numBase = fCompPB->Count(kBaseNodes);
     int i;
-    for( i = 0; i < numBase; i++ )
+    for (i = 0; i < numBase; i++)
     {
         plMaxNode* base = (plMaxNode*)fCompPB->GetINode(kBaseNodes, TimeValue(0), i);
 
-        if( base )
+        if (base)
         {
             node->AddRenderDependency(base);
-            if( !fCompPB->GetInt(kOntoBlending) )
+            if (!fCompPB->GetInt(kOntoBlending))
                 node->SetNoDeferDraw(true);
-            if( !fCompPB->GetInt(kSortFaces) )
+            if (!fCompPB->GetInt(kSortFaces))
                 node->SetNoFaceSort(true);
 
             someBase = true;
         }
     }
-    if( !someBase )
+    if (!someBase)
     {
         node->SetBlendToFB(true);
     }
@@ -431,7 +431,7 @@ ParamBlockDesc2 gDistFadeBk
 bool plDistFadeComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
 {
     // If we're turned off, just return.
-    if( !fCompPB->GetInt(kFadeInActive) && !fCompPB->GetInt(kFadeOutActive) )
+    if (!fCompPB->GetInt(kFadeInActive) && !fCompPB->GetInt(kFadeOutActive))
         return true;
 
     Box3 fade;
@@ -439,12 +439,12 @@ bool plDistFadeComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
     Point3 maxs(0.f, 0.f, 0.f);
 
 
-    if( fCompPB->GetInt(kFadeInActive) )
+    if (fCompPB->GetInt(kFadeInActive))
     {
         mins[0] = fCompPB->GetFloat(kFadeInStart);
         mins[1] = fCompPB->GetFloat(kFadeInEnd);
     }
-    if( fCompPB->GetInt(kFadeOutActive) )
+    if (fCompPB->GetInt(kFadeOutActive))
     {
         maxs[0] = fCompPB->GetFloat(kFadeOutStart);
         maxs[1] = fCompPB->GetFloat(kFadeOutEnd);
@@ -468,17 +468,17 @@ bool plDistFadeComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
     // above model.
     //
     // So first thing to do is figure out how many (valid) distances we have.
-    if( (mins[0] == 0) && (mins[1] == 0) && (maxs[0] == 0) && (maxs[1] == 0) )
+    if ((mins[0] == 0) && (mins[1] == 0) && (maxs[0] == 0) && (maxs[1] == 0))
     {
         // Okay, they gave no valid distances. Just pretend we were never here.
         return true;
     }
-    if( (mins[0] == 0) && (mins[1] == 0) )
+    if ((mins[0] == 0) && (mins[1] == 0))
     {
         // maxs must be valid, just go with them.
         fade = IFadeFromPoint(maxs);
     }
-    else if( (maxs[0] == 0) && (maxs[1] == 0) )
+    else if ((maxs[0] == 0) && (maxs[1] == 0))
     {
         // mins must be valid, just go with them.
         fade = IFadeFromPoint(mins);
@@ -504,9 +504,9 @@ void plDistFadeComponent::ISwap(float& p0, float& p1)
 Box3 plDistFadeComponent::IFadeFromPoint(Point3& mins)
 {
     Point3 maxs(0.f, 0.f, 0.f);
-    if( mins[0] < mins[1] )
+    if (mins[0] < mins[1])
         mins[2] = -1.f;
-    else if( mins[0] > mins[1] )
+    else if (mins[0] > mins[1])
         mins[2] = 1.f;
     else
         mins[2] = 0;
@@ -516,25 +516,25 @@ Box3 plDistFadeComponent::IFadeFromPoint(Point3& mins)
 
 Box3 plDistFadeComponent::IFadeFromPair(Point3& mins, Point3& maxs)
 {
-    if( mins[0] > maxs[0] )
+    if (mins[0] > maxs[0])
     {
         ISwap(mins[0], maxs[0]);
         ISwap(mins[1], maxs[1]);
     }
-    if( mins[0] > mins[1] )
+    if (mins[0] > mins[1])
     {
         ISwap(mins[0], mins[1]);
     }
-    if( maxs[0] < maxs[1] )
+    if (maxs[0] < maxs[1])
     {
         // Poor confused bastard, take a guess what he wants.
         ISwap(maxs[0], maxs[1]);
     }
-    if( mins[0] < mins[1] )
+    if (mins[0] < mins[1])
         mins[2] = -1.f;
     else
         mins[2] = 0;
-    if( maxs[0] > maxs[1] )
+    if (maxs[0] > maxs[1])
         maxs[2] = 1.f;
     else
         maxs[2] = 0;
@@ -632,7 +632,7 @@ bool plLOSFadeComponent::Convert(plMaxNode* node, plErrorMsg* pErrMsg)
 {
     plFadeOpacityMod* fade = new plFadeOpacityMod;
     
-    if( fCompPB->GetInt(kBoundsCenter) )
+    if (fCompPB->GetInt(kBoundsCenter))
         fade->SetFlag(plFadeOpacityMod::kBoundsCenter);
     else
         fade->ClearFlag(plFadeOpacityMod::kBoundsCenter);

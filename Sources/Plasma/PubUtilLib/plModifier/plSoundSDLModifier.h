@@ -61,8 +61,8 @@ protected:
     void IPutCurrentStateIn(plStateDataRecord* dstState);
     void ISetCurrentStateFrom(const plStateDataRecord* srcState);
 public:
-    CLASSNAME_REGISTER( plSoundSDLModifier );
-    GETINTERFACE_ANY( plSoundSDLModifier, plSDLModifier);
+    CLASSNAME_REGISTER(plSoundSDLModifier);
+    GETINTERFACE_ANY(plSoundSDLModifier, plSDLModifier);
         
     const char* GetSDLName() const { return kSDLSound; }
 };

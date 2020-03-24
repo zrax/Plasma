@@ -98,7 +98,7 @@ plRenderInstance::~plRenderInstance()
 
 void plRenderInstance::Cleanup()
 {
-    if( mesh && fDeleteMesh )
+    if (mesh && fDeleteMesh)
     {
         mesh->DeleteThis();
         mesh = nil;
@@ -109,26 +109,26 @@ void plRenderInstance::Cleanup()
 BOOL plRenderInstance::Update(TimeValue& t)
 {
     fObject = fNode->EvalWorldState(t).obj;
-    if( !fObject )
+    if (!fObject)
         return false;
 
     // this shouldn't happen, we shouldn't be trying to make
     // renderinstances from non GEOMOBJECT's
-    if( fObject->SuperClassID() != GEOMOBJECT_CLASS_ID )
+    if (fObject->SuperClassID() != GEOMOBJECT_CLASS_ID)
         return false;
 
-    if( mesh && fDeleteMesh )
+    if (mesh && fDeleteMesh)
     {
         mesh->DeleteThis();
         mesh = nil;
     }
     fDeleteMesh = false;
     mesh = ((GeomObject*)fObject)->GetRenderMesh(t, fNode, nilView, fDeleteMesh);
-    if( !mesh )
+    if (!mesh)
         return false;
 
     vis = fNode->GetVisibility(t);
-    if( vis < 0.0f )
+    if (vis < 0.0f)
     {
         vis = 0.0f;
         SetFlag(INST_HIDE, 1);
@@ -147,7 +147,7 @@ BOOL plRenderInstance::Update(TimeValue& t)
     normalObjToCam.IdentityMatrix();
     Matrix3 inv = camToObj;
     int i;
-    for( i = 0; i < 3; i++ )
+    for (i = 0; i < 3; i++)
         normalObjToCam.SetRow(i, inv.GetColumn3(i));
 
     obBox = mesh->getBoundingBox(nil);
@@ -165,7 +165,7 @@ BOOL plRenderInstance::GetFromNode(INode* node, TimeValue& t, int idx)
 
     fNode = node;
     mtl = node->GetMtl();
-    if( mtl )
+    if (mtl)
     {
         wireSize = mtl->WireSize();
     }
@@ -180,18 +180,18 @@ BOOL plRenderInstance::GetFromNode(INode* node, TimeValue& t, int idx)
 BOOL plRenderInstance::CastsShadowsFrom(const ObjLightDesc& constLt)
 {
     ObjLightDesc& lt = const_cast<ObjLightDesc&>(constLt);
-    if( !fNode->CastShadows() )
+    if (!fNode->CastShadows())
         return false;
 
-    if( !lt.ls.shadow )
+    if (!lt.ls.shadow)
         return false;
 
-    if( lt.GetExclList() && lt.GetExclList()->TestFlag(NT_AFFECT_SHADOWCAST) )
+    if (lt.GetExclList() && lt.GetExclList()->TestFlag(NT_AFFECT_SHADOWCAST))
     {
         int idx = lt.GetExclList()->FindNode(fNode);
         BOOL isInc = lt.GetExclList()->TestFlag(NT_INCLUDE);
 
-        if( idx >= 0 )
+        if (idx >= 0)
         {
             return isInc;
         }
@@ -241,7 +241,7 @@ Point3 plRenderInstance::GetFaceVertNormal(int fnum, int vertNum)
     else
     {
         int found = 0;
-        for(int j=0;j<numNormalsAtVert; j++)
+        for (int j=0;j<numNormalsAtVert; j++)
         {
             smGroup = rv.ern[j].getSmGroup();
             // Since this vertex is shared by more than one smoothing group, it has multiple normals.
@@ -286,12 +286,12 @@ void plRenderInstance::GetCamVerts(int fnum, Point3 cp[3])
 
 Mtl* plRenderInstance::GetMtl(int fnum)
 {
-    if( !mtl )
+    if (!mtl)
         return nil;
 
-    if( TestFlag(INST_MTL_BYFACE) )
+    if (TestFlag(INST_MTL_BYFACE))
     {
-        if( mtl->ClassID() != Class_ID(MULTI_CLASS_ID,0) )
+        if (mtl->ClassID() != Class_ID(MULTI_CLASS_ID,0))
             return mtl;
 
         Face* f = &mesh->faces[fnum];
@@ -307,10 +307,10 @@ Mtl* plRenderInstance::GetMtl(int fnum)
 
 ULONG plRenderInstance::MtlRequirements(int mtlNum, int faceNum)
 {
-    if( !mtl )
+    if (!mtl)
         return 0;
 
-    if( TestFlag(INST_MTL_BYFACE) )
+    if (TestFlag(INST_MTL_BYFACE))
     {
         Mtl* faceMtl = GetMtl(faceNum);
         return faceMtl ? faceMtl->Requirements(mtlNum) : 0;

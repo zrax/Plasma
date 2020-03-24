@@ -107,13 +107,13 @@ public:
     void SetNetForce(bool force);
 
     // dynamicText commands
-    void ClearToColor(pyColor& color );
+    void ClearToColor(pyColor& color);
     void Flush();
-    void SetTextColor(pyColor& color );
-    void SetTextColor2(pyColor& color, bool blockRGB );
-    void SetFont(const char *facename, int16_t size );
-    void FillRect(uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, pyColor& color );
-    void FrameRect(uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, pyColor& color );
+    void SetTextColor(pyColor& color);
+    void SetTextColor2(pyColor& color, bool blockRGB);
+    void SetFont(const char *facename, int16_t size);
+    void FillRect(uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, pyColor& color);
+    void FrameRect(uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, pyColor& color);
     void SetClipping(uint16_t clipLeft, uint16_t clipTop, uint16_t clipRight, uint16_t clipBottom);
     void UnsetClipping();
     void SetWrapping(uint16_t wrapWidth, uint16_t wrapHeight);

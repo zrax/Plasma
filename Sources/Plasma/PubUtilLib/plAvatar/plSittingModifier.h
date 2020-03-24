@@ -86,8 +86,8 @@ public:
     plSittingModifier(bool hasFront, bool hasLeft, bool hasRight);
     virtual ~plSittingModifier();
 
-    CLASSNAME_REGISTER( plSittingModifier );
-    GETINTERFACE_ANY( plSittingModifier, plSingleModifier );
+    CLASSNAME_REGISTER(plSittingModifier);
+    GETINTERFACE_ANY(plSittingModifier, plSingleModifier);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

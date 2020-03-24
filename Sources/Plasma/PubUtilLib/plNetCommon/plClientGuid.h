@@ -76,8 +76,8 @@ public:
         kClientKey  = 1<<10,
     };
     plClientGuid();
-    CLASSNAME_REGISTER( plClientGuid );
-    GETINTERFACE_ANY( plClientGuid, plCreatable );
+    CLASSNAME_REGISTER(plClientGuid);
+    GETINTERFACE_ANY(plClientGuid, plCreatable);
 
     ST::string AsString() const;
     ST::string AsLogString() const;
@@ -85,7 +85,7 @@ public:
     void    CopyFrom(const plClientGuid * other);
     void    UpdateFrom(const plClientGuid * other);
     bool    IsEqualTo(const plClientGuid * other) const;
-    bool    IsFlagSet( uint16_t flag ) const { return (fFlags&flag)!=0; }
+    bool    IsFlagSet(uint16_t flag) const { return (fFlags&flag)!=0; }
     bool    IsFullyQualified() const { return HasAccountUUID()&&HasPlayerID();}
 
     void    Read(hsStream * s, hsResMgr* =nil);
@@ -106,7 +106,7 @@ public:
     uint32_t  GetPlayerID() const { return fPlayerID;}
     ST::string GetPlayerName() const { return fPlayerName; }
     uint8_t   GetCCRLevel() const { return fCCRLevel; }
-    bool    GetProtectedLogin() const { return ( fProtectedLogin!=0 ); }
+    bool    GetProtectedLogin() const { return (fProtectedLogin!=0); }
     uint8_t   GetFlags() const { return (uint8_t)fFlags;}
     uint8_t   GetBuildType() const { return fBuildType;}
     uint32_t  GetSrcAddr() const { return fSrcAddr; }
@@ -118,15 +118,15 @@ public:
     void    SetAccountUUID(const plUUID * v);
     void    SetAccountUUID(const plUUID & v);
     void    SetPlayerID(uint32_t v);
-    void    SetPlayerName( const ST::string & v );
+    void    SetPlayerName(const ST::string & v);
     void    SetCCRLevel(uint8_t v);
     void    SetProtectedLogin(bool v);
     void    SetBuildType(uint8_t v);
-    void    SetSrcAddr( uint32_t v );
-    void    SetSrcAddrFromStr( const char * s );
-    void    SetSrcPort( uint16_t v );
-    void    SetReserved( bool v );
-    void    SetClientKey( const ST::string& key );
+    void    SetSrcAddr(uint32_t v);
+    void    SetSrcAddrFromStr(const char * s);
+    void    SetSrcPort(uint16_t v);
+    void    SetReserved(bool v);
+    void    SetClientKey(const ST::string& key);
     // When a client hasn't selected a player yet,
     // we need to uniquely identify them in the lobby server.
     // We do this by stuffing a temp value into the fPlayerID

@@ -79,11 +79,11 @@ public:
 // class RelVaultNode : public plVaultNode
 //
     int     GetIdent() const;
-    void    SetIdent( int v );
-    void InitStateDataRecord( const char* agename, int flags);
+    void    SetIdent(int v);
+    void InitStateDataRecord(const char* agename, int flags);
 
     PyObject * GetStateDataRecord() const; // returns pySDLStateDataRecord
-    void SetStateDataRecord( const pySDLStateDataRecord & rec, int writeOptions=0 );
+    void SetStateDataRecord(const pySDLStateDataRecord & rec, int writeOptions=0);
 };
 
 #endif // _pyVaultSDLNode_h_

@@ -603,12 +603,12 @@ float hsFastMath::IATan2OverTwoPi(float y, float x)
                     0.125f,
                     0 };
 
-    if( (x == 0)&&(y == 0) )
+    if ((x == 0)&&(y == 0))
         return 0;
 
     int xNeg, yNeg;
-    if((yNeg = (y < 0)))y = -y;
-    if((xNeg = (x < 0)))x = -x;
+    if ((yNeg = (y < 0))) y = -y;
+    if ((xNeg = (x < 0))) x = -x;
     bool yBigger = y >= x;
     float div = yBigger ? x / y : y / x;
 
@@ -622,9 +622,9 @@ float hsFastMath::IATan2OverTwoPi(float y, float x)
 
     // now move to proper half quadrant
     hsAssert((res >= 0)&&(res <= 0.25f), "Lookup atan2 out of bounds");
-    if( yBigger )
+    if (yBigger)
         res = 0.25f - res;
-    switch( (yNeg << 1)|xNeg )
+    switch ((yNeg << 1)|xNeg)
     {
     case 0:
         break;

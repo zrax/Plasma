@@ -285,8 +285,8 @@ void TPriorityQueue<C,P>::Remove (unsigned index) {
             break;
 
         unsigned sibling = child + 1;
-        if ( (sibling < count) &&
-             (Priority(m_array[sibling])->IsPriorityHigher(*Priority(m_array[child]))) )
+        if ((sibling < count) &&
+             (Priority(m_array[sibling])->IsPriorityHigher(*Priority(m_array[child]))))
             child = sibling;
 
         if (priority->IsPriorityHigher(*Priority(m_array[child])))

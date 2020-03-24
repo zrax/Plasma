@@ -97,8 +97,8 @@ public:
     plAgeLoader();
     ~plAgeLoader();
 
-    CLASSNAME_REGISTER( plAgeLoader);
-    GETINTERFACE_ANY( plAgeLoader, hsKeyedObject);
+    CLASSNAME_REGISTER(plAgeLoader);
+    GETINTERFACE_ANY(plAgeLoader, hsKeyedObject);
 
     static plAgeLoader* GetInstance();
     static void SetInstance(plAgeLoader* inst);
@@ -110,7 +110,7 @@ public:
     bool LoadAge(const ST::string& ageName);
     bool UnloadAge()                              { return IUnloadAge(); }
     void UpdateAge(const ST::string& ageName);
-    void NotifyAgeLoaded( bool loaded );
+    void NotifyAgeLoaded(bool loaded);
 
     const plKeyVec& PendingPageOuts() const { return fPendingPageOuts; }
     const plKeyVec& PendingPageIns() const { return fPendingPageIns; }
@@ -126,8 +126,8 @@ public:
 
     // Fun debugging exclude commands (to prevent certain pages from loading)
     void    ClearPageExcludeList();
-    void    AddExcludedPage( const ST::string& pageName, const ST::string& ageName = ST::null );
-    bool    IsPageExcluded( const plAgePage *page, const ST::string& ageName = ST::null );
+    void    AddExcludedPage(const ST::string& pageName, const ST::string& ageName = ST::null);
+    bool    IsPageExcluded(const plAgePage *page, const ST::string& ageName = ST::null);
 
     const plAgeDescription  &GetCurrAgeDesc() const { return fCurAgeDescription; }
 

@@ -65,8 +65,8 @@ public:
 
     ~plListenerMsg() {}
     
-    CLASSNAME_REGISTER( plListenerMsg );
-    GETINTERFACE_ANY( plListenerMsg, plMessage );
+    CLASSNAME_REGISTER(plListenerMsg);
+    GETINTERFACE_ANY(plListenerMsg, plMessage);
 
     virtual void Read(hsStream* s, hsResMgr* mgr);
     virtual void Write(hsStream* s, hsResMgr* mgr);
@@ -102,16 +102,16 @@ public:
         kListener   = kPosition | kVelocity | kFacing
     };
 
-    plSetListenerMsg() : plMessage( nil, nil, nil ) { fType = 0; fBinding = false; }
-    plSetListenerMsg( uint8_t type, const plKey &srcKey, bool binding );
+    plSetListenerMsg() : plMessage(nil, nil, nil) { fType = 0; fBinding = false; }
+    plSetListenerMsg(uint8_t type, const plKey &srcKey, bool binding);
 
-    CLASSNAME_REGISTER( plSetListenerMsg );
-    GETINTERFACE_ANY( plSetListenerMsg, plMessage );
+    CLASSNAME_REGISTER(plSetListenerMsg);
+    GETINTERFACE_ANY(plSetListenerMsg, plMessage);
 
     virtual void Read(hsStream* s, hsResMgr* mgr);
     virtual void Write(hsStream* s, hsResMgr* mgr);
 
-    void    Set( const plKey &key, uint8_t type, bool binding );
+    void    Set(const plKey &key, uint8_t type, bool binding);
 
     plKey       &GetSrcKey() { return fSrcKey; }
     uint8_t       GetType() const { return fType; }

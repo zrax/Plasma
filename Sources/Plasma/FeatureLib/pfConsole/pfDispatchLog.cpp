@@ -152,9 +152,9 @@ void plDispatchLog::AddFilterType(uint16_t hClass)
         return;
 
     int i;
-    for( i = 0; i < plFactory::GetNumClasses(); i++ )
+    for (i = 0; i < plFactory::GetNumClasses(); i++)
     {
-        if( plFactory::DerivesFrom(hClass, i) )
+        if (plFactory::DerivesFrom(hClass, i))
             AddFilterExactType(i);
     }
 }
@@ -171,9 +171,9 @@ void plDispatchLog::RemoveFilterType(uint16_t hClass)
         return;
 
     int i;
-    for( i = 0; i < plFactory::GetNumClasses(); i++ )
+    for (i = 0; i < plFactory::GetNumClasses(); i++)
     {
-        if( plFactory::DerivesFrom(hClass, i) )
+        if (plFactory::DerivesFrom(hClass, i))
             RemoveFilterExactType(i);
     }
 }

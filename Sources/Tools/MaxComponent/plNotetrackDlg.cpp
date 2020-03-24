@@ -111,7 +111,7 @@ void plNoteTrackDlg::LoopChanged()
 
 void plNoteTrackDlg::ILoadAnims()
 {
-    if(fAnimID < 0 || !fhAnim)
+    if (fAnimID < 0 || !fhAnim)
         return;
 
     ComboBox_ResetContent(fhAnim);
@@ -146,7 +146,7 @@ void plNoteTrackDlg::ILoadAnims()
 
 void plNoteTrackDlg::ILoadLoops()
 {
-    if(fLoopID < 0 || !fhLoop)
+    if (fLoopID < 0 || !fhLoop)
         return;
 
     ComboBox_ResetContent(fhLoop);

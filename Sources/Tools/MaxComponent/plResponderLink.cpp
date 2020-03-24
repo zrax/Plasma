@@ -209,30 +209,30 @@ const char *plResponderCmdLink::GetInstanceName(IParamBlock2 *pb)
 
 void plResponderCmdLink::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg, IParamBlock2* pb)
 {
-    const char * spawnPtName = pb->GetStr( kLinkAgeSpawnPointName );
-    if ( !spawnPtName )
+    const char * spawnPtName = pb->GetStr(kLinkAgeSpawnPointName);
+    if (!spawnPtName)
     {
         // set defaults
-        pb->SetValue( kLinkAgeSpawnPointName, 0, kDefaultSpawnPtName );
-        pb->SetValue( kLinkAgeSpawnPointTitle, 0, kDefaultSpawnPtTitle );
+        pb->SetValue(kLinkAgeSpawnPointName, 0, kDefaultSpawnPtName);
+        pb->SetValue(kLinkAgeSpawnPointTitle, 0, kDefaultSpawnPtTitle);
     }
     else
     {
-        const char * spawnPtTitle = pb->GetStr( kLinkAgeSpawnPointTitle );
-        if ( !spawnPtTitle )
+        const char * spawnPtTitle = pb->GetStr(kLinkAgeSpawnPointTitle);
+        if (!spawnPtTitle)
         {
             // set default title, or make same as name.
-            if ( strcmp( spawnPtName, kDefaultSpawnPtName )==0 )
-                pb->SetValue( kLinkAgeSpawnPointTitle, 0, _T(kDefaultSpawnPtTitle));
+            if (strcmp(spawnPtName, kDefaultSpawnPtName)==0)
+                pb->SetValue(kLinkAgeSpawnPointTitle, 0, _T(kDefaultSpawnPtTitle));
             else
-                pb->SetValue( kLinkAgeSpawnPointTitle, 0, (TCHAR*)_T(spawnPtName));
+                pb->SetValue(kLinkAgeSpawnPointTitle, 0, (TCHAR*)_T(spawnPtName));
         }
     }
 }
 
 plMessage *plResponderCmdLink::CreateMsg(plMaxNode* node, plErrorMsg *pErrMsg, IParamBlock2 *pb)
 {
-    int linkingRule = pb->GetInt( kLinkingRule );
+    int linkingRule = pb->GetInt(kLinkingRule);
 
     const char *ageFilename = pb->GetStr(kLinkAgeFilename);
     const char *ageInstanceName = pb->GetStr(kLinkAgeInstanceName);
@@ -242,33 +242,33 @@ plMessage *plResponderCmdLink::CreateMsg(plMaxNode* node, plErrorMsg *pErrMsg, I
     const char *parentageFilename = pb->GetStr(kLinkParentAgeFilename);
     const char *ageInstanceGuid = pb->GetStr(kLinkAgeInstanceGuid);
 
-    if ( !ageFilename )
+    if (!ageFilename)
         throw "Must specify Age Filename";
-    if ( !ageInstanceName )
+    if (!ageInstanceName)
         ageInstanceName=ageFilename;
-    if ( !ageSpawnPtName )
+    if (!ageSpawnPtName)
     {
         ageSpawnPtName = kDefaultSpawnPtName;
-        if ( !ageSpawnPtTitle )
+        if (!ageSpawnPtTitle)
             ageSpawnPtTitle = kDefaultSpawnPtTitle;
     }
-    if ( !ageSpawnPtTitle )
+    if (!ageSpawnPtTitle)
         ageSpawnPtTitle = ageSpawnPtName;
-    if ( !ageLinkInAnimName )
+    if (!ageLinkInAnimName)
         ageLinkInAnimName = kDefaultLinkInAnimName;
 
     plLinkToAgeMsg *msg = new plLinkToAgeMsg;
-    msg->GetAgeLink()->SetLinkingRules( linkingRule );
-    msg->GetAgeLink()->SetSpawnPoint( plSpawnPointInfo( ageSpawnPtTitle, ageSpawnPtName ) );
-    msg->GetAgeLink()->GetAgeInfo()->SetAgeFilename( ageFilename );
-    msg->GetAgeLink()->GetAgeInfo()->SetAgeInstanceName( ageInstanceName );
+    msg->GetAgeLink()->SetLinkingRules(linkingRule);
+    msg->GetAgeLink()->SetSpawnPoint(plSpawnPointInfo(ageSpawnPtTitle, ageSpawnPtName));
+    msg->GetAgeLink()->GetAgeInfo()->SetAgeFilename(ageFilename);
+    msg->GetAgeLink()->GetAgeInfo()->SetAgeInstanceName(ageInstanceName);
     if (ageInstanceGuid && strlen(ageInstanceGuid) > 0)
-        msg->GetAgeLink()->GetAgeInfo()->SetAgeInstanceGuid( &plUUID(ageInstanceGuid) );
-    msg->SetLinkInAnimName( ageLinkInAnimName );
+        msg->GetAgeLink()->GetAgeInfo()->SetAgeInstanceGuid(&plUUID(ageInstanceGuid));
+    msg->SetLinkInAnimName(ageLinkInAnimName);
     if (parentageFilename)
     {
         if (strcmp(parentageFilename, "<None>") != 0) // <None> is our special string to denote no parent age
-            msg->GetAgeLink()->SetParentAgeFilename( parentageFilename );
+            msg->GetAgeLink()->SetParentAgeFilename(parentageFilename);
     }
 
     return msg;
@@ -1094,7 +1094,7 @@ plMessage *plResponderCmdCamTransition::CreateMsg(plMaxNode* node, plErrorMsg *p
             comp->ClassID() == FIXEDCAM_CID ||
             comp->ClassID() == CIRCLE_CAM_CID ||
             comp->ClassID() == RAIL_CAM_CID ||
-            comp->ClassID() == FOLLOWCAM_CID )
+            comp->ClassID() == FOLLOWCAM_CID)
         {
             fail = false;
             break;
@@ -1106,7 +1106,7 @@ plMessage *plResponderCmdCamTransition::CreateMsg(plMaxNode* node, plErrorMsg *p
     plCameraMsg* pMsg = new plCameraMsg;
     pMsg->SetBCastFlag(plMessage::kBCastByType);
 
-    if(pCamNode->CanConvert())
+    if (pCamNode->CanConvert())
     {
         if (!pb->GetInt(kPopCamera))
             pMsg->SetCmd(plCameraMsg::kResponderTrigger);

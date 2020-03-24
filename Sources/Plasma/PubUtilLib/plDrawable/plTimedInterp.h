@@ -107,13 +107,13 @@ template <class T>
 const T&
 plTimedInterp<T>::Update(double t)
 {
-    if( fDuration <= 0 )
+    if (fDuration <= 0)
         return IEnd();
 
     float parm = float((fEnd - t) / fDuration);
-    if( parm <= 0 )
+    if (parm <= 0)
         return IEnd();
-    else if( parm >= 1.f )
+    else if (parm >= 1.f)
         return IBegin();
 
     return IEval(parm);
@@ -126,7 +126,7 @@ plTimedInterp<T>::SetTarget(const T& targ, double start, double dur)
     fEnd = start + dur;
     fDuration = dur;
     fTarg = targ;
-    if( dur <= 0 )
+    if (dur <= 0)
         fCurr = targ;
     fInit = fCurr;
     return fCurr;

@@ -74,7 +74,7 @@ pyVaultPlayerInfoListNode::pyVaultPlayerInfoListNode(int n)
 //==================================================================
 // class RelVaultNode : public plVaultFolderNode
 //
-bool pyVaultPlayerInfoListNode::HasPlayer( uint32_t playerID )
+bool pyVaultPlayerInfoListNode::HasPlayer(uint32_t playerID)
 {
     if (!fNode)
         return false;
@@ -98,7 +98,7 @@ static void IAddPlayer_NodesFound(ENetError result, void* param, unsigned nodeId
         VaultAddChildNode(parent->GetNodeId(), nodeIds[0], VaultGetPlayerId(), nullptr, nullptr);
 }
 
-void pyVaultPlayerInfoListNode::AddPlayer( uint32_t playerID )
+void pyVaultPlayerInfoListNode::AddPlayer(uint32_t playerID)
 {
     if (HasPlayer(playerID) || !fNode)
         return;
@@ -118,7 +118,7 @@ void pyVaultPlayerInfoListNode::AddPlayer( uint32_t playerID )
         VaultFindNodes(templateNode, IAddPlayer_NodesFound, (NetVaultNode *)fNode);
 }
 
-void pyVaultPlayerInfoListNode::RemovePlayer( uint32_t playerID )
+void pyVaultPlayerInfoListNode::RemovePlayer(uint32_t playerID)
 {
     if (!fNode)
         return;
@@ -132,7 +132,7 @@ void pyVaultPlayerInfoListNode::RemovePlayer( uint32_t playerID )
         VaultRemoveChildNode(fNode->GetNodeId(), rvn->GetNodeId(), nil, nil);
 }
 
-PyObject * pyVaultPlayerInfoListNode::GetPlayer( uint32_t playerID )
+PyObject * pyVaultPlayerInfoListNode::GetPlayer(uint32_t playerID)
 {
     if (!fNode)
         PYTHON_RETURN_NONE;

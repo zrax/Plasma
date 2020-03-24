@@ -64,12 +64,12 @@ bool plGeoSpanDice::Dice(hsTArray<plGeometrySpan*>& spans) const
     hsTArray<plGeometrySpan*> out;
     hsTArray<plGeometrySpan*> next;
 
-    while(spans.GetCount())
+    while (spans.GetCount())
     {
         int i;
-        for( i = 0; i < spans.GetCount(); i++ )
+        for (i = 0; i < spans.GetCount(); i++)
         {
-            if( !IHalf(spans[i], next) )
+            if (!IHalf(spans[i], next))
             {
                 out.Append(spans[i]);
             }
@@ -85,26 +85,26 @@ bool plGeoSpanDice::Dice(hsTArray<plGeometrySpan*>& spans) const
 bool plGeoSpanDice::INeedSplitting(plGeometrySpan* src) const
 {
     // Do we have enough faces to bother?
-    if( fMinFaces )
+    if (fMinFaces)
     {
-        if( src->fNumIndices < fMinFaces * 3 )
+        if (src->fNumIndices < fMinFaces * 3)
             return false;
     }
     // Do we have enough faces to bother no matter how small we are?
-    if( fMaxFaces )
+    if (fMaxFaces)
     {
-        if( src->fNumIndices > fMaxFaces * 3 )
+        if (src->fNumIndices > fMaxFaces * 3)
             return true;
     }
     // Are we big enough to bother?
-    if( (fMaxSize.fX > 0) || (fMaxSize.fY > 0) || (fMaxSize.fZ > 0) )
+    if ((fMaxSize.fX > 0) || (fMaxSize.fY > 0) || (fMaxSize.fZ > 0))
     {
         hsPoint3 size = src->fLocalBounds.GetMaxs() - src->fLocalBounds.GetMins();
-        if( size.fX > fMaxSize.fX )
+        if (size.fX > fMaxSize.fX)
             return true;
-        if( size.fY > fMaxSize.fY )
+        if (size.fY > fMaxSize.fY)
             return true;
-        if( size.fZ > fMaxSize.fZ )
+        if (size.fZ > fMaxSize.fZ)
             return true;
     }
 
@@ -113,12 +113,12 @@ bool plGeoSpanDice::INeedSplitting(plGeometrySpan* src) const
 
 bool plGeoSpanDice::IHalf(plGeometrySpan* src, hsTArray<plGeometrySpan*>& out, int exclAxis) const
 {
-    if( !INeedSplitting(src) )
+    if (!INeedSplitting(src))
         return false;
 
     int iAxis = ISelectAxis(exclAxis, src);
     // Ran out of axes to try.
-    if( iAxis < 0 )
+    if (iAxis < 0)
         return false;
 
     float midPoint = src->fLocalBounds.GetCenter()[iAxis];
@@ -133,15 +133,15 @@ bool plGeoSpanDice::IHalf(plGeometrySpan* src, hsTArray<plGeometrySpan*>& out, i
     int stride = src->GetVertexSize(src->fFormat);
 
     int i;
-    for( i = 0; i < numTris; i++ )
+    for (i = 0; i < numTris; i++)
     {
         hsPoint3& pos0 = *(hsPoint3*)(src->fVertexData + *indexData++ * stride);
         hsPoint3& pos1 = *(hsPoint3*)(src->fVertexData + *indexData++ * stride);
         hsPoint3& pos2 = *(hsPoint3*)(src->fVertexData + *indexData++ * stride);
 
-        if( (pos0[iAxis] >= midPoint)
+        if ((pos0[iAxis] >= midPoint)
             &&(pos1[iAxis] >= midPoint)
-            &&(pos2[iAxis] >= midPoint) )
+            &&(pos2[iAxis] >= midPoint))
         {
             hiTris.Append(i);
         }
@@ -152,7 +152,7 @@ bool plGeoSpanDice::IHalf(plGeometrySpan* src, hsTArray<plGeometrySpan*>& out, i
     }
 
     // This axis isn't working out, try another.
-    if( !hiTris.GetCount() || !loTris.GetCount() )
+    if (!hiTris.GetCount() || !loTris.GetCount())
         return IHalf(src, out, exclAxis | (1 << iAxis));
 
 
@@ -173,14 +173,14 @@ int plGeoSpanDice::ISelectAxis(int exclAxis, plGeometrySpan* src) const
     float maxDim = 0;
 
     int i;
-    for( i = 0; i < 3; i++ )
+    for (i = 0; i < 3; i++)
     {
         // Check to see if we've already tried this one.
-        if( exclAxis & (1 << i) )
+        if (exclAxis & (1 << i))
             continue;
 
         float dim = src->fLocalBounds.GetMaxs()[i] - src->fLocalBounds.GetMins()[i];
-        if( dim > maxDim )
+        if (dim > maxDim)
         {
             maxDim = dim;
             iAxis = i;
@@ -201,11 +201,11 @@ plGeometrySpan* plGeoSpanDice::IExtractTris(plGeometrySpan* src, hsTArray<uint32
     bckLUT.SetCount(0);
 
     int i;
-    for( i = 0; i < tris.GetCount(); i++ )
+    for (i = 0; i < tris.GetCount(); i++)
     {
         uint16_t* idx = src->fIndexData + tris[i] * 3;
         
-        if( fwdLUT[*idx] < 0 )
+        if (fwdLUT[*idx] < 0)
         {
             fwdLUT[*idx] = bckLUT.GetCount();
             bckLUT.Append(*idx);
@@ -213,7 +213,7 @@ plGeometrySpan* plGeoSpanDice::IExtractTris(plGeometrySpan* src, hsTArray<uint32
 
         idx++;
 
-        if( fwdLUT[*idx] < 0 )
+        if (fwdLUT[*idx] < 0)
         {
             fwdLUT[*idx] = bckLUT.GetCount();
             bckLUT.Append(*idx);
@@ -221,7 +221,7 @@ plGeometrySpan* plGeoSpanDice::IExtractTris(plGeometrySpan* src, hsTArray<uint32
 
         idx++;
 
-        if( fwdLUT[*idx] < 0 )
+        if (fwdLUT[*idx] < 0)
         {
             fwdLUT[*idx] = bckLUT.GetCount();
             bckLUT.Append(*idx);
@@ -235,11 +235,11 @@ plGeometrySpan* plGeoSpanDice::IExtractTris(plGeometrySpan* src, hsTArray<uint32
 
     // Okay, set the index data.
     uint16_t* idxTrav = dst->fIndexData;
-    for( i = 0; i < tris.GetCount(); i++ )
+    for (i = 0; i < tris.GetCount(); i++)
     {
-        *idxTrav++ = fwdLUT[src->fIndexData[ tris[i] * 3 + 0] ];
-        *idxTrav++ = fwdLUT[src->fIndexData[ tris[i] * 3 + 1] ];
-        *idxTrav++ = fwdLUT[src->fIndexData[ tris[i] * 3 + 2] ];
+        *idxTrav++ = fwdLUT[src->fIndexData[tris[i] * 3 + 0]];
+        *idxTrav++ = fwdLUT[src->fIndexData[tris[i] * 3 + 1]];
+        *idxTrav++ = fwdLUT[src->fIndexData[tris[i] * 3 + 2]];
     }
 
     // Copy over the basic vertex data
@@ -249,7 +249,7 @@ plGeometrySpan* plGeoSpanDice::IExtractTris(plGeometrySpan* src, hsTArray<uint32
     hsBounds3Ext localBnd;
     localBnd.MakeEmpty();
     uint8_t* vtxTrav = dst->fVertexData;
-    for( i = 0; i < numVerts; i++ )
+    for (i = 0; i < numVerts; i++)
     {
         memcpy(vtxTrav, src->fVertexData + bckLUT[i] * stride, stride);
 
@@ -257,37 +257,37 @@ plGeometrySpan* plGeoSpanDice::IExtractTris(plGeometrySpan* src, hsTArray<uint32
         localBnd.Union(pos);
         vtxTrav += stride;
     }
-    if( src->fProps & plGeometrySpan::kWaterHeight )
+    if (src->fProps & plGeometrySpan::kWaterHeight)
     {
         src->AdjustBounds(localBnd);
     }
     dst->fLocalBounds = localBnd;
 
     // Now the rest of this optional garbage.
-    if( src->fMultColor )
+    if (src->fMultColor)
     {
-        for( i = 0; i < numVerts; i++ )
+        for (i = 0; i < numVerts; i++)
         {
             dst->fMultColor[i] = src->fMultColor[bckLUT[i]];
         }
     }
-    if( src->fAddColor )
+    if (src->fAddColor)
     {
-        for( i = 0; i < numVerts; i++ )
+        for (i = 0; i < numVerts; i++)
         {
             dst->fAddColor[i] = src->fAddColor[bckLUT[i]];
         }
     }
-    if( src->fDiffuseRGBA )
+    if (src->fDiffuseRGBA)
     {
-        for( i = 0; i < numVerts; i++ )
+        for (i = 0; i < numVerts; i++)
         {
             dst->fDiffuseRGBA[i] = src->fDiffuseRGBA[bckLUT[i]];
         }
     }
-    if( src->fSpecularRGBA )
+    if (src->fSpecularRGBA)
     {
-        for( i = 0; i < numVerts; i++ )
+        for (i = 0; i < numVerts; i++)
         {
             dst->fSpecularRGBA[i] = src->fSpecularRGBA[bckLUT[i]];
         }
@@ -313,19 +313,19 @@ plGeometrySpan* plGeoSpanDice::IAllocSpace(plGeometrySpan* src, int numVerts, in
     dst->fNumVerts = numVerts;
     dst->fVertexData = new uint8_t[numVerts * stride];
 
-    if( src->fMultColor )
+    if (src->fMultColor)
     {
         dst->fMultColor = new hsColorRGBA[numVerts];
     }
-    if( src->fAddColor )
+    if (src->fAddColor)
     {
         dst->fAddColor = new hsColorRGBA[numVerts];
     }
-    if( src->fDiffuseRGBA )
+    if (src->fDiffuseRGBA)
     {
         dst->fDiffuseRGBA = new uint32_t[numVerts];
     }
-    if( src->fSpecularRGBA )
+    if (src->fSpecularRGBA)
     {
         dst->fSpecularRGBA = new uint32_t[numVerts];
     }

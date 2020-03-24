@@ -86,11 +86,11 @@ void plSpanInstance::Alloc(const plSpanEncoding& encoding, uint32_t numVerts)
 {
     DeAlloc();
     uint32_t posStride = PosStrideFromEncoding(encoding);
-    if( posStride )
+    if (posStride)
         fPosDelta = new uint8_t[numVerts * posStride];
 
     uint32_t colStride = ColStrideFromEncoding(encoding);
-    if( colStride )
+    if (colStride)
         fCol = new uint8_t[numVerts * colStride];
 }
 
@@ -99,12 +99,12 @@ void plSpanInstance::Read(hsStream* stream, const plSpanEncoding& encoding, uint
     Alloc(encoding, numVerts);
 
     stream->Read(12 * sizeof(float), fL2W[0]);
-    if( fPosDelta )
+    if (fPosDelta)
     {
         stream->Read(numVerts * PosStrideFromEncoding(encoding), fPosDelta);
     }
 
-    if( fCol )
+    if (fCol)
     {
         stream->Read(numVerts * ColStrideFromEncoding(encoding), fCol);
     }
@@ -113,11 +113,11 @@ void plSpanInstance::Read(hsStream* stream, const plSpanEncoding& encoding, uint
 void plSpanInstance::Write(hsStream* stream, const plSpanEncoding& encoding, uint32_t numVerts) const
 {
     stream->Write(12 * sizeof(float), fL2W[0]);
-    if( fPosDelta )
+    if (fPosDelta)
     {
         stream->Write(numVerts * PosStrideFromEncoding(encoding), fPosDelta);
     }
-    if( fCol )
+    if (fCol)
     {
         stream->Write(numVerts * ColStrideFromEncoding(encoding), fCol);
     }
@@ -128,10 +128,10 @@ hsMatrix44 plSpanInstance::LocalToWorld() const
     hsMatrix44 retVal;
     retVal.NotIdentity();
     int i;
-    for( i = 0; i < 3; i++ )
+    for (i = 0; i < 3; i++)
     {
         int j;
-        for( j = 0; j < 4; j++ )
+        for (j = 0; j < 4; j++)
         {
             retVal.fMap[i][j] = fL2W[i][j];
         }
@@ -155,10 +155,10 @@ hsMatrix44 plSpanInstance::WorldToLocal() const
 void plSpanInstance::SetLocalToWorld(const hsMatrix44& l2w)
 {
     int i;
-    for( i = 0; i < 3; i++ )
+    for (i = 0; i < 3; i++)
     {
         int j;
-        for( j = 0; j < 4; j++ )
+        for (j = 0; j < 4; j++)
         {
             fL2W[i][j] = l2w.fMap[i][j];
         }
@@ -173,7 +173,7 @@ void plSpanInstance::Encode(const plSpanEncoding& encoding, uint32_t numVerts, c
     hsAssert(!(encoding.fCode & plSpanEncoding::kColMask) == !color, "Color encoding mismatch");
 
     // Check that there's anything to encode.
-    if( !(fPosDelta || fCol) )
+    if (!(fPosDelta || fCol))
         return;
 
     int8_t* pos888 = (int8_t*)fPosDelta;
@@ -184,9 +184,9 @@ void plSpanInstance::Encode(const plSpanEncoding& encoding, uint32_t numVerts, c
     uint16_t* col16 = (uint16_t*)fCol;
     uint32_t* col32 = (uint32_t*)fCol;
     int i;
-    for( i = 0; i < numVerts; i++ )
+    for (i = 0; i < numVerts; i++)
     {
-        switch(encoding.fCode & plSpanEncoding::kPosMask)
+        switch (encoding.fCode & plSpanEncoding::kPosMask)
         {
         case plSpanEncoding::kPos888:
             pos888[0] = int8_t(delPos->fX / encoding.fPosScale);
@@ -219,7 +219,7 @@ void plSpanInstance::Encode(const plSpanEncoding& encoding, uint32_t numVerts, c
         default:
             break;
         }
-        switch(encoding.fCode & plSpanEncoding::kColMask)
+        switch (encoding.fCode & plSpanEncoding::kColMask)
         {
         case plSpanEncoding::kColA8:
             *col8 = (uint8_t)((*color) >> 24);

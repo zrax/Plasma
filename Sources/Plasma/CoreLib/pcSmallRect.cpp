@@ -48,18 +48,18 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "pcSmallRect.h"
 #include "hsStream.h"
 
-void    pcSmallRect::Read( hsStream *s )
+void    pcSmallRect::Read(hsStream *s)
 {
-    s->ReadLE( &fX );
-    s->ReadLE( &fY );
-    s->ReadLE( &fWidth );
-    s->ReadLE( &fHeight );
+    s->ReadLE(&fX);
+    s->ReadLE(&fY);
+    s->ReadLE(&fWidth);
+    s->ReadLE(&fHeight);
 }
 
-void    pcSmallRect::Write( hsStream *s )
+void    pcSmallRect::Write(hsStream *s)
 {
-    s->WriteLE( fX );
-    s->WriteLE( fY );
-    s->WriteLE( fWidth );
-    s->WriteLE( fHeight );
+    s->WriteLE(fX);
+    s->WriteLE(fY);
+    s->WriteLE(fWidth);
+    s->WriteLE(fHeight);
 }

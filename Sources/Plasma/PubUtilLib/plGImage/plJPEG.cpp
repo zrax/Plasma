@@ -70,19 +70,19 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 static char jpegmsg[JMSG_LENGTH_MAX];
 
 // jpeglib error handlers
-static void plJPEG_error_exit( j_common_ptr cinfo )
+static void plJPEG_error_exit(j_common_ptr cinfo)
 {
-    (*cinfo->err->format_message) ( cinfo, jpegmsg );
+    (*cinfo->err->format_message)(cinfo, jpegmsg);
     throw false;
 }
-static void plJPEG_emit_message( j_common_ptr cinfo, int msg_level )
+static void plJPEG_emit_message(j_common_ptr cinfo, int msg_level)
 {
     // log NOTHING
 }
 static void clear_jpegmsg()
 {
     // "Success" is what IJL produced for no error
-    strcpy( jpegmsg, "Success" );
+    strcpy(jpegmsg, "Success");
 }
 
 
@@ -113,7 +113,7 @@ const char  *plJPEG::GetLastError()
 //  Note: more or less lifted straight out of the IJL documentation, with
 //  some changes to fit Plasma coding style and formats.
 
-plMipmap    *plJPEG::IRead( hsStream *inStream )
+plMipmap    *plJPEG::IRead(hsStream *inStream)
 {
     plMipmap    *newMipmap = nil;
     uint8_t       *jpegSourceBuffer = nil;
@@ -124,16 +124,16 @@ plMipmap    *plJPEG::IRead( hsStream *inStream )
 
 
     clear_jpegmsg();
-    cinfo.err = jpeg_std_error( &jerr );
+    cinfo.err = jpeg_std_error(&jerr);
     jerr.error_exit = plJPEG_error_exit;
     jerr.emit_message = plJPEG_emit_message;
 
     try
     {
-        jpeg_create_decompress( &cinfo );
+        jpeg_create_decompress(&cinfo);
 
         /// Read in the JPEG header
-        if ( inStream->GetEOF() == 0 )
+        if (inStream->GetEOF() == 0)
             throw false;
 
         /// Wonderful limitation of mixing our streams with IJL--it wants either a filename
@@ -141,11 +141,11 @@ plMipmap    *plJPEG::IRead( hsStream *inStream )
         /// JPEG stream into a separate buffer before we can decode it. Which means we ALSO
         /// have to write/read a length of said buffer. Such is life, I guess...
         jpegSourceSize = inStream->ReadLE32();
-        jpegSourceBuffer = new uint8_t[ jpegSourceSize ];
+        jpegSourceBuffer = new uint8_t[jpegSourceSize];
 
-        inStream->Read( jpegSourceSize, jpegSourceBuffer );
-        jpeg_mem_src( &cinfo, jpegSourceBuffer, jpegSourceSize );
-        (void) jpeg_read_header( &cinfo, TRUE );
+        inStream->Read(jpegSourceSize, jpegSourceBuffer);
+        jpeg_mem_src(&cinfo, jpegSourceBuffer, jpegSourceSize);
+        (void) jpeg_read_header(&cinfo, TRUE);
 
         /// So we got lots of data to play with now. First, set the JPEG color
         /// space to read in from/as...
@@ -159,7 +159,7 @@ plMipmap    *plJPEG::IRead( hsStream *inStream )
         // are in the YCbCr color space and 1 channel images are
         // in the Y color space."
 
-        switch( cinfo.jpeg_color_space )
+        switch (cinfo.jpeg_color_space)
         {
             case JCS_GRAYSCALE:
             case JCS_YCbCr:
@@ -168,15 +168,15 @@ plMipmap    *plJPEG::IRead( hsStream *inStream )
 
             default:
                 // We should probably assert here, since we're pretty sure we WON'T get ARGB. <sigh>
-                hsAssert( false, "Unknown JPEG stream format in ReadFromStream()" );
+                hsAssert(false, "Unknown JPEG stream format in ReadFromStream()");
                 cinfo.out_color_space = JCS_UNKNOWN;
                 break;
         }
 
-        (void) jpeg_start_decompress( &cinfo );
+        (void) jpeg_start_decompress(&cinfo);
 
         /// Construct a new mipmap to hold everything
-        newMipmap = new plMipmap( cinfo.output_width, cinfo.output_height, plMipmap::kRGB32Config, 1, plMipmap::kJPEGCompression );
+        newMipmap = new plMipmap(cinfo.output_width, cinfo.output_height, plMipmap::kRGB32Config, 1, plMipmap::kJPEGCompression);
 
         /// Set up to read in to that buffer we now have
         JSAMPROW jbuffer;
@@ -185,16 +185,16 @@ plMipmap    *plJPEG::IRead( hsStream *inStream )
         jbuffer = new JSAMPLE[row_stride];
 
         uint8_t *destp = (uint8_t *)newMipmap->GetImage();
-        while( cinfo.output_scanline < cinfo.output_height )
+        while (cinfo.output_scanline < cinfo.output_height)
         {
-            (void) jpeg_read_scanlines( &cinfo, &jbuffer, 1 );
-            (void) memset( destp, 0xFF, out_stride );
+            (void) jpeg_read_scanlines(&cinfo, &jbuffer, 1);
+            (void) memset(destp, 0xFF, out_stride);
             
-            for( size_t pixel = 0; pixel < cinfo.output_width; ++pixel )
+            for (size_t pixel = 0; pixel < cinfo.output_width; ++pixel)
             {
-                (void) memcpy( destp + (pixel * 4),
-                               jbuffer + (pixel * cinfo.output_components),
-                               cinfo.out_color_components );
+                (void) memcpy(destp + (pixel * 4),
+                              jbuffer + (pixel * cinfo.output_components),
+                              cinfo.out_color_components);
             }
 
             destp += out_stride;
@@ -204,7 +204,7 @@ plMipmap    *plJPEG::IRead( hsStream *inStream )
         delete [] jbuffer;
 
         // Sometimes life just sucks
-        ISwapRGBAComponents( (uint32_t *)newMipmap->GetImage(), newMipmap->GetWidth() * newMipmap->GetHeight() );
+        ISwapRGBAComponents((uint32_t *)newMipmap->GetImage(), newMipmap->GetWidth() * newMipmap->GetHeight());
     }
     catch (...)
     {
@@ -216,13 +216,13 @@ plMipmap    *plJPEG::IRead( hsStream *inStream )
     delete [] jpegSourceBuffer;
 
     // Clean up the JPEG Library
-    jpeg_destroy_decompress( &cinfo );
+    jpeg_destroy_decompress(&cinfo);
 
     // All done!
     return newMipmap;
 }
 
-plMipmap*   plJPEG::ReadFromFile( const plFileName &fileName )
+plMipmap*   plJPEG::ReadFromFile(const plFileName &fileName)
 {
     // we use a stream because the IJL can't handle unicode
     hsRAMStream tempstream;
@@ -250,7 +250,7 @@ plMipmap*   plJPEG::ReadFromFile( const plFileName &fileName )
 //// IWrite ///////////////////////////////////////////////////////////////////
 //  Oh, figure it out yourself. :P
 
-bool    plJPEG::IWrite( plMipmap *source, hsStream *outStream )
+bool    plJPEG::IWrite(plMipmap *source, hsStream *outStream)
 {
     bool    result = true, swapped = false;
     uint8_t   *jpgBuffer = nil;
@@ -261,28 +261,28 @@ bool    plJPEG::IWrite( plMipmap *source, hsStream *outStream )
 
 
     clear_jpegmsg();
-    cinfo.err = jpeg_std_error( &jerr );
+    cinfo.err = jpeg_std_error(&jerr);
     jerr.error_exit = plJPEG_error_exit;
     jerr.emit_message = plJPEG_emit_message;
 
     try
     {
-        jpeg_create_compress( &cinfo );
+        jpeg_create_compress(&cinfo);
 
         // Create a buffer to hold the data
         jpgBufferSize = source->GetWidth() * source->GetHeight() * 3;
-        jpgBuffer = new uint8_t[ jpgBufferSize ];
+        jpgBuffer = new uint8_t[jpgBufferSize];
 
         uint8_t *bufferAddr = jpgBuffer;
         unsigned long bufferSize = jpgBufferSize;
-        jpeg_mem_dest( &cinfo, &bufferAddr, &bufferSize );
+        jpeg_mem_dest(&cinfo, &bufferAddr, &bufferSize);
 
         cinfo.image_width = source->GetWidth();
         cinfo.image_height = source->GetHeight();
         cinfo.input_components = 3;
         cinfo.in_color_space = JCS_RGB;
 
-        jpeg_set_defaults( &cinfo );
+        jpeg_set_defaults(&cinfo);
 
 #if JPEG_LIB_VERSION >= 70
         cinfo.jpeg_width = source->GetWidth(); // default
@@ -290,12 +290,12 @@ bool    plJPEG::IWrite( plMipmap *source, hsStream *outStream )
 #endif
         cinfo.jpeg_color_space = JCS_YCbCr; // default
         // not sure how to set 4:1:1 but supposedly it's the default
-        jpeg_set_quality( &cinfo, fWriteQuality, TRUE );
+        jpeg_set_quality(&cinfo, fWriteQuality, TRUE);
 
-        jpeg_start_compress( &cinfo, TRUE );
+        jpeg_start_compress(&cinfo, TRUE);
 
         // Sometimes life just sucks
-        ISwapRGBAComponents( (uint32_t *)source->GetImage(), source->GetWidth() * source->GetHeight() );
+        ISwapRGBAComponents((uint32_t *)source->GetImage(), source->GetWidth() * source->GetHeight());
         swapped = true;
 
         // Write it!
@@ -305,24 +305,24 @@ bool    plJPEG::IWrite( plMipmap *source, hsStream *outStream )
         jbuffer = new JSAMPLE[row_stride];
 
         uint8_t *srcp = (uint8_t *)source->GetImage();
-        while( cinfo.next_scanline < cinfo.image_height )
+        while (cinfo.next_scanline < cinfo.image_height)
         {
-            for( size_t pixel = 0; pixel < cinfo.image_width; ++pixel )
+            for (size_t pixel = 0; pixel < cinfo.image_width; ++pixel)
             {
-                (void) memcpy( jbuffer + (pixel * cinfo.input_components),
-                               srcp + (pixel * 4), cinfo.input_components );
+                (void) memcpy(jbuffer + (pixel * cinfo.input_components),
+                              srcp + (pixel * 4), cinfo.input_components);
             }
 
-            (void) jpeg_write_scanlines( &cinfo, &jbuffer, 1 );
+            (void) jpeg_write_scanlines(&cinfo, &jbuffer, 1);
             srcp += in_stride;
         }
 
-        jpeg_finish_compress( &cinfo );
+        jpeg_finish_compress(&cinfo);
         delete [] jbuffer;
 
         // jpeglib changes bufferSize and bufferAddr
-        outStream->WriteLE32( bufferSize );
-        outStream->Write( bufferSize, bufferAddr );
+        outStream->WriteLE32(bufferSize);
+        outStream->Write(bufferSize, bufferAddr);
     }
     catch (...)
     {
@@ -330,17 +330,17 @@ bool    plJPEG::IWrite( plMipmap *source, hsStream *outStream )
     }
 
     // Cleanup
-    if ( jpgBuffer )
+    if (jpgBuffer)
         delete [] jpgBuffer;
-    jpeg_destroy_compress( &cinfo );
+    jpeg_destroy_compress(&cinfo);
 
-    if( swapped )
-        ISwapRGBAComponents( (uint32_t *)source->GetImage(), source->GetWidth() * source->GetHeight() );
+    if (swapped)
+        ISwapRGBAComponents((uint32_t *)source->GetImage(), source->GetWidth() * source->GetHeight());
 
     return result;
 }
 
-bool    plJPEG::WriteToFile( const plFileName &fileName, plMipmap *sourceData )
+bool    plJPEG::WriteToFile(const plFileName &fileName, plMipmap *sourceData)
 {
     // we use a stream because the IJL can't handle unicode
     hsRAMStream tempstream;
@@ -366,14 +366,14 @@ bool    plJPEG::WriteToFile( const plFileName &fileName, plMipmap *sourceData )
 
 //// ISwapRGBAComponents //////////////////////////////////////////////////////
 
-void    plJPEG::ISwapRGBAComponents( uint32_t *data, uint32_t count )
+void    plJPEG::ISwapRGBAComponents(uint32_t *data, uint32_t count)
 {
-    while( count-- )
+    while (count--)
     {
-        *data = ( ( ( *data ) & 0xff00ff00 )       ) |
-                ( ( ( *data ) & 0x00ff0000 ) >> 16 ) |
-//              ( ( ( *data ) & 0x0000ff00 ) << 8 ) |
-                ( ( ( *data ) & 0x000000ff ) << 16 );
+        *data = (((*data) & 0xff00ff00)      ) |
+                (((*data) & 0x00ff0000) >> 16) |
+//              (((*data) & 0x0000ff00) << 8 ) |
+                (((*data) & 0x000000ff) << 16);
         data++;
     }
 }

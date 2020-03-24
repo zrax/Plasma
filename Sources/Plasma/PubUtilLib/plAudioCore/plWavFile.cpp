@@ -87,13 +87,13 @@ CWaveFile::~CWaveFile()
 {
     Close();
 
-    if( !m_bIsReadingFromMemory )
+    if (!m_bIsReadingFromMemory)
     {
         free(m_pwfx);
     }
 
     int i;
-    for(i = 0 ; i < fMarkers.size() ; i++)
+    for (i = 0 ; i < fMarkers.size() ; i++)
     {
         delete [] fMarkers[i]->fName;
     }
@@ -106,7 +106,7 @@ CWaveFile::~CWaveFile()
 // Name: CWaveFile::Open()
 // Desc: Opens a wave file for reading
 //-----------------------------------------------------------------------------
-HRESULT CWaveFile::Open(const char *strFileName, WAVEFORMATEX* pwfx, DWORD dwFlags )
+HRESULT CWaveFile::Open(const char *strFileName, WAVEFORMATEX* pwfx, DWORD dwFlags)
 {
     HRESULT hr;
 
@@ -122,19 +122,19 @@ HRESULT CWaveFile::Open(const char *strFileName, WAVEFORMATEX* pwfx, DWORD dwFla
     delete [] temp;
 #endif
 
-    if( m_dwFlags == WAVEFILE_READ )
+    if (m_dwFlags == WAVEFILE_READ)
     {
-        if( strFileName == NULL )
+        if (strFileName == NULL)
             return E_INVALIDARG;
         free(m_pwfx);
 
 #ifdef UNICODE
-        m_hmmio = mmioOpen( (wchar_t*)wFileName.c_str(), NULL, MMIO_ALLOCBUF | MMIO_READ );
+        m_hmmio = mmioOpen((wchar_t*)wFileName.c_str(), NULL, MMIO_ALLOCBUF | MMIO_READ);
 #else
-        m_hmmio = mmioOpen( fileName, NULL, MMIO_ALLOCBUF | MMIO_READ );
+        m_hmmio = mmioOpen(fileName, NULL, MMIO_ALLOCBUF | MMIO_READ);
 #endif
 
-        if( NULL == m_hmmio )
+        if (NULL == m_hmmio)
         {
             HRSRC   hResInfo;
             HGLOBAL hResData;
@@ -143,49 +143,49 @@ HRESULT CWaveFile::Open(const char *strFileName, WAVEFORMATEX* pwfx, DWORD dwFla
 
             // Loading it as a file failed, so try it as a resource
 #ifdef UNICODE
-            if( NULL == ( hResInfo = FindResource( NULL, wFileName.c_str(), TEXT("WAVE") ) ) )
+            if (NULL == (hResInfo = FindResource(NULL, wFileName.c_str(), TEXT("WAVE"))))
             {
-                if( NULL == ( hResInfo = FindResource( NULL, wFileName.c_str(), TEXT("WAV") ) ) )
-                    return DXTRACE_ERR( TEXT("FindResource"), E_FAIL );
+                if (NULL == (hResInfo = FindResource(NULL, wFileName.c_str(), TEXT("WAV"))))
+                    return DXTRACE_ERR(TEXT("FindResource"), E_FAIL);
             }
 #else
-            if( NULL == ( hResInfo = FindResource( NULL, strFileName, TEXT("WAVE") ) ) )
+            if (NULL == (hResInfo = FindResource(NULL, strFileName, TEXT("WAVE"))))
             {
-                if( NULL == ( hResInfo = FindResource( NULL, strFileName, TEXT("WAV") ) ) )
-                    return DXTRACE_ERR( TEXT("FindResource"), E_FAIL );
+                if (NULL == (hResInfo = FindResource(NULL, strFileName, TEXT("WAV"))))
+                    return DXTRACE_ERR(TEXT("FindResource"), E_FAIL);
             }
 #endif
 
-            if( NULL == ( hResData = LoadResource( NULL, hResInfo ) ) )
-                return DXTRACE_ERR( TEXT("LoadResource"), E_FAIL );
+            if (NULL == (hResData = LoadResource(NULL, hResInfo)))
+                return DXTRACE_ERR(TEXT("LoadResource"), E_FAIL);
 
-            if( 0 == ( dwSize = SizeofResource( NULL, hResInfo ) ) )
-                return DXTRACE_ERR( TEXT("SizeofResource"), E_FAIL );
+            if (0 == (dwSize = SizeofResource(NULL, hResInfo)))
+                return DXTRACE_ERR(TEXT("SizeofResource"), E_FAIL);
 
-            if( NULL == ( pvRes = LockResource( hResData ) ) )
-                return DXTRACE_ERR( TEXT("LockResource"), E_FAIL );
+            if (NULL == (pvRes = LockResource(hResData)))
+                return DXTRACE_ERR(TEXT("LockResource"), E_FAIL);
 
-            CHAR* pData = new CHAR[ dwSize ];
-            memcpy( pData, pvRes, dwSize );
+            CHAR* pData = new CHAR[dwSize];
+            memcpy(pData, pvRes, dwSize);
 
             MMIOINFO mmioInfo;
-            ZeroMemory( &mmioInfo, sizeof(mmioInfo) );
+            ZeroMemory(&mmioInfo, sizeof(mmioInfo));
             mmioInfo.fccIOProc = FOURCC_MEM;
             mmioInfo.cchBuffer = dwSize;
             mmioInfo.pchBuffer = (CHAR*) pData;
 
-            m_hmmio = mmioOpen( NULL, &mmioInfo, MMIO_ALLOCBUF | MMIO_READ );
+            m_hmmio = mmioOpen(NULL, &mmioInfo, MMIO_ALLOCBUF | MMIO_READ);
         }
 
-        if( FAILED( hr = ReadMMIO() ) )
+        if (FAILED(hr = ReadMMIO()))
         {
             // ReadMMIO will fail if its an not a wave file
-            mmioClose( m_hmmio, 0 );
-            return DXTRACE_ERR( TEXT("ReadMMIO"), hr );
+            mmioClose(m_hmmio, 0);
+            return DXTRACE_ERR(TEXT("ReadMMIO"), hr);
         }
 
-        if( FAILED( hr = ResetFile() ) )
-            return DXTRACE_ERR( TEXT("ResetFile"), hr );
+        if (FAILED(hr = ResetFile()))
+            return DXTRACE_ERR(TEXT("ResetFile"), hr);
 
         // After the reset, the size of the wav file is m_ck.cksize so store it now
         
@@ -198,25 +198,25 @@ HRESULT CWaveFile::Open(const char *strFileName, WAVEFORMATEX* pwfx, DWORD dwFla
     else
     {
 #ifdef UNICODE
-        m_hmmio = mmioOpen( (wchar_t*)wFileName.c_str(), NULL, MMIO_ALLOCBUF  |
+        m_hmmio = mmioOpen((wchar_t*)wFileName.c_str(), NULL, MMIO_ALLOCBUF  |
                                                   MMIO_READWRITE |
-                                                  MMIO_CREATE );
+                                                  MMIO_CREATE);
 #else
-        m_hmmio = mmioOpen( fileName, NULL, MMIO_ALLOCBUF  |
+        m_hmmio = mmioOpen(fileName, NULL, MMIO_ALLOCBUF  |
                                                   MMIO_READWRITE |
-                                                  MMIO_CREATE );
+                                                  MMIO_CREATE);
 #endif
-        if( NULL == m_hmmio )
-            return DXTRACE_ERR( TEXT("mmioOpen"), E_FAIL );
+        if (NULL == m_hmmio)
+            return DXTRACE_ERR(TEXT("mmioOpen"), E_FAIL);
 
-        if( FAILED( hr = WriteMMIO( pwfx ) ) )
+        if (FAILED(hr = WriteMMIO(pwfx)))
         {
-            mmioClose( m_hmmio, 0 );
-            return DXTRACE_ERR( TEXT("WriteMMIO"), hr );
+            mmioClose(m_hmmio, 0);
+            return DXTRACE_ERR(TEXT("WriteMMIO"), hr);
         }
                         
-        if( FAILED( hr = ResetFile() ) )
-            return DXTRACE_ERR( TEXT("ResetFile"), hr );
+        if (FAILED(hr = ResetFile()))
+            return DXTRACE_ERR(TEXT("ResetFile"), hr);
     }
 
     return hr;
@@ -229,8 +229,8 @@ HRESULT CWaveFile::Open(const char *strFileName, WAVEFORMATEX* pwfx, DWORD dwFla
 // Name: CWaveFile::OpenFromMemory()
 // Desc: copy data to CWaveFile member variable from memory
 //-----------------------------------------------------------------------------
-HRESULT CWaveFile::OpenFromMemory( BYTE* pbData, ULONG ulDataSize,
-                                   WAVEFORMATEX* pwfx, DWORD dwFlags )
+HRESULT CWaveFile::OpenFromMemory(BYTE* pbData, ULONG ulDataSize,
+                                  WAVEFORMATEX* pwfx, DWORD dwFlags)
 {
     m_pwfx       = pwfx;
     m_ulDataSize = ulDataSize;
@@ -238,7 +238,7 @@ HRESULT CWaveFile::OpenFromMemory( BYTE* pbData, ULONG ulDataSize,
     m_pbDataCur  = m_pbData;
     m_bIsReadingFromMemory = TRUE;
     
-    if( dwFlags != WAVEFILE_READ )
+    if (dwFlags != WAVEFILE_READ)
         return E_NOTIMPL;
     
     return S_OK;
@@ -328,62 +328,62 @@ HRESULT CWaveFile::ReadMMIO()
 
     m_pwfx = NULL;
 
-    if( ( 0 != mmioDescend( m_hmmio, &m_ckRiff, NULL, 0 ) ) )
-        return DXTRACE_ERR( TEXT("mmioDescend"), E_FAIL );
+    if ((0 != mmioDescend(m_hmmio, &m_ckRiff, NULL, 0)))
+        return DXTRACE_ERR(TEXT("mmioDescend"), E_FAIL);
 
     // Check to make sure this is a valid wave file
-    if( (m_ckRiff.ckid != FOURCC_RIFF) ||
-        (m_ckRiff.fccType != mmioFOURCC('W', 'A', 'V', 'E') ) )
-        return DXTRACE_ERR( TEXT("mmioFOURCC"), E_FAIL );
+    if ((m_ckRiff.ckid != FOURCC_RIFF) ||
+        (m_ckRiff.fccType != mmioFOURCC('W', 'A', 'V', 'E')))
+        return DXTRACE_ERR(TEXT("mmioFOURCC"), E_FAIL);
 
     // Search the input file for for the 'fmt ' chunk.
     ckIn.ckid = mmioFOURCC('f', 'm', 't', ' ');
-    if( 0 != mmioDescend( m_hmmio, &ckIn, &m_ckRiff, MMIO_FINDCHUNK ) )
-        return DXTRACE_ERR( TEXT("mmioDescend"), E_FAIL );
+    if (0 != mmioDescend(m_hmmio, &ckIn, &m_ckRiff, MMIO_FINDCHUNK))
+        return DXTRACE_ERR(TEXT("mmioDescend"), E_FAIL);
 
     // Expect the 'fmt' chunk to be at least as large as <PCMWAVEFORMAT>;
     // if there are extra parameters at the end, we'll ignore them
-       if( ckIn.cksize < (LONG) sizeof(PCMWAVEFORMAT) )
-           return DXTRACE_ERR( TEXT("sizeof(PCMWAVEFORMAT)"), E_FAIL );
+       if (ckIn.cksize < (LONG) sizeof(PCMWAVEFORMAT))
+           return DXTRACE_ERR(TEXT("sizeof(PCMWAVEFORMAT)"), E_FAIL);
 
     // Read the 'fmt ' chunk into <pcmWaveFormat>.
-    if( mmioRead( m_hmmio, (HPSTR) &pcmWaveFormat,
-                  sizeof(pcmWaveFormat)) != sizeof(pcmWaveFormat) )
-        return DXTRACE_ERR( TEXT("mmioRead"), E_FAIL );
+    if (mmioRead(m_hmmio, (HPSTR) &pcmWaveFormat,
+                  sizeof(pcmWaveFormat)) != sizeof(pcmWaveFormat))
+        return DXTRACE_ERR(TEXT("mmioRead"), E_FAIL);
 
     // Allocate the waveformatex, but if its not pcm format, read the next
     // uint16_t, and thats how many extra bytes to allocate.
-    if( pcmWaveFormat.wf.wFormatTag == WAVE_FORMAT_PCM )
+    if (pcmWaveFormat.wf.wFormatTag == WAVE_FORMAT_PCM)
     {
         m_pwfx = (WAVEFORMATEX*)malloc(sizeof(WAVEFORMATEX));
-        if( NULL == m_pwfx )
-            return DXTRACE_ERR( TEXT("m_pwfx"), E_FAIL );
+        if (NULL == m_pwfx)
+            return DXTRACE_ERR(TEXT("m_pwfx"), E_FAIL);
 
         // Copy the bytes from the pcm structure to the waveformatex structure
-        memcpy( m_pwfx, &pcmWaveFormat, sizeof(pcmWaveFormat) );
+        memcpy(m_pwfx, &pcmWaveFormat, sizeof(pcmWaveFormat));
         m_pwfx->cbSize = 0;
     }
     else
     {
         // Read in length of extra bytes.
         WORD cbExtraBytes = 0L;
-        if( mmioRead( m_hmmio, (CHAR*)&cbExtraBytes, sizeof(WORD)) != sizeof(WORD) )
-            return DXTRACE_ERR( TEXT("mmioRead"), E_FAIL );
+        if (mmioRead(m_hmmio, (CHAR*)&cbExtraBytes, sizeof(WORD)) != sizeof(WORD))
+            return DXTRACE_ERR(TEXT("mmioRead"), E_FAIL);
 
         m_pwfx = (WAVEFORMATEX*)malloc(sizeof(WAVEFORMATEX) + cbExtraBytes);
-        if( NULL == m_pwfx )
-            return DXTRACE_ERR( TEXT("new"), E_FAIL );
+        if (NULL == m_pwfx)
+            return DXTRACE_ERR(TEXT("new"), E_FAIL);
 
         // Copy the bytes from the pcm structure to the waveformatex structure
-        memcpy( m_pwfx, &pcmWaveFormat, sizeof(pcmWaveFormat) );
+        memcpy(m_pwfx, &pcmWaveFormat, sizeof(pcmWaveFormat));
         m_pwfx->cbSize = cbExtraBytes;
 
         // Now, read those extra bytes into the structure, if cbExtraAlloc != 0.
-        if( mmioRead( m_hmmio, (CHAR*)(((BYTE*)&(m_pwfx->cbSize))+sizeof(WORD)),
-                      cbExtraBytes ) != cbExtraBytes )
+        if (mmioRead(m_hmmio, (CHAR*)(((BYTE*)&(m_pwfx->cbSize))+sizeof(WORD)),
+                     cbExtraBytes) != cbExtraBytes)
         {
             free(m_pwfx);
-            return DXTRACE_ERR( TEXT("mmioRead"), E_FAIL );
+            return DXTRACE_ERR(TEXT("mmioRead"), E_FAIL);
         }
     }
 
@@ -393,10 +393,10 @@ HRESULT CWaveFile::ReadMMIO()
 
 
     // Ascend the input file out of the 'fmt ' chunk.
-    if( 0 != mmioAscend( m_hmmio, &ckIn, 0 ) )
+    if (0 != mmioAscend(m_hmmio, &ckIn, 0))
     {
         free(m_pwfx);
-        return DXTRACE_ERR( TEXT("mmioAscend"), E_FAIL );
+        return DXTRACE_ERR(TEXT("mmioAscend"), E_FAIL);
     }
 
 
@@ -407,14 +407,14 @@ HRESULT CWaveFile::ReadMMIO()
     //
 
     ckIn.ckid = mmioFOURCC('c', 'u', 'e', ' ');
-    if( 0 != mmioDescend( m_hmmio, &ckIn, &m_ckRiff, MMIO_FINDCHUNK ) )
+    if (0 != mmioDescend(m_hmmio, &ckIn, &m_ckRiff, MMIO_FINDCHUNK))
         return S_OK; // No Cue Chunck so no point in reading the rest
 
 #if 0
    // Expect the 'cue ' chunk to be at least as large as <PCMWAVEFORMAT>;
    // if there are extra parameters at the end, we'll ignore them
-      if( ckIn.cksize < (long) ( sizeof(FOURCC) + 2*(sizeof(DWORD)) + sizeof(CuePoint) ) )
-         return DXTRACE_ERR( TEXT("sizeof(CueChunk)"), E_FAIL );
+      if (ckIn.cksize < (long) (sizeof(FOURCC) + 2*(sizeof(DWORD)) + sizeof(CuePoint)))
+         return DXTRACE_ERR(TEXT("sizeof(CueChunk)"), E_FAIL);
 #endif
 
     DWORD* CueBuff = new DWORD[ckIn.cksize];
@@ -437,18 +437,18 @@ HRESULT CWaveFile::ReadMMIO()
 
     delete[] CueBuff;
 
-    if( 0 != mmioAscend( m_hmmio, &ckIn, 0 ) )
+    if (0 != mmioAscend(m_hmmio, &ckIn, 0))
     {
         free(m_pwfx);
-        return DXTRACE_ERR( TEXT("mmioAscend"), E_FAIL );
+        return DXTRACE_ERR(TEXT("mmioAscend"), E_FAIL);
     }
 
     
 
     // Goal --> Grab the label information below
     ckIn.ckid = mmioFOURCC('a', 'd', 't', 'l');
-    if( 0 != mmioDescend( m_hmmio, &ckIn, &m_ckRiff, MMIO_FINDLIST ) )
-        return DXTRACE_ERR( TEXT("mmioDescend, with list"), E_FAIL );
+    if (0 != mmioDescend(m_hmmio, &ckIn, &m_ckRiff, MMIO_FINDLIST))
+        return DXTRACE_ERR(TEXT("mmioDescend, with list"), E_FAIL);
 
 
     plSoundMarker *newMarker;
@@ -460,7 +460,7 @@ HRESULT CWaveFile::ReadMMIO()
 
     BYTE *bp = labelBuf;
     // Keep looking for labl chunks till we run out.
-    while(!strncmp("labl",(char*)bp,4))
+    while (!strncmp("labl",(char*)bp,4))
     {
         DWORD size = *(DWORD*)(bp + 4);
         DWORD id = *(DWORD*)(bp + 8);
@@ -472,15 +472,15 @@ HRESULT CWaveFile::ReadMMIO()
         //
         // Do we have a matching cue point for this label?
         //
-        for(i = 0 ; i < numPts;  i++)
+        for (i = 0 ; i < numPts;  i++)
         {
-            if(id == myCueList[i].fId)
+            if (id == myCueList[i].fId)
             {
                 newMarker->fOffset = myCueList[i].fOffset * fSecsPerSample;
             }
         }
         int stringSize = size - sizeof(DWORD); // text string is size of chunck - size of the size uint16_t
-        newMarker->fName = new char[ stringSize];
+        newMarker->fName = new char[stringSize];
 
         strcpy(newMarker->fName, (char*)(bp + 12));
         
@@ -488,7 +488,7 @@ HRESULT CWaveFile::ReadMMIO()
         bp += size + 8;
 
         // crappy fixup hack for odd length label records
-        if(size & 1 && !strncmp("labl", (char*)(bp +1), 4))
+        if (size & 1 && !strncmp("labl", (char*)(bp +1), 4))
             bp++;
      
         fprintf(stderr,"Label name=%s Time =%f\n",newMarker->fName, newMarker->fOffset);
@@ -496,10 +496,10 @@ HRESULT CWaveFile::ReadMMIO()
 
     delete [] labelBuf;
 
-    if( 0 != mmioAscend( m_hmmio, &ckIn, 0 ) )
+    if (0 != mmioAscend(m_hmmio, &ckIn, 0))
     {
         free(m_pwfx);
-        return DXTRACE_ERR( TEXT("mmioAscend"), E_FAIL );
+        return DXTRACE_ERR(TEXT("mmioAscend"), E_FAIL);
     }
 
 
@@ -528,26 +528,26 @@ DWORD CWaveFile::GetSize()
 //-----------------------------------------------------------------------------
 HRESULT CWaveFile::ResetFile()
 {
-    if( m_bIsReadingFromMemory )
+    if (m_bIsReadingFromMemory)
     {
         m_pbDataCur = m_pbData;
     }
     else
     {
-        if( m_hmmio == NULL )
+        if (m_hmmio == NULL)
             return CO_E_NOTINITIALIZED;
 
-        if( m_dwFlags == WAVEFILE_READ )
+        if (m_dwFlags == WAVEFILE_READ)
         {
             // Seek to the data
-            if( -1 == mmioSeek( m_hmmio, m_ckRiff.dwDataOffset + sizeof(FOURCC),
-                            SEEK_SET ) )
-                return DXTRACE_ERR( TEXT("mmioSeek"), E_FAIL );
+            if (-1 == mmioSeek(m_hmmio, m_ckRiff.dwDataOffset + sizeof(FOURCC),
+                            SEEK_SET))
+                return DXTRACE_ERR(TEXT("mmioSeek"), E_FAIL);
 
             // Search the input file for the 'data' chunk.
             m_ck.ckid = mmioFOURCC('d', 'a', 't', 'a');
-            if( 0 != mmioDescend( m_hmmio, &m_ck, &m_ckRiff, MMIO_FINDCHUNK ) )
-              return DXTRACE_ERR( TEXT("mmioDescend"), E_FAIL );
+            if (0 != mmioDescend(m_hmmio, &m_ck, &m_ckRiff, MMIO_FINDCHUNK))
+              return DXTRACE_ERR(TEXT("mmioDescend"), E_FAIL);
         }
         else
         {
@@ -555,11 +555,11 @@ HRESULT CWaveFile::ResetFile()
             m_ck.ckid = mmioFOURCC('d', 'a', 't', 'a');
             m_ck.cksize = 0;
 
-            if( 0 != mmioCreateChunk( m_hmmio, &m_ck, 0 ) )
-                return DXTRACE_ERR( TEXT("mmioCreateChunk"), E_FAIL );
+            if (0 != mmioCreateChunk(m_hmmio, &m_ck, 0))
+                return DXTRACE_ERR(TEXT("mmioCreateChunk"), E_FAIL);
 
-            if( 0 != mmioGetInfo( m_hmmio, &m_mmioinfoOut, 0 ) )
-                return DXTRACE_ERR( TEXT("mmioGetInfo"), E_FAIL );
+            if (0 != mmioGetInfo(m_hmmio, &m_mmioinfoOut, 0))
+                return DXTRACE_ERR(TEXT("mmioGetInfo"), E_FAIL);
         }
     }
     
@@ -577,24 +577,24 @@ HRESULT CWaveFile::ResetFile()
 //       subsequent calls will be continue where the last left off unless
 //       Reset() is called.
 //-----------------------------------------------------------------------------
-HRESULT CWaveFile::Read( BYTE* pBuffer, DWORD dwSizeToRead, DWORD* pdwSizeRead )
+HRESULT CWaveFile::Read(BYTE* pBuffer, DWORD dwSizeToRead, DWORD* pdwSizeRead)
 {
-    if( m_bIsReadingFromMemory )
+    if (m_bIsReadingFromMemory)
     {
-        if( m_pbDataCur == NULL )
+        if (m_pbDataCur == NULL)
             return CO_E_NOTINITIALIZED;
-        if( pdwSizeRead != NULL )
+        if (pdwSizeRead != NULL)
             *pdwSizeRead = 0;
 
-        if( (BYTE*)(m_pbDataCur + dwSizeToRead) >
-            (BYTE*)(m_pbData + m_ulDataSize) )
+        if ((BYTE*)(m_pbDataCur + dwSizeToRead) >
+            (BYTE*)(m_pbData + m_ulDataSize))
         {
             dwSizeToRead = m_ulDataSize - (DWORD)(m_pbDataCur - m_pbData);
         }
         
-        CopyMemory( pBuffer, m_pbDataCur, dwSizeToRead );
+        CopyMemory(pBuffer, m_pbDataCur, dwSizeToRead);
         
-        if( pdwSizeRead != NULL )
+        if (pdwSizeRead != NULL)
             *pdwSizeRead = dwSizeToRead;
 
         return S_OK;
@@ -603,34 +603,34 @@ HRESULT CWaveFile::Read( BYTE* pBuffer, DWORD dwSizeToRead, DWORD* pdwSizeRead )
     {
         MMIOINFO mmioinfoIn; // current status of m_hmmio
 
-        if( m_hmmio == NULL )
+        if (m_hmmio == NULL)
             return CO_E_NOTINITIALIZED;
-        if( pBuffer == NULL || pdwSizeRead == NULL )
+        if (pBuffer == NULL || pdwSizeRead == NULL)
             return E_INVALIDARG;
 
-        if( pdwSizeRead != NULL )
+        if (pdwSizeRead != NULL)
             *pdwSizeRead = 0;
 
-        if( 0 != mmioGetInfo( m_hmmio, &mmioinfoIn, 0 ) )
-            return DXTRACE_ERR( TEXT("mmioGetInfo"), E_FAIL );
+        if (0 != mmioGetInfo(m_hmmio, &mmioinfoIn, 0))
+            return DXTRACE_ERR(TEXT("mmioGetInfo"), E_FAIL);
                 
         UINT cbDataIn = dwSizeToRead;
-        if( cbDataIn > m_ck.cksize )
+        if (cbDataIn > m_ck.cksize)
             cbDataIn = m_ck.cksize;
 
         m_ck.cksize -= cbDataIn;
     
 #if !(MCN_USE_NEW_READ_METHOD)
-        for( DWORD cT = 0; cT < cbDataIn; cT++ )
+        for (DWORD cT = 0; cT < cbDataIn; cT++)
         {
             // Copy the bytes from the io to the buffer.
-            if( mmioinfoIn.pchNext == mmioinfoIn.pchEndRead )
+            if (mmioinfoIn.pchNext == mmioinfoIn.pchEndRead)
             {
-                if( 0 != mmioAdvance( m_hmmio, &mmioinfoIn, MMIO_READ ) )
-                    return DXTRACE_ERR( TEXT("mmioAdvance"), E_FAIL );
+                if (0 != mmioAdvance(m_hmmio, &mmioinfoIn, MMIO_READ))
+                    return DXTRACE_ERR(TEXT("mmioAdvance"), E_FAIL);
 
-                if( mmioinfoIn.pchNext == mmioinfoIn.pchEndRead )
-                    return DXTRACE_ERR( TEXT("mmioinfoIn.pchNext"), E_FAIL );
+                if (mmioinfoIn.pchNext == mmioinfoIn.pchEndRead)
+                    return DXTRACE_ERR(TEXT("mmioinfoIn.pchNext"), E_FAIL);
             }
 
             // Actual copy.
@@ -639,33 +639,33 @@ HRESULT CWaveFile::Read( BYTE* pBuffer, DWORD dwSizeToRead, DWORD* pdwSizeRead )
         }
 #else
         // Attempt to do this a bit faster... 9.12.2001 mcn
-        for( DWORD cT = 0; cT < cbDataIn; )
+        for (DWORD cT = 0; cT < cbDataIn; )
         {
             // Copy the bytes from the io to the buffer.
-            if( mmioinfoIn.pchNext == mmioinfoIn.pchEndRead )
+            if (mmioinfoIn.pchNext == mmioinfoIn.pchEndRead)
             {
-                if( 0 != mmioAdvance( m_hmmio, &mmioinfoIn, MMIO_READ ) )
-                    return DXTRACE_ERR( TEXT("mmioAdvance"), E_FAIL );
+                if (0 != mmioAdvance(m_hmmio, &mmioinfoIn, MMIO_READ))
+                    return DXTRACE_ERR(TEXT("mmioAdvance"), E_FAIL);
 
-                if( mmioinfoIn.pchNext == mmioinfoIn.pchEndRead )
-                    return DXTRACE_ERR( TEXT("mmioinfoIn.pchNext"), E_FAIL );
+                if (mmioinfoIn.pchNext == mmioinfoIn.pchEndRead)
+                    return DXTRACE_ERR(TEXT("mmioinfoIn.pchNext"), E_FAIL);
             }
 
             // Actual copy
             DWORD   length = (DWORD)mmioinfoIn.pchEndRead - (DWORD)mmioinfoIn.pchNext;
-            if( cT + length > cbDataIn )
+            if (cT + length > cbDataIn)
                 length = cbDataIn - cT;
 
-            memcpy( (BYTE*)pBuffer + cT, mmioinfoIn.pchNext, length );
+            memcpy((BYTE*)pBuffer + cT, mmioinfoIn.pchNext, length);
             mmioinfoIn.pchNext += length;
             cT += length;
         }
 #endif
 
-        if( 0 != mmioSetInfo( m_hmmio, &mmioinfoIn, 0 ) )
-            return DXTRACE_ERR( TEXT("mmioSetInfo"), E_FAIL );
+        if (0 != mmioSetInfo(m_hmmio, &mmioinfoIn, 0))
+            return DXTRACE_ERR(TEXT("mmioSetInfo"), E_FAIL);
 
-        if( pdwSizeRead != NULL )
+        if (pdwSizeRead != NULL)
             *pdwSizeRead = cbDataIn;
 
         return S_OK;
@@ -676,22 +676,22 @@ HRESULT CWaveFile::Read( BYTE* pBuffer, DWORD dwSizeToRead, DWORD* pdwSizeRead )
 // Name: CWaveFile::AdvanceWithoutRead()
 // Desc: Identical to Read(), only doesn't actually read any data in.
 //-----------------------------------------------------------------------------
-HRESULT CWaveFile::AdvanceWithoutRead( DWORD dwSizeToRead, DWORD* pdwSizeRead )
+HRESULT CWaveFile::AdvanceWithoutRead(DWORD dwSizeToRead, DWORD* pdwSizeRead)
 {
-    if( m_bIsReadingFromMemory )
+    if (m_bIsReadingFromMemory)
     {
-        if( m_pbDataCur == NULL )
+        if (m_pbDataCur == NULL)
             return CO_E_NOTINITIALIZED;
-        if( pdwSizeRead != NULL )
+        if (pdwSizeRead != NULL)
             *pdwSizeRead = 0;
 
-        if( (BYTE*)(m_pbDataCur + dwSizeToRead) >
-            (BYTE*)(m_pbData + m_ulDataSize) )
+        if ((BYTE*)(m_pbDataCur + dwSizeToRead) >
+            (BYTE*)(m_pbData + m_ulDataSize))
         {
             dwSizeToRead = m_ulDataSize - (DWORD)(m_pbDataCur - m_pbData);
         }
         
-        if( pdwSizeRead != NULL )
+        if (pdwSizeRead != NULL)
             *pdwSizeRead = dwSizeToRead;
 
         return S_OK;
@@ -700,54 +700,54 @@ HRESULT CWaveFile::AdvanceWithoutRead( DWORD dwSizeToRead, DWORD* pdwSizeRead )
     {
         MMIOINFO mmioinfoIn; // current status of m_hmmio
 
-        if( m_hmmio == NULL )
+        if (m_hmmio == NULL)
             return CO_E_NOTINITIALIZED;
-        if( pdwSizeRead == NULL )
+        if (pdwSizeRead == NULL)
             return E_INVALIDARG;
 
-        if( pdwSizeRead != NULL )
+        if (pdwSizeRead != NULL)
             *pdwSizeRead = 0;
 
-        if( 0 != mmioGetInfo( m_hmmio, &mmioinfoIn, 0 ) )
-            return DXTRACE_ERR( TEXT("mmioGetInfo"), E_FAIL );
+        if (0 != mmioGetInfo(m_hmmio, &mmioinfoIn, 0))
+            return DXTRACE_ERR(TEXT("mmioGetInfo"), E_FAIL);
                 
         UINT cbDataIn = dwSizeToRead;
-        if( cbDataIn > m_ck.cksize )
+        if (cbDataIn > m_ck.cksize)
             cbDataIn = m_ck.cksize;
 
         m_ck.cksize -= cbDataIn;
     
 #if !(MCN_USE_NEW_READ_METHOD)
-        for( DWORD cT = 0; cT < cbDataIn; cT++ )
+        for (DWORD cT = 0; cT < cbDataIn; cT++)
         {
             // Copy the bytes from the io to the buffer.
-            if( mmioinfoIn.pchNext == mmioinfoIn.pchEndRead )
+            if (mmioinfoIn.pchNext == mmioinfoIn.pchEndRead)
             {
-                if( 0 != mmioAdvance( m_hmmio, &mmioinfoIn, MMIO_READ ) )
-                    return DXTRACE_ERR( TEXT("mmioAdvance"), E_FAIL );
+                if (0 != mmioAdvance(m_hmmio, &mmioinfoIn, MMIO_READ))
+                    return DXTRACE_ERR(TEXT("mmioAdvance"), E_FAIL);
 
-                if( mmioinfoIn.pchNext == mmioinfoIn.pchEndRead )
-                    return DXTRACE_ERR( TEXT("mmioinfoIn.pchNext"), E_FAIL );
+                if (mmioinfoIn.pchNext == mmioinfoIn.pchEndRead)
+                    return DXTRACE_ERR(TEXT("mmioinfoIn.pchNext"), E_FAIL);
             }
 
             mmioinfoIn.pchNext++;
         }
 #else
         // Attempt to do this a bit faster... 9.12.2001 mcn
-        for( DWORD cT = 0; cT < cbDataIn; )
+        for (DWORD cT = 0; cT < cbDataIn; )
         {
-            if( mmioinfoIn.pchNext == mmioinfoIn.pchEndRead )
+            if (mmioinfoIn.pchNext == mmioinfoIn.pchEndRead)
             {
-                if( 0 != mmioAdvance( m_hmmio, &mmioinfoIn, MMIO_READ ) )
-                    return DXTRACE_ERR( TEXT("mmioAdvance"), E_FAIL );
+                if (0 != mmioAdvance(m_hmmio, &mmioinfoIn, MMIO_READ))
+                    return DXTRACE_ERR(TEXT("mmioAdvance"), E_FAIL);
 
-                if( mmioinfoIn.pchNext == mmioinfoIn.pchEndRead )
-                    return DXTRACE_ERR( TEXT("mmioinfoIn.pchNext"), E_FAIL );
+                if (mmioinfoIn.pchNext == mmioinfoIn.pchEndRead)
+                    return DXTRACE_ERR(TEXT("mmioinfoIn.pchNext"), E_FAIL);
             }
 
             // Advance
             DWORD   length = (DWORD)mmioinfoIn.pchEndRead - (DWORD)mmioinfoIn.pchNext;
-            if( cT + length > cbDataIn )
+            if (cT + length > cbDataIn)
                 length = cbDataIn - cT;
 
             mmioinfoIn.pchNext += length;
@@ -755,10 +755,10 @@ HRESULT CWaveFile::AdvanceWithoutRead( DWORD dwSizeToRead, DWORD* pdwSizeRead )
         }
 #endif
 
-        if( 0 != mmioSetInfo( m_hmmio, &mmioinfoIn, 0 ) )
-            return DXTRACE_ERR( TEXT("mmioSetInfo"), E_FAIL );
+        if (0 != mmioSetInfo(m_hmmio, &mmioinfoIn, 0))
+            return DXTRACE_ERR(TEXT("mmioSetInfo"), E_FAIL);
 
-        if( pdwSizeRead != NULL )
+        if (pdwSizeRead != NULL)
             *pdwSizeRead = cbDataIn;
 
         return S_OK;
@@ -772,50 +772,50 @@ HRESULT CWaveFile::AdvanceWithoutRead( DWORD dwSizeToRead, DWORD* pdwSizeRead )
 //-----------------------------------------------------------------------------
 HRESULT CWaveFile::IClose()
 {
-    if( m_dwFlags == WAVEFILE_READ )
+    if (m_dwFlags == WAVEFILE_READ)
     {
-        mmioClose( m_hmmio, 0 );
+        mmioClose(m_hmmio, 0);
         m_hmmio = NULL;
     }
     else
     {
         m_mmioinfoOut.dwFlags |= MMIO_DIRTY;
 
-        if( m_hmmio == NULL )
+        if (m_hmmio == NULL)
             return CO_E_NOTINITIALIZED;
 
-        if( 0 != mmioSetInfo( m_hmmio, &m_mmioinfoOut, 0 ) )
-            return DXTRACE_ERR( TEXT("mmioSetInfo"), E_FAIL );
+        if (0 != mmioSetInfo(m_hmmio, &m_mmioinfoOut, 0))
+            return DXTRACE_ERR(TEXT("mmioSetInfo"), E_FAIL);
     
         // Ascend the output file out of the 'data' chunk -- this will cause
         // the chunk size of the 'data' chunk to be written.
-        if( 0 != mmioAscend( m_hmmio, &m_ck, 0 ) )
-            return DXTRACE_ERR( TEXT("mmioAscend"), E_FAIL );
+        if (0 != mmioAscend(m_hmmio, &m_ck, 0))
+            return DXTRACE_ERR(TEXT("mmioAscend"), E_FAIL);
     
         // Do this here instead...
-        if( 0 != mmioAscend( m_hmmio, &m_ckRiff, 0 ) )
-            return DXTRACE_ERR( TEXT("mmioAscend"), E_FAIL );
+        if (0 != mmioAscend(m_hmmio, &m_ckRiff, 0))
+            return DXTRACE_ERR(TEXT("mmioAscend"), E_FAIL);
         
-        mmioSeek( m_hmmio, 0, SEEK_SET );
+        mmioSeek(m_hmmio, 0, SEEK_SET);
 
-        if( 0 != (INT)mmioDescend( m_hmmio, &m_ckRiff, NULL, 0 ) )
-            return DXTRACE_ERR( TEXT("mmioDescend"), E_FAIL );
+        if (0 != (INT)mmioDescend(m_hmmio, &m_ckRiff, NULL, 0))
+            return DXTRACE_ERR(TEXT("mmioDescend"), E_FAIL);
     
         m_ck.ckid = mmioFOURCC('f', 'a', 'c', 't');
 
-        if( 0 == mmioDescend( m_hmmio, &m_ck, &m_ckRiff, MMIO_FINDCHUNK ) )
+        if (0 == mmioDescend(m_hmmio, &m_ck, &m_ckRiff, MMIO_FINDCHUNK))
         {
             DWORD dwSamples = 0;
-            mmioWrite( m_hmmio, (HPSTR)&dwSamples, sizeof(DWORD) );
-            mmioAscend( m_hmmio, &m_ck, 0 );
+            mmioWrite(m_hmmio, (HPSTR)&dwSamples, sizeof(DWORD));
+            mmioAscend(m_hmmio, &m_ck, 0);
         }
     
         // Ascend the output file out of the 'RIFF' chunk -- this will cause
         // the chunk size of the 'RIFF' chunk to be written.
-        if( 0 != mmioAscend( m_hmmio, &m_ckRiff, 0 ) )
-            return DXTRACE_ERR( TEXT("mmioAscend"), E_FAIL );
+        if (0 != mmioAscend(m_hmmio, &m_ckRiff, 0))
+            return DXTRACE_ERR(TEXT("mmioAscend"), E_FAIL);
     
-        mmioClose( m_hmmio, 0 );
+        mmioClose(m_hmmio, 0);
         m_hmmio = NULL;
     }
 
@@ -832,7 +832,7 @@ HRESULT CWaveFile::IClose()
 //       m_hmmio must be valid before calling.  This function uses it to
 //       update m_ckRiff, and m_ck.
 //-----------------------------------------------------------------------------
-HRESULT CWaveFile::WriteMMIO( WAVEFORMATEX *pwfxDest )
+HRESULT CWaveFile::WriteMMIO(WAVEFORMATEX *pwfxDest)
 {
     DWORD    dwFactChunk; // Contains the actual fact chunk. Garbage until WaveCloseWriteFile.
     MMCKINFO ckOut1;
@@ -843,8 +843,8 @@ HRESULT CWaveFile::WriteMMIO( WAVEFORMATEX *pwfxDest )
     m_ckRiff.fccType = mmioFOURCC('W', 'A', 'V', 'E');
     m_ckRiff.cksize = 0;
 
-    if( 0 != mmioCreateChunk( m_hmmio, &m_ckRiff, MMIO_CREATERIFF ) )
-        return DXTRACE_ERR( TEXT("mmioCreateChunk"), E_FAIL );
+    if (0 != mmioCreateChunk(m_hmmio, &m_ckRiff, MMIO_CREATERIFF))
+        return DXTRACE_ERR(TEXT("mmioCreateChunk"), E_FAIL);
     
     // We are now descended into the 'RIFF' chunk we just created.
     // Now create the 'fmt ' chunk. Since we know the size of this chunk,
@@ -853,44 +853,44 @@ HRESULT CWaveFile::WriteMMIO( WAVEFORMATEX *pwfxDest )
     m_ck.ckid = mmioFOURCC('f', 'm', 't', ' ');
     m_ck.cksize = sizeof(PCMWAVEFORMAT);
 
-    if( 0 != mmioCreateChunk( m_hmmio, &m_ck, 0 ) )
-        return DXTRACE_ERR( TEXT("mmioCreateChunk"), E_FAIL );
+    if (0 != mmioCreateChunk(m_hmmio, &m_ck, 0))
+        return DXTRACE_ERR(TEXT("mmioCreateChunk"), E_FAIL);
     
     // Write the PCMWAVEFORMAT structure to the 'fmt ' chunk if its that type.
-    if( pwfxDest->wFormatTag == WAVE_FORMAT_PCM )
+    if (pwfxDest->wFormatTag == WAVE_FORMAT_PCM)
     {
-        if( mmioWrite( m_hmmio, (HPSTR) pwfxDest,
-                       sizeof(PCMWAVEFORMAT)) != sizeof(PCMWAVEFORMAT))
-            return DXTRACE_ERR( TEXT("mmioWrite"), E_FAIL );
+        if (mmioWrite(m_hmmio, (HPSTR) pwfxDest,
+                      sizeof(PCMWAVEFORMAT)) != sizeof(PCMWAVEFORMAT))
+            return DXTRACE_ERR(TEXT("mmioWrite"), E_FAIL);
     }
     else
     {
         // Write the variable length size.
-        if( (UINT)mmioWrite( m_hmmio, (HPSTR) pwfxDest,
-                             sizeof(*pwfxDest) + pwfxDest->cbSize ) !=
-                             ( sizeof(*pwfxDest) + pwfxDest->cbSize ) )
-            return DXTRACE_ERR( TEXT("mmioWrite"), E_FAIL );
+        if ((UINT)mmioWrite(m_hmmio, (HPSTR) pwfxDest,
+                             sizeof(*pwfxDest) + pwfxDest->cbSize) !=
+                             (sizeof(*pwfxDest) + pwfxDest->cbSize))
+            return DXTRACE_ERR(TEXT("mmioWrite"), E_FAIL);
     }
     
     // Ascend out of the 'fmt ' chunk, back into the 'RIFF' chunk.
-    if( 0 != mmioAscend( m_hmmio, &m_ck, 0 ) )
-        return DXTRACE_ERR( TEXT("mmioAscend"), E_FAIL );
+    if (0 != mmioAscend(m_hmmio, &m_ck, 0))
+        return DXTRACE_ERR(TEXT("mmioAscend"), E_FAIL);
     
     // Now create the fact chunk, not required for PCM but nice to have.  This is filled
     // in when the close routine is called.
     ckOut1.ckid = mmioFOURCC('f', 'a', 'c', 't');
     ckOut1.cksize = 0;
 
-    if( 0 != mmioCreateChunk( m_hmmio, &ckOut1, 0 ) )
-        return DXTRACE_ERR( TEXT("mmioCreateChunk"), E_FAIL );
+    if (0 != mmioCreateChunk(m_hmmio, &ckOut1, 0))
+        return DXTRACE_ERR(TEXT("mmioCreateChunk"), E_FAIL);
     
-    if( mmioWrite( m_hmmio, (HPSTR)&dwFactChunk, sizeof(dwFactChunk)) !=
-                    sizeof(dwFactChunk) )
-         return DXTRACE_ERR( TEXT("mmioWrite"), E_FAIL );
+    if (mmioWrite(m_hmmio, (HPSTR)&dwFactChunk, sizeof(dwFactChunk)) !=
+                    sizeof(dwFactChunk))
+         return DXTRACE_ERR(TEXT("mmioWrite"), E_FAIL);
     
     // Now ascend out of the fact chunk...
-    if( 0 != mmioAscend( m_hmmio, &ckOut1, 0 ) )
-        return DXTRACE_ERR( TEXT("mmioAscend"), E_FAIL );
+    if (0 != mmioAscend(m_hmmio, &ckOut1, 0))
+        return DXTRACE_ERR(TEXT("mmioAscend"), E_FAIL);
        
     return S_OK;
 }
@@ -902,26 +902,26 @@ HRESULT CWaveFile::WriteMMIO( WAVEFORMATEX *pwfxDest )
 // Name: CWaveFile::Write()
 // Desc: Writes data to the open wave file
 //-----------------------------------------------------------------------------
-HRESULT CWaveFile::Write( UINT nSizeToWrite, BYTE* pbSrcData, UINT* pnSizeWrote )
+HRESULT CWaveFile::Write(UINT nSizeToWrite, BYTE* pbSrcData, UINT* pnSizeWrote)
 {
     UINT cT;
 
-    if( m_bIsReadingFromMemory )
+    if (m_bIsReadingFromMemory)
         return E_NOTIMPL;
-    if( m_hmmio == NULL )
+    if (m_hmmio == NULL)
         return CO_E_NOTINITIALIZED;
-    if( pnSizeWrote == NULL || pbSrcData == NULL )
+    if (pnSizeWrote == NULL || pbSrcData == NULL)
         return E_INVALIDARG;
 
     *pnSizeWrote = 0;
     
-    for( cT = 0; cT < nSizeToWrite; cT++ )
+    for (cT = 0; cT < nSizeToWrite; cT++)
     {
-        if( m_mmioinfoOut.pchNext == m_mmioinfoOut.pchEndWrite )
+        if (m_mmioinfoOut.pchNext == m_mmioinfoOut.pchEndWrite)
         {
             m_mmioinfoOut.dwFlags |= MMIO_DIRTY;
-            if( 0 != mmioAdvance( m_hmmio, &m_mmioinfoOut, MMIO_WRITE ) )
-                return DXTRACE_ERR( TEXT("mmioAdvance"), E_FAIL );
+            if (0 != mmioAdvance(m_hmmio, &m_mmioinfoOut, MMIO_WRITE))
+                return DXTRACE_ERR(TEXT("mmioAdvance"), E_FAIL);
         }
 
         *((BYTE*)m_mmioinfoOut.pchNext) = *((BYTE*)pbSrcData+cT);
@@ -935,7 +935,7 @@ HRESULT CWaveFile::Write( UINT nSizeToWrite, BYTE* pbSrcData, UINT* pnSizeWrote 
 
 
 // Overloads for plAudioFileReader (we only support writing for CWaveFile for now)
-CWaveFile::CWaveFile( const char *path, plAudioCore::ChannelSelect whichChan )
+CWaveFile::CWaveFile(const char *path, plAudioCore::ChannelSelect whichChan)
 {
     m_pwfx    = NULL;
     m_hmmio   = NULL;
@@ -946,7 +946,7 @@ CWaveFile::CWaveFile( const char *path, plAudioCore::ChannelSelect whichChan )
     // Just a stub--do nothing
 }
 
-bool    CWaveFile::OpenForWriting( const char *path, plWAVHeader &header )
+bool    CWaveFile::OpenForWriting(const char *path, plWAVHeader &header)
 {
     fHeader = header;
 
@@ -959,7 +959,7 @@ bool    CWaveFile::OpenForWriting( const char *path, plWAVHeader &header )
     winFormat.wBitsPerSample = header.fBitsPerSample;
     winFormat.wFormatTag = header.fFormatTag;
 
-    if( SUCCEEDED( Open( path, &winFormat, WAVEFILE_WRITE ) ) )
+    if (SUCCEEDED(Open(path, &winFormat, WAVEFILE_WRITE)))
         return true;
 
     return false;
@@ -977,38 +977,38 @@ void    CWaveFile::Close()
 
 uint32_t  CWaveFile::GetDataSize()
 {
-    hsAssert( false, "Unsupported" );
+    hsAssert(false, "Unsupported");
     return 0;
 }
 
 float   CWaveFile::GetLengthInSecs()
 {
-    hsAssert( false, "Unsupported" );
+    hsAssert(false, "Unsupported");
     return 0.f;
 }
 
-bool    CWaveFile::SetPosition( uint32_t numBytes )
+bool    CWaveFile::SetPosition(uint32_t numBytes)
 {
-    hsAssert( false, "Unsupported" );
+    hsAssert(false, "Unsupported");
     return false;
 }
 
-bool    CWaveFile::Read( uint32_t numBytes, void *buffer )
+bool    CWaveFile::Read(uint32_t numBytes, void *buffer)
 {
-    hsAssert( false, "Unsupported" );
+    hsAssert(false, "Unsupported");
     return false;
 }
 
 uint32_t  CWaveFile::NumBytesLeft()
 {
-    hsAssert( false, "Unsupported" );
+    hsAssert(false, "Unsupported");
     return 0;
 }
 
-uint32_t  CWaveFile::Write( uint32_t bytes, void *buffer )
+uint32_t  CWaveFile::Write(uint32_t bytes, void *buffer)
 {
     UINT written;
-    Write( (DWORD)bytes, (BYTE *)buffer, &written );
+    Write((DWORD)bytes, (BYTE *)buffer, &written);
     return (uint32_t)written;
 }
 
@@ -1054,7 +1054,7 @@ public:
     }
     //Cue
 
-    ~CueChunk() {} //for(int i = 0; i < (int) dwCuePoints; i++) points.erase(i);  }
+    ~CueChunk() {} //for (int i = 0; i < (int) dwCuePoints; i++) points.erase(i);  }
 };
 
 

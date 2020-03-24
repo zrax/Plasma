@@ -89,7 +89,7 @@ private:
 };
 
 // Max class descriptor.
-CLASS_DESC(plNPCSpawnComp, gNPCSpawnDesc, "NPC Spawner", "NPC Spawner", COMP_TYPE_AVATAR, NPC_SPAWN_CLASS_ID )
+CLASS_DESC(plNPCSpawnComp, gNPCSpawnDesc, "NPC Spawner", "NPC Spawner", COMP_TYPE_AVATAR, NPC_SPAWN_CLASS_ID)
 
 // GETNPCSPAWNKEY
 // The idea here is to allow access to all the modifiers that

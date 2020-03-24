@@ -64,23 +64,23 @@ class pfBackdoorMsg : public plMessage
             : plMessage(nil, nil, nil), fTarget(target), fString(string)
         {
             // across the net and just to those listening
-            SetBCastFlag( plMessage::kNetPropagate );
-            SetBCastFlag( plMessage::kBCastByExactType );
+            SetBCastFlag(plMessage::kNetPropagate);
+            SetBCastFlag(plMessage::kBCastByExactType);
         }
 
-        CLASSNAME_REGISTER( pfBackdoorMsg );
-        GETINTERFACE_ANY( pfBackdoorMsg, plMessage );
+        CLASSNAME_REGISTER(pfBackdoorMsg);
+        GETINTERFACE_ANY(pfBackdoorMsg, plMessage);
 
         virtual void Read(hsStream* s, hsResMgr* mgr)
         {
-            plMessage::IMsgRead( s, mgr );
+            plMessage::IMsgRead(s, mgr);
             fTarget = s->ReadSafeString();
             fString = s->ReadSafeString();
         }
         
         virtual void Write(hsStream* s, hsResMgr* mgr)
         {
-            plMessage::IMsgWrite( s, mgr );
+            plMessage::IMsgWrite(s, mgr);
             s->WriteSafeString(fTarget);
             s->WriteSafeString(fString);
         }

@@ -77,7 +77,7 @@ class plInitSectionReader
         virtual const char  *GetSectionName() const = 0;
 
         // Override this to parse each line in your section. Return false to abort parsing
-        virtual bool        ParseLine( const char *line, uint32_t userData ) = 0;
+        virtual bool        ParseLine(const char *line, uint32_t userData) = 0;
         
         // Override this if you're defining an unhandled section reader
         virtual void SetSectionName(const char* section) {}
@@ -96,14 +96,14 @@ class plInitSectionTokenReader : public plInitSectionReader
         const char  *fSeparators;
 
         // Override this to parse each token in your section. Return false to abort parsing
-        virtual bool        IParseToken( const char *token, hsStringTokenizer *tokenizer, uint32_t userData ) = 0;
+        virtual bool        IParseToken(const char *token, hsStringTokenizer *tokenizer, uint32_t userData) = 0;
 
     public:
 
-        plInitSectionTokenReader( const char *separators = ",=\t" );
+        plInitSectionTokenReader(const char *separators = ",=\t");
 
         // Overridden for you. Override IParseToken()
-        virtual bool        ParseLine( const char *line, uint32_t userData );
+        virtual bool        ParseLine(const char *line, uint32_t userData);
 };
 
 //// Main Reader Class ///////////////////////////////////////////////////////
@@ -123,7 +123,7 @@ class plInitFileReader
         hsTArray<plInitSectionReader *> fSections;
         plInitSectionReader* fUnhandledSection;
         
-        void    IInitReaders( plInitSectionReader **readerArray );
+        void    IInitReaders(plInitSectionReader **readerArray);
 
     public:
 
@@ -132,16 +132,16 @@ class plInitFileReader
         // element of the array will be the "default" section--i.e. if there is no section
         // header at the top of the file, that reader will be used.
 
-        plInitFileReader( plInitSectionReader **readerArray, uint16_t lineSize = 256 );
-        plInitFileReader( const char *fileName, plInitSectionReader **readerArray, uint16_t lineSize = 256 );
-        plInitFileReader( hsStream *stream, plInitSectionReader **readerArray, uint16_t lineSize = 256 );
+        plInitFileReader(plInitSectionReader **readerArray, uint16_t lineSize = 256);
+        plInitFileReader(const char *fileName, plInitSectionReader **readerArray, uint16_t lineSize = 256);
+        plInitFileReader(hsStream *stream, plInitSectionReader **readerArray, uint16_t lineSize = 256);
         virtual ~plInitFileReader();
 
         void SetUnhandledSectionReader(plInitSectionReader* reader) { fUnhandledSection = reader; }
 
-        bool    Open( const char *fileName );
-        bool    Open( hsStream *stream );
-        bool    Parse( uint32_t userData = 0 );
+        bool    Open(const char *fileName);
+        bool    Open(hsStream *stream);
+        bool    Parse(uint32_t userData = 0);
         void    Close();
 
         bool    IsOpen() const { return fStream != nil; }

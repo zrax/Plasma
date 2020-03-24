@@ -76,7 +76,7 @@ class pfGUIButtonMod : public pfGUIControlMod
 
         int32_t           fNotifyType;
 
-        virtual bool IEval( double secs, float del, uint32_t dirty ); // called only by owner object's Eval()
+        virtual bool IEval(double secs, float del, uint32_t dirty); // called only by owner object's Eval()
 
         virtual uint32_t      IGetDesiredCursor() const;    // As specified in plInputInterface.h
 
@@ -84,22 +84,22 @@ class pfGUIButtonMod : public pfGUIControlMod
 
         pfGUIButtonMod();
 
-        CLASSNAME_REGISTER( pfGUIButtonMod );
-        GETINTERFACE_ANY( pfGUIButtonMod, pfGUIControlMod );
+        CLASSNAME_REGISTER(pfGUIButtonMod);
+        GETINTERFACE_ANY(pfGUIButtonMod, pfGUIControlMod);
 
 
-        virtual bool    MsgReceive( plMessage* pMsg );
+        virtual bool    MsgReceive(plMessage* pMsg);
         
-        virtual void Read( hsStream* s, hsResMgr* mgr );
-        virtual void Write( hsStream* s, hsResMgr* mgr );
+        virtual void Read(hsStream* s, hsResMgr* mgr);
+        virtual void Write(hsStream* s, hsResMgr* mgr);
 
-        virtual void    SetInteresting( bool i );
+        virtual void    SetInteresting(bool i);
 
-        virtual void    HandleMouseDown( hsPoint3 &mousePt, uint8_t modifiers );
-        virtual void    HandleMouseUp( hsPoint3 &mousePt, uint8_t modifiers );
-        virtual void    HandleMouseDrag( hsPoint3 &mousePt, uint8_t modifiers );
+        virtual void    HandleMouseDown(hsPoint3 &mousePt, uint8_t modifiers);
+        virtual void    HandleMouseUp(hsPoint3 &mousePt, uint8_t modifiers);
+        virtual void    HandleMouseDrag(hsPoint3 &mousePt, uint8_t modifiers);
 
-        virtual void    UpdateBounds( hsMatrix44 *invXformMatrix = nil, bool force = false );
+        virtual void    UpdateBounds(hsMatrix44 *invXformMatrix = nil, bool force = false);
 
         virtual void    SetNotifyType(int32_t kind);
         virtual int32_t   GetNotifyType();
@@ -126,11 +126,11 @@ class pfGUIButtonMod : public pfGUIControlMod
         };
 
         void    StartDragging();
-        void    StopDragging( bool cancel );
+        void    StopDragging(bool cancel);
 
         // Export only
-        void    SetAnimationKeys( hsTArray<plKey> &keys, const ST::string &name );
-        void    SetMouseOverAnimKeys( hsTArray<plKey> &keys, const ST::string &name );
+        void    SetAnimationKeys(hsTArray<plKey> &keys, const ST::string &name);
+        void    SetMouseOverAnimKeys(hsTArray<plKey> &keys, const ST::string &name);
 };
 
 #endif // _pfGUIButtonMod_h

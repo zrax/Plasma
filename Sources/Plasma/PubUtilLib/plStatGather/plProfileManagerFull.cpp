@@ -267,7 +267,7 @@ static void PrintLapGroup(ProfileGroup& group, const char* groupName, int& x, in
 {
     int width, height;
 
-    if(min > 0)
+    if (min > 0)
     {
         PrintColumn(group, "Index", kColIndex, x, y, width, height, min);
         x += width + 10;
@@ -329,11 +329,11 @@ void plProfileManagerFull::Update()
         std::vector<plProfileBase*> group;
         int numLaps = laps->GetNumLaps();
         
-        if(numLaps < fMinLap)
+        if (numLaps < fMinLap)
             fMinLap = 0;
         for (int i = 0; i < numLaps; i++)
         {
-            if(i >= fMinLap && i < (fMinLap + 40))
+            if (i >= fMinLap && i < (fMinLap + 40))
                 group.push_back(laps->GetLap(i));
         }
         y = 10;
@@ -498,13 +498,13 @@ void plProfileManagerFull::ShowLaps(const char* groupName, const char* varName)
     plProfileVar* var = nil;
 
 
-    if(fShowLaps)
+    if (fShowLaps)
         fShowLaps->SetLapsActive(false);
 
     for (int i = 0; i < fVars.size(); i++)
     {
         int j = 0;
-        while(fVars[i]->GetName()[j++] == ' ') {}
+        while (fVars[i]->GetName()[j++] == ' ') {}
         if (stricmp(&(fVars[i]->GetName()[j-1]), varName) == 0 &&
             stricmp(fVars[i]->GetGroup(), groupName) == 0)
         {
@@ -525,7 +525,7 @@ void plProfileManagerFull::ShowLaps(const char* groupName, const char* varName)
             fShowLaps = var;
         }
     }
-    if(fShowLaps)
+    if (fShowLaps)
         fShowLaps->SetLapsActive(true);
 }
 

@@ -55,8 +55,8 @@ public:
     plDynaPuddleMgr();
     virtual ~plDynaPuddleMgr();
 
-    CLASSNAME_REGISTER( plDynaPuddleMgr );
-    GETINTERFACE_ANY( plDynaPuddleMgr, plDynaRippleMgr );
+    CLASSNAME_REGISTER(plDynaPuddleMgr);
+    GETINTERFACE_ANY(plDynaPuddleMgr, plDynaRippleMgr);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
 

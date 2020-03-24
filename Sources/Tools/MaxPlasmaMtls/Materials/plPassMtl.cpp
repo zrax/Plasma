@@ -89,11 +89,11 @@ ParamBlockDesc2 *GetPassLayersPB();
 
 #include "plAnimStealthNode.h"
 
-plPassMtl::plPassMtl(BOOL loading) : plPassMtlBase( loading )
+plPassMtl::plPassMtl(BOOL loading) : plPassMtlBase(loading)
 {
-    plPassMtlDesc.MakeAutoParamBlocks( this );
-    fLayersPB->SetValue( kPassLayBase, 0, new plLayerTex );
-    fLayersPB->SetValue( kPassLayTop, 0, new plLayerTex );
+    plPassMtlDesc.MakeAutoParamBlocks(this);
+    fLayersPB->SetValue(kPassLayBase, 0, new plLayerTex);
+    fLayersPB->SetValue(kPassLayTop, 0, new plLayerTex);
 
     // If we do this later (like, when the dialog loads) something blows up,
     // somewhere in Max.  It didn't in 4, it does in 7.  This seems to fix it.
@@ -147,9 +147,9 @@ Interval plPassMtl::Validity(TimeValue t)
     fBasicPB->GetValidity(t, v);
     fAdvPB->GetValidity(t, v);
 
-    if( fLayersPB->GetTexmap(kPassLayBase) )
+    if (fLayersPB->GetTexmap(kPassLayBase))
         v &= fLayersPB->GetTexmap(kPassLayBase)->Validity(t);
-    if( fLayersPB->GetTexmap(kPassLayTop) )
+    if (fLayersPB->GetTexmap(kPassLayTop))
         v &= fLayersPB->GetTexmap(kPassLayTop)->Validity(t);
     return v;
 #endif // mf horse
@@ -159,9 +159,9 @@ Interval plPassMtl::Validity(TimeValue t)
 //  Note: need to overload because MAX for some reason writes out the
 //  references by their INDEX. ARRRRGH!
 
-RefTargetHandle plPassMtl::GetReference( int i )
+RefTargetHandle plPassMtl::GetReference(int i)
 {
-    switch( i )
+    switch (i)
     {
         case kRefBasic:  return fBasicPB;
         case kRefAdv:    return fAdvPB;
@@ -169,7 +169,7 @@ RefTargetHandle plPassMtl::GetReference( int i )
         case kRefAnim:   return fAnimPB;
     }
 
-    return plPassMtlBase::GetReference( i );
+    return plPassMtlBase::GetReference(i);
 }
 
 //// SetReference ////////////////////////////////////////////////////////////
@@ -187,7 +187,7 @@ void plPassMtl::SetReference(int i, RefTargetHandle rtarg)
     else if (i == kRefAnim)
         fAnimPB = (IParamBlock2 *)rtarg;
     else
-        plPassMtlBase::SetReference( i, rtarg );
+        plPassMtlBase::SetReference(i, rtarg);
 }
 
 /*===========================================================================*\
@@ -258,7 +258,7 @@ IParamBlock2* plPassMtl::GetParamBlockByID(BlockID id)
 
 RefResult plPassMtl::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message)
 {
-    return plPassMtlBase::NotifyRefChanged( changeInt, hTarget, partID, message );
+    return plPassMtlBase::NotifyRefChanged(changeInt, hTarget, partID, message);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -320,11 +320,11 @@ int plPassMtl::SubTexmapOn(int i)
 RefTargetHandle plPassMtl::Clone(RemapDir &remap)
 {
     plPassMtl *mnew = new plPassMtl(FALSE);
-    plPassMtlBase::ICloneBase( mnew, remap );
+    plPassMtlBase::ICloneBase(mnew, remap);
     return (RefTargetHandle)mnew;
 }
 
-void    plPassMtl::ICloneRefs( plPassMtlBase *target, RemapDir &remap )
+void    plPassMtl::ICloneRefs(plPassMtlBase *target, RemapDir &remap)
 {
     target->ReplaceReference(kRefBasic, remap.CloneRef(fBasicPB));
     target->ReplaceReference(kRefAdv, remap.CloneRef(fAdvPB));
@@ -345,9 +345,9 @@ void plPassMtl::Update(TimeValue t, Interval& valid)
     if (!fIValid.InInterval(t))
     {
         fIValid.SetInfinite();
-        if( fLayersPB->GetTexmap(kPassLayBase) )
+        if (fLayersPB->GetTexmap(kPassLayBase))
             fLayersPB->GetTexmap(kPassLayBase)->Update(t, fIValid);
-        if( fLayersPB->GetTexmap(kPassLayTop) )
+        if (fLayersPB->GetTexmap(kPassLayTop))
             fLayersPB->GetTexmap(kPassLayTop)->Update(t, fIValid);
 
 //      fLayersPB->GetValue(kMtlLayLayer1On, t, fMapOn[0], fIValid);
@@ -363,21 +363,21 @@ void plPassMtl::Update(TimeValue t, Interval& valid)
     // Our wonderful way of version handling--if the runtimeColor is (-1,-1,-1), we know it's
     // just been initialized, so set it to the static color (this lets us do the right thing for
     // loading old paramBlocks)
-    if( fBasicPB )
+    if (fBasicPB)
     {
-        Color   run = fBasicPB->GetColor( kPassBasRunColor, 0 );
-        if( run == Color(-1,-1,-1) )
+        Color   run = fBasicPB->GetColor(kPassBasRunColor, 0);
+        if (run == Color(-1,-1,-1))
         {
-            fBasicPB->SetValue( kPassBasRunColor, 0, fBasicPB->GetColor( kPassBasColor, 0 ) );
+            fBasicPB->SetValue(kPassBasRunColor, 0, fBasicPB->GetColor(kPassBasColor, 0));
         }
 
         // Also, if shineStr is anything other than -1, then it must be an old paramblock and we need
         // to convert to our new specColor (we know this because the original valid range was 0-100)
-        int shine = fBasicPB->GetInt( kPassBasShineStr, 0 );
-        if( shine != -1 )
+        int shine = fBasicPB->GetInt(kPassBasShineStr, 0);
+        if (shine != -1)
         {
-            fBasicPB->SetValue( kPassBasSpecColor, 0, Color( (float)shine / 100.f, (float)shine / 100.f, (float)shine / 100.f ) );
-            fBasicPB->SetValue( kPassBasShineStr, 0, (int)-1 );
+            fBasicPB->SetValue(kPassBasSpecColor, 0, Color((float)shine / 100.f, (float)shine / 100.f, (float)shine / 100.f));
+            fBasicPB->SetValue(kPassBasShineStr, 0, (int)-1);
         }
     }
 
@@ -399,8 +399,8 @@ Color plPassMtl::GetSpecular(int mtlNum, BOOL backFace) { return Color(0,0,0); }
 
 float plPassMtl::GetXParency(int mtlNum, BOOL backFace)
 {
-    int         opacity = fBasicPB->GetInt( kPassBasOpacity, 0 );
-    float       alpha = 1.0f - ( (float)opacity / 100.0f );
+    int         opacity = fBasicPB->GetInt(kPassBasOpacity, 0);
+    float       alpha = 1.0f - ((float)opacity / 100.0f);
 
     return alpha;
 }
@@ -420,7 +420,7 @@ void plPassMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback &
             if (texHandle[i]) {
                 mtl->texture[i].textHandle = texHandle[i]->GetHandle();
                 Texmap *tx = (*maps)[useSubForTex[i]].map;
-                cb.GetGfxTexInfoFromTexmap(t, mtl->texture[i], tx );
+                cb.GetGfxTexInfoFromTexmap(t, mtl->texture[i], tx);
                 SetTexOps(mtl,i,texOpsType[i]);
                 }
             }
@@ -430,8 +430,8 @@ void plPassMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback &
 
 #if 0   // WTF?!?!?!?
     Texmap *tx[2];
-    int diffChan = stdIDToChannel[ ID_DI ];
-    int opacChan = stdIDToChannel[ ID_OP ];
+    int diffChan = stdIDToChannel[ID_DI];
+    int opacChan = stdIDToChannel[ID_OP];
     tx[0] = (*maps)[diffChan].IsActive()?(*maps)[diffChan].map:NULL;
     tx[1] = (*maps)[opacChan].IsActive()?(*maps)[opacChan].map:NULL;
 #endif
@@ -525,13 +525,13 @@ void plPassMtl::GetInterpVtxValue(int channel, ShadeContext &sc, Point3 &val)
     Mesh *mesh = sc.globContext->GetRenderInstance(sc.NodeID())->mesh;
     if (mesh != nil)
     {
-        Face *maxFace = &mesh->faces[ sc.FaceNumber() ];
+        Face *maxFace = &mesh->faces[sc.FaceNumber()];
         UVVert *map = mesh->mapVerts(channel);
         if (map != nil)
         {
-            Point3 p0 = map[maxFace->getVert( 0 )];
-            Point3 p1 = map[maxFace->getVert( 1 )];
-            Point3 p2 = map[maxFace->getVert( 2 )];
+            Point3 p0 = map[maxFace->getVert(0)];
+            Point3 p1 = map[maxFace->getVert(1)];
+            Point3 p2 = map[maxFace->getVert(2)];
             Point3 interp = sc.BarycentricCoords();
             val.x = interp.x * p0.x + interp.y * p1.x + interp.z * p2.x;
             val.y = interp.x * p0.y + interp.y * p1.y + interp.z * p2.y;
@@ -560,27 +560,27 @@ void plPassMtl::Shade(ShadeContext& sc)
 //  Tells MAX what we need to render ourselves properly, such as translucency,
 //  two-sidedness, etc. Flags are in imtl.h in the MAX SDK.
 
-ULONG   plPassMtl::Requirements( int subMtlNum )
+ULONG   plPassMtl::Requirements(int subMtlNum)
 {
     ULONG       req = 0;
 
 
-    req = Mtl::Requirements( subMtlNum );
+    req = Mtl::Requirements(subMtlNum);
 
     // Uncomment this to get the background color fed to our ShadeWithBackground()
     // (slower processing tho)
     //req |= MTLREQ_BGCOL;
     req |= MTLREQ_UV;
 
-    int blendType = fLayersPB->GetInt( kPassLayOutputBlend );
-    if( blendType == kBlendAdd )
+    int blendType = fLayersPB->GetInt(kPassLayOutputBlend);
+    if (blendType == kBlendAdd)
         req |= MTLREQ_ADDITIVE_TRANSP | MTLREQ_TRANSP;
-    else if( blendType == kBlendAlpha )
+    else if (blendType == kBlendAlpha)
         req |= MTLREQ_TRANSP;
-    else if( fBasicPB->GetInt( kPassBasOpacity, 0 ) != 100 )
+    else if (fBasicPB->GetInt(kPassBasOpacity, 0) != 100)
         req |= MTLREQ_TRANSP;
 
-    if( fAdvPB->GetInt( kPBAdvTwoSided ) )
+    if (fAdvPB->GetInt(kPBAdvTwoSided))
         req |= MTLREQ_2SIDE;
 
     if (req & MTLREQ_FACEMAP)
@@ -629,8 +629,8 @@ void plPassMtl::ShadeWithBackground(ShadeContext &sc, Color background, bool use
 
     // Evaluate Base layer
     Texmap *map = fLayersPB->GetTexmap(kPassLayBase);
-    if (map && ( map->ClassID() == LAYER_TEX_CLASS_ID
-                || map->ClassID() == STATIC_ENV_LAYER_CLASS_ID ) )
+    if (map && (map->ClassID() == LAYER_TEX_CLASS_ID
+                || map->ClassID() == STATIC_ENV_LAYER_CLASS_ID))
     {
         plLayerTex *layer = (plLayerTex*)map;
         AColor evalColor = layer->EvalColor(sc);
@@ -643,15 +643,15 @@ void plPassMtl::ShadeWithBackground(ShadeContext &sc, Color background, bool use
     if (fLayersPB->GetInt(kPassLayTopOn))
     {
         Texmap *map = fLayersPB->GetTexmap(kPassLayTop);
-        if (map && ( map->ClassID() == LAYER_TEX_CLASS_ID
+        if (map && (map->ClassID() == LAYER_TEX_CLASS_ID
                     || map->ClassID() == STATIC_ENV_LAYER_CLASS_ID
-                    || map->ClassID() == ANGLE_ATTEN_LAYER_CLASS_ID) )
+                    || map->ClassID() == ANGLE_ATTEN_LAYER_CLASS_ID))
         {
             plPlasmaMAXLayer *layer = (plPlasmaMAXLayer*)map;
             AColor evalColor = layer->EvalColor(sc);
 
             // Blend layers
-            if( !layer->DiscardColor() )
+            if (!layer->DiscardColor())
             {
                 int blendType = fLayersPB->GetInt(kPassLayBlend);
                 switch (blendType)
@@ -670,10 +670,10 @@ void plPassMtl::ShadeWithBackground(ShadeContext &sc, Color background, bool use
                     break;
                 }
             }
-            if( !layer->DiscardAlpha() )
+            if (!layer->DiscardAlpha())
             {
                 int alphaType = fLayersPB->GetInt(kPassLayOutputBlend);
-                switch( alphaType )
+                switch (alphaType)
                 {
                 case kAlphaMultiply:
                     alpha *= evalColor.a;
@@ -725,7 +725,7 @@ void plPassMtl::ShadeWithBackground(ShadeContext &sc, Color background, bool use
         if (fBasicPB->GetInt(kPassBasUseSpec, t))
         {
             ip.sh_str = 1.f;
-            ip.spec = fBasicPB->GetColor( kPassBasSpecColor, t );
+            ip.spec = fBasicPB->GetColor(kPassBasSpecColor, t);
             ip.ph_exp = (float)pow(2.0f,float(fBasicPB->GetInt(kPassBasShine, t)) / 10.0f);
             ip.shine = float(fBasicPB->GetInt(kPassBasShine, t)) / 100.0f;
         }
@@ -786,8 +786,8 @@ void plPassMtl::ShadeWithBackground(ShadeContext &sc, Color background, bool use
     // will be opaque, so be careful.
     Color outC = ip.diffIllum + ip.specIllum;
 
-    sc.out.c = ( outC * alpha );
-    sc.out.t = Color( 1.f - alpha, 1.f - alpha, 1.f - alpha );
+    sc.out.c = (outC * alpha);
+    sc.out.t = Color(1.f - alpha, 1.f - alpha, 1.f - alpha);
 
 #endif
 }

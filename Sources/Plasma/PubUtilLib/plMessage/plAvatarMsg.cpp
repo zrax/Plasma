@@ -144,7 +144,7 @@ plAvTaskMsg::plAvTaskMsg(const plKey &sender, const plKey &receiver, plAvTask *t
 void plAvTaskMsg::Read(hsStream *stream, hsResMgr *mgr)
 {
     plAvatarMsg::Read(stream, mgr);
-    if(stream->ReadBool())
+    if (stream->ReadBool())
         fTask = (plAvTask *)mgr->ReadCreatable(stream);
 
 }
@@ -153,7 +153,7 @@ void plAvTaskMsg::Read(hsStream *stream, hsResMgr *mgr)
 void plAvTaskMsg::Write(hsStream *stream, hsResMgr *mgr)
 {
     plAvatarMsg::Write(stream, mgr);
-    if(fTask)
+    if (fTask)
     {
         stream->WriteBool(true);
         mgr->WriteCreatable(stream, (plCreatable *)fTask);

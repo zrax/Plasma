@@ -65,7 +65,7 @@ public:
     plKey fWorldKey;
 
     CLASSNAME_REGISTER(plSubWorldMsg);
-    GETINTERFACE_ANY( plSubWorldMsg, plSimulationMsg);
+    GETINTERFACE_ANY(plSubWorldMsg, plSimulationMsg);
 
     virtual void Read(hsStream *stream, hsResMgr *mgr);
     virtual void Write(hsStream *stream, hsResMgr *mgr);

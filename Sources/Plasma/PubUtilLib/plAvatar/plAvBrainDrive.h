@@ -88,8 +88,8 @@ public:
     // of drive mode.
     virtual bool MsgReceive(plMessage* pMsg); // handle control input from the user
 
-    CLASSNAME_REGISTER( plAvBrainDrive );
-    GETINTERFACE_ANY( plAvBrainDrive, plArmatureBrain );
+    CLASSNAME_REGISTER(plAvBrainDrive);
+    GETINTERFACE_ANY(plAvBrainDrive, plArmatureBrain);
 
 protected:
     void IEnablePhysics(bool enable, plKey avKey);

@@ -101,7 +101,7 @@ public:
 
     virtual ~plShadowSlave() { }
 
-    void SetFlag(SlaveFlag f, bool on) { if(on) fFlags |= f; else fFlags &= ~f; }
+    void SetFlag(SlaveFlag f, bool on) { if (on) fFlags |= f; else fFlags &= ~f; }
     bool HasFlag(SlaveFlag f) const { return 0 != (fFlags & f); }
 
     bool ObeysLightGroups() const { return HasFlag(kObeysLightGroups); }

@@ -82,7 +82,7 @@ public:
     static uint16_t GetPort(int type);
     static const char* GetServerTypeStr(int type)
     {
-        switch(type)
+        switch (type)
         {
         case kAgent:    return "kAgent";
         case kLobby:    return "kLobby";

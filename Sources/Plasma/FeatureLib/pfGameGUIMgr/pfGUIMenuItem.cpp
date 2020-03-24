@@ -73,18 +73,18 @@ pfGUIMenuItem::pfGUIMenuItem()
 
 pfGUIMenuItem::~pfGUIMenuItem()
 {
-    SetSkin( nil, kTop );
+    SetSkin(nil, kTop);
     delete [] fName;
 }
 
-void    pfGUIMenuItem::SetName( const char *name )
+void    pfGUIMenuItem::SetName(const char *name)
 {
     wchar_t *wName = hsStringToWString(name);
     SetName(wName);
     delete [] wName;
 }
 
-void    pfGUIMenuItem::SetName( const wchar_t *name )
+void    pfGUIMenuItem::SetName(const wchar_t *name)
 {
     delete [] fName;
     if (name != nil)
@@ -100,14 +100,14 @@ void    pfGUIMenuItem::SetName( const wchar_t *name )
 
 //// SetSkin /////////////////////////////////////////////////////////////////
 
-void    pfGUIMenuItem::SetSkin( pfGUISkin *skin, HowToSkin s )
+void    pfGUIMenuItem::SetSkin(pfGUISkin *skin, HowToSkin s)
 {
     // Just a function wrapper for SendRef
-    if( fSkin != nil )
-        GetKey()->Release( fSkin->GetKey() );
+    if (fSkin != nil)
+        GetKey()->Release(fSkin->GetKey());
 
-    if( skin != nil )
-        hsgResMgr::ResMgr()->SendRef( skin->GetKey(), new plGenRefMsg( GetKey(), plRefMsg::kOnCreate, -1, kRefSkin ), plRefFlags::kActiveRef );
+    if (skin != nil)
+        hsgResMgr::ResMgr()->SendRef(skin->GetKey(), new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, kRefSkin), plRefFlags::kActiveRef);
 
     fHowToSkin = s;
 
@@ -126,7 +126,7 @@ void    pfGUIMenuItem::IPostSetUpDynTextMap()
 //  Overridden so we can enlarge our DTMap by 3 vertically, to use the extra
 //  space as basically a double buffer for our skinning
 
-void    pfGUIMenuItem::IGrowDTMDimsToDesiredSize( uint16_t &width, uint16_t &height )
+void    pfGUIMenuItem::IGrowDTMDimsToDesiredSize(uint16_t &width, uint16_t &height)
 {
     height *= 3;
 }
@@ -138,19 +138,19 @@ void    pfGUIMenuItem::IGrowDTMDimsToDesiredSize( uint16_t &width, uint16_t &hei
 
 void    pfGUIMenuItem::IUpdateSkinBuffers()
 {
-    if( fSkinBuffersUpdated )
+    if (fSkinBuffersUpdated)
         return;
-    if( fSkin == nil )
+    if (fSkin == nil)
         return;
-    if( fDynTextMap == nil )
+    if (fDynTextMap == nil)
         return;
-    if( fSkin->GetTexture() == nil )
+    if (fSkin->GetTexture() == nil)
         return;
 
     uint16_t y = fDynTextMap->GetVisibleHeight();
 
-    IUpdateSingleSkinBuffer( y, false );
-    IUpdateSingleSkinBuffer( y << 1, true );
+    IUpdateSingleSkinBuffer(y, false);
+    IUpdateSingleSkinBuffer(y << 1, true);
 
     fSkinBuffersUpdated = true;
 }
@@ -158,9 +158,9 @@ void    pfGUIMenuItem::IUpdateSkinBuffers()
 //// IUpdateSingleSkinBuffer /////////////////////////////////////////////////
 //  Broken down functionality for the above function
 
-void    pfGUIMenuItem::IUpdateSingleSkinBuffer( uint16_t y, bool sel )
+void    pfGUIMenuItem::IUpdateSingleSkinBuffer(uint16_t y, bool sel)
 {
-    hsAssert( fSkin != nil && fDynTextMap != nil, "Invalid pointers in IUpdateSingleSkinBuffer()" );
+    hsAssert(fSkin != nil && fDynTextMap != nil, "Invalid pointers in IUpdateSingleSkinBuffer()");
 
 
     // Note: add 1 to the visible height so we get enough overlap to take care of mipmapping issues
@@ -169,102 +169,102 @@ void    pfGUIMenuItem::IUpdateSingleSkinBuffer( uint16_t y, bool sel )
     pfGUISkin::pfSRect  element;
 
 
-    totWidth -= fSkin->GetElement( pfGUISkin::kRightSpan ).fWidth;
-    if( fHowToSkin == kTop )
+    totWidth -= fSkin->GetElement(pfGUISkin::kRightSpan).fWidth;
+    if (fHowToSkin == kTop)
     {
         // Draw up-left corner
-        element = fSkin->GetElement( pfGUISkin::kUpLeftCorner );
-        fDynTextMap->DrawClippedImage( x, y, fSkin->GetTexture(), element.fX, element.fY, element.fWidth, element.fHeight, plDynamicTextMap::kImgSprite );
+        element = fSkin->GetElement(pfGUISkin::kUpLeftCorner);
+        fDynTextMap->DrawClippedImage(x, y, fSkin->GetTexture(), element.fX, element.fY, element.fWidth, element.fHeight, plDynamicTextMap::kImgSprite);
         x += element.fWidth;
 
-        element = fSkin->GetElement( pfGUISkin::kTopSpan );
-        for( ; x < totWidth; )
+        element = fSkin->GetElement(pfGUISkin::kTopSpan);
+        for (; x < totWidth; )
         {
             uint16_t wid = element.fWidth;
-            if( x + wid > totWidth )
+            if (x + wid > totWidth)
                 wid = totWidth - x;
-            fDynTextMap->DrawClippedImage( x, y, fSkin->GetTexture(), element.fX, element.fY, wid, element.fHeight, plDynamicTextMap::kImgSprite );
+            fDynTextMap->DrawClippedImage(x, y, fSkin->GetTexture(), element.fX, element.fY, wid, element.fHeight, plDynamicTextMap::kImgSprite);
             x += wid;
         }
 
-        element = fSkin->GetElement( pfGUISkin::kUpRightCorner );
-        fDynTextMap->DrawClippedImage( x, y, fSkin->GetTexture(), element.fX, element.fY, element.fWidth, element.fHeight, plDynamicTextMap::kImgSprite );
+        element = fSkin->GetElement(pfGUISkin::kUpRightCorner);
+        fDynTextMap->DrawClippedImage(x, y, fSkin->GetTexture(), element.fX, element.fY, element.fWidth, element.fHeight, plDynamicTextMap::kImgSprite);
 
         y += element.fHeight;
     }
-    else if( fHowToSkin == kBottom )
+    else if (fHowToSkin == kBottom)
     {
         // Clip some space for now
-        totHeight -= fSkin->GetElement( pfGUISkin::kLowerLeftCorner ).fHeight;
+        totHeight -= fSkin->GetElement(pfGUISkin::kLowerLeftCorner).fHeight;
     }
     
     // Group drawing by skin elements for caching performance
     uint16_t startY = y;
     x = 0;
-    element = fSkin->GetElement( pfGUISkin::kLeftSpan );
-    for( ; y < totHeight; )
+    element = fSkin->GetElement(pfGUISkin::kLeftSpan);
+    for (; y < totHeight; )
     {
         uint16_t ht = element.fHeight;
-        if( y + ht > totHeight )
+        if (y + ht > totHeight)
             ht = totHeight - y;
-        fDynTextMap->DrawClippedImage( x, y, fSkin->GetTexture(), element.fX, element.fY, element.fWidth, ht, plDynamicTextMap::kImgSprite );
+        fDynTextMap->DrawClippedImage(x, y, fSkin->GetTexture(), element.fX, element.fY, element.fWidth, ht, plDynamicTextMap::kImgSprite);
         y += ht;
     }
 
     x += element.fWidth;
-    if( sel )
-        element = fSkin->GetElement( pfGUISkin::kSelectedFill );
+    if (sel)
+        element = fSkin->GetElement(pfGUISkin::kSelectedFill);
     else
-        element = fSkin->GetElement( pfGUISkin::kMiddleFill );
-    for( ; x < totWidth; )
+        element = fSkin->GetElement(pfGUISkin::kMiddleFill);
+    for (; x < totWidth; )
     {
         uint16_t wid = element.fWidth;
-        if( x + wid > totWidth )
+        if (x + wid > totWidth)
             wid = totWidth - x;
 
-        for( y = startY; y < totHeight; )
+        for (y = startY; y < totHeight; )
         {
             uint16_t ht = element.fHeight;
-            if( y + ht > totHeight )
+            if (y + ht > totHeight)
                 ht = totHeight - y;
-            fDynTextMap->DrawClippedImage( x, y, fSkin->GetTexture(), element.fX, element.fY, wid, ht, plDynamicTextMap::kImgSprite );
+            fDynTextMap->DrawClippedImage(x, y, fSkin->GetTexture(), element.fX, element.fY, wid, ht, plDynamicTextMap::kImgSprite);
             y += ht;
         }
 
         x += wid;
     }
 
-    element = fSkin->GetElement( pfGUISkin::kRightSpan );
-    for( y = startY; y < totHeight; )
+    element = fSkin->GetElement(pfGUISkin::kRightSpan);
+    for (y = startY; y < totHeight; )
     {
         uint16_t ht = element.fHeight;
-        if( y + ht > totHeight )
+        if (y + ht > totHeight)
             ht = totHeight - y;
-        fDynTextMap->DrawClippedImage( x, y, fSkin->GetTexture(), element.fX, element.fY, element.fWidth, ht, plDynamicTextMap::kImgSprite );
+        fDynTextMap->DrawClippedImage(x, y, fSkin->GetTexture(), element.fX, element.fY, element.fWidth, ht, plDynamicTextMap::kImgSprite);
         y += ht;
     }
 
-    if( fHowToSkin == kBottom )
+    if (fHowToSkin == kBottom)
     {
         x = 0;
 
         // Draw lower-left corner
-        element = fSkin->GetElement( pfGUISkin::kLowerLeftCorner );
-        fDynTextMap->DrawClippedImage( x, y, fSkin->GetTexture(), element.fX, element.fY, element.fWidth, element.fHeight, plDynamicTextMap::kImgSprite );
+        element = fSkin->GetElement(pfGUISkin::kLowerLeftCorner);
+        fDynTextMap->DrawClippedImage(x, y, fSkin->GetTexture(), element.fX, element.fY, element.fWidth, element.fHeight, plDynamicTextMap::kImgSprite);
         x += element.fWidth;
 
-        element = fSkin->GetElement( pfGUISkin::kBottomSpan );
-        for( ; x < totWidth; )
+        element = fSkin->GetElement(pfGUISkin::kBottomSpan);
+        for (; x < totWidth; )
         {
             uint16_t wid = element.fWidth;
-            if( x + wid > totWidth )
+            if (x + wid > totWidth)
                 wid = totWidth - x;
-            fDynTextMap->DrawClippedImage( x, y, fSkin->GetTexture(), element.fX, element.fY, wid, element.fHeight, plDynamicTextMap::kImgSprite );
+            fDynTextMap->DrawClippedImage(x, y, fSkin->GetTexture(), element.fX, element.fY, wid, element.fHeight, plDynamicTextMap::kImgSprite);
             x += wid;
         }
 
-        element = fSkin->GetElement( pfGUISkin::kLowerRightCorner );
-        fDynTextMap->DrawClippedImage( x, y, fSkin->GetTexture(), element.fX, element.fY, element.fWidth, element.fHeight, plDynamicTextMap::kImgSprite );
+        element = fSkin->GetElement(pfGUISkin::kLowerRightCorner);
+        fDynTextMap->DrawClippedImage(x, y, fSkin->GetTexture(), element.fX, element.fY, element.fWidth, element.fHeight, plDynamicTextMap::kImgSprite);
 
         y += element.fHeight;
     }
@@ -274,92 +274,92 @@ void    pfGUIMenuItem::IUpdateSingleSkinBuffer( uint16_t y, bool sel )
 
 void    pfGUIMenuItem::IUpdate()
 {
-    if( fDynTextMap == nil )
+    if (fDynTextMap == nil)
         return;
 
-    if( fSkin != nil )
+    if (fSkin != nil)
     {
         IUpdateSkinBuffers();
 
-        if( !fSkinBuffersUpdated )
+        if (!fSkinBuffersUpdated)
             return;
 
         // Copy now from our skin buffer, plus set our text color
         uint16_t y = fDynTextMap->GetVisibleHeight();
 
-        if( IsInteresting() )
+        if (IsInteresting())
         {
-            fDynTextMap->DrawClippedImage( 0, 0, fDynTextMap, 0, y << 1, fDynTextMap->GetVisibleWidth(), y, plDynamicTextMap::kImgSprite );
-            fDynTextMap->SetTextColor( GetColorScheme()->fSelForeColor );
+            fDynTextMap->DrawClippedImage(0, 0, fDynTextMap, 0, y << 1, fDynTextMap->GetVisibleWidth(), y, plDynamicTextMap::kImgSprite);
+            fDynTextMap->SetTextColor(GetColorScheme()->fSelForeColor);
         }
         else
         {
-            fDynTextMap->DrawClippedImage( 0, 0, fDynTextMap, 0, y, fDynTextMap->GetVisibleWidth(), y, plDynamicTextMap::kImgSprite );
-            fDynTextMap->SetTextColor( GetColorScheme()->fForeColor );
+            fDynTextMap->DrawClippedImage(0, 0, fDynTextMap, 0, y, fDynTextMap->GetVisibleWidth(), y, plDynamicTextMap::kImgSprite);
+            fDynTextMap->SetTextColor(GetColorScheme()->fForeColor);
         }
     }
     else
     {
-        if( IsInteresting() )
+        if (IsInteresting())
         {
-            fDynTextMap->ClearToColor( GetColorScheme()->fSelBackColor );
-            fDynTextMap->SetTextColor( GetColorScheme()->fSelForeColor );
+            fDynTextMap->ClearToColor(GetColorScheme()->fSelBackColor);
+            fDynTextMap->SetTextColor(GetColorScheme()->fSelForeColor);
         }
         else
         {
-            fDynTextMap->ClearToColor( GetColorScheme()->fBackColor );
-            fDynTextMap->SetTextColor( GetColorScheme()->fForeColor );
+            fDynTextMap->ClearToColor(GetColorScheme()->fBackColor);
+            fDynTextMap->SetTextColor(GetColorScheme()->fForeColor);
         }
     }
 
-    fDynTextMap->SetJustify( plDynamicTextMap::kLeftJustify );
+    fDynTextMap->SetJustify(plDynamicTextMap::kLeftJustify);
 
-    if( fName != nil )
+    if (fName != nil)
     {
         uint16_t ht;
-        fDynTextMap->CalcStringWidth( fName, &ht );
+        fDynTextMap->CalcStringWidth(fName, &ht);
 
-        int16_t x = 0, y = ( fDynTextMap->GetVisibleHeight() - ht ) >> 1;
-        if( fHowToSkin == kTop && fSkin != nil )
-            y += fSkin->GetElement( pfGUISkin::kTopSpan ).fHeight >> 1;
-        else if( fHowToSkin == kBottom && fSkin != nil )
-            y -= fSkin->GetElement( pfGUISkin::kTopSpan ).fHeight >> 1;
+        int16_t x = 0, y = (fDynTextMap->GetVisibleHeight() - ht) >> 1;
+        if (fHowToSkin == kTop && fSkin != nil)
+            y += fSkin->GetElement(pfGUISkin::kTopSpan).fHeight >> 1;
+        else if (fHowToSkin == kBottom && fSkin != nil)
+            y -= fSkin->GetElement(pfGUISkin::kTopSpan).fHeight >> 1;
         
-        if( fSkin != nil )
+        if (fSkin != nil)
             x += fSkin->GetBorderMargin();
 
-        if( fClicking )
+        if (fClicking)
         {
             x += 2;
             y += 2;
         }
 
-        fDynTextMap->DrawClippedString( x, y, fName, fDynTextMap->GetVisibleWidth(), fDynTextMap->GetVisibleHeight() );
+        fDynTextMap->DrawClippedString(x, y, fName, fDynTextMap->GetVisibleWidth(), fDynTextMap->GetVisibleHeight());
 
-        if( HasFlag( kDrawSubMenuArrow ) )
+        if (HasFlag(kDrawSubMenuArrow))
         {
-            if( fSkin != nil )
+            if (fSkin != nil)
             {
                 pfGUISkin::pfSRect element;
 
-                if( IsInteresting() )
-                    element = fSkin->GetElement( pfGUISkin::kSelectedSubMenuArrow );
+                if (IsInteresting())
+                    element = fSkin->GetElement(pfGUISkin::kSelectedSubMenuArrow);
                 else
-                    element = fSkin->GetElement( pfGUISkin::kSubMenuArrow );
+                    element = fSkin->GetElement(pfGUISkin::kSubMenuArrow);
 
-                y += ( ht >> 1 ) - ( element.fHeight >> 1 );
-                if( y < 0 || y + element.fHeight >= fDynTextMap->GetHeight() )
+                y += (ht >> 1) - (element.fHeight >> 1);
+                if (y < 0 || y + element.fHeight >= fDynTextMap->GetHeight())
                     y = 0;
 
-                fDynTextMap->DrawClippedImage( x + fDynTextMap->GetVisibleWidth() - 2 - element.fWidth
-                                                - fSkin->GetElement( pfGUISkin::kRightSpan ).fWidth,
+                fDynTextMap->DrawClippedImage(x + fDynTextMap->GetVisibleWidth() - 2 - element.fWidth
+                                                - fSkin->GetElement(pfGUISkin::kRightSpan).fWidth,
                                                 y,
-                                                fSkin->GetTexture(), element.fX, element.fY, element.fWidth, element.fHeight, plDynamicTextMap::kImgBlend );
+                                                fSkin->GetTexture(), element.fX, element.fY, element.fWidth, element.fHeight, plDynamicTextMap::kImgBlend);
             }
             else
             {
-                fDynTextMap->SetJustify( plDynamicTextMap::kRightJustify );
-                fDynTextMap->DrawString( x + fDynTextMap->GetVisibleWidth() - 2, y, ">>" );
+                fDynTextMap->SetJustify(plDynamicTextMap::kRightJustify);
+                fDynTextMap->DrawString(x + fDynTextMap->GetVisibleWidth() - 2, y, ">>");
             }
         }
     }
@@ -369,98 +369,98 @@ void    pfGUIMenuItem::IUpdate()
 
 void pfGUIMenuItem::PurgeDynaTextMapImage()
 {
-    if ( fDynTextMap != nil )
+    if (fDynTextMap != nil)
         fDynTextMap->PurgeImage();
 }
 
 //// GetTextExtents //////////////////////////////////////////////////////////
 //  Calculate the size of the drawn text.
 
-void    pfGUIMenuItem::GetTextExtents( uint16_t &width, uint16_t &height )
+void    pfGUIMenuItem::GetTextExtents(uint16_t &width, uint16_t &height)
 {
-    if( fName == nil )
+    if (fName == nil)
         width = height = 0;
     else
-        width = fDynTextMap->CalcStringWidth( fName, &height );
+        width = fDynTextMap->CalcStringWidth(fName, &height);
 }
 
 //// MsgReceive //////////////////////////////////////////////////////////////
 
-bool    pfGUIMenuItem::MsgReceive( plMessage *msg )
+bool    pfGUIMenuItem::MsgReceive(plMessage *msg)
 {
-    return pfGUIButtonMod::MsgReceive( msg );
+    return pfGUIButtonMod::MsgReceive(msg);
 }
 
 //// Read/Write //////////////////////////////////////////////////////////////
 
-void    pfGUIMenuItem::Read( hsStream *s, hsResMgr *mgr )
+void    pfGUIMenuItem::Read(hsStream *s, hsResMgr *mgr)
 {
-    pfGUIButtonMod::Read( s, mgr );
+    pfGUIButtonMod::Read(s, mgr);
 }
 
-void    pfGUIMenuItem::Write( hsStream *s, hsResMgr *mgr )
+void    pfGUIMenuItem::Write(hsStream *s, hsResMgr *mgr)
 {
-    pfGUIButtonMod::Write( s, mgr );
+    pfGUIButtonMod::Write(s, mgr);
 }
 
 //// HandleMouseDown/Up //////////////////////////////////////////////////////
 
-void    pfGUIMenuItem::HandleMouseDown( hsPoint3 &mousePt, uint8_t modifiers )
+void    pfGUIMenuItem::HandleMouseDown(hsPoint3 &mousePt, uint8_t modifiers)
 {
-    pfGUIButtonMod::HandleMouseDown( mousePt, modifiers );
+    pfGUIButtonMod::HandleMouseDown(mousePt, modifiers);
     IUpdate();
 }
 
-void    pfGUIMenuItem::HandleMouseUp( hsPoint3 &mousePt, uint8_t modifiers )
+void    pfGUIMenuItem::HandleMouseUp(hsPoint3 &mousePt, uint8_t modifiers)
 {
-    pfGUIButtonMod::HandleMouseUp( mousePt, modifiers );
+    pfGUIButtonMod::HandleMouseUp(mousePt, modifiers);
     IUpdate();
 }
 
-void    pfGUIMenuItem::HandleMouseDrag( hsPoint3 &mousePt, uint8_t modifiers )
+void    pfGUIMenuItem::HandleMouseDrag(hsPoint3 &mousePt, uint8_t modifiers)
 {
-/*  if( !fClicking )
+/*  if (!fClicking)
         return;
 
-    if( fDraggable == nil )
+    if (fDraggable == nil)
         return;
 
-    if( !fDraggable->IsVisible() )
+    if (!fDraggable->IsVisible())
     {
         // Are we outside ourselves?
-        if( !PointInBounds( mousePt ) )
+        if (!PointInBounds(mousePt))
         {
             // Yes, start dragging
             StartDragging();
 
             // Hand off our interest to the draggable
-            fDialog->SetControlOfInterest( fDraggable );
+            fDialog->SetControlOfInterest(fDraggable);
         }
     }
 */
-    pfGUIButtonMod::HandleMouseDrag( mousePt, modifiers );
+    pfGUIButtonMod::HandleMouseDrag(mousePt, modifiers);
 }
 
-void    pfGUIMenuItem::HandleMouseHover( hsPoint3 &mousePt, uint8_t modifiers )
+void    pfGUIMenuItem::HandleMouseHover(hsPoint3 &mousePt, uint8_t modifiers)
 {
-    pfGUIButtonMod::HandleMouseHover( mousePt, modifiers );
-    if( HasFlag( kReportHovers ) )
+    pfGUIButtonMod::HandleMouseHover(mousePt, modifiers);
+    if (HasFlag(kReportHovers))
     {
-        if( PointInBounds( mousePt ) )
+        if (PointInBounds(mousePt))
         {
-            if( !fReportingHover && ( fDialog->GetControlOfInterest() == nil ||
-                                      fDialog->GetControlOfInterest() == this ) )
+            if (!fReportingHover && (fDialog->GetControlOfInterest() == nil ||
+                                      fDialog->GetControlOfInterest() == this))
             {
                 fReportingHover = true;
-                HandleExtendedEvent( kMouseHover );
-                fDialog->SetControlOfInterest( this );
+                HandleExtendedEvent(kMouseHover);
+                fDialog->SetControlOfInterest(this);
             }
         }
-        else if( fReportingHover )
+        else if (fReportingHover)
         {
             fReportingHover = false;
-            HandleExtendedEvent( kMouseExit );
-            fDialog->SetControlOfInterest( nil );
+            HandleExtendedEvent(kMouseExit);
+            fDialog->SetControlOfInterest(nil);
         }
     }
 }
@@ -468,12 +468,12 @@ void    pfGUIMenuItem::HandleMouseHover( hsPoint3 &mousePt, uint8_t modifiers )
 //// SetInteresting //////////////////////////////////////////////////////////
 //  Overridden to play mouse over animation when we're interesting
 
-void    pfGUIMenuItem::SetInteresting( bool i )
+void    pfGUIMenuItem::SetInteresting(bool i)
 {
-    pfGUIButtonMod::SetInteresting( i );
+    pfGUIButtonMod::SetInteresting(i);
     IUpdate();
 
     // Make sure we're not still thinking we're reporting hovers when we're not
-    if( !i )
+    if (!i)
         fReportingHover = false;
 }

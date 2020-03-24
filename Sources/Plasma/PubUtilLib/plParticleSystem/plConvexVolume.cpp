@@ -127,7 +127,7 @@ void plConvexVolume::SetPlane(const hsPlane3 &plane, const uint32_t index)
 bool plConvexVolume::IsInside(const hsPoint3 &pos) const
 {
     int i;
-    for( i = 0; i < fNumPlanes; i++ )
+    for (i = 0; i < fNumPlanes; i++)
     {
         if (!TestPlane(pos, fWorldPlanes[i]))
             return false;

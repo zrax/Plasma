@@ -82,7 +82,7 @@ void plLightModifier::IClearCtls()
 void plLightModifier::AddTarget(plSceneObject* so)
 {
     plSimpleModifier::AddTarget(so);
-    if( so )
+    if (so)
         fLight = plLightInfo::ConvertNoRef(so->GetGenericInterface(plLightInfo::Index()));
     else
         fLight = nil;
@@ -116,21 +116,21 @@ void plLightModifier::Write(hsStream* s, hsResMgr* mgr)
 void plLightModifier::IApplyDynamic()
 {
     hsColorRGBA col;
-    if( fLight != nil )
+    if (fLight != nil)
     {
-        if( fColorCtl )
+        if (fColorCtl)
         {
             col.Set(0,0,0,1.f);
             fColorCtl->Interp(fCurrentTime, &col);
             fLight->SetDiffuse(col);
         }
-        if( fAmbientCtl )
+        if (fAmbientCtl)
         {
             col.Set(0,0,0,1.f);
             fAmbientCtl->Interp(fCurrentTime, &col);
             fLight->SetAmbient(col);
         }
-        if( fSpecularCtl )
+        if (fSpecularCtl)
         {
             col.Set(0,0,0,1.f);
             fSpecularCtl->Interp(fCurrentTime, &col);
@@ -151,11 +151,11 @@ void plLightModifier::DefaultAnimation()
 
 float plLightModifier::MaxAnimLength(float len) const
 {
-    if( fColorCtl && (fColorCtl->GetLength() > len) )
+    if (fColorCtl && (fColorCtl->GetLength() > len))
         len = fColorCtl->GetLength();
-    if( fAmbientCtl && (fAmbientCtl->GetLength() > len) )
+    if (fAmbientCtl && (fAmbientCtl->GetLength() > len))
         len = fAmbientCtl->GetLength();
-    if( fSpecularCtl && (fSpecularCtl->GetLength() > len) )
+    if (fSpecularCtl && (fSpecularCtl->GetLength() > len))
         len = fSpecularCtl->GetLength();
     return len;
 }
@@ -178,7 +178,7 @@ plOmniModifier::~plOmniModifier()
 void plOmniModifier::AddTarget(plSceneObject* so)
 {
     plLightModifier::AddTarget(so);
-    if( fLight )
+    if (fLight)
         fOmni = plOmniLightInfo::ConvertNoRef(fLight);
     else
         fOmni = nil;
@@ -187,7 +187,7 @@ void plOmniModifier::AddTarget(plSceneObject* so)
 void plOmniModifier::RemoveTarget(plSceneObject* so)
 {
     plLightModifier::RemoveTarget(so);
-    if( !fLight )
+    if (!fLight)
         fOmni = nil;
 }
 
@@ -219,7 +219,7 @@ void plOmniModifier::IApplyDynamic()
 {
     plLightModifier::IApplyDynamic();
 
-    if( fAttenCtl )
+    if (fAttenCtl)
     {
         hsPoint3 p = fInitAtten;
         fAttenCtl->Interp(fCurrentTime, &p);
@@ -232,7 +232,7 @@ void plOmniModifier::IApplyDynamic()
 float plOmniModifier::MaxAnimLength(float len) const
 {
     len = plLightModifier::MaxAnimLength(len);
-    if( fAttenCtl && (fAttenCtl->GetLength() > len) )
+    if (fAttenCtl && (fAttenCtl->GetLength() > len))
         len = fAttenCtl->GetLength();
 
     return len;
@@ -259,7 +259,7 @@ plSpotModifier::~plSpotModifier()
 void plSpotModifier::AddTarget(plSceneObject* so)
 {
     plOmniModifier::AddTarget(so);
-    if( fLight )
+    if (fLight)
         fSpot = plSpotLightInfo::ConvertNoRef(fLight);
     else
         fSpot = nil;
@@ -268,7 +268,7 @@ void plSpotModifier::AddTarget(plSceneObject* so)
 void plSpotModifier::RemoveTarget(plSceneObject* so)
 {
     plOmniModifier::RemoveTarget(so);
-    if( !fLight )
+    if (!fLight)
         fSpot = nil;
 }
 
@@ -303,12 +303,12 @@ void plSpotModifier::IApplyDynamic()
     plOmniModifier::IApplyDynamic();
 
     float f;
-    if( fInnerCtl )
+    if (fInnerCtl)
     {
         fInnerCtl->Interp(fCurrentTime, &f);
         fSpot->SetSpotInner(hsDegreesToRadians(f)*0.5f);
     }
-    if( fOuterCtl )
+    if (fOuterCtl)
     {
         fOuterCtl->Interp(fCurrentTime, &f);
         fSpot->SetSpotOuter(hsDegreesToRadians(f)*0.5f);
@@ -318,9 +318,9 @@ void plSpotModifier::IApplyDynamic()
 float plSpotModifier::MaxAnimLength(float len) const
 {
     len = plOmniModifier::MaxAnimLength(len);
-    if( fInnerCtl && (fInnerCtl->GetLength() > len) )
+    if (fInnerCtl && (fInnerCtl->GetLength() > len))
         len = fInnerCtl->GetLength();
-    if( fOuterCtl && (fOuterCtl->GetLength() > len) )
+    if (fOuterCtl && (fOuterCtl->GetLength() > len))
         len = fOuterCtl->GetLength();
 
     return len;
@@ -350,7 +350,7 @@ plLtdDirModifier::~plLtdDirModifier()
 void plLtdDirModifier::AddTarget(plSceneObject* so)
 {
     plLightModifier::AddTarget(so);
-    if( fLight )
+    if (fLight)
         fLtdDir = plLimitedDirLightInfo::ConvertNoRef(fLight);
     else
         fLtdDir = nil;
@@ -359,7 +359,7 @@ void plLtdDirModifier::AddTarget(plSceneObject* so)
 void plLtdDirModifier::RemoveTarget(plSceneObject* so)
 {
     plLightModifier::RemoveTarget(so);
-    if( !fLight )
+    if (!fLight)
         fLtdDir = nil;
 }
 
@@ -398,17 +398,17 @@ void plLtdDirModifier::IApplyDynamic()
     plLightModifier::IApplyDynamic();
 
     float f;
-    if( fWidthCtl )
+    if (fWidthCtl)
     {
         fWidthCtl->Interp(fCurrentTime, &f);
         fLtdDir->SetWidth(f);
     }
-    if( fHeightCtl )
+    if (fHeightCtl)
     {
         fHeightCtl->Interp(fCurrentTime, &f);
         fLtdDir->SetHeight(f);
     }
-    if( fDepthCtl )
+    if (fDepthCtl)
     {
         fDepthCtl->Interp(fCurrentTime, &f);
         fLtdDir->SetDepth(f);
@@ -418,11 +418,11 @@ void plLtdDirModifier::IApplyDynamic()
 float plLtdDirModifier::MaxAnimLength(float len) const
 {
     len = plLightModifier::MaxAnimLength(len);
-    if( fWidthCtl && (fWidthCtl->GetLength() > len) )
+    if (fWidthCtl && (fWidthCtl->GetLength() > len))
         len = fWidthCtl->GetLength();
-    if( fHeightCtl && (fHeightCtl->GetLength() > len) )
+    if (fHeightCtl && (fHeightCtl->GetLength() > len))
         len = fHeightCtl->GetLength();
-    if( fDepthCtl && (fDepthCtl->GetLength() > len) )
+    if (fDepthCtl && (fDepthCtl->GetLength() > len))
         len = fDepthCtl->GetLength();
 
     return len;

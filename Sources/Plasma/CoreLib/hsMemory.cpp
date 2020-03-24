@@ -224,7 +224,7 @@ struct hsAppenderHead {
     bool PopHead(uint32_t elemSize, void* data)
     {
         hsAssert(fFirst != fStop, "Empty");
-        if( data )
+        if (data)
             HSMemory::BlockMove(fFirst, data, elemSize);
         fFirst = (char*)fFirst + elemSize;
         return fFirst == fStop;
@@ -233,7 +233,7 @@ struct hsAppenderHead {
     {
         hsAssert(fFirst != fStop, "Empty");
         fStop = (char*)fStop - elemSize;
-        if( data )
+        if (data)
             HSMemory::BlockMove(fStop, data, elemSize);
         return fFirst == fStop;
     }
@@ -582,7 +582,7 @@ bool hsAppenderIterator::Prev(void* data)
 
 #if 1//!(defined(HS_DEBUGGING)&&(HS_BUILD_FOR_WIN32)&& defined(HS_FIND_MEM_LEAKS))
     // EMPTY STUB
-void SortNDumpUnfreedMemory(const char *, bool ) // file name base, and FULL report indicator
+void SortNDumpUnfreedMemory(const char *, bool) // file name base, and FULL report indicator
 {
 }
 
@@ -612,7 +612,7 @@ typedef struct _CrtMemBlockHeader
 //
 // Dump formatted string to OutputDebugString
 //
-void __cdecl DebugMsg( LPSTR fmt, ... )
+void __cdecl DebugMsg(LPSTR fmt, ...)
 {
 
     char buff[256];
@@ -629,7 +629,7 @@ char *TrimFileName(char *name)      // Trim file name of leading Directories
 
     len = strlen(name);
     ptr = name + len;
-    for ( ptr--; ptr > name; ptr--)
+    for (ptr--; ptr > name; ptr--)
     {
         if (*ptr == '\\')
         {
@@ -758,9 +758,9 @@ static  _CrtMemBlockHeader *cmbh_last;  // Remember this header for next increme
         char fnm[512];
         snprintf(fnm,arrsize(fnm),"Reports\\%s",fname);
  
-        FILE * DumpLogFile = fopen( fnm, "w" );
+        FILE * DumpLogFile = fopen(fnm, "w");
 //      long allocs=0;
-        if ( DumpLogFile != NULL )
+        if (DumpLogFile != NULL)
         {
                 // Print Stats
             fprintf(DumpLogFile, "Filename                Total=%ld(k) %s\n",(normsize + 500)/1000,errStr);
@@ -769,9 +769,9 @@ static  _CrtMemBlockHeader *cmbh_last;  // Remember this header for next increme
                 fprintf(DumpLogFile,"%s ",ltb[i].fName);
                 int len = strlen(ltb[i].fName);
 
-                for(int x=len; x < 25; x++)
+                for (int x=len; x < 25; x++)
                     fputc(' ',DumpLogFile);             // make even columns
-                fprintf(DumpLogFile,"%5ld K\n",(uint32_t)( ltb[i].fBytes+500)/1000);//,ltb[i].fAllocs);
+                fprintf(DumpLogFile,"%5ld K\n",(uint32_t)(ltb[i].fBytes+500)/1000);//,ltb[i].fAllocs);
                 
                 //allocs += ltb[i].fAllocs;
             }
@@ -787,19 +787,19 @@ static  _CrtMemBlockHeader *cmbh_last;  // Remember this header for next increme
             snprintf(fnm,arrsize(fnm),"Reports\\%s","ROOMS.txt");
  
             if (first)
-            {   DumpLogFile = fopen( fnm, "w" );    // first time clobber the old
+            {   DumpLogFile = fopen(fnm, "w");    // first time clobber the old
                 if (DumpLogFile)
-                    fprintf(DumpLogFile, "Filename              Memory-Used(K)       RunningTotal\n");//  \tAllocation Calls \n" );
+                    fprintf(DumpLogFile, "Filename              Memory-Used(K)       RunningTotal\n");//  \tAllocation Calls \n");
                 first = 0;
             }
             else
-                DumpLogFile = fopen( fnm, "a+" );
-            if( DumpLogFile)
+                DumpLogFile = fopen(fnm, "a+");
+            if (DumpLogFile)
             {   fprintf(DumpLogFile,"%s ",nm);
                 int len = strlen(nm);
                 GrandTotal += (uint32_t)(normsize+500)/1000;
 
-                for(int x=len; x < 25; x++)
+                for (int x=len; x < 25; x++)
                     fputc(' ',DumpLogFile);                 // make even columns
                 fprintf(DumpLogFile,"%5ld K           %5ld  %s\n",(uint32_t)(normsize+500)/1000,GrandTotal,errStr);//, allocs);
                 fclose(DumpLogFile);

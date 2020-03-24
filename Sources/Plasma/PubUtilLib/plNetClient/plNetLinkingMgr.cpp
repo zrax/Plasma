@@ -303,17 +303,17 @@ plNetLinkingMgr * plNetLinkingMgr::GetInstance()
 
 ////////////////////////////////////////////////////////////////////
 
-void plNetLinkingMgr::SetEnabled( bool b )
+void plNetLinkingMgr::SetEnabled(bool b)
 {
     plNetClientMgr * nc = plNetClientMgr::GetInstance();
-    hsLogEntry( nc->DebugMsg( "plNetLinkingMgr: {} -> {}", fLinkingEnabled?"Enabled":"Disabled",b?"Enabled":"Disabled" ) );
+    hsLogEntry(nc->DebugMsg("plNetLinkingMgr: {} -> {}", fLinkingEnabled?"Enabled":"Disabled",b?"Enabled":"Disabled"));
     fLinkingEnabled = b;
 }
 
 ////////////////////////////////////////////////////////////////////
 
 // static
-ST::string plNetLinkingMgr::GetProperAgeName( const ST::string & ageName )
+ST::string plNetLinkingMgr::GetProperAgeName(const ST::string & ageName)
 {
     plNetClientMgr * nc = plNetClientMgr::GetInstance();
     std::vector<plFileName> files = plFileSystem::ListDir("dat", "*.age");
@@ -328,7 +328,7 @@ ST::string plNetLinkingMgr::GetProperAgeName( const ST::string & ageName )
 
 ////////////////////////////////////////////////////////////////////
 
-bool plNetLinkingMgr::MsgReceive( plMessage *msg )
+bool plNetLinkingMgr::MsgReceive(plMessage *msg)
 {
     if (s_ageLeaver && NCAgeLeaverMsgReceive(s_ageLeaver, msg))
         return true;
@@ -345,7 +345,7 @@ bool plNetLinkingMgr::MsgReceive( plMessage *msg )
     }
 
     if (plLinkingMgrMsg * pLinkingMgrMsg = plLinkingMgrMsg::ConvertNoRef(msg)) {
-        IProcessLinkingMgrMsg( pLinkingMgrMsg );
+        IProcessLinkingMgrMsg(pLinkingMgrMsg);
         return true;
     }
 
@@ -373,10 +373,10 @@ void plNetLinkingMgr::Update()
 
 ////////////////////////////////////////////////////////////////////
 
-bool plNetLinkingMgr::IProcessLinkToAgeMsg( plLinkToAgeMsg * msg )
+bool plNetLinkingMgr::IProcessLinkToAgeMsg(plLinkToAgeMsg * msg)
 {
     if (!fLinkingEnabled) {
-        hsLogEntry( plNetClientMgr::GetInstance()->DebugMsg( "Not linking. Linking is disabled." ) );
+        hsLogEntry(plNetClientMgr::GetInstance()->DebugMsg("Not linking. Linking is disabled."));
         return false;
     }
 
@@ -385,9 +385,9 @@ bool plNetLinkingMgr::IProcessLinkToAgeMsg( plLinkToAgeMsg * msg )
     bool result = true;
 
     plAgeLinkStruct save;
-    save.CopyFrom( GetPrevAgeLink() );
-    GetPrevAgeLink()->CopyFrom( GetAgeLink() );
-    GetAgeLink()->CopyFrom( msg->GetAgeLink() );
+    save.CopyFrom(GetPrevAgeLink());
+    GetPrevAgeLink()->CopyFrom(GetAgeLink());
+    GetAgeLink()->CopyFrom(msg->GetAgeLink());
 
     // Actually do stuff...
     uint8_t pre = IPreProcessLink();
@@ -403,10 +403,10 @@ bool plNetLinkingMgr::IProcessLinkToAgeMsg( plLinkToAgeMsg * msg )
     }
     else if (pre == kLinkFailed)
     {
-        hsLogEntry( nc->ErrorMsg( "IPreProcessLink failed. Not linking." ) );
+        hsLogEntry(nc->ErrorMsg("IPreProcessLink failed. Not linking."));
         // Restore previous age info state.
-        GetAgeLink()->CopyFrom( GetPrevAgeLink() );
-        GetPrevAgeLink()->CopyFrom( &save );
+        GetAgeLink()->CopyFrom(GetPrevAgeLink());
+        GetPrevAgeLink()->CopyFrom(&save);
         result = false;
     }
     
@@ -450,21 +450,21 @@ void plNetLinkingMgr::IDoLink(plLinkToAgeMsg* msg)
 
 ////////////////////////////////////////////////////////////////////
 
-bool plNetLinkingMgr::IProcessLinkingMgrMsg( plLinkingMgrMsg * msg )
+bool plNetLinkingMgr::IProcessLinkingMgrMsg(plLinkingMgrMsg * msg)
 {
     plNetClientMgr * nc = plNetClientMgr::GetInstance();
 
     bool result = true;
 
-    switch ( msg->GetCmd() )
+    switch (msg->GetCmd())
     {
     /////////////////////
     case kLinkPlayerHere:
         {
             // player wants to link to our age
-            uint32_t playerID = msg->GetArgs()->GetInt( 0 );
-            hsLogEntry( nc->DebugMsg( "Linking player {} to this age.", playerID ) );
-            LinkPlayerHere( playerID );
+            uint32_t playerID = msg->GetArgs()->GetInt(0);
+            hsLogEntry(nc->DebugMsg("Linking player {} to this age.", playerID));
+            LinkPlayerHere(playerID);
         }
         break;
         
@@ -472,7 +472,7 @@ bool plNetLinkingMgr::IProcessLinkingMgrMsg( plLinkingMgrMsg * msg )
     case kLinkPlayerToPrevAge:
         {
             // link myself back to my last age
-            hsLogEntry( nc->DebugMsg( "Linking back to my last age.") );
+            hsLogEntry(nc->DebugMsg("Linking back to my last age."));
             LinkToPrevAge();
         }
         break;
@@ -481,19 +481,19 @@ bool plNetLinkingMgr::IProcessLinkingMgrMsg( plLinkingMgrMsg * msg )
         {
 //          // Notify the KI that we received an offer.
 //          plVaultNotifyMsg * notify = new plVaultNotifyMsg();
-//          notify->SetType( plVaultNotifyMsg::kPlayerOfferedLink );
-//          notify->GetArgs()->AddItem( 0, msg->GetArgs()->GetItem( 0 ), true );    // add to notify and have notify take over memory management of the item.
-//          msg->GetArgs()->RemoveItem( 0, true );  // msg to stop memory managing item, notify msg will delete it.
+//          notify->SetType(plVaultNotifyMsg::kPlayerOfferedLink);
+//          notify->GetArgs()->AddItem(0, msg->GetArgs()->GetItem(0), true);    // add to notify and have notify take over memory management of the item.
+//          msg->GetArgs()->RemoveItem(0, true);  // msg to stop memory managing item, notify msg will delete it.
 //          notify->Send();
 
-            plAgeLinkStruct *myLink = plAgeLinkStruct::ConvertNoRef(msg->GetArgs()->GetItem( 0 ));
+            plAgeLinkStruct *myLink = plAgeLinkStruct::ConvertNoRef(msg->GetArgs()->GetItem(0));
             LinkToAge(myLink);
         }
         break;
 
     /////////////////////
     default:
-        hsAssert( false, "IProcessLinkingMgrMsg: Unknown linking mgr cmd." );
+        hsAssert(false, "IProcessLinkingMgrMsg: Unknown linking mgr cmd.");
         result = false;
         break;
     }
@@ -545,20 +545,20 @@ bool plNetLinkingMgr::IProcessVaultNotifyMsg(plVaultNotifyMsg* msg)
 
 ////////////////////////////////////////////////////////////////////
 
-bool plNetLinkingMgr::IDispatchMsg( plMessage* msg, uint32_t playerID )
+bool plNetLinkingMgr::IDispatchMsg(plMessage* msg, uint32_t playerID)
 {
     plNetClientMgr * nc = plNetClientMgr::GetInstance();
-    msg->AddReceiver( plNetClientMgr::GetInstance()->GetKey() );
+    msg->AddReceiver(plNetClientMgr::GetInstance()->GetKey());
 
     plLinkToAgeMsg* linkToAge = plLinkToAgeMsg::ConvertNoRef(msg);
-    if ( playerID!=kInvalidPlayerID && playerID!=nc->GetPlayerID() )
+    if (playerID!=kInvalidPlayerID && playerID!=nc->GetPlayerID())
     {
-        msg->SetBCastFlag( plMessage::kNetAllowInterAge );
-        msg->SetBCastFlag( plMessage::kNetPropagate );
-        msg->SetBCastFlag( plMessage::kNetForce );
-        msg->SetBCastFlag( plMessage::kLocalPropagate, 0 );
+        msg->SetBCastFlag(plMessage::kNetAllowInterAge);
+        msg->SetBCastFlag(plMessage::kNetPropagate);
+        msg->SetBCastFlag(plMessage::kNetForce);
+        msg->SetBCastFlag(plMessage::kLocalPropagate, 0);
         // send msg to other player (maybe in different age than us)
-        msg->AddNetReceiver( playerID );
+        msg->AddNetReceiver(playerID);
     }
 
     return msg->Send();
@@ -566,72 +566,72 @@ bool plNetLinkingMgr::IDispatchMsg( plMessage* msg, uint32_t playerID )
 
 ////////////////////////////////////////////////////////////////////
 
-void plNetLinkingMgr::LinkToAge( plAgeLinkStruct * link, bool linkInSfx, bool linkOutSfx, uint32_t playerID )
+void plNetLinkingMgr::LinkToAge(plAgeLinkStruct * link, bool linkInSfx, bool linkOutSfx, uint32_t playerID)
 {
     LinkToAge(link, nil, linkInSfx, linkOutSfx, playerID);
 }
 
-void plNetLinkingMgr::LinkToAge( plAgeLinkStruct * link, const char* linkAnim, bool linkInSfx, bool linkOutSfx, uint32_t playerID )
+void plNetLinkingMgr::LinkToAge(plAgeLinkStruct * link, const char* linkAnim, bool linkInSfx, bool linkOutSfx, uint32_t playerID)
 {
-    if ( !fLinkingEnabled )
+    if (!fLinkingEnabled)
     {
-        hsLogEntry( plNetClientMgr::GetInstance()->DebugMsg( "Not linking. Linking is disabled." ) );
+        hsLogEntry(plNetClientMgr::GetInstance()->DebugMsg("Not linking. Linking is disabled."));
         return;
     }
 
-    plLinkToAgeMsg* pMsg = new plLinkToAgeMsg( link );
+    plLinkToAgeMsg* pMsg = new plLinkToAgeMsg(link);
     if (linkAnim)
         pMsg->SetLinkInAnimName(linkAnim);
     pMsg->PlayLinkSfx(linkInSfx, linkOutSfx);
-    IDispatchMsg( pMsg, playerID );
+    IDispatchMsg(pMsg, playerID);
 }
 
 // link myself back to my last age
-void plNetLinkingMgr::LinkToPrevAge( uint32_t playerID )
+void plNetLinkingMgr::LinkToPrevAge(uint32_t playerID)
 {
-    if ( !fLinkingEnabled )
+    if (!fLinkingEnabled)
     {
-        hsLogEntry( plNetClientMgr::GetInstance()->DebugMsg( "Not linking. Linking is disabled." ) );
+        hsLogEntry(plNetClientMgr::GetInstance()->DebugMsg("Not linking. Linking is disabled."));
         return;
     }
 
     if (GetPrevAgeLink()->GetAgeInfo()->HasAgeFilename())
     {
-        plLinkToAgeMsg* pMsg = new plLinkToAgeMsg( GetPrevAgeLink() );
-        IDispatchMsg( pMsg, playerID );
+        plLinkToAgeMsg* pMsg = new plLinkToAgeMsg(GetPrevAgeLink());
+        IDispatchMsg(pMsg, playerID);
     }
     else
     {
-        hsLogEntry( plNetClientMgr::GetInstance()->DebugMsg( "Not linking. No prev age fileName." ) );
+        hsLogEntry(plNetClientMgr::GetInstance()->DebugMsg("Not linking. No prev age fileName."));
     }
 }
 
-void plNetLinkingMgr::LinkToMyPersonalAge( uint32_t playerID )
+void plNetLinkingMgr::LinkToMyPersonalAge(uint32_t playerID)
 {
-    if ( !fLinkingEnabled )
+    if (!fLinkingEnabled)
     {
-        hsLogEntry( plNetClientMgr::GetInstance()->DebugMsg( "Not linking. Linking is disabled." ) );
+        hsLogEntry(plNetClientMgr::GetInstance()->DebugMsg("Not linking. Linking is disabled."));
         return;
     }
     plNetClientMgr* nc = plNetClientMgr::GetInstance();
 
     plAgeLinkStruct link;
-    link.GetAgeInfo()->SetAgeFilename( kPersonalAgeFilename );
-    link.SetLinkingRules( plNetCommon::LinkingRules::kOwnedBook );
+    link.GetAgeInfo()->SetAgeFilename(kPersonalAgeFilename);
+    link.SetLinkingRules(plNetCommon::LinkingRules::kOwnedBook);
 
     plSpawnPointInfo hutSpawnPoint;
     hutSpawnPoint.SetName(kPersonalAgeLinkInPointCloset);
     link.SetSpawnPoint(hutSpawnPoint);
 
-    plLinkToAgeMsg* pMsg = new plLinkToAgeMsg( &link );
-    IDispatchMsg( pMsg, playerID );
+    plLinkToAgeMsg* pMsg = new plLinkToAgeMsg(&link);
+    IDispatchMsg(pMsg, playerID);
 }
 
-void plNetLinkingMgr::LinkToMyNeighborhoodAge( uint32_t playerID )
+void plNetLinkingMgr::LinkToMyNeighborhoodAge(uint32_t playerID)
 {
-    if ( !fLinkingEnabled )
+    if (!fLinkingEnabled)
     {
-        hsLogEntry( plNetClientMgr::GetInstance()->DebugMsg( "Not linking. Linking is disabled." ) );
+        hsLogEntry(plNetClientMgr::GetInstance()->DebugMsg("Not linking. Linking is disabled."));
         return;
     }
     plNetClientMgr * nc = plNetClientMgr::GetInstance();
@@ -640,50 +640,50 @@ void plNetLinkingMgr::LinkToMyNeighborhoodAge( uint32_t playerID )
     if (!VaultGetLinkToMyNeighborhood(&link))
         return;
         
-    link.SetLinkingRules( plNetCommon::LinkingRules::kOwnedBook );
+    link.SetLinkingRules(plNetCommon::LinkingRules::kOwnedBook);
 
-    plLinkToAgeMsg* pMsg = new plLinkToAgeMsg( &link );
-    IDispatchMsg( pMsg, playerID );
+    plLinkToAgeMsg* pMsg = new plLinkToAgeMsg(&link);
+    IDispatchMsg(pMsg, playerID);
 }
 
-void plNetLinkingMgr::LinkPlayerHere( uint32_t playerID )
+void plNetLinkingMgr::LinkPlayerHere(uint32_t playerID)
 {
-    if ( !fLinkingEnabled )
+    if (!fLinkingEnabled)
     {
-        hsLogEntry( plNetClientMgr::GetInstance()->DebugMsg( "Not linking. Linking is disabled." ) );
+        hsLogEntry(plNetClientMgr::GetInstance()->DebugMsg("Not linking. Linking is disabled."));
         return;
     }
     plNetClientMgr * nc = plNetClientMgr::GetInstance();
 
     // send the player our current age info so they can link here.
     plAgeLinkStruct link;
-    link.GetAgeInfo()->CopyFrom( GetAgeLink()->GetAgeInfo() );
-    LinkPlayerToAge( &link, playerID );
+    link.GetAgeInfo()->CopyFrom(GetAgeLink()->GetAgeInfo());
+    LinkPlayerToAge(&link, playerID);
 }
 
-void plNetLinkingMgr::LinkPlayerToAge( plAgeLinkStruct * link, uint32_t playerID )
+void plNetLinkingMgr::LinkPlayerToAge(plAgeLinkStruct * link, uint32_t playerID)
 {
-    if ( !fLinkingEnabled )
+    if (!fLinkingEnabled)
     {
-        hsLogEntry( plNetClientMgr::GetInstance()->DebugMsg( "Not linking. Linking is disabled." ) );
+        hsLogEntry(plNetClientMgr::GetInstance()->DebugMsg("Not linking. Linking is disabled."));
         return;
     }
     plNetClientMgr * nc = plNetClientMgr::GetInstance();
 
     // send the player the age link so they can link there.
-    link->SetLinkingRules( plNetCommon::LinkingRules::kBasicLink );
-    plLinkToAgeMsg* pMsg = new plLinkToAgeMsg( link );
-    IDispatchMsg( pMsg, playerID );
+    link->SetLinkingRules(plNetCommon::LinkingRules::kBasicLink);
+    plLinkToAgeMsg* pMsg = new plLinkToAgeMsg(link);
+    IDispatchMsg(pMsg, playerID);
 }
 
 //
 // link the player back to his previous age
 //
-void plNetLinkingMgr::LinkPlayerToPrevAge( uint32_t playerID )
+void plNetLinkingMgr::LinkPlayerToPrevAge(uint32_t playerID)
 {
-    if ( !fLinkingEnabled )
+    if (!fLinkingEnabled)
     {
-        hsLogEntry( plNetClientMgr::GetInstance()->DebugMsg( "Not linking. Linking is disabled." ) );
+        hsLogEntry(plNetClientMgr::GetInstance()->DebugMsg("Not linking. Linking is disabled."));
         return;
     }
 
@@ -691,30 +691,30 @@ void plNetLinkingMgr::LinkPlayerToPrevAge( uint32_t playerID )
     plNetClientMgr * nc = plNetClientMgr::GetInstance();
 
     plLinkingMgrMsg* pMsg = new plLinkingMgrMsg();
-    pMsg->SetCmd( kLinkPlayerToPrevAge);
-    IDispatchMsg( pMsg, playerID );
+    pMsg->SetCmd(kLinkPlayerToPrevAge);
+    IDispatchMsg(pMsg, playerID);
 }
 
-void plNetLinkingMgr::LinkToPlayersAge( uint32_t playerID )
+void plNetLinkingMgr::LinkToPlayersAge(uint32_t playerID)
 {
-    if ( !fLinkingEnabled )
+    if (!fLinkingEnabled)
     {
-        hsLogEntry( plNetClientMgr::GetInstance()->DebugMsg( "Not linking. Linking is disabled." ) );
+        hsLogEntry(plNetClientMgr::GetInstance()->DebugMsg("Not linking. Linking is disabled."));
         return;
     }
     // Send the player a msg telling them to send us a msg to link to them. isn't that fun? :)
     plNetClientMgr * nc = plNetClientMgr::GetInstance();
 
     plLinkingMgrMsg* pMsg = new plLinkingMgrMsg();
-    pMsg->SetCmd( kLinkPlayerHere );
-    pMsg->GetArgs()->AddInt( 0, NetCommGetPlayer()->playerInt );    // send them our id.
-    IDispatchMsg( pMsg, playerID );
+    pMsg->SetCmd(kLinkPlayerHere);
+    pMsg->GetArgs()->AddInt(0, NetCommGetPlayer()->playerInt);    // send them our id.
+    IDispatchMsg(pMsg, playerID);
 }
 
 ////////////////////////////////////////////////////////////////////
 
 
-void plNetLinkingMgr::OfferLinkToPlayer( const plAgeLinkStruct * inInfo, uint32_t playerID )
+void plNetLinkingMgr::OfferLinkToPlayer(const plAgeLinkStruct * inInfo, uint32_t playerID)
 {
 
     plNetClientMgr* mgr = plNetClientMgr::GetInstance();
@@ -732,7 +732,7 @@ void plNetLinkingMgr::OfferLinkToPlayer( const plAgeLinkStruct * inInfo, uint32_
     }
 }
 // my special version - cjp
-void plNetLinkingMgr::OfferLinkToPlayer( const plAgeLinkStruct * inInfo, uint32_t playerID, plKey replyKey )
+void plNetLinkingMgr::OfferLinkToPlayer(const plAgeLinkStruct * inInfo, uint32_t playerID, plKey replyKey)
 {
     plNetClientMgr *mgr = plNetClientMgr::GetInstance();
 
@@ -751,7 +751,7 @@ void plNetLinkingMgr::OfferLinkToPlayer( const plAgeLinkStruct * inInfo, uint32_
 }
 
 // for backwards compatibility
-void plNetLinkingMgr::OfferLinkToPlayer( const plAgeInfoStruct * inInfo, uint32_t playerID )
+void plNetLinkingMgr::OfferLinkToPlayer(const plAgeInfoStruct * inInfo, uint32_t playerID)
 {
     plAgeLinkStruct ageLink;
 
@@ -847,9 +847,9 @@ uint8_t plNetLinkingMgr::IPreProcessLink()
 
     PreProcessResult success = kLinkImmediately;
 
-    if ( nc->GetFlagsBit( plNetClientMgr::kNullSend ) )
+    if (nc->GetFlagsBit(plNetClientMgr::kNullSend))
     {
-        hsLogEntry( nc->DebugMsg( "NetClientMgr nullsend. Not linking." ) );
+        hsLogEntry(nc->DebugMsg("NetClientMgr nullsend. Not linking."));
         return kLinkFailed;
     }
 
@@ -884,13 +884,13 @@ uint8_t plNetLinkingMgr::IPreProcessLink()
         }
     }
 
-    hsLogEntry(nc->DebugMsg( "plNetLinkingMgr: Pre-Process: Linking with {} rules...",
+    hsLogEntry(nc->DebugMsg("plNetLinkingMgr: Pre-Process: Linking with {} rules...",
         plNetCommon::LinkingRules::LinkingRuleStr(link->GetLinkingRules())));
 
     //------------------------------------------------------------------------
     // SPECIAL CASE: StartUp: force basic link
     if (info->GetAgeFilename().compare_i(kStartUpAgeFilename) == 0)
-        link->SetLinkingRules( plNetCommon::LinkingRules::kBasicLink );
+        link->SetLinkingRules(plNetCommon::LinkingRules::kBasicLink);
 
     //------------------------------------------------------------------------
     // SPECIAL CASE: Nexus: force original link
@@ -985,7 +985,7 @@ uint8_t plNetLinkingMgr::IPreProcessLink()
                                     desc = ST::format("{}' {}", nc->GetPlayerName(), info->GetAgeInstanceName());
                                 else
                                     desc = ST::format("{}'s {}", nc->GetPlayerName(), info->GetAgeInstanceName());
-                                info->SetAgeDescription( desc.c_str() );
+                                info->SetAgeDescription(desc.c_str());
                             }
 
                             if (!info->HasAgeInstanceGuid()) {
@@ -1064,7 +1064,7 @@ uint8_t plNetLinkingMgr::IPreProcessLink()
         case plNetCommon::LinkingRules::kChildAgeBook:
             {
                 plAgeLinkStruct childLink;
-                switch(VaultAgeFindOrCreateChildAgeLink(
+                switch (VaultAgeFindOrCreateChildAgeLink(
                           link->GetParentAgeFilename(),
                           info,
                           &childLink))
@@ -1089,7 +1089,7 @@ uint8_t plNetLinkingMgr::IPreProcessLink()
         DEFAULT_FATAL(link->GetLinkingRules());
     }
 
-    hsLogEntry(nc->DebugMsg( "plNetLinkingMgr: Post-Process: Linking with {} rules...",
+    hsLogEntry(nc->DebugMsg("plNetLinkingMgr: Post-Process: Linking with {} rules...",
         plNetCommon::LinkingRules::LinkingRuleStr(link->GetLinkingRules())));
 
     hsAssert(info->HasAgeFilename(), "AgeLink has no AgeFilename. Link will fail.");

@@ -156,7 +156,7 @@ public:
 
     static uint16_t PosStrideFromEncoding(const plSpanEncoding& encoding)
     {
-        switch(encoding.fCode & plSpanEncoding::kPosMask)
+        switch (encoding.fCode & plSpanEncoding::kPosMask)
         {
         case plSpanEncoding::kPos888:
             return 3;
@@ -171,7 +171,7 @@ public:
     }
     static uint16_t ColStrideFromEncoding(const plSpanEncoding& encoding)
     {
-        switch(encoding.fCode & plSpanEncoding::kColMask)
+        switch (encoding.fCode & plSpanEncoding::kColMask)
         {
         case plSpanEncoding::kColNone:
             return 0;
@@ -245,7 +245,7 @@ public:
 
     hsVector3   DelPos() const
     {
-        switch(fEncoding.fCode & plSpanEncoding::kPosMask)
+        switch (fEncoding.fCode & plSpanEncoding::kPosMask)
         {
         case plSpanEncoding::kPos888:
             return hsVector3(fPos888[0] * fEncoding.fPosScale,
@@ -272,7 +272,7 @@ public:
     };
     uint32_t      Color(uint32_t c) const
     {
-        switch(fEncoding.fCode & plSpanEncoding::kColMask)
+        switch (fEncoding.fCode & plSpanEncoding::kColMask)
         {
         case plSpanEncoding::kColA8:
             return (c & 0x00ffffff) | *fA8;

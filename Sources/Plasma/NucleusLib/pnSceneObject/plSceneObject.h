@@ -126,8 +126,8 @@ public:
     plSceneObject();
     virtual ~plSceneObject();
 
-    CLASSNAME_REGISTER( plSceneObject );
-    GETINTERFACE_ANY( plSceneObject, plSynchedObject );
+    CLASSNAME_REGISTER(plSceneObject);
+    GETINTERFACE_ANY(plSceneObject, plSynchedObject);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

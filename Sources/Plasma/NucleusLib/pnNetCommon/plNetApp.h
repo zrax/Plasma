@@ -218,7 +218,7 @@ public:
     // functions that all net client apps should implement
     virtual int SendMsg(plNetMessage* msg) = 0;
     virtual uint32_t GetPlayerID() const = 0;
-    virtual ST::string GetPlayerName( const plKey avKey=nil ) const = 0;
+    virtual ST::string GetPlayerName(const plKey avKey=nil) const = 0;
 
     // commonly used net client app functions
     virtual float GetCurrentAgeTimeOfDayPercent() const { hsAssert(false, "stub"); return 0.; }
@@ -235,7 +235,7 @@ public:
     virtual const char* GetServerLogTimeAsString(ST::string& ts) const { hsAssert(false, "stub"); return nil; }
     virtual plUoid GetAgeSDLObjectUoid(const ST::string& ageName) const { hsAssert(false, "stub"); return plUoid(); }
     virtual void StayAlive(double secs) {}
-    virtual void QueueDisableNet( bool showDlg, const char msg[] ) {}
+    virtual void QueueDisableNet(bool showDlg, const char msg[]) {}
 
     bool IsEnabled() const { return !GetFlagsBit(kDisabled); }
     bool InDemoMode() const { return GetFlagsBit(kDemoMode); }

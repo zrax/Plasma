@@ -116,34 +116,34 @@ public:
         kPBEaseOutMax
     };
 
-    plAnimStealthNode( BOOL loading );
+    plAnimStealthNode(BOOL loading);
     virtual ~plAnimStealthNode();
     void DeleteThis() { delete this; }
 
     INode           *GetINode();
     plPassMtlBase   *GetParentMtl();
-    void            SetParentMtl( plPassMtlBase *parent );
-    void            SetNodeName( const char *parentName );
+    void            SetParentMtl(plPassMtlBase *parent);
+    void            SetNodeName(const char *parentName);
 
     // Create the dialog for this object and place it inside the given dialog, centering it in the given control if any
-    bool    CreateAndEmbedDlg( IParamMap2 *parentMap, IMtlParams *parentParams, HWND frameCtrl = nil );
+    bool    CreateAndEmbedDlg(IParamMap2 *parentMap, IMtlParams *parentParams, HWND frameCtrl = nil);
 
     // Release said dialog
     void    ReleaseDlg();
 
     // Switch underlying objects in the dialog (to avoid unnecessary deletion/recreations)
-    void    SwitchDlg( plAnimStealthNode *toSwitchTo );
+    void    SwitchDlg(plAnimStealthNode *toSwitchTo);
 
     // Get the actual window handle of the currently active dialog displaying us
     HWND    GetWinDlg() const;
 
     // Interesting functions
     ST::string  GetSegmentName() const;
-    void        SetSegment( const char *name ); // nil for "entire animation"
+    void        SetSegment(const char *name); // nil for "entire animation"
 
     // Conversion from stealth's INode to the actual object
-    static bool                 CanConvertToStealth( INode *objNode );
-    static plAnimStealthNode    *ConvertToStealth( INode *objNode );
+    static bool                 CanConvertToStealth(INode *objNode);
+    static plAnimStealthNode    *ConvertToStealth(INode *objNode);
 
     ///////////////////////////////////////////////////////////////////////////////////////
     // Required Max functions
@@ -168,8 +168,8 @@ public:
 
     // We override because we don't want to be able to animate this sucker
     int         NumSubs() { return 0; }
-    Animatable  *SubAnim( int i ) { return nil; }
-    TSTR        SubAnimName( int i ) { return fClassDesc->ClassName(); }
+    Animatable  *SubAnim(int i) { return nil; }
+    TSTR        SubAnimName(int i) { return fClassDesc->ClassName(); }
 
     // plug-in mouse creation callback
     CreateMouseCallBack* GetCreateMouseCallBack();
@@ -189,48 +189,48 @@ public:
     IOResult Save(ISave* isave);
     IOResult Load(ILoad* iload);
 
-    int CanConvertToType( Class_ID obtype ) { return ( obtype == ANIMSTEALTH_CLASSID ) ? 1 : 0; }
+    int CanConvertToType(Class_ID obtype) { return (obtype == ANIMSTEALTH_CLASSID) ? 1 : 0; }
 
     const char *GetCategory() { return fClassDesc->Category(); }
 
     /// Parameter access
 
     bool    GetAutoStart() const;
-    void    SetAutoStart( bool b );
+    void    SetAutoStart(bool b);
 
     bool        GetLoop() const;
     ST::string  GetLoopName() const;
-    void        SetLoop( bool b, const ST::string &name );
+    void        SetLoop(bool b, const ST::string &name);
 
     uint8_t     GetEaseInType() const;
     float       GetEaseInLength() const;
     float       GetEaseInMin() const;
     float       GetEaseInMax() const;
-    void        SetEaseIn( uint8_t type, float length, float min, float max );
+    void        SetEaseIn(uint8_t type, float length, float min, float max);
 
     uint8_t     GetEaseOutType() const;
     float       GetEaseOutLength() const;
     float       GetEaseOutMin() const;
     float       GetEaseOutMax() const;
-    void        SetEaseOut( uint8_t type, float length, float min, float max );
+    void        SetEaseOut(uint8_t type, float length, float min, float max);
 
     // Conversion stuff
-    void        GetAllStopPoints( hsTArray<float> &out );
+    void        GetAllStopPoints(hsTArray<float> &out);
     float       GetSegStart() const;
     float       GetSegEnd() const;
-    void        GetLoopPoints( float &start, float &end ) const;
-    void        StuffToTimeConvert( plAnimTimeConvert &convert, float maxLength );
+    void        GetLoopPoints(float &start, float &end) const;
+    void        StuffToTimeConvert(plAnimTimeConvert &convert, float maxLength);
 
     // plAnimObjInterface functions
-    virtual void    PickTargetNode( IParamBlock2 *destPB, ParamID destParamID, ParamID typeID );
+    virtual void    PickTargetNode(IParamBlock2 *destPB, ParamID destParamID, ParamID typeID);
     virtual bool    IsNodeRestricted() { return true; }
-    virtual ST::string GetIfaceSegmentName( bool allowNil );
-    virtual bool    GetKeyList( INode *restrictedNode, hsTArray<plKey> &outKeys );
+    virtual ST::string GetIfaceSegmentName(bool allowNil);
+    virtual bool    GetKeyList(INode *restrictedNode, hsTArray<plKey> &outKeys);
     virtual bool        MightRequireSeparateMaterial() { return true; }
 
     // Convert time, called on the setupProps pass for each material applied to a node in the scene
-    virtual bool    SetupProperties( plMaxNode *node, plErrorMsg *pErrMsg );
-    virtual bool    ConvertDeInit( plMaxNode *node, plErrorMsg *pErrMsg );
+    virtual bool    SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg);
+    virtual bool    ConvertDeInit(plMaxNode *node, plErrorMsg *pErrMsg);
 
     // Returns true if the parent material is applied to any node in the scene, false otherwise
     bool            IsParentUsedInScene();
@@ -242,18 +242,18 @@ class plStealthNodeAccessor : public PBAccessor
 {
     protected:
 
-        void    ISetParent( ReferenceTarget *target, plPassMtlBase *parent );
+        void    ISetParent(ReferenceTarget *target, plPassMtlBase *parent);
 
-        void    IHandleSet( PB2Value &v, ReferenceMaker *owner, ParamID id, int tabIndex, TimeValue t );
+        void    IHandleSet(PB2Value &v, ReferenceMaker *owner, ParamID id, int tabIndex, TimeValue t);
 
     public:
 
         plStealthNodeAccessor() { }
         static plStealthNodeAccessor    &GetInstance();
         
-        virtual void    Set( PB2Value &v, ReferenceMaker *owner, ParamID id, int tabIndex, TimeValue t );
-        virtual void    TabChanged( tab_changes changeCode, Tab<PB2Value> *tab, ReferenceMaker *owner,
-                                            ParamID id, int tabIndex, int count );
+        virtual void    Set(PB2Value &v, ReferenceMaker *owner, ParamID id, int tabIndex, TimeValue t);
+        virtual void    TabChanged(tab_changes changeCode, Tab<PB2Value> *tab, ReferenceMaker *owner,
+                                            ParamID id, int tabIndex, int count);
 };
 
 #endif //_plAnimStealthNode_h

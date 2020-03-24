@@ -97,8 +97,8 @@ public:
     virtual void DumpDebug(const char *name, int &x, int&y, int lineHeight, plDebugText &debugTxt);
 
     // plasma protocol
-    CLASSNAME_REGISTER( plAvTask );
-    GETINTERFACE_ANY( plAvTask, plCreatable );
+    CLASSNAME_REGISTER(plAvTask);
+    GETINTERFACE_ANY(plAvTask, plCreatable);
 
     /** Read the task from a stream. Not all tasks need to read/write, so the base implementation
         gives a warning to expose tasks that are being read/written unexpectedly. */

@@ -70,7 +70,7 @@ plMessage::plMessage(const plKey &s,
     fNetRcvrPlayerIDs(nil),
     dispatchBreak(false)
 {
-    if( r )
+    if (r)
     {
         fReceivers.SetCount(1);
         fReceivers[0] = r;
@@ -94,7 +94,7 @@ plMessage&      plMessage::AddReceiver(const plKey &r) { fReceivers.Append(r); r
 plMessage& plMessage::AddReceivers(const hsTArray<plKey>& rList)
 {
     int i;
-    for( i = 0; i < rList.GetCount(); i++ )
+    for (i = 0; i < rList.GetCount(); i++)
         AddReceiver(rList[i]);
 
     return *this;
@@ -102,7 +102,7 @@ plMessage& plMessage::AddReceivers(const hsTArray<plKey>& rList)
 
 bool plMessage::Send(const plKey r, bool async)
 {
-    if( r )
+    if (r)
         AddReceiver(r);
     return plgDispatch::MsgSend(this,async);
 }
@@ -122,7 +122,7 @@ void plMessage::IMsgRead(hsStream* s, hsResMgr* mgr)
     s->LogReadLE(&n,"NumberOfReceivers");
     fReceivers.SetCount(n);
     int i;
-    for( i = 0; i < fReceivers.GetCount(); i++ )
+    for (i = 0; i < fReceivers.GetCount(); i++)
         fReceivers[i] = mgr->ReadKey(s);
 
     s->LogReadLE(&fTimeStamp,"TimeStamp");    // read as double
@@ -136,7 +136,7 @@ void plMessage::IMsgWrite(hsStream* s, hsResMgr* mgr)
     mgr->WriteKey(s,fSender);
     s->WriteLE32(fReceivers.GetCount());
     int i;
-    for( i = 0; i < fReceivers.GetCount(); i++ )
+    for (i = 0; i < fReceivers.GetCount(); i++)
         mgr->WriteKey(s,fReceivers[i]);
 
     s->WriteLE(fTimeStamp);   // write as double
@@ -164,7 +164,7 @@ void plMessage::IMsgReadVersion(hsStream* s, hsResMgr* mgr)
         int n = s->ReadLE32();
         fReceivers.SetCount(n);
         int i;
-        for( i = 0; i < fReceivers.GetCount(); i++ )
+        for (i = 0; i < fReceivers.GetCount(); i++)
             fReceivers[i] = mgr->ReadKey(s);
     }
 
@@ -190,7 +190,7 @@ void plMessage::IMsgWriteVersion(hsStream* s, hsResMgr* mgr)
     // kMsgReceivers
     s->WriteLE32(fReceivers.GetCount());
     int i;
-    for( i = 0; i < fReceivers.GetCount(); i++ )
+    for (i = 0; i < fReceivers.GetCount(); i++)
         mgr->WriteKey(s,fReceivers[i]);
 
     // kMsgTimeStamp
@@ -200,18 +200,18 @@ void plMessage::IMsgWriteVersion(hsStream* s, hsResMgr* mgr)
     s->WriteLE32(fBCastFlags);
 }
 
-void plMessage::AddNetReceiver( uint32_t plrID )
+void plMessage::AddNetReceiver(uint32_t plrID)
 {
-    if ( !fNetRcvrPlayerIDs )
+    if (!fNetRcvrPlayerIDs)
         fNetRcvrPlayerIDs = new std::vector<uint32_t>;
-    fNetRcvrPlayerIDs->push_back( plrID );
+    fNetRcvrPlayerIDs->push_back(plrID);
 }
 
-void plMessage::AddNetReceivers( const std::vector<uint32_t> & plrIDs )
+void plMessage::AddNetReceivers(const std::vector<uint32_t> & plrIDs)
 {
-    if ( !fNetRcvrPlayerIDs )
+    if (!fNetRcvrPlayerIDs)
         fNetRcvrPlayerIDs = new std::vector<uint32_t>;
-    std::copy( plrIDs.begin(), plrIDs.end(), std::back_inserter( *fNetRcvrPlayerIDs ) );
+    std::copy(plrIDs.begin(), plrIDs.end(), std::back_inserter(*fNetRcvrPlayerIDs));
 }
 
 /////////////////////////////////////////////////////////////////
@@ -220,7 +220,7 @@ void plMessage::AddNetReceivers( const std::vector<uint32_t> & plrIDs )
 int plMsgStdStringHelper::Poke(const std::string & stringref, hsStream* stream, const uint32_t peekOptions)
 {
     plMessage::plStrLen strlen;
-    hsAssert( stringref.length()<0xFFFF, "buf too big for plMsgStdStringHelper" );
+    hsAssert(stringref.length()<0xFFFF, "buf too big for plMsgStdStringHelper");
     strlen = (plMessage::plStrLen)stringref.length();
     stream->WriteLE(strlen);
     if (strlen)
@@ -240,7 +240,7 @@ int plMsgStdStringHelper::PokeBig(const std::string & stringref, hsStream* strea
 int plMsgStdStringHelper::Poke(const char * buf, uint32_t bufsz, hsStream* stream, const uint32_t peekOptions)
 {
     plMessage::plStrLen strlen;
-    hsAssert( bufsz<0xFFFF, "buf too big for plMsgStdStringHelper" );
+    hsAssert(bufsz<0xFFFF, "buf too big for plMsgStdStringHelper");
     strlen = (plMessage::plStrLen)bufsz;
     stream->WriteLE(strlen);
     if (strlen)
@@ -278,14 +278,14 @@ int plMsgStdStringHelper::Peek(std::string  & stringref, hsStream* stream, const
     if (strlen <= stream->GetSizeLeft())
     {
         stringref.resize(strlen);
-        if (strlen){
+        if (strlen) {
             stream->LogRead(strlen,(void*)stringref.data(),"StdString");
             stream->LogStringString(ST::format("Value: {}", stringref).c_str());
         }
     }
     else
     {
-        hsAssert( false, "plMsgStdStringHelper::Peek: overflow peeking string." );
+        hsAssert(false, "plMsgStdStringHelper::Peek: overflow peeking string.");
     }
     stream->LogSubStreamEnd();
     return stream->GetPosition();
@@ -300,14 +300,14 @@ int plMsgStdStringHelper::PeekBig(std::string  & stringref, hsStream* stream, co
     if (bufsz <= stream->GetSizeLeft())
     {
         stringref.resize(bufsz);
-        if (bufsz){
+        if (bufsz) {
             stream->LogRead(bufsz,(void*)stringref.data(),"StdString");
             stream->LogStringString(ST::format("Value: {}", stringref).c_str());
         }
     }
     else
     {
-        hsAssert( false, "plMsgStdStringHelper::PeekBig: overflow peeking string." );
+        hsAssert(false, "plMsgStdStringHelper::PeekBig: overflow peeking string.");
     }
     stream->LogSubStreamEnd();
     return stream->GetPosition();

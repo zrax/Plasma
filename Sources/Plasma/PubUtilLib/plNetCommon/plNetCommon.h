@@ -139,7 +139,7 @@ namespace plNetCommon
             kFriendInvite,
             kLastVaultTask,
         };
-        const char * VaultTaskStr( int taskID );
+        const char * VaultTaskStr(int taskID);
     }
 
     // Args for plNetMsgVaultTask msg
@@ -173,9 +173,9 @@ namespace plNetCommon
     {
         namespace Reserved
         {
-            const char * GetReservedAvatarShape( const char * playerName, const char * currShapeName );
-            void GetReservedPlayerNames( std::vector<std::string> & out );
-            bool IsReservedPlayerName( const char * name );
+            const char * GetReservedAvatarShape(const char * playerName, const char * currShapeName);
+            void GetReservedPlayerNames(std::vector<std::string> & out);
+            bool IsReservedPlayerName(const char * name);
         }
     }
 
@@ -198,9 +198,9 @@ namespace plNetCommon
             kChildAgeBook,
         };
 
-        inline const char * LinkingRuleStr( int rule )
+        inline const char * LinkingRuleStr(int rule)
         {
-            switch ( rule )
+            switch (rule)
             {
             case kBasicLink:            return "kBasicLink";
             case kOriginalBook:         return "kOriginalBook";
@@ -237,9 +237,9 @@ namespace plNetCommon
             kExternalRelease
         };
 
-        inline const char * BuildTypeStr( int rule )
+        inline const char * BuildTypeStr(int rule)
         {
-            switch ( rule )
+            switch (rule)
             {
             case kDebug:                return "Dbg";
             case kInternalRelease:      return "IntRel";

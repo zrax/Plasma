@@ -80,19 +80,19 @@ public:
     bool    Init();
     void    Shutdown();
 
-    bool SetGlobalEAXProperty(GUID guid, unsigned long ulProperty, void *pData, unsigned long ulDataSize );
-    bool GetGlobalEAXProperty(GUID guid, unsigned long ulProperty, void *pData, unsigned long ulDataSize );
+    bool SetGlobalEAXProperty(GUID guid, unsigned long ulProperty, void *pData, unsigned long ulDataSize);
+    bool GetGlobalEAXProperty(GUID guid, unsigned long ulProperty, void *pData, unsigned long ulDataSize);
     
-    void    ProcessMods( hsTArray<plEAXListenerMod *> &modArray );
+    void    ProcessMods(hsTArray<plEAXListenerMod *> &modArray);
     void    ClearProcessCache();
 
 protected:
     plEAXListener();
-    void    IFail( bool major );
-    void    IFail( const char *msg, bool major );
+    void    IFail(bool major);
+    void    IFail(const char *msg, bool major);
     void    IRelease();
 
-    void    IMuteProperties( EAXREVERBPROPERTIES *props, float percent );
+    void    IMuteProperties(EAXREVERBPROPERTIES *props, float percent);
 
     bool                fInited;
     
@@ -115,10 +115,10 @@ public:
         int16_t       fOcclusion;
         float    fOcclusionLFRatio, fOcclusionRoomRatio, fOcclusionDirectRatio;
 
-        void        Read( hsStream *s );
-        void        Write( hsStream *s );
+        void        Read(hsStream *s);
+        void        Write(hsStream *s);
 
-        void        SetOcclusion( int16_t occ, float lfRatio, float roomRatio, float directRatio );
+        void        SetOcclusion(int16_t occ, float lfRatio, float roomRatio, float directRatio);
         int16_t       GetOcclusion() const { return fOcclusion; }
         float    GetOcclusionLFRatio() const { return fOcclusionLFRatio; }
         float    GetOcclusionRoomRatio() const { return fOcclusionRoomRatio; }
@@ -137,22 +137,22 @@ class plEAXSourceSettings
         plEAXSourceSettings();
         virtual ~plEAXSourceSettings();
 
-        void    Read( hsStream *s );
-        void    Write( hsStream *s );
+        void    Read(hsStream *s);
+        void    Write(hsStream *s);
 
-        void    Enable( bool e );
+        void    Enable(bool e);
         bool    IsEnabled() const { return fEnabled; }
 
-        void    SetRoomParams( int16_t room, int16_t roomHF, bool roomAuto, bool roomHFAuto );
+        void    SetRoomParams(int16_t room, int16_t roomHF, bool roomAuto, bool roomHFAuto);
         int16_t   GetRoom() const   { return fRoom; }
         int16_t   GetRoomHF()  const  { return fRoomHF; }
         bool    GetRoomAuto() const   { return fRoomAuto; }
         bool    GetRoomHFAuto() const  { return fRoomHFAuto; }
 
-        void    SetOutsideVolHF( int16_t vol );
+        void    SetOutsideVolHF(int16_t vol);
         int16_t   GetOutsideVolHF() const { return fOutsideVolHF; }
 
-        void        SetFactors( float airAbsorption, float roomRolloff, float doppler, float rolloff );
+        void        SetFactors(float airAbsorption, float roomRolloff, float doppler, float rolloff);
         float    GetAirAbsorptionFactor() const { return fAirAbsorptionFactor; }
         float    GetRoomRolloffFactor() const { return fRoomRolloffFactor; }
         float    GetDopplerFactor() const { return fDopplerFactor; }
@@ -163,7 +163,7 @@ class plEAXSourceSettings
         
         plEAXSourceSoftSettings &GetCurrSofts()  { return fCurrSoftValues; }
 
-        void        SetOcclusionSoftValue( float value );
+        void        SetOcclusionSoftValue(float value);
         float    GetOcclusionSoftValue() const { return fOcclusionSoftValue; }
 
         void        ClearDirtyParams() const { fDirtyParams = 0; }
@@ -190,7 +190,7 @@ class plEAXSourceSettings
             kAll            = 0xff
         };
 
-        void    IRecalcSofts( uint8_t whichOnes );
+        void    IRecalcSofts(uint8_t whichOnes);
 };
 
 //// Source Class Definition //////////////////////////////////////////////////
@@ -204,12 +204,12 @@ public:
     plEAXSource();
     virtual ~plEAXSource();
 
-    void    Init( plDSoundBuffer *parent );
+    void    Init(plDSoundBuffer *parent);
     void    Release();
     bool    IsValid() const;
     bool SetSourceEAXProperty(unsigned source, GUID guid, unsigned long ulProperty, void *pData, unsigned long ulDataSize);
     bool GetSourceEAXProperty(unsigned source, GUID guid, unsigned long ulProperty, void *pData, unsigned long ulDataSize);
-    void    SetFrom(  plEAXSourceSettings *settings, unsigned source, bool force = false );
+    void    SetFrom(plEAXSourceSettings *settings, unsigned source, bool force = false);
 
 private:
     bool    fInit;

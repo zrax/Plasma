@@ -140,7 +140,7 @@ pl3DPipeline::pl3DPipeline(const hsG3DDeviceModeRecord* devModeRec)
     const hsG3DDeviceRecord *devRec = devModeRec->GetDevice();
     const hsG3DDeviceMode *devMode = devModeRec->GetMode();
 
-    if(!fInitialPipeParams.Windowed)
+    if (!fInitialPipeParams.Windowed)
     {
         fOrigWidth = devMode->GetWidth();
         fOrigHeight = devMode->GetHeight();
@@ -196,7 +196,7 @@ void pl3DPipeline::Draw(plDrawable* d)
 
     if (ds)
     {
-        if (( ds->GetType() & fView.GetDrawableTypeMask()) == 0)
+        if ((ds->GetType() & fView.GetDrawableTypeMask()) == 0)
             return;
 
         static hsTArray<int16_t>visList;
@@ -387,7 +387,7 @@ void pl3DPipeline::SetWorldToCamera(const hsMatrix44& w2c, const hsMatrix44& c2w
 
 void pl3DPipeline::ScreenToWorldPoint(int n, uint32_t stride, int32_t* scrX, int32_t* scrY, float dist, uint32_t strideOut, hsPoint3* worldOut)
 {
-    while( n-- )
+    while (n--)
     {
         hsPoint3 scrP;
         scrP.Set(float(*scrX++), float(*scrY++), float(dist));

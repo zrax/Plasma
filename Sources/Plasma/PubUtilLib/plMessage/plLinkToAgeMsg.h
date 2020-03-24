@@ -69,10 +69,10 @@ class plLinkToAgeMsg : public plMessage
 
 public:
     plLinkToAgeMsg();
-    plLinkToAgeMsg( const plAgeLinkStruct * link );
+    plLinkToAgeMsg(const plAgeLinkStruct * link);
 
-    CLASSNAME_REGISTER( plLinkToAgeMsg );
-    GETINTERFACE_ANY( plLinkToAgeMsg, plMessage );
+    CLASSNAME_REGISTER(plLinkToAgeMsg);
+    GETINTERFACE_ANY(plLinkToAgeMsg, plMessage);
 
     plAgeLinkStruct * GetAgeLink() { return &fAgeLink; }
     const plAgeLinkStruct * GetAgeLink() const { return &fAgeLink; }
@@ -106,18 +106,18 @@ public:
     plLinkingMgrMsg();
     ~plLinkingMgrMsg();
 
-    CLASSNAME_REGISTER( plLinkingMgrMsg );
-    GETINTERFACE_ANY( plLinkingMgrMsg, plMessage );
+    CLASSNAME_REGISTER(plLinkingMgrMsg);
+    GETINTERFACE_ANY(plLinkingMgrMsg, plMessage);
 
     uint8_t   GetCmd() const { return fLinkingMgrCmd; }
-    void    SetCmd( uint8_t v ) { fLinkingMgrCmd=v; }
+    void    SetCmd(uint8_t v) { fLinkingMgrCmd=v; }
     plCreatableListHelper * GetArgs() { return &fArgs; }
 
-    void    Read( hsStream* stream, hsResMgr* mgr );
-    void    Write( hsStream* stream, hsResMgr* mgr );
+    void    Read(hsStream* stream, hsResMgr* mgr);
+    void    Write(hsStream* stream, hsResMgr* mgr);
 
-    void    ReadVersion( hsStream* s, hsResMgr* mgr );
-    void    WriteVersion( hsStream* s, hsResMgr* mgr );
+    void    ReadVersion(hsStream* s, hsResMgr* mgr);
+    void    WriteVersion(hsStream* s, hsResMgr* mgr);
 };
 
 
@@ -140,8 +140,8 @@ public:
     plLinkEffectsTriggerMsg() : fLeavingAge(true), fLinkKey(nil), fLinkInAnimKey(nil), fEffects(0), fInvisLevel(0), fFlags(0) {  }
     ~plLinkEffectsTriggerMsg();
 
-    CLASSNAME_REGISTER( plLinkEffectsTriggerMsg );
-    GETINTERFACE_ANY( plLinkEffectsTriggerMsg, plMessage );
+    CLASSNAME_REGISTER(plLinkEffectsTriggerMsg);
+    GETINTERFACE_ANY(plLinkEffectsTriggerMsg, plMessage);
 
     void    SetInvisLevel(int invisLevel) { fInvisLevel=invisLevel; }
     int     GetInvisLevel() { return fInvisLevel; }
@@ -181,8 +181,8 @@ public:
     plLinkEffectsTriggerPrepMsg() : fLeavingAge(false), fLinkKey(nil), fTrigger(nil) {  }
     ~plLinkEffectsTriggerPrepMsg();
     
-    CLASSNAME_REGISTER( plLinkEffectsTriggerPrepMsg );
-    GETINTERFACE_ANY( plLinkEffectsTriggerPrepMsg, plMessage );
+    CLASSNAME_REGISTER(plLinkEffectsTriggerPrepMsg);
+    GETINTERFACE_ANY(plLinkEffectsTriggerPrepMsg, plMessage);
         
     void    SetTrigger(plLinkEffectsTriggerMsg *msg);
     plLinkEffectsTriggerMsg *GetTrigger() { return fTrigger; }
@@ -211,8 +211,8 @@ public:
     plLinkEffectBCMsg();
     ~plLinkEffectBCMsg() { }
 
-    CLASSNAME_REGISTER( plLinkEffectBCMsg );
-    GETINTERFACE_ANY( plLinkEffectBCMsg, plMessage );
+    CLASSNAME_REGISTER(plLinkEffectBCMsg);
+    GETINTERFACE_ANY(plLinkEffectBCMsg, plMessage);
 
     // These messages should never be sent over the net, so I'm
     // suspicious that R/W actually does something... but if
@@ -237,8 +237,8 @@ public:
     plLinkEffectPrepBCMsg();
     ~plLinkEffectPrepBCMsg() { }
     
-    CLASSNAME_REGISTER( plLinkEffectPrepBCMsg );
-    GETINTERFACE_ANY( plLinkEffectPrepBCMsg, plMessage );
+    CLASSNAME_REGISTER(plLinkEffectPrepBCMsg);
+    GETINTERFACE_ANY(plLinkEffectPrepBCMsg, plMessage);
     
     // runtime-local only, no I/O
     void Read(hsStream* stream, hsResMgr* mgr) {}
@@ -253,8 +253,8 @@ public:
     plLinkCallbackMsg() { }
     ~plLinkCallbackMsg() { }
 
-    CLASSNAME_REGISTER( plLinkCallbackMsg );
-    GETINTERFACE_ANY( plLinkCallbackMsg, plEventCallbackMsg );
+    CLASSNAME_REGISTER(plLinkCallbackMsg);
+    GETINTERFACE_ANY(plLinkCallbackMsg, plEventCallbackMsg);
 
     void Read(hsStream* stream, hsResMgr* mgr);
     void Write(hsStream* stream, hsResMgr* mgr);

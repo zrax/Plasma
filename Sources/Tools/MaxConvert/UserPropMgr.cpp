@@ -625,7 +625,7 @@ bool UserPropMgr::GetUserPropStringList(INode *node, const char *name, int &num,
         num=0;
         hsStringTokenizer toker(sdata,", ");
         char *tok;
-        while ( tok = toker.next() ) {
+        while (tok = toker.next()) {
             list[num] = tok;
             num++;
         }
@@ -639,7 +639,7 @@ bool UserPropMgr::GetUserPropIntList(INode *node, const char *name, int &num, in
         num=0;
         hsStringTokenizer toker(sdata,", ");
         char *tok;
-        while ( tok = toker.next() ) {
+        while (tok = toker.next()) {
             list[num] = atoi(tok);
             num++;
         }
@@ -653,7 +653,7 @@ bool UserPropMgr::GetUserPropFloatList(INode *node, const char *name, int &num, 
         num=0;
         hsStringTokenizer toker(sdata,", ");
         char *tok;
-        while ( tok = toker.next() ) {
+        while (tok = toker.next()) {
             list[num] = (float)atof(tok);
             num++;
         }
@@ -795,7 +795,7 @@ void UserPropMgr::IBuildQuickTable(INode* node)
         char *tok;
         bool inName = false;
         bool isName = true;
-        while ( inName || (tok=toker.next()) )
+        while (inName || (tok=toker.next()))
         {
             if (isName)
             {
@@ -859,7 +859,7 @@ uint32_t UserPropMgr::QuickPair::GetHash() const
     const char * k = fKey;
     int len = k ? strlen(k) : 0;
     int h;
-    for (h=len; len--;)
+    for (h=len; len--; )
     {
         h = ((h<<5)^(h>>27))^tolower(*k++);
     }

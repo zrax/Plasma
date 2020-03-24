@@ -100,8 +100,8 @@ public:
 
     void DumpToAvatarLog(plArmatureMod *avatar);
         
-    CLASSNAME_REGISTER( plAvTaskSeek );
-    GETINTERFACE_ANY( plAvTaskSeek, plAvTask );
+    CLASSNAME_REGISTER(plAvTaskSeek);
+    GETINTERFACE_ANY(plAvTaskSeek, plAvTask);
 
 protected:
 

@@ -95,7 +95,7 @@ void plPhysicalSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcSta
     
     // FIXME PHYSX
 
-//  if(phys->GetBody()->isFixed())
+//  if (phys->GetBody()->isFixed())
 //  {
 //      plSimulationMgr::Log("Received synch for fixed body %s", phys->GetKey()->GetName());
 //      return;

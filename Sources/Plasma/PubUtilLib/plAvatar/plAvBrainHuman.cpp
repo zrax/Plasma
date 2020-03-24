@@ -311,13 +311,13 @@ void plAvBrainHuman::IInitBoneMap()
 
     int numTuples = sizeof(tupleMap) / sizeof(tuple);
 
-    for(int i = 0; i < numTuples; i++)
+    for (int i = 0; i < numTuples; i++)
     {
         HumanBoneID id = tupleMap[i].fID;
         ST::string name = tupleMap[i].fName;
         
         const plSceneObject * bone = this->fAvMod->FindBone(name);
-        if( bone )
+        if (bone)
         {
             fAvMod->AddBoneMapping(id, bone);
         }
@@ -375,9 +375,9 @@ bool plAvBrainHuman::IHandleControlMsg(plControlEventMsg* msg)
 {
     ControlEventCode moveCode = msg->GetControlCode();
 
-    if( msg->ControlActivated() )
+    if (msg->ControlActivated())
     {
-        switch(moveCode)
+        switch (moveCode)
         {
         case B_CONTROL_TOGGLE_PHYSICAL:
             {
@@ -397,7 +397,7 @@ bool plAvBrainHuman::IHandleControlMsg(plControlEventMsg* msg)
             break;
         }
     } else {
-        switch(moveCode)
+        switch (moveCode)
         {
         case S_PUSH_TO_TALK:
             fAvMod->SetInputFlag(S_PUSH_TO_TALK, false);
@@ -470,9 +470,9 @@ bool plAvBrainHuman::MsgReceive(plMessage * msg)
         return true;
     }
     plRideAnimatedPhysMsg *ride = plRideAnimatedPhysMsg::ConvertNoRef(msg);
-    if(ride)
+    if (ride)
     {
-        if(ride->Entering())
+        if (ride->Entering())
         {
             // Switch to dynamic walking strategy
             delete fWalkingStrategy;
@@ -500,7 +500,7 @@ bool plAvBrainHuman::MsgReceive(plMessage * msg)
 bool plAvBrainHuman::IHandleClimbMsg(plClimbMsg *msg)
 {
     bool isStartClimb = msg->fCommand == plClimbMsg::kStartClimbing;
-    if(isStartClimb)
+    if (isStartClimb)
     {
         // let's build a seek task to get us to the attach point
         plKey seekTarget = msg->fTarget;
@@ -509,7 +509,7 @@ bool plAvBrainHuman::IHandleClimbMsg(plClimbMsg *msg)
 
         // now a brain task to start the actual climb.
         plAvBrainClimb::Mode startMode;
-        switch(msg->fDirection)
+        switch (msg->fDirection)
         {
         case plClimbMsg::kUp:
             startMode = plAvBrainClimb::kMountingUp;
@@ -571,13 +571,13 @@ float plAvBrainHuman::IGetTurnStrength(double timeNow)
     ) {
         float t = (float)(timeNow - fStartedTurning);
         float turnSpeed;
-        if(t > timeToMaxTurn)
+        if (t > timeToMaxTurn)
         {
             turnSpeed = maxTurnSpeed;
         } else {
             float n = t / timeToMaxTurn;    // normalize
             
-            switch(turnCurve) {
+            switch (turnCurve) {
             case kTurnLinear:
                 // linear
                 turnSpeed = n * maxTurnSpeed;
@@ -607,10 +607,10 @@ float plAvBrainHuman::IGetTurnStrength(double timeNow)
 
 bool plAvBrainHuman::IHandleTaskMsg(plAvTaskMsg *msg)
 {
-    if(plAvSeekMsg * seekM = plAvSeekMsg::ConvertNoRef(msg))
+    if (plAvSeekMsg * seekM = plAvSeekMsg::ConvertNoRef(msg))
     {
         // seek and subclasses always have a seek first
-        if(seekM->fSmartSeek)
+        if (seekM->fSmartSeek)
         {
             // use smart seek
             plAvTaskSeek * seek = new plAvTaskSeek(seekM);
@@ -626,7 +626,7 @@ bool plAvBrainHuman::IHandleTaskMsg(plAvTaskMsg *msg)
         // else don't seek at all.
 
         plAvOneShotMsg * oneshotM = plAvOneShotMsg::ConvertNoRef(msg);
-        if(oneshotM)
+        if (oneshotM)
         {
             // if it's a oneshot, add the oneshot task as well
             plAvOneShotTask *oneshot = new plAvOneShotTask(oneshotM, fAvMod, this);
@@ -915,7 +915,7 @@ void plAvBrainHuman::DumpToDebugDisplay(int &x, int &y, int lineHeight, plDebugT
     debugTxt.DrawString(x, y, "Tasks:");
     y += lineHeight;
 
-    if(fCurTask)
+    if (fCurTask)
     {
         debugTxt.DrawString(x, y, "Current task:");
         y += lineHeight;
@@ -924,7 +924,7 @@ void plAvBrainHuman::DumpToDebugDisplay(int &x, int &y, int lineHeight, plDebugT
         fCurTask->DumpDebug("-", indentedX, y, lineHeight, debugTxt);
     }
     int tasks = fTaskQueue.size();
-    if(tasks > 0)
+    if (tasks > 0)
     {
         debugTxt.DrawString(x, y, "Tasks in the Queue:");
         y += lineHeight;
@@ -1249,7 +1249,7 @@ bool RunningImpact::PreCondition(double time, float elapsed)
             }
         }
     }
-    return(fDuration > 0.0f);
+    return (fDuration > 0.0f);
 }
 
 void RunningImpact::IStop()
@@ -1280,7 +1280,7 @@ bool GroundImpact::PreCondition(double time, float elapsed)
         }
     }
     
-    return(fDuration > 0.0f);
+    return (fDuration > 0.0f);
 }
 
 void GroundImpact::IStop()
@@ -1416,7 +1416,7 @@ bool PushSimpleMultiStage(plArmatureMod *avatar, const char *enterAnim, const ch
 
     plAvTaskBrain *bt = new plAvTaskBrain(b);
     plAvTaskMsg *btm = new plAvTaskMsg(plAvatarMgr::GetInstance()->GetKey(), avatar->GetKey(), bt);
-    if(netPropagate)
+    if (netPropagate)
         btm->SetBCastFlag(plMessage::kNetPropagate);
     btm->Send();
 

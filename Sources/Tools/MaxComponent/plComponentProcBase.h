@@ -95,12 +95,12 @@ protected:
 
         int nNames = 0;
 
-        if(names.empty())
+        if (names.empty())
             return;
         else
             nNames = names.size();
 
-        if(nNames)
+        if (nNames)
             for (int i = 0; i < nNames ; i++)
             {
                 const char * name = names[i].c_str();

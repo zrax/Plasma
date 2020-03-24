@@ -60,8 +60,8 @@ public:
 
     virtual void UpdateParam(uint32_t paramID, float paramValue) = 0;
 
-    CLASSNAME_REGISTER( plParticleGenerator );
-    GETINTERFACE_ANY( plParticleGenerator, plCreatable );
+    CLASSNAME_REGISTER(plParticleGenerator);
+    GETINTERFACE_ANY(plParticleGenerator, plCreatable);
 
     static void ComputeDirection(float pitch, float yaw, hsVector3 &direction);
     static void ComputePitchYaw(float &pitch, float &yaw, const hsVector3 &dir);
@@ -79,8 +79,8 @@ public:
               float scaleMin, float scaleMax,
               float massRange, float radsPerSecRange);
 
-    CLASSNAME_REGISTER( plSimpleParticleGenerator );
-    GETINTERFACE_ANY( plSimpleParticleGenerator, plParticleGenerator);
+    CLASSNAME_REGISTER(plSimpleParticleGenerator);
+    GETINTERFACE_ANY(plSimpleParticleGenerator, plParticleGenerator);
     
     virtual bool AddAutoParticles(plParticleEmitter *emitter, float dt, uint32_t numForced);
     virtual void UpdateParam(uint32_t paramID, float paramValue);
@@ -128,8 +128,8 @@ public:
     void Init(float count, hsPoint3 *pointArray, hsVector3 *dirArray,
               float xSize, float ySize, float scaleMin, float scaleMax, float radsPerSec);
 
-    CLASSNAME_REGISTER( plOneTimeParticleGenerator );
-    GETINTERFACE_ANY( plOneTimeParticleGenerator, plParticleGenerator);
+    CLASSNAME_REGISTER(plOneTimeParticleGenerator);
+    GETINTERFACE_ANY(plOneTimeParticleGenerator, plParticleGenerator);
 
     virtual bool AddAutoParticles(plParticleEmitter *emitter, float dt, uint32_t numForced = 0);
     virtual void UpdateParam(uint32_t paramID, float paramValue) {}

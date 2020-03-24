@@ -96,15 +96,15 @@ class plDXTextureRef : public plDXDeviceRef
         void*       fData;          // for reloading
 
         uint32_t      GetFlags() const { return fFlags; }
-        void        SetFlags( uint32_t flag ) { fFlags = flag; }
+        void        SetFlags(uint32_t flag) { fFlags = flag; }
 
-        plDXTextureRef& Set( D3DFORMAT tp, uint32_t ml, uint32_t mw, uint32_t mh, uint32_t np, uint32_t sz, uint32_t manSize, uint32_t* lSz, void* pd, bool ed=false, bool renderTarget = false );
+        plDXTextureRef& Set(D3DFORMAT tp, uint32_t ml, uint32_t mw, uint32_t mh, uint32_t np, uint32_t sz, uint32_t manSize, uint32_t* lSz, void* pd, bool ed=false, bool renderTarget = false);
 
         plDXTextureRef()
             : fD3DTexture(), fFormatType(), fMMLvs(), fMaxWidth(), fMaxHeight(), fNumPix(),
               fDataSize(), fLevelSizes(), fOwner(), fData()
         { }
-        plDXTextureRef( D3DFORMAT tp, uint32_t ml, uint32_t mw, uint32_t mh, uint32_t np, uint32_t sz, uint32_t manSize, uint32_t* lSz, void* pd, bool ed=false, bool renderTarget = false )
+        plDXTextureRef(D3DFORMAT tp, uint32_t ml, uint32_t mw, uint32_t mh, uint32_t np, uint32_t sz, uint32_t manSize, uint32_t* lSz, void* pd, bool ed=false, bool renderTarget = false)
             : fD3DTexture(), fFormatType(), fMMLvs(), fMaxWidth(), fMaxHeight(), fNumPix(),
               fDataSize(), fLevelSizes(), fOwner(), fData()
         {
@@ -113,7 +113,7 @@ class plDXTextureRef : public plDXDeviceRef
 
         virtual ~plDXTextureRef();
 
-        void            Link( plDXTextureRef **back ) { plDXDeviceRef::Link( (plDXDeviceRef **)back ); }
+        void            Link(plDXTextureRef **back) { plDXDeviceRef::Link((plDXDeviceRef **)back); }
         plDXTextureRef  *GetNext() { return (plDXTextureRef *)fNext; }
 
         void    Release();
@@ -122,10 +122,10 @@ class plDXTextureRef : public plDXDeviceRef
 class plDXCubeTextureRef : public plDXTextureRef
 {
     public:
-        void    *fFaceData[ 5 ];            // First face is in the inherited fData
+        void    *fFaceData[5];            // First face is in the inherited fData
 
-        plDXCubeTextureRef( D3DFORMAT tp, uint32_t ml, uint32_t mw, uint32_t mh, uint32_t np, uint32_t sz, uint32_t manSize, uint32_t* lSz, void* pd, bool ed=false, bool renderTarget = false ) :
-                            plDXTextureRef( tp, ml, mw, mh, np, sz, manSize, lSz, pd, ed, renderTarget )
+        plDXCubeTextureRef(D3DFORMAT tp, uint32_t ml, uint32_t mw, uint32_t mh, uint32_t np, uint32_t sz, uint32_t manSize, uint32_t* lSz, void* pd, bool ed=false, bool renderTarget = false) :
+                           plDXTextureRef(tp, ml, mw, mh, np, sz, manSize, lSz, pd, ed, renderTarget)
         {
 
         }

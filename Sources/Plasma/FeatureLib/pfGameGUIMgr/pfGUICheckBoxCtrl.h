@@ -65,7 +65,7 @@ class pfGUICheckBoxCtrl : public pfGUIControlMod
         bool            fChecked;
         bool            fPlaySound;
 
-        virtual bool IEval( double secs, float del, uint32_t dirty ); // called only by owner object's Eval()
+        virtual bool IEval(double secs, float del, uint32_t dirty); // called only by owner object's Eval()
 
         virtual uint32_t      IGetDesiredCursor() const;    // As specified in plInputInterface.h
 
@@ -73,21 +73,21 @@ class pfGUICheckBoxCtrl : public pfGUIControlMod
 
         pfGUICheckBoxCtrl();
 
-        CLASSNAME_REGISTER( pfGUICheckBoxCtrl );
-        GETINTERFACE_ANY( pfGUICheckBoxCtrl, pfGUIControlMod );
+        CLASSNAME_REGISTER(pfGUICheckBoxCtrl);
+        GETINTERFACE_ANY(pfGUICheckBoxCtrl, pfGUIControlMod);
 
 
-        virtual bool    MsgReceive( plMessage* pMsg );
+        virtual bool    MsgReceive(plMessage* pMsg);
         
-        virtual void Read( hsStream* s, hsResMgr* mgr );
-        virtual void Write( hsStream* s, hsResMgr* mgr );
+        virtual void Read(hsStream* s, hsResMgr* mgr);
+        virtual void Write(hsStream* s, hsResMgr* mgr);
 
-        virtual void    HandleMouseDown( hsPoint3 &mousePt, uint8_t modifiers );
-        virtual void    HandleMouseUp( hsPoint3 &mousePt, uint8_t modifiers );
+        virtual void    HandleMouseDown(hsPoint3 &mousePt, uint8_t modifiers);
+        virtual void    HandleMouseUp(hsPoint3 &mousePt, uint8_t modifiers);
 
-        virtual void    UpdateBounds( hsMatrix44 *invXformMatrix = nil, bool force = false );
+        virtual void    UpdateBounds(hsMatrix44 *invXformMatrix = nil, bool force = false);
 
-        void        SetChecked( bool checked, bool immediate = false );
+        void        SetChecked(bool checked, bool immediate = false);
         bool        IsChecked() { return fChecked; }
 
         void DontPlaySounds() { fPlaySound = false; } // should the checkbox play sounds?
@@ -104,7 +104,7 @@ class pfGUICheckBoxCtrl : public pfGUIControlMod
         };
 
         // Export only
-        void    SetAnimationKeys( hsTArray<plKey> &keys, const ST::string &name );
+        void    SetAnimationKeys(hsTArray<plKey> &keys, const ST::string &name);
 };
 
 #endif // _pfGUICheckBoxCtrl_h

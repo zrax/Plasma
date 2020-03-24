@@ -57,8 +57,8 @@ public:
     plControlEventConditionalObject();
     ~plControlEventConditionalObject() { }
     
-    CLASSNAME_REGISTER( plControlEventConditionalObject );
-    GETINTERFACE_ANY( plControlEventConditionalObject, plConditionalObject );
+    CLASSNAME_REGISTER(plControlEventConditionalObject);
+    GETINTERFACE_ANY(plControlEventConditionalObject, plConditionalObject);
     
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

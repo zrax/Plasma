@@ -79,8 +79,8 @@ public:
     plLayerMovie();
     virtual ~plLayerMovie();
 
-    CLASSNAME_REGISTER( plLayerMovie );
-    GETINTERFACE_ANY( plLayerMovie, plLayerAnimation );
+    CLASSNAME_REGISTER(plLayerMovie);
+    GETINTERFACE_ANY(plLayerMovie, plLayerAnimation);
 
     virtual uint32_t        Eval(double secs, uint32_t frame, uint32_t ignore);
 

@@ -71,8 +71,8 @@ protected:
     void ISetCurrentATC(const plStateDataRecord* state, plAnimTimeConvert* curAnimTimeConvert);
 
 public:
-    CLASSNAME_REGISTER( plAnimTimeConvertSDLModifier);
-    GETINTERFACE_ANY( plAnimTimeConvertSDLModifier, plSDLModifier);
+    CLASSNAME_REGISTER(plAnimTimeConvertSDLModifier);
+    GETINTERFACE_ANY(plAnimTimeConvertSDLModifier, plSDLModifier);
 };
 
 #endif  // plAnimTimeConvertSDLModifier_inc

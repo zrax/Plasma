@@ -71,22 +71,22 @@ class plRTOmniLight : public plRTLightBase
         Class_ID ClassID() { return RTOMNI_LIGHT_CLASSID; }
         SClass_ID SuperClassID() { return LIGHT_CLASS_ID; }
 
-        int CanConvertToType(Class_ID obtype) { return (obtype ==  RTOMNI_LIGHT_CLASSID ) ? 1 : 0; }
+        int CanConvertToType(Class_ID obtype) { return (obtype ==  RTOMNI_LIGHT_CLASSID) ? 1 : 0; }
         plRTOmniLight();
             
         ObjLightDesc *CreateLightDesc(INode *n, BOOL forceShadowBuf= FALSE);
         GenLight* NewLight(int type) {return new plRTOmniLight();}
         RefTargetHandle Clone(RemapDir &remap);
 
-        virtual void            InitNodeName( TSTR &s ) { s = _T( "RTOmniLight" ); }
+        virtual void            InitNodeName(TSTR &s) { s = _T("RTOmniLight"); }
 
-        virtual int             DrawConeAndLine( TimeValue t, INode* inode, GraphicsWindow *gw, int drawing );
-        virtual void            DrawCone( TimeValue t, GraphicsWindow *gw, float dist );
-        virtual void            DrawArrows( TimeValue t, GraphicsWindow *gw, float dist );
-        virtual void            GetLocalBoundBox( TimeValue t, INode *node, ViewExp *vpt, Box3 &box );
+        virtual int             DrawConeAndLine(TimeValue t, INode* inode, GraphicsWindow *gw, int drawing);
+        virtual void            DrawCone(TimeValue t, GraphicsWindow *gw, float dist);
+        virtual void            DrawArrows(TimeValue t, GraphicsWindow *gw, float dist);
+        virtual void            GetLocalBoundBox(TimeValue t, INode *node, ViewExp *vpt, Box3 &box);
 
     protected:
-        virtual void    IBuildMeshes( BOOL isNew );
+        virtual void    IBuildMeshes(BOOL isNew);
         virtual bool    IHasAttenuation() { return true; }
 };
 
@@ -124,7 +124,7 @@ class plRTSpotLight : public plRTLightBase
         Class_ID ClassID() { return RTSPOT_LIGHT_CLASSID; }
         SClass_ID SuperClassID() { return LIGHT_CLASS_ID; }
 
-        int CanConvertToType(Class_ID obtype) { return (obtype ==  RTSPOT_LIGHT_CLASSID ) ? 1 : 0; }
+        int CanConvertToType(Class_ID obtype) { return (obtype ==  RTSPOT_LIGHT_CLASSID) ? 1 : 0; }
         ObjLightDesc *CreateLightDesc(INode *n, BOOL forceShadowBuf= FALSE);
         GenLight* NewLight(int type) {return new plRTSpotLight();}
         RefTargetHandle Clone(RemapDir &remap);
@@ -132,16 +132,16 @@ class plRTSpotLight : public plRTLightBase
         virtual Texmap  *GetProjMap();
 
         virtual BOOL    IsSpot()  { return TRUE; }
-        virtual int     GetProjector() { return fLightPB->GetInt( kUseProjectorBool, 0 ); }
+        virtual int     GetProjector() { return fLightPB->GetInt(kUseProjectorBool, 0); }
 
-        virtual void            InitNodeName( TSTR &s ) { s = _T( "RTSpotLight" ); }
+        virtual void            InitNodeName(TSTR &s) { s = _T("RTSpotLight"); }
 
-        virtual int     DrawConeAndLine( TimeValue t, INode* inode, GraphicsWindow *gw, int drawing );
-        virtual void    DrawCone( TimeValue t, GraphicsWindow *gw, float dist );
-        virtual void    GetLocalBoundBox( TimeValue t, INode *node, ViewExp *vpt, Box3 &box );
+        virtual int     DrawConeAndLine(TimeValue t, INode* inode, GraphicsWindow *gw, int drawing);
+        virtual void    DrawCone(TimeValue t, GraphicsWindow *gw, float dist);
+        virtual void    GetLocalBoundBox(TimeValue t, INode *node, ViewExp *vpt, Box3 &box);
 
     protected:
-        virtual void    IBuildMeshes( BOOL isNew );
+        virtual void    IBuildMeshes(BOOL isNew);
         virtual bool    IHasAttenuation() { return true; }
 };
 
@@ -181,19 +181,19 @@ class plRTDirLight : public plRTLightBase
         GenLight* NewLight(int type) {return new plRTDirLight();}
         RefTargetHandle Clone(RemapDir &remap);
 
-        int CanConvertToType(Class_ID obtype) { return (obtype ==  RTDIR_LIGHT_CLASSID ) ? 1 : 0; }
+        int CanConvertToType(Class_ID obtype) { return (obtype ==  RTDIR_LIGHT_CLASSID) ? 1 : 0; }
 
         virtual void    DrawCone(TimeValue t, GraphicsWindow *gw, float dist);
-        virtual void    GetLocalBoundBox( TimeValue t, INode *node, ViewExp *vpt, Box3 &box );
+        virtual void    GetLocalBoundBox(TimeValue t, INode *node, ViewExp *vpt, Box3 &box);
 
         virtual BOOL IsDir()  { return TRUE; }
 
-        virtual void            InitNodeName( TSTR &s ) { s = _T( "RTDirLight" ); }
+        virtual void            InitNodeName(TSTR &s) { s = _T("RTDirLight"); }
 
     protected:
-        virtual void    IBuildMeshes( BOOL isNew );
+        virtual void    IBuildMeshes(BOOL isNew);
 
-        void    IBuildZArrow( float x, float y, float zDist, float arrowSize, Point3 *pts );
+        void    IBuildZArrow(float x, float y, float zDist, float arrowSize, Point3 *pts);
 };
 
 class plRTDirLightDesc : public ClassDesc2

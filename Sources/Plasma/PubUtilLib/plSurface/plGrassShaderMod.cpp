@@ -176,7 +176,7 @@ bool plGrassShaderMod::MsgReceive(plMessage *msg)
     }
 
     plAgeLoadedMsg* ageLoaded = plAgeLoadedMsg::ConvertNoRef(msg);
-    if( (ageLoaded && ageLoaded->fLoaded) || plInitialAgeStateLoadedMsg::ConvertNoRef(msg) )
+    if ((ageLoaded && ageLoaded->fLoaded) || plInitialAgeStateLoadedMsg::ConvertNoRef(msg))
     {
         ISetupShaders();
         return true;

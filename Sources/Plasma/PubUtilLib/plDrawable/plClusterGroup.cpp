@@ -78,7 +78,7 @@ plClusterGroup::plClusterGroup()
 plClusterGroup::~plClusterGroup()
 {
     int i;
-    for( i = 0; i < fClusters.GetCount(); i++ )
+    for (i = 0; i < fClusters.GetCount(); i++)
         delete fClusters[i];
 
     delete fTemplate;
@@ -116,18 +116,18 @@ void plClusterGroup::Read(hsStream* stream, hsResMgr* mgr)
 
     const int numClust = stream->ReadLE32();
     fClusters.SetCount(numClust);
-    for( i = 0; i < numClust; i++ )
+    for (i = 0; i < numClust; i++)
     {
         fClusters[i] = new plCluster;
         fClusters[i]->Read(stream, this);
     }
 
     const int numRegions = stream->ReadLE32();
-    for( i = 0; i < numRegions; i++ )
+    for (i = 0; i < numRegions; i++)
         mgr->ReadKeyNotifyMe(stream, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, kRefRegion), plRefFlags::kActiveRef);
 
     const int numLights = stream->ReadLE32();
-    for( i = 0; i < numLights; i++ )
+    for (i = 0; i < numLights; i++)
         mgr->ReadKeyNotifyMe(stream, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, -1, kRefLight), plRefFlags::kActiveRef);
 
     fLOD.Read(stream);
@@ -151,15 +151,15 @@ void plClusterGroup::Write(hsStream* stream, hsResMgr* mgr)
     mgr->WriteKey(stream, fMaterial);
 
     stream->WriteLE32(fClusters.GetCount());
-    for( i = 0; i < fClusters.GetCount(); i++ )
+    for (i = 0; i < fClusters.GetCount(); i++)
         fClusters[i]->Write(stream);
 
     stream->WriteLE32(fRegions.GetCount());
-    for( i = 0; i < fRegions.GetCount(); i++ )
+    for (i = 0; i < fRegions.GetCount(); i++)
         mgr->WriteKey(stream, fRegions[i]);
 
     stream->WriteLE32(fLights.GetCount());
-    for( i = 0; i < fLights.GetCount(); i++ )
+    for (i = 0; i < fLights.GetCount(); i++)
         mgr->WriteKey(stream, fLights[i]);
 
     fLOD.Write(stream);
@@ -178,18 +178,18 @@ void plClusterGroup::ISendToSelf(RefType t, hsKeyedObject* ref)
 
 bool plClusterGroup::IAddVisRegion(plVisRegion* reg)
 {
-    if( reg )
+    if (reg)
     {
         int idx = fRegions.Find(reg);
-        if( idx == fRegions.kMissingIndex )
+        if (idx == fRegions.kMissingIndex)
         {
             fRegions.Append(reg);
-            if( reg->GetProperty(plVisRegion::kIsNot) )
+            if (reg->GetProperty(plVisRegion::kIsNot))
                 fVisNot.SetBit(reg->GetIndex());
             else
             {
                 fVisSet.SetBit(reg->GetIndex());
-                if( reg->ReplaceNormal() )
+                if (reg->ReplaceNormal())
                     fVisSet.ClearBit(plVisMgr::kNormal);
             }
         }
@@ -199,13 +199,13 @@ bool plClusterGroup::IAddVisRegion(plVisRegion* reg)
 
 bool plClusterGroup::IRemoveVisRegion(plVisRegion* reg)
 {
-    if( reg )
+    if (reg)
     {
         int idx = fRegions.Find(reg);
-        if( fRegions.kMissingIndex != idx )
+        if (fRegions.kMissingIndex != idx)
         {
             fRegions.Remove(idx);
-            if( reg->GetProperty(plVisRegion::kIsNot) )
+            if (reg->GetProperty(plVisRegion::kIsNot))
                 fVisNot.ClearBit(reg->GetIndex());
             else
                 fVisSet.ClearBit(reg->GetIndex());
@@ -217,7 +217,7 @@ bool plClusterGroup::IRemoveVisRegion(plVisRegion* reg)
 bool plClusterGroup::IAddLight(plLightInfo* li)
 {
     int idx = fLights.Find(li);
-    if( fLights.kMissingIndex == idx )
+    if (fLights.kMissingIndex == idx)
     {
         fLights.Append(li);
     }
@@ -227,7 +227,7 @@ bool plClusterGroup::IAddLight(plLightInfo* li)
 bool plClusterGroup::IRemoveLight(plLightInfo* li)
 {
     int idx = fLights.Find(li);
-    if( fLights.kMissingIndex != idx )
+    if (fLights.kMissingIndex != idx)
     {
         fLights.Remove(idx);
     }
@@ -236,7 +236,7 @@ bool plClusterGroup::IRemoveLight(plLightInfo* li)
 
 bool plClusterGroup::IOnReceive(plGenRefMsg* ref)
 {
-    switch( ref->fType )
+    switch (ref->fType)
     {
     case kRefMaterial:
         fMaterial = hsGMaterial::ConvertNoRef(ref->GetRef());
@@ -252,7 +252,7 @@ bool plClusterGroup::IOnReceive(plGenRefMsg* ref)
 bool plClusterGroup::IOnRemove(plGenRefMsg* ref)
 {
     int idx = -1;
-    switch( ref->fType )
+    switch (ref->fType)
     {
     case kRefMaterial:
         fMaterial = nil;
@@ -267,7 +267,7 @@ bool plClusterGroup::IOnRemove(plGenRefMsg* ref)
 
 bool plClusterGroup::IOnRef(plGenRefMsg* ref)
 {
-    if( ref->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+    if (ref->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
     {
         return IOnReceive(ref);
     }
@@ -278,9 +278,9 @@ bool plClusterGroup::IOnRef(plGenRefMsg* ref)
 bool plClusterGroup::MsgReceive(plMessage* msg)
 {
     plGenRefMsg* ref = plGenRefMsg::ConvertNoRef(msg);
-    if( ref )
+    if (ref)
     {
-        if( IOnRef(ref) )
+        if (IOnRef(ref))
             return true;
     }
 
@@ -320,7 +320,7 @@ uint32_t plClusterGroup::NumInst() const
 {
     uint32_t numInst = 0;
     int i;
-    for( i = 0; i < fClusters.GetCount(); i++ )
+    for (i = 0; i < fClusters.GetCount(); i++)
         numInst += fClusters[i]->NumInsts();
 
     return numInst;

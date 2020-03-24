@@ -115,7 +115,7 @@ public:
 
                 HWND cbox = GetDlgItem(hWnd, IDC_COMP_REPRESENT_QUALITY);
                 int i;
-                for( i = 0; i < kNumQualities; i++ )
+                for (i = 0; i < kNumQualities; i++)
                 {
                     SendMessage(cbox, CB_ADDSTRING, 0, (LPARAM)kQualityStrings[i]);
                 }
@@ -125,7 +125,7 @@ public:
             return true;
 
         case WM_COMMAND:
-            switch( LOWORD(wParam) )
+            switch (LOWORD(wParam))
             {
             case IDC_COMP_REPRESENT_QUALITY:
                 map->GetParamBlock()->SetValue(plRepresentComp::kQuality, t, SendMessage(GetDlgItem(hWnd, LOWORD(wParam)), CB_GETCURSEL, 0, 0));
@@ -192,22 +192,22 @@ int plRepresentComp::GetCapability()
     int maxCap = 0;
     int numTarg = NumTargets();
     int iTarg;
-    for( iTarg = 0; iTarg < numTarg; iTarg++ )
+    for (iTarg = 0; iTarg < numTarg; iTarg++)
     {
         plMaxNodeBase* node = GetTarget(iTarg);
-        if( node )
+        if (node)
         {
             const char* name = node->GetName();
             int numComp = node->NumAttachedComponents();
             int iComp;
-            for( iComp = 0; iComp < numComp; iComp++ )
+            for (iComp = 0; iComp < numComp; iComp++)
             {
                 plComponentBase* comp = node->GetAttachedComponent(iComp);
-                if( comp )
+                if (comp)
                 {
                     const char* compName = comp->GetINode()->GetName();
                     int cap = comp->GetMinCap();
-                    if( cap > maxCap )
+                    if (cap > maxCap)
                         maxCap = cap;
                 }
             }
@@ -220,10 +220,10 @@ void plRepresentComp::SetLoadMask(const plLoadMask& m)
 {
     int numTarg = NumTargets();
     int iTarg;
-    for( iTarg = 0; iTarg < numTarg; iTarg++ )
+    for (iTarg = 0; iTarg < numTarg; iTarg++)
     {
         plMaxNodeBase* node = GetTarget(iTarg);
-        if( node )
+        if (node)
         {
             const char* nodeName = node->GetName();
             node->AddLoadMask(m);
@@ -235,14 +235,14 @@ void plRepresentComp::SetLoadMask(const plLoadMask& m)
 
 plRepresentComp* plRepresentComp::GetComp(INode* node)
 {
-    if( node == nil )
+    if (node == nil)
         return nil;
 
     plComponentBase *comp = ((plMaxNodeBase*)node)->ConvertToComponent();
-    if( comp == nil )
+    if (comp == nil)
         return nil;
 
-    if( comp->ClassID() == REPCOMP_CID )
+    if (comp->ClassID() == REPCOMP_CID)
         return (plRepresentComp*) comp;
 
     return nil;
@@ -282,9 +282,9 @@ public:
 void plRepGroupComp::CleanDeadNodes()
 {
     int i = fCompPB->Count(kReps) - 1;
-    while( i >= 0 )
+    while (i >= 0)
     {
-        if( !fCompPB->GetINode(kReps, TimeValue(0), i) )
+        if (!fCompPB->GetINode(kReps, TimeValue(0), i))
             fCompPB->Delete(kReps, i, 1);
         i--;
     }
@@ -303,9 +303,9 @@ public:
             return true;
 
         case WM_COMMAND:
-            if( HIWORD(wParam) == BN_CLICKED )
+            if (HIWORD(wParam) == BN_CLICKED)
             {
-                switch( LOWORD(wParam) )
+                switch (LOWORD(wParam))
                 {
                 case IDC_ADD_REPS:
                     {
@@ -321,12 +321,12 @@ public:
                     {
                         HWND hNode = GetDlgItem(hWnd, IDC_LIST_REPS);
                         int idx = ListBox_GetCurSel(hNode);
-                        if( (idx != LB_ERR) && (idx > 0) )
+                        if ((idx != LB_ERR) && (idx > 0))
                         {
                             IParamBlock2 *pb = map->GetParamBlock();
                             INode* node = pb->GetINode(plRepGroupComp::kReps, TimeValue(0), idx);
                             pb->Delete(plRepGroupComp::kReps, idx, 1);
-                            if( node )
+                            if (node)
                                 pb->Insert(plRepGroupComp::kReps, idx-1, 1, &node);
                             ListBox_SetCurSel(hNode, idx-1);
 
@@ -339,11 +339,11 @@ public:
                         HWND hNode = GetDlgItem(hWnd, IDC_LIST_REPS);
                         IParamBlock2 *pb = map->GetParamBlock();
                         int idx = ListBox_GetCurSel(hNode);
-                        if( (idx != LB_ERR) && (idx < pb->Count(plRepGroupComp::kReps)-1) )
+                        if ((idx != LB_ERR) && (idx < pb->Count(plRepGroupComp::kReps)-1))
                         {
                             INode* node = pb->GetINode(plRepGroupComp::kReps, TimeValue(0), idx);
                             pb->Delete(plRepGroupComp::kReps, idx, 1);
-                            if( node )
+                            if (node)
                                 pb->Insert(plRepGroupComp::kReps, idx+1, 1, &node);
                             ListBox_SetCurSel(hNode, idx+1);
 
@@ -394,7 +394,7 @@ void plRepGroupComp::IGetQC(int quals[], int caps[])
 {
     const int numReps = fCompPB->Count(kReps);
     int i;
-    for( i = 0; i < numReps; i++ )
+    for (i = 0; i < numReps; i++)
     {
         plRepresentComp* rep = plRepresentComp::GetComp(fCompPB->GetINode(kReps, TimeValue(0), i));
         quals[i] = rep->GetQuality();
@@ -413,7 +413,7 @@ bool plRepGroupComp::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
     ComputeAndValidate(pErrMsg, quals.AcquireArray(), caps.AcquireArray(), masks.AcquireArray());
 
     int i;
-    for( i = 0; i < numReps; i++ )
+    for (i = 0; i < numReps; i++)
     {
         plRepresentComp* rep = plRepresentComp::GetComp(fCompPB->GetINode(kReps, TimeValue(0), i));
         rep->SetLoadMask(masks[i]);
@@ -442,12 +442,12 @@ bool plRepGroupComp::ComputeAndValidate(plErrorMsg* pErrMsg, int quals[], int ca
     const int numReps = fCompPB->Count(kReps);
     uint32_t preVal = plLoadMask::ValidateReps(numReps, quals, caps);
 
-    if( preVal )
+    if (preVal)
     {
         int i;
-        for( i = 0; i < 32; i++ )
+        for (i = 0; i < 32; i++)
         {
-            if( preVal & (1 << i) )
+            if (preVal & (1 << i))
             {
                 char buff[256];
                 INode* rep = fCompPB->GetINode(kReps, TimeValue(0), i);
@@ -462,12 +462,12 @@ bool plRepGroupComp::ComputeAndValidate(plErrorMsg* pErrMsg, int quals[], int ca
 
     uint32_t postVal = plLoadMask::ValidateMasks(numReps, masks);
 
-    if( postVal )
+    if (postVal)
     {
         int i;
-        for( i = 0; i < 32; i++ )
+        for (i = 0; i < 32; i++)
         {
-            if( !(preVal & (1 << i)) && (postVal & (1 << i)) )
+            if (!(preVal & (1 << i)) && (postVal & (1 << i)))
             {
                 char buff[256];
                 INode* rep = fCompPB->GetINode(kReps, TimeValue(0), i);

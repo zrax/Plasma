@@ -58,8 +58,8 @@ public:
     plKeyPressConditionalObject();
     ~plKeyPressConditionalObject() { }
     
-    CLASSNAME_REGISTER( plKeyPressConditionalObject );
-    GETINTERFACE_ANY( plKeyPressConditionalObject, plConditionalObject );
+    CLASSNAME_REGISTER(plKeyPressConditionalObject);
+    GETINTERFACE_ANY(plKeyPressConditionalObject, plConditionalObject);
     
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);
@@ -68,7 +68,7 @@ public:
     
     void Evaluate() { }
     void Reset() { SetSatisfied(false); }
-    void SetKeyEvent(const plKeyDef k ) { fKeyEvent = k; }
+    void SetKeyEvent(const plKeyDef k) { fKeyEvent = k; }
 
 };
 

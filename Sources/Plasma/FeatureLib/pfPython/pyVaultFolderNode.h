@@ -76,7 +76,7 @@ public:
 
     static void AddPlasmaClasses(PyObject *m);
 
-    virtual void    Folder_SetType( int type );
+    virtual void    Folder_SetType(int type);
     virtual int     Folder_GetType();
     void    Folder_SetName(const char* name);
     void    Folder_SetNameW(const wchar_t* name);

@@ -53,10 +53,10 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 class plMemberUpdateMsg : public plMessage
 {
 public:
-   CLASSNAME_REGISTER( plMemberUpdateMsg );
-   GETINTERFACE_ANY( plMemberUpdateMsg, plMessage );
+   CLASSNAME_REGISTER(plMemberUpdateMsg);
+   GETINTERFACE_ANY(plMemberUpdateMsg, plMessage);
 
-   plMemberUpdateMsg() { SetBCastFlag( kBCastByExactType ); }
+   plMemberUpdateMsg() { SetBCastFlag(kBCastByExactType); }
 
    // IO
    void Read(hsStream* stream, hsResMgr* mgr) { plMessage::IMsgRead(stream, mgr); }

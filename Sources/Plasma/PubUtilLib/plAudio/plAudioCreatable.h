@@ -47,25 +47,25 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "plAudioSystem.h"
 
-REGISTER_CREATABLE( plAudioSystem );
+REGISTER_CREATABLE(plAudioSystem);
 
 #include "plSound.h"
 
-REGISTER_NONCREATABLE( plSound );
-REGISTER_CREATABLE( plSoundVolumeApplicator );
+REGISTER_NONCREATABLE(plSound);
+REGISTER_CREATABLE(plSoundVolumeApplicator);
 
 #include "plWin32Sound.h"
 #include "plWin32StaticSound.h"
 #include "plWin32StreamingSound.h"
 #include "plWin32GroupedSound.h"
 
-REGISTER_NONCREATABLE( plWin32Sound );
-REGISTER_CREATABLE( plWin32StaticSound );
-REGISTER_CREATABLE( plWin32LinkSound );
-REGISTER_CREATABLE( plWin32StreamingSound );
-REGISTER_CREATABLE( plWin32GroupedSound );
+REGISTER_NONCREATABLE(plWin32Sound);
+REGISTER_CREATABLE(plWin32StaticSound);
+REGISTER_CREATABLE(plWin32LinkSound);
+REGISTER_CREATABLE(plWin32StreamingSound);
+REGISTER_CREATABLE(plWin32GroupedSound);
 
 #include "plEAXListenerMod.h"
-REGISTER_CREATABLE( plEAXListenerMod );
+REGISTER_CREATABLE(plEAXListenerMod);
 
 #endif // plAudioCreatable_inc

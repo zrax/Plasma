@@ -206,7 +206,7 @@ void plPipelineViewSettings::RefreshCullTree()
         }
 
         bool doCullSnap = fPipeline->IsDebugFlagSet(plPipeDbg::kFlagOcclusionSnap) && !fCullProxy && !fPipeline->GetViewStackSize();
-        if( doCullSnap )
+        if (doCullSnap)
         {
             fCullTree.BeginCapturePolys();
             fCullTree.SetVisualizationYon(fTransform.GetYon());

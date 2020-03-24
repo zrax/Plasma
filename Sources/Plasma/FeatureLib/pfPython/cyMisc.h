@@ -84,7 +84,7 @@ class cyMisc
 
 public:
     // periodically do things
-    static void Update( double secs );
+    static void Update(double secs);
 
     // the python definitions
     static void AddPlasmaMethods(std::vector<PyMethodDef> &methods);
@@ -95,7 +95,7 @@ public:
     static void AddPlasmaConstantsClasses(PyObject *m);
 
 
-    static void         SetPipeline( plPipeline *pipe ) { fPipeline = pipe; }
+    static void         SetPipeline(plPipeline *pipe) { fPipeline = pipe; }
     static plPipeline   *GetPipeline() { return fPipeline; }
 
 
@@ -786,7 +786,7 @@ public:
     //
     // PURPOSE    : Get the list of public ages for the given age name.
     //
-    static void GetPublicAgeList( const char * ageName, PyObject * cbObject=nil );
+    static void GetPublicAgeList(const char * ageName, PyObject * cbObject=nil);
 
     //////////////////////////////////////////////////////////////////////////////
     //
@@ -795,7 +795,7 @@ public:
     //
     // PURPOSE    : Add a public age to the list of available ones.
     //
-    static void CreatePublicAge( pyAgeInfoStruct * ageInfo, PyObject * cbObject=nil );
+    static void CreatePublicAge(pyAgeInfoStruct * ageInfo, PyObject * cbObject=nil);
 
     //////////////////////////////////////////////////////////////////////////////
     //
@@ -804,7 +804,7 @@ public:
     //
     // PURPOSE    : Remove a public age from the list of available ones.
     //
-    static void RemovePublicAge( const char * ageInstanceGuid, PyObject * cbObject=nil );
+    static void RemovePublicAge(const char * ageInstanceGuid, PyObject * cbObject=nil);
 
     //////////////////////////////////////////////////////////////////////////////
     //
@@ -852,7 +852,7 @@ public:
     //
     // PURPOSE    : debugging
     //
-    static void DebugAssert( bool cond, const char * msg );
+    static void DebugAssert(bool cond, const char * msg);
     static void DebugPrint(const ST::string& msg, uint32_t level);
 
 
@@ -863,7 +863,7 @@ public:
     //
     // PURPOSE    : script can trigger itself over time w/o having to specify it in the dataset.
     //
-    static void SetAlarm( float secs, PyObject * cb, uint32_t cbContext );
+    static void SetAlarm(float secs, PyObject * cb, uint32_t cbContext);
     
     //////////////////////////////////////////////////////////////////////////////
     //

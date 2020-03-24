@@ -98,7 +98,7 @@ protected:
             uint32_t      fFlags;
 
             plRoomRec() { fNode = nil; fFlags = 0; }
-            plRoomRec( plSceneNode *n, uint32_t f ) : fNode( n ), fFlags( f ) {}
+            plRoomRec(plSceneNode *n, uint32_t f) : fNode(n), fFlags(f) {}
 
             enum Flags
             {
@@ -190,13 +190,13 @@ protected:
     void                    IKillMovies();
     void                    IServiceMovies();
 
-    void    IStartProgress( const char *title, float len );
-    void    IIncProgress( float byHowMuch, const char *text );
+    void    IStartProgress(const char *title, float len);
+    void    IIncProgress(float byHowMuch, const char *text);
     void    IStopProgress();
 
     static void IDispatchMsgReceiveCallback();
     static void IReadKeyedObjCallback(plKey key);
-    static void IProgressMgrCallbackProc( plOperationProgress *progress );
+    static void IProgressMgrCallbackProc(plOperationProgress *progress);
 
     void    IPatchGlobalAgeFiles();
 
@@ -216,8 +216,8 @@ public:
     plClient();
     virtual ~plClient();
 
-    CLASSNAME_REGISTER( plClient );
-    GETINTERFACE_ANY( plClient, hsKeyedObject );
+    CLASSNAME_REGISTER(plClient);
+    GETINTERFACE_ANY(plClient, hsKeyedObject);
 
     static plClient*    GetInstance() { return fInstance; }
     static void         SetInstance(plClient* v) { fInstance=v; }
@@ -280,7 +280,7 @@ public:
     bool GetQuitIntro() const { return fQuitIntro; }
     void SetQuitIntro(bool on) { fQuitIntro = on; }
 
-    void            SetClearColor( hsColorRGBA &color );
+    void            SetClearColor(hsColorRGBA &color);
     hsColorRGBA     GetClearColor() const { return fClearColor; }
 
     // The client window has focus (true) or lost it (false)
@@ -290,7 +290,7 @@ public:
     bool BeginGame();
 
     void FlashWindow();
-    void    SetMessagePumpProc( plMessagePumpProc proc ) { fMessagePumpProc = proc; }
+    void    SetMessagePumpProc(plMessagePumpProc proc) { fMessagePumpProc = proc; }
     void ResetDisplayDevice(int Width, int Height, int ColorDepth, bool Windowed, int NumAASamples, int MaxAnisotropicSamples, bool VSync = false);
     void ResizeDisplayDevice(int Width, int Height, bool Windowed);
     void IDetectAudioVideoSettings();

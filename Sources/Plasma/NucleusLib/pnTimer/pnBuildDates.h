@@ -57,7 +57,7 @@ class pnBuildDates
 {
     private:
 
-        void    IGetString( int resID, char *destBuffer, int size );
+        void    IGetString(int resID, char *destBuffer, int size);
 
     public:
         static char fBuildDate[];

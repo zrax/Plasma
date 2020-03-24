@@ -177,17 +177,17 @@ class pfKIMsg : public plMessage
 
 #ifndef KI_CONSTANTS_ONLY
 
-        pfKIMsg() : plMessage( nil, nil, nil ) { SetBCastFlag( kBCastByExactType ); IInit(); }
-        pfKIMsg( uint8_t command ) : plMessage( nil, nil, nil ) { SetBCastFlag( kBCastByExactType ); IInit(); fCommand = command; }
-        pfKIMsg( plKey &receiver, uint8_t command ) : plMessage( nil, nil, nil ) { AddReceiver( receiver ); IInit(); fCommand = command; }
+        pfKIMsg() : plMessage(nil, nil, nil) { SetBCastFlag(kBCastByExactType); IInit(); }
+        pfKIMsg(uint8_t command) : plMessage(nil, nil, nil) { SetBCastFlag(kBCastByExactType); IInit(); fCommand = command; }
+        pfKIMsg(plKey &receiver, uint8_t command) : plMessage(nil, nil, nil) { AddReceiver(receiver); IInit(); fCommand = command; }
 
-        CLASSNAME_REGISTER( pfKIMsg );
-        GETINTERFACE_ANY( pfKIMsg, plMessage );
+        CLASSNAME_REGISTER(pfKIMsg);
+        GETINTERFACE_ANY(pfKIMsg, plMessage);
 
         virtual void Read(hsStream* s, hsResMgr* mgr)
         {
-            plMessage::IMsgRead( s, mgr );
-            s->ReadLE( &fCommand );
+            plMessage::IMsgRead(s, mgr);
+            s->ReadLE(&fCommand);
             fUser = s->ReadSafeString();
             fPlayerID = s->ReadLE32();
             fString = s->ReadSafeWString();
@@ -198,32 +198,32 @@ class pfKIMsg : public plMessage
         
         virtual void Write(hsStream* s, hsResMgr* mgr)
         {
-            plMessage::IMsgWrite( s, mgr );
-            s->WriteLE( fCommand );
-            s->WriteSafeString( fUser );
-            s->WriteLE32( fPlayerID );
-            s->WriteSafeWString( fString );
-            s->WriteLE32( fFlags );
+            plMessage::IMsgWrite(s, mgr);
+            s->WriteLE(fCommand);
+            s->WriteSafeString(fUser);
+            s->WriteLE32(fPlayerID);
+            s->WriteSafeWString(fString);
+            s->WriteLE32(fFlags);
             s->WriteLEScalar(fDelay);
-            s->WriteLE32( fValue );
+            s->WriteLE32(fValue);
         }
 
         uint8_t     GetCommand() const { return fCommand; }
 
-        void        SetString( const ST::string &str ) { fString = str; }
+        void        SetString(const ST::string &str) { fString = str; }
         ST::string  GetString() { return fString; }
 
         void        SetUser(const ST::string &str, uint32_t pid=0) { fUser = str; fPlayerID = pid; }
         ST::string  GetUser() const { return fUser; }
         uint32_t    GetPlayerID() const { return fPlayerID; }
 
-        void        SetFlags( uint32_t flags ) { fFlags = flags; }
+        void        SetFlags(uint32_t flags) { fFlags = flags; }
         uint32_t    GetFlags() const { return fFlags; }
 
-        void        SetDelay( float delay ) { fDelay = delay; }
+        void        SetDelay(float delay) { fDelay = delay; }
         float       GetDelay() { return fDelay; }
 
-        void        SetIntValue( int32_t value ) { fValue = value; }
+        void        SetIntValue(int32_t value) { fValue = value; }
         int32_t     GetIntValue() { return fValue; }
 
 #endif // def KI_CONSTANTS_ONLY

@@ -118,7 +118,7 @@ public:
 #else // HS_NO_TRY
 
 #define hsGuardBegin(X)     { const char* guardToken = X; try {
-#define hsGuardEnd          } catch(...) { hsExceptionStack::Instance().Push(guardToken); throw; } }
+#define hsGuardEnd          } catch (...) { hsExceptionStack::Instance().Push(guardToken); throw; } }
 
 #endif // HS_NO_TRY
 

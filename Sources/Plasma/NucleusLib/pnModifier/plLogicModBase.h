@@ -91,8 +91,8 @@ public:
     friend class plVolumeSensorConditionalObject;
     plLogicModBase();
     ~plLogicModBase();
-    CLASSNAME_REGISTER( plLogicModBase );
-    GETINTERFACE_ANY( plLogicModBase, plSingleModifier );
+    CLASSNAME_REGISTER(plLogicModBase);
+    GETINTERFACE_ANY(plLogicModBase, plSingleModifier);
 
     void AddTarget(plSceneObject* so);
     virtual void Read(hsStream* stream, hsResMgr* mgr);

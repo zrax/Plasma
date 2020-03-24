@@ -248,7 +248,7 @@ class pfPythonKeyCatcher : public plDefaultKeyCatcher
     plPythonFileMod* fMod;
 
     public:
-        pfPythonKeyCatcher(plPythonFileMod *mod )
+        pfPythonKeyCatcher(plPythonFileMod *mod)
             : fMod(mod)
         { }
 
@@ -637,11 +637,11 @@ void plPythonFileMod::AddTarget(plSceneObject* sobj)
                             isNamedAttr = 0;
                             if (check_isNamed && PyCallable_Check(check_isNamed)) {
                                 retvalue = PyObject_CallFunction(check_isNamed, _pycs("l"), parameter.fID);
-                                if (!retvalue ) {
+                                if (!retvalue) {
                                     ReportError();
                                     DisplayPythonOutput();
                                 }
-                                if (retvalue && PyInt_Check(retvalue.Get()) )
+                                if (retvalue && PyInt_Check(retvalue.Get()))
                                     isNamedAttr = PyInt_AsLong(retvalue.Get());
                                 // is it a NamedActivator
                                 if (isNamedAttr == 1 || isNamedAttr == 2) {
@@ -1062,7 +1062,7 @@ bool plPythonFileMod::MsgReceive(plMessage* msg)
 
                         // make it in the local space
                         hsPoint3 tolocal{ 0.f, 0.f, 0.f };
-                        if (eventData->fPicked){
+                        if (eventData->fPicked) {
                             plSceneObject* obj = plSceneObject::ConvertNoRef(eventData->fPicked->ObjectIsLoaded());
                             if (obj) {
                                 const plCoordinateInterface* ci = obj->GetCoordinateInterface();
@@ -1097,7 +1097,7 @@ bool plPythonFileMod::MsgReceive(plMessage* msg)
                         PyTuple_SET_ITEM(event, 2, PyLong_FromLong(eventData->fDataType));
 
                         // depending on the data type create the data
-                        switch ( eventData->fDataType ) {
+                        switch (eventData->fDataType) {
                             case proEventData::kFloat:
                                 PyTuple_SET_ITEM(event, 3, PyFloat_FromDouble(eventData->fNumber.f));
                                 break;
@@ -1378,7 +1378,7 @@ bool plPythonFileMod::MsgReceive(plMessage* msg)
                 value = PyFloat_FromDouble(pkimsg->GetDelay());
                 break;
             case pfKIMsg::kSetTextChatAdminMode:
-                value = PyLong_FromLong(pkimsg->GetFlags()&pfKIMsg::kAdminMsg ? 1 : 0 );
+                value = PyLong_FromLong(pkimsg->GetFlags()&pfKIMsg::kAdminMsg ? 1 : 0);
                 break;
             case pfKIMsg::kYesNoDialog:
                 value = PyTuple_New(2);
@@ -1447,7 +1447,7 @@ bool plPythonFileMod::MsgReceive(plMessage* msg)
             // try to create the pyPlayer for where this message came from
             int mbrIndex = plNetClientMgr::GetInstance()->TransportMgr().FindMember(pramsg->GetAvatarKey());
             if (mbrIndex != -1) {
-                plNetTransportMember *mbr = plNetClientMgr::GetInstance()->TransportMgr().GetMember( mbrIndex );
+                plNetTransportMember *mbr = plNetClientMgr::GetInstance()->TransportMgr().GetMember(mbrIndex);
                 player = pyPlayer::New(mbr->GetAvatarKey(), mbr->GetPlayerName(), mbr->GetPlayerID(), mbr->GetDistSq());
             }
         }
@@ -1514,7 +1514,7 @@ bool plPythonFileMod::MsgReceive(plMessage* msg)
             PyObject* player;
             int mbrIndex = plNetClientMgr::GetInstance()->TransportMgr().FindMember(pkimsg->GetPlayerID());
             if (mbrIndex != -1) {
-                plNetTransportMember *mbr = plNetClientMgr::GetInstance()->TransportMgr().GetMember( mbrIndex );
+                plNetTransportMember *mbr = plNetClientMgr::GetInstance()->TransportMgr().GetMember(mbrIndex);
                 player = pyPlayer::New(mbr->GetAvatarKey(), pkimsg->GetUser(), mbr->GetPlayerID(), mbr->GetDistSq());
             } else {
                 // else if we could not find the player in our list, then just return a string of the user's name

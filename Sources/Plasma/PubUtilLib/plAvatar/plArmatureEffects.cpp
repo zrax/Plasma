@@ -133,9 +133,9 @@ bool plArmatureEffectsMgr::MsgReceive(plMessage* msg)
         plArmatureEffect *effect = plArmatureEffect::ConvertNoRef(refMsg->GetRef());
         if (effect)
         {
-            if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+            if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
                 fEffects.Append(effect);
-            else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+            else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
                 fEffects.RemoveItem(effect);
 
             return true;
@@ -245,11 +245,11 @@ bool plArmatureEffectFootSound::MsgReceive(plMessage* msg)
         plRandomSoundMod *rsMod = plRandomSoundMod::ConvertNoRef(refMsg->GetRef());
         if (rsMod)
         {
-            if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+            if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
             {
                 fMods[refMsg->fWhich] = rsMod;
             }
-            else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+            else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
                 fMods[refMsg->fWhich] = nil;
 
             return true;

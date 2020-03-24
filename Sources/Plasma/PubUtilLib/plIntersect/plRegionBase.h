@@ -53,8 +53,8 @@ public:
     plRegionBase() {}
     virtual ~plRegionBase() {}
 
-    CLASSNAME_REGISTER( plRegionBase );
-    GETINTERFACE_ANY( plRegionBase, plObjInterface );
+    CLASSNAME_REGISTER(plRegionBase);
+    GETINTERFACE_ANY(plRegionBase, plObjInterface);
 
     virtual bool IsInside(const hsPoint3& pos) const = 0;
 };

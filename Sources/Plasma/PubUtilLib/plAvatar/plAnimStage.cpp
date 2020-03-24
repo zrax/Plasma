@@ -243,13 +243,13 @@ plAGAnimInstance * plAnimStage::Attach(plArmatureMod *armature, plArmatureBrain 
     fSentNotifies = 0;
     fArmature = armature;
 
-    if(fAnimInstance)
+    if (fAnimInstance)
     {
         fAnimInstance->SetBlend(initialBlend);
     } else {
         plAGAnim *anim = armature->FindCustomAnim(fAnimName);
 
-        if(anim)
+        if (anim)
         {
             fLength = anim->GetEnd();
             fAnimInstance = armature->AttachAnimationBlended(anim, initialBlend);
@@ -269,7 +269,7 @@ plAGAnimInstance * plAnimStage::Attach(plArmatureMod *armature, plArmatureBrain 
         }
     }
 
-    if(fAnimInstance)
+    if (fAnimInstance)
     {
         fAnimInstance->Stop();      // we'll be setting the time directly.
         fAnimatedHandle = (fAnimInstance->GetAnimation()->GetChannel("Handle") != nil);
@@ -286,7 +286,7 @@ plAGAnimInstance * plAnimStage::Attach(plArmatureMod *armature, plArmatureBrain 
 bool plAnimStage::ISendNotify(uint32_t notifyMask, uint32_t notifyType, plArmatureMod *armature, plArmatureBrain *brain)
 {
     // make sure the user has requested this type of notify
-    if(fNotify & notifyMask)
+    if (fNotify & notifyMask)
     {
         plKey avKey = armature->GetTarget(0)->GetKey();
         if (fMod)
@@ -332,10 +332,10 @@ bool plAnimStage::Detach(plArmatureMod *armature)
     plAvatarMgr::GetInstance()->GetLog()->AddLine(sbuf);
 #endif
 //  hsStatusMessageF("Detaching plAnimStage <%s>", fAnimName.c_str());
-    if(fArmature) {
+    if (fArmature) {
         fArmature = nil;
 
-        if(fAnimInstance) {
+        if (fAnimInstance) {
             armature->DetachAnimation(fAnimInstance);       // detach instantly
             fAnimInstance = nil;
             result =  true;
@@ -354,7 +354,7 @@ bool plAnimStage::Detach(plArmatureMod *armature)
 
 void plAnimStage::Reset(double time, plArmatureMod *avMod, bool atStart)
 {
-    if(atStart)
+    if (atStart)
         SetLocalTime(0.0f, true);
     else
         SetLocalTime(fLength, true);
@@ -375,7 +375,7 @@ bool plAnimStage::MoveRelative(double time, float delta, float &overage, plArmat
 {
     bool result;        // true means the stage is done
 
-    if(fLocalTime == 0.0f && delta >= 0.0f && !hsCheckBits(fSentNotifies, kNotifyEnter))
+    if (fLocalTime == 0.0f && delta >= 0.0f && !hsCheckBits(fSentNotifies, kNotifyEnter))
     {
         // we send the "enter" notify if we're at the start and either moving forward
         // or standing still.
@@ -384,17 +384,17 @@ bool plAnimStage::MoveRelative(double time, float delta, float &overage, plArmat
     }
 
     // aborting...
-    if( fAdvanceType == kAdvanceOnMove && (avMod->HasMovementFlag() || avMod->ExitModeKeyDown()))
+    if (fAdvanceType == kAdvanceOnMove && (avMod->HasMovementFlag() || avMod->ExitModeKeyDown()))
     {   // special case: advance when any key is pressed, regardless of position in stage.
         ISendNotify(kNotifyAdvance, proEventData::kAdvanceNextStage, avMod, fBrain);
         result = true;
     } else {
-        if(delta == 0.0f)
+        if (delta == 0.0f)
         {
             return false;
         }
         else
-        if(delta < 0.0f)
+        if (delta < 0.0f)
             result = IMoveBackward(time, delta, overage, avMod);
         else
             result = IMoveForward(time, delta, overage, avMod);
@@ -430,11 +430,11 @@ bool plAnimStage::IMoveBackward(double time, float delta, float &overrun, plArma
     if (fAnimInstance->GetTimeConvert())
         fAnimInstance->GetTimeConvert()->Backwards();
 
-    if(target < 0)
+    if (target < 0)
     {
         SetLocalTime(0);                // animation to beginning
         avMod->GetRootAGMod()->Apply(time);             // move avatar to beginning
-        if(loopsRemain)
+        if (loopsRemain)
         {
             // If a callback is on the last frame, it'll get triggered twice. Once for setting
             // the anim at the end, and once when we play again. So we don't fire callbacks here.
@@ -502,7 +502,7 @@ bool plAnimStage::IMoveForward(double time, float delta, float &overrun, plArmat
 
         // are there *any* loops to be had?
         bool loopsRemain = fCurLoop < fLoops || fLoops == -1;
-        if(loopsRemain)
+        if (loopsRemain)
         {
             SetLocalTime(0.0f, true);                               // animation back to beginning
             avMod->GetRootAnimator()->Reset(time);              // reset the root animator's frame cache
@@ -530,11 +530,11 @@ bool plAnimStage::ITryAdvance(plArmatureMod *avMod)
 
 
     // hsStatusMessageF("Sending advance message for stage <%s>\n", fAnimName.c_str());
-    if(fAdvanceType == kAdvanceAuto || fAdvanceType == kAdvanceOnMove) {
+    if (fAdvanceType == kAdvanceAuto || fAdvanceType == kAdvanceOnMove) {
         stageDone = true;
     }
 
-    if(!hsCheckBits(fSentNotifies, kNotifyAdvance))
+    if (!hsCheckBits(fSentNotifies, kNotifyAdvance))
     {
         // we send the advance message at the point where we *would* advance, whether
         // or not we actually do. this is misleading but better suited to actual current usage.
@@ -557,7 +557,7 @@ bool plAnimStage::ITryRegress(plArmatureMod *avMod)
     ISendNotify(kNotifyRegress, proEventData::kRegressPrevStage, avMod, fBrain);
 
     // hsStatusMessageF("Sending regress message for stage <%s>\n", fAnimName.c_str());
-    if(fRegressType == kRegressAuto) {
+    if (fRegressType == kRegressAuto) {
         stageDone = true;
     }
     return stageDone;
@@ -643,7 +643,7 @@ void plAnimStage::SetNumLoops(int loops)
     // It's been like this for ages, so I'm not touching it until a break shows a problem.
     //
     //hsAssert(loops < fCurLoop, "Setting loopcount below current loop");
-    if(loops >= fCurLoop) {
+    if (loops >= fCurLoop) {
         fCurLoop = loops;
     }
     fLoops = loops;
@@ -671,7 +671,7 @@ float plAnimStage::GetLocalTime()
 void plAnimStage::SetLocalTime(float time, bool noCallbacks /* = false */)
 {
     fLocalTime = time;
-    if(fAnimInstance)
+    if (fAnimInstance)
         fAnimInstance->SetCurrentTime(time, noCallbacks);
 }
 
@@ -696,7 +696,7 @@ void plAnimStage::SetIsAttached(bool status)
 // GETNEXTSTAGE
 int plAnimStage::GetNextStage(int curStage)
 {
-    if(fDoAdvanceTo)
+    if (fDoAdvanceTo)
     {
         return fAdvanceTo;
     } else {
@@ -707,7 +707,7 @@ int plAnimStage::GetNextStage(int curStage)
 // GETPREVSTAGE
 int plAnimStage::GetPrevStage(int curStage)
 {
-    if(fDoRegressTo)
+    if (fDoRegressTo)
     {
         return fRegressTo;
     } else {
@@ -723,14 +723,14 @@ void plAnimStage::DumpDebug(bool active, int &x, int &y, int lineHeight, plDebug
     str << fAnimName;
     str << " ";
 
-    if(fLoops)
+    if (fLoops)
         str << "loop(" << fCurLoop << '/' << fLoops << ')';
 
     str << "time: (" << fLocalTime << '/' << fLength << ')';
 
-    if(active)
+    if (active)
         debugTxt.DrawString(x, y, str.to_string(), 0, 255, 0);
-    else if(fAnimInstance)
+    else if (fAnimInstance)
         debugTxt.DrawString(x, y, str.to_string());
     else
         debugTxt.DrawString(x, y, str.to_string(), 255, 255, 0);

@@ -82,8 +82,8 @@ public:
     plSimulationInterface();
     ~plSimulationInterface();
 
-    CLASSNAME_REGISTER( plSimulationInterface );
-    GETINTERFACE_ANY( plSimulationInterface, plObjInterface );
+    CLASSNAME_REGISTER(plSimulationInterface);
+    GETINTERFACE_ANY(plSimulationInterface, plObjInterface);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

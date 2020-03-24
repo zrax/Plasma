@@ -64,7 +64,7 @@ private:
 
 protected:
     pyAgeLinkStruct();
-    pyAgeLinkStruct( plAgeLinkStruct * link );
+    pyAgeLinkStruct(plAgeLinkStruct * link);
 
 public:
     ~pyAgeLinkStruct();
@@ -83,15 +83,15 @@ public:
     plAgeLinkStruct * GetAgeLink() { return &fAgeLink; }
     const plAgeLinkStruct * GetAgeLink() const { return &fAgeLink; }
     PyObject * GetAgeInfo(); // returns pyAgeInfoStructRef
-    void    SetAgeInfo( pyAgeInfoStruct & info );
+    void    SetAgeInfo(pyAgeInfoStruct & info);
     const char* GetParentAgeFilename();
-    void    SetParentAgeFilename( const char* parentname );
-    void    CopyFrom( const pyAgeLinkStruct & other );
-    void    CopyFromRef( const pyAgeLinkStructRef & other );
-    void    SetLinkingRules( int v );
+    void    SetParentAgeFilename(const char* parentname);
+    void    CopyFrom(const pyAgeLinkStruct & other);
+    void    CopyFromRef(const pyAgeLinkStructRef & other);
+    void    SetLinkingRules(int v);
     int     GetLinkingRules() const;
-    void    SetSpawnPoint( pySpawnPointInfo & v );
-    void    SetSpawnPointRef( pySpawnPointInfoRef & v );
+    void    SetSpawnPoint(pySpawnPointInfo & v);
+    void    SetSpawnPointRef(pySpawnPointInfoRef & v);
     PyObject * GetSpawnPoint(); // returns pySpawnPointInfoRef
 };
 
@@ -104,7 +104,7 @@ private:
 
 protected:
     pyAgeLinkStructRef(): fAgeLink(fDefaultLinkStruct) {} // only used by python glue, do NOT call directly
-    pyAgeLinkStructRef( plAgeLinkStruct & link ):fAgeLink(link) {}
+    pyAgeLinkStructRef(plAgeLinkStruct & link):fAgeLink(link) {}
 
 public:
     ~pyAgeLinkStructRef(){}
@@ -120,13 +120,13 @@ public:
     plAgeLinkStruct * GetAgeLink() { return &fAgeLink; }
     const plAgeLinkStruct * GetAgeLink() const { return &fAgeLink; }
     PyObject * GetAgeInfo(); // returns pyAgeInfoStructRef
-    void    SetAgeInfo( pyAgeInfoStruct & info );
-    void    CopyFrom( const pyAgeLinkStruct & other );
-    void    CopyFromRef( const pyAgeLinkStructRef & other );
-    void    SetLinkingRules( int v );
+    void    SetAgeInfo(pyAgeInfoStruct & info);
+    void    CopyFrom(const pyAgeLinkStruct & other);
+    void    CopyFromRef(const pyAgeLinkStructRef & other);
+    void    SetLinkingRules(int v);
     int     GetLinkingRules() const;
-    void    SetSpawnPoint( pySpawnPointInfo & v );
-    void    SetSpawnPointRef( pySpawnPointInfoRef & v );
+    void    SetSpawnPoint(pySpawnPointInfo & v);
+    void    SetSpawnPointRef(pySpawnPointInfoRef & v);
     PyObject * GetSpawnPoint(); // returns pySpawnPointInfoRef
 };
 

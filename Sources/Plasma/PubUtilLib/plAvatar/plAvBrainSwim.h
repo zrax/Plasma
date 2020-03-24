@@ -58,8 +58,8 @@ public:
     plAvBrainSwim();
     virtual ~plAvBrainSwim();
 
-    CLASSNAME_REGISTER( plAvBrainSwim );
-    GETINTERFACE_ANY( plAvBrainSwim, plArmatureBrain );
+    CLASSNAME_REGISTER(plAvBrainSwim);
+    GETINTERFACE_ANY(plAvBrainSwim, plArmatureBrain);
 
     virtual void Activate(plArmatureModBase *avMod);
     bool Apply(double time, float elapsed);

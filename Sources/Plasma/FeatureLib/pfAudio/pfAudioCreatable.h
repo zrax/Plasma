@@ -47,10 +47,10 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "plListener.h"
 
-REGISTER_CREATABLE( plListener );
+REGISTER_CREATABLE(plListener);
 
 #include "plRandomSoundMod.h"
 
-REGISTER_CREATABLE( plRandomSoundMod );
+REGISTER_CREATABLE(plRandomSoundMod);
 
 #endif // pfCharacterCreatable_inc

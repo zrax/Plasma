@@ -60,7 +60,7 @@ protected:
 
     HTREEITEM       fCurrAgeItem;
     bool            fCurrAgeCheckedOut;
-    char            fCheckedOutPath[ MAX_PATH ];
+    char            fCheckedOutPath[MAX_PATH];
     bool            fForceSeqNumLocal;
 
     HTREEITEM   fAssetManBranch, fLocalBranch;
@@ -101,8 +101,8 @@ protected:
     
     // Save the settings for the last age and load the settings for the currently one
     void IUpdateCurAge();
-    void ISaveCurAge( const plFileName &path, bool checkSeqNum = false );
-    void ILoadAge( const plFileName &path, bool checkSeqNum = false );
+    void ISaveCurAge(const plFileName &path, bool checkSeqNum = false);
+    void ILoadAge(const plFileName &path, bool checkSeqNum = false);
 
     static plFileName IGetLocalAgePath();
 
@@ -114,8 +114,8 @@ protected:
     void INewPage();
 
 
-    uint32_t  IGetNextFreeSequencePrefix( bool getReservedPrefix );
-    uint32_t  IGetFreePageSeqSuffix( HWND pageCombo );
+    uint32_t  IGetNextFreeSequencePrefix(bool getReservedPrefix);
+    uint32_t  IGetFreePageSeqSuffix(HWND pageCombo);
 
     void    ICheckOutCurrentAge();
     void    ICheckInCurrentAge();
@@ -125,5 +125,5 @@ protected:
     plAgeFile* IGetCurrentAge();
 
     void    IInvalidateCheckOutIndicator();
-    void    ICheckSequenceNumber( plAgeDescription &aged );
+    void    ICheckSequenceNumber(plAgeDescription &aged);
 };

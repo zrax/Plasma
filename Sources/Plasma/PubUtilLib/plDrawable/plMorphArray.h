@@ -63,7 +63,7 @@ public:
 
     int GetNumDeltas() const { return fDeltas.GetCount(); }
     float GetWeight(int iDel) { return fDeltas[iDel].GetWeight(); }
-    void SetWeight(int iDel, float w) { if( iDel < fDeltas.GetCount() )fDeltas[iDel].SetWeight(w); }
+    void SetWeight(int iDel, float w) { if (iDel < fDeltas.GetCount()) fDeltas[iDel].SetWeight(w); }
 };
 
 #endif // plMorphArray_inc

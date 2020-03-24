@@ -57,7 +57,7 @@ class plTelescopeInputInterface : public plInputInterface
 {
     protected:
 
-        virtual bool IEval( double secs, float del, uint32_t dirty );
+        virtual bool IEval(double secs, float del, uint32_t dirty);
 
     public:
 
@@ -66,11 +66,11 @@ class plTelescopeInputInterface : public plInputInterface
 
         virtual void        RestoreDefaultKeyMappings();
         
-        virtual bool    InterpretInputEvent( plInputEventMsg *pMsg );
+        virtual bool    InterpretInputEvent(plInputEventMsg *pMsg);
 
-        virtual bool    MsgReceive( plMessage *msg );
+        virtual bool    MsgReceive(plMessage *msg);
 
-        virtual void    Init( plInputInterfaceMgr *manager );
+        virtual void    Init(plInputInterfaceMgr *manager);
         virtual void    Shutdown() { }
 
         // Returns the priority of this interface layer, based on the Priorities enum

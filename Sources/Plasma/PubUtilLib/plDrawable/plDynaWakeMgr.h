@@ -66,8 +66,8 @@ public:
     plDynaWakeMgr();
     virtual ~plDynaWakeMgr();
 
-    CLASSNAME_REGISTER( plDynaWakeMgr );
-    GETINTERFACE_ANY( plDynaWakeMgr, plDynaRippleMgr );
+    CLASSNAME_REGISTER(plDynaWakeMgr);
+    GETINTERFACE_ANY(plDynaWakeMgr, plDynaRippleMgr);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

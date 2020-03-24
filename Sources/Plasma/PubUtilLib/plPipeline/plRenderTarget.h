@@ -57,8 +57,8 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #include "plGImage/plBitmap.h"
 
-#define ASSERT_ABSOLUTE     hsAssert( !fProportionalViewport, "Cannot perform this on a proportional RenderTarget" );
-#define ASSERT_PROPORTIONAL hsAssert( fProportionalViewport, "Cannot perform this on an absolute RenderTarget" );
+#define ASSERT_ABSOLUTE     hsAssert(!fProportionalViewport, "Cannot perform this on a proportional RenderTarget");
+#define ASSERT_PROPORTIONAL hsAssert(fProportionalViewport, "Cannot perform this on an absolute RenderTarget");
 
 //// Class Definition /////////////////////////////////////////////////////////
 
@@ -93,12 +93,12 @@ class plRenderTarget : public plBitmap
 
         virtual void SetKey(plKey k);
 
-        virtual uint32_t  Read( hsStream *s );
-        virtual uint32_t  Write( hsStream *s );
+        virtual uint32_t  Read(hsStream *s);
+        virtual uint32_t  Write(hsStream *s);
     public:
 
-        CLASSNAME_REGISTER( plRenderTarget );
-        GETINTERFACE_ANY( plRenderTarget, plBitmap );
+        CLASSNAME_REGISTER(plRenderTarget);
+        GETINTERFACE_ANY(plRenderTarget, plBitmap);
 
         plRenderTarget()
             : fWidth(0), fHeight(0), fZDepth(0), fStencilDepth(0), fApplyTexQuality(false),
@@ -106,52 +106,52 @@ class plRenderTarget : public plBitmap
         {
             fFlags = 0;
             fPixelSize = 0;
-            SetViewport( 0, 0, 1.f, 1.f );
+            SetViewport(0, 0, 1.f, 1.f);
             plPipeResReq::Request();
         }
 
-        plRenderTarget( uint16_t flags, uint16_t width, uint16_t height, uint8_t bitDepth, uint8_t zDepth = 0xff, uint8_t stencilDepth = 0xff )
+        plRenderTarget(uint16_t flags, uint16_t width, uint16_t height, uint8_t bitDepth, uint8_t zDepth = 0xff, uint8_t stencilDepth = 0xff)
         {
             fWidth = width;
             fHeight = height;
             fPixelSize = bitDepth;
-            fZDepth = ( zDepth != 0xff ) ? zDepth : (bitDepth > 16 ? 24 : 16);
-            fStencilDepth = ( stencilDepth != 0xff ) ? stencilDepth : 0;
+            fZDepth = (zDepth != 0xff) ? zDepth : (bitDepth > 16 ? 24 : 16);
+            fStencilDepth = (stencilDepth != 0xff) ? stencilDepth : 0;
 
             fFlags = flags;
             fParent = nil;
 
-            hsAssert( fFlags & (kIsTexture|kIsOffscreen), "Cannot perform this on an on-screen RenderTarget" );
+            hsAssert(fFlags & (kIsTexture|kIsOffscreen), "Cannot perform this on an on-screen RenderTarget");
             fApplyTexQuality = false;
             fProportionalViewport = false;
-            SetViewport( 0, 0, width, height );
+            SetViewport(0, 0, width, height);
 
             plPipeResReq::Request();
         }
 
         // Render-to-Screen constructor
-        plRenderTarget( uint16_t flags, float left, float top, float right, float bottom, uint8_t bitDepth, uint8_t zDepth = 0xff, uint8_t stencilDepth = 0xff )
+        plRenderTarget(uint16_t flags, float left, float top, float right, float bottom, uint8_t bitDepth, uint8_t zDepth = 0xff, uint8_t stencilDepth = 0xff)
         {
             fWidth = 0; // Can't really set these, at least not yet
             fHeight = 0;
             fPixelSize = bitDepth;
-            fZDepth = ( zDepth != 0xff ) ? zDepth : 16;
-            fStencilDepth = ( stencilDepth != 0xff ) ? stencilDepth : 0;
+            fZDepth = (zDepth != 0xff) ? zDepth : 16;
+            fStencilDepth = (stencilDepth != 0xff) ? stencilDepth : 0;
 
             fFlags = flags;
             fParent = nil;
 
-            hsAssert( !( fFlags & (kIsTexture|kIsOffscreen) ), "Cannot perform this on an offscreen RenderTarget" );
+            hsAssert(!(fFlags & (kIsTexture|kIsOffscreen)), "Cannot perform this on an offscreen RenderTarget");
             fApplyTexQuality = false;
             fProportionalViewport = true;
-            SetViewport( left, top, right, bottom );
+            SetViewport(left, top, right, bottom);
 
             plPipeResReq::Request();
         }
 
         virtual ~plRenderTarget() {}
 
-        virtual void            SetViewport( uint16_t left, uint16_t top, uint16_t right, uint16_t bottom )
+        virtual void            SetViewport(uint16_t left, uint16_t top, uint16_t right, uint16_t bottom)
         {
             ASSERT_ABSOLUTE;
             fViewport.fAbsolute.fLeft = left;
@@ -160,7 +160,7 @@ class plRenderTarget : public plBitmap
             fViewport.fAbsolute.fBottom = bottom;
         }
 
-        virtual void            SetViewport( float left, float top, float right, float bottom )
+        virtual void            SetViewport(float left, float top, float right, float bottom)
         {
             ASSERT_PROPORTIONAL;
             fViewport.fProportional.fLeft = left;
@@ -188,7 +188,7 @@ class plRenderTarget : public plBitmap
 
         plCubicRenderTarget *GetParent() const { return fParent; }
 
-        virtual uint32_t  GetTotalSize() const { return fWidth * fHeight * ( fPixelSize >> 3 ); }
+        virtual uint32_t  GetTotalSize() const { return fWidth * fHeight * (fPixelSize >> 3); }
 
         virtual bool MsgReceive(plMessage* msg);
 

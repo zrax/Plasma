@@ -64,5 +64,5 @@ class plFontFreeType : public plFont
             Options() : fSize(12), fUseKerning(false), fBitDepth(1), fScreenRes(96), fMaxCharLimit(255) { }
         };
 
-        bool    ImportFreeType( const plFileName &fontPath, Options *options, plBDFConvertCallback *callback );
+        bool    ImportFreeType(const plFileName &fontPath, Options *options, plBDFConvertCallback *callback);
 };

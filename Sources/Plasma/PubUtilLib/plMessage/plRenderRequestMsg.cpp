@@ -54,7 +54,7 @@ plRenderRequestMsg::plRenderRequestMsg(plKey sender, plRenderRequestBase* req)
 :   plMessage(sender, nil, nil),
     fReq(req)
 {
-    plUoid oid( kClient_KEY );      // from plFixedKey.h
+    plUoid oid(kClient_KEY);      // from plFixedKey.h
     plKey key = hsgResMgr::ResMgr()->FindKey(oid);
     AddReceiver(key);
 

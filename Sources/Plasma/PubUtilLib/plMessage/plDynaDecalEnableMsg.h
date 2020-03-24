@@ -66,8 +66,8 @@ public:
     plDynaDecalEnableMsg(const plKey& r, const plKey& armOrShapeKey, double conTime, float wetLength, bool end, uint32_t id=uint32_t(-1), bool isArm=true);
     ~plDynaDecalEnableMsg();
 
-    CLASSNAME_REGISTER( plDynaDecalEnableMsg );
-    GETINTERFACE_ANY( plDynaDecalEnableMsg, plMessage );
+    CLASSNAME_REGISTER(plDynaDecalEnableMsg);
+    GETINTERFACE_ANY(plDynaDecalEnableMsg, plMessage);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);
@@ -77,7 +77,7 @@ public:
     void                    SetArmKey(const plKey& k) { fKey = k; SetArmature(true); }
 
     bool                    IsArmature() const { return 0 != (fFlags & kArmature); }
-    void                    SetArmature(bool b) { if(b)fFlags |= kArmature; else fFlags &= ~kArmature; }
+    void                    SetArmature(bool b) { if (b) fFlags |= kArmature; else fFlags &= ~kArmature; }
 
     const plKey&            GetShapeKey() const { return fKey; }
     void                    SetShapeKey(const plKey& k) { fKey = k; SetArmature(false); }
@@ -89,7 +89,7 @@ public:
     void                    SetWetLength(float w) { fWetLength = w; }
 
     bool                    AtEnd() const { return 0 != (fFlags & kAtEnd); }
-    void                    SetAtEnd(bool b) { if(b)fFlags |= kAtEnd; else fFlags &= ~kAtEnd; }
+    void                    SetAtEnd(bool b) { if (b) fFlags |= kAtEnd; else fFlags &= ~kAtEnd; }
 
     uint32_t                  GetID() const { return fID; }
     void                    SetID(uint32_t n) { fID = n; }

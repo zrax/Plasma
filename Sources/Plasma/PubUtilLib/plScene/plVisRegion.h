@@ -81,8 +81,8 @@ public:
     plVisRegion();
     virtual ~plVisRegion();
 
-    CLASSNAME_REGISTER( plVisRegion );
-    GETINTERFACE_ANY( plVisRegion, plObjInterface );
+    CLASSNAME_REGISTER(plVisRegion);
+    GETINTERFACE_ANY(plVisRegion, plObjInterface);
 
     virtual int32_t   GetNumProperties() const { return 3; } // This is stupid.
 

@@ -90,8 +90,8 @@ plTransitionMgr::plTransitionMgr()
 void    plTransitionMgr::Init()
 {
     ICreatePlate();
-    plgDispatch::Dispatch()->RegisterForExactType( plTransitionMsg::Index(), GetKey() );
-    plgDispatch::Dispatch()->RegisterForExactType( plLinkEffectBCMsg::Index(), GetKey() );
+    plgDispatch::Dispatch()->RegisterForExactType(plTransitionMsg::Index(), GetKey());
+    plgDispatch::Dispatch()->RegisterForExactType(plLinkEffectBCMsg::Index(), GetKey());
 }
 
 plTransitionMgr::~plTransitionMgr()
@@ -99,17 +99,17 @@ plTransitionMgr::~plTransitionMgr()
     int     i;
 
 
-    for( i = 0; i < fCallbacks.GetCount(); i++ )
-        hsRefCnt_SafeUnRef( fCallbacks[ i ] );
+    for (i = 0; i < fCallbacks.GetCount(); i++)
+        hsRefCnt_SafeUnRef(fCallbacks[i]);
 
-    if( fEffectPlate != nil )
-        plPlateManager::Instance().DestroyPlate( fEffectPlate );
+    if (fEffectPlate != nil)
+        plPlateManager::Instance().DestroyPlate(fEffectPlate);
 
-    if( fRegisteredForTime )
-        plgDispatch::Dispatch()->UnRegisterForExactType( plTimeMsg::Index(), GetKey() );
+    if (fRegisteredForTime)
+        plgDispatch::Dispatch()->UnRegisterForExactType(plTimeMsg::Index(), GetKey());
 
-    plgDispatch::Dispatch()->UnRegisterForExactType( plTransitionMsg::Index(), GetKey() );
-    plgDispatch::Dispatch()->UnRegisterForExactType( plLinkEffectBCMsg::Index(), GetKey() );
+    plgDispatch::Dispatch()->UnRegisterForExactType(plTransitionMsg::Index(), GetKey());
+    plgDispatch::Dispatch()->UnRegisterForExactType(plLinkEffectBCMsg::Index(), GetKey());
 }
 
 //// ICreatePlate ////////////////////////////////////////////////////////////
@@ -122,35 +122,35 @@ void    plTransitionMgr::ICreatePlate()
     fEffectPlate = nil;
 
     // +0.01 to deal with the half-pixel antialiasing stuff
-    plPlateManager::Instance().CreatePlate( &fEffectPlate, 0, 0, 2.01, 2.01 );
+    plPlateManager::Instance().CreatePlate(&fEffectPlate, 0, 0, 2.01, 2.01);
     fEffectPlate->SetDepth(2);
 
     // hack for now--create a black layer that we will animate the opacity on
-    plMipmap *ourMip = fEffectPlate->CreateMaterial( 16, 16, true );
-    for( y = 0; y < ourMip->GetHeight(); y++ )
+    plMipmap *ourMip = fEffectPlate->CreateMaterial(16, 16, true);
+    for (y = 0; y < ourMip->GetHeight(); y++)
     {
-        uint32_t  *pixels = ourMip->GetAddr32( 0, y );
-        for( x = 0; x < ourMip->GetWidth(); x++ )
-            pixels[ x ] = 0xff000000;
+        uint32_t  *pixels = ourMip->GetAddr32(0, y);
+        for (x = 0; x < ourMip->GetWidth(); x++)
+            pixels[x] = 0xff000000;
     }
 
-    fEffectPlate->SetVisible( false );
+    fEffectPlate->SetVisible(false);
 }
 
 //// IStartFadeOut ///////////////////////////////////////////////////////////
 
-void    plTransitionMgr::IStartFadeOut( float lengthInSecs, uint8_t effect )
+void    plTransitionMgr::IStartFadeOut(float lengthInSecs, uint8_t effect)
 {
     fCurrentEffect = effect; // default - kFadeOut;
     fEffectLength = lengthInSecs;
 
     // Special case for length 0--just jump straight to fadeout
-    if( lengthInSecs == 0.f )
+    if (lengthInSecs == 0.f)
     {
         fCurrOpacity = 1.f;
         fLastTime = -1.f;
         fPlaying = false;
-        plgAudioSys::SetGlobalFadeVolume( 0.f );
+        plgAudioSys::SetGlobalFadeVolume(0.f);
     }
     else
     {
@@ -160,24 +160,24 @@ void    plTransitionMgr::IStartFadeOut( float lengthInSecs, uint8_t effect )
         fPlaying = true;
 
         // Register for time message
-        plgDispatch::Dispatch()->RegisterForExactType( plTimeMsg::Index(), GetKey() );
+        plgDispatch::Dispatch()->RegisterForExactType(plTimeMsg::Index(), GetKey());
         fRegisteredForTime = true;
     }
 
-    if( fEffectPlate == nil )
+    if (fEffectPlate == nil)
         ICreatePlate();
-    fEffectPlate->SetVisible( true );
+    fEffectPlate->SetVisible(true);
 
-    plLayer *layer = (plLayer *)fEffectPlate->GetMaterial()->GetLayer( 0 );
-    if( layer != nil )
+    plLayer *layer = (plLayer *)fEffectPlate->GetMaterial()->GetLayer(0);
+    if (layer != nil)
     {
-        layer->SetOpacity( fCurrOpacity );
+        layer->SetOpacity(fCurrOpacity);
     }
 }
 
 //// IStartFadeIn ////////////////////////////////////////////////////////////
 
-void    plTransitionMgr::IStartFadeIn( float lengthInSecs, uint8_t effect )
+void    plTransitionMgr::IStartFadeIn(float lengthInSecs, uint8_t effect)
 {
     fCurrentEffect = effect; // default - kFadeIn;
     fEffectLength = lengthInSecs;
@@ -187,54 +187,54 @@ void    plTransitionMgr::IStartFadeIn( float lengthInSecs, uint8_t effect )
     fPlaying = true;
 
     // Register for time message
-    plgDispatch::Dispatch()->RegisterForExactType( plTimeMsg::Index(), GetKey() );
+    plgDispatch::Dispatch()->RegisterForExactType(plTimeMsg::Index(), GetKey());
     fRegisteredForTime = true;
 
-    if( fEffectPlate == nil )
+    if (fEffectPlate == nil)
         ICreatePlate();
-    fEffectPlate->SetVisible( true );
+    fEffectPlate->SetVisible(true);
 
-    plLayer *layer = (plLayer *)fEffectPlate->GetMaterial()->GetLayer( 0 );
-    if( layer != nil )
+    plLayer *layer = (plLayer *)fEffectPlate->GetMaterial()->GetLayer(0);
+    if (layer != nil)
     {
-        layer->SetOpacity( fCurrOpacity );
+        layer->SetOpacity(fCurrOpacity);
     }
 }
 
 //// IStop ///////////////////////////////////////////////////////////////////
 
-void    plTransitionMgr::IStop( bool aboutToStartAgain /*= false*/ )
+void    plTransitionMgr::IStop(bool aboutToStartAgain /*= false*/)
 {
     int     i;
 
-    plgDispatch::Dispatch()->UnRegisterForExactType( plTimeMsg::Index(), GetKey() );
+    plgDispatch::Dispatch()->UnRegisterForExactType(plTimeMsg::Index(), GetKey());
     fRegisteredForTime = false;
 
-    if( fPlaying )
+    if (fPlaying)
     {
-        if( !fHoldAtEnd && fEffectPlate != nil && !aboutToStartAgain )
-            fEffectPlate->SetVisible( false );
+        if (!fHoldAtEnd && fEffectPlate != nil && !aboutToStartAgain)
+            fEffectPlate->SetVisible(false);
 
         // finish the opacity to the end opacity
-        if( fEffectPlate != nil )
+        if (fEffectPlate != nil)
         {
-            plLayer *layer = (plLayer *)fEffectPlate->GetMaterial()->GetLayer( 0 );
-            if( layer != nil )
+            plLayer *layer = (plLayer *)fEffectPlate->GetMaterial()->GetLayer(0);
+            if (layer != nil)
             {
-                layer->SetOpacity( (fCurrentEffect == kFadeIn || fCurrentEffect == kTransitionFadeIn) ? 0.f : 1.f );
+                layer->SetOpacity((fCurrentEffect == kFadeIn || fCurrentEffect == kTransitionFadeIn) ? 0.f : 1.f);
             }
         }
 
-        if( !aboutToStartAgain )
+        if (!aboutToStartAgain)
         {
             if (!fNoSoundFade)
-                plgAudioSys::SetGlobalFadeVolume( (fCurrentEffect == kFadeIn || fCurrentEffect == kTransitionFadeIn) ? 1.f : 0.f );
+                plgAudioSys::SetGlobalFadeVolume((fCurrentEffect == kFadeIn || fCurrentEffect == kTransitionFadeIn) ? 1.f : 0.f);
         }
 
-        for( i = 0; i < fCallbacks.GetCount(); i++ )
+        for (i = 0; i < fCallbacks.GetCount(); i++)
         {
-            fCallbacks[ i ]->SetSender( GetKey() );
-            plgDispatch::MsgSend( fCallbacks[ i ] );
+            fCallbacks[i]->SetSender(GetKey());
+            plgDispatch::MsgSend(fCallbacks[i]);
         }
         fCallbacks.Reset();
 
@@ -244,15 +244,15 @@ void    plTransitionMgr::IStop( bool aboutToStartAgain /*= false*/ )
 
 //// MsgReceive //////////////////////////////////////////////////////////////
 
-bool    plTransitionMgr::MsgReceive( plMessage* msg )
+bool    plTransitionMgr::MsgReceive(plMessage* msg)
 {
     int         i;
 
 
-    plTimeMsg   *time = plTimeMsg::ConvertNoRef( msg );
-    if( time != nil )
+    plTimeMsg   *time = plTimeMsg::ConvertNoRef(msg);
+    if (time != nil)
     {
-        if( !fPlaying )
+        if (!fPlaying)
             return false;
 
         if (fLastTime < 0)
@@ -269,25 +269,25 @@ bool    plTransitionMgr::MsgReceive( plMessage* msg )
             return false;
         }
 
-        fEffectLength -= (float)( time->DSeconds() - fLastTime );//*/time->DelSeconds();
-        if( fEffectLength < 0 )
+        fEffectLength -= (float)(time->DSeconds() - fLastTime);//*/time->DelSeconds();
+        if (fEffectLength < 0)
             IStop();
         else
         {
             // Grab the layer so we can set the opacity
-            fCurrOpacity += (float)(fOpacDelta * ( time->DSeconds() - fLastTime ));//*/time->DelSeconds();
-            if( fEffectPlate == nil )
+            fCurrOpacity += (float)(fOpacDelta * (time->DSeconds() - fLastTime));//*/time->DelSeconds();
+            if (fEffectPlate == nil)
                 ICreatePlate();
 
-            plLayer *layer = (plLayer *)fEffectPlate->GetMaterial()->GetLayer( 0 );
-            if( layer != nil )
+            plLayer *layer = (plLayer *)fEffectPlate->GetMaterial()->GetLayer(0);
+            if (layer != nil)
             {
-                layer->SetOpacity( fCurrOpacity );
+                layer->SetOpacity(fCurrOpacity);
             }
 
             // Let the audiosystem handle fading in sounds
-            if(!fNoSoundFade)
-                plgAudioSys::SetGlobalFadeVolume( 1.f - fCurrOpacity );
+            if (!fNoSoundFade)
+                plgAudioSys::SetGlobalFadeVolume(1.f - fCurrOpacity);
             
 
             fLastTime = (float)(time->DSeconds());
@@ -296,81 +296,81 @@ bool    plTransitionMgr::MsgReceive( plMessage* msg )
         return false;
     }
     
-    plTransitionMsg *effect = plTransitionMsg::ConvertNoRef( msg );
-    if( effect != nil )
+    plTransitionMsg *effect = plTransitionMsg::ConvertNoRef(msg);
+    if (effect != nil)
     {
-        if( fRegisteredForTime )
-            IStop( true );
+        if (fRegisteredForTime)
+            IStop(true);
 
-        for( i = 0; i < effect->GetNumCallbacks(); i++ )
+        for (i = 0; i < effect->GetNumCallbacks(); i++)
         {
-            plEventCallbackMsg *pMsg = effect->GetEventCallback( i );
-            hsRefCnt_SafeRef( pMsg );
-            fCallbacks.Append( pMsg );
+            plEventCallbackMsg *pMsg = effect->GetEventCallback(i);
+            hsRefCnt_SafeRef(pMsg);
+            fCallbacks.Append(pMsg);
         }
         
         fHoldAtEnd = effect->GetHoldState();
 
         fNoSoundFade = false;
 
-        switch(effect->GetEffect())
+        switch (effect->GetEffect())
         {
         case plTransitionMsg::kFadeInNoSound:
             fNoSoundFade = true;
             // fall through
         case plTransitionMsg::kFadeIn:
-            IStartFadeIn( effect->GetLengthInSecs(), kTransitionFadeIn );
+            IStartFadeIn(effect->GetLengthInSecs(), kTransitionFadeIn);
             break;
         case plTransitionMsg::kFadeOutNoSound:
             fNoSoundFade = true;
             // fall through
         case plTransitionMsg::kFadeOut:
-            IStartFadeOut( effect->GetLengthInSecs(), kTransitionFadeOut );
+            IStartFadeOut(effect->GetLengthInSecs(), kTransitionFadeOut);
             break;
         }
 
         return false;
     }
 
-    plLinkEffectBCMsg *link = plLinkEffectBCMsg::ConvertNoRef( msg );
-    if( link != nil )
+    plLinkEffectBCMsg *link = plLinkEffectBCMsg::ConvertNoRef(msg);
+    if (link != nil)
     {
         const float kScreenFadeTime = 3.f; // seconds
 
         // Go ahead and auto-trigger based on link FX messages
-        if( plNetClientApp::GetInstance() != nil && link->fLinkKey == plNetClientApp::GetInstance()->GetLocalPlayerKey() )
+        if (plNetClientApp::GetInstance() != nil && link->fLinkKey == plNetClientApp::GetInstance()->GetLocalPlayerKey())
         {
-            if( fRegisteredForTime )
-                IStop( true );
+            if (fRegisteredForTime)
+                IStop(true);
 
-            if( link->HasLinkFlag( plLinkEffectBCMsg::kLeavingAge ) )
+            if (link->HasLinkFlag(plLinkEffectBCMsg::kLeavingAge))
             {
                 plNetApp::GetInstance()->DebugMsg("Local player linking out, fading screen\n");
 
                 fHoldAtEnd = true;
-                IStartFadeOut( kScreenFadeTime );
+                IStartFadeOut(kScreenFadeTime);
             }
             else
             {
                 plNetApp::GetInstance()->DebugMsg("Local player linking in, fading screen\n");
 
                 fHoldAtEnd = false;
-                IStartFadeIn( kScreenFadeTime );
+                IStartFadeIn(kScreenFadeTime);
             }
 
             if (link->HasLinkFlag(plLinkEffectBCMsg::kSendCallback))
             {
                 plLinkEffectsMgr *mgr;
-                if( ( mgr = plLinkEffectsMgr::ConvertNoRef( link->GetSender()->ObjectIsLoaded() ) ) != nil )
+                if ((mgr = plLinkEffectsMgr::ConvertNoRef(link->GetSender()->ObjectIsLoaded())) != nil)
                 {
-                    plEventCallbackMsg *cback = plEventCallbackMsg::ConvertNoRef( mgr->WaitForEffect( link->fLinkKey ) );
-//                  hsRefCnt_SafeRef( cback ); // mgr has given us ownership, his ref is now ours. No need for another. -mf-
-                    fCallbacks.Append( cback );
+                    plEventCallbackMsg *cback = plEventCallbackMsg::ConvertNoRef(mgr->WaitForEffect(link->fLinkKey));
+//                  hsRefCnt_SafeRef(cback); // mgr has given us ownership, his ref is now ours. No need for another. -mf-
+                    fCallbacks.Append(cback);
                 }
             }
         }
         return true;
     }
-    return hsKeyedObject::MsgReceive( msg );
+    return hsKeyedObject::MsgReceive(msg);
 }
 

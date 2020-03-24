@@ -65,8 +65,8 @@ public:
     plHardRegionPlanes();
     virtual ~plHardRegionPlanes();
 
-    CLASSNAME_REGISTER( plHardRegionPlanes );
-    GETINTERFACE_ANY( plHardRegionPlanes, plHardRegion );
+    CLASSNAME_REGISTER(plHardRegionPlanes);
+    GETINTERFACE_ANY(plHardRegionPlanes, plHardRegion);
 
     virtual void SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l);
 

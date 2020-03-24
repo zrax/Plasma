@@ -88,18 +88,18 @@ public:
 //
     PyObject*   GetAgeInfo() const; // returns pyVaultAgeInfoNode
     // locked on psnl age bookshelf
-    void    SetLocked( bool v );
+    void    SetLocked(bool v);
     bool    GetLocked() const;
     // volatile on psnl age bookshelf
-    void    SetVolatile( bool v );
+    void    SetVolatile(bool v);
     bool    GetVolatile() const;
     // spawn points
-    void    AddSpawnPoint( pySpawnPointInfo & point );  // will only add if not there already.
-    void    AddSpawnPointRef( pySpawnPointInfoRef & point );    // will only add if not there already.
-    void    RemoveSpawnPoint( pySpawnPointInfo & point );
-    void    RemoveSpawnPointRef( pySpawnPointInfoRef & point );
-    void    RemoveSpawnPointByName( const ST::string & spawnPtName );
-    bool    HasSpawnPoint( const ST::string & spawnPtName ) const;
+    void    AddSpawnPoint(pySpawnPointInfo & point);  // will only add if not there already.
+    void    AddSpawnPointRef(pySpawnPointInfoRef & point);    // will only add if not there already.
+    void    RemoveSpawnPoint(pySpawnPointInfo & point);
+    void    RemoveSpawnPointRef(pySpawnPointInfoRef & point);
+    void    RemoveSpawnPointByName(const ST::string & spawnPtName);
+    bool    HasSpawnPoint(const ST::string & spawnPtName) const;
     PyObject * GetSpawnPoints() const;  // returns list of pySpawnPointInfo
 
     PyObject * AsAgeLinkStruct() const; // returns pyAgeLinkStruct

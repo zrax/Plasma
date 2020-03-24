@@ -195,10 +195,10 @@ plAGChannel * plPointTimeScale::Detach(plAGChannel * channel)
     
     fChannelIn = plPointChannel::ConvertNoRef(fChannelIn->Detach(channel));
     
-    if(!fChannelIn || channel == this)
+    if (!fChannelIn || channel == this)
         result = nil;
     
-    if(result != this)
+    if (result != this)
         delete this;
     
     return result;
@@ -259,10 +259,10 @@ const hsPoint3 &plPointBlend::Value(double time)
     if (fPointA && fPointB)
     {
         float curBlend = fChannelBias->Value(time);
-        if(curBlend == 0) {
+        if (curBlend == 0) {
             fPointA->Value(fResult, time);
         } else {
-            if(curBlend == 1) {
+            if (curBlend == 1) {
                 fPointB->Value(fResult, time);
             } else {
                 const hsPoint3 &pointA = fPointA->Value(time);
@@ -306,15 +306,15 @@ plAGChannel * plPointBlend::Detach(plAGChannel *remove)
         }
         else
         {
-            if(!fChannelBias)
+            if (!fChannelBias)
                 result = fPointA;
-            else if(fPointA && !fPointB)
+            else if (fPointA && !fPointB)
                 result = fPointA;
-            else if(fPointB && !fPointA)
+            else if (fPointB && !fPointA)
                 result = fPointB;
-            else if(!fPointA && !fPointB)
+            else if (!fPointA && !fPointB)
                 result = nil;
-            if(result != this)
+            if (result != this)
             {
                 delete this;
             }
@@ -342,7 +342,7 @@ plPointControllerChannel::plPointControllerChannel(plController *controller)
 // ~DTOR()
 plPointControllerChannel::~plPointControllerChannel()
 {
-    if(fController) {
+    if (fController) {
         delete fController;
         fController = nil;
     }
@@ -419,13 +419,13 @@ const hsPoint3 & plPointControllerCacheChannel::Value(double time, bool peek)
 // DETACH
 plAGChannel * plPointControllerCacheChannel::Detach(plAGChannel * channel)
 {
-    if(channel == this)
+    if (channel == this)
     {
         return nil;
     } else {
         plAGChannel *result = fControllerChannel->Detach(channel);
         
-        if(result == fControllerChannel)
+        if (result == fControllerChannel)
         {
             return this;
         } else {

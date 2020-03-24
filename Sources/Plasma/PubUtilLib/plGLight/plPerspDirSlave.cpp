@@ -92,26 +92,26 @@ hsBounds3Ext plPerspDirSlave::IGetPerspCasterBound(const hsMatrix44& world2NDC) 
     hsPoint3 perspCorners[8];
 
     int i;
-    for( i = 0; i < 8; i++ )
+    for (i = 0; i < 8; i++)
     {
         perspCorners[i] = IProject(world2NDC, corners[i]);
 
-        if( perspCorners[i].fX < -1.f )
+        if (perspCorners[i].fX < -1.f)
             perspCorners[i].fX = -1.f;
-        else if( perspCorners[i].fX > 1.f )
+        else if (perspCorners[i].fX > 1.f)
             perspCorners[i].fX = 1.f;
 
-        if( perspCorners[i].fY < -1.f )
+        if (perspCorners[i].fY < -1.f)
             perspCorners[i].fY = -1.f;
-        else if( perspCorners[i].fY > 1.f )
+        else if (perspCorners[i].fY > 1.f)
             perspCorners[i].fY = 1.f;
 
-        if( perspCorners[i].fZ < 0 )
+        if (perspCorners[i].fZ < 0)
             perspCorners[i].Set(0.f, 0.f, 0.f);
     }
     hsBounds3Ext bnd;
     bnd.MakeEmpty();
-    for( i = 0; i < 8; i++ )
+    for (i = 0; i < 8; i++)
         bnd.Union(&perspCorners[i]);
 
     return bnd;
@@ -141,13 +141,13 @@ bool plPerspDirSlave::SetupViewTransform(plPipeline* pipe)
     hsPoint3 lookAt;
     plConst(bool) kUsePerspCenter(true);
     plConst(bool) kUseFrustCenter(true);
-    if( kUsePerspCenter )
+    if (kUsePerspCenter)
     {
         hsPoint3 lookAtCam = pipeView.GetWorldToCamera() * fCasterWorldBounds.GetCenter();
         hsPoint3 lookAtNDC = IProject(pipeView.GetCameraToNDC(), lookAtCam);
         lookAt = IProject(world2NDC, fCasterWorldBounds.GetCenter());
     }
-    else if( kUseFrustCenter )
+    else if (kUseFrustCenter)
     {
         plConst(float) kDist(50.f);
         hsPoint3 camFrustCenter(0.f, 0.f, kDist);
@@ -167,13 +167,13 @@ bool plPerspDirSlave::SetupViewTransform(plPipeline* pipe)
     float cotX, cotY;
 
     plConst(bool) kFixedPersp(true);
-    if( !kFixedPersp )
+    if (!kFixedPersp)
     {
         hsBounds3Ext bnd(IGetPerspCasterBound(camNDC2Li * world2NDC));
         hsBounds3Ext bnd2(IGetPerspCasterBound(world2NDC));
         bnd2.Transform(&camNDC2Li);
         plConst(bool) kUseBnd2(false);
-        if( kUseBnd2 )
+        if (kUseBnd2)
             bnd = bnd2;
 
         minZ = bnd.GetMins().fZ;
@@ -191,7 +191,7 @@ bool plPerspDirSlave::SetupViewTransform(plPipeline* pipe)
 
         // THIS IS EVEN MORE WRONG
         plConst(bool) kFakeDepth(false);
-        if( kFakeDepth )
+        if (kFakeDepth)
         {
             plConst(float) kMin(1.f);
             plConst(float) kMax(30.f);
@@ -200,10 +200,10 @@ bool plPerspDirSlave::SetupViewTransform(plPipeline* pipe)
         }
 
         plConst(float) kMinMinZ(1.f);
-        if( minZ < kMinMinZ )
+        if (minZ < kMinMinZ)
             minZ = kMinMinZ;
 
-        if( -bnd.GetMins().fX > bnd.GetMaxs().fX )
+        if (-bnd.GetMins().fX > bnd.GetMaxs().fX)
         {
             hsAssert(bnd.GetMins().fX < 0, "Empty shadow caster bounds?");
             cotX = -minZ / bnd.GetMins().fX;
@@ -214,7 +214,7 @@ bool plPerspDirSlave::SetupViewTransform(plPipeline* pipe)
             cotX = minZ / bnd.GetMaxs().fX;
         }
 
-        if( -bnd.GetMins().fY > bnd.GetMaxs().fY )
+        if (-bnd.GetMins().fY > bnd.GetMaxs().fY)
         {
             hsAssert(bnd.GetMins().fY < 0, "Empty shadow caster bounds?");
             cotY = -minZ / bnd.GetMins().fY;
@@ -251,10 +251,10 @@ bool plPerspDirSlave::SetupViewTransform(plPipeline* pipe)
             return false;
 
         plConst(float) kMinMinZ(1.f);
-        if( minZ < kMinMinZ )
+        if (minZ < kMinMinZ)
             minZ = kMinMinZ;
 
-        if( -bnd.GetMins().fX > bnd.GetMaxs().fX )
+        if (-bnd.GetMins().fX > bnd.GetMaxs().fX)
         {
             hsAssert(bnd.GetMins().fX < 0, "Empty shadow caster bounds?");
             cotX = -minZ / bnd.GetMins().fX;
@@ -265,7 +265,7 @@ bool plPerspDirSlave::SetupViewTransform(plPipeline* pipe)
             cotX = minZ / bnd.GetMaxs().fX;
         }
 
-        if( -bnd.GetMins().fY > bnd.GetMaxs().fY )
+        if (-bnd.GetMins().fY > bnd.GetMaxs().fY)
         {
             hsAssert(bnd.GetMins().fY < 0, "Empty shadow caster bounds?");
             cotY = -minZ / bnd.GetMins().fY;
@@ -369,7 +369,7 @@ void plPerspDirSlave::IComputeCamNDCToLight(const hsPoint3& from, const hsPoint3
 
     const float kMinMag = 0.5f;
     hsVector3 up(0,0,1.f);
-    if( CrossProd(up, (at - from)).MagnitudeSquared() < kMinMag )
+    if (CrossProd(up, (at - from)).MagnitudeSquared() < kMinMag)
     {
         up.Set(0, 1.f, 0);
     }

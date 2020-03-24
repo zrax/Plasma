@@ -182,7 +182,7 @@ public:
     int32_t       Find(const T&) const;   // returns kMissingIndex if not found
 
     void          SetCount(int32_t count);
-    T&            operator[]( int32_t index );
+    T&            operator[](int32_t index);
     int32_t       Append(const T&);
     int32_t       InsertAtIndex(uint32_t index, const T& obj);
     int32_t       Push(const T&);
@@ -220,7 +220,7 @@ template <class T>
     fCount  = count;
     fArray  = nil;
     if (count)
-        fArray = new T[ count ];
+        fArray = new T[count];
 }
 
 template <class T>
@@ -251,14 +251,14 @@ void hsDynamicArray<T>::SetCount(int32_t count)
     }
 }
 
-template <class T> T& hsDynamicArray<T>::operator[]( int32_t index )
+template <class T> T& hsDynamicArray<T>::operator[](int32_t index)
 {
     hsDebugCode(hsThrowIfBadParam((uint32_t)index >= (uint32_t)fCount);)
 
     return fArray[index];
 }
 
-template <class T> const T& hsDynamicArray<T>::Get( int32_t index ) const
+template <class T> const T& hsDynamicArray<T>::Get(int32_t index) const
 {
     hsDebugCode(hsThrowIfBadParam((uint32_t)index >= (uint32_t)fCount);)
 
@@ -300,7 +300,7 @@ void hsDynamicArray<T>::Remove(int32_t index)
     {
         int i;
         T* newList = new T[fCount];
-        for(i = 0 ; i < index;i++)
+        for (i = 0 ; i < index;i++)
             newList[i] = fArray[i];
         for (i = index; i < fCount; i++)
             newList[i] = fArray[i + 1];
@@ -330,7 +330,7 @@ int32_t hsDynamicArray<T>::Push(const T& obj)
     if (fArray)
     {
         T* newList = new T[fCount+1];
-        for(int i = 0 ; i < fCount; i++)
+        for (int i = 0 ; i < fCount; i++)
             newList[i+1] = fArray[i];
         newList[0] = obj;
         delete [] fArray;
@@ -373,10 +373,10 @@ int32_t hsDynamicArray<T>::InsertAtIndex(uint32_t index, const T& obj)
         hsAssert(uint32_t(fCount) >= index, "Index too large for array");
         T* newList = new T[fCount + 1];
         unsigned i;
-        for ( i = 0; i < index; i++)
+        for (i = 0; i < index; i++)
             newList[i] = fArray[i];
         newList[index] = obj;
-        for ( i = index; i < uint32_t(fCount); i++)
+        for (i = index; i < uint32_t(fCount); i++)
             newList[i+1] = fArray[i];
     
         delete [] fArray;
@@ -501,7 +501,7 @@ public:
     bool operator==(const hsTArray<T>& src) const;  // checks sizes and contents
 
     // Swaps the internal data (including the fArray POINTER) with the data from the array given
-    void    Swap( hsTArray<T>& src );
+    void    Swap(hsTArray<T>& src);
 
     void    Set(int index, const T& item)   { hsTArray_ValidateIndex(index); fArray[index]=item; }
     const T&    Get(int index) const { hsTArray_ValidateIndex(index); return fArray[index]; }
@@ -634,7 +634,7 @@ bool hsTArray<T>::operator==(const hsTArray<T>& src) const
         return false;   // different sizes
 
     int i;
-    for(i=0;i<GetCount();i++)
+    for (i=0;i<GetCount();i++)
         if (Get(i) != src[i])
             return false;   // different contents
 
@@ -647,7 +647,7 @@ bool hsTArray<T>::operator==(const hsTArray<T>& src) const
 //  data stored in both. Basically we're literally swapping the fArray pointers
 //  around, plus the use counts and such.
 
-template <class T> void hsTArray<T>::Swap( hsTArray<T>& src )
+template <class T> void hsTArray<T>::Swap(hsTArray<T>& src)
 {
     uint16_t      use, tot;
     T           *array;
@@ -671,13 +671,13 @@ template <class T> void hsTArray<T>::SetCountAndZero(int count)
     static_assert(std::is_trivially_copyable<T>::value,
                   "Cannot use SetCountAndZero on non-trivially copyable types");
 
-    if( fTotalCount <= count )
+    if (fTotalCount <= count)
     {
         int n = fTotalCount;
         Expand(count);
     }
     int i;
-    for( i = 0; i < fTotalCount; i++ )
+    for (i = 0; i < fTotalCount; i++)
         fArray[i] = 0;
     fUseCount = count;
 }
@@ -687,15 +687,15 @@ template <class T> void hsTArray<T>::ExpandAndZero(int count)
     static_assert(std::is_trivially_copyable<T>::value,
                   "Cannot use ExpandAndZero on non-trivially copyable types");
 
-    if( fTotalCount <= count )
+    if (fTotalCount <= count)
     {
         int n = fTotalCount;
         Expand(count);
         int i;
-        for( i = n; i < count; i++ )
+        for (i = n; i < count; i++)
             fArray[i] = 0;
     }
-    if( fUseCount < count )
+    if (fUseCount < count)
         fUseCount = count;
 }
 
@@ -904,7 +904,7 @@ public:
     inline hsLargeArray<T>& operator=(const hsLargeArray<T>& src);
 
     // Swaps the internal data (including the fArray POINTER) with the data from the array given
-    void    Swap( hsLargeArray<T>& src );
+    void    Swap(hsLargeArray<T>& src);
 
     void    Set(int index, const T& item)   { hsLargeArray_ValidateIndex(index); fArray[index]=item; }
     const T&    Get(int index) const { hsLargeArray_ValidateIndex(index); return fArray[index]; }
@@ -1026,7 +1026,7 @@ template <class T> hsLargeArray<T>& hsLargeArray<T>::operator=(const hsLargeArra
     return *this;
 }
 
-template <class T> void hsLargeArray<T>::Swap( hsLargeArray<T>& src )
+template <class T> void hsLargeArray<T>::Swap(hsLargeArray<T>& src)
 {
     uint32_t      use, tot;
     T           *array;
@@ -1050,12 +1050,12 @@ template <class T> void hsLargeArray<T>::SetCountAndZero(int count)
     static_assert(std::is_trivially_copyable<T>::value,
                   "Cannot use SetCountAndZero on non-trivially copyable types");
 
-    if( fTotalCount <= count )
+    if (fTotalCount <= count)
     {
         int n = fTotalCount;
         Expand(count);
     }
-    HSMemory::Clear(fArray, fTotalCount * sizeof( T ));
+    HSMemory::Clear(fArray, fTotalCount * sizeof(T));
     fUseCount = count;
 }
 
@@ -1064,13 +1064,13 @@ template <class T> void hsLargeArray<T>::ExpandAndZero(int count)
     static_assert(std::is_trivially_copyable<T>::value,
                   "Cannot use ExpandAndZero on non-trivially copyable types");
 
-    if( fTotalCount <= count )
+    if (fTotalCount <= count)
     {
         int n = fTotalCount;
         Expand(count);
-        HSMemory::Clear(fArray+n, (count - n) * sizeof( T ));
+        HSMemory::Clear(fArray+n, (count - n) * sizeof(T));
     }
-    if( fUseCount < count )
+    if (fUseCount < count)
         fUseCount = count;
 }
 

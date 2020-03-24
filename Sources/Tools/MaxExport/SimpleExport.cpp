@@ -115,7 +115,7 @@ int HSExport2::ExtCount()
 const TCHAR *HSExport2::Ext(int n)
 {
 static  char str[64];
-    switch(n)
+    switch (n)
     {
         case 0:
             return "";
@@ -329,7 +329,7 @@ int HSExport2::DoExport(const TCHAR *name,ExpInterface *ei,Interface *gi, BOOL s
         {
             // Optimize the drawables
             plOptimizeIterator  optIterator;
-            plPluginResManager::ResMgr()->IterateKeys( &optIterator );
+            plPluginResManager::ResMgr()->IterateKeys(&optIterator);
 
             // And save.
             plPluginResManager::ResMgr()->WriteAllPages();
@@ -337,10 +337,10 @@ int HSExport2::DoExport(const TCHAR *name,ExpInterface *ei,Interface *gi, BOOL s
             // Write out a texture log file
             char textureLog[MAX_PATH];
             sprintf(textureLog, "log\\exportedTextures_%s.log", fName);
-            plTextureExportLog      textureExportLog( textureLog );
-            plTextureLoggerCBack    loggerCallback( &textureExportLog );
+            plTextureExportLog      textureExportLog(textureLog);
+            plTextureLoggerCBack    loggerCallback(&textureExportLog);
             
-            plPluginResManager::ResMgr()->IterateKeys( &loggerCallback );
+            plPluginResManager::ResMgr()->IterateKeys(&loggerCallback);
             
             textureExportLog.Write();
 

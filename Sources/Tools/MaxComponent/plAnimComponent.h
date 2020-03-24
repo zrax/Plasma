@@ -121,18 +121,18 @@ public:
     std::map<plMaxNode*, plAGAnim*> fAnims;
 
     // Static function for setting up scalar controllers
-    static void SetupCtl( plAGAnim *anim, plController *ctl, plAGApplicator *app, plMaxNode *node );
+    static void SetupCtl(plAGAnim *anim, plController *ctl, plAGApplicator *app, plMaxNode *node);
     
     // Static function to grab the animation key given the INode pointing to either a) an anim component or b) a material stealth node
-    static bool GetAnimKey( plMaxNode *node, hsTArray<plKey> &outKeys );
+    static bool GetAnimKey(plMaxNode *node, hsTArray<plKey> &outKeys);
 
     // Static function to grab the animObjInterface for a given INode, regardless of type
-    static plAnimObjInterface   *GetAnimInterface( INode *node );
+    static plAnimObjInterface   *GetAnimInterface(INode *node);
 
     // plAnimObjInterface functions
-    virtual void    PickTargetNode( IParamBlock2 *destPB, ParamID destParamID, ParamID typeID );
+    virtual void    PickTargetNode(IParamBlock2 *destPB, ParamID destParamID, ParamID typeID);
     virtual bool    IsNodeRestricted() { return true; }
-    virtual ST::string GetIfaceSegmentName( bool allowNil );
+    virtual ST::string GetIfaceSegmentName(bool allowNil);
 
 protected:
     bool IAddTMToAnim(plMaxNode *node, plAGAnim *anim, plErrorMsg *pErrMsg);
@@ -146,7 +146,7 @@ class plAnimComponent : public plAnimComponentBase
 public:
     plAnimComponent();
     plKey GetModKey(plMaxNode *node);
-    virtual bool    GetKeyList( INode *restrictedNode, hsTArray<plKey> &outKeys );
+    virtual bool    GetKeyList(INode *restrictedNode, hsTArray<plKey> &outKeys);
 };
 
 class plAnimGroupedComponent : public plAnimComponentBase
@@ -162,7 +162,7 @@ public:
     plKey GetModKey(plMaxNode *node);
 
     virtual bool    IsNodeRestricted() { return false; }
-    virtual bool    GetKeyList( INode *restrictedNode, hsTArray<plKey> &outKeys );
+    virtual bool    GetKeyList(INode *restrictedNode, hsTArray<plKey> &outKeys);
 };
 
 //// Dialog Proc For Anim Selection /////////////////////////////////////////////////////////////
@@ -181,25 +181,25 @@ protected:
     ParamID         fTypeParamID;
     int             fNodeDlgItem;
 
-    TCHAR           fTitle[ 128 ];
+    TCHAR           fTitle[128];
 
     ParamMap2UserDlgProc    *fChain;
 
-    void    IUpdateNodeBtn( HWND hWnd, IParamBlock2 *pb );
+    void    IUpdateNodeBtn(HWND hWnd, IParamBlock2 *pb);
 
 public:
 
     int     GetHandledDlgItem() const { return fDlgItem; }
 
     // No node restriction version
-    plPlasmaAnimSelectDlgProc( ParamID paramID, int dlgItem, TCHAR *promptTitle, ParamMap2UserDlgProc *chainedDlgProc = nil );
+    plPlasmaAnimSelectDlgProc(ParamID paramID, int dlgItem, TCHAR *promptTitle, ParamMap2UserDlgProc *chainedDlgProc = nil);
 
     // Node restricted version
-    plPlasmaAnimSelectDlgProc( ParamID paramID, int dlgItem, ParamID nodeParamID, ParamID typeParamID, int nodeDlgItem, TCHAR *promptTitle, ParamMap2UserDlgProc *chainedDlgProc = nil );
+    plPlasmaAnimSelectDlgProc(ParamID paramID, int dlgItem, ParamID nodeParamID, ParamID typeParamID, int nodeDlgItem, TCHAR *promptTitle, ParamMap2UserDlgProc *chainedDlgProc = nil);
 
-    virtual void    SetThing( ReferenceTarget *m );
-    virtual void    Update( TimeValue t, Interval &valid, IParamMap2 *map );
-    virtual BOOL    DlgProc( TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
+    virtual void    SetThing(ReferenceTarget *m);
+    virtual void    Update(TimeValue t, Interval &valid, IParamMap2 *map);
+    virtual BOOL    DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
     void DeleteThis();
 };

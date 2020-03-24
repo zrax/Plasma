@@ -79,7 +79,7 @@ pyDniCoordinates::~pyDniCoordinates()
 
 int pyDniCoordinates::GetHSpans() const
 {
-    if ( fCoords )
+    if (fCoords)
     {
         return fCoords->GetHSpans();
     }
@@ -88,7 +88,7 @@ int pyDniCoordinates::GetHSpans() const
 
 int pyDniCoordinates::GetVSpans() const
 {
-    if ( fCoords )
+    if (fCoords)
     {
         return fCoords->GetVSpans();
     }
@@ -97,7 +97,7 @@ int pyDniCoordinates::GetVSpans() const
 
 int pyDniCoordinates::GetTorans() const
 {
-    if ( fCoords )
+    if (fCoords)
     {
         return fCoords->GetTorans();
     }

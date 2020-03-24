@@ -58,8 +58,8 @@ public:
     plWaveSetBase();
     virtual ~plWaveSetBase();
 
-    CLASSNAME_REGISTER( plWaveSetBase );
-    GETINTERFACE_ANY( plWaveSetBase, plMultiModifier );
+    CLASSNAME_REGISTER(plWaveSetBase);
+    GETINTERFACE_ANY(plWaveSetBase, plMultiModifier);
 
     virtual bool IEval(double secs, float del, uint32_t dirty) { return false; }
 

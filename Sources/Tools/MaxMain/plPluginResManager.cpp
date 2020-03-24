@@ -405,9 +405,9 @@ void plPluginResManager::EndExport()
     }
     fExportedNodes.Reset();
 
-    for(int i = 0; i < fLooseEnds.GetCount(); i++ )
+    for (int i = 0; i < fLooseEnds.GetCount(); i++)
     {
-        if( fLooseEnds[i] )
+        if (fLooseEnds[i])
             fLooseEnds[i]->UnRefObject();
     }
     fLooseEnds.Reset();
@@ -417,7 +417,7 @@ void plPluginResManager::EndExport()
 
 void plPluginResManager::AddLooseEnd(plKey key)
 {
-    if( key )
+    if (key)
     {
         key->RefObject();
         fLooseEnds.Append(key);
@@ -477,7 +477,7 @@ int32_t plPluginResManager::VerifySeqNumber(int32_t sequenceNumber, const ST::st
     sequenceNumber = plPageInfoUtils::CombineSeqNum(kTemporarySequenceStartPrefix, 0);
 
     int32_t upperLimit = 0xFEFFFF; // largest legal sequence number is a prefix of FE and a suffix of FFFF
-    for(; sequenceNumber < upperLimit; sequenceNumber++)
+    for (; sequenceNumber < upperLimit; sequenceNumber++)
     {
         if (willBeReserved)
             toCompareTo = plLocation::MakeReserved(sequenceNumber);

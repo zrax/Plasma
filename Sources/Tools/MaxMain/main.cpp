@@ -103,7 +103,7 @@ extern plGeneralAttribClassDesc theGeneralAttribClassDesc;
 
 __declspec(dllexport) ClassDesc *LibClassDesc(int i)
 {
-    switch(i)
+    switch (i)
     {
         case 0:
             return &HSDesc;
@@ -122,9 +122,9 @@ __declspec(dllexport) ClassDesc *LibClassDesc(int i)
         default:
             {
                 int numMtls = plPlasmaMtlImport::GetNumMtlDescs();
-                if( i - 7 < numMtls )
-                    return plPlasmaMtlImport::GetMtlDesc( i - 7 );
-                return plComponentMgr::Inst().Get( i - 7 - numMtls );
+                if (i - 7 < numMtls)
+                    return plPlasmaMtlImport::GetMtlDesc(i - 7);
+                return plComponentMgr::Inst().Get(i - 7 - numMtls);
             }
     }
 }
@@ -182,8 +182,8 @@ public:
     IParamBlock2* GetParamBlockByID(BlockID id) { return (fPBlock->ID() == id) ? fPBlock : NULL; } // return id'd ParamBlock
 
     int NumRefs() { return 1;}
-    virtual RefTargetHandle GetReference(int i) { if(i == 0) return fPBlock; else return NULL; }
-    virtual void SetReference(int i, RefTargetHandle rtarg) { if(i == 0) fPBlock = (IParamBlock2 *)rtarg; }
+    virtual RefTargetHandle GetReference(int i) { if (i == 0) return fPBlock; else return NULL; }
+    virtual void SetReference(int i, RefTargetHandle rtarg) { if (i == 0) fPBlock = (IParamBlock2 *)rtarg; }
 
     virtual int NumSubs()  { return 1; }
     virtual Animatable* SubAnim(int i) { return fPBlock; }

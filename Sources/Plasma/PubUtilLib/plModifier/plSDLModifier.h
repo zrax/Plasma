@@ -65,8 +65,8 @@ protected:
     virtual uint32_t IApplyModFlags(uint32_t sendFlags);
     
 public:
-    CLASSNAME_REGISTER( plSDLModifier );
-    GETINTERFACE_ANY( plSDLModifier, plSingleModifier);
+    CLASSNAME_REGISTER(plSDLModifier);
+    GETINTERFACE_ANY(plSDLModifier, plSingleModifier);
 
     plSDLModifier();
     virtual ~plSDLModifier();

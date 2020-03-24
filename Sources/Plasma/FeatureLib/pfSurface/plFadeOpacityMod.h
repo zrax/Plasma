@@ -107,8 +107,8 @@ public:
     plFadeOpacityMod();
     virtual ~plFadeOpacityMod();
 
-    CLASSNAME_REGISTER( plFadeOpacityMod );
-    GETINTERFACE_ANY( plFadeOpacityMod, plSingleModifier );
+    CLASSNAME_REGISTER(plFadeOpacityMod);
+    GETINTERFACE_ANY(plFadeOpacityMod, plSingleModifier);
 
     virtual void            SetKey(plKey k);
 
@@ -121,7 +121,7 @@ public:
 
     void FadeUp();
     void FadeDown();
-    void Fade(bool up) { if( up ) FadeUp(); else FadeDown(); }
+    void Fade(bool up) { if (up) FadeUp(); else FadeDown(); }
 
     void SetFadeUp(float f) { fFadeUp = f; }
     float GetFadeUp() const { return fFadeUp; }

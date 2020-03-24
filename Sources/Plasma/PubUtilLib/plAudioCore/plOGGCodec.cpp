@@ -65,10 +65,10 @@ uint8_t                       plOGGCodec::fDecodeFlags = 0;
 
 //// Constructor/Destructor //////////////////////////////////////////////////
 
-plOGGCodec::plOGGCodec( const plFileName &path, plAudioCore::ChannelSelect whichChan ) : fFileHandle( nil )
+plOGGCodec::plOGGCodec(const plFileName &path, plAudioCore::ChannelSelect whichChan) : fFileHandle(nil)
 {
     fOggFile = nil;
-    IOpen( path, whichChan );
+    IOpen(path, whichChan);
     fCurHeaderPos = 0;
     fHeadBuf = nil;
 }
@@ -103,7 +103,7 @@ void    plOGGCodec::BuildActualWaveHeader()
 
 bool plOGGCodec::ReadFromHeader(int numBytes, void *data)
 {
-    if(fCurHeaderPos < 56)
+    if (fCurHeaderPos < 56)
     {
         memcpy(data, fHeadBuf+fCurHeaderPos, numBytes);
         fCurHeaderPos += numBytes;
@@ -112,9 +112,9 @@ bool plOGGCodec::ReadFromHeader(int numBytes, void *data)
     return false;
 }
 
-void    plOGGCodec::IOpen( const plFileName &path, plAudioCore::ChannelSelect whichChan )
+void    plOGGCodec::IOpen(const plFileName &path, plAudioCore::ChannelSelect whichChan)
 {
-    hsAssert( path.IsValid(), "Invalid path specified in plOGGCodec reader" );
+    hsAssert(path.IsValid(), "Invalid path specified in plOGGCodec reader");
 
     // plNetClientApp::StaticDebugMsg("Ogg Open {}, t={f}, start", path, hsTimer::GetSeconds());
 
@@ -123,30 +123,30 @@ void    plOGGCodec::IOpen( const plFileName &path, plAudioCore::ChannelSelect wh
 
     /// Open the file as a plain binary stream
     fFileHandle = plFileSystem::Open(path, "rb");
-    if( fFileHandle != nil )
+    if (fFileHandle != nil)
     {
         /// Create the OGG data struct
         fOggFile = new OggVorbis_File;
 
         /// Open the OGG decompressor
-        if( ov_open( fFileHandle, fOggFile, NULL, 0 ) < 0 )
+        if (ov_open(fFileHandle, fOggFile, NULL, 0) < 0)
         {
-            IError( "Unable to open OGG source file" );
+            IError("Unable to open OGG source file");
             return;
         }
 
         /// Construct some header info from the ogg info
-        vorbis_info *vInfo = ov_info( fOggFile, -1 );
+        vorbis_info *vInfo = ov_info(fOggFile, -1);
 
         fHeader.fFormatTag = 1;
         fHeader.fNumChannels = vInfo->channels;
         fHeader.fNumSamplesPerSec = vInfo->rate;
     
         // Funny thing about the bits per sample: we get to CHOOSE. Go figure!
-        fHeader.fBitsPerSample = ( fDecodeFormat == k8bitUnsigned ) ? 8 : 16;
+        fHeader.fBitsPerSample = (fDecodeFormat == k8bitUnsigned) ? 8 : 16;
 
         // Why WAV files hold this info when it can be calculated is beyond me...
-        fHeader.fBlockAlign = ( fHeader.fBitsPerSample * fHeader.fNumChannels ) >> 3;
+        fHeader.fBlockAlign = (fHeader.fBitsPerSample * fHeader.fNumChannels) >> 3;
         fHeader.fAvgBytesPerSec = fHeader.fNumSamplesPerSec * fHeader.fBlockAlign;
 
         
@@ -155,13 +155,13 @@ void    plOGGCodec::IOpen( const plFileName &path, plAudioCore::ChannelSelect wh
         /// because we end up waiting for 1 more sample than we actually have. So, on the
         /// assumption that OGG is just slightly wrong sometimes, we just subtract 1 sample
         /// from what it tells us. As Brice put it, who's going to miss 1/40,000'ths of a second?
-        fDataSize = (uint32_t)(( ov_pcm_total( fOggFile, -1 ) - 1 ) * fHeader.fBlockAlign);
+        fDataSize = (uint32_t)((ov_pcm_total(fOggFile, -1) - 1) * fHeader.fBlockAlign);
 
         /// Channel select
-        if( fWhichChannel != plAudioCore::kAll )
+        if (fWhichChannel != plAudioCore::kAll)
         {
             fChannelAdjust = 2;
-            fChannelOffset = ( fWhichChannel == plAudioCore::kLeft ) ? 0 : 1;
+            fChannelOffset = (fWhichChannel == plAudioCore::kLeft) ? 0 : 1;
         }
         else
         {
@@ -176,7 +176,7 @@ void    plOGGCodec::IOpen( const plFileName &path, plAudioCore::ChannelSelect wh
         fFakeHeader.fNumChannels /= (uint16_t)fChannelAdjust;
         fFakeHeader.fBlockAlign /= (uint16_t)fChannelAdjust;
 
-        SetPosition( 0 );
+        SetPosition(0);
     }
 //  plNetClientApp::StaticDebugMsg("Ogg Open {}, t={f}, end", path, hsTimer::GetSeconds());
 }
@@ -191,118 +191,118 @@ void    plOGGCodec::Close()
     // plNetClientApp::StaticDebugMsg("Ogg Close, t={f}, start", hsTimer::GetSeconds());
     free(fHeadBuf);
     fHeadBuf = nil;
-    if( fOggFile != nil )
+    if (fOggFile != nil)
     {
-        ov_clear( fOggFile );
+        ov_clear(fOggFile);
         delete fOggFile;
         fOggFile = nil;
     }
 
-    if( fFileHandle != nil )
+    if (fFileHandle != nil)
     {
-        fclose( fFileHandle );
+        fclose(fFileHandle);
         fFileHandle = nil;
     }
     // plNetClientApp::StaticDebugMsg("Ogg Close, t={f}, end", hsTimer::GetSeconds());
 }
 
-void    plOGGCodec::IError( const char *msg )
+void    plOGGCodec::IError(const char *msg)
 {
-    hsAssert( false, msg );
+    hsAssert(false, msg);
     Close();
 }
 
 plWAVHeader &plOGGCodec::GetHeader()
 {
-    hsAssert( IsValid(), "GetHeader() called on an invalid OGG file" );
+    hsAssert(IsValid(), "GetHeader() called on an invalid OGG file");
 
     return fFakeHeader;
 }
 
 float   plOGGCodec::GetLengthInSecs()
 {
-    hsAssert( IsValid(), "GetLengthInSecs() called on an invalid OGG file" );
+    hsAssert(IsValid(), "GetLengthInSecs() called on an invalid OGG file");
 
     // Just query ogg directly...starting to see how cool ogg is yet?
-    return (float)ov_time_total( fOggFile, -1 );
+    return (float)ov_time_total(fOggFile, -1);
 }
 
-bool    plOGGCodec::SetPosition( uint32_t numBytes )
+bool    plOGGCodec::SetPosition(uint32_t numBytes)
 {
-    hsAssert( IsValid(), "GetHeader() called on an invalid OGG file" );
+    hsAssert(IsValid(), "GetHeader() called on an invalid OGG file");
     
 
-    if( !ov_seekable( fOggFile ) )
+    if (!ov_seekable(fOggFile))
     {
-        hsAssert( false, "Trying to set position on an unseekable OGG stream!" );
+        hsAssert(false, "Trying to set position on an unseekable OGG stream!");
         return false;
     }
 
     // The numBytes position is in uncompressed space and should be sample-aligned anyway,
     // so this should be just fine here.
-    ogg_int64_t newSample = ( numBytes / (fFakeHeader.fBlockAlign * fChannelAdjust) );
+    ogg_int64_t newSample = (numBytes / (fFakeHeader.fBlockAlign * fChannelAdjust));
 
     // Now please note how freaking easy it is here to do accurate or fast seeking...
     // Also note that if we're doing our channel extraction, we MUST do it the accurate way
-    if( ( fDecodeFlags & kFastSeeking ) && fChannelAdjust == 1 )
+    if ((fDecodeFlags & kFastSeeking) && fChannelAdjust == 1)
     {
-        if( ov_pcm_seek_page( fOggFile, newSample ) != 0 )
+        if (ov_pcm_seek_page(fOggFile, newSample) != 0)
         {
-            IError( "Unable to seek OGG stream" );
+            IError("Unable to seek OGG stream");
             return false;
         }
     }
     else
     {
-        if( ov_pcm_seek( fOggFile, newSample ) != 0 )
+        if (ov_pcm_seek(fOggFile, newSample) != 0)
         {
-            IError( "Unable to seek OGG stream" );
+            IError("Unable to seek OGG stream");
             return false;
         }
     }
     return true;
 }
 
-bool    plOGGCodec::Read( uint32_t numBytes, void *buffer )
+bool    plOGGCodec::Read(uint32_t numBytes, void *buffer)
 {
-    hsAssert( IsValid(), "GetHeader() called on an invalid OGG file" );
+    hsAssert(IsValid(), "GetHeader() called on an invalid OGG file");
 //  plNetClientApp::StaticDebugMsg("Ogg Read, t={f}, start", hsTimer::GetSeconds());
 
-    int bytesPerSample = ( fDecodeFormat == k16bitSigned ) ? 2 : 1;
-    int isSigned = ( fDecodeFormat == k16bitSigned ) ? 1 : 0;
+    int bytesPerSample = (fDecodeFormat == k16bitSigned) ? 2 : 1;
+    int isSigned = (fDecodeFormat == k16bitSigned) ? 1 : 0;
     int currSection;
     
-    if( fWhichChannel == plAudioCore::kAll )
+    if (fWhichChannel == plAudioCore::kAll)
     {
         // Easy, just a straight read
         char    *uBuffer = (char *)buffer;
 
-        while( numBytes > 0 )
+        while (numBytes > 0)
         {
             // Supposedly we should pay attention to currSection in case of bitrate changes,
             // but hopefully we'll never have those....
 
-            long bytesRead = ov_read( fOggFile, uBuffer, numBytes, 0, bytesPerSample, isSigned, &currSection );
+            long bytesRead = ov_read(fOggFile, uBuffer, numBytes, 0, bytesPerSample, isSigned, &currSection);
             
             // Since our job is so simple, do some extra error checking
-            if( bytesRead == OV_HOLE )
+            if (bytesRead == OV_HOLE)
             {
-                IError( "Unable to read from OGG file: missing data" );
+                IError("Unable to read from OGG file: missing data");
                 return false;
             }
-            else if( bytesRead == OV_EBADLINK )
+            else if (bytesRead == OV_EBADLINK)
             {
-                IError( "Unable to read from OGG file: corrupt link" );
+                IError("Unable to read from OGG file: corrupt link");
                 return false;
             }
-            else if( bytesRead == 0 )
+            else if (bytesRead == 0)
             {
-                IError( "Unable to finish reading from OGG file: end of stream" );
+                IError("Unable to finish reading from OGG file: end of stream");
                 return false;
             }
-            else if( bytesRead < 0 )
+            else if (bytesRead < 0)
             {
-                IError( "Unable to read from OGG file: unknown error" );
+                IError("Unable to read from OGG file: unknown error");
                 return false;
             }
 
@@ -313,18 +313,18 @@ bool    plOGGCodec::Read( uint32_t numBytes, void *buffer )
     else
     {
         /// Read in 4k chunks and extract
-        static char     trashBuffer[ 4096 ];
+        static char     trashBuffer[4096];
 
         long    toRead, i, thisRead, sampleSize = fFakeHeader.fBlockAlign;
 
-        for( ; numBytes > 0; )
+        for (; numBytes > 0; )
         {
             /// Read 4k worth of samples
-            toRead = ( sizeof( trashBuffer ) < numBytes * fChannelAdjust ) ? sizeof( trashBuffer ) : numBytes * fChannelAdjust;
+            toRead = (sizeof(trashBuffer) < numBytes * fChannelAdjust) ? sizeof(trashBuffer) : numBytes * fChannelAdjust;
 
 
-            thisRead = ov_read( fOggFile, (char *)trashBuffer, toRead, 0, bytesPerSample, isSigned, &currSection );
-            if( thisRead < 0 )
+            thisRead = ov_read(fOggFile, (char *)trashBuffer, toRead, 0, bytesPerSample, isSigned, &currSection);
+            if (thisRead < 0)
                 return false;
 
             /// Copy every other sample out
@@ -345,11 +345,11 @@ bool    plOGGCodec::Read( uint32_t numBytes, void *buffer )
 
 uint32_t  plOGGCodec::NumBytesLeft()
 {
-    if(!IsValid())
+    if (!IsValid())
     {
-        hsAssert( false, "GetHeader() called on an invalid OGG file" );
+        hsAssert(false, "GetHeader() called on an invalid OGG file");
         return 0;
     }
 
-    return (uint32_t)(( fDataSize - ( ov_pcm_tell( fOggFile ) * fHeader.fBlockAlign ) ) / fChannelAdjust);
+    return (uint32_t)((fDataSize - (ov_pcm_tell(fOggFile) * fHeader.fBlockAlign)) / fChannelAdjust);
 }

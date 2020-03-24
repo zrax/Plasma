@@ -125,7 +125,7 @@ bool plShadowSlave::ISetupPerspViewTransform()
     float minZ = bnd.GetMins().fZ;
     float maxZ = bnd.GetCenter().fZ + fAttenDist;
 
-    if( minZ < kMinMinZ )
+    if (minZ < kMinMinZ)
         minZ = kMinMinZ;
 
     // EAP
@@ -139,7 +139,7 @@ bool plShadowSlave::ISetupPerspViewTransform()
         return false;
 
     float cotX, cotY;
-    if( -bnd.GetMins().fX > bnd.GetMaxs().fX )
+    if (-bnd.GetMins().fX > bnd.GetMaxs().fX)
     {
         hsAssert(bnd.GetMins().fX < 0, "Empty shadow caster bounds?");
         cotX = -minZ / bnd.GetMins().fX;
@@ -150,7 +150,7 @@ bool plShadowSlave::ISetupPerspViewTransform()
         cotX = minZ / bnd.GetMaxs().fX;
     }
 
-    if( -bnd.GetMins().fY > bnd.GetMaxs().fY )
+    if (-bnd.GetMins().fY > bnd.GetMaxs().fY)
     {
         hsAssert(bnd.GetMins().fY < 0, "Empty shadow caster bounds?");
         cotY = -minZ / bnd.GetMins().fY;
@@ -178,9 +178,9 @@ bool plShadowSlave::ISetupPerspViewTransform()
 #else
     plConst(float) kBiasScale(1.f);
     plConst(float) kBiasTrans(1.f);
-    proj.fMap[0][0] = cotX * 0.5f * ( float(fWidth-2.f) / float(fWidth) ) * kBiasScale;
+    proj.fMap[0][0] = cotX * 0.5f * (float(fWidth-2.f) / float(fWidth)) * kBiasScale;
     proj.fMap[0][2] = 0.5f * (1.f - kBiasTrans * 0.5f/fWidth);
-    proj.fMap[1][1] = -cotY * 0.5f * ( float(fHeight-2.f) / float(fHeight) ) * kBiasScale;
+    proj.fMap[1][1] = -cotY * 0.5f * (float(fHeight-2.f) / float(fHeight)) * kBiasScale;
     proj.fMap[1][2] = 0.5f * (1.f - kBiasTrans * 0.5f/fHeight);
 #endif
 

@@ -94,8 +94,8 @@ public:
     plOccluder();
     virtual ~plOccluder();
 
-    CLASSNAME_REGISTER( plOccluder );
-    GETINTERFACE_ANY( plOccluder, plObjInterface);
+    CLASSNAME_REGISTER(plOccluder);
+    GETINTERFACE_ANY(plOccluder, plObjInterface);
 
     virtual bool        MsgReceive(plMessage* msg);
 
@@ -148,8 +148,8 @@ public:
     plMobileOccluder();
     virtual ~plMobileOccluder();
 
-    CLASSNAME_REGISTER( plMobileOccluder );
-    GETINTERFACE_ANY( plMobileOccluder, plOccluder );
+    CLASSNAME_REGISTER(plMobileOccluder);
+    GETINTERFACE_ANY(plMobileOccluder, plOccluder);
 
     virtual void SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l);
     virtual const hsMatrix44& GetLocalToWorld() const { return fLocalToWorld; }

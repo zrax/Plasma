@@ -282,7 +282,7 @@ bool plPXPhysical::Init()
     }
     else
     {
-        if ( GetProperty(plSimulationInterface::kPhysAnim) )
+        if (GetProperty(plSimulationInterface::kPhysAnim))
             SimLog("An animated physical that has no mass: {}", GetKeyName());
     }
 
@@ -344,7 +344,7 @@ bool plPXPhysical::Init()
     hsgResMgr::ResMgr()->AddViaNotify(GetKey(), refMsg, plRefFlags::kActiveRef);
 
     // only dynamic physicals without noSync need SDLs
-    if ( fRecipe.group == plSimDefs::kGroupDynamic && !fProps.IsBitSet(plSimulationInterface::kNoSynchronize) )
+    if (fRecipe.group == plSimDefs::kGroupDynamic && !fProps.IsBitSet(plSimulationInterface::kNoSynchronize))
     {
         // add SDL modifier
         plSceneObject* sceneObj = plSceneObject::ConvertNoRef(fObjectKey->ObjectIsLoaded());
@@ -365,22 +365,22 @@ bool plPXPhysical::Init()
 /////////////////////////////////////////////////////////////////
 
 // MSGRECEIVE
-bool plPXPhysical::MsgReceive( plMessage* msg )
+bool plPXPhysical::MsgReceive(plMessage* msg)
 {
-    if(plGenRefMsg *refM = plGenRefMsg::ConvertNoRef(msg))
+    if (plGenRefMsg *refM = plGenRefMsg::ConvertNoRef(msg))
     {
         return HandleRefMsg(refM);
     }
-    else if(plSimulationMsg *simM = plSimulationMsg::ConvertNoRef(msg))
+    else if (plSimulationMsg *simM = plSimulationMsg::ConvertNoRef(msg))
     {
         plLinearVelocityMsg* velMsg = plLinearVelocityMsg::ConvertNoRef(msg);
-        if(velMsg)
+        if (velMsg)
         {
             SetLinearVelocitySim(velMsg->Velocity());
             return true;
         }
         plAngularVelocityMsg* angvelMsg = plAngularVelocityMsg::ConvertNoRef(msg);
-        if(angvelMsg)
+        if (angvelMsg)
         {
             SetAngularVelocitySim(angvelMsg->AngularVelocity());
             return true;
@@ -744,14 +744,14 @@ void plPXPhysical::SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l, bo
     // make sure the physical is dynamic.
     //  also make sure there is some difference between the matrices...
     // ... but not when a subworld... because the subworld maybe animating and if the object is still then it is actually moving within the subworld
-    if (force || (fActor->isDynamic() && (fWorldKey || !CompareMatrices(l2w, fCachedLocal2World, .0001f))) )
+    if (force || (fActor->isDynamic() && (fWorldKey || !CompareMatrices(l2w, fCachedLocal2World, .0001f))))
     {
         ISetTransformGlobal(l2w);
         plProfile_Inc(SetTransforms);
     }
     else
     {
-        if ( !fActor->isDynamic()  && plSimulationMgr::fExtraProfile)
+        if (!fActor->isDynamic()  && plSimulationMgr::fExtraProfile)
             SimLog("Setting transform on non-dynamic: {}.", GetKeyName());
     }
 }
@@ -857,7 +857,7 @@ void plPXPhysical::Read(hsStream* stream, hsResMgr* mgr)
     fRecipe.reportsOn = stream->ReadLE32();
     fLOSDBs = stream->ReadLE16();
     //hack for swim regions currently they are labeled as static av blockers
-    if(fLOSDBs==plSimDefs::kLOSDBSwimRegion)
+    if (fLOSDBs==plSimDefs::kLOSDBSwimRegion)
     {
         fRecipe.group=plSimDefs::kGroupMax;
     }
@@ -917,7 +917,7 @@ void plPXPhysical::Read(hsStream* stream, hsResMgr* mgr)
     }
     else if (fGroup == plSimDefs::kGroupDetector)
     {
-        if(!fRecipe.worldKey)
+        if (!fRecipe.worldKey)
         {
             // Detectors are blue, and transparent
             physColor.Set(0.f,0.f,1.f,1.f);
@@ -939,7 +939,7 @@ void plPXPhysical::Read(hsStream* stream, hsResMgr* mgr)
             // Statics are yellow
             physColor.Set(1.f,0.8f,0.2f,1.f);
         // if in a subworld... slightly transparent
-        if(fRecipe.worldKey)
+        if (fRecipe.worldKey)
             opac = 0.6f;
     }
     else
@@ -1271,7 +1271,7 @@ plDrawableSpans* plPXPhysical::CreateProxy(hsGMaterial* mat, hsTArray<uint32_t>&
             pos.SetCount(desc.numVertices);
             tris.SetCount(desc.numTriangles * 3);
 
-            for (int i = 0; i < desc.numVertices; i++ )
+            for (int i = 0; i < desc.numVertices; i++)
                 pos[i] = GetTrimeshVert(desc, i);
 
             for (int i = 0; i < desc.numTriangles; i++)
@@ -1346,7 +1346,7 @@ plDrawableSpans* plPXPhysical::CreateProxy(hsGMaterial* mat, hsTArray<uint32_t>&
         pos.SetCount(desc.numVertices);
         tris.SetCount(desc.numTriangles * 3);
 
-        for (int i = 0; i < desc.numVertices; i++ )
+        for (int i = 0; i < desc.numVertices; i++)
             pos[i] = GetConvexVert(desc, i);
 
         for (int i = 0; i < desc.numTriangles; i++)

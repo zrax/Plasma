@@ -101,17 +101,17 @@ public:
     void DeleteThis() { delete this; }
 
     //From MtlBase
-    ParamDlg    *CreateParamDlg( HWND hwMtlEdit, IMtlParams *imp );
-    BOOL        SetDlgThing( ParamDlg* dlg );
-    void        Update( TimeValue t, Interval& valid );
+    ParamDlg    *CreateParamDlg(HWND hwMtlEdit, IMtlParams *imp);
+    BOOL        SetDlgThing(ParamDlg* dlg);
+    void        Update(TimeValue t, Interval& valid);
     void        Reset();
-    Interval    Validity( TimeValue t );
-    ULONG       LocalRequirements( int subMtlNum );
+    Interval    Validity(TimeValue t);
+    ULONG       LocalRequirements(int subMtlNum);
 
     //From Texmap
-    RGBA        EvalColor( ShadeContext& sc );
-    float       EvalMono( ShadeContext& sc );
-    Point3      EvalNormalPerturb( ShadeContext& sc );
+    RGBA        EvalColor(ShadeContext& sc);
+    float       EvalMono(ShadeContext& sc);
+    Point3      EvalNormalPerturb(ShadeContext& sc);
 
     // For displaying textures in the viewport
     BOOL        SupportTexDisplay() { return TRUE; }
@@ -132,7 +132,7 @@ public:
     UVGen       *GetTheUVGen() { return fUVGen; }
     
     //TODO: Return anim index to reference index
-    int SubNumToRefNum( int subNum ) { return kRefBitmap;   /* Only one sub*/  }
+    int SubNumToRefNum(int subNum) { return kRefBitmap;   /* Only one sub*/  }
     
     // Loading/Saving
     IOResult Load(ILoad *iload);
@@ -141,18 +141,18 @@ public:
     //From Animatable
     Class_ID    ClassID() { return DYNAMIC_ENV_LAYER_CLASS_ID; }
     SClass_ID   SuperClassID() { return TEXMAP_CLASS_ID; }
-    void        GetClassName( TSTR& s );
+    void        GetClassName(TSTR& s);
 
-    RefTargetHandle Clone( RemapDir &remap );
-    RefResult       NotifyRefChanged( Interval changeInt, RefTargetHandle hTarget, PartID& partID,  RefMessage message );
+    RefTargetHandle Clone(RemapDir &remap);
+    RefResult       NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID& partID,  RefMessage message);
 
     int             NumSubs();
     Animatable      *SubAnim(int i);
     TSTR            SubAnimName(int i);
 
     int             NumRefs();
-    RefTargetHandle GetReference( int i );
-    void            SetReference( int i, RefTargetHandle rtarg );
+    RefTargetHandle GetReference(int i);
+    void            SetReference(int i, RefTargetHandle rtarg);
 
     int             NumParamBlocks();   // return number of ParamBlocks in this instance
     IParamBlock2    *GetParamBlock(int i); // return i'th ParamBlock
@@ -177,13 +177,13 @@ public:
     };
 
         // Pure virtual accessors for the various bitmap related elements
-        virtual Bitmap *GetMaxBitmap(int index = 0) { hsAssert( false, "Function call not valid on this type of layer." ); return nil; }
-        virtual PBBitmap *GetPBBitmap( int index = 0 ) { hsAssert( false, "Function call not valid on this type of layer." ); return nil; }
+        virtual Bitmap *GetMaxBitmap(int index = 0) { hsAssert(false, "Function call not valid on this type of layer."); return nil; }
+        virtual PBBitmap *GetPBBitmap(int index = 0) { hsAssert(false, "Function call not valid on this type of layer."); return nil; }
         virtual int     GetNumBitmaps() { return 0; }
 
     protected:
-        virtual void ISetMaxBitmap(Bitmap *bitmap, int index = 0) { hsAssert( false, "Function call not valid on this type of layer." ); }
-        virtual void ISetPBBitmap( PBBitmap *pbbm, int index = 0 ){ hsAssert( false, "Function call not valid on this type of layer." ); }
+        virtual void ISetMaxBitmap(Bitmap *bitmap, int index = 0) { hsAssert(false, "Function call not valid on this type of layer."); }
+        virtual void ISetPBBitmap(PBBitmap *pbbm, int index = 0){ hsAssert(false, "Function call not valid on this type of layer."); }
 };
 
 #endif // _plDynamicEnvLayer_h

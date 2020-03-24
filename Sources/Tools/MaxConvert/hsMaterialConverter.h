@@ -151,8 +151,8 @@ public:
     static bool         HasVisDists(plMaxNode* node, Mtl* subMtl, float& minDist, float& maxDist);
     static bool         HasVisDists(plMaxNode* node, int iSubMtl, float& minDist, float& maxDist);
 
-    static bool     IMustBeUniqueMaterial( Mtl *mtl );
-    static bool     IMustBeUniqueLayer( Texmap *layer );
+    static bool     IMustBeUniqueMaterial(Mtl *mtl);
+    static bool     IMustBeUniqueLayer(Texmap *layer);
 
     static Mtl* FindSubMtlByName(TSTR& name, Animatable* anim);
     Mtl* FindSceneMtlByName(TSTR& name);
@@ -166,7 +166,7 @@ public:
 
     bool ClearDoneMaterials(plMaxNode* node);
 
-    int GetMaterialArray(Mtl *mtl, plMaxNode* node, hsTArray<hsGMaterial*>& out, uint32_t multiIndex = 0 );
+    int GetMaterialArray(Mtl *mtl, plMaxNode* node, hsTArray<hsGMaterial*>& out, uint32_t multiIndex = 0);
     int GetMaterialArray(Mtl *mtl, hsTArray<hsGMaterial*>& out, uint32_t multiIndex = 0);
     void CollectConvertedMaterials(Mtl *mtl, hsTArray<hsGMaterial *> &out);
 

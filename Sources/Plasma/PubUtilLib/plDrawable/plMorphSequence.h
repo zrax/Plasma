@@ -81,8 +81,8 @@ class plMorphDataSet : public hsKeyedObject
 public:
     hsTArray<plMorphArray>  fMorphs;
 
-    CLASSNAME_REGISTER( plMorphDataSet );
-    GETINTERFACE_ANY( plMorphDataSet, hsKeyedObject );
+    CLASSNAME_REGISTER(plMorphDataSet);
+    GETINTERFACE_ANY(plMorphDataSet, hsKeyedObject);
     
     virtual void Read(hsStream* s, hsResMgr* mgr);
     virtual void Write(hsStream* s, hsResMgr* mgr);
@@ -123,7 +123,7 @@ protected:
 
     virtual bool IEval(double secs, float del, uint32_t dirty) { return false; }
 
-    void ISetHaveSnap(bool on) { if(on)fMorphFlags |= kHaveSnap; else fMorphFlags &= ~kHaveSnap; }
+    void ISetHaveSnap(bool on) { if (on) fMorphFlags |= kHaveSnap; else fMorphFlags &= ~kHaveSnap; }
     void ISetDirty(bool on);
 
     bool        IResetShared(int iShare);
@@ -151,8 +151,8 @@ public:
     plMorphSequence();
     virtual ~plMorphSequence();
 
-    CLASSNAME_REGISTER( plMorphSequence );
-    GETINTERFACE_ANY( plMorphSequence, plSingleModifier );
+    CLASSNAME_REGISTER(plMorphSequence);
+    GETINTERFACE_ANY(plMorphSequence, plSingleModifier);
 
     virtual bool MsgReceive(plMessage* msg);
 
@@ -180,7 +180,7 @@ public:
     bool GetDirty() const { return 0 != (fMorphFlags & kDirty); }
     bool GetUseSharedMesh() const { return 0 != (fMorphFlags & kHaveShared); }
 
-    void SetUseSharedMesh(bool on) { if(on)fMorphFlags |= kHaveShared; else fMorphFlags &= ~kHaveShared; }
+    void SetUseSharedMesh(bool on) { if (on) fMorphFlags |= kHaveShared; else fMorphFlags &= ~kHaveShared; }
     void AddSharedMesh(plSharedMesh* mesh);
     void RemoveSharedMesh(plSharedMesh* mesh);
     static void FindMorphMods(const plSceneObject *so, hsTArray<const plMorphSequence*> &mods);

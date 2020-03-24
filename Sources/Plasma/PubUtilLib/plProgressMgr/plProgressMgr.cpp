@@ -117,9 +117,9 @@ plOperationProgress* plProgressMgr::IRegisterOperation(float length, const char 
         Activate();
     }
 
-    plOperationProgress *op = new plOperationProgress( length );
+    plOperationProgress *op = new plOperationProgress(length);
 
-    op->SetTitle( title );
+    op->SetTitle(title);
 
     if (fOperations)
     {
@@ -135,7 +135,7 @@ plOperationProgress* plProgressMgr::IRegisterOperation(float length, const char 
     if (alwaysDrawText)
         hsSetBits(op->fFlags, plOperationProgress::kAlwaysDrawText);
 
-    IUpdateCallbackProc( op );
+    IUpdateCallbackProc(op);
 
     return op;
 }
@@ -213,7 +213,7 @@ void plProgressMgr::IUpdateCallbackProc(plOperationProgress* progress)
 
 //// SetCallbackProc /////////////////////////////////////////////////////////
 
-plProgressMgrCallbackProc plProgressMgr::SetCallbackProc( plProgressMgrCallbackProc proc )
+plProgressMgrCallbackProc plProgressMgr::SetCallbackProc(plProgressMgrCallbackProc proc)
 {
     plProgressMgrCallbackProc old = fCallbackProc;
     fCallbackProc = proc;
@@ -227,8 +227,8 @@ void    plProgressMgr::CancelAllOps()
     plOperationProgress *op;
 
 
-    for( op = fOperations; op != nil; op = op->GetNext() )
-        op->SetCancelFlag( true );
+    for (op = fOperations; op != nil; op = op->GetNext())
+        op->SetCancelFlag(true);
 
     fCurrentStaticText = kNone;
 }
@@ -256,7 +256,7 @@ const ST::string plProgressMgr::GetStaticTextID(StaticText staticTextType)
 //// plOperationProgress ////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
-plOperationProgress::plOperationProgress( float length ) :
+plOperationProgress::plOperationProgress(float length) :
     fMax(length),
     fValue(0),
     fNext(nil),
@@ -323,38 +323,38 @@ void plOperationProgress::IChildUpdateEnd(plOperationProgress* child)
 
 //// Increment ///////////////////////////////////////////////////////////////
 
-void    plOperationProgress::Increment( float byHowMuch )
+void    plOperationProgress::Increment(float byHowMuch)
 {
     fValue += byHowMuch;
-    if( fValue > fMax )
+    if (fValue > fMax)
         fValue = fMax;
     IUpdateStats();
 
-    plProgressMgr::GetInstance()->IUpdateCallbackProc( this );
+    plProgressMgr::GetInstance()->IUpdateCallbackProc(this);
 }
 
 //// SetHowMuch //////////////////////////////////////////////////////////////
 
-void    plOperationProgress::SetHowMuch( float howMuch )
+void    plOperationProgress::SetHowMuch(float howMuch)
 {
     fValue = howMuch;
-    if( fValue > fMax )
+    if (fValue > fMax)
         fValue = fMax;
     IUpdateStats();
 
-    plProgressMgr::GetInstance()->IUpdateCallbackProc( this );
+    plProgressMgr::GetInstance()->IUpdateCallbackProc(this);
 }
 
 //// SetLength ///////////////////////////////////////////////////////////////
 
-void    plOperationProgress::SetLength( float length )
+void    plOperationProgress::SetLength(float length)
 {
     fMax = length;
-    if( fValue > fMax )
+    if (fValue > fMax)
         fValue = fMax;
     IUpdateStats();
 
-    plProgressMgr::GetInstance()->IUpdateCallbackProc( this );
+    plProgressMgr::GetInstance()->IUpdateCallbackProc(this);
 }
 
 void plOperationProgress::SetAborting()

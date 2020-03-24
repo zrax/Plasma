@@ -123,7 +123,7 @@ void TArrayStats()
     hsDlistNode * pNode = hsDlistNode::fpFirst;
     char fnm[512];
     snprintf(fnm,arrsize(fnm),"Reports\\%s.txt","TArray");
-    FILE * DumpLogFile = fopen( fnm, "w" );
+    FILE * DumpLogFile = fopen(fnm, "w");
     if (!DumpLogFile) return;
     int i=0;
     int totWaste=0;
@@ -160,7 +160,7 @@ void TArrayStats()
 //      if (pNode ==hsDlistNode::fpFirst) // dont loop
     }
     fprintf(DumpLogFile,"TOTAL use %d,   waste %d\n", totUse,totWaste);
-    fprintf(DumpLogFile,"Empty Ones %d,   waste %d\n", notUsed, notUsed * 12 ); // 12 aprox size of TArray
+    fprintf(DumpLogFile,"Empty Ones %d,   waste %d\n", notUsed, notUsed * 12); // 12 aprox size of TArray
     if (used)
         fprintf(DumpLogFile,"Average Use %d\n", totCount / used);
 
@@ -177,7 +177,7 @@ void LargeArrayStats()
     hsDlistNode * pNode = hsDlistNode::fpFirst;
     char fnm[512];
     snprintf(fnm,arrsize(fnm),"Reports\\%s.txt","TArray");
-    FILE * DumpLogFile = fopen( fnm, "w" );
+    FILE * DumpLogFile = fopen(fnm, "w");
     if (!DumpLogFile) return;
     int i=0;
     int totWaste=0;
@@ -214,7 +214,7 @@ void LargeArrayStats()
 //      if (pNode ==hsDlistNode::fpFirst) // dont loop
     }
     fprintf(DumpLogFile,"TOTAL use %d,   waste %d\n", totUse,totWaste);
-    fprintf(DumpLogFile,"Empty Ones %d,   waste %d\n", notUsed, notUsed * 12 ); // 12 aprox size of TArray
+    fprintf(DumpLogFile,"Empty Ones %d,   waste %d\n", notUsed, notUsed * 12); // 12 aprox size of TArray
     if (used)
         fprintf(DumpLogFile,"Average Use %d\n", totCount / used);
 
@@ -274,7 +274,7 @@ void hsTArrayBase::GrowArraySize(uint16_t newCount)
 #if 1
     if (newCount < 8)
         fTotalCount = newCount; // Hey its small don't loose sleep over the copy time
-    else if( newCount & 0x8000 ) // Hey, its huge, give it half way to maxed out
+    else if (newCount & 0x8000) // Hey, its huge, give it half way to maxed out
         fTotalCount = newCount + ((0xffff - newCount) >> 1);
     else
         fTotalCount = newCount + (newCount /2); // Give it Half again as much

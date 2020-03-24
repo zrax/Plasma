@@ -89,8 +89,8 @@ public:
     plCameraBrain1();
     ~plCameraBrain1();
     
-    CLASSNAME_REGISTER( plCameraBrain1 );
-    GETINTERFACE_ANY( plCameraBrain1, hsKeyedObject );
+    CLASSNAME_REGISTER(plCameraBrain1);
+    GETINTERFACE_ANY(plCameraBrain1, hsKeyedObject);
 
     void SetCamera(plCameraModifier1* pMod) { fCamera = pMod; }
     
@@ -121,9 +121,9 @@ public:
 
     bool    HasMovementFlag(int f) { return fMoveFlags.IsBitSet(f); }
     void    SetMovementFlag(int f);
-    void    ClearMovementFlag(int which) { fMoveFlags.ClearBit( which ); }
+    void    ClearMovementFlag(int which) { fMoveFlags.ClearBit(which); }
     void    SetFlags(int i) { fFlags.SetBit(i); }
-    void    ClearFlags(int which) { fFlags.ClearBit( which ); }
+    void    ClearFlags(int which) { fFlags.ClearBit(which); }
     bool    HasFlag(int f) { return fFlags.IsBitSet(f); }
 
     void    SetGoal(hsPoint3 pt) { fGoal = pt; }
@@ -241,8 +241,8 @@ public:
 
     static void SetSensitivity(float f) { fTurnRate = f; }
     
-    CLASSNAME_REGISTER( plCameraBrain1_Drive );
-    GETINTERFACE_ANY( plCameraBrain1_Drive, plCameraBrain1 );
+    CLASSNAME_REGISTER(plCameraBrain1_Drive);
+    GETINTERFACE_ANY(plCameraBrain1_Drive, plCameraBrain1);
 
     virtual void        Update(bool forced = false);
     virtual bool        MsgReceive(plMessage* msg);
@@ -264,8 +264,8 @@ public:
     plCameraBrain1_Avatar(plCameraModifier1* pMod);
     ~plCameraBrain1_Avatar();
     
-    CLASSNAME_REGISTER( plCameraBrain1_Avatar );
-    GETINTERFACE_ANY( plCameraBrain1_Avatar, plCameraBrain1 );
+    CLASSNAME_REGISTER(plCameraBrain1_Avatar);
+    GETINTERFACE_ANY(plCameraBrain1_Avatar, plCameraBrain1);
 
 
     virtual void        Update(bool forced = false);
@@ -304,8 +304,8 @@ public:
     plCameraBrain1_FirstPerson(plCameraModifier1* pMod);
     ~plCameraBrain1_FirstPerson();
     
-    CLASSNAME_REGISTER( plCameraBrain1_FirstPerson );
-    GETINTERFACE_ANY( plCameraBrain1_FirstPerson, plCameraBrain1_Avatar );
+    CLASSNAME_REGISTER(plCameraBrain1_FirstPerson);
+    GETINTERFACE_ANY(plCameraBrain1_FirstPerson, plCameraBrain1_Avatar);
     
     virtual void CalculatePosition();
     virtual void Push(bool recenter = true);
@@ -329,8 +329,8 @@ public:
     plCameraBrain1_Fixed(plCameraModifier1* pMod);
     ~plCameraBrain1_Fixed();
     
-    CLASSNAME_REGISTER( plCameraBrain1_Fixed );
-    GETINTERFACE_ANY( plCameraBrain1_Fixed, plCameraBrain1 );
+    CLASSNAME_REGISTER(plCameraBrain1_Fixed);
+    GETINTERFACE_ANY(plCameraBrain1_Fixed, plCameraBrain1);
 
     void SetTargetPoint(plCameraModifier1* pt) { fTargetPoint = pt; }
 
@@ -377,8 +377,8 @@ public:
     plCameraBrain1_Circle(plCameraModifier1* pMod);
     ~plCameraBrain1_Circle();
 
-    CLASSNAME_REGISTER( plCameraBrain1_Circle );
-    GETINTERFACE_ANY( plCameraBrain1_Circle, plCameraBrain1_Fixed );
+    CLASSNAME_REGISTER(plCameraBrain1_Circle);
+    GETINTERFACE_ANY(plCameraBrain1_Circle, plCameraBrain1_Fixed);
 
     
     virtual void Read(hsStream *stream, hsResMgr* mgr);

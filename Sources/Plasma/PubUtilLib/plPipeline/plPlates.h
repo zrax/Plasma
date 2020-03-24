@@ -80,7 +80,7 @@ class plPlate
         plMipmap        *fMipmap;
         float        fDepth, fOpacity;
         uint32_t          fFlags;
-        char            fTitle[ 64 ];
+        char            fTitle[64];
 
         plPlate         *fNext;
         plPlate         **fPrevPtr;
@@ -89,15 +89,15 @@ class plPlate
 
         static uint32_t   fMagicUniqueKeyInt;
 
-        plPlate( plPlate** owningHandle );
+        plPlate(plPlate** owningHandle);
         virtual ~plPlate();
 
-        void    ILink( plPlate **back );
+        void    ILink(plPlate **back);
 
         void    IUnlink()
         {
-            hsAssert( fPrevPtr, "Plate not in list" );
-            if( fNext )
+            hsAssert(fPrevPtr, "Plate not in list");
+            if (fNext)
                 fNext->fPrevPtr = fPrevPtr;
             *fPrevPtr = fNext;
 
@@ -118,10 +118,10 @@ class plPlate
 
         /// Basic properties
 
-        void    SetTransform( hsMatrix44 &matrix, bool reSort = true );
-        void    SetMaterial( hsGMaterial *material );
+        void    SetTransform(hsMatrix44 &matrix, bool reSort = true);
+        void    SetMaterial(hsGMaterial *material);
         void    SetTexture(plBitmap *texture); // Creates a new single layer material to use the texture.
-        void    SetTitle( const char *title ) { if( title != nil ) strncpy( fTitle, title, sizeof( fTitle ) ); else fTitle[ 0 ] = 0; }
+        void    SetTitle(const char *title) { if (title != nil) strncpy(fTitle, title, sizeof(fTitle)); else fTitle[0] = 0; }
 
         hsGMaterial     *GetMaterial() { return fMaterial; }
         hsMatrix44      &GetTransform() { return fXformMatrix; }
@@ -129,21 +129,21 @@ class plPlate
         uint32_t          GetFlags() { return fFlags; }
         const plMipmap  *GetMipmap() { return fMipmap; }
 
-        void    SetVisible( bool vis ) { if( vis ) fFlags |= kFlagVisible; else fFlags &= ~kFlagVisible; }
+        void    SetVisible(bool vis) { if (vis) fFlags |= kFlagVisible; else fFlags &= ~kFlagVisible; }
         bool    IsVisible();
 
-        void    SetOpacity( float opacity = 1.f );
+        void    SetOpacity(float opacity = 1.f);
 
         plPlate *GetNext() { return fNext; }
 
 
         /// Helper functions
         
-        void    SetDepth( float depth) { fDepth = depth; }
-        void    SetPosition( float x, float y, float z = -1.0f );
-        void    SetSize( float width, float height, bool adjustByAspectRatio = false );
+        void    SetDepth(float depth) { fDepth = depth; }
+        void    SetPosition(float x, float y, float z = -1.0f);
+        void    SetSize(float width, float height, bool adjustByAspectRatio = false);
 
-        plMipmap        *CreateMaterial( uint32_t width, uint32_t height, bool withAlpha, plMipmap* texture = NULL );
+        plMipmap        *CreateMaterial(uint32_t width, uint32_t height, bool withAlpha, plMipmap* texture = NULL);
         void            CreateFromResource(const ST::string& resName);
         void            ReloadFromResource(const ST::string& resName);
 };
@@ -161,29 +161,29 @@ class plGraphPlate : public plPlate
         std::vector<int32_t>  fLastValues;
         std::vector<std::string>    fLabelText;
 
-        uint32_t      IMakePow2( uint32_t value );
-        void        IDrawNumber( uint32_t number, uint32_t *dataPtr, uint32_t stride, uint32_t color );
-        void        IDrawDigit( char digit, uint32_t *dataPtr, uint32_t stride, uint32_t color );
+        uint32_t      IMakePow2(uint32_t value);
+        void        IDrawNumber(uint32_t number, uint32_t *dataPtr, uint32_t stride, uint32_t color);
+        void        IDrawDigit(char digit, uint32_t *dataPtr, uint32_t stride, uint32_t color);
 
     public:
-        plGraphPlate( plPlate **owningHandle );
+        plGraphPlate(plPlate **owningHandle);
         virtual ~plGraphPlate();
 
-        void    SetDataRange( uint32_t min, uint32_t max, uint32_t width );
-        void    SetDataLabels( uint32_t min, uint32_t max );
-        void    SetLabelText(const char *text1, const char *text2 = nil, const char *text3 = nil, const char *text4 = nil );
-        void    SetLabelText( const std::vector<std::string> & text );
+        void    SetDataRange(uint32_t min, uint32_t max, uint32_t width);
+        void    SetDataLabels(uint32_t min, uint32_t max);
+        void    SetLabelText(const char *text1, const char *text2 = nil, const char *text3 = nil, const char *text4 = nil);
+        void    SetLabelText(const std::vector<std::string> & text);
         void    ClearData();
 
-        void    AddData( int32_t value, int32_t value2 = -1, int32_t value3 = -1, int32_t value4 = -1 );
-        void    AddData( std::vector<int32_t> values );
+        void    AddData(int32_t value, int32_t value2 = -1, int32_t value3 = -1, int32_t value4 = -1);
+        void    AddData(std::vector<int32_t> values);
 
-        void    SetColors( uint32_t bgHexColor = 0x80000000, uint32_t axesHexColor = 0xffffffff, uint32_t dataHexColor = 0xff00ff00, uint32_t graphHexColor = 0x80ff0000 );
-        void    SetDataColors( uint32_t hexColor1 = 0xff00ff00, uint32_t hexColor2 = 0xff0000ff, uint32_t hexColor3 = 0xffffff00, uint32_t hexColor4 = 0xffff00ff );
-        void    SetDataColors( const std::vector<uint32_t> & hexColors );
+        void    SetColors(uint32_t bgHexColor = 0x80000000, uint32_t axesHexColor = 0xffffffff, uint32_t dataHexColor = 0xff00ff00, uint32_t graphHexColor = 0x80ff0000);
+        void    SetDataColors(uint32_t hexColor1 = 0xff00ff00, uint32_t hexColor2 = 0xff0000ff, uint32_t hexColor3 = 0xffffff00, uint32_t hexColor4 = 0xffff00ff);
+        void    SetDataColors(const std::vector<uint32_t> & hexColors);
 
-        const char      *GetLabelText( int i ) { return fLabelText[ i ].c_str(); }
-        uint32_t        GetDataColor( int i ) { return fDataHexColors[ i ]; }
+        const char      *GetLabelText(int i) { return fLabelText[i].c_str(); }
+        uint32_t        GetDataColor(int i) { return fDataHexColors[i]; }
         uint32_t        GetNumLabels() { return fLabelText.size(); }
         uint32_t        GetNumColors() { return fDataHexColors.size(); }
 };
@@ -208,7 +208,7 @@ class plPlateManager
         plPipeline  *fOwner;
         bool        fCreatedSucessfully;
 
-        plPlateManager( plPipeline *pipe )
+        plPlateManager(plPipeline *pipe)
         {
             fInstance = this;
             fPlates = nil;
@@ -216,9 +216,9 @@ class plPlateManager
             fCreatedSucessfully = true;
         }
 
-        virtual void    IDrawToDevice( plPipeline *pipe ) = 0;
+        virtual void    IDrawToDevice(plPipeline *pipe) = 0;
 
-        void            IResortPlate( plPlate *plate, bool fromCurrent );
+        void            IResortPlate(plPlate *plate, bool fromCurrent);
 
     public:
 
@@ -227,20 +227,20 @@ class plPlateManager
         static plPlateManager   &Instance() { return *fInstance; }
         static bool InstanceValid() { return fInstance != nil; }
 
-        void        CreatePlate( plPlate **handle );
-        void        CreatePlate( plPlate **handle, float width, float height );
-        void        CreatePlate( plPlate **handle, float x, float y, float width, float height );
+        void        CreatePlate(plPlate **handle);
+        void        CreatePlate(plPlate **handle, float width, float height);
+        void        CreatePlate(plPlate **handle, float x, float y, float width, float height);
 
-        void        CreateGraphPlate( plGraphPlate **handle );
+        void        CreateGraphPlate(plGraphPlate **handle);
 
-        void        DestroyPlate( plPlate *plate );
+        void        DestroyPlate(plPlate *plate);
 
-        void        SetPlateScreenPos( plPlate *plate, uint32_t x, uint32_t y );
-        void        SetPlatePixelSize( plPlate *plate, uint32_t pWidth, uint32_t pHeight );
+        void        SetPlateScreenPos(plPlate *plate, uint32_t x, uint32_t y);
+        void        SetPlatePixelSize(plPlate *plate, uint32_t pWidth, uint32_t pHeight);
 
         uint32_t      GetPipeWidth();
         uint32_t      GetPipeHeight();
-        void        DrawToDevice( plPipeline *pipe );
+        void        DrawToDevice(plPipeline *pipe);
 
         bool        IsValid() { return fCreatedSucessfully; }
 };

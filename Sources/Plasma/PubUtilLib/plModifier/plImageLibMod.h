@@ -60,8 +60,8 @@ public:
     plImageLibMod();
     virtual ~plImageLibMod();
 
-    CLASSNAME_REGISTER( plImageLibMod );
-    GETINTERFACE_ANY( plImageLibMod, plSingleModifier );
+    CLASSNAME_REGISTER(plImageLibMod);
+    GETINTERFACE_ANY(plImageLibMod, plSingleModifier);
 
     virtual bool MsgReceive(plMessage* msg);
     

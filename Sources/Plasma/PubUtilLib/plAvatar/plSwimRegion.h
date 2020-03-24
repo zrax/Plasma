@@ -54,8 +54,8 @@ public:
     plSwimRegionInterface() : fDownBuoyancy(1.f), fUpBuoyancy(1.f), fMaxUpwardVel(1.f) {}
     virtual ~plSwimRegionInterface() {}
     
-    CLASSNAME_REGISTER( plSwimRegionInterface );
-    GETINTERFACE_ANY( plSwimRegionInterface, plObjInterface );
+    CLASSNAME_REGISTER(plSwimRegionInterface);
+    GETINTERFACE_ANY(plSwimRegionInterface, plObjInterface);
     
     enum {
         kDisable        = 0x0,
@@ -80,8 +80,8 @@ public:
     plSwimCircularCurrentRegion();
     virtual ~plSwimCircularCurrentRegion() {}
 
-    CLASSNAME_REGISTER( plSwimCircularCurrentRegion );
-    GETINTERFACE_ANY( plSwimCircularCurrentRegion, plSwimRegionInterface );
+    CLASSNAME_REGISTER(plSwimCircularCurrentRegion);
+    GETINTERFACE_ANY(plSwimCircularCurrentRegion, plSwimRegionInterface);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);
@@ -105,8 +105,8 @@ public:
     plSwimStraightCurrentRegion();
     virtual ~plSwimStraightCurrentRegion() {}
     
-    CLASSNAME_REGISTER( plSwimStraightCurrentRegion );
-    GETINTERFACE_ANY( plSwimStraightCurrentRegion, plSwimRegionInterface );
+    CLASSNAME_REGISTER(plSwimStraightCurrentRegion);
+    GETINTERFACE_ANY(plSwimStraightCurrentRegion, plSwimRegionInterface);
     
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

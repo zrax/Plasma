@@ -63,9 +63,9 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 //// Constructor/Destructor //////////////////////////////////////////////////
 
-plTextureExportLog::plTextureExportLog( const char *fileName )
+plTextureExportLog::plTextureExportLog(const char *fileName)
 {
-    fFileName = hsStrcpy( fileName );
+    fFileName = hsStrcpy(fileName);
     fNodeList = nil;
 }
 
@@ -74,13 +74,13 @@ plTextureExportLog::~plTextureExportLog()
     plBMapNode  *node;
 
 
-    if( fFileName != nil )
+    if (fFileName != nil)
     {
         Write();
         delete [] fFileName;
     }
 
-    while( fNodeList != nil )
+    while (fNodeList != nil)
     {
         node = fNodeList->fNextNode;
         delete fNodeList;
@@ -90,7 +90,7 @@ plTextureExportLog::~plTextureExportLog()
 
 //// Other Ones //////////////////////////////////////////////////////////////
 
-void    plTextureExportLog::IAddBMapNode( uint32_t rank, plBitmap *bMap )
+void    plTextureExportLog::IAddBMapNode(uint32_t rank, plBitmap *bMap)
 {
     plBMapNode  *node = new plBMapNode, **nodeHdl;
 
@@ -99,146 +99,146 @@ void    plTextureExportLog::IAddBMapNode( uint32_t rank, plBitmap *bMap )
     node->fRank = rank;
 
 
-    for( nodeHdl = &fNodeList; *nodeHdl != nil; )
+    for (nodeHdl = &fNodeList; *nodeHdl != nil; )
     {
-        if( (*nodeHdl)->fRank < rank )
+        if ((*nodeHdl)->fRank < rank)
             break;
 
-        nodeHdl = &( (*nodeHdl)->fNextNode );
+        nodeHdl = &((*nodeHdl)->fNextNode);
     }
 
     node->fNextNode = *nodeHdl;
     *nodeHdl = node;
 }
 
-void    plTextureExportLog::AddTexture( plBitmap *texture )
+void    plTextureExportLog::AddTexture(plBitmap *texture)
 {
     // Rank based on size written to disk
-    IAddBMapNode( texture->GetTotalSize(), texture );
+    IAddBMapNode(texture->GetTotalSize(), texture);
 }
 
 void    plTextureExportLog::Write()
 {
     plBMapNode      *node;
     hsUNIXStream    *stream = new hsUNIXStream;
-    char            str[ 128 ];
+    char            str[128];
     uint32_t          size;
 
 
-    stream->Open( fFileName, "wt" );
-    stream->WriteString( "------------------------------------------------------------\n" );
-    stream->WriteString( "- Texture Export Data Log                                  -\n" );
-    stream->WriteString( "------------------------------------------------------------\n" );
-    stream->WriteString( "\n" );
-    IWriteTabbedString( stream, "Name", 4 );
-    IWriteTabbedString( stream, "Size", 3 );
-    IWriteTabbedString( stream, "Type", 4 );
-    stream->WriteString( "\n" );
-    stream->WriteString( "------------------------------------------------------------\n" );
+    stream->Open(fFileName, "wt");
+    stream->WriteString("------------------------------------------------------------\n");
+    stream->WriteString("- Texture Export Data Log                                  -\n");
+    stream->WriteString("------------------------------------------------------------\n");
+    stream->WriteString("\n");
+    IWriteTabbedString(stream, "Name", 4);
+    IWriteTabbedString(stream, "Size", 3);
+    IWriteTabbedString(stream, "Type", 4);
+    stream->WriteString("\n");
+    stream->WriteString("------------------------------------------------------------\n");
 
-    for( node = fNodeList; node != nil; node = node->fNextNode )
+    for (node = fNodeList; node != nil; node = node->fNextNode)
     {
-        plMipmap            *mip = plMipmap::ConvertNoRef( node->fBitmap );
-        plDynamicTextMap    *dynText = plDynamicTextMap::ConvertNoRef( node->fBitmap );
-        plCubicEnvironmap   *cubic = plCubicEnvironmap::ConvertNoRef( node->fBitmap );
-        plCubicRenderTarget*        cubeRend = plCubicRenderTarget::ConvertNoRef( node->fBitmap );
-        plRenderTarget*     rend = plRenderTarget::ConvertNoRef( node->fBitmap );
+        plMipmap            *mip = plMipmap::ConvertNoRef(node->fBitmap);
+        plDynamicTextMap    *dynText = plDynamicTextMap::ConvertNoRef(node->fBitmap);
+        plCubicEnvironmap   *cubic = plCubicEnvironmap::ConvertNoRef(node->fBitmap);
+        plCubicRenderTarget*        cubeRend = plCubicRenderTarget::ConvertNoRef(node->fBitmap);
+        plRenderTarget*     rend = plRenderTarget::ConvertNoRef(node->fBitmap);
 
         // Name
-        IWriteTabbedString( stream, node->fBitmap->GetKeyName().c_str(), dynText != nil ? 8 : 4 );
+        IWriteTabbedString(stream, node->fBitmap->GetKeyName().c_str(), dynText != nil ? 8 : 4);
 
         // Size, formatted
         size = node->fBitmap->GetTotalSize();
-        if( size < 1024 )
+        if (size < 1024)
         {
-            sprintf( str, "%d bytes", size );
-            IWriteTabbedString( stream, str, 2 );
+            sprintf(str, "%d bytes", size);
+            IWriteTabbedString(stream, str, 2);
         }
-        else if( size < 1024 * 1024 )
+        else if (size < 1024 * 1024)
         {
-            sprintf( str, "%4.1f kb", size / 1024.f );
-            IWriteTabbedString( stream, str, 2 );
+            sprintf(str, "%4.1f kb", size / 1024.f);
+            IWriteTabbedString(stream, str, 2);
         }
         else
         {
-            sprintf( str, "%4.1f Mb", size / ( 1024.f * 1024.f ) );
-            IWriteTabbedString( stream, str, 2 );
+            sprintf(str, "%4.1f Mb", size / (1024.f * 1024.f));
+            IWriteTabbedString(stream, str, 2);
         }
 
-        if( dynText != nil )
+        if (dynText != nil)
         {
-            IWriteTabbedString( stream, "Dynamic text map", 3 );
+            IWriteTabbedString(stream, "Dynamic text map", 3);
 
             // Dimensions
-            sprintf( str, "%d by %d", dynText->GetVisibleWidth(), dynText->GetVisibleHeight() );
-            IWriteTabbedString( stream, str, 2 );
+            sprintf(str, "%d by %d", dynText->GetVisibleWidth(), dynText->GetVisibleHeight());
+            IWriteTabbedString(stream, str, 2);
 
-            sprintf( str, "%d bpp", dynText->GetPixelSize() );
-            IWriteTabbedString( stream, str, 1 );
+            sprintf(str, "%d bpp", dynText->GetPixelSize());
+            IWriteTabbedString(stream, str, 1);
 
-            IWriteTabbedString( stream, dynText->IsCompressed()
+            IWriteTabbedString(stream, dynText->IsCompressed()
                                         ? "Compressed"
                                         : dynText->fCompressionType == plBitmap::kJPEGCompression
                                             ? "JPEG"
-                                            : "Uncompressed", 2 );
+                                            : "Uncompressed", 2);
         }
-        else if( cubic != nil )
+        else if (cubic != nil)
         {
-            IWriteTabbedString( stream, "Cubic EnvironMap", 3 );
+            IWriteTabbedString(stream, "Cubic EnvironMap", 3);
 
-            sprintf( str, "%d pixels square", cubic->GetFace( 0 )->GetWidth() );
-            IWriteTabbedString( stream, str, 2 );
+            sprintf(str, "%d pixels square", cubic->GetFace(0)->GetWidth());
+            IWriteTabbedString(stream, str, 2);
 
-            sprintf( str, "%d bpp", cubic->GetPixelSize() );
-            IWriteTabbedString( stream, str, 1 );
+            sprintf(str, "%d bpp", cubic->GetPixelSize());
+            IWriteTabbedString(stream, str, 1);
 
-            IWriteTabbedString( stream, cubic->IsCompressed()
+            IWriteTabbedString(stream, cubic->IsCompressed()
                                         ? "Compressed"
                                         : cubic->fCompressionType == plBitmap::kJPEGCompression
                                             ? "JPEG"
-                                            : "Uncompressed", 2 );
+                                            : "Uncompressed", 2);
         }
-        else if( mip != nil )
+        else if (mip != nil)
         {
-            IWriteTabbedString( stream, "Mipmap", 3 );
+            IWriteTabbedString(stream, "Mipmap", 3);
 
             // Dimensions & num mip levels
-            sprintf( str, "%d by %d", mip->GetWidth(), mip->GetHeight() );
-            IWriteTabbedString( stream, str, 2 );
+            sprintf(str, "%d by %d", mip->GetWidth(), mip->GetHeight());
+            IWriteTabbedString(stream, str, 2);
 
-            sprintf( str, "%d bpp", mip->GetPixelSize() );
-            IWriteTabbedString( stream, str, 1 );
+            sprintf(str, "%d bpp", mip->GetPixelSize());
+            IWriteTabbedString(stream, str, 1);
 
-            sprintf( str, "%d levels", mip->GetNumLevels() );
-            IWriteTabbedString( stream, str, 2 );
+            sprintf(str, "%d levels", mip->GetNumLevels());
+            IWriteTabbedString(stream, str, 2);
 
-            IWriteTabbedString( stream, mip->IsCompressed()
+            IWriteTabbedString(stream, mip->IsCompressed()
                                         ? "Compressed"
                                         : mip->fCompressionType == plBitmap::kJPEGCompression
                                             ? "JPEG"
-                                            : "Uncompressed", 2 );
+                                            : "Uncompressed", 2);
         }
-        else if( cubeRend )
+        else if (cubeRend)
         {
-            IWriteTabbedString( stream, "CubicRenderTarget", 3 );
+            IWriteTabbedString(stream, "CubicRenderTarget", 3);
 
             // Dimensions & num mip levels
-            sprintf( str, "%d by %d", cubeRend->GetWidth(), cubeRend->GetHeight() );
-            IWriteTabbedString( stream, str, 2 );
+            sprintf(str, "%d by %d", cubeRend->GetWidth(), cubeRend->GetHeight());
+            IWriteTabbedString(stream, str, 2);
         }
-        else if( rend )
+        else if (rend)
         {
-            IWriteTabbedString( stream, "RenderTarget", 3 );
+            IWriteTabbedString(stream, "RenderTarget", 3);
 
             // Dimensions & num mip levels
-            sprintf( str, "%d by %d", rend->GetWidth(), rend->GetHeight() );
-            IWriteTabbedString( stream, str, 2 );
+            sprintf(str, "%d by %d", rend->GetWidth(), rend->GetHeight());
+            IWriteTabbedString(stream, str, 2);
         }
         else
         {
-            IWriteTabbedString( stream, "Unknown", 3 );
+            IWriteTabbedString(stream, "Unknown", 3);
         }
-        stream->WriteString( "\n" );
+        stream->WriteString("\n");
     }
 
     stream->Close();
@@ -249,22 +249,22 @@ void    plTextureExportLog::Write()
     fFileName = nil;
 }
 
-void    plTextureExportLog::IWriteTabbedString( hsStream *stream, const char *string, int8_t numTabs )
+void    plTextureExportLog::IWriteTabbedString(hsStream *stream, const char *string, int8_t numTabs)
 {
-    static char tabs[ 64 ];
+    static char tabs[64];
     int         i;
 
 
-    stream->WriteString( string );
+    stream->WriteString(string);
 
     // Assumes 8 spaces per tab
-    numTabs -= strlen( string ) / 8;
-    if( numTabs < 1 )
+    numTabs -= strlen(string) / 8;
+    if (numTabs < 1)
         numTabs = 1;
 
-    for( i = 0; i < numTabs; i++ )
-        tabs[ i ] = '\t';
-    tabs[ i ] = 0;
+    for (i = 0; i < numTabs; i++)
+        tabs[i] = '\t';
+    tabs[i] = 0;
 
-    stream->WriteString( tabs );
+    stream->WriteString(tabs);
 }

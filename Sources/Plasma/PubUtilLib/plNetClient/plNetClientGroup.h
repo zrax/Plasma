@@ -68,7 +68,7 @@ private:
     std::set<OwnedGroup>::iterator IFind(const plNetGroupId& grpId)
     {
         std::set<OwnedGroup>::iterator it=fGroups.begin();
-        for( ; it != fGroups.end(); it++)
+        for (; it != fGroups.end(); it++)
             if ((*it).fGroup==grpId)
                 break;
         return it;
@@ -78,7 +78,7 @@ private:
     std::set<OwnedGroup>::const_iterator IFind(const plNetGroupId& grpId) const
     {
         std::set<OwnedGroup>::const_iterator it=fGroups.begin();
-        for( ; it != fGroups.end(); it++)
+        for (; it != fGroups.end(); it++)
             if ((*it).fGroup==grpId)
                 break;
         return it;

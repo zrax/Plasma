@@ -81,8 +81,8 @@ protected:
     virtual ~plNetMember() {}
 
 public:
-    CLASSNAME_REGISTER( plNetMember );
-    GETINTERFACE_ANY( plNetMember, plCreatable );
+    CLASSNAME_REGISTER(plNetMember);
+    GETINTERFACE_ANY(plNetMember, plCreatable);
 
     plNetMember();
     plNetMember(plNetApp* na);

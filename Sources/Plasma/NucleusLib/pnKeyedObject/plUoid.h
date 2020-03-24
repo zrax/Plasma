@@ -127,7 +127,7 @@ public:
     }
     bool operator!=(const plLocation& loc) const { return !(loc == *this); }
     plLocation& operator=(const plLocation& loc);
-    bool operator<(const plLocation& loc ) const { return fSequenceNumber < loc.fSequenceNumber; }
+    bool operator<(const plLocation& loc) const { return fSequenceNumber < loc.fSequenceNumber; }
 
     // THIS SHOULD BE FOR DEBUGGING ONLY <hint hint>
     ST::string StringIze() const;  // Format to displayable string.

@@ -62,7 +62,7 @@ class pyVaultNodeRef
 protected:
     // should only be created from C++ side
     pyVaultNodeRef(RelVaultNode * parent, RelVaultNode * child);
-    pyVaultNodeRef(int =0 );
+    pyVaultNodeRef(int =0);
 
 public:
     hsRef<RelVaultNode> GetParentNode() const;

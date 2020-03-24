@@ -75,9 +75,9 @@ void plParticleEmitter::Init(plParticleSystem *system, uint32_t maxParticles, ui
     fSystem = system;
     plLayerInterface *layer = system->fTexture->GetLayer(0)->BottomOfStack();
     fMiscFlags = miscFlags | kNeedsUpdate;
-    if( fMiscFlags & kOnReserve )
+    if (fMiscFlags & kOnReserve)
         fTimeToLive = -1.f; // Wait for someone to give us a spurt of life.
-    if( layer->GetShadeFlags() & hsGMatState::kShadeEmissive )
+    if (layer->GetShadeFlags() & hsGMatState::kShadeEmissive)
     {
         fMiscFlags |= kMatIsEmissive;
         fColor = layer->GetAmbientColor();
@@ -122,7 +122,7 @@ void plParticleEmitter::IClear()
     fParticleCores = nil;
     delete [] fParticleExts;
     fParticleExts = nil;
-    if( !(fMiscFlags & kBorrowedGenerator) )
+    if (!(fMiscFlags & kBorrowedGenerator))
         delete fGenerator;
     fGenerator = nil;
 }
@@ -330,7 +330,7 @@ void plParticleEmitter::IUpdateParticles(float delta)
             delete fGenerator;
             fGenerator = nil;
         }
-        if( (fTimeToLive > 0) && ((fTimeToLive -= delta) <= 0) )
+        if ((fTimeToLive > 0) && ((fTimeToLive -= delta) <= 0))
             fTimeToLive = -1.f;
         plProfile_EndLap(ParticleGenerate, fSystem->GetKeyName().c_str());
     }
@@ -363,7 +363,7 @@ void plParticleEmitter::IUpdateParticles(float delta)
 
     for (i = 0; i < fNumValidParticles; i++)
     {
-        if (!( fParticleExts[i].fMiscFlags & plParticleExt::kImmortal ))
+        if (!(fParticleExts[i].fMiscFlags & plParticleExt::kImmortal))
         {
             float percent = (1.0f - fParticleExts[i].fLife / fParticleExts[i].fStartLife);
             colorCtl = (fMiscFlags & kMatIsEmissive ? fSystem->fAmbientCtl : fSystem->fDiffuseCtl);
@@ -415,7 +415,7 @@ void plParticleEmitter::IUpdateParticles(float delta)
             hsVector3 tmp = *currVelocity * delta;
             fParticleCores[i].fOrientation.Set(&tmp);
         }
-        else if( fParticleExts[i].fRadsPerSec != 0 )
+        else if (fParticleExts[i].fRadsPerSec != 0)
         {
             float sinX, cosX;
             hsFastMath::SinCos(fParticleExts[i].fLife * fParticleExts[i].fRadsPerSec * 2.f * M_PI, sinX, cosX);
@@ -433,7 +433,7 @@ void plParticleEmitter::IUpdateParticles(float delta)
         // Giving the change in velocity.
         float drag = 1.f + fSystem->fDrag * delta;
         // Clamp it at 0. Drag should never cause a reversal in velocity direction.
-        if( drag < 0.f )
+        if (drag < 0.f)
             drag = 0.f;
         *currVelocity *= drag;
 
@@ -449,7 +449,7 @@ void plParticleEmitter::IUpdateParticles(float delta)
         // for now until we decide things don't "look right"
         for (j = 0; j < fSystem->fConstraints.GetCount(); j++)
         {
-            if( fSystem->fConstraints[j]->ApplyEffect(fTargetInfo, i) )
+            if (fSystem->fConstraints[j]->ApplyEffect(fTargetInfo, i))
             {
                 IRemoveParticle(i);
                 i--; // so that we hit this index again on the next iteration
@@ -554,7 +554,7 @@ void plParticleEmitter::Read(hsStream *s, hsResMgr *mgr)
     fMiscFlags = s->ReadLE32();
     fColor.Read(s);
 
-    if( fMiscFlags & kOnReserve )
+    if (fMiscFlags & kOnReserve)
         fTimeToLive = -1.f; // Wait for someone to give us a spurt of life.
 
     ISetupParticleMem();
@@ -584,6 +584,6 @@ uint32_t plParticleEmitter::CreateHexColor(const float r, const float g, const f
     ru = (uint32_t)(r * 255.0f);
     gu = (uint32_t)(g * 255.0f);
     bu = (uint32_t)(b * 255.0f);
-    return ( au << 24 ) | ( ru << 16 ) | ( gu << 8 ) | ( bu );
+    return (au << 24) | (ru << 16) | (gu << 8) | (bu);
 }
 

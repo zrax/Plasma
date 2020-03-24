@@ -52,7 +52,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 bool plLightSpace::MsgReceive(plMessage* msg)
 {
     plCollideMsg* collMsg = plCollideMsg::ConvertNoRef(msg);
-    if( collMsg )
+    if (collMsg)
     {
         // HACK - CollideMsg doesn't have sufficient info yet. Need at least object
         // which is entering and leaving, and whether it is entering or leaving.
@@ -64,11 +64,11 @@ bool plLightSpace::MsgReceive(plMessage* msg)
         return true;
     }
     plLightRefMsg* liMsg = plLightRefMsg::ConvertNoRef(msg);
-    if( liMsg )
+    if (liMsg)
     {
-        if( liMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+        if (liMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
             fLightInfo = liMsg->GetRef();
-        else if( liMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+        else if (liMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
             fLightInfo = nil;
 
         return true;

@@ -91,7 +91,7 @@ public:
 //  Utilitiy class for any dialog that consists of a single button that is used to select
 //  a soft volume.
 //  Just declare like this:
-//      static plSingleCompSelProc gSoftVolNegateSingleSel( paramID, buttonCtrlID, promptString );
+//      static plSingleCompSelProc gSoftVolNegateSingleSel(paramID, buttonCtrlID, promptString);
 //  and use it as the dialog proc for your dialog's ParamMap.
 
 class plSingleCompSelProc : public ParamMap2UserDlgProc
@@ -99,7 +99,7 @@ class plSingleCompSelProc : public ParamMap2UserDlgProc
 protected:
     ParamID         fNodeID;
     int             fDlgItem;
-    TCHAR           fTitle[ 128 ];
+    TCHAR           fTitle[128];
 
 public:
     plSingleCompSelProc(ParamID nodeID, int dlgItem, TCHAR *title);

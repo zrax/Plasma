@@ -85,7 +85,7 @@ public:
     bool operator==(const pyPlayer &player) const
     {
         // only thing that needs testing is the playerid, which is unique for all
-        if ( ((pyPlayer*)this)->GetPlayerID() == player.GetPlayerID() )
+        if (((pyPlayer*)this)->GetPlayerID() == player.GetPlayerID())
             return true;
         else
             return false;

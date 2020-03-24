@@ -192,10 +192,10 @@ bool plAVIWriterImp::Open(const char* fileName, plPipeline* pipeline)
 
     // Open AVI file
     HRESULT err;
-    err = AVIFileOpen(  &fFileHandle,           // returned file pointer
-                        fileName,               // file name
-                        OF_WRITE | OF_CREATE,   // mode to open file with
-                        NULL);                  // use handler determined
+    err = AVIFileOpen(&fFileHandle,           // returned file pointer
+                      fileName,               // file name
+                      OF_WRITE | OF_CREATE,   // mode to open file with
+                      NULL);                  // use handler determined
     hsAssert(err == AVIERR_OK, "Error creating AVI file in plAVIWriter::Open");
     if (err != AVIERR_OK)
     {
@@ -207,9 +207,9 @@ bool plAVIWriterImp::Open(const char* fileName, plPipeline* pipeline)
     IFillStreamInfo(&streamInfo, pipeline);
 
     // Create a video stream in the file
-    err = AVIFileCreateStream(  fFileHandle,        // file pointer
-                                &fStreamHandle,     // returned stream pointer
-                                &streamInfo );      // stream header
+    err = AVIFileCreateStream(fFileHandle,        // file pointer
+                              &fStreamHandle,     // returned stream pointer
+                              &streamInfo);      // stream header
     hsAssert(err == AVIERR_OK, "Error creating video stream in plAVIWriter::Open");
     if (err != AVIERR_OK)
     {
@@ -240,9 +240,9 @@ bool plAVIWriterImp::Open(const char* fileName, plPipeline* pipeline)
         }
 
         IFillBitmapInfo(&fBitmapInfo, pipeline);
-        err = AVIStreamSetFormat(   fCompressedHandle, 0,
-                                    &fBitmapInfo,   // stream format
-                                    fBitmapInfo.biSize);
+        err = AVIStreamSetFormat(fCompressedHandle, 0,
+                                 &fBitmapInfo,   // stream format
+                                 fBitmapInfo.biSize);
     } while (err != AVIERR_OK &&
             hsMessageBox("Codec unavailable, try again?", "AVI Writer", hsMessageBoxYesNo) == hsMBoxYes);
 
@@ -327,14 +327,14 @@ bool plAVIWriterImp::ICaptureFrame(plPipeline* pipeline)
     time *= kFramesPerSec;
 
     HRESULT err;
-    err = AVIStreamWrite(   fCompressedHandle,
-                            int(time),
-                            1,
-                            (LPBYTE)frame.GetAddr32(0,0),
-                            frame.GetTotalSize(),
-                            AVIIF_KEYFRAME,
-                            NULL,
-                            NULL);
+    err = AVIStreamWrite(fCompressedHandle,
+                         int(time),
+                         1,
+                         (LPBYTE)frame.GetAddr32(0,0),
+                         frame.GetTotalSize(),
+                         AVIIF_KEYFRAME,
+                         NULL,
+                         NULL);
 
     return (err == AVIERR_OK);
 }

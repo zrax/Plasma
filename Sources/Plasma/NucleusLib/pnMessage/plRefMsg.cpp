@@ -56,7 +56,7 @@ plRefMsg::plRefMsg()
 plRefMsg::plRefMsg(const plKey &r, uint8_t c)
 : plMessage(nil, r, nil), fRef(nil), fOldRef(nil), fContext(c)
 {
-    if( !fContext )
+    if (!fContext)
         fContext = kOnCreate;
 }
 

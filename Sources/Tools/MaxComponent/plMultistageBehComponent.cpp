@@ -558,13 +558,13 @@ IOResult plMultistageBehComponent::Load(ILoad* iload)
                 int version = multiChunk.ReadLE32();
                 fFreezePhys = multiChunk.ReadBool();
 
-                if(version > 1)
+                if (version > 1)
                     // version 1 adds smart seek
                     fSmartSeek = multiChunk.ReadBool();
                 else
                     fSmartSeek = false;
 
-                if(version > 2)
+                if (version > 2)
                     fReverseFBOnRelease = multiChunk.ReadBool();
                 else
                     fReverseFBOnRelease = false;

@@ -103,8 +103,8 @@ public:
 
     virtual ~plDynamicEnvMap();
 
-    CLASSNAME_REGISTER( plDynamicEnvMap );
-    GETINTERFACE_ANY( plDynamicEnvMap, plCubicRenderTarget );
+    CLASSNAME_REGISTER(plDynamicEnvMap);
+    GETINTERFACE_ANY(plDynamicEnvMap, plCubicRenderTarget);
 
     virtual void    Read(hsStream* s, hsResMgr* mgr);
     virtual void    Write(hsStream* s, hsResMgr* mgr);
@@ -200,8 +200,8 @@ public:
 
     virtual ~plDynamicCamMap();
 
-    CLASSNAME_REGISTER( plDynamicCamMap );
-    GETINTERFACE_ANY( plDynamicCamMap, plRenderTarget );
+    CLASSNAME_REGISTER(plDynamicCamMap);
+    GETINTERFACE_ANY(plDynamicCamMap, plRenderTarget);
 
     virtual void    Read(hsStream* s, hsResMgr* mgr);
     virtual void    Write(hsStream* s, hsResMgr* mgr);

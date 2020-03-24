@@ -83,7 +83,7 @@ cyAnimation::cyAnimation(const cyAnimation& anim)
 // clean up on the way out
 cyAnimation::~cyAnimation()
 {
-    if (fAnimName != nil )
+    if (fAnimName != nil)
     {
         delete [] fAnimName;
         fAnimName = nil;
@@ -104,14 +104,14 @@ void cyAnimation::AddRecvr(pyKey& recvr)
 
 PyObject* cyAnimation::GetFirstRecvr()
 {
-    if ( fRecvr.Count() > 0 )
+    if (fRecvr.Count() > 0)
         return pyKey::New(fRecvr[0]);
     return nil;
 }
 
 void cyAnimation::SetAnimName(const char* name)
 {
-    if ( fAnimName != nil )
+    if (fAnimName != nil)
         delete [] fAnimName;
     fAnimName = hsStrcpy(name);
 }
@@ -126,28 +126,28 @@ void cyAnimation::SetAnimName(const char* name)
 void cyAnimation::Play()
 {
     // must have a receiver!
-    if ( fRecvr.Count() > 0 )
+    if (fRecvr.Count() > 0)
     {
         // create message
         plAnimCmdMsg* pMsg = new plAnimCmdMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         // set the notetrack name (if there is one)
-        if ( fAnimName != nil )
+        if (fAnimName != nil)
             pMsg->SetAnimName(fAnimName);
 
         // NOTE: The animation modifier will set the animation back to the starting point automatically
@@ -155,7 +155,7 @@ void cyAnimation::Play()
         // then continue from there
         pMsg->SetCmd(plAnimCmdMsg::kGoToBegin);
         pMsg->SetCmd(plAnimCmdMsg::kContinue);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 }
 
@@ -169,31 +169,31 @@ void cyAnimation::Play()
 void cyAnimation::Stop()
 {
     // must have a receiver!
-    if ( fRecvr.Count() > 0 )
+    if (fRecvr.Count() > 0)
     {
         // create message
         plAnimCmdMsg* pMsg = new plAnimCmdMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         // set the notetrack name (if there is one)
-        if ( fAnimName != nil )
+        if (fAnimName != nil)
             pMsg->SetAnimName(fAnimName);
         pMsg->SetCmd(plAnimCmdMsg::kStop);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 }
 
@@ -207,31 +207,31 @@ void cyAnimation::Stop()
 void cyAnimation::Resume()
 {
     // must have a receiver!
-    if ( fRecvr.Count() > 0 )
+    if (fRecvr.Count() > 0)
     {
         // create message
         plAnimCmdMsg* pMsg = new plAnimCmdMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         // set the notetrack name (if there is one)
-        if ( fAnimName != nil )
+        if (fAnimName != nil)
             pMsg->SetAnimName(fAnimName);
         pMsg->SetCmd(plAnimCmdMsg::kContinue);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 }
 
@@ -259,32 +259,32 @@ void cyAnimation::PlayRange(float start, float end)
 void cyAnimation::PlayToTime(float time)
 {
     // must have a receiver!
-    if ( fRecvr.Count() > 0 )
+    if (fRecvr.Count() > 0)
     {
         // create message
         plAnimCmdMsg* pMsg = new plAnimCmdMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         // set the notetrack name (if there is one)
-        if ( fAnimName != nil )
+        if (fAnimName != nil)
             pMsg->SetAnimName(fAnimName);
         pMsg->SetCmd(plAnimCmdMsg::kPlayToTime);
         pMsg->fTime = time;
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 }
 
@@ -298,32 +298,32 @@ void cyAnimation::PlayToTime(float time)
 void cyAnimation::PlayToPercentage(float zeroToOne)
 {
     // must have a receiver!
-    if ( fRecvr.Count() > 0 )
+    if (fRecvr.Count() > 0)
     {
         // create message
         plAnimCmdMsg* pMsg = new plAnimCmdMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
         
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         // set the notetrack name (if there is one)
-        if ( fAnimName != nil )
+        if (fAnimName != nil)
             pMsg->SetAnimName(fAnimName);
         pMsg->SetCmd(plAnimCmdMsg::kPlayToPercentage);
         pMsg->fTime = zeroToOne;
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 }
 
@@ -338,32 +338,32 @@ void cyAnimation::PlayToPercentage(float zeroToOne)
 void cyAnimation::SkipToTime(float time)
 {
     // must have a receiver!
-    if ( fRecvr.Count() > 0 )
+    if (fRecvr.Count() > 0)
     {
         // create message
         plAnimCmdMsg* pMsg = new plAnimCmdMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         // set the notetrack name (if there is one)
-        if ( fAnimName != nil )
+        if (fAnimName != nil)
             pMsg->SetAnimName(fAnimName);
         pMsg->SetCmd(plAnimCmdMsg::kGoToTime);
         pMsg->fTime = time;
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 }
 
@@ -377,34 +377,34 @@ void cyAnimation::SkipToTime(float time)
 void cyAnimation::Looped(bool looped)
 {
     // must have a receiver!
-    if ( fRecvr.Count() > 0 )
+    if (fRecvr.Count() > 0)
     {
         // create message
         plAnimCmdMsg* pMsg = new plAnimCmdMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         // set the notetrack name (if there is one)
-        if ( fAnimName != nil )
+        if (fAnimName != nil)
             pMsg->SetAnimName(fAnimName);
-        if ( looped )
+        if (looped)
             pMsg->SetCmd(plAnimCmdMsg::kSetLooping);
         else
             pMsg->SetCmd(plAnimCmdMsg::kUnSetLooping);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 }
 
@@ -418,34 +418,34 @@ void cyAnimation::Looped(bool looped)
 void cyAnimation::Backwards(bool backwards)
 {
     // must have a receiver!
-    if ( fRecvr.Count() > 0 )
+    if (fRecvr.Count() > 0)
     {
         // create message
         plAnimCmdMsg* pMsg = new plAnimCmdMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         // set the notetrack name (if there is one)
-        if ( fAnimName != nil )
+        if (fAnimName != nil)
             pMsg->SetAnimName(fAnimName);
-        if ( backwards )
+        if (backwards)
             pMsg->SetCmd(plAnimCmdMsg::kSetBackwards);
         else
             pMsg->SetCmd(plAnimCmdMsg::kSetForewards);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 }
 
@@ -459,64 +459,64 @@ void cyAnimation::Backwards(bool backwards)
 void cyAnimation::SetLoopStart(float start)
 {
     // must have a receiver!
-    if ( fRecvr.Count() > 0 )
+    if (fRecvr.Count() > 0)
     {
         // create message
         plAnimCmdMsg* pMsg = new plAnimCmdMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         // set the notetrack name (if there is one)
-        if ( fAnimName != nil )
+        if (fAnimName != nil)
             pMsg->SetAnimName(fAnimName);
         pMsg->SetCmd(plAnimCmdMsg::kSetLoopBegin);
         pMsg->fLoopBegin = start;
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 }
 
 void cyAnimation::SetLoopEnd(float end)
 {
     // must have a receiver!
-    if ( fRecvr.Count() > 0 )
+    if (fRecvr.Count() > 0)
     {
         // create message
         plAnimCmdMsg* pMsg = new plAnimCmdMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         // set the notetrack name (if there is one)
-        if ( fAnimName != nil )
+        if (fAnimName != nil)
             pMsg->SetAnimName(fAnimName);
         pMsg->SetCmd(plAnimCmdMsg::kSetLoopEnd);
         pMsg->fLoopEnd = end;
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 }
 
@@ -533,32 +533,32 @@ void cyAnimation::SetLoopEnd(float end)
 void cyAnimation::Speed(float speed)
 {
     // must have a receiver!
-    if ( fRecvr.Count() > 0 )
+    if (fRecvr.Count() > 0)
     {
         // create message
         plAnimCmdMsg* pMsg = new plAnimCmdMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
 
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         // set the notetrack name (if there is one)
-        if ( fAnimName != nil )
+        if (fAnimName != nil)
             pMsg->SetAnimName(fAnimName);
         pMsg->SetCmd(plAnimCmdMsg::kSetSpeed);
         pMsg->fSpeed = speed;
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 }
 
@@ -566,30 +566,30 @@ void cyAnimation::Speed(float speed)
 void cyAnimation::IRunOneCmd(int cmd)
 {
     // must have a receiver!
-    if ( fRecvr.Count() > 0 )
+    if (fRecvr.Count() > 0)
     {
         // create message
         plAnimCmdMsg* pMsg = new plAnimCmdMsg;
         // check if this needs to be network forced to all clients
-        if (fNetForce )
+        if (fNetForce)
         {
             // set the network propagate flag to make sure it gets to the other clients
             pMsg->SetBCastFlag(plMessage::kNetPropagate);
             pMsg->SetBCastFlag(plMessage::kNetForce);
         }
-        if ( fSender )
+        if (fSender)
             pMsg->SetSender(fSender);
         // add all our receivers to the message receiver list
         int i;
-        for ( i=0; i<fRecvr.Count(); i++ )
+        for (i=0; i<fRecvr.Count(); i++)
         {
             pMsg->AddReceiver(fRecvr[i]);
         }
         // set the notetrack name (if there is one)
-        if ( fAnimName != nil )
+        if (fAnimName != nil)
             pMsg->SetAnimName(fAnimName);
         pMsg->SetCmd(cmd);
-        plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+        plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 }
 

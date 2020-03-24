@@ -57,8 +57,8 @@ public:
 
     void EmitCommand(const plKey receiver);
 
-    CLASSNAME_REGISTER( plAvLadderMod );
-    GETINTERFACE_ANY( plAvLadderMod, plSingleModifier );
+    CLASSNAME_REGISTER(plAvLadderMod);
+    GETINTERFACE_ANY(plAvLadderMod, plSingleModifier);
     
     // virtual void AddTarget(plSceneObject* so) {  SetTarget(so);  }
     virtual bool MsgReceive(plMessage* msg);

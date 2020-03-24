@@ -204,8 +204,8 @@ public:
     plShader();
     virtual ~plShader();
 
-    CLASSNAME_REGISTER( plShader );
-    GETINTERFACE_ANY( plShader, hsKeyedObject );
+    CLASSNAME_REGISTER(plShader);
+    GETINTERFACE_ANY(plShader, hsKeyedObject);
 
     // Read and write
     virtual void            Read(hsStream* s, hsResMgr* mgr);
@@ -251,7 +251,7 @@ public:
 
     bool                    IsPixelShader() const { return 0 != (fFlags & kIsPixel); }
     bool                    IsVertexShader() const { return !IsPixelShader(); }
-    void                    SetIsPixelShader(bool on) { if(on)fFlags |= kIsPixel; else fFlags &= ~kIsPixel; }
+    void                    SetIsPixelShader(bool on) { if (on) fFlags |= kIsPixel; else fFlags &= ~kIsPixel; }
 
     // These are only for use by the pipeline.
     hsGDeviceRef*           GetDeviceRef() const { return fDeviceRef; }

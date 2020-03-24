@@ -122,7 +122,7 @@ public:
 
     void            AddOccluderList(const hsTArray<plOccluder*> occList);
 
-    plSpaceTree*    GetSpaceTree() { if( !fSpaceTree ) IBuildSpaceTree(); return fSpaceTree; }
+    plSpaceTree*    GetSpaceTree() { if (!fSpaceTree) IBuildSpaceTree(); return fSpaceTree; }
 
     void            SetVisMgr(plVisMgr* visMgr) { fVisMgr = visMgr; }
     plVisMgr*       GetVisMgr() const { return fVisMgr; }

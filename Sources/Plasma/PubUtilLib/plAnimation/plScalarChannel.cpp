@@ -216,10 +216,10 @@ plAGChannel * plScalarTimeScale::Detach(plAGChannel * detach)
     
     fChannelIn = plScalarChannel::ConvertNoRef(fChannelIn->Detach(detach));
     
-    if(!fChannelIn || detach == this)
+    if (!fChannelIn || detach == this)
         result = nil;
     
-    if(result != this)
+    if (result != this)
         delete this;
     
     return result;
@@ -279,10 +279,10 @@ bool plScalarBlend::IsStoppedAt(double time)
 const float & plScalarBlend::Value(double time, bool peek)
 {
     float curBlend = fChannelBias->Value(time, peek);
-    if(curBlend == 0) {
+    if (curBlend == 0) {
         fChannelA->Value(fResult, time, peek);
     } else {
-        if(curBlend == 1) {
+        if (curBlend == 1) {
             fChannelB->Value(fResult, time, peek);
         } else {
             const float &scalarA = fChannelA->Value(time, peek);
@@ -306,16 +306,16 @@ plAGChannel * plScalarBlend::Detach(plAGChannel *remove)
     fChannelA = plScalarChannel::ConvertNoRef(fChannelA->Detach(remove));
     fChannelB = plScalarChannel::ConvertNoRef(fChannelB->Detach(remove));
 
-    if(!fChannelBias)
+    if (!fChannelBias)
         result = fChannelA;
-    else if(fChannelA && !fChannelB)
+    else if (fChannelA && !fChannelB)
         result = fChannelA;
-    else if(fChannelB && !fChannelA)
+    else if (fChannelB && !fChannelA)
         result = fChannelB;
-    else if(!fChannelA && !fChannelB)
+    else if (!fChannelA && !fChannelB)
         result = nil;
 
-    if(result != this)
+    if (result != this)
         delete this;
 
     return result;
@@ -345,7 +345,7 @@ plScalarControllerChannel::plScalarControllerChannel(plController *controller)
 // -----
 plScalarControllerChannel::~plScalarControllerChannel()
 {
-    if(fController) {
+    if (fController) {
         delete fController;
         fController = nil;
     }
@@ -439,16 +439,16 @@ plAGChannel * plScalarControllerCacheChannel::Detach(plAGChannel * channel)
 {
     plAGChannel *result = this;
 
-    if(channel == this)
+    if (channel == this)
     {
         result = nil;
     } else {
         fControllerChannel = plScalarControllerChannel::ConvertNoRef(fControllerChannel->Detach(channel));
         
-        if(!fControllerChannel)
+        if (!fControllerChannel)
             result = nil;
     }
-    if(result != this)
+    if (result != this)
         delete this;
 
     return result;
@@ -602,5 +602,5 @@ void plOmniCutoffApplicator::IApply(const plAGModifier *modifier, double time)
 
     plOmniLightInfo *oli = plOmniLightInfo::ConvertNoRef(IGetGI(modifier, plOmniLightInfo::Index()));
 
-    oli->SetCutoffAttenuation( scalarChan->Value( time ) );
+    oli->SetCutoffAttenuation(scalarChan->Value(time));
 }

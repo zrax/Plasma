@@ -98,7 +98,7 @@ static ParamBlockDesc2 gDecalAnimPB
         p_default, _T(""),
         end,
         
-    kPBAnimStealthNodes, _T( "testing" ), TYPE_REFTARG_TAB, 0, 0, 0,
+    kPBAnimStealthNodes, _T("testing"), TYPE_REFTARG_TAB, 0, 0, 0,
         p_accessor, &plStealthNodeAccessor::GetInstance(),
         end,
 

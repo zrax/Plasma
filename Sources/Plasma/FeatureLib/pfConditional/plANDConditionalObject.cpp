@@ -63,7 +63,7 @@ bool plANDConditionalObject::MsgReceive(plMessage* msg)
     plCondRefMsg* pCondMsg = plCondRefMsg::ConvertNoRef(msg);
     if (pCondMsg)
     {
-        fChildren[pCondMsg->fWhich] = plConditionalObject::ConvertNoRef( pCondMsg->GetRef() );
+        fChildren[pCondMsg->fWhich] = plConditionalObject::ConvertNoRef(pCondMsg->GetRef());
         return true;
     }
     return plConditionalObject::MsgReceive(msg);
@@ -105,7 +105,7 @@ void plANDConditionalObject::Read(hsStream* stream, hsResMgr* mgr)
     plCondRefMsg* refMsg;
     int n = stream->ReadLE32();
     fChildren.SetCountAndZero(n);
-    for(int i = 0; i < n; i++ )
+    for (int i = 0; i < n; i++)
     {
         refMsg = new plCondRefMsg(GetKey(), i);
         mgr->ReadKeyNotifyMe(stream,refMsg, plRefFlags::kActiveRef);
@@ -117,7 +117,7 @@ void plANDConditionalObject::Write(hsStream* stream, hsResMgr* mgr)
     plConditionalObject::Write(stream, mgr);
     
     stream->WriteLE32(fChildren.GetCount());
-    for( int i = 0; i < fChildren.GetCount(); i++ )
+    for (int i = 0; i < fChildren.GetCount(); i++)
         fChildren[i]->Write(stream, mgr);
 }
 

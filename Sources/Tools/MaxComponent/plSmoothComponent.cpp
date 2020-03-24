@@ -149,7 +149,7 @@ bool plSmoothComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 
 bool plSmoothComponent::ISmoothAll(plErrorMsg* pErrMsg)
 {
-    if( !fDoneThis )
+    if (!fDoneThis)
     {
         hsTArray<plGeometrySpan*> spans;
 
@@ -168,31 +168,31 @@ bool plSmoothComponent::IGetSpans(plErrorMsg* pErrMsg, hsTArray<plGeometrySpan*>
 
     uint32_t count = NumTargets();
     uint32_t i;
-    for( i = 0; i < count; i++ )
+    for (i = 0; i < count; i++)
     {
         plMaxNode *node = (plMaxNode*)GetTarget(i);
-        if( !(node && node->CanConvert() && node->GetDrawable()) )
+        if (!(node && node->CanConvert() && node->GetDrawable()))
             continue;
 
         plSceneObject* obj = node->GetSceneObject();
-        if( !obj )
+        if (!obj)
             continue;
 
         const plDrawInterface* di = obj->GetDrawInterface();
-        if( !di )
+        if (!di)
             continue;
 
         uint8_t iDraw;
-        for( iDraw = 0; iDraw < di->GetNumDrawables(); iDraw++ )
+        for (iDraw = 0; iDraw < di->GetNumDrawables(); iDraw++)
         {
             plDrawableSpans* dr = plDrawableSpans::ConvertNoRef(di->GetDrawable(iDraw));
-            if( !dr )
+            if (!dr)
                 continue;
 
             plDISpanIndex disi = dr->GetDISpans(di->GetDrawableMeshIndex(iDraw));
 
             int i;
-            for( i = 0; i < disi.fIndices.GetCount(); i++ )
+            for (i = 0; i < disi.fIndices.GetCount(); i++)
             {
                 spans.Append(dr->GetSourceSpans()[disi.fIndices[i]]);
             }
@@ -204,14 +204,14 @@ bool plSmoothComponent::IGetSpans(plErrorMsg* pErrMsg, hsTArray<plGeometrySpan*>
 
 bool plSmoothComponent::IDoSmooth(plErrorMsg* pErrMsg, hsTArray<plGeometrySpan*>& spans)
 {
-//  if( spans.GetCount() > 1 )
+//  if (spans.GetCount() > 1)
     {
         plAccMeshSmooth smoother;
         smoother.SetAngle(fCompPB->GetFloat(kSmoothAngle));
         smoother.SetFlags(plAccMeshSmooth::kSmoothNorm);
-        if( fCompPB->GetInt(kSmoothPos) )
+        if (fCompPB->GetInt(kSmoothPos))
             smoother.SetFlags(smoother.GetFlags() | plAccMeshSmooth::kSmoothPos);
-        if( fCompPB->GetInt(kSmoothColor) )
+        if (fCompPB->GetInt(kSmoothColor))
             smoother.SetFlags(smoother.GetFlags() | plAccMeshSmooth::kSmoothDiffuse);
         smoother.Smooth(spans);
     }
@@ -223,10 +223,10 @@ bool plSmoothComponent::IReShade(plErrorMsg* pErrMsg)
 {
     uint32_t count = NumTargets();
     uint32_t i;
-    for( i = 0; i < count; i++ )
+    for (i = 0; i < count; i++)
     {
         plMaxNode *node = (plMaxNode*)GetTarget(i);
-        if( node )
+        if (node)
             node->ShadeMesh(pErrMsg, nil);
     }
     return true;
@@ -316,7 +316,7 @@ bool plSmoothAvComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 
 bool plSmoothAvComponent::ISmoothAll(plErrorMsg* pErrMsg)
 {
-    if( !fDoneThis )
+    if (!fDoneThis)
     {
         hsTArray<plGeometrySpan*> spans;
 
@@ -335,20 +335,20 @@ bool plSmoothAvComponent::IGetSpans(plErrorMsg* pErrMsg, hsTArray<plGeometrySpan
 
     uint32_t count = NumTargets();
     uint32_t i;
-    for( i = 0; i < count; i++ )
+    for (i = 0; i < count; i++)
     {
         plMaxNode *node = (plMaxNode*)GetTarget(i);
-        if( !node )
+        if (!node)
             continue;
 
         plSharedMesh* sharedMesh = node->GetSwappableGeom();
-        if( !sharedMesh )
+        if (!sharedMesh)
             continue;
 
         int j;
-        for( j = 0; j < sharedMesh->fSpans.GetCount(); j++ )
+        for (j = 0; j < sharedMesh->fSpans.GetCount(); j++)
         {
-            if( sharedMesh->fSpans[j] )
+            if (sharedMesh->fSpans[j])
                 spans.Append(sharedMesh->fSpans[j]);
         }
     }
@@ -358,13 +358,13 @@ bool plSmoothAvComponent::IGetSpans(plErrorMsg* pErrMsg, hsTArray<plGeometrySpan
 
 bool plSmoothAvComponent::IDoSmooth(plErrorMsg* pErrMsg, hsTArray<plGeometrySpan*>& spans)
 {
-    if( spans.GetCount() > 1 )
+    if (spans.GetCount() > 1)
     {
         plAccMeshSmooth smoother;
         smoother.SetAngle(fCompPB->GetFloat(kSmoothAngle));
         smoother.SetDistTol(fCompPB->GetFloat(kDistTol));
         smoother.SetFlags(plAccMeshSmooth::kSmoothNorm);
-        if( fCompPB->GetInt(kSmoothPos) )
+        if (fCompPB->GetInt(kSmoothPos))
             smoother.SetFlags(smoother.GetFlags() | plAccMeshSmooth::kSmoothPos);
         smoother.Smooth(spans);
     }
@@ -376,10 +376,10 @@ bool plSmoothAvComponent::IReShade(plErrorMsg* pErrMsg)
 {
     uint32_t count = NumTargets();
     uint32_t i;
-    for( i = 0; i < count; i++ )
+    for (i = 0; i < count; i++)
     {
         plMaxNode *node = (plMaxNode*)GetTarget(i);
-        if( node )
+        if (node)
             node->ShadeMesh(pErrMsg, nil);
     }
     return true;
@@ -477,14 +477,14 @@ bool plSmoothBaseComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 
 plSmoothBaseComponent* plSmoothBaseComponent::GetSmoothBaseComp(INode* node)
 {
-    if( !node )
+    if (!node)
         return nil;
 
     plComponentBase *comp = ((plMaxNodeBase*)node)->ConvertToComponent();
-    if( comp == nil )
+    if (comp == nil)
         return nil;
 
-    if( comp->ClassID() == CID_SMOOTHBASE )
+    if (comp->ClassID() == CID_SMOOTHBASE)
         return (plSmoothBaseComponent*)comp;
 
     return nil;
@@ -494,26 +494,26 @@ plSmoothBaseComponent* plSmoothBaseComponent::GetSmoothBaseComp(INode* node)
 // Only valid after the MakeMesh phase.
 hsTArray<plAvMeshSmooth::XfmSpan>& plSmoothBaseComponent::GetSpans(plErrorMsg* pErrMsg)
 {
-    if( !fSpans.GetCount() )
+    if (!fSpans.GetCount())
     {
         uint32_t count = NumTargets();
         uint32_t i;
         hsTArray<plGeometrySpan*> spans;
 
-        for( i = 0; i < count; i++ )
+        for (i = 0; i < count; i++)
         {
             plMaxNode *node = (plMaxNode*)GetTarget(i);
-            if( !node )
+            if (!node)
                 continue;
 
             plSharedMesh* sharedMesh = node->GetSwappableGeom();
-            if( !sharedMesh )
+            if (!sharedMesh)
                 continue;
 
             int j;
-            for( j = 0; j < sharedMesh->fSpans.GetCount(); j++ )
+            for (j = 0; j < sharedMesh->fSpans.GetCount(); j++)
             {
-                if( sharedMesh->fSpans[j] )
+                if (sharedMesh->fSpans[j])
                 {
                     spans.Append(sharedMesh->fSpans[j]);
                     plAvMeshSmooth::XfmSpan xfmSpan;
@@ -529,13 +529,13 @@ hsTArray<plAvMeshSmooth::XfmSpan>& plSmoothBaseComponent::GetSpans(plErrorMsg* p
                 }
             }
         }
-        if( spans.GetCount() > 1 )
+        if (spans.GetCount() > 1)
         {
             plAccMeshSmooth smoother;
             smoother.SetAngle(fCompPB->GetFloat(kSmoothAngle));
             smoother.SetDistTol(fCompPB->GetFloat(kDistTol));
             smoother.SetFlags(plAccMeshSmooth::kSmoothNorm);
-            if( fCompPB->GetInt(kSmoothPos) )
+            if (fCompPB->GetInt(kSmoothPos))
                 smoother.SetFlags(smoother.GetFlags() | plAccMeshSmooth::kSmoothPos);
             smoother.Smooth(spans);
         }
@@ -609,12 +609,12 @@ BOOL plSmoothBaseSelProc::DlgProc(TimeValue t, IParamMap2 *paramMap, HWND hWnd, 
         return true;
 
     case WM_COMMAND:
-        if( (HIWORD(wParam) == BN_CLICKED) && (LOWORD(wParam) == IDC_COMP_SMOOTH_CHOSE) )
+        if ((HIWORD(wParam) == BN_CLICKED) && (LOWORD(wParam) == IDC_COMP_SMOOTH_CHOSE))
         {
             IParamBlock2 *pb = paramMap->GetParamBlock();
             std::vector<Class_ID> cids;
             cids.push_back(CID_SMOOTHBASE);
-            if( plPick::Node(pb, plSmoothSnapComponent::kSmoothBase, &cids, true, true) )
+            if (plPick::Node(pb, plSmoothSnapComponent::kSmoothBase, &cids, true, true))
             {
                 INode* node = pb->GetINode(plSmoothSnapComponent::kSmoothBase);
                 TSTR newName(node ? node->GetName() : "Pick");
@@ -684,18 +684,18 @@ bool plSmoothSnapComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
 
 bool plSmoothSnapComponent::ISmoothAll(plErrorMsg* pErrMsg)
 {
-    if( !fDoneThis )
+    if (!fDoneThis)
     {
         fDoneThis = true;
 
         hsTArray<plAvMeshSmooth::XfmSpan>& srcSpans = IGetSrcSpans(pErrMsg);
 
-        if( !srcSpans.GetCount() )
+        if (!srcSpans.GetCount())
             return true;
 
         hsTArray<plAvMeshSmooth::XfmSpan> dstSpans;
 
-        if( !IGetDstSpans(pErrMsg, dstSpans) )
+        if (!IGetDstSpans(pErrMsg, dstSpans))
             return true;
 
         IDoSmooth(pErrMsg, srcSpans, dstSpans);
@@ -709,7 +709,7 @@ hsTArray<plAvMeshSmooth::XfmSpan>& plSmoothSnapComponent::IGetSrcSpans(plErrorMs
     static hsTArray<plAvMeshSmooth::XfmSpan> emptySpans;
 
     plSmoothBaseComponent* baseComp = plSmoothBaseComponent::GetSmoothBaseComp(fCompPB->GetINode(kSmoothBase, 0, 0));
-    if( !baseComp )
+    if (!baseComp)
         return emptySpans;
 
     return baseComp->GetSpans(pErrMsg);
@@ -722,20 +722,20 @@ bool plSmoothSnapComponent::IGetDstSpans(plErrorMsg* pErrMsg, hsTArray<plAvMeshS
 
     uint32_t count = NumTargets();
     uint32_t i;
-    for( i = 0; i < count; i++ )
+    for (i = 0; i < count; i++)
     {
         plMaxNode *node = (plMaxNode*)GetTarget(i);
-        if( !node )
+        if (!node)
             continue;
 
         plSharedMesh* sharedMesh = node->GetSwappableGeom();
-        if( !sharedMesh )
+        if (!sharedMesh)
             continue;
 
         int j;
-        for( j = 0; j < sharedMesh->fSpans.GetCount(); j++ )
+        for (j = 0; j < sharedMesh->fSpans.GetCount(); j++)
         {
-            if( sharedMesh->fSpans[j] )
+            if (sharedMesh->fSpans[j])
             {
                 geoSpans.Append(sharedMesh->fSpans[j]);
 
@@ -756,17 +756,17 @@ bool plSmoothSnapComponent::IGetDstSpans(plErrorMsg* pErrMsg, hsTArray<plAvMeshS
     // Smooth them with themselves before we pass them off to be snapped to the base.
     // We'll use the base component's parameters, because ours will be sloppier to
     // ensure proper snapping.
-    if( geoSpans.GetCount() )
+    if (geoSpans.GetCount())
     {
         plSmoothBaseComponent* baseComp = plSmoothBaseComponent::GetSmoothBaseComp(fCompPB->GetINode(kSmoothBase, 0, 0));
-        if( !baseComp )
+        if (!baseComp)
             return 0;
 
         plAccMeshSmooth smoother;
         smoother.SetAngle(baseComp->GetSmoothAngle());
         smoother.SetDistTol(baseComp->GetDistTol());
         smoother.SetFlags(plAccMeshSmooth::kSmoothNorm);
-        if( baseComp->SmoothPosition() )
+        if (baseComp->SmoothPosition())
             smoother.SetFlags(smoother.GetFlags() | plAccMeshSmooth::kSmoothPos);
         smoother.Smooth(geoSpans);
     }
@@ -776,13 +776,13 @@ bool plSmoothSnapComponent::IGetDstSpans(plErrorMsg* pErrMsg, hsTArray<plAvMeshS
 
 bool plSmoothSnapComponent::IDoSmooth(plErrorMsg* pErrMsg, hsTArray<plAvMeshSmooth::XfmSpan>& srcSpans, hsTArray<plAvMeshSmooth::XfmSpan>& dstSpans)
 {
-    if( srcSpans.GetCount() && dstSpans.GetCount() )
+    if (srcSpans.GetCount() && dstSpans.GetCount())
     {
         plAvMeshSmooth smoother;
         smoother.SetAngle(fCompPB->GetFloat(kSmoothAngle));
         smoother.SetDistTol(fCompPB->GetFloat(kDistTol));
         smoother.SetFlags(plAccMeshSmooth::kSmoothNorm);
-        if( fCompPB->GetInt(kSmoothPos) )
+        if (fCompPB->GetInt(kSmoothPos))
             smoother.SetFlags(smoother.GetFlags() | plAccMeshSmooth::kSmoothPos);
         smoother.Smooth(srcSpans, dstSpans);
     }
@@ -794,10 +794,10 @@ bool plSmoothSnapComponent::IReShade(plErrorMsg* pErrMsg)
 {
     uint32_t count = NumTargets();
     uint32_t i;
-    for( i = 0; i < count; i++ )
+    for (i = 0; i < count; i++)
     {
         plMaxNode *node = (plMaxNode*)GetTarget(i);
-        if( node )
+        if (node)
             node->ShadeMesh(pErrMsg, nil);
     }
     return true;

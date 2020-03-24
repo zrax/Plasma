@@ -367,16 +367,16 @@ bool plPhysHingeConstraintComponent::SetupProperties(plMaxNode *pNode, plErrorMs
 */
 /*
         bool HasPhysFlag = false;
-        for(int i = 0; i < pNode->NumAttachedComponents(); i++)
+        for (int i = 0; i < pNode->NumAttachedComponents(); i++)
         {
             plComponentBase* thisComp = pNode->GetAttachedComponent(i);
-            if(thisComp->ClassID() == PHYSICS_DEBUG_CID && !HasPhysFlag) HasPhysFlag = true;
-            if(thisComp->ClassID() == PHYSICS_TERRAIN_CID && !HasPhysFlag) HasPhysFlag = true;
-            if(thisComp->ClassID() == PHYSICS_DETECTOR_CID && !HasPhysFlag) HasPhysFlag = true;
-            if(thisComp->ClassID() == PHYSICS_INVISIBLE_CID && !HasPhysFlag) HasPhysFlag = true;
-            if(thisComp->ClassID() == PHYSICS_PLAYER_CID && !HasPhysFlag) HasPhysFlag = true;
-            if(thisComp->ClassID() == PHYSICS_SIMPLE_CID && !HasPhysFlag) HasPhysFlag = true;
-        if(HasPhysFlag) break;
+            if (thisComp->ClassID() == PHYSICS_DEBUG_CID && !HasPhysFlag) HasPhysFlag = true;
+            if (thisComp->ClassID() == PHYSICS_TERRAIN_CID && !HasPhysFlag) HasPhysFlag = true;
+            if (thisComp->ClassID() == PHYSICS_DETECTOR_CID && !HasPhysFlag) HasPhysFlag = true;
+            if (thisComp->ClassID() == PHYSICS_INVISIBLE_CID && !HasPhysFlag) HasPhysFlag = true;
+            if (thisComp->ClassID() == PHYSICS_PLAYER_CID && !HasPhysFlag) HasPhysFlag = true;
+            if (thisComp->ClassID() == PHYSICS_SIMPLE_CID && !HasPhysFlag) HasPhysFlag = true;
+        if (HasPhysFlag) break;
         }*/
     
 
@@ -387,8 +387,8 @@ bool plPhysHingeConstraintComponent::SetupProperties(plMaxNode *pNode, plErrorMs
 
 
 
-        if(fCompPB->GetINode(kParent) && fCompPB->GetInt(kUseParentBool))
-            if(!((plMaxNode*)fCompPB->GetINode(kParent))->CanConvert())
+        if (fCompPB->GetINode(kParent) && fCompPB->GetInt(kUseParentBool))
+            if (!((plMaxNode*)fCompPB->GetINode(kParent))->CanConvert())
             {
                 pErrMsg->Set(true, "Ignored Parent Value", "Parent %s was set to be Ignored. No Constraint was used.", (fCompPB->GetINode(kParent)->GetName())).Show();
                 pErrMsg->Set(false);
@@ -412,9 +412,9 @@ bool plPhysHingeConstraintComponent::Convert(plMaxNode *node, plErrorMsg *pErrMs
 
 
         plMaxNode* ParentNode = (plMaxNode*)fCompPB->GetINode(kParent);
-        if(ParentNode)
+        if (ParentNode)
         {
-            if(!ParentNode->GetPhysicalProps()->IsUsed())
+            if (!ParentNode->GetPhysicalProps()->IsUsed())
             {
                 pErrMsg->Set(true, "Need a Physical Component", "Object %s has a Physical Constraint but no Physical Component. No Constraint was used.", (node->GetName())).Show();
                 pErrMsg->Set(false);
@@ -423,7 +423,7 @@ bool plPhysHingeConstraintComponent::Convert(plMaxNode *node, plErrorMsg *pErrMs
 
         }
 
-        if(!node->GetPhysicalProps()->IsUsed())
+        if (!node->GetPhysicalProps()->IsUsed())
         {
             pErrMsg->Set(true, "Need a Physical Component", "Object %s has a Physical Constraint but no Physical Component. No Constraint was used.", (node->GetName())).Show();
             pErrMsg->Set(false);
@@ -433,14 +433,14 @@ bool plPhysHingeConstraintComponent::Convert(plMaxNode *node, plErrorMsg *pErrMs
 
 
         // Using the MotorTorque field, just to keep from creating yet another field in our bloated base class.
-        if(fCompPB->GetInt(kParentPinnedBool))
+        if (fCompPB->GetInt(kParentPinnedBool))
             HMod->SetParentPin(true);
 
-        if(fCompPB->GetInt(kChildPinnedBool))
+        if (fCompPB->GetInt(kChildPinnedBool))
             HMod->SetChildPin(true);
 
 
-        if(fCompPB->GetFloat(kFriction))
+        if (fCompPB->GetFloat(kFriction))
             HMod->SetHCFriction(0,fCompPB->GetFloat(kFriction));
 
         //Grab the pivot point from the child translate
@@ -452,8 +452,8 @@ bool plPhysHingeConstraintComponent::Convert(plMaxNode *node, plErrorMsg *pErrMs
 
 
         plKey ParentKey  = nil;
-        if(fCompPB->GetINode(kParent) && fCompPB->GetInt(kUseParentBool))
-            if(((plMaxNode*)fCompPB->GetINode(kParent))->CanConvert())
+        if (fCompPB->GetINode(kParent) && fCompPB->GetInt(kUseParentBool))
+            if (((plMaxNode*)fCompPB->GetINode(kParent))->CanConvert())
             {
                 plMaxNode* ParentNode = (plMaxNode*)fCompPB->GetINode(kParent);
                 ParentKey = ParentNode->GetKey();
@@ -467,7 +467,7 @@ bool plPhysHingeConstraintComponent::Convert(plMaxNode *node, plErrorMsg *pErrMs
             }
 
         hsVector3 HingeVector;
-        if(fCompPB->GetInt(kPositionPtr) == kZAxis)
+        if (fCompPB->GetInt(kPositionPtr) == kZAxis)
         {
             HingeVector = node->GetLocalToWorld44().GetAxis(hsMatrix44::kUp);
             HMod->SetHCLimits(kZAxis, 1, fCompPB->GetFloat(kUpperAngle));
@@ -475,7 +475,7 @@ bool plPhysHingeConstraintComponent::Convert(plMaxNode *node, plErrorMsg *pErrMs
 
 
         }
-        else if(fCompPB->GetInt(kPositionPtr) == kYAxis)
+        else if (fCompPB->GetInt(kPositionPtr) == kYAxis)
         {
             HingeVector = node->GetLocalToWorld44().GetAxis(hsMatrix44::kView);
             HMod->SetHCLimits(kYAxis, 0, -1*fCompPB->GetFloat(kUpperAngle));
@@ -495,9 +495,9 @@ bool plPhysHingeConstraintComponent::Convert(plMaxNode *node, plErrorMsg *pErrMs
         HMod->SetDamp(fCompPB->GetFloat(kStrength));
         
         node->AddModifier(HMod, IGetUniqueName(node));
-        if(ParentKey)
-            hsgResMgr::ResMgr()->AddViaNotify( ParentKey, new plGenRefMsg( HMod->GetKey(), plRefMsg::kOnCreate, plHavokConstraintsMod::kParentIdx, 0 ), plRefFlags::kPassiveRef );
-        hsgResMgr::ResMgr()->AddViaNotify( node->GetKey(), new plGenRefMsg( HMod->GetKey(), plRefMsg::kOnCreate, plHavokConstraintsMod::kChildIdx, 0 ), plRefFlags::kPassiveRef );
+        if (ParentKey)
+            hsgResMgr::ResMgr()->AddViaNotify(ParentKey, new plGenRefMsg(HMod->GetKey(), plRefMsg::kOnCreate, plHavokConstraintsMod::kParentIdx, 0), plRefFlags::kPassiveRef);
+        hsgResMgr::ResMgr()->AddViaNotify(node->GetKey(), new plGenRefMsg(HMod->GetKey(), plRefMsg::kOnCreate, plHavokConstraintsMod::kChildIdx, 0), plRefFlags::kPassiveRef);
 
 
 
@@ -988,8 +988,8 @@ bool plStrongSpringConstraintComponent::SetupProperties(plMaxNode *pNode, plErro
 
     GetParamVals(pNode, pErrMsg);
 
-        if(fCompPB->GetINode(kParent))
-            if(!((plMaxNode*)fCompPB->GetINode(kParent))->CanConvert())
+        if (fCompPB->GetINode(kParent))
+            if (!((plMaxNode*)fCompPB->GetINode(kParent))->CanConvert())
             {
                 pErrMsg->Set(true, "Ignored Parent Value", "Parent %s was set to be Ignored. No Constraint was used.", (fCompPB->GetINode(kParent)->GetName()));
                 pErrMsg->Set(false);
@@ -1002,7 +1002,7 @@ bool plStrongSpringConstraintComponent::SetupProperties(plMaxNode *pNode, plErro
             return false;
         }
 
-        if(500 >= fCompPB->GetFloat(kLength) && fCompPB->GetFloat(kLength) >= 0  )
+        if (500 >= fCompPB->GetFloat(kLength) && fCompPB->GetFloat(kLength) >= 0)
         {
         }
         else
@@ -1013,7 +1013,7 @@ bool plStrongSpringConstraintComponent::SetupProperties(plMaxNode *pNode, plErro
 
         }
 
-        if(fCompPB->GetFloat(kRebound) >= 0 && fCompPB->GetFloat(kRebound) <= 1)
+        if (fCompPB->GetFloat(kRebound) >= 0 && fCompPB->GetFloat(kRebound) <= 1)
         {
         }
         else
@@ -1024,7 +1024,7 @@ bool plStrongSpringConstraintComponent::SetupProperties(plMaxNode *pNode, plErro
 
         }
 
-        if(fCompPB->GetFloat(kStrength) >= 0 && fCompPB->GetFloat(kStrength) <= 1)
+        if (fCompPB->GetFloat(kStrength) >= 0 && fCompPB->GetFloat(kStrength) <= 1)
         {
         }
         else
@@ -1057,8 +1057,8 @@ bool plStrongSpringConstraintComponent::Convert(plMaxNode *node, plErrorMsg *pEr
         Object *obj = fCompPB->GetINode(kParent)->EvalWorldState(0/*hsConverterUtils::Instance().GetTime(GetInterface())*/).obj;
 
         plKey ParentKey  = nil;
-        if(fCompPB->GetINode(kParent))
-            if(((plMaxNode*)fCompPB->GetINode(kParent))->CanConvert() && (obj->ClassID() == Class_ID(DUMMY_CLASS_ID,0) || obj->SuperClassID() == GEOMOBJECT_CLASS_ID ))
+        if (fCompPB->GetINode(kParent))
+            if (((plMaxNode*)fCompPB->GetINode(kParent))->CanConvert() && (obj->ClassID() == Class_ID(DUMMY_CLASS_ID,0) || obj->SuperClassID() == GEOMOBJECT_CLASS_ID))
             {
                 plMaxNode* ParentNode = (plMaxNode*)fCompPB->GetINode(kParent);
                 ParentKey = ParentNode->GetKey();
@@ -1084,8 +1084,8 @@ bool plStrongSpringConstraintComponent::Convert(plMaxNode *node, plErrorMsg *pEr
 
 
     node->AddModifier(HMod, IGetUniqueName(node));
-    hsgResMgr::ResMgr()->AddViaNotify( ParentKey, new plGenRefMsg( HMod->GetKey(), plRefMsg::kOnCreate, plHavokConstraintsMod::kParentIdx, 0 ), plRefFlags::kPassiveRef );
-    hsgResMgr::ResMgr()->AddViaNotify( node->GetKey(), new plGenRefMsg( HMod->GetKey(), plRefMsg::kOnCreate, plHavokConstraintsMod::kChildIdx, 0 ), plRefFlags::kPassiveRef );
+    hsgResMgr::ResMgr()->AddViaNotify(ParentKey, new plGenRefMsg(HMod->GetKey(), plRefMsg::kOnCreate, plHavokConstraintsMod::kParentIdx, 0), plRefFlags::kPassiveRef);
+    hsgResMgr::ResMgr()->AddViaNotify(node->GetKey(), new plGenRefMsg(HMod->GetKey(), plRefMsg::kOnCreate, plHavokConstraintsMod::kChildIdx, 0), plRefFlags::kPassiveRef);
 
 
 

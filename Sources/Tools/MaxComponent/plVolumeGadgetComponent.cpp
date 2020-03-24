@@ -275,10 +275,10 @@ plKey plVolumeGadgetComponent::GetLogicOutKey(plMaxNode* node)
 
 void plVolumeGadgetComponent::CollectNonDrawables(INodeTab& nonDrawables)
 {
-    if(fCompPB->GetInt(kUseVolumeNode))
+    if (fCompPB->GetInt(kUseVolumeNode))
     {
         INode* boundsNode = fCompPB->GetINode(kVolumeNode);
-        if( boundsNode )
+        if (boundsNode)
             nonDrawables.Append(1, &boundsNode);
     }
 
@@ -299,11 +299,11 @@ bool plVolumeGadgetComponent::SetupProperties(plMaxNode *node, plErrorMsg *pErrM
     plPhysicalProps *physProps = node->GetPhysicalProps();
 
     physProps->SetBoundsType(fCompPB->GetInt(kVolumeBoundsType), node, pErrMsg);
-    if(fCompPB->GetInt(kUseVolumeNode))
+    if (fCompPB->GetInt(kUseVolumeNode))
     {
         plMaxNode *boundNode = (plMaxNode*)fCompPB->GetINode(kVolumeNode);
         if (boundNode)
-            if(boundNode->CanConvert())
+            if (boundNode->CanConvert())
                 physProps->SetProxyNode(boundNode, node, pErrMsg);
             else
             {
@@ -314,7 +314,7 @@ bool plVolumeGadgetComponent::SetupProperties(plMaxNode *node, plErrorMsg *pErrM
     }
 
     // only if movable will it have mass (then it will keep track of movements in PhysX)
-    if ( node->IsMovable() || node->IsTMAnimatedRecur() )
+    if (node->IsMovable() || node->IsTMAnimatedRecur())
         physProps->SetMass(1.0, node, pErrMsg);
 //  physProps->SetAllowLOS(true, node, pErrMsg);
     physProps->SetGroup(plSimDefs::kGroupDetector, node, pErrMsg);
@@ -332,7 +332,7 @@ bool plVolumeGadgetComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
 
 
     // Create and register the VolumeGadget's logic component
-    if(fCompPB->GetInt(kVolumeGadgetEnter) || fCompPB->GetInt(kVolumeTriggerOnFacing))
+    if (fCompPB->GetInt(kVolumeGadgetEnter) || fCompPB->GetInt(kVolumeTriggerOnFacing))
     {
         plLogicModifier *logic = new plLogicModifier;
         ST::string tmpName = ST::format("{}_Enter", IGetUniqueName(node));
@@ -346,7 +346,7 @@ bool plVolumeGadgetComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
     }
 
     
-    if(fCompPB->GetInt(kVolumeGadgetExit))
+    if (fCompPB->GetInt(kVolumeGadgetExit))
     {
         plLogicModifier *logic = new plLogicModifier;
         ST::string tmpName = ST::format("{}_Exit", IGetUniqueName(node));
@@ -411,7 +411,7 @@ void plVolumeGadgetComponent::ICreateConditions(plMaxNode* node, plErrorMsg* err
     plKey detectorKey = hsgResMgr::ResMgr()->NewKey(tmpName, detector, loc);
     hsgResMgr::ResMgr()->AddViaNotify(detectorKey, new plObjRefMsg(obj->GetKey(), plRefMsg::kOnCreate, -1, plObjRefMsg::kModifier), plRefFlags::kActiveRef);
     plVolumeSensorConditionalObject* boxCond=nil;
-    if((fCompPB->GetInt(kSkipServerArbitration)==0))
+    if ((fCompPB->GetInt(kSkipServerArbitration)==0))
     {//we want server arbitration
         boxCond = new plVolumeSensorConditionalObject;
     }
@@ -488,10 +488,10 @@ bool plVolumeGadgetComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     return true;
 }
 
-bool plVolumeGadgetComponent::DeInit( plMaxNode *node, plErrorMsg *pErrMsg )
+bool plVolumeGadgetComponent::DeInit(plMaxNode *node, plErrorMsg *pErrMsg)
 {
     fLogicModOutKeys.clear();
-    return plActivatorBaseComponent::DeInit( node, pErrMsg );
+    return plActivatorBaseComponent::DeInit(node, pErrMsg);
 }
 
 

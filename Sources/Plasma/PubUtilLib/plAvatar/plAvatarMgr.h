@@ -92,8 +92,8 @@ public:
     plAvatarMgr();                      // can only be constructed by itself (singleton)
     virtual ~plAvatarMgr();
 
-    CLASSNAME_REGISTER( plAvatarMgr );
-    GETINTERFACE_ANY( plAvatarMgr, hsKeyedObject );
+    CLASSNAME_REGISTER(plAvatarMgr);
+    GETINTERFACE_ANY(plAvatarMgr, hsKeyedObject);
 
     // \{
     /** Seek points are alignment points used for aligning
@@ -157,7 +157,7 @@ public:
     void RemoveSpawnPoint(plSpawnModifier *spawn);
     const plSpawnModifier *GetSpawnPoint(int index);
     int NumSpawnPoints() { return fSpawnPoints.size(); }
-    int FindSpawnPoint( const char *name ) const;
+    int FindSpawnPoint(const char *name) const;
     // \}
     static int WarpPlayerToAnother(bool iMove, uint32_t remoteID);
     static int WarpPlayerToXYZ(float x, float y, float z);

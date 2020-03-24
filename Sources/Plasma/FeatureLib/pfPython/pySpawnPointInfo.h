@@ -55,8 +55,8 @@ class pySpawnPointInfo
 {
 protected:
     pySpawnPointInfo();
-    pySpawnPointInfo( const plSpawnPointInfo & info ): fInfo( info ) {}
-    pySpawnPointInfo( const char * title, const char * spawnPt );
+    pySpawnPointInfo(const plSpawnPointInfo & info): fInfo(info) {}
+    pySpawnPointInfo(const char * title, const char * spawnPt);
 
 public:
     plSpawnPointInfo    fInfo;
@@ -73,11 +73,11 @@ public:
     static void AddPlasmaMethods(std::vector<PyMethodDef> &methods);
 
     plSpawnPointInfo & SpawnPoint() { return fInfo; }
-    void    SetTitle( const char * v ) { fInfo.SetTitle( v ); }
+    void    SetTitle(const char * v) { fInfo.SetTitle(v); }
     ST::string GetTitle() const { return fInfo.GetTitle(); }
-    void    SetName( const char * v ) { fInfo.SetName( v ); }
+    void    SetName(const char * v) { fInfo.SetName(v); }
     ST::string GetName() const { return fInfo.GetName(); }
-    void    SetCameraStack(const char * v ) { fInfo.SetCameraStack( v ); }
+    void    SetCameraStack(const char * v) { fInfo.SetCameraStack(v); }
     ST::string GetCameraStack() const { return fInfo.GetCameraStack(); }
 
     static PyObject* GetDefaultSpawnPoint();
@@ -90,7 +90,7 @@ private:
 
 protected:
     pySpawnPointInfoRef(): fInfo(fDefaultSPInfo) {} // only used by python glue, do NOT call directly
-    pySpawnPointInfoRef( plSpawnPointInfo & info ): fInfo( info ) {}
+    pySpawnPointInfoRef(plSpawnPointInfo & info): fInfo(info) {}
 
 public:
     plSpawnPointInfo & fInfo;
@@ -104,11 +104,11 @@ public:
     static void AddPlasmaClasses(PyObject *m);
 
     plSpawnPointInfo & SpawnPoint() { return fInfo; }
-    void    SetTitle( const char * v ) { fInfo.SetTitle( v ); }
+    void    SetTitle(const char * v) { fInfo.SetTitle(v); }
     ST::string GetTitle() const { return fInfo.GetTitle(); }
-    void    SetName( const char * v ) { fInfo.SetName( v ); }
+    void    SetName(const char * v) { fInfo.SetName(v); }
     ST::string GetName() const { return fInfo.GetName(); }
-    void    SetCameraStack(const char * v ) { fInfo.SetCameraStack( v ); }
+    void    SetCameraStack(const char * v) { fInfo.SetCameraStack(v); }
     ST::string GetCameraStack() const { return fInfo.GetCameraStack(); }
 };
 

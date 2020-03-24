@@ -60,7 +60,7 @@ class pfGUIDragBarCtrl : public pfGUIControlMod
         bool        fDragging;
         bool        fAnchored;
 
-        virtual bool IEval( double secs, float del, uint32_t dirty ); // called only by owner object's Eval()
+        virtual bool IEval(double secs, float del, uint32_t dirty); // called only by owner object's Eval()
 
         virtual uint32_t      IGetDesiredCursor() const;    // As specified in plInputInterface.h
 
@@ -69,23 +69,23 @@ class pfGUIDragBarCtrl : public pfGUIControlMod
         pfGUIDragBarCtrl();
         virtual ~pfGUIDragBarCtrl();
 
-        CLASSNAME_REGISTER( pfGUIDragBarCtrl );
-        GETINTERFACE_ANY( pfGUIDragBarCtrl, pfGUIControlMod );
+        CLASSNAME_REGISTER(pfGUIDragBarCtrl);
+        GETINTERFACE_ANY(pfGUIDragBarCtrl, pfGUIControlMod);
 
 
-        virtual bool    MsgReceive( plMessage* pMsg );
+        virtual bool    MsgReceive(plMessage* pMsg);
         
-        virtual void Read( hsStream* s, hsResMgr* mgr );
-        virtual void Write( hsStream* s, hsResMgr* mgr );
+        virtual void Read(hsStream* s, hsResMgr* mgr);
+        virtual void Write(hsStream* s, hsResMgr* mgr);
 
-        virtual void    HandleMouseDown( hsPoint3 &mousePt, uint8_t modifiers );
-        virtual void    HandleMouseUp( hsPoint3 &mousePt, uint8_t modifiers );
-        virtual void    HandleMouseDrag( hsPoint3 &mousePt, uint8_t modifiers );
+        virtual void    HandleMouseDown(hsPoint3 &mousePt, uint8_t modifiers);
+        virtual void    HandleMouseUp(hsPoint3 &mousePt, uint8_t modifiers);
+        virtual void    HandleMouseDrag(hsPoint3 &mousePt, uint8_t modifiers);
 
-        virtual void    SetAnchored( bool anchored ) { fAnchored = anchored; }
+        virtual void    SetAnchored(bool anchored) { fAnchored = anchored; }
         virtual bool    IsAnchored() { return fAnchored; }
 
-        virtual void    UpdateBounds( hsMatrix44 *invXformMatrix = nil, bool force = false );
+        virtual void    UpdateBounds(hsMatrix44 *invXformMatrix = nil, bool force = false);
 
         // Export only
 };

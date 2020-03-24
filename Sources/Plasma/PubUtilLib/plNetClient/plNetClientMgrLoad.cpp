@@ -103,7 +103,7 @@ plKey plNetClientMgr::ILoadClone(plLoadCloneMsg *pCloneMsg)
 {
     plKey cloneKey = pCloneMsg->GetCloneKey();
 
-    if(pCloneMsg->GetIsLoading())
+    if (pCloneMsg->GetIsLoading())
     {
         if (!cloneKey)
         {
@@ -121,7 +121,7 @@ plKey plNetClientMgr::ILoadClone(plLoadCloneMsg *pCloneMsg)
         plLoadAvatarMsg* loadAvMsg=plLoadAvatarMsg::ConvertNoRef(pCloneMsg);
         if (loadAvMsg)
         {
-            bool originating = ( pCloneMsg->GetOriginatingPlayerID() == this->GetPlayerID() );
+            bool originating = (pCloneMsg->GetOriginatingPlayerID() == this->GetPlayerID());
             if (loadAvMsg->GetIsPlayer())
                 if (originating)
                     fLocalPlayerKey = cloneKey;

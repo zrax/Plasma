@@ -217,7 +217,7 @@ public:
     plPythonFileMod();
     ~plPythonFileMod();
 
-    CLASSNAME_REGISTER(plPythonFileMod );
+    CLASSNAME_REGISTER(plPythonFileMod);
     GETINTERFACE_ANY(plPythonFileMod, plMultiModifier);
 
     plPythonSDLModifier* GetSDLMod() const { return fSDLMod; }

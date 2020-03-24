@@ -96,8 +96,8 @@ public:
     virtual void Dump(int indent, bool optimized, double time);
 
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plMatrixChannel );
-    GETINTERFACE_ANY( plMatrixChannel, plAGChannel );
+    CLASSNAME_REGISTER(plMatrixChannel);
+    GETINTERFACE_ANY(plMatrixChannel, plAGChannel);
 };
 
 ///////////////////
@@ -114,8 +114,8 @@ public:
     void Set(const hsMatrix44 &value);
     
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plMatrixConstant );
-    GETINTERFACE_ANY( plMatrixConstant, plMatrixChannel );
+    CLASSNAME_REGISTER(plMatrixConstant);
+    GETINTERFACE_ANY(plMatrixConstant, plMatrixChannel);
 
     virtual void Write(hsStream *stream, hsResMgr *mgr);
     virtual void Read(hsStream *s, hsResMgr *mgr);
@@ -146,8 +146,8 @@ public:
     virtual void Dump(int indent, bool optimized, double time);
 
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plMatrixTimeScale );
-    GETINTERFACE_ANY( plMatrixTimeScale, plMatrixChannel );
+    CLASSNAME_REGISTER(plMatrixTimeScale);
+    GETINTERFACE_ANY(plMatrixTimeScale, plMatrixChannel);
 };
 
 ////////////////
@@ -201,8 +201,8 @@ public:
     plAGChannel* Optimize(double time);
     
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plMatrixBlend );
-    GETINTERFACE_ANY( plMatrixBlend, plMatrixChannel );
+    CLASSNAME_REGISTER(plMatrixBlend);
+    GETINTERFACE_ANY(plMatrixBlend, plMatrixChannel);
 };
 
 /////////////////////
@@ -232,8 +232,8 @@ public:
 
     // PLASMA PROTOCOL
     // rtti
-    CLASSNAME_REGISTER( plMatrixControllerChannel );
-    GETINTERFACE_ANY( plMatrixControllerChannel, plMatrixChannel );
+    CLASSNAME_REGISTER(plMatrixControllerChannel);
+    GETINTERFACE_ANY(plMatrixControllerChannel, plMatrixChannel);
 
     // persistence
     virtual void Write(hsStream *stream, hsResMgr *mgr);
@@ -261,8 +261,8 @@ public:
     virtual plAGChannel * Detach(plAGChannel * channel);
     
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plMatrixControllerCacheChannel );
-    GETINTERFACE_ANY( plMatrixControllerCacheChannel, plMatrixChannel );
+    CLASSNAME_REGISTER(plMatrixControllerCacheChannel);
+    GETINTERFACE_ANY(plMatrixControllerCacheChannel, plMatrixChannel);
 
     // Created at runtime only, so no Read/Write
 };
@@ -298,8 +298,8 @@ public:
     virtual plAGChannel * Detach(plAGChannel * channel);
 
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plQuatPointCombine );
-    GETINTERFACE_ANY( plQuatPointCombine, plMatrixChannel );
+    CLASSNAME_REGISTER(plQuatPointCombine);
+    GETINTERFACE_ANY(plQuatPointCombine, plMatrixChannel);
 };
 
 
@@ -313,8 +313,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plMatrixChannelApplicator );
-    GETINTERFACE_ANY( plMatrixChannelApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plMatrixChannelApplicator);
+    GETINTERFACE_ANY(plMatrixChannelApplicator, plAGApplicator);
 
     virtual bool CanCombine(plAGApplicator *app) { return false; }
     virtual plAGPinType GetPinType() { return kAGPinTransform; }
@@ -337,8 +337,8 @@ protected:
 public:
     plMatrixDelayedCorrectionApplicator() : fDelayStart(-1000.f), fIgnoreNextCorrection(true) { fCorAP.Reset(); }
     
-    CLASSNAME_REGISTER( plMatrixDelayedCorrectionApplicator );
-    GETINTERFACE_ANY( plMatrixDelayedCorrectionApplicator, plMatrixChannelApplicator );
+    CLASSNAME_REGISTER(plMatrixDelayedCorrectionApplicator);
+    GETINTERFACE_ANY(plMatrixDelayedCorrectionApplicator, plMatrixChannelApplicator);
 
     void SetCorrection(hsMatrix44 &correction);
     virtual bool AutoDelete() { return false; } // should we remove it when its input channel is gone?

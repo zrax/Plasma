@@ -377,7 +377,7 @@ bool plAvBrainSwim::MsgReceive(plMessage *msg)
         // else don't seek at all.
             
         plAvOneShotMsg * oneshotM = plAvOneShotMsg::ConvertNoRef(msg);
-        if(oneshotM)
+        if (oneshotM)
         {
             // if it's a oneshot, add the oneshot task as well
             plAvOneShotTask *oneshot = new plAvOneShotTask(oneshotM, fAvMod, this);
@@ -600,7 +600,7 @@ void plAvBrainSwim::DumpToDebugDisplay(int &x, int &y, int lineHeight, plDebugTe
     debugTxt.DrawString(x, y, "Brain type: Swim", 0, 255, 255);
     y += lineHeight;
     
-    switch(fMode) {
+    switch (fMode) {
         case kWading:
             debugTxt.DrawString(x, y, "Mode: Wading");
             break;

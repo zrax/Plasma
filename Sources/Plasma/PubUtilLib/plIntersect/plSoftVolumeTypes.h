@@ -61,8 +61,8 @@ public:
     plSoftVolumeSimple();
     virtual ~plSoftVolumeSimple();
 
-    CLASSNAME_REGISTER( plSoftVolumeSimple );
-    GETINTERFACE_ANY( plSoftVolumeSimple, plSoftVolume );
+    CLASSNAME_REGISTER(plSoftVolumeSimple);
+    GETINTERFACE_ANY(plSoftVolumeSimple, plSoftVolume);
 
     virtual void SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l);
 
@@ -87,8 +87,8 @@ public:
     plSoftVolumeComplex();
     virtual ~plSoftVolumeComplex();
 
-    CLASSNAME_REGISTER( plSoftVolumeComplex );
-    GETINTERFACE_ANY( plSoftVolumeComplex, plSoftVolume );
+    CLASSNAME_REGISTER(plSoftVolumeComplex);
+    GETINTERFACE_ANY(plSoftVolumeComplex, plSoftVolume);
 
     // Don't propagate the settransform to our children, they move independently
     virtual void SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l) {}
@@ -117,8 +117,8 @@ public:
     plSoftVolumeUnion();
     virtual ~plSoftVolumeUnion();
 
-    CLASSNAME_REGISTER( plSoftVolumeUnion );
-    GETINTERFACE_ANY( plSoftVolumeUnion, plSoftVolumeComplex );
+    CLASSNAME_REGISTER(plSoftVolumeUnion);
+    GETINTERFACE_ANY(plSoftVolumeUnion, plSoftVolumeComplex);
 
 };
 
@@ -134,8 +134,8 @@ public:
     plSoftVolumeIntersect();
     virtual ~plSoftVolumeIntersect();
 
-    CLASSNAME_REGISTER( plSoftVolumeIntersect );
-    GETINTERFACE_ANY( plSoftVolumeIntersect, plSoftVolumeComplex );
+    CLASSNAME_REGISTER(plSoftVolumeIntersect);
+    GETINTERFACE_ANY(plSoftVolumeIntersect, plSoftVolumeComplex);
 
 };
 
@@ -151,8 +151,8 @@ public:
     plSoftVolumeInvert();
     virtual ~plSoftVolumeInvert();
 
-    CLASSNAME_REGISTER( plSoftVolumeInvert );
-    GETINTERFACE_ANY( plSoftVolumeInvert, plSoftVolumeComplex );
+    CLASSNAME_REGISTER(plSoftVolumeInvert);
+    GETINTERFACE_ANY(plSoftVolumeInvert, plSoftVolumeComplex);
 
 
 };

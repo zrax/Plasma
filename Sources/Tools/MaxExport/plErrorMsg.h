@@ -76,7 +76,7 @@ public:
     // Returns true if condition is true but user says no, else false.
     virtual bool CheckAndAsk() { return false; }
 
-     // CheckAskOrCancel - If condition is true ( if YES, throw, else if NO return 0, else (CANCEL) return 1
+     // CheckAskOrCancel - If condition is true (if YES, throw, else if NO return 0, else (CANCEL) return 1
     virtual bool CheckAskOrCancel() { return false; }
 
     // Show - If condition is true, displays message, returns true

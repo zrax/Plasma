@@ -101,14 +101,14 @@ public:
 
 ActionTable* plActionTableMgr::GetActionTable(int i)
 {
-    if(i > this->NumActionTables())
+    if (i > this->NumActionTables())
     {
         return NULL;
     }
 
     ActionTableInfo* pTableInfo = fActionTables[i];
 
-    if(pTableInfo->Created)
+    if (pTableInfo->Created)
     {
         return GetCOREInterface()->GetActionManager()->FindTable(pTableInfo->TableId);
     }
@@ -140,7 +140,7 @@ void plActionTableMgr::SysStartup(void *param, NotifyInfo *info)
 
     IActionManager* pActionMgr = GetCOREInterface()->GetActionManager();
 
-    for(int i = 0; i < pActionTableMgr->NumActionTables(); i++)
+    for (int i = 0; i < pActionTableMgr->NumActionTables(); i++)
     {
         ActionTableInfo* pTableInfo = pActionTableMgr->fActionTables[i];
 
@@ -155,7 +155,7 @@ void plActionTableMgr::SysShutdown(void *param, NotifyInfo *info)
 
     IActionManager* pActionMgr = GetCOREInterface()->GetActionManager();
 
-    for(int i = 0; i < pActionTableMgr->NumActionTables(); i++)
+    for (int i = 0; i < pActionTableMgr->NumActionTables(); i++)
     {
         ActionTableInfo* pTableInfo = pActionTableMgr->fActionTables[i];
 

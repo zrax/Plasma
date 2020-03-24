@@ -95,33 +95,33 @@ class plInputInterfaceMgr : public plSingleModifier
         plDefaultKeyCatcher     *fDefaultCatcher;
 
         
-        virtual bool IEval( double secs, float del, uint32_t dirty );
+        virtual bool IEval(double secs, float del, uint32_t dirty);
 
-        void    IAddInterface( plInputInterface *iface );
-        void    IRemoveInterface( plInputInterface *iface );
+        void    IAddInterface(plInputInterface *iface);
+        void    IRemoveInterface(plInputInterface *iface);
 
-        void    IUpdateCursor( int32_t newCursor );
+        void    IUpdateCursor(int32_t newCursor);
         bool    ICheckCursor(plInputInterface *iFace); // returns true if the iface changed cursor settings
             
-        void    IWriteConsoleCmdKeys( plKeyMap *keyMap, FILE *keyFile );
-        void    IWriteNonConsoleCmdKeys( plKeyMap *keyMap, FILE *keyFile );
+        void    IWriteConsoleCmdKeys(plKeyMap *keyMap, FILE *keyFile);
+        void    IWriteNonConsoleCmdKeys(plKeyMap *keyMap, FILE *keyFile);
 
-        plKeyMap    *IGetRoutedKeyMap( ControlEventCode code ); // Null for console commands
-        void        IUnbind( const plKeyCombo &key );
+        plKeyMap    *IGetRoutedKeyMap(ControlEventCode code); // Null for console commands
+        void        IUnbind(const plKeyCombo &key);
 
-        const char  *IKeyComboToString( const plKeyCombo &combo );
+        const char  *IKeyComboToString(const plKeyCombo &combo);
         
     public:
 
         plInputInterfaceMgr();
         virtual ~plInputInterfaceMgr();
 
-        CLASSNAME_REGISTER( plInputInterfaceMgr );
-        GETINTERFACE_ANY( plInputInterfaceMgr, plSingleModifier );
+        CLASSNAME_REGISTER(plInputInterfaceMgr);
+        GETINTERFACE_ANY(plInputInterfaceMgr, plSingleModifier);
 
-        virtual bool    MsgReceive( plMessage *msg );
-        virtual void    Read( hsStream* s, hsResMgr* mgr );
-        virtual void    Write( hsStream* s, hsResMgr* mgr );
+        virtual bool    MsgReceive(plMessage *msg);
+        virtual void    Read(hsStream* s, hsResMgr* mgr);
+        virtual void    Write(hsStream* s, hsResMgr* mgr);
 
         void    Init();
         void    Shutdown();
@@ -132,19 +132,19 @@ class plInputInterfaceMgr : public plSingleModifier
 
         void    SetCurrentFocus(plInputInterface *focus);
         void    ReleaseCurrentFocus(plInputInterface *focus);
-        void    SetDefaultKeyCatcher( plDefaultKeyCatcher *c ) { fDefaultCatcher = c; }
+        void    SetDefaultKeyCatcher(plDefaultKeyCatcher *c) { fDefaultCatcher = c; }
 
         bool    IsClickEnabled() { return fClickEnabled; }
 
-        void    ForceCursorHidden( bool requestedState );
+        void    ForceCursorHidden(bool requestedState);
 
         // Binding routers
-        void    BindAction( const plKeyCombo &key, ControlEventCode code );
-        void    BindAction( const plKeyCombo &key1, const plKeyCombo &key2, ControlEventCode code );
-        void    BindConsoleCmd( const plKeyCombo &key, const char *cmd, plKeyMap::BindPref pref = plKeyMap::kNoPreference );
+        void    BindAction(const plKeyCombo &key, ControlEventCode code);
+        void    BindAction(const plKeyCombo &key1, const plKeyCombo &key2, ControlEventCode code);
+        void    BindConsoleCmd(const plKeyCombo &key, const char *cmd, plKeyMap::BindPref pref = plKeyMap::kNoPreference);
 
-        const plKeyBinding* FindBinding( ControlEventCode code );
-        const plKeyBinding* FindBindingByConsoleCmd( const char *cmd );
+        const plKeyBinding* FindBinding(ControlEventCode code);
+        const plKeyBinding* FindBindingByConsoleCmd(const char *cmd);
 
         void    ClearAllKeyMaps();
         void    ResetClickableState();
@@ -161,7 +161,7 @@ class plCtrlCmd
         plInputInterface    *fSource;
 
     public:
-        plCtrlCmd( plInputInterface *source ) : fCmd(nil),fPct(1.0f), fSource(source) { }
+        plCtrlCmd(plInputInterface *source) : fCmd(nil),fPct(1.0f), fSource(source) { }
         ~plCtrlCmd() { delete [] fCmd; }
 
         const char* GetCmdString()          { return fCmd; }
@@ -174,8 +174,8 @@ class plCtrlCmd
 
         bool                fNetPropagateToPlayers;
 
-        void Read( hsStream* s, hsResMgr* mgr );
-        void Write( hsStream* s, hsResMgr* mgr );
+        void Read(hsStream* s, hsResMgr* mgr);
+        void Write(hsStream* s, hsResMgr* mgr);
 
         plInputInterface    *GetSource() const { return fSource; }
 };
@@ -195,7 +195,7 @@ class plDefaultKeyCatcher
 {
     public:
         virtual ~plDefaultKeyCatcher();
-        virtual void    HandleKeyEvent( plKeyEventMsg *eventMsg ) = 0;
+        virtual void    HandleKeyEvent(plKeyEventMsg *eventMsg) = 0;
 };
 
 

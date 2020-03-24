@@ -77,8 +77,8 @@ public:
     plRenderRequestMsg(plKey sender, plRenderRequestBase* req);
     virtual ~plRenderRequestMsg();
 
-    CLASSNAME_REGISTER( plRenderRequestMsg );
-    GETINTERFACE_ANY( plRenderRequestMsg, plMessage );
+    CLASSNAME_REGISTER(plRenderRequestMsg);
+    GETINTERFACE_ANY(plRenderRequestMsg, plMessage);
 
     // These aren't really implemented. Read/Write/Transmission of
     // these messages doesn't currently make sense.
@@ -100,8 +100,8 @@ public:
     plRenderRequestAck(plKey r, uint32_t userData=0);
     ~plRenderRequestAck() {}
 
-    CLASSNAME_REGISTER( plRenderRequestAck );
-    GETINTERFACE_ANY( plRenderRequestAck, plMessage );
+    CLASSNAME_REGISTER(plRenderRequestAck);
+    GETINTERFACE_ANY(plRenderRequestAck, plMessage);
 
     void        SetNumDrawn(uint32_t n) { fNumDrawn = n; }
     uint32_t      GetNumDrawn() const { return fNumDrawn; }

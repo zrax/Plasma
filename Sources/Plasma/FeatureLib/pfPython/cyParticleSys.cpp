@@ -62,7 +62,7 @@ void cyParticleSys::SetSender(plKey &sender)
 
 void cyParticleSys::AddRecvr(plKey &recvr)
 {
-    if ( recvr != nil )
+    if (recvr != nil)
         fRecvr.Append(recvr);
 }
 
@@ -77,7 +77,7 @@ void cyParticleSys::ISendParticleSysMsg(uint32_t param, float value)
 {
     plParticleUpdateMsg* pMsg = new plParticleUpdateMsg(fSender, nil, nil, param, value);
     // check if this needs to be network forced to all clients
-    if (fNetForce )
+    if (fNetForce)
     {
         // set the network propagate flag to make sure it gets to the other clients
         pMsg->SetBCastFlag(plMessage::kNetPropagate);
@@ -86,7 +86,7 @@ void cyParticleSys::ISendParticleSysMsg(uint32_t param, float value)
     pMsg->SetBCastFlag(plMessage::kPropagateToModifiers);
     // add all our receivers to the message receiver list
     int i;
-    for ( i=0; i<fRecvr.Count(); i++ )
+    for (i=0; i<fRecvr.Count(); i++)
     {
         pMsg->AddReceiver(fRecvr[i]);
     }

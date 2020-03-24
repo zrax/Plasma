@@ -115,16 +115,16 @@ bool plConfigInfo::HasKeyIn(const ST::string & key, const char * section1, ...)
     std::vector<ST::string> sections;
     while (section)
     {
-        sections.push_back( section );
+        sections.push_back(section);
         section = va_arg(va,const char *);
     }
     va_end(va);
-    return HasKeyIn( key, sections );
+    return HasKeyIn(key, sections);
 }
 
-bool plConfigInfo::HasKeyIn(const ST::string & key, const std::vector<ST::string> & sections )
+bool plConfigInfo::HasKeyIn(const ST::string & key, const std::vector<ST::string> & sections)
 {
-    for ( int i=0; i<sections.size(); i++ )
+    for (int i=0; i<sections.size(); i++)
     {
         if (HasSection(sections[i]))
         {
@@ -276,10 +276,10 @@ ST::string plConfigInfo::GetValueIn(const ST::string & key, const ST::string & d
     return defval;
 }
 
-ST::string plConfigInfo::GetValueIn(const ST::string & key, const ST::string & defval, bool * outFound, const std::vector<ST::string> & sections ) const
+ST::string plConfigInfo::GetValueIn(const ST::string & key, const ST::string & defval, bool * outFound, const std::vector<ST::string> & sections) const
 {
     if (outFound) *outFound=false;
-    for ( int i=0; i<sections.size(); i++ )
+    for (int i=0; i<sections.size(); i++)
     {
         if (HasSection(sections[i]))
         {
@@ -311,10 +311,10 @@ int plConfigInfo::GetValueIn(const ST::string & key, int defval, bool * outFound
     return defval;
 }
 
-int plConfigInfo::GetValueIn(const ST::string & key, int defval, bool * outFound, const std::vector<ST::string> & sections ) const
+int plConfigInfo::GetValueIn(const ST::string & key, int defval, bool * outFound, const std::vector<ST::string> & sections) const
 {
     if (outFound) *outFound=false;
-    for ( int i=0; i<sections.size(); i++ )
+    for (int i=0; i<sections.size(); i++)
     {
         if (HasSection(sections[i]))
         {
@@ -346,10 +346,10 @@ double plConfigInfo::GetValueIn(const ST::string & key, double defval, bool * ou
     return defval;
 }
 
-double plConfigInfo::GetValueIn(const ST::string & key, double defval, bool * outFound, const std::vector<ST::string> & sections ) const
+double plConfigInfo::GetValueIn(const ST::string & key, double defval, bool * outFound, const std::vector<ST::string> & sections) const
 {
     if (outFound) *outFound=false;
-    for ( int i=0; i<sections.size(); i++ )
+    for (int i=0; i<sections.size(); i++)
     {
         if (HasSection(sections[i]))
         {
@@ -475,9 +475,9 @@ bool plConfigSource::ReadString(const ST::string & in)
     bool ret=ReadPair(key, value);
     fEffectiveSection = fCurrSection;
 
-    if(ret && key.compare("LoadIni") == 0)
+    if (ret && key.compare("LoadIni") == 0)
     {
-        ret = ReadSubSource( value.c_str() );
+        ret = ReadSubSource(value.c_str());
     }
     
     return ret;
@@ -499,7 +499,7 @@ bool plConfigSource::ReadPair(ST::string & key, ST::string & value)
 
 bool plConfigSource::ReadList(char ** l)
 {
-    while(*l != NULL)
+    while (*l != NULL)
     {
         ReadString(*l);
         l++;
@@ -543,16 +543,16 @@ bool plCmdLineConfigSource::ReadInto(plConfigInfo & configInfo, KAddValueMode mo
     fCurrSection = fMySection;
     fEffectiveSection = fCurrSection;
     
-    if(argc < 1)
+    if (argc < 1)
         return true;
     
     fConfigInfo->AddValue(fEffectiveSection, "ARGV0", *argv, fAddMode);
     argc--;
     argv++;
     
-    while(argc > 0)
+    while (argc > 0)
     {
-        if(ReadString(*argv) != true)
+        if (ReadString(*argv) != true)
         {
             // TODO: log error here
             return false;
@@ -603,14 +603,14 @@ bool plIniConfigSource::ReadInto(plConfigInfo & configInfo, KAddValueMode mode)
     fCurrSection = plConfigInfo::GlobalSection();
     fEffectiveSection = fCurrSection;
     
-    if(fFileName.size() < 2)
+    if (fFileName.size() < 2)
         return false;
     
     
     std::ifstream    file;
     file.open(fFileName.c_str());
     
-    if(!file.is_open())
+    if (!file.is_open())
     {
         // TODO log error here
         return false;
@@ -622,7 +622,7 @@ bool plIniConfigSource::ReadInto(plConfigInfo & configInfo, KAddValueMode mode)
     {
         file.getline(buf, 4096);
         
-        if(!ReadString(buf))
+        if (!ReadString(buf))
         {
             // TODO log warning here
         }
@@ -640,7 +640,7 @@ bool plIniConfigSource::WriteOutOf(plConfigInfo & configInfo)
     std::ofstream    file;
     file.open(fFileName.c_str());
     
-    if(!file.is_open())
+    if (!file.is_open())
     {
         // TODO log error here
         return false;
@@ -691,16 +691,16 @@ bool plIniStreamConfigSource::ReadInto(plConfigInfo & configInfo, KAddValueMode 
     fCurrSection = "global";
     fEffectiveSection = fCurrSection;
 
-    if ( !fStream )
+    if (!fStream)
         return false;
     
     char buf[4096];
     
     while (!fStream->AtEnd())
     {
-        fStream->ReadLn( buf, sizeof(buf) );
+        fStream->ReadLn(buf, sizeof(buf));
         
-        if(!ReadString(buf))
+        if (!ReadString(buf))
         {
             // TODO log warning here
         }
@@ -714,7 +714,7 @@ bool plIniStreamConfigSource::WriteOutOf(plConfigInfo & configInfo)
     if (!plConfigSource::WriteOutOf(configInfo))
         return false;
 
-    if ( !fStream )
+    if (!fStream)
         return false;
 
     std::stringstream ss;
@@ -738,7 +738,7 @@ bool plIniStreamConfigSource::WriteOutOf(plConfigInfo & configInfo)
             }
     }
 
-    fStream->WriteString( ss.str().c_str() );
+    fStream->WriteString(ss.str().c_str());
 
     return true;
 }
@@ -779,7 +779,7 @@ bool plIniSectionConfigSource::ReadPair(ST::string & key, ST::string & value)
 }
 
 
-bool plIniSectionConfigSource::ReadSubSource( const char * name )
+bool plIniSectionConfigSource::ReadSubSource(const char * name)
 {
     plIniSectionConfigSource src(name, fSections);
     return fConfigInfo->ReadFrom(&src);
@@ -823,7 +823,7 @@ bool plIniNoSectionsConfigSource::ReadInto(plConfigInfo & configInfo, KAddValueM
     std::ifstream    file;
     file.open(fFileName.c_str());
     
-    if(!file.is_open())
+    if (!file.is_open())
     {
         // TODO log error here
         return false;
@@ -835,7 +835,7 @@ bool plIniNoSectionsConfigSource::ReadInto(plConfigInfo & configInfo, KAddValueM
     {
         file.getline(buf, 4096);
         
-        if(!ReadString(buf))
+        if (!ReadString(buf))
         {
             // TODO log warning here
         }
@@ -854,7 +854,7 @@ bool plIniNoSectionsConfigSource::WriteOutOf(plConfigInfo & configInfo)
     std::ofstream    file;
     file.open(fFileName.c_str());
     
-    if(!file.is_open())
+    if (!file.is_open())
     {
         // TODO log error here
         return false;

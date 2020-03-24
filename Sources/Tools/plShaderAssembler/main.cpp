@@ -22,7 +22,7 @@ void ICreateHeader(const ST::string& varName, const plFileName& fileName, FILE* 
     ST::printf(fp, "static const uint8_t {}Codes[] = {\n", varName);
 
     int i;
-    for( i = 0; i < quadLen-1; i++ )
+    for (i = 0; i < quadLen-1; i++)
     {
         ST::printf(fp, "\t{#x},", *codes++);
         ST::printf(fp, "\t{#x},", *codes++);
@@ -43,7 +43,7 @@ void ICreateHeader(const ST::string& varName, const plFileName& fileName, FILE* 
 
 int main(int argc, char* argv[])
 {
-    if( argc < 2 )
+    if (argc < 2)
     {
         ST::printf("{} <file0> <file1> ...\n", argv[0]);
         return 0;
@@ -108,7 +108,7 @@ int main(int argc, char* argv[])
         numNames = argc-1;
     }
 
-    for (int i = 0; i < numNames; i++ )
+    for (int i = 0; i < numNames; i++)
     {
         const char* name = nameList[i];
         ST::string varName = plFileName(name).StripFileExt().AsString();

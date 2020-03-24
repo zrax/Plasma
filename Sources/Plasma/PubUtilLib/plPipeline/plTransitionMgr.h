@@ -79,12 +79,12 @@ class plTransitionMgr : public hsKeyedObject
         float    fEffectLength, fCurrOpacity, fOpacDelta;
         float    fLastTime;
 
-        void    IStartFadeIn( float lengthInSecs, uint8_t effect = kFadeIn );
-        void    IStartFadeOut( float lengthInSecs, uint8_t effect = kFadeOut );
+        void    IStartFadeIn(float lengthInSecs, uint8_t effect = kFadeIn);
+        void    IStartFadeOut(float lengthInSecs, uint8_t effect = kFadeOut);
 
         void    ICreatePlate();
 
-        void    IStop( bool aboutToStartAgain = false );
+        void    IStop(bool aboutToStartAgain = false);
 
         hsTArray<plEventCallbackMsg *>  fCallbacks;
 
@@ -93,12 +93,12 @@ class plTransitionMgr : public hsKeyedObject
         plTransitionMgr();
         virtual ~plTransitionMgr();
         
-        CLASSNAME_REGISTER( plTransitionMgr );
-        GETINTERFACE_ANY( plTransitionMgr, hsKeyedObject );
+        CLASSNAME_REGISTER(plTransitionMgr);
+        GETINTERFACE_ANY(plTransitionMgr, hsKeyedObject);
 
         void    Init();
 
-        virtual bool MsgReceive( plMessage* msg );
+        virtual bool MsgReceive(plMessage* msg);
 };
 
 

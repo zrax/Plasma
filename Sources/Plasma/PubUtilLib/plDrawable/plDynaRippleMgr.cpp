@@ -107,7 +107,7 @@ plDynaRippleMgr::plDynaRippleMgr()
 {
     fPartIDs.SetCount(kNumPrintIDs);
     int i;
-    for( i = 0; i < kNumPrintIDs; i++ )
+    for (i = 0; i < kNumPrintIDs; i++)
         fPartIDs[i] = kPrintIDs[i];
 }
 
@@ -138,16 +138,16 @@ void plDynaRippleMgr::Write(hsStream* stream, hsResMgr* mgr)
 bool plDynaRippleMgr::MsgReceive(plMessage* msg)
 {
     plArmatureUpdateMsg* armMsg = plArmatureUpdateMsg::ConvertNoRef(msg);
-    if( armMsg && !armMsg->IsInvis())
+    if (armMsg && !armMsg->IsInvis())
     {
         int i;
-        for( i = 0; i < fPartIDs.GetCount(); i++ )
+        for (i = 0; i < fPartIDs.GetCount(); i++)
         {
             const plPrintShape* shape = IGetPrintShape(armMsg->fArmature, fPartIDs[i]);
-            if( shape )
+            if (shape)
             {
                 plDynaDecalInfo& info = IGetDecalInfo(uintptr_t(shape), shape->GetKey());
-                if( IRippleFromShape(shape, false) )
+                if (IRippleFromShape(shape, false))
                 {
                     INotifyActive(info, armMsg->fArmature->GetKey(), fPartIDs[i]);
                 }
@@ -160,10 +160,10 @@ bool plDynaRippleMgr::MsgReceive(plMessage* msg)
         return true;
     }
     plRippleShapeMsg* shapeMsg = plRippleShapeMsg::ConvertNoRef(msg);
-    if( shapeMsg )
+    if (shapeMsg)
     {
         const plPrintShape* shape = shapeMsg->GetShape();
-        if( shape )
+        if (shape)
         {
             // Note we don't care about the return value here, because we only send notifies
             // for avatar based ripples.
@@ -177,7 +177,7 @@ bool plDynaRippleMgr::MsgReceive(plMessage* msg)
 
 bool plDynaRippleMgr::IRippleFromShape(const plPrintShape* shape, bool force)
 {
-    if( !shape )
+    if (!shape)
         return false;
 
     bool retVal = false;
@@ -193,7 +193,7 @@ bool plDynaRippleMgr::IRippleFromShape(const plPrintShape* shape, bool force)
     bool longEnough = (dt >= kMinTime);
     hsPoint3 xlate = shapeL2W.GetTranslate();
     bool farEnough = (hsVector3(&info.fLastPos, &xlate).Magnitude() > kMinDist);
-    if( force || longEnough || farEnough )
+    if (force || longEnough || farEnough)
     {
         hsPoint3 pos = shapeL2W.GetTranslate();
 
@@ -201,7 +201,7 @@ bool plDynaRippleMgr::IRippleFromShape(const plPrintShape* shape, bool force)
         // but we perturb it more if we're just standing still
         hsVector3 randPert(sRand.RandMinusOneToOne(), sRand.RandMinusOneToOne(), 0);
         randPert.Normalize();
-        if( !farEnough )
+        if (!farEnough)
         {
             plConst(float) kRandPert = 0.5f;
             randPert *= kRandPert;
@@ -226,7 +226,7 @@ bool plDynaRippleMgr::IRippleFromShape(const plPrintShape* shape, bool force)
 
 
         bool hit = ICutoutTargets(t);
-        if( hit )
+        if (hit)
         {
             retVal = true;
         }

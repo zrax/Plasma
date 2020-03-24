@@ -95,7 +95,7 @@ void hsGMaterial::IClearLayers()
 
 void hsGMaterial::SetNumLayers(int cnt)
 {
-    if( cnt < fLayers.GetCount() )
+    if (cnt < fLayers.GetCount())
         fLayers.SetCount(cnt);
     else
         fLayers.ExpandAndZero(cnt);
@@ -108,7 +108,7 @@ hsGMaterial* hsGMaterial::Clone()
     clo->SetNumLayers(GetNumLayers());
     
     int i;
-    for( i = 0; i < GetNumLayers(); i++ )
+    for (i = 0; i < GetNumLayers(); i++)
         clo->SetLayer(fLayers[i], i);
 
     return clo;
@@ -133,11 +133,11 @@ plLayer* hsGMaterial::MakeBaseLayer()
     hsAssert(GetKey(), "All materials need a key (or temp key)");
 
     ST::string buff;
-    if( !GetKeyName().empty() )
+    if (!GetKeyName().empty())
         buff = ST::format("{}_Layer", GetKeyName());
     else
         buff = ST_LITERAL("Layer");
-    hsgResMgr::ResMgr()->NewKey( buff, newLay, GetKey() != nil ? GetKey()->GetUoid().GetLocation() : plLocation::kGlobalFixedLoc );
+    hsgResMgr::ResMgr()->NewKey(buff, newLay, GetKey() != nil ? GetKey()->GetUoid().GetLocation() : plLocation::kGlobalFixedLoc);
 
     // Add layer so we have it now.
     AddLayerViaNotify(newLay);
@@ -163,13 +163,13 @@ void hsGMaterial::ReplaceLayer(plLayerInterface* oldLay, plLayerInterface* newLa
 {
     hsTArray<plLayerInterface*>& layers = piggyBack ? fPiggyBacks : fLayers;
     int i;
-    for( i = 0; i < layers.GetCount(); i++ )
+    for (i = 0; i < layers.GetCount(); i++)
     {
-        if( layers[i] == oldLay )
+        if (layers[i] == oldLay)
             break;
     }
     hsAssert(i < layers.GetCount(), "Replacing a layer we don't have");
-    if( i >= layers.GetCount() )
+    if (i >= layers.GetCount())
         return;
     SetLayer(newLay, i, piggyBack);
 }
@@ -178,9 +178,9 @@ void hsGMaterial::RemoveLayer(plLayerInterface* lay, bool piggyBack)
 {
     hsTArray<plLayerInterface*>& layers = piggyBack ? fPiggyBacks : fLayers;
     int i;
-    for( i = 0; i < layers.GetCount(); i++ )
+    for (i = 0; i < layers.GetCount(); i++)
     {
-        if( layers[i] == lay )
+        if (layers[i] == lay)
             break;
     }
 
@@ -199,17 +199,17 @@ void hsGMaterial::InsertLayer(plLayerInterface* layer, int32_t which, bool piggy
 
 void hsGMaterial::SetLayer(plLayerInterface* layer, int32_t which, bool insert, bool piggyBack)
 {
-    if( insert )
+    if (insert)
     {
         InsertLayer(layer, which, piggyBack);
     }
     else
     {
         hsTArray<plLayerInterface*>& layers = piggyBack ? fPiggyBacks : fLayers;
-        if( which < 0 )
+        if (which < 0)
             which = layers.GetCount();
         hsAssert(which <= layers.GetCount(), "Material layers Exceeding test depth");
-        if( which < layers.GetCount() )
+        if (which < layers.GetCount())
             layers[which] = layer;
         else
             layers.Append(layer);
@@ -246,11 +246,11 @@ void hsGMaterial::Write(hsStream *stream, hsResMgr *group)
 
     // Write one (or many) texture indices
     int iLay;
-    for( iLay = 0; iLay < GetNumLayers(); iLay++ )
+    for (iLay = 0; iLay < GetNumLayers(); iLay++)
     {
         group->WriteKey(stream,GetLayer(iLay));
     }
-    for( iLay = 0; iLay < GetNumPiggyBacks(); iLay++ )
+    for (iLay = 0; iLay < GetNumPiggyBacks(); iLay++)
     {
         group->WriteKey(stream, GetPiggyBack(iLay));
     }
@@ -281,14 +281,14 @@ void hsGMaterial::Eval(double secs, uint32_t frame)
     plProfile_BeginLap(MaterialAnims, GetKeyName().c_str());
 
     int i;
-    for( i = 0; i < GetNumLayers(); i++ )
+    for (i = 0; i < GetNumLayers(); i++)
     {
-        if( fLayers[i] )
+        if (fLayers[i])
             fLayers[i]->Eval(secs, frame, 0);
     }
-    for( i = 0; i < GetNumPiggyBacks(); i++ )
+    for (i = 0; i < GetNumPiggyBacks(); i++)
     {
-        if( fPiggyBacks[i] )
+        if (fPiggyBacks[i])
             fPiggyBacks[i]->Eval(secs, frame, 0);
     }
 
@@ -298,9 +298,9 @@ void hsGMaterial::Eval(double secs, uint32_t frame)
 void hsGMaterial::Reset()
 {
     int i;
-    for( i = 0; i < GetNumLayers(); i++ )
+    for (i = 0; i < GetNumLayers(); i++)
     {
-        if( fLayers[i] )
+        if (fLayers[i])
             fLayers[i]->Eval(0, 0, 0);
     }
 }
@@ -313,21 +313,21 @@ void hsGMaterial::Init()
 bool hsGMaterial::MsgReceive(plMessage* msg)
 {
     plMatRefMsg* refMsg = plMatRefMsg::ConvertNoRef(msg);
-    if( refMsg )
+    if (refMsg)
     {
         int which = refMsg->fWhich;
         bool piggyBack = 0 != (refMsg->fType & plMatRefMsg::kPiggyBack);
         plLayerInterface* lay= plLayerInterface::ConvertNoRef(refMsg->GetRef());
-        if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest) )
+        if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest))
         {
             bool insert = 0 != (refMsg->fType & plMatRefMsg::kInsert);
             SetLayer(lay, which,
                 insert,
-                piggyBack );
+                piggyBack);
         }
-        else if( refMsg->GetContext() & plRefMsg::kOnReplace )
+        else if (refMsg->GetContext() & plRefMsg::kOnReplace)
             ReplaceLayer(plLayerInterface::ConvertNoRef(refMsg->GetOldRef()), lay, piggyBack);
-        else if( refMsg->GetContext() & (plRefMsg::kOnRemove | plRefMsg::kOnDestroy) )
+        else if (refMsg->GetContext() & (plRefMsg::kOnRemove | plRefMsg::kOnDestroy))
             RemoveLayer(lay, piggyBack);
         else
             ReplaceLayer(lay, &defaultLayer, piggyBack);

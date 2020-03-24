@@ -238,10 +238,10 @@ void plFontConverter::ExportP2F()
         else
         {
             /*
-            sprintf( fileName, "%s-%d", gFont->GetFace(), gFont->GetSize() );
+            sprintf(fileName, "%s-%d", gFont->GetFace(), gFont->GetSize());
 
-            if( gFont->GetKey() == nil )
-                hsgResMgr::ResMgr()->NewKey( fileName, gFont, plLocation::kGlobalFixedLoc );
+            if (gFont->GetKey() == nil)
+                hsgResMgr::ResMgr()->NewKey(fileName, gFont, plLocation::kGlobalFixedLoc);
             */
             fFont->WriteRaw(&stream);
             stream.Close();

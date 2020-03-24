@@ -47,7 +47,7 @@ class ClassDesc2;
 namespace plPlasmaMtlImport
 {
     int         GetNumMtlDescs();
-    ClassDesc2  *GetMtlDesc( int i );
+    ClassDesc2  *GetMtlDesc(int i);
 };
 
 #endif //_plMtlImport_h

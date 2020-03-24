@@ -98,10 +98,10 @@ class plStatusLog : public plLog
         plStatusLog **fDisplayPointer;      // Inside pfConsole
         
         void    IUnlink();
-        void    ILink( plStatusLog **back );
+        void    ILink(plStatusLog **back);
 
-        bool    IAddLine( const char *line, int32_t count, uint32_t color );
-        bool    IPrintLineToFile( const char *line, uint32_t count );
+        bool    IAddLine(const char *line, int32_t count, uint32_t color);
+        bool    IPrintLineToFile(const char *line, uint32_t count);
         void    IParseFileName(plFileName &fileNoExt, ST::string &ext) const;
         static plStatusLog* IFindLog(const plFileName& filename);
 
@@ -109,7 +109,7 @@ class plStatusLog : public plLog
         void    IFini();
         bool    IReOpen();
 
-        plStatusLog( uint8_t numDisplayLines, const plFileName &filename, uint32_t flags );
+        plStatusLog(uint8_t numDisplayLines, const plFileName &filename, uint32_t flags);
 
     public:
 
@@ -230,7 +230,7 @@ class plStatusLog : public plLog
         void    Clear();
 
         // Clear and open a new file.
-        void    Bounce( uint32_t flags=0 );
+        void    Bounce(uint32_t flags=0);
 
         const plFileName &GetFileName() const { return fFilename; }
 
@@ -273,19 +273,19 @@ class plStatusLogMgr
 
         void        Draw();
 
-        plStatusLog *CreateStatusLog( uint8_t numDisplayLines, const plFileName &filename, uint32_t flags = plStatusLog::kFilledBackground );
-        void        ToggleStatusLog( plStatusLog *logToDisplay );
+        plStatusLog *CreateStatusLog(uint8_t numDisplayLines, const plFileName &filename, uint32_t flags = plStatusLog::kFilledBackground);
+        void        ToggleStatusLog(plStatusLog *logToDisplay);
         void        NextStatusLog();
         void        PrevStatusLog();
-        void        SetCurrStatusLog( const plFileName &logName );
-        plStatusLog *FindLog( const plFileName &filename, bool createIfNotFound = true );
+        void        SetCurrStatusLog(const plFileName &logName);
+        plStatusLog *FindLog(const plFileName &filename, bool createIfNotFound = true);
 
-        void        SetDrawer( plStatusLogDrawerStub *drawer ) { fDrawer = drawer; }
+        void        SetDrawer(plStatusLogDrawerStub *drawer) { fDrawer = drawer; }
 
         void        BounceLogs();
 
         // Create a new folder and copy all log files into it (returns false on failure)
-        bool        DumpLogs( const plFileName &newFolderName );
+        bool        DumpLogs(const plFileName &newFolderName);
 };
 
 //// plStatusLogDrawerStub Class ////////////////////////////////////////////
@@ -299,11 +299,11 @@ class plStatusLogDrawerStub
 {
     protected:
 
-        uint32_t      IGetMaxNumLines( plStatusLog *log ) const { return log->fMaxNumLines; }
-        char        **IGetLines( plStatusLog *log ) const { return log->fLines; }
-        plFileName    IGetFilename( plStatusLog *log ) const { return log->GetFileName(); }
-        uint32_t     *IGetColors( plStatusLog *log ) const { return log->fColors; }
-        uint32_t      IGetFlags( plStatusLog *log ) const { return log->fFlags; }
+        uint32_t      IGetMaxNumLines(plStatusLog *log) const { return log->fMaxNumLines; }
+        char        **IGetLines(plStatusLog *log) const { return log->fLines; }
+        plFileName    IGetFilename(plStatusLog *log) const { return log->GetFileName(); }
+        uint32_t     *IGetColors(plStatusLog *log) const { return log->fColors; }
+        uint32_t      IGetFlags(plStatusLog *log) const { return log->fFlags; }
         
     public:
         virtual ~plStatusLogDrawerStub() {}

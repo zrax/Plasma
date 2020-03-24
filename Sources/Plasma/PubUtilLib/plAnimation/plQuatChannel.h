@@ -77,8 +77,8 @@ public:
     virtual plAGChannel * MakeBlend(plAGChannel * channelB, plScalarChannel * channelBias, int blendPriority);
 
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plQuatChannel );
-    GETINTERFACE_ANY( plQuatChannel, plAGChannel );
+    CLASSNAME_REGISTER(plQuatChannel);
+    GETINTERFACE_ANY(plQuatChannel, plAGChannel);
 };
 
 // PLQUATCONSTANT
@@ -94,8 +94,8 @@ public:
     void Set(const hsQuat &the_Quat) { fResult = the_Quat; }
 
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plQuatConstant );
-    GETINTERFACE_ANY( plQuatConstant, plQuatChannel );
+    CLASSNAME_REGISTER(plQuatConstant);
+    GETINTERFACE_ANY(plQuatConstant, plQuatChannel);
 
     void Read(hsStream *stream, hsResMgr *mgr);
     void Write(hsStream *stream, hsResMgr *mgr);
@@ -123,8 +123,8 @@ public:
     virtual plAGChannel * Detach(plAGChannel * channel);
 
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plQuatTimeScale );
-    GETINTERFACE_ANY( plQuatTimeScale, plQuatChannel );
+    CLASSNAME_REGISTER(plQuatTimeScale);
+    GETINTERFACE_ANY(plQuatTimeScale, plQuatChannel);
 };
 
 // PLQUATBLEND
@@ -158,8 +158,8 @@ public:
     virtual plAGChannel * Detach(plAGChannel * channel);
 
     // PLASMA PROTOCOL
-    CLASSNAME_REGISTER( plQuatBlend );
-    GETINTERFACE_ANY( plQuatBlend, plQuatChannel );
+    CLASSNAME_REGISTER(plQuatBlend);
+    GETINTERFACE_ANY(plQuatBlend, plQuatChannel);
 
 protected:
     plQuatChannel *fQuatA;
@@ -179,8 +179,8 @@ protected:
     virtual void IApply(const plAGModifier *mod, double time);
 
 public:
-    CLASSNAME_REGISTER( plQuatChannelApplicator );
-    GETINTERFACE_ANY( plQuatChannelApplicator, plAGApplicator );
+    CLASSNAME_REGISTER(plQuatChannelApplicator);
+    GETINTERFACE_ANY(plQuatChannelApplicator, plAGApplicator);
 };
 
 

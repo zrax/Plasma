@@ -65,14 +65,14 @@ public:
     plWin32GroupedSound();
     ~plWin32GroupedSound();
 
-    CLASSNAME_REGISTER( plWin32GroupedSound );
-    GETINTERFACE_ANY( plWin32GroupedSound, plWin32StaticSound );
+    CLASSNAME_REGISTER(plWin32GroupedSound);
+    GETINTERFACE_ANY(plWin32GroupedSound, plWin32StaticSound);
     
-    virtual bool    LoadSound( bool is3D );
-    virtual bool    MsgReceive( plMessage *pMsg );
-    void            SetPositionArray( uint16_t numSounds, uint32_t *posArray, float *volumeArray );
-    float        GetSoundLength( int16_t soundIndex );
-    virtual double  GetLength() { return GetSoundLength( fCurrentSound ); }
+    virtual bool    LoadSound(bool is3D);
+    virtual bool    MsgReceive(plMessage *pMsg);
+    void            SetPositionArray(uint16_t numSounds, uint32_t *posArray, float *volumeArray);
+    float        GetSoundLength(int16_t soundIndex);
+    virtual double  GetLength() { return GetSoundLength(fCurrentSound); }
 
 protected:
     uint16_t              fCurrentSound;
@@ -85,11 +85,11 @@ protected:
 
     virtual void    IDerivedActuallyPlay();
 
-    virtual void    IRead( hsStream *s, hsResMgr *mgr );
-    virtual void    IWrite( hsStream *s, hsResMgr *mgr );
+    virtual void    IRead(hsStream *s, hsResMgr *mgr);
+    virtual void    IWrite(hsStream *s, hsResMgr *mgr);
 
-    uint32_t          IGetSoundbyteLength( int16_t soundIndex );
-    void            IFillCurrentSound( int16_t newCurrent = -1 );
+    uint32_t          IGetSoundbyteLength(int16_t soundIndex);
+    void            IFillCurrentSound(int16_t newCurrent = -1);
     
     // Abstracting a few things here for the incidentalMgr
     virtual void *  IGetDataPointer() const;

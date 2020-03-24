@@ -133,7 +133,7 @@ void plAvTask::ILimitPlayersInput(plArmatureMod *avatar)
         plInputInterfaceMgr::GetInstance()->ForceCursorHidden(true);
         // tell the KI to be disabled while we are busy
         pfKIMsg* msg = new pfKIMsg(pfKIMsg::kTempDisableKIandBB);
-        plgDispatch::MsgSend( msg );
+        plgDispatch::MsgSend(msg);
     }
 }
 
@@ -145,7 +145,7 @@ void plAvTask::IUndoLimitPlayersInput(plArmatureMod *avatar)
         plInputInterfaceMgr::GetInstance()->ForceCursorHidden(false);
         // tell the KI to be re-enabled
         pfKIMsg* msg = new pfKIMsg(pfKIMsg::kTempEnableKIandBB);
-        plgDispatch::MsgSend( msg );
+        plgDispatch::MsgSend(msg);
     }
 }
 
@@ -217,7 +217,7 @@ bool plAvSeekTask::Start(plArmatureMod *avatar, plArmatureBrain *brain, double t
     fPhysicalAtStart = avatar->IsPhysicsEnabled();
     avatar->EnablePhysics(false);       // always turn physics off for seek
     plAvBrainHuman *huBrain = plAvBrainHuman::ConvertNoRef(brain);
-    if(huBrain)
+    if (huBrain)
         huBrain->IdleOnly();
     
     ILimitPlayersInput(avatar);
@@ -236,7 +236,7 @@ bool plAvSeekTask::Start(plArmatureMod *avatar, plArmatureBrain *brain, double t
     if (subworldCI)
         targetL2W = subworldCI->GetWorldToLocal() * targetL2W;
 
-    switch(fAlign)
+    switch (fAlign)
     {
         // just match our handle to the target matrix
         case kAlignHandle:
@@ -291,12 +291,12 @@ bool plAvSeekTask::Process(plArmatureMod *avatar, plArmatureBrain *brain, double
     double timeToGo = fTargetTime - time - elapsed; // time from *beginning* of this interval to the goal
     if (fCleanup)
     {
-        avatar->EnablePhysics( fPhysicalAtStart );
+        avatar->EnablePhysics(fPhysicalAtStart);
         IUndoLimitPlayersInput(avatar);
         
         return false;       // we're done processing
     }
-    else if(timeToGo < .01)
+    else if (timeToGo < .01)
     {
         fTargetRotation.Normalize();
         avatar->SetPositionAndRotationSim(&fTargetPosition, &fTargetRotation);
@@ -385,17 +385,17 @@ plAvAnimTask::plAvAnimTask(const ST::string &animName, float fadeSpeed, bool att
 bool plAvAnimTask::Start(plArmatureMod *avatar, plArmatureBrain *brain, double time, float elapsed)
 {
     bool result = false;
-    if(fAttach)
+    if (fAttach)
     {
         plAGAnimInstance * aInstance = avatar->FindOrAttachInstance(fAnimName, fInitialBlend);
 
-        if(aInstance)
+        if (aInstance)
         {
-            if(fStart)
+            if (fStart)
                 aInstance->Start(fStart);
-            if(fSetTime > 0)
+            if (fSetTime > 0)
                 aInstance->SetCurrentTime(fSetTime, true);
-            if(fTargetBlend > fInitialBlend)
+            if (fTargetBlend > fInitialBlend)
             {
                 aInstance->Fade(fTargetBlend, fFadeSpeed);
             }
@@ -411,7 +411,7 @@ bool plAvAnimTask::Start(plArmatureMod *avatar, plArmatureBrain *brain, double t
     else
     {
         fAnimInstance = avatar->FindAnimInstance(fAnimName);
-        if(fAnimInstance)
+        if (fAnimInstance)
         {
             // start fading towards zero
             fAnimInstance->Fade(0.0, fFadeSpeed);
@@ -428,15 +428,15 @@ bool plAvAnimTask::Process(plArmatureMod *avatar, plArmatureBrain *brain, double
 {
     // the only reason we need this function is to watch the animation until it fades out
     bool result = false;
-    if(fAttach)
+    if (fAttach)
     {
         // we finished in the Start() function
     }
     else
     {
-        if(fAnimInstance)
+        if (fAnimInstance)
         {
-            if(fAnimInstance->GetBlend() < 0.1)
+            if (fAnimInstance->GetBlend() < 0.1)
             {
                 avatar->DetachAnimation(fAnimInstance);
             }
@@ -457,7 +457,7 @@ void plAvAnimTask::LeaveAge(plArmatureMod *avatar)
     if (!fAttach)
     {
         fAnimInstance = avatar->FindAnimInstance(fAnimName);
-        if(fAnimInstance)
+        if (fAnimInstance)
             avatar->DetachAnimation(fAnimInstance);
     }
 }
@@ -572,7 +572,7 @@ bool plAvOneShotTask::Start(plArmatureMod *avatar, plArmatureBrain *brain, doubl
     fAnimInstance = master->AttachAnimationBlended(fAnimName, 0);
     fDetachAnimation = true;
 
-    if(fAnimInstance)
+    if (fAnimInstance)
     {
         fEnablePhysicsAtEnd = (avatar->IsPhysicsEnabled() && fDisablePhysics);
         if (fEnablePhysicsAtEnd)
@@ -619,11 +619,11 @@ bool plAvOneShotTask::Start(plArmatureMod *avatar, plArmatureBrain *brain, doubl
             pMsg->SetBCastFlag(plMessage::kBCastByExactType);
             pMsg->SetBCastFlag(plMessage::kNetPropagate, false);
             pMsg->SetCmd(plCameraMsg::kResponderSetThirdPerson);
-            plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+            plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
         }
 
         fMoveHandle = (fAnimInstance->GetAnimation()->GetChannel("Handle") != nil);
-        if(fMoveHandle)
+        if (fMoveHandle)
         {
             plMatrixDifferenceApp *differ = avatar->GetRootAnimator();
             differ->Reset(time);        // throw away any old state
@@ -649,21 +649,21 @@ bool plAvOneShotTask::Process(plArmatureMod *avatar, plArmatureBrain *brain, dou
     // *** if we are under mouse control, adjust it here
 
     avatar->ApplyAnimations(time, elapsed);
-    if(fAnimInstance)
+    if (fAnimInstance)
     {
-        if(fAnimInstance->IsFinished())
+        if (fAnimInstance->IsFinished())
         {
             const plAGAnim * animation = fAnimInstance->GetAnimation();
             double endTime = (fBackwards ? animation->GetStart() : animation->GetEnd());
             fAnimInstance->SetCurrentTime((float)endTime);
             avatar->ApplyAnimations(time, elapsed);
 
-            if(--fWaitFrames == 0)
+            if (--fWaitFrames == 0)
             {
                 avatar->DetachAnimation(fAnimInstance);
                 avatar->GetRootAnimator()->Enable(false);
                 plAvBrainHuman *humanBrain = plAvBrainHuman::ConvertNoRef(brain);
-                if(fEnablePhysicsAtEnd)
+                if (fEnablePhysicsAtEnd)
                 {
 #if 0//ndef PLASMA_EXTERNAL_RELEASE
                     if (!humanBrain || humanBrain->fWalkingStrategy->HitGroundInThisAge())
@@ -681,7 +681,7 @@ bool plAvOneShotTask::Process(plArmatureMod *avatar, plArmatureBrain *brain, dou
                         {
                             char *buffy = new char[64 + strlen(overlaps)];
                             sprintf(buffy, "Oneshot ends overlapping %s", overlaps);
-                            plConsoleMsg *showLine = new plConsoleMsg( plConsoleMsg::kAddLine, buffy );
+                            plConsoleMsg *showLine = new plConsoleMsg(plConsoleMsg::kAddLine, buffy);
                             showLine->Send();
                             delete[] overlaps;
                             delete[] buffy;
@@ -701,7 +701,7 @@ bool plAvOneShotTask::Process(plArmatureMod *avatar, plArmatureBrain *brain, dou
                     pMsg->SetBCastFlag(plMessage::kBCastByExactType);
                     pMsg->SetBCastFlag(plMessage::kNetPropagate, false);
                     pMsg->SetCmd(plCameraMsg::kResponderUndoThirdPerson);
-                    plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+                    plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
                 }
                 
                 return false;

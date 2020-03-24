@@ -74,7 +74,7 @@ private:
 
 protected:
     pySDLStateDataRecord();
-    pySDLStateDataRecord( plStateDataRecord * rec );
+    pySDLStateDataRecord(plStateDataRecord * rec);
 
 public:
     ~pySDLStateDataRecord();
@@ -91,7 +91,7 @@ public:
     plStateDataRecord * GetRec() const;
 
     /////////////////////
-    PyObject * FindVar( const ST::string & name ) const; // returns pySimpleStateVariable
+    PyObject * FindVar(const ST::string & name) const; // returns pySimpleStateVariable
     ST::string GetName() const;
     std::vector<ST::string> GetVarList();
     void SetFromDefaults(bool timeStampNow);
@@ -105,7 +105,7 @@ private:
 
 protected:
     pySimpleStateVariable();
-    pySimpleStateVariable( plSimpleStateVariable * var );
+    pySimpleStateVariable(plSimpleStateVariable * var);
 
 public:
     // required functions for PyObject interoperability
@@ -120,21 +120,21 @@ public:
     plSimpleStateVariable * GetVar() const;
 
     /////////////////////
-    bool    SetByte( uint8_t v, int idx=0 );
-    bool    SetShort( short v, int idx=0 );
-    bool    SetFloat( float v, int idx=0 );
-    bool    SetDouble( double v, int idx=0 );
-    bool    SetInt( int v, int idx=0 );
-    bool    SetString( const char * v, int idx=0 );
-    bool    SetBool(bool v, int idx=0 );
-    uint8_t GetByte( int idx=0 ) const;
-    short   GetShort( int idx=0 ) const;
-    int     GetInt( int idx=0 ) const;
-    float   GetFloat( int idx=0 ) const;
-    double  GetDouble( int idx=0 ) const;
-    bool    GetBool( int idx=0 ) const;
-    ST::string GetString( int idx=0 ) const;
-    plKey   GetKey( int idx=0 ) const;
+    bool    SetByte(uint8_t v, int idx=0);
+    bool    SetShort(short v, int idx=0);
+    bool    SetFloat(float v, int idx=0);
+    bool    SetDouble(double v, int idx=0);
+    bool    SetInt(int v, int idx=0);
+    bool    SetString(const char * v, int idx=0);
+    bool    SetBool(bool v, int idx=0);
+    uint8_t GetByte(int idx=0) const;
+    short   GetShort(int idx=0) const;
+    int     GetInt(int idx=0) const;
+    float   GetFloat(int idx=0) const;
+    double  GetDouble(int idx=0) const;
+    bool    GetBool(int idx=0) const;
+    ST::string GetString(int idx=0) const;
+    plKey   GetKey(int idx=0) const;
 
     int     GetType() const;
     ST::string GetDisplayOptions() const;

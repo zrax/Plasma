@@ -170,11 +170,11 @@ plAvBrainClimb::plAvBrainClimb(Mode nextMode)
 
 plAvBrainClimb::~plAvBrainClimb()
 {
-    if(fAvMod)
+    if (fAvMod)
     {
-        if(fCurStage)
+        if (fCurStage)
             fCurStage->Detach(fAvMod);
-        if(fExitStage)
+        if (fExitStage)
             fExitStage->Detach(fAvMod);
     }
     delete fUp;
@@ -220,18 +220,18 @@ bool plAvBrainClimb::Apply(double time, float elapsed)
     float overage = 0.0f;       // if we ran past the end of the current stage, remember how much
     bool done = false;
 
-    if(fExitStage)
+    if (fExitStage)
         done = IProcessExitStage(time, elapsed);
     else
         done = IAdvanceCurrentStage(time, elapsed, overage);
 
-    if(done || fCurMode == kIdle)
+    if (done || fCurMode == kIdle)
     {
         // if the transition is to one of the terminal modes, we're going to abort
         result = ITryStageTransition(time, overage);
     }
 
-    if(!result && fExitStage)
+    if (!result && fExitStage)
     {
         fExitStage->Detach(fAvMod);
     }
@@ -263,16 +263,16 @@ bool plAvBrainClimb::MsgReceive(plMessage *msg)
 // IHANDLECLIMBMSG
 bool plAvBrainClimb::IHandleClimbMsg(plClimbMsg *msg)
 {
-    switch(msg->fCommand)
+    switch (msg->fCommand)
     {
     case plClimbMsg::kEnableClimb:
-        if(msg->fStatus)
+        if (msg->fStatus)
             this->fAllowedDirections |= msg->fDirection;
         else
             this->fAllowedDirections &= ~msg->fDirection;
         break;
     case plClimbMsg::kEnableDismount:
-        if(msg->fStatus)
+        if (msg->fStatus)
             this->fAllowedDismounts |= msg->fDirection;
         else
             this->fAllowedDismounts &= ~msg->fDirection;
@@ -282,7 +282,7 @@ bool plAvBrainClimb::IHandleClimbMsg(plClimbMsg *msg)
         break;
     case plClimbMsg::kFallOff:
         {
-            if(fCurMode != kReleasing
+            if (fCurMode != kReleasing
             && fCurMode != kFallingOff
             && fCurMode != kFinishing)
             {
@@ -311,7 +311,7 @@ bool plAvBrainClimb::IHandleLOSMsg(plLOSHitMsg *msg)
     // this is a weak test because someone else could be using the same bits to mean something different
     // the real strategy is that we should only receive LOS messages of our own creation
     bool oneOfOurs = blockDir == plClimbMsg::kUp || blockDir == plClimbMsg::kDown || blockDir == plClimbMsg::kLeft || blockDir == plClimbMsg::kRight;
-    if(oneOfOurs)
+    if (oneOfOurs)
     {
         fPhysicallyBlockedDirections |= blockDir;
         return true;
@@ -328,17 +328,17 @@ bool plAvBrainClimb::IProcessExitStage(double time, float elapsed)
     float unused;
 
     // if we have an exit stage running, move it instead of the base stage
-    if(!animDone)
+    if (!animDone)
         fExitStage->MoveRelative(time, elapsed, unused, fAvMod);    // only advance if it's not finished yet
 
     float curBlend = ai->GetBlend();
     
-    if(curBlend > .99)      // reached peak strength
+    if (curBlend > .99)      // reached peak strength
     {
         fCurStage->Detach(fAvMod);  // remove the (now completely masked) underlying anim
         fCurStage = nil;
         ai->Fade(0, 2.0f);      // start fading the exit anim
-    } else if(animDone && curBlend == 0.0f) {
+    } else if (animDone && curBlend == 0.0f) {
         return true;        // finished and faded; we're really done now
     }
     return false;
@@ -347,11 +347,11 @@ bool plAvBrainClimb::IProcessExitStage(double time, float elapsed)
 // IRELEASE
 void plAvBrainClimb::IRelease(bool intentional)
 {
-    if(fCurMode != kReleasing
+    if (fCurMode != kReleasing
         && fCurMode != kFallingOff
         && fCurMode != kFinishing)
     {
-        if(intentional)
+        if (intentional)
         {
             // fNextMode = kReleasing;
             fCurMode = kReleasing;
@@ -375,14 +375,14 @@ void plAvBrainClimb::IRelease(bool intentional)
 bool plAvBrainClimb::IAdvanceCurrentStage(double time, float elapsed, float &overage)
 {
     bool stageDone = false;
-    if(fCurStage)
+    if (fCurStage)
     {
         // elapsed tells us how far in time to move the animation
         // we must combine it with the key state to figure out whether
         // we're moving forward or backward in the animation
         fControlDir = 0.0f; // 0 is still; -1 is backwards; 1 is forwards
 
-        switch(fCurMode)
+        switch (fCurMode)
         {
         case kDismountingUp:            // if dismounting or mounting become reversable, move
         case kMountingUp:               // these cases to be with "kClimbingUp"; same for the rest
@@ -425,7 +425,7 @@ bool plAvBrainClimb::ITryStageTransition(double time, float overage)
 
     bool result = true;
                                                     // and vice versa
-    if(fCurStage && fCurStage != fIdle)
+    if (fCurStage && fCurStage != fIdle)
     {
         hsStatusMessage("Wrapping externally.");
         bool atStart = overage >= 0.0f ? true : false;  // if we went off the end, back to start
@@ -435,16 +435,16 @@ bool plAvBrainClimb::ITryStageTransition(double time, float overage)
 //      this->fAllowedDismounts = 0;
     }
 
-    if(fNextMode != fCurMode)
+    if (fNextMode != fCurMode)
     {
-        if(fCurStage)
+        if (fCurStage)
             fCurStage->Detach(fAvMod);
         fCurStage = IGetStageFromMode(fNextMode);
-        if(fCurStage)
+        if (fCurStage)
         {
             hsAssert(fCurStage, "Couldn't get next stage - mode has no stage. (Matt)");
             fCurMode = fNextMode;
-            if(fCurStage)
+            if (fCurStage)
                 result = (fCurStage->Attach(fAvMod, this, 1.0f, time) != nil);
             fAvMod->DirtySynchState(kSDLAvatar, 0);     // write our new stage to the server
         } else {
@@ -454,15 +454,15 @@ bool plAvBrainClimb::ITryStageTransition(double time, float overage)
 //      hsStatusMessage("Wrapping externally.");
 //      bool atStart = overage >= 0.0f ? true : false;  // if we went off the end, back to start
 //                                                      // and vice versa
-//      if(fCurStage)
+//      if (fCurStage)
 //          fCurStage->Reset(time, fAvMod, atStart);
     }
 
     fNextMode = kUnknown;
 
-    if(fCurStage)
+    if (fCurStage)
     {
-        if(overage < 0.0f)
+        if (overage < 0.0f)
         {
             float length = fCurStage->GetLength();
             fCurStage->SetLocalTime(length + overage);
@@ -506,9 +506,9 @@ bool plAvBrainClimb::IChooseNextMode()
     case kClimbingRight:
     case kIdle:
         fNextMode = kIdle;
-        if(fAllowedDismounts & fDesiredDirection)
+        if (fAllowedDismounts & fDesiredDirection)
         {
-            switch(fDesiredDirection)
+            switch (fDesiredDirection)
             {
             case plClimbMsg::kUp:
                 fNextMode = kDismountingUp;
@@ -528,9 +528,9 @@ bool plAvBrainClimb::IChooseNextMode()
             default:
                 hsAssert(false, "Error in fDesiredDirection. (Matt)");
             }
-        } else if(fAllowedDirections & fDesiredDirection & ~fPhysicallyBlockedDirections)
+        } else if (fAllowedDirections & fDesiredDirection & ~fPhysicallyBlockedDirections)
         {
-            switch(fDesiredDirection)
+            switch (fDesiredDirection)
             {
             case plClimbMsg::kUp:
                 fNextMode = kClimbingUp;
@@ -561,7 +561,7 @@ bool plAvBrainClimb::IChooseNextMode()
 // IGETSTAGE
 plAnimStage * plAvBrainClimb::IGetStageFromMode(Mode mode)
 {
-    switch(mode)
+    switch (mode)
     {
     case kClimbingUp:
         return fUp;
@@ -606,35 +606,35 @@ plAnimStage * plAvBrainClimb::IGetStageFromMode(Mode mode)
 
 plAvBrainClimb::Mode plAvBrainClimb::IGetModeFromStage(plAnimStage *stage)
 {
-    if(stage == fUp)
+    if (stage == fUp)
         return kClimbingUp;
-    else if(stage == fDown)
+    else if (stage == fDown)
         return kClimbingDown;
-    else if(stage == fLeft)
+    else if (stage == fLeft)
         return kClimbingLeft;
-    else if(stage == fRight)
+    else if (stage == fRight)
         return kClimbingRight;
-    else if(stage == fMountUp)
+    else if (stage == fMountUp)
         return kMountingUp;
-    else if(stage == fMountDown)
+    else if (stage == fMountDown)
         return kMountingDown;
-    else if(stage == fMountLeft)
+    else if (stage == fMountLeft)
         return kMountingLeft;
-    else if(stage == fMountRight)
+    else if (stage == fMountRight)
         return kMountingRight;
-    else if(stage == fDismountUp)
+    else if (stage == fDismountUp)
         return kDismountingUp;
-    else if(stage == fDismountDown)
+    else if (stage == fDismountDown)
         return kDismountingDown;
-    else if(stage == fDismountLeft)
+    else if (stage == fDismountLeft)
         return kDismountingLeft;
-    else if(stage == fDismountRight)
+    else if (stage == fDismountRight)
         return kDismountingRight;
-    else if(stage == fIdle)
+    else if (stage == fIdle)
         return kIdle;
-    else if(stage == fRelease)
+    else if (stage == fRelease)
         return kReleasing;
-    else if(stage == fFallOff)
+    else if (stage == fFallOff)
         return kFallingOff;
     else
         return kUnknown;
@@ -643,7 +643,7 @@ plAvBrainClimb::Mode plAvBrainClimb::IGetModeFromStage(plAnimStage *stage)
 // IGETDESIREDDIRECTION
 void plAvBrainClimb::IGetDesiredDirection()
 {
-    if(fAvMod->ForwardKeyDown()) {
+    if (fAvMod->ForwardKeyDown()) {
         fDesiredDirection = plClimbMsg::kUp;
     } else if (fAvMod->BackwardKeyDown()) {
         fDesiredDirection = plClimbMsg::kDown;
@@ -716,7 +716,7 @@ void plAvBrainClimb::ICalcProbeLengths()
     hsMatrix44 upMove, leftMove;
 
     hsAssert(up, "Couldn't find ClimbUp animation.");
-    if(up)
+    if (up)
     {
         GetStartToEndTransform(up, &upMove, nil, "Handle");
         fVerticalProbeLength = upMove.GetTranslate().fZ;
@@ -724,7 +724,7 @@ void plAvBrainClimb::ICalcProbeLengths()
         fVerticalProbeLength = 4.0f;    // guess
 
     hsAssert(left, "Couldn't find ClimbLeft animation.");
-    if(left)
+    if (left)
     {
         GetStartToEndTransform(left, &leftMove, nil, "Handle");
         fHorizontalProbeLength = leftMove.GetTranslate().fX;
@@ -806,7 +806,7 @@ void plAvBrainClimb::SaveToSDL(plStateDataRecord *sdl)
 
     bool curStageAttached = fCurStage && fCurStage->GetIsAttached();
     sdl->FindVar(plAvatarSDLModifier::ClimbBrainVarNames::kStrCurStageAttached)->Set(curStageAttached);
-    if(curStageAttached)
+    if (curStageAttached)
     {
         // slightly abuse the "mode" semantics; it happens to work as a persistance format
         Mode curStageAsMode = IGetModeFromStage(fCurStage);
@@ -821,7 +821,7 @@ void plAvBrainClimb::SaveToSDL(plStateDataRecord *sdl)
     bool exitStageAttached = fExitStage && fExitStage->GetIsAttached();
     sdl->FindVar(plAvatarSDLModifier::ClimbBrainVarNames::kStrExitStageAttached)->Set(exitStageAttached);
 
-    if(exitStageAttached)
+    if (exitStageAttached)
     {
         Mode exitStageAsMode = IGetModeFromStage(fExitStage);
         sdl->FindVar(plAvatarSDLModifier::ClimbBrainVarNames::kStrExitStage)->Set(exitStageAsMode);
@@ -849,7 +849,7 @@ void plAvBrainClimb::LoadFromSDL(const plStateDataRecord *sdl)
 
     bool curStageAttached = false;
     sdl->FindVar(plAvatarSDLModifier::ClimbBrainVarNames::kStrCurStageAttached)->Get(&curStageAttached);
-    if(curStageAttached)
+    if (curStageAttached)
     {
         Mode *curStageMode;     // distinct from curMode; this is just a mode-based representation of the current stage
         sdl->FindVar(plAvatarSDLModifier::ClimbBrainVarNames::kStrCurStage)->Get((int*)&curStageMode);
@@ -867,7 +867,7 @@ void plAvBrainClimb::LoadFromSDL(const plStateDataRecord *sdl)
 
     bool exitStageAttached;
     sdl->FindVar(plAvatarSDLModifier::ClimbBrainVarNames::kStrExitStageAttached)->Get(&exitStageAttached);
-    if(exitStageAttached)
+    if (exitStageAttached)
     {
         Mode exitStageMode; // the exit stage, in mode form
         sdl->FindVar(plAvatarSDLModifier::ClimbBrainVarNames::kStrExitStage)->Get((int *)&exitStageMode);
@@ -927,16 +927,16 @@ void plAvBrainClimb::IDumpClimbDirections(int &x, int &y, int lineHeight, plDebu
     ST::string_stream str;
 
     str << prolog;
-    if(fAllowedDirections & plClimbMsg::kUp)
+    if (fAllowedDirections & plClimbMsg::kUp)
         str << "UP ";
-    if(fAllowedDirections & plClimbMsg::kDown)
+    if (fAllowedDirections & plClimbMsg::kDown)
         str << "DOWN ";
-    if(fAllowedDirections & plClimbMsg::kLeft)
+    if (fAllowedDirections & plClimbMsg::kLeft)
         str << "LEFT ";
-    if(fAllowedDirections & plClimbMsg::kRight)
+    if (fAllowedDirections & plClimbMsg::kRight)
         str << "RIGHT ";
     
-    if(str.size() == strlen(prolog))
+    if (str.size() == strlen(prolog))
         str << "- NONE -";
 
     debugTxt.DrawString(x, y, str.to_string());
@@ -951,16 +951,16 @@ void plAvBrainClimb::IDumpDismountDirections(int &x, int &y, int lineHeight, plD
     ST::string_stream str;
 
     str << prolog;
-    if(fAllowedDismounts & plClimbMsg::kUp)
+    if (fAllowedDismounts & plClimbMsg::kUp)
         str << "UP ";
-    if(fAllowedDismounts & plClimbMsg::kDown)
+    if (fAllowedDismounts & plClimbMsg::kDown)
         str << "DOWN ";
-    if(fAllowedDismounts & plClimbMsg::kLeft)
+    if (fAllowedDismounts & plClimbMsg::kLeft)
         str << "LEFT ";
-    if(fAllowedDismounts & plClimbMsg::kRight)
+    if (fAllowedDismounts & plClimbMsg::kRight)
         str << "RIGHT ";
     
-    if(str.size() == strlen(prolog))
+    if (str.size() == strlen(prolog))
         str << "- NONE -";
 
     debugTxt.DrawString(x, y, str.to_string());
@@ -973,16 +973,16 @@ void plAvBrainClimb::IDumpBlockedDirections(int &x, int &y, int lineHeight, plDe
     ST::string_stream str;
 
     str << prolog;
-    if(fOldPhysicallyBlockedDirections & plClimbMsg::kUp)
+    if (fOldPhysicallyBlockedDirections & plClimbMsg::kUp)
         str << "UP ";
-    if(fOldPhysicallyBlockedDirections & plClimbMsg::kDown)
+    if (fOldPhysicallyBlockedDirections & plClimbMsg::kDown)
         str << "DOWN ";
-    if(fOldPhysicallyBlockedDirections & plClimbMsg::kLeft)
+    if (fOldPhysicallyBlockedDirections & plClimbMsg::kLeft)
         str << "LEFT ";
-    if(fOldPhysicallyBlockedDirections & plClimbMsg::kRight)
+    if (fOldPhysicallyBlockedDirections & plClimbMsg::kRight)
         str << "RIGHT ";
     
-    if(str.size() == strlen(prolog))
+    if (str.size() == strlen(prolog))
         str << "- NONE -";
 
     debugTxt.DrawString(x, y, str.to_string());
@@ -991,7 +991,7 @@ void plAvBrainClimb::IDumpBlockedDirections(int &x, int &y, int lineHeight, plDe
 
 const char *plAvBrainClimb::WorldDirStr(plClimbMsg::Direction dir)
 {
-    switch(dir)
+    switch (dir)
     {
     case plClimbMsg::kUp:
         return "Up";
@@ -1010,7 +1010,7 @@ const char *plAvBrainClimb::WorldDirStr(plClimbMsg::Direction dir)
 
 const char *plAvBrainClimb::ModeStr(Mode mode)
 {
-    switch(mode)
+    switch (mode)
     {
     case kInactive:
         return "Inactive";

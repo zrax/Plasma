@@ -145,8 +145,8 @@ public:
     virtual bool AutoDelete() { return true; } // should we remove it when its input channel is gone?
 
     // PlOP
-    CLASSNAME_REGISTER( plAGApplicator );
-    GETINTERFACE_ANY( plAGApplicator, plCreatable );
+    CLASSNAME_REGISTER(plAGApplicator);
+    GETINTERFACE_ANY(plAGApplicator, plCreatable);
 
     virtual void Write(hsStream *stream, hsResMgr *mgr);
     virtual void Read(hsStream *s, hsResMgr *mgr);

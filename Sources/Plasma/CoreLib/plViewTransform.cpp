@@ -79,13 +79,13 @@ void plViewTransform::ISetCameraToNDC() const
     fCameraToNDC.Reset();
     fCameraToNDC.NotIdentity();
 
-    if( GetOrthogonal() )
+    if (GetOrthogonal())
     {
         hsPoint3    worldSizeInv;
 
-        worldSizeInv.fX = hsInvert( fMax.fX - fMin.fX ) * 2.f;
-        worldSizeInv.fY = hsInvert( fMax.fY - fMin.fY ) * 2.f;
-        worldSizeInv.fZ = hsInvert( fMax.fZ - fMin.fZ );
+        worldSizeInv.fX = hsInvert(fMax.fX - fMin.fX) * 2.f;
+        worldSizeInv.fY = hsInvert(fMax.fY - fMin.fY) * 2.f;
+        worldSizeInv.fZ = hsInvert(fMax.fZ - fMin.fZ);
 
         fCameraToNDC.fMap[0][0] = worldSizeInv.fX;
         fCameraToNDC.fMap[0][3] = -fMin.fX * worldSizeInv.fX - 1.f;
@@ -177,7 +177,7 @@ hsScalarTriple plViewTransform::CameraToNDC(const hsScalarTriple& camP) const
     // c2NDC.fMap[i][2] terms, because they just get cancelled out by the invW.
 
     hsPoint3 ndc;
-    if( GetOrthogonal() )
+    if (GetOrthogonal())
     {
         ndc.fX = c2NDC.fMap[0][0] * camP.fX
             + c2NDC.fMap[0][2];
@@ -203,7 +203,7 @@ hsScalarTriple plViewTransform::CameraToNDC(const hsScalarTriple& camP) const
     }
 #else // MF_FLIP_SPARSE
     hsPoint3 ndc = c2NDC * hsPoint3(camP);
-    if( !GetOrthogonal() )
+    if (!GetOrthogonal())
     {
         float invW = 1.f / camP.fZ;
         ndc *= invW;
@@ -227,7 +227,7 @@ bool plViewTransform::SetProjection(const hsBounds3& bnd)
 {
     hsPoint3 maxs;
     hsPoint3 mins;
-    if( IGetMaxMinsFromBnd(bnd, mins, maxs) )
+    if (IGetMaxMinsFromBnd(bnd, mins, maxs))
     {
         SetView(mins, maxs);
         return true;
@@ -244,14 +244,14 @@ bool plViewTransform::SetProjectionWorld(const hsBounds3& wBnd)
 
 bool plViewTransform::IGetMaxMinsFromBnd(const hsBounds3& bnd, hsPoint3& mins, hsPoint3& maxs) const
 {
-    if( bnd.GetMaxs().fZ <= kMinHither )
+    if (bnd.GetMaxs().fZ <= kMinHither)
         return false;
 
     hsPoint3 minBnd = bnd.GetMins();
     hsPoint3 maxBnd = bnd.GetMaxs();
     // If the box intersects the hither plane, we'll need to chop it
     // off.
-    if( minBnd.fZ < kMinHither )
+    if (minBnd.fZ < kMinHither)
     {
         minBnd.fZ = kMinHither;
     }
@@ -268,13 +268,13 @@ bool plViewTransform::Intersect(const plViewTransform& view)
 
     bool retVal = true;
     int i;
-    for( i = 0; i < 3; i++ )
+    for (i = 0; i < 3; i++)
     {
         mins[i] = std::max(fMin[i], view.fMin[i]);
 
         maxs[i] = std::min(fMax[i], view.fMax[i]);
 
-        if( mins[i] >= maxs[i] )
+        if (mins[i] >= maxs[i])
         {
             mins[i] = maxs[i] = (mins[i] + maxs[i]) * 0.5f;
             retVal = false;
@@ -290,7 +290,7 @@ bool plViewTransform::Union(const plViewTransform& view)
     hsPoint3 maxs;
 
     int i;
-    for( i = 0; i < 3; i++ )
+    for (i = 0; i < 3; i++)
     {
         mins[i] = std::min(fMin[i], view.fMin[i]);
 
@@ -319,7 +319,7 @@ float plViewTransform::GetFovY() const
 
 void plViewTransform::GetViewPort(hsPoint2& mins, hsPoint2& maxs) const
 {
-    if( GetViewPortRelative() )
+    if (GetViewPortRelative())
     {
         mins.Set(fViewPortX.fX * fWidth, fViewPortY.fX * fHeight);
         maxs.Set(fViewPortX.fY * fWidth, fViewPortY.fY * fHeight);
@@ -333,7 +333,7 @@ void plViewTransform::GetViewPort(hsPoint2& mins, hsPoint2& maxs) const
 
 void plViewTransform::GetViewPort(int& loX, int& loY, int& hiX, int& hiY) const
 {
-    if( GetViewPortRelative() )
+    if (GetViewPortRelative())
     {
         loX = int(fViewPortX.fX * fWidth);
         loY = int(fViewPortY.fX * fHeight);

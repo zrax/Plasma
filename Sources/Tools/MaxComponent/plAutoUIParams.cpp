@@ -912,10 +912,10 @@ int plPickDynamicTextButtonParam::GetCount(IParamBlock2 *pb)
     // get the plKeys based on the texture map that the DynamicText map is on
     Texmap* texmap = (Texmap*)pb->GetReferenceTarget(fID);
     // make sure that there was a texmap set
-    if ( texmap )
+    if (texmap)
     {
-        plPlasmaMAXLayer *maxLayer = plPlasmaMAXLayer::GetPlasmaMAXLayer( texmap );
-        if( maxLayer != nil )
+        plPlasmaMAXLayer *maxLayer = plPlasmaMAXLayer::GetPlasmaMAXLayer(texmap);
+        if (maxLayer != nil)
         {
             // It's one of our Plasma layer types, which means most likely it got converted.
  
@@ -933,20 +933,20 @@ plKey plPickDynamicTextButtonParam::GetKey(IParamBlock2 *pb, int idx)
     // get the plKeys based on the texture map that the DynamicText map is on
     Texmap* texmap = (Texmap*)pb->GetReferenceTarget(fID);
     // make sure that there was a texmap set
-    if ( texmap )
+    if (texmap)
     {
-        plPlasmaMAXLayer *maxLayer = plPlasmaMAXLayer::GetPlasmaMAXLayer( texmap );
-        if( maxLayer != nil )
+        plPlasmaMAXLayer *maxLayer = plPlasmaMAXLayer::GetPlasmaMAXLayer(texmap);
+        if (maxLayer != nil)
         {
             // make sure the index is valid
-            if ( idx >= 0 && idx < maxLayer->GetNumConversionTargets() )
+            if (idx >= 0 && idx < maxLayer->GetNumConversionTargets())
             {
                 plLayerInterface *convertedLayer = maxLayer->GetConversionTarget(idx);
-                if ( convertedLayer )
+                if (convertedLayer)
                 {
                     plBitmap* bmap = convertedLayer->GetTexture();
                     // make sure there was a bitmap and that it is a DynamicTextMap
-                    if ( bmap )
+                    if (bmap)
                         return bmap->GetKey();
                 }
             }
@@ -995,7 +995,7 @@ bool plPickDynamicTextButtonParam::IsMyMessage(UINT msg, WPARAM wParam, LPARAM l
         {
             if (fButton->IsChecked())
             {
-                if ( plPickMaterialMap::PickTexmap(pb, fID) )
+                if (plPickMaterialMap::PickTexmap(pb, fID))
                 {
                     Texmap* texmap = (Texmap*)pb->GetReferenceTarget(fID);
                     if (texmap)
@@ -1027,7 +1027,7 @@ bool plPickDynamicTextButtonParam::IsMyMessage(UINT msg, WPARAM wParam, LPARAM l
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 
-plPickSingleComponentButtonParam::plPickSingleComponentButtonParam(ParamID id, const char *name, int myType, Class_ID myClassToPick ) :
+plPickSingleComponentButtonParam::plPickSingleComponentButtonParam(ParamID id, const char *name, int myType, Class_ID myClassToPick) :
     plPickButtonParam(id, name, nil, false)
 {
         fClassToPick = myClassToPick;
@@ -1461,10 +1461,10 @@ int plPickMaterialButtonParam::GetCount(IParamBlock2 *pb)
     // get the plKeys based on the texture map that the Texture map is on
     Texmap* texmap = (Texmap*)pb->GetReferenceTarget(fID);
     // make sure that there was a texmap set
-    if ( texmap )
+    if (texmap)
     {
-        plPlasmaMAXLayer *maxLayer = plPlasmaMAXLayer::GetPlasmaMAXLayer( texmap );
-        if( maxLayer != nil )
+        plPlasmaMAXLayer *maxLayer = plPlasmaMAXLayer::GetPlasmaMAXLayer(texmap);
+        if (maxLayer != nil)
         {
             // It's one of our Plasma layer types, which means most likely it got converted.
  
@@ -1482,20 +1482,20 @@ plKey plPickMaterialButtonParam::GetKey(IParamBlock2 *pb, int idx)
     // get the plKeys based on the texture map that the Texture map is on
     Texmap* texmap = (Texmap*)pb->GetReferenceTarget(fID);
     // make sure that there was a texmap set
-    if ( texmap )
+    if (texmap)
     {
-        plPlasmaMAXLayer *maxLayer = plPlasmaMAXLayer::GetPlasmaMAXLayer( texmap );
-        if( maxLayer != nil )
+        plPlasmaMAXLayer *maxLayer = plPlasmaMAXLayer::GetPlasmaMAXLayer(texmap);
+        if (maxLayer != nil)
         {
             // make sure the index is valid
-            if ( idx >= 0 && idx < maxLayer->GetNumConversionTargets() )
+            if (idx >= 0 && idx < maxLayer->GetNumConversionTargets())
             {
                 plLayerInterface *convertedLayer = maxLayer->GetConversionTarget(idx);
-                if ( convertedLayer )
+                if (convertedLayer)
                 {
                     plBitmap* bmap = convertedLayer->GetTexture();
                     // make sure there was a bitmap
-                    if ( bmap )
+                    if (bmap)
                         return bmap->GetKey();
                 }
             }
@@ -1544,7 +1544,7 @@ bool plPickMaterialButtonParam::IsMyMessage(UINT msg, WPARAM wParam, LPARAM lPar
         {
             if (fButton->IsChecked())
             {
-                if ( plPickMaterialMap::PickTexmap(pb, fID) )
+                if (plPickMaterialMap::PickTexmap(pb, fID))
                 {
                     Texmap* texmap = (Texmap*)pb->GetReferenceTarget(fID);
                     if (texmap)
@@ -1599,7 +1599,7 @@ plKey plPickMaterialAnimationButtonParam::GetKey(IParamBlock2 *pb, int idx)
 {
     int kcount = fKeys.Count();
 
-    if ( idx >= 0 && idx < kcount )
+    if (idx >= 0 && idx < kcount)
     {
         return fKeys[idx];
     }
@@ -1662,7 +1662,7 @@ bool plPickMaterialAnimationButtonParam::IsMyMessage(UINT msg, WPARAM wParam, LP
         {
             if (fButton->IsChecked())
             {
-                if ( Mtl* mtl = plPickMaterialMap::PickMaterial(0) )
+                if (Mtl* mtl = plPickMaterialMap::PickMaterial(0))
                 {
                     pb->SetValue(fID, 0, (ReferenceTarget*)mtl);
                     fButton->SetText(mtl->GetName());

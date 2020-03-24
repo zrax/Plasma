@@ -58,9 +58,9 @@ plLinkToAgeMsg::plLinkToAgeMsg() : fFlags(0)
 {
 }
 
-plLinkToAgeMsg::plLinkToAgeMsg( const plAgeLinkStruct * link ) : fFlags(0)
+plLinkToAgeMsg::plLinkToAgeMsg(const plAgeLinkStruct * link) : fFlags(0)
 {
-    fAgeLink.CopyFrom( link );
+    fAgeLink.CopyFrom(link);
 }
 
 void plLinkToAgeMsg::PlayLinkSfx(bool linkIn, bool linkOut)
@@ -77,17 +77,17 @@ void plLinkToAgeMsg::PlayLinkSfx(bool linkIn, bool linkOut)
 
 void plLinkToAgeMsg::Read(hsStream* stream, hsResMgr* mgr)
 {
-    plMessage::IMsgRead( stream, mgr );
+    plMessage::IMsgRead(stream, mgr);
     fFlags = stream->ReadByte();
-    fAgeLink.Read( stream, mgr );
+    fAgeLink.Read(stream, mgr);
     fLinkInAnimName = stream->ReadSafeString();
 }
 
 void plLinkToAgeMsg::Write(hsStream* stream, hsResMgr* mgr)
 {
-    plMessage::IMsgWrite( stream, mgr );
-    stream->WriteByte( fFlags );
-    fAgeLink.Write( stream, mgr );
+    plMessage::IMsgWrite(stream, mgr);
+    stream->WriteByte(fFlags);
+    fAgeLink.Write(stream, mgr);
     stream->WriteSafeString(fLinkInAnimName);
 }
 
@@ -104,9 +104,9 @@ void plLinkToAgeMsg::ReadVersion(hsStream* s, hsResMgr* mgr)
     hsBitVector contentFlags;
     contentFlags.Read(s);
 
-    if ( contentFlags.IsBitSet( kLinkToAgeAgeLinkStruct ) )
-        fAgeLink.Read( s, mgr );
-    if ( contentFlags.IsBitSet( kLinkToAgeLinkAnimName ) )
+    if (contentFlags.IsBitSet(kLinkToAgeAgeLinkStruct))
+        fAgeLink.Read(s, mgr);
+    if (contentFlags.IsBitSet(kLinkToAgeLinkAnimName))
         fLinkInAnimName = s->ReadSafeString();
 }
 
@@ -120,7 +120,7 @@ void plLinkToAgeMsg::WriteVersion(hsStream* s, hsResMgr* mgr)
     contentFlags.Write(s);
 
     // write kLinkToAgeAgeLinkStruct
-    fAgeLink.Write( s, mgr );
+    fAgeLink.Write(s, mgr);
     s->WriteSafeString(fLinkInAnimName);
 }
 
@@ -130,7 +130,7 @@ void plLinkToAgeMsg::WriteVersion(hsStream* s, hsResMgr* mgr)
 //  plLinkingMgrMsg
 
 plLinkingMgrMsg::plLinkingMgrMsg()
-: fLinkingMgrCmd( 0 /*plNetLinkingMgr::kNilCmd*/ )
+: fLinkingMgrCmd(0 /*plNetLinkingMgr::kNilCmd*/)
 {
 }
 
@@ -144,42 +144,42 @@ enum LinkingMgrMsgFlags
     kLinkingMgrArgs,
 };
 
-void plLinkingMgrMsg::Read( hsStream* stream, hsResMgr* mgr )
+void plLinkingMgrMsg::Read(hsStream* stream, hsResMgr* mgr)
 {
-    plMessage::IMsgRead( stream, mgr );
+    plMessage::IMsgRead(stream, mgr);
 
     hsBitVector contentFlags;
-    contentFlags.Read( stream );
+    contentFlags.Read(stream);
 
-    if ( contentFlags.IsBitSet( kLinkingMgrCmd ) )
-        stream->ReadLE( &fLinkingMgrCmd );
-    if ( contentFlags.IsBitSet( kLinkingMgrArgs ) )
-        fArgs.Read( stream, mgr );
+    if (contentFlags.IsBitSet(kLinkingMgrCmd))
+        stream->ReadLE(&fLinkingMgrCmd);
+    if (contentFlags.IsBitSet(kLinkingMgrArgs))
+        fArgs.Read(stream, mgr);
 }
 
-void plLinkingMgrMsg::Write( hsStream* stream, hsResMgr* mgr )
+void plLinkingMgrMsg::Write(hsStream* stream, hsResMgr* mgr)
 {
-    plMessage::IMsgWrite( stream, mgr );
+    plMessage::IMsgWrite(stream, mgr);
 
     hsBitVector contentFlags;
-    contentFlags.SetBit( kLinkingMgrCmd );
-    contentFlags.SetBit( kLinkingMgrArgs );
-    contentFlags.Write( stream );
+    contentFlags.SetBit(kLinkingMgrCmd);
+    contentFlags.SetBit(kLinkingMgrArgs);
+    contentFlags.Write(stream);
 
-    stream->WriteLE( fLinkingMgrCmd );
-    fArgs.Write( stream, mgr );
+    stream->WriteLE(fLinkingMgrCmd);
+    fArgs.Write(stream, mgr);
 }
 
-void plLinkingMgrMsg::ReadVersion( hsStream* s, hsResMgr* mgr )
+void plLinkingMgrMsg::ReadVersion(hsStream* s, hsResMgr* mgr)
 {
     // Read() does the contentFlags thing.
-    Read( s, mgr );
+    Read(s, mgr);
 }
 
-void plLinkingMgrMsg::WriteVersion( hsStream* s, hsResMgr* mgr )
+void plLinkingMgrMsg::WriteVersion(hsStream* s, hsResMgr* mgr)
 {
     // Write() does the contentFlags thing.
-    Write( s, mgr );
+    Write(s, mgr);
 }
 
 
@@ -201,7 +201,7 @@ void plLinkEffectsTriggerMsg::MuteLinkSfx(bool mute)
 
 void plLinkEffectsTriggerMsg::Read(hsStream* stream, hsResMgr* mgr)
 {
-    plMessage::IMsgRead( stream, mgr );
+    plMessage::IMsgRead(stream, mgr);
     
     fInvisLevel = stream->ReadLE32();
     fLeavingAge = stream->ReadBool();
@@ -212,7 +212,7 @@ void plLinkEffectsTriggerMsg::Read(hsStream* stream, hsResMgr* mgr)
 
 void plLinkEffectsTriggerMsg::Write(hsStream* stream, hsResMgr* mgr)
 {
-    plMessage::IMsgWrite( stream, mgr );
+    plMessage::IMsgWrite(stream, mgr);
     
     stream->WriteLE32(fInvisLevel);
     stream->WriteBool(fLeavingAge);

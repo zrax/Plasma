@@ -108,7 +108,7 @@ protected:
 public:
     hsBounds3() : fBounds3Flags(0) {}
     hsBounds3(const hsBounds3 &pRHS) : fBounds3Flags(0) { Reset(&pRHS); }
-    hsBounds3 &operator=(const hsBounds3 &pRHS )
+    hsBounds3 &operator=(const hsBounds3 &pRHS)
     {   if (&pRHS != this)  Reset(&pRHS);   return *this; }
 
     //
@@ -158,7 +158,7 @@ inline void hsBounds3::ICalcCenter() const
 inline void hsBounds3::GetCorners(hsPoint3 *b) const
 {
     hsAssert(kBoundsNormal == fType, "Invalid type for GetCorners");
-    for(int i = 0; i < 8; i++)
+    for (int i = 0; i < 8; i++)
     {
         b[i][0] = (i & 0x1) ? fMins[0] : fMaxs[0];
         b[i][1] = (i & 0x2) ? fMins[1] : fMaxs[1];
@@ -179,7 +179,7 @@ inline const hsPoint3& hsBounds3::GetMaxs() const
 inline const hsPoint3& hsBounds3::GetCenter() const
 {
     hsAssert(kBoundsNormal == fType, "Invalid type for GetCenter");
-    if(!(fBounds3Flags & kCenterValid))
+    if (!(fBounds3Flags & kCenterValid))
         ICalcCenter();
     return fCenter;
 }
@@ -258,7 +258,7 @@ public:
     hsBounds3Ext(const hsBounds3 &b);
     hsBounds3Ext &operator=(const hsBounds3 &b);
     hsBounds3Ext(const hsBounds3Ext &pRHS) : hsBounds3() { Reset(&pRHS); }
-    hsBounds3Ext &operator=(const hsBounds3Ext &pRHS )
+    hsBounds3Ext &operator=(const hsBounds3Ext &pRHS)
     {   if (&pRHS != this)  Reset(&pRHS);   return *this; }
 
     virtual void Reset(const hsBounds3Ext *b);
@@ -317,7 +317,7 @@ public:
 
 inline float hsBounds3Ext::GetRadius() const
 {
-    if( !(fExtFlags & kSphereSet) )
+    if (!(fExtFlags & kSphereSet))
         IMakeSphere();
     return fRadius;
 }

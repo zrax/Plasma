@@ -68,7 +68,7 @@ void plSoundSDLModifier::IPutCurrentStateIn(plStateDataRecord* dstState)
     soundListVar->Resize(numSounds);
         
     int i;
-    for(i=0;i<numSounds; i++)
+    for (i=0;i<numSounds; i++)
     {
         plStateDataRecord* soundState=soundListVar->GetStateDataRecord(i);
         plSound* sound=ai->GetSound(i);
@@ -93,14 +93,14 @@ void plSoundSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcState)
 
     plSDStateVariable* soundListVar=srcState->FindSDVar(kStrSounds);
 
-    if( soundListVar->GetCount() != numSounds )
+    if (soundListVar->GetCount() != numSounds)
     {
-        hsAssert( false, "number sounds sounds should not be changing");
+        hsAssert(false, "number sounds sounds should not be changing");
         return;
     }
 
     int i;
-    for(i=0;i<numSounds;i++)
+    for (i=0;i<numSounds;i++)
     {
         plStateDataRecord* soundState=soundListVar->GetStateDataRecord(i);
         plSound* sound=ai->GetSound(i);
@@ -121,20 +121,20 @@ void plSoundSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcState)
                 {
                     // Can't get the time we're supposed to start at, so we'll just try to play normally,
                     // which should be better than nothing...
-                    hsAssert( false, "No timeStarted state in sound SDL. Bad state from server? Contact MCN *immediately*" );
+                    hsAssert(false, "No timeStarted state in sound SDL. Bad state from server? Contact MCN *immediately*");
                     sound->Play();
                 }*/
             }
             else
             {
-                if( sound->IsPropertySet( plSound::kPropAutoStart ) )
+                if (sound->IsPropertySet(plSound::kPropAutoStart))
                 {
 #if 0
                     // There is a sound in teledahn (swampAmb) which leggaly has this behavior
-                    hsAssert( false, "Auto-start sound just got a state update telling it to stop. "
+                    hsAssert(false, "Auto-start sound just got a state update telling it to stop. "
                                 "This is technically legal, but so far there isn't any case where this should "
                                 "happen. Further, it's very likely to be the cause of the very-intermittent "
-                                "auto-start-sounds-not-playing bug. Leave this up and contact MCN *immediately*" );
+                                "auto-start-sounds-not-playing bug. Leave this up and contact MCN *immediately*");
 #endif
                 }
                 //sound->IStop();

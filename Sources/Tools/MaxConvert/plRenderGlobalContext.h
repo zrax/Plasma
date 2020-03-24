@@ -63,7 +63,7 @@ public:
     void MakeRenderInstances(plMaxNode* root, TimeValue t);
 
     virtual int NumRenderInstances() { return fInstList.GetCount(); }
-    virtual RenderInstance* GetRenderInstance( int i );
+    virtual RenderInstance* GetRenderInstance(int i);
 
     virtual void IntersectRay(RenderInstance *inst, Ray& ray, ISect &isct, ISectList &xpList, BOOL findExit);
     virtual BOOL IntersectWorld(Ray &ray, int skipID, ISect &hit, ISectList &xplist, int blurFrame = NO_MOTBLUR);

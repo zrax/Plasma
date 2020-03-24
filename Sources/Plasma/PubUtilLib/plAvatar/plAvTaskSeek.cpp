@@ -187,7 +187,7 @@ plAvTaskSeek::plAvTaskSeek(plKey target, plAvAlignment align, const ST::string& 
 void plAvTaskSeek::SetTarget(plKey target)
 {
     hsAssert(target, "Bad key to seek task");
-    if(target)
+    if (target)
     {
         fSeekObject = plSceneObject::ConvertNoRef(target->ObjectIsLoaded());
     }
@@ -215,10 +215,10 @@ bool plAvTaskSeek::Start(plArmatureMod *avatar, plArmatureBrain *brain, double t
     plAvatarMgr::GetInstance()->GetLog()->AddLine("Starting SMART SEEK");
     //controller needs to know we are seeking. prevents controller from interacting with exclusion regions
     
-    if (avatar->GetController() )
+    if (avatar->GetController())
         avatar->GetController()->SetSeek(true);
     fStartTime = time;
-    if(huBrain)
+    if (huBrain)
     {
         avatar->SuspendInput();     // stop accepting input from the user, but queue any messages
                                     // ...and save our current input state.
@@ -232,7 +232,7 @@ bool plAvTaskSeek::Start(plArmatureMod *avatar, plArmatureBrain *brain, double t
             pMsg->SetBCastFlag(plMessage::kBCastByExactType);
             pMsg->SetBCastFlag(plMessage::kNetPropagate, false);
             pMsg->SetCmd(plCameraMsg::kResponderSetThirdPerson);
-            plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+            plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
         }
 
         huBrain->IdleOnly(); // Makes sure to kill jumps too. Just calling ClearInputFlags isn't enough
@@ -276,7 +276,7 @@ void plAvTaskSeek::Finish(plArmatureMod *avatar, plArmatureBrain *brain, double 
 {
     plAvBrainHuman *huBrain = plAvBrainHuman::ConvertNoRef(brain);
     
-    if(huBrain)
+    if (huBrain)
     {
         // this will process any queued input messages so if the user pressed or released a key while we were busy, we'll note it now.
         avatar->ResumeInput();
@@ -289,7 +289,7 @@ void plAvTaskSeek::Finish(plArmatureMod *avatar, plArmatureBrain *brain, double 
             pMsg->SetBCastFlag(plMessage::kBCastByExactType);
             pMsg->SetBCastFlag(plMessage::kNetPropagate, false);
             pMsg->SetCmd(plCameraMsg::kResponderUndoThirdPerson);
-            plgDispatch::MsgSend( pMsg );   // whoosh... off it goes
+            plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
         }
         
         avatar->SynchIfLocal(hsTimer::GetSysSeconds(), false);
@@ -328,7 +328,7 @@ bool plAvTaskSeek::IAnalyze(plArmatureMod *avatar)
 
     fDistance = sqrt(fGoalVec.fX * fGoalVec.fX + fGoalVec.fY * fGoalVec.fY);
 
-    if(fDistance < 3.0f)
+    if (fDistance < 3.0f)
     {
         // we're in "near target" mode
         fMinFwdAngle = .5f;         // walk forward if target's in 90' cone straight ahead
@@ -365,7 +365,7 @@ bool plAvTaskSeek::IMoveTowardsGoal(plArmatureMod *avatar, plAvBrainHuman *brain
 
     double duration = time - fStartTime;
 
-    if(duration > kSeekTimeout)
+    if (duration > kSeekTimeout)
     {
         if (fFlags & kSeekFlagNoWarpOnTimeout)
         {
@@ -393,24 +393,24 @@ bool plAvTaskSeek::IMoveTowardsGoal(plArmatureMod *avatar, plAvBrainHuman *brain
         
         bool sidling = fabs(fDistRight) > fabs(fDistForward) && inSidleRange;
 
-        if(sidling)
+        if (sidling)
         {
-            if(right)
+            if (right)
                 avatar->SetStrafeRightKeyDown();
             else
                 avatar->SetStrafeLeftKeyDown();
         }
         else
         {
-            if(fAngForward < fMaxBackAngle)
+            if (fAngForward < fMaxBackAngle)
                 avatar->SetBackwardKeyDown();
 
             else
             {
-                if(fAngForward > fMinFwdAngle)
+                if (fAngForward > fMinFwdAngle)
                     avatar->SetForwardKeyDown();
 
-                if(right)
+                if (right)
                     avatar->SetTurnRightKeyDown();
                 else
                     avatar->SetTurnLeftKeyDown();
@@ -470,7 +470,7 @@ bool plAvTaskSeek::IFinishPosition(hsPoint3 &newPosition,
 {
     // While warping, we might be hovering just above the ground. Don't want that to
     // trigger any falling behavior.
-    if(brain&&brain->fWalkingStrategy)
+    if (brain&&brain->fWalkingStrategy)
     {
         
         brain->fWalkingStrategy->ResetAirTime();
@@ -480,7 +480,7 @@ bool plAvTaskSeek::IFinishPosition(hsPoint3 &newPosition,
     // what percentage of the remaining distance will we cover?
     float thisPct = (fDistance ? thisDist / fDistance : 1.f);
     
-    if(thisPct > 0.9f)
+    if (thisPct > 0.9f)
     {
         // we're pretty much done; just hop the rest of the way
         newPosition = fSeekPos;
@@ -527,7 +527,7 @@ bool plAvTaskSeek::IUpdateObjective(plArmatureMod *avatar)
 
     MakeMatrixUpright(targL2W);
 
-    switch(fAlign)
+    switch (fAlign)
     {
         // match our handle to the target matrix at the end of the given animation
         // This case isn't currently used but will be important someday. The idea

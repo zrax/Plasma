@@ -83,8 +83,8 @@ public:
     plAxisAnimModifier();
     virtual ~plAxisAnimModifier();
 
-    CLASSNAME_REGISTER( plAxisAnimModifier );
-    GETINTERFACE_ANY( plAxisAnimModifier, plSingleModifier );
+    CLASSNAME_REGISTER(plAxisAnimModifier);
+    GETINTERFACE_ANY(plAxisAnimModifier, plSingleModifier);
 
     virtual bool    MsgReceive(plMessage* msg);
     virtual void    SetTarget(plSceneObject* so);

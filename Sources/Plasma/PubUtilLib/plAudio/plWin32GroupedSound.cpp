@@ -63,9 +63,9 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plProfile.h"
 #include "hsResMgr.h"
 
-plProfile_Extern( MemSounds );
-plProfile_Extern( StaticSndShoveTime );
-plProfile_Extern( StaticSwizzleTime );
+plProfile_Extern(MemSounds);
+plProfile_Extern(StaticSndShoveTime);
+plProfile_Extern(StaticSwizzleTime);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -79,64 +79,64 @@ plWin32GroupedSound::~plWin32GroupedSound()
     DeActivate();
 }
 
-void    plWin32GroupedSound::SetPositionArray( uint16_t numSounds, uint32_t *posArray, float *volumeArray )
+void    plWin32GroupedSound::SetPositionArray(uint16_t numSounds, uint32_t *posArray, float *volumeArray)
 {
     uint16_t  i;
 
 
-    fStartPositions.SetCountAndZero( numSounds );
-    fVolumes.SetCountAndZero( numSounds );
-    for( i = 0; i < numSounds; i++ )
+    fStartPositions.SetCountAndZero(numSounds);
+    fVolumes.SetCountAndZero(numSounds);
+    for (i = 0; i < numSounds; i++)
     {
-        fStartPositions[ i ] = posArray[ i ];
-        fVolumes[ i ] = volumeArray[ i ];
+        fStartPositions[i] = posArray[i];
+        fVolumes[i] = volumeArray[i];
     }
 }
 
 //// IRead/IWrite ////////////////////////////////////////////////////////////
 
-void plWin32GroupedSound::IRead( hsStream *s, hsResMgr *mgr )
+void plWin32GroupedSound::IRead(hsStream *s, hsResMgr *mgr)
 {
-    plWin32StaticSound::IRead( s, mgr );
+    plWin32StaticSound::IRead(s, mgr);
     uint16_t i, n = s->ReadLE16();
-    fStartPositions.SetCountAndZero( n );
-    fVolumes.SetCountAndZero( n );
-    for( i = 0; i < n; i++ )
+    fStartPositions.SetCountAndZero(n);
+    fVolumes.SetCountAndZero(n);
+    for (i = 0; i < n; i++)
     {
-        fStartPositions[ i ] = s->ReadLE32();
-        fVolumes[ i ] = s->ReadLEScalar();
+        fStartPositions[i] = s->ReadLE32();
+        fVolumes[i] = s->ReadLEScalar();
     }
 }
 
-void plWin32GroupedSound::IWrite( hsStream *s, hsResMgr *mgr )
+void plWin32GroupedSound::IWrite(hsStream *s, hsResMgr *mgr)
 {
-    plWin32StaticSound::IWrite( s, mgr );
+    plWin32StaticSound::IWrite(s, mgr);
 
-    s->WriteLE16( fStartPositions.GetCount() );
+    s->WriteLE16(fStartPositions.GetCount());
     uint16_t i;
-    for( i = 0; i < fStartPositions.GetCount(); i++ )
+    for (i = 0; i < fStartPositions.GetCount(); i++)
     {
-        s->WriteLE32( fStartPositions[ i ] );
-        s->WriteLEScalar( fVolumes[ i ] );
+        s->WriteLE32(fStartPositions[i]);
+        s->WriteLEScalar(fVolumes[i]);
     }
 }
 
 //// LoadSound ///////////////////////////////////////////////////////////////
 
-bool    plWin32GroupedSound::LoadSound( bool is3D )
+bool    plWin32GroupedSound::LoadSound(bool is3D)
 {
-    if( fFailed )
+    if (fFailed)
         return false;
 
-    if( fPriority > plgAudioSys::GetPriorityCutoff() )
+    if (fPriority > plgAudioSys::GetPriorityCutoff())
         return false;   // Don't set the failed flag, just return
 
-    if( !plgAudioSys::Active() || fDSoundBuffer != nil )
+    if (!plgAudioSys::Active() || fDSoundBuffer != nil)
         return false;
 
 
     // Debug flag #1
-    if( fChannelSelect > 0 && plgAudioSys::IsDebugFlagSet( plgAudioSys::kDisableRightSelect ) )
+    if (fChannelSelect > 0 && plgAudioSys::IsDebugFlagSet(plgAudioSys::kDisableRightSelect))
     {
         // Force a fail
         fFailed = true;
@@ -147,32 +147,32 @@ bool    plWin32GroupedSound::LoadSound( bool is3D )
     // We need it to be resident to read in
     plSoundBuffer::ELoadReturnVal retVal = IPreLoadBuffer(true);
     plSoundBuffer *buffer = (plSoundBuffer *)fDataBufferKey->ObjectIsLoaded();
-    if(!buffer)
+    if (!buffer)
     {
         return plSoundBuffer::kError;
     }
 
-    if( retVal == plSoundBuffer::kPending)  // we are still reading data.
+    if (retVal == plSoundBuffer::kPending)  // we are still reading data.
     {
         return true;
     }
 
     // We need it to be resident to read in
-    if( retVal == plSoundBuffer::kError)
+    if (retVal == plSoundBuffer::kError)
     {
         ST::string str = ST::format("Unable to open .wav file {}", fDataBufferKey ? fDataBufferKey->GetName() : "nil");
-        IPrintDbgMessage( str.c_str(), true );
+        IPrintDbgMessage(str.c_str(), true);
         fFailed = true;
         return false;
     }
     
-    SetProperty( kPropIs3DSound, is3D );
+    SetProperty(kPropIs3DSound, is3D);
 
 
     plWAVHeader header = buffer->GetHeader();
 
     // Debug flag #2
-    if( fChannelSelect == 0 && header.fNumChannels > 1 && plgAudioSys::IsDebugFlagSet( plgAudioSys::kDisableLeftSelect ) )
+    if (fChannelSelect == 0 && header.fNumChannels > 1 && plgAudioSys::IsDebugFlagSet(plgAudioSys::kDisableLeftSelect))
     {
         // Force a fail
         fFailed = true;
@@ -183,20 +183,20 @@ bool    plWin32GroupedSound::LoadSound( bool is3D )
     // have to play.
     uint16_t i;
     uint32_t maxSoundSize, len;
-    for( i = 1, maxSoundSize = 0; i < fStartPositions.GetCount(); i++ )
+    for (i = 1, maxSoundSize = 0; i < fStartPositions.GetCount(); i++)
     {
-        len = fStartPositions[ i ] - fStartPositions[ i - 1 ];
-        if( len > maxSoundSize )
+        len = fStartPositions[i] - fStartPositions[i - 1];
+        if (len > maxSoundSize)
             maxSoundSize = len;
     }
-    len = buffer->GetDataLength() - fStartPositions[ fStartPositions.GetCount() - 1 ];
-    if( len > maxSoundSize )
+    len = buffer->GetDataLength() - fStartPositions[fStartPositions.GetCount() - 1];
+    if (len > maxSoundSize)
         maxSoundSize = len;
 
     // Based on that, allocate our buffer
-    uint32_t bufferSize = maxSoundSize - ( maxSoundSize % header.fBlockAlign );
+    uint32_t bufferSize = maxSoundSize - (maxSoundSize % header.fBlockAlign);
 
-    if( header.fNumChannels > 1 && is3D )
+    if (header.fNumChannels > 1 && is3D)
     {
         // We can only do a single channel of 3D sound. So copy over one (later)
         bufferSize              /= header.fNumChannels;
@@ -208,8 +208,8 @@ bool    plWin32GroupedSound::LoadSound( bool is3D )
     fNumDestBytesPerSample = (uint8_t)(header.fBlockAlign);
 
     // Create our DSound buffer (or rather, the wrapper around it)
-    fDSoundBuffer = new plDSoundBuffer( bufferSize, header, is3D, IsPropertySet( kPropLooping ), true );
-    if( !fDSoundBuffer->IsValid() )
+    fDSoundBuffer = new plDSoundBuffer(bufferSize, header, is3D, IsPropertySet(kPropLooping), true);
+    if (!fDSoundBuffer->IsValid())
     {
         ST::string str = ST::format("Can't create sound buffer for {}.wav. This could happen if the wav file is a stereo file."
                                     " Stereo files are not supported on 3D sounds. If the file is not stereo then please report this error.",
@@ -223,10 +223,10 @@ bool    plWin32GroupedSound::LoadSound( bool is3D )
         return false;
     }
     
-    IRefreshEAXSettings( true );
+    IRefreshEAXSettings(true);
 
     // Fill the buffer with whatever our current sound is.
-    IFillCurrentSound( 0 );
+    IFillCurrentSound(0);
 
     // Logging
     ST::string str = ST::format("   Grouped {} {} allocated ({} msec).", buffer->GetFileName().IsValid() ? "file" : "buffer",
@@ -238,18 +238,18 @@ bool    plWin32GroupedSound::LoadSound( bool is3D )
 #else
                             0);
 #endif
-    IPrintDbgMessage( str.c_str() );
-    if( GetKey() != nil && GetKeyName().contains( "Footstep" ) )
+    IPrintDbgMessage(str.c_str());
+    if (GetKey() != nil && GetKeyName().contains("Footstep"))
         ;
     else
-        plStatusLog::AddLineSF( "audioTimes.log", "{} ({})", str, GetKey() ? GetKeyName() : ST_LITERAL("unkeyed") );
+        plStatusLog::AddLineSF("audioTimes.log", "{} ({})", str, GetKey() ? GetKeyName() : ST_LITERAL("unkeyed"));
 
     fTotalBytes = bufferSize;
 
-    plProfile_NewMem( MemSounds, fTotalBytes );
+    plProfile_NewMem(MemSounds, fTotalBytes);
 
     // All done!
-//  if( fLoadFromDiskOnDemand )
+//  if (fLoadFromDiskOnDemand)
 //      IUnloadDataBuffer();
     FreeSoundData();
     return true;
@@ -259,12 +259,12 @@ bool    plWin32GroupedSound::LoadSound( bool is3D )
 //// GetSoundLength //////////////////////////////////////////////////////////
 //  Gets the length (in seconds) of the given sound index from the group.
 
-float    plWin32GroupedSound::GetSoundLength( int16_t soundIndex )
+float    plWin32GroupedSound::GetSoundLength(int16_t soundIndex)
 {
     plSoundBuffer *buffer = (plSoundBuffer *)fDataBufferKey->ObjectIsLoaded();
-    if(buffer)
+    if (buffer)
     {
-        return (float)IGetSoundbyteLength( soundIndex ) / buffer->GetHeader().fAvgBytesPerSec;
+        return (float)IGetSoundbyteLength(soundIndex) / buffer->GetHeader().fAvgBytesPerSec;
     }
     
     return 0;
@@ -273,13 +273,13 @@ float    plWin32GroupedSound::GetSoundLength( int16_t soundIndex )
 //// IGetSoundbyteLength /////////////////////////////////////////////////////
 //  uint8_t version of above.
 
-uint32_t      plWin32GroupedSound::IGetSoundbyteLength( int16_t soundIndex )
+uint32_t      plWin32GroupedSound::IGetSoundbyteLength(int16_t soundIndex)
 {
 
-    if( soundIndex == fStartPositions.GetCount() - 1 )
-        return ((plSoundBuffer *)fDataBufferKey->ObjectIsLoaded())->GetDataLength() - fStartPositions[ soundIndex ];
+    if (soundIndex == fStartPositions.GetCount() - 1)
+        return ((plSoundBuffer *)fDataBufferKey->ObjectIsLoaded())->GetDataLength() - fStartPositions[soundIndex];
     else
-        return fStartPositions[ soundIndex + 1 ] - fStartPositions[ soundIndex ];
+        return fStartPositions[soundIndex + 1] - fStartPositions[soundIndex];
 }
 
 //// IGetDataPointer/Length //////////////////////////////////////////////////
@@ -287,62 +287,62 @@ uint32_t      plWin32GroupedSound::IGetSoundbyteLength( int16_t soundIndex )
 
 void    *plWin32GroupedSound::IGetDataPointer() const
 {
-    return ( fDataBufferKey->ObjectIsLoaded() ) ? (void *)( (uint8_t *)((plSoundBuffer *)fDataBufferKey->ObjectIsLoaded())->GetData() + fStartPositions[ fCurrentSound ] ) : nil;
+    return (fDataBufferKey->ObjectIsLoaded()) ? (void *)((uint8_t *)((plSoundBuffer *)fDataBufferKey->ObjectIsLoaded())->GetData() + fStartPositions[fCurrentSound]) : nil;
 }
 
 uint32_t  plWin32GroupedSound::IGetDataLength() const
 {
-    return ( fDataBufferKey->ObjectIsLoaded() ) ? fCurrentSoundLength : 0;
+    return (fDataBufferKey->ObjectIsLoaded()) ? fCurrentSoundLength : 0;
 }
 
 //// IFillCurrentSound ///////////////////////////////////////////////////////
 //  Fills the DSoundBuffer with data from the current sound from our sound
 //  group, optionally switching what our current sound is.
 
-void    plWin32GroupedSound::IFillCurrentSound( int16_t newCurrent /*= -1*/ )
+void    plWin32GroupedSound::IFillCurrentSound(int16_t newCurrent /*= -1*/)
 {
     //void  *dataPtr;
     //uint32_t    dataLength;
 
-    if( !fDSoundBuffer && plgAudioSys::Active() )
-        LoadSound( IsPropertySet( kPropIs3DSound ) );
+    if (!fDSoundBuffer && plgAudioSys::Active())
+        LoadSound(IsPropertySet(kPropIs3DSound));
 
-    plProfile_BeginTiming( StaticSndShoveTime );
+    plProfile_BeginTiming(StaticSndShoveTime);
 
     // Make sure we're stopped first. Don't want to be filling while we're playing
     Stop();
 
-    if( newCurrent != -1 )
+    if (newCurrent != -1)
     {
         fCurrentSound = (uint16_t)newCurrent;
 
-        if( fCurrentSound >= fStartPositions.GetCount() )
+        if (fCurrentSound >= fStartPositions.GetCount())
         {
             // Invalid index!
-            hsAssert( false, "Invalid index in plWin32GroupedSound::IFillCurrentSound()" );
+            hsAssert(false, "Invalid index in plWin32GroupedSound::IFillCurrentSound()");
             fCurrentSound = -1;
             return;
         }
 
         // Set our length based on the current sound
-        fCurrentSoundLength = IGetSoundbyteLength( fCurrentSound );
-        if( fDataBufferKey->ObjectIsLoaded() )
-            SetLength( fCurrentSoundLength / ((plSoundBuffer *)fDataBufferKey->ObjectIsLoaded())->GetHeader().fAvgBytesPerSec );
+        fCurrentSoundLength = IGetSoundbyteLength(fCurrentSound);
+        if (fDataBufferKey->ObjectIsLoaded())
+            SetLength(fCurrentSoundLength / ((plSoundBuffer *)fDataBufferKey->ObjectIsLoaded())->GetHeader().fAvgBytesPerSec);
     
         // Update our volume as well
-        SetVolume( fVolumes[ fCurrentSound ] );
+        SetVolume(fVolumes[fCurrentSound]);
     }
 
-    if( fDSoundBuffer != nil )
+    if (fDSoundBuffer != nil)
     {
         /// Lock our buffer
-        //fDSoundBuffer->Lock( dataLength, dataPtr );
+        //fDSoundBuffer->Lock(dataLength, dataPtr);
 
         /// Copy or de-swizzle?
-        //if( fDataBuffer->GetHeader().fNumChannels == fNumDestChannels )
+        //if (fDataBuffer->GetHeader().fNumChannels == fNumDestChannels)
         {
             // Just copy
-            //memcpy( dataPtr, (uint8_t *)fDataBuffer->GetData() + fStartPositions[ fCurrentSound ], fCurrentSoundLength );
+            //memcpy(dataPtr, (uint8_t *)fDataBuffer->GetData() + fStartPositions[fCurrentSound], fCurrentSoundLength);
             //dataPtr = (uint8_t *)dataPtr + fCurrentSoundLength;
             //dataLength -= fCurrentSoundLength;
         }
@@ -350,59 +350,59 @@ void    plWin32GroupedSound::IFillCurrentSound( int16_t newCurrent /*= -1*/ )
         {
             // We're extracting a single channel of sound into our sound buffer, so it isn't a straight copy...
 
-            /*plProfile_BeginTiming( StaticSwizzleTime );
+            /*plProfile_BeginTiming(StaticSwizzleTime);
 
-            plSoundDeswizzler   deswiz( (uint8_t *)fDataBuffer->GetData() + fStartPositions[ fCurrentSound ], fCurrentSoundLength,
-                                        (uint8_t)(fDataBuffer->GetHeader().fNumChannels), fNumDestBytesPerSample );
+            plSoundDeswizzler   deswiz((uint8_t *)fDataBuffer->GetData() + fStartPositions[fCurrentSound], fCurrentSoundLength,
+                                        (uint8_t)(fDataBuffer->GetHeader().fNumChannels), fNumDestBytesPerSample);
 
-            deswiz.Extract( fChannelSelect, dataPtr );
+            deswiz.Extract(fChannelSelect, dataPtr);
 
             dataPtr = (uint8_t *)dataPtr + fCurrentSoundLength / fDataBuffer->GetHeader().fNumChannels;
             dataLength -= fCurrentSoundLength / fDataBuffer->GetHeader().fNumChannels;
 
-            plProfile_EndTiming( StaticSwizzleTime );*/
+            plProfile_EndTiming(StaticSwizzleTime);*/
         }
 
         /// Fill the remaining part with empty space
-        //memset( dataPtr, 0, dataLength );
+        //memset(dataPtr, 0, dataLength);
 
         /// Finally, unlock!
         //fDSoundBuffer->Unlock();
     }
 
     /// All done!
-    plProfile_EndTiming( StaticSndShoveTime );
+    plProfile_EndTiming(StaticSndShoveTime);
 }
 
 void plWin32GroupedSound::IDerivedActuallyPlay()
 {
     // Ensure there's a stop notify for us
-    if( !fReallyPlaying )
+    if (!fReallyPlaying)
     {
         fDSoundBuffer->Play();
         fReallyPlaying = true;
     }
 
-    plSoundEvent    *event = IFindEvent( plSoundEvent::kStart );
-    if( event != nil )
+    plSoundEvent    *event = IFindEvent(plSoundEvent::kStart);
+    if (event != nil)
         event->SendCallbacks();
 }
 
-bool    plWin32GroupedSound::MsgReceive( plMessage* pMsg )
+bool    plWin32GroupedSound::MsgReceive(plMessage* pMsg)
 {
-    plSoundMsg *soundMsg = plSoundMsg::ConvertNoRef( pMsg );
-    if( soundMsg != nil && soundMsg->Cmd( plSoundMsg::kSelectFromGroup ) )
+    plSoundMsg *soundMsg = plSoundMsg::ConvertNoRef(pMsg);
+    if (soundMsg != nil && soundMsg->Cmd(plSoundMsg::kSelectFromGroup))
     {
-        IFillCurrentSound( soundMsg->fIndex );
+        IFillCurrentSound(soundMsg->fIndex);
         return true;
     }
-    else if( soundMsg != nil && soundMsg->Cmd( plSoundMsg::kPlay ) )
+    else if (soundMsg != nil && soundMsg->Cmd(plSoundMsg::kPlay))
     {
         Play();
-        //plIncidentalMgr::GetInstance()->Play( this, plIncidentalMgr::kNormal );
+        //plIncidentalMgr::GetInstance()->Play(this, plIncidentalMgr::kNormal);
         return true;
     }
 
-    return plWin32StaticSound::MsgReceive( pMsg );
+    return plWin32StaticSound::MsgReceive(pMsg);
 }
 

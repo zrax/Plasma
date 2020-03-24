@@ -119,9 +119,9 @@ void plLayer::Read(hsStream* s, hsResMgr* mgr)
 
     fTransform->Read(s);
     fPreshadeColor->Read(s);
-    fRuntimeColor->Read( s );
+    fRuntimeColor->Read(s);
     fAmbientColor->Read(s);
-    fSpecularColor->Read( s );
+    fSpecularColor->Read(s);
 
     *fUVWSrc = s->ReadLE32();
     *fOpacity = s->ReadLEScalar();
@@ -150,9 +150,9 @@ void plLayer::Write(hsStream* s, hsResMgr* mgr)
 
     fTransform->Write(s);
     fPreshadeColor->Write(s);
-    fRuntimeColor->Write( s );
+    fRuntimeColor->Write(s);
     fAmbientColor->Write(s);
-    fSpecularColor->Write( s );
+    fSpecularColor->Write(s);
     
     s->WriteLE32(*fUVWSrc);
     s->WriteLEScalar(*fOpacity);
@@ -170,22 +170,22 @@ void plLayer::Write(hsStream* s, hsResMgr* mgr)
 bool plLayer::MsgReceive(plMessage* msg)
 {
     plLayRefMsg* refMsg = plLayRefMsg::ConvertNoRef(msg);
-    if( refMsg )
+    if (refMsg)
     {
-        switch( refMsg->fType )
+        switch (refMsg->fType)
         {
         case plLayRefMsg::kTexture:
             {
-                if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+                if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
                 {
                     plBitmap *tex = plBitmap::ConvertNoRef(refMsg->GetRef());
                     *fTexture = tex;
-                    if( tex )
+                    if (tex)
                         plgDispatch::Dispatch()->RegisterForExactType(plPipeTexMakeMsg::Index(), GetKey());
                     else
                         plgDispatch::Dispatch()->UnRegisterForExactType(plPipeTexMakeMsg::Index(), GetKey());
                 }
-                else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+                else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
                 {
                     *fTexture = nil;
                     plgDispatch::Dispatch()->UnRegisterForExactType(plPipeTexMakeMsg::Index(), GetKey());
@@ -194,12 +194,12 @@ bool plLayer::MsgReceive(plMessage* msg)
             return true;
         case plLayRefMsg::kVertexShader:
             {
-                if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+                if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
                 {
                     plShader* shader = plShader::ConvertNoRef(refMsg->GetRef());
                     *fVertexShader = shader;
                 }
-                else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+                else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
                 {
                     *fVertexShader = nil;
                 }
@@ -207,12 +207,12 @@ bool plLayer::MsgReceive(plMessage* msg)
             return true;
         case plLayRefMsg::kPixelShader:
             {
-                if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+                if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
                 {
                     plShader* shader = plShader::ConvertNoRef(refMsg->GetRef());
                     *fPixelShader = shader;
                 }
-                else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+                else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
                 {
                     *fPixelShader = nil;
                 }
@@ -221,7 +221,7 @@ bool plLayer::MsgReceive(plMessage* msg)
         }
     }
     plPipeTexMakeMsg* texMake = plPipeTexMakeMsg::ConvertNoRef(msg);
-    if( texMake )
+    if (texMake)
     {
         texMake->Pipeline()->CheckTextureRef(this);
         return true;
@@ -260,7 +260,7 @@ plLayer& plLayer::InitToDefault()
 
     SetUVWSrc(0);
     SetLODBias(-1.f);
-    SetSpecularColor( hsColorRGBA().Set(0,0,0,1.f));
+    SetSpecularColor(hsColorRGBA().Set(0,0,0,1.f));
     SetSpecularPower(1.f);
 
     *fVertexShader = nil;
@@ -283,27 +283,27 @@ plLayerInterface* plLayer::DefaultLayer()
 //  Copies all the fields from the original layer given, not including the
 //  texture
 
-void plLayer::CloneNoTexture( plLayerInterface *original )
+void plLayer::CloneNoTexture(plLayerInterface *original)
 {
-    SetBlendFlags( original->GetBlendFlags() );
-    SetClampFlags( original->GetClampFlags() );
-    SetShadeFlags( original->GetShadeFlags() );
-    SetZFlags( original->GetZFlags() );
-    SetMiscFlags( original->GetMiscFlags() );
-    SetState( original->GetState() );
+    SetBlendFlags(original->GetBlendFlags());
+    SetClampFlags(original->GetClampFlags());
+    SetShadeFlags(original->GetShadeFlags());
+    SetZFlags(original->GetZFlags());
+    SetMiscFlags(original->GetMiscFlags());
+    SetState(original->GetState());
 
-    SetPreshadeColor( original->GetPreshadeColor() );
-    SetRuntimeColor( original->GetRuntimeColor() );
-    SetAmbientColor( original->GetAmbientColor() );
-    SetSpecularColor( original->GetSpecularColor() );
-    SetOpacity( original->GetOpacity() );
-    SetTransform( original->GetTransform() );
-    SetUVWSrc( original->GetUVWSrc() );
-    SetLODBias( original->GetLODBias() );
-    SetSpecularPower( original->GetSpecularPower() );
+    SetPreshadeColor(original->GetPreshadeColor());
+    SetRuntimeColor(original->GetRuntimeColor());
+    SetAmbientColor(original->GetAmbientColor());
+    SetSpecularColor(original->GetSpecularColor());
+    SetOpacity(original->GetOpacity());
+    SetTransform(original->GetTransform());
+    SetUVWSrc(original->GetUVWSrc());
+    SetLODBias(original->GetLODBias());
+    SetSpecularPower(original->GetSpecularPower());
 
-    SetVertexShader( original->GetVertexShader() );
-    SetPixelShader( original->GetPixelShader() );
-    SetBumpEnvMatrix( original->GetBumpEnvMatrix() );
+    SetVertexShader(original->GetVertexShader());
+    SetPixelShader(original->GetPixelShader());
+    SetBumpEnvMatrix(original->GetBumpEnvMatrix());
 }
 

@@ -66,12 +66,12 @@ class pfGroupProc : public pfGUICtrlProcObject
 
     public:
 
-        pfGroupProc( pfGUIRadioGroupCtrl *parent )
+        pfGroupProc(pfGUIRadioGroupCtrl *parent)
         {
             fParent = parent;
         }
 
-        virtual void    DoSomething( pfGUIControlMod *ctrl )
+        virtual void    DoSomething(pfGUIControlMod *ctrl)
         {
             int32_t   newIdx;
 
@@ -79,37 +79,37 @@ class pfGroupProc : public pfGUICtrlProcObject
             // So one of our controls got clicked. That means that we change our value
             // to the proper index
             
-            pfGUICheckBoxCtrl *check = pfGUICheckBoxCtrl::ConvertNoRef( ctrl );
+            pfGUICheckBoxCtrl *check = pfGUICheckBoxCtrl::ConvertNoRef(ctrl);
 
             // Are we unselecting? And do we allow this?
-            if( !check->IsChecked() && !fParent->HasFlag( pfGUIRadioGroupCtrl::kAllowNoSelection ) )
+            if (!check->IsChecked() && !fParent->HasFlag(pfGUIRadioGroupCtrl::kAllowNoSelection))
             {
                 // Boo on you. Re-check
-                check->SetChecked( true );
+                check->SetChecked(true);
                 return;
             }
 
-            for( newIdx = 0; newIdx < fParent->fControls.GetCount(); newIdx++ )
+            for (newIdx = 0; newIdx < fParent->fControls.GetCount(); newIdx++)
             {
-                if( fParent->fControls[ newIdx ] == check )
+                if (fParent->fControls[newIdx] == check)
                     break;
             }
 
-            if( newIdx == fParent->fControls.GetCount() )
+            if (newIdx == fParent->fControls.GetCount())
                 newIdx = -1;
 
-            if( newIdx != fParent->fValue )
+            if (newIdx != fParent->fValue)
             {
-                if( fParent->fValue != -1 )
-                    fParent->fControls[ fParent->fValue ]->SetChecked( false );
+                if (fParent->fValue != -1)
+                    fParent->fControls[fParent->fValue]->SetChecked(false);
 
                 fParent->fValue = newIdx;
-                if( newIdx != -1 )
-                    fParent->fControls[ newIdx ]->SetChecked( true );
+                if (newIdx != -1)
+                    fParent->fControls[newIdx]->SetChecked(true);
             }
             else
             {
-                if( !check->IsChecked() && fParent->HasFlag( pfGUIRadioGroupCtrl::kAllowNoSelection ) )
+                if (!check->IsChecked() && fParent->HasFlag(pfGUIRadioGroupCtrl::kAllowNoSelection))
                 {
                     // nobody is checked!
                     fParent->fValue = -1;
@@ -124,96 +124,96 @@ class pfGroupProc : public pfGUICtrlProcObject
 
 pfGUIRadioGroupCtrl::pfGUIRadioGroupCtrl()
 {
-    fButtonProc = new pfGroupProc( this );
+    fButtonProc = new pfGroupProc(this);
     fButtonProc->IncRef();
-    SetFlag( kIntangible );
+    SetFlag(kIntangible);
 }
 
 pfGUIRadioGroupCtrl::~pfGUIRadioGroupCtrl()
 {
-    if( fButtonProc->DecRef() )
+    if (fButtonProc->DecRef())
         delete fButtonProc;
 }
 
 //// IEval ///////////////////////////////////////////////////////////////////
 
-bool    pfGUIRadioGroupCtrl::IEval( double secs, float del, uint32_t dirty )
+bool    pfGUIRadioGroupCtrl::IEval(double secs, float del, uint32_t dirty)
 {
-    return pfGUIControlMod::IEval( secs, del, dirty );
+    return pfGUIControlMod::IEval(secs, del, dirty);
 }
 
 //// MsgReceive //////////////////////////////////////////////////////////////
 
-bool    pfGUIRadioGroupCtrl::MsgReceive( plMessage *msg )
+bool    pfGUIRadioGroupCtrl::MsgReceive(plMessage *msg)
 {
-    plGenRefMsg *refMsg = plGenRefMsg::ConvertNoRef( msg );
-    if( refMsg != nil )
+    plGenRefMsg *refMsg = plGenRefMsg::ConvertNoRef(msg);
+    if (refMsg != nil)
     {
-        if( refMsg->fType == kRefControl )
+        if (refMsg->fType == kRefControl)
         {
-            if( refMsg->GetContext() & ( plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace ) )
+            if (refMsg->GetContext() & (plRefMsg::kOnCreate | plRefMsg::kOnRequest | plRefMsg::kOnReplace))
             {
-                fControls[ refMsg->fWhich ] = pfGUICheckBoxCtrl::ConvertNoRef( refMsg->GetRef() );
-                fControls[ refMsg->fWhich ]->SetHandler( fButtonProc );
-                if( fValue == refMsg->fWhich )
-                    fControls[ refMsg->fWhich ]->SetChecked( true );
+                fControls[refMsg->fWhich] = pfGUICheckBoxCtrl::ConvertNoRef(refMsg->GetRef());
+                fControls[refMsg->fWhich]->SetHandler(fButtonProc);
+                if (fValue == refMsg->fWhich)
+                    fControls[refMsg->fWhich]->SetChecked(true);
             }
             else
             {
-                fControls[ refMsg->fWhich ] = nil;
+                fControls[refMsg->fWhich] = nil;
             }
             return true;
         }
     }
 
-    return pfGUIControlMod::MsgReceive( msg );
+    return pfGUIControlMod::MsgReceive(msg);
 }
 
 //// Read/Write //////////////////////////////////////////////////////////////
 
-void    pfGUIRadioGroupCtrl::Read( hsStream *s, hsResMgr *mgr )
+void    pfGUIRadioGroupCtrl::Read(hsStream *s, hsResMgr *mgr)
 {
     pfGUIControlMod::Read(s, mgr);
 
     uint32_t  i, count = s->ReadLE32();
-    fControls.SetCountAndZero( count );
+    fControls.SetCountAndZero(count);
 
-    for( i = 0; i < count; i++ )
+    for (i = 0; i < count; i++)
     {
-        mgr->ReadKeyNotifyMe( s, new plGenRefMsg( GetKey(), plRefMsg::kOnCreate, i, kRefControl ), plRefFlags::kActiveRef );
+        mgr->ReadKeyNotifyMe(s, new plGenRefMsg(GetKey(), plRefMsg::kOnCreate, i, kRefControl), plRefFlags::kActiveRef);
     }
 
     fValue = fDefaultValue = s->ReadLE16();
-    if( fValue != -1 && fControls[ fValue ] != nil )
-        fControls[ fValue ]->SetChecked( true );
+    if (fValue != -1 && fControls[fValue] != nil)
+        fControls[fValue]->SetChecked(true);
 }
 
-void    pfGUIRadioGroupCtrl::Write( hsStream *s, hsResMgr *mgr )
+void    pfGUIRadioGroupCtrl::Write(hsStream *s, hsResMgr *mgr)
 {
     uint32_t  i;
 
 
-    pfGUIControlMod::Write( s, mgr );
+    pfGUIControlMod::Write(s, mgr);
 
-    s->WriteLE32( fControls.GetCount() );
-    for( i = 0; i < fControls.GetCount(); i++ )
-        mgr->WriteKey( s, fControls[ i ]->GetKey() );
+    s->WriteLE32(fControls.GetCount());
+    for (i = 0; i < fControls.GetCount(); i++)
+        mgr->WriteKey(s, fControls[i]->GetKey());
 
-    s->WriteLE16( (uint16_t)fDefaultValue );
+    s->WriteLE16((uint16_t)fDefaultValue);
 }
 
 //// SetValue ////////////////////////////////////////////////////////////////
 
-void    pfGUIRadioGroupCtrl::SetValue( int32_t value )
+void    pfGUIRadioGroupCtrl::SetValue(int32_t value)
 {
-    if( value != fValue && ( value != -1 || HasFlag( kAllowNoSelection ) ) )
+    if (value != fValue && (value != -1 || HasFlag(kAllowNoSelection)))
     {
-        if( fValue != -1 )
-            fControls[ fValue ]->SetChecked( false );
+        if (fValue != -1)
+            fControls[fValue]->SetChecked(false);
 
         fValue = value;
-        if( value != -1 )
-            fControls[ value ]->SetChecked( true );
+        if (value != -1)
+            fControls[value]->SetChecked(true);
 
         DoSomething();
     }
@@ -221,40 +221,40 @@ void    pfGUIRadioGroupCtrl::SetValue( int32_t value )
 
 ///// Setting to be trickled down to the underlings
 
-void    pfGUIRadioGroupCtrl::SetEnabled( bool e )
+void    pfGUIRadioGroupCtrl::SetEnabled(bool e)
 {
     int i;
-    for( i = 0; i < fControls.GetCount(); i++ )
-        fControls[ i ]->SetEnabled(e);
+    for (i = 0; i < fControls.GetCount(); i++)
+        fControls[i]->SetEnabled(e);
 }
 
-void    pfGUIRadioGroupCtrl::SetInteresting( bool e )
+void    pfGUIRadioGroupCtrl::SetInteresting(bool e)
 {
     int i;
-    for( i = 0; i < fControls.GetCount(); i++ )
-        fControls[ i ]->SetInteresting(e);
+    for (i = 0; i < fControls.GetCount(); i++)
+        fControls[i]->SetInteresting(e);
 }
 
-void    pfGUIRadioGroupCtrl::SetVisible( bool vis )
+void    pfGUIRadioGroupCtrl::SetVisible(bool vis)
 {
     int i;
-    for( i = 0; i < fControls.GetCount(); i++ )
-        fControls[ i ]->SetVisible(vis);
+    for (i = 0; i < fControls.GetCount(); i++)
+        fControls[i]->SetVisible(vis);
 }
 
-void    pfGUIRadioGroupCtrl::SetControlsFlag( int flag )
+void    pfGUIRadioGroupCtrl::SetControlsFlag(int flag)
 {
     int i;
-    for( i = 0; i < fControls.GetCount(); i++ )
-        fControls[ i ]->SetFlag(flag);
+    for (i = 0; i < fControls.GetCount(); i++)
+        fControls[i]->SetFlag(flag);
 }
 
 
-void    pfGUIRadioGroupCtrl::ClearControlsFlag( int flag )
+void    pfGUIRadioGroupCtrl::ClearControlsFlag(int flag)
 {
     int i;
-    for( i = 0; i < fControls.GetCount(); i++ )
-        fControls[ i ]->ClearFlag(flag);
+    for (i = 0; i < fControls.GetCount(); i++)
+        fControls[i]->ClearFlag(flag);
 }
 
 
@@ -266,8 +266,8 @@ void    pfGUIRadioGroupCtrl::ClearControlList()
     fValue = -1;
 }
 
-void    pfGUIRadioGroupCtrl::AddControl( pfGUICheckBoxCtrl *ctrl )
+void    pfGUIRadioGroupCtrl::AddControl(pfGUICheckBoxCtrl *ctrl)
 {
-    fControls.Append( ctrl );
+    fControls.Append(ctrl);
 }
 

@@ -45,6 +45,6 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "pnFactory/plCreator.h"
 
 #include "plDniCoordinateInfo.h"
-REGISTER_CREATABLE( plDniCoordinateInfo );
+REGISTER_CREATABLE(plDniCoordinateInfo);
 
 #endif // plVaultCreatable_h_inc

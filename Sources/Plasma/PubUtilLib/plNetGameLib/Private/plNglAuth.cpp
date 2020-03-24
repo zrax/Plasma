@@ -2348,7 +2348,7 @@ static bool Recv_ScoreGetHighScoresReply(
     const uint8_t   msg[],
     unsigned        bytes,
     void *
-    ) {
+) {
     const Auth2Cli_ScoreGetHighScoresReply & reply = *(const Auth2Cli_ScoreGetHighScoresReply *)msg;
 
     NetTransRecv(reply.transId, msg, bytes);
@@ -2361,7 +2361,7 @@ static bool Recv_ServerCaps(
     const uint8_t   msg[],
     unsigned        bytes,
     void *          param
-    ) {
+) {
     const Auth2Cli_ServerCaps & caps = *(const Auth2Cli_ServerCaps *)msg;
 
     hsReadOnlyStream stream(caps.byteCount, reinterpret_cast<const void*>(caps.buffer));
@@ -5076,7 +5076,7 @@ void ScoreGetHighScoresTrans::Post() {
 bool ScoreGetHighScoresTrans::Recv(
     const uint8_t msg[],
     unsigned      bytes
-    ) {
+) {
     const Auth2Cli_ScoreGetHighScoresReply & reply = *(const Auth2Cli_ScoreGetHighScoresReply *)msg;
 
     if (reply.scoreCount > 0) {
@@ -6167,7 +6167,7 @@ void NetCliAuthScoreGetHighScores(
     const ST::string&               gameName,
     FNetCliAuthGetScoresCallback    callback,
     void *                          param
-    ) {
+) {
     ScoreGetHighScoresTrans * trans = new ScoreGetHighScoresTrans(
         ageId,
         maxScores,

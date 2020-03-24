@@ -63,7 +63,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 //// Watcher Class Desc //////////////////////////////////////////////////////
 
-plNoteTrackWatcher::plNoteTrackWatcher( plPassMtlBase *parentMtl ) : fParentMtl(nil)
+plNoteTrackWatcher::plNoteTrackWatcher(plPassMtlBase *parentMtl) : fParentMtl(nil)
 {
     fNoteTrackCount = parentMtl->NumNoteTracks();
     ReplaceReference(kRefParentMtl, parentMtl);
@@ -71,17 +71,17 @@ plNoteTrackWatcher::plNoteTrackWatcher( plPassMtlBase *parentMtl ) : fParentMtl(
 
 plNoteTrackWatcher::~plNoteTrackWatcher()
 {
-    if( fParentMtl != nil )
+    if (fParentMtl != nil)
     {
         fParentMtl->fNTWatcher = nil;
-        DeleteReference( kRefParentMtl );
+        DeleteReference(kRefParentMtl);
     }
     DeleteAllRefsFromMe();
 }
 
-BOOL    plNoteTrackWatcher::IsRealDependency( ReferenceTarget *rtarg )
+BOOL    plNoteTrackWatcher::IsRealDependency(ReferenceTarget *rtarg)
 {
-    if( rtarg == fParentMtl )
+    if (rtarg == fParentMtl)
         return false;
 
     return true;
@@ -92,34 +92,34 @@ int plNoteTrackWatcher::NumRefs()
     return 1;
 }
 
-RefTargetHandle plNoteTrackWatcher::GetReference( int i )
+RefTargetHandle plNoteTrackWatcher::GetReference(int i)
 {
-    if( i == kRefParentMtl )
+    if (i == kRefParentMtl)
         return fParentMtl;
 
     return nil;
 }
 
-void plNoteTrackWatcher::SetReference( int i, RefTargetHandle rtarg )
+void plNoteTrackWatcher::SetReference(int i, RefTargetHandle rtarg)
 {
-    if( i == kRefParentMtl )
+    if (i == kRefParentMtl)
         fParentMtl = (plPassMtlBase *)rtarg;
 }
 
 RefResult plNoteTrackWatcher::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message)
 {
-    switch( message )
+    switch (message)
     {
         case REFMSG_SUBANIM_STRUCTURE_CHANGED:
-            if( hTarget == fParentMtl && fParentMtl != nil )
+            if (hTarget == fParentMtl && fParentMtl != nil)
             {
                 // Structure of parent material changed--did it gain or lose a notetrack?
                 int oldCount = fNoteTrackCount;
                 fNoteTrackCount = fParentMtl->NumNoteTracks();
-                if( oldCount != fNoteTrackCount )
+                if (oldCount != fNoteTrackCount)
                 {
                     // Is it an addition?
-                    if( fNoteTrackCount > oldCount )
+                    if (fNoteTrackCount > oldCount)
                         // Yes, notify parent.
                         fParentMtl->NoteTrackAdded();
                     else
@@ -130,7 +130,7 @@ RefResult plNoteTrackWatcher::NotifyRefChanged(Interval changeInt, RefTargetHand
             break;
 
         case REFMSG_NODE_NAMECHANGE:
-            if( hTarget == fParentMtl )
+            if (hTarget == fParentMtl)
             {
                 fParentMtl->NameChanged();
             }

@@ -66,7 +66,7 @@ public:
     hsStringTokenizer(const char *string=nil, const char *seps=nil);
     ~hsStringTokenizer();
     char *next();
-    bool Next( char *token, uint32_t maxTokLen );
+    bool Next(char *token, uint32_t maxTokLen);
     bool HasMoreTokens();
     void Reset(const char *string, const char *seps);
     void ParseQuotes(bool qAsTok);
@@ -97,7 +97,7 @@ public:
     hsWStringTokenizer(const wchar_t *string=nil, const wchar_t *seps=nil);
     ~hsWStringTokenizer();
     wchar_t *next();
-    bool Next( wchar_t *token, uint32_t maxTokLen );
+    bool Next(wchar_t *token, uint32_t maxTokLen);
     bool HasMoreTokens();
     void Reset(const wchar_t *string, const wchar_t *seps);
     void ParseQuotes(bool qAsTok);

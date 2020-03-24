@@ -60,18 +60,18 @@ pyGUIControlEditBox::pyGUIControlEditBox(plKey objkey) : pyGUIControl(objkey)
 
 bool pyGUIControlEditBox::IsGUIControlEditBox(pyKey& gckey)
 {
-    if ( gckey.getKey() && pfGUIEditBoxMod::ConvertNoRef(gckey.getKey()->ObjectIsLoaded()) )
+    if (gckey.getKey() && pfGUIEditBoxMod::ConvertNoRef(gckey.getKey()->ObjectIsLoaded()))
         return true;
     return false;
 }
 
-void pyGUIControlEditBox::SetBufferSize( uint32_t size )
+void pyGUIControlEditBox::SetBufferSize(uint32_t size)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIEditBoxMod* pebmod = pfGUIEditBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pebmod )
+        if (pebmod)
             pebmod->SetBufferSize(size);
     }
 }
@@ -79,11 +79,11 @@ void pyGUIControlEditBox::SetBufferSize( uint32_t size )
 
 std::string pyGUIControlEditBox::GetBuffer()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIEditBoxMod* pebmod = pfGUIEditBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pebmod )
+        if (pebmod)
             return pebmod->GetBuffer();
     }
     return "";
@@ -91,11 +91,11 @@ std::string pyGUIControlEditBox::GetBuffer()
 
 std::wstring pyGUIControlEditBox::GetBufferW()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIEditBoxMod* pebmod = pfGUIEditBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pebmod )
+        if (pebmod)
             return pebmod->GetBufferW();
     }
     return L"";
@@ -103,55 +103,55 @@ std::wstring pyGUIControlEditBox::GetBufferW()
 
 void pyGUIControlEditBox::ClearBuffer()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIEditBoxMod* pebmod = pfGUIEditBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pebmod )
+        if (pebmod)
             pebmod->ClearBuffer();
     }
 }
 
-void pyGUIControlEditBox::SetText( const char *str )
+void pyGUIControlEditBox::SetText(const char *str)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIEditBoxMod* pebmod = pfGUIEditBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pebmod )
+        if (pebmod)
             pebmod->SetText(str);
     }
 }
 
-void pyGUIControlEditBox::SetTextW( const wchar_t *str )
+void pyGUIControlEditBox::SetTextW(const wchar_t *str)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIEditBoxMod* pebmod = pfGUIEditBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pebmod )
+        if (pebmod)
             pebmod->SetText(str);
     }
 }
 
 void pyGUIControlEditBox::SetCursorToHome()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIEditBoxMod* pebmod = pfGUIEditBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pebmod )
+        if (pebmod)
             pebmod->SetCursorToHome();
     }
 }
 
 void pyGUIControlEditBox::SetCursorToEnd()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIEditBoxMod* pebmod = pfGUIEditBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pebmod )
+        if (pebmod)
             pebmod->SetCursorToEnd();
     }
 }
@@ -159,10 +159,10 @@ void pyGUIControlEditBox::SetCursorToEnd()
 
 void pyGUIControlEditBox::SetColor(pyColor& forecolor, pyColor& backcolor)
 {
-/*  if ( fGCkey )
+/*  if (fGCkey)
     {
         pfGUIEditBoxMod* pebmod = pfGUIEditBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pebmod )
+        if (pebmod)
         {
             pebmod->GetColorScheme().fForeColor = forecolor.getColor();
             pebmod->GetColorScheme().fBackColor = backcolor.getColor();
@@ -174,10 +174,10 @@ void pyGUIControlEditBox::SetColor(pyColor& forecolor, pyColor& backcolor)
 
 void pyGUIControlEditBox::SetSelColor(pyColor& forecolor, pyColor& backcolor)
 {
-/*  if ( fGCkey )
+/*  if (fGCkey)
     {
         pfGUIEditBoxMod* pebmod = pfGUIEditBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pebmod )
+        if (pebmod)
         {
             pebmod->GetColorScheme().fSelForeColor = forecolor.getColor();
             pebmod->GetColorScheme().fSelBackColor = backcolor.getColor();
@@ -188,11 +188,11 @@ void pyGUIControlEditBox::SetSelColor(pyColor& forecolor, pyColor& backcolor)
 
 bool pyGUIControlEditBox::WasEscaped()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIEditBoxMod* pebmod = pfGUIEditBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pebmod )
+        if (pebmod)
             return pebmod->WasEscaped();
     }
     return false;
@@ -200,22 +200,22 @@ bool pyGUIControlEditBox::WasEscaped()
 
 void pyGUIControlEditBox::SetSpecialCaptureKeyMode(bool state)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIEditBoxMod* pebmod = pfGUIEditBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pebmod )
+        if (pebmod)
             pebmod->SetSpecialCaptureKeyMode(state);
     }
 }
 
 uint32_t pyGUIControlEditBox::GetLastKeyCaptured()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIEditBoxMod* pebmod = pfGUIEditBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pebmod )
+        if (pebmod)
             return pebmod->GetLastKeyCaptured();
     }
     return 0;
@@ -223,11 +223,11 @@ uint32_t pyGUIControlEditBox::GetLastKeyCaptured()
 
 uint32_t pyGUIControlEditBox::GetLastModifiersCaptured()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIEditBoxMod* pebmod = pfGUIEditBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pebmod )
+        if (pebmod)
             return (uint32_t)(pebmod->GetLastModifiersCaptured());
     }
     return 0;
@@ -235,22 +235,22 @@ uint32_t pyGUIControlEditBox::GetLastModifiersCaptured()
 
 void pyGUIControlEditBox::SetLastKeyCapture(uint32_t key, uint32_t modifiers)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIEditBoxMod* pebmod = pfGUIEditBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pebmod )
+        if (pebmod)
             pebmod->SetLastKeyCapture(key,(uint8_t)modifiers);
     }
 }
 
 void pyGUIControlEditBox::SetChatMode(bool state)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIEditBoxMod* pebmod = pfGUIEditBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pebmod )
+        if (pebmod)
             pebmod->SetChatMode(state);
     }
 }

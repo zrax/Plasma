@@ -146,8 +146,8 @@ public:
 
     plParticleEmitter* GetAvailEmitter();
     
-    CLASSNAME_REGISTER( plParticleSystem );
-    GETINTERFACE_ANY( plParticleSystem, plModifier);
+    CLASSNAME_REGISTER(plParticleSystem);
+    GETINTERFACE_ANY(plParticleSystem, plModifier);
     
     // These are just public wrappers to the equivalent plParticleEmitter functions, provided for the purpose
     // of adding particles to a system explicitly.

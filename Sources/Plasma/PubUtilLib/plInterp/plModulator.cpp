@@ -88,9 +88,9 @@ float plModulator::Modulation(const hsPoint3& pos) const
     float dist = fVolume->Test(pos);
 
     float retVal;
-    if( dist > 0 )
+    if (dist > 0)
     {
-        if( dist < fSoftDist )
+        if (dist < fSoftDist)
         {
             dist /= fSoftDist;
             retVal = 1.f - dist;

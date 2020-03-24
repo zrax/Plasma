@@ -71,8 +71,8 @@ public:
 
     ~plBulletMsg() {}
     
-    CLASSNAME_REGISTER( plBulletMsg );
-    GETINTERFACE_ANY( plBulletMsg, plMessage );
+    CLASSNAME_REGISTER(plBulletMsg);
+    GETINTERFACE_ANY(plBulletMsg, plMessage);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

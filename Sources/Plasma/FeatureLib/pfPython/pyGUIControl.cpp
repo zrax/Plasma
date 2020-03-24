@@ -85,9 +85,9 @@ pyGUIControl& pyGUIControl::Copy(const pyGUIControl& other)
 bool pyGUIControl::operator==(const pyGUIControl &gcobj) const
 {
     plKey theirs = ((pyGUIControl&)gcobj).getObjKey();
-    if ( fGCkey == nil && theirs == nil )
+    if (fGCkey == nil && theirs == nil)
         return true;
-    else if ( fGCkey != nil && theirs != nil )
+    else if (fGCkey != nil && theirs != nil)
         return (fGCkey->GetUoid()==theirs->GetUoid());
     else
         return false;
@@ -111,27 +111,27 @@ PyObject* pyGUIControl::getObjPyKey()
 // interface functions
 uint32_t  pyGUIControl::GetTagID()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIControlMod* pbmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pbmod )
+        if (pbmod)
             return pbmod->GetTagID();
     }
     return 0;
 }
 
 
-void pyGUIControl::SetEnabled( bool e )
+void pyGUIControl::SetEnabled(bool e)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIControlMod* pbmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pbmod )
+        if (pbmod)
         {
             pbmod->SetEnabled(e);
-            if ( e )
+            if (e)
                 pbmod->ClearFlag(pfGUIControlMod::kIntangible);
             else
                 pbmod->SetFlag(pfGUIControlMod::kIntangible);
@@ -141,57 +141,57 @@ void pyGUIControl::SetEnabled( bool e )
 
 bool pyGUIControl::IsEnabled()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIControlMod* pbmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pbmod )
+        if (pbmod)
             return pbmod->IsEnabled();
     }
     return false;
 }
 
-void pyGUIControl::SetFocused( bool e )
+void pyGUIControl::SetFocused(bool e)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIControlMod* pbmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pbmod )
+        if (pbmod)
             pbmod->SetFocused(e);
     }
 }
 
 bool pyGUIControl::IsFocused()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIControlMod* pbmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pbmod )
+        if (pbmod)
             return pbmod->IsFocused();
     }
     return false;
 }
 
-void pyGUIControl::SetVisible( bool vis )
+void pyGUIControl::SetVisible(bool vis)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIControlMod* pbmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pbmod )
+        if (pbmod)
             pbmod->SetVisible(vis);
     }
 }
 
 bool pyGUIControl::IsVisible()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIControlMod* pbmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pbmod )
+        if (pbmod)
             return pbmod->IsVisible();
     }
     return false;
@@ -199,57 +199,57 @@ bool pyGUIControl::IsVisible()
 
 bool pyGUIControl::IsInteresting()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIControlMod* pbmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pbmod )
+        if (pbmod)
             return pbmod->IsInteresting();
     }
     return false;
 }
 
-void pyGUIControl::SetNotifyOnInteresting( bool state )
+void pyGUIControl::SetNotifyOnInteresting(bool state)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIControlMod* pbmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pbmod )
+        if (pbmod)
             pbmod->SetNotifyOnInteresting(state);
     }
 }
 
 void pyGUIControl::Refresh()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIControlMod* pbmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pbmod )
+        if (pbmod)
             pbmod->Refresh();
     }
 }
 
-void pyGUIControl::SetObjectCenter( pyPoint3& pt)
+void pyGUIControl::SetObjectCenter(pyPoint3& pt)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIControlMod* pbmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pbmod )
-            pbmod->SetObjectCenter( pt.fPoint.fX, pt.fPoint.fY );
+        if (pbmod)
+            pbmod->SetObjectCenter(pt.fPoint.fX, pt.fPoint.fY);
     }
 }
 
 
 PyObject* pyGUIControl::GetObjectCenter()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIControlMod* pbmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pbmod )
+        if (pbmod)
             return pyPoint3::New(pbmod->GetObjectCenter());
     }
     return pyPoint3::New(hsPoint3(0,0,0));
@@ -259,15 +259,15 @@ PyObject* pyGUIControl::GetObjectCenter()
 
 PyObject* pyGUIControl::GetOwnerDlg()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUIControlMod* pbmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pbmod )
+        if (pbmod)
         {
             // get the owner dialog modifier pointer
             pfGUIDialogMod* pdialog = pbmod->GetOwnerDlg();
-            if ( pdialog )
+            if (pdialog)
             {
                 // create a pythonized Dialog class object
                 return pyGUIDialog::New(pdialog->GetKey());
@@ -281,10 +281,10 @@ PyObject* pyGUIControl::GetOwnerDlg()
     // get color schemes
 PyObject* pyGUIControl::GetForeColor() const
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         pfGUIControlMod* pdmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pdmod )
+        if (pdmod)
         {
             pfGUIColorScheme* color = pdmod->GetColorScheme();
             return pyColor::New(color->fForeColor.r,color->fForeColor.g,color->fForeColor.b,color->fForeColor.a);
@@ -295,10 +295,10 @@ PyObject* pyGUIControl::GetForeColor() const
 
 PyObject* pyGUIControl::GetSelColor() const
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         pfGUIControlMod* pdmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pdmod )
+        if (pdmod)
         {
             pfGUIColorScheme* color = pdmod->GetColorScheme();
             return pyColor::New(color->fSelForeColor.r,color->fSelForeColor.g,color->fSelForeColor.b,color->fSelForeColor.a);
@@ -309,10 +309,10 @@ PyObject* pyGUIControl::GetSelColor() const
 
 PyObject* pyGUIControl::GetBackColor() const
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         pfGUIControlMod* pdmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pdmod )
+        if (pdmod)
         {
             pfGUIColorScheme* color = pdmod->GetColorScheme();
             return pyColor::New(color->fBackColor.r,color->fBackColor.g,color->fBackColor.b,color->fBackColor.a);
@@ -323,10 +323,10 @@ PyObject* pyGUIControl::GetBackColor() const
 
 PyObject* pyGUIControl::GetBackSelColor() const
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         pfGUIControlMod* pdmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pdmod )
+        if (pdmod)
         {
             pfGUIColorScheme* color = pdmod->GetColorScheme();
             return pyColor::New(color->fSelBackColor.r,color->fSelBackColor.g,color->fSelBackColor.b,color->fSelBackColor.a);
@@ -337,10 +337,10 @@ PyObject* pyGUIControl::GetBackSelColor() const
 
 uint32_t pyGUIControl::GetFontSize() const
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         pfGUIControlMod* pdmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pdmod )
+        if (pdmod)
         {
             pfGUIColorScheme* color = pdmod->GetColorScheme();
             return color->fFontSize;
@@ -352,81 +352,81 @@ uint32_t pyGUIControl::GetFontSize() const
 
 
     // set color scheme
-void pyGUIControl::SetForeColor( float r, float g, float b, float a )
+void pyGUIControl::SetForeColor(float r, float g, float b, float a)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         pfGUIControlMod* pdmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pdmod )
+        if (pdmod)
         {
             pfGUIColorScheme* color = pdmod->GetColorScheme();
-            if ( r >= 0.0 && r <= 1.0 )
+            if (r >= 0.0 && r <= 1.0)
                 color->fForeColor.r = r;
-            if ( g >= 0.0 && g <= 1.0 )
+            if (g >= 0.0 && g <= 1.0)
                 color->fForeColor.g = g;
-            if ( b >= 0.0 && g <= 1.0 )
+            if (b >= 0.0 && g <= 1.0)
                 color->fForeColor.b = b;
-            if ( a >= 0.0 && g <= 1.0 )
+            if (a >= 0.0 && g <= 1.0)
                 color->fForeColor.a = a;
         }
     }
 }
 
-void pyGUIControl::SetSelColor( float r, float g, float b, float a )
+void pyGUIControl::SetSelColor(float r, float g, float b, float a)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         pfGUIControlMod* pdmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pdmod )
+        if (pdmod)
         {
             pfGUIColorScheme* color = pdmod->GetColorScheme();
-            if ( r >= 0.0 && r <= 1.0 )
+            if (r >= 0.0 && r <= 1.0)
                 color->fSelForeColor.r = r;
-            if ( g >= 0.0 && g <= 1.0 )
+            if (g >= 0.0 && g <= 1.0)
                 color->fSelForeColor.g = g;
-            if ( b >= 0.0 && g <= 1.0 )
+            if (b >= 0.0 && g <= 1.0)
                 color->fSelForeColor.b = b;
-            if ( a >= 0.0 && g <= 1.0 )
+            if (a >= 0.0 && g <= 1.0)
                 color->fSelForeColor.a = a;
         }
     }
 }
 
-void pyGUIControl::SetBackColor( float r, float g, float b, float a )
+void pyGUIControl::SetBackColor(float r, float g, float b, float a)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         pfGUIControlMod* pdmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pdmod )
+        if (pdmod)
         {
             pfGUIColorScheme* color = pdmod->GetColorScheme();
-            if ( r >= 0.0 && r <= 1.0 )
+            if (r >= 0.0 && r <= 1.0)
                 color->fBackColor.r = r;
-            if ( g >= 0.0 && g <= 1.0 )
+            if (g >= 0.0 && g <= 1.0)
                 color->fBackColor.g = g;
-            if ( b >= 0.0 && g <= 1.0 )
+            if (b >= 0.0 && g <= 1.0)
                 color->fBackColor.b = b;
-            if ( a >= 0.0 && g <= 1.0 )
+            if (a >= 0.0 && g <= 1.0)
                 color->fBackColor.a = a;
         }
     }
 }
 
-void pyGUIControl::SetBackSelColor( float r, float g, float b, float a )
+void pyGUIControl::SetBackSelColor(float r, float g, float b, float a)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         pfGUIControlMod* pdmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pdmod )
+        if (pdmod)
         {
             pfGUIColorScheme* color = pdmod->GetColorScheme();
-            if ( r >= 0.0 && r <= 1.0 )
+            if (r >= 0.0 && r <= 1.0)
                 color->fSelBackColor.r = r;
-            if ( g >= 0.0 && g <= 1.0 )
+            if (g >= 0.0 && g <= 1.0)
                 color->fSelBackColor.g = g;
-            if ( b >= 0.0 && g <= 1.0 )
+            if (b >= 0.0 && g <= 1.0)
                 color->fSelBackColor.b = b;
-            if ( a >= 0.0 && g <= 1.0 )
+            if (a >= 0.0 && g <= 1.0)
                 color->fSelBackColor.a = a;
         }
     }
@@ -435,10 +435,10 @@ void pyGUIControl::SetBackSelColor( float r, float g, float b, float a )
 
 void pyGUIControl::SetFontSize(uint32_t fontsize)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         pfGUIControlMod* pdmod = pfGUIControlMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( pdmod )
+        if (pdmod)
         {
             pfGUIColorScheme* color = pdmod->GetColorScheme();
             color->fFontSize = (uint8_t)fontsize;

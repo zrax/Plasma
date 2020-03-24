@@ -70,16 +70,16 @@ class pfGameGUIMsg : public plMessage
             kLoadDialog
         };
 
-        pfGameGUIMsg() : plMessage( nil, nil, nil ) { SetBCastFlag( kBCastByExactType ); }
+        pfGameGUIMsg() : plMessage(nil, nil, nil) { SetBCastFlag(kBCastByExactType); }
         pfGameGUIMsg(plKey &receiver, uint8_t command) : plMessage(nil, nil, nil) { AddReceiver(receiver); fCommand = command; }
 
-        CLASSNAME_REGISTER( pfGameGUIMsg );
-        GETINTERFACE_ANY( pfGameGUIMsg, plMessage );
+        CLASSNAME_REGISTER(pfGameGUIMsg);
+        GETINTERFACE_ANY(pfGameGUIMsg, plMessage);
 
         virtual void Read(hsStream* s, hsResMgr* mgr)
         {
-            plMessage::IMsgRead( s, mgr );
-            s->ReadLE( &fCommand );
+            plMessage::IMsgRead(s, mgr);
+            s->ReadLE(&fCommand);
             char buffer[GAME_GUI_MSG_STRING_SIZE];
             s->Read(sizeof(buffer), buffer);
             buffer[GAME_GUI_MSG_STRING_SIZE - 1] = 0;
@@ -89,12 +89,12 @@ class pfGameGUIMsg : public plMessage
         
         virtual void Write(hsStream* s, hsResMgr* mgr)
         {
-            plMessage::IMsgWrite( s, mgr );
-            s->WriteLE( fCommand );
+            plMessage::IMsgWrite(s, mgr);
+            s->WriteLE(fCommand);
             char buffer[GAME_GUI_MSG_STRING_SIZE];
             strncpy(buffer, fString.c_str(), GAME_GUI_MSG_STRING_SIZE);
             s->Write(sizeof(buffer), buffer);
-            s->WriteSafeString( fAge );
+            s->WriteSafeString(fAge);
         }
 
         uint8_t     GetCommand() const { return fCommand; }

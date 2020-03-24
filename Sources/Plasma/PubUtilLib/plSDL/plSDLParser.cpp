@@ -115,19 +115,19 @@ bool plSDLParser::IParseStateDesc(const plFileName& fileName, hsStream* stream, 
         ok = false;
     }
 
-    if ( ok )
+    if (ok)
     {
-        ok = ( plSDLMgr::GetInstance()->FindDescriptor(curDesc->GetName(), curDesc->GetVersion())==nil );
-        if ( !ok )
+        ok = (plSDLMgr::GetInstance()->FindDescriptor(curDesc->GetName(), curDesc->GetVersion())==nil);
+        if (!ok)
         {
             ST::string err = ST::format("Found duplicate SDL descriptor for {} version {}.\nFailed to parse file: {}",
                                         curDesc->GetName(), curDesc->GetVersion(), fileName);
             plNetApp::StaticErrorMsg(err);
-            hsAssert( false, err.c_str() );
+            hsAssert(false, err.c_str());
         }
     }
 
-    if ( ok )
+    if (ok)
     {
         descList->push_back(curDesc);
     }
@@ -149,7 +149,7 @@ bool plSDLParser::IParseVarDesc(const plFileName& fileName, hsStream* stream, ch
                                 plStateDescriptor*& curDesc, plVarDescriptor*& curVar) const
 {
     hsAssert(curDesc, ST::format("Syntax problem with .sdl file, fileName={}", fileName).c_str());
-    if ( !curDesc )
+    if (!curDesc)
         return false;
 
     bool skipNext=false;
@@ -186,7 +186,7 @@ bool plSDLParser::IParseVarDesc(const plFileName& fileName, hsStream* stream, ch
     {
         hsAssert(strstr(token, "[") != nullptr && strstr(token, "]") != nullptr,
                  ST::format("invalid var syntax, missing [x], fileName={}", fileName).c_str());
-        char* ptr = strtok( token, seps );  // skip [
+        char* ptr = strtok(token, seps);  // skip [
         
         hsAssert(curVar, ST::format("Missing current var.  Syntax problem with .sdl file, fileName={}", fileName).c_str());
         curVar->SetName(token);
@@ -216,7 +216,7 @@ bool plSDLParser::IParseVarDesc(const plFileName& fileName, hsStream* stream, ch
             if (sVar)
             {
                 int i;
-                for(i=0;i<sVar->GetAtomicCount();i++)
+                for (i=0;i<sVar->GetAtomicCount();i++)
                 {
                     if (stream->GetToken(token, kTokenLen))
                     {
@@ -346,8 +346,8 @@ bool plSDLParser::ILoadSDLFile(const plFileName& fileName) const
 
         if (!strcmp(token, "}"))
         {
-            if ( curDesc )
-                curDesc->SetFilename( fileName );
+            if (curDesc)
+                curDesc->SetFilename(fileName);
             parsingStateDesc=false;
             continue;
         }
@@ -355,7 +355,7 @@ bool plSDLParser::ILoadSDLFile(const plFileName& fileName) const
         if (parsingStateDesc)
         {
             skip=IParseStateDesc(fileName, stream, token, curDesc);
-            if ( !curDesc )
+            if (!curDesc)
                 break;  // failed to parse state desc
         }
         else
@@ -365,8 +365,8 @@ bool plSDLParser::ILoadSDLFile(const plFileName& fileName) const
     }
 
     // If the very last char is a } without a \n, then it won't be handled above for some reason, so we have to catch it here.
-    if ( curDesc )
-        curDesc->SetFilename( fileName );
+    if (curDesc)
+        curDesc->SetFilename(fileName);
 
     // do not close or delete the stream, we do not own it
     return true;

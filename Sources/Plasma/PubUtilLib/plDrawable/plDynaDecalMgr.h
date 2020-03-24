@@ -241,8 +241,8 @@ public:
     plDynaDecalMgr();
     virtual ~plDynaDecalMgr();
 
-    CLASSNAME_REGISTER( plDynaDecalMgr );
-    GETINTERFACE_ANY( plDynaDecalMgr, plSynchedObject );
+    CLASSNAME_REGISTER(plDynaDecalMgr);
+    GETINTERFACE_ANY(plDynaDecalMgr, plSynchedObject);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

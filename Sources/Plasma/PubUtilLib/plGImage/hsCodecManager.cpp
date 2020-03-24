@@ -102,7 +102,7 @@ plMipmap *hsCodecManager::CreateUncompressedMipmap(plMipmap *compressed, uint8_t
     int32_t i, j;
     for (i = 0; i < fCodecTable.Count(); i++)
     {
-        if( fCodecTable[i].fCompressionFormat == compressed->fCompressionType )
+        if (fCodecTable[i].fCompressionFormat == compressed->fCompressionType)
         {
             for (j = 0; j < fCodecTable[i].fCodecList.Count(); j++)
             {
@@ -125,21 +125,21 @@ plMipmap *hsCodecManager::CreateUncompressedMipmap(plMipmap *compressed, uint8_t
     return nil;
 }
 
-bool hsCodecManager::ColorizeCompMipmap( plMipmap *bMap, const uint8_t *colorMask )
+bool hsCodecManager::ColorizeCompMipmap(plMipmap *bMap, const uint8_t *colorMask)
 {
     int32_t i, j;
 
 
-    for( i = 0; i < fCodecTable.Count(); i++ )
+    for (i = 0; i < fCodecTable.Count(); i++)
     {
-        if( fCodecTable[ i ].fCompressionFormat == bMap->fCompressionType )
+        if (fCodecTable[i].fCompressionFormat == bMap->fCompressionType)
         {
-            for( j = 0; j < fCodecTable[ i ].fCodecList.Count(); j++ )
+            for (j = 0; j < fCodecTable[i].fCodecList.Count(); j++)
             {
-                hsAssert( fCodecTable[ i ].fCodecList[ j ].fCodec != 0,
-                    "Nil codec in hsCodecManager::CreateUncompressedMipmap." );
+                hsAssert(fCodecTable[i].fCodecList[j].fCodec != 0,
+                    "Nil codec in hsCodecManager::CreateUncompressedMipmap.");
 
-                if( fCodecTable[ i ].fCodecList[ j ].fCodec->ColorizeCompMipmap( bMap, colorMask ) )
+                if (fCodecTable[i].fCodecList[j].fCodec->ColorizeCompMipmap(bMap, colorMask))
                     return true;
             }
             return false;

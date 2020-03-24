@@ -766,7 +766,7 @@ void plComponentDlg::IOpenRightClickMenu()
     // Create the popup menu and get the option the user selects
     SetForegroundWindow(fhDlg);
     int sel = TrackPopupMenu(menu, TPM_NONOTIFY | TPM_RETURNCMD, point.x, point.y, 0, fhDlg, NULL);
-    switch(sel)
+    switch (sel)
     {
     case kMenuDelete:
         IDeleteComponent((plMaxNode*)item.lParam);

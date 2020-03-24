@@ -56,18 +56,18 @@ public:
     plWin32StreamingSound();
     ~plWin32StreamingSound();
 
-    CLASSNAME_REGISTER( plWin32StreamingSound );
-    GETINTERFACE_ANY( plWin32StreamingSound, plWin32Sound );
+    CLASSNAME_REGISTER(plWin32StreamingSound);
+    GETINTERFACE_ANY(plWin32StreamingSound, plWin32Sound);
 
     virtual void        DeActivate();
-    virtual bool        LoadSound( bool is3D );
+    virtual bool        LoadSound(bool is3D);
     virtual float       GetActualTimeSec();
     virtual unsigned    GetByteOffset();
     virtual StreamType  GetStreamType() const { return fStreamType; }
     virtual void        SetFilename(const char *filename, bool isCompressed);
     virtual void        Update();   // temp
     void                StreamUpdate();
-    virtual bool        MsgReceive( plMessage *pMsg );
+    virtual bool        MsgReceive(plMessage *pMsg);
     
 protected:
     float               fTimeAtBufferStart;
@@ -91,14 +91,14 @@ protected:
 
     virtual void        IDerivedActuallyPlay();
     void                IActuallyStop();
-    virtual void        ISetActualTime( double t );
+    virtual void        ISetActualTime(double t);
     
-    virtual void        IAddCallback( plEventCallbackMsg *pMsg );
-    virtual void        IRemoveCallback( plEventCallbackMsg *pMsg );
+    virtual void        IAddCallback(plEventCallbackMsg *pMsg);
+    virtual void        IRemoveCallback(plEventCallbackMsg *pMsg);
 
     virtual void        IFreeBuffers();
     void                IStreamUpdate();
-    virtual plSoundBuffer::ELoadReturnVal IPreLoadBuffer( bool playWhenLoaded, bool isIncidental = false  );
+    virtual plSoundBuffer::ELoadReturnVal IPreLoadBuffer(bool playWhenLoaded, bool isIncidental = false);
 };
 
 #endif //plWin32StreamingSound_h

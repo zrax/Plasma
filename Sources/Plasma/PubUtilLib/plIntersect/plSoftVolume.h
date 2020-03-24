@@ -85,8 +85,8 @@ public:
     plSoftVolume();
     virtual ~plSoftVolume();
 
-    CLASSNAME_REGISTER( plSoftVolume );
-    GETINTERFACE_ANY( plSoftVolume, plRegionBase );
+    CLASSNAME_REGISTER(plSoftVolume);
+    GETINTERFACE_ANY(plSoftVolume, plRegionBase);
 
     virtual float GetStrength(const hsPoint3& pos) const;
     virtual bool IsInside(const hsPoint3& pos) const { return GetStrength(pos) >= 1.f; }

@@ -70,15 +70,15 @@ class pfConsoleEngine
 
         static const int32_t      fMaxNumParams;
 
-        bool    IConvertToParam( uint8_t type, const char *string, pfConsoleCmdParam *param );
+        bool    IConvertToParam(uint8_t type, const char *string, pfConsoleCmdParam *param);
 
-        char    fErrorMsg[ 128 ];
-        char    fLastErrorLine[ 512 ];
+        char    fErrorMsg[128];
+        char    fLastErrorLine[512];
 
-        void    ISetErrorMsg(const char *msg ) { hsStrncpy( fErrorMsg, msg, sizeof( fErrorMsg ) ); }
+        void    ISetErrorMsg(const char *msg) { hsStrncpy(fErrorMsg, msg, sizeof(fErrorMsg)); }
 
         // Recursive function to build a string of the groups a command is in
-        void        IBuildCmdNameRecurse( pfConsoleCmdGroup *group, char *string );
+        void        IBuildCmdNameRecurse(pfConsoleCmdGroup *group, char *string);
 
     public:
 
@@ -86,16 +86,16 @@ class pfConsoleEngine
         ~pfConsoleEngine();
 
         // Gets the signature for the command given (NO groups!)
-        const char  *GetCmdSignature( char *name );
+        const char  *GetCmdSignature(char *name);
 
         // Prints out the help for a given command (or group)
-        bool    PrintCmdHelp( char *name, void (*PrintFn)( const char * ) );
+        bool    PrintCmdHelp(char *name, void (*PrintFn)(const char *));
 
         // Breaks the given line into a command and parameters and runs the command
-        bool    RunCommand( char *line, void (*PrintFn)( const char * ) );
+        bool    RunCommand(char *line, void (*PrintFn)(const char *));
 
         // Executes the given file as a sequence of console commands
-        bool    ExecuteFile( const plFileName &fileName );
+        bool    ExecuteFile(const plFileName &fileName);
 
         // Get the last reported error
         const char  *GetErrorMsg() { return fErrorMsg; }
@@ -104,19 +104,19 @@ class pfConsoleEngine
         const char  *GetLastErrorLine() { return fLastErrorLine; }
 
         // Does command completion on a partially-complete console line
-        bool        FindPartialCmd( char *line, bool findAgain = false, bool perserveParams = false );
+        bool        FindPartialCmd(char *line, bool findAgain = false, bool perserveParams = false);
 
         // Does command completion without restrictions to any group, skipping the number of matches given
-        bool        FindNestedPartialCmd( char *line, uint32_t numToSkip, bool perserveParams = false );
+        bool        FindNestedPartialCmd(char *line, uint32_t numToSkip, bool perserveParams = false);
 };
 
 
 //// Use in your Main module to provide Console functionality ////////////////
 
-#define PF_CONSOLE_LINK_FILE( name ) \
+#define PF_CONSOLE_LINK_FILE(name) \
     void _console_##name##_file_dummy();
 
-#define PF_CONSOLE_INITIALIZE( name ) \
+#define PF_CONSOLE_INITIALIZE(name) \
     _console_##name##_file_dummy();
 
 #define PF_CONSOLE_LINK_ALL() \

@@ -57,7 +57,7 @@ plCluster::plCluster()
 plCluster::~plCluster()
 {
     int i;
-    for( i = 0; i < fInsts.GetCount(); i++ )
+    for (i = 0; i < fInsts.GetCount(); i++)
         delete fInsts[i];
 }
 
@@ -72,7 +72,7 @@ void plCluster::Read(hsStream* s, plClusterGroup* grp)
     const int numInst = s->ReadLE32();
     fInsts.SetCount(numInst);
     int i;
-    for( i = 0; i < numInst; i++ )
+    for (i = 0; i < numInst; i++)
     {
         fInsts[i] = new plSpanInstance;
         fInsts[i]->Read(s, fEncoding, numVerts);
@@ -87,7 +87,7 @@ void plCluster::Write(hsStream* s) const
     const int numVerts = fGroup->GetTemplate()->NumVerts();
     s->WriteLE32(fInsts.GetCount());
     int i;
-    for( i = 0; i < fInsts.GetCount(); i++ )
+    for (i = 0; i < fInsts.GetCount(); i++)
     {
         fInsts[i]->Write(s, fEncoding, numVerts);
     }
@@ -97,19 +97,19 @@ inline void inlTESTPOINT(const hsPoint3& destP,
                          float& minX, float& minY, float& minZ,
                          float& maxX, float& maxY, float& maxZ)
 {
-    if( destP.fX < minX )
+    if (destP.fX < minX)
         minX = destP.fX;
-    else if( destP.fX > maxX )
+    else if (destP.fX > maxX)
         maxX = destP.fX;
 
-    if( destP.fY < minY )
+    if (destP.fY < minY)
         minY = destP.fY;
-    else if( destP.fY > maxY )
+    else if (destP.fY > maxY)
         maxY = destP.fY;
 
-    if( destP.fZ < minZ )
+    if (destP.fZ < minZ)
         minZ = destP.fZ;
-    else if( destP.fZ > maxZ )
+    else if (destP.fZ > maxZ)
         maxZ = destP.fZ;
 }
 
@@ -126,12 +126,12 @@ void plCluster::UnPack(uint8_t* vDst, uint16_t* iDst, int idxOffset, hsBounds3Ex
     hsAssert(fGroup->GetTemplate(), "Can't unpack without a template");
     const plSpanTemplate& templ = *fGroup->GetTemplate();
     int i;
-    for( i = 0; i < fInsts.GetCount(); i++ )
+    for (i = 0; i < fInsts.GetCount(); i++)
     {
         // First, just copy our template, offsetting by prescribed amount.
         const uint16_t* iSrc = templ.IndexData();
         int n = templ.NumIndices();
-        while( n-- )
+        while (n--)
         {
             *iDst = *iSrc + idxOffset;
             iDst++;
@@ -148,7 +148,7 @@ void plCluster::UnPack(uint8_t* vDst, uint16_t* iDst, int idxOffset, hsBounds3Ex
 
         // If we have individual position and/or color info, apply
         // it, along with the transform.
-        if( GetInst(i).HasPosDelta() || GetInst(i).HasColor() )
+        if (GetInst(i).HasPosDelta() || GetInst(i).HasColor())
         {
             const int posOff = templ.PositionOffset();
             const int normOff = templ.NormalOffset();
@@ -162,7 +162,7 @@ void plCluster::UnPack(uint8_t* vDst, uint16_t* iDst, int idxOffset, hsBounds3Ex
             plSpanInstanceIter iter(fInsts[i], fEncoding, templ.NumVerts());
             const int numVerts = templ.NumVerts();
             int iVert;
-            for( iVert = 0, iter.Begin(); iVert < numVerts; iVert++, iter.Advance() )
+            for (iVert = 0, iter.Begin(); iVert < numVerts; iVert++, iter.Advance())
             {
                 hsPoint3* pos = (hsPoint3*)(vDst + posOff);
                 *pos = iter.Position(*pos);
@@ -192,7 +192,7 @@ void plCluster::UnPack(uint8_t* vDst, uint16_t* iDst, int idxOffset, hsBounds3Ex
             
             const int numVerts = templ.NumVerts();
             int iVert;
-            for( iVert = 0; iVert < numVerts; iVert++ )
+            for (iVert = 0; iVert < numVerts; iVert++)
             {
                 hsPoint3* pos = (hsPoint3*)(vDst + posOff);
                 *pos = l2w * *pos;

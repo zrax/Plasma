@@ -93,9 +93,9 @@ hsMatrix33 operator*(const hsMatrix33& a, const hsMatrix33& b)
 void hsMatrix33::Read(hsStream* s)
 {
     int i, j;
-    for( i = 0; i < 3; i++ )
+    for (i = 0; i < 3; i++)
     {
-        for( j = 0; j < 3; j++ )
+        for (j = 0; j < 3; j++)
         {
             fMap[i][j] = s->ReadLEScalar();
         }
@@ -105,9 +105,9 @@ void hsMatrix33::Read(hsStream* s)
 void hsMatrix33::Write(hsStream* s)
 {
     int i, j;
-    for( i = 0; i < 3; i++ )
+    for (i = 0; i < 3; i++)
     {
-        for( j = 0; j < 3; j++ )
+        for (j = 0; j < 3; j++)
         {
             s->WriteLEScalar(fMap[i][j]);
         }

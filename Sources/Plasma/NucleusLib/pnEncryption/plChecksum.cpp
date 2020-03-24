@@ -62,7 +62,7 @@ struct _InitOpenSSL
 
 static uint8_t IHexCharToInt(char c)
 {
-    switch( c )
+    switch (c)
     {
         // yes, it's ugly, but it'll be fast :)
         case '0': return 0;
@@ -324,7 +324,7 @@ void plSHAChecksum::CalcFromStream(hsStream* stream)
 
     while (int read = stream->Read(loadLen, buf))
     {
-        AddTo( read, buf );
+        AddTo(read, buf);
     }
     delete[] buf;
 
@@ -477,7 +477,7 @@ void plSHA1Checksum::CalcFromStream(hsStream* stream)
 
     while (int read = stream->Read(loadLen, buf))
     {
-        AddTo( read, buf );
+        AddTo(read, buf);
     }
     delete[] buf;
 

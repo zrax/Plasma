@@ -124,7 +124,7 @@ void WritePythonFile(const plFileName &fileName, const plFileName &path, hsStrea
         // and create a python file name that is without the ".py"
         PyObject* fModule = PythonInterface::CreateModule(fileName.AsString().c_str());
         // run the code
-        if (PythonInterface::RunPYC(pythonCode, fModule) )
+        if (PythonInterface::RunPYC(pythonCode, fModule))
         {
             // set the name of the file (in the global dictionary of the module)
             PyObject* dict = PyModule_GetDict(fModule);
@@ -135,13 +135,13 @@ void WritePythonFile(const plFileName &fileName, const plFileName &path, hsStrea
             //  - create instance of class
             PyObject* getID = PythonInterface::GetModuleItem("glue_getBlockID",fModule);
             bool foundID = false;
-            if ( getID!=nil && PyCallable_Check(getID) )
+            if (getID!=nil && PyCallable_Check(getID))
             {
                 PyObject* id = PyObject_CallFunction(getID,nil);
-                if ( id && PyInt_Check(id) )
+                if (id && PyInt_Check(id))
                     foundID = true;
             }
-            if ( foundID == false )     // then there was an error or no ID or somethin'
+            if (foundID == false)     // then there was an error or no ID or somethin'
             {
                 // oops, this is not a PythonFile modifier
                 // re-read the source and compile it without the glue code this time

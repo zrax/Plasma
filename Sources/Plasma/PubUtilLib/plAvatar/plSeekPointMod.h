@@ -64,8 +64,8 @@ public:
     const char * GetName() { return fName; };
     void SetName(char * name) { fName = name; };
 
-    CLASSNAME_REGISTER( plSeekPointMod );
-    GETINTERFACE_ANY( plSeekPointMod, plMultiModifier );
+    CLASSNAME_REGISTER(plSeekPointMod);
+    GETINTERFACE_ANY(plSeekPointMod, plMultiModifier);
     
     virtual void AddTarget(plSceneObject* so);
 

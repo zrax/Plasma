@@ -87,11 +87,11 @@ bool plSharedMesh::MsgReceive(plMessage* msg)
         plMorphDataSet *set = plMorphDataSet::ConvertNoRef(refMsg->GetRef());
         if (set)
         {
-            if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+            if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
             {
                 fMorphSet = plMorphDataSet::ConvertNoRef(refMsg->GetRef());
             }
-            else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+            else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
             {
                 fMorphSet = nil;
             }

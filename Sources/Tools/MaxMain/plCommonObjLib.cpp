@@ -71,24 +71,24 @@ class plCommonObjLibList
 
         plCommonObjLibList() { fRefCount = 0; }
 
-        void    Add( plCommonObjLib *lib )
+        void    Add(plCommonObjLib *lib)
         {
-            fLibs.Append( lib );
+            fLibs.Append(lib);
             fRefCount++;
         }
 
-        bool    Remove( plCommonObjLib *lib )
+        bool    Remove(plCommonObjLib *lib)
         {
-            int idx = fLibs.Find( lib );
-            if( idx != fLibs.kMissingIndex )
-                fLibs.Remove( idx );
+            int idx = fLibs.Find(lib);
+            if (idx != fLibs.kMissingIndex)
+                fLibs.Remove(idx);
             else
             {
-                hsAssert( false, "Common Object Lib not found in list upon deletion. Are you misusing this class? Tsk tsk!" );
+                hsAssert(false, "Common Object Lib not found in list upon deletion. Are you misusing this class? Tsk tsk!");
             }
 
             fRefCount--;
-            return ( fRefCount == 0 ) ? true : false;
+            return (fRefCount == 0) ? true : false;
         }
 };
 
@@ -96,16 +96,16 @@ plCommonObjLibList  *plCommonObjLib::fLibList = nil;
 
 uint32_t  plCommonObjLib::GetNumLibs()
 {
-    return ( fLibList != nil ) ? fLibList->fLibs.GetCount() : 0;
+    return (fLibList != nil) ? fLibList->fLibs.GetCount() : 0;
 }
 
-plCommonObjLib  *plCommonObjLib::GetLib( uint32_t idx )
+plCommonObjLib  *plCommonObjLib::GetLib(uint32_t idx)
 {
-    if( fLibList == nil )
+    if (fLibList == nil)
         return nil;
 
-    if( idx < fLibList->fLibs.GetCount() )
-        return fLibList->fLibs[ idx ];
+    if (idx < fLibList->fLibs.GetCount())
+        return fLibList->fLibs[idx];
 
     return nil;
 }
@@ -118,11 +118,11 @@ plCommonObjLib  *plCommonObjLib::GetLib( uint32_t idx )
 plCommonObjLib::plCommonObjLib()
 {
     // Make sure we have a list to add ourselves to
-    if( fLibList == nil )
+    if (fLibList == nil)
         fLibList = new plCommonObjLibList();
 
     // Add ourselves to the list of libs
-    fLibList->Add( this );
+    fLibList->Add(this);
 }
 
 plCommonObjLib::~plCommonObjLib()
@@ -130,7 +130,7 @@ plCommonObjLib::~plCommonObjLib()
     ClearObjectList();
 
     // Remove ourselves from the list of libs
-    if( fLibList->Remove( this ) )
+    if (fLibList->Remove(this))
     {
         // List is no longer needed
         delete fLibList;
@@ -151,25 +151,25 @@ void    plCommonObjLib::ClearObjectList()
 
 
     // Unref our object list, so they'll go away properly
-    for( i = 0; i < fObjects.GetCount(); i++ )
-        fObjects[ i ]->GetKey()->UnRefObject();
+    for (i = 0; i < fObjects.GetCount(); i++)
+        fObjects[i]->GetKey()->UnRefObject();
     fObjects.Reset();
 }
 
 //// AddObject ///////////////////////////////////////////////////////////////
 //  Adds the given object to our lib. The object must have a key already.
 
-void    plCommonObjLib::AddObject( hsKeyedObject *object )
+void    plCommonObjLib::AddObject(hsKeyedObject *object)
 {
-    if( object == nil || object->GetKey() == nil )
+    if (object == nil || object->GetKey() == nil)
     {
-        hsAssert( false, "Trying to add an object to a commonLib that doesn't have a key" );
+        hsAssert(false, "Trying to add an object to a commonLib that doesn't have a key");
         return;
     }
 
     // Ref it so it won't go away on us
     object->GetKey()->RefObject();
-    fObjects.Append( object );
+    fObjects.Append(object);
 }
 
 //// RemoveObjectAndKey //////////////////////////////////////////////////////
@@ -177,38 +177,38 @@ void    plCommonObjLib::AddObject( hsKeyedObject *object )
 //  this function call, the key should no longer exist in the registry and be
 //  free to use elsewhere.
 
-bool    plCommonObjLib::RemoveObjectAndKey( plKey &key )
+bool    plCommonObjLib::RemoveObjectAndKey(plKey &key)
 {
     if (!key)
     {
-        hsAssert( false, "Received RemoveObjectAndKey() call for a key that is invalid. Nillifying key anyway." );
+        hsAssert(false, "Received RemoveObjectAndKey() call for a key that is invalid. Nillifying key anyway.");
         key = nil;
         return true;
     }
-    hsKeyedObject *object = hsKeyedObject::ConvertNoRef( key->ObjectIsLoaded() );
-    if( object == nil )
+    hsKeyedObject *object = hsKeyedObject::ConvertNoRef(key->ObjectIsLoaded());
+    if (object == nil)
     {
-        hsAssert( false, "Received RemoveObjectAndKey() call for a key that isn't loaded. Nillifying key anyway." );
+        hsAssert(false, "Received RemoveObjectAndKey() call for a key that isn't loaded. Nillifying key anyway.");
         key = nil;
         return true;
     }
 
-    int idx = fObjects.Find( object );
-    if( idx == fObjects.kMissingIndex )
+    int idx = fObjects.Find(object);
+    if (idx == fObjects.kMissingIndex)
     {
-        hsAssert( false, "Trying to RemoveObjectAndKey() for a common object not in the lib." );
+        hsAssert(false, "Trying to RemoveObjectAndKey() for a common object not in the lib.");
         key = nil;
         return true;
     }
 
     // Unref and remove from our list
-    fObjects[ idx ]->GetKey()->UnRefObject();
-    fObjects.Remove( idx );
+    fObjects[idx]->GetKey()->UnRefObject();
+    fObjects.Remove(idx);
 
     // Nuke out the key and its object
-    if( !plPluginResManager::ResMgr()->NukeKeyAndObject( key ) )
+    if (!plPluginResManager::ResMgr()->NukeKeyAndObject(key))
     {
-        hsAssert( false, "Trouble nuking out the key for this texture. Problems abound...." );
+        hsAssert(false, "Trouble nuking out the key for this texture. Problems abound....");
         return false;
     }
 
@@ -221,20 +221,20 @@ bool    plCommonObjLib::RemoveObjectAndKey( plKey &key )
 //  our lib. Returns nil if not found. Use to find out if you already have a
 //  object of a given name that was previously exported.
 
-hsKeyedObject   *plCommonObjLib::FindObject( const ST::string &name, uint16_t classType /* = -1 */ )
+hsKeyedObject   *plCommonObjLib::FindObject(const ST::string &name, uint16_t classType /* = -1 */)
 {
     int     i;
 
 
-    for( i = 0; i < fObjects.GetCount(); i++ )
+    for (i = 0; i < fObjects.GetCount(); i++)
     {
-        const plUoid    &uoid = fObjects[ i ]->GetKey()->GetUoid();
+        const plUoid    &uoid = fObjects[i]->GetKey()->GetUoid();
 
 
-        if( uoid.GetObjectName().compare( name, ST::case_insensitive ) == 0 &&
-            ( classType == (uint16_t)-1 || classType == uoid.GetClassType() ) )
+        if (uoid.GetObjectName().compare(name, ST::case_insensitive) == 0 &&
+            (classType == (uint16_t)-1 || classType == uoid.GetClassType()))
         {
-            return fObjects[ i ];
+            return fObjects[i];
         }
     }
 

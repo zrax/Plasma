@@ -60,10 +60,10 @@ bool plInterestingModifier::IEval(double secs, float del, uint32_t dirty)
 {
     for (int i=0; i < GetNumTargets(); i++)
     {
-        if( GetTarget(i) && GetTarget(i)->GetDrawInterface() )
+        if (GetTarget(i) && GetTarget(i)->GetDrawInterface())
         {
             const hsBounds3Ext& targBnd = GetTarget(i)->GetDrawInterface()->GetWorldBounds();
-            if( targBnd.GetType() == kBoundsNormal )
+            if (targBnd.GetType() == kBoundsNormal)
             {
                 plInterestingModMsg* pMsg = new plInterestingModMsg;
                 pMsg->fPos= GetTarget(i)->GetDrawInterface()->GetWorldBounds().GetCenter();
@@ -72,8 +72,8 @@ bool plInterestingModifier::IEval(double secs, float del, uint32_t dirty)
                 pMsg->fWeight = fInterestWeight;
                 pMsg->fObj = GetTarget(i)->GetKey();
                 pMsg->fType = GetType();
-                pMsg->SetBCastFlag( plMessage::kPropagateToModifiers );
-                plgDispatch::MsgSend( pMsg );
+                pMsg->SetBCastFlag(plMessage::kPropagateToModifiers);
+                plgDispatch::MsgSend(pMsg);
             }
         }
     }

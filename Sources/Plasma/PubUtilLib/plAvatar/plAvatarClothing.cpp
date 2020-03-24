@@ -292,7 +292,7 @@ bool plClothingItem::MsgReceive(plMessage* msg)
         plMipmap *tex = plMipmap::ConvertNoRef(eMsg->GetRef());
         if (tex)
         {
-            if( eMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+            if (eMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
             {
                 if (fTextures.GetCount() <= eMsg->fWhich)
                     fTextures.ExpandAndZero(eMsg->fWhich + 1);
@@ -312,7 +312,7 @@ bool plClothingItem::MsgReceive(plMessage* msg)
 
                 fTextures.Get(eMsg->fWhich)[eMsg->fLayer] = tex;
             }
-            else if( eMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+            else if (eMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
             {
                 fTextures.Get(eMsg->fWhich)[eMsg->fLayer] = nil;
             }
@@ -328,9 +328,9 @@ bool plClothingItem::MsgReceive(plMessage* msg)
         {
             if (refMsg->fWhich >= 0 && refMsg->fWhich < kMaxNumLODLevels)
             {
-                if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+                if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
                     fMeshes[refMsg->fWhich] = mesh;
-                else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+                else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
                     fMeshes[refMsg->fWhich] = nil;
             }
             return true;
@@ -339,9 +339,9 @@ bool plClothingItem::MsgReceive(plMessage* msg)
         plMipmap *thumbnail = plMipmap::ConvertNoRef(refMsg->GetRef());
         if (thumbnail)
         {
-            if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+            if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
                 fThumbnail = thumbnail;
-            else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+            else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
                 fThumbnail = nil;
             return true;
         }
@@ -349,9 +349,9 @@ bool plClothingItem::MsgReceive(plMessage* msg)
         plClothingItem *accessory = plClothingItem::ConvertNoRef(refMsg->GetRef());
         if (accessory)
         {
-            if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+            if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
                 fAccessory = accessory;
-            else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+            else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
                 fAccessory = nil;
             return true;
         }
@@ -397,11 +397,11 @@ bool plClothingBase::MsgReceive(plMessage* msg)
     plGenRefMsg *refMsg = plGenRefMsg::ConvertNoRef(msg);
     if (refMsg)
     {
-        if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+        if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
         {
             fBaseTexture = plMipmap::ConvertNoRef(refMsg->GetRef());
         }
-        else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+        else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
         {
             fBaseTexture = nil;
         }
@@ -447,7 +447,7 @@ void plClothingOutfit::AddItem(plClothingItem *item, bool update /* = true */, b
     msg->fItemKey = item->GetKey();
     if (broadcast)
         msg->SetBCastFlag(plMessage::kNetPropagate);
-    if ( netForce )
+    if (netForce)
     {
         // also doesn't make much sense to not net propagate netForced messages
         msg->SetBCastFlag(plMessage::kNetPropagate);
@@ -478,7 +478,7 @@ void plClothingOutfit::RemoveItem(plClothingItem *item, bool update /* = true */
     msg->AddReceiver(GetKey());
     msg->AddCommand(plClothingMsg::kRemoveItem);
     msg->SetBCastFlag(plMessage::kNetPropagate);
-    if ( netForce )
+    if (netForce)
         msg->SetBCastFlag(plMessage::kNetForce);
     msg->fItemKey = item->GetKey();
     if (update)
@@ -1165,7 +1165,7 @@ bool plClothingOutfit::ReadItems(hsStream* s, hsResMgr* mgr, bool broadcast /* =
     int i;
     for (i = 0; i < numItems; i++)
     {
-        plKey key = mgr->ReadKey( s );
+        plKey key = mgr->ReadKey(s);
         hsColorRGBA color;
         hsColorRGBA color2;
         color.Read(s);
@@ -1173,14 +1173,14 @@ bool plClothingOutfit::ReadItems(hsStream* s, hsResMgr* mgr, bool broadcast /* =
         
         // Make sure to read everything in before hitting this and possibly skipping to
         // the next item, lest we disrupt the stream.
-        if( key == nil )
+        if (key == nil)
         {
-            hsAssert( false, "Nil item in plClothingOutfit::ReadItems(). The vault probably contains a key with a plLocation that's moved since then. Tsk, tsk." );
+            hsAssert(false, "Nil item in plClothingOutfit::ReadItems(). The vault probably contains a key with a plLocation that's moved since then. Tsk, tsk.");
             result = false;
             continue;
         }
 
-        plClothingItem *item = plClothingItem::ConvertNoRef( key->GetObjectPtr() );
+        plClothingItem *item = plClothingItem::ConvertNoRef(key->GetObjectPtr());
         AddItem(item, false, broadcast);
         TintItem(item, color.r, color.g, color.b, false, broadcast, false, true, plClothingElement::kLayerTint1);
         TintItem(item, color2.r, color2.g, color2.b, false, broadcast, false, true, plClothingElement::kLayerTint2);
@@ -1233,9 +1233,9 @@ bool plClothingOutfit::MsgReceive(plMessage* msg)
         plLayer *layer = plLayer::ConvertNoRef(refMsg->GetRef());
         if (layer)
         {
-            if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+            if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
                 fTargetLayer = layer;
-            else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+            else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
                 fTargetLayer = nil;
             
             return true;
@@ -1243,11 +1243,11 @@ bool plClothingOutfit::MsgReceive(plMessage* msg)
         plClothingItem *item = plClothingItem::ConvertNoRef(refMsg->GetRef());
         if (item)
         {
-            if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest) )
+            if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest))
             {
                 IAddItem(item);
             }
-            else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+            else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
             {
                 IRemoveItem(item);
             }
@@ -1256,9 +1256,9 @@ bool plClothingOutfit::MsgReceive(plMessage* msg)
         plClothingBase *base = plClothingBase::ConvertNoRef(refMsg->GetRef());
         if (base)
         {
-            if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+            if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
                 fBase = base;
-            else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+            else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
                 fBase = nil;
             
             return true;
@@ -1267,9 +1267,9 @@ bool plClothingOutfit::MsgReceive(plMessage* msg)
         hsGMaterial *mat = hsGMaterial::ConvertNoRef(refMsg->GetRef());
         if (mat)
         {
-            if( refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace) )
+            if (refMsg->GetContext() & (plRefMsg::kOnCreate|plRefMsg::kOnRequest|plRefMsg::kOnReplace))
                 fMaterial = mat;
-            else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+            else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
                 fMaterial = nil;
         }
     }
@@ -1834,11 +1834,11 @@ bool plClothingMgr::MsgReceive(plMessage* msg)
         plClothingItem *item = plClothingItem::ConvertNoRef(refMsg->GetRef());
         if (item)
         {
-            if( refMsg->GetContext() & (plRefMsg::kOnCreate) )
+            if (refMsg->GetContext() & (plRefMsg::kOnCreate))
             {
                 IAddItem(item);
             }
-            else if( refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove) )
+            else if (refMsg->GetContext() & (plRefMsg::kOnDestroy|plRefMsg::kOnRemove))
             {
                 fItems.RemoveItem(item);
             }

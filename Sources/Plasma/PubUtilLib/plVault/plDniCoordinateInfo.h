@@ -64,22 +64,22 @@ protected:
 public:
     plDniCoordinateInfo();
 
-    CLASSNAME_REGISTER( plDniCoordinateInfo );
-    GETINTERFACE_ANY( plDniCoordinateInfo, plCreatable );
+    CLASSNAME_REGISTER(plDniCoordinateInfo);
+    GETINTERFACE_ANY(plDniCoordinateInfo, plCreatable);
 
     int GetHSpans() const { return fHSpans;}
-    void    SetHSpans( int v ) { fHSpans = v; }
+    void    SetHSpans(int v) { fHSpans = v; }
     int GetVSpans() const { return fVSpans;}
-    void    SetVSpans( int v ) { fVSpans = v;}
+    void    SetVSpans(int v) { fVSpans = v;}
     int GetTorans() const { return fTorans; }
-    void    SetTorans( int v ) { fTorans = v; }
+    void    SetTorans(int v) { fTorans = v; }
 
-    void    CopyFrom( const plDniCoordinateInfo * other );
-    void    Read( hsStream* s, hsResMgr* mgr );
-    void    Write( hsStream* s, hsResMgr* mgr );
+    void    CopyFrom(const plDniCoordinateInfo * other);
+    void    Read(hsStream* s, hsResMgr* mgr);
+    void    Write(hsStream* s, hsResMgr* mgr);
 
     // debug
-    ST::string AsString( int level=0 ) const;
+    ST::string AsString(int level=0) const;
 };
 
 

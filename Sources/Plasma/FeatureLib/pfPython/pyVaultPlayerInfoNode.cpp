@@ -71,7 +71,7 @@ pyVaultPlayerInfoNode::pyVaultPlayerInfoNode()
 //==================================================================
 // class RelVaultNode : public plVaultNode
 //
-void pyVaultPlayerInfoNode::Player_SetPlayerID( uint32_t plyrid )
+void pyVaultPlayerInfoNode::Player_SetPlayerID(uint32_t plyrid)
 {
     if (!fNode)
         return;
@@ -124,7 +124,7 @@ ST::string pyVaultPlayerInfoNode::Player_GetAgeInstanceName() const
     return ST::null;
 }
 
-void pyVaultPlayerInfoNode::Player_SetAgeGuid( const char * guidtext)
+void pyVaultPlayerInfoNode::Player_SetAgeGuid(const char * guidtext)
 {
     if (!fNode)
         return;
@@ -144,7 +144,7 @@ plUUID pyVaultPlayerInfoNode::Player_GetAgeGuid() const
 }
 
 // online status
-void pyVaultPlayerInfoNode::Player_SetOnline( bool b )
+void pyVaultPlayerInfoNode::Player_SetOnline(bool b)
 {
     if (!fNode)
         return;

@@ -58,30 +58,30 @@ class DTLBitmapDlgProc : public ParamMap2UserDlgProc
 {
 public:
     /// Called to update the controls of the dialog
-    virtual void    Update( TimeValue t, Interval &valid, IParamMap2 *map )
+    virtual void    Update(TimeValue t, Interval &valid, IParamMap2 *map)
     {
         IParamBlock2    *pblock;
         BitmapInfo      bi;
         ICustButton     *bmSelectBtn;
 
 
-        ParamMap2UserDlgProc::Update( t, valid, map );
+        ParamMap2UserDlgProc::Update(t, valid, map);
 
         pblock = map->GetParamBlock();
 
         plDynamicTextLayer *layer = (plDynamicTextLayer *)map->GetParamBlock()->GetOwner();
 
-        bmSelectBtn = GetICustButton( GetDlgItem( map->GetHWnd(), IDC_INITIMAGE ) );
-        PBBitmap *pbbm = pblock->GetBitmap( plDynamicTextLayer::kBmpInitBitmap );
-        if( pbbm )
-            bmSelectBtn->SetText( (TCHAR *)pbbm->bi.Filename() );
+        bmSelectBtn = GetICustButton(GetDlgItem(map->GetHWnd(), IDC_INITIMAGE));
+        PBBitmap *pbbm = pblock->GetBitmap(plDynamicTextLayer::kBmpInitBitmap);
+        if (pbbm)
+            bmSelectBtn->SetText((TCHAR *)pbbm->bi.Filename());
         else
-            bmSelectBtn->SetText( _T( "None" ) );
-        ReleaseICustButton( bmSelectBtn );
+            bmSelectBtn->SetText(_T("None"));
+        ReleaseICustButton(bmSelectBtn);
     }
 
     /// Clamp texture sizes to a power of 2
-    void    IClampTexSizeSpinner( TimeValue t, IParamMap2 *map )
+    void    IClampTexSizeSpinner(TimeValue t, IParamMap2 *map)
     {
     }
 
@@ -98,28 +98,28 @@ public:
         /// infinite loop updating the values. Not good.
         case CC_SPINNER_CHANGE:
             
-            if( LOWORD( wParam ) == IDC_EXPORTWIDTH_SPINNER )
-                IClampTexSizeSpinner( t, map, true );
+            if (LOWORD(wParam) == IDC_EXPORTWIDTH_SPINNER)
+                IClampTexSizeSpinner(t, map, true);
 
-            else if( LOWORD( wParam ) == IDC_EXPORTHEIGHT_SPINNER )
-                IClampTexSizeSpinner( t, map, false );
+            else if (LOWORD(wParam) == IDC_EXPORTHEIGHT_SPINNER)
+                IClampTexSizeSpinner(t, map, false);
 
             break;
 
         case WM_COMMAND:
 
-            if( HIWORD( wParam ) == EN_CHANGE && LOWORD( wParam ) == IDC_EXPORTWIDTH )
-                IClampTexSizeSpinner( t, map, true );
+            if (HIWORD(wParam) == EN_CHANGE && LOWORD(wParam) == IDC_EXPORTWIDTH)
+                IClampTexSizeSpinner(t, map, true);
 
-            else if( HIWORD( wParam ) == EN_CHANGE && LOWORD( wParam ) == IDC_EXPORTHEIGHT )
-                IClampTexSizeSpinner( t, map, false );
+            else if (HIWORD(wParam) == EN_CHANGE && LOWORD(wParam) == IDC_EXPORTHEIGHT)
+                IClampTexSizeSpinner(t, map, false);
 
-            else if( HIWORD( wParam ) == BN_CLICKED && LOWORD( wParam ) == IDC_INITIMAGE_RELOAD )
+            else if (HIWORD(wParam) == BN_CLICKED && LOWORD(wParam) == IDC_INITIMAGE_RELOAD)
             {
                 // TEMP
                 IParamBlock2 *pblock = map->GetParamBlock();
-                PBBitmap *pbbm = pblock->GetBitmap( plDynamicTextLayer::kBmpInitBitmap );
-                if( pbbm )
+                PBBitmap *pbbm = pblock->GetBitmap(plDynamicTextLayer::kBmpInitBitmap);
+                if (pbbm)
                 {
                     plDynamicTextLayer *layer = (plDynamicTextLayer *)map->GetParamBlock()->GetOwner();
                     layer->RefreshBitmaps();
@@ -128,22 +128,22 @@ public:
                 return TRUE;
             }
 
-            else if( LOWORD( wParam ) == IDC_INITIMAGE )
+            else if (LOWORD(wParam) == IDC_INITIMAGE)
             {
                 plPlasmaMAXLayer *layer = (plPlasmaMAXLayer *)map->GetParamBlock()->GetOwner();
-                if( layer == nil )
+                if (layer == nil)
                     return FALSE;
                 BOOL selectedNewBitmap = layer->HandleBitmapSelection();
-                if( selectedNewBitmap )
+                if (selectedNewBitmap)
                 {
                     IParamBlock2 *pblock = map->GetParamBlock();
                     
-                    ICustButton *bmSelectBtn = GetICustButton( GetDlgItem( hWnd, IDC_INITIMAGE ) );
+                    ICustButton *bmSelectBtn = GetICustButton(GetDlgItem(hWnd, IDC_INITIMAGE));
                     PBBitmap *pbbm = layer->GetPBBitmap();
                     
-                    bmSelectBtn->SetText( pbbm != nil ? (TCHAR *)pbbm->bi.Filename() : "");
+                    bmSelectBtn->SetText(pbbm != nil ? (TCHAR *)pbbm->bi.Filename() : "");
                     
-                    ReleaseICustButton( bmSelectBtn );
+                    ReleaseICustButton(bmSelectBtn);
                 }
 
                 return TRUE;
@@ -157,13 +157,13 @@ public:
 
 protected:
     /// Clamp texture sizes to a power of 2
-    void    IClampTexSizeSpinner( TimeValue t, IParamMap2 *map, bool clampWidth )
+    void    IClampTexSizeSpinner(TimeValue t, IParamMap2 *map, bool clampWidth)
     {
         IParamBlock2 *pblock = map->GetParamBlock();
         ParamID     clampNew, clampOld;
         ParamID     otherNew, otherOld;
 
-        if( clampWidth )
+        if (clampWidth)
         {
             clampNew = plDynamicTextLayer::kBmpExportWidth; clampOld = plDynamicTextLayer::kBmpExportLastWidth;
             otherNew = plDynamicTextLayer::kBmpExportHeight; otherOld = plDynamicTextLayer::kBmpExportLastHeight;
@@ -174,32 +174,32 @@ protected:
             otherNew = plDynamicTextLayer::kBmpExportWidth; otherOld = plDynamicTextLayer::kBmpExportLastWidth;
         }
 
-        int     lastVal = pblock->GetInt( clampOld, t );
-        int     tempVal, newVal = pblock->GetInt( clampNew, t );
+        int     lastVal = pblock->GetInt(clampOld, t);
+        int     tempVal, newVal = pblock->GetInt(clampNew, t);
 
-        if( newVal < lastVal )
+        if (newVal < lastVal)
         {
             lastVal = newVal;
-            for( tempVal = 1; tempVal <= newVal; tempVal <<= 1 );
+            for (tempVal = 1; tempVal <= newVal; tempVal <<= 1);
             newVal = tempVal >> 1;
         }
         else
         {
             lastVal = newVal;
-            for( tempVal = 1; tempVal < newVal; tempVal <<= 1 );
+            for (tempVal = 1; tempVal < newVal; tempVal <<= 1);
             newVal = tempVal;
         }
 
-        pblock->SetValue( clampNew, t, newVal );
-        pblock->SetValue( clampOld, t, newVal );
+        pblock->SetValue(clampNew, t, newVal);
+        pblock->SetValue(clampOld, t, newVal);
     }
 
-    int     IFloorPow2( int value )
+    int     IFloorPow2(int value)
     {
         int     v;
 
 
-        for( v = 1; v <= value; v <<= 1 );
+        for (v = 1; v <= value; v <<= 1);
         return v >> 1;
     }
 };
@@ -215,18 +215,18 @@ class DTLPBAccessor : public PBAccessor
 public:
     void Set(PB2Value& val, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t)
     {
-        if( !owner )
+        if (!owner)
             return;
 
         plDynamicTextLayer  *layer = (plDynamicTextLayer *)owner;
 
-        IParamBlock2 *pb = owner->GetParamBlockByID( plDynamicTextLayer::kBlkBitmap );
-        switch( id )
+        IParamBlock2 *pb = owner->GetParamBlockByID(plDynamicTextLayer::kBlkBitmap);
+        switch (id)
         {
             case plDynamicTextLayer::kBmpInitBitmap:
             case plDynamicTextLayer::kBmpUseInitImage:
                 if (pb->GetMap())
-                    pb->GetMap()->Invalidate( id );
+                    pb->GetMap()->Invalidate(id);
 
                 layer->IChanged();
 
@@ -295,7 +295,7 @@ static ParamBlockDesc2 gBitmapParamBlk
         p_accessor,     &gDTLPBAccessor,
         end,
 
-/*      plGUIButtonComponent::kRefAnimate,  _T( "animate" ), TYPE_BOOL, 0, 0,
+/*      plGUIButtonComponent::kRefAnimate,  _T("animate"), TYPE_BOOL, 0, 0,
             p_ui, plGUIControlBase::kRollMain, TYPE_SINGLECHEKBOX, IDC_GUI_ANIMATE,
             p_default, FALSE,
             p_enable_ctrls, 1, plGUIButtonComponent::kRefAnimation,

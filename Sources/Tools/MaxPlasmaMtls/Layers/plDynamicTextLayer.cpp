@@ -86,7 +86,7 @@ plDynamicTextLayer::plDynamicTextLayer() :
 
 plDynamicTextLayer::~plDynamicTextLayer()
 {
-    if( fInitBitmap )
+    if (fInitBitmap)
         fInitBitmap->DeleteThis();
 
     IDiscardTexHandle();
@@ -186,8 +186,8 @@ void plDynamicTextLayer::SetReference(int i, RefTargetHandle rtarg)
     {
         case kRefUVGen:
             fUVGen = (UVGen *)rtarg;
-            if( fUVGen )
-                fUVGen->Update( TimeValue( 0 ), garbage );
+            if (fUVGen)
+                fUVGen->Update(TimeValue(0), garbage);
             break;
         case kRefBitmap:
             fBitmapPB = (IParamBlock2 *)rtarg;
@@ -334,10 +334,10 @@ IOResult plDynamicTextLayer::Load(ILoad *iload)
 
 inline Point2 CompUV(float x, float y, float z)
 {
-    return Point2( 0.5f * ( x / z + 1.0f ), 0.5f * ( y / z + 1.0f ) );
+    return Point2(0.5f * (x / z + 1.0f), 0.5f * (y / z + 1.0f));
 }
 
-Bitmap  *plDynamicTextLayer::GetBitmap( TimeValue t )
+Bitmap  *plDynamicTextLayer::GetBitmap(TimeValue t)
 {
     return fInitBitmap;
 }
@@ -355,30 +355,30 @@ AColor plDynamicTextLayer::EvalColor(ShadeContext& sc)
         sc.SetGBufferID(gbufID);
 
     // Evaluate the Bitmap
-    if( fBitmapPB->GetInt( kBmpUseInitImage ) && fInitBitmap )
+    if (fBitmapPB->GetInt(kBmpUseInitImage) && fInitBitmap)
     {
-        plBMSampler mysamp( this, fInitBitmap );
-        color = fUVGen->EvalUVMap( sc, &mysamp, TRUE );
+        plBMSampler mysamp(this, fInitBitmap);
+        color = fUVGen->EvalUVMap(sc, &mysamp, TRUE);
     }
     else
         color.White();
 
     // Invert color if specified
-    if( fBitmapPB->GetInt( kBmpInvertColor ) )
+    if (fBitmapPB->GetInt(kBmpInvertColor))
     {
         color.r = 1.0f - color.r;
         color.g = 1.0f - color.g;
         color.b = 1.0f - color.b;
     }
     // Discard color if specified
-    if( fBitmapPB->GetInt( kBmpDiscardColor ) )
+    if (fBitmapPB->GetInt(kBmpDiscardColor))
         color.r = color.g = color.b = 1.0f;
 
     // Invert alpha if specified
-    if( fBitmapPB->GetInt( kBmpInvertAlpha ) )
+    if (fBitmapPB->GetInt(kBmpInvertAlpha))
         color.a = 1.0f - color.a;
     // Discard alpha if specified
-    if( fBitmapPB->GetInt( kBmpDiscardAlpha ) )
+    if (fBitmapPB->GetInt(kBmpDiscardAlpha))
         color.a = 1.0f;
 
     sc.PutCache(this, color);
@@ -398,7 +398,7 @@ Point3 plDynamicTextLayer::EvalNormalPerturb(ShadeContext& sc)
 
 ULONG plDynamicTextLayer::LocalRequirements(int subMtlNum)
 {
-    return fUVGen->Requirements( subMtlNum );
+    return fUVGen->Requirements(subMtlNum);
 }
 
 void plDynamicTextLayer::IDiscardTexHandle()
@@ -426,60 +426,60 @@ BITMAPINFO *plDynamicTextLayer::GetVPDisplayDIB(TimeValue t, TexHandleMaker& thm
 
     // Create a bitmap to write into via Windows
     BITMAPINFO tempBMI;
-    memset( &tempBMI.bmiHeader, 0, sizeof( BITMAPINFOHEADER ) );
-    tempBMI.bmiHeader.biSize = sizeof( BITMAPINFOHEADER );
-    tempBMI.bmiHeader.biWidth = fBitmapPB->GetInt( kBmpExportWidth );
-    tempBMI.bmiHeader.biHeight = -(int)fBitmapPB->GetInt( kBmpExportHeight );
+    memset(&tempBMI.bmiHeader, 0, sizeof(BITMAPINFOHEADER));
+    tempBMI.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+    tempBMI.bmiHeader.biWidth = fBitmapPB->GetInt(kBmpExportWidth);
+    tempBMI.bmiHeader.biHeight = -(int)fBitmapPB->GetInt(kBmpExportHeight);
     tempBMI.bmiHeader.biPlanes = 1;
     tempBMI.bmiHeader.biCompression = BI_RGB;
     tempBMI.bmiHeader.biBitCount = 32;
 
     DWORD       *bitmapBits;
-    HDC winDC = CreateCompatibleDC( nil );
-    HBITMAP bitmap = CreateDIBSection( winDC, &tempBMI, DIB_RGB_COLORS, (void **)&bitmapBits, nil, 0 );
+    HDC winDC = CreateCompatibleDC(nil);
+    HBITMAP bitmap = CreateDIBSection(winDC, &tempBMI, DIB_RGB_COLORS, (void **)&bitmapBits, nil, 0);
 
-    HBITMAP old = (HBITMAP)SelectObject( winDC, bitmap );
+    HBITMAP old = (HBITMAP)SelectObject(winDC, bitmap);
 
     // Write into it now
     RECT    r;
-    SetRect( &r, 0, 0, fBitmapPB->GetInt( kBmpExportWidth ) - 1, fBitmapPB->GetInt( kBmpExportHeight ) - 1 );
-    HBRUSH brush = CreateSolidBrush( RGB( 255, 0, 0 ) );
-    FrameRect( winDC, &r, brush );
-    DeleteObject( brush );
+    SetRect(&r, 0, 0, fBitmapPB->GetInt(kBmpExportWidth) - 1, fBitmapPB->GetInt(kBmpExportHeight) - 1);
+    HBRUSH brush = CreateSolidBrush(RGB(255, 0, 0));
+    FrameRect(winDC, &r, brush);
+    DeleteObject(brush);
 
-    SetMapMode( winDC, MM_TEXT );
-    SetBkMode( winDC, TRANSPARENT );
-    SetTextAlign( winDC, TA_TOP | TA_LEFT );
+    SetMapMode(winDC, MM_TEXT);
+    SetBkMode(winDC, TRANSPARENT);
+    SetTextAlign(winDC, TA_TOP | TA_LEFT);
 
     // Background letters
-    int nHeight = -MulDiv( 72, GetDeviceCaps( winDC, LOGPIXELSY ), 72 );
-    HFONT winFont = CreateFont( nHeight, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
-                        CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH, "Times New Roman" );
-    if( winFont != nil )
+    int nHeight = -MulDiv(72, GetDeviceCaps(winDC, LOGPIXELSY), 72);
+    HFONT winFont = CreateFont(nHeight, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
+                        CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH, "Times New Roman");
+    if (winFont != nil)
     {
-        HFONT origFont = (HFONT)SelectObject( winDC, winFont );
-        SetTextColor( winDC, RGB( 32, 32, 32 ) );
+        HFONT origFont = (HFONT)SelectObject(winDC, winFont);
+        SetTextColor(winDC, RGB(32, 32, 32));
         char str2[] = "ABCDEFG";
-        ::TextOut( winDC, 0, 0, str2, strlen( str2 ) );
-        SelectObject( winDC, origFont );
-        DeleteObject( winFont );
+        ::TextOut(winDC, 0, 0, str2, strlen(str2));
+        SelectObject(winDC, origFont);
+        DeleteObject(winFont);
     }
 
-    nHeight = -MulDiv( 8, GetDeviceCaps( winDC, LOGPIXELSY ), 72 );
-    winFont = CreateFont( nHeight, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
-                        CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH, "Arial" );
-    if( winFont != nil )
+    nHeight = -MulDiv(8, GetDeviceCaps(winDC, LOGPIXELSY), 72);
+    winFont = CreateFont(nHeight, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
+                        CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH, "Arial");
+    if (winFont != nil)
     {
-        HFONT origFont = (HFONT)SelectObject( winDC, winFont );
+        HFONT origFont = (HFONT)SelectObject(winDC, winFont);
 
-        SetTextColor( winDC, RGB( 255, 255, 255 ) );
+        SetTextColor(winDC, RGB(255, 255, 255));
         char str[] = "Dynamic Text";
-        ::TextOut( winDC, 0, 0, str, strlen( str ) );
+        ::TextOut(winDC, 0, 0, str, strlen(str));
         char str3[] = "This is 8 point Arial";
-        ::TextOut( winDC, 0, 12, str3, strlen( str3 ) );
+        ::TextOut(winDC, 0, 12, str3, strlen(str3));
 
-        SelectObject( winDC, origFont );
-        DeleteObject( winFont );
+        SelectObject(winDC, origFont);
+        DeleteObject(winFont);
     }
 
 
@@ -487,46 +487,46 @@ BITMAPINFO *plDynamicTextLayer::GetVPDisplayDIB(TimeValue t, TexHandleMaker& thm
     Bitmap  *maxBmp;
     BitmapInfo maxInfo;
 
-    maxInfo.SetType( BMM_TRUE_32 );
-    maxInfo.SetWidth( fBitmapPB->GetInt( kBmpExportWidth ) );
-    maxInfo.SetHeight( fBitmapPB->GetInt( kBmpExportHeight ) );
-    maxInfo.SetFlags( MAP_HAS_ALPHA );
-    maxInfo.SetCustomFlag( 0 );
-    maxBmp = TheManager->Create( &maxInfo );
+    maxInfo.SetType(BMM_TRUE_32);
+    maxInfo.SetWidth(fBitmapPB->GetInt(kBmpExportWidth));
+    maxInfo.SetHeight(fBitmapPB->GetInt(kBmpExportHeight));
+    maxInfo.SetFlags(MAP_HAS_ALPHA);
+    maxInfo.SetCustomFlag(0);
+    maxBmp = TheManager->Create(&maxInfo);
 
-    PixelBuf l64( fBitmapPB->GetInt( kBmpExportWidth ) );
-    for( int y = 0; y < fBitmapPB->GetInt( kBmpExportHeight ); y++ )
+    PixelBuf l64(fBitmapPB->GetInt(kBmpExportWidth));
+    for (int y = 0; y < fBitmapPB->GetInt(kBmpExportHeight); y++)
     {
         BMM_Color_64 *p64 = l64.Ptr();
-        for( int x = 0; x < fBitmapPB->GetInt( kBmpExportWidth ); x++, p64++ )
+        for (int x = 0; x < fBitmapPB->GetInt(kBmpExportWidth); x++, p64++)
         {
-            COLORREF color = GetPixel( winDC, x, y );
+            COLORREF color = GetPixel(winDC, x, y);
 
-            if( color == RGB( 0, 0, 0 ) )
+            if (color == RGB(0, 0, 0))
             {
-                if( fBitmapPB->GetInt( kBmpUseInitImage ) && fInitBitmap != nil )
-                    fInitBitmap->GetLinearPixels( x, y, 1, p64 );
+                if (fBitmapPB->GetInt(kBmpUseInitImage) && fInitBitmap != nil)
+                    fInitBitmap->GetLinearPixels(x, y, 1, p64);
                 else
                     p64->r = p64->g = p64->b = 0.f;
             }
             else
             {
-                p64->r = GetRValue( color ) << 8;
-                p64->g = GetGValue( color ) << 8;
-                p64->b = GetBValue( color ) << 8;
+                p64->r = GetRValue(color) << 8;
+                p64->g = GetGValue(color) << 8;
+                p64->b = GetBValue(color) << 8;
             }
             p64->a = 0xffff;
         }
-        maxBmp->PutPixels( 0, y, fBitmapPB->GetInt( kBmpExportWidth ), l64.Ptr() );
+        maxBmp->PutPixels(0, y, fBitmapPB->GetInt(kBmpExportWidth), l64.Ptr());
     }
 
     // Done with these now
-    SelectObject( winDC, old );
-    DeleteObject( bitmap );
-    DeleteObject( winDC );
+    SelectObject(winDC, old);
+    DeleteObject(bitmap);
+    DeleteObject(winDC);
 
     // Convert to a BITMAPINFO. Go figure.
-    bmi = thmaker.BitmapToDIB( maxBmp, 0, xflags, forceW, forceH );
+    bmi = thmaker.BitmapToDIB(maxBmp, 0, xflags, forceW, forceH);
 
     return bmi;
 }
@@ -549,31 +549,31 @@ DWORD plDynamicTextLayer::GetActiveTexHandle(TimeValue t, TexHandleMaker& thmake
     }
 }
 
-const char *plDynamicTextLayer::GetTextureName( int which )
+const char *plDynamicTextLayer::GetTextureName(int which)
 {
-    PBBitmap *pbbm = fBitmapPB->GetBitmap( kBmpInitBitmap );
-    if( pbbm )
+    PBBitmap *pbbm = fBitmapPB->GetBitmap(kBmpInitBitmap);
+    if (pbbm)
         return pbbm->bi.Name();
     return NULL;
 }
 
 void plDynamicTextLayer::ISetPBBitmap(PBBitmap *pbbm, int index /* = 0 */)
 {
-    fBitmapPB->SetValue( (ParamID)kBmpInitBitmap, 0, pbbm );
+    fBitmapPB->SetValue((ParamID)kBmpInitBitmap, 0, pbbm);
 }
 
 PBBitmap *plDynamicTextLayer::GetPBBitmap(int index /* = 0 */)
 {
-    return fBitmapPB->GetBitmap( (ParamID)kBmpInitBitmap );
+    return fBitmapPB->GetBitmap((ParamID)kBmpInitBitmap);
 }
 
 //// GetSamplerInfo ///////////////////////////////////////////////////////////
 //  Virtual function called by plBMSampler to get various things while sampling
 //  the layer's image
 
-bool    plDynamicTextLayer::GetSamplerInfo( plBMSamplerData *samplerData )
+bool    plDynamicTextLayer::GetSamplerInfo(plBMSamplerData *samplerData)
 {
-    if( fBitmapPB->GetInt( (ParamID)kBmpDiscardAlpha ) )
+    if (fBitmapPB->GetInt((ParamID)kBmpDiscardAlpha))
         samplerData->fAlphaSource = plBMSamplerData::kDiscard;
     else
         samplerData->fAlphaSource = plBMSamplerData::kFromTexture;

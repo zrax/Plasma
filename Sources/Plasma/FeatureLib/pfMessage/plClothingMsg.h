@@ -63,8 +63,8 @@ public:
     plClothingMsg() : fCommands(0), fItemKey(nil), fLayer(0), fDelta(0), fWeight(0) { fColor.Set(1.f, 1.f, 1.f, 1.f); }
     ~plClothingMsg() {}
 
-    CLASSNAME_REGISTER( plClothingMsg );
-    GETINTERFACE_ANY( plClothingMsg, plMessage );
+    CLASSNAME_REGISTER(plClothingMsg);
+    GETINTERFACE_ANY(plClothingMsg, plMessage);
 
     enum commands
     {
@@ -106,8 +106,8 @@ public:
         fElementName = name;
     }
 
-    CLASSNAME_REGISTER( plElementRefMsg );
-    GETINTERFACE_ANY( plElementRefMsg, plGenRefMsg );
+    CLASSNAME_REGISTER(plElementRefMsg);
+    GETINTERFACE_ANY(plElementRefMsg, plGenRefMsg);
 };
 
 class plClothingUpdateBCMsg : public plMessage
@@ -116,8 +116,8 @@ public:
     plClothingUpdateBCMsg();
     ~plClothingUpdateBCMsg() {}
 
-    CLASSNAME_REGISTER( plClothingUpdateBCMsg );
-    GETINTERFACE_ANY( plClothingUpdateBCMsg, plMessage );
+    CLASSNAME_REGISTER(plClothingUpdateBCMsg);
+    GETINTERFACE_ANY(plClothingUpdateBCMsg, plMessage);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

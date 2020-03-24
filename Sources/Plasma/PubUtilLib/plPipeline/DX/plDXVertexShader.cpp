@@ -79,13 +79,13 @@ bool plDXVertexShader::VerifyFormat(uint8_t format) const
 IDirect3DVertexShader9 *plDXVertexShader::GetShader(plDXPipeline* pipe)
 {
     HRESULT hr = S_OK;
-    if ( !fHandle )
+    if (!fHandle)
     {
-        if( FAILED(hr = ICreate(pipe)) )
+        if (FAILED(hr = ICreate(pipe)))
             return nil;
     }
 
-    if( FAILED(hr = ISetConstants(pipe)) )
+    if (FAILED(hr = ISetConstants(pipe)))
         return nil;
 
     return fHandle;
@@ -109,9 +109,9 @@ HRESULT plDXVertexShader::ICreate(plDXPipeline* pipe)
     DWORD* shaderCodes = nil;
 
     HRESULT hr = S_OK;
-    if( plShaderTable::LoadFromFile() || !fOwner->GetDecl()->GetCodes() )
+    if (plShaderTable::LoadFromFile() || !fOwner->GetDecl()->GetCodes())
     {
-        if( fOwner->GetDecl()->GetFileName() )
+        if (fOwner->GetDecl()->GetFileName())
         {
             LPD3DXBUFFER compiledShader = nil;
             LPD3DXBUFFER compilationErrors = nil;
@@ -122,7 +122,7 @@ HRESULT plDXVertexShader::ICreate(plDXPipeline* pipe)
                             &compiledShader,
                             &compilationErrors);
 
-            if( FAILED(hr) )
+            if (FAILED(hr))
             {
                 return IOnError(hr, compilationErrors
                         ? reinterpret_cast<const char *>(compilationErrors->GetBufferPointer())
@@ -132,16 +132,16 @@ HRESULT plDXVertexShader::ICreate(plDXPipeline* pipe)
             shaderCodes = (DWORD*)(compiledShader->GetBufferPointer());
         }
     }
-    if( !shaderCodes )
+    if (!shaderCodes)
     {
         shaderCodes = (DWORD*)(fOwner->GetDecl()->GetCodes());
     }
-    if( !shaderCodes )
+    if (!shaderCodes)
         return IOnError(-1, "No file and no compiled codes");
 
     hr = pipe->GetD3DDevice()->CreateVertexShader(shaderCodes, &fHandle);
 
-    if( FAILED(hr) )
+    if (FAILED(hr))
         return IOnError(hr, "Error on CreateVertexShader");
 
     hsAssert(fHandle, "No error, but no vertex shader handle. Grrrr.");
@@ -154,12 +154,12 @@ HRESULT plDXVertexShader::ICreate(plDXPipeline* pipe)
 HRESULT plDXVertexShader::ISetConstants(plDXPipeline* pipe)
 {
     hsAssert(fHandle, "Vertex shader called to set constants without initialization");
-    if( fOwner->GetNumConsts() )
+    if (fOwner->GetNumConsts())
     {
         HRESULT hr = pipe->GetD3DDevice()->SetVertexShaderConstantF(0,
                                         (float*)fOwner->GetConstBasePtr(),
                                         fOwner->GetNumConsts());
-        if( FAILED(hr) )
+        if (FAILED(hr))
             return IOnError(hr, "Failure setting vertex shader constants");
     }
 

@@ -108,7 +108,7 @@ void plFilterCoordInterface::Write(hsStream* stream, hsResMgr* mgr)
 
 void plFilterCoordInterface::IRecalcTransforms()
 {
-    if( !(fFilterMask && fParent) )
+    if (!(fFilterMask && fParent))
     {
         plCoordinateInterface::IRecalcTransforms();
         return;
@@ -120,25 +120,25 @@ void plFilterCoordInterface::IRecalcTransforms()
     // Filter out the stuff we're discarding. Nothing fancy here,
     // we're taking the simple (and fast) form and just stuffing in
     // what we want to preserve based on our reference matrix.
-    if( fFilterMask & kNoTransX )
+    if (fFilterMask & kNoTransX)
     {
         fLocalToWorld.fMap[0][3] = origL2W.fMap[0][3];
     }
-    if( fFilterMask & kNoTransY )
+    if (fFilterMask & kNoTransY)
     {
         fLocalToWorld.fMap[1][3] = origL2W.fMap[1][3];
     }
-    if( fFilterMask & kNoTransZ )
+    if (fFilterMask & kNoTransZ)
     {
         fLocalToWorld.fMap[2][3] = origL2W.fMap[2][3];
     }
-    if( fFilterMask & kNoRotation )
+    if (fFilterMask & kNoRotation)
     {
         int i;
-        for( i = 0; i < 3; i++ )
+        for (i = 0; i < 3; i++)
         {
             int j;
-            for( j = 0; j < 3; j++ )
+            for (j = 0; j < 3; j++)
             {
                 fLocalToWorld.fMap[i][j] = origL2W.fMap[i][j];
             }

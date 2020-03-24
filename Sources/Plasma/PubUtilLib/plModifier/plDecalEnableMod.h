@@ -61,8 +61,8 @@ public:
     plDecalEnableMod();
     virtual ~plDecalEnableMod();
 
-    CLASSNAME_REGISTER( plDecalEnableMod );
-    GETINTERFACE_ANY( plDecalEnableMod, plSingleModifier );
+    CLASSNAME_REGISTER(plDecalEnableMod);
+    GETINTERFACE_ANY(plDecalEnableMod, plSingleModifier);
 
     virtual bool MsgReceive(plMessage* msg);
     

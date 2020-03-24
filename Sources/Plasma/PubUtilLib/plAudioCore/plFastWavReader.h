@@ -61,7 +61,7 @@ class plRIFFChunk;
 class plFastWAV : public plAudioFileReader
 {
 public:
-    plFastWAV( const plFileName &path, plAudioCore::ChannelSelect whichChan = plAudioCore::kAll );
+    plFastWAV(const plFileName &path, plAudioCore::ChannelSelect whichChan = plAudioCore::kAll);
     virtual ~plFastWAV();
 
     virtual plWAVHeader &GetHeader();
@@ -72,11 +72,11 @@ public:
     virtual uint32_t  GetDataSize() { return fDataSize / fChannelAdjust; }
     virtual float   GetLengthInSecs();
 
-    virtual bool    SetPosition( uint32_t numBytes );
-    virtual bool    Read( uint32_t numBytes, void *buffer );
+    virtual bool    SetPosition(uint32_t numBytes);
+    virtual bool    Read(uint32_t numBytes, void *buffer);
     virtual uint32_t  NumBytesLeft();
 
-    virtual bool    IsValid() { return ( fFileHandle != nil ) ? true : false; }
+    virtual bool    IsValid() { return (fFileHandle != nil) ? true : false; }
 
 protected:
     enum
@@ -92,8 +92,8 @@ protected:
     plAudioCore::ChannelSelect  fWhichChannel;
     uint32_t        fChannelAdjust, fChannelOffset;
 
-    void    IError( const char *msg );
-    bool    ISeekToChunk( const char *type, plRIFFChunk *c );
+    void    IError(const char *msg);
+    bool    ISeekToChunk(const char *type, plRIFFChunk *c);
 };
 
 #endif //_plFastWavReader_h

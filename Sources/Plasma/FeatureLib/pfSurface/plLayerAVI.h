@@ -64,8 +64,8 @@ public:
     plLayerAVI();
     virtual ~plLayerAVI();
 
-    CLASSNAME_REGISTER( plLayerAVI );
-    GETINTERFACE_ANY( plLayerAVI, plLayerMovie );
+    CLASSNAME_REGISTER(plLayerAVI);
+    GETINTERFACE_ANY(plLayerAVI, plLayerMovie);
 
 };
 

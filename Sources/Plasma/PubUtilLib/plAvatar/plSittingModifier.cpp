@@ -99,7 +99,7 @@ void plSittingModifier::Read(hsStream *stream, hsResMgr *mgr)
     fMiscFlags = stream->ReadByte();
 
     int keyCount = stream->ReadLE32();
-    for (int i = 0; i < keyCount; i++ )
+    for (int i = 0; i < keyCount; i++)
         fNotifyKeys.Append(mgr->ReadKey(stream));
 }
 
@@ -140,7 +140,7 @@ bool plSittingModifier::MsgReceive(plMessage *msg)
     bool result = false;
     
     plNotifyMsg* notifyMsg = plNotifyMsg::ConvertNoRef(msg);
-    if(notifyMsg)
+    if (notifyMsg)
     {
         if (notifyMsg->fState == 1.0)
         {
@@ -228,7 +228,7 @@ void plSittingModifier::Trigger(const plArmatureMod *avMod, plNotifyMsg *enterNo
                                       // need to know so we can seek properly.
         
         plAvBrainGeneric *brain = IBuildSitBrain(avModKey, seekKey, &animName, enterNotify, exitNotify);
-        if(brain)
+        if (brain)
         {
             plAvSeekMsg *seekMsg = new plAvSeekMsg(ourKey, avModKey, seekKey, 0.0f, true, kAlignHandleAnimEnd, animName);
             seekMsg->Send();
@@ -272,7 +272,7 @@ bool IIsClosestAnim(const char *animName, hsMatrix44 &sitGoal, float &closestDis
                     hsPoint3 curPosition, const plArmatureMod *avatar)
 {
     plAGAnim *anim = avatar->FindCustomAnim(animName);
-    if(anim)
+    if (anim)
     {
         hsMatrix44 animEndToStart;
         // The sit target is the position we want to be at the END of the sit animation.
@@ -288,7 +288,7 @@ bool IIsClosestAnim(const char *animName, hsMatrix44 &sitGoal, float &closestDis
         hsPoint3 distP = candidateGoal.GetTranslate() - curPosition;
         hsVector3 distV(distP.fX, distP.fY, distP.fZ);
         float dist = distP.Magnitude();
-        if(closestDist == 0.0 || dist < closestDist)
+        if (closestDist == 0.0 || dist < closestDist)
         {
             closestDist = dist;
             return true;
@@ -314,35 +314,35 @@ plAvBrainGeneric *plSittingModifier::IBuildSitBrain(plKey avModKey, plKey seekKe
     bool frontClear = fMiscFlags & kApproachFront;
     plAvBrainGeneric *brain = nullptr;
 
-    if(avatar && seekObj)
+    if (avatar && seekObj)
     {
         hsMatrix44 sitGoal = seekObj->GetLocalToWorld();
         hsPoint3 curPosition = avatar->GetTarget(0)->GetLocalToWorld().GetTranslate();
 
-        if(fMiscFlags & kApproachLeft && IIsClosestAnim("SitLeft", sitGoal, closestDist, curPosition, avatar))
+        if (fMiscFlags & kApproachLeft && IIsClosestAnim("SitLeft", sitGoal, closestDist, curPosition, avatar))
         {
             closestApproach = kApproachLeft;
             sitAnimName = "SitLeft";
-            if(!frontClear)
+            if (!frontClear)
                 standAnimName = "StandUpLeft";
         }
 
-        if(fMiscFlags & kApproachRight && IIsClosestAnim("SitRight", sitGoal, closestDist, curPosition, avatar))
+        if (fMiscFlags & kApproachRight && IIsClosestAnim("SitRight", sitGoal, closestDist, curPosition, avatar))
         {
             closestApproach = kApproachRight;
             sitAnimName = "SitRight";
-            if(!frontClear)
+            if (!frontClear)
                 standAnimName = "StandUpRight";
         }
 
-        if(frontClear && IIsClosestAnim("SitFront", sitGoal, closestDist, curPosition, avatar))
+        if (frontClear && IIsClosestAnim("SitFront", sitGoal, closestDist, curPosition, avatar))
         {
             sitAnimName = "SitFront";
             standAnimName = "StandUpFront";
             closestApproach = kApproachFront;
         }
 
-        if(sitAnimName)
+        if (sitAnimName)
         {
             uint32_t exitFlags = plAvBrainGeneric::kExitNormal;   // SOME stages can be interrupted, but not the brain itself
             brain = new plAvBrainGeneric(nil, enterNotify, exitNotify, nil, exitFlags, plAvBrainGeneric::kDefaultFadeIn,

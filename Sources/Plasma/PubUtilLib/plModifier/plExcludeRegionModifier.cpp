@@ -194,7 +194,7 @@ void plExcludeRegionModifier::AddTarget(plSceneObject* so)
     plSingleModifier::SetTarget(so);
 }
 
-void plExcludeRegionModifier::RemoveTarget( plSceneObject *so )
+void plExcludeRegionModifier::RemoveTarget(plSceneObject *so)
 {
     if (so && fSDLModifier)
     {
@@ -259,7 +259,7 @@ bool plExcludeRegionModifier::ICheckSubworlds(plKey avatar)
                 if (phys)
                 {
                     // are they in the same subworld?
-                    if ( phys->GetWorldKey() == avController->GetSubworld() )
+                    if (phys->GetWorldKey() == avController->GetSubworld())
                         return true;
                     else
                         return false;
@@ -278,7 +278,7 @@ void plExcludeRegionModifier::IMoveAvatars()
     /*
     for (int i = 0; i < fContainedAvatars.Count(); i++)
     {
-        if ( ICheckSubworlds(fContainedAvatars[i]) )
+        if (ICheckSubworlds(fContainedAvatars[i]))
         {
             int closestIdx = IFindClosestSafePoint(fContainedAvatars[i]);
 
@@ -314,7 +314,7 @@ void plExcludeRegionModifier::IMoveAvatars()
                 {
                     plSceneObject* so = plSceneObject::ConvertNoRef(controllers[i]->GetOwner()->ObjectIsLoaded());
                     const plArmatureMod* constAvMod = (plArmatureMod*)so->GetModifierByType(plArmatureMod::Index());
-                    if(constAvMod)
+                    if (constAvMod)
                     {
                         plAvBrainGeneric *curGenBrain = (plAvBrainGeneric *)constAvMod->FindBrainByClass(plAvBrainGeneric::Index());
                         // *** warning; if there's more than one generic brain active, this will only look at the first

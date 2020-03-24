@@ -65,8 +65,8 @@ public:
         : plMessageWithCallbacks(s, r, t) { IInit(); }
     virtual ~plAnimCmdMsg();
 
-    CLASSNAME_REGISTER( plAnimCmdMsg );
-    GETINTERFACE_ANY( plAnimCmdMsg, plMessageWithCallbacks );
+    CLASSNAME_REGISTER(plAnimCmdMsg);
+    GETINTERFACE_ANY(plAnimCmdMsg, plMessageWithCallbacks);
 
     // When adding a command, add a check for it in CmdChangesAnimTime if appropriate
     enum ModCmds
@@ -146,8 +146,8 @@ public:
         : plMessage(s, r, t) { IInit(); }
     virtual ~plAGCmdMsg();
 
-    CLASSNAME_REGISTER( plAGCmdMsg );
-    GETINTERFACE_ANY( plAGCmdMsg, plMessage );
+    CLASSNAME_REGISTER(plAGCmdMsg);
+    GETINTERFACE_ANY(plAGCmdMsg, plMessage);
 
     enum ModCmds
     {
@@ -182,8 +182,8 @@ public:
     plAGInstanceCallbackMsg(plKey receiver, CallbackEvent e, int idx=0, float t=0, int16_t repeats=-1, uint16_t user=0) :
       plEventCallbackMsg(receiver, e, idx, t, repeats, user), fInstance(nil) {}
 
-    CLASSNAME_REGISTER( plAGInstanceCallbackMsg );
-    GETINTERFACE_ANY( plAGInstanceCallbackMsg, plEventCallbackMsg );
+    CLASSNAME_REGISTER(plAGInstanceCallbackMsg);
+    GETINTERFACE_ANY(plAGInstanceCallbackMsg, plEventCallbackMsg);
 
     // These aren't meant to go across the net, so no IO necessary.
     void Read(hsStream* stream, hsResMgr* mgr) {}
@@ -202,8 +202,8 @@ public:
     plAGDetachCallbackMsg(plKey receiver, CallbackEvent e, int idx=0, float t=0, int16_t repeats=-1, uint16_t user=0) :
                           plEventCallbackMsg(receiver, e, idx, t, repeats, user) {}
 
-    CLASSNAME_REGISTER( plAGDetachCallbackMsg );
-    GETINTERFACE_ANY( plAGDetachCallbackMsg, plEventCallbackMsg );
+    CLASSNAME_REGISTER(plAGDetachCallbackMsg);
+    GETINTERFACE_ANY(plAGDetachCallbackMsg, plEventCallbackMsg);
 
     // These aren't meant to go across the net, so no IO necessary.
     void Read(hsStream* stream, hsResMgr* mgr) {}

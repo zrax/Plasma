@@ -63,7 +63,7 @@ pyGUIControlTextBox::pyGUIControlTextBox(plKey objkey) : pyGUIControl(objkey)
 
 bool pyGUIControlTextBox::IsGUIControlTextBox(pyKey& gckey)
 {
-    if ( gckey.getKey() && pfGUITextBoxMod::ConvertNoRef(gckey.getKey()->ObjectIsLoaded()) )
+    if (gckey.getKey() && pfGUITextBoxMod::ConvertNoRef(gckey.getKey()->ObjectIsLoaded()))
         return true;
     return false;
 }
@@ -83,9 +83,9 @@ std::wstring pyGUIControlTextBox::GetTextW()
     {
         // get the pointer to the modifier
         pfGUITextBoxMod* ptbmod = pfGUITextBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( ptbmod )
+        if (ptbmod)
         {
-            if ( ptbmod->GetText() )
+            if (ptbmod->GetText())
             {
                 std::wstring retVal = ptbmod->GetText();
                 return retVal;
@@ -96,31 +96,31 @@ std::wstring pyGUIControlTextBox::GetTextW()
     return L"";
 }
 
-void pyGUIControlTextBox::SetText( const char *text )
+void pyGUIControlTextBox::SetText(const char *text)
 {
     wchar_t *wText = hsStringToWString(text);
     SetTextW(wText);
     delete [] wText;
 }
 
-void pyGUIControlTextBox::SetTextW( std::wstring text )
+void pyGUIControlTextBox::SetTextW(std::wstring text)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUITextBoxMod* ptbmod = pfGUITextBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( ptbmod )
+        if (ptbmod)
             ptbmod->SetText(text.c_str());
     }
 }
 
-void pyGUIControlTextBox::SetFontSize( uint8_t size )
+void pyGUIControlTextBox::SetFontSize(uint8_t size)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUITextBoxMod* ptbmod = pfGUITextBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( ptbmod )
+        if (ptbmod)
         {
             pfGUIColorScheme* colorscheme = ptbmod->GetColorScheme();
             colorscheme->fFontSize = size;
@@ -130,13 +130,13 @@ void pyGUIControlTextBox::SetFontSize( uint8_t size )
 
 }
 
-void pyGUIControlTextBox::SetForeColor( pyColor& color )
+void pyGUIControlTextBox::SetForeColor(pyColor& color)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUITextBoxMod* ptbmod = pfGUITextBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( ptbmod )
+        if (ptbmod)
         {
             pfGUIColorScheme* colorscheme = ptbmod->GetColorScheme();
             colorscheme->fForeColor = color.getColor();
@@ -148,11 +148,11 @@ void pyGUIControlTextBox::SetForeColor( pyColor& color )
 
 PyObject* pyGUIControlTextBox::GetForeColor() const
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUITextBoxMod* ptbmod = pfGUITextBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( ptbmod )
+        if (ptbmod)
         {
             pfGUIColorScheme* colorscheme = ptbmod->GetColorScheme();
             return pyColor::New(colorscheme->fForeColor);
@@ -161,13 +161,13 @@ PyObject* pyGUIControlTextBox::GetForeColor() const
     PYTHON_RETURN_NONE;
 }
 
-void pyGUIControlTextBox::SetBackColor( pyColor& color )
+void pyGUIControlTextBox::SetBackColor(pyColor& color)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUITextBoxMod* ptbmod = pfGUITextBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( ptbmod )
+        if (ptbmod)
         {
             pfGUIColorScheme* colorscheme = ptbmod->GetColorScheme();
             colorscheme->fBackColor = color.getColor();
@@ -176,21 +176,21 @@ void pyGUIControlTextBox::SetBackColor( pyColor& color )
 
 }
 
-void pyGUIControlTextBox::SetJustify( uint8_t justify )
+void pyGUIControlTextBox::SetJustify(uint8_t justify)
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUITextBoxMod* ptbmod = pfGUITextBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( ptbmod )
+        if (ptbmod)
         {
             // reset all the flags for justification first
             ptbmod->ClearFlag(pfGUITextBoxMod::kCenterJustify);
             ptbmod->ClearFlag(pfGUITextBoxMod::kRightJustify);
             // then set the one they want
-            if ( justify == pfGUIListText::kCenter)
+            if (justify == pfGUIListText::kCenter)
                 ptbmod->SetFlag(pfGUITextBoxMod::kCenterJustify);
-            else if ( justify == pfGUIListText::kRightJustify)
+            else if (justify == pfGUIListText::kRightJustify)
                 ptbmod->SetFlag(pfGUITextBoxMod::kRightJustify);
         }
     }
@@ -198,15 +198,15 @@ void pyGUIControlTextBox::SetJustify( uint8_t justify )
 
 uint8_t pyGUIControlTextBox::GetJustify()
 {
-    if ( fGCkey )
+    if (fGCkey)
     {
         // get the pointer to the modifier
         pfGUITextBoxMod* ptbmod = pfGUITextBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
-        if ( ptbmod )
+        if (ptbmod)
         {
-            if ( ptbmod->HasFlag(pfGUITextBoxMod::kCenterJustify) )
+            if (ptbmod->HasFlag(pfGUITextBoxMod::kCenterJustify))
                 return pfGUIListText::kCenter;
-            if ( ptbmod->HasFlag(pfGUITextBoxMod::kRightJustify) )
+            if (ptbmod->HasFlag(pfGUITextBoxMod::kRightJustify))
                 return pfGUIListText::kRightJustify;
         }
     }

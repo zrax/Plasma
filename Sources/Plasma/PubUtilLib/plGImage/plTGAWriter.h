@@ -72,7 +72,7 @@ class plTGAWriter
 
         static plTGAWriter  &Instance() { return fInstance; }
 
-        void    WriteMipmap( const char *fileName, plMipmap *mipmap );
+        void    WriteMipmap(const char *fileName, plMipmap *mipmap);
 
 };
 

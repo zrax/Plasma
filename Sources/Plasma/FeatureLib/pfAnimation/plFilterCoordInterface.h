@@ -66,8 +66,8 @@ public:
     plFilterCoordInterface();
     ~plFilterCoordInterface();
 
-    CLASSNAME_REGISTER( plFilterCoordInterface );
-    GETINTERFACE_ANY( plFilterCoordInterface, plCoordinateInterface );
+    CLASSNAME_REGISTER(plFilterCoordInterface);
+    GETINTERFACE_ANY(plFilterCoordInterface, plCoordinateInterface);
 
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);

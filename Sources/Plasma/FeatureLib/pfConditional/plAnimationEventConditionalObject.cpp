@@ -71,15 +71,15 @@ void plAnimationEventConditionalObject::SetEvent(const CallbackEvent b, float ti
 {
     plAnimCmdMsg* pMsg = new plAnimCmdMsg;
     pMsg->AddReceiver(fTarget);
-    pMsg->SetSender( GetKey() );
+    pMsg->SetSender(GetKey());
 
     plEventCallbackMsg* cb = new plEventCallbackMsg(GetKey(), b, 0, time);
 
-    pMsg->AddCallback( cb );
+    pMsg->AddCallback(cb);
     hsRefCnt_SafeUnRef(cb);
-    pMsg->SetCmd( plAnimCmdMsg::kAddCallbacks );
+    pMsg->SetCmd(plAnimCmdMsg::kAddCallbacks);
     
-    plgDispatch::MsgSend( pMsg );
+    plgDispatch::MsgSend(pMsg);
 }
 
 void plAnimationEventConditionalObject::Read(hsStream* stream, hsResMgr* mgr)

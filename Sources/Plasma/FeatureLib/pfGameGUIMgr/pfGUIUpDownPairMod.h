@@ -70,7 +70,7 @@ class pfGUIUpDownPairMod : public pfGUIValueCtrl
         pfUpDownBtnProc *fButtonProc;
 
 
-        virtual bool IEval( double secs, float del, uint32_t dirty ); // called only by owner object's Eval()
+        virtual bool IEval(double secs, float del, uint32_t dirty); // called only by owner object's Eval()
         virtual void    IUpdate();
 
     public:
@@ -78,23 +78,23 @@ class pfGUIUpDownPairMod : public pfGUIValueCtrl
         pfGUIUpDownPairMod();
         virtual ~pfGUIUpDownPairMod();
 
-        CLASSNAME_REGISTER( pfGUIUpDownPairMod );
-        GETINTERFACE_ANY( pfGUIUpDownPairMod, pfGUIValueCtrl );
+        CLASSNAME_REGISTER(pfGUIUpDownPairMod);
+        GETINTERFACE_ANY(pfGUIUpDownPairMod, pfGUIValueCtrl);
 
 
-        virtual bool    MsgReceive( plMessage* pMsg );
+        virtual bool    MsgReceive(plMessage* pMsg);
 
         virtual void    Update();
 
-        virtual void Read( hsStream* s, hsResMgr* mgr );
-        virtual void Write( hsStream* s, hsResMgr* mgr );
+        virtual void Read(hsStream* s, hsResMgr* mgr);
+        virtual void Write(hsStream* s, hsResMgr* mgr);
 
-        virtual void    SetRange( float min, float max );
-        virtual void    SetCurrValue( float v );
+        virtual void    SetRange(float min, float max);
+        virtual void    SetCurrValue(float v);
 
         /// Export ONLY
 
-        void    SetControls( pfGUIButtonMod *up, pfGUIButtonMod *down ) { fUpControl = up; fDownControl = down; }
+        void    SetControls(pfGUIButtonMod *up, pfGUIButtonMod *down) { fUpControl = up; fDownControl = down; }
 };
 
 #endif // _pfGUIUpDownPairMod_h

@@ -95,8 +95,8 @@ public:
 class plController : public plCreatable
 {
 public:
-    CLASSNAME_REGISTER( plController );
-    GETINTERFACE_ANY( plController, plCreatable );
+    CLASSNAME_REGISTER(plController);
+    GETINTERFACE_ANY(plController, plCreatable);
 
     virtual void Interp(float time, float* result, plControllerCacheInfo *cache = nil) const {}
     virtual void Interp(float time, hsScalarTriple* result, plControllerCacheInfo *cache = nil) const {}
@@ -135,8 +135,8 @@ public:
     plLeafController() : fType(hsKeyFrame::kUnknownKeyFrame), fKeys(nil), fNumKeys(0), fLastKeyIdx(0) {}
     virtual ~plLeafController();
 
-    CLASSNAME_REGISTER( plLeafController );
-    GETINTERFACE_ANY( plLeafController, plController );
+    CLASSNAME_REGISTER(plLeafController);
+    GETINTERFACE_ANY(plLeafController, plController);
 
     void Interp(float time, float* result, plControllerCacheInfo *cache = nil) const;
     void Interp(float time, hsScalarTriple* result, plControllerCacheInfo *cache = nil) const;
@@ -193,8 +193,8 @@ public:
     plCompoundController(); // allocs leaf controllers
     ~plCompoundController();
 
-    CLASSNAME_REGISTER( plCompoundController );
-    GETINTERFACE_ANY( plCompoundController, plController );
+    CLASSNAME_REGISTER(plCompoundController);
+    GETINTERFACE_ANY(plCompoundController, plController);
 
     void Interp(float time, hsQuat* result, plControllerCacheInfo *cache = nil) const;
     void Interp(float time, hsScalarTriple* result, plControllerCacheInfo *cache = nil) const;
