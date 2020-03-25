@@ -72,12 +72,12 @@ public:
     };
 
 
-    plAudioSysMsg() : pObj(nil){SetBCastFlag(plMessage::kBCastByExactType);}
-    plAudioSysMsg(const plKey &s) : pObj(nil){SetBCastFlag(plMessage::kBCastByExactType);SetSender(s);}
-    plAudioSysMsg(int i) : pObj(nil){fAudFlag = i; SetBCastFlag(plMessage::kBCastByExactType);}
+    plAudioSysMsg() : pObj(nil) { SetBCastFlag(plMessage::kBCastByExactType); }
+    plAudioSysMsg(const plKey &s) : pObj(nil) { SetBCastFlag(plMessage::kBCastByExactType); SetSender(s); }
+    plAudioSysMsg(int i) : pObj(nil) { fAudFlag = i; SetBCastFlag(plMessage::kBCastByExactType); }
     plAudioSysMsg(const plKey &s,
                     const plKey &r,
-                    const double* t) : pObj(nil){SetBCastFlag(plMessage::kBCastByExactType);}
+                    const double* t) : pObj(nil) { SetBCastFlag(plMessage::kBCastByExactType); }
     ~plAudioSysMsg() { }
 
     CLASSNAME_REGISTER(plAudioSysMsg);

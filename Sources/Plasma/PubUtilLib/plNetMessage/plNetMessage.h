@@ -112,7 +112,7 @@ protected:
     void IWriteClassIndex(hsStream* stream);
     void IReadClassIndex(hsStream* stream);
 
-    bool IPeeked() const { return fPeekStatus==kFullyPeeked;}
+    bool IPeeked() const { return fPeekStatus==kFullyPeeked; }
     void ISetPeekStatus(uint32_t s) { fPeekStatus=s;  }
 
 public:
@@ -209,11 +209,11 @@ public:
     bool IsBitSet(int b) const { return (fFlags & b) != 0; }
     const plNetCommonMessage* GetNetCoreMsg() const { return fNetCoreMsg; }
     uint32_t GetNetCoreMsgLen() const;
-    bool GetHasContext() const { return IsBitSet(kHasContext);}
-    uint32_t GetContext() const { return fContext;}
-    bool GetHasTransactionID() const { return IsBitSet(kHasTransactionID);}
-    uint32_t GetTransactionID() const { return fTransactionID;}
-    bool GetHasPlayerID() const { return IsBitSet(kHasPlayerID);}
+    bool GetHasContext() const { return IsBitSet(kHasContext); }
+    uint32_t GetContext() const { return fContext; }
+    bool GetHasTransactionID() const { return IsBitSet(kHasTransactionID); }
+    uint32_t GetTransactionID() const { return fTransactionID; }
+    bool GetHasPlayerID() const { return IsBitSet(kHasPlayerID); }
     uint32_t GetPlayerID() const { hsAssert(GetHasPlayerID(), "uninit playerID"); return fPlayerID; }
     uint32_t JustGetPlayerID() const { return fPlayerID; }
     bool GetHasAcctUUID() const { return IsBitSet(kHasAcctUUID); }
@@ -223,17 +223,17 @@ public:
     ENetProtocol GetNetProtocol () const { return fNetProtocol; }
 
     // setters
-    void SetTimeSent(const plUnifiedTime& t) { fTimeSent=t;SetHasTimeSent(true); }
+    void SetTimeSent(const plUnifiedTime& t) { fTimeSent=t; SetHasTimeSent(true); }
     void SetHasTimeSent(bool value) { SetBit(kHasTimeSent, value); }
     void SetTimeReceived(double t) { fTimeRecvd=t; }
     void SetBit(int b, bool on=true) { if (on) fFlags |= b; else fFlags &= ~b; }
     void SetNetCoreMsg(const plNetCommonMessage* ncmsg) { fNetCoreMsg=ncmsg; }
-    void SetHasContext(bool value) { SetBit(kHasContext,value);}
-    void SetContext(uint32_t value) { fContext=value; SetHasContext(true);}
-    void SetHasTransactionID(bool value) { SetBit(kHasTransactionID,value);}
-    void SetTransactionID(uint32_t value) { fTransactionID=value; SetHasTransactionID(true);}
-    void SetHasPlayerID(bool value) { SetBit(kHasPlayerID,value);}
-    void SetPlayerID(uint32_t value) { fPlayerID=value; SetHasPlayerID(true);}
+    void SetHasContext(bool value) { SetBit(kHasContext,value); }
+    void SetContext(uint32_t value) { fContext=value; SetHasContext(true); }
+    void SetHasTransactionID(bool value) { SetBit(kHasTransactionID,value); }
+    void SetTransactionID(uint32_t value) { fTransactionID=value; SetHasTransactionID(true); }
+    void SetHasPlayerID(bool value) { SetBit(kHasPlayerID,value); }
+    void SetPlayerID(uint32_t value) { fPlayerID=value; SetHasPlayerID(true); }
     void SetHasAcctUUID(bool v) { SetBit(kHasAcctUUID,v); }
     void SetAcctUUID(const plUUID * v) { fAcctUUID.CopyFrom(v); SetHasAcctUUID(true); }
     void SetVersion(uint8_t maj=kVerMajor, uint8_t min=kVerMinor) { SetBit(kHasVersion); fProtocolVerMajor=maj; fProtocolVerMinor=min;  }
@@ -404,7 +404,7 @@ public:
     
     // debug
     ST::string AsString() const HS_OVERRIDE;
-    bool IsInitialState() const {return fIsInitialState!=0; }
+    bool IsInitialState() const { return fIsInitialState!=0; }
     void SetIsInitialState(bool v) { fIsInitialState=v; }
 
     void ReadVersion(hsStream* s, hsResMgr* mgr);
@@ -943,7 +943,7 @@ class plNetMsgInitialAgeStateSent : public plNetMsgServerToClient
     int IPokeBuffer(hsStream* stream, uint32_t peekOptions=0);
     int IPeekBuffer(hsStream* stream, uint32_t peekOptions=0);
 public:
-    plNetMsgInitialAgeStateSent():fNumInitialSDLStates(0){}
+    plNetMsgInitialAgeStateSent():fNumInitialSDLStates(0) {}
     CLASSNAME_REGISTER(plNetMsgInitialAgeStateSent);
     GETINTERFACE_ANY(plNetMsgInitialAgeStateSent, plNetMsgServerToClient);
     void SetNumInitialSDLStates(uint32_t n) { fNumInitialSDLStates=n; }
@@ -978,9 +978,9 @@ public:
     {
         ST::string b1, b2;
         int i;
-        for (i=0;i<fRegionsImIn.GetNumBitVectors(); i++)
+        for (i=0; i<fRegionsImIn.GetNumBitVectors(); i++)
             b1 += ST::format("{#x} ", fRegionsImIn.GetBitVector(i));
-        for (i=0;i<fRegionsICareAbout.GetNumBitVectors(); i++)
+        for (i=0; i<fRegionsICareAbout.GetNumBitVectors(); i++)
             b2 += ST::format("{#x} ", fRegionsICareAbout.GetBitVector(i));
         return ST::format("rgnsImIn:{}, rgnsICareAbout:{}, {}",
             b1, b2, plNetMessage::AsString());

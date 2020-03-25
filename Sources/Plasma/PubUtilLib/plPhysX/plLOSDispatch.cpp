@@ -77,7 +77,7 @@ public:
     float GetDistance() { return fDist; }
     const hsVector3& GetNormal() { return fNormal; }
     const hsPoint3& GetPoint() { return fPoint; }
-    void ResetHitObj(){fHitObj=nil;}
+    void ResetHitObj() { fHitObj=nil; }
 private:
     virtual bool onHit(const NxRaycastHit& hit)
     {

@@ -124,7 +124,7 @@ public:
 
     // methods to manipulate vectors
     void    Normalize() { fVector.Normalize(); }
-    float Dot(const pyVector3& other) { return fVector * other.fVector;}
+    float Dot(const pyVector3& other) { return fVector * other.fVector; }
     PyObject* Cross(const pyVector3& other) const { return pyVector3::New(fVector % other.fVector); }
     float Magnitude() const { return fVector.Magnitude(); }
     float MagnitudeSquared() const { return fVector.MagnitudeSquared(); }

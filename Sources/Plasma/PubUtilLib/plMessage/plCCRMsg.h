@@ -154,7 +154,7 @@ class plCCRBanLinkingMsg : public plCCRMessage
 public:
     bool fBan;    // ban or un ban
 
-    plCCRBanLinkingMsg() ;
+    plCCRBanLinkingMsg();
     ~plCCRBanLinkingMsg() {}
 
     CLASSNAME_REGISTER(plCCRBanLinkingMsg);
@@ -172,7 +172,7 @@ class plCCRSilencePlayerMsg : public plCCRMessage
 public:
     bool fSilence;    // ban or un ban
 
-    plCCRSilencePlayerMsg() ;
+    plCCRSilencePlayerMsg();
     ~plCCRSilencePlayerMsg() {}
 
     CLASSNAME_REGISTER(plCCRSilencePlayerMsg);

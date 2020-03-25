@@ -182,7 +182,7 @@ int plSDLMgr::Read(hsStream* s, plSDL::DescriptorList* dl)
         s->ReadLE(&num);
 
         int i;
-        for (i=0;i<num;i++)
+        for (i=0; i<num; i++)
         {
             plStateDescriptor* sd=new plStateDescriptor;
             if (sd->Read(s))

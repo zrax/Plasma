@@ -67,10 +67,10 @@ public:
     CLASSNAME_REGISTER(plDniCoordinateInfo);
     GETINTERFACE_ANY(plDniCoordinateInfo, plCreatable);
 
-    int GetHSpans() const { return fHSpans;}
+    int GetHSpans() const { return fHSpans; }
     void    SetHSpans(int v) { fHSpans = v; }
-    int GetVSpans() const { return fVSpans;}
-    void    SetVSpans(int v) { fVSpans = v;}
+    int GetVSpans() const { return fVSpans; }
+    void    SetVSpans(int v) { fVSpans = v; }
     int GetTorans() const { return fTorans; }
     void    SetTorans(int v) { fTorans = v; }
 

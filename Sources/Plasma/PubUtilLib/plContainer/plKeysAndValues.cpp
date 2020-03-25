@@ -233,7 +233,7 @@ void plKeysAndValues::Write(hsStream * s)
     // iterate through keys
     Keys::const_iterator ki,ke;
     GetKeyIterators(ki,ke);
-    for (;ki!=ke;++ki)
+    for (; ki!=ke; ++ki)
     {
         // write key string
         s->WriteLE((uint16_t)ki->first.size());
@@ -243,7 +243,7 @@ void plKeysAndValues::Write(hsStream * s)
         // iterate through values for this key
         Values::const_iterator vi,ve;
         GetValueIterators(ki->first,vi,ve);
-        for (;vi!=ve;++vi)
+        for (; vi!=ve; ++vi)
         {
             // write value string
             s->WriteLE((uint16_t)vi->size());

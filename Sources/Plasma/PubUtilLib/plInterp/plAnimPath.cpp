@@ -149,7 +149,7 @@ void plAnimPath::ICalcBounds()
     hsTArray<float> keyTimes;
     pc->GetKeyTimes(keyTimes);
     fCenter.Set(0,0,0);
-    for (i = 0; i < keyTimes.GetCount() ; i++)
+    for (i = 0; i < keyTimes.GetCount(); i++)
     {
         pc->Interp(keyTimes[i], &pos);
         fCenter += pos;

@@ -155,8 +155,8 @@ class plNetGameServerConstants
 {
 public:
     static const char* GetName() { return "Game_Server"; }
-    static uint16_t GetLowPort() { return 5001;}
-    static uint16_t GetHighPort() { return 6001;}
+    static uint16_t GetLowPort() { return 5001; }
+    static uint16_t GetHighPort() { return 6001; }
     static plNetServerConstants::ServerTypes GetType() { return plNetServerConstants::kGame; }
 };
 

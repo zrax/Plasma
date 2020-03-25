@@ -232,8 +232,8 @@ public:
     static bool UsePythonDebugger() { return usePythonDebugger; }
     static void UsePythonDebugger(bool use) { usePythonDebugger = use; }
 
-    static plCyDebServer* PythonDebugger() {return &debugServer;}
-    static bool DebuggerRequestedExit() {return requestedExit;}
-    static void DebuggerRequestedExit(bool reqExit) {requestedExit = reqExit;}
+    static plCyDebServer* PythonDebugger() { return &debugServer; }
+    static bool DebuggerRequestedExit() { return requestedExit; }
+    static void DebuggerRequestedExit(bool reqExit) { requestedExit = reqExit; }
 #endif
 };

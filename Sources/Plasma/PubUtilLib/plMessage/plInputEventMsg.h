@@ -254,7 +254,7 @@ public:
                     const plKey &r,
                     const double* t) :
     fX(0),fWx(0) {}
-    ~plIMouseXEventMsg(){}
+    ~plIMouseXEventMsg() {}
 
     CLASSNAME_REGISTER(plIMouseXEventMsg);
     GETINTERFACE_ANY(plIMouseXEventMsg, plInputEventMsg);
@@ -287,7 +287,7 @@ public:
                     const plKey &r,
                     const double* t) :
     fY(0),fWy(0) {}
-    ~plIMouseYEventMsg(){}
+    ~plIMouseYEventMsg() {}
 
     CLASSNAME_REGISTER(plIMouseYEventMsg);
     GETINTERFACE_ANY(plIMouseYEventMsg, plInputEventMsg);
@@ -318,7 +318,7 @@ public:
                     const plKey &r,
                     const double* t) :
     fButton(0) {}
-    ~plIMouseBEventMsg(){}
+    ~plIMouseBEventMsg() {}
 
     CLASSNAME_REGISTER(plIMouseBEventMsg);
     GETINTERFACE_ANY(plIMouseBEventMsg, plInputEventMsg);

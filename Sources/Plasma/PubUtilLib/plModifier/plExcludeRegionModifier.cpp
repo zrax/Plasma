@@ -308,7 +308,7 @@ void plExcludeRegionModifier::IMoveAvatars()
 
             int actualCount = plPXPhysicalControllerCore::GetControllersInThisSubWorld(phys->GetWorldKey(), numControllers, controllers);
             
-            for (int i=0;i<actualCount;i++)
+            for (int i=0; i<actualCount; i++)
             {
                 if (phys->OverlapWithController(controllers[i]))
                 {

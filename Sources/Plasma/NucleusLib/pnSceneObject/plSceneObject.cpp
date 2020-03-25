@@ -843,7 +843,7 @@ bool  plSceneObject::IsFinal()
         return false;
 
     int i;
-    for (i=0;i<GetNumModifiers(); i++)
+    for (i=0; i<GetNumModifiers(); i++)
         if (fModifiers[i] && !fModifiers[i]->IsFinal())
             return false;
 

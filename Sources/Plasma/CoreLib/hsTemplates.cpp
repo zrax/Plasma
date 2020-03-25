@@ -64,7 +64,7 @@ void RemoveNode(void *pthing)
     {
         if (pNode->fpThing == pthing)
         {
-            pNode->RemoveNode();//
+            pNode->RemoveNode();
             delete pNode;
             return;
 

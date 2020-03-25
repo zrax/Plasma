@@ -63,7 +63,7 @@ class ActionTableMgrCB : public ActionCallback
     ActionCallbackFunc fCallbackFunc;
 
 public:
-    ActionTableMgrCB(ActionCallbackFunc cbFunc) {fCallbackFunc = cbFunc;}
+    ActionTableMgrCB(ActionCallbackFunc cbFunc) { fCallbackFunc = cbFunc; }
 
     BOOL ExecuteAction(int id) { return fCallbackFunc(id) ? TRUE : FALSE; }
 };

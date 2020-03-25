@@ -232,7 +232,7 @@ void    pfGameGUIMgr::IAddDlgToList(hsKeyedObject *obj)
 
 
             // check to see if it is the dialog we are waiting for to be loaded
-            for (i=0 ; i<fDialogToSetKeyOf.Count() ; i++)
+            for (i=0; i<fDialogToSetKeyOf.Count(); i++)
             {
                 if (strcmp(fDialogToSetKeyOf[i]->GetName(), mod->GetName()) == 0)
                 {
@@ -313,7 +313,7 @@ void    pfGameGUIMgr::LoadDialog(const char *name, plKey recvrKey, const char *a
         // first see if we are loading a dialog that is already being loaded
         bool alreadyLoaded = false;
         int i;
-        for (i=0 ; i<fDialogToSetKeyOf.Count() ; i++)
+        for (i=0; i<fDialogToSetKeyOf.Count(); i++)
         {
             if (strcmp(fDialogToSetKeyOf[i]->GetName(), name) == 0)
             {

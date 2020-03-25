@@ -354,7 +354,7 @@ public:
     void CopyFrom(plSDStateVariable* other, uint32_t writeOptions=0);
     void UpdateFrom(plSDStateVariable* other, uint32_t writeOptions=0);
     void AddStateDataRecord(plStateDataRecord *sdr) { fDataRecList.push_back(sdr); SetDirty(true); SetUsed(true); }
-    void InsertStateDataRecord(plStateDataRecord *sdr, int i) { fDataRecList[i] = sdr; SetDirty(true); SetUsed(true);}
+    void InsertStateDataRecord(plStateDataRecord *sdr, int i) { fDataRecList[i] = sdr; SetDirty(true); SetUsed(true); }
     void SetFromDefaults(bool timeStampNow);
     void TimeStamp(const plUnifiedTime & ut=plUnifiedTime::GetCurrent());
     const plUnifiedTime& GetTimeStamp() const { static plUnifiedTime foo; return foo; }
@@ -557,7 +557,7 @@ public:
     static plSDLMgr* GetInstance();
     plStateDescriptor* FindDescriptor(const ST::string& name, int version, const plSDL::DescriptorList * dl=nil) const;   // version or kLatestVersion
     
-    const plSDL::DescriptorList * GetDescriptors() const { return &fDescriptors;}
+    const plSDL::DescriptorList * GetDescriptors() const { return &fDescriptors; }
 
     void SetSDLDir(const plFileName& s) { fSDLDir=s; }
     plFileName GetSDLDir() const { return fSDLDir; }

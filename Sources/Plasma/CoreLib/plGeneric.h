@@ -72,7 +72,7 @@ public:
     plGeneric(const double& val);
     plGeneric(const ST::string& val);
 
-    void SetToNull() {IReset();}
+    void SetToNull() { IReset(); }
     plGeneric& operator=(const bool& val);
     plGeneric& operator=(const int& val);
     plGeneric& operator=(const double& val);
@@ -80,11 +80,11 @@ public:
 
     // the cast functions will NOT cast from one type to another, use
     // GetType() to determine the type of parameter, then cast it to that type
-    GenericType GetType() const {return fType;}
-    operator bool() const {return fBoolVal;}
-    operator int() const {return fIntVal;}
-    operator double() const {return fFloatVal;}
-    operator ST::string() const {return fStringVal;}
+    GenericType GetType() const { return fType; }
+    operator bool() const { return fBoolVal; }
+    operator int() const { return fIntVal; }
+    operator double() const { return fFloatVal; }
+    operator ST::string() const { return fStringVal; }
 
     int Write(hsStream* stream);
     int Read(hsStream* stream);

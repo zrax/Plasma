@@ -55,7 +55,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 class plOneShotMod : public plMultiModifier
 {
 protected:
-    virtual bool IEval(double secs, float del, uint32_t dirty) {return true;}
+    virtual bool IEval(double secs, float del, uint32_t dirty) { return true; }
     ST::string fAnimName;   // the name of the animation associated with this one-shot
     bool fDrivable;       // whether the user can control the position of the animation
     bool fReversable;     // whether the user can back up the animation (fDrivable must be true as well)

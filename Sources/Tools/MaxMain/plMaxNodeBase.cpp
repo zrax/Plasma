@@ -130,25 +130,25 @@ plMaxNodeData *plMaxNodeBase::GetMaxNodeData()
 #define GetMD   plMaxNodeData *pMD = GetMaxNodeData(); //hsAssert(pMD,"Missing MaxNodeData");   // Get MaxNode Data
 
 plKey           plMaxNodeBase::GetKey()             { GetMD; return (pMD) ? pMD->GetKey() : nil;        }
-plSceneObject*  plMaxNodeBase::GetSceneObject()     { GetMD; return (pMD) ? pMD->GetSceneObject() : nil;}
+plSceneObject*  plMaxNodeBase::GetSceneObject()     { GetMD; return (pMD) ? pMD->GetSceneObject() : nil; }
 bool            plMaxNodeBase::GetForceLocal()          { GetMD; return (pMD) ? pMD->GetForceLocal() : false; }
-bool            plMaxNodeBase::GetReverseSort()         { GetMD; return (pMD) ? pMD->GetReverseSort() : false;}
-bool            plMaxNodeBase::GetSortAsOpaque()        { GetMD; return (pMD) ? pMD->GetSortAsOpaque() : false;}
-bool            plMaxNodeBase::GetVS()                  { GetMD; return (pMD) ? pMD->GetVS() : false;}
+bool            plMaxNodeBase::GetReverseSort()         { GetMD; return (pMD) ? pMD->GetReverseSort() : false; }
+bool            plMaxNodeBase::GetSortAsOpaque()        { GetMD; return (pMD) ? pMD->GetSortAsOpaque() : false; }
+bool            plMaxNodeBase::GetVS()                  { GetMD; return (pMD) ? pMD->GetVS() : false; }
 bool            plMaxNodeBase::GetHasWaterHeight()      { GetMD; return (pMD) ? pMD->GetHasWaterHeight() : false; }
 float           plMaxNodeBase::GetWaterHeight()         { GetMD; return (pMD) ? pMD->GetWaterHeight() : 0; }
-bool            plMaxNodeBase::GetSmoothAll()           { GetMD; return (pMD) ? pMD->GetSmoothAll() : false;}
-bool            plMaxNodeBase::GetForceSortable()       { GetMD; return (pMD) ? pMD->GetForceSortable() : false;}
-bool            plMaxNodeBase::GetConcave()             { GetMD; return (pMD) ? pMD->GetConcave() : false;}
-bool            plMaxNodeBase::GetCalcEdgeLens()        { GetMD; return (pMD) ? pMD->GetCalcEdgeLens() : false;}
-bool            plMaxNodeBase::GetRunTimeLight()        { GetMD; return (pMD) ? pMD->GetRunTimeLight() : false;}
-bool            plMaxNodeBase::GetForceMatShade()       { GetMD; return (pMD) ? pMD->GetForceMatShade() : false;}
-bool            plMaxNodeBase::GetForceVisLOS()         { GetMD; return (pMD) ? pMD->GetForceVisLOS() : false;}
-bool            plMaxNodeBase::GetEnviron()     { GetMD; return (pMD) ? pMD->GetEnviron() : false;}
-bool            plMaxNodeBase::GetEnvironOnly()     { GetMD; return (pMD) ? pMD->GetEnvironOnly() : false;}
+bool            plMaxNodeBase::GetSmoothAll()           { GetMD; return (pMD) ? pMD->GetSmoothAll() : false; }
+bool            plMaxNodeBase::GetForceSortable()       { GetMD; return (pMD) ? pMD->GetForceSortable() : false; }
+bool            plMaxNodeBase::GetConcave()             { GetMD; return (pMD) ? pMD->GetConcave() : false; }
+bool            plMaxNodeBase::GetCalcEdgeLens()        { GetMD; return (pMD) ? pMD->GetCalcEdgeLens() : false; }
+bool            plMaxNodeBase::GetRunTimeLight()        { GetMD; return (pMD) ? pMD->GetRunTimeLight() : false; }
+bool            plMaxNodeBase::GetForceMatShade()       { GetMD; return (pMD) ? pMD->GetForceMatShade() : false; }
+bool            plMaxNodeBase::GetForceVisLOS()         { GetMD; return (pMD) ? pMD->GetForceVisLOS() : false; }
+bool            plMaxNodeBase::GetEnviron()     { GetMD; return (pMD) ? pMD->GetEnviron() : false; }
+bool            plMaxNodeBase::GetEnvironOnly()     { GetMD; return (pMD) ? pMD->GetEnvironOnly() : false; }
 bool            plMaxNodeBase::GetWaterDecEnv()         { GetMD; return (pMD) ? pMD->GetWaterDecEnv() : false; }
-bool            plMaxNodeBase::GetNoPreShade()          { GetMD; return (pMD) ? pMD->GetNoPreShade() && !pMD->GetForcePreShade() : false;}
-bool            plMaxNodeBase::GetForcePreShade()       { GetMD; return (pMD) ? pMD->GetForcePreShade() : false;}
+bool            plMaxNodeBase::GetNoPreShade()          { GetMD; return (pMD) ? pMD->GetNoPreShade() && !pMD->GetForcePreShade() : false; }
+bool            plMaxNodeBase::GetForcePreShade()       { GetMD; return (pMD) ? pMD->GetForcePreShade() : false; }
 plKey           plMaxNodeBase::GetRoomKey()         { GetMD; return (pMD) ? pMD->GetRoomKey() : nil;    }
 bool            plMaxNodeBase::GetDrawable()            { GetMD; return (pMD) ? pMD->GetDrawable() : false;   }
 bool            plMaxNodeBase::GetPhysical()            { GetMD; return (pMD) ? pMD->GetPhysical() : false;   }
@@ -174,8 +174,8 @@ uint32_t        plMaxNodeBase::GetSoundIdxCounter() { GetMD; return (pMD) ? pMD-
 plSceneObject*  plMaxNodeBase::GetAvatarSO()            { GetMD; return (pMD) ? pMD->GetAvatarSO() : nil; }
 BOOL            plMaxNodeBase::HasFade()                { GetMD; return (pMD) ? pMD->HasFade() : false; }
 Box3            plMaxNodeBase::GetFade()                { GetMD; return (pMD) ? pMD->GetFade() : Box3(Point3(0,0,0), Point3(0,0,0)); }
-bool            plMaxNodeBase::GetDup2Sided()           { GetMD; return (pMD) ? pMD->GetDup2Sided() : false;}
-bool            plMaxNodeBase::GetRadiateNorms()        { GetMD; return (pMD) ? pMD->GetRadiateNorms() : false;}
+bool            plMaxNodeBase::GetDup2Sided()           { GetMD; return (pMD) ? pMD->GetDup2Sided() : false; }
+bool            plMaxNodeBase::GetRadiateNorms()        { GetMD; return (pMD) ? pMD->GetRadiateNorms() : false; }
 BOOL            plMaxNodeBase::HasNormalChan()          { GetMD; return (pMD) ? pMD->HasNormalChan() : false; }
 int             plMaxNodeBase::GetNormalChan()          { GetMD; return (pMD) ? pMD->GetNormalChan() : 0; }
 bool            plMaxNodeBase::GetIsGUI()               { GetMD; return (pMD) ? pMD->GetIsGUI() : false; }
@@ -582,7 +582,7 @@ plComponentBase *plMaxNodeBase::GetAttachedComponent(uint32_t i, bool all)
             numComponents++;
         }
 
-        item = di.Next();;
+        item = di.Next();
     }
 
     return nil;
@@ -1077,7 +1077,7 @@ Matrix3 plMaxNodeBase::GetLocalToWorld(TimeValue t)
         // l2w = Inverse(v2l) * objectTM;
         // l2w = l2v * objectTM
         Matrix3 objectTM = GetObjectTM(t);
-        Matrix3 l2w = GetLocalToVert(t) * objectTM ;
+        Matrix3 l2w = GetLocalToVert(t) * objectTM;
         return l2w;
     }
     if (!GetParentNode()->IsRootNode())

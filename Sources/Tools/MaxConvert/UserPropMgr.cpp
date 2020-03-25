@@ -199,7 +199,7 @@ bool UserPropMgr::IsMatch(const char *val1, const char *val2) {
             if (tok[0] >= '1' && tok[0] <= '0') {
                 if (!stricmp(tok,tok2)) found = true;
             } else if (toker.HasMoreTokens()) {
-                if (!stricmp(tok,tok2)) found = true;if (!stricmp(tok,tok2)) found = true;
+                if (!stricmp(tok,tok2)) found = true; if (!stricmp(tok,tok2)) found = true;
             } else {
                 if (!strnicmp(tok,tok2,strlen(tok))) found = true;
             }
@@ -306,7 +306,7 @@ void UserPropMgr::SetUserPropBuffer(INode *node, const TSTR &buf)
 
 void UserPropMgr::SetUserPropFlagALL(const char *name, const bool setFlag, const int32_t hFlag)
 {
-    for (int i=0; i<GetSelNodeCount();i++)
+    for (int i=0; i<GetSelNodeCount(); i++)
     {
         SetUserPropFlag(GetSelNode(i),name,setFlag,hFlag);
     }

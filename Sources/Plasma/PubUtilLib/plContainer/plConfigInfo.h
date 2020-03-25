@@ -310,7 +310,7 @@ protected:
     ST::string fFileName;
     bool WriteOutOf(plConfigInfo & configInfo);
 public:
-    plDebugConfigSource(){}
+    plDebugConfigSource() {}
 };
 
 /////////////////////////////////////////////////
@@ -330,7 +330,7 @@ public:
 class plClass
 {
 public:
-    virtual void Unused(){}
+    virtual void Unused() {}
 };
 
 ////////////////////////////////////////////////////////////////////
@@ -376,8 +376,8 @@ struct plModify
     : fTarget(target)
     , fModify(modify)
     {}
-    ST::string operator()(const ST::string & value) { return (fTarget)?(fTarget->*fModify)(value):value;}
-    ST::string operator()(const ST::string & value) const { return (fTarget)?(fTarget->*fModify)(value):value;}
+    ST::string operator()(const ST::string & value) { return (fTarget)?(fTarget->*fModify)(value):value; }
+    ST::string operator()(const ST::string & value) const { return (fTarget)?(fTarget->*fModify)(value):value; }
 };
 
 ////////////////////////////////////////////////////////////////////
@@ -397,12 +397,12 @@ public:
     : fConfigName(configName)
     , fConfigGroup(configGroup)
     {}
-    void SetConfigName(const ST::string & name) { fConfigName=name;}
-    ST::string GetConfigName() const { return fConfigName;}
-    void SetConfigGroup(const ST::string & group) { fConfigGroup=group;}
-    ST::string GetConfigGroup() const { return fConfigGroup;}
-    bool HasConfigName() { return !fConfigName.empty();}
-    bool HasConfigGroup() { return !fConfigGroup.empty();}
+    void SetConfigName(const ST::string & name) { fConfigName=name; }
+    ST::string GetConfigName() const { return fConfigName; }
+    void SetConfigGroup(const ST::string & group) { fConfigGroup=group; }
+    ST::string GetConfigGroup() const { return fConfigGroup; }
+    bool HasConfigName() { return !fConfigName.empty(); }
+    bool HasConfigGroup() { return !fConfigGroup.empty(); }
     virtual void ConfigRead(plConfigInfo * opts);
     virtual void ConfigWrite(plConfigInfo * opts);
     void SetValue(const ST::string & value);
@@ -428,8 +428,8 @@ public:
     : plConfigValueBase(configName, configGroup)
     {}
     ST::string fConfigValue;
-    void ISetValue(const ST::string & value) { fConfigValue=value;}
-    ST::string IGetValue() const { return fConfigValue;}
+    void ISetValue(const ST::string & value) { fConfigValue=value; }
+    ST::string IGetValue() const { return fConfigValue; }
 };
 
 ////////////////////////////////////////////////////////////////////
@@ -476,9 +476,9 @@ public:
     plConfigValueProxy(plConfigValueBase * item=nil)
     : fConfigurable(item)
     {}
-    void Set(plConfigValueBase * item) { fConfigurable=item;}
-    void ISetValue(const ST::string & value) { fConfigurable->ISetValue(value);}
-    ST::string IGetValue() const { return fConfigurable->IGetValue();}
+    void Set(plConfigValueBase * item) { fConfigurable=item; }
+    void ISetValue(const ST::string & value) { fConfigurable->ISetValue(value); }
+    ST::string IGetValue() const { return fConfigurable->IGetValue(); }
 };
 
 ////////////////////////////////////////////////////////////////////

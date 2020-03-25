@@ -133,7 +133,7 @@ public:
 
     void        SetIncludeCharacters(bool b);
     bool        GetIncludeCharacters() const { return fIncCharacters; }
-    void        SetVisRegionName(char *name){ fVisRegionNames.Push(name); }
+    void        SetVisRegionName(char *name) { fVisRegionNames.Push(name); }
 };
 
 ////////////////////////////////////////////////////////////////////////////
@@ -215,7 +215,7 @@ public:
     void        SetIncludeCharacters(bool b);
     void        SetRefreshRate(float secs);
     void        AddVisRegion(plVisRegion* reg);
-    void        SetVisRegionName(char *name){ fVisRegionNames.Push(name); }
+    void        SetVisRegionName(char *name) { fVisRegionNames.Push(name); }
 
     static bool     GetEnabled() { return (fFlags & kReflectionEnabled) != 0; }
     static void     SetEnabled(bool enable);

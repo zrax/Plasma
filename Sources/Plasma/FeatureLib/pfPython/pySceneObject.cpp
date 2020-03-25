@@ -530,7 +530,7 @@ bool pySceneObject::IsAvatar()
 {
     // loop through all the sceneobject... looking for avatar modifiers
     int j;
-    for (j=0 ; j<fSceneObjects.Count() ; j++)
+    for (j=0; j<fSceneObjects.Count(); j++)
     {
         // get the object pointer of just the first one in the list
         // (We really can't tell which one the user is thinking of if they are
@@ -560,7 +560,7 @@ PyObject* pySceneObject::GetAvatarVelocity()
 {
     // loop through all the sceneobject... looking for avatar modifiers
     int j;
-    for (j=0 ; j<fSceneObjects.Count() ; j++)
+    for (j=0; j<fSceneObjects.Count(); j++)
     {
         // get the object pointer of just the first one in the list
         // (We really can't tell which one the user is thinking of if they are
@@ -596,7 +596,7 @@ bool pySceneObject::IsHumanAvatar()
 {
     // loop through all the sceneobject... looking for avatar modifiers
     int j;
-    for (j=0 ; j<fSceneObjects.Count() ; j++)
+    for (j=0; j<fSceneObjects.Count(); j++)
     {
         // get the object pointer of just the first one in the list
         // (We really can't tell which one the user is thinking of if they are

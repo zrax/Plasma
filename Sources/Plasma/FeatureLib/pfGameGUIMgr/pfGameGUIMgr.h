@@ -218,7 +218,7 @@ class pfGameGUIMgr : public hsKeyedObject
         pfGUIPopUpMenu  *FindPopUpMenu(const char *name);
 
         std::vector<plPostEffectMod*> GetDlgRenderMods() const;
-        bool    IsModalBlocking() {return IModalBlocking();}
+        bool    IsModalBlocking() { return IModalBlocking(); }
 
         // Tag ID stuff
         pfGUIDialogMod  *GetDialogFromTag(uint32_t tagID);

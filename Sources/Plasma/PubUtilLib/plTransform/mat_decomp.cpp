@@ -195,8 +195,8 @@ float mat_norm(HMatrix M, int tpose)
     return max;
 }
 
-float norm_inf(HMatrix M) {return mat_norm(M, 0);}
-float norm_one(HMatrix M) {return mat_norm(M, 1);}
+float norm_inf(HMatrix M) { return mat_norm(M, 0); }
+float norm_one(HMatrix M) { return mat_norm(M, 1); }
 
 /** Return index of column of M containing maximum abs entry, or -1 if M=0 **/
 int find_max_col(HMatrix M)
@@ -206,7 +206,7 @@ int find_max_col(HMatrix M)
     max = 0.0; col = -1;
     for (i=0; i<3; i++) for (j=0; j<3; j++) {
     abs = M[i][j]; if (abs<0.0) abs = -abs;
-    if (abs>max) {max = abs; col = j;}
+    if (abs>max) { max = abs; col = j; }
     }
     return col;
 }
@@ -266,7 +266,7 @@ void do_rank2(HMatrix M, HMatrix MadjT, HMatrix Q)
     int col;
     /* If rank(M) is 2, we should find a non-zero column in MadjT */
     col = find_max_col(MadjT);
-    if (col<0) {do_rank1(M, Q); return;} /* Rank<2 */
+    if (col<0) { do_rank1(M, Q); return; } /* Rank<2 */
     v1[0] = MadjT[0][col]; v1[1] = MadjT[1][col]; v1[2] = MadjT[2][col];
     make_reflector(v1, v1); reflect_cols(M, v1);
     vcross(M[0], M[1], v2);
@@ -303,7 +303,7 @@ float polar_decomp(const HMatrix M, HMatrix Q, HMatrix S)
     do {
     adjoint_transpose(Mk, MadjTk);
     det = vdot(Mk[0], MadjTk[0]);
-    if (det==0.0) {do_rank2(Mk, MadjTk, Mk); break;}
+    if (det==0.0) { do_rank2(Mk, MadjTk, Mk); break; }
     MadjT_one = norm_one(MadjTk); MadjT_inf = norm_inf(MadjTk);
     gamma = static_cast<float>(sqrt(sqrt((MadjT_one*MadjT_inf)/(M_one*M_inf))/fabs(det)));
     g1 = gamma*0.5f;
@@ -406,15 +406,15 @@ gemQuat snuggle(gemQuat q, HVect *k)
 {
 #define SQRTHALF (0.7071067811865475244f)
 #define sgn(n,v)    ((n)?-(v):(v))
-#define swap(a,i,j) {a[3]=a[i]; a[i]=a[j]; a[j]=a[3];}
-#define cycle(a,p)  if (p) {a[3]=a[0]; a[0]=a[1]; a[1]=a[2]; a[2]=a[3];}\
-            else   {a[3]=a[2]; a[2]=a[1]; a[1]=a[0]; a[0]=a[3];}
+#define swap(a,i,j) { a[3]=a[i]; a[i]=a[j]; a[j]=a[3]; }
+#define cycle(a,p)  if (p) { a[3]=a[0]; a[0]=a[1]; a[1]=a[2]; a[2]=a[3]; }\
+            else   { a[3]=a[2]; a[2]=a[1]; a[1]=a[0]; a[0]=a[3]; }
     gemQuat p;
     float ka[4];
     int i, turn = -1;
     ka[X] = k->x; ka[Y] = k->y; ka[Z] = k->z;
-    if (ka[X]==ka[Y]) {if (ka[X]==ka[Z]) turn = W; else turn = Z;}
-    else {if (ka[X]==ka[Z]) turn = Y; else if (ka[Y]==ka[Z]) turn = X;}
+    if (ka[X]==ka[Y]) { if (ka[X]==ka[Z]) turn = W; else turn = Z; }
+    else { if (ka[X]==ka[Z]) turn = Y; else if (ka[Y]==ka[Z]) turn = X; }
     if (turn>=0) {
     gemQuat qtoz, qp;
     unsigned neg[3], win;
@@ -438,8 +438,8 @@ gemQuat snuggle(gemQuat q, HVect *k)
     mag[1] = (double)q.x*q.z-(double)q.y*q.w;
     mag[2] = (double)q.y*q.z+(double)q.x*q.w;
     for (i=0; i<3; i++) if ((neg[i] = (mag[i]<0.0))) mag[i] = -mag[i];
-    if (mag[0]>mag[1]) {if (mag[0]>mag[2]) win = 0; else win = 2;}
-    else           {if (mag[1]>mag[2]) win = 1; else win = 2;}
+    if (mag[0]>mag[1]) { if (mag[0]>mag[2]) win = 0; else win = 2; }
+    else           { if (mag[1]>mag[2]) win = 1; else win = 2; }
     switch (win) {
     case 0: if (neg[0]) p = q1000; else p = q0001; break;
     case 1: if (neg[1]) p = qppmm; else p = qpppp; cycle(ka,0) break;
@@ -463,25 +463,25 @@ gemQuat snuggle(gemQuat q, HVect *k)
     if (qa[0]>qa[1]) lo = 0; else lo = 1;
     if (qa[2]>qa[3]) hi = 2; else hi = 3;
     if (qa[lo]>qa[hi]) {
-        if (qa[lo^1]>qa[hi]) {hi = lo; lo ^= 1;}
-        else {hi ^= lo; lo ^= hi; hi ^= lo;}
-    } else {if (qa[hi^1]>qa[lo]) lo = hi^1;}
+        if (qa[lo^1]>qa[hi]) { hi = lo; lo ^= 1; }
+        else { hi ^= lo; lo ^= hi; hi ^= lo; }
+    } else { if (qa[hi^1]>qa[lo]) lo = hi^1; }
     all = (qa[0]+qa[1]+qa[2]+qa[3])*0.5;
     two = (qa[hi]+qa[lo])*SQRTHALF;
     big = qa[hi];
     if (all>two) {
         if (all>big) {/*all*/
-        {int i; for (i=0; i<4; i++) pa[i] = static_cast<float>(sgn(neg[i], 0.5));}
+        { int i; for (i=0; i<4; i++) pa[i] = static_cast<float>(sgn(neg[i], 0.5)); }
         cycle(ka,par)
-        } else {/*big*/ pa[hi] = static_cast<float>(sgn(neg[hi],1.0));}
+        } else { /*big*/ pa[hi] = static_cast<float>(sgn(neg[hi],1.0)); }
     } else {
         if (two>big) {/*two*/
         pa[hi] = static_cast<float>(sgn(neg[hi],SQRTHALF));
         pa[lo] = static_cast<float>(sgn(neg[lo], SQRTHALF));
-        if (lo>hi) {hi ^= lo; lo ^= hi; hi ^= lo;}
-        if (hi==W) {hi = "\001\002\000"[lo]; lo = 3-hi-lo;}
+        if (lo>hi) { hi ^= lo; lo ^= hi; hi ^= lo; }
+        if (hi==W) { hi = "\001\002\000"[lo]; lo = 3-hi-lo; }
         swap(ka,hi,lo)
-        } else {/*big*/ pa[hi] = static_cast<float>(sgn(neg[hi],1.0));}
+        } else { /*big*/ pa[hi] = static_cast<float>(sgn(neg[hi],1.0)); }
     }
     p.x = -pa[0]; p.y = -pa[1]; p.z = -pa[2]; p.w = pa[3];
     }

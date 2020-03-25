@@ -2519,7 +2519,7 @@ bool plDXPipeline::IAvatarSort(plDrawableSpans* d, const hsTArray<int16_t>& visL
             std::sort(begin, end, plCompSortFace());
 
             indices = group->GetIndexBufferData(span->fIBufferIdx) + span->fIStartIdx;
-            plSortFace* iter = sortScratch.AcquireArray();;
+            plSortFace* iter = sortScratch.AcquireArray();
             for (j = 0; j < numTris; j++)
             {
                 *indices++ = iter->fIdx[0];
@@ -6006,7 +6006,7 @@ void    plDXPipeline::IHandleStageBlend(int stage)
 
     uint32_t colorSrc = D3DTA_TEXTURE;
     if (blendFlags & hsGMatState::kBlendInvertColor)
-        colorSrc |= D3DTA_COMPLEMENT ;
+        colorSrc |= D3DTA_COMPLEMENT;
     // kBlendEnvBumpNext not really used.
     if (blendFlags & hsGMatState::kBlendEnvBumpNext)
     {
@@ -9573,7 +9573,7 @@ void plDXPipeline::IRenderOverWire(const plRenderPrimFunc& render, hsGMaterial* 
         render.RenderPrims();
     }
 
-    RemoveLayerInterface(&depth, false) ;
+    RemoveLayerInterface(&depth, false);
     
     fView.fRenderState = state;
 }
@@ -10701,7 +10701,7 @@ bool plDXPipeline::ICreateBlurVBuffers()
 {
     // vertex size is 4 verts, with 4 floats each for position, and 2 floats each for uv.
     const uint32_t kVSize = sizeof(plShadowVertStruct);
-    const uint32_t kVFormat = D3DFVF_XYZ | D3DFVF_TEX1 | D3DFVF_TEXCOORDSIZE2(0) ;
+    const uint32_t kVFormat = D3DFVF_XYZ | D3DFVF_TEX1 | D3DFVF_TEXCOORDSIZE2(0);
 
     int i;
     for (i = 0; i < kMaxRenderTargetNext; i++)
@@ -10813,7 +10813,7 @@ bool plDXPipeline::ICreateBlurVBuffers()
 bool plDXPipeline::ISetBlurQuadToRender(plRenderTarget* smap)
 {
     const uint32_t kVSize = sizeof(plShadowVertStruct);
-    const uint32_t kVFormat = D3DFVF_XYZ | D3DFVF_TEX1 | D3DFVF_TEXCOORDSIZE2(0) ;
+    const uint32_t kVFormat = D3DFVF_XYZ | D3DFVF_TEX1 | D3DFVF_TEXCOORDSIZE2(0);
 
     // Each vb will be rendertarget size specific, so select one based on input rendertarget
     int which = -1;

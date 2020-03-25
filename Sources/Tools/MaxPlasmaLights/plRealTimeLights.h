@@ -75,7 +75,7 @@ class plRTOmniLight : public plRTLightBase
         plRTOmniLight();
             
         ObjLightDesc *CreateLightDesc(INode *n, BOOL forceShadowBuf= FALSE);
-        GenLight* NewLight(int type) {return new plRTOmniLight();}
+        GenLight* NewLight(int type) { return new plRTOmniLight(); }
         RefTargetHandle Clone(RemapDir &remap);
 
         virtual void            InitNodeName(TSTR &s) { s = _T("RTOmniLight"); }
@@ -98,7 +98,7 @@ class plRTOmniLightDesc : public ClassDesc2
     const TCHAR*    ClassName()                     { return GetString(IDS_DB_OMNI); }
     SClass_ID       SuperClassID()                  { return LIGHT_CLASS_ID; }
     Class_ID        ClassID()                       { return RTOMNI_LIGHT_CLASSID; }
-    const TCHAR*    Category()                      { return _T("Plasma RunTime");}
+    const TCHAR*    Category()                      { return _T("Plasma RunTime"); }
     const TCHAR*    InternalName()                  { return _T("plRTOmni"); }  // returns fixed parsable name (scripter-visible name)
     HINSTANCE       HInstance()                     { return hInstance; }
 
@@ -126,7 +126,7 @@ class plRTSpotLight : public plRTLightBase
 
         int CanConvertToType(Class_ID obtype) { return (obtype ==  RTSPOT_LIGHT_CLASSID) ? 1 : 0; }
         ObjLightDesc *CreateLightDesc(INode *n, BOOL forceShadowBuf= FALSE);
-        GenLight* NewLight(int type) {return new plRTSpotLight();}
+        GenLight* NewLight(int type) { return new plRTSpotLight(); }
         RefTargetHandle Clone(RemapDir &remap);
         
         virtual Texmap  *GetProjMap();
@@ -178,7 +178,7 @@ class plRTDirLight : public plRTLightBase
         SClass_ID SuperClassID() { return LIGHT_CLASS_ID; }
 
         ObjLightDesc *CreateLightDesc(INode *n, BOOL forceShadowBuf= FALSE);
-        GenLight* NewLight(int type) {return new plRTDirLight();}
+        GenLight* NewLight(int type) { return new plRTDirLight(); }
         RefTargetHandle Clone(RemapDir &remap);
 
         int CanConvertToType(Class_ID obtype) { return (obtype ==  RTDIR_LIGHT_CLASSID) ? 1 : 0; }
@@ -204,7 +204,7 @@ class plRTDirLightDesc : public ClassDesc2
     const TCHAR*    ClassName()                     { return GetString(IDS_DB_DIRECTIONAL); }
     SClass_ID       SuperClassID()                  { return LIGHT_CLASS_ID; }
     Class_ID        ClassID()                       { return RTDIR_LIGHT_CLASSID; }
-    const TCHAR*    Category()                      { return _T("Plasma RunTime");}
+    const TCHAR*    Category()                      { return _T("Plasma RunTime"); }
     const TCHAR*    InternalName()                  { return _T("RTDir"); } // returns fixed parsable name (scripter-visible name)
     HINSTANCE       HInstance()                     { return hInstance; }
 

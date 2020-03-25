@@ -63,13 +63,13 @@ public:
     fAccel(0),fDecel(0),
     fVel(0),fFPAccel(0),
     fFPDecel(0),fFPVel(0),
-    fFOVw(0),fFOVh(0),fType(0),fWorldspace(false){fOffset.Set(0,0,0);}
+    fFOVw(0),fFOVh(0),fType(0),fWorldspace(false) { fOffset.Set(0,0,0); }
     
     plCameraConfig(int flags) :
     fAccel(0),fDecel(0),
     fVel(0),fFPAccel(0),
     fFPDecel(0),fFPVel(0),
-    fFOVw(0),fFOVh(0),fType(0),fWorldspace(false) { fType |= flags;fOffset.Set(0,0,0);}
+    fFOVw(0),fFOVh(0),fType(0),fWorldspace(false) { fType |= flags; fOffset.Set(0,0,0); }
 
 
     enum

@@ -70,10 +70,10 @@ protected:
     virtual bool IEval(double secs, float del, uint32_t dirty);
     
 public:
-    plInterestingModifier(){ fType = kTypeInteresting;}
+    plInterestingModifier() { fType = kTypeInteresting; }
     virtual ~plInterestingModifier() { }
     
-    virtual bool MsgReceive(plMessage* msg) {return false;}
+    virtual bool MsgReceive(plMessage* msg) { return false; }
 
     CLASSNAME_REGISTER(plInterestingModifier);
     GETINTERFACE_ANY(plInterestingModifier, plSingleModifier);

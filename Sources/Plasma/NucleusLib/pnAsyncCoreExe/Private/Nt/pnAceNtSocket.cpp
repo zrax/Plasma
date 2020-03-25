@@ -441,7 +441,7 @@ static bool SocketInitConnect (
             break;
 
         // Determine connType
-        for (;op.sendBytes; ) {
+        for (; op.sendBytes; ) {
             sock->connType = op.sendData[0];
             if (IS_TEXT_CONNTYPE(sock->connType))
                 break;

@@ -70,7 +70,7 @@ public:
     void PutCurrentStateIn(plStateDataRecord* dstState);
     const char* GetSDLName() const { return kSDLParticleSystem; }
 
-    void SetAttachedToAvatar(bool attached) {fAttachedToAvatar = attached;}
+    void SetAttachedToAvatar(bool attached) { fAttachedToAvatar = attached; }
 };
 
 #endif  // plParticleSDLMod_inc

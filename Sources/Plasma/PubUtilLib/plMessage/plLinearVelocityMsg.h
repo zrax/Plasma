@@ -50,8 +50,8 @@ public:
         : plSimulationMsg(sender,receiver, time), fVelocity(0.0f,0.0f,0.0f)  {};
     CLASSNAME_REGISTER(plLinearVelocityMsg);
     GETINTERFACE_ANY(plLinearVelocityMsg, plSimulationMsg);
-    void Velocity(hsVector3& vel){fVelocity=vel;}
-    const hsVector3& Velocity(){return fVelocity;}
+    void Velocity(hsVector3& vel) { fVelocity=vel; }
+    const hsVector3& Velocity() { return fVelocity; }
 protected:
     hsVector3 fVelocity;
 

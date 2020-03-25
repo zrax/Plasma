@@ -199,7 +199,7 @@ public:
     virtual void        SetMuted(bool muted);
     virtual bool        IsMuted() { return fMuted; }
     void                Disable() { fDistAttenuation = 0; }
-    virtual plSoundMsg* GetStatus(plSoundMsg* pMsg){return NULL;}
+    virtual plSoundMsg* GetStatus(plSoundMsg* pMsg) { return NULL; }
     virtual void        SetConeOrientation(float x, float y, float z);
     virtual void        SetOuterVolume(const int v); // volume for the outer cone (if applicable)
     virtual void        SetConeAngles(int inner, int outer);
@@ -222,7 +222,7 @@ public:
     virtual void        RefreshVolume();
 
     virtual void        SetStartPos(unsigned bytes) = 0;
-    virtual unsigned    GetByteOffset(){return 0;}
+    virtual unsigned    GetByteOffset() { return 0; }
     virtual float       GetActualTimeSec() = 0;
 
     virtual void        AddCallbacks(plSoundMsg* pMsg) = 0;

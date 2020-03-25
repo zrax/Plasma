@@ -388,7 +388,7 @@ int plNetClientMgr::IPrepMsg(plNetMessage* msg)
         // update receivers list in voice msg based on talk list
         v->Receivers()->Clear();
         int i;
-        for (i=0;i<GetTalkList()->GetNumMembers(); i++)
+        for (i=0; i<GetTalkList()->GetNumMembers(); i++)
         {
             v->Receivers()->AddReceiverPlayerID(GetTalkList()->GetMember(i)->GetPlayerID());
         }
@@ -407,7 +407,7 @@ int plNetClientMgr::IPrepMsg(plNetMessage* msg)
             plNetMsgReceiversListHelper* rl = plNetMsgReceiversListHelper::ConvertNoRef(msg);
             hsAssert(rl, "error converting msg to rcvrs list?");
             int i;
-            for (i=0;i<rl->GetNumReceivers();i++)
+            for (i=0; i<rl->GetNumReceivers(); i++)
             {
                 int idx=fTransport.FindMember(rl->GetReceiverPlayerID(i));
                 hsAssert(idx!=-1, "error finding transport mbr");
@@ -1203,7 +1203,7 @@ void plNetClientMgr::MakeCCRInvisible(plKey avKey, int level)
             msg->fMode = plAvatarStealthModeMsg::kStealthVisible;
     }
 
-    DebugMsg("Handled MakeCCRInvisible - sending stealth msg");;
+    DebugMsg("Handled MakeCCRInvisible - sending stealth msg");
 
     // This fxn is called when avatar SDL state is received from the server,
     // so this msg will inherit the 'non-local' status of the parent sdl msg.
@@ -1311,7 +1311,7 @@ bool plNetClientMgr::IHandlePlayerPageMsg(plPlayerPageMsg *playerMsg)
                 if (co)
                 {
                     int i;
-                    for (i=0;i<co->GetNumChildren();i++)
+                    for (i=0; i<co->GetNumChildren(); i++)
                     {
                         if (co->GetChild(i) && co->GetChild(i)->GetOwner())
                                 const_cast<plSceneObject*>(co->GetChild(i)->GetOwner())->SetSynchFlagsBit(plSynchedObject::kAllStateIsVolatile);

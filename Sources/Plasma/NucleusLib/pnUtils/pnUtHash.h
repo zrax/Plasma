@@ -106,7 +106,7 @@ private:
 public:
     static uint32_t LookupHashBits (unsigned value) { ASSERT(value < 0x100); return s_hashTable[value]; }
 
-    inline CHashValue () { Construct() ; }
+    inline CHashValue () { Construct(); }
     inline CHashValue (const CHashValue & source) { m_result = source.m_result; }
     inline CHashValue (const void * data, unsigned bytes) { Construct(); Hash(data, bytes); }
     inline CHashValue & operator= (const CHashValue & source) { m_result = source.m_result; return *this; }

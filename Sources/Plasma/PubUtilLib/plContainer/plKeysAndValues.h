@@ -75,7 +75,7 @@ public:
     // ctor
     plKeysAndValues();
     plKeysAndValues(const plKeysAndValues & src);
-    virtual ~plKeysAndValues(){}
+    virtual ~plKeysAndValues() {}
     // assign
     plKeysAndValues & operator =(const plKeysAndValues & src);
     // clear
@@ -109,7 +109,7 @@ public:
     void Read(hsStream * s);
     void Write(hsStream * s);
     // TODO:
-    uint32_t GetStreamSize() { return 0;}
+    uint32_t GetStreamSize() { return 0; }
 };
 
 

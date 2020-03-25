@@ -80,8 +80,8 @@ public:
     virtual void Spawn(double timeNow);
     virtual bool LeaveAge();
 
-    bool IsActor() const {return fIsActor;}
-    void IsActor(bool isActor) {fIsActor = isActor;}
+    bool IsActor() const { return fIsActor; }
+    void IsActor(bool isActor) { fIsActor = isActor; }
 
     bool IsMovementZeroBlend();
     void TurnToPoint(hsPoint3 point);

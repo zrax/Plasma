@@ -175,25 +175,25 @@ public:
     plGeneralAttrib();
 
     virtual RefResult NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
-                               PartID& partID,  RefMessage message){return REF_SUCCEED;}
+                               PartID& partID,  RefMessage message) { return REF_SUCCEED; }
 
     int NumParamBlocks() { return 1; }                  // return number of ParamBlocks in this instance
     IParamBlock2* GetParamBlock(int i) { return fPBlock; } // return i'th ParamBlock
     IParamBlock2* GetParamBlockByID(BlockID id) { return (fPBlock->ID() == id) ? fPBlock : NULL; } // return id'd ParamBlock
 
-    int NumRefs() { return 1;}
+    int NumRefs() { return 1; }
     virtual RefTargetHandle GetReference(int i) { if (i == 0) return fPBlock; else return NULL; }
     virtual void SetReference(int i, RefTargetHandle rtarg) { if (i == 0) fPBlock = (IParamBlock2 *)rtarg; }
 
     virtual int NumSubs()  { return 1; }
     virtual Animatable* SubAnim(int i) { return fPBlock; }
-    virtual TSTR SubAnimName(int i){ return fClassDesc->ClassName();}
+    virtual TSTR SubAnimName(int i) { return fClassDesc->ClassName(); }
 
 
     void BeginEditParams(IObjParam *ip,ULONG flags,Animatable *prev);
     void EndEditParams(IObjParam *ip, ULONG flags, Animatable *next);
-    SClass_ID       SuperClassID() {return CUST_ATTRIB_CLASS_ID;}
-    Class_ID        ClassID() {return fClassDesc->ClassID();}
+    SClass_ID       SuperClassID() { return CUST_ATTRIB_CLASS_ID; }
+    Class_ID        ClassID() { return fClassDesc->ClassID(); }
 
     ReferenceTarget *Clone(RemapDir &remap = DEFAULTREMAP);
     virtual bool CheckCopyAttribTo(ICustAttribContainer *to) { return true; }

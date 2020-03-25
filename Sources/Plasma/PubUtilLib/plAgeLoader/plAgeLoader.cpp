@@ -406,7 +406,7 @@ bool    plAgeLoader::IUnloadAge()
 void plAgeLoader::ExecPendingAgeFniFiles()
 {
     int i;
-    for (i=0;i<PendingAgeFniFiles().size(); i++)
+    for (i=0; i<PendingAgeFniFiles().size(); i++)
     {
         plConsoleMsg    *cMsg = new plConsoleMsg(plConsoleMsg::kExecuteFile, fPendingAgeFniFiles[i].AsString().c_str());
         plgDispatch::MsgSend(cMsg);
@@ -417,7 +417,7 @@ void plAgeLoader::ExecPendingAgeFniFiles()
 void plAgeLoader::ExecPendingAgeCsvFiles()
 {
     int i;
-    for (i=0;i<PendingAgeCsvFiles().size(); i++)
+    for (i=0; i<PendingAgeCsvFiles().size(); i++)
     {
         hsStream* stream = plEncryptedStream::OpenEncryptedFile(fPendingAgeCsvFiles[i].AsString().c_str());
         if (stream)

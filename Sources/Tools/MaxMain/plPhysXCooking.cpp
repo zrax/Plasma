@@ -207,7 +207,7 @@ hsVectorStream* plPhysXCooking::CookHull(int nVerts, hsPoint3* verts, bool infla
     if (inflate)
     {
 
-        convexDesc.flags|= NX_CF_INFLATE_CONVEX ;
+        convexDesc.flags|= NX_CF_INFLATE_CONVEX;
     }
     hsVectorStream* ram = new hsVectorStream;
     plPXStream buf(ram);
@@ -349,12 +349,12 @@ void plPhysXCooking::PCA(const NxVec3* points,int numPoints, NxMat33& out)
     NxVec3 mean(0.f,0.f,0.f);
     float Cov[3][3];
     memset(Cov,0,9* sizeof(float));
-    for (int i=0; i<numPoints;i++)
+    for (int i=0; i<numPoints; i++)
     {
         mean+=points[i];
     }
     mean=mean/(float)numPoints;
-    for (int i=0;i<numPoints;i++)
+    for (int i=0; i<numPoints; i++)
     {
         Cov[0][0]+=pow(points[i].x-mean.x ,2.0f)/(float)(numPoints);
         Cov[1][1]+=pow(points[i].y-mean.y ,2.0f)/(float)(numPoints);
@@ -367,9 +367,9 @@ void plPhysXCooking::PCA(const NxVec3* points,int numPoints, NxMat33& out)
     Cov[1][0]=Cov[0][1];
     Cov[2][1]=Cov[1][2];
     NxF32 Covun[9];
-    for (int i=0;i<3;i++)
+    for (int i=0; i<3; i++)
     {
-        for (int j=0; j<3;j++)
+        for (int j=0; j<3; j++)
         {
             Covun[3*i +j]=Cov[i][j];
         }
@@ -398,11 +398,11 @@ hsVectorStream* plPhysXCooking::IMakePolytope(const plMaxMeshExtractor::NeutralM
     NxVec3* vectors = new NxVec3[26];
     
     int curvec=0;
-    for (int xcomp= -1;xcomp<2;xcomp++)
+    for (int xcomp= -1; xcomp<2; xcomp++)
     {
-        for (int ycomp= -1;ycomp<2;ycomp++)
+        for (int ycomp= -1; ycomp<2; ycomp++)
         {
-            for (int zcomp= -1;zcomp<2;zcomp++)
+            for (int zcomp= -1; zcomp<2; zcomp++)
             {
                 if (!((xcomp==0)&&(ycomp==0)&&(zcomp==0)))
                 {
@@ -416,18 +416,18 @@ hsVectorStream* plPhysXCooking::IMakePolytope(const plMaxMeshExtractor::NeutralM
         }
     }
     /*
-    for (int i=0;i<26;i++)
+    for (int i=0; i<26; i++)
     {//make your max and mins
         planeMax[i]=(-FLT_MAX);
     }
     */
     hsPoint3 centroid(0.0f,0.0f,0.0f);
-    for (int i=0;i<inMesh.fNumVerts;i++) centroid+=inMesh.fVerts[i];
+    for (int i=0; i<inMesh.fNumVerts; i++) centroid+=inMesh.fVerts[i];
     centroid=centroid/(float)inMesh.fNumVerts;
     //temp
     NxVec3* nxLocs=new NxVec3[inMesh.fNumVerts];
     NxVec3* nxLocs2=new NxVec3[inMesh.fNumVerts];
-    for (int i=0;i<inMesh.fNumVerts;i++)
+    for (int i=0; i<inMesh.fNumVerts; i++)
     {
         hsPoint3 temppt=inMesh.fVerts[i] - centroid;
         nxLocs[i]=plPXConvert::Point(temppt);
@@ -437,13 +437,13 @@ hsVectorStream* plPhysXCooking::IMakePolytope(const plMaxMeshExtractor::NeutralM
     PCA(nxLocs,inMesh.fNumVerts,rot);
     NxMat33 invrot;
     rot.getInverse(invrot);
-    for (int i=0; i<inMesh.fNumVerts;i++)
+    for (int i=0; i<inMesh.fNumVerts; i++)
     {
         nxLocs2[i]=invrot*nxLocs[i];
     }
-    for (int i=0;i<inMesh.fNumVerts;i++)
+    for (int i=0; i<inMesh.fNumVerts; i++)
     {
-        for (int plane=0;plane<26;plane++)
+        for (int plane=0; plane<26; plane++)
         {
             float dist=nxLocs2[i].dot(vectors[plane]);
             if (dist>=planeMax[plane])
@@ -453,7 +453,7 @@ hsVectorStream* plPhysXCooking::IMakePolytope(const plMaxMeshExtractor::NeutralM
             }
         }
     }
-    for (int i=0;i<inMesh.fNumVerts;i++)
+    for (int i=0; i<inMesh.fNumVerts; i++)
     {
         AABBMin.fX = std::min(nxLocs2[i].x, AABBMin.fX);
         AABBMin.fY = std::min(nxLocs2[i].y, AABBMin.fY);
@@ -464,11 +464,11 @@ hsVectorStream* plPhysXCooking::IMakePolytope(const plMaxMeshExtractor::NeutralM
     }
     
     int resultingPoints=0;
-    for (int i=0;i<26;i++)
+    for (int i=0; i<26; i++)
     {
-        for (int j=0;j<26;j++)
+        for (int j=0; j<26; j++)
         {
-            for (int k=0;k<26;k++)
+            for (int k=0; k<26; k++)
             {
                 NxVec3 res;
                 if (ThreePlaneIntersect(vectors[i],nxLocs2[indexMax[i]],vectors[j],nxLocs2[indexMax[j]], vectors[k],nxLocs2[indexMax[k]],res))
@@ -514,7 +514,7 @@ hsVectorStream* plPhysXCooking::IMakePolytope(const plMaxMeshExtractor::NeutralM
 
     delete[] vectors;
         hsPoint3* pointages=new hsPoint3[outCloud.size()];
-    for (int x=0;x<outCloud.size();x++)pointages[x]=outCloud[x];
+    for (int x=0; x<outCloud.size(); x++) pointages[x]=outCloud[x];
     hsVectorStream* vectorstrm;
     vectorstrm= CookHull(outCloud.size(),pointages,true);
     delete[] pointages;

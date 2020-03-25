@@ -71,7 +71,7 @@ public:
         kStreamNative,  // Stream from the native type (ie, an Ogg on disk)
     };
 
-    virtual void    Open(){}
+    virtual void    Open() {}
     virtual void    Close() = 0;
 
     virtual uint32_t  GetDataSize() = 0;

@@ -74,7 +74,7 @@ public:
 
     static void AddPlasmaClasses(PyObject *m);
 
-    void setKey(pyKey& key) {fWaterKey = key.getKey();} // for python glue only, do NOT call
+    void setKey(pyKey& key) { fWaterKey = key.getKey(); } // for python glue only, do NOT call
 
     // ==============================================================================
     // Set functions

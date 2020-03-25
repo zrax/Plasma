@@ -230,7 +230,7 @@ void plOccluder::IComputeBounds()
 
     const hsTArray<plCullPoly>& polys = GetLocalPolyList();
     int i;
-    for (i =0 ; i < polys.GetCount(); i++)
+    for (i =0; i < polys.GetCount(); i++)
     {
         int j;
         for (j = 0; j < polys[i].fVerts.GetCount(); j++)
@@ -243,7 +243,7 @@ float plOccluder::IComputeSurfaceArea()
     float area = 0;
     const hsTArray<plCullPoly>& polys = GetLocalPolyList();
     int i;
-    for (i =0 ; i < polys.GetCount(); i++)
+    for (i =0; i < polys.GetCount(); i++)
     {
         int j;
         for (j = 2; j < polys[i].fVerts.GetCount(); j++)

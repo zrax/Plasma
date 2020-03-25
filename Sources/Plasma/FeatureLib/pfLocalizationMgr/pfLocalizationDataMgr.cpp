@@ -455,7 +455,7 @@ public:
     LocalizationDatabase() {}
 
     void Parse(const plFileName & directory);
-    LocalizationXMLFile::ageMap GetData() {return fData;}
+    LocalizationXMLFile::ageMap GetData() { return fData; }
 };
 
 //////////////////////////////////////////////////////////////////////

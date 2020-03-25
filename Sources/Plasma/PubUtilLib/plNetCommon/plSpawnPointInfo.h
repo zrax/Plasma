@@ -58,7 +58,7 @@ struct plSpawnPointInfo
     ST::string fTitle;         // friendly title for GUIs
     ST::string fSpawnPt;       // name of spawn point in dataset
     ST::string fCameraStack;
-    plSpawnPointInfo(){}
+    plSpawnPointInfo() {}
     plSpawnPointInfo(const plSpawnPointInfo & other) = default;
     plSpawnPointInfo(plSpawnPointInfo&& other) = default;
     plSpawnPointInfo(const ST::string & title, const ST::string & spawnPt)

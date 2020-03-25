@@ -70,15 +70,15 @@ class plNetMsgStreamableHelper : public plCreatable
 {
     hsStreamable *  fObject;
 public:
-    plNetMsgStreamableHelper():fObject(nil){}
-    plNetMsgStreamableHelper(hsStreamable * object):fObject(object){}
+    plNetMsgStreamableHelper():fObject(nil) {}
+    plNetMsgStreamableHelper(hsStreamable * object):fObject(object) {}
     plNetMsgStreamableHelper & operator =(hsStreamable * value);
-    operator hsStreamable *() const { return fObject;}
-    operator const hsStreamable *() const { return fObject;}
+    operator hsStreamable *() const { return fObject; }
+    operator const hsStreamable *() const { return fObject; }
     CLASSNAME_REGISTER(plNetMsgStreamableHelper);
     GETINTERFACE_ANY(plNetMsgStreamableHelper, plCreatable);
-    void SetObject(hsStreamable * object) { fObject=object;}
-    hsStreamable * GetObject() const { return fObject;}
+    void SetObject(hsStreamable * object) { fObject=object; }
+    hsStreamable * GetObject() const { return fObject; }
     int Poke(hsStream* stream, uint32_t peekOptions=0);
     int Peek(hsStream* stream, uint32_t peekOptions=0);
 };
@@ -282,7 +282,7 @@ public:
     struct MatchesPlayerID
     {
         uint32_t fID;
-        MatchesPlayerID(uint32_t id): fID(id){}
+        MatchesPlayerID(uint32_t id): fID(id) {}
         bool operator()(const plNetMsgMemberInfoHelper * mbr) const
         {
             return (mbr && mbr->GetClientGuid()->GetPlayerID()==fID);
@@ -305,7 +305,7 @@ public:
     int GetNumMembers() const { return fMembers.size(); }
     const plNetMsgMemberInfoHelper* GetMember(int i) const { return fMembers[i]; }
     void AddMember(plNetMsgMemberInfoHelper* a) { fMembers.push_back(a); }
-    const MemberInfoHelperVec * GetMembers() const { return &fMembers;}
+    const MemberInfoHelperVec * GetMembers() const { return &fMembers; }
 };
 
 

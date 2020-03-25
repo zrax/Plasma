@@ -73,7 +73,7 @@ pyNotify::pyNotify(pyKey& selfkey)
     fBuildMsg.fID = 0;
     // loop though adding the ones that want to be notified of the change
     int j;
-    for (j=0 ; j<selfkey.NotifyListCount() ; j++)
+    for (j=0; j<selfkey.NotifyListCount(); j++)
         fReceivers.Append(selfkey.GetNotifyListItem(j));
 }
 
@@ -216,7 +216,7 @@ void pyNotify::Send()
     // add receivers
     // loop though adding the ones that want to be notified of the change
     int j;
-    for (j=0 ; j<fReceivers.Count() ; j++)
+    for (j=0; j<fReceivers.Count(); j++)
         pNMsg->AddReceiver(fReceivers[j]);
 
     pNMsg->SetSender(fSenderKey);

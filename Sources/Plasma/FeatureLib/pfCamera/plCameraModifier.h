@@ -115,7 +115,7 @@ public:
 
     void    SetBrain(plCameraBrain1* brain) { fBrain = brain; }
 
-    plCameraBrain1* GetBrain()      { return fBrain;}
+    plCameraBrain1* GetBrain()      { return fBrain; }
 
     hsPoint3        GetTargetPos() { return fFrom; }
     hsPoint3        GetTargetPOA() { return fAt; }

@@ -100,7 +100,7 @@ class plCreatableListHelper : public plCreatable
 
 public:
     plCreatableListHelper();
-    ~plCreatableListHelper() { IClearItems();}
+    ~plCreatableListHelper() { IClearItems(); }
 
     CLASSNAME_REGISTER(plCreatableListHelper);
     GETINTERFACE_ANY(plCreatableListHelper, plCreatable);
@@ -121,7 +121,7 @@ public:
     plCreatable* GetItem(uint16_t id, bool unManageItem=false) const;
     void    RemoveItem(uint16_t id, bool unManageItem=false);
     bool    ItemExists(uint16_t id) const;
-    int     GetNumItems() const { return fItems.size();}
+    int     GetNumItems() const { return fItems.size(); }
     // helpers for typed arguments
     void    AddString(uint16_t id, const char * value);
     void    AddString(uint16_t id, std::string & value);
@@ -174,7 +174,7 @@ struct plOperationTimer
         hsLogEntry(plNetApp::StaticDebugMsg("{}{} Timed: {f} secs: {}",
             fSpacer, fTag, fEndTime, fComment));
     }
-    double GetTime() const { return fEndTime;}
+    double GetTime() const { return fEndTime; }
 };
 
 

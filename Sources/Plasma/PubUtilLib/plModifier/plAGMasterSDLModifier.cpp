@@ -78,7 +78,7 @@ void plAGMasterSDLModifier::IPutBlends(plStateDataRecord* state, plAGMasterMod* 
 
     // sdl copy
     int i;
-    for (i=0;i<numBlends; i++)
+    for (i=0; i<numBlends; i++)
     {
         blendsVar->Set((uint8_t)(agMaster->GetAnimInstance(i)->GetBlend() * 255), i);
     }
@@ -107,7 +107,7 @@ void plAGMasterSDLModifier::IPutCurrentStateIn(plStateDataRecord* dstState)
 
         // copy atcs to sdl
         int i;
-        for (i=0;i<numAnims; i++)
+        for (i=0; i<numAnims; i++)
         {
             plStateDataRecord* atcStateDataRec = atcsVar->GetStateDataRecord(i);
             plAnimTimeConvert* animTimeConvert = agMaster->GetATCAnimInstance(i)->GetTimeConvert();
@@ -147,7 +147,7 @@ void plAGMasterSDLModifier::ISetCurrentBlends(const plStateDataRecord* state, pl
         if (blendsVar->GetCount() != objAGMaster->GetNumPrivateAnimations())
             return; // bogus state
 
-        for (i=0;i<blendsVar->GetCount();i++)
+        for (i=0; i<blendsVar->GetCount(); i++)
         {
             uint8_t blend;
             blendsVar->Get(&blend, i);
@@ -177,7 +177,7 @@ void plAGMasterSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcSta
             return;
 
         int i;
-        for (i=0;i<atcsVar->GetCount(); i++)
+        for (i=0; i<atcsVar->GetCount(); i++)
         {
             plStateDataRecord* atcStateDataRec = atcsVar->GetStateDataRecord(i);
             plAnimTimeConvert* objAtc = objAGMaster->GetATCAnimInstance(i)->GetTimeConvert();   // dst

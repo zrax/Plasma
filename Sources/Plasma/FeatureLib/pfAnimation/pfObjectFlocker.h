@@ -96,7 +96,7 @@ public:
         }
 
         // call this when your position changes
-        void UpdateWithNewPosition(const hsPoint3 &newPosition) {fPosition = newPosition;}
+        void UpdateWithNewPosition(const hsPoint3 &newPosition) { fPosition = newPosition; }
 
         // find all close-by objects (determined by center and radius)
         void FindNeighbors(const hsPoint3 &center, const float radius, std::vector<T> & results)
@@ -127,10 +127,10 @@ public:
     virtual ~pfBasicProximityDatabase() {}
 
     // allocate a token to represent a given client object in this database
-    tokenType *MakeToken(T parentObject) {return new tokenType(parentObject, fGroup);}
+    tokenType *MakeToken(T parentObject) { return new tokenType(parentObject, fGroup); }
 
     // return the number of tokens currently in the database
-    int Size() {return fGroup.size();}
+    int Size() { return fGroup.size(); }
 };
 
 // A basic vehicle class that handles accelleration, braking, and turning
@@ -162,49 +162,49 @@ private:
     // measure the path curvature (1/turning radius), maintain smoothed version
     void IMeasurePathCurvature(const float elapsedTime);
 public:
-    pfVehicle() {Reset();}
+    pfVehicle() { Reset(); }
     virtual ~pfVehicle() {}
 
     void Reset();
 
     // get/set attributes
-    float Mass() const {return fMass;}
-    float SetMass(float m) {return fMass = m;}
+    float Mass() const { return fMass; }
+    float SetMass(float m) { return fMass = m; }
 
-    hsVector3 Forward() const {return fForward;}
-    hsVector3 SetForward(hsVector3 forward) {return fForward = forward;}
-    hsVector3 Side() const {return fSide;}
-    hsVector3 SetSide(hsVector3 side) {return fSide = side;}
-    hsVector3 Up() const {return fUp;}
-    hsVector3 SetUp(hsVector3 up) {return fUp = up;}
+    hsVector3 Forward() const { return fForward; }
+    hsVector3 SetForward(hsVector3 forward) { return fForward = forward; }
+    hsVector3 Side() const { return fSide; }
+    hsVector3 SetSide(hsVector3 side) { return fSide = side; }
+    hsVector3 Up() const { return fUp; }
+    hsVector3 SetUp(hsVector3 up) { return fUp = up; }
 
-    hsPoint3 Position() const {return fPos;}
-    hsPoint3 SetPosition(hsPoint3 pos) {return fPos = pos;}
+    hsPoint3 Position() const { return fPos; }
+    hsPoint3 SetPosition(hsPoint3 pos) { return fPos = pos; }
 
-    hsVector3 Velocity() const {return Forward() * fSpeed;}
+    hsVector3 Velocity() const { return Forward() * fSpeed; }
 
-    float Speed() const {return fSpeed;}
-    float SetSpeed(float speed) {return fSpeed = speed;}
+    float Speed() const { return fSpeed; }
+    float SetSpeed(float speed) { return fSpeed = speed; }
 
-    float MaxForce() const {return fMaxForce;}
-    float SetMaxForce(float maxForce) {return fMaxForce = maxForce;}
+    float MaxForce() const { return fMaxForce; }
+    float SetMaxForce(float maxForce) { return fMaxForce = maxForce; }
 
-    float MaxSpeed() const {return fMaxSpeed;}
-    float SetMaxSpeed(float maxSpeed) {return fMaxSpeed = maxSpeed;}
+    float MaxSpeed() const { return fMaxSpeed; }
+    float SetMaxSpeed(float maxSpeed) { return fMaxSpeed = maxSpeed; }
 
-    float Curvature() const {return fCurvature;}
+    float Curvature() const { return fCurvature; }
 
-    float SmoothedCurvature() {return fSmoothedCurvature;}
+    float SmoothedCurvature() { return fSmoothedCurvature; }
     float ResetSmoothedCurvature(float value = 0);
 
-    hsVector3 SmoothedAcceleration() {return fSmoothedAcceleration;}
+    hsVector3 SmoothedAcceleration() { return fSmoothedAcceleration; }
     hsVector3 ResetSmoothedAcceleration(const hsVector3 &value = hsVector3(0,0,0));
 
-    hsPoint3 SmoothedPosition() {return fSmoothedPosition;}
+    hsPoint3 SmoothedPosition() { return fSmoothedPosition; }
     hsPoint3 ResetSmoothedPosition(const hsPoint3 &value = hsPoint3(0,0,0));
 
-    float Radius() const {return fRadius;}
-    float SetRadius(float radius) {return fRadius = radius;}
+    float Radius() const { return fRadius; }
+    float SetRadius(float radius) { return fRadius = radius; }
 
     // Basic geometry functions
 
@@ -219,11 +219,11 @@ public:
 
     // If the new forward is NOT known to have unit length
     void RegenerateOrthonormalBasis(const hsVector3 &newForward)
-    {hsVector3 temp = newForward; temp.Normalize(); RegenerateOrthonormalBasisUF(temp);}
+    { hsVector3 temp = newForward; temp.Normalize(); RegenerateOrthonormalBasisUF(temp); }
 
     // For supplying both a new forward, and a new up
     void RegenerateOrthonormalBasis(const hsVector3 &newForward, const hsVector3 &newUp)
-    {fUp = newUp; RegenerateOrthonormalBasis(newForward);}
+    { fUp = newUp; RegenerateOrthonormalBasis(newForward); }
 
     // Keep forward parallel to velocity, change up as little as possible
     virtual void RegenerateLocalSpace(const hsVector3 &newVelocity, const float elapsedTime);
@@ -263,9 +263,9 @@ public:
 
     void Update(plSceneObject *goal, float deltaTime);
 
-    hsPoint3 Position() const {return fCurPos;}
-    float Speed() const {return fSpeed;}
-    hsVector3 Forward() const {return fForward;}
+    hsPoint3 Position() const { return fCurPos; }
+    float Speed() const { return fSpeed; }
+    hsVector3 Forward() const { return fForward; }
     hsPoint3 PredictFuturePosition(const float predictionTime);
 };
 
@@ -323,24 +323,24 @@ public:
     virtual ~pfBoid();
 
     // Get/set functions
-    float GoalWeight() const {return fGoalWeight;}
-    float SetGoalWeight(float goalWeight) {return fGoalWeight = goalWeight;}
-    float WanderWeight() const {return fRandomWeight;}
-    float SetWanderWeight(float wanderWeight) {return fRandomWeight = wanderWeight;}
+    float GoalWeight() const { return fGoalWeight; }
+    float SetGoalWeight(float goalWeight) { return fGoalWeight = goalWeight; }
+    float WanderWeight() const { return fRandomWeight; }
+    float SetWanderWeight(float wanderWeight) { return fRandomWeight = wanderWeight; }
 
-    float SeparationWeight() const {return fSeparationWeight;}
-    float SetSeparationWeight(float weight) {return fSeparationWeight = weight;}
-    float SeparationRadius() const {return fSeparationRadius;}
-    float SetSeparationRadius(float radius) {return fSeparationRadius = radius;}
+    float SeparationWeight() const { return fSeparationWeight; }
+    float SetSeparationWeight(float weight) { return fSeparationWeight = weight; }
+    float SeparationRadius() const { return fSeparationRadius; }
+    float SetSeparationRadius(float radius) { return fSeparationRadius = radius; }
 
-    float CohesionWeight() const {return fCohesionWeight;}
-    float SetCohesionWeight(float weight) {return fCohesionWeight = weight;}
-    float CohesionRadius() const {return fCohesionRadius;}
-    float SetCohesionRadius(float radius) {return fCohesionRadius = radius;}
+    float CohesionWeight() const { return fCohesionWeight; }
+    float SetCohesionWeight(float weight) { return fCohesionWeight = weight; }
+    float CohesionRadius() const { return fCohesionRadius; }
+    float SetCohesionRadius(float radius) { return fCohesionRadius = radius; }
 
     // Update the boid's data based on the goal and time delta
     void Update(pfBoidGoal &goal, float deltaTime);
-    plKey &GetKey() {return fObjKey;}
+    plKey &GetKey() { return fObjKey; }
 
     // We're redirecting this to the "banking" function
     virtual void RegenerateLocalSpace(const hsVector3 &newVelocity, const float elapsedTime);
@@ -364,26 +364,26 @@ public:
     ~pfFlock();
 
     // Get/set functions (affect the whole flock, and any new boids added)
-    float GoalWeight() const {return fGoalWeight;}
+    float GoalWeight() const { return fGoalWeight; }
     void SetGoalWeight(float goalWeight);
-    float WanderWeight() const {return fRandomWeight;}
+    float WanderWeight() const { return fRandomWeight; }
     void SetWanderWeight(float wanderWeight);
 
-    float SeparationWeight() const {return fSeparationWeight;}
+    float SeparationWeight() const { return fSeparationWeight; }
     void SetSeparationWeight(float weight);
-    float SeparationRadius() const {return fSeparationRadius;}
+    float SeparationRadius() const { return fSeparationRadius; }
     void SetSeparationRadius(float radius);
 
-    float CohesionWeight() const {return fCohesionWeight;}
+    float CohesionWeight() const { return fCohesionWeight; }
     void SetCohesionWeight(float weight);
-    float CohesionRadius() const {return fCohesionRadius;}
+    float CohesionRadius() const { return fCohesionRadius; }
     void SetCohesionRadius(float radius);
 
-    float MaxForce() const {return fMaxForce;}
+    float MaxForce() const { return fMaxForce; }
     void SetMaxForce(float force);
-    float MaxSpeed() const {return fMaxSpeed;}
+    float MaxSpeed() const { return fMaxSpeed; }
     void SetMaxSpeed(float speed);
-    float MinSpeed() const {return fMinSpeed;}
+    float MinSpeed() const { return fMinSpeed; }
     void SetMinSpeed(float minSpeed);
 
     // setup/run functions
@@ -412,32 +412,32 @@ public:
     void SetNumBoids(uint8_t val);
     void SetBoidKey(plKey key) { fBoidKey = key; }
 
-    float GoalWeight() const {return fFlock.GoalWeight();}
-    void SetGoalWeight(float goalWeight) {fFlock.SetGoalWeight(goalWeight);}
-    float WanderWeight() const {return fFlock.WanderWeight();}
-    void SetWanderWeight(float wanderWeight) {fFlock.SetWanderWeight(wanderWeight);}
+    float GoalWeight() const { return fFlock.GoalWeight(); }
+    void SetGoalWeight(float goalWeight) { fFlock.SetGoalWeight(goalWeight); }
+    float WanderWeight() const { return fFlock.WanderWeight(); }
+    void SetWanderWeight(float wanderWeight) { fFlock.SetWanderWeight(wanderWeight); }
 
-    float SeparationWeight() const {return fFlock.SeparationWeight();}
-    void SetSeparationWeight(float weight) {fFlock.SetSeparationWeight(weight);}
-    float SeparationRadius() const {return fFlock.SeparationRadius();}
-    void SetSeparationRadius(float radius) {fFlock.SetSeparationRadius(radius);}
+    float SeparationWeight() const { return fFlock.SeparationWeight(); }
+    void SetSeparationWeight(float weight) { fFlock.SetSeparationWeight(weight); }
+    float SeparationRadius() const { return fFlock.SeparationRadius(); }
+    void SetSeparationRadius(float radius) { fFlock.SetSeparationRadius(radius); }
 
-    float CohesionWeight() const {return fFlock.CohesionWeight();}
-    void SetCohesionWeight(float weight) {fFlock.SetCohesionWeight(weight);}
-    float CohesionRadius() const {return fFlock.CohesionRadius();}
-    void SetCohesionRadius(float radius) {fFlock.SetCohesionRadius(radius);}
+    float CohesionWeight() const { return fFlock.CohesionWeight(); }
+    void SetCohesionWeight(float weight) { fFlock.SetCohesionWeight(weight); }
+    float CohesionRadius() const { return fFlock.CohesionRadius(); }
+    void SetCohesionRadius(float radius) { fFlock.SetCohesionRadius(radius); }
 
-    float MaxForce() const {return fFlock.MaxForce();}
-    void SetMaxForce(float force) {fFlock.SetMaxForce(force);}
-    float MaxSpeed() const {return fFlock.MaxSpeed();}
-    void SetMaxSpeed(float speed) {fFlock.SetMaxSpeed(speed);}
-    float MinSpeed() const {return fFlock.MinSpeed();}
-    void SetMinSpeed(float minSpeed) {fFlock.SetMinSpeed(minSpeed);}
+    float MaxForce() const { return fFlock.MaxForce(); }
+    void SetMaxForce(float force) { fFlock.SetMaxForce(force); }
+    float MaxSpeed() const { return fFlock.MaxSpeed(); }
+    void SetMaxSpeed(float speed) { fFlock.SetMaxSpeed(speed); }
+    float MinSpeed() const { return fFlock.MinSpeed(); }
+    void SetMinSpeed(float minSpeed) { fFlock.SetMinSpeed(minSpeed); }
 
-    bool RandomizeAnimStart() const {return fRandomizeAnimationStart;}
-    void SetRandomizeAnimStart(bool val) {fRandomizeAnimationStart = val;}
-    bool UseTargetRotation() const {return fUseTargetRotation;}
-    void SetUseTargetRotation(bool val) {fUseTargetRotation = val;}
+    bool RandomizeAnimStart() const { return fRandomizeAnimationStart; }
+    void SetRandomizeAnimStart(bool val) { fRandomizeAnimationStart = val; }
+    bool UseTargetRotation() const { return fUseTargetRotation; }
+    void SetUseTargetRotation(bool val) { fUseTargetRotation = val; }
 
 protected:
     const static int fFileVersion; // so we don't have to update the global version number when we change

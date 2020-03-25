@@ -243,7 +243,7 @@ public:
     void SetVersion(int v) { fVersion=v; }
     void SetName(const ST::string& n) { fName=n; }
     void AddVar(plVarDescriptor* v) { fVarsList.push_back(v); }
-    void SetFilename(const plFileName& n) { fFilename=n;}
+    void SetFilename(const plFileName& n) { fFilename=n; }
 
     plVarDescriptor* FindVar(const ST::string& name, int* idx=nil) const;
 

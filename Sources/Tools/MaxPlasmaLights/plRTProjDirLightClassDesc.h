@@ -64,7 +64,7 @@ class plRTProjDirLightDesc : public ClassDesc2
         const TCHAR*    ClassName()                     { return GetString(IDS_DB_PROJDIR); }
         SClass_ID       SuperClassID()                  { return LIGHT_CLASS_ID; }
         Class_ID        ClassID()                       { return RTPDIR_LIGHT_CLASSID; }
-        const TCHAR*    Category()                      { return _T("Plasma RunTime");}
+        const TCHAR*    Category()                      { return _T("Plasma RunTime"); }
         const TCHAR*    InternalName()                  { return _T("RTProjDir"); } // returns fixed parsable name (scripter-visible name)
         HINSTANCE       HInstance()                     { return hInstance; }
 

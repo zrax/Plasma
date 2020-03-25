@@ -216,7 +216,7 @@ bool plSDLParser::IParseVarDesc(const plFileName& fileName, hsStream* stream, ch
             if (sVar)
             {
                 int i;
-                for (i=0;i<sVar->GetAtomicCount();i++)
+                for (i=0; i<sVar->GetAtomicCount(); i++)
                 {
                     if (stream->GetToken(token, kTokenLen))
                     {

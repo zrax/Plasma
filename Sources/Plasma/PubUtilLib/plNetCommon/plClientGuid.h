@@ -86,29 +86,29 @@ public:
     void    UpdateFrom(const plClientGuid * other);
     bool    IsEqualTo(const plClientGuid * other) const;
     bool    IsFlagSet(uint16_t flag) const { return (fFlags&flag)!=0; }
-    bool    IsFullyQualified() const { return HasAccountUUID()&&HasPlayerID();}
+    bool    IsFullyQualified() const { return HasAccountUUID()&&HasPlayerID(); }
 
     void    Read(hsStream * s, hsResMgr* =nil);
     void    Write(hsStream * s, hsResMgr* =nil);
 
-    bool    HasAccountUUID() const { return (fFlags&kAccountUUID&&!fAccountUUID.IsNull())?true:false;}
-    bool    HasPlayerID() const { return (fFlags&kPlayerID&&fPlayerID>0)?true:false;}
+    bool    HasAccountUUID() const { return (fFlags&kAccountUUID&&!fAccountUUID.IsNull())?true:false; }
+    bool    HasPlayerID() const { return (fFlags&kPlayerID&&fPlayerID>0)?true:false; }
     bool    HasPlayerName() const { return (fFlags&kPlayerName&&!fPlayerName.empty()); }
-    bool    HasCCRLevel() const { return (fFlags&kCCRLevel)?true:false;}
-    bool    HasProtectedLogin() const { return (fFlags&kProtectedLogin)?true:false;}
-    bool    HasBuildType() const { return (fFlags&kBuildType)?true:false;}
-    bool    HasSrcAddr() const { return (fFlags&kSrcAddr)!=0;}
-    bool    HasSrcPort() const { return (fFlags&kSrcPort)!=0;}
-    bool    HasReservedBit() const { return (fFlags&kReserved)!=0;}
-    bool    HasClientKey() const { return (fFlags&kClientKey)!=0;}
+    bool    HasCCRLevel() const { return (fFlags&kCCRLevel)?true:false; }
+    bool    HasProtectedLogin() const { return (fFlags&kProtectedLogin)?true:false; }
+    bool    HasBuildType() const { return (fFlags&kBuildType)?true:false; }
+    bool    HasSrcAddr() const { return (fFlags&kSrcAddr)!=0; }
+    bool    HasSrcPort() const { return (fFlags&kSrcPort)!=0; }
+    bool    HasReservedBit() const { return (fFlags&kReserved)!=0; }
+    bool    HasClientKey() const { return (fFlags&kClientKey)!=0; }
     
-    const plUUID * GetAccountUUID() const { return &fAccountUUID;}
-    uint32_t  GetPlayerID() const { return fPlayerID;}
+    const plUUID * GetAccountUUID() const { return &fAccountUUID; }
+    uint32_t  GetPlayerID() const { return fPlayerID; }
     ST::string GetPlayerName() const { return fPlayerName; }
     uint8_t   GetCCRLevel() const { return fCCRLevel; }
     bool    GetProtectedLogin() const { return (fProtectedLogin!=0); }
-    uint8_t   GetFlags() const { return (uint8_t)fFlags;}
-    uint8_t   GetBuildType() const { return fBuildType;}
+    uint8_t   GetFlags() const { return (uint8_t)fFlags; }
+    uint8_t   GetBuildType() const { return fBuildType; }
     uint32_t  GetSrcAddr() const { return fSrcAddr; }
     const char * GetSrcAddrStr() const;
     uint16_t  GetSrcPort() const { return fSrcPort; }

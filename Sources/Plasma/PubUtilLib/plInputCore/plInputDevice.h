@@ -79,7 +79,7 @@ public:
     virtual void HandleKeyEvent(plOSMsg message, plKeyDef key, bool bKeyDown, bool bKeyRepeat, wchar_t c = 0) { }
     virtual void HandleMouseEvent(plOSMsg message, plMouseState state)  { }
     virtual void HandleWindowActivate(bool bActive, hsWindowHndl hWnd) { }
-    virtual bool MsgReceive(plMessage* msg) {return false;}
+    virtual bool MsgReceive(plMessage* msg) { return false; }
     virtual void Shutdown() { }
 
 

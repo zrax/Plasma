@@ -241,7 +241,7 @@ Point3 plRenderInstance::GetFaceVertNormal(int fnum, int vertNum)
     else
     {
         int found = 0;
-        for (int j=0;j<numNormalsAtVert; j++)
+        for (int j=0; j<numNormalsAtVert; j++)
         {
             smGroup = rv.ern[j].getSmGroup();
             // Since this vertex is shared by more than one smoothing group, it has multiple normals.

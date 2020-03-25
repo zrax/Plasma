@@ -162,7 +162,7 @@ public:
     short GetStartMinute() const { return fStart.GetMinute(); }
     short GetStartSecond() const { return fStart.GetSecond(); }
     short GetMaxCapacity() const { return fMaxCapacity; }
-    short GetLingerTime() const { return fLingerTime;}
+    short GetLingerTime() const { return fLingerTime; }
 
     float   GetDayLength() const { return fDayLength; }
 
@@ -176,7 +176,7 @@ public:
 
     void SetDayLength(const float l) { fDayLength = l; }
     void SetMaxCapacity(const short m) { fMaxCapacity=m; }
-    void SetLingerTime(const short v) { fLingerTime=v;}
+    void SetLingerTime(const short v) { fLingerTime=v; }
     void SetSequencePrefix(int32_t p) { fSeqPrefix = p; }
     void SetReleaseVersion(uint32_t v) { fReleaseVersion = v; }
 

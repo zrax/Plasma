@@ -80,10 +80,10 @@ public:
 template <class T> class hsTempObject {
     T*  fObject;
 public:
-    hsTempObject(): fObject(nil){}
+    hsTempObject(): fObject(nil) {}
     hsTempObject(T* p) : fObject(p) {}
     hsTempObject(const hsTempObject & that)
-    {*this=that;}
+    { *this=that; }
     ~hsTempObject() { delete fObject; }
     hsTempObject & operator=(const hsTempObject & src)
     {
@@ -106,7 +106,7 @@ public:
     operator T*() const { return fObject; }
     operator T*&() { return fObject; }
     operator const T&() const { return *fObject; }
-    operator bool() const { return fObject!=nil;}
+    operator bool() const { return fObject!=nil; }
     T * operator->() const { return fObject; }
     T * operator *() const { return fObject; }
 };
@@ -206,7 +206,7 @@ template <class T> class hsDynamicArrayAccess {
     hsDynamicArray<T> *fArrayObj;
     hsDynamicArrayAccess<T>& operator=(const hsDynamicArrayAccess<T>&);
 public:
-    hsDynamicArrayAccess(hsDynamicArray<T> *array) : fArrayObj(array) { fArray = array->AcquireArray();}
+    hsDynamicArrayAccess(hsDynamicArray<T> *array) : fArrayObj(array) { fArray = array->AcquireArray(); }
     ~hsDynamicArrayAccess() { fArrayObj->ReleaseArray(fArray); }
         
         operator T*() const { return fArray; }
@@ -300,7 +300,7 @@ void hsDynamicArray<T>::Remove(int32_t index)
     {
         int i;
         T* newList = new T[fCount];
-        for (i = 0 ; i < index;i++)
+        for (i = 0; i < index; i++)
             newList[i] = fArray[i];
         for (i = index; i < fCount; i++)
             newList[i] = fArray[i + 1];
@@ -330,7 +330,7 @@ int32_t hsDynamicArray<T>::Push(const T& obj)
     if (fArray)
     {
         T* newList = new T[fCount+1];
-        for (int i = 0 ; i < fCount; i++)
+        for (int i = 0; i < fCount; i++)
             newList[i+1] = fArray[i];
         newList[0] = obj;
         delete [] fArray;
@@ -458,7 +458,7 @@ protected:
     friend void TArrayStats();
     virtual ~hsTArrayBase();
 #else
-    hsTArrayBase():fUseCount(0), fTotalCount(0){}
+    hsTArrayBase():fUseCount(0), fTotalCount(0) {}
 #endif
 
 public:
@@ -634,7 +634,7 @@ bool hsTArray<T>::operator==(const hsTArray<T>& src) const
         return false;   // different sizes
 
     int i;
-    for (i=0;i<GetCount();i++)
+    for (i=0; i<GetCount(); i++)
         if (Get(i) != src[i])
             return false;   // different contents
 
@@ -863,7 +863,7 @@ protected:
     friend void LargeArrayStats();
     virtual ~hsLargeArrayBase();
 #else
-    hsLargeArrayBase():fUseCount(0), fTotalCount(0){}
+    hsLargeArrayBase():fUseCount(0), fTotalCount(0) {}
 #endif
 
 public:

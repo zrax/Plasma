@@ -101,8 +101,8 @@ public:
     GraphicsSettings fGraphicsSettings;
 
 
-    plClientMsg() { IReset();}
-    plClientMsg(const plKey &s) { IReset();}
+    plClientMsg() { IReset(); }
+    plClientMsg(const plKey &s) { IReset(); }
     plClientMsg(int i) { IReset(); fMsgFlag = i; }
     plClientMsg(const plKey &s, const plKey &r, const double* t) { IReset(); }
 

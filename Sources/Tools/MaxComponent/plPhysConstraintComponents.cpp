@@ -216,7 +216,7 @@ public:
         */
 
         bool SetupProperties(plMaxNode* node, plErrorMsg *pErrMsg);
-        bool PreConvert(plMaxNode* node, plErrorMsg* plErrorMsg) { return true;}
+        bool PreConvert(plMaxNode* node, plErrorMsg* plErrorMsg) { return true; }
 
         bool Convert(plMaxNode *node, plErrorMsg *pErrMsg);
 };
@@ -874,7 +874,7 @@ public:
         */
 
         bool SetupProperties(plMaxNode* node, plErrorMsg *pErrMsg);
-        bool PreConvert(plMaxNode* node, plErrorMsg* plErrorMsg) { return true;}
+        bool PreConvert(plMaxNode* node, plErrorMsg* plErrorMsg) { return true; }
 
         bool Convert(plMaxNode *node, plErrorMsg *pErrMsg);
 

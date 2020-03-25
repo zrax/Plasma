@@ -329,7 +329,7 @@ plLeafController* hsControlConverter::MakeMatrix44Controller(Control* prsControl
 
     plLeafController* ctrl = new plLeafController;
     ctrl->AllocKeys(kTimes.Count(), hsKeyFrame::kMatrix44KeyFrame);
-    TimeValue resetTime = fConverterUtils.GetTime(fInterface);;
+    TimeValue resetTime = fConverterUtils.GetTime(fInterface);
     for (i=0; i < kTimes.Count(); i++)
     {
         // Get key

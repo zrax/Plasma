@@ -139,7 +139,7 @@ class plOperationProgress
         void    SetTitle(const ST::string& title) { fTitle = title; }
 
         // Application data
-        void    SetContext(uint32_t context) { fContext = context;}
+        void    SetContext(uint32_t context) { fContext = context; }
 
         bool    IsDone() { return (fValue < fMax) ? false : true; }
 

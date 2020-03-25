@@ -151,7 +151,7 @@ public:
 class plCameraBaseComponent : public plComponent
 {
 public:
-    plCameraBaseComponent(){ }
+    plCameraBaseComponent() { }
 
     virtual bool SetupProperties(plMaxNode* pNode, plErrorMsg* pErrMsg);
     virtual bool PreConvert(plMaxNode* pNode, plErrorMsg* pErrMsg);
@@ -245,7 +245,7 @@ class plCameraAnimCmdComponent : public plComponent
     bool fIgnoreFOV;
 public:
     plCameraAnimCmdComponent();
-    virtual bool SetupProperties(plMaxNode* pNode, plErrorMsg* pErrMsg){ return true; }
+    virtual bool SetupProperties(plMaxNode* pNode, plErrorMsg* pErrMsg) { return true; }
     virtual bool PreConvert(plMaxNode* pNode, plErrorMsg* pErrMsg);
     virtual bool Convert(plMaxNode* pNode, plErrorMsg* pErrMsg);
     bool IgnoreFOV() { return fIgnoreFOV; }

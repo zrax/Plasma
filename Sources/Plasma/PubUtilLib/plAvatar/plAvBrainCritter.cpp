@@ -91,16 +91,16 @@ public:
         fAnimName = anim->GetName();
     }
 
-    virtual bool PreCondition(double time, float elapsed) {return true;}
+    virtual bool PreCondition(double time, float elapsed) { return true; }
 
-    float GetAnimLength() {return (fAnim->GetAnimation()->GetLength());}
-    void SetAnimTime(float time) {fAnim->SetCurrentTime(time, true);}
+    float GetAnimLength() { return (fAnim->GetAnimation()->GetLength()); }
+    void SetAnimTime(float time) { fAnim->SetCurrentTime(time, true); }
 
-    std::string Name() const {return fName;}
-    ST::string AnimName() const {return fAnimName;}
-    bool RandomStartPoint() const {return fRandomStartPoint;}
-    float FadeInLength() const {return fFadeInLength;}
-    float FadeOutLength() const {return fFadeOutLength;}
+    std::string Name() const { return fName; }
+    ST::string AnimName() const { return fAnimName; }
+    bool RandomStartPoint() const { return fRandomStartPoint; }
+    float FadeInLength() const { return fFadeInLength; }
+    float FadeOutLength() const { return fFadeOutLength; }
 
 protected:
     virtual void IStart()

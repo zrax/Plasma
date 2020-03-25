@@ -268,12 +268,12 @@ public:
     bool Log(const ST::string& str) const HS_OVERRIDE;
 
     // setters
-    void SetIniAuthServer(const char * value)  { fIniAuthServer=value;}
-    void SetIniAccountName(const char * value) { fIniAccountName=value;}
-    void SetIniAccountPass(const char * value) { fIniAccountPass=value;}
-    void SetIniPlayerID(uint32_t value)          { fIniPlayerID=value;}
+    void SetIniAuthServer(const char * value)  { fIniAuthServer=value; }
+    void SetIniAccountName(const char * value) { fIniAccountName=value; }
+    void SetIniAccountPass(const char * value) { fIniAccountPass=value; }
+    void SetIniPlayerID(uint32_t value)          { fIniPlayerID=value; }
 
-    void SetSPDesiredPlayerName(const char * value) { fSPDesiredPlayerName=value;}
+    void SetSPDesiredPlayerName(const char * value) { fSPDesiredPlayerName=value; }
     const char * GetSPDesiredPlayerName() const { return fSPDesiredPlayerName.c_str(); }
 
     void SetLocalPlayerKey(plKey l, bool pageOut=false);

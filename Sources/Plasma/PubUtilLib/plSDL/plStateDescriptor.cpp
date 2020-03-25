@@ -57,7 +57,7 @@ plStateDescriptor::~plStateDescriptor()
 void plStateDescriptor::IDeInit()
 {
     int i;
-    for (i=0;i<fVarsList.size();i++)
+    for (i=0; i<fVarsList.size(); i++)
         delete fVarsList[i];
     fVarsList.clear();
 }
@@ -103,7 +103,7 @@ bool plStateDescriptor::Read(hsStream* s)
     fVarsList.reserve(numVars);
 
     int i;
-    for (i=0;i<numVars; i++)
+    for (i=0; i<numVars; i++)
     {
         uint8_t SDVar=s->ReadByte();
         plVarDescriptor* var = nil;

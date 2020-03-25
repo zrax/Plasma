@@ -2802,7 +2802,7 @@ public:
 
 #ifdef EAX_SDK_AVAILABLE
                     for (int i = 0; i < /*sizeof(EAX30_ORIGINAL_PRESETS)
-                        / sizeof(EAXLISTENERPROPERTIES)*/26 ; i++)
+                        / sizeof(EAXLISTENERPROPERTIES)*/26; i++)
                         ComboBox_AddString(comboBox, EAX30_ORIGINAL_PRESET_NAMES[i]);
 #endif
 

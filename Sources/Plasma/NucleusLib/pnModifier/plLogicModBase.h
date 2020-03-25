@@ -77,7 +77,7 @@ protected:
     plNotifyMsg*                    fNotify;
     bool                            fDisabled;
 
-    virtual bool IEval(double secs, float del, uint32_t dirty) {return false;}
+    virtual bool IEval(double secs, float del, uint32_t dirty) { return false; }
     void IUpdateSharedState(bool triggered) const;
     void IHandleArbitration(class plServerReplyMsg* msg);
     bool IEvalCounter();
@@ -99,7 +99,7 @@ public:
     virtual void Write(hsStream* stream, hsResMgr* mgr);
 
     virtual bool MsgReceive(plMessage* msg);
-    virtual bool VerifyConditions(plMessage* msg) { return true;}
+    virtual bool VerifyConditions(plMessage* msg) { return true; }
 
     virtual void Reset(bool bCounterReset);
 

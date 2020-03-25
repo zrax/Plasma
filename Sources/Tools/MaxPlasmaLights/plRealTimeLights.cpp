@@ -139,7 +139,7 @@ public:
                 break;
         }
 
-        return plBaseLightProc::DlgProc(t, map, hWnd, msg, wParam, lParam);;
+        return plBaseLightProc::DlgProc(t, map, hWnd, msg, wParam, lParam);
     }
     void DeleteThis() {};
 };

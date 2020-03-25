@@ -107,7 +107,7 @@ public:
     void ShowLaps(const char* groupName, const char* varName);
     void SetMinLap(int m) { fMinLap = m; };
     void PageDownLaps() { fMinLap += 40; }
-    void PageUpLaps() { fMinLap = (fMinLap < 40) ? 0 : fMinLap - 40;}
+    void PageUpLaps() { fMinLap = (fMinLap < 40) ? 0 : fMinLap - 40; }
 
     void CreateGraph(const char* varName, uint32_t min, uint32_t max);
 

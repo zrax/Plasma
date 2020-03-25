@@ -80,7 +80,7 @@ plClothingOutfit* plClothingSDLModifier::GetClothingOutfit()
     int i;
     plSceneObject* target = GetTarget();
     hsAssert(target, "plClothingSDLModifier: nil target");
-    for (i=0;i<target->GetNumModifiers();i++)
+    for (i=0; i<target->GetNumModifiers(); i++)
     {
         const plArmatureMod* am = plArmatureMod::ConvertNoRef(target->GetModifier(i));
         if (am)
@@ -203,7 +203,7 @@ void plClothingSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcSta
     clothing->StripAccessories();
 
     int i;
-    for (i=0;i<num;i++)
+    for (i=0; i<num; i++)
     {
         // get clothes item from clothes list
         plStateDataRecord* clothingItemState=clothesStateDesc->GetStateDataRecord(i);

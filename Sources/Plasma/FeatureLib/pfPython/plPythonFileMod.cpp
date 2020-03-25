@@ -286,7 +286,7 @@ plPythonFileMod::plPythonFileMod()
     // assume that all the functions are not available
     // ...if the functions are defined in the module, then we'll call 'em
     int i;
-    for (i=0 ; i<kfunc_lastone; i++)
+    for (i=0; i<kfunc_lastone; i++)
         fPyFunctionInstances[i] = nil;
 }
 

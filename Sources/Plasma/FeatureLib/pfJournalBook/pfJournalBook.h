@@ -223,31 +223,31 @@ public:
 
     virtual bool MsgReceive(plMessage *pMsg);
 
-    pfGUIDialogMod *Dialog() const {return fDialog;}
-    pfGUICheckBoxCtrl *CoverButton() const {return fCoverButton;}
-    pfGUICheckBoxCtrl *TurnPageButton() const {return fTurnPageButton;}
-    pfGUIClickMapCtrl *LeftPageMap() const {return fLeftPageMap;}
-    pfGUIClickMapCtrl *RightPageMap() const {return fRightPageMap;}
-    plLayerInterface *CoverLayer() const {return fCoverLayer;}
-    hsGMaterial *CoverMaterial() const {return fCoverMaterial;}
-    hsGMaterial *PageMaterial(int index) const {if ((index<0)||(index>3)) return nil; else return fPageMaterials[index];}
-    pfGUIButtonMod *LeftCorner() const {return fLeftCorner;}
-    pfGUIButtonMod *RightCorner() const {return fRightCorner;}
-    pfGUIProgressCtrl *WidthCtrl() const {return fWidthCtrl;}
-    pfGUIProgressCtrl *HeightCtrl() const {return fHeightCtrl;}
-    plMipmap *DefaultCover() const {return fDefaultCover;}
-    pfJournalBook *CurBook() const {return fCurrBook;}
+    pfGUIDialogMod *Dialog() const { return fDialog; }
+    pfGUICheckBoxCtrl *CoverButton() const { return fCoverButton; }
+    pfGUICheckBoxCtrl *TurnPageButton() const { return fTurnPageButton; }
+    pfGUIClickMapCtrl *LeftPageMap() const { return fLeftPageMap; }
+    pfGUIClickMapCtrl *RightPageMap() const { return fRightPageMap; }
+    plLayerInterface *CoverLayer() const { return fCoverLayer; }
+    hsGMaterial *CoverMaterial() const { return fCoverMaterial; }
+    hsGMaterial *PageMaterial(int index) const { if ((index<0)||(index>3)) return nil; else return fPageMaterials[index]; }
+    pfGUIButtonMod *LeftCorner() const { return fLeftCorner; }
+    pfGUIButtonMod *RightCorner() const { return fRightCorner; }
+    pfGUIProgressCtrl *WidthCtrl() const { return fWidthCtrl; }
+    pfGUIProgressCtrl *HeightCtrl() const { return fHeightCtrl; }
+    plMipmap *DefaultCover() const { return fDefaultCover; }
+    pfJournalBook *CurBook() const { return fCurrBook; }
 
-    bool StartedOpen() {return fStartedOpen;}
-    bool CurrentlyOpen() {return fCurrentlyOpen;}
-    bool CurrentlyTurning() {return fCurrentlyTurning;}
-    bool IsEditable() {return fEditable;}
-    WhichSide CurSFXPages() {return fCurrSFXPages;}
+    bool StartedOpen() { return fStartedOpen; }
+    bool CurrentlyOpen() { return fCurrentlyOpen; }
+    bool CurrentlyTurning() { return fCurrentlyTurning; }
+    bool IsEditable() { return fEditable; }
+    WhichSide CurSFXPages() { return fCurrSFXPages; }
 
-    void StartedOpen(bool startedOpen) {fStartedOpen = startedOpen;}
-    void CurrentlyOpen(bool currentlyOpen) {fCurrentlyOpen = currentlyOpen;}
-    void CurrentlyTurning(bool currentlyTurning) {fCurrentlyTurning = currentlyTurning;}
-    void CurBook(pfJournalBook *curBook) {fCurrBook = curBook;}
+    void StartedOpen(bool startedOpen) { fStartedOpen = startedOpen; }
+    void CurrentlyOpen(bool currentlyOpen) { fCurrentlyOpen = currentlyOpen; }
+    void CurrentlyTurning(bool currentlyTurning) { fCurrentlyTurning = currentlyTurning; }
+    void CurBook(pfJournalBook *curBook) { fCurrBook = curBook; }
 
     // Quick helper
     plDynamicTextMap *GetDTMap(uint32_t which);
@@ -275,7 +275,7 @@ public:
     void HitBeginningOfControlList(int32_t cursorPos);
 
     void EnableEditGUI(bool enable=true);
-    void DisableEditGUI() {EnableEditGUI(false);}
+    void DisableEditGUI() { EnableEditGUI(false); }
     
 protected:
     friend class pfJournalDlgProc;

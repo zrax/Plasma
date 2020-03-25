@@ -101,26 +101,26 @@ public:
 
     std::string BehaviorName(int behavior) const;
     ST::string AnimationName(int behavior) const;
-    int CurBehavior() const {return fCurMode;}
-    int NextBehavior() const {return fNextMode;}
+    int CurBehavior() const { return fCurMode; }
+    int NextBehavior() const { return fNextMode; }
 
     std::string IdleBehaviorName() const;
     std::string RunBehaviorName() const;
 
     void GoToGoal(hsPoint3 newGoal, bool avoidingAvatars = false);
-    hsPoint3 CurrentGoal() const {return fFinalGoalPos;}
-    bool AvoidingAvatars() const {return fAvoidingAvatars;}
+    hsPoint3 CurrentGoal() const { return fFinalGoalPos; }
+    bool AvoidingAvatars() const { return fAvoidingAvatars; }
     bool AtGoal() const;
 
-    void StopDistance(float stopDistance) {fStopDistance = stopDistance; fStopDistanceSquared = fStopDistance * fStopDistance;}
-    float StopDistance() const {return fStopDistance;}
+    void StopDistance(float stopDistance) { fStopDistance = stopDistance; fStopDistanceSquared = fStopDistance * fStopDistance; }
+    float StopDistance() const { return fStopDistance; }
 
     void SightCone(float coneRad);
-    float SightCone() const {return fSightConeAngle;}
-    void SightDistance(float sightDis) {fSightDistance = sightDis; fSightDistanceSquared = fSightDistance * fSightDistance;}
-    float SightDistance() const {return fSightDistance;}
+    float SightCone() const { return fSightConeAngle; }
+    void SightDistance(float sightDis) { fSightDistance = sightDis; fSightDistanceSquared = fSightDistance * fSightDistance; }
+    float SightDistance() const { return fSightDistance; }
     void HearingDistance(float hearDis);
-    float HearingDistance() const {return fHearingDistance;}
+    float HearingDistance() const { return fHearingDistance; }
 
     bool CanSeeAvatar(unsigned long id) const;
     bool CanHearAvatar(unsigned long id) const;

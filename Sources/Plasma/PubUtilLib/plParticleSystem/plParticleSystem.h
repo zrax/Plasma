@@ -180,7 +180,7 @@ public:
     float GetWindMult() const { return fWindMult; }
     plParticleEffect *GetEffect(uint16_t type) const;
     
-    plParticleSDLMod* GetSDLMod() {return fParticleSDLMod;}
+    plParticleSDLMod* GetSDLMod() { return fParticleSDLMod; }
     // Functions related to/required by plModifier
     virtual int GetNumTargets() const { return fTarget ? 1 : 0; }
     virtual plSceneObject* GetTarget(int w) const { hsAssert(w < 1, "Bad target"); return fTarget; }

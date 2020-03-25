@@ -537,7 +537,7 @@ void hsConverterUtils::DestroyNodeSearchCache()
 void hsConverterUtils::IBuildNodeSearchCacheRecur(INode* node)
 {
     if (!node || !node->GetName())
-        return ;
+        return;
 
     CacheNode cNode(node);
     fNodeSearchCache->insert(cNode);

@@ -485,7 +485,7 @@ void    plAgeDescription::CopyFrom(const plAgeDescription& other)
     IDeInit();
     fName = other.GetAgeName();
     int i;
-    for (i=0;i<other.fPages.GetCount(); i++)
+    for (i=0; i<other.fPages.GetCount(); i++)
         fPages.Append(other.fPages[i]);
 
     fStart = other.fStart;

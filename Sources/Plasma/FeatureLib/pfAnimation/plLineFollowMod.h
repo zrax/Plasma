@@ -179,7 +179,7 @@ public:
 
 protected:
     
-    virtual void        ISetTargetTransform(int iTarg, const hsMatrix44& tgtXfm) {fDesiredMatrix = tgtXfm;}
+    virtual void        ISetTargetTransform(int iTarg, const hsMatrix44& tgtXfm) { fDesiredMatrix = tgtXfm; }
     virtual bool        IGetTargetTransform(hsPoint3& searchPos, hsMatrix44& tgtXfm);
     
     hsMatrix44  fDesiredMatrix;

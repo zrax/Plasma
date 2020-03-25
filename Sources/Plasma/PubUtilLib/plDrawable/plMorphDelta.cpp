@@ -197,7 +197,7 @@ void plMorphDelta::ComputeDeltas(const hsTArray<plGeometrySpan*>& base, const hs
         uvws.SetCount(0);
 
 
-        int iVert = 0;;
+        int iVert = 0;
         for (baseIter.Begin(), movedIter.Begin(); baseIter.More(); baseIter.Advance(), movedIter.Advance())
         {
             // NOTE: we want to discard zero deltas, but a

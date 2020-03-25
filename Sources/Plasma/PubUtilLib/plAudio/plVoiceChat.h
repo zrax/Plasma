@@ -80,15 +80,15 @@ public:
     void AddVoiceData(const void *data, size_t bytes);
     void Update();
     void Play();
-    virtual void SetStartPos(unsigned bytes){}
+    virtual void SetStartPos(unsigned bytes) {}
     void SetSampleRate(uint32_t rate);
 
 private:
-    virtual bool    ILoadDataBuffer(){ return true; }
-    virtual void    IUnloadDataBuffer(){}
+    virtual bool    ILoadDataBuffer() { return true; }
+    virtual void    IUnloadDataBuffer() {}
 
     virtual void    IDerivedActuallyPlay();
-    virtual void    ISetActualTime(double t){}
+    virtual void    ISetActualTime(double t) {}
     virtual float   GetActualTimeSec() { return 0.0f; }
     virtual void    IRefreshParams();
 
@@ -108,8 +108,8 @@ public:
     void SetPosition(const hsPoint3 pos);
     void SetOrientation(const hsPoint3 pos);
 
-    void SetTalkIcon(int index, uint32_t str){}
-    void ClearTalkIcon(){}
+    void SetTalkIcon(int index, uint32_t str) {}
+    void ClearTalkIcon() {}
     plVoiceSound *GetSoundPtr() { return &fSound; }
     static void Enable(bool enable) { fEnabled = enable; }
 

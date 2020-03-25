@@ -68,7 +68,7 @@ public:
     fSupportsEAX(supportsEAX)
     {
     }
-    const char *GetDeviceName() { return fDeviceName.c_str();}
+    const char *GetDeviceName() { return fDeviceName.c_str(); }
     bool SupportsEAX() { return fSupportsEAX; }
 
 private:
@@ -256,7 +256,7 @@ public:
     static void RegisterSoftSound(const plKey soundKey);
     static void UnregisterSoftSound(const plKey soundKey);
 
-    static bool IsRestarting() {return fRestarting;}
+    static bool IsRestarting() { return fRestarting; }
 
 private:
     friend class plAudioSystem;

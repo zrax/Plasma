@@ -82,7 +82,7 @@ plDynamicEnvMap::plDynamicEnvMap()
     fColor.Set(0,0,0,1.f);
     int i;
     for (i = 0; i < 6; i++)
-        fReqMsgs[i] = new plRenderRequestMsg(nil, &fReqs[i]);;
+        fReqMsgs[i] = new plRenderRequestMsg(nil, &fReqs[i]);
 
     SetPosition(fPos);
 }
@@ -103,7 +103,7 @@ plDynamicEnvMap::plDynamicEnvMap(uint16_t width, uint16_t height, uint8_t bitDep
     fColor.Set(0,0,0,1.f);
     int i;
     for (i = 0; i < 6; i++)
-        fReqMsgs[i] = new plRenderRequestMsg(nil, &fReqs[i]);;
+        fReqMsgs[i] = new plRenderRequestMsg(nil, &fReqs[i]);
 
     SetPosition(fPos);
 }

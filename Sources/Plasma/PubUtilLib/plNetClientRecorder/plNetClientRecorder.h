@@ -69,7 +69,7 @@ public:
     plNetClientRecorder(TimeWrapper* timeWrapper);
     virtual ~plNetClientRecorder();
 
-    virtual bool BeginRecording(const char* recName) = 0;;
+    virtual bool BeginRecording(const char* recName) = 0;
     virtual bool BeginPlayback(const char* recName) { hsAssert(false,"plNetClientRecording: Playback not supported"); return false; }
 
     // Recording functions

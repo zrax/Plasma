@@ -236,7 +236,7 @@ class pfConsoleCmdIterator
 {
 public:
     virtual void ProcessCmd(pfConsoleCmd*, int) {}
-    virtual bool ProcessGroup(pfConsoleCmdGroup *, int) {return true;}
+    virtual bool ProcessGroup(pfConsoleCmdGroup *, int) { return true; }
 };
 
 

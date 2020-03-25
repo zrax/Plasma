@@ -153,7 +153,7 @@ public:
 
     // IO
 //  void SendCreationMsg(double secs);
-//  void SendDestructionMsg(double secs) ;
+//  void SendDestructionMsg(double secs);
 
     void Read(hsStream* s, hsResMgr* mgr) HS_OVERRIDE;
     void Write(hsStream* s, hsResMgr* mgr) HS_OVERRIDE;
@@ -257,10 +257,10 @@ public:
     }
     
     void SetSynchedObjKey(plKey k) { fSynchedObjKey=k; }    // should be set
-    void SetUserData(void* v) { fUserData=v;}               // optional
+    void SetUserData(void* v) { fUserData=v; }               // optional
 
     plKey   GetSynchedObjKey() { return fSynchedObjKey; }
-    void*   GetUserData() { return fUserData;}
+    void*   GetUserData() { return fUserData; }
 
     // override
     virtual void Callback() = 0;

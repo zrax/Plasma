@@ -62,7 +62,7 @@ namespace plPXConvert
     inline const hsPoint3& Point(const NxVec3& vec)     { return *((hsPoint3*)&vec); }
 
     inline NxVec3&          Vector(hsVector3& vel)      { return *((NxVec3*)&vel); }
-    inline const NxVec3&    Vector(const hsVector3& vel){ return *((NxVec3*)&vel); }
+    inline const NxVec3&    Vector(const hsVector3& vel) { return *((NxVec3*)&vel); }
     inline hsVector3&       Vector(NxVec3& vec)         { return *((hsVector3*)&vec); }
     inline const hsVector3& Vector(const NxVec3& vec)   { return *((hsVector3*)&vec); }
 

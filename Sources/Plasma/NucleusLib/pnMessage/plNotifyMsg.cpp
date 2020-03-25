@@ -890,7 +890,7 @@ void plNotifyMsg::Read(hsStream* stream, hsResMgr* mgr)
     if (numberEDs > 0)
     {
         int i;
-        for (i=0 ; i < numberEDs ; i++)
+        for (i=0; i < numberEDs; i++)
         {
             proEventData* pED = proEventData::Read(stream, mgr);
             fEvents[i] = pED;
@@ -920,7 +920,7 @@ void plNotifyMsg::Write(hsStream* stream, hsResMgr* mgr)
     {
         // write out each record
         int i;
-        for (i=0 ; i < numberEDs; i++)
+        for (i=0; i < numberEDs; i++)
         {
             fEvents[i]->Write(stream,mgr);
         }
@@ -959,7 +959,7 @@ void plNotifyMsg::ReadVersion(hsStream* s, hsResMgr* mgr)
         fEvents.SetCountAndZero(numberEDs);
         if (numberEDs > 0)
         {
-            for (int i = 0; i < numberEDs ; i++)
+            for (int i = 0; i < numberEDs; i++)
             {
                 proEventData* pED = proEventData::ReadVersion(s, mgr);
                 fEvents[i] = pED;
@@ -1830,7 +1830,7 @@ void proClimbingBlockerHitEventData::IReadVersion(hsStream* s, hsResMgr* mgr)
     contentFlags.Read(s);
 
     if (contentFlags.IsBitSet(kProClimbingBlockerKey))
-        fBlockerKey = mgr->ReadKey(s);;
+        fBlockerKey = mgr->ReadKey(s);
 }
 
 void proClimbingBlockerHitEventData::IWriteVersion(hsStream* s, hsResMgr* mgr)

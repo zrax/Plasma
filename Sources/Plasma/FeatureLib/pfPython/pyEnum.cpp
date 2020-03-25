@@ -603,7 +603,7 @@ static int Enum_setattro(PyObject *self, PyObject *attr_name, PyObject *value)
     if (!PyString_Check(attr_name))
     {
         PyErr_SetString(PyExc_TypeError, "setattro expects a string argument");
-        return -1;;
+        return -1;
     }
     Enum *theEnum = (Enum*)self;
     PyObject *item = PyDict_GetItem(theEnum->lookup, attr_name);

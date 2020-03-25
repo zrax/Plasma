@@ -584,7 +584,7 @@ void    pfConsole::IHandleKey(plKeyEventMsg *msg)
                     // get the lines and stuff them in our buffer
                     char biglines[kNumHistoryItems*(kMaxCharsWide+1)];
                     biglines[0] = 0;
-                    for (i=fPythonMultiLines; i>0 ; i--)
+                    for (i=fPythonMultiLines; i>0; i--)
                     {
                         // reach back in the history and find this line and paste it in here
                         int recall = fHistory[fPythonMode].fCursor - i;

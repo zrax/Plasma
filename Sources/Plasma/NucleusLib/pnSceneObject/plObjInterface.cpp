@@ -124,7 +124,7 @@ void plObjInterface::ISetAllProperties(const hsBitVector& b)
         fProps = b;
 
     int i;
-    for (i=0;i<GetNumProperties(); i++)
+    for (i=0; i<GetNumProperties(); i++)
         SetProperty(i, GetProperty(i));
 }
 

@@ -129,7 +129,7 @@ class plSceneInputInterface : public plInputInterface
         // Always return true, since the cursor should be representing how we control the avatar
         virtual bool    HasInterestingCursorID() const { return (fCurrentCursor != kNullCursor) ? true : false; }
         virtual uint32_t  GetPriorityLevel() const { return kSceneInteractionPriority; }
-        virtual uint32_t  GetCurrentCursorID() const {return fCurrentCursor;}
+        virtual uint32_t  GetCurrentCursorID() const { return fCurrentCursor; }
         uint32_t          SetCurrentCursorID(uint32_t id);
         virtual bool    InterpretInputEvent(plInputEventMsg *pMsg);
         void            RequestAvatarTurnToPointLOS();

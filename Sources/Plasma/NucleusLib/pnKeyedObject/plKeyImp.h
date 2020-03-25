@@ -69,7 +69,7 @@ public:
     virtual hsKeyedObject*  VerifyLoaded();
 
     // called before writing to disk so that static keys can have faster lookups (int compare instead of string compare)
-    void SetObjectID(uint32_t id) {fUoid.SetObjectID(id);}
+    void SetObjectID(uint32_t id) { fUoid.SetObjectID(id); }
 
     //----------------------
     // I/O

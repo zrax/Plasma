@@ -79,12 +79,12 @@ class BaseObjLight : public ObjLightDesc
         float decayRadius;
         plRTLightBase* gl;
         BaseObjLight(INode *n);
-        void DeleteThis() {delete this;}
+        void DeleteThis() { delete this; }
         int Update(TimeValue t, const RendContext& rc, RenderGlobalContext * rgc, BOOL shadows, BOOL shadowGeomChanged);
-        void UpdateGlobalLightLevel(Color globLightLevel) { intensCol = ls.intens*ls.color*globLightLevel;}
-        virtual Color AttenuateIllum(ShadeContext& sc,Point3 p,Color &colStep,Point3 &dp,int filt, float ldp, float &distAtten, AttenRanges &ranges) {return Color(0,0,0);}
+        void UpdateGlobalLightLevel(Color globLightLevel) { intensCol = ls.intens*ls.color*globLightLevel; }
+        virtual Color AttenuateIllum(ShadeContext& sc,Point3 p,Color &colStep,Point3 &dp,int filt, float ldp, float &distAtten, AttenRanges &ranges) { return Color(0,0,0); }
         virtual BOOL UseAtten()=0;
-        virtual BOOL IsFacingLight(Point3 &dir) {return FALSE;}
+        virtual BOOL IsFacingLight(Point3 &dir) { return FALSE; }
         virtual int LightType()=0;
 
         inline float ContrastFunc(float nl) {
@@ -113,7 +113,7 @@ class OmniLight : public BaseObjLight
         ~OmniLight();
         int Update(TimeValue t, const RendContext& rc, RenderGlobalContext *rgc, BOOL shadows, BOOL shadowGeomChanged);
         int UpdateViewDepParams(const Matrix3& worldToCam);
-        BOOL UseAtten() {return TRUE;}
+        BOOL UseAtten() { return TRUE; }
         int LightType() { return plRTLightBase::RT_OMNI; }
 };
 
@@ -134,7 +134,7 @@ class SpotLight: public BaseObjLight
         ~SpotLight() {} //  FreeShadGens();     }
         int Update(TimeValue t, const RendContext& rc, RenderGlobalContext *rgc, BOOL shadows, BOOL shadowGeomChanged);
         int UpdateViewDepParams(const Matrix3& worldToCam);
-        BOOL UseAtten() {return ls.useAtten;}
+        BOOL UseAtten() { return ls.useAtten; }
         BOOL IsFacingLight(Point3 &dir);
         int LightType() { return FSPOT_LIGHT; }
 };
@@ -154,10 +154,10 @@ class DirLight : public BaseObjLight
     Texmap* projMap;
     public:
         DirLight(INode *inode, BOOL forceShadowBuf);
-        ~DirLight() {   /*  FreeShadGens();*/}
+        ~DirLight() { /*  FreeShadGens();*/ }
         int Update(TimeValue t, const RendContext& rc, RenderGlobalContext *rgc, BOOL shadows, BOOL shadowGeomChanged);
         int UpdateViewDepParams(const Matrix3& worldToCam);
-        BOOL UseAtten() {return FALSE;}
+        BOOL UseAtten() { return FALSE; }
         int LightType() { return plRTLightBase::RT_FREE_DIR; }
 };
 

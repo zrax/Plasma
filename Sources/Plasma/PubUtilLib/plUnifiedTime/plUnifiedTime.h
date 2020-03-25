@@ -118,7 +118,7 @@ public:
     int GetSecond() const;
     int GetMillis() const;
     int GetDayOfWeek() const;
-    int GetMode() const {return fMode;} // local or gmt.
+    int GetMode() const { return fMode; } // local or gmt.
 
     // setters
     void SetSecs(const time_t secs) { fSecs = secs; }
@@ -128,14 +128,14 @@ public:
     bool SetGMTime(short year, short month, short day, short hour, short minute, short second, unsigned long usec=0);
     bool SetToUTC();
     void ToCurrentTime();
-    void ToEpoch() { fSecs = 0; fMicros = 0;}
-    void SetMode(Mode mode) { fMode=mode;}
+    void ToEpoch() { fSecs = 0; fMicros = 0; }
+    void SetMode(Mode mode) { fMode=mode; }
 #if HS_BUILD_FOR_WIN32
     bool SetFromWinFileTime(const FILETIME ft);
 #endif
     
     // query
-    bool AtEpoch() const { return fSecs == 0 && fMicros == 0;}
+    bool AtEpoch() const { return fSecs == 0 && fMicros == 0; }
 
     void Read(hsStream* s);
     void Write(hsStream* s) const;
@@ -159,7 +159,7 @@ public:
 
 
     // casting
-    operator time_t() const { return fSecs;}
+    operator time_t() const { return fSecs; }
     operator timeval() const;
     operator struct tm() const;
 

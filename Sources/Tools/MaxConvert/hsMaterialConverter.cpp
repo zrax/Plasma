@@ -1714,7 +1714,7 @@ hsGMaterial *hsMaterialConverter::IProcessParticleMtl(Mtl *mtl, plMaxNode *node,
     //
     // Color / Opacity
     //
-    Color amb  = basicPB->GetColor(plParticleMtl::kColorAmb);;
+    Color amb  = basicPB->GetColor(plParticleMtl::kColorAmb);
     Color dif  = basicPB->GetColor(plParticleMtl::kColor);
     float opac = float(basicPB->GetInt(plParticleMtl::kOpacity)) / 100.0f;
 
@@ -4157,7 +4157,7 @@ bool hsMaterialConverter::IsAnimatedMaterial(Mtl* mtl)
         // It is std material.  does not have any submaterials
         StdMat* std = (StdMat *)mtl;
         int i;
-        for (i=0;i<std->NumSubTexmaps();i++)
+        for (i=0; i<std->NumSubTexmaps(); i++)
         {
             if (IIsAnimatedTexmap(std->GetSubTexmap(i)))
                 return true;

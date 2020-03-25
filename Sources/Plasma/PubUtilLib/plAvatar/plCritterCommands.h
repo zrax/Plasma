@@ -125,7 +125,7 @@ public:
         kLeftWingBankLeftCoasting,
         kLeftWingBackwardFlight,
         kNumStdAnims
-    } ;
+    };
 
     VCharArray fAnimNameTypes;
 

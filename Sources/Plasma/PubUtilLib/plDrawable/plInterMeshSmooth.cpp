@@ -164,7 +164,7 @@ void plInterMeshSmooth::SmoothNormals(hsTArray<plSpanHandle>& sets)
         for (j = edgeVerts[i].GetCount()-1; j >= 0; --j)
         {
             hsPoint3 pos = GetPosition(sets[i], edgeVerts[i][j]);
-            hsVector3 normAccum = GetNormal(sets[i], edgeVerts[i][j]);;
+            hsVector3 normAccum = GetNormal(sets[i], edgeVerts[i][j]);
 
             shareVtx[i].Append(edgeVerts[i][j]);
 

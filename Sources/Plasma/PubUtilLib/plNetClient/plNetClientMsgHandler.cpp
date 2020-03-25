@@ -179,7 +179,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgGroupOwner)
     plNetOwnershipMsg* netOwnMsg = new plNetOwnershipMsg;
 
     int i;
-    for (i=0;i<m->GetNumGroups();i++)
+    for (i=0; i<m->GetNumGroups(); i++)
     {
         plNetMsgGroupOwner::GroupInfo gr=m->GetGroupInfo(i);
         netOwnMsg->AddGroupInfo(gr);
@@ -458,7 +458,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgMembersList)
     int i;
 
     // remove existing members, except server
-    for (i=nc->fTransport.GetNumMembers()-1 ; i>=0; i--)
+    for (i=nc->fTransport.GetNumMembers()-1; i>=0; i--)
     {
         if (!nc->fTransport.GetMember(i)->IsServer())
         {
@@ -468,7 +468,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgMembersList)
 
     // update the members list from the msg.
     // this app is not one of the members in the msg
-    for (i=0 ;i<m->MemberListInfo()->GetNumMembers() ;i++)
+    for (i=0; i<m->MemberListInfo()->GetNumMembers(); i++)
     {
         plNetTransportMember* mbr = new plNetTransportMember(nc);
         IFillInTransportMember(m->MemberListInfo()->GetMember(i), mbr);

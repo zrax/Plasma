@@ -122,7 +122,7 @@ public:
     plMessage&  SetSender(const plKey &s) { fSender = s; return *this; }
 
     plMessage&   SetNumReceivers(int n);
-    uint32_t     GetNumReceivers() const ;
+    uint32_t     GetNumReceivers() const;
     const plKey& GetReceiver(int i) const;
     plMessage&   RemoveReceiver(int i);
 

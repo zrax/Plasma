@@ -87,7 +87,7 @@ bool pfConsoleDirSrc::ParseDirectory(const plFileName& path, const char* mask /*
 void pfConsoleDirSrc::ResetProcessedFiles()
 {
     int i;
-    for (i=0;i<fProcessedFiles.size(); i++)
+    for (i=0; i<fProcessedFiles.size(); i++)
         delete fProcessedFiles[i];
     fProcessedFiles.clear();
 }

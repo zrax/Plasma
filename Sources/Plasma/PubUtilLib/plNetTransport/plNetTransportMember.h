@@ -87,12 +87,12 @@ public:
         {
             fAvatarKey=k;
         }
-    void SetPlayerName(const ST::string & value) { fPlayerName=value;}
-    ST::string GetPlayerName() const { return fPlayerName;}
-    void SetPlayerID(uint32_t value) { fPlayerID=value;}
-    uint32_t GetPlayerID() const { return fPlayerID;}
-    void SetIsServer(bool value) { (value)?SetFlags(GetFlags()|kIsServer):SetFlags(GetFlags()&~kIsServer);}
-    bool IsServer() const { return (GetFlags()&kIsServer)?true:false;}
+    void SetPlayerName(const ST::string & value) { fPlayerName=value; }
+    ST::string GetPlayerName() const { return fPlayerName; }
+    void SetPlayerID(uint32_t value) { fPlayerID=value; }
+    uint32_t GetPlayerID() const { return fPlayerID; }
+    void SetIsServer(bool value) { (value)?SetFlags(GetFlags()|kIsServer):SetFlags(GetFlags()&~kIsServer); }
+    bool IsServer() const { return (GetFlags()&kIsServer)?true:false; }
 
     bool AddSubscription(int chan);
     bool RemoveSubscription(int chan);    // return true on success

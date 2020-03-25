@@ -49,7 +49,7 @@ class plRideAnimatedPhysMsg : public plMessage
 public:
     plRideAnimatedPhysMsg();
     plRideAnimatedPhysMsg(const plKey &sender, const plKey &receiver, bool entering, plKey regionKey);
-    bool Entering(){return fEntering;}
+    bool Entering() { return fEntering; }
 //PLASMA
     CLASSNAME_REGISTER(plRideAnimatedPhysMsg);
     GETINTERFACE_ANY(plRideAnimatedPhysMsg, plMessage);

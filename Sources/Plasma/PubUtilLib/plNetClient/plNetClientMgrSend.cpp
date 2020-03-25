@@ -106,7 +106,7 @@ int plNetClientMgr::ISendDirtyState(double secs)
     }
 #endif
     int32_t i;
-    for (i=0;i<num;i++)
+    for (i=0; i<num; i++)
     {
         plSynchedObject::StateDefn* state=plSynchedObject::GetDirtyState(i);
         
@@ -283,7 +283,7 @@ int plNetClientMgr::ISendGameMessage(plMessage* msg)
     {
         netMsgWrap = new plNetMsgGameMessageDirected;
         int i;
-        for (i=0;i<dstIDs->size();i++)
+        for (i=0; i<dstIDs->size(); i++)
         {
             uint32_t playerID = (*dstIDs)[i];
             if (playerID == NetCommGetPlayer()->playerInt)

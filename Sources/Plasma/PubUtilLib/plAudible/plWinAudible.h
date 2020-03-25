@@ -100,7 +100,7 @@ public:
     bool        AddSound(plSound *pSnd, int index,bool is3D);
     int         AddSoundFromResource(plSound *pSnd, void* addr, int32_t size, bool is3D);
     virtual void        GetStatus(plSoundMsg* pMsg);
-    virtual int         GetNumSounds() const {return fSoundObjs.Count();}
+    virtual int         GetNumSounds() const { return fSoundObjs.Count(); }
     virtual plSound*    GetSound(int i) const;
     virtual int         GetSoundIndex(const char *keyname) const;
     virtual void        SetVolume(const float volume,int index = -1);

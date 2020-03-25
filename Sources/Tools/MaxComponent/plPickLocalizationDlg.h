@@ -62,7 +62,7 @@ public:
     plPickLocalizationDlg(const char *path): fPath(path?path:""), fTree(nil) {}
 
     bool DoPick(); // returns true if [Ok] clicked, false otherwise.
-    const char *GetValue() const {return fPath.c_str();}
+    const char *GetValue() const { return fPath.c_str(); }
 };
 
 #endif // plPickLocalizationDlg_h

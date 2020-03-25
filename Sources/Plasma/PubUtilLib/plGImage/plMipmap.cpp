@@ -1563,7 +1563,7 @@ uint32_t plMipmap::CopyOutPixels(uint32_t destXSize, uint32_t destYSize,
 
     hsAssert(!fCurrLevel,"Mip Map not at level 0");
 
-    for (i = 0 ; i < (fNumLevels - fCurrLevel); i++)
+    for (i = 0; i < (fNumLevels - fCurrLevel); i++)
     {
         CopyPixels(fWidth >> i , fHeight >> i, GetLevelPtr(i), skipX, skipY,
                         dstFormat, destPixels, copyOptions);

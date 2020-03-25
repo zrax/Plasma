@@ -53,10 +53,10 @@ class plSpawnRequestMsg : public plMessage
 {
 
 public:
-    plSpawnRequestMsg(){SetBCastFlag(plMessage::kBCastByExactType);}
+    plSpawnRequestMsg() { SetBCastFlag(plMessage::kBCastByExactType); }
     plSpawnRequestMsg(const plKey &s,
                     const plKey &r,
-                    const double* t){SetBCastFlag(plMessage::kBCastByExactType);}
+                    const double* t) { SetBCastFlag(plMessage::kBCastByExactType); }
     ~plSpawnRequestMsg() { }
 
     CLASSNAME_REGISTER(plSpawnRequestMsg);

@@ -93,7 +93,7 @@ CWaveFile::~CWaveFile()
     }
 
     int i;
-    for (i = 0 ; i < fMarkers.size() ; i++)
+    for (i = 0; i < fMarkers.size(); i++)
     {
         delete [] fMarkers[i]->fName;
     }
@@ -297,7 +297,7 @@ public:
     CuePoint(DWORD id, DWORD pos, FOURCC chk, DWORD ckSt, DWORD BkSt, DWORD SO) :
       dwIdentifier(id), dwPosition(pos), fccChunk(chk), dwChunkStart(ckSt), dwBlockStart(BkSt), dwSampleOffset(SO)
       {}
-    CuePoint(){}
+    CuePoint() {}
     
 
 };
@@ -389,7 +389,7 @@ HRESULT CWaveFile::ReadMMIO()
 
 
 
-    fSecsPerSample = 1.0/ (double)(pcmWaveFormat.wf.nSamplesPerSec) ; // * (((double)pcmWaveFormat.wBitsPerSample)/8.0);
+    fSecsPerSample = 1.0/ (double)(pcmWaveFormat.wf.nSamplesPerSec); // * (((double)pcmWaveFormat.wBitsPerSample)/8.0);
 
 
     // Ascend the input file out of the 'fmt ' chunk.
@@ -426,7 +426,7 @@ HRESULT CWaveFile::ReadMMIO()
     int numCuePoints = (ckIn.cksize - sizeof(DWORD))/sizeof(CuePoint); // this is how many there should be.
     unsigned int i, j;
                 
-    for (i = 1, j = 0; i <= ckIn.cksize && j < numCuePoints ; i += sizeof(CuePoint)/(sizeof(DWORD)), j++)
+    for (i = 1, j = 0; i <= ckIn.cksize && j < numCuePoints; i += sizeof(CuePoint)/(sizeof(DWORD)), j++)
 
     {
         myCuePoint p;
@@ -472,7 +472,7 @@ HRESULT CWaveFile::ReadMMIO()
         //
         // Do we have a matching cue point for this label?
         //
-        for (i = 0 ; i < numPts;  i++)
+        for (i = 0; i < numPts;  i++)
         {
             if (id == myCueList[i].fId)
             {

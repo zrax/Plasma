@@ -57,7 +57,7 @@ plNetSharedState::~plNetSharedState()
 void plNetSharedState::Reset()
 {
     int i;
-    for (i=0;i<fVars.size();i++)
+    for (i=0; i<fVars.size(); i++)
         delete fVars[i];
     fVars.clear();
 }
@@ -73,7 +73,7 @@ void plNetSharedState::Copy(plNetSharedState *ss)
 
     // copy vars
     int i;
-    for (i=0;i<ss->GetNumVars();i++)
+    for (i=0; i<ss->GetNumVars(); i++)
     {
         plGenericVar* sv = new plGenericVar;
         *sv = *(ss->GetVar(i));
@@ -91,7 +91,7 @@ void plNetSharedState::Read(hsStream* stream)
     
     fVars.reserve(num);
     int i;
-    for (i=0;i<num;i++)
+    for (i=0; i<num; i++)
     {
         plGenericVar* v = new plGenericVar;
         v->Read(stream);
@@ -107,7 +107,7 @@ void plNetSharedState::Write(hsStream* stream)
     
     stream->WriteBool(fServerMayDelete);
     int i;
-    for (i=0;i<num;i++)
+    for (i=0; i<num; i++)
     {
         fVars[i]->Write(stream);
     }

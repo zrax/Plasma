@@ -94,8 +94,8 @@ protected:
 public:
     float    fX, fY, fZ;
 
-    hsScalarTriple*     Set(float x, float y, float z) { fX= x; fY = y; fZ = z;    return this;}
-    hsScalarTriple*     Set(const hsScalarTriple *p) { fX = p->fX; fY = p->fY; fZ = p->fZ;  return this;}
+    hsScalarTriple*     Set(float x, float y, float z) { fX= x; fY = y; fZ = z;    return this; }
+    hsScalarTriple*     Set(const hsScalarTriple *p) { fX = p->fX; fY = p->fY; fZ = p->fZ;  return this; }
     
     float InnerProduct(const hsScalarTriple &p) const;
     float InnerProduct(const hsScalarTriple *p) const;
@@ -156,8 +156,8 @@ struct hsPoint3  : public hsScalarTriple {
     hsPoint3(float x, float y, float z) : hsScalarTriple(x,y,z) {}
     explicit hsPoint3(const hsScalarTriple& p) : hsScalarTriple(p) {}
     
-    hsPoint3*    Set(float x, float y, float z) { return (hsPoint3*)this->hsScalarTriple::Set(x,y,z);}
-    hsPoint3*    Set(const hsScalarTriple* p) { return (hsPoint3*)this->hsScalarTriple::Set(p) ;}
+    hsPoint3*    Set(float x, float y, float z) { return (hsPoint3*)this->hsScalarTriple::Set(x,y,z); }
+    hsPoint3*    Set(const hsScalarTriple* p) { return (hsPoint3*)this->hsScalarTriple::Set(p); }
 
     friend inline hsPoint3 operator+(const hsPoint3& s, const hsPoint3& t);
     friend inline hsPoint3 operator+(const hsPoint3& s, const hsVector3& t);
@@ -187,8 +187,8 @@ struct hsVector3 : public hsScalarTriple {
         fX = p1->fX - p2->fX, fY= p1->fY - p2->fY, fZ = p1->fZ - p2->fZ; }
 
     hsVector3*   Set(float x, float y, float z) { return (hsVector3*)hsScalarTriple::Set(x,y,z); }
-    hsVector3*   Set(const hsScalarTriple* p) { return (hsVector3*)hsScalarTriple::Set(p) ;}
-    hsVector3*   Set(const hsScalarTriple* p1, const hsScalarTriple* p2) { return Set(p1->fX-p2->fX,p1->fY-p2->fY,p1->fZ-p2->fZ);}
+    hsVector3*   Set(const hsScalarTriple* p) { return (hsVector3*)hsScalarTriple::Set(p); }
+    hsVector3*   Set(const hsScalarTriple* p1, const hsScalarTriple* p2) { return Set(p1->fX-p2->fX,p1->fY-p2->fY,p1->fZ-p2->fZ); }
 
     void            Normalize()
                 {

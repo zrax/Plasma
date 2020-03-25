@@ -518,7 +518,7 @@ void plSimulationMgr::Advance(float delSecs)
 #endif
     if (fExtraProfile)
     {
-        int contacts = 0, dynActors = 0, dynShapes = 0, awake = 0, stShapes=0, actors=0, scenes=0, controllers=0 ;
+        int contacts = 0, dynActors = 0, dynShapes = 0, awake = 0, stShapes=0, actors=0, scenes=0, controllers=0;
         for (SceneMap::iterator it = fScenes.begin(); it != fScenes.end(); it++)
         {
             bool do_advance = true;
@@ -617,7 +617,7 @@ void plSimulationMgr::ISendUpdates()
         }
 
 //      // iterate through the db types, which are powers-of-two enums.
-//      for (plLOSDB db = static_cast<plLOSDB>(1) ;
+//      for (plLOSDB db = static_cast<plLOSDB>(1);
 //          db < plSimDefs::kLOSDBMax;
 //          db = static_cast<plLOSDB>(db << 1))
 //      {
@@ -625,7 +625,7 @@ void plSimulationMgr::ISendUpdates()
 //      }
 //      if (fNeedLOSCullPhase)
 //      {
-//          for (plLOSDB db = static_cast<plLOSDB>(1) ;
+//          for (plLOSDB db = static_cast<plLOSDB>(1);
 //              db < plSimDefs::kLOSDBMax;
 //              db = static_cast<plLOSDB>(db << 1))
 //          {
@@ -818,7 +818,7 @@ void plSimulationMgr::IDrawActiveActorList()
         y += lineHeight;
         uint32_t numActors =it->second->getNbActors();
         NxActor** actors =it->second->getActors();
-        for (uint32_t i=0;i<numActors;i++)
+        for (uint32_t i=0; i<numActors; i++)
         {
             if (!actors[i]->isSleeping())
             {

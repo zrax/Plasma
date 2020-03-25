@@ -226,7 +226,7 @@ PF_CONSOLE_CMD(Net,        // groupName
     ST::string text=plNetClientMgr::GetInstance()->GetPlayerName();
     text += ":";
     int i;
-    for (i=0;i<numParams;i++)
+    for (i=0; i<numParams; i++)
     {
         text += ST::string::from_utf8((char*)params[i]);
         text += " ";

@@ -100,7 +100,7 @@ void plAgeLoader::FinishedPagingInRoom(plKey* rmKey, int numRms)
     plNetMsgPagingRoom * pagingMsg = new plNetMsgPagingRoom;
     pagingMsg->SetNetProtocol(kNetProtocolCli2Game);
     int i;
-    for (i=0;i<numRms;i++)
+    for (i=0; i<numRms; i++)
     {
         plKey key=rmKey[i];
         if (!RemovePendingPageInRoomKey(key))   // room is done paging in
@@ -142,7 +142,7 @@ void plAgeLoader::FinishedPagingOutRoom(plKey* rmKey, int numRms)
     nc->StayAlive(hsTimer::GetSysSeconds());    // alive
 
     int i;
-    for (i=0;i<numRms;i++)
+    for (i=0; i<numRms; i++)
     {
         plKeyVec::iterator found = std::find(fPendingPageOuts.begin(), fPendingPageOuts.end(), rmKey[i]);
         if (found != fPendingPageOuts.end())
@@ -172,7 +172,7 @@ void plAgeLoader::StartPagingOutRoom(plKey* rmKey, int numRms)
     pagingMsg.SetNetProtocol(kNetProtocolCli2Game);
     pagingMsg.SetPagingOut(true);
     int i;
-    for (i=0;i<numRms;i++)
+    for (i=0; i<numRms; i++)
     {
         plKey key=rmKey[i];
         if (!ReportRoomToServer(key))
@@ -199,7 +199,7 @@ void plAgeLoader::IgnorePagingOutRoom(plKey* rmKey, int numRms)
     nc->StayAlive(hsTimer::GetSysSeconds());    // alive
 
     int i;
-    for (i=0;i<numRms;i++)
+    for (i=0; i<numRms; i++)
     {
         plKeyVec::iterator found = std::find(fPendingPageOuts.begin(), fPendingPageOuts.end(), rmKey[i]);
         if (found != fPendingPageOuts.end())

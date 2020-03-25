@@ -632,7 +632,7 @@ hsMatrix44& hsMatrix44::MakeCameraUpPreserving(const hsPoint3* from, const hsPoi
 
 hsMatrix44* hsMatrix44::GetTranspose(hsMatrix44* transp) const
 {
-    for (int i = 0 ; i < 4; i++)
+    for (int i = 0; i < 4; i++)
         for (int j=0; j < 4; j++)
             transp->fMap[i][j] = fMap[j][i];
     return transp;

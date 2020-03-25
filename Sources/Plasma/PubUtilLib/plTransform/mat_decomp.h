@@ -45,9 +45,9 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 //
 // Types
 //
-typedef struct {float x, y, z, w;} gemQuat; /* Quaternion */
+typedef struct { float x, y, z, w; } gemQuat; /* Quaternion */
 
-enum QuatPart {X, Y, Z, W};
+enum QuatPart { X, Y, Z, W };
  
 typedef gemQuat HVect; /* Homogeneous 3D vector */
 

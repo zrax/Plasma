@@ -255,7 +255,7 @@ class pfGUIMultiLineEditCtrl : public pfGUIControlMod
         
         void    SetScrollEnable(bool state);
 
-        void    ForceUpdate() {/*IRecalcLineStarts(0,true);*/IUpdateLineStarts(); IUpdate();}
+        void    ForceUpdate() { /*IRecalcLineStarts(0,true);*/ IUpdateLineStarts(); IUpdate(); }
 
         void    SetNext(pfGUIMultiLineEditCtrl *newNext);
         void    ClearNext();
@@ -265,19 +265,19 @@ class pfGUIMultiLineEditCtrl : public pfGUIControlMod
         void    ClearEventProc();
         int32_t   GetFirstVisibleLine();
         int32_t   GetLastVisibleLine();
-        int32_t   GetNumVisibleLines() {return ICalcNumVisibleLines();}
+        int32_t   GetNumVisibleLines() { return ICalcNumVisibleLines(); }
         void    SetGlobalStartLine(int32_t line);
 
-        void    SetCursorToLoc(int32_t loc) {ISetCursor(loc);}
+        void    SetCursorToLoc(int32_t loc) { ISetCursor(loc); }
 
         void    SetMargins(int top, int left, int bottom, int right);
 
-        uint8_t   GetFontSize() {return fFontSize;} // because we're too cool to use the color scheme crap
+        uint8_t   GetFontSize() { return fFontSize; } // because we're too cool to use the color scheme crap
 
         void    SetFontFace(const ST::string &fontFace);
-        void    SetFontColor(hsColorRGBA fontColor) {fFontColor = fontColor; fFontFlagsSet |= kFontColorSet;}
+        void    SetFontColor(hsColorRGBA fontColor) { fFontColor = fontColor; fFontFlagsSet |= kFontColorSet; }
         void    SetFontSize(uint8_t fontSize);
-        void    SetFontStyle(uint8_t fontStyle) {fFontStyle = fontStyle; fFontFlagsSet |= kFontStyleSet;}
+        void    SetFontStyle(uint8_t fontStyle) { fFontStyle = fontStyle; fFontFlagsSet |= kFontStyleSet; }
 
         bool    ShowingBeginningOfBuffer();
         bool    ShowingEndOfBuffer();

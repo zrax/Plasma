@@ -119,7 +119,7 @@ public:
     static uint32_t   GetNumBuffers() { return fNumBuffers; }
     float           GetDefaultMinDistance() { return fDefaultMinDistance; }
     bool            GetAvailableBufferId(unsigned *bufferId);
-    unsigned        GetNumQueuedBuffers(){ return fNumQueuedBuffers;} // returns the max number of buffers queued on a source
+    unsigned        GetNumQueuedBuffers() { return fNumQueuedBuffers; } // returns the max number of buffers queued on a source
 
     float       GetTimeOffsetSec();
     void        SetTimeOffsetSec(float seconds);

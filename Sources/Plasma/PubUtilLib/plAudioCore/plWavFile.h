@@ -59,7 +59,7 @@ struct plSoundMarker
     char *fName;
     double fOffset; // in Secs
 
-    plSoundMarker () { fName = NULL;fOffset = 0.0; }
+    plSoundMarker () { fName = NULL; fOffset = 0.0; }
 
 };
 
@@ -88,7 +88,7 @@ public:
     HRESULT ResetFile();
     WAVEFORMATEX* GetFormat() { return m_pwfx; };
 
-    DWORD GetNumMarkers() { return fMarkers.size() ; };
+    DWORD GetNumMarkers() { return fMarkers.size(); };
     plSoundMarker *GetSoundMarker(int i) { return fMarkers[i]; }
 
 

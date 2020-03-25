@@ -122,8 +122,8 @@ public:
 
     static void Initialize(const plFileName & path);
     static void Shutdown();
-    static pfLocalizationDataMgr &Instance() {return *fInstance;}
-    static bool InstanceValid() {return fInstance != nil;}
+    static pfLocalizationDataMgr &Instance() { return *fInstance; }
+    static bool InstanceValid() { return fInstance != nil; }
     static plStatusLog* GetLog() { return fLog; }
 
     void SetupData();

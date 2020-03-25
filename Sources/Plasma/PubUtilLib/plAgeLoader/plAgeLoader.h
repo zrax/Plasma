@@ -138,7 +138,7 @@ public:
     // Called on page-in-hold rooms, since we don't want them actually paging out in the NCM (i.e. sending info to the server)
     void IgnorePagingOutRoom(plKey* rmKey, int numRms);
 
-    bool IsLoadingAge(){ return (fFlags & (kUnLoadingAge | kLoadingAge)); }
+    bool IsLoadingAge() { return (fFlags & (kUnLoadingAge | kLoadingAge)); }
 };
 
 #endif  // plAgeLoader_h

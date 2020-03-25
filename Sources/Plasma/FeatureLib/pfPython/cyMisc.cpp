@@ -1339,7 +1339,7 @@ void cyMisc::SetPrivateChatList(const std::vector<pyPlayer*> & tolist)
     if (tolist.size() > 0)
     {
         plNetVoiceListMsg* pMsg = new plNetVoiceListMsg(plNetVoiceListMsg::kForcedListenerMode);
-        for (int i=0 ; i<tolist.size() ; i++)
+        for (int i=0; i<tolist.size(); i++)
             pMsg->GetClientList()->Append(tolist[i]->GetPlayerID());
         
         plKey k = plNetClientMgr::GetInstance()->GetLocalPlayerKey();

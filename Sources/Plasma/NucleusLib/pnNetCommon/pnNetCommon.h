@@ -98,7 +98,7 @@ public:
     void Read(hsStream* stream, hsResMgr* mgr=nullptr) HS_OVERRIDE;
     void Write(hsStream* stream, hsResMgr* mgr=nullptr) HS_OVERRIDE;
 
-    hsStream* GetStream() { return &fStream;}
+    hsStream* GetStream() { return &fStream; }
 };
 
 
@@ -113,12 +113,12 @@ class plSafePtr
 {
     T * fPtr;
 public:
-    plSafePtr(T * ptr = nil): fPtr(ptr) {hsRefCnt_SafeRef(fPtr);}
+    plSafePtr(T * ptr = nil): fPtr(ptr) { hsRefCnt_SafeRef(fPtr); }
     ~plSafePtr() { hsRefCnt_SafeUnRef(fPtr); }
     operator T*() const { return fPtr; }
     operator T*&() { return fPtr; }
     operator const T&() const { return *fPtr; }
-    operator bool() const { return fPtr!=nil;}
+    operator bool() const { return fPtr!=nil; }
     T * operator->() const { return fPtr; }
     T * operator *() const { return fPtr; }
     T * operator=(T * ptr)
@@ -135,7 +135,7 @@ public:
         hsRefCnt_SafeUnRef(fPtr);
         fPtr = ptr;
     }
-    void Detach() { fPtr=nil;}
+    void Detach() { fPtr=nil; }
 };
 
 #endif // SERVER

@@ -403,7 +403,7 @@ plNetMsgObjectListHelper::~plNetMsgObjectListHelper()
 void plNetMsgObjectListHelper::Reset()
 {
     int i;
-    for (i=0 ; i<GetNumObjects() ; i++)
+    for (i=0; i<GetNumObjects(); i++)
     {
         delete GetObject(i);
         fObjects[i] = nil;
@@ -416,7 +416,7 @@ int plNetMsgObjectListHelper::Poke(hsStream* stream, uint32_t peekOptions)
     int16_t num = GetNumObjects();
     stream->WriteLE(num);
     int i;
-    for (i=0 ;i<num  ;i++)
+    for (i=0; i<num; i++)
     {
         GetObject(i)->Poke(stream, peekOptions);
     } // for
@@ -433,7 +433,7 @@ int plNetMsgObjectListHelper::Peek(hsStream* stream, const uint32_t peekOptions)
     stream->LogReadLE(&num,"ObjectListHelper Num");
 
     int i;
-    for (i=0 ;i<num  ;i++)
+    for (i=0; i<num; i++)
     {
         fObjects.push_back(new plNetMsgObjectHelper);
         GetObject(i)->Peek(stream, peekOptions);
@@ -476,7 +476,7 @@ int plNetMsgMemberInfoHelper::Poke(hsStream* s, const uint32_t peekOptions)
 plNetMsgMemberListHelper::~plNetMsgMemberListHelper()
 {
     int i;
-    for (i=0;i<GetNumMembers();i++)
+    for (i=0; i<GetNumMembers(); i++)
         delete fMembers[i];
 }
 
@@ -487,7 +487,7 @@ int plNetMsgMemberListHelper::Peek(hsStream* stream, const uint32_t peekOptions)
     stream->LogReadLE(&numMembers,"MemberListHelper NumMembers");
     fMembers.clear();
     int i;
-    for (i=0;i<numMembers;i++)
+    for (i=0; i<numMembers; i++)
     {
         plNetMsgMemberInfoHelper* addr=new plNetMsgMemberInfoHelper;
         addr->Peek(stream, peekOptions);
@@ -503,7 +503,7 @@ int plNetMsgMemberListHelper::Poke(hsStream* stream, const uint32_t peekOptions)
     stream->WriteLE(numMembers);
 
     int i;
-    for (i=0;i<numMembers;i++)
+    for (i=0; i<numMembers; i++)
     {
         fMembers[i]->GetClientGuid()->SetClientKey("");
         fMembers[i]->GetClientGuid()->SetAccountUUID(plUUID());
@@ -527,7 +527,7 @@ int plNetMsgReceiversListHelper::Peek(hsStream* stream, const uint32_t peekOptio
     
     fPlayerIDList.clear();
     int i;
-    for (i=0;i<numIDs;i++)
+    for (i=0; i<numIDs; i++)
     {
         uint32_t ID;
         stream->LogReadLE(&ID,"ReceiversListHelper ID");
@@ -543,7 +543,7 @@ int plNetMsgReceiversListHelper::Poke(hsStream* stream, const uint32_t peekOptio
     stream->WriteLE(numIDs);
 
     int i;
-    for (i=0;i<numIDs;i++)
+    for (i=0; i<numIDs; i++)
         stream->WriteLE(GetReceiverPlayerID(i));
 
     return stream->GetPosition();

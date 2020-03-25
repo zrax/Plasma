@@ -122,7 +122,7 @@ void hsBounds3::Reset(int n, const hsPoint3 *p)
 {
     fType = kBoundsNormal;
     fMins = fMaxs = *p;
-    for (int i = 1; i < n ; i++)
+    for (int i = 1; i < n; i++)
         this->Union(&p[i]);
     fBounds3Flags &= ~kCenterValid;
 }
@@ -393,7 +393,7 @@ void hsBounds3::MakeTriMesh(hsGTriMesh* tMesh, uint32_t triFlags, hsPoint3* corn
     /* -Z */    7,5,4
     };
     int v=0;
-    for (;triNum < maxNew;triNum++)
+    for (; triNum < maxNew; triNum++)
     {
         tri = tMesh->GetTriFromPool(triNum);
         tri->Zero();

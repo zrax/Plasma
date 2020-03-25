@@ -95,7 +95,7 @@ void plNetClientMgr::IShowLists()
     y+=yOff;
     plNetTransportMember** members=nil;
     fTransport.GetMemberListDistSorted(members);
-    for (i=0;i<fTransport.GetNumMembers();i++)
+    for (i=0; i<fTransport.GetNumMembers(); i++)
     {
         plNetTransportMember* mbr=members[i];
         hsAssert(mbr, "ShowLists: nil member?");
@@ -121,7 +121,7 @@ void plNetClientMgr::IShowLists()
     y=baseY;
     txt.DrawString(x,y,"ListenList",255,255,255,255,plDebugText::kStyleBold);
     y+=yOff;
-    for (i=0;i<GetListenList()->GetNumMembers();i++)
+    for (i=0; i<GetListenList()->GetNumMembers(); i++)
     {
         sprintf(str, "name=%s", GetListenList()->GetMember(i)->AsString().c_str());
         txt.DrawString(x,y,str);
@@ -133,7 +133,7 @@ void plNetClientMgr::IShowLists()
     y=baseY;
     txt.DrawString(x,y,"TalkList",255,255,255,255,plDebugText::kStyleBold);
     y+=yOff;
-    for (i=0;i<GetTalkList()->GetNumMembers();i++)
+    for (i=0; i<GetTalkList()->GetNumMembers(); i++)
     {
         sprintf(str, "name=%s", GetTalkList()->GetMember(i)->AsString().c_str());
         txt.DrawString(x,y,str);
@@ -158,7 +158,7 @@ void plNetClientMgr::IShowRooms()
     txt.DrawString(x,y,"RoomsOwned",255,255,255,255,plDebugText::kStyleBold);
     y+=yOff;
     std::set<plNetClientGroups::OwnedGroup>::iterator it=GetNetGroups()->fGroups.begin();
-    for (;it != GetNetGroups()->fGroups.end(); it++)
+    for (; it != GetNetGroups()->fGroups.end(); it++)
     {
         if ((*it).fOwnIt)
         {
@@ -173,7 +173,7 @@ void plNetClientMgr::IShowRooms()
     txt.DrawString(x,y,"RoomsNotOwned",255,255,255,255,plDebugText::kStyleBold);
     y+=yOff;
     it=GetNetGroups()->fGroups.begin();
-    for (;it != GetNetGroups()->fGroups.end(); it++)
+    for (; it != GetNetGroups()->fGroups.end(); it++)
     {
         if (!(*it).fOwnIt)
         {
@@ -203,7 +203,7 @@ uint32_t IPrintRelRegion(const hsBitVector& region, int x, int y, const hsBitVec
     }
     buf[i] = '\0';
 
-    plDebugText& txt = plDebugText::Instance()  ;
+    plDebugText& txt = plDebugText::Instance();
     if (orTrue)
         txt.DrawString(x, y, buf, 0, 255, 0);
     else
@@ -346,7 +346,7 @@ void plNetClientMgr::IShowAvatars()
 
     plNetTransportMember** members=nil;
     fTransport.GetMemberListDistSorted(members);
-    for (i=0;i<fTransport.GetNumMembers();i++)
+    for (i=0; i<fTransport.GetNumMembers(); i++)
     {
         plNetTransportMember* mbr=members[i];
         hsAssert(mbr, "ShowLists: nil member?");

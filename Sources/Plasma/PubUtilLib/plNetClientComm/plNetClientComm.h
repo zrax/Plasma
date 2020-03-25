@@ -351,7 +351,7 @@ public:
         // PublicAgeCreated:0=plAgeInfoStruct
         plCreatableListHelper   fCbArgs;
         //-------------------------------
-        virtual ~Callback(){}
+        virtual ~Callback() {}
         virtual void OperationStarted(uint32_t context) = 0;
         virtual void OperationComplete(uint32_t context, int resultCode) = 0;
     };

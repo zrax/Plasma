@@ -101,7 +101,7 @@ protected:
             nNames = names.size();
 
         if (nNames)
-            for (int i = 0; i < nNames ; i++)
+            for (int i = 0; i < nNames; i++)
             {
                 const char * name = names[i].c_str();
                 SendMessage(hComboBox, CB_INSERTSTRING, i, (LPARAM)name);

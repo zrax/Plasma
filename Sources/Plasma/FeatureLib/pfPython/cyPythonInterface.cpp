@@ -218,8 +218,8 @@ public:
     virtual std::string EvaluateVariable(const std::string& varName);
     virtual void SetVariableValue(const std::string& varName, const std::string& newValue);
 
-    void SetFrame(PyFrameObject* frame) {fFrame = frame;}
-    void SetExceptionInfo(PyObject* exceptionInfo) {fExceptionInfo = exceptionInfo;}
+    void SetFrame(PyFrameObject* frame) { fFrame = frame; }
+    void SetExceptionInfo(PyObject* exceptionInfo) { fExceptionInfo = exceptionInfo; }
 };
 
 std::string DebuggerCallback::IParseCurrentException()
@@ -590,7 +590,7 @@ public:
     PYTHON_CLASS_CHECK_DEFINITION; // returns true if the PyObject is a pyOutputRedirector object
     PYTHON_CLASS_CONVERT_FROM_DEFINITION(pyOutputRedirector); // converts a PyObject to a pyOutputRedirector (throws error if not correct type)
 
-    void Write(std::string data) {fData += data;}
+    void Write(std::string data) { fData += data; }
     void Write(std::wstring data)
     {
         char* strData = hsWStringToString(data.c_str());

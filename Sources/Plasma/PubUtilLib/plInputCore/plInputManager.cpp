@@ -69,7 +69,7 @@ HWND    plInputManager::fhWnd = nil;
 struct plDIDevice
 {
     plDIDevice() : fDevice(nil), fCaps(nil) { }
-    plDIDevice(IDirectInputDevice8* _device) : fCaps(nil) { fDevice = _device;}
+    plDIDevice(IDirectInputDevice8* _device) : fCaps(nil) { fDevice = _device; }
     IDirectInputDevice8*    fDevice;
     DIDEVCAPS*              fCaps;
 };

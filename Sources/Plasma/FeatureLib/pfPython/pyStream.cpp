@@ -74,7 +74,7 @@ bool pyStream::Open(const plFileName& fileName, const char* flags)
             bool writeflag = false;
             bool encryptflag = false;
             int i;
-            for (i=0 ; i < strlen(flags) ; i++)
+            for (i=0; i < strlen(flags); i++)
             {
                 if (flags[i] == 'r' || flags[i] == 'R')
                     readflag = true;
@@ -129,7 +129,7 @@ bool pyStream::WriteLines(const std::vector<std::string> & lines)
     if (fStream)
     {
         int i;
-        for (i=0 ; i<lines.size() ; i++)
+        for (i=0; i<lines.size(); i++)
         {
             std::string element = lines[i];
             fStream->Write(element.length(),element.c_str());

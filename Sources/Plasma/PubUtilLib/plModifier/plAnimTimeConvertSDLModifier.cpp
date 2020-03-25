@@ -90,7 +90,7 @@ void plAnimTimeConvertSDLModifier::ISetCurrentATC(const plStateDataRecord* atcSt
         int j;
         float lastStateAnimTime = 0;
         double lastStateChange = 0;
-        for (j=0;j<num;j++)
+        for (j=0; j<num; j++)
         {
             if (vars[j]->IsNamed(AnimTimeConvertVarNames::kStrFlags))
             {

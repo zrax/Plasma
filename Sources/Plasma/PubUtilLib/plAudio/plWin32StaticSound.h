@@ -64,7 +64,7 @@ public:
     virtual bool    LoadSound(bool is3D);
     virtual void    Update();
     virtual bool    MsgReceive(plMessage* pMsg);
-    virtual void    SetStartPos(unsigned bytes){}
+    virtual void    SetStartPos(unsigned bytes) {}
 
 protected:
     bool            fRegisteredOnThread;

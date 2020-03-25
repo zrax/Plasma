@@ -67,10 +67,10 @@ private:
 
     plStreamSource();
 public:
-    ~plStreamSource() {ICleanup();}
+    ~plStreamSource() { ICleanup(); }
 
     // Force a cleanup of all data (some apps need to get at those file again, and they can't while we have them open)
-    void Cleanup() {ICleanup();}
+    void Cleanup() { ICleanup(); }
 
     // File access functions
     hsStream* GetFile(const plFileName& filename); // internal builds will read from disk if it doesn't exist

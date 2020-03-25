@@ -1465,7 +1465,7 @@ RefResult plRTLightBase::EvalLightState(TimeValue t, Interval& valid, LightState
     ls->shadow = GetShadow();
     ls->ambientOnly = false; //fLightPB->GetValue(kAmbiOnly,t, ls->ambientOnly, valid);   //ls->ambientOnly = fLightP.AmbiOnly;
     ls->affectDiffuse = true;   //fLightPB->GetInt(kDiffOn,t);  //ls->affectDiffusey = fLightP.AmbiOnly;
-    ls->affectSpecular = fLightPB->GetInt(kSpec,t); //ls- = fLightP.DiffOn;;
+    ls->affectSpecular = fLightPB->GetInt(kSpec,t); //ls- = fLightP.DiffOn;
 
     //ls->
 

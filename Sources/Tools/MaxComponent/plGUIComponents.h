@@ -81,7 +81,7 @@ class plGUIDialogComponent : public plComponent
         bool SetupProperties(plMaxNode *pNode, plErrorMsg *pErrMsg);
         bool PreConvert(plMaxNode *pNode, plErrorMsg *pErrMsg);
         bool Convert(plMaxNode *node, plErrorMsg *pErrMsg);
-        bool DeInit(plMaxNode *node, plErrorMsg *pErrMsg)     { fProcReceiver = nil; return true;}
+        bool DeInit(plMaxNode *node, plErrorMsg *pErrMsg)     { fProcReceiver = nil; return true; }
 
         pfGUIDialogMod  *GetModifier() { return fDialogMod; }
 

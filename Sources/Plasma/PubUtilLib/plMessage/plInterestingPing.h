@@ -51,10 +51,10 @@ class plInterestingModMsg : public plMessage
 {
 
 public:
-    plInterestingModMsg(){}
+    plInterestingModMsg() {}
     plInterestingModMsg(const plKey &s,
                     const plKey &r,
-                    const double* t){}
+                    const double* t) {}
     ~plInterestingModMsg() { }
 
     CLASSNAME_REGISTER(plInterestingModMsg);
@@ -93,11 +93,11 @@ class plInterestingPing : public plMessage
 {
 
 public:
-    plInterestingPing(){SetBCastFlag(plMessage::kBCastByExactType);}
-    plInterestingPing(const plKey &s) {SetBCastFlag(plMessage::kBCastByExactType);SetSender(s);}
+    plInterestingPing() { SetBCastFlag(plMessage::kBCastByExactType); }
+    plInterestingPing(const plKey &s) { SetBCastFlag(plMessage::kBCastByExactType); SetSender(s); }
     plInterestingPing(const plKey &s,
                     const plKey &r,
-                    const double* t){SetBCastFlag(plMessage::kBCastByExactType);}
+                    const double* t) { SetBCastFlag(plMessage::kBCastByExactType); }
     ~plInterestingPing() { }
 
     CLASSNAME_REGISTER(plInterestingPing);

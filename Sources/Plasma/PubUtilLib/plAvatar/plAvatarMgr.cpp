@@ -941,7 +941,7 @@ void plAvatarMgr::PointToDniCoordinate(hsPoint3 pt, plDniCoordinateInfo* ret)
                 // zero out the z axis...
                 retPoint.fZ = pt.fZ = 0.0f;
                 hsVector3 hSpanVec(retPoint - pt);
-                ret->SetHSpans((int)hSpanVec.Magnitude() / 16) ;
+                ret->SetHSpans((int)hSpanVec.Magnitude() / 16);
 
                 // torans
                 hsVector3 zeroVec = fMaintainersMarkers[nearestIndex]->GetTarget(0)->GetCoordinateInterface()->GetLocalToWorld().GetAxis(hsMatrix44::kView);

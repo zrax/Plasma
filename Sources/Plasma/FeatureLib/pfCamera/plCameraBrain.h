@@ -131,10 +131,10 @@ public:
     void    SetFOVGoal(float w, float h, double t);
     void    SetZoomParams(float max, float min, float rate);
     
-    void    SetXPanLimit(float x) {fXPanLimit = x;}
-    void    SetZPanLimit(float y) {fZPanLimit = y;}
-    float    GetXPanLimit() {return fXPanLimit;}
-    float    GetZPanLimit() {return fZPanLimit;}
+    void    SetXPanLimit(float x) { fXPanLimit = x; }
+    void    SetZPanLimit(float y) { fZPanLimit = y; }
+    float    GetXPanLimit() { return fXPanLimit; }
+    float    GetZPanLimit() { return fZPanLimit; }
 
     void    SetRail(plRailCameraMod* m) { fRail = m; }
 

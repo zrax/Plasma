@@ -314,7 +314,7 @@ bool plAudioInterface::MsgReceive(plMessage* msg)
                 if (GetOwner() && GetOwner()->GetCoordinateInterface())
                 {
                     hsMatrix44 l2w = GetOwner()->GetCoordinateInterface()->GetLocalToWorld();
-                    hsMatrix44 w2l = GetOwner()->GetCoordinateInterface()->GetWorldToLocal();;
+                    hsMatrix44 w2l = GetOwner()->GetCoordinateInterface()->GetWorldToLocal();
                     fAudible->SetTransform(l2w,w2l);
                 }
             }

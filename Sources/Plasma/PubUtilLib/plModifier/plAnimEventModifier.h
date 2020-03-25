@@ -51,7 +51,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 class plAnimEventModifier : public plSingleModifier
 {
 protected:
-    hsTArray<plKey> fReceivers;// Keys to notify when the anim event happens
+    hsTArray<plKey> fReceivers; // Keys to notify when the anim event happens
     plMessage* fCallback;       // The callback setup message we send when the anim loads
 
     virtual bool IEval(double secs, float del, uint32_t dirty) { return false; }

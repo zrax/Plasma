@@ -114,7 +114,7 @@ private:
 
 protected:
     pyAgeInfoStructRef(): fAgeInfo(fDefaultAgeInfo) {} // only here for the python glue... do NOT call directly
-    pyAgeInfoStructRef(plAgeInfoStruct & info): fAgeInfo(info){}
+    pyAgeInfoStructRef(plAgeInfoStruct & info): fAgeInfo(info) {}
 
 public:
     ~pyAgeInfoStructRef() {}

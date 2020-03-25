@@ -107,7 +107,7 @@ protected:
     pyAgeLinkStructRef(plAgeLinkStruct & link):fAgeLink(link) {}
 
 public:
-    ~pyAgeLinkStructRef(){}
+    ~pyAgeLinkStructRef() {}
 
     // required functions for PyObject interoperability
     PYTHON_CLASS_NEW_FRIEND(ptAgeLinkStructRef);

@@ -74,7 +74,7 @@ void plNetTalkList::UpdateTransportGroup(plNetClientMgr* nc)
         if (nc->IsPeerToPeer())
         {
             int i;
-            for (i=0;i<GetNumMembers();i++)
+            for (i=0; i<GetNumMembers(); i++)
             {
                 if (GetMember(i)->IsPeerToPeer())
                     nc->fTransport.SubscribeToChannelGrp(GetMember(i), plNetClientMgr::kNetChanVoice);

@@ -96,9 +96,9 @@ class plAgeInfoStruct : public plCreatable
         kHasAgeLanguage         = 1<<6,
     };
 
-    void    SetFlag(uint8_t bit, bool on=true) const { (on)?fFlags|=bit:fFlags&=~bit;}
-    void    ClearFlag(uint8_t bit) { fFlags&=~bit;}
-    bool    IsFlagSet(uint8_t bit) const { return (fFlags&bit)!=0;}
+    void    SetFlag(uint8_t bit, bool on=true) const { (on)?fFlags|=bit:fFlags&=~bit; }
+    void    ClearFlag(uint8_t bit) { fFlags&=~bit; }
+    bool    IsFlagSet(uint8_t bit) const { return (fFlags&bit)!=0; }
 
 public:
     plAgeInfoStruct()
@@ -180,9 +180,9 @@ class plAgeLinkStruct : public plCreatable
         kHasParentAgeFilename   = 1<<6,
     };
 
-    void    SetFlag(uint16_t bit, bool on=true) { (on)?fFlags|=bit:fFlags&=~bit;}
-    void    ClearFlag(uint16_t bit) { fFlags&=~bit;}
-    bool    IsFlagSet(uint16_t bit) const { return (fFlags&bit)!=0;}
+    void    SetFlag(uint16_t bit, bool on=true) { (on)?fFlags|=bit:fFlags&=~bit; }
+    void    ClearFlag(uint16_t bit) { fFlags&=~bit; }
+    bool    IsFlagSet(uint16_t bit) const { return (fFlags&bit)!=0; }
 
 public:
     plAgeLinkStruct();
@@ -243,9 +243,9 @@ class plNetServerSessionInfo : public plCreatable
         kHasServerGuid  = 1<<4,
     };
 
-    void    SetFlag(uint8_t bit) { fFlags|=bit;}
-    void    ClearFlag(uint8_t bit) { fFlags&=~bit;}
-    bool    IsFlagSet(uint8_t bit) const { return (fFlags&bit)!=0;}
+    void    SetFlag(uint8_t bit) { fFlags|=bit; }
+    void    ClearFlag(uint8_t bit) { fFlags&=~bit; }
+    bool    IsFlagSet(uint8_t bit) const { return (fFlags&bit)!=0; }
 
 public:
     plNetServerSessionInfo()
@@ -270,11 +270,11 @@ public:
     const plUUID *GetServerGuid() const { return &fServerGuid; }
     plUUID *    GetServerGuid() { return &fServerGuid; }
 
-    bool HasServerName() const { return IsFlagSet(kHasServerName);}
-    bool HasServerType() const { return IsFlagSet(kHasServerType);}
-    bool HasServerAddr() const { return IsFlagSet(kHasServerAddr);}
-    bool HasServerPort() const { return IsFlagSet(kHasServerPort);}
-    bool HasServerGuid() const { return IsFlagSet(kHasServerGuid);}
+    bool HasServerName() const { return IsFlagSet(kHasServerName); }
+    bool HasServerType() const { return IsFlagSet(kHasServerType); }
+    bool HasServerAddr() const { return IsFlagSet(kHasServerAddr); }
+    bool HasServerPort() const { return IsFlagSet(kHasServerPort); }
+    bool HasServerGuid() const { return IsFlagSet(kHasServerGuid); }
     bool IsFullyQualified() const
     {
         return

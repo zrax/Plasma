@@ -68,7 +68,7 @@ void plSoundSDLModifier::IPutCurrentStateIn(plStateDataRecord* dstState)
     soundListVar->Resize(numSounds);
         
     int i;
-    for (i=0;i<numSounds; i++)
+    for (i=0; i<numSounds; i++)
     {
         plStateDataRecord* soundState=soundListVar->GetStateDataRecord(i);
         plSound* sound=ai->GetSound(i);
@@ -100,7 +100,7 @@ void plSoundSDLModifier::ISetCurrentStateFrom(const plStateDataRecord* srcState)
     }
 
     int i;
-    for (i=0;i<numSounds;i++)
+    for (i=0; i<numSounds; i++)
     {
         plStateDataRecord* soundState=soundListVar->GetStateDataRecord(i);
         plSound* sound=ai->GetSound(i);

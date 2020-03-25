@@ -74,7 +74,7 @@ public:
     static void AddPlasmaClasses(PyObject *m);
 
     bool operator==(const pyCritterBrain& other) const;
-    bool operator!=(const pyCritterBrain& other) const {return !(*this == other);}
+    bool operator!=(const pyCritterBrain& other) const { return !(*this == other); }
 
     void AddReceiver(pyKey& newReceiver);
     void RemoveReceiver(pyKey& oldReceiver);

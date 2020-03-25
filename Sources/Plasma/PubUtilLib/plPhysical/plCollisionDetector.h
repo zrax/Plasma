@@ -75,7 +75,7 @@ public:
         kTypeBump       = 0x20,
     };
 
-    plCollisionDetector() : fType(0), fTriggered(false), fBumped(false){ }
+    plCollisionDetector() : fType(0), fTriggered(false), fBumped(false) { }
     plCollisionDetector(int8_t type) : fType(type), fTriggered(false), fBumped(false) { }
     virtual ~plCollisionDetector() { }
     
@@ -291,9 +291,9 @@ public:
 class plRidingAnimatedPhysicalDetector: public plSimpleRegionSensor
 {
 public:
-    plRidingAnimatedPhysicalDetector(){}
+    plRidingAnimatedPhysicalDetector() {}
     plRidingAnimatedPhysicalDetector(plMessage *enterMsg, plMessage *exitMsg) : plSimpleRegionSensor(enterMsg, exitMsg) {}
-    virtual ~plRidingAnimatedPhysicalDetector(){}
+    virtual ~plRidingAnimatedPhysicalDetector() {}
     virtual bool MsgReceive(plMessage *msg);
     CLASSNAME_REGISTER(plRidingAnimatedPhysicalDetector);
     GETINTERFACE_ANY(plRidingAnimatedPhysicalDetector, plSimpleRegionSensor);

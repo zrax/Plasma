@@ -63,8 +63,8 @@ public:
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);
 
-    void BrainUserString(const ST::string& userStr) {fBrainUserStr = userStr;}
-    ST::string BrainUserString() const {return fBrainUserStr;}
+    void BrainUserString(const ST::string& userStr) { fBrainUserStr = userStr; }
+    ST::string BrainUserString() const { return fBrainUserStr; }
 
     // enum for all messages to make things easier for people that use us
     enum
@@ -83,14 +83,14 @@ private:
 class plAIBrainCreatedMsg : public plAIMsg
 {
 public:
-    plAIBrainCreatedMsg(): plAIMsg() {SetBCastFlag(plMessage::kBCastByExactType);}
-    plAIBrainCreatedMsg(const plKey& sender): plAIMsg(sender, nil) {SetBCastFlag(plMessage::kBCastByExactType);}
+    plAIBrainCreatedMsg(): plAIMsg() { SetBCastFlag(plMessage::kBCastByExactType); }
+    plAIBrainCreatedMsg(const plKey& sender): plAIMsg(sender, nil) { SetBCastFlag(plMessage::kBCastByExactType); }
 
     CLASSNAME_REGISTER(plAIBrainCreatedMsg);
     GETINTERFACE_ANY(plAIBrainCreatedMsg, plAIMsg);
 
-    virtual void Read(hsStream* stream, hsResMgr* mgr) {plAIMsg::Read(stream, mgr);}
-    virtual void Write(hsStream* stream, hsResMgr* mgr) {plAIMsg::Write(stream, mgr);}
+    virtual void Read(hsStream* stream, hsResMgr* mgr) { plAIMsg::Read(stream, mgr); }
+    virtual void Write(hsStream* stream, hsResMgr* mgr) { plAIMsg::Write(stream, mgr); }
 };
 
 // message sent when the brain arrives at it's specified goal
@@ -107,8 +107,8 @@ public:
     virtual void Read(hsStream* stream, hsResMgr* mgr);
     virtual void Write(hsStream* stream, hsResMgr* mgr);
 
-    void Goal(hsPoint3 goal) {fGoal = goal;}
-    hsPoint3 Goal() const {return fGoal;}
+    void Goal(hsPoint3 goal) { fGoal = goal; }
+    hsPoint3 Goal() const { return fGoal; }
 
 private:
     hsPoint3 fGoal;

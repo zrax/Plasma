@@ -285,13 +285,13 @@ bool VaultImageNode::ExtractImage (plMipmap ** dst) {
 struct MatchesSpawnPointTitle
 {
     ST::string fTitle;
-    MatchesSpawnPointTitle(const ST::string & title):fTitle(title){}
+    MatchesSpawnPointTitle(const ST::string & title):fTitle(title) {}
     bool operator ()(const plSpawnPointInfo & p) const { return (p.fTitle==fTitle); }
 };
 struct MatchesSpawnPointName
 {
     ST::string fName;
-    MatchesSpawnPointName(const ST::string & name):fName(name){}
+    MatchesSpawnPointName(const ST::string & name):fName(name) {}
     bool operator ()(const plSpawnPointInfo & p) const { return (p.fSpawnPt==fName); }
 };
 #endif

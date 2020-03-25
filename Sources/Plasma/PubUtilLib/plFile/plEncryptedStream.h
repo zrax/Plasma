@@ -93,7 +93,7 @@ public:
     virtual void    FastFwd();
     virtual uint32_t  GetEOF();
 
-    uint32_t GetActualFileSize() const { return fActualFileSize;}
+    uint32_t GetActualFileSize() const { return fActualFileSize; }
 
     static bool FileEncrypt(const plFileName& fileName);
     static bool FileDecrypt(const plFileName& fileName);

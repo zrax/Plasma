@@ -203,7 +203,7 @@ uint32_t plClosest::PointsOnLines(const hsPoint3& p0, const hsVector3& v0,
     cp1 = p1;
     cp1 += v1 * t1;
 
-    return retVal;;
+    return retVal;
 }
 
 bool plClosest::PointOnSphere(const hsPoint3& p0,

@@ -700,7 +700,7 @@ class BriefDocGenIterator : public pfConsoleCmdIterator
     char fGrpName[200];
 
 public:
-    BriefDocGenIterator(FILE *f) { fFile = f; strcpy(fGrpName,"");}
+    BriefDocGenIterator(FILE *f) { fFile = f; strcpy(fGrpName,""); }
     virtual void ProcessCmd(pfConsoleCmd* c, int depth)
     {
 

@@ -89,7 +89,7 @@ public:
     virtual bool Convert(plMaxNode *node, plErrorMsg *pErrMsg);
     virtual bool DeInit(plMaxNode *node, plErrorMsg *pErrMsg);
     const char *GetAgeName();
-    bool GetItinerant() {return fItinerant; }
+    bool GetItinerant() { return fItinerant; }
     
     enum
     {

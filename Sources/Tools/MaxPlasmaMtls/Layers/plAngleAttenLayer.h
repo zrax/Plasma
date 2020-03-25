@@ -178,7 +178,7 @@ public:
 
 protected:
     virtual void ISetMaxBitmap(Bitmap *bitmap, int index = 0) { hsAssert(false, "Function call not valid on this type of layer."); }
-    virtual void ISetPBBitmap(PBBitmap *pbbm, int index = 0){ hsAssert(false, "Function call not valid on this type of layer."); }
+    virtual void ISetPBBitmap(PBBitmap *pbbm, int index = 0) { hsAssert(false, "Function call not valid on this type of layer."); }
 };
 
 #endif // plAngleAttenLayer_inc

@@ -255,7 +255,7 @@ class plMipmap : public plBitmap
                 uint16_t      fSrcClipWidth, fSrcClipHeight;  // 0 means max width/height
 
                 CompositeOptions() { fFlags = 0; fSrcLevelsToSkip = 0; fRedTint = fGreenTint = fBlueTint = 1.f;
-                                    fSrcClipX = fSrcClipY = fSrcClipWidth = fSrcClipHeight = 0; fOpacity = 255;}
+                                     fSrcClipX = fSrcClipY = fSrcClipWidth = fSrcClipHeight = 0; fOpacity = 255; }
 
                 CompositeOptions(uint16_t flags, uint8_t srcLevelsToSkip = 0, float red = 1.f, float green = 1.f,
                                     float blue = 1.f, uint16_t srcClipX = 0, uint16_t srcClipY = 0,

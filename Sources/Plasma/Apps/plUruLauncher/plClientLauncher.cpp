@@ -131,7 +131,7 @@ void plShardStatus::Run()
 
 void plShardStatus::Shutdown()
 {
-    SetQuit(true);;
+    SetQuit(true);
     fUpdateEvent.Signal();
 }
 

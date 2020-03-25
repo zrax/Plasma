@@ -73,23 +73,23 @@ public:
     void        FastForwardToggle(int index = -1) { }
     void        SetMin(const float m,int index = -1) { } // sets minimum falloff distance
     void        SetMax(const float m,int index = -1) { } // sets maximum falloff distance
-    virtual plAudible& SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l, int index = -1){return *this;}
-    float    GetMin(int index = -1) const{return 0;}
-    float    GetMax(int index = -1) const{return 0;}
+    virtual plAudible& SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l, int index = -1) { return *this; }
+    float    GetMin(int index = -1) const { return 0; }
+    float    GetMax(int index = -1) const { return 0; }
     void        SetVelocity(const hsVector3 vel,int index = -1) { }
     hsVector3   GetVelocity(int index = -1) const;
     hsPoint3    GetPosition(int index = -1);
     void        SetLooping(bool loop,int index = -1) { } // sets continuous loop or stops looping
-    bool        IsPlaying(int index = -1){return false;}
+    bool        IsPlaying(int index = -1) { return false; }
     virtual void        SetTime(double t, int index = -1) {}
-    virtual void        Activate(){}
-    virtual void        DeActivate(){}
+    virtual void        Activate() {}
+    virtual void        DeActivate() {}
     virtual void        GetStatus(plSoundMsg* pMsg) { }
-    virtual int         GetNumSounds() const {return 0;}
+    virtual int         GetNumSounds() const { return 0; }
     virtual plSound*    GetSound(int i) const { return nil; }
     virtual int         GetSoundIndex(const char *keyname) const { return -1; }
     virtual void        SetVolume(const float volume,int index = -1) { }
-    virtual void        SetFilename(int index, const char *filename, bool isCompressed){}
+    virtual void        SetFilename(int index, const char *filename, bool isCompressed) {}
 
     virtual void    RemoveCallbacks(plSoundMsg* pMsg) {}
     virtual void    AddCallbacks(plSoundMsg* pMsg) {}

@@ -155,7 +155,7 @@ public:
     float GetPower() const { return fPower; }
     void SetPower(float f) { fPower = f; }
 
-    static void SetGlobalMaxSize(uint32_t s) ;
+    static void SetGlobalMaxSize(uint32_t s);
     static uint32_t GetGlobalMaxSize() { return fGlobalMaxSize; }
 
     static void SetGlobalMaxDist(float s) { fGlobalMaxDist = s; }

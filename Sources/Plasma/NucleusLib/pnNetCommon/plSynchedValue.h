@@ -197,7 +197,7 @@ public:
     T& operator^=(const T& other) { return SetValue(fValue^other); }
     T& operator-=(const T& other) { return SetValue(fValue-other); }
 
-    const T& operator=(const T& v){ return SetValue(v); }
+    const T& operator=(const T& v) { return SetValue(v); }
 
 #if HS_BUILD_FOR_WIN32
 #pragma warning(push)
@@ -340,7 +340,7 @@ void plSynchedTArray<T>::ISaveOrLoad(bool32 save, hsStream* stream, hsResMgr* mg
         // write out size of array
         int32_t i, num = fValueList.GetCount();
         stream->WriteLE(num);
-        for (i=0;i<num;i++)
+        for (i=0; i<num; i++)
         {
             plSynchedValueBase::ISaveOrLoad(fValueList[i], save, stream, mgr);
         }
@@ -353,7 +353,7 @@ void plSynchedTArray<T>::ISaveOrLoad(bool32 save, hsStream* stream, hsResMgr* mg
         int32_t i, num;
         stream->ReadLE(&num);
 
-        for (i=0;i<num;i++)
+        for (i=0; i<num; i++)
         {
             T v;
             HSMemory::ClearMemory(&v, sizeof(v));

@@ -1953,7 +1953,7 @@ class plRideAnimatedPhysicalComponent : public plPhysicCoreComponent
 {
 public:
     plRideAnimatedPhysicalComponent();
-    void DeleteThis(){delete this;}
+    void DeleteThis() { delete this; }
     bool SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg);
     bool Convert(plMaxNode *node, plErrorMsg *pErrMsg);
     bool PreConvert(plMaxNode *node, plErrorMsg *pErrMsg);

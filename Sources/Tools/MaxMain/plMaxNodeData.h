@@ -225,79 +225,79 @@ public:
     void *          GetMesh()                           { return fpMesh;    }   // void pointer for header simplicity
     void            SetMesh(hsGMesh *p)                 { fpMesh = p;       }
 
-    bool            GetDrawable()                       {return MaxDatBF.CanBF(MaxDatBF.kDrawable);     }
+    bool            GetDrawable()                       { return MaxDatBF.CanBF(MaxDatBF.kDrawable);     }
     void            SetDrawable(bool b)               { MaxDatBF.SetBF(b, MaxDatBF.kDrawable);        }
 
-    bool            GetPhysical()                       {return MaxDatBF.CanBF(MaxDatBF.kPhysical);     }
+    bool            GetPhysical()                       { return MaxDatBF.CanBF(MaxDatBF.kPhysical);     }
     void            SetPhysical(bool b)               { MaxDatBF.SetBF(b, MaxDatBF.kPhysical);        }
 
-    bool            GetRunTimeLight()                   {return MaxDatBF.CanBF(MaxDatBF.kRunTimeLight); }
+    bool            GetRunTimeLight()                   { return MaxDatBF.CanBF(MaxDatBF.kRunTimeLight); }
     void            SetRunTimeLight(bool b)           { MaxDatBF.SetBF(b, MaxDatBF.kRunTimeLight);    }
 
-    bool            GetForceMatShade()                  {return MaxDatBF.CanBF(MaxDatBF.kForceMatShade);    }
+    bool            GetForceMatShade()                  { return MaxDatBF.CanBF(MaxDatBF.kForceMatShade);    }
     void            SetForceMatShade(bool b)          { MaxDatBF.SetBF(b, MaxDatBF.kForceMatShade);   }
 
-    bool            GetForceVisLOS()                    {return MaxDatBF.CanBF(MaxDatBF.kForceVisLOS);  }
+    bool            GetForceVisLOS()                    { return MaxDatBF.CanBF(MaxDatBF.kForceVisLOS);  }
     void            SetForceVisLOS(bool b)            { MaxDatBF.SetBF(b, MaxDatBF.kForceVisLOS); }
 
-    bool            GetEnviron()                        {return MaxDatBF.CanBF(MaxDatBF.kEnviron);  }
+    bool            GetEnviron()                        { return MaxDatBF.CanBF(MaxDatBF.kEnviron);  }
     void            SetEnviron(bool b)                { MaxDatBF.SetBF(b, MaxDatBF.kEnviron); }
 
-    bool            GetEnvironOnly()                    {return MaxDatBF.CanBF(MaxDatBF.kEnvironOnly);  }
+    bool            GetEnvironOnly()                    { return MaxDatBF.CanBF(MaxDatBF.kEnvironOnly);  }
     void            SetEnvironOnly(bool b)            { MaxDatBF.SetBF(b, MaxDatBF.kEnvironOnly); }
 
     bool            GetWaterDecEnv()                    { return MaxDatBF.CanBF(MaxDatBF.kWaterDecEnv); }
     void            SetWaterDecEnv(bool b)            { MaxDatBF.SetBF(b, MaxDatBF.kWaterDecEnv);     }
 
-    bool            GetItinerant()                      {return MaxDatBF.CanBF(MaxDatBF.kItinerant);    }
+    bool            GetItinerant()                      { return MaxDatBF.CanBF(MaxDatBF.kItinerant);    }
     void            SetItinerant(bool b)              { MaxDatBF.SetBF(b, MaxDatBF.kItinerant);       }
 
-    bool            GetUnBounded()                      {return MaxDatBF.CanBF(MaxDatBF.kUnBounded);    }
+    bool            GetUnBounded()                      { return MaxDatBF.CanBF(MaxDatBF.kUnBounded);    }
     void            SetUnBounded(bool b)              { MaxDatBF.SetBF(b, MaxDatBF.kUnBounded);       }
 
-    bool            GetDisableNormal()                  {return MaxDatBF.CanBF(MaxDatBF.kDisableNormal);    }
+    bool            GetDisableNormal()                  { return MaxDatBF.CanBF(MaxDatBF.kDisableNormal);    }
     void            SetDisableNormal(bool b)          { MaxDatBF.SetBF(b, MaxDatBF.kDisableNormal);       }
 
-    bool            GetMovable()                        {return MaxDatBF.CanBF(MaxDatBF.kMovable);      }
+    bool            GetMovable()                        { return MaxDatBF.CanBF(MaxDatBF.kMovable);      }
     void            SetMovable(bool b)                { MaxDatBF.SetBF(b, MaxDatBF.kMovable);         }
 
-    bool            GetNoPreShade()                     {return MaxDatBF.CanBF(MaxDatBF.kNoPreShade);   }
+    bool            GetNoPreShade()                     { return MaxDatBF.CanBF(MaxDatBF.kNoPreShade);   }
     void            SetNoPreShade(bool b)             { MaxDatBF.SetBF(b, MaxDatBF.kNoPreShade);      }
 
-    bool            GetForcePreShade()                  {return MaxDatBF.CanBF(MaxDatBF.kForcePreShade);    }
+    bool            GetForcePreShade()                  { return MaxDatBF.CanBF(MaxDatBF.kForcePreShade);    }
     void            SetForcePreShade(bool b)          { MaxDatBF.SetBF(b, MaxDatBF.kForcePreShade);       }
 
-    bool            GetNoShadow()                       {return MaxDatBF.CanBF(MaxDatBF.kNoShadow);     }
+    bool            GetNoShadow()                       { return MaxDatBF.CanBF(MaxDatBF.kNoShadow);     }
     void            SetNoShadow(bool b)               { MaxDatBF.SetBF(b, MaxDatBF.kNoShadow);        }
 
-    bool            GetForceShadow()                    {return MaxDatBF.CanBF(MaxDatBF.kForceShadow);  }
+    bool            GetForceShadow()                    { return MaxDatBF.CanBF(MaxDatBF.kForceShadow);  }
     void            SetForceShadow(bool b)            { MaxDatBF.SetBF(b, MaxDatBF.kForceShadow);     }
 
-    bool            GetAlphaTestHigh()                  {return MaxDatBF.CanBF(MaxDatBF.kAlphaTestHigh);    }
+    bool            GetAlphaTestHigh()                  { return MaxDatBF.CanBF(MaxDatBF.kAlphaTestHigh);    }
     void            SetAlphaTestHigh(bool b)          { MaxDatBF.SetBF(b, MaxDatBF.kAlphaTestHigh);       }
 
-    bool            GetFilterInherit()                  {return MaxDatBF.CanBF(MaxDatBF.kFilterInherit);    }
+    bool            GetFilterInherit()                  { return MaxDatBF.CanBF(MaxDatBF.kFilterInherit);    }
     void            SetFilterInherit(bool b)          { MaxDatBF.SetBF(b, MaxDatBF.kFilterInherit);       }
 
-    bool            GetIsBarney()                       {return MaxDatBF.CanBF(MaxDatBF.kIsBarney);     }
+    bool            GetIsBarney()                       { return MaxDatBF.CanBF(MaxDatBF.kIsBarney);     }
     void            SetIsBarney(bool b)               { MaxDatBF.SetBF(b, MaxDatBF.kIsBarney);        }
 
-    bool            GetNoSpanSort()                     {return MaxDatBF.CanBF(MaxDatBF.kNoSpanSort);   }
+    bool            GetNoSpanSort()                     { return MaxDatBF.CanBF(MaxDatBF.kNoSpanSort);   }
     void            SetNoSpanSort(bool b)             { MaxDatBF.SetBF(b, MaxDatBF.kNoSpanSort);      }
 
-    bool            GetNoSpanReSort()                   {return MaxDatBF.CanBF(MaxDatBF.kNoSpanReSort); }
+    bool            GetNoSpanReSort()                   { return MaxDatBF.CanBF(MaxDatBF.kNoSpanReSort); }
     void            SetNoSpanReSort(bool b)           { MaxDatBF.SetBF(b, MaxDatBF.kNoSpanReSort);    }
 
-    bool            GetNoFaceSort()                     {return MaxDatBF.CanBF(MaxDatBF.kNoFaceSort);   }
+    bool            GetNoFaceSort()                     { return MaxDatBF.CanBF(MaxDatBF.kNoFaceSort);   }
     void            SetNoFaceSort(bool b)             { MaxDatBF.SetBF(b, MaxDatBF.kNoFaceSort);      }
 
-    bool            GetReverseSort()                    {return MaxDatBF.CanBF(MaxDatBF.kReverseSort);  }
+    bool            GetReverseSort()                    { return MaxDatBF.CanBF(MaxDatBF.kReverseSort);  }
     void            SetReverseSort(bool b)            { MaxDatBF.SetBF(b, MaxDatBF.kReverseSort);     }
 
-    bool            GetSortAsOpaque()                   {return MaxDatBF.CanBF(MaxDatBF.kSortAsOpaque); }
+    bool            GetSortAsOpaque()                   { return MaxDatBF.CanBF(MaxDatBF.kSortAsOpaque); }
     void            SetSortAsOpaque(bool b)           { MaxDatBF.SetBF(b, MaxDatBF.kSortAsOpaque);        }
 
-    bool            GetVS()                             {return MaxDatBF.CanBF(MaxDatBF.kVS);   }
+    bool            GetVS()                             { return MaxDatBF.CanBF(MaxDatBF.kVS);   }
     void            SetVS(bool b)                     { MaxDatBF.SetBF(b, MaxDatBF.kVS);      }
 
     bool            GetHasWaterHeight()                 { return MaxDatBF.CanBF(MaxDatBF.kWaterHeight); }
@@ -305,53 +305,53 @@ public:
     float        GetWaterHeight()                    { return fWaterHeight; }
     void            SetWaterHeight(float f)          { SetHasWaterHeight(true); fWaterHeight = f; }
 
-    bool            GetSmoothAll()                      {return MaxDatBF.CanBF(MaxDatBF.kSmoothAll);    }
+    bool            GetSmoothAll()                      { return MaxDatBF.CanBF(MaxDatBF.kSmoothAll);    }
     void            SetSmoothAll(bool b)              { MaxDatBF.SetBF(b, MaxDatBF.kSmoothAll);       }
 
-    bool            GetForceSortable()                  {return MaxDatBF.CanBF(MaxDatBF.kForceSortable);    }
+    bool            GetForceSortable()                  { return MaxDatBF.CanBF(MaxDatBF.kForceSortable);    }
     void            SetForceSortable(bool b)          { MaxDatBF.SetBF(b, MaxDatBF.kForceSortable);       }
 
-    bool            GetConcave()                        {return MaxDatBF.CanBF(MaxDatBF.kConcave);  }
+    bool            GetConcave()                        { return MaxDatBF.CanBF(MaxDatBF.kConcave);  }
     void            SetConcave(bool b)                { MaxDatBF.SetBF(b, MaxDatBF.kConcave);     }
 
-    bool            GetCalcEdgeLens()                   {return MaxDatBF.CanBF(MaxDatBF.kCalcEdgeLens); }
+    bool            GetCalcEdgeLens()                   { return MaxDatBF.CanBF(MaxDatBF.kCalcEdgeLens); }
     void            SetCalcEdgeLens(bool b)           { MaxDatBF.SetBF(b, MaxDatBF.kCalcEdgeLens);    }
 
-    bool            GetNoDeferDraw()                    {return MaxDatBF.CanBF(MaxDatBF.kNoDeferDraw);  }
+    bool            GetNoDeferDraw()                    { return MaxDatBF.CanBF(MaxDatBF.kNoDeferDraw);  }
     void            SetNoDeferDraw(bool b)            { MaxDatBF.SetBF(b, MaxDatBF.kNoDeferDraw);     }
 
-    bool            GetBlendToFB()                      {return MaxDatBF.CanBF(MaxDatBF.kBlendToFB);    }
+    bool            GetBlendToFB()                      { return MaxDatBF.CanBF(MaxDatBF.kBlendToFB);    }
     void            SetBlendToFB(bool b)              { MaxDatBF.SetBF(b, MaxDatBF.kBlendToFB);       }
 
-    bool            GetForceMaterialCopy()              {return MaxDatBF.CanBF(MaxDatBF.kForceMatCopy); }
+    bool            GetForceMaterialCopy()              { return MaxDatBF.CanBF(MaxDatBF.kForceMatCopy); }
     void            SetForceMaterialCopy(bool b)      { MaxDatBF.SetBF(b, MaxDatBF.kForceMatCopy);    }
 
-    bool            GetInstanced()                      {return MaxDatBF.CanBF(MaxDatBF.kIsInstanced);  }
+    bool            GetInstanced()                      { return MaxDatBF.CanBF(MaxDatBF.kIsInstanced);  }
     void            SetInstanced(bool b)              { MaxDatBF.SetBF(b, MaxDatBF.kIsInstanced);     }
 
-    bool            GetParticleRelated()                {return MaxDatBF.CanBF(MaxDatBF.kParticleRelated);  }
+    bool            GetParticleRelated()                { return MaxDatBF.CanBF(MaxDatBF.kParticleRelated);  }
     void            SetParticleRelated(bool b)        { MaxDatBF.SetBF(b, MaxDatBF.kParticleRelated);     }
 
-    bool            GetDup2Sided()                      {return MaxDatBF.CanBF(MaxDatBF.kDup2Sided);    }
+    bool            GetDup2Sided()                      { return MaxDatBF.CanBF(MaxDatBF.kDup2Sided);    }
     void            SetDup2Sided(bool b)              { MaxDatBF.SetBF(b, MaxDatBF.kDup2Sided);       }
 
-    bool            GetRadiateNorms()                   {return MaxDatBF.CanBF(MaxDatBF.kRadiateNorms); }
+    bool            GetRadiateNorms()                   { return MaxDatBF.CanBF(MaxDatBF.kRadiateNorms); }
     void            SetRadiateNorms(bool b)           { MaxDatBF.SetBF(b, MaxDatBF.kRadiateNorms);    }
 
-    bool            GetGeoDice()                        {return MaxDatBF.CanBF(MaxDatBF.kGeoDice);      }
+    bool            GetGeoDice()                        { return MaxDatBF.CanBF(MaxDatBF.kGeoDice);      }
     void            SetGeoDice(bool b)                { MaxDatBF.SetBF(b, MaxDatBF.kGeoDice);         }
 
-    bool            GetIsGUI()                          {return MaxDatBF.CanBF(MaxDatBF.kIsGUI);        }
+    bool            GetIsGUI()                          { return MaxDatBF.CanBF(MaxDatBF.kIsGUI);        }
     void            SetIsGUI(bool b)                  { MaxDatBF.SetBF(b, MaxDatBF.kIsGUI);           }
 
-    plSharedMesh*   GetSwappableGeom()                  { return fSwapMesh;}
+    plSharedMesh*   GetSwappableGeom()                  { return fSwapMesh; }
     void            SetSwappableGeom(plSharedMesh *sm)  { fSwapMesh = sm;   }
 
-    uint32_t          GetSwappableGeomTarget()            { return fSwapTargetID;}
-    void            SetSwappableGeomTarget(uint32_t id)   { fSwapTargetID = id;}
+    uint32_t          GetSwappableGeomTarget()            { return fSwapTargetID; }
+    void            SetSwappableGeomTarget(uint32_t id)   { fSwapTargetID = id; }
 
-    plMaxBoneMap*   GetBoneMap()                        { return fBoneMap;}
-    void            SetBoneMap(plMaxBoneMap *bones)     { fBoneMap = bones;}
+    plMaxBoneMap*   GetBoneMap()                        { return fBoneMap; }
+    void            SetBoneMap(plMaxBoneMap *bones)     { fBoneMap = bones; }
 
     int             GetGeoDiceMaxFaces()                { return fGDMaxFaces; }
     void            SetGeoDiceMaxFaces(int f)           { fGDMaxFaces = f; }

@@ -57,8 +57,8 @@ public:
     struct Match
     {
         const plServerGuid * fGuid;
-        Match(const plServerGuid * guid):fGuid(guid){}
-        bool operator()(const plServerGuid * guid) const { return guid->IsEqualTo(fGuid);}
+        Match(const plServerGuid * guid):fGuid(guid) {}
+        bool operator()(const plServerGuid * guid) const { return guid->IsEqualTo(fGuid); }
     };
 
     union
@@ -75,7 +75,7 @@ public:
     plServerGuid& operator=(const plServerGuid & rhs);
     friend bool operator==(const plServerGuid & X, const plServerGuid & Y);
     friend bool operator!=(const plServerGuid & X, const plServerGuid & Y);
-    friend bool operator<(const plServerGuid & X, const plServerGuid & Y) ;
+    friend bool operator<(const plServerGuid & X, const plServerGuid & Y);
 
     const char *    AsString() const; // returns static buffer.
     std::string     AsStdString() const;
@@ -86,7 +86,7 @@ public:
 
     bool            IsSet() const;
     bool            IsEqualTo(const plServerGuid * other) const;
-    operator std::string () const { return AsString();}
+    operator std::string () const { return AsString(); }
 
     void            Read(hsStream * s, hsResMgr* mgr=nil);
     void            Write(hsStream * s, hsResMgr* mgr=nil);
@@ -95,7 +95,7 @@ public:
     void            Clear();
 
     static void SetGuidSeed(uint32_t seed);
-    static bool GuidSeedIsSet() { return fGuidSeed!=0;}
+    static bool GuidSeedIsSet() { return fGuidSeed!=0; }
     static plServerGuid GenerateGuid();
 
     CLASSNAME_REGISTER(plServerGuid);

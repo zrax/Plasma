@@ -73,8 +73,8 @@ public:
     CLASSNAME_REGISTER(plConditionalObject);
     GETINTERFACE_ANY(plConditionalObject, hsKeyedObject);
 
-    virtual void Read(hsStream* stream, hsResMgr* mgr) { hsKeyedObject::Read(stream, mgr); bSatisfied = stream->ReadBool(); fToggle = stream->ReadBool();}
-    virtual void Write(hsStream* stream, hsResMgr* mgr){ hsKeyedObject::Write(stream, mgr); stream->WriteBool(bSatisfied); stream->WriteBool(fToggle);}
+    virtual void Read(hsStream* stream, hsResMgr* mgr) { hsKeyedObject::Read(stream, mgr); bSatisfied = stream->ReadBool(); fToggle = stream->ReadBool(); }
+    virtual void Write(hsStream* stream, hsResMgr* mgr) { hsKeyedObject::Write(stream, mgr); stream->WriteBool(bSatisfied); stream->WriteBool(fToggle); }
 
     virtual void SetLogicMod(plLogicModBase* pMod) { fLogicMod = pMod; }
 

@@ -89,7 +89,7 @@ bool plNetClientMgr::IApplyNewListenList(std::vector<DistSqInfo>& newListenList,
         changed=true;
     else
     {
-        for (i=0;i<newListenList.size(); i++)
+        for (i=0; i<newListenList.size(); i++)
         {
             if (GetListenList()->FindMember(newListenList[i].fMbr)==-1)
             {
@@ -113,13 +113,13 @@ bool plNetClientMgr::IApplyNewListenList(std::vector<DistSqInfo>& newListenList,
         //
         llu.Receivers()->Clear();
         llu.SetAdding(false);
-        for (i=0;i<GetListenList()->GetNumMembers(); i++)
+        for (i=0; i<GetListenList()->GetNumMembers(); i++)
         {
             bool found=false;
             if (!forceSynch)
             {
                 int j;
-                for (j=0;j<newListenList.size(); j++)
+                for (j=0; j<newListenList.size(); j++)
                 {
                     if (newListenList[j].fMbr==GetListenList()->GetMember(i))
                     {
@@ -139,7 +139,7 @@ bool plNetClientMgr::IApplyNewListenList(std::vector<DistSqInfo>& newListenList,
         {
             // DEBUGGING
             int i;
-            for (i=0;i<llu.Receivers()->GetNumReceivers(); i++)
+            for (i=0; i<llu.Receivers()->GetNumReceivers(); i++)
             {
                 int idx=fTransport.FindMember(llu.Receivers()->GetReceiverClientNum(i));
                 plNetTransportMember* mbr=fTransport.GetMember(idx);
@@ -156,7 +156,7 @@ bool plNetClientMgr::IApplyNewListenList(std::vector<DistSqInfo>& newListenList,
         //
         llu.Receivers()->Clear();
         llu.SetAdding(true);
-        for (i=0;i<newListenList.size(); i++)
+        for (i=0; i<newListenList.size(); i++)
         {
             if (forceSynch || GetListenList()->FindMember(newListenList[i].fMbr)==-1)
             {
@@ -170,7 +170,7 @@ bool plNetClientMgr::IApplyNewListenList(std::vector<DistSqInfo>& newListenList,
         {
             // DEBUGGING
             int i;
-            for (i=0;i<llu.Receivers()->GetNumReceivers(); i++)
+            for (i=0; i<llu.Receivers()->GetNumReceivers(); i++)
             {
                 int cNum=llu.Receivers()->GetReceiverClientNum(i);
                 int idx=fTransport.FindMember(cNum);
@@ -190,7 +190,7 @@ bool plNetClientMgr::IApplyNewListenList(std::vector<DistSqInfo>& newListenList,
 #ifdef HS_DEBUGGING
         DebugMsg("New ListenList, size={}\n", newListenList.size());
 #endif
-        for (i=0;i<newListenList.size(); i++)
+        for (i=0; i<newListenList.size(); i++)
         {
             GetListenList()->AddMember(newListenList[i].fMbr);
 #ifdef HS_DEBUGGING
@@ -244,7 +244,7 @@ bool plNetClientMgr::IUpdateListenList(double secs)
                 hsPoint3 locPlayerPos=l2w.GetTranslate();
 
                 int i;
-                for (i=0;i<fTransport.GetNumMembers();i++)
+                for (i=0; i<fTransport.GetNumMembers(); i++)
                 {
                     fTransport.GetMember(i)->SetDistSq(FLT_MAX);
 
@@ -350,7 +350,7 @@ void plNetClientMgr::SynchTalkList()
 {
     GetTalkList()->Clear();
     int i;
-    for (i=0;i<GetListenList()->GetNumMembers(); i++)
+    for (i=0; i<GetListenList()->GetNumMembers(); i++)
         GetTalkList()->AddMember(GetListenList()->GetMember(i));
 }
 

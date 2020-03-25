@@ -89,9 +89,9 @@ public:
 
     // To translate to and from xml format (where <, > and other signs can't be used)
     void FromXML(const ST::string & xml);
-    ST::string ToXML() {return fXMLRep;}
+    ST::string ToXML() { return fXMLRep; }
 
-    uint16_t GetArgumentCount() {return fNumArguments;}
+    uint16_t GetArgumentCount() { return fNumArguments; }
 
     // Various operators, they all work pretty much the same as the standard string or wstring operators
     // but note that the all work on the plain text representation (not the XML representation)
@@ -102,7 +102,7 @@ public:
     bool operator>=(pfLocalizedString &obj);
     bool operator!=(pfLocalizedString &obj);
 
-    operator ST::string() {return fPlainTextRep;}
+    operator ST::string() { return fPlainTextRep; }
 
     pfLocalizedString operator+(pfLocalizedString &obj);
     pfLocalizedString &operator+=(pfLocalizedString &obj);

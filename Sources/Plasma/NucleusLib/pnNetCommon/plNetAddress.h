@@ -105,7 +105,7 @@ public:
      */
     plNetAddress(const ST::string& addr, uint16_t port);
 
-    virtual ~plNetAddress(){}
+    virtual ~plNetAddress() {}
 
     bool operator==(const plNetAddress& other) const {
         return (GetHost() == other.GetHost()) && (GetPort() == other.GetPort());

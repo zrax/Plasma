@@ -307,7 +307,7 @@ void plMeshConverter::StuffPositionsAndNormals(plMaxNode *node, hsTArray<hsPoint
     /// Get da mesh
     mesh = IGetNodeMesh(node);
     if (mesh == nil)
-        return ;
+        return;
 
     numVerts = mesh->getNumVerts();
 

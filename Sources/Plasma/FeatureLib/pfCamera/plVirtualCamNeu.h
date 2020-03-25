@@ -139,11 +139,11 @@ public:
     bool InTransition() { return fTransPos != POS_TRANS_OFF; }
     plCameraModifier1* GetCurrentCamera();
     plCameraModifier1* GetCurrentStackCamera();
-    plCameraModifier1* GetTransitionCamera(){return fTransitionCamera;}
+    plCameraModifier1* GetTransitionCamera() { return fTransitionCamera; }
     bool Is1stPersonCamera();
 
     bool    HasMovementFlag(int f) { return fMoveFlags.IsBitSet(f); }
-    void    SetMovementFlag(int f, bool on = true) { fMoveFlags.SetBit(f, on);}
+    void    SetMovementFlag(int f, bool on = true) { fMoveFlags.SetBit(f, on); }
         
     hsPoint3 GetCameraPos() { return fOutputPos; }
     hsPoint3 GetCameraPOA() { return fOutputPOA; }
