@@ -456,7 +456,7 @@ protected:
     int IPeekBuffer(hsStream* stream, uint32_t peekOptions=0);
 public:
     plNetMsgRoomsList() {}
-    ~plNetMsgRoomsList() {};
+    ~plNetMsgRoomsList() {}
 
     CLASSNAME_REGISTER(plNetMsgRoomsList);
     GETINTERFACE_ANY(plNetMsgRoomsList, plNetMessage);

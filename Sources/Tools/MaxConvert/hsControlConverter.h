@@ -85,7 +85,7 @@ private:
     hsControlConverter();
 
 public:
-    ~hsControlConverter() { };
+    ~hsControlConverter() { }
     static hsControlConverter& Instance();
     
     void Init(plErrorMsg* msg);

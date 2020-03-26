@@ -65,7 +65,7 @@ public:
     void BeginEditParams(Interface *ip, IUtil *iu);
     void EndEditParams(Interface *ip, IUtil *iu);
     void SelectionSetChanged(Interface *ip, IUtil *iu);
-    void DeleteThis() {};
+    void DeleteThis() {}
 
     static BOOL CALLBACK ForwardDlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam);
     BOOL DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam);

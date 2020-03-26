@@ -55,7 +55,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 class pyDrawControl
 {
 protected:
-    pyDrawControl() {};
+    pyDrawControl() {}
 
 public:
     static void AddPlasmaMethods(std::vector<PyMethodDef> &methods);

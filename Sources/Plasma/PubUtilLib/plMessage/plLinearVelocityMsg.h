@@ -45,9 +45,9 @@ class plLinearVelocityMsg :  public plSimulationMsg
 {
 public:
     // pass-through constructors
-    plLinearVelocityMsg() : plSimulationMsg() {};
+    plLinearVelocityMsg() : plSimulationMsg() {}
     plLinearVelocityMsg(const plKey &sender, const plKey &receiver, const double *time)
-        : plSimulationMsg(sender, receiver, time), fVelocity(0.0f, 0.0f, 0.0f)  {};
+        : plSimulationMsg(sender, receiver, time), fVelocity(0.0f, 0.0f, 0.0f)  {}
     CLASSNAME_REGISTER(plLinearVelocityMsg);
     GETINTERFACE_ANY(plLinearVelocityMsg, plSimulationMsg);
     void Velocity(hsVector3& vel) { fVelocity=vel; }

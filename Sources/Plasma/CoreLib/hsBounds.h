@@ -71,7 +71,7 @@ protected:
 public:
     static const float kRealSmall;
 
-    hsBounds() : fType(kBoundsUninitialized) { };
+    hsBounds() : fType(kBoundsUninitialized) { }
 
     hsBounds& MakeEmpty() { fType = kBoundsEmpty; return *this; }
     hsBounds& MakeFull()    { fType = kBoundsFull; return *this; }
@@ -253,7 +253,7 @@ protected:
     void IMakeDists() const;
     void IMakeMinsMaxs();
 public:
-    hsBounds3Ext() : fExtFlags(kAxisAligned) {};
+    hsBounds3Ext() : fExtFlags(kAxisAligned) {}
 
     hsBounds3Ext(const hsBounds3 &b);
     hsBounds3Ext &operator=(const hsBounds3 &b);

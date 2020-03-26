@@ -57,7 +57,7 @@ public:
         kInterface      = 4
     };
 
-    plObjRefMsg(): fType(-1), fWhich(-1) {};
+    plObjRefMsg(): fType(-1), fWhich(-1) {}
 
     plObjRefMsg(const plKey& r, uint8_t refMsgFlags, int8_t which, int8_t type)
         : plRefMsg(r, refMsgFlags), fType(type), fWhich(which) {}

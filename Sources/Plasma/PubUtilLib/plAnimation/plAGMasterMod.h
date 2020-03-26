@@ -218,7 +218,7 @@ protected:
 
     virtual bool IEval(double secs, float del, uint32_t dirty);
     
-    virtual void IApplyDynamic() {};    // dummy function required by base class
+    virtual void IApplyDynamic() {}    // dummy function required by base class
 
     // Find markers in an anim for environment effects (footsteps)
     virtual void ISetupMarkerCallbacks(plATCAnim *anim, plAnimTimeConvert *atc) {}

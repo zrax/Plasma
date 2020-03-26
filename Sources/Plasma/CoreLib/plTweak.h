@@ -47,7 +47,7 @@ template <typename T> class plTweak
 {
     public:
         plTweak() {}
-        plTweak(const T& init) : fVal(init) {};
+        plTweak(const T& init) : fVal(init) {}
 
         
         T       fVal;

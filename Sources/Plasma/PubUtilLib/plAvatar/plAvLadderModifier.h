@@ -53,7 +53,7 @@ class plAvLadderMod :  public plSingleModifier
 public:
     plAvLadderMod();
     plAvLadderMod(bool goingUp, int type, int loops, bool enabled, hsVector3& ladderView);
-    virtual ~plAvLadderMod() {};
+    virtual ~plAvLadderMod() {}
 
     void EmitCommand(const plKey receiver);
 

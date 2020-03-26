@@ -335,8 +335,8 @@ void plArmatureComponent::IAttachShadowCastModifiersRecur(plMaxNode* node, plSha
 //  bool fUseNewMovement;
 //
 //  AvatarStats(float a, float b, float c, float d, bool newMove)
-//      : fFriction(a), fMaxVel(b), fAccel(c), fTurnForce(d), fUseNewMovement(newMove) {};
-//  AvatarStats() : fFriction(-1.0), fMaxVel(-1.0), fAccel(-1.0), fTurnForce(-1.0) {};
+//      : fFriction(a), fMaxVel(b), fAccel(c), fTurnForce(d), fUseNewMovement(newMove) {}
+//  AvatarStats() : fFriction(-1.0), fMaxVel(-1.0), fAccel(-1.0), fTurnForce(-1.0) {}
 //};
 
 enum

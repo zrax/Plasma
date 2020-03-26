@@ -55,7 +55,7 @@ protected:
 
 public:
     static plMaxUtils& Instance();
-    void DeleteThis() {};
+    void DeleteThis() {}
 
     void BeginEditParams(Interface *ip, IUtil *iu);
     void EndEditParams(Interface *ip, IUtil *iu);

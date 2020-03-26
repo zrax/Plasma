@@ -67,7 +67,7 @@ protected:
 
 
     // call plStatusLogMgr::CreateStatusLog with the options you want
-    virtual void ICreateStatusLog() const { };
+    virtual void ICreateStatusLog() const { }
 
     void IDeleteLog()
     {

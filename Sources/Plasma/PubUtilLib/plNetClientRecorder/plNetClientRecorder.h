@@ -155,7 +155,7 @@ public:
 
     // Recording functions
     void RecordMsg(plNetMessage* msg, double secs);
-    void RecordAgeLoadedMsg(plAgeLoadedMsg* ageLoadedMsg) { };
+    void RecordAgeLoadedMsg(plAgeLoadedMsg* ageLoadedMsg) { }
 };
 
 class plNetClientStreamAndStatsRecorder : public plNetClientRecorder

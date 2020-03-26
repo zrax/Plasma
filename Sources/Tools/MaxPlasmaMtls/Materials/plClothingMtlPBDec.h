@@ -50,7 +50,7 @@ protected:
     int fCtrlID;
     int fPBEditID;
 
-    plClothingEditBox() {};
+    plClothingEditBox() {}
 
     void IGetText(IParamBlock2 *pb, HWND hCtrl)
     {

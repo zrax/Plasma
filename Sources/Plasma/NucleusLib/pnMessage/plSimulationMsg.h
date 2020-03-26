@@ -54,8 +54,8 @@ class plSimulationMsg : public plMessage
 {
 public:
     // pass-through constructors
-    plSimulationMsg() : plMessage() {};
-    plSimulationMsg(const plKey &sender, const plKey &receiver, const double *time) : plMessage(sender, receiver, time) {};
+    plSimulationMsg() : plMessage() {}
+    plSimulationMsg(const plKey &sender, const plKey &receiver, const double *time) : plMessage(sender, receiver, time) {}
 
     CLASSNAME_REGISTER(plSimulationMsg);
     GETINTERFACE_ANY(plSimulationMsg, plMessage);

@@ -149,7 +149,7 @@ protected:
         plKey fKey;     // key of the object to be synched, so we can make sure it still lives
 
         static const double kDefaultTime;
-        SynchRequest() : fTime(kDefaultTime) {};
+        SynchRequest() : fTime(kDefaultTime) {}
     };
 
     // All currently pending synch requests. Keyed by the physical in question

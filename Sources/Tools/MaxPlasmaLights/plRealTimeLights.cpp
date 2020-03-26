@@ -141,7 +141,7 @@ public:
 
         return plBaseLightProc::DlgProc(t, map, hWnd, msg, wParam, lParam);
     }
-    void DeleteThis() {};
+    void DeleteThis() {}
 };
 static LightDlgProc gLiteDlgProc;
 

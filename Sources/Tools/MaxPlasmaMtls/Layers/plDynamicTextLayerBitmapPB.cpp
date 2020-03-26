@@ -153,7 +153,7 @@ public:
 
         return FALSE;
     }
-    virtual void DeleteThis() {};
+    virtual void DeleteThis() {}
 
 protected:
     /// Clamp texture sizes to a power of 2

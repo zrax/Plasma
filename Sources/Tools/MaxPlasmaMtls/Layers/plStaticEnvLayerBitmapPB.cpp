@@ -280,7 +280,7 @@ public:
 
         return FALSE;
     }
-    virtual void DeleteThis() {};
+    virtual void DeleteThis() {}
 
     BOOL    IDoSelectBaseFilename(IParamMap2 *map, TimeValue t, HWND hWnd)
     {

@@ -65,7 +65,7 @@ class plComponentMgr : public UtilityObj
 private:
     std::vector<ClassDesc*> fDescs;
 
-    plComponentMgr() {};
+    plComponentMgr() {}
 
 public:
     static plComponentMgr &Inst();

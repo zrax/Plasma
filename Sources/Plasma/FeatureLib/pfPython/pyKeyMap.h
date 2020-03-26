@@ -56,7 +56,7 @@ class plKeyCombo;
 class pyKeyMap
 {
 protected:
-    pyKeyMap() {};
+    pyKeyMap() {}
 
 private:
     plKeyCombo IBindKeyToVKey(const char *keyStr);

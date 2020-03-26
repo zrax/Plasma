@@ -143,7 +143,7 @@ protected:
     virtual bool IEval(double secs, float del, uint32_t dirty);
 
     virtual bool IHandleCmd(plAnimCmdMsg* modMsg) { return false; } // only plAGMasterMod should handle these
-    virtual void IApplyDynamic() {};    // dummy function required by base class
+    virtual void IApplyDynamic() {}    // dummy function required by base class
 
     // INTERNAL ACCESSORS FOR SCENE OBJECT INTERFACES
     plAudioInterface * LeakAI() const { return IGetTargetAudioInterface(0); };

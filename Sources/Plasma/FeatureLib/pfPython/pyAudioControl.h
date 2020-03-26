@@ -54,7 +54,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 class pyAudioControl
 {
 protected:
-    pyAudioControl() {};
+    pyAudioControl() {}
 
 public:
     virtual ~pyAudioControl() { }

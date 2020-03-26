@@ -200,7 +200,7 @@ public:
         return FALSE;
     }
 
-    virtual void DeleteThis() {};
+    virtual void DeleteThis() {}
 };
 
 static DELBitmapDlgProc gDELBitmapDlgProc;

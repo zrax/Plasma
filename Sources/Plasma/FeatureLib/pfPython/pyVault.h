@@ -72,7 +72,7 @@ class pyVault
 {
 #ifndef BUILDING_PYPLASMA
 protected:
-    pyVault() {};
+    pyVault() {}
 
 public:
     // required functions for PyObject interoperability

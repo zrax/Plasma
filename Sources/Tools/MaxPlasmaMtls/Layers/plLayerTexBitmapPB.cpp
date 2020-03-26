@@ -299,7 +299,7 @@ public:
         
         return FALSE;
     }
-    virtual void DeleteThis() {};
+    virtual void DeleteThis() {}
     
     void    ISetDetailCurveNumLevels(IParamMap2 *map, TimeValue t)
     {

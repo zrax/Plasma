@@ -152,7 +152,7 @@ inline float hsScalarTriple::InnerProduct(const hsScalarTriple *p) const
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 struct hsPoint3  : public hsScalarTriple {
-    hsPoint3() {};
+    hsPoint3() {}
     hsPoint3(float x, float y, float z) : hsScalarTriple(x, y, z) {}
     explicit hsPoint3(const hsScalarTriple& p) : hsScalarTriple(p) {}
     
@@ -180,7 +180,7 @@ struct hsPoint3  : public hsScalarTriple {
 
 struct hsVector3 : public hsScalarTriple {
 
-    hsVector3() {};
+    hsVector3() {}
     hsVector3(float x, float y, float z) : hsScalarTriple(x, y, z) {}
     explicit hsVector3(const hsScalarTriple& p) : hsScalarTriple(p) { }
     hsVector3(const hsPoint3 *p1, const hsPoint3 *p2) {

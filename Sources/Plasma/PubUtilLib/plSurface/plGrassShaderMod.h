@@ -100,7 +100,7 @@ public:
 
 protected:
     virtual bool IEval(double secs, float del, uint32_t dirty);
-    virtual void IApplyDynamic() {};    // dummy function required by base class
+    virtual void IApplyDynamic() {}    // dummy function required by base class
     void ISetupShaders();
     void IRefreshWaves(plShader *vShader);
 
