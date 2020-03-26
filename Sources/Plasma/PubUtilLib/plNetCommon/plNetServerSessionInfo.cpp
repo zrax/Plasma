@@ -57,14 +57,14 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 void plAgeInfoStruct::Read(hsStream * s, hsResMgr*)
 {
     s->LogSubStreamStart("push me");
-    s->LogReadLE(&fFlags ,"AgeInfoStruct Flags");
+    s->LogReadLE(&fFlags, "AgeInfoStruct Flags");
     if (IsFlagSet(kHasAgeFilename)) {
         s->LogSubStreamPushDesc("AgeFilename");
-        plMsgStdStringHelper::Peek(fAgeFilename,s);
+        plMsgStdStringHelper::Peek(fAgeFilename, s);
     }
     if (IsFlagSet(kHasAgeInstanceName)) {
         s->LogSubStreamPushDesc("AgeInstanceName");
-        plMsgStdStringHelper::Peek(fAgeInstanceName,s);
+        plMsgStdStringHelper::Peek(fAgeInstanceName, s);
     }
     if (IsFlagSet(kHasAgeInstanceGuid)) {
         s->LogSubStreamPushDesc("AgeInstanceGuid");
@@ -72,17 +72,17 @@ void plAgeInfoStruct::Read(hsStream * s, hsResMgr*)
     }
     if (IsFlagSet(kHasAgeUserDefinedName)) {
         s->LogSubStreamPushDesc("UserDefinedName");
-        plMsgStdStringHelper::Peek(fAgeUserDefinedName,s);
+        plMsgStdStringHelper::Peek(fAgeUserDefinedName, s);
     }
     if (IsFlagSet(kHasAgeSequenceNumber)) {
-        s->LogReadLE(&fAgeSequenceNumber ,"AgeSequenceNumber");
+        s->LogReadLE(&fAgeSequenceNumber, "AgeSequenceNumber");
     }
     if (IsFlagSet(kHasAgeDescription)) {
         s->LogSubStreamPushDesc("AgeDescription");
-        plMsgStdStringHelper::Peek(fAgeDescription,s);
+        plMsgStdStringHelper::Peek(fAgeDescription, s);
     }
     if (IsFlagSet(kHasAgeLanguage)) {
-        s->LogReadLE(&fAgeLanguage ,"AgeLanguage");
+        s->LogReadLE(&fAgeLanguage, "AgeLanguage");
     }
     UpdateFlags();
     s->LogSubStreamEnd();
@@ -93,17 +93,17 @@ void plAgeInfoStruct::Write(hsStream * s, hsResMgr*)
     UpdateFlags();
     s->WriteLE(fFlags);
     if (IsFlagSet(kHasAgeFilename))
-        plMsgStdStringHelper::Poke(fAgeFilename,s);
+        plMsgStdStringHelper::Poke(fAgeFilename, s);
     if (IsFlagSet(kHasAgeInstanceName))
-        plMsgStdStringHelper::Poke(fAgeInstanceName,s);
+        plMsgStdStringHelper::Poke(fAgeInstanceName, s);
     if (IsFlagSet(kHasAgeInstanceGuid))
         fAgeInstanceGuid.Write(s);
     if (IsFlagSet(kHasAgeUserDefinedName))
-        plMsgStdStringHelper::Poke(fAgeUserDefinedName,s);
+        plMsgStdStringHelper::Poke(fAgeUserDefinedName, s);
     if (IsFlagSet(kHasAgeSequenceNumber))
         s->WriteLE(fAgeSequenceNumber);
     if (IsFlagSet(kHasAgeDescription))
-        plMsgStdStringHelper::Poke(fAgeDescription,s);
+        plMsgStdStringHelper::Poke(fAgeDescription, s);
     if (IsFlagSet(kHasAgeLanguage))
         s->WriteLE(fAgeLanguage);
 }
@@ -375,18 +375,18 @@ plAgeLinkStruct::plAgeLinkStruct()
 void plAgeLinkStruct::Read(hsStream * s, hsResMgr* m)
 {
     s->LogSubStreamStart("push me");
-    s->LogReadLE(&fFlags ,"AgeLinkStruct Flags");
+    s->LogReadLE(&fFlags, "AgeLinkStruct Flags");
     if (IsFlagSet(kHasAgeInfo)) {
         s->LogSubStreamPushDesc("AgeInfo");
-        fAgeInfo.Read(s,m);
+        fAgeInfo.Read(s, m);
     }
     if (IsFlagSet(kHasLinkingRules))
-        s->LogReadLE(&fLinkingRules ,"LinkingRules");
+        s->LogReadLE(&fLinkingRules, "LinkingRules");
     if (IsFlagSet(kHasSpawnPt_DEAD))
     {
         ST::string str;
         s->LogSubStreamPushDesc("SpawnPt_DEAD");
-        plMsgStdStringHelper::Peek(str,s);
+        plMsgStdStringHelper::Peek(str, s);
         fSpawnPoint.SetName(str);
         if (fSpawnPoint.GetName() == kDefaultSpawnPtName)
             fSpawnPoint.SetTitle(kDefaultSpawnPtTitle);
@@ -408,12 +408,12 @@ void plAgeLinkStruct::Read(hsStream * s, hsResMgr* m)
         fSpawnPoint.Read(s);
     }
     if (IsFlagSet(kHasAmCCR))
-        s->LogReadLE(&fAmCCR ,"AmCCR");
+        s->LogReadLE(&fAmCCR, "AmCCR");
 
     if (IsFlagSet(kHasParentAgeFilename))
     {
         s->LogSubStreamPushDesc("ParentAgeFilename");
-        plMsgStdStringHelper::Peek(fParentAgeFilename,s);
+        plMsgStdStringHelper::Peek(fParentAgeFilename, s);
     }
 }
 
@@ -421,7 +421,7 @@ void plAgeLinkStruct::Write(hsStream * s, hsResMgr* m)
 {
     s->WriteLE(fFlags);
     if (IsFlagSet(kHasAgeInfo))
-        fAgeInfo.Write(s,m);
+        fAgeInfo.Write(s, m);
     if (IsFlagSet(kHasLinkingRules))
         s->WriteLE(fLinkingRules);
     if (IsFlagSet(kHasSpawnPt))
@@ -429,7 +429,7 @@ void plAgeLinkStruct::Write(hsStream * s, hsResMgr* m)
     if (IsFlagSet(kHasAmCCR))
         s->WriteLE(fAmCCR);
     if (IsFlagSet(kHasParentAgeFilename))
-        plMsgStdStringHelper::Poke(fParentAgeFilename,s);
+        plMsgStdStringHelper::Poke(fParentAgeFilename, s);
 }
 
 void plAgeLinkStruct::SetParentAgeFilename(const char * v)
@@ -544,19 +544,19 @@ void plNetServerSessionInfo::Read(hsStream* s, hsResMgr*)
 {
     Clear();
     s->LogSubStreamStart("push me");
-    s->LogReadLE(&fFlags,"ServerSessionInfo Flags");
+    s->LogReadLE(&fFlags, "ServerSessionInfo Flags");
     if (IsFlagSet(kHasServerName)) {
         s->LogSubStreamPushDesc("ServerName");
-        plMsgStdStringHelper::Peek(fServerName,s);
+        plMsgStdStringHelper::Peek(fServerName, s);
     }
     if (IsFlagSet(kHasServerType))
-        s->LogReadLE(&fServerType,"ServerType");
+        s->LogReadLE(&fServerType, "ServerType");
     if (IsFlagSet(kHasServerAddr)) {
         s->LogSubStreamPushDesc("ServerAddr");
-        plMsgStdStringHelper::Peek(fServerAddr,s);
+        plMsgStdStringHelper::Peek(fServerAddr, s);
     }
     if (IsFlagSet(kHasServerPort))
-        s->LogReadLE(&fServerPort,"ServerPort");
+        s->LogReadLE(&fServerPort, "ServerPort");
     if (IsFlagSet(kHasServerGuid)) {
         s->LogSubStreamPushDesc("ServerGuid");
         fServerGuid.Read(s);
@@ -567,11 +567,11 @@ void plNetServerSessionInfo::Write(hsStream* s, hsResMgr*)
 {
     s->WriteLE(fFlags);
     if (IsFlagSet(kHasServerName))
-        plMsgStdStringHelper::Poke(fServerName,s);
+        plMsgStdStringHelper::Poke(fServerName, s);
     if (IsFlagSet(kHasServerType))
         s->WriteLE(fServerType);
     if (IsFlagSet(kHasServerAddr))
-        plMsgStdStringHelper::Poke(fServerAddr,s);
+        plMsgStdStringHelper::Poke(fServerAddr, s);
     if (IsFlagSet(kHasServerPort))
         s->WriteLE(fServerPort);
     if (IsFlagSet(kHasServerGuid))

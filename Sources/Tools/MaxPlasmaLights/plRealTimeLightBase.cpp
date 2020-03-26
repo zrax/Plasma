@@ -56,7 +56,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 static int GetTargetPoint(TimeValue t, INode *inode, Point3& p)
 {
     Matrix3 tmat;
-    if (inode->GetTargetTM(t,tmat))
+    if (inode->GetTargetTM(t, tmat))
     {
         p = tmat.GetTrans();
         return 1;
@@ -165,11 +165,11 @@ int RTLightMouseCallBack::proc(ViewExp *vpt, int msg, int point, int flags, IPoi
         switch (point)
         {
         case 0:
-            mat.SetTrans(vpt->SnapPoint(m,m,NULL,SNAP_IN_PLANE));
+            mat.SetTrans(vpt->SnapPoint(m, m, NULL, SNAP_IN_PLANE));
             break;
 
         case 1:
-            mat.SetTrans(vpt->SnapPoint(m,m,NULL,SNAP_IN_PLANE));
+            mat.SetTrans(vpt->SnapPoint(m, m, NULL, SNAP_IN_PLANE));
             if (msg == MOUSE_POINT)
                 return 0;
             break;
@@ -229,9 +229,9 @@ Point3 plRTLightBase::GetHSVColor(TimeValue t, Interval& b)
 
 #define SET_QUAD(face, v0, v1, v2, v3) \
     staticMesh[RT_OMNI +1].faces[face].setVerts(v0, v1, v2); \
-    staticMesh[RT_OMNI +1].faces[face].setEdgeVisFlags(1,1,0); \
+    staticMesh[RT_OMNI +1].faces[face].setEdgeVisFlags(1, 1, 0); \
     staticMesh[RT_OMNI +1].faces[face+1].setVerts(v0, v2, v3); \
-    staticMesh[RT_OMNI +1].faces[face+1].setEdgeVisFlags(0,1,1);
+    staticMesh[RT_OMNI +1].faces[face+1].setEdgeVisFlags(0, 1, 1);
 
 void plRTLightBase::BuildStaticMeshes()
 {
@@ -242,23 +242,23 @@ void plRTLightBase::BuildStaticMeshes()
         staticMesh[RT_OMNI].setNumVerts(nverts);
         staticMesh[RT_OMNI].setNumFaces(nfaces);
         float s = 8.0f;
-        staticMesh[RT_OMNI].setVert(0, Point3(FZ,FZ, -s));
-        staticMesh[RT_OMNI].setVert(1, Point3(s, FZ, FZ));
-        staticMesh[RT_OMNI].setVert(2, Point3(FZ, s, FZ));
+        staticMesh[RT_OMNI].setVert(0, Point3(FZ, FZ, -s));
+        staticMesh[RT_OMNI].setVert(1, Point3(s,  FZ, FZ));
+        staticMesh[RT_OMNI].setVert(2, Point3(FZ, s,  FZ));
         staticMesh[RT_OMNI].setVert(3, Point3(-s, FZ, FZ));
-        staticMesh[RT_OMNI].setVert(4, Point3(FZ,-s, FZ));
-        staticMesh[RT_OMNI].setVert(5, Point3(FZ,FZ,  s));
-        staticMesh[RT_OMNI].faces[0].setVerts(0,1,4);
-        staticMesh[RT_OMNI].faces[1].setVerts(0,4,3);
-        staticMesh[RT_OMNI].faces[2].setVerts(0,3,2);
-        staticMesh[RT_OMNI].faces[3].setVerts(0,2,1);
-        staticMesh[RT_OMNI].faces[4].setVerts(5,1,2);
-        staticMesh[RT_OMNI].faces[5].setVerts(5,2,3);
-        staticMesh[RT_OMNI].faces[6].setVerts(5,3,4);
-        staticMesh[RT_OMNI].faces[7].setVerts(5,4,1);
+        staticMesh[RT_OMNI].setVert(4, Point3(FZ, -s, FZ));
+        staticMesh[RT_OMNI].setVert(5, Point3(FZ, FZ,  s));
+        staticMesh[RT_OMNI].faces[0].setVerts(0, 1, 4);
+        staticMesh[RT_OMNI].faces[1].setVerts(0, 4, 3);
+        staticMesh[RT_OMNI].faces[2].setVerts(0, 3, 2);
+        staticMesh[RT_OMNI].faces[3].setVerts(0, 2, 1);
+        staticMesh[RT_OMNI].faces[4].setVerts(5, 1, 2);
+        staticMesh[RT_OMNI].faces[5].setVerts(5, 2, 3);
+        staticMesh[RT_OMNI].faces[6].setVerts(5, 3, 4);
+        staticMesh[RT_OMNI].faces[7].setVerts(5, 4, 1);
         for (int i=0; i<nfaces; i++) {
             staticMesh[RT_OMNI].faces[i].setSmGroup(i);
-            staticMesh[RT_OMNI].faces[i].setEdgeVisFlags(1,1,1);
+            staticMesh[RT_OMNI].faces[i].setEdgeVisFlags(1, 1, 1);
             }
         staticMesh[RT_OMNI].buildNormals();
         staticMesh[RT_OMNI].EnableEdgeList(1);
@@ -270,34 +270,34 @@ void plRTLightBase::BuildStaticMeshes()
         staticMesh[RT_OMNI+1].setNumFaces(nfaces);
         s = 4.0f;
         float s4 = 16.0f;
-        staticMesh[RT_OMNI+1].setVert( 0, Point3(-s,-s, FZ));
-        staticMesh[RT_OMNI+1].setVert( 1, Point3( s,-s, FZ));
-        staticMesh[RT_OMNI+1].setVert( 2, Point3( s, s, FZ));
-        staticMesh[RT_OMNI+1].setVert( 3, Point3(-s, s, FZ));
-        staticMesh[RT_OMNI+1].setVert( 4, Point3(-s,-s, -s4));
-        staticMesh[RT_OMNI+1].setVert( 5, Point3( s,-s, -s4));
-        staticMesh[RT_OMNI+1].setVert( 6, Point3( s, s, -s4));
-        staticMesh[RT_OMNI+1].setVert( 7, Point3(-s, s, -s4));
+        staticMesh[RT_OMNI+1].setVert( 0, Point3(-s, -s,  FZ));
+        staticMesh[RT_OMNI+1].setVert( 1, Point3( s, -s,  FZ));
+        staticMesh[RT_OMNI+1].setVert( 2, Point3( s,  s,  FZ));
+        staticMesh[RT_OMNI+1].setVert( 3, Point3(-s,  s,  FZ));
+        staticMesh[RT_OMNI+1].setVert( 4, Point3(-s, -s, -s4));
+        staticMesh[RT_OMNI+1].setVert( 5, Point3( s, -s, -s4));
+        staticMesh[RT_OMNI+1].setVert( 6, Point3( s,  s, -s4));
+        staticMesh[RT_OMNI+1].setVert( 7, Point3(-s,  s, -s4));
         s *= (float)2.0;
-        staticMesh[RT_OMNI+1].setVert( 8, Point3(-s,-s, -s4));
-        staticMesh[RT_OMNI+1].setVert( 9, Point3( s,-s, -s4));
-        staticMesh[RT_OMNI+1].setVert(10, Point3( s, s, -s4));
-        staticMesh[RT_OMNI+1].setVert(11, Point3(-s, s, -s4));
-        staticMesh[RT_OMNI+1].setVert(12, Point3(FZ,FZ, -s4-s));
+        staticMesh[RT_OMNI+1].setVert( 8, Point3(-s, -s, -s4));
+        staticMesh[RT_OMNI+1].setVert( 9, Point3( s, -s, -s4));
+        staticMesh[RT_OMNI+1].setVert(10, Point3( s,  s, -s4));
+        staticMesh[RT_OMNI+1].setVert(11, Point3(-s,  s, -s4));
+        staticMesh[RT_OMNI+1].setVert(12, Point3(FZ, FZ, -s4-s));
         SET_QUAD(0, 1, 0, 4, 5);
         SET_QUAD(2, 0, 3, 7, 4);
         SET_QUAD(4, 3, 2, 6, 7);
         SET_QUAD(6, 2, 1, 5, 6);
         SET_QUAD(8, 0, 1, 2, 3);
         SET_QUAD(10, 8, 9, 10, 11);
-        staticMesh[RT_OMNI+1].faces[12].setVerts(8,12,9);
-        staticMesh[RT_OMNI+1].faces[12].setEdgeVisFlags(1,1,1);
-        staticMesh[RT_OMNI+1].faces[13].setVerts(9,12,10);
-        staticMesh[RT_OMNI+1].faces[13].setEdgeVisFlags(1,1,1);
-        staticMesh[RT_OMNI+1].faces[14].setVerts(10,12,11);
-        staticMesh[RT_OMNI+1].faces[14].setEdgeVisFlags(1,1,1);
-        staticMesh[RT_OMNI+1].faces[15].setVerts(11,12,8);
-        staticMesh[RT_OMNI+1].faces[15].setEdgeVisFlags(1,1,1);
+        staticMesh[RT_OMNI+1].faces[12].setVerts(8, 12, 9);
+        staticMesh[RT_OMNI+1].faces[12].setEdgeVisFlags(1, 1, 1);
+        staticMesh[RT_OMNI+1].faces[13].setVerts(9, 12, 10);
+        staticMesh[RT_OMNI+1].faces[13].setEdgeVisFlags(1, 1, 1);
+        staticMesh[RT_OMNI+1].faces[14].setVerts(10, 12, 11);
+        staticMesh[RT_OMNI+1].faces[14].setEdgeVisFlags(1, 1, 1);
+        staticMesh[RT_OMNI+1].faces[15].setVerts(11, 12, 8);
+        staticMesh[RT_OMNI+1].faces[15].setEdgeVisFlags(1, 1, 1);
         for (int i=0; i<nfaces; i++)
             staticMesh[RT_OMNI+1].faces[i].setSmGroup(i);
         staticMesh[RT_OMNI+1].buildNormals();
@@ -331,17 +331,17 @@ void plRTLightBase::BuildSpotMesh(float coneSize)
     spotMesh.setVert(6, Point3( s,  s, d));
     spotMesh.setVert(7, Point3(FZ,  r, d));
     spotMesh.setVert(8, Point3(-s,  s, d));
-    spotMesh.faces[0].setVerts(0,1,2);
-    spotMesh.faces[1].setVerts(0,2,3);
-    spotMesh.faces[2].setVerts(0,3,4);
-    spotMesh.faces[3].setVerts(0,4,5);
-    spotMesh.faces[4].setVerts(0,5,6);
-    spotMesh.faces[5].setVerts(0,6,7);
-    spotMesh.faces[6].setVerts(0,7,8);
-    spotMesh.faces[7].setVerts(0,8,1);
+    spotMesh.faces[0].setVerts(0, 1, 2);
+    spotMesh.faces[1].setVerts(0, 2, 3);
+    spotMesh.faces[2].setVerts(0, 3, 4);
+    spotMesh.faces[3].setVerts(0, 4, 5);
+    spotMesh.faces[4].setVerts(0, 5, 6);
+    spotMesh.faces[5].setVerts(0, 6, 7);
+    spotMesh.faces[6].setVerts(0, 7, 8);
+    spotMesh.faces[7].setVerts(0, 8, 1);
     for (int i=0; i<nfaces; i++) {
         spotMesh.faces[i].setSmGroup(i);
-        spotMesh.faces[i].setEdgeVisFlags(1,1,1);
+        spotMesh.faces[i].setEdgeVisFlags(1, 1, 1);
     }
     spotMesh.buildNormals();
     spotMesh.EnableEdgeList(1);
@@ -476,7 +476,7 @@ RefTargetHandle plRTSpotLight::Clone(RemapDir &remap)
     obj->fLightPB->SetValue(kUseProjectorBool, t, fLightPB->GetInt(kLightOn, t));
     obj->fLightPB->SetValue(kProjMapTexButton, t, fLightPB->GetInt(kLightOn, t));
     }
-    obj->ReplaceReference(kRefSpotLight,fLightPB->Clone(remap));
+    obj->ReplaceReference(kRefSpotLight, fLightPB->Clone(remap));
     /*
         GeneralLight* newob = new GeneralLight(type);
     newob->enable = enable;
@@ -502,11 +502,11 @@ RefTargetHandle plRTSpotLight::Clone(RemapDir &remap)
     newob->atmosShadows = atmosShadows;
     newob->atmosOpacity = atmosOpacity;
     newob->atmosColAmt = atmosColAmt;
-    newob->ReplaceReference(PBLOCK_REF,pblock->Clone(remap));
-    if (projMap)     newob->ReplaceReference(PROJMAP_REF,projMap->Clone(remap));
-    if (shadProjMap) newob->ReplaceReference(SHADPROJMAP_REF,shadProjMap->Clone(remap));
-    if (shadType)    newob->ReplaceReference(SHADTYPE_REF,shadType->Clone(remap));
-    if (emitter)     newob->ReplaceReference(EMITTER_REF ,emitter->Clone(remap));
+    newob->ReplaceReference(PBLOCK_REF, pblock->Clone(remap));
+    if (projMap)     newob->ReplaceReference(PROJMAP_REF, projMap->Clone(remap));
+    if (shadProjMap) newob->ReplaceReference(SHADPROJMAP_REF, shadProjMap->Clone(remap));
+    if (shadType)    newob->ReplaceReference(SHADTYPE_REF, shadType->Clone(remap));
+    if (emitter)     newob->ReplaceReference(EMITTER_REF, emitter->Clone(remap));
     BaseClone(this, newob, remap);
     return (newob);
     */
@@ -532,23 +532,23 @@ void plRTLightBase::BoxCircle(TimeValue t, float r, float d, Box3& box, int extr
     float asp;
     if (1 /*Circle Object*/) {     npts =  NUM_CIRC_PTS+extraPt;   asp = -1.0f; }
     else { npts = 4+extraPt;  asp = -1.0; }
-    GetConePoints(t, asp , r, d, q);
-    box.IncludePoints(q,npts,tm);
+    GetConePoints(t, asp, r, d, q);
+    box.IncludePoints(q, npts, tm);
 }
 
 void plRTLightBase::BoxDirPoints(TimeValue t, float angle, float dist, Box3 &box, Matrix3 *tm)
  {
     int npts;
     Point3 q[3*NUM_CIRC_PTS];
-    npts = 1 /*Circle Object*/? GetCirXPoints(t,angle,dist,q): GetRectXPoints(t,angle,dist,q);
-    box.IncludePoints(q,npts,tm);
+    npts = 1 /*Circle Object*/? GetCirXPoints(t, angle, dist, q): GetRectXPoints(t, angle, dist, q);
+    box.IncludePoints(q, npts, tm);
 }
 
 
 void plRTLightBase::BoxPoints(TimeValue t, float angle, float dist, Box3 &box, Matrix3 *tm)
 {
     if (IsDir())
-        BoxCircle(t, angle, dist, box, 0,tm);
+        BoxCircle(t, angle, dist, box, 0, tm);
     else
         BoxDirPoints(t, angle, dist, box, tm);
 }
@@ -580,12 +580,12 @@ void plRTLightBase::BoxLight(TimeValue t, INode *inode, Box3& box, Matrix3 *tm)
     }
     if (this->ClassID() == RTSPOT_LIGHT_CLASSID)
 //  if  (fLightPB->GetInt(kLightType) == RT_FREE_SPOT || fLightPB->GetInt(kLightType) == RT_TARGET_SPOT)
-        if ((fLightPB->GetInt(kShowConeBool,t)) || (extDispFlags & EXT_DISP_ONLY_SELECTED))
+        if ((fLightPB->GetInt(kShowConeBool, t)) || (extDispFlags & EXT_DISP_ONLY_SELECTED))
         {
             float rad = MaxF(GetHotspot(t), GetFallsize(t));
             if (IsDir())
-                BoxCircle(t,rad,0.0f,box,1,tm);
-            BoxCircle(t,rad,d,box,1,tm);
+                BoxCircle(t, rad, 0.0f, box, 1, tm);
+            BoxCircle(t, rad, d, box, 1, tm);
         }
     if (this->ClassID() == RTDIR_LIGHT_CLASSID
         || this->ClassID() == RTPDIR_LIGHT_CLASSID)
@@ -594,15 +594,15 @@ void plRTLightBase::BoxLight(TimeValue t, INode *inode, Box3& box, Matrix3 *tm)
         {
             float rad = MaxF(GetHotspot(t), GetFallsize(t));
             if (IsDir())
-                BoxCircle(t,rad,0.0f,box,1,tm);
-            BoxCircle(t,rad,2.82841*GetFallsize(t),box,1,tm);   //hack, hack.  Do 2root2 at corners...
+                BoxCircle(t, rad, 0.0f, box, 1, tm);
+            BoxCircle(t, rad, 2.82841*GetFallsize(t), box, 1, tm);   //hack, hack.  Do 2root2 at corners...
         }
     BOOL dispAtten = false;
     BOOL dispAttenNear = false;
     BOOL dispDecay = false;
     if (this->ClassID() == RTOMNI_LIGHT_CLASSID || this->ClassID() == RTSPOT_LIGHT_CLASSID)
     {
-        dispAtten = fLightPB->GetInt(kUseAttenuationBool,t);
+        dispAtten = fLightPB->GetInt(kUseAttenuationBool, t);
         dispAttenNear = 0; //attenNearDisplay;
 
         dispDecay = (GetDecayType()&&(extDispFlags & EXT_DISP_ONLY_SELECTED));
@@ -615,16 +615,16 @@ void plRTLightBase::BoxLight(TimeValue t, INode *inode, Box3& box, Matrix3 *tm)
             float rad = 0;
             if (dispAtten)
                 rad = MaxF(GetAtten(t, ATTEN_START), GetAtten(t, ATTEN_END));
-            if (dispDecay) rad = MaxF(rad,0.0/*GetDecayRadius(t)*/);
+            if (dispDecay) rad = MaxF(rad, 0.0/*GetDecayRadius(t)*/);
             GetAttenPoints(t, rad, q);
-            box.IncludePoints(q,3*NUM_CIRC_PTS,tm);
+            box.IncludePoints(q, 3*NUM_CIRC_PTS, tm);
         }
         if (this->ClassID() == RTSPOT_LIGHT_CLASSID)
         {
             if (dispAtten)
             {
-                BoxPoints(t, GetFallsize(t), GetAtten(t,ATTEN_END), box, tm);
-                BoxPoints(t, GetFallsize(t), GetAtten(t,ATTEN_START), box, tm);
+                BoxPoints(t, GetFallsize(t), GetAtten(t, ATTEN_END), box, tm);
+                BoxPoints(t, GetFallsize(t), GetAtten(t, ATTEN_START), box, tm);
             }
             if (dispDecay)
                 BoxPoints(t, GetFallsize(t), 0.0/*GetDecayRadius(t)*/, box, tm);
@@ -638,7 +638,7 @@ int plRTLightBase::GetRectXPoints(TimeValue t, float angle, float dist, Point3 *
     int i;
     if (dist==0.0f) dist = .00001f;
     float ang = DegToRad(angle)/2.0f;
-    float da,sn,cs,x,y,z,a;
+    float da, sn, cs, x, y, z, a;
     float aspect = GetAspect(t);
     float w = dist * (float)tan(ang) * (float)sqrt((double)aspect);
     float h = w/aspect;
@@ -665,8 +665,8 @@ int plRTLightBase::GetRectXPoints(TimeValue t, float angle, float dist, Point3 *
     {
         x =  dist*(float)sin(a);
         z = -dist*(float)cos(a);
-        q[j]             = Point3(x, z*sn, z*cs);
-        q[j+NUM_ARC_PTS] = Point3(x,-z*sn, z*cs);
+        q[j]             = Point3(x,  z*sn, z*cs);
+        q[j+NUM_ARC_PTS] = Point3(x, -z*sn, z*cs);
         j++;
     }
     
@@ -712,11 +712,11 @@ void plRTLightBase::DrawX(TimeValue t, float asp, int npts, float dist, Graphics
     Point3 q[3*NUM_CIRC_PTS+1];
     Point3 u[2];
     GetConePoints(t, asp, GetFallsize(t), dist, q);
-    gw->polyline(npts, q,NULL, NULL, TRUE, NULL);
+    gw->polyline(npts, q, NULL, NULL, TRUE, NULL);
     u[0] = q[0]; u[1] = q[2*indx];
-    gw->polyline(2, u,NULL, NULL, FALSE, NULL);
+    gw->polyline(2, u, NULL, NULL, FALSE, NULL);
     u[0] = q[indx]; u[1] = q[3*indx];
-    gw->polyline(2, u,NULL, NULL, FALSE, NULL);
+    gw->polyline(2, u, NULL, NULL, FALSE, NULL);
 }
 
 
@@ -740,25 +740,25 @@ void plRTLightBase::GetAttenPoints(TimeValue t, float rad, Point3 *q)
 // Draw warped rectangle
 void plRTLightBase::DrawWarpRect(TimeValue t, GraphicsWindow *gw, float angle, float dist, Point3 *q)
 {
-    GetRectXPoints(t, angle,dist,q);
+    GetRectXPoints(t, angle, dist, q);
     for (int i=0; i<6; i++)
-        gw->polyline(NUM_ARC_PTS, q+i*NUM_ARC_PTS,NULL, NULL, FALSE, NULL);
+        gw->polyline(NUM_ARC_PTS, q+i*NUM_ARC_PTS, NULL, NULL, FALSE, NULL);
 }
 
 void plRTLightBase::DrawCircleX(TimeValue t, GraphicsWindow *gw, float angle, float dist, Point3 *q)
 {
-    GetCirXPoints(t, angle,dist,q);
-    gw->polyline(NUM_CIRC_PTS, q,NULL, NULL, TRUE, NULL);  // circle
-    gw->polyline(NUM_ARC_PTS, q+NUM_CIRC_PTS,NULL, NULL, FALSE, NULL); // vert arc
-    gw->polyline(NUM_ARC_PTS, q+NUM_CIRC_PTS+NUM_ARC_PTS,NULL, NULL, FALSE, NULL);  // horiz arc
+    GetCirXPoints(t, angle, dist, q);
+    gw->polyline(NUM_CIRC_PTS, q, NULL, NULL, TRUE, NULL);  // circle
+    gw->polyline(NUM_ARC_PTS, q+NUM_CIRC_PTS, NULL, NULL, FALSE, NULL); // vert arc
+    gw->polyline(NUM_ARC_PTS, q+NUM_CIRC_PTS+NUM_ARC_PTS, NULL, NULL, FALSE, NULL);  // horiz arc
 }
 
 void plRTLightBase::DrawSphereArcs(TimeValue t, GraphicsWindow *gw, float r, Point3 *q)
 {
     GetAttenPoints(t, r, q);
-    gw->polyline(NUM_CIRC_PTS, q,               NULL, NULL, TRUE, NULL);
-    gw->polyline(NUM_CIRC_PTS, q+NUM_CIRC_PTS,  NULL, NULL, TRUE, NULL);
-    gw->polyline(NUM_CIRC_PTS, q+2*NUM_CIRC_PTS,NULL, NULL, TRUE, NULL);
+    gw->polyline(NUM_CIRC_PTS, q,                NULL, NULL, TRUE, NULL);
+    gw->polyline(NUM_CIRC_PTS, q+NUM_CIRC_PTS,   NULL, NULL, TRUE, NULL);
+    gw->polyline(NUM_CIRC_PTS, q+2*NUM_CIRC_PTS, NULL, NULL, TRUE, NULL);
 }
 
 //
@@ -768,7 +768,7 @@ void plRTLightBase::DrawAttenCirOrRect(TimeValue t, GraphicsWindow *gw, float di
     if (!froze) gw->setColor(LINE_COLOR, GetUIColor(uicol));
     if (IsDir())
     {
-        int npts,indx;
+        int npts, indx;
         float asp;
         npts = NUM_CIRC_PTS;    asp  = -1.0f;   indx = SEG_INDEX;
         DrawX(t, asp, npts, dist, gw, indx);
@@ -779,7 +779,7 @@ void plRTLightBase::DrawAttenCirOrRect(TimeValue t, GraphicsWindow *gw, float di
         if (this->ClassID() == RTOMNI_LIGHT_CLASSID)
             DrawSphereArcs(t, gw, dist, q);
         else
-            DrawCircleX(t, gw, GetFallsize(t),dist,q);
+            DrawCircleX(t, gw, GetFallsize(t), dist, q);
         
     }
 }
@@ -791,7 +791,7 @@ int plRTLightBase::DrawAtten(TimeValue t, INode *inode, GraphicsWindow *gw)
     BOOL dispDecay = false;
     if (this->ClassID() == RTOMNI_LIGHT_CLASSID || this->ClassID() == RTSPOT_LIGHT_CLASSID)
     {
-        dispAtten = (fLightPB->GetInt(kUseAttenuationBool,t) && (extDispFlags & EXT_DISP_ONLY_SELECTED));
+        dispAtten = (fLightPB->GetInt(kUseAttenuationBool, t) && (extDispFlags & EXT_DISP_ONLY_SELECTED));
         //BOOL dispAttenNear = (fLightPB->GetInt(kUseNearAtten) && (extDispFlags & EXT_DISP_ONLY_SELECTED))?TRUE:fLightPB->GetInt(kShowFarAttenRanges);
         dispDecay = (GetDecayType() && (extDispFlags & EXT_DISP_ONLY_SELECTED));
     }
@@ -802,8 +802,8 @@ int plRTLightBase::DrawAtten(TimeValue t, INode *inode, GraphicsWindow *gw)
         BOOL froze = inode->IsFrozen() && !inode->Dependent();
         if (dispAtten)
         {
-            DrawAttenCirOrRect(t, gw, GetAtten(t,ATTEN_START), froze, COLOR_START_RANGE);
-            DrawAttenCirOrRect(t, gw, GetAtten(t,ATTEN_END), froze, COLOR_END_RANGE);
+            DrawAttenCirOrRect(t, gw, GetAtten(t, ATTEN_START), froze, COLOR_START_RANGE);
+            DrawAttenCirOrRect(t, gw, GetAtten(t, ATTEN_END), froze, COLOR_END_RANGE);
         }
         
         if (dispDecay)
@@ -820,12 +820,12 @@ void plRTLightBase::GetLocalBoundBox(TimeValue t, INode *node, ViewExp *vpt, Box
     //box = fMesh.getBoundingBox();
 //  int nv;
 //  Matrix3 tm;
-//  GetMat(t, node,vpt,tm);
+//  GetMat(t, node, vpt, tm);
 //  Point3 loc = tm.GetTrans();
 //  nv = fMesh.getNumVerts();
 //  box.Init();
 //  if (!(extDispFlags & EXT_DISP_ZOOM_EXT))
-//      box.IncludePoints(fMesh.verts,nv,&tm);
+//      box.IncludePoints(fMesh.verts, nv, &tm);
 //  else
 //      box += loc;
 //  tm = node->GetObjectTM(t);
@@ -911,7 +911,7 @@ RefTargetHandle Clone(RemapDir &remap = NoRemap())
         kStartAttenNear,     //Inserted in v1
         kEndAttenNear,       //Inserted in v1
         kUseNearAtten,       //Inserted in v1
-        kShowNearAttenRanges,//Inserted in v1
+        kShowNearAttenRanges, //Inserted in v1
         kStartAttenFar,      //Inserted in v1
         kEndAttenFar,        //Inserted in v1
         kUseFarAtten,        //Inserted in v1
@@ -954,11 +954,11 @@ RefTargetHandle Clone(RemapDir &remap = NoRemap())
     newob->atmosShadows = atmosShadows;
     newob->atmosOpacity = atmosOpacity;
     newob->atmosColAmt = atmosColAmt;
-    newob->ReplaceReference(PBLOCK_REF,pblock->Clone(remap));
-    if (projMap)     newob->ReplaceReference(PROJMAP_REF,projMap->Clone(remap));
-    if (shadProjMap) newob->ReplaceReference(SHADPROJMAP_REF,shadProjMap->Clone(remap));
-    if (shadType)    newob->ReplaceReference(SHADTYPE_REF,shadType->Clone(remap));
-    if (emitter)     newob->ReplaceReference(EMITTER_REF ,emitter->Clone(remap));
+    newob->ReplaceReference(PBLOCK_REF, pblock->Clone(remap));
+    if (projMap)     newob->ReplaceReference(PROJMAP_REF, projMap->Clone(remap));
+    if (shadProjMap) newob->ReplaceReference(SHADPROJMAP_REF, shadProjMap->Clone(remap));
+    if (shadType)    newob->ReplaceReference(SHADTYPE_REF, shadType->Clone(remap));
+    if (emitter)     newob->ReplaceReference(EMITTER_REF, emitter->Clone(remap));
     BaseClone(this, newob, remap);
     return (newob);
     }
@@ -993,7 +993,7 @@ int plRTLightBase::Display(TimeValue t, INode *node, ViewExp *vpt, int flags)
 //  if (!enable)
 //      return 0;
     GraphicsWindow *gw = vpt->getGW();
-    GetMat(t,node,vpt,m);
+    GetMat(t, node, vpt, m);
     gw->setTransform(m);
     DWORD rlim = gw->getRndLimits();
     gw->setRndLimits(GW_WIREFRAME|GW_BACKCULL|(gw->getRndMode() & GW_Z_BUFFER));
@@ -1035,7 +1035,7 @@ void plRTLightBase::GetMat(TimeValue t, INode* inode, ViewExp *vpt, Matrix3& tm)
 //  tm.NoScale();
     RemoveScaling(tm);
     float scaleFactor = vpt->NonScalingObjectSize()*vpt->GetVPWorldWidth(tm.GetTrans())/(float)360.0;
-    tm.Scale(Point3(scaleFactor,scaleFactor,scaleFactor));
+    tm.Scale(Point3(scaleFactor, scaleFactor, scaleFactor));
 }
 
 
@@ -1061,10 +1061,10 @@ void plRTLightBase::GetConePoints(TimeValue t, float aspect, float angle, float 
         // RECTANGULAR
         float w = IsDir()? angle : dist * ta * (float)sqrt((double)aspect);
         float h = w / aspect;
-        q[0] = Point3( w, h,-dist);
-        q[1] = Point3(-w, h,-dist);
-        q[2] = Point3(-w,-h,-dist);
-        q[3] = Point3( w,-h,-dist);
+        q[0] = Point3( w,  h, -dist);
+        q[1] = Point3(-w,  h, -dist);
+        q[2] = Point3(-w, -h, -dist);
+        q[3] = Point3( w, -h, -dist);
         q[4] = Point3(0.0f, h+15.0f, -dist);
         q[5] = Point3(0.0f, h, -dist);
     }
@@ -1116,7 +1116,7 @@ void plRTLightBase::DrawCone(TimeValue t, GraphicsWindow *gw, float dist)
         else
         {
             // draw 4 axial lines
-            u[0] = Point3(0,0,0);
+            u[0] = Point3(0, 0, 0);
             for (i = 0; i < NUM_CIRC_PTS; i += SEG_INDEX)
             {
                 u[1] =  q[i];
@@ -1133,7 +1133,7 @@ void plRTLightBase::DrawCone(TimeValue t, GraphicsWindow *gw, float dist)
             // draw (far) fallsize circle
             u[0] = q[0];    u[1] = q[NUM_CIRC_PTS];
             gw->polyline(2, u, NULL, NULL, FALSE, NULL);
-            u[0] = Point3(0,0,0);
+            u[0] = Point3(0, 0, 0);
         }
         gw->polyline(NUM_CIRC_PTS, q, NULL, NULL, TRUE, NULL);
         if (dirLight)
@@ -1142,11 +1142,11 @@ void plRTLightBase::DrawCone(TimeValue t, GraphicsWindow *gw, float dist)
             float dnear = 0.0f;
             if (dispAtten)
             {
-                dfar  = MinF(-GetAtten(t,ATTEN_END),dfar);
-            /// dnear = MaxF(-GetAtten(t,ATTEN_START),dnear);
+                dfar  = MinF(-GetAtten(t, ATTEN_END), dfar);
+            /// dnear = MaxF(-GetAtten(t, ATTEN_START), dnear);
             }
             if (dispDecay) {
-                dfar  = MinF(/*-GetDecayRadius(t)*/ 0.0,dfar);
+                dfar  = MinF(/*-GetDecayRadius(t)*/ 0.0, dfar);
             }
 
             // draw axial fallsize lines
@@ -1166,9 +1166,9 @@ void plRTLightBase::DrawCone(TimeValue t, GraphicsWindow *gw, float dist)
             float cs = (float)cos(DegToRad(GetFallsize(t)*0.5f));
             float dfar = q[0].z;
             if (dispAtten)
-                dfar  = MinF(-cs*GetAtten(t,ATTEN_END),dfar);
+                dfar  = MinF(-cs*GetAtten(t, ATTEN_END), dfar);
             if (dispDecay)
-                dfar  = MinF(/*-cs*GetDecayRadius(t)*/0.0,dfar);
+                dfar  = MinF(/*-cs*GetDecayRadius(t)*/0.0, dfar);
 
             for (i = 0; i < NUM_CIRC_PTS; i += SEG_INDEX)
             {
@@ -1190,7 +1190,7 @@ int plRTLightBase::DrawConeAndLine(TimeValue t, INode* inode, GraphicsWindow *gw
     gw->clearHitCode();
     if (0)
     {
-        Point3 pt,v[3];
+        Point3 pt, v[3];
         if (GetTargetPoint(t, inode, pt))
         {
             float den = FLength(tm.GetRow(2));
@@ -1200,15 +1200,15 @@ int plRTLightBase::DrawConeAndLine(TimeValue t, INode* inode, GraphicsWindow *gw
             //fLightPB->SetValue(kTargetDist, t, dist);
             //if (hSpotLight&&(currentEditLight==this)) {
             //  TCHAR buf[40];
-            //  _stprintf(buf,_T("%0.3f"),targDist);
-            //  SetWindowText(GetDlgItem(hSpotLight,IDC_TARG_DISTANCE),buf);
+            //  _stprintf(buf, _T("%0.3f"), targDist);
+            //  SetWindowText(GetDlgItem(hSpotLight, IDC_TARG_DISTANCE), buf);
             //  }
 
             if ((drawing != -1) && (fLightPB->GetInt(kShowConeBool, t) || (extDispFlags & EXT_DISP_ONLY_SELECTED)))
                 DrawCone(t, gw, dist);
             if (!inode->IsFrozen() && !inode->Dependent())
                 gw->setColor(LINE_COLOR, GetUIColor(COLOR_TARGET_LINE));
-            v[0] = Point3(0,0,0);
+            v[0] = Point3(0, 0, 0);
             v[1] = Point3(0.0f, 0.0f, (drawing == -1)? (-0.9f * dist): -dist);
             gw->polyline(2, v, NULL, NULL, FALSE, NULL);
         }
@@ -1254,7 +1254,7 @@ int plRTLightBase::HitTest(TimeValue t, INode *node, int type, int crossing, int
     Material *mtl = gw->getMaterial();
     
     gw->setRndLimits(((savedLimits = gw->getRndLimits()) | GW_PICK) & ~(GW_ILLUM|GW_BACKCULL));
-    GetMat(t,node,vpt,m);
+    GetMat(t, node, vpt, m);
     
     //BuildMeshes(t);
     gw->setTransform(m);
@@ -1275,7 +1275,7 @@ int plRTLightBase::HitTest(TimeValue t, INode *node, int type, int crossing, int
     gw->setRndLimits(savedLimits);
     return res;
 
-    //return fMesh.select(gw,node->Mtls(),&hitRegion,flags & HIT_ABORTONHIT,node->NumMtls());
+    //return fMesh.select(gw, node->Mtls(), &hitRegion, flags & HIT_ABORTONHIT, node->NumMtls());
 }
 static void GenericSnap(TimeValue t, INode* inode, SnapInfo *snap, IPoint2 *p, ViewExp *vpt)
 {
@@ -1290,9 +1290,9 @@ static void GenericSnap(TimeValue t, INode* inode, SnapInfo *snap, IPoint2 *p, V
         Point2 fp = Point2((float)p->x, (float)p->y);
         IPoint3 screen3;
         Point2 screen2;
-        Point3 vert(0.0f,0.0f,0.0f);
+        Point3 vert(0.0f, 0.0f, 0.0f);
 
-        gw->wTransPoint(&vert,&screen3);
+        gw->wTransPoint(&vert, &screen3);
 
         screen2.x = (float)screen3.x;
         screen2.y = (float)screen3.y;
@@ -1323,9 +1323,9 @@ static void GenericSnap(TimeValue t, INode* inode, SnapInfo *snap, IPoint2 *p, V
 
 void plRTLightBase::Snap(TimeValue t, INode* inode, SnapInfo *snap, IPoint2 *p, ViewExp *vpt)
 {
-    GenericSnap(t,inode,snap,p,vpt);
+    GenericSnap(t, inode, snap, p, vpt);
 }
-// This generic snap routine is used to snap to the 0,0,0 point of the given node.  For lights,
+// This generic snap routine is used to snap to the 0, 0, 0 point of the given node.  For lights,
 // this works to snap all types.
 
 
@@ -1434,9 +1434,9 @@ RefResult plRTLightBase::EvalLightState(TimeValue t, Interval& valid, LightState
         //t uselight;
 //#if 0 //fLightPB->GetInt(kLightOn, t);
     if (fLightPB->GetInt(kLightOn, t))
-        ls->color = GetRGBColor(t,valid);
+        ls->color = GetRGBColor(t, valid);
     else
-        ls->color = Color(0,0,0);
+        ls->color = Color(0, 0, 0);
     ls->on = fLightPB->GetInt(kLightOn, t);
     ls->intens = GetIntensity(t, valid);
     if (this->ClassID() == RTSPOT_LIGHT_CLASSID || this->ClassID() == RTOMNI_LIGHT_CLASSID)
@@ -1463,9 +1463,9 @@ RefResult plRTLightBase::EvalLightState(TimeValue t, Interval& valid, LightState
     ls->aspect = -1.0;//GetAspect(t, valid);
     ls->overshoot = false;  //GetOvershoot();
     ls->shadow = GetShadow();
-    ls->ambientOnly = false; //fLightPB->GetValue(kAmbiOnly,t, ls->ambientOnly, valid);   //ls->ambientOnly = fLightP.AmbiOnly;
-    ls->affectDiffuse = true;   //fLightPB->GetInt(kDiffOn,t);  //ls->affectDiffusey = fLightP.AmbiOnly;
-    ls->affectSpecular = fLightPB->GetInt(kSpec,t); //ls- = fLightP.DiffOn;
+    ls->ambientOnly = false; //fLightPB->GetValue(kAmbiOnly, t, ls->ambientOnly, valid);   //ls->ambientOnly = fLightP.AmbiOnly;
+    ls->affectDiffuse = true;   //fLightPB->GetInt(kDiffOn, t);  //ls->affectDiffusey = fLightP.AmbiOnly;
+    ls->affectSpecular = fLightPB->GetInt(kSpec, t); //ls- = fLightP.DiffOn;
 
     //ls->
 
@@ -1680,7 +1680,7 @@ void plRTLightBase::SetProjMap(BitmapInfo* pmap)
     if (!fTex)
         fTex = new plLayerTex;
     fTex->SetBitmap(pmap);
-    ReplaceReference(kRefProjMap,fTex);
+    ReplaceReference(kRefProjMap, fTex);
 
     IParamBlock2 *bitmapPB = fTex->GetParamBlockByID(plLayerTex::kBlkBitmap);
     bitmapPB->SetValue(kBmpUseBitmap, 0, 1);
@@ -1692,7 +1692,7 @@ void plRTLightBase::SetProjMap(BitmapInfo* pmap)
     //Texmap* MyMap;
     //fLightPB->GetValue(kProjMapTexButton, 0, MyMap, FOREVER);
     if (fTex) fLightPB->SetValue(kUseProjectorBool, 0, true);
-    NotifyDependents(FOREVER,0,REFMSG_SUBANIM_STRUCTURE_CHANGED);
+    NotifyDependents(FOREVER, 0, REFMSG_SUBANIM_STRUCTURE_CHANGED);
     if (fLightPB->GetMap())
     {
         fLightPB->GetMap()->Invalidate(kProjMapTexButton);
@@ -1737,7 +1737,7 @@ void plRTLightBase::UpdateTargDistance(TimeValue t, INode* inode)
 {
     if (this->ClassID() == RTSPOT_LIGHT_CLASSID)
     {
-        Point3 pt,v[3];
+        Point3 pt, v[3];
         if (GetTargetPoint(t, inode, pt))
         {
             Matrix3 tm = inode->GetObjectTM(t);
@@ -1747,8 +1747,8 @@ void plRTLightBase::UpdateTargDistance(TimeValue t, INode* inode)
 
     //      fLightPB->SetValue(kTargetDist, t, dist);
             //TCHAR buf[40];
-            //_stprintf(buf,_T("%0.3f"),targDist);
-            //SetWindowText(GetDlgItem(hSpotLight,IDC_TARG_DISTANCE),buf);
+            //_stprintf(buf, _T("%0.3f"), targDist);
+            //SetWindowText(GetDlgItem(hSpotLight, IDC_TARG_DISTANCE), buf);
         }
     }
 

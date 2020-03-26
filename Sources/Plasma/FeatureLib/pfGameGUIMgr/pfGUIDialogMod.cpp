@@ -420,7 +420,7 @@ static bool     showBounds = false;
     if (showBounds)
     {
         uint32_t sW, sH;
-        plDebugText::Instance().GetScreenSize(&sW,&sH);
+        plDebugText::Instance().GetScreenSize(&sW, &sH);
         for (i = 0; i < fControls.GetCount(); i++)
         {
             if (fControls[i] == nil)

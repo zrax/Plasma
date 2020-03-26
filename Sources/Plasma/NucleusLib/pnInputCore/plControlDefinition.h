@@ -136,7 +136,7 @@ struct plMouseInfo
     {
         fCode = _code;
         fControlFlags = _flags;
-        fBox.Set(pt1,pt2,pt3,pt4);
+        fBox.Set(pt1, pt2, pt3, pt4);
         fControlDescription = _desc;
     }
     ControlEventCode    fCode;

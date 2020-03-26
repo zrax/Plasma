@@ -297,7 +297,7 @@ void cyMisc::PopUpConsole(const char* command)
 void cyMisc::TimerCallback(pyKey& selfkey, float time, uint32_t id)
 {
     // setup the message to come back to whoever the pyKey is pointing to
-    plTimerCallbackMsg* pTimerMsg = new plTimerCallbackMsg(selfkey.getKey(),id);
+    plTimerCallbackMsg* pTimerMsg = new plTimerCallbackMsg(selfkey.getKey(), id);
     plgTimerCallbackMgr::NewTimer(time, pTimerMsg);
 }
 
@@ -419,7 +419,7 @@ void cyMisc::DetachObjectSO(pySceneObject& cobj, pySceneObject& pobj, bool netFo
 //  STATUS     : Depreciated. Use plNetLinkingMgr or pyNetLinkingMgr instead.
 //
 
-//void cyMisc::LinkToAge(pyKey &selfkey, const char *AgeName,const char *SpawnPointName)
+//void cyMisc::LinkToAge(pyKey &selfkey, const char *AgeName, const char *SpawnPointName)
 //{
 //  // find the Modifier that called us
 //  hsStatusMessage("PY: LinkToAge\n");
@@ -698,7 +698,7 @@ time_t cyMisc::ConvertGMTtoDni(time_t gtime)
     if (utime.GetMonth() >= 3 && utime.GetMonth() <= 11)
     {
         plUnifiedTime dstStart = plUnifiedTime();
-        dstStart.SetGMTime(utime.GetYear(),3,8,2,0,0);
+        dstStart.SetGMTime(utime.GetYear(), 3, 8, 2, 0, 0);
         // find first Sunday after (including) 3/8 (second Sunday of March)
         int days_to_go = 7 - dstStart.GetDayOfWeek();
         if (days_to_go == 7)
@@ -706,7 +706,7 @@ time_t cyMisc::ConvertGMTtoDni(time_t gtime)
         time_t dstStartSecs = dstStart.GetSecs() + days_to_go * kOneDay;
 
         plUnifiedTime dstEnd = plUnifiedTime();
-        dstEnd.SetGMTime(utime.GetYear(),11,1,1,0,0);
+        dstEnd.SetGMTime(utime.GetYear(), 11, 1, 1, 0, 0);
         // find first sunday after (including) 11/1 (first Sunday of November)
         days_to_go = 7 - dstEnd.GetDayOfWeek();
         if (days_to_go == 7)
@@ -843,7 +843,7 @@ void cyMisc::LoadDialogK(const char* name, pyKey& rKey)
             mgr->LoadDialog(name, rKey.getKey());
         else
             // yes then just set the handler
-            mgr->SetDialogToNotify(name,rKey.getKey());
+            mgr->SetDialogToNotify(name, rKey.getKey());
     }
 }
 
@@ -859,7 +859,7 @@ void cyMisc::LoadDialogKA(const char* name, pyKey& rKey, const char* ageName)
             mgr->LoadDialog(name, rKey.getKey(), ageName);
         else
             // yes then just set the handler
-            mgr->SetDialogToNotify(name,rKey.getKey());
+            mgr->SetDialogToNotify(name, rKey.getKey());
     }
 }
 
@@ -1317,7 +1317,7 @@ void cyMisc::RateIt(const char* chronicleName, const char* thestring, bool onceF
     // create the mesage to send
     pfKIMsg *msg = new pfKIMsg(pfKIMsg::kRateIt);
 
-    msg->SetUser(chronicleName,0);
+    msg->SetUser(chronicleName, 0);
     msg->SetString(thestring);
     msg->SetIntValue(onceFlag);
     // send it off
@@ -1391,9 +1391,9 @@ bool cyMisc::IsFirstPerson()
 //
 void cyMisc::SendPetitionToCCR(const char* message)
 {
-    SendPetitionToCCRI(message,plNetCommon::PetitionTypes::kGeneralHelp,nil);
+    SendPetitionToCCRI(message, plNetCommon::PetitionTypes::kGeneralHelp, nil);
 }
-void cyMisc::SendPetitionToCCRI(const char* message, uint8_t reason,const char* title)
+void cyMisc::SendPetitionToCCRI(const char* message, uint8_t reason, const char* title)
 {
     // create the mesage to send
     plCCRPetitionMsg *msg = new plCCRPetitionMsg();
@@ -1413,7 +1413,7 @@ void cyMisc::SendPetitionToCCRI(const char* message, uint8_t reason,const char* 
 //
 //  PURPOSE    : Send a chat message to the CCR for help or questions
 //
-void cyMisc::SendChatToCCR(const char* message,int32_t CCRPlayerID)
+void cyMisc::SendChatToCCR(const char* message, int32_t CCRPlayerID)
 {
     // create the mesage to send
     plCCRCommunicationMsg *msg = new plCCRCommunicationMsg();
@@ -1422,7 +1422,7 @@ void cyMisc::SendChatToCCR(const char* message,int32_t CCRPlayerID)
     msg->SetBCastFlag(plMessage::kNetAllowInterAge);
     msg->SetBCastFlag(plMessage::kNetPropagate);
     msg->SetBCastFlag(plMessage::kNetForce);
-    msg->SetBCastFlag(plMessage::kLocalPropagate,0);
+    msg->SetBCastFlag(plMessage::kLocalPropagate, 0);
     msg->AddNetReceiver(CCRPlayerID);
     msg->Send();
 }
@@ -1766,8 +1766,8 @@ void cyMisc::AcceptInviteInGame(const char* friendName, const char* inviteKey)
         plNetMsgVaultTask msg;
         msg.SetNetProtocol(kNetProtocolCli2Auth);
         msg.SetTopic(plNetCommon::VaultTasks::kFriendInvite);
-        msg.GetArgs()->AddString(plNetCommon::VaultTaskArgs::kFriendName,friendName);
-        msg.GetArgs()->AddString(plNetCommon::VaultTaskArgs::kInviteKey,inviteKey);
+        msg.GetArgs()->AddString(plNetCommon::VaultTaskArgs::kFriendName, friendName);
+        msg.GetArgs()->AddString(plNetCommon::VaultTaskArgs::kInviteKey, inviteKey);
         nc->SendMsg(&msg);
     }
 #endif
@@ -1989,7 +1989,7 @@ void cyMisc::SetLightColorValue(pyKey& light, const ST::string& lightName, float
     {
         plLightInfo* pLight = (plLightInfo*)pIface;
         hsColorRGBA c;
-        c.Set(r,g,b,a);
+        c.Set(r, g, b, a);
         pLight->SetDiffuse(c);
         pLight->SetDiffuse(c);
         pLight->SetSpecular(c);
@@ -2100,7 +2100,7 @@ bool cyMisc::RequestLOSScreen(pyKey &selfkey, int32_t ID, float xPos, float yPos
 
         hsPoint3 endPos, startPos;
         
-        pipe->ScreenToWorldPoint(1,0, &x, &y, distance, 0, &endPos);
+        pipe->ScreenToWorldPoint(1, 0, &x, &y, distance, 0, &endPos);
         startPos = pipe->GetViewPositionWorld();
 
         // move the start pos out a little to avoid backing up against physical objects...
@@ -2141,7 +2141,7 @@ bool cyMisc::RequestLOSScreen(pyKey &selfkey, int32_t ID, float xPos, float yPos
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// Function   : CheckVisLOS,CheckVisLOSFromCursor
+// Function   : CheckVisLOS, CheckVisLOSFromCursor
 // PARAMETERS : StartPoint, EndPoint
 //
 // PURPOSE    : Check is there is something visible in the path from StartPoint to EndPoint
@@ -2152,7 +2152,7 @@ PyObject* cyMisc::CheckVisLOS(pyPoint3 startPoint, pyPoint3 endPoint)
     if (plVisLOSMgr::Instance())
     {
         plVisHit hit;
-        if (plVisLOSMgr::Instance()->Check(startPoint.fPoint,endPoint.fPoint,hit))
+        if (plVisLOSMgr::Instance()->Check(startPoint.fPoint, endPoint.fPoint, hit))
         {
             return pyPoint3::New(hit.fPos);
         }
@@ -2251,7 +2251,7 @@ void cyMisc::ShootBulletFromScreen(pyKey &selfkey, float xPos, float yPos, float
 
         hsPoint3 endPos, startPos;
         
-        pipe->ScreenToWorldPoint(1,0, &x, &y, range, 0, &endPos);
+        pipe->ScreenToWorldPoint(1, 0, &x, &y, range, 0, &endPos);
         startPos = pipe->GetViewPositionWorld();
 
         // move the start pos out a little to avoid backing up against physical objects...
@@ -2347,7 +2347,7 @@ public:
 
                         hsAssert(nAgeInfoEntries==nPlayerCountEntries, "huh?");
 
-                        // convert callback args to a list of tuple(ageInfo,nPlayers)
+                        // convert callback args to a list of tuple(ageInfo, nPlayers)
                         PyObject* pyEL = PyList_New(nAgeInfoEntries);
 
                         for (int i=0; i<nAgeInfoEntries; i++)

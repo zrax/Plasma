@@ -908,7 +908,7 @@ BOOL plGUIColorSchemeProc::DlgProc(TimeValue t, IParamMap2 *pmap, HWND hWnd, UIN
             blendedColor = bgColor * bgAlpha + (whiteColor * (1.f - bgAlpha));
 
             // doesn't like the Color to DWORD operator, so duplicating it here
-            #define ColorToDWORD(color) RGB(FLto255(color.r),FLto255(color.g),FLto255(color.b))
+            #define ColorToDWORD(color) RGB(FLto255(color.r), FLto255(color.g), FLto255(color.b))
             ::SetBkColor(paintInfo.hdc, ColorToDWORD(blendedColor));
 
             blendedColor = bgColor * bgAlpha + (hatchColor * (1.f - bgAlpha));
@@ -1237,7 +1237,7 @@ bool plGUIDialogComponent::SetupProperties(plMaxNode *node,  plErrorMsg *pErrMsg
     plKey roomKey = plPluginResManager::ResMgr()->NameToLoc(fCompPB->GetStr(kRefAgeName), fCompPB->GetStr(kRefDialogName), seqNum);
     if (!roomKey)
     {
-        pErrMsg->Set(true, "GUI Dialog Component Error", "GUI Dialog Component %s has a Missing Location.  Nuke the files in the dat directory and re-export.",((INode*)node)->GetName()).Show();
+        pErrMsg->Set(true, "GUI Dialog Component Error", "GUI Dialog Component %s has a Missing Location.  Nuke the files in the dat directory and re-export.", ((INode*)node)->GetName()).Show();
         return false;
     }
 
@@ -3112,12 +3112,12 @@ public:
                             char *str = new char[strLen + 1];
                             GetDlgItemText(hWnd, IDC_GUI_INITTEXT, str, strLen + 1);
                             str[strLen] = 0;
-                            ISetTranslation(fCurLanguage,str);
+                            ISetTranslation(fCurLanguage, str);
                             delete [] str;
 
                             std::string translation = plLocalization::LocalToString(fTranslations);
                             str = new char[translation.length() + 1];
-                            strcpy(str,translation.c_str());
+                            strcpy(str, translation.c_str());
                             str[translation.length()] = 0;
                 
                             pmap->GetParamBlock()->SetValue(plGUITextBoxComponent::kRefInitText, 0, str);
@@ -3245,7 +3245,7 @@ ParamBlockDesc2 gGUITextBoxBk
             p_default, FALSE,
             end,
 
-        plGUITextBoxComponent::kRefLocalizationPath,_T("localizationPath"),TYPE_STRING, 0, 0,
+        plGUITextBoxComponent::kRefLocalizationPath, _T("localizationPath"), TYPE_STRING, 0, 0,
             end,
                 
     end
@@ -4040,7 +4040,7 @@ bool plGUIDynDisplayComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
     
     const hsTArray<hsMaterialConverter::DoneMaterialData> &materials = hsMaterialConverter::Instance().DoneMaterials();
 
-    uint32_t i,count = pLayer->GetNumConversionTargets();
+    uint32_t i, count = pLayer->GetNumConversionTargets();
     for (i = 0; i < count; i++)
     {
         plLayerInterface *layIface = pLayer->GetConversionTarget(i);
@@ -5047,7 +5047,7 @@ bool plGUIMenuComponent::PreConvert(plMaxNode *node,  plErrorMsg *pErrMsg)
     fConvertedNode = plPluginResManager::ResMgr()->NameToLoc(fCompPB->GetStr(kRefAgeName), fCompPB->GetStr(kRefDialogName), seqNum);
     if (!fConvertedNode)
     {
-        pErrMsg->Set(true, "GUI Menu Component Error", "GUI MenuComponent %s has a Missing Location.  Nuke the files in the dat directory and re-export.",((INode*)node)->GetName()).Show();
+        pErrMsg->Set(true, "GUI Menu Component Error", "GUI MenuComponent %s has a Missing Location.  Nuke the files in the dat directory and re-export.", ((INode*)node)->GetName()).Show();
         return false;
     }
 

@@ -181,7 +181,7 @@ protected:
 
 struct hsScaleValue : public hsKeyFrame
 {
-    hsVector3   fS; /* Scale components for x,y,z */
+    hsVector3   fS; /* Scale components for x, y, z */
     hsQuat      fQ; /* The axis along which the scale is applied */
 
     void Read(hsStream *stream);

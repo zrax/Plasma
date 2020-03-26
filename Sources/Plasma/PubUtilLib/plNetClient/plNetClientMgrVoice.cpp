@@ -65,7 +65,7 @@ struct DistSqInfo
 {
     plNetTransportMember* fMbr;
     float fDistSq;
-    DistSqInfo(plNetTransportMember* m, float d) : fMbr(m),fDistSq(d) {}
+    DistSqInfo(plNetTransportMember* m, float d) : fMbr(m), fDistSq(d) {}
 };
 
 bool lessComp(DistSqInfo a, DistSqInfo b)

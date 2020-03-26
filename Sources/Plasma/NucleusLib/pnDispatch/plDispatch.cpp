@@ -505,7 +505,7 @@ void plDispatch::MsgQueue(plMessage* msg)
     if (fQueuedMsgOn)
     {
         hsLockGuard(fQueuedMsgListMutex);
-        hsAssert(msg,"Message missing");
+        hsAssert(msg, "Message missing");
         fQueuedMsgList.push_back(msg);
     }
     else
@@ -566,7 +566,7 @@ void plDispatch::UnRegisterForType(uint16_t hClass, const plKey& receiver)
     for (i = 0; i < fRegisteredExactTypes.GetCount(); i++)
     {
         if (plFactory::DerivesFrom(hClass, i))
-            IUnRegisterForExactType(i , receiver);
+            IUnRegisterForExactType(i, receiver);
     }
 
 }

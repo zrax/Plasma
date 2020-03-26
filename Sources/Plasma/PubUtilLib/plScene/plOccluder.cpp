@@ -147,7 +147,7 @@ plDrawableSpans* plOccluder::CreateProxy(hsGMaterial* mat, hsTArray<uint32_t>& i
     {
         hsColorRGBA col;
         if (polys[i].IsHole())
-            col.Set(0,0,0,1.f);
+            col.Set(0, 0, 0, 1.f);
         else
             col.Set(1.f, 1.f, 1.f, 1.f);
 

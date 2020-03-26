@@ -1425,7 +1425,7 @@ public:
                 BOOL isEnter = (type == kRespondSubWorldEnter) ? TRUE : FALSE;
 
                 ShowWindow(nButton, (isEnter) ? SW_SHOW : SW_HIDE);
-                //ShowWindow(sEnterText,(isEnter) ? SW_SHOW : SW_HIDE);
+                //ShowWindow(sEnterText, (isEnter) ? SW_SHOW : SW_HIDE);
                 ShowWindow(sExitText, (isEnter) ? SW_HIDE : SW_SHOW);
             }
             return TRUE;

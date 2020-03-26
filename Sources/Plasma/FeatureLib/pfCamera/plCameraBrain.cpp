@@ -130,9 +130,9 @@ fOffsetPct(1.0f)
 {
     fCamera = pMod;
     pMod->SetBrain(this);
-    fPOAGoal.Set(0,0,0);
-    fGoal.Set(1,1,1);
-    fPOAOffset.Set(0,0,0);
+    fPOAGoal.Set(0, 0, 0);
+    fGoal.Set(1, 1, 1);
+    fPOAOffset.Set(0, 0, 0);
     hsVector3 up(0, 0, 1);
     fTargetMatrix.Make(&fGoal, &fPOAGoal, &up);
     fFlags.Clear();
@@ -752,9 +752,9 @@ float plCameraBrain1_Drive::fMaxVelocity = 100.0f;
 // constructor
 plCameraBrain1_Drive::plCameraBrain1_Drive() : plCameraBrain1()
 {
-    fGoal.Set(100,100,100);
-    fPOAGoal.Set(0,0,0);
-    fUp.Set(0,0,1);
+    fGoal.Set(100, 100, 100);
+    fPOAGoal.Set(0, 0, 0);
+    fUp.Set(0, 0, 1);
     fCamera->SetTargetPos(fGoal);
     fCamera->SetTargetPOA(fPOAGoal);
     fLastTime = 0.f;
@@ -762,9 +762,9 @@ plCameraBrain1_Drive::plCameraBrain1_Drive() : plCameraBrain1()
 
 plCameraBrain1_Drive::plCameraBrain1_Drive(plCameraModifier1* pMod) : plCameraBrain1(pMod)
 {
-    fGoal.Set(100,100,100);
-    fPOAGoal.Set(0,0,0);
-    fUp.Set(0,0,1);
+    fGoal.Set(100, 100, 100);
+    fPOAGoal.Set(0, 0, 0);
+    fUp.Set(0, 0, 1);
     fCamera->SetTargetPos(fGoal);
     fCamera->SetTargetPOA(fPOAGoal);
     fLastTime = 0.f;
@@ -804,7 +804,7 @@ void plCameraBrain1_Drive::Update(bool forced)
     hsPoint3 cameraPos = fCamera->GetTargetPos();
     hsVector3 view, up, right;
         
-    fTargetMatrix.GetAxis(&view,&up,&right);
+    fTargetMatrix.GetAxis(&view, &up, &right);
     float delta = 5.0f * eTime;
 
     // adjust speed
@@ -879,7 +879,7 @@ void plCameraBrain1_Drive::Update(bool forced)
     fTargetMatrix.fMap[0][2] = 0.0f;
     fTargetMatrix.fMap[1][2] = 0.0f;
 
-    fTargetMatrix.GetAxis(&view,&up,&right);
+    fTargetMatrix.GetAxis(&view, &up, &right);
 
     if (HasMovementFlag(B_CAMERA_ROTATE_RIGHT) ||  HasMovementFlag(B_CAMERA_ROTATE_LEFT))
     {
@@ -902,7 +902,7 @@ void plCameraBrain1_Drive::Update(bool forced)
         fTargetMatrix = rot * fTargetMatrix;
     }
 
-    fTargetMatrix.GetAxis(&view,&up,&right);
+    fTargetMatrix.GetAxis(&view, &up, &right);
     hsPoint3 at(fGoal + (view * 2.0f));
 
     // Now passing in Up for up parameter, instead of down. mf_flip_up - mf
@@ -984,16 +984,16 @@ bool plCameraBrain1_Drive::MsgReceive(plMessage* msg)
 plCameraBrain1_Avatar::plCameraBrain1_Avatar() : plCameraBrain1()
 {
     bObscured = false;
-    fOffset.Set(0,0,0);
-    fPOAOffset.Set(0,0,0);
+    fOffset.Set(0, 0, 0);
+    fPOAOffset.Set(0, 0, 0);
     fFaded = false;
 }
 
 plCameraBrain1_Avatar::plCameraBrain1_Avatar(plCameraModifier1* pMod) : plCameraBrain1(pMod)
 {
     bObscured = false;
-    fOffset.Set(0,0,0);
-    fPOAOffset.Set(0,0,0);
+    fOffset.Set(0, 0, 0);
+    fPOAOffset.Set(0, 0, 0);
     fFaded = false;
 }
     
@@ -1355,8 +1355,8 @@ bool plCameraBrain1_FirstPerson::MsgReceive(plMessage* msg)
                             if (name.compare("FPCameraOrigin", ST::case_insensitive) == 0)
                             {
                                 fPosNode = child;
-                                SetOffset(hsVector3(0,0,0));
-                                SetPOAOffset(hsVector3(0,-10,0));
+                                SetOffset(hsVector3(0, 0, 0));
+                                SetPOAOffset(hsVector3(0, -10, 0));
                                 return true;
                             }
                         }
@@ -1621,7 +1621,7 @@ plCameraBrain1_Circle::plCameraBrain1_Circle() : plCameraBrain1_Fixed()
 {
     fCircleFlags = 0;
     fCenterObject = nil;
-    fCenter.Set(0,0,0);
+    fCenter.Set(0, 0, 0);
     fCurRad = fGoalRad = 1;
     fPOAObj = nil;
     fCirPerSec = 0.25f;
@@ -1630,7 +1630,7 @@ plCameraBrain1_Circle::plCameraBrain1_Circle(plCameraModifier1* pMod) : plCamera
 {
     fCircleFlags = 0;
     fCenterObject = nil;
-    fCenter.Set(0,0,0);
+    fCenter.Set(0, 0, 0);
     fCurRad = fGoalRad = 1;
     fPOAObj = nil;
     fCirPerSec = 0.25f;

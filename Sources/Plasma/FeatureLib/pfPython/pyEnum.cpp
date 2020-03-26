@@ -447,7 +447,7 @@ PYTHON_TYPE_START(EnumValue)
     0,                                  /* tp_setattr */
     PYTHON_DEFAULT_COMPARE(EnumValue),  /* tp_compare */
     EnumValue_repr,                     /* tp_repr */
-    PYTHON_DEFAULT_AS_NUMBER(EnumValue),/* tp_as_number */
+    PYTHON_DEFAULT_AS_NUMBER(EnumValue), /* tp_as_number */
     0,                                  /* tp_as_sequence */
     0,                                  /* tp_as_mapping */
     EnumValue_hash,                     /* tp_hash */

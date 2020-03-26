@@ -101,11 +101,11 @@ public:
 
 #define LOG_READ_LE(type, enumtype) \
     void LogReadLE(type* value, const char* desc) \
-            { ILogEntryWaiting(); ReadLE(value); LogEntry(plGenericType::enumtype,sizeof(type),value, desc); }
+            { ILogEntryWaiting(); ReadLE(value); LogEntry(plGenericType::enumtype, sizeof(type), value, desc); }
 
 #define LOG_READ_LE_ARRAY(type, enumtype) \
     void LogReadLEV(int count, type values[], const char* desc) \
-            { ILogEntryWaiting(); ReadLE(count,values); int i; for (i=0; i < count; i++) LogEntry(plGenericType::enumtype,sizeof(type),&(values[i]), desc); }
+            { ILogEntryWaiting(); ReadLE(count, values); int i; for (i=0; i < count; i++) LogEntry(plGenericType::enumtype, sizeof(type), &(values[i]), desc); }
 
 class hsReadOnlyLoggingStream : public hsReadOnlyStream, public plStreamLogger
 {

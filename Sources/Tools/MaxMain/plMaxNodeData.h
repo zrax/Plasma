@@ -161,13 +161,13 @@ class plMaxNodeData
 public:
     plMaxNodeData() :
         fpKey(nil),
-        fpSO(nil) ,
+        fpSO(nil),
         fDecalLevel(0),
         fpMesh(nil),
         fpRoomKey(nil),
         fSoundIdxCounter(0),
         fAvatarSO(nil),
-        fFade(Point3(0,0,0), Point3(0,0,0)),
+        fFade(Point3(0, 0, 0), Point3(0, 0, 0)),
         fNormalChan(0),
         fWaterHeight(0),
         fGDMaxFaces(0), fGDMaxSize(0), fGDMinFaces(0),

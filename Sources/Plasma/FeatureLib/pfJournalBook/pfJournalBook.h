@@ -507,7 +507,7 @@ class pfJournalBook : public hsKeyedObject
         // Current list of linkable image chunks we have visible on the screen, for quick hit testing
         hsTArray<pfEsHTMLChunk *>   fVisibleLinks;
 
-        static std::map<ST::string,pfBookData*> fBookGUIs;
+        static std::map<ST::string, pfBookData*> fBookGUIs;
         ST::string fCurBookGUI;
 
         enum Refs
@@ -579,7 +579,7 @@ class pfJournalBook : public hsKeyedObject
         // Cover functions
         plLayerInterface    *IMakeBaseLayer(plMipmap *image);
         plLayerInterface    *IMakeDecalLayer(pfEsHTMLChunk *decalChunk, plMipmap *decal, plMipmap *baseMipmap);
-        void    ISetDecalLayers(hsGMaterial *material,hsTArray<plLayerInterface*> layers);
+        void    ISetDecalLayers(hsGMaterial *material, hsTArray<plLayerInterface*> layers);
 };
 
 

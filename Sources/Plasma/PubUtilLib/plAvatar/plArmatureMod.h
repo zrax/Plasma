@@ -323,7 +323,7 @@ public:
     bool    IsMidLink();
     bool    ConsumeJump(); // returns true if the jump keypress was available to consume
 
-    void SendBehaviorNotify(uint32_t type, bool start = true) { IFireBehaviorNotify(type,start); }
+    void SendBehaviorNotify(uint32_t type, bool start = true) { IFireBehaviorNotify(type, start); }
     // Discovered a bug which makes these values horribly out of scale. So we do the rescale
     // in the Get/Set functions for backwards compatability.
     static void     SetMouseTurnSensitivity(float val) { fMouseTurnSensitivity = val / 150.f; }

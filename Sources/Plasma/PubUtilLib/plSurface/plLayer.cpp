@@ -129,14 +129,14 @@ void plLayer::Read(hsStream* s, hsResMgr* mgr)
     *fSpecularPower = s->ReadLEScalar();
 
     plLayRefMsg* refMsg = new plLayRefMsg(GetKey(), plRefMsg::kOnCreate, 0, plLayRefMsg::kTexture);
-    mgr->ReadKeyNotifyMe(s,refMsg, plRefFlags::kActiveRef);
+    mgr->ReadKeyNotifyMe(s, refMsg, plRefFlags::kActiveRef);
 
 #if 1 // For read/write shaders
     refMsg = new plLayRefMsg(GetKey(), plRefMsg::kOnCreate, 0, plLayRefMsg::kVertexShader);
-    mgr->ReadKeyNotifyMe(s,refMsg, plRefFlags::kActiveRef);
+    mgr->ReadKeyNotifyMe(s, refMsg, plRefFlags::kActiveRef);
 
     refMsg = new plLayRefMsg(GetKey(), plRefMsg::kOnCreate, 0, plLayRefMsg::kPixelShader);
-    mgr->ReadKeyNotifyMe(s,refMsg, plRefFlags::kActiveRef);
+    mgr->ReadKeyNotifyMe(s, refMsg, plRefFlags::kActiveRef);
 
     fBumpEnvXfm->Read(s);
 #endif // For read/write shaders
@@ -253,14 +253,14 @@ plLayer& plLayer::InitToDefault()
 
     SetRuntimeColor(hsColorRGBA().Set(0.5f, 0.5f, 0.5f, 1.f));
     SetPreshadeColor(hsColorRGBA().Set(0.5f, 0.5f, 0.5f, 1.f));
-    SetAmbientColor(hsColorRGBA().Set(0,0,0,1.f));
+    SetAmbientColor(hsColorRGBA().Set(0, 0, 0, 1.f));
     SetOpacity(1.f);
 
     fTransform->Reset();
 
     SetUVWSrc(0);
     SetLODBias(-1.f);
-    SetSpecularColor(hsColorRGBA().Set(0,0,0,1.f));
+    SetSpecularColor(hsColorRGBA().Set(0, 0, 0, 1.f));
     SetSpecularPower(1.f);
 
     *fVertexShader = nil;

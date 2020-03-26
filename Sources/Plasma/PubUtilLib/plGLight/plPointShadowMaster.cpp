@@ -94,7 +94,7 @@ static inline void InverseOfPureRotTran(const hsMatrix44& src, hsMatrix44& inv)
 ////////////////////////////////////////////////////////////////////////////////////
 plPointShadowMaster::plPointShadowMaster()
 {
-    fLastUp.Set(0,0,0);
+    fLastUp.Set(0, 0, 0);
 }
 
 plPointShadowMaster::~plPointShadowMaster()
@@ -141,7 +141,7 @@ void plPointShadowMaster::IComputeWorldToLight(const hsBounds3Ext& bnd, plShadow
         from += atToFrom;
     }
 
-    hsVector3 up(0,0,1.f);
+    hsVector3 up(0, 0, 1.f);
     if (CrossProd(up, (at - from)).MagnitudeSquared() < kMinMag)
     {
         up.Set(0, 1.f, 0);

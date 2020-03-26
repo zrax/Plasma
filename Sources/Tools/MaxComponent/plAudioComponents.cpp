@@ -481,7 +481,7 @@ bool plBaseSoundEmitterComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMs
     if (!ai)
     {
         ai = new plAudioInterface;
-        plKey pAiKey = hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), (hsKeyedObject*)ai,node->GetKey()->GetUoid().GetLocation(), node->GetLoadMask());
+        plKey pAiKey = hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), (hsKeyedObject*)ai, node->GetKey()->GetUoid().GetLocation(), node->GetLoadMask());
         hsgResMgr::ResMgr()->AddViaNotify(pAiKey, new plObjRefMsg(node->GetKey(), plRefMsg::kOnCreate, 0, plObjRefMsg::kInterface), plRefFlags::kActiveRef);
     }
     if (!ai->GetAudible())
@@ -670,7 +670,7 @@ plSoundBuffer *plBaseSoundEmitterComponent::IGetSourceBuffer(const plFileName &f
         return nil;
     }
 
-    // We'll put it in a location parallel to the age, say, (age,district,"sounds")
+    // We'll put it in a location parallel to the age, say, (age, district, "sounds")
     plLocation  loc = srcNode->GetLocation();
 //  plKey roomKey = hsgResMgr::ResMgr()->NameToLoc(loc.GetAge(), loc.GetChapter(), "sounds");
     // TEMP HACK FOR NOW, until we actually finish implementing this--just hide them in the same file
@@ -1234,7 +1234,7 @@ static ParamBlockDesc2 sSoundSharedPB
         p_default,  0,
         end,
 
-    kSndFadeInLength, _T("fadeInLength"),   TYPE_FLOAT, 0,0,
+    kSndFadeInLength, _T("fadeInLength"),   TYPE_FLOAT, 0, 0,
         p_ui,   kSoundFadeParams, TYPE_SPINNER, EDITTYPE_FLOAT, IDC_SOUND3D_INLENGTH, IDC_SOUND3D_INLENGTHSPIN, 1.0f,
         p_default,  1.f,
         end,
@@ -1248,7 +1248,7 @@ static ParamBlockDesc2 sSoundSharedPB
         p_default,  0,
         end,
 
-    kSndFadeOutLength, _T("fadeOutLength"), TYPE_FLOAT, 0,0,
+    kSndFadeOutLength, _T("fadeOutLength"), TYPE_FLOAT, 0, 0,
         p_ui,   kSoundFadeParams, TYPE_SPINNER, EDITTYPE_FLOAT, IDC_SOUND3D_OUTLENGTH, IDC_SOUND3D_OUTLENGTHSPIN, 1.0f,
         p_default,  1.f,
         end,
@@ -2879,20 +2879,20 @@ ParamBlockDesc2 gEAXListenerBlk
 
     // EAX listener params (should be private)
     plEAXListenerComponent::kRefEnvironmentSize,        _T(""), TYPE_FLOAT, 0, 0, end,      // float
-    plEAXListenerComponent::kRefEnvironmentDiffusion,   _T(""), TYPE_FLOAT, 0, 0, end,// float
-    plEAXListenerComponent::kRefRoom,                   _T(""), TYPE_INT, 0, 0, end,// long
-    plEAXListenerComponent::kRefRoomHF,                 _T(""), TYPE_INT, 0, 0, end,// long
-    plEAXListenerComponent::kRefRoomLF,                 _T(""), TYPE_INT, 0, 0, end,// long
-    plEAXListenerComponent::kRefDecayTime,              _T(""), TYPE_FLOAT, 0, 0, end,// float
-    plEAXListenerComponent::kRefDecayHFRatio,           _T(""), TYPE_FLOAT, 0, 0, end,// float
-    plEAXListenerComponent::kRefDecayLFRatio,           _T(""), TYPE_FLOAT, 0, 0, end,// float
-    plEAXListenerComponent::kRefReflections,            _T(""), TYPE_INT, 0, 0, end,// long
-    plEAXListenerComponent::kRefReflectionsDelay,       _T(""), TYPE_FLOAT, 0, 0, end,// float
+    plEAXListenerComponent::kRefEnvironmentDiffusion,   _T(""), TYPE_FLOAT, 0, 0, end, // float
+    plEAXListenerComponent::kRefRoom,                   _T(""), TYPE_INT, 0, 0, end, // long
+    plEAXListenerComponent::kRefRoomHF,                 _T(""), TYPE_INT, 0, 0, end, // long
+    plEAXListenerComponent::kRefRoomLF,                 _T(""), TYPE_INT, 0, 0, end, // long
+    plEAXListenerComponent::kRefDecayTime,              _T(""), TYPE_FLOAT, 0, 0, end, // float
+    plEAXListenerComponent::kRefDecayHFRatio,           _T(""), TYPE_FLOAT, 0, 0, end, // float
+    plEAXListenerComponent::kRefDecayLFRatio,           _T(""), TYPE_FLOAT, 0, 0, end, // float
+    plEAXListenerComponent::kRefReflections,            _T(""), TYPE_INT, 0, 0, end, // long
+    plEAXListenerComponent::kRefReflectionsDelay,       _T(""), TYPE_FLOAT, 0, 0, end, // float
         // panning goes here
-    plEAXListenerComponent::kRefReverb,                 _T(""), TYPE_INT, 0, 0, end,// long
-    plEAXListenerComponent::kRefReverbDelay,            _T(""), TYPE_FLOAT, 0, 0, end,// float
+    plEAXListenerComponent::kRefReverb,                 _T(""), TYPE_INT, 0, 0, end, // long
+    plEAXListenerComponent::kRefReverbDelay,            _T(""), TYPE_FLOAT, 0, 0, end, // float
         // Reverb pan
-    plEAXListenerComponent::kRefEchoTime,               _T(""), TYPE_FLOAT, 0, 0, end,// float
+    plEAXListenerComponent::kRefEchoTime,               _T(""), TYPE_FLOAT, 0, 0, end, // float
     plEAXListenerComponent::kRefEchoDepth,              _T(""), TYPE_FLOAT, 0, 0, end,
     plEAXListenerComponent::kRefModulationTime,         _T(""), TYPE_FLOAT, 0, 0, end,
     plEAXListenerComponent::kRefModulationDepth,        _T(""), TYPE_FLOAT, 0, 0, end,
@@ -2900,7 +2900,7 @@ ParamBlockDesc2 gEAXListenerBlk
     plEAXListenerComponent::kRefHFReference,            _T(""), TYPE_FLOAT, 0, 0, end,
     plEAXListenerComponent::kRefLFReference,            _T(""), TYPE_FLOAT, 0, 0, end,
     plEAXListenerComponent::kRefRoomRolloffFactor,      _T(""), TYPE_FLOAT, 0, 0, end,
-    plEAXListenerComponent::kRefFlags,                  _T(""), TYPE_INT, 0, 0, end,// unsigned long
+    plEAXListenerComponent::kRefFlags,                  _T(""), TYPE_INT, 0, 0, end, // unsigned long
 
     end
 );
@@ -3079,13 +3079,13 @@ void    plEAXListenerComponent::SetCustFile(const char *path)
 /// Obsolete SFX components (made obsolete by the new EAX support)
 
 OBSOLETE_CLASS(plSoundReverbComponent, gSoundReverbDesc, "Audio Region",  "AudioRegion", COMP_TYPE_AUDIO, Class_ID(0x50507200, 0x48651c4c))
-OBSOLETE_CLASS(plSoundChorusModComponent,gSoundChorusModDesc , "Chorus Effect",  "ChorusEffect", COMP_TYPE_AUDIO, Class_ID(0x10f91101, 0x28cb21b9))
-OBSOLETE_CLASS(plSoundCompressorModComponent,gSoundCompressorModDesc , "Compressor Effect",  "CompressEffect", COMP_TYPE_AUDIO, Class_ID(0x443d2167, 0x4ca42eb))
-OBSOLETE_CLASS(plSoundDistortModComponent,gSoundDistortModDesc , "Distort Effect",  "DistortEffect", COMP_TYPE_AUDIO, Class_ID(0x7cb45868, 0x61220227))
-OBSOLETE_CLASS(plSoundEchoModComponent,gSoundEchoModDesc , "Echo Effect",  "EchoEffect", COMP_TYPE_AUDIO,Class_ID(0x2948347e, 0x30ba0be3))
-OBSOLETE_CLASS(plSoundFlangerModComponent,gSoundFlangerModDesc , "Flanger Effect",  "FlangerEffect", COMP_TYPE_AUDIO, Class_ID(0x25034090, 0x361a08d7))
-OBSOLETE_CLASS(plSoundGargleModComponent,gSoundGargleModDesc , "Gargle Effect",  "GargleEffect", COMP_TYPE_AUDIO, Class_ID(0x639b6a41, 0x24da2462))
-OBSOLETE_CLASS(plSoundReverbModComponent,gSoundReverbModDesc , "Reverb Effect",  "ReverbEffect", COMP_TYPE_AUDIO, Class_ID(0x1bef33fc, 0x5c763858))
+OBSOLETE_CLASS(plSoundChorusModComponent, gSoundChorusModDesc, "Chorus Effect",  "ChorusEffect", COMP_TYPE_AUDIO, Class_ID(0x10f91101, 0x28cb21b9))
+OBSOLETE_CLASS(plSoundCompressorModComponent, gSoundCompressorModDesc, "Compressor Effect",  "CompressEffect", COMP_TYPE_AUDIO, Class_ID(0x443d2167, 0x4ca42eb))
+OBSOLETE_CLASS(plSoundDistortModComponent, gSoundDistortModDesc, "Distort Effect",  "DistortEffect", COMP_TYPE_AUDIO, Class_ID(0x7cb45868, 0x61220227))
+OBSOLETE_CLASS(plSoundEchoModComponent, gSoundEchoModDesc, "Echo Effect",  "EchoEffect", COMP_TYPE_AUDIO, Class_ID(0x2948347e, 0x30ba0be3))
+OBSOLETE_CLASS(plSoundFlangerModComponent, gSoundFlangerModDesc, "Flanger Effect",  "FlangerEffect", COMP_TYPE_AUDIO, Class_ID(0x25034090, 0x361a08d7))
+OBSOLETE_CLASS(plSoundGargleModComponent, gSoundGargleModDesc, "Gargle Effect",  "GargleEffect", COMP_TYPE_AUDIO, Class_ID(0x639b6a41, 0x24da2462))
+OBSOLETE_CLASS(plSoundReverbModComponent, gSoundReverbModDesc, "Reverb Effect",  "ReverbEffect", COMP_TYPE_AUDIO, Class_ID(0x1bef33fc, 0x5c763858))
 
 
 

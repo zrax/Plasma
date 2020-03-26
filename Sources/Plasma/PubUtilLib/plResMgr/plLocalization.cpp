@@ -130,7 +130,7 @@ std::string plLocalization::LocalToString(const std::vector<std::string> & local
             break;
         std::string langHeader = "$";
         std::string langName = GetLanguageName((Language)i);
-        langHeader += langName.substr(0,2) + "$";
+        langHeader += langName.substr(0, 2) + "$";
         retVal += langHeader + localizedText[i];
     }
     return retVal;
@@ -171,7 +171,7 @@ std::vector<std::wstring> plLocalization::StringToLocal(const std::wstring & loc
         std::wstring langName = wTemp;
         delete [] wTemp;
         
-        tag += langName.substr(0,2) + L"$";
+        tag += langName.substr(0, 2) + L"$";
         tags.push_back(tag);
         tagLocs.push_back(localizedText.find(tag));
         sortedTagLocs.push_back(i);
@@ -199,7 +199,7 @@ std::vector<std::wstring> plLocalization::StringToLocal(const std::wstring & loc
                 endLoc = localizedText.length();
             else
                 endLoc = tagLocs[sortedTagLocs[i+1]];
-            retVal[lang] = localizedText.substr(startLoc,endLoc-startLoc);
+            retVal[lang] = localizedText.substr(startLoc, endLoc-startLoc);
         }
     }
     if (noTags)

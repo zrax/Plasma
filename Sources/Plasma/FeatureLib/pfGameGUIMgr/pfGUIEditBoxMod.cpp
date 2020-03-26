@@ -297,9 +297,9 @@ bool    pfGUIEditBoxMod::HandleKeyEvent(pfGameGUIMgr::EventType event, plKeyDef 
             else
             {
                 // check to see the buffer has ForewardSlash and change it to ForwardSlash
-                if (strcmp(keyStr,"ForewardSlash") == 0)
+                if (strcmp(keyStr, "ForewardSlash") == 0)
                 {
-                    strcpy(keyStr,"ForwardSlash");
+                    strcpy(keyStr, "ForwardSlash");
                 }
             }
 
@@ -313,7 +313,7 @@ bool    pfGUIEditBoxMod::HandleKeyEvent(pfGameGUIMgr::EventType event, plKeyDef 
 
             // set something in the buffer to be displayed
             wchar_t* temp = hsStringToWString(newKey);
-            wcsncpy(fBuffer, temp , fBufferSize - 1);
+            wcsncpy(fBuffer, temp, fBufferSize - 1);
             delete [] temp;
             fCursorPos = 0;
             SetCursorToEnd();
@@ -552,9 +552,9 @@ void pfGUIEditBoxMod::SetLastKeyCapture(uint32_t key, uint8_t modifiers)
     else
     {
         // check to see the buffer has ForewardSlash and change it to ForwardSlash
-        if (strcmp(keyStr,"ForewardSlash") == 0)
+        if (strcmp(keyStr, "ForewardSlash") == 0)
         {
-            strcpy(keyStr,"ForwardSlash");
+            strcpy(keyStr, "ForwardSlash");
         }
     }
 
@@ -568,7 +568,7 @@ void pfGUIEditBoxMod::SetLastKeyCapture(uint32_t key, uint8_t modifiers)
 
     // set something in the buffer to be displayed
     wchar_t* temp = hsStringToWString(newKey);
-    wcsncpy(fBuffer, temp , fBufferSize - 1);
+    wcsncpy(fBuffer, temp, fBufferSize - 1);
     delete [] temp;
 
     fCursorPos = 0;

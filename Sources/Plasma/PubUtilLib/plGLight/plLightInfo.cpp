@@ -870,7 +870,7 @@ plDrawableSpans* plOmniLightInfo::CreateProxy(hsGMaterial* mat, hsTArray<uint32_
     if (rad == 0)
         rad = 50;
 
-    plDrawableSpans* draw = plDrawableGenerator::GenerateSphericalDrawable(hsPoint3(0,0,0),
+    plDrawableSpans* draw = plDrawableGenerator::GenerateSphericalDrawable(hsPoint3(0, 0, 0),
                                                         rad,
                                                         mat,
                                                         fLightToWorld,

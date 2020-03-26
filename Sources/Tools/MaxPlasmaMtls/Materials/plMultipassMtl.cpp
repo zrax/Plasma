@@ -123,7 +123,7 @@ Interval plMultipassMtl::Validity(TimeValue t)
     }
 */
 //  float u;
-//  fPBlock->GetValue(pb_spin,t,u,valid);
+//  fPBlock->GetValue(pb_spin, t, u, valid);
     return valid;
 }
 
@@ -323,9 +323,9 @@ void plMultipassMtl::SetDiffuse(Color c, TimeValue t) {}
 void plMultipassMtl::SetSpecular(Color c, TimeValue t) {}
 void plMultipassMtl::SetShininess(float v, TimeValue t) {}
                 
-Color plMultipassMtl::GetAmbient(int mtlNum, BOOL backFace) { return Color(0,0,0); }
-Color plMultipassMtl::GetDiffuse(int mtlNum, BOOL backFace) { return Color(0,0,0); }
-Color plMultipassMtl::GetSpecular(int mtlNum, BOOL backFace)    { return Color(0,0,0); }
+Color plMultipassMtl::GetAmbient(int mtlNum, BOOL backFace) { return Color(0, 0, 0); }
+Color plMultipassMtl::GetDiffuse(int mtlNum, BOOL backFace) { return Color(0, 0, 0); }
+Color plMultipassMtl::GetSpecular(int mtlNum, BOOL backFace)    { return Color(0, 0, 0); }
 float plMultipassMtl::GetXParency(int mtlNum, BOOL backFace)    { return 0.0f; }
 float plMultipassMtl::GetShininess(int mtlNum, BOOL backFace)   { return 0.0f; }
 float plMultipassMtl::GetShinStr(int mtlNum, BOOL backFace) { return 0.0f; }
@@ -350,7 +350,7 @@ void plMultipassMtl::Shade(ShadeContext& sc)
         
         // Call each pass' shade function with the previous color
         Mtl *mtl = GetSubMtl(i);
-        //backTrans = Color(0,0,0);
+        //backTrans = Color(0, 0, 0);
         if (mtl->ClassID() == PASS_MTL_CLASS_ID)
         {
             plPassMtl *passMtl = (plPassMtl*)mtl;

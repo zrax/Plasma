@@ -70,7 +70,7 @@ class plDebugText;
     Only one task can run at a time.
     Tasks are queued within a given avatar brain; you can queue several at once, and they'll
     run in succession, with each waiting for the former to complete before running.
-    Some tasks are instantaneous (like attaching an animation,) and only use the task model for
+    Some tasks are instantaneous (like attaching an animation), and only use the task model for
     sequencing effect. (i.e., walk here, attach this animation, etc.)
     If your task requires user intervention or control, you probably should
     be using an avatar brain instead. Tasks are meant to sort of run on their own.

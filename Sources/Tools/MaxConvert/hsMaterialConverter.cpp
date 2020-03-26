@@ -581,7 +581,7 @@ bool hsMaterialConverter::IsMultiMat(Mtl *m)
         return false;
     }
 
-    return (m->ClassID() == Class_ID(MULTI_CLASS_ID,0));
+    return (m->ClassID() == Class_ID(MULTI_CLASS_ID, 0));
     hsGuardEnd;
 }
 
@@ -1142,7 +1142,7 @@ hsGMaterial *hsMaterialConverter::IProcessMaterial(Mtl *mtl, plMaxNode *node, co
     else if (IsHsMaxMat(mtl) || IsDecalMat(mtl) || IsBumpMtl(mtl))
     {
         hMat = new hsGMaterial;
-        hsgResMgr::ResMgr()->NewKey(name, hMat,nodeLoc);
+        hsgResMgr::ResMgr()->NewKey(name, hMat, nodeLoc);
         IProcessPlasmaMaterial(mtl, node, hMat, hMat->GetKey()->GetName());
     }
     else if (mtl && mtl->ClassID() == MULTIMTL_CLASS_ID)
@@ -1181,7 +1181,7 @@ hsGMaterial *hsMaterialConverter::IProcessMaterial(Mtl *mtl, plMaxNode *node, co
 
         if (node->UserPropExists("WetMe") && (!hMat->GetKey()->GetName().contains("Wet(*)")))
             IAppendWetLayer(node, hMat);
-//      hsgResMgr::ResMgr()->NewKey(name, hMat,nodeLoc);
+//      hsgResMgr::ResMgr()->NewKey(name, hMat, nodeLoc);
     }
     else
         return nil;
@@ -1776,12 +1776,12 @@ hsGMaterial *hsMaterialConverter::IProcessParticleMtl(Mtl *mtl, plMaxNode *node,
         baseLay->SetMiscFlags(baseLay->GetMiscFlags() | miscFlags); // 3.28.2001 mcn - Who didn't put this in?
 
         // No specular on particles. Spoot.
-        baseLay->SetSpecularColor(hsColorRGBA().Set(0,0,0,1.f));
+        baseLay->SetSpecularColor(hsColorRGBA().Set(0, 0, 0, 1.f));
         baseLay->SetSpecularPower(0);
 
         baseLay->SetAmbientColor(hsColorRGBA().Set(amb.r, amb.g, amb.b, 1.f));
         baseLay->SetRuntimeColor(hsColorRGBA().Set(col.r, col.g, col.b, 1.f));
-        baseLay->SetPreshadeColor(hsColorRGBA().Set(0.f,0.f,0.f,1.f));
+        baseLay->SetPreshadeColor(hsColorRGBA().Set(0.f, 0.f, 0.f, 1.f));
         baseLay->SetOpacity(opac);        // Don't scale the material color by this if we're add blending; do that later
 
         uint32_t blendType = 0;
@@ -1994,7 +1994,7 @@ static plLayerInterface* IProcessLayerMovie(plPassMtlBase* mtl, plLayerTex* layT
         hsgResMgr::ResMgr()->NewKey(movieKeyName, movieLayer, node->GetLocation());
 
         movieLayer->SetMovieName(movieName);
-        movieLayer->Eval(0,0,0);
+        movieLayer->Eval(0, 0, 0);
 
         plAnimTimeConvert& tc = movieLayer->GetTimeConvert();
 
@@ -2349,7 +2349,7 @@ bool hsMaterialConverter::IProcessPlasmaMaterial(Mtl *mtl, plMaxNode *node, hsGM
 
     // Specular flags
     float   shine   = 0.0;
-    Color   specColor = Color(0,0,0);
+    Color   specColor = Color(0, 0, 0);
 
     if (passBase->GetUseSpec())
     {
@@ -2457,7 +2457,7 @@ bool hsMaterialConverter::IProcessPlasmaMaterial(Mtl *mtl, plMaxNode *node, hsGM
 
         layerAnim = IProcessLayerMovie(passBase, (plLayerTex*)baseTex, node, layerAnim);
 
-        layerAnim->Eval(0,0,0);
+        layerAnim->Eval(0, 0, 0);
 
         IAddLayerToMaterial(mat, layerAnim);
 
@@ -2575,7 +2575,7 @@ bool hsMaterialConverter::IProcessPlasmaMaterial(Mtl *mtl, plMaxNode *node, hsGM
 
                 layerIFace = IProcessLayerMovie(passBase, (plLayerTex*)baseTex, node, layerIFace);
 
-                layerIFace->Eval(0,0,0);
+                layerIFace->Eval(0, 0, 0);
 
                 IAddLayerToMaterial(mat, layerIFace);
 
@@ -2718,21 +2718,21 @@ hsGMaterial *hsMaterialConverter::ICheckForProjectedTexture(plMaxNode *node)
     char *nodeName = node->GetName();
     Object *obj = node->EvalWorldState(fConverterUtils.GetTime(fInterface)).obj;
     LightObject *light = (LightObject*)obj->ConvertToType(fConverterUtils.GetTime(fInterface),
-            Class_ID(SPOT_LIGHT_CLASS_ID,0));
+            Class_ID(SPOT_LIGHT_CLASS_ID, 0));
     if (!light)
         light = (LightObject*)obj->ConvertToType(fConverterUtils.GetTime(fInterface),
-            Class_ID(FSPOT_LIGHT_CLASS_ID,0));
+            Class_ID(FSPOT_LIGHT_CLASS_ID, 0));
     if (!light)
         light = (LightObject*)obj->ConvertToType(fConverterUtils.GetTime(fInterface),
-            Class_ID(OMNI_LIGHT_CLASS_ID,0));
+            Class_ID(OMNI_LIGHT_CLASS_ID, 0));
 
     if (!light)
         light = (LightObject*)obj->ConvertToType(fConverterUtils.GetTime(fInterface),
-            Class_ID(DIR_LIGHT_CLASS_ID,0));
+            Class_ID(DIR_LIGHT_CLASS_ID, 0));
 
     if (!light)
         light = (LightObject*)obj->ConvertToType(fConverterUtils.GetTime(fInterface),
-            Class_ID(TDIR_LIGHT_CLASS_ID,0));
+            Class_ID(TDIR_LIGHT_CLASS_ID, 0));
 
     if (light && light->GetProjector())
     {
@@ -2776,7 +2776,7 @@ hsGMaterial *hsMaterialConverter::IWrapTextureInMaterial(Texmap *texMap, plMaxNo
     plLayer* hLay = new plLayer;
     hLay->InitToDefault();
 
-    hsgResMgr::ResMgr()->NewKey(txtFileName, hLay,nodeLoc);
+    hsgResMgr::ResMgr()->NewKey(txtFileName, hLay, nodeLoc);
 
     if (texMap->ClassID() == hsMaxLayerClassID)
     {
@@ -2826,7 +2826,7 @@ hsGMaterial *hsMaterialConverter::IWrapTextureInMaterial(Texmap *texMap, plMaxNo
 #endif
     }
 
-    key = hsgResMgr::ResMgr()->NewKey(txtFileName, hMat,nodeLoc);
+    key = hsgResMgr::ResMgr()->NewKey(txtFileName, hMat, nodeLoc);
     
     IAddLayerToMaterial(hMat, hLay);
 
@@ -4010,7 +4010,7 @@ static BMM_Color_64 ICubeSample(plErrorMsg* const msg, Bitmap *bitmap[6], double
 
     msg->Set(!map, "CubeSample", "Bad fallthrough in spherefromcube").Check();
     BMM_Color_64 c;
-    map->GetLinearPixels(iMap,jMap,1,&c);
+    map->GetLinearPixels(iMap, jMap, 1, &c);
     return c;
 
     hsGuardEnd;
@@ -4036,7 +4036,7 @@ void hsMaterialConverter::IBuildSphereMap(Bitmap *bitmap[6], Bitmap *bm)
 
             pb[i] = ICubeSample(fErrorMsg, bitmap, phi, theta);
         }
-        bm->PutPixels(0,j, bm->Width(), pb);
+        bm->PutPixels(0, j, bm->Width(), pb);
     }
 
     hsGuardEnd;
@@ -4073,7 +4073,7 @@ bool hsMaterialConverter::ITextureTransformIsAnimated(Texmap *texmap)
 #else
     CStr className;
     texmap->GetClassName(className);
-    if (strcmp(className,"Bitmap") && strcmp(className,"Plasma Layer") && strcmp(className,"Plasma Layer Dbg."))
+    if (strcmp(className, "Bitmap") && strcmp(className, "Plasma Layer") && strcmp(className, "Plasma Layer Dbg."))
         return false;
     return (IHasAnimatedControllers(((BitmapTex *)texmap)->GetUVGen()));
 #endif

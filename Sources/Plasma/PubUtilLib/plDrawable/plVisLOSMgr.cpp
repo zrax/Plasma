@@ -343,12 +343,12 @@ bool plVisLOSMgr::ICheckBound(const hsBounds3Ext& bnd, float& closest)
 
     const int face[6][4] =
     {
-        {0,1,3,2},
-        {1,5,7,3},
-        {2,3,7,6},
-        {5,4,6,7},
-        {0,4,5,1},
-        {0,2,6,4}
+        {0, 1, 3, 2},
+        {1, 5, 7, 3},
+        {2, 3, 7, 6},
+        {5, 4, 6, 7},
+        {0, 4, 5, 1},
+        {0, 2, 6, 4}
     };
 
     hsPoint3 corn[8];

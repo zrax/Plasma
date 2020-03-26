@@ -167,7 +167,7 @@ void plAudioInterface::Write(hsStream* s, hsResMgr* mgr)
 {
     plObjInterface::Write(s, mgr);
 
-    mgr->WriteKey(s,fAudible);
+    mgr->WriteKey(s, fAudible);
 }
 
 void plAudioInterface::ISetAudible(plAudible* aud)
@@ -232,9 +232,9 @@ bool plAudioInterface::MsgReceive(plMessage* msg)
         if (pSoundMsg->Cmd(plSoundMsg::kSynchedPlay))
             fAudible->SynchedPlay(pSoundMsg->fIndex);
         if (pSoundMsg->Cmd(plSoundMsg::kSetLooping))
-            fAudible->SetLooping(true,pSoundMsg->fIndex);
+            fAudible->SetLooping(true, pSoundMsg->fIndex);
         if (pSoundMsg->Cmd(plSoundMsg::kUnSetLooping))
-            fAudible->SetLooping(false,pSoundMsg->fIndex);
+            fAudible->SetLooping(false, pSoundMsg->fIndex);
         if (pSoundMsg->Cmd(plSoundMsg::kToggleState))
         {
             if (fAudible->IsPlaying(pSoundMsg->fIndex))
@@ -315,7 +315,7 @@ bool plAudioInterface::MsgReceive(plMessage* msg)
                 {
                     hsMatrix44 l2w = GetOwner()->GetCoordinateInterface()->GetLocalToWorld();
                     hsMatrix44 w2l = GetOwner()->GetCoordinateInterface()->GetWorldToLocal();
-                    fAudible->SetTransform(l2w,w2l);
+                    fAudible->SetTransform(l2w, w2l);
                 }
             }
         }

@@ -101,7 +101,7 @@ int plFdSet::WaitForRead(bool shouldZeroFds, unsigned long timeoutMillis)
 
     if (timeoutMillis == kInfinite)
     {
-        ret_val = select(fMaxFd+1,&fFds,NULL,&fErrFds,NULL);
+        ret_val = select(fMaxFd+1, &fFds, NULL, &fErrFds, NULL);
     }
     else
     {
@@ -109,7 +109,7 @@ int plFdSet::WaitForRead(bool shouldZeroFds, unsigned long timeoutMillis)
         tv.tv_sec = timeoutMillis  / 1000;
         tv.tv_usec = (timeoutMillis % 1000) * 1000;
         
-        ret_val = select(fMaxFd+1,&fFds,NULL,&fErrFds,&tv);
+        ret_val = select(fMaxFd+1, &fFds, NULL, &fErrFds, &tv);
     }
     if (shouldZeroFds)
         ZeroFds();
@@ -124,7 +124,7 @@ int plFdSet::WaitForWrite(bool shouldZeroFds, unsigned long timeoutMillis)
 
     if (timeoutMillis == kInfinite)
     {
-        ret_val = select(fMaxFd+1,NULL,&fFds,&fErrFds,NULL);
+        ret_val = select(fMaxFd+1, NULL, &fFds, &fErrFds, NULL);
     }
     else
     {
@@ -132,7 +132,7 @@ int plFdSet::WaitForWrite(bool shouldZeroFds, unsigned long timeoutMillis)
         tv.tv_sec = timeoutMillis  / 1000;
         tv.tv_usec = (timeoutMillis % 1000) * 1000;
         
-        ret_val = select(fMaxFd+1,NULL,&fFds,&fErrFds,&tv);
+        ret_val = select(fMaxFd+1, NULL, &fFds, &fErrFds, &tv);
     }
     if (shouldZeroFds)
         ZeroFds();
@@ -147,7 +147,7 @@ int plFdSet::WaitForError(bool shouldZeroFds, unsigned long timeoutMillis)
 
     if (timeoutMillis == kInfinite)
     {
-        ret_val = select(fMaxFd+1,NULL,NULL,&fErrFds,NULL);
+        ret_val = select(fMaxFd+1, NULL, NULL, &fErrFds, NULL);
     }
     else
     {
@@ -155,7 +155,7 @@ int plFdSet::WaitForError(bool shouldZeroFds, unsigned long timeoutMillis)
         tv.tv_sec = timeoutMillis  / 1000;
         tv.tv_usec = (timeoutMillis % 1000) * 1000;
         
-        ret_val = select(fMaxFd+1,NULL,NULL,&fErrFds,&tv);
+        ret_val = select(fMaxFd+1, NULL, NULL, &fErrFds, &tv);
     }
     if (shouldZeroFds)
         ZeroFds();

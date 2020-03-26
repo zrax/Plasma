@@ -68,7 +68,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plSurface/plLayer.h"
 
 plDynamicEnvMap::plDynamicEnvMap()
-:   fPos(0,0,0),
+:   fPos(0, 0, 0),
     fHither(0.3f),
     fYon(1000.f),
     fFogStart(1000.f),
@@ -79,7 +79,7 @@ plDynamicEnvMap::plDynamicEnvMap()
     fIncCharacters(false),
     fRootNode(nil)
 {
-    fColor.Set(0,0,0,1.f);
+    fColor.Set(0, 0, 0, 1.f);
     int i;
     for (i = 0; i < 6; i++)
         fReqMsgs[i] = new plRenderRequestMsg(nil, &fReqs[i]);
@@ -88,7 +88,7 @@ plDynamicEnvMap::plDynamicEnvMap()
 }
 
 plDynamicEnvMap::plDynamicEnvMap(uint16_t width, uint16_t height, uint8_t bitDepth, uint8_t zDepth, uint8_t sDepth)
-:   fPos(0,0,0),
+:   fPos(0, 0, 0),
     fHither(0.3f),
     fYon(0.f), // yon < hither means ignore and use current settings
     fFogStart(-1.f), // - fog start means use current settings
@@ -100,7 +100,7 @@ plDynamicEnvMap::plDynamicEnvMap(uint16_t width, uint16_t height, uint8_t bitDep
     fRootNode(nil),
     plCubicRenderTarget(plRenderTarget::kIsTexture, width, height, bitDepth, zDepth, sDepth)
 {
-    fColor.Set(0,0,0,1.f);
+    fColor.Set(0, 0, 0, 1.f);
     int i;
     for (i = 0; i < 6; i++)
         fReqMsgs[i] = new plRenderRequestMsg(nil, &fReqs[i]);
@@ -496,7 +496,7 @@ fRootNode(nil),
 fIncCharacters(false),
 fDisableTexture(nil)
 {
-    fColor.Set(0,0,0,1.f);
+    fColor.Set(0, 0, 0, 1.f);
     fReqMsg = new plRenderRequestMsg(nil, &fReq);
 }
 
@@ -513,7 +513,7 @@ fIncCharacters(false),
 fDisableTexture(nil),
 plRenderTarget(plRenderTarget::kIsTexture, width, height, bitDepth, zDepth, sDepth)
 {
-    fColor.Set(0,0,0,1.f);
+    fColor.Set(0, 0, 0, 1.f);
     fReqMsg = new plRenderRequestMsg(nil, &fReq);
 }
 

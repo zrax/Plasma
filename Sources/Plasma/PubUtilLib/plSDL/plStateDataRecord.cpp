@@ -487,13 +487,13 @@ void plStateDataRecord::CopyFrom(const plStateDataRecord& other, uint32_t writeO
     for (i=0; i<other.GetNumVars(); i++)
     {
         if (other.GetVar(i)->IsUsed())
-            GetVar(i)->CopyData(other.GetVar(i),writeOptions);
+            GetVar(i)->CopyData(other.GetVar(i), writeOptions);
     }
 
     for (i=0; i<other.GetNumSDVars(); i++)
     {
         if (other.GetSDVar(i)->IsUsed())
-            GetSDVar(i)->CopyFrom(other.GetSDVar(i),writeOptions);
+            GetSDVar(i)->CopyFrom(other.GetSDVar(i), writeOptions);
     }
 }
 
@@ -661,7 +661,7 @@ bool plStateDataRecord::IConvertVar(plSimpleStateVariable* fromVar, plSimpleStat
         return true;    // no corresponding var in the old state, done
 
     // Copy the value to the dst, converting if necessary
-    fromVar->ConvertTo(toVar->GetSimpleVarDescriptor(),force);
+    fromVar->ConvertTo(toVar->GetSimpleVarDescriptor(), force);
     toVar->CopyData(fromVar, plSDL::kWriteTimeStamps | plSDL::kKeepDirty);
 
     return true;    // ok

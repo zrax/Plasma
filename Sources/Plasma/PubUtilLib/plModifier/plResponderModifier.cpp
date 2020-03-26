@@ -346,7 +346,7 @@ bool plResponderModifier::IContinueSending()
                     {
                         plUoid netUoid(kNetClientMgr_KEY);
                         plKey netKey = hsgResMgr::ResMgr()->FindKey(netUoid);
-                        hsAssert(netKey,"NetClientMgr not found");
+                        hsAssert(netKey, "NetClientMgr not found");
                         linkMsg->AddReceiver(netKey);
                     }
                 }

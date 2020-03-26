@@ -894,7 +894,7 @@ void plAvBrainClimb::DumpToDebugDisplay(int &x, int &y, int lineHeight, plDebugT
 
     char buffy[256];
     sprintf(buffy, "direction: %s mode: %s controlDir: %f", worldDir, modeStr, fControlDir);
-    debugTxt.DrawString(x,y, buffy);
+    debugTxt.DrawString(x, y, buffy);
     y += lineHeight;
     
     IDumpClimbDirections(x, y, lineHeight, debugTxt);

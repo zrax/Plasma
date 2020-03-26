@@ -99,7 +99,7 @@ public:
         {
         case WM_INITDIALOG:
             {
-                HWND hLadder = GetDlgItem(hWnd,IDC_COMP_NAV_LADDER_COMBO);
+                HWND hLadder = GetDlgItem(hWnd, IDC_COMP_NAV_LADDER_COMBO);
 
                 ComboBox_AddString(hLadder, "Big");
                 ComboBox_AddString(hLadder, "4 feet");
@@ -114,7 +114,7 @@ public:
             if (LOWORD(wParam) == IDC_COMP_NAV_LADDER_COMBO && HIWORD(wParam) == CBN_SELCHANGE)
             {
                 //Util fcn found in plEventGroupRefs files in MaxMain
-                HWND hLadder = GetDlgItem(hWnd,IDC_COMP_NAV_LADDER_COMBO);
+                HWND hLadder = GetDlgItem(hWnd, IDC_COMP_NAV_LADDER_COMBO);
                 int idx = ComboBox_GetCurSel(hLadder);
                 map->GetParamBlock()->SetValue(kTypeCombo, 0, idx);
 /*
@@ -146,7 +146,7 @@ ParamBlockDesc2 gAvLadderComponentBlock
 
     IDD_COMP_NAV_LADDER, IDS_COMP_NAV_LADDERS, 0, 0, &gAvLadderComponentProc,
 
-    kTypeCombo, _T("Ladder Type"), TYPE_INT, 0,0,
+    kTypeCombo, _T("Ladder Type"), TYPE_INT, 0, 0,
         end,
 
     kDirectionBool, _T("Climbing Direction"),       TYPE_INT,       0, 0,

@@ -132,7 +132,7 @@ Interval plDecalMtl::Validity(TimeValue t)
     }
 */
 //  float u;
-//  fPBlock->GetValue(pb_spin,t,u,valid);
+//  fPBlock->GetValue(pb_spin, t, u, valid);
     return valid;
 #else // mf horse
     const char* name = GetName();
@@ -353,7 +353,7 @@ void plDecalMtl::Update(TimeValue t, Interval& valid)
         for (int i = 0; i < fSubTexmap.Count(); i++)
         {
             if (fSubTexmap[i])
-                fSubTexmap[i]->Update(t,fIValid);
+                fSubTexmap[i]->Update(t, fIValid);
         }
 */
     }
@@ -364,7 +364,7 @@ void plDecalMtl::Update(TimeValue t, Interval& valid)
     if (fBasicPB)
     {
         Color   run = fBasicPB->GetColor(kDecalBasRunColor, 0);
-        if (run == Color(-1,-1,-1))
+        if (run == Color(-1, -1, -1))
         {
             fBasicPB->SetValue(kDecalBasRunColor, 0, fBasicPB->GetColor(kDecalBasColor, 0));
         }
@@ -391,9 +391,9 @@ void plDecalMtl::SetDiffuse(Color c, TimeValue t) {}
 void plDecalMtl::SetSpecular(Color c, TimeValue t) {}
 void plDecalMtl::SetShininess(float v, TimeValue t) {}
                 
-Color plDecalMtl::GetAmbient(int mtlNum, BOOL backFace) { return Color(0,0,0); }
-Color plDecalMtl::GetDiffuse(int mtlNum, BOOL backFace) { return Color(0,0,0); }
-Color plDecalMtl::GetSpecular(int mtlNum, BOOL backFace)    { return Color(0,0,0); }
+Color plDecalMtl::GetAmbient(int mtlNum, BOOL backFace) { return Color(0, 0, 0); }
+Color plDecalMtl::GetDiffuse(int mtlNum, BOOL backFace) { return Color(0, 0, 0); }
+Color plDecalMtl::GetSpecular(int mtlNum, BOOL backFace)    { return Color(0, 0, 0); }
 
 float plDecalMtl::GetXParency(int mtlNum, BOOL backFace)
 {
@@ -419,7 +419,7 @@ void plDecalMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback 
                 mtl->texture[i].textHandle = texHandle[i]->GetHandle();
                 Texmap *tx = (*maps)[useSubForTex[i]].map;
                 cb.GetGfxTexInfoFromTexmap(t, mtl->texture[i], tx);
-                SetTexOps(mtl,i,texOpsType[i]);
+                SetTexOps(mtl, i, texOpsType[i]);
                 }
             }
         return;
@@ -462,7 +462,7 @@ void plDecalMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback 
         if (ti.tiling[0]==GW_TEX_NO_TILING||ti.tiling[1]==GW_TEX_NO_TILING)
             needDecal = TRUE;
         op = needDecal?TXOP_ALPHABLEND:TXOP_MODULATE;
-        bmi[0] = tx[0]->GetVPDisplayDIB(t,cb,valid,FALSE);
+        bmi[0] = tx[0]->GetVPDisplayDIB(t, cb, valid, FALSE);
         if (bmi[0]) {
             texHandleValid &= valid;
             useSubForTex[0] = diffChan;
@@ -474,14 +474,14 @@ void plDecalMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback 
     if (tx[1]) {
         cb.GetGfxTexInfoFromTexmap(t, mtl->texture[ntx], tx[1]);
         if (nsupport>ntx) {
-            bmi[1] = tx[1]->GetVPDisplayDIB(t,cb,valid,TRUE);
+            bmi[1] = tx[1]->GetVPDisplayDIB(t, cb, valid, TRUE);
             if (bmi[1]) {
                 texHandleValid &= valid;
-                StuffAlpha(bmi[1], (*maps)[opacChan].amount, GetOpacity(t),ntx?whiteCol:pShader->GetDiffuseClr(t));
+                StuffAlpha(bmi[1], (*maps)[opacChan].amount, GetOpacity(t), ntx?whiteCol:pShader->GetDiffuseClr(t));
                 texHandle[ntx] = cb.MakeHandle(bmi[1]);
                 bmi[1] = NULL;
                 mtl->texture[ntx].textHandle = texHandle[ntx]->GetHandle();
-                SetTexOps(mtl,ntx,TXOP_OPACITY);
+                SetTexOps(mtl, ntx, TXOP_OPACITY);
                 useSubForTex[ntx] = opacChan;
                 ntx++;
                 }
@@ -489,9 +489,9 @@ void plDecalMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback 
         else {
             if (!needDecal) {
                 TextureInfo ti;
-//              if (SameUV(mtl->texture[0],mtl->texture[1])) {
+//              if (SameUV(mtl->texture[0], mtl->texture[1])) {
                     // Not really correct to combine channels for different UV's but what the heck.
-                    bmi[1] = tx[1]->GetVPDisplayDIB(t,cb,valid,TRUE, forceW, forceH);
+                    bmi[1] = tx[1]->GetVPDisplayDIB(t, cb, valid, TRUE, forceW, forceH);
                     if (bmi[1]) {
                         texHandleValid &= valid;
                         StuffAlphaInto(bmi[1], bmi[0], (*maps)[opacChan].amount, GetOpacity(t));
@@ -507,7 +507,7 @@ void plDecalMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallback 
         texHandle[0] = cb.MakeHandle(bmi[0]);
         bmi[0] = NULL;
         mtl->texture[0].textHandle = texHandle[0]->GetHandle();
-        SetTexOps(mtl,0,op);
+        SetTexOps(mtl, 0, op);
         }
     mtl->texture.SetCount(ntx);
     numTexHandlesUsed = ntx;
@@ -563,9 +563,9 @@ void plDecalMtl::ShadeWithBackground(ShadeContext &sc, Color background)
 
     // old
 #if 0
-    Color lightCol,rescol, diffIllum0;
+    Color lightCol, rescol, diffIllum0;
     RGBA mval;
-    Point3 N0,P;
+    Point3 N0, P;
     BOOL bumped = FALSE;
     int i;
 
@@ -582,7 +582,7 @@ void plDecalMtl::ShadeWithBackground(ShadeContext &sc, Color background)
         }
         
         float f = 1.0f - opac;
-        sc.out.t = Color(f,f,f);
+        sc.out.t = Color(f, f, f);
         return;
     }
     
@@ -675,7 +675,7 @@ void plDecalMtl::ShadeWithBackground(ShadeContext &sc, Color background)
         {
             ip.sh_str = 1.f;
             ip.spec = fBasicPB->GetColor(kDecalBasSpecColor, t);
-            ip.ph_exp = (float)pow(2.0f,float(fBasicPB->GetInt(kDecalBasShine, t)) / 10.0f);
+            ip.ph_exp = (float)pow(2.0f, float(fBasicPB->GetInt(kDecalBasShine, t)) / 10.0f);
             ip.shine = float(fBasicPB->GetInt(kDecalBasShine, t)) / 100.0f;
         }
         else

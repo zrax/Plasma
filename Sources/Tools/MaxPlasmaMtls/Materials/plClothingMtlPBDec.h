@@ -428,12 +428,12 @@ static ParamBlockDesc2 gClothingMtlPB
 
     plClothingMtl::kDefaultTint1,   _T("DefaultTint1"), TYPE_RGBA,  0, 0,
         p_ui, TYPE_COLORSWATCH, IDC_CLOTHING_TINT1,
-        p_default,      Color(1,1,1),
+        p_default,      Color(1, 1, 1),
         end,
 
     plClothingMtl::kDefaultTint2,   _T("DefaultTint2"), TYPE_RGBA,  0, 0,
         p_ui, TYPE_COLORSWATCH, IDC_CLOTHING_TINT2,
-        p_default,      Color(1,1,1),
+        p_default,      Color(1, 1, 1),
         end,
 
     plClothingMtl::kForcedAcc,  _T("ForcedAcc"), TYPE_STRING, 0, 0,

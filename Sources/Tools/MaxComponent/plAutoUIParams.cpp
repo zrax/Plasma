@@ -579,7 +579,7 @@ public:
 
     BOOL HitTest(IObjParam *ip, HWND hWnd, ViewExp *vpt, IPoint2 m, int flags)
     {
-        return (ip->PickNode(hWnd,m,&gPickFilter) != NULL);
+        return (ip->PickNode(hWnd, m, &gPickFilter) != NULL);
     }
     BOOL Pick(IObjParam *ip, ViewExp *vpt);
     
@@ -1058,7 +1058,7 @@ bool plPickSingleComponentButtonParam::IsMyMessage(UINT msg, WPARAM wParam, LPAR
         {
             if (fButton->IsChecked())
             {
-                if (plPick::GenericClass(pb, fID, true,fClassToPick))
+                if (plPick::GenericClass(pb, fID, true, fClassToPick))
                 {
                     INode *node = (INode*)pb->GetReferenceTarget(fID);
                     if (node)

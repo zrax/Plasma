@@ -88,7 +88,7 @@ static ParamBlockDesc2  RTProjDirLightBlk
         end,
     
     plRTLightBase::kLightColor,     _T("LightColor"),   TYPE_RGBA,  P_ANIMATABLE, IDS_DS_LIGHTCOL,
-        p_default, Color(255,255,255),
+        p_default, Color(255, 255, 255),
         p_ui, TYPE_COLORSWATCH,         IDC_LIGHT_COLOR,
         end,
 
@@ -97,8 +97,8 @@ static ParamBlockDesc2  RTProjDirLightBlk
         p_ui, TYPE_SINGLECHEKBOX,   IDC_AFFECT_SPECULAR,
         end,
 
-    plRTLightBase::kSpecularColorSwatch,_T("SpecularColor"),TYPE_RGBA,  P_ANIMATABLE, IDS_DS_SPECCOL,
-        p_default, Color(255,255,255),
+    plRTLightBase::kSpecularColorSwatch, _T("SpecularColor"), TYPE_RGBA,  P_ANIMATABLE, IDS_DS_SPECCOL,
+        p_default, Color(255, 255, 255),
         p_ui, TYPE_COLORSWATCH,         IDC_LIGHT_COLOR_SPECULAR,
         end,
 
@@ -106,7 +106,7 @@ static ParamBlockDesc2  RTProjDirLightBlk
         p_range, -250.0, 250.0,
         p_default, 1.0,
         p_ui, TYPE_SPINNER, EDITTYPE_FLOAT,
-        IDC_LMULT,IDC_LMULTSPINNER, .05f,
+        IDC_LMULT, IDC_LMULTSPINNER, .05f,
         end,
 
     end

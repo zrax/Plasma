@@ -222,7 +222,7 @@ void plMorphDelta::ComputeDeltas(const hsTArray<plGeometrySpan*>& base, const hs
             if (delPosSq > kMinDelPos)
                 nonZero = true;
             else
-                delPos.Set(0,0,0);
+                delPos.Set(0, 0, 0);
 
 
             hsVector3 delNorm = (d2bTInv * *movedIter.Normal()) - *baseIter.Normal();
@@ -230,7 +230,7 @@ void plMorphDelta::ComputeDeltas(const hsTArray<plGeometrySpan*>& base, const hs
             if (delNormSq > kMinDelNorm)
                 nonZero = true;
             else
-                delNorm.Set(0,0,0);
+                delNorm.Set(0, 0, 0);
 
             int i;
             for (i = 0; i < numUVWs; i++)
@@ -240,7 +240,7 @@ void plMorphDelta::ComputeDeltas(const hsTArray<plGeometrySpan*>& base, const hs
                 if (delUVWSq > kMinDelUVW)
                     nonZero = true;
                 else
-                    delUVWs[i].Set(0,0,0);
+                    delUVWs[i].Set(0, 0, 0);
             }
 
             if (nonZero)

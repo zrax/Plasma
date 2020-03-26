@@ -53,7 +53,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #pragma comment(lib, "winmm.lib")
 #ifdef PATCHER
-#define DXTRACE_ERR(str,hr) hr      // I'm not linking in directx stuff to the just for this
+#define DXTRACE_ERR(str, hr) hr      // I'm not linking in directx stuff to the just for this
 #endif
 
 // if it looks like I lifted this class directly from Microsoft it's because that
@@ -460,7 +460,7 @@ HRESULT CWaveFile::ReadMMIO()
 
     BYTE *bp = labelBuf;
     // Keep looking for labl chunks till we run out.
-    while (!strncmp("labl",(char*)bp,4))
+    while (!strncmp("labl", (char*)bp, 4))
     {
         DWORD size = *(DWORD*)(bp + 4);
         DWORD id = *(DWORD*)(bp + 8);
@@ -491,7 +491,7 @@ HRESULT CWaveFile::ReadMMIO()
         if (size & 1 && !strncmp("labl", (char*)(bp +1), 4))
             bp++;
      
-        fprintf(stderr,"Label name=%s Time =%f\n",newMarker->fName, newMarker->fOffset);
+        fprintf(stderr, "Label name=%s Time =%f\n", newMarker->fName, newMarker->fOffset);
     }
 
     delete [] labelBuf;
@@ -1045,7 +1045,7 @@ public:
 public:
     CueChunk(DWORD ChunkSize)
     {
-        chunkID = mmioFOURCC('c','u','e',' ');
+        chunkID = mmioFOURCC('c', 'u', 'e', ' ');
         chunkSize = ChunkSize;
         dwCuePoints = (ChunkSize - (sizeof(DWORD)*1))/(sizeof(CuePoint));
         //points = NULL;
@@ -1085,7 +1085,7 @@ public:
 public:
     LabelChunk(DWORD ChunkSize)
     {
-        chunkID = mmioFOURCC('l','a','b','l');
+        chunkID = mmioFOURCC('l', 'a', 'b', 'l');
         chunkSize = ChunkSize;
         dwIdentifier = 0;
         dwText = NULL;
@@ -1093,7 +1093,7 @@ public:
 
     LabelChunk()
     {
-        chunkID = mmioFOURCC('l','a','b','l');
+        chunkID = mmioFOURCC('l', 'a', 'b', 'l');
         chunkSize = 0;
         dwIdentifier = 0;
         dwText = NULL;

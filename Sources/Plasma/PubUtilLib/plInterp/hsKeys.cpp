@@ -531,7 +531,7 @@ bool hsG3DSMaxKeyFrame::CompareValue(hsG3DSMaxKeyFrame *key)
 void hsMatrix33Key::Read(hsStream *stream)
 {
     fFrame = stream->ReadLE16();
-    int32_t i,j;
+    int32_t i, j;
     for (i=0; i<3; i++)
         for (j=0; j<3; j++)
             fValue.fMap[j][i] = stream->ReadLEScalar();
@@ -540,7 +540,7 @@ void hsMatrix33Key::Read(hsStream *stream)
 void hsMatrix33Key::Write(hsStream *stream)
 {
     stream->WriteLE16(fFrame);
-    int32_t i,j;
+    int32_t i, j;
     for (i=0; i<3; i++)
         for (j=0; j<3; j++)
             stream->WriteLEScalar(fValue.fMap[j][i]);

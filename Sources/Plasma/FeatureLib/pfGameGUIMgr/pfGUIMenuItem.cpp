@@ -90,7 +90,7 @@ void    pfGUIMenuItem::SetName(const wchar_t *name)
     if (name != nil)
     {
         fName = new wchar_t[wcslen(name)+1];
-        wcscpy(fName,name);
+        wcscpy(fName, name);
     }
     else
         fName = nil;

@@ -143,12 +143,12 @@ void plComponentBase::FreeCaches()
 
 void plComponentBase::GetLocalBoundBox(TimeValue t, INode *node, ViewExp *vpt, Box3 &box)
 {
-    box.MakeCube(Point3(0,0,0), 0);
+    box.MakeCube(Point3(0, 0, 0), 0);
 }
 
 void plComponentBase::GetWorldBoundBox(TimeValue t, INode *node, ViewExp *vpt, Box3 &box)
 {
-    box.MakeCube(Point3(0,0,0), 0);
+    box.MakeCube(Point3(0, 0, 0), 0);
 }
 
 int plComponentBase::Display(TimeValue t, INode *node, ViewExp *vpt, int flags)

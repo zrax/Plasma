@@ -104,8 +104,8 @@ static bool ISetRegKey(const QString &keyName, const QString &value, const QStri
 //  looks like this:
 //      fileTypeID  (value = fileTypeName)
 //          |
-//          |--- DefaultIcon (value = path,index) [omit this one if you don't
-//          |                                      want a default icon]
+//          |--- DefaultIcon (value = path, index) [omit this one if you don't
+//          |                                       want a default icon]
 //          |
 //          |--- shell
 //                 |

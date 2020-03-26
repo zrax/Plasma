@@ -301,7 +301,7 @@ plAGChannel * plScalarBlend::Detach(plAGChannel *remove)
     plAGChannel *result = this;
 
     // it's possible that the incoming channel could reside down *all* of our
-    // branches (it's a graph, not a tree,) so we always pass down all limbs
+    // branches (it's a graph, not a tree), so we always pass down all limbs
     fChannelBias = plScalarChannel::ConvertNoRef(fChannelBias->Detach(remove));
     fChannelA = plScalarChannel::ConvertNoRef(fChannelA->Detach(remove));
     fChannelB = plScalarChannel::ConvertNoRef(fChannelB->Detach(remove));

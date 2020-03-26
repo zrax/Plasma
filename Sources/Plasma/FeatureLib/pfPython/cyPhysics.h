@@ -64,7 +64,7 @@ protected:
     hsTArray<plKey> fRecvr;
     bool            fNetForce;
 
-    cyPhysics(plKey sender=nil,plKey recvr=nil);
+    cyPhysics(plKey sender=nil, plKey recvr=nil);
 
 public:
     virtual ~cyPhysics() { }

@@ -85,10 +85,10 @@ void plMemBuffer::SetBuffer(char * data, int len)
 void plMemBuffer::CopyBuffer(char * data, int len)
 {
     char * tmp =  new char[len];
-    memcpy(tmp,data,len);
+    memcpy(tmp, data, len);
     ClearBuffer();
     AllocBuffer(len);
-    memcpy(fBuffer,tmp,len);
+    memcpy(fBuffer, tmp, len);
     delete [] tmp;
 }
 
@@ -104,7 +104,7 @@ void plMemBuffer::GrowBuffer(int newLen)
         char * tmp =  new char[len];
         
         if (fBuffer != nil)
-            memcpy(tmp,fBuffer,fBufferLen);
+            memcpy(tmp, fBuffer, fBufferLen);
         
         ClearBuffer();
         

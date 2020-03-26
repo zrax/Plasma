@@ -140,7 +140,7 @@ __declspec(dllexport) ULONG LibVersion()
 //
 // DLLMAIN
 //
-BOOL WINAPI DllMain(HINSTANCE hinstDLL,ULONG fdwReason,LPVOID lpvReserved)
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, ULONG fdwReason, LPVOID lpvReserved)
 {
     hInstance = hinstDLL;
 
@@ -190,7 +190,7 @@ public:
     virtual TSTR SubAnimName(int i) { return fClassDesc->ClassName(); }
 
 
-    void BeginEditParams(IObjParam *ip,ULONG flags,Animatable *prev);
+    void BeginEditParams(IObjParam *ip, ULONG flags, Animatable *prev);
     void EndEditParams(IObjParam *ip, ULONG flags, Animatable *next);
     SClass_ID       SuperClassID() { return CUST_ATTRIB_CLASS_ID; }
     Class_ID        ClassID() { return fClassDesc->ClassID(); }
@@ -242,14 +242,14 @@ plGeneralAttrib::plGeneralAttrib() : fClassDesc(&theGeneralAttribClassDesc), fPB
     fClassDesc->MakeAutoParamBlocks(this);
 }
 
-void plGeneralAttrib::BeginEditParams(IObjParam *ip,ULONG flags,Animatable *prev)
+void plGeneralAttrib::BeginEditParams(IObjParam *ip, ULONG flags, Animatable *prev)
 {
-    fClassDesc->BeginEditParams(ip,this,flags,prev);
+    fClassDesc->BeginEditParams(ip, this, flags, prev);
 }
 
 void plGeneralAttrib::EndEditParams(IObjParam *ip, ULONG flags, Animatable *next)
 {
-    fClassDesc->EndEditParams(ip,this,flags,next);
+    fClassDesc->EndEditParams(ip, this, flags, next);
 }
 
 ReferenceTarget *plGeneralAttrib::Clone(RemapDir &remap)

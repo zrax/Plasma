@@ -53,7 +53,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #define  TOGGLES        "+-"
 #define  ALL            WHITESPACE FLAGS SEPARATORS TOGGLES
 
-#define hsCheckFlagBits(f,c,m) ((f & m)==c)
+#define hsCheckFlagBits(f, c, m) ((f & m)==c)
 
 
 struct plCmdArgData

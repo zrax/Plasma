@@ -104,7 +104,7 @@ PyObject* pyGUIControlDynamicText::GetMap(uint32_t i)
         }
     }
     char errmsg[256];
-    sprintf(errmsg,"DynamicDisplay map number %d could be found on this control...?",i);
+    sprintf(errmsg, "DynamicDisplay map number %d could be found on this control...?", i);
     PyErr_SetString(PyExc_KeyError, errmsg);
     PYTHON_RETURN_ERROR;
 }

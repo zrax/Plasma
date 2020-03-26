@@ -424,7 +424,7 @@ void plATCAnim::Read(hsStream *stream, hsResMgr *mgr)
         ST::string name = stream->ReadSafeString();
         float begin = stream->ReadLEScalar();
         float end = stream->ReadLEScalar();
-        fLoops[name] = std::pair<float,float>(begin,end);
+        fLoops[name] = std::pair<float, float>(begin, end);
     }
 
     int numStops = stream->ReadLE32();
@@ -464,7 +464,7 @@ void plATCAnim::Write(hsStream *stream, hsResMgr *mgr)
     for (LoopMap::iterator loopIt = fLoops.begin(); loopIt != fLoops.end(); loopIt++)
     {
         stream->WriteSafeString(loopIt->first);
-        std::pair<float,float>& loop = loopIt->second;
+        std::pair<float, float>& loop = loopIt->second;
         stream->WriteLEFloat(loop.first);
         stream->WriteLEFloat(loop.second);
     }
@@ -490,7 +490,7 @@ void plATCAnim::CheckLoop()
 // --------
 void plATCAnim::AddLoop(const ST::string &name, float start, float end)
 {
-    fLoops[name] = std::pair<float,float>(start, end);
+    fLoops[name] = std::pair<float, float>(start, end);
 }
 
 // GetLoop --------------------------------------------------------------
@@ -500,7 +500,7 @@ bool plATCAnim::GetLoop(const ST::string &name, float &start, float &end) const
     LoopMap::const_iterator it = fLoops.find(name);
     if (it != fLoops.end())
     {
-        const std::pair<float,float>& loop = (*it).second;
+        const std::pair<float, float>& loop = (*it).second;
         start = loop.first;
         end = loop.second;
         return true;
@@ -523,7 +523,7 @@ bool plATCAnim::GetLoop(uint32_t num, float &start, float &end) const
         it++;
         num--;
     }
-    const std::pair<float,float>& loop = (*it).second;
+    const std::pair<float, float>& loop = (*it).second;
     start = loop.first;
     end = loop.second;
     return true;

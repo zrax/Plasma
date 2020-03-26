@@ -172,7 +172,7 @@ public:
 
     // Setters
     bool SetStart(short year, short month, short day, short hour, short minute, short second)
-        { return fStart.SetTime(year,month,day,hour,minute,second); }
+        { return fStart.SetTime(year, month, day, hour, minute, second); }
 
     void SetDayLength(const float l) { fDayLength = l; }
     void SetMaxCapacity(const short m) { fMaxCapacity=m; }

@@ -160,7 +160,7 @@ hsGMaterial *pfGUICtrlGenerator::ICreateSolidMaterial(hsColorRGBA &color)
     IAddKey(material, "GUIMaterial");
 
     plLayer *lay = material->MakeBaseLayer();
-    black.Set(0.f,0.f,0.f,1.f);
+    black.Set(0.f, 0.f, 0.f, 1.f);
 
     lay->SetRuntimeColor(black);
     lay->SetPreshadeColor(black);
@@ -203,8 +203,8 @@ hsGMaterial *pfGUICtrlGenerator::ICreateTextMaterial(const char *text, hsColorRG
     IAddKey(material, "GUIMaterial");
 
     plLayer *lay = material->MakeBaseLayer();
-    white.Set(1.f,1.f,1.f,1.f);
-    black.Set(0.f,0.f,0.f,1.f);
+    white.Set(1.f, 1.f, 1.f, 1.f);
+    black.Set(0.f, 0.f, 0.f, 1.f);
 
     lay->SetRuntimeColor(black);
     lay->SetPreshadeColor(black);
@@ -298,7 +298,7 @@ pfGUIButtonMod  *pfGUICtrlGenerator::CreateRectButton(pfGUIDialogMod *parent, co
                                     hsGMaterial *material, bool asMenuItem)
 {
     wchar_t *wTitle = hsStringToWString(title);
-    pfGUIButtonMod *retVal = CreateRectButton(parent,wTitle,x,y,width,height,material,asMenuItem);
+    pfGUIButtonMod *retVal = CreateRectButton(parent, wTitle, x, y, width, height, material, asMenuItem);
     delete [] wTitle;
     return retVal;
 }
@@ -407,7 +407,7 @@ pfGUIDragBarCtrl *pfGUICtrlGenerator::GenerateDragBar(float x, float y, float wi
     hsPoint3 corner(x, -y, -100);//x - width / 2.f, -y - height / 2.f, -100);
     hsVector3 xVec(width, 0, 0), yVec(0, height, 0), zVec(0, 0, 0.1f);
 
-    myDraw = plDrawableGenerator::GenerateBoxDrawable(corner, xVec, yVec, zVec,/*width, height, 0.01f, */material, l2w);
+    myDraw = plDrawableGenerator::GenerateBoxDrawable(corner, xVec, yVec, zVec, /*width, height, 0.01f,*/ material, l2w);
 
     // Drag bars are special--everything else gets attached to them and they get attached to the dialog
     vec.Set(x, -y, -100);

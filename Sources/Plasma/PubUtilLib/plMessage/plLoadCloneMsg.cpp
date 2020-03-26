@@ -133,7 +133,7 @@ void plLoadCloneMsg::Read(hsStream* stream, hsResMgr* mgr)
 // WRITE
 void plLoadCloneMsg::Write(hsStream* stream, hsResMgr* mgr)
 {
-    plMessage::IMsgWrite(stream,mgr);
+    plMessage::IMsgWrite(stream, mgr);
     mgr->WriteKey(stream, fCloneKey);
     mgr->WriteKey(stream, fRequestorKey);
     stream->WriteLE32(fOriginatingPlayerID);
@@ -185,7 +185,7 @@ void plLoadCloneMsg::ReadVersion(hsStream* stream, hsResMgr* mgr)
 
 void plLoadCloneMsg::WriteVersion(hsStream* stream, hsResMgr* mgr)
 {
-    plMessage::IMsgWriteVersion(stream,mgr);
+    plMessage::IMsgWriteVersion(stream, mgr);
 
     hsBitVector contentFlags;
     contentFlags.SetBit(kLoadCloneMsgCloneKey);

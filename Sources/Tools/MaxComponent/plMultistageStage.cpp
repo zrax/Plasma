@@ -198,7 +198,7 @@ void plStandardStage::DestroyDlg()
     fDlg = nil;
 }
 
-#define SetBit(f,b,on) on ? hsSetBits(f,b) : hsClearBits(f,b)
+#define SetBit(f, b, on) on ? hsSetBits(f, b) : hsClearBits(f, b)
 
 BOOL plStandardStage::IDlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -337,13 +337,13 @@ static NameType gBackward[] =
 static NameType gAdvance[] =
 {
     { "None",       plAnimStage::kAdvanceNone },
-    { "Auto At End",plAnimStage::kAdvanceAuto }
+    { "Auto At End", plAnimStage::kAdvanceAuto }
 };
 
 static NameType gRegress[] =
 {
     { "None",       plAnimStage::kRegressNone },
-    { "Auto At End",plAnimStage::kRegressAuto }
+    { "Auto At End", plAnimStage::kRegressAuto }
 };
 
 static void LoadCombo(HWND hCombo, NameType* nameInt, int size, int curVal)

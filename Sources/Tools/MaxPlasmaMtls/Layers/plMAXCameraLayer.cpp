@@ -158,7 +158,7 @@ static ParamBlockDesc2 gMAXCameraLayerParamBlk
 
     plMAXCameraLayer::kDisableColor, _T("disableColor"), TYPE_RGBA, 0, 0,
         p_ui,           TYPE_COLORSWATCH, IDC_CAM_LAYER_DISABLE_COLOR,
-        p_default,      Color(0,0,0),
+        p_default,      Color(0, 0, 0),
         end,
 
     plMAXCameraLayer::kForce, _T("force"),  TYPE_BOOL,      0, 0,

@@ -222,7 +222,7 @@ bool plArmatureComponent::PreConvert(plMaxNode* node, plErrorMsg* pErrMsg)
     plKey key = hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), pAudible, node->GetLocation());
 
     plAudioInterface* ai = new plAudioInterface;
-    plKey pAiKey = hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), (hsKeyedObject*)ai,node->GetLocation());
+    plKey pAiKey = hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), (hsKeyedObject*)ai, node->GetLocation());
         
     hsgResMgr::ResMgr()->AddViaNotify(pAiKey, new plObjRefMsg(node->GetKey(), plRefMsg::kOnCreate, 0, plObjRefMsg::kInterface), plRefFlags::kActiveRef);
         
@@ -387,14 +387,14 @@ ParamBlockDesc2 gPAvatarBk
         p_default, plClothingMgr::kClothingBaseMale,
         end,
 
-    plArmatureComponent::kBounceGroups, _T("bounceGroups"), TYPE_INT,   0,0,
+    plArmatureComponent::kBounceGroups, _T("bounceGroups"), TYPE_INT,   0, 0,
         p_default,  plPhysicsGroups_DEAD::kCreatures |
                     plPhysicsGroups_DEAD::kStaticSimulated |
                     plPhysicsGroups_DEAD::kDynamicSimulated |
                     plPhysicsGroups_DEAD::kAnimated,
         end,
 
-    plArmatureComponent::kReportGroups, _T("reportGroups"), TYPE_INT,   0,0,
+    plArmatureComponent::kReportGroups, _T("reportGroups"), TYPE_INT,   0, 0,
         end,
 
     plAvatarComponent::kBrainType, _T("Brain"), TYPE_INT, 0, 0,
@@ -436,7 +436,7 @@ ParamBlockDesc2 gPAvatarBk
         p_ui,   kArmMain, TYPE_EDITBOX, IDC_BODYFOOTSTEPPAGE_EDIT,
         end,
 
-    plAvatarComponent::kAnimationPrefix,_T("animationPrefix"), TYPE_STRING, 0,  0,
+    plAvatarComponent::kAnimationPrefix, _T("animationPrefix"), TYPE_STRING, 0,  0,
         p_default, "Male",
         p_ui,   kArmMain, TYPE_EDITBOX, IDC_ANIMATIONPREFIX_EDIT,
         end,
@@ -481,7 +481,7 @@ void plAvatarComponent::IAttachModifiers(plMaxNode *node, plErrorMsg *pErrMsg)
     //AddLinkSound(node, node->GetSceneObject()->GetKey(), pErrMsg);
 
     plKey avKey = hsgResMgr::ResMgr()->NewKey(IGetUniqueName(node), avMod, node->GetLocation());
-    plObjRefMsg *objRefMsg = new plObjRefMsg(bodySO->GetKey(), plRefMsg::kOnCreate,-1, plObjRefMsg::kModifier);
+    plObjRefMsg *objRefMsg = new plObjRefMsg(bodySO->GetKey(), plRefMsg::kOnCreate, -1, plObjRefMsg::kModifier);
     hsgResMgr::ResMgr()->AddViaNotify(avKey, objRefMsg, plRefFlags::kActiveRef);
 
     fArmMod = avMod;
@@ -661,7 +661,7 @@ class plCompoundCtrlComponent : public plComponent
 public:
     plCompoundCtrlComponent();
     bool SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg);
-    bool Convert(plMaxNode* node,plErrorMsg *pErrMsg);
+    bool Convert(plMaxNode* node, plErrorMsg *pErrMsg);
 };
 
 CLASS_DESC(plCompoundCtrlComponent, gCompoundCtrlCompDesc, "Compound Controller", "CompoundCtrl", COMP_TYPE_AVATAR, Class_ID(0x3f2a790f, 0x30354673))
@@ -831,8 +831,8 @@ public:
             {
                 int LodBeginState   = map->GetParamBlock()->GetInt(plLODAvatarComponent::kLODState);
                 
-                if (fPB->GetINode(plLODAvatarComponent::kMeshNodeAddBtn,t))
-                    fPB->SetValue(plLODAvatarComponent::kMeshNodeTab, t, fPB->GetINode(plLODAvatarComponent::kMeshNodeAddBtn,t), LodBeginState);
+                if (fPB->GetINode(plLODAvatarComponent::kMeshNodeAddBtn, t))
+                    fPB->SetValue(plLODAvatarComponent::kMeshNodeTab, t, fPB->GetINode(plLODAvatarComponent::kMeshNodeAddBtn, t), LodBeginState);
                     
                 if (LOWORD(wParam) == IDC_COMP_LOD_AVATAR_STATE && HIWORD(wParam) == CBN_SELCHANGE)
                 {
@@ -840,7 +840,7 @@ public:
                     fPB->SetValue(plLODAvatarComponent::kLODState, 0, idx);
                     
                     if (fPB->GetINode(plLODAvatarComponent::kMeshNodeTab, t, idx))
-                        fPB->SetValue(plLODAvatarComponent::kMeshNodeAddBtn, t, fPB->GetINode(plLODAvatarComponent::kMeshNodeTab,t, idx));
+                        fPB->SetValue(plLODAvatarComponent::kMeshNodeAddBtn, t, fPB->GetINode(plLODAvatarComponent::kMeshNodeTab, t, idx));
                     else
                         fPB->Reset(plLODAvatarComponent::kMeshNodeAddBtn);
                     return true;
@@ -853,8 +853,8 @@ public:
             {
                 int LodBeginState   = map->GetParamBlock()->GetInt(plLODAvatarComponent::kLODState);
 
-                if (fPB->GetINode(plLODAvatarComponent::kMeshNodeAddBtn,t))
-                    fPB->SetValue(plLODAvatarComponent::kMeshNodeTab, t, fPB->GetINode(plLODAvatarComponent::kMeshNodeAddBtn,t), LodBeginState);
+                if (fPB->GetINode(plLODAvatarComponent::kMeshNodeAddBtn, t))
+                    fPB->SetValue(plLODAvatarComponent::kMeshNodeTab, t, fPB->GetINode(plLODAvatarComponent::kMeshNodeAddBtn, t), LodBeginState);
 
                 return false;
             }
@@ -962,14 +962,14 @@ ParamBlockDesc2 gPLODAvatarBk
         p_default, plClothingMgr::kClothingBaseMale,
         end,
 
-    plArmatureComponent::kBounceGroups, _T("bounceGroups"), TYPE_INT,   0,0,
+    plArmatureComponent::kBounceGroups, _T("bounceGroups"), TYPE_INT,   0, 0,
         p_default,  plPhysicsGroups_DEAD::kCreatures |
                     plPhysicsGroups_DEAD::kStaticSimulated |
                     plPhysicsGroups_DEAD::kDynamicSimulated |
                     plPhysicsGroups_DEAD::kAnimated,
         end,
 
-    plArmatureComponent::kReportGroups, _T("reportGroups"), TYPE_INT,   0,0,
+    plArmatureComponent::kReportGroups, _T("reportGroups"), TYPE_INT,   0, 0,
         end,
 
     plLODAvatarComponent::kBrainType, _T("Brain"), TYPE_INT, 0, 0,
@@ -1031,7 +1031,7 @@ ParamBlockDesc2 gPLODAvatarBk
         p_ui,   kArmMain, TYPE_EDITBOX, IDC_BODYFOOTSTEPPAGE_EDIT,
         end,
 
-    plLODAvatarComponent::kAnimationPrefix,_T("animationPrefix"), TYPE_STRING,  0,  0,
+    plLODAvatarComponent::kAnimationPrefix, _T("animationPrefix"), TYPE_STRING,  0,  0,
         p_default, "Male",
         p_ui,   kArmMain, TYPE_EDITBOX, IDC_ANIMATIONPREFIX_EDIT,
         end,

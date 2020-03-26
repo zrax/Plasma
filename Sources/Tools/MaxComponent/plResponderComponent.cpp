@@ -340,7 +340,7 @@ bool plResponderComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
     return true;
 }
 
-bool plResponderComponent::PreConvert(plMaxNode *node,plErrorMsg *pErrMsg)
+bool plResponderComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
 {
     plSceneObject* rObj = node->GetSceneObject();
     plLocation loc = node->GetLocation();

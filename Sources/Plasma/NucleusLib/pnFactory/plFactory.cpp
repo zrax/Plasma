@@ -291,7 +291,7 @@ const char  *plFactory::GetNameOfClass(uint16_t type)
             return plCreatableStrings::fNonKeyedPostDBStrings[idx];
     }
 
-    hsAssert(type < GetNumClasses() || type==0xffff,"InValid type");
+    hsAssert(type < GetNumClasses() || type==0xffff, "InValid type");
     return nil;
 }
 
@@ -325,7 +325,7 @@ void plFactory::IValidate(uint16_t keyIndex)
             if (iter >= KEYED_OBJ_DELINEATOR && theFactory->fCreators[iter])
             {
                 char Buffer[512];
-                sprintf(Buffer, "Object %s is a hsKeyedObject, Must appear before 'KEYED_OBJ_DELINEATOR' in plCreatableIndex.h\n",GetNameOfClass(iter));
+                sprintf(Buffer, "Object %s is a hsKeyedObject, Must appear before 'KEYED_OBJ_DELINEATOR' in plCreatableIndex.h\n", GetNameOfClass(iter));
                 hsStatusMessage(Buffer);
                 bogus = true;
             }
@@ -336,14 +336,14 @@ void plFactory::IValidate(uint16_t keyIndex)
             if (iter < KEYED_OBJ_DELINEATOR && theFactory->fCreators[iter])
             {
                 char Buffer[512];
-                sprintf(Buffer, "Object %s is NOT a hsKeyedObject, Must appear after 'KEYED_OBJ_DELINEATOR' in plCreatableIndex.h\n",GetNameOfClass(iter));
+                sprintf(Buffer, "Object %s is NOT a hsKeyedObject, Must appear after 'KEYED_OBJ_DELINEATOR' in plCreatableIndex.h\n", GetNameOfClass(iter));
                 hsStatusMessage(Buffer);
                 bogus = true;
             
             }
         }
     }
-    hsAssert(!bogus,"The class(s) you just added to plCreatableIndex.h in wrong spot, see output window");
+    hsAssert(!bogus, "The class(s) you just added to plCreatableIndex.h in wrong spot, see output window");
 
 }
 

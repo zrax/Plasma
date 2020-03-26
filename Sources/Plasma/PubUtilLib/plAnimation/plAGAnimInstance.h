@@ -147,7 +147,7 @@ public:
 
     /** Start playback of the animation. You may optionally provide the a world
         time, which is needed for synchronizing the animation's timeline
-        with the global timeline. If timeNow is -1 (the default,) the system
+        with the global timeline. If timeNow is -1 (the default), the system
         time will be polled */
     void Start(double worldTimeNow = -1);
     

@@ -157,7 +157,7 @@ public:
         kPointLight3,           // 9x4, kPointLight1 x 3
         kPointLight4,           // 12x4, kPointLight1 x4
         kLayAmbient,            // 4x4
-        kLayRuntime,            // 4x4 (r,g,b,a)
+        kLayRuntime,            // 4x4 (r, g, b, a)
         kLaySpecular,           // 4x4 (but alpha is ignored).
         kFogSet,                // 1x4 = (-FogMax, 1.f/(FogMin - FogMax), density, 1)
         kColorFilter,           // 1x4 color filter currently applied to entire scene.

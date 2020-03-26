@@ -185,7 +185,7 @@ void plCoordinateInterface::IAttachChild(plSceneObject* child, uint8_t flags)
     IAddChild(child);
 
     if (flags & kMaintainWorldPosition)
-        childCI->WarpToWorld(l2w,w2l);
+        childCI->WarpToWorld(l2w, w2l);
 }
 
 void plCoordinateInterface::IDetachChild(plSceneObject* child, uint8_t flags)
@@ -203,7 +203,7 @@ void plCoordinateInterface::IDetachChild(plSceneObject* child, uint8_t flags)
     IRemoveChild(child);
 
     if (flags & kMaintainWorldPosition)
-        childCI->WarpToWorld(l2w,w2l);
+        childCI->WarpToWorld(l2w, w2l);
 
     // If the child was keeping us from delaying our transform,
     // maybe we can, now that it's gone.
@@ -557,7 +557,7 @@ void plCoordinateInterface::Read(hsStream* stream, hsResMgr* mgr)
     for (i = 0; i < n; i++)
     {
         plIntRefMsg* refMsg = new plIntRefMsg(GetKey(), plRefMsg::kOnCreate, -1, plIntRefMsg::kChildObject);
-        mgr->ReadKeyNotifyMe(stream,refMsg, plRefFlags::kPassiveRef);
+        mgr->ReadKeyNotifyMe(stream, refMsg, plRefFlags::kPassiveRef);
     }
 }
 
@@ -590,7 +590,7 @@ bool plCoordinateInterface::MsgReceive(plMessage* msg)
         hsMatrix44 l2w = pWarpMsg->GetTransform();
         hsMatrix44 inv;
         l2w.GetInverse(&inv);
-        WarpToWorld(l2w,inv);
+        WarpToWorld(l2w, inv);
         if (pWarpMsg->GetWarpFlags() & plWarpMsg::kFlushTransform)
             ITransformChanged(false, kReasonUnknown, false);
         return true;

@@ -318,7 +318,7 @@ void plAnimatedMovementStrategy::IRecalcLinearVelocity(float elapsed, hsMatrix44
         // the same direction as the vector from the previous animation position to the
         // current animation position.
         //
-        // If they don't agree (dot < 0,) then we probably mpst wrapped around.
+        // If they don't agree (dot < 0), then we probably mpst wrapped around.
         // The right answer would be to compare the current frame to the start of
         // the anim loop, but it's cheaper to cheat and use the previous frame's velocity.
         if (dot > 0.0f)
@@ -784,8 +784,8 @@ Discussion:
 
 Except for the zero angle case, it should be true that
 
-ANGLE_RAD_2D(X1,Y1,X2,Y2,X3,Y3)
-+ ANGLE_RAD_2D(X3,Y3,X2,Y2,X1,Y1) = 2 * PI
+ANGLE_RAD_2D(X1, Y1, X2, Y2, X3, Y3)
++ ANGLE_RAD_2D(X3, Y3, X2, Y2, X1, Y1) = 2 * PI
 
 Modified:
 

@@ -57,7 +57,7 @@ protected:
     plNetSharedState fSharedState;
 public:
     plSharedStateMsg() {}
-    plSharedStateMsg(const plKey &s, const plKey &r, const double* t) : plMessage(s,r,t) {}
+    plSharedStateMsg(const plKey &s, const plKey &r, const double* t) : plMessage(s, r, t) {}
 
     CLASSNAME_REGISTER(plSharedStateMsg);
     GETINTERFACE_ANY(plSharedStateMsg, plMessage);

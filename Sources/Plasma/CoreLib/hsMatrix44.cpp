@@ -333,7 +333,7 @@ hsMatrix44&     hsMatrix44::SetRotate(int axis, float radians)
 {
     float s = sin(radians);
     float c = cos(radians);
-    int c1,c2;
+    int c1, c2;
     switch (axis)
     {
     case 0:
@@ -407,7 +407,7 @@ hsMatrix44& hsMatrix44::Make(const hsPoint3* f, const hsPoint3* at, const hsVect
     hsVector3 trans(f->fX, f->fY, f->fZ);
     MakeTranslateMat(&trans);
 
-    hsVector3 back (f,at);  // Z
+    hsVector3 back (f, at);  // Z
     back.Normalize();
 
     hsVector3 leftEar = *up % back; // X, LHS
@@ -442,7 +442,7 @@ hsMatrix44& hsMatrix44::MakeUpPreserving(const hsPoint3* f, const hsPoint3* at, 
     hsVector3 topHead = *up;
     topHead.Normalize();
 
-    hsVector3 back (f,at);  // Z
+    hsVector3 back (f, at);  // Z
     back = -back;   // really front
 
     hsVector3 leftEar = *up % back; // X
@@ -467,9 +467,9 @@ hsMatrix44& hsMatrix44::MakeUpPreserving(const hsPoint3* f, const hsPoint3* at, 
 void    hsMatrix44::GetAxis(hsVector3* view, hsVector3 *up, hsVector3* right)
 {
     if (view)
-        view->Set(-fMap[0][1],-fMap[1][1],-fMap[2][1]);
+        view->Set(-fMap[0][1], -fMap[1][1], -fMap[2][1]);
     if (right)
-        right->Set(-fMap[0][0],-fMap[1][0],-fMap[2][0]);
+        right->Set(-fMap[0][0], -fMap[1][0], -fMap[2][0]);
     if (up)
         up->Set(fMap[0][2], fMap[1][2], fMap[2][2]);
 }
@@ -481,7 +481,7 @@ const hsVector3 hsMatrix44::GetAxis(int i) const
     {
     case kView:
         {
-            ret.Set(-fMap[0][1],-fMap[1][1],-fMap[2][1]);
+            ret.Set(-fMap[0][1], -fMap[1][1], -fMap[2][1]);
             break;
         }
     case kUp:
@@ -491,7 +491,7 @@ const hsVector3 hsMatrix44::GetAxis(int i) const
         }
     case kRight:
         {
-            ret.Set(-fMap[0][0],-fMap[1][0],-fMap[2][0]);
+            ret.Set(-fMap[0][0], -fMap[1][0], -fMap[2][0]);
             break;
         }
     }
@@ -588,9 +588,9 @@ void hsMatrix44::MakeEnvMapMatrices(const hsPoint3& pos, hsMatrix44* worldToCame
 void    hsMatrix44::GetAxisFromCamera(hsVector3* view, hsVector3 *up, hsVector3* right)
 {
     if (view)
-        view->Set(fMap[2][0],fMap[2][1],fMap[2][2]);
+        view->Set(fMap[2][0], fMap[2][1], fMap[2][2]);
     if (right)
-        right->Set(fMap[0][0],fMap[0][1],fMap[0][2]);
+        right->Set(fMap[0][0], fMap[0][1], fMap[0][2]);
     if (up)
         up->Set(fMap[1][0], fMap[1][1], fMap[1][2]);
 }
@@ -639,7 +639,7 @@ hsMatrix44* hsMatrix44::GetTranspose(hsMatrix44* transp) const
 }
 
 
-static inline float Determinant2(float a, float b,float c, float d)
+static inline float Determinant2(float a, float b, float c, float d)
 {
     return (a * d) - (c * b);
 }
@@ -744,7 +744,7 @@ hsMatrix44 *hsMatrix44::GetAdjoint(hsMatrix44 *adj) const
 hsMatrix44* hsMatrix44::GetInverse(hsMatrix44* inverse) const
 {
     float det = GetDeterminant();
-    int i,j;
+    int i, j;
 
     if (det == 0.0f)
     {
@@ -896,7 +896,7 @@ void hsMatrix44::Read(hsStream *stream)
 {
     if (stream->ReadBool())
     {
-        int i,j;
+        int i, j;
         for (i=0; i<4; i++)
             for (j=0; j<4; j++)
                 fMap[i][j] = stream->ReadLEFloat();
@@ -912,7 +912,7 @@ void hsMatrix44::Write(hsStream *stream)
     stream->WriteBool(!ident);
     if (!ident)
     {
-        int i,j;
+        int i, j;
         for (i=0; i<4; i++)
             for (j=0; j<4; j++)
                 stream->WriteLEFloat(fMap[i][j]);

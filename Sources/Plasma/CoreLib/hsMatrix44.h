@@ -75,7 +75,7 @@ struct hsMatrix44 {
 
     static const hsMatrix44& IdentityMatrix();
 
-    // worldToCameras and cameraToWorlds are arrays of 6 matrices. Returned are LEFT,RIGHT,FRONT,BACK,TOP,BOTTOM.
+    // worldToCameras and cameraToWorlds are arrays of 6 matrices. Returned are LEFT, RIGHT, FRONT, BACK, TOP, BOTTOM.
     static void MakeEnvMapMatrices(const hsPoint3& pos, hsMatrix44* worldToCameras, hsMatrix44* cameraToWorlds);
     static void MakeCameraMatrices(const hsPoint3& from, const hsPoint3& at, const hsVector3& up, hsMatrix44& worldToCamera, hsMatrix44& cameraToWorld);
 

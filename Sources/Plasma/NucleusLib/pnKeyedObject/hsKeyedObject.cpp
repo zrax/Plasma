@@ -131,9 +131,9 @@ void hsKeyedObject::UnRegisterAs(plFixedKeyId fixedKey)
 
 plKey hsKeyedObject::RegisterAsManual(plUoid& meUoid, const ST::string& p)
 {
-    hsAssert(meUoid.GetClassType() == ClassIndex(),"Registering as wrong type!");
+    hsAssert(meUoid.GetClassType() == ClassIndex(), "Registering as wrong type!");
     // Really should be a NewKey() call just for fixed keys, so change this once player rooms behave
-    plKey pkey = hsgResMgr::ResMgr()->ReRegister(p,meUoid);
+    plKey pkey = hsgResMgr::ResMgr()->ReRegister(p, meUoid);
 
     if (pkey)
         SetKey(pkey);
@@ -176,7 +176,7 @@ void hsKeyedObject::Read(hsStream* s, hsResMgr* mgr)
 
 void hsKeyedObject::Write(hsStream* s, hsResMgr* mgr)
 {
-    hsAssert(GetKey(),"hsKeyedObject:Must have a key!");
+    hsAssert(GetKey(), "hsKeyedObject:Must have a key!");
     mgr->WriteKey(s, fpKey);
 }
 

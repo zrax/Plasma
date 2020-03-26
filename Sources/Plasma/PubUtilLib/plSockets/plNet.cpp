@@ -70,9 +70,9 @@ SOCKET plNet::NewTCP()
     SOCKET x = ::socket(AF_INET, SOCK_STREAM, 0);
     unsigned int timeoutval;
     timeoutval = kDefaultSocketTimeout;
-    setsockopt(x, SOL_SOCKET, (int)SO_RCVTIMEO,(const char*)&timeoutval,sizeof(timeoutval));
+    setsockopt(x, SOL_SOCKET, (int)SO_RCVTIMEO, (const char*)&timeoutval, sizeof(timeoutval));
     timeoutval = kDefaultSocketTimeout;
-    setsockopt(x, SOL_SOCKET, (int)SO_SNDTIMEO,(const char*)&timeoutval,sizeof(timeoutval));
+    setsockopt(x, SOL_SOCKET, (int)SO_SNDTIMEO, (const char*)&timeoutval, sizeof(timeoutval));
     return x;
 }
 
@@ -83,23 +83,23 @@ int plNet::GetError()
 
 int plNet::Read(const SOCKET sck, char * buf, const int size)
 {
-    return ::recv(sck,buf,size,0);
+    return ::recv(sck, buf, size, 0);
 }
 
 int plNet::Write(const SOCKET sck, const char * buf, const int len)
 {
-    return ::send(sck,buf,len,0);
+    return ::send(sck, buf, len, 0);
 }
 
 int plNet::ReadFrom(const SOCKET sck, char * buf, int len, sockaddr_in * addr)
 {
     int addrlen = sizeof(sockaddr);
-    return ::recvfrom(sck,buf,len,0,reinterpret_cast<sockaddr*>(addr),&addrlen);
+    return ::recvfrom(sck, buf, len, 0, reinterpret_cast<sockaddr*>(addr), &addrlen);
 }
 
 int plNet::WriteTo(const SOCKET sck, const char * buf, const int len, sockaddr_in * addr)
 {
-    return ::sendto(sck,buf,len,0,reinterpret_cast<const sockaddr*>(addr),sizeof(sockaddr));
+    return ::sendto(sck, buf, len, 0, reinterpret_cast<const sockaddr*>(addr), sizeof(sockaddr));
 }
 
 int plNet::Connect(const SOCKET sck, const sockaddr_in * addr)
@@ -114,23 +114,23 @@ int plNet::Close(const SOCKET sck)
 
 int plNet::Bind(const SOCKET sck, const sockaddr_in * addr)
 {
-    return ::bind(sck,reinterpret_cast<const sockaddr*>(addr),sizeof(sockaddr));
+    return ::bind(sck, reinterpret_cast<const sockaddr*>(addr), sizeof(sockaddr));
 }
 
 int plNet::Listen(const SOCKET sck, const int qsize)
 {
-    return ::listen(sck,qsize);
+    return ::listen(sck, qsize);
 }
 
 int plNet::Accept(const SOCKET sck, sockaddr_in * addr)
 {
     int addrlen = sizeof(sockaddr);
-    return ::accept(sck,reinterpret_cast<sockaddr*>(addr),&addrlen);
+    return ::accept(sck, reinterpret_cast<sockaddr*>(addr), &addrlen);
 }
 
 int plNet::Ioctl(const SOCKET sck, const long flags, unsigned long * val)
 {
-    return ::ioctlsocket(sck,flags,val);
+    return ::ioctlsocket(sck, flags, val);
 }
 
 // static
@@ -225,9 +225,9 @@ SOCKET plNet::NewTCP()
     SOCKET x = ::socket(AF_INET, SOCK_STREAM, 0);
     unsigned int timeoutval;
     timeoutval = kDefaultSocketTimeout;
-    setsockopt(x, SOL_SOCKET, (int)SO_RCVTIMEO,(const char*)&timeoutval,sizeof(timeoutval));
+    setsockopt(x, SOL_SOCKET, (int)SO_RCVTIMEO, (const char*)&timeoutval, sizeof(timeoutval));
     timeoutval = kDefaultSocketTimeout;
-    setsockopt(x, SOL_SOCKET, (int)SO_SNDTIMEO,(const char*)&timeoutval,sizeof(timeoutval));
+    setsockopt(x, SOL_SOCKET, (int)SO_SNDTIMEO, (const char*)&timeoutval, sizeof(timeoutval));
     return x;
 }
 
@@ -238,23 +238,23 @@ int plNet::GetError()
 
 int plNet::Read(const SOCKET sck, char * buf, const int size)
 {
-    return ::recv(sck,buf,size,0);
+    return ::recv(sck, buf, size, 0);
 }
 
 int plNet::Write(const SOCKET sck, const char * buf, const int len)
 {
-    return ::send(sck,buf,len,0);
+    return ::send(sck, buf, len, 0);
 }
 
 int plNet::ReadFrom(const SOCKET sck, char * buf, int len, sockaddr_in * addr)
 {
     unsigned addrlen = sizeof(sockaddr);
-    return ::recvfrom(sck,buf,len,0,reinterpret_cast<sockaddr*>(addr),&addrlen);
+    return ::recvfrom(sck, buf, len, 0, reinterpret_cast<sockaddr*>(addr), &addrlen);
 }
 
 int plNet::WriteTo(const SOCKET sck, const char * buf, const int len, sockaddr_in * addr)
 {
-    return ::sendto(sck,buf,len,0,reinterpret_cast<const sockaddr*>(addr),sizeof(sockaddr));
+    return ::sendto(sck, buf, len, 0, reinterpret_cast<const sockaddr*>(addr), sizeof(sockaddr));
 }
 
 int plNet::Connect(const SOCKET sck, const sockaddr_in * addr)
@@ -269,23 +269,23 @@ int plNet::Close(const SOCKET sck)
 
 int plNet::Bind(const SOCKET sck, const sockaddr_in * addr)
 {
-    return ::bind(sck,reinterpret_cast<const sockaddr*>(addr),sizeof(sockaddr));
+    return ::bind(sck, reinterpret_cast<const sockaddr*>(addr), sizeof(sockaddr));
 }
 
 int plNet::Listen(const SOCKET sck, const int qsize)
 {
-    return ::listen(sck,qsize);
+    return ::listen(sck, qsize);
 }
 
 int plNet::Accept(const SOCKET sck, sockaddr_in * addr)
 {
     unsigned addrlen = sizeof(sockaddr);
-    return ::accept(sck,reinterpret_cast<sockaddr*>(addr),&addrlen);
+    return ::accept(sck, reinterpret_cast<sockaddr*>(addr), &addrlen);
 }
 
 int plNet::Ioctl(const SOCKET sck, const long flags, unsigned long * val)
 {
-    return ::ioctl(sck,flags,val);
+    return ::ioctl(sck, flags, val);
 }
 
 #else

@@ -187,7 +187,7 @@ void pyDynamicText::PurgeImage()
 
 void pyDynamicText::SetTextColor(pyColor& color)
 {
-    SetTextColor2(color,false);
+    SetTextColor2(color, false);
 }
 
 void pyDynamicText::SetTextColor2(pyColor& color, bool blockRGB)
@@ -197,7 +197,7 @@ void pyDynamicText::SetTextColor2(pyColor& color, bool blockRGB)
     if (pMsg)
     {
         hsColorRGBA col = color.getColor();
-        pMsg->SetTextColor(col,blockRGB);
+        pMsg->SetTextColor(col, blockRGB);
         plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 }
@@ -208,7 +208,7 @@ void pyDynamicText::SetFont(const char *facename, int16_t size)
     plDynamicTextMsg* pMsg = ICreateDTMsg();
     if (pMsg)
     {
-        pMsg->SetFont(facename,size);
+        pMsg->SetFont(facename, size);
         plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 }
@@ -220,7 +220,7 @@ void pyDynamicText::FillRect(uint16_t left, uint16_t top, uint16_t right, uint16
     if (pMsg)
     {
         hsColorRGBA col = color.getColor();
-        pMsg->FillRect(left,top,right,bottom,col);
+        pMsg->FillRect(left, top, right, bottom, col);
         plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 }
@@ -232,7 +232,7 @@ void pyDynamicText::FrameRect(uint16_t left, uint16_t top, uint16_t right, uint1
     if (pMsg)
     {
         hsColorRGBA col = color.getColor();
-        pMsg->FrameRect(left,top,right,bottom,col);
+        pMsg->FrameRect(left, top, right, bottom, col);
         plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }
 }
@@ -277,11 +277,11 @@ void pyDynamicText::DrawText(int16_t x, int16_t y, const ST::string& text)
         //  2) clip
         //  3) just draw
         if (fWrap)
-            pMsg->DrawWrappedString(x,y,fWrapWidth,fWrapHeight,text);
+            pMsg->DrawWrappedString(x, y, fWrapWidth, fWrapHeight, text);
         else if (fClip)
-            pMsg->DrawClippedString(x,y,fClipLeft,fClipTop,fClipRight,fClipBottom,text);
+            pMsg->DrawClippedString(x, y, fClipLeft, fClipTop, fClipRight, fClipBottom, text);
         else
-            pMsg->DrawString(x,y,text);
+            pMsg->DrawString(x, y, text);
 
         plgDispatch::MsgSend(pMsg);   // whoosh... off it goes
     }

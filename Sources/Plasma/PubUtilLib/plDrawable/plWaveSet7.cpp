@@ -959,7 +959,7 @@ float plWaveSet7::EvalPoint(hsPoint3& pos, hsVector3& norm)
     hsPoint3 accumPos;
     hsVector3 accumNorm;
     accumPos.Set(pos.fX, pos.fY, State().fWaterHeight);
-    accumNorm.Set(0,0,0);
+    accumNorm.Set(0, 0, 0);
 
     int i;
     for (i = 0; i < kNumWaves; i++)
@@ -1289,7 +1289,7 @@ void plWaveSet7::IInitState()
     state.fWaterTint = hsColorRGBA().Set(0.1f, 0.2f, 0.2f, 1.f);
     state.fSpecularTint = hsColorRGBA().Set(1.f, 1.f, 1.f, 1.f);
 
-    state.fEnvCenter = hsPoint3(0,0,0);
+    state.fEnvCenter = hsPoint3(0, 0, 0);
     state.fEnvRadius = 500.f;
     state.fEnvRefresh = 0.f;
 
@@ -3756,7 +3756,7 @@ void plWaveSet7::IRefillBubbleShoreTex()
     const int height = mipMap->GetHeight();
 
     // Initialize to white opaque.
-    memset(mipMap->GetAddr32(0,0), 0xff, width*height*sizeof(uint32_t));
+    memset(mipMap->GetAddr32(0, 0), 0xff, width*height*sizeof(uint32_t));
 
     plConst(int) kMinNumBub(1024);
     plConst(int) kMaxNumBub(6000);

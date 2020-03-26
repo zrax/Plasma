@@ -60,7 +60,7 @@ protected:
 public:
     hsBitVector(const hsBitVector& other);
     hsBitVector(uint32_t which) : fBitVectors(nil), fNumBitVectors(0) { SetBit(which); }
-    hsBitVector(int b, ...); // list of one or more integer bits to set. -1 (or any negative) terminates the list (e.g. hsBitVector(0,1,4,-1);
+    hsBitVector(int b, ...); // list of one or more integer bits to set. -1 (or any negative) terminates the list (e.g. hsBitVector(0, 1, 4, -1);
     hsBitVector(const hsTArray<int16_t>& list); // sets bit for each int in list
     hsBitVector() : fBitVectors(nil), fNumBitVectors(0) {}
     virtual ~hsBitVector() { Reset(); }

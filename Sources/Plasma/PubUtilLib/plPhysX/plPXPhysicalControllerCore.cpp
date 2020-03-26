@@ -780,7 +780,7 @@ void plPXPhysicalControllerCore::ICreateController(const hsPoint3& pos)
     physColor.Set(.2f, .1f, .2f, 1.f);
     opac = 0.8f;
 
-    fProxyGen = new plPhysicalProxy(hsColorRGBA().Set(0,0,0,1.f), physColor, opac);
+    fProxyGen = new plPhysicalProxy(hsColorRGBA().Set(0, 0, 0, 1.f), physColor, opac);
     fProxyGen->Init(this);
     */
 }

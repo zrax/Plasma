@@ -119,8 +119,8 @@ plPXPhysical::plPXPhysical()
     , fProxyGen(nil)
     , fSndGroup(nil)
     , fWeWereHit(false)
-    , fHitForce(0,0,0)
-    , fHitPos(0,0,0)
+    , fHitForce(0, 0, 0)
+    , fHitPos(0, 0, 0)
 {
 }
 
@@ -913,20 +913,20 @@ void plPXPhysical::Read(hsStream* stream, hsResMgr* mgr)
     else if (fGroup == plSimDefs::kGroupDynamic)
     {
         // Dynamics are red
-        physColor.Set(1.f,0.f,0.f,1.f);
+        physColor.Set(1.f, 0.f, 0.f, 1.f);
     }
     else if (fGroup == plSimDefs::kGroupDetector)
     {
         if (!fRecipe.worldKey)
         {
             // Detectors are blue, and transparent
-            physColor.Set(0.f,0.f,1.f,1.f);
+            physColor.Set(0.f, 0.f, 1.f, 1.f);
             opac = 0.3f;
         }
         else
         {
             // subworld Detectors are green
-            physColor.Set(0.f,1.f,0.f,1.f);
+            physColor.Set(0.f, 1.f, 0.f, 1.f);
             opac = 0.3f;
         }
     }
@@ -934,10 +934,10 @@ void plPXPhysical::Read(hsStream* stream, hsResMgr* mgr)
     {
         if (GetProperty(plSimulationInterface::kPhysAnim))
             // Statics that are animated are more reddish?
-            physColor.Set(1.f,0.6f,0.2f,1.f);
+            physColor.Set(1.f, 0.6f, 0.2f, 1.f);
         else
             // Statics are yellow
-            physColor.Set(1.f,0.8f,0.2f,1.f);
+            physColor.Set(1.f, 0.8f, 0.2f, 1.f);
         // if in a subworld... slightly transparent
         if (fRecipe.worldKey)
             opac = 0.6f;
@@ -945,10 +945,10 @@ void plPXPhysical::Read(hsStream* stream, hsResMgr* mgr)
     else
     {
         // don't knows are grey
-        physColor.Set(0.6f,0.6f,0.6f,1.f);
+        physColor.Set(0.6f, 0.6f, 0.6f, 1.f);
     }
 
-    fProxyGen = new plPhysicalProxy(hsColorRGBA().Set(0,0,0,1.f), physColor, opac);
+    fProxyGen = new plPhysicalProxy(hsColorRGBA().Set(0, 0, 0, 1.f), physColor, opac);
     fProxyGen->Init(this);
 }
 
@@ -1384,8 +1384,8 @@ plDrawableSpans* plPXPhysical::CreateProxy(hsGMaterial* mat, hsTArray<uint32_t>&
     {
         hsPoint3 dim = plPXConvert::Point(box->getDimensions());
         myDraw = plDrawableGenerator::GenerateBoxDrawable(dim.fX*2.f, dim.fY*2.f, dim.fZ*2.f,
-            mat,l2w,blended,
-            nil,&idx,myDraw);
+            mat, l2w, blended,
+            nil, &idx, myDraw);
     }
     return myDraw;
 }

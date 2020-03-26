@@ -238,7 +238,7 @@ bool plCoopCoordinator::MsgReceive(plMessage *msg)
         DebugMsg("COOP: Received avatar seek finished msg: aborted = %d", seekDone->fAborted ? 1 : 0);
         if (seekDone->fAborted)
         {
-            plAvCoopMsg *coopM = new plAvCoopMsg(plAvCoopMsg::kGuestSeekAbort,fInitiatorID,(uint16_t)fInitiatorSerial);
+            plAvCoopMsg *coopM = new plAvCoopMsg(plAvCoopMsg::kGuestSeekAbort, fInitiatorID, (uint16_t)fInitiatorSerial);
             coopM->SetBCastFlag(plMessage::kNetPropagate);
             coopM->SetBCastFlag(plMessage::kNetForce);
             coopM->AddReceiver(GetKey());
@@ -247,7 +247,7 @@ bool plCoopCoordinator::MsgReceive(plMessage *msg)
         }
         else
         {
-            plAvCoopMsg *coopM = new plAvCoopMsg(plAvCoopMsg::kGuestSeeked,fInitiatorID,(uint16_t)fInitiatorSerial);
+            plAvCoopMsg *coopM = new plAvCoopMsg(plAvCoopMsg::kGuestSeeked, fInitiatorID, (uint16_t)fInitiatorSerial);
             coopM->SetBCastFlag(plMessage::kNetPropagate);
             coopM->SetBCastFlag(plMessage::kNetForce);
             coopM->AddReceiver(GetKey());

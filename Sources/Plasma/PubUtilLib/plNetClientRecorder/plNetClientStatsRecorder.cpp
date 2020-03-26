@@ -75,15 +75,15 @@ bool plNetClientStatsRecorder::BeginRecording(const char* recName)
 
 void plNetClientStatsRecorder::RecordMsg(plNetMessage* msg, double secs)
 {
-    if (IProcessRecordMsg(msg,secs))
+    if (IProcessRecordMsg(msg, secs))
     {
         char stats[256];
-        sprintf(stats,"tm:%4.2f;sz:%u,plrid:%s%u : ",secs,msg->GetPackSize(),msg->GetHasPlayerID()?"":"XX",msg->GetHasPlayerID()?msg->GetPlayerID():0);
+        sprintf(stats, "tm:%4.2f;sz:%u,plrid:%s%u : ", secs, msg->GetPackSize(), msg->GetHasPlayerID()?"":"XX", msg->GetHasPlayerID()?msg->GetPlayerID():0);
         // GetPackSize might compress the buffer on us, so uncompress it
         plNetMsgStreamedObject* so = plNetMsgStreamedObject::ConvertNoRef(msg);
         if (so)
             so->StreamInfo()->Uncompress();
-        ILogMsg(msg,stats);
+        ILogMsg(msg, stats);
     }
 }
 

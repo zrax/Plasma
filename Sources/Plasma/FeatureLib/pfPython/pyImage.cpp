@@ -91,7 +91,7 @@ PyObject* pyImage::GetPixelColor(float x, float y)
         uint32_t iY = (uint32_t)((float)height * y);
         hsColorRGBA pixColor;
         image->SetCurrLevel(0);
-        uint32_t *color = image->GetAddr32(iX,iY);
+        uint32_t *color = image->GetAddr32(iX, iY);
         pixColor.FromARGB32(*color);
         return pyColor::New(pixColor);
     }
@@ -121,7 +121,7 @@ PyObject* pyImage::GetColorLoc(const pyColor &color)
             for (int x = 0; x < width; x++)
             {
                 hsColorRGBA pixColor;
-                pixColor.FromARGB32(*(image->GetAddr32(x,y)));
+                pixColor.FromARGB32(*(image->GetAddr32(x, y)));
                 PyObject* imgColorObj = pyColor::New(pixColor);
                 pyColor* imgColor = pyColor::ConvertFrom(imgColorObj);
                 if ((*imgColor) == color)
@@ -132,7 +132,7 @@ PyObject* pyImage::GetColorLoc(const pyColor &color)
                     fY = (float)y / (float)height;
                     return pyPoint3::New(hsPoint3(fX, fY, 0));
                 }
-                double dist = pow((imgColor->getRed() - color.getRed()),2) + pow((imgColor->getGreen() - color.getGreen()),2) + pow((imgColor->getBlue() - color.getBlue()),2);
+                double dist = pow((imgColor->getRed() - color.getRed()), 2) + pow((imgColor->getGreen() - color.getGreen()), 2) + pow((imgColor->getBlue() - color.getBlue()), 2);
                 if (dist < minSqrDist)
                 {
                     minSqrDist = dist;

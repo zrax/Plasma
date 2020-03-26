@@ -200,7 +200,7 @@ void plNetClientMgr::SendLocalPlayerAvatarCustomizations()
     plSynchEnabler ps(true);    // make sure synching is enabled, since this happens during load
 
     const plArmatureMod * avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();
-    hsAssert(avMod,"Failed to get local avatar armature modifier.");
+    hsAssert(avMod, "Failed to get local avatar armature modifier.");
     avMod->GetClothingOutfit()->DirtySynchState(kSDLClothing, plSynchedObject::kBCastToClients | plSynchedObject::kForceFullSend);
 
     plSceneObject* pObj = (const_cast<plArmatureMod*>(avMod))->GetFollowerParticleSystemSO();
@@ -288,7 +288,7 @@ int plNetClientMgr::ISendGameMessage(plMessage* msg)
             uint32_t playerID = (*dstIDs)[i];
             if (playerID == NetCommGetPlayer()->playerInt)
                 continue;
-            hsLogEntry(DebugMsg("\tAdding receiver: {}" , playerID));
+            hsLogEntry(DebugMsg("\tAdding receiver: {}", playerID));
             ((plNetMsgGameMessageDirected*)netMsgWrap)->Receivers()->AddReceiverPlayerID(playerID);
         }
     }
@@ -308,7 +308,7 @@ int plNetClientMgr::ISendGameMessage(plMessage* msg)
     // put stream in net msg wrapper
     netMsgWrap->StreamInfo()->CopyStream(&stream);
     
-    // hsLogEntry(DebugMsg(plDispatchLog::GetInstance()->MakeMsgInfoString(msg, "\tActionMsg:",0)));
+    // hsLogEntry(DebugMsg(plDispatchLog::GetInstance()->MakeMsgInfoString(msg, "\tActionMsg:", 0)));
 
     // check if this msg uses direct communication (sent to specific rcvrs)
     // if so the server can filter it

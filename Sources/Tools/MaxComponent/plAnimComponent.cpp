@@ -665,7 +665,7 @@ bool plAnimComponentBase::SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg)
             parent->SetForceLocal(true);
 
             //char str[512];
-            //sprintf(str, "Forcing local on '%s' because of animated child '%s'\n",parent->GetName(),node->GetName());
+            //sprintf(str, "Forcing local on '%s' because of animated child '%s'\n", parent->GetName(), node->GetName());
             //OutputDebugString(str);
         }
     }

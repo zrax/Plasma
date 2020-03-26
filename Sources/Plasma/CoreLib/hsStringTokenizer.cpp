@@ -52,7 +52,7 @@ fString(nil),
 fSeps(nil),
 fLastTerminator(nil)
 {
-    Reset(string,seps);
+    Reset(string, seps);
 }
 
 hsStringTokenizer::~hsStringTokenizer()
@@ -176,7 +176,7 @@ hsWStringTokenizer::hsWStringTokenizer(const wchar_t *string, const wchar_t *sep
     fSeps(nil),
     fLastTerminator(nil)
 {
-    Reset(string,seps);
+    Reset(string, seps);
 }
 
 hsWStringTokenizer::~hsWStringTokenizer()

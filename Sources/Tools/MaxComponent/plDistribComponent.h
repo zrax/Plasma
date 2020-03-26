@@ -199,7 +199,7 @@ public:
     // Box3.Min()[2] == 0 turns off fadein.
     // Box3.Max()[2] == 0 turns off fadeout.
     //
-    // In all cases, max(Min()[0],Min()[1]) <= min(Max()[0], Max()[1])
+    // In all cases, max(Min()[0], Min()[1]) <= min(Max()[0], Max()[1])
     //
     // Also, either Min()[0] <= Min()[1] && Max()[0] >= Max()[1]
     //          or Min()[0] >= Min()[1] && Max()[0] <= Max()[1]

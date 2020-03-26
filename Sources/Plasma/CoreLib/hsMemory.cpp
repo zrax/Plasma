@@ -666,7 +666,7 @@ void SortNDumpUnfreedMemory(const char *nm, bool full) // file name base, and FU
 #endif
 
     char fname[512];
-    snprintf(fname,arrsize(fname),"%s_dmp.txt",nm);
+    snprintf(fname, arrsize(fname), "%s_dmp.txt", nm);
     char *errStr = "";
 
 
@@ -689,7 +689,7 @@ static  _CrtMemBlockHeader *cmbh_last;  // Remember this header for next increme
     looktbl *ltb = new looktbl[LTBLMAX];
     long tblEnd=1;          // first is "NULL";
 
-    memset((void *)ltb,0,sizeof(looktbl) * LTBLMAX);        // clear table area
+    memset((void *)ltb, 0, sizeof(looktbl) * LTBLMAX);        // clear table area
 
     char *ftrim;
 
@@ -712,7 +712,7 @@ static  _CrtMemBlockHeader *cmbh_last;  // Remember this header for next increme
                 ftrim = TrimFileName(cmbh->szFileName);
                 for (tblpos  = 1; tblpos < tblEnd; tblpos++)    // find the name in the table
                 {
-                    if (!strcmp(ftrim,ltb[tblpos].fName))
+                    if (!strcmp(ftrim, ltb[tblpos].fName))
                         break;  // found it
                 }
             }
@@ -747,44 +747,44 @@ static  _CrtMemBlockHeader *cmbh_last;  // Remember this header for next increme
 
     if (cmbh_last && !full && cmbh == NULL)
     {
-        //hsAssert(0,"Stats error: incremental mem check point has been deleted");
+        //hsAssert(0, "Stats error: incremental mem check point has been deleted");
         errStr = "CHECK POINT ERROR, Results Inacurate";
     }
 
     if (normsize)       // Don't write out about nothing
     {
         
-        CreateDirectory("Reports",NULL);            // stick em in a sub directory
+        CreateDirectory("Reports", NULL);            // stick em in a sub directory
         char fnm[512];
-        snprintf(fnm,arrsize(fnm),"Reports\\%s",fname);
+        snprintf(fnm, arrsize(fnm), "Reports\\%s", fname);
  
         FILE * DumpLogFile = fopen(fnm, "w");
 //      long allocs=0;
         if (DumpLogFile != NULL)
         {
                 // Print Stats
-            fprintf(DumpLogFile, "Filename                Total=%ld(k) %s\n",(normsize + 500)/1000,errStr);
+            fprintf(DumpLogFile, "Filename                Total=%ld(k) %s\n", (normsize + 500)/1000, errStr);
             for (int i = 0; i < tblEnd; i++)
-            {   //fprintf(DumpLogFile,"%s\t%ld\n",ltb[i].fName, (ltb[i].fBytes+500)/1000);//,ltb[i].fAllocs);
-                fprintf(DumpLogFile,"%s ",ltb[i].fName);
+            {   //fprintf(DumpLogFile, "%s\t%ld\n", ltb[i].fName, (ltb[i].fBytes+500)/1000);//, ltb[i].fAllocs);
+                fprintf(DumpLogFile, "%s ", ltb[i].fName);
                 int len = strlen(ltb[i].fName);
 
                 for (int x=len; x < 25; x++)
-                    fputc(' ',DumpLogFile);             // make even columns
-                fprintf(DumpLogFile,"%5ld K\n",(uint32_t)(ltb[i].fBytes+500)/1000);//,ltb[i].fAllocs);
+                    fputc(' ', DumpLogFile);             // make even columns
+                fprintf(DumpLogFile, "%5ld K\n", (uint32_t)(ltb[i].fBytes+500)/1000);//, ltb[i].fAllocs);
                 
                 //allocs += ltb[i].fAllocs;
             }
 
-            DebugMsg("MEMORY USE FILE DUMPED TO %s \n",fname);
-            DebugMsg("MEMORY Check: Total size %ld, Normal Size: %ld\n",totsize,normsize);
+            DebugMsg("MEMORY USE FILE DUMPED TO %s \n", fname);
+            DebugMsg("MEMORY Check: Total size %ld, Normal Size: %ld\n", totsize, normsize);
 
             fclose(DumpLogFile);
         }
         static int first=1;
         if (!full)          // if this is a partial mem dump, write to the ROOMS.txt file a summary
         {
-            snprintf(fnm,arrsize(fnm),"Reports\\%s","ROOMS.txt");
+            snprintf(fnm, arrsize(fnm), "Reports\\%s", "ROOMS.txt");
  
             if (first)
             {   DumpLogFile = fopen(fnm, "w");    // first time clobber the old
@@ -795,13 +795,13 @@ static  _CrtMemBlockHeader *cmbh_last;  // Remember this header for next increme
             else
                 DumpLogFile = fopen(fnm, "a+");
             if (DumpLogFile)
-            {   fprintf(DumpLogFile,"%s ",nm);
+            {   fprintf(DumpLogFile, "%s ", nm);
                 int len = strlen(nm);
                 GrandTotal += (uint32_t)(normsize+500)/1000;
 
                 for (int x=len; x < 25; x++)
-                    fputc(' ',DumpLogFile);                 // make even columns
-                fprintf(DumpLogFile,"%5ld K           %5ld  %s\n",(uint32_t)(normsize+500)/1000,GrandTotal,errStr);//, allocs);
+                    fputc(' ', DumpLogFile);                 // make even columns
+                fprintf(DumpLogFile, "%5ld K           %5ld  %s\n", (uint32_t)(normsize+500)/1000, GrandTotal, errStr);//, allocs);
                 fclose(DumpLogFile);
             }
         }

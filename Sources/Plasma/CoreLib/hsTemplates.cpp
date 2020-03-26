@@ -122,13 +122,13 @@ void TArrayStats()
 
     hsDlistNode * pNode = hsDlistNode::fpFirst;
     char fnm[512];
-    snprintf(fnm,arrsize(fnm),"Reports\\%s.txt","TArray");
+    snprintf(fnm, arrsize(fnm), "Reports\\%s.txt", "TArray");
     FILE * DumpLogFile = fopen(fnm, "w");
     if (!DumpLogFile) return;
     int i=0;
     int totWaste=0;
     int totUse =0;
-    fprintf(DumpLogFile,"TArray Stats, Total Created: %d,  Currently Used %d\n-----------------------\n", hsDlistNode::fcreated , hsDlistNode::fcreated - hsDlistNode::fdestroyed);
+    fprintf(DumpLogFile, "TArray Stats, Total Created: %d,  Currently Used %d\n-----------------------\n", hsDlistNode::fcreated, hsDlistNode::fcreated - hsDlistNode::fdestroyed);
     int notUsed =0;
     int used = 0;
     int totCount=0;
@@ -150,7 +150,7 @@ void TArrayStats()
                 waste = (tot - use) * siz;
                 totUse += (use * siz);
                 totWaste += waste;
-                fprintf(DumpLogFile,"[%d] SizeObject %d, Uses %d, Allocs %d, Waste %d\n", i, siz, use, tot, waste);
+                fprintf(DumpLogFile, "[%d] SizeObject %d, Uses %d, Allocs %d, Waste %d\n", i, siz, use, tot, waste);
             }
             else
                 notUsed++;
@@ -159,10 +159,10 @@ void TArrayStats()
         pNode = pNode->GetNext();
 //      if (pNode ==hsDlistNode::fpFirst) // dont loop
     }
-    fprintf(DumpLogFile,"TOTAL use %d,   waste %d\n", totUse,totWaste);
-    fprintf(DumpLogFile,"Empty Ones %d,   waste %d\n", notUsed, notUsed * 12); // 12 aprox size of TArray
+    fprintf(DumpLogFile, "TOTAL use %d,   waste %d\n", totUse, totWaste);
+    fprintf(DumpLogFile, "Empty Ones %d,   waste %d\n", notUsed, notUsed * 12); // 12 aprox size of TArray
     if (used)
-        fprintf(DumpLogFile,"Average Use %d\n", totCount / used);
+        fprintf(DumpLogFile, "Average Use %d\n", totCount / used);
 
     fclose(DumpLogFile);
 
@@ -176,13 +176,13 @@ void LargeArrayStats()
 
     hsDlistNode * pNode = hsDlistNode::fpFirst;
     char fnm[512];
-    snprintf(fnm,arrsize(fnm),"Reports\\%s.txt","TArray");
+    snprintf(fnm, arrsize(fnm), "Reports\\%s.txt", "TArray");
     FILE * DumpLogFile = fopen(fnm, "w");
     if (!DumpLogFile) return;
     int i=0;
     int totWaste=0;
     int totUse =0;
-    fprintf(DumpLogFile,"TArray Stats, Total Created: %d,  Currently Used %d\n-----------------------\n", hsDlistNode::fcreated , hsDlistNode::fcreated - hsDlistNode::fdestroyed);
+    fprintf(DumpLogFile, "TArray Stats, Total Created: %d,  Currently Used %d\n-----------------------\n", hsDlistNode::fcreated, hsDlistNode::fcreated - hsDlistNode::fdestroyed);
     int notUsed =0;
     int used = 0;
     int totCount=0;
@@ -204,7 +204,7 @@ void LargeArrayStats()
                 waste = (tot - use) * siz;
                 totUse += (use * siz);
                 totWaste += waste;
-                fprintf(DumpLogFile,"[%d] SizeObject %d, Uses %d, Allocs %d, Waste %d\n", i, siz, use, tot, waste);
+                fprintf(DumpLogFile, "[%d] SizeObject %d, Uses %d, Allocs %d, Waste %d\n", i, siz, use, tot, waste);
             }
             else
                 notUsed++;
@@ -213,10 +213,10 @@ void LargeArrayStats()
         pNode = pNode->GetNext();
 //      if (pNode ==hsDlistNode::fpFirst) // dont loop
     }
-    fprintf(DumpLogFile,"TOTAL use %d,   waste %d\n", totUse,totWaste);
-    fprintf(DumpLogFile,"Empty Ones %d,   waste %d\n", notUsed, notUsed * 12); // 12 aprox size of TArray
+    fprintf(DumpLogFile, "TOTAL use %d,   waste %d\n", totUse, totWaste);
+    fprintf(DumpLogFile, "Empty Ones %d,   waste %d\n", notUsed, notUsed * 12); // 12 aprox size of TArray
     if (used)
-        fprintf(DumpLogFile,"Average Use %d\n", totCount / used);
+        fprintf(DumpLogFile, "Average Use %d\n", totCount / used);
 
     fclose(DumpLogFile);
 

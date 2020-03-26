@@ -78,7 +78,7 @@ struct hsColor32 {
 typedef hsColor32 hsRGBAColor32;
 
 struct hsColorRGBA {
-    float        r,g,b,a;
+    float        r, g, b, a;
     
     hsRGBAColor32 ToRGBA32() const;
 

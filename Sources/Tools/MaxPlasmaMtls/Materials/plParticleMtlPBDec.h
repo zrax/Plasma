@@ -62,7 +62,7 @@ public:
         SendMessage(cbox, CB_SETCURSEL, pb->GetInt(plParticleMtl::kNormal), 0);
         pbbm = (layer == nil ? nil : layer->GetPBBitmap());
 
-        bmSelectBtn = GetICustButton(GetDlgItem(hWnd,IDC_PARTICLE_TEXTURE));
+        bmSelectBtn = GetICustButton(GetDlgItem(hWnd, IDC_PARTICLE_TEXTURE));
         bmSelectBtn->SetText(pbbm ? (TCHAR*)pbbm->bi.Filename() : "(none)");
         ReleaseICustButton(bmSelectBtn);
     }
@@ -146,12 +146,12 @@ static ParamBlockDesc2 gParticleMtlPB
 
     plParticleMtl::kColorAmb,   _T("ambColor"), TYPE_RGBA,      P_ANIMATABLE, IDS_PARTICLE_AMB_COLOR,
         p_ui,           TYPE_COLORSWATCH, IDC_PARTICLE_AMB_COLOR,
-        p_default,      Color(0,0,0),
+        p_default,      Color(0, 0, 0),
         end,
 
     plParticleMtl::kColor,      _T("color"),    TYPE_RGBA,      P_ANIMATABLE, IDS_PARTICLE_COLOR,
         p_ui,           TYPE_COLORSWATCH, IDC_PARTICLE_COLOR,
-        p_default,      Color(1,1,1),
+        p_default,      Color(1, 1, 1),
         end,
         
     plParticleMtl::kWidth,      _T("width"),    TYPE_FLOAT,     P_ANIMATABLE, IDS_PARTICLE_WIDTH,

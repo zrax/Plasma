@@ -106,6 +106,6 @@ bool plOutgoingUdpSocket::ActiveOpenNonBlocking(plNetAddress & addr)
 //  + bytes written
 int plOutgoingUdpSocket::SendData(const char * data, int size)
 {
-    return plNet::Write(fSocket,data,size);
+    return plNet::Write(fSocket, data, size);
 }
 

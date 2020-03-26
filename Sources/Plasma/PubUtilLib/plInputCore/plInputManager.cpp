@@ -608,7 +608,7 @@ void plDInputMgr::Update()
         
         DIDEVICEOBJECTDATA data;
         ULONG size = 1;
-        hr = fDI->fSticks[i]->fDevice->GetDeviceData(sizeof(DIDEVICEOBJECTDATA),&data,&size,0);
+        hr = fDI->fSticks[i]->fDevice->GetDeviceData(sizeof(DIDEVICEOBJECTDATA), &data, &size, 0);
 
         fInputDevice[i]->Update(&data);
     }
@@ -689,7 +689,7 @@ int __stdcall plDInputMgr::EnumGamepadCallback(const DIDEVICEINSTANCE* device, v
             dipW.diph.dwObj         = 0;
             dipW.dwData             = 500; // 5% of axis range for deadzone
 
-            hr = fStick->SetProperty(DIPROP_DEADZONE , &dipW.diph);
+            hr = fStick->SetProperty(DIPROP_DEADZONE, &dipW.diph);
         }
         return DIENUM_CONTINUE;
     }
@@ -740,21 +740,21 @@ int __stdcall plDInputMgr::EnumSuitableDevices(const struct DIDEVICEINSTANCEA* d
 */
 DIACTION plDInputMgr::fActionMap[NUM_ACTIONS] =
 {
-    {A_CONTROL_MOVE,            DIAXIS_TPS_MOVE,        0,  "Walk Forward-Backward" ,},
-    {A_CONTROL_TURN,            DIAXIS_TPS_TURN,        0,  "Turn Left-Right"       ,},
-    {A_CONTROL_MOUSE_X,         DIAXIS_ANY_1,           0,  "Move Camera Left-Right",},
-    {A_CONTROL_MOUSE_Y,         DIAXIS_ANY_2,           0,  "Move Camera Up-Down"   ,},
-    {B_CONTROL_ACTION,          DIBUTTON_TPS_ACTION,    0,  "Action"                ,},
-    {B_CONTROL_JUMP,            DIBUTTON_TPS_JUMP,      0,  "Jump"                  ,},
-    {B_CONTROL_STRAFE_LEFT,     DIBUTTON_TPS_STEPLEFT,  0,  "Strafe Left"           ,},
-    {B_CONTROL_STRAFE_RIGHT,    DIBUTTON_TPS_STEPRIGHT, 0,  "Strafe Right"          ,},
-    {B_CONTROL_MODIFIER_FAST,   DIBUTTON_TPS_RUN,       0,  "Run"                   ,},
-    {B_CONTROL_EQUIP,           DIBUTTON_TPS_SELECT,    0,  "Equip Item"            ,},
-    {B_CONTROL_DROP,            DIBUTTON_TPS_USE,       0,  "Drop Item"             ,},
-    {B_CONTROL_MOVE_FORWARD,    DIBUTTON_ANY(0),        0,  "Walk Forward"          ,},
-    {B_CONTROL_MOVE_BACKWARD,   DIBUTTON_ANY(1),        0,  "Walk Backward"         ,},
-    {B_CONTROL_ROTATE_LEFT,     DIBUTTON_ANY(2),        0,  "Turn Left"             ,},
-    {B_CONTROL_ROTATE_RIGHT,    DIBUTTON_ANY(3),        0,  "Turn Right"            ,},
-    {B_CONTROL_TURN_TO,         DIBUTTON_ANY(4),        0,  "Pick Item"             ,},
-    {B_CAMERA_RECENTER,         DIBUTTON_ANY(5),        0,  "Recenter Camera"       ,},
+    {A_CONTROL_MOVE,            DIAXIS_TPS_MOVE,        0,  "Walk Forward-Backward",    },
+    {A_CONTROL_TURN,            DIAXIS_TPS_TURN,        0,  "Turn Left-Right",          },
+    {A_CONTROL_MOUSE_X,         DIAXIS_ANY_1,           0,  "Move Camera Left-Right",   },
+    {A_CONTROL_MOUSE_Y,         DIAXIS_ANY_2,           0,  "Move Camera Up-Down",      },
+    {B_CONTROL_ACTION,          DIBUTTON_TPS_ACTION,    0,  "Action",                   },
+    {B_CONTROL_JUMP,            DIBUTTON_TPS_JUMP,      0,  "Jump",                     },
+    {B_CONTROL_STRAFE_LEFT,     DIBUTTON_TPS_STEPLEFT,  0,  "Strafe Left",              },
+    {B_CONTROL_STRAFE_RIGHT,    DIBUTTON_TPS_STEPRIGHT, 0,  "Strafe Right",             },
+    {B_CONTROL_MODIFIER_FAST,   DIBUTTON_TPS_RUN,       0,  "Run",                      },
+    {B_CONTROL_EQUIP,           DIBUTTON_TPS_SELECT,    0,  "Equip Item",               },
+    {B_CONTROL_DROP,            DIBUTTON_TPS_USE,       0,  "Drop Item",                },
+    {B_CONTROL_MOVE_FORWARD,    DIBUTTON_ANY(0),        0,  "Walk Forward",             },
+    {B_CONTROL_MOVE_BACKWARD,   DIBUTTON_ANY(1),        0,  "Walk Backward",            },
+    {B_CONTROL_ROTATE_LEFT,     DIBUTTON_ANY(2),        0,  "Turn Left",                },
+    {B_CONTROL_ROTATE_RIGHT,    DIBUTTON_ANY(3),        0,  "Turn Right",               },
+    {B_CONTROL_TURN_TO,         DIBUTTON_ANY(4),        0,  "Pick Item",                },
+    {B_CAMERA_RECENTER,         DIBUTTON_ANY(5),        0,  "Recenter Camera",          },
 };

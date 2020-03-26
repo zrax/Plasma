@@ -125,7 +125,7 @@ void plLayerTex::Update(TimeValue t, Interval& valid)
     {
         fIValid.SetInfinite();
 
-        fUVGen->Update(t,fIValid);
+        fUVGen->Update(t, fIValid);
         fBitmapPB->GetValidity(t, fIValid);
 
 //      Interval clipValid;
@@ -537,7 +537,7 @@ BITMAPINFO *plLayerTex::GetVPDisplayDIB(TimeValue t, TexHandleMaker& thmaker, In
             bi.SetWidth(bmw);
             bi.SetHeight(bmh);
             newBM = TheManager->Create(&bi);
-            newBM->Fill(0,0,0,0);
+            newBM->Fill(0, 0, 0, 0);
             nw = int(float(bmw)*clipw);
             nh = int(float(bmh)*cliph);
             x0 = int(float(bmw-1)*clipu);
@@ -559,7 +559,7 @@ BITMAPINFO *plLayerTex::GetVPDisplayDIB(TimeValue t, TexHandleMaker& thmaker, In
             BMM_Color_64*  p1 = row.Ptr();
             for (int y = 0; y<nh; y++)
             {
-                tmpBM->GetLinearPixels(0,y, nw, p1);
+                tmpBM->GetLinearPixels(0, y, nw, p1);
                 if (alphaAsRGB)
                 {
                     for (int ix =0; ix<nw; ix++)
@@ -578,7 +578,7 @@ BITMAPINFO *plLayerTex::GetVPDisplayDIB(TimeValue t, TexHandleMaker& thmaker, In
         }
         else
         {
-            int x0,y0,nw,nh;
+            int x0, y0, nw, nh;
             x0 = int(float(w-1)*clipu);
             y0 = int(float(h-1)*clipv);
             nw = int(float(w)*clipw);
@@ -592,7 +592,7 @@ BITMAPINFO *plLayerTex::GetVPDisplayDIB(TimeValue t, TexHandleMaker& thmaker, In
             BMM_Color_64*  p1 = row.Ptr();
             for (int y = 0; y<nh; y++)
             {
-                fBM->GetLinearPixels(x0,y+y0, nw, p1);
+                fBM->GetLinearPixels(x0, y+y0, nw, p1);
                 if (alphaAsRGB)
                 {
                     for (int ix = 0; ix < nw; ix++)

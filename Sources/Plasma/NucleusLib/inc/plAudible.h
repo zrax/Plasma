@@ -83,14 +83,14 @@ public:
     virtual void        Stop(int index = -1) = 0;
     virtual void        FastForwardPlay(int index = -1) = 0;
     virtual void        FastForwardToggle(int index = -1) = 0;
-    virtual void        SetMin(const float m,int index = -1) = 0; // sets minimum falloff distance
-    virtual void        SetMax(const float m,int index = -1) = 0; // sets maximum falloff distance
+    virtual void        SetMin(const float m, int index = -1) = 0; // sets minimum falloff distance
+    virtual void        SetMax(const float m, int index = -1) = 0; // sets maximum falloff distance
     virtual float    GetMin(int index = -1) const  = 0;
     virtual float    GetMax(int index = -1) const = 0;
-    virtual void        SetVelocity(const hsVector3 vel,int index = -1) = 0;
+    virtual void        SetVelocity(const hsVector3 vel, int index = -1) = 0;
     virtual hsVector3   GetVelocity(int index = -1) const = 0;
     virtual hsPoint3    GetPosition(int index = -1) = 0;
-    virtual void        SetLooping(bool loop,int index = -1) = 0; // sets continuous loop or stops looping
+    virtual void        SetLooping(bool loop, int index = -1) = 0; // sets continuous loop or stops looping
     virtual bool        IsPlaying(int index = -1) = 0;
     virtual void        SetTime(double t, int index = -1) = 0;
     virtual void        Activate() = 0;
@@ -102,7 +102,7 @@ public:
     virtual plSound*    GetSound(int i) const = 0;
     virtual int         GetSoundIndex(const char *keyname) const = 0;
     virtual void        Init(bool isLocal) { }
-    virtual void        SetVolume(const float volume,int index = -1) = 0;
+    virtual void        SetVolume(const float volume, int index = -1) = 0;
     virtual void        SetMuted(bool muted, int index = -1) = 0;
     virtual void        ToggleMuted(int index = -1) = 0;
     virtual void        SetTalkIcon(int index, uint32_t str) = 0;

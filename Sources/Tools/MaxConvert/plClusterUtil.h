@@ -65,7 +65,7 @@ public:
     virtual void End() {}
 
     hsVector3 GetDel(const hsPoint3& p) { return GetDel(Point3(p.fX, p.fY, p.fZ)); }
-    virtual hsVector3 GetDel(const Point3& p) { return hsVector3(0,0,0); }
+    virtual hsVector3 GetDel(const Point3& p) { return hsVector3(0, 0, 0); }
 };
 
 class plShadeVert
@@ -75,7 +75,7 @@ public:
     virtual void End() {}
 
     Color GetShade(const hsPoint3& p, const hsVector3& n) { return GetShade(Point3(p.fX, p.fY, p.fZ), Point3(n.fX, n.fY, n.fZ)); }
-    virtual Color GetShade(const Point3& p, const Point3& n) { return Color(0,0,0); }
+    virtual Color GetShade(const Point3& p, const Point3& n) { return Color(0, 0, 0); }
 };
 
 class plL2WTab : public Tab<Matrix3> {};

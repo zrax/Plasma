@@ -229,7 +229,7 @@ static void PrintColumn(ProfileGroup& group, const char* groupName, int column, 
             group[i]->PrintMax(str);
             break;
         case kColIndex:
-            sprintf(str,"[%3d]",i+off);
+            sprintf(str, "[%3d]", i+off);
             break;
         }
 
@@ -371,7 +371,7 @@ void plProfileManagerFull::Update()
     float detailY = 1 - detailSize / 2;
     if (fDetailGraph)
     {
-        fDetailGraph->SetPosition(detailX,detailY);
+        fDetailGraph->SetPosition(detailX, detailY);
         double value;
         double scale;
         int i;
@@ -558,16 +558,16 @@ void plProfileManagerFull::CreateGraph(const char* varName, uint32_t min, uint32
 void plProfileManagerFull::ResetDefaultDetailVars()
 {
     fDetailVars.clear();
-    AddDetailVar("ApplyAnimation",0,50);
-    AddDetailVar("AnimatingPhysicals",0,50);
-    AddDetailVar("StoppedAnimPhysicals",0,50);
-    AddDetailVar("DrawableTime",0,50);
-    AddDetailVar("Polys",0,150000);
-    AddDetailVar("Step",0,50);
-    AddDetailVar("LineOfSight",0,50);
-    AddDetailVar("  PhysicsUpdates",0,50);
-    AddDetailVar("Stream Shove Time",0,50);
-    AddDetailVar("RenderSetup",0,50);
+    AddDetailVar("ApplyAnimation", 0, 50);
+    AddDetailVar("AnimatingPhysicals", 0, 50);
+    AddDetailVar("StoppedAnimPhysicals", 0, 50);
+    AddDetailVar("DrawableTime", 0, 50);
+    AddDetailVar("Polys", 0, 150000);
+    AddDetailVar("Step", 0, 50);
+    AddDetailVar("LineOfSight", 0, 50);
+    AddDetailVar("  PhysicsUpdates", 0, 50);
+    AddDetailVar("Stream Shove Time", 0, 50);
+    AddDetailVar("RenderSetup", 0, 50);
 }
 
 void plProfileManagerFull::ShowDetailGraph()
@@ -579,9 +579,9 @@ void plProfileManagerFull::ShowDetailGraph()
         ResetDefaultDetailVars();
     
     plPlateManager::Instance().CreateGraphPlate(&fDetailGraph);
-    fDetailGraph->SetSize(0.9,0.9);
-    fDetailGraph->SetDataRange(0,500,500);
-    fDetailGraph->SetDataLabels(0,100); // should be relatively simple to cast everything to a 0-100 range
+    fDetailGraph->SetSize(0.9, 0.9);
+    fDetailGraph->SetDataRange(0, 500, 500);
+    fDetailGraph->SetDataLabels(0, 100); // should be relatively simple to cast everything to a 0-100 range
     fDetailGraph->SetTitle("Detail");
     UpdateDetailLabels();
 }

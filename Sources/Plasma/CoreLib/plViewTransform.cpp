@@ -57,8 +57,8 @@ plViewTransform::plViewTransform()
     fCameraToWorld.Reset();
     fWorldToCamera.Reset();
 
-    fViewPortX.Set(0,1.f,1.f);
-    fViewPortY.Set(0,1.f,1.f);
+    fViewPortX.Set(0, 1.f, 1.f);
+    fViewPortY.Set(0, 1.f, 1.f);
 
     fMapMin.Set(0.f, 0.f, 0.f);
     fMapMax.Set(1.f, 1.f, 1.f);
@@ -70,8 +70,8 @@ void plViewTransform::Reset()
     fCameraToWorld.Reset();
     fWorldToCamera.Reset();
 
-    fViewPortX.Set(0,1.f,1.f);
-    fViewPortY.Set(0,1.f,1.f);
+    fViewPortX.Set(0, 1.f, 1.f);
+    fViewPortY.Set(0, 1.f, 1.f);
 }
 
 void plViewTransform::ISetCameraToNDC() const

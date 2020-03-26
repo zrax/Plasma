@@ -54,7 +54,7 @@ plSoftVolume::plSoftVolume()
     fInsideStrength(1.f),
     fOutsideStrength(0)
 {
-    fListenPos.Set(0,0,0);
+    fListenPos.Set(0, 0, 0);
 }
 
 plSoftVolume::~plSoftVolume()

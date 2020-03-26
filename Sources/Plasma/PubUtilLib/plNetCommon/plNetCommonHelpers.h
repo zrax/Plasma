@@ -92,7 +92,7 @@ class plCreatableListHelper : public plCreatable
         kWritten            = 1<<2,
     };
     uint8_t                             fFlags;
-    std::map<uint16_t,plCreatable*>     fItems;
+    std::map<uint16_t, plCreatable*>     fItems;
     mutable std::vector<plCreatable*>   fManagedItems;
     uint32_t  fCompressionThreshold;  // NOT WRITTEN
     std::string fWritten;
@@ -131,7 +131,7 @@ public:
     void    AddDouble(uint16_t id, double value);
     double  GetDouble(uint16_t id);
     void    GetItemsAsVec(std::vector<plCreatable*>& out);
-    void    GetItems(std::map<uint16_t,plCreatable*>& out);
+    void    GetItems(std::map<uint16_t, plCreatable*>& out);
 };
 
 /////////////////////////////////////////////////////////////////////

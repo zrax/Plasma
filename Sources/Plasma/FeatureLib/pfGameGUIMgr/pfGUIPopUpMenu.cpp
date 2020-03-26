@@ -671,7 +671,7 @@ void    pfGUIPopUpMenu::ClearItems()
 void    pfGUIPopUpMenu::AddItem(const char *name, pfGUICtrlProcObject *handler, pfGUIPopUpMenu *subMenu)
 {
     wchar_t *wName = hsStringToWString(name);
-    AddItem(wName,handler,subMenu);
+    AddItem(wName, handler, subMenu);
     delete [] wName;
 }
 
@@ -712,8 +712,8 @@ hsGMaterial *pfGUIPopUpMenu::ICreateDynMaterial()
 
     // Create the layer and attach
     plLayer *lay = material->MakeBaseLayer();
-    white.Set(1.f,1.f,1.f,1.f);
-    black.Set(0.f,0.f,0.f,1.f);
+    white.Set(1.f, 1.f, 1.f, 1.f);
+    black.Set(0.f, 0.f, 0.f, 1.f);
 
     lay->SetRuntimeColor(black);
     lay->SetPreshadeColor(black);

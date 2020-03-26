@@ -70,7 +70,7 @@ protected:
         LoadLockButtons();
 
         ICustButton *iBut = GetICustButton(hButton);
-        iBut->SetImage(hLockButtons,0,1,0,1,16,15);
+        iBut->SetImage(hLockButtons, 0, 1, 0, 1, 16, 15);
         iBut->SetType(CBT_CHECK);
         ReleaseICustButton(iBut);
     }
@@ -102,7 +102,7 @@ static PassBasicDlgProc gPassBasicDlgProc;
 
 static ParamBlockDesc2 gPassBasicPB
 (
-    plPassMtl::kBlkBasic, _T("basic"), IDS_PASS_BASIC, GetPassMtlDesc(),//NULL,
+    plPassMtl::kBlkBasic, _T("basic"), IDS_PASS_BASIC, GetPassMtlDesc(), //NULL,
     P_AUTO_CONSTRUCT + P_AUTO_UI, plPassMtl::kRefBasic,
 
     // UI
@@ -119,13 +119,13 @@ static ParamBlockDesc2 gPassBasicPB
         end,
     kPassBasColor,      _T("color"),        TYPE_RGBA,          P_ANIMATABLE, IDS_BASIC_COLOR,
         p_ui,           TYPE_COLORSWATCH, IDC_LAYER_COLOR,
-        p_default,      Color(1,1,1),
+        p_default,      Color(1, 1, 1),
         p_accessor,     &basicAccessor,
         end,
 
     kPassBasRunColor,       _T("runtimeColor"),     TYPE_RGBA,          P_ANIMATABLE, IDS_BASIC_RUNCOLOR,
         p_ui,           TYPE_COLORSWATCH, IDC_LAYER_RUNCOLOR,
-        p_default,      Color(-1,-1,-1),
+        p_default,      Color(-1, -1, -1),
         p_accessor,     &basicAccessor,
         end,
     kPassBasDiffuseLock,    _T("diffuseLock"),  TYPE_BOOL,          0, 0,
@@ -156,7 +156,7 @@ static ParamBlockDesc2 gPassBasicPB
         end,
     kPassBasSpecColor,  _T("specularColor"),        TYPE_RGBA,          P_ANIMATABLE, IDS_BASIC_SPECCOLOR,
         p_ui,           TYPE_COLORSWATCH, IDC_LAYER_SPECCOLOR,
-        p_default,      Color(0,0,0),
+        p_default,      Color(0, 0, 0),
         end,
 
     // OBSOLETE--here so we can upgrade it to color if necessary

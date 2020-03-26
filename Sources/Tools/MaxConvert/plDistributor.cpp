@@ -90,7 +90,7 @@ static inline hsPoint3& hsP3(Point3& p) { return reinterpret_cast<hsPoint3&>(p);
 static inline hsVector3& hsV3(Point3& p) { return reinterpret_cast<hsVector3&>(p); }
 static inline Matrix3 Transpose(const Matrix3& m)
 {
-    return Matrix3(m.GetColumn3(0), m.GetColumn3(1), m.GetColumn3(2), Point3(0,0,0));
+    return Matrix3(m.GetColumn3(0), m.GetColumn3(1), m.GetColumn3(2), Point3(0, 0, 0));
 }
 
 plDistributor::plDistributor()
@@ -137,7 +137,7 @@ void plDistributor::IClear()
     fSpacing = 5.f;
     fRndPosRadius = 2.5f;
 
-    fAlignVec.Set(0,0,1.f);
+    fAlignVec.Set(0, 0, 1.f);
     fAlignWgt = 0;
 
     fOffsetMin = fOffsetMax = 0;
@@ -151,8 +151,8 @@ void plDistributor::IClear()
     fPolarBunch = 0;
 
     fScaleLock = kLockNone;
-    fScaleLo.Set(1.f,1.f,1.f);
-    fScaleHi.Set(1.f,1.f,1.f);
+    fScaleLo.Set(1.f, 1.f, 1.f);
+    fScaleHi.Set(1.f, 1.f, 1.f);
 
     fProbBitmapTex = nil;
     fProbLayerTex = nil;
@@ -170,7 +170,7 @@ void plDistributor::IClear()
     fAltProbHi = fAltProbLo = 0;
     fAltProbTrans = 0;
 
-    fFade.pmin = fFade.pmax = Point3(0,0,0);
+    fFade.pmin = fFade.pmax = Point3(0, 0, 0);
 
     fBone = nil;
 }
@@ -650,7 +650,7 @@ Point3 plDistributor::IPerpAxis(const Point3& p) const
     const float kMinLengthSquared = 1.e-1f;
 
     int minAx = p.MinComponent();
-    Point3 ax(0,0,0);
+    Point3 ax(0, 0, 0);
     ax[minAx] = 1.f;
 
     Point3 perp = p ^ ax;
@@ -784,7 +784,7 @@ Matrix3 plDistributor::IGenerateTransform(int iRepNode, int iFace, const Point3&
     }
 
     Matrix3 align;
-    align.Set(out, dir, norm, Point3(0,0,0));
+    align.Set(out, dir, norm, Point3(0, 0, 0));
 
     l2w = l2w * align;
 
@@ -829,7 +829,7 @@ BOOL plDistributor::ISetupNormals(plMaxNode* node, Mesh* mesh, BOOL radiateNorm)
     {
         Matrix3 otm = node->GetOTM();
         Matrix3 invOtm = Inverse(otm);
-        invOtm.SetTrans(Point3(0,0,0));
+        invOtm.SetTrans(Point3(0, 0, 0));
         invOtm.ValidateFlags();
 
         for (i = 0; i < mesh->getNumVerts(); i++)

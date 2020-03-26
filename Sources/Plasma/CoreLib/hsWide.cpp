@@ -98,7 +98,7 @@ hsWide* hsWide::Mul(int32_t A)
     uint32_t  B = fLo;
     int32_t   C = fHi;
     int32_t   tmp;
-    uint32_t  clo,blo,bhi,alo;
+    uint32_t  clo, blo, bhi, alo;
 
     if (A < 0)
     {   A = -A;

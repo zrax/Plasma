@@ -67,7 +67,7 @@ plRenderRequest::plRenderRequest()
     fUserData(0),
     fIgnoreOccluders(false)
 {
-    fClearColor.Set(0,0,0,1.f);
+    fClearColor.Set(0, 0, 0, 1.f);
 
     fLocalToWorld.Reset();
     fWorldToLocal.Reset();

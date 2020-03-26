@@ -66,7 +66,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 // - starts with kSlotMinCount rows
 // - can grow to kDefaultSlotMaxCount rows
 // (hash table grows when a row contains more than kGrowOnListSize entries
-#define HASHTABLEDECL(object,key,link) THashTableDecl< object, key, offsetof(object,link), 0 >
+#define HASHTABLEDECL(object, key, link) THashTableDecl<object, key, offsetof(object, link), 0>
 
 
 #if defined(_MSC_VER)
@@ -504,31 +504,31 @@ public:
 
 //===========================================================================
 template<class T, class K>
-inline void THashTable<T,K>::Add (T * object) {
+inline void THashTable<T, K>::Add (T * object) {
     TBaseHashTable<T>::Add(object, object->GetHash());
 }
 
 //===========================================================================
 template<class T, class K>
-inline void THashTable<T,K>::Add (T * object, unsigned hash) {
+inline void THashTable<T, K>::Add (T * object, unsigned hash) {
     TBaseHashTable<T>::Add(object, hash);
 }
 
 //===========================================================================
 template<class T, class K>
-T * THashTable<T,K>::Find (const K & key) {
-    return (T *)((const THashTable<T,K> *)this)->Find(key);
+T * THashTable<T, K>::Find (const K & key) {
+    return (T *)((const THashTable<T, K> *)this)->Find(key);
 }
 
 //===========================================================================
 template<class T, class K>
-T * THashTable<T,K>::FindNext (const K & key, T * object) {
-    return (T *)((const THashTable<T,K> *)this)->FindNext(key, object);
+T * THashTable<T, K>::FindNext (const K & key, T * object) {
+    return (T *)((const THashTable<T, K> *)this)->FindNext(key, object);
 }
 
 //===========================================================================
 template<class T, class K>
-const T * THashTable<T,K>::Find (const K & key) const {
+const T * THashTable<T, K>::Find (const K & key) const {
     unsigned        hash     = key.GetHash();
     const LIST(T) & slotList = this->GetSlotList(hash);
     for (const T * curr = slotList.Head(); curr; curr = slotList.Next(curr))
@@ -539,7 +539,7 @@ const T * THashTable<T,K>::Find (const K & key) const {
 
 //===========================================================================
 template<class T, class K>
-const T * THashTable<T,K>::FindNext (const K & key, const T * object) const {
+const T * THashTable<T, K>::FindNext (const K & key, const T * object) const {
     unsigned        hash     = key.GetHash();
     const LIST(T) & slotList = this->GetSlotList(hash);
     for (const T * curr = slotList.Next(object); curr; curr = slotList.Next(curr))
@@ -550,7 +550,7 @@ const T * THashTable<T,K>::FindNext (const K & key, const T * object) const {
 
 //===========================================================================
 template<class T, class K>
-T * THashTable<T,K>::Unduplicate (T * object, const K & key) {
+T * THashTable<T, K>::Unduplicate (T * object, const K & key) {
     T * existing = Find(key);
     if (existing) {
         delete object;
@@ -570,7 +570,7 @@ T * THashTable<T,K>::Unduplicate (T * object, const K & key) {
 ***/
 
 template<class T, class K, int linkOffset, unsigned maxSize>
-class THashTableDecl : public THashTable<T,K> {
+class THashTableDecl : public THashTable<T, K> {
 
 public:
     inline THashTableDecl ();
@@ -579,7 +579,7 @@ public:
 
 //===========================================================================
 template<class T, class K, int linkOffset, unsigned maxSize>
-THashTableDecl<T,K,linkOffset,maxSize>::THashTableDecl () {
+THashTableDecl<T, K, linkOffset, maxSize>::THashTableDecl () {
     this->SetLinkOffset(linkOffset, maxSize);
     this->SetSlotMaxCount(maxSize);
 }

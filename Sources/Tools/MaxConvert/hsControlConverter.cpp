@@ -399,7 +399,7 @@ plController* hsControlConverter::MakePosController(Control* control, plMaxNode*
         hsCont = new plCompoundController;
         fErrorMsg->Set(control->NumSubs()!=3, node->GetName(), "compound should have 3 subs").Check();
 
-        if (control->ClassID() == Class_ID(POSITIONNOISE_CONTROL_CLASS_ID,0))
+        if (control->ClassID() == Class_ID(POSITIONNOISE_CONTROL_CLASS_ID, 0))
         {
             MessageBox(GetActiveWindow(), node->GetName(),
             "Warning: Noise position controller not supported.  Ignoring.", MB_OK);
@@ -442,7 +442,7 @@ plController *hsControlConverter::MakeScaleController(Control *control, plMaxNod
     else
     {
         // compound scale: noise
-        if (control->ClassID() == Class_ID(SCALENOISE_CONTROL_CLASS_ID,0))
+        if (control->ClassID() == Class_ID(SCALENOISE_CONTROL_CLASS_ID, 0))
         {
             MessageBox(GetActiveWindow(), node->GetName(),
                        "Warning: Noise scale controller not supported.  Ignoring.", MB_OK);
@@ -467,13 +467,13 @@ plController *hsControlConverter::MakeRotController(Control *control, plMaxNode 
         // compound rot: euler or noise
         if (control->NumSubs())
         {
-            if (control->ClassID() == Class_ID(ROTATIONNOISE_CONTROL_CLASS_ID,0))
+            if (control->ClassID() == Class_ID(ROTATIONNOISE_CONTROL_CLASS_ID, 0))
             {
                 MessageBox(GetActiveWindow(), node->GetName(),
                     "Warning: Noise rotation controller not supported.  Ignoring.", MB_OK);
                 return nil;
             }
-            if (fErrorMsg->Set(control->ClassID() != Class_ID(EULER_CONTROL_CLASS_ID,0),
+            if (fErrorMsg->Set(control->ClassID() != Class_ID(EULER_CONTROL_CLASS_ID, 0),
                 node->GetName(), "Expecting euler rot ctrler").CheckAndAsk())
                 return nil;
 
@@ -493,7 +493,7 @@ plController *hsControlConverter::MakeRotController(Control *control, plMaxNode 
             // Check if we need to fixup euler due to missing subcontrollers
             //
             int numRotConts;
-            for (numRotConts=0,i=0; i<3; i++)
+            for (numRotConts=0, i=0; i<3; i++)
                 if (rc->GetController(i))
                     numRotConts++;
             if (numRotConts>0 && numRotConts<3)
@@ -526,7 +526,7 @@ plController *hsControlConverter::MakeRotController(Control *control, plMaxNode 
                                         
                     }
                 }
-                for (numRotConts=0,i=0; i<3; i++)
+                for (numRotConts=0, i=0; i<3; i++)
                     if (rc->GetController(i))
                         numRotConts++;
         
@@ -623,8 +623,8 @@ plCompoundController *hsControlConverter::MakeTransformController(Control *contr
     ISetSegRange(start, end);
 
     Class_ID cid = control->ClassID();
-    if (cid == Class_ID(PRS_CONTROL_CLASS_ID,0) ||
-        cid == Class_ID(LOOKAT_CONTROL_CLASS_ID,0))
+    if (cid == Class_ID(PRS_CONTROL_CLASS_ID, 0) ||
+        cid == Class_ID(LOOKAT_CONTROL_CLASS_ID, 0))
     {
         int n = control->NumSubs();
         if (n != 3)
@@ -644,7 +644,7 @@ plCompoundController *hsControlConverter::MakeTransformController(Control *contr
             }
         }
 
-        if (cid == Class_ID(LOOKAT_CONTROL_CLASS_ID,0))
+        if (cid == Class_ID(LOOKAT_CONTROL_CLASS_ID, 0))
         {
             hsTArray<hsG3DSMaxKeyFrame> kfArray;
             IAddPartsKeys(control, &kfArray, node);
@@ -729,7 +729,7 @@ void hsControlConverter::IConvertSubTransform(Control *control, char *ctlName, p
         default:
             /*
             if (plExp.GetLogFile())
-                fprintf(plExp.GetLogFile(),"%s unknown ctrl type=%d\n", node->GetName(), (int)ct);
+                fprintf(plExp.GetLogFile(), "%s unknown ctrl type=%d\n", node->GetName(), (int)ct);
                */
             break;
         }
@@ -986,7 +986,7 @@ int hsControlConverter::IAddPartsKeys(Control* control,
             return 0;
         }
 
-        int i,j;
+        int i, j;
 
         //
         // Traverse all keys of controller
@@ -1262,9 +1262,9 @@ int32_t hsControlConverter::ICreateHSInterpKey(Control* control, IKey* mKey, Tim
     char* nodeName = node ? node->GetName() : nil;
 
     // BEZ
-    if (cID == Class_ID(HYBRIDINTERP_POSITION_CLASS_ID,0) ||
-        cID == Class_ID(HYBRIDINTERP_COLOR_CLASS_ID,0) ||
-        cID == Class_ID(HYBRIDINTERP_POINT3_CLASS_ID,0))
+    if (cID == Class_ID(HYBRIDINTERP_POSITION_CLASS_ID, 0) ||
+        cID == Class_ID(HYBRIDINTERP_COLOR_CLASS_ID, 0) ||
+        cID == Class_ID(HYBRIDINTERP_POINT3_CLASS_ID, 0))
     {
         IBezPoint3Key*bKey = (IBezPoint3Key*)mKey;
         hsBezPoint3Key* hbKey = (hsBezPoint3Key*)baseKey;
@@ -1272,7 +1272,7 @@ int32_t hsControlConverter::ICreateHSInterpKey(Control* control, IKey* mKey, Tim
         hbKey->fInTan.Set(bKey->intan.x, bKey->intan.y, bKey->intan.z);
         hbKey->fOutTan.Set(bKey->outtan.x, bKey->outtan.y, bKey->outtan.z);
     }
-    else if (cID == Class_ID(HYBRIDINTERP_SCALE_CLASS_ID,0))
+    else if (cID == Class_ID(HYBRIDINTERP_SCALE_CLASS_ID, 0))
     {
         IBezScaleKey*bKey = (IBezScaleKey*)mKey;
         hsBezScaleKey* hbKey = (hsBezScaleKey*)baseKey;
@@ -1287,7 +1287,7 @@ int32_t hsControlConverter::ICreateHSInterpKey(Control* control, IKey* mKey, Tim
         hbKey->fOutTan.Set(bKey->outtan.x, bKey->outtan.y, bKey->outtan.z);
     }
 
-    else if (cID == Class_ID(HYBRIDINTERP_FLOAT_CLASS_ID,0) && !rotQuat)
+    else if (cID == Class_ID(HYBRIDINTERP_FLOAT_CLASS_ID, 0) && !rotQuat)
     {
         IBezFloatKey* bKey = (IBezFloatKey*)mKey;
         hsBezScalarKey* hbKey = (hsBezScalarKey*)baseKey;
@@ -1298,13 +1298,13 @@ int32_t hsControlConverter::ICreateHSInterpKey(Control* control, IKey* mKey, Tim
 
     else
     // LIN
-    if (cID == Class_ID(LININTERP_POSITION_CLASS_ID,0))
+    if (cID == Class_ID(LININTERP_POSITION_CLASS_ID, 0))
     {
         ILinPoint3Key*bKey = (ILinPoint3Key*)mKey;
         hsPoint3Key* hbKey = (hsPoint3Key*)baseKey;
         hbKey->fValue.Set(bKey->val.x, bKey->val.y, bKey->val.z);
     }
-    else if (sID == SClass_ID(CTRL_ROTATION_CLASS_ID) || (cID == Class_ID(HYBRIDINTERP_FLOAT_CLASS_ID,0) && rotQuat))   // all rotations
+    else if (sID == SClass_ID(CTRL_ROTATION_CLASS_ID) || (cID == Class_ID(HYBRIDINTERP_FLOAT_CLASS_ID, 0) && rotQuat))   // all rotations
     {
         hsQuatKey* hbKey = (hsQuatKey*)baseKey;
 
@@ -1319,7 +1319,7 @@ int32_t hsControlConverter::ICreateHSInterpKey(Control* control, IKey* mKey, Tim
 
         IEnableEaseCurves(control, true);   // re-enable
     }
-    else if (cID == Class_ID(LININTERP_SCALE_CLASS_ID,0))
+    else if (cID == Class_ID(LININTERP_SCALE_CLASS_ID, 0))
     {
         ILinScaleKey*bKey = (ILinScaleKey*)mKey;
         hsScaleKey* hbKey = (hsScaleKey*)baseKey;
@@ -1332,7 +1332,7 @@ int32_t hsControlConverter::ICreateHSInterpKey(Control* control, IKey* mKey, Tim
         hbKey->fValue.fQ.Set(ap.u.x, ap.u.y, ap.u.z, ap.u.w);
     }
     else
-    if (cID == Class_ID(LININTERP_FLOAT_CLASS_ID,0))
+    if (cID == Class_ID(LININTERP_FLOAT_CLASS_ID, 0))
     {
         ILinFloatKey* bKey = (ILinFloatKey*)mKey;
         hsScalarKey* hbKey = (hsScalarKey*)baseKey;
@@ -1340,7 +1340,7 @@ int32_t hsControlConverter::ICreateHSInterpKey(Control* control, IKey* mKey, Tim
     }
     else
     // TCB
-    if (cID == Class_ID(TCBINTERP_POSITION_CLASS_ID,0) ||
+    if (cID == Class_ID(TCBINTERP_POSITION_CLASS_ID, 0) ||
         cID == Class_ID(TCBINTERP_POINT3_CLASS_ID, 0))
     {
         ITCBPoint3Key*bKey = (ITCBPoint3Key*)mKey;
@@ -1348,13 +1348,13 @@ int32_t hsControlConverter::ICreateHSInterpKey(Control* control, IKey* mKey, Tim
         hbKey->fValue.Set(bKey->val.x, bKey->val.y, bKey->val.z);
     }
     else
-    if (cID == Class_ID(TCBINTERP_FLOAT_CLASS_ID,0))
+    if (cID == Class_ID(TCBINTERP_FLOAT_CLASS_ID, 0))
     {
         ITCBFloatKey* bKey = (ITCBFloatKey*)mKey;
         hsScalarKey* hbKey = (hsScalarKey*)baseKey;
         hbKey->fValue = bKey->val;
     }
-    else if (cID == Class_ID(TCBINTERP_SCALE_CLASS_ID,0))
+    else if (cID == Class_ID(TCBINTERP_SCALE_CLASS_ID, 0))
     {
         ITCBScaleKey*bKey = (ITCBScaleKey*)mKey;
         hsScaleKey* hbKey = (hsScaleKey*)baseKey;
@@ -1385,46 +1385,46 @@ uint8_t hsControlConverter::GetKeyType(Control* control, bool rotQuat)
     Class_ID cID = control->ClassID();
     SClass_ID sID = control->SuperClassID();
 
-    if (cID == Class_ID(HYBRIDINTERP_POSITION_CLASS_ID,0) ||
-        cID == Class_ID(HYBRIDINTERP_COLOR_CLASS_ID,0) ||
-        cID == Class_ID(HYBRIDINTERP_POINT3_CLASS_ID,0))
+    if (cID == Class_ID(HYBRIDINTERP_POSITION_CLASS_ID, 0) ||
+        cID == Class_ID(HYBRIDINTERP_COLOR_CLASS_ID, 0) ||
+        cID == Class_ID(HYBRIDINTERP_POINT3_CLASS_ID, 0))
     {
         return hsKeyFrame::kBezPoint3KeyFrame;
     }
-    else if (cID == Class_ID(HYBRIDINTERP_SCALE_CLASS_ID,0))
+    else if (cID == Class_ID(HYBRIDINTERP_SCALE_CLASS_ID, 0))
     {
         return hsKeyFrame::kBezScaleKeyFrame;
     }
-    else if (cID == Class_ID(HYBRIDINTERP_FLOAT_CLASS_ID,0) && !rotQuat)
+    else if (cID == Class_ID(HYBRIDINTERP_FLOAT_CLASS_ID, 0) && !rotQuat)
     {
         return hsKeyFrame::kBezScalarKeyFrame;
     }
-    else if (cID == Class_ID(LININTERP_POSITION_CLASS_ID,0))
+    else if (cID == Class_ID(LININTERP_POSITION_CLASS_ID, 0))
     {
         return hsKeyFrame::kPoint3KeyFrame;
     }
-    else if (sID == SClass_ID(CTRL_ROTATION_CLASS_ID) || (cID == Class_ID(HYBRIDINTERP_FLOAT_CLASS_ID,0) && rotQuat))   // all rotations
+    else if (sID == SClass_ID(CTRL_ROTATION_CLASS_ID) || (cID == Class_ID(HYBRIDINTERP_FLOAT_CLASS_ID, 0) && rotQuat))   // all rotations
     {
         return hsKeyFrame::kQuatKeyFrame;
     }
-    else if (cID == Class_ID(LININTERP_SCALE_CLASS_ID,0))
+    else if (cID == Class_ID(LININTERP_SCALE_CLASS_ID, 0))
     {
         return hsKeyFrame::kScaleKeyFrame;
     }
-    else if (cID == Class_ID(LININTERP_FLOAT_CLASS_ID,0))
+    else if (cID == Class_ID(LININTERP_FLOAT_CLASS_ID, 0))
     {
         return hsKeyFrame::kScalarKeyFrame;
     }
-    else if (cID == Class_ID(TCBINTERP_POSITION_CLASS_ID,0) ||
+    else if (cID == Class_ID(TCBINTERP_POSITION_CLASS_ID, 0) ||
              cID == Class_ID(TCBINTERP_POINT3_CLASS_ID, 0))
     {
         return hsKeyFrame::kPoint3KeyFrame;
     }
-    else if (cID == Class_ID(TCBINTERP_FLOAT_CLASS_ID,0))
+    else if (cID == Class_ID(TCBINTERP_FLOAT_CLASS_ID, 0))
     {
         return hsKeyFrame::kScalarKeyFrame;
     }
-    else if (cID == Class_ID(TCBINTERP_SCALE_CLASS_ID,0))
+    else if (cID == Class_ID(TCBINTERP_SCALE_CLASS_ID, 0))
     {
         return hsKeyFrame::kScaleKeyFrame;
     }
@@ -1585,7 +1585,7 @@ bool hsControlConverter::ForceLocal(plMaxNode* node)
 
     Object* objectRef = node->GetObjectRef();
     if (fConverterUtils.IsInstanced(objectRef) &&
-        gUserPropMgr.UserPropExists(node,"AllowInstancing"))
+        gUserPropMgr.UserPropExists(node, "AllowInstancing"))
     {
         node->SetForceLocal(true);
         return true;
@@ -1625,14 +1625,14 @@ bool hsControlConverter::HasFrameEvents(plMaxNode *node)
     }
     
     TSTR sdata;
-    if (gUserPropMgr.GetUserPropString(node,"FESound",sdata) ||
-        gUserPropMgr.GetUserPropString(node,"FESoundEmitter",sdata) ||
-        gUserPropMgr.GetUserPropString(node,"FEGrab",sdata) ||
-        gUserPropMgr.GetUserPropString(node,"FEDrop",sdata) ||
-        gUserPropMgr.GetUserPropString(node,"FEEventOn",sdata) ||
-        gUserPropMgr.GetUserPropString(node,"FEEventOnPermanent",sdata) ||
-        gUserPropMgr.GetUserPropString(node,"FEEventOff",sdata) ||
-        gUserPropMgr.GetUserPropString(node,"FEActor",sdata))
+    if (gUserPropMgr.GetUserPropString(node, "FESound", sdata) ||
+        gUserPropMgr.GetUserPropString(node, "FESoundEmitter", sdata) ||
+        gUserPropMgr.GetUserPropString(node, "FEGrab", sdata) ||
+        gUserPropMgr.GetUserPropString(node, "FEDrop", sdata) ||
+        gUserPropMgr.GetUserPropString(node, "FEEventOn", sdata) ||
+        gUserPropMgr.GetUserPropString(node, "FEEventOnPermanent", sdata) ||
+        gUserPropMgr.GetUserPropString(node, "FEEventOff", sdata) ||
+        gUserPropMgr.GetUserPropString(node, "FEActor", sdata))
     {
         return false;
     }
@@ -1868,12 +1868,12 @@ bool hsControlConverter::ISkinNode(plMaxNode* node)
     if (fForceNoSkinning)
         return false;
     */
-    if (gUserPropMgr.UserPropExists(node,"MATSkin"))
+    if (gUserPropMgr.UserPropExists(node, "MATSkin"))
     {
         return true;
     }
 
-    if (gUserPropMgr.UserPropExists(node,"MATSkinColor"))
+    if (gUserPropMgr.UserPropExists(node, "MATSkinColor"))
     {
         return true;
     }

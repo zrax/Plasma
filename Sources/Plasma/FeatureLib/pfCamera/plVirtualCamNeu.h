@@ -165,7 +165,7 @@ public:
     static void Next();
     static void Prev();
     static void Deactivate();
-    void CameraRegions(bool b) { fFlags.SetBit(kRegionIgnore,b); }
+    void CameraRegions(bool b) { fFlags.SetBit(kRegionIgnore, b); }
     void LogFOV(bool b) { printFOV = b; }
     void Drive();
     void PushThirdPerson();
@@ -178,7 +178,7 @@ public:
     bool RestoreFromName(const ST::string& name);
     void StartUnPan();
     // these are for console access
-    static bool fUseAccelOverride, freeze, alwaysCutForColin, WalkPan3rdPerson,StayInFirstPersonForever;
+    static bool fUseAccelOverride, freeze, alwaysCutForColin, WalkPan3rdPerson, StayInFirstPersonForever;
     static float fDecel, fAccel, fVel;
     static float fFallTimerDelay;
     

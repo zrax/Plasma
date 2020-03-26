@@ -99,60 +99,60 @@ void cyParticleSys::ISendParticleSysMsg(uint32_t param, float value)
 //
 void cyParticleSys::SetParticlesPerSecond(float value)
 {
-    ISendParticleSysMsg(plParticleUpdateMsg::kParamParticlesPerSecond,value);
+    ISendParticleSysMsg(plParticleUpdateMsg::kParamParticlesPerSecond, value);
 }
 
 void cyParticleSys::SetInitPitchRange(float value)
 {
-    ISendParticleSysMsg(plParticleUpdateMsg::kParamInitPitchRange,value);
+    ISendParticleSysMsg(plParticleUpdateMsg::kParamInitPitchRange, value);
 }
 
 void cyParticleSys::SetInitYawRange(float value)
 {
-    ISendParticleSysMsg(plParticleUpdateMsg::kParamInitYawRange,value);
+    ISendParticleSysMsg(plParticleUpdateMsg::kParamInitYawRange, value);
 }
 
 void cyParticleSys::SetVelMin(float value)
 {
-    ISendParticleSysMsg(plParticleUpdateMsg::kParamVelMin,value);
+    ISendParticleSysMsg(plParticleUpdateMsg::kParamVelMin, value);
 }
 
 void cyParticleSys::SetVelMax(float value)
 {
-    ISendParticleSysMsg(plParticleUpdateMsg::kParamVelMax,value);
+    ISendParticleSysMsg(plParticleUpdateMsg::kParamVelMax, value);
 }
 
 void cyParticleSys::SetXSize(float value)
 {
-    ISendParticleSysMsg(plParticleUpdateMsg::kParamXSize,value);
+    ISendParticleSysMsg(plParticleUpdateMsg::kParamXSize, value);
 }
 
 void cyParticleSys::SetYSize(float value)
 {
-    ISendParticleSysMsg(plParticleUpdateMsg::kParamYSize,value);
+    ISendParticleSysMsg(plParticleUpdateMsg::kParamYSize, value);
 }
 
 void cyParticleSys::SetScaleMin(float value)
 {
-    ISendParticleSysMsg(plParticleUpdateMsg::kParamScaleMin,value);
+    ISendParticleSysMsg(plParticleUpdateMsg::kParamScaleMin, value);
 }
 
 void cyParticleSys::SetScaleMax(float value)
 {
-    ISendParticleSysMsg(plParticleUpdateMsg::kParamScaleMax,value);
+    ISendParticleSysMsg(plParticleUpdateMsg::kParamScaleMax, value);
 }
 
 void cyParticleSys::SetGenLife(float value)
 {
-    ISendParticleSysMsg(plParticleUpdateMsg::kParamGenLife,value);
+    ISendParticleSysMsg(plParticleUpdateMsg::kParamGenLife, value);
 }
 
 void cyParticleSys::SetPartLifeMin(float value)
 {
-    ISendParticleSysMsg(plParticleUpdateMsg::kParamPartLifeMin,value);
+    ISendParticleSysMsg(plParticleUpdateMsg::kParamPartLifeMin, value);
 }
 
 void cyParticleSys::SetPartLifeMax(float value)
 {
-    ISendParticleSysMsg(plParticleUpdateMsg::kParamPartLifeMax,value);
+    ISendParticleSysMsg(plParticleUpdateMsg::kParamPartLifeMax, value);
 }

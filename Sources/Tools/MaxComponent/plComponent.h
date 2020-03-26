@@ -163,7 +163,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 **
 **                  P_AUTO_UI
 **                          Indicates this block supports automatic UI rollout management in calls to
-**                          ClassDesc2::BeginEditParams(), ClassDesc2::EndEditParams(),ClassDesc2::CreateParamDlg(),
+**                          ClassDesc2::BeginEditParams(), ClassDesc2::EndEditParams(), ClassDesc2::CreateParamDlg(),
 **                          ClassDesc2::CreateParamDialog(), etc.
 **
 *8                          The <auto_ui_parammap_specs> must be supplied in the descriptor constructor.

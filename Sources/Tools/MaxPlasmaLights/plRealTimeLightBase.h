@@ -251,7 +251,7 @@ public:
         kStartAttenNear,     //Inserted in v1, Removed in v3
         kEndAttenNear,       //Inserted in v1, Removed in v3
         kUseNearAtten,       //Inserted in v1, Removed in v3
-        kShowNearAttenRanges,//Inserted in v1, Removed in v3
+        kShowNearAttenRanges, //Inserted in v1, Removed in v3
         kStartAttenFar,      //Inserted in v1, Removed in v3
         kEndAttenFar,        //Inserted in v1, Removed in v3
         kUseFarAtten,        //Inserted in v1, Removed in v3
@@ -287,10 +287,10 @@ public:
         kShadSampleRange,   //Inserted in v2
         kAbsoluteShadBias,  //Inserted in v2
 
-        kUseAttenuationBool,//Inserted in v3
+        kUseAttenuationBool, //Inserted in v3
         kAttenMaxFalloffEdit, //Inserted in v3
         kAttenTypeRadio,    //Inserted in v3
-        kSpecularColorSwatch,//Inserted in v3
+        kSpecularColorSwatch, //Inserted in v3
 
         kAttenSlider,
         kLightOn,
@@ -419,25 +419,25 @@ public:
     void SetUseLight(int onOff) { fLightPB->SetValue(kLightOn, 0, onOff); NotifyDependents(FOREVER, PART_OBJ, REFMSG_CHANGE); }
     BOOL GetUseLight() { BOOL v; fLightPB->GetValue(kLightOn, 0, v, FOREVER); return v; }
     void SetHotspot(TimeValue time, float f);
-    float GetHotspot(TimeValue t, Interval& valid = Interval(0,0));
+    float GetHotspot(TimeValue t, Interval& valid = Interval(0, 0));
     void SetFallsize(TimeValue time, float f);
-    float GetFallsize(TimeValue t, Interval& valid = Interval(0,0));
+    float GetFallsize(TimeValue t, Interval& valid = Interval(0, 0));
     void SetAtten(TimeValue time, int which, float f);
-    float GetAtten(TimeValue t, int which, Interval& valid = Interval(0,0));
+    float GetAtten(TimeValue t, int which, Interval& valid = Interval(0, 0));
     
     // TDist funcs needs implementation  as of 31/5/01
     void SetTDist(TimeValue time, float f);
-    float GetTDist(TimeValue t, Interval& valid = Interval(0,0));
+    float GetTDist(TimeValue t, Interval& valid = Interval(0, 0));
 
     void SetConeDisplay(int s, int notify=TRUE);
     BOOL GetConeDisplay();
 
     void SetRGBColor(TimeValue t, Point3& rgb); //fLightPB->SetValue(kRGB, t, rgb); NotifyDependents(FOREVER, PART_ALL, REFMSG_CHANGE); }
-    Point3 GetRGBColor(TimeValue t, Interval &valid = Interval(0,0)); //return fLightPB->GetPoint3(kRGB, t); }
+    Point3 GetRGBColor(TimeValue t, Interval &valid = Interval(0, 0)); //return fLightPB->GetPoint3(kRGB, t); }
     void SetIntensity(TimeValue t, float f) { fLightPB->SetValue(kIntensity, t, f); NotifyDependents(FOREVER, PART_ALL, REFMSG_CHANGE); }
-    float GetIntensity(TimeValue t, Interval& valid = Interval(0,0)) { return fLightPB->GetFloat(kIntensity, t); }
+    float GetIntensity(TimeValue t, Interval& valid = Interval(0, 0)) { return fLightPB->GetFloat(kIntensity, t); }
     void SetAspect(TimeValue t, float f) {}
-    float GetAspect(TimeValue t, Interval& valid = Interval(0,0)) { return 0.0; }
+    float GetAspect(TimeValue t, Interval& valid = Interval(0, 0)) { return 0.0; }
     void SetUseAtten(int s) { fLightPB->SetValue(kUseAttenuationBool, 0, s); NotifyDependents(FOREVER, PART_OBJ, REFMSG_CHANGE); }
     BOOL GetUseAtten() { return fLightPB->GetInt(kUseAttenuationBool, 0); }
     void SetUseAttenNear(int s) { }
@@ -448,13 +448,13 @@ public:
     BOOL GetAttenDisplayNear() { return false; }
     void Enable(int enab) { fLightPB->SetValue(kLightOn, 0, enab); }
     void SetMapBias(TimeValue t, float f) {}
-    float GetMapBias(TimeValue t, Interval& valid = Interval(0,0)) { return 0.0f; }
+    float GetMapBias(TimeValue t, Interval& valid = Interval(0, 0)) { return 0.0f; }
     void SetMapRange(TimeValue t, float f) {}
-    float GetMapRange(TimeValue t, Interval& valid = Interval(0,0)) { return 0.0f; }
+    float GetMapRange(TimeValue t, Interval& valid = Interval(0, 0)) { return 0.0f; }
     void SetMapSize(TimeValue t, int f) {}
-    int GetMapSize(TimeValue t, Interval& valid = Interval(0,0)) { return 0; }
+    int GetMapSize(TimeValue t, Interval& valid = Interval(0, 0)) { return 0; }
     void SetRayBias(TimeValue t, float f) {}
-    float GetRayBias(TimeValue t, Interval& valid = Interval(0,0)) { return 0.0; } //{ return 0.0f; }
+    float GetRayBias(TimeValue t, Interval& valid = Interval(0, 0)) { return 0.0; } //{ return 0.0f; }
     int GetAbsMapBias() { return 0; }
     void SetAbsMapBias(int a) {}
     int GetOvershoot() { return 0; }
@@ -463,7 +463,7 @@ public:
     void SetProjector(int a) { fLightPB->SetValue(kUseProjectorBool, 0, a); }
     ExclList* GetExclList() { return NULL; }
     BOOL Include() { return false; }
-    virtual Texmap* GetProjMap(); //{ Interval valid = Interval(0,0); Texmap* MyMap; fLightPB->GetValue(kProjMapTexButton, 0, MyMap, valid); return MyMap; }
+    virtual Texmap* GetProjMap(); //{ Interval valid = Interval(0, 0); Texmap* MyMap; fLightPB->GetValue(kProjMapTexButton, 0, MyMap, valid); return MyMap; }
     void SetProjMap(BitmapInfo* pmap);
     void UpdateTargDistance(TimeValue t, INode* inode);
 
@@ -486,20 +486,20 @@ public:
     BOOL GetAttenNearDisplay() { return false; }
     ExclList& GetExclusionList() { return exclList; }
     void SetExclusionList(ExclList & a) {}
-    BOOL SetHotSpotControl(Control* a) { SetParamBlock2Controller(fLightPB, ParamID(kHotSpot),0, a); return true; }
-    BOOL SetFalloffControl(Control* a) { SetParamBlock2Controller(fLightPB, ParamID(kFallOff),0, a); return true; }
+    BOOL SetHotSpotControl(Control* a) { SetParamBlock2Controller(fLightPB, ParamID(kHotSpot), 0, a); return true; }
+    BOOL SetFalloffControl(Control* a) { SetParamBlock2Controller(fLightPB, ParamID(kFallOff), 0, a); return true; }
     Control* GetHotSpotControl() { return GetParamBlock2Controller(fLightPB, ParamID(kHotSpot)); }
     Control* GetFalloffControl() { return GetParamBlock2Controller(fLightPB, ParamID(kFallOff)); }
-    BOOL SetColorControl(Control * a) { SetParamBlock2Controller(fLightPB, ParamID(kLightColor),0, a); return true; }
+    BOOL SetColorControl(Control * a) { SetParamBlock2Controller(fLightPB, ParamID(kLightColor), 0, a); return true; }
     Control* GetColorControl() { return GetParamBlock2Controller(fLightPB, ParamID(kLightColor)); }
 
     BOOL GetDecayType() { return fLightPB->GetInt(kAttenTypeRadio, 0) + 1; } //Offset for the radio.
     void SetDecayType(BOOL onOff) { if (!onOff) return; else { fLightPB->SetValue(kAttenTypeRadio, 0, ((int) onOff - 1)); return; } }
     void SetDecayRadius(TimeValue time, float f) { fLightPB->SetValue(kAttenMaxFalloffEdit, time, f); }
-    float GetDecayRadius(TimeValue t, Interval& valid = Interval(0,0)) { return fLightPB->GetFloat(kAttenMaxFalloffEdit, t); }
+    float GetDecayRadius(TimeValue t, Interval& valid = Interval(0, 0)) { return fLightPB->GetFloat(kAttenMaxFalloffEdit, t); }
 
     void SetDiffuseSoft(TimeValue time, float f) {}//fLightPB->SetValue(kDiffSoft, time, f); }
-    float GetDiffuseSoft(TimeValue t, Interval& valid = Interval(0,0)) { return 0.0; } //return fLightPB->GetFloat(kDiffSoft, t); }
+    float GetDiffuseSoft(TimeValue t, Interval& valid = Interval(0, 0)) { return 0.0; } //return fLightPB->GetFloat(kDiffSoft, t); }
     void SetAffectDiffuse(BOOL onOff) {}//fLightPB->SetValue(kDiffOn, 0, onOff); }
     BOOL GetAffectDiffuse() { return false; } //fLightPB->GetInt(kDiffOn, 0); }
 

@@ -124,7 +124,7 @@ void plStaticEnvLayer::Update(TimeValue t, Interval& valid)
     {
         fIValid.SetInfinite();
 
-        fUVGen->Update(t,fIValid);
+        fUVGen->Update(t, fIValid);
         fBitmapPB->GetValidity(t, fIValid);
     }
 
@@ -361,7 +361,7 @@ AColor plStaticEnvLayer::EvalColor(ShadeContext& sc)
 
 //  Point3  v = sc.VectorTo(sc.V(), REF_OBJECT);//WORLD);
     Point3  v = sc.VectorTo(sc.Normal(), REF_OBJECT);
-    float   wx,wy,wz;
+    float   wx, wy, wz;
     Color   rcol;
     Bitmap  *refmap = NULL;
     Point3  rv;

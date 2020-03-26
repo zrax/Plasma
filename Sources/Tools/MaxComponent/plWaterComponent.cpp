@@ -1179,7 +1179,7 @@ ParamBlockDesc2 gEnvMapCompBk
 
     plEnvMapComponent::kFogColor, _T("FogColor"), TYPE_RGBA, 0, 0,
         p_ui, TYPE_COLORSWATCH,         IDC_COMP_ENVMAP_FOGCOLOR,
-        p_default, Color(0,0,0),
+        p_default, Color(0, 0, 0),
         end,
 
     plEnvMapComponent::kRefreshRate, _T("RefreshRate"), TYPE_FLOAT,     0, 0,

@@ -142,7 +142,7 @@ void    plDynamicTextMap::Create(uint32_t width, uint32_t height, bool hasAlpha,
     // Some init color
     SetFont("Arial", 12);
     hsColorRGBA color;
-    color.Set(0,0,1,1);
+    color.Set(0, 0, 1, 1);
     SetTextColor(color);
 
     SetCurrLevel(0);
@@ -500,7 +500,7 @@ void    plDynamicTextMap::SetTextColor(hsColorRGBA &color, bool blockRGB)
 void    plDynamicTextMap::DrawString(uint16_t x, uint16_t y, const char *text)
 {
     wchar_t *wText = hsStringToWString(text);
-    DrawString(x,y,wText);
+    DrawString(x, y, wText);
     delete [] wText;
 }
 

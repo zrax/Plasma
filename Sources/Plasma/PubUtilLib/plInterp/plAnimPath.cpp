@@ -77,10 +77,10 @@ void plAnimPath::SetCurTime(float t, uint32_t calcFlags)
     fTime = t;
     if (!fController)
     {
-        fPos.Set(0,0,0);
+        fPos.Set(0, 0, 0);
         fXform.Reset();
-        fVel.Set(0,0,0);
-        fAccel.Set(0,0,0);
+        fVel.Set(0, 0, 0);
+        fAccel.Set(0, 0, 0);
         return;
     }
 
@@ -148,7 +148,7 @@ void plAnimPath::ICalcBounds()
     hsPoint3 pos;
     hsTArray<float> keyTimes;
     pc->GetKeyTimes(keyTimes);
-    fCenter.Set(0,0,0);
+    fCenter.Set(0, 0, 0);
     for (i = 0; i < keyTimes.GetCount(); i++)
     {
         pc->Interp(keyTimes[i], &pos);
@@ -514,7 +514,7 @@ void plAnimPath::IMakeSegment(hsTArray<uint16_t>& idx, hsTArray<hsPoint3>& pos,
 {
     hsVector3 del(&p2, &p1);
     hsVector3 up;
-    up.Set(0,0,1.f);
+    up.Set(0, 0, 1.f);
 
     const float kOutLength = 0.25f;
 

@@ -350,7 +350,7 @@ void    pfConsole::IHandleKey(plKeyEventMsg *msg)
 {
     char            *c;
     wchar_t         key;
-    int             i,eol;
+    int             i, eol;
     static bool     findAgain = false;
     static uint32_t   findCounter = 0;
 
@@ -590,12 +590,12 @@ void    pfConsole::IHandleKey(plKeyEventMsg *msg)
                         int recall = fHistory[fPythonMode].fCursor - i;
                         if (recall < 0)
                             recall += kNumHistoryItems;
-                        strcat(biglines,fHistory[fPythonMode].fData[recall]);
-                        strcat(biglines,"\n");
+                        strcat(biglines, fHistory[fPythonMode].fData[recall]);
+                        strcat(biglines, "\n");
                     }
                     // now evaluate this mess they made
                     PyObject* mymod = PythonInterface::FindModule("__main__");
-                    PythonInterface::RunStringInteractive(biglines,mymod);
+                    PythonInterface::RunStringInteractive(biglines, mymod);
                     std::string output;
                     // get the messages
                     PythonInterface::getOutputAndReset(&output);
@@ -620,7 +620,7 @@ void    pfConsole::IHandleKey(plKeyEventMsg *msg)
                     // else if not the start of a multi-line then execute it
                     {
                         PyObject* mymod = PythonInterface::FindModule("__main__");
-                        PythonInterface::RunStringInteractive(fWorkingLine,mymod);
+                        PythonInterface::RunStringInteractive(fWorkingLine, mymod);
                         std::string output;
                         // get the messages
                         PythonInterface::getOutputAndReset(&output);
@@ -677,7 +677,7 @@ void    pfConsole::IHandleKey(plKeyEventMsg *msg)
                 {
                     IAddLine("");     // add a blank line
                     PyObject* mymod = PythonInterface::FindModule("__main__");
-                    PythonInterface::RunStringInteractive("import sys;print 'Python',sys.version",mymod);
+                    PythonInterface::RunStringInteractive("import sys;print 'Python',sys.version", mymod);
                     std::string output;
                     // get the messages
                     PythonInterface::getOutputAndReset(&output);

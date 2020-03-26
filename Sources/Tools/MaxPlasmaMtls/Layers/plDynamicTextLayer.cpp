@@ -112,7 +112,7 @@ void plDynamicTextLayer::Update(TimeValue t, Interval& valid)
     {
         fIValid.SetInfinite();
 
-        fUVGen->Update(t,fIValid);
+        fUVGen->Update(t, fIValid);
         fBitmapPB->GetValidity(t, fIValid);
     }
 

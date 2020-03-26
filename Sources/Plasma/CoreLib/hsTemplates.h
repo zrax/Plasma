@@ -385,7 +385,7 @@ int32_t hsDynamicArray<T>::InsertAtIndex(uint32_t index, const T& obj)
     else
     {
         hsAssert(fCount == 0, "mismatch");
-        hsAssert(index ==0,"Can't insert at non zero index in empty array");
+        hsAssert(index ==0, "Can't insert at non zero index in empty array");
         fArray = new T[1];
         fArray[0] = obj;
     }

@@ -61,7 +61,7 @@ int plBufferedSocketWriter::WriteBlock(const char * data, int len, plTcpSocket &
         ans = Flush(sck);
     
     if (ans >= 0)
-        ans = WriteBlock(data,len);
+        ans = WriteBlock(data, len);
     
     if (ans >= 0 && fFlushPoint >= 0 && fFlushPoint < AmountBuffered())
         ans = Flush(sck);
@@ -72,7 +72,7 @@ int plBufferedSocketWriter::WriteBlock(const char * data, int len, plTcpSocket &
 int plBufferedSocketWriter::WriteBlock(const char * data, int len)
 {
     int ans = kSuccessNoDataSent;
-    if (!Put(data,len))
+    if (!Put(data, len))
         ans = kFailedNoBufferSpace;
     return ans;
 }

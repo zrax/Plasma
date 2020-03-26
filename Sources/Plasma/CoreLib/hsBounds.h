@@ -201,7 +201,7 @@ private:
     hsPlane3    *fPlanes;
     uint32_t    fNumPlanes;
 public:
-    hsBoundsOriented() : fPlanes(nil),fNumPlanes(0),fCenterValid(false) {}
+    hsBoundsOriented() : fPlanes(nil), fNumPlanes(0), fCenterValid(false) {}
     virtual ~hsBoundsOriented() {   if (fPlanes) delete [] fPlanes; }
 
     // Center is not computed by the class, it must be set by the creator of the class.
@@ -286,7 +286,7 @@ public:
     virtual bool IsInside(const hsPoint3* pos) const; // ok for full/empty
 
     virtual void TestPlane(const hsVector3 &n, hsPoint2 &depth) const;
-    virtual int32_t TestPoints(int n, const hsPoint3 *pList) const; // pos,neg,zero == allout, allin, cut
+    virtual int32_t TestPoints(int n, const hsPoint3 *pList) const; // pos, neg, zero == allout, allin, cut
 
     // Test according to my axes only, doesn't check other's axes
     // neg, pos, zero == disjoint, I contain other, overlap
@@ -294,7 +294,7 @@ public:
 
     virtual void TestPlane(const hsVector3 &n, const hsVector3 &myVel, hsPoint2 &depth) const;
     virtual void TestPlane(const hsPlane3 *p, const hsVector3 &myVel, hsPoint2 &depth) const;
-    virtual int32_t TestPoints(int n, const hsPoint3 *pList, const hsVector3 &ptVel) const; // pos,neg,zero == allout, allin, cut
+    virtual int32_t TestPoints(int n, const hsPoint3 *pList, const hsVector3 &ptVel) const; // pos, neg, zero == allout, allin, cut
     virtual bool ISectBB(const hsBounds3Ext &other, const hsVector3 &myVel) const;
     virtual bool ISectBB(const hsBounds3Ext &other, const hsVector3 &myVel, hsHitInfoExt *hit) const;
     virtual bool ISectABB(const hsBounds3Ext &other, const hsVector3 &myVel) const;

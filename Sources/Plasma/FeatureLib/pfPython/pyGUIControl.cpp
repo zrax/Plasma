@@ -252,7 +252,7 @@ PyObject* pyGUIControl::GetObjectCenter()
         if (pbmod)
             return pyPoint3::New(pbmod->GetObjectCenter());
     }
-    return pyPoint3::New(hsPoint3(0,0,0));
+    return pyPoint3::New(hsPoint3(0, 0, 0));
 }
 
 
@@ -287,7 +287,7 @@ PyObject* pyGUIControl::GetForeColor() const
         if (pdmod)
         {
             pfGUIColorScheme* color = pdmod->GetColorScheme();
-            return pyColor::New(color->fForeColor.r,color->fForeColor.g,color->fForeColor.b,color->fForeColor.a);
+            return pyColor::New(color->fForeColor.r, color->fForeColor.g, color->fForeColor.b, color->fForeColor.a);
         }
     }
     PYTHON_RETURN_NONE;
@@ -301,7 +301,7 @@ PyObject* pyGUIControl::GetSelColor() const
         if (pdmod)
         {
             pfGUIColorScheme* color = pdmod->GetColorScheme();
-            return pyColor::New(color->fSelForeColor.r,color->fSelForeColor.g,color->fSelForeColor.b,color->fSelForeColor.a);
+            return pyColor::New(color->fSelForeColor.r, color->fSelForeColor.g, color->fSelForeColor.b, color->fSelForeColor.a);
         }
     }
     PYTHON_RETURN_NONE;
@@ -315,7 +315,7 @@ PyObject* pyGUIControl::GetBackColor() const
         if (pdmod)
         {
             pfGUIColorScheme* color = pdmod->GetColorScheme();
-            return pyColor::New(color->fBackColor.r,color->fBackColor.g,color->fBackColor.b,color->fBackColor.a);
+            return pyColor::New(color->fBackColor.r, color->fBackColor.g, color->fBackColor.b, color->fBackColor.a);
         }
     }
     PYTHON_RETURN_NONE;
@@ -329,7 +329,7 @@ PyObject* pyGUIControl::GetBackSelColor() const
         if (pdmod)
         {
             pfGUIColorScheme* color = pdmod->GetColorScheme();
-            return pyColor::New(color->fSelBackColor.r,color->fSelBackColor.g,color->fSelBackColor.b,color->fSelBackColor.a);
+            return pyColor::New(color->fSelBackColor.r, color->fSelBackColor.g, color->fSelBackColor.b, color->fSelBackColor.a);
         }
     }
     PYTHON_RETURN_NONE;

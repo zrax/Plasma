@@ -102,13 +102,13 @@ class SensorReport : public NxUserTriggerReport
             if (status & NX_TRIGGER_ON_ENTER)
             {
                 if (plSimulationMgr::fExtraProfile)
-                    plDetectorLog::Red("-->Send Collision {} enter",triggerPhys->GetObjectKey()->GetName());
+                    plDetectorLog::Red("-->Send Collision {} enter", triggerPhys->GetObjectKey()->GetName());
                 plSimulationMgr::GetInstance()->AddCollisionMsg(triggerPhys->GetObjectKey(), otherKey, true);
             }
             else if (status & NX_TRIGGER_ON_LEAVE)
             {
                 if (plSimulationMgr::fExtraProfile)
-                    plDetectorLog::Red("-->Send Collision {} exit",triggerPhys->GetObjectKey()->GetName());
+                    plDetectorLog::Red("-->Send Collision {} exit", triggerPhys->GetObjectKey()->GetName());
                 plSimulationMgr::GetInstance()->AddCollisionMsg(triggerPhys->GetObjectKey(), otherKey, false);
             }
         }
@@ -232,7 +232,7 @@ plProfile_CreateTimer("UpdateContexts", "Simulation", UpdateContexts);
 // plProfile_CreateCounter("  ContextUpdates", "Simulation", ContextUpdates);
 plProfile_CreateCounter("  MaySendLocation", "Simulation", MaySendLocation);
 plProfile_CreateCounter("  LocationsSent", "Simulation", LocationsSent);
-plProfile_CreateTimer("  PhysicsUpdates","Simulation",PhysicsUpdates);
+plProfile_CreateTimer("  PhysicsUpdates", "Simulation", PhysicsUpdates);
 // plProfile_CreateTimer("EntityCleanup", "Simulation", EntityCleanup);
 plProfile_CreateCounter("SetTransforms Accepted", "Simulation", SetTransforms);
 plProfile_CreateCounter("AnimatedPhysicals", "Simulation", AnimatedPhysicals);
@@ -813,7 +813,7 @@ void plSimulationMgr::IDrawActiveActorList()
     for (SceneMap::iterator it = fScenes.begin(); it != fScenes.end(); it++)
     {
         
-        sprintf(strBuf, "Scene: %s",it->first->GetName().c_str());
+        sprintf(strBuf, "Scene: %s", it->first->GetName().c_str());
         debugTxt.DrawString(x, y, strBuf);
         y += lineHeight;
         uint32_t numActors =it->second->getNbActors();
@@ -822,7 +822,7 @@ void plSimulationMgr::IDrawActiveActorList()
         {
             if (!actors[i]->isSleeping())
             {
-                sprintf(strBuf,"\t%s",actors[i]->getName());
+                sprintf(strBuf, "\t%s", actors[i]->getName());
                 debugTxt.DrawString(x, y, strBuf);
                 y += lineHeight;
             }

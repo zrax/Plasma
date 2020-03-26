@@ -183,7 +183,7 @@ plSoundBuffer::ELoadReturnVal plWin32StreamingSound::IPreLoadBuffer(bool playWhe
             if (sfxPath)
                 strPath = plFileName::Join(strPath, "sfx");
             strPath = plFileName::Join(strPath, fSrcFilename);
-            fDataStream = plAudioFileReader::CreateReader(strPath, select,type);
+            fDataStream = plAudioFileReader::CreateReader(strPath, select, type);
         }
 
         if (fDataStream == nil || !fDataStream->IsValid())

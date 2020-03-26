@@ -235,7 +235,7 @@ PF_CONSOLE_CMD(Avatar_Spawn, prev, "", "Go to the prev spawn point in sequence."
     }
 }
 
-PF_CONSOLE_CMD(Avatar_Spawn, Respawn,"", "Moves the avatar back to the start point.")
+PF_CONSOLE_CMD(Avatar_Spawn, Respawn, "", "Moves the avatar back to the start point.")
 {
     plArmatureMod *avatar = plAvatarMgr::GetInstance()->GetLocalAvatar();
     
@@ -251,7 +251,7 @@ PF_CONSOLE_CMD(Avatar_Spawn, SetSpawnOverride, "string spawnPointName", "Overrid
     pfConsolePrintF(PrintString, "Spawn point override set to object {}", (const char *)params[0]);
 }
 
-PF_CONSOLE_CMD(Avatar_Spawn, DontPanic,"", "Toggles the Don't panic link flag.")
+PF_CONSOLE_CMD(Avatar_Spawn, DontPanic, "", "Toggles the Don't panic link flag.")
 {
     plArmatureMod *avatar = plAvatarMgr::GetInstance()->GetLocalAvatar();
 

@@ -209,37 +209,37 @@ ParamBlockDesc2 gPhysicalBk
     plPhysicCoreComponent::kStartForceX, _T("StartForceX"),     TYPE_FLOAT,     P_ANIMATABLE, 0,
         p_default, 0.0f,
         p_ui,   kPhysMain, TYPE_SPINNER, EDITTYPE_FLOAT,
-        IDC_COMP_PHYSICAL_P3SF_EDIT1,IDC_COMP_PHYSICAL_P3SF_SPIN1, 0.1f,
+        IDC_COMP_PHYSICAL_P3SF_EDIT1, IDC_COMP_PHYSICAL_P3SF_SPIN1, 0.1f,
         end,
 
     plPhysicCoreComponent::kStartForceY, _T("StartForceY"),     TYPE_FLOAT,     P_ANIMATABLE, 0,
         p_default, 0.0f,
         p_ui,   kPhysMain, TYPE_SPINNER, EDITTYPE_FLOAT,
-        IDC_COMP_PHYSICAL_P3SF_EDIT2,IDC_COMP_PHYSICAL_P3SF_SPIN2, 0.1f,
+        IDC_COMP_PHYSICAL_P3SF_EDIT2, IDC_COMP_PHYSICAL_P3SF_SPIN2, 0.1f,
         end,
     
     plPhysicCoreComponent::kStartForceZ, _T("StartForceZ"),     TYPE_FLOAT,     P_ANIMATABLE, 0,
         p_default, 0.0f,
         p_ui,   kPhysMain, TYPE_SPINNER, EDITTYPE_FLOAT,
-        IDC_COMP_PHYSICAL_P3SF_EDIT3,IDC_COMP_PHYSICAL_P3SF_SPIN3, 0.1f,
+        IDC_COMP_PHYSICAL_P3SF_EDIT3, IDC_COMP_PHYSICAL_P3SF_SPIN3, 0.1f,
         end,
 
     plPhysicCoreComponent::kStartTorqueX, _T("StartTorqueX"),       TYPE_FLOAT,     P_ANIMATABLE, 0,
         p_default, 0.0f,
         p_ui,   kPhysMain, TYPE_SPINNER, EDITTYPE_FLOAT,
-        IDC_COMP_PHYSICAL_P3ST_EDIT1,IDC_COMP_PHYSICAL_P3ST_SPIN1, 0.1f,
+        IDC_COMP_PHYSICAL_P3ST_EDIT1, IDC_COMP_PHYSICAL_P3ST_SPIN1, 0.1f,
         end,
 
     plPhysicCoreComponent::kStartTorqueY, _T("StartTorqueY"),       TYPE_FLOAT,     P_ANIMATABLE, 0,
         p_default, 0.0f,
         p_ui,   kPhysMain, TYPE_SPINNER, EDITTYPE_FLOAT,
-        IDC_COMP_PHYSICAL_P3ST_EDIT2,IDC_COMP_PHYSICAL_P3ST_SPIN2, 0.1f,
+        IDC_COMP_PHYSICAL_P3ST_EDIT2, IDC_COMP_PHYSICAL_P3ST_SPIN2, 0.1f,
         end,
 
     plPhysicCoreComponent::kStartTorqueZ, _T("StartTorqueZ"),       TYPE_FLOAT,     P_ANIMATABLE, 0,
         p_default, 0.0f,
         p_ui,   kPhysMain, TYPE_SPINNER, EDITTYPE_FLOAT,
-        IDC_COMP_PHYSICAL_P3ST_EDIT3,IDC_COMP_PHYSICAL_P3ST_SPIN3, 0.1f,
+        IDC_COMP_PHYSICAL_P3ST_EDIT3, IDC_COMP_PHYSICAL_P3ST_SPIN3, 0.1f,
         end,
 
     plPhysicCoreComponent::kBoundCondRadio, _T("BoundingConditions"),       TYPE_INT,       0, 0,
@@ -272,16 +272,16 @@ ParamBlockDesc2 gPhysicalBk
         end,
 
     // Event Groups
-    plPhysicCoreComponent::kMemberGroups_DEAD, _T("memberGroups"), TYPE_INT,    0,0,
+    plPhysicCoreComponent::kMemberGroups_DEAD, _T("memberGroups"), TYPE_INT,    0, 0,
         end,
 
-    plPhysicCoreComponent::kBounceGroups_DEAD, _T("bounceGroups"), TYPE_INT,    0,0,
+    plPhysicCoreComponent::kBounceGroups_DEAD, _T("bounceGroups"), TYPE_INT,    0, 0,
         end,
 
-    plPhysicCoreComponent::kReportGroups, _T("memberGroups"), TYPE_INT, 0,0,
+    plPhysicCoreComponent::kReportGroups, _T("memberGroups"), TYPE_INT, 0, 0,
         end,
 
-    plPhysicCoreComponent::kGroup, _T("group"), TYPE_INT,   0,0,
+    plPhysicCoreComponent::kGroup, _T("group"), TYPE_INT,   0, 0,
         end,
 
     end
@@ -339,7 +339,7 @@ class plPhysTerrainComponent : public plPhysicCoreComponent
 {
 public:
     plPhysTerrainComponent();
-    bool SetupProperties(plMaxNode* node,plErrorMsg *pErrMsg);
+    bool SetupProperties(plMaxNode* node, plErrorMsg *pErrMsg);
 
     virtual void CollectNonDrawables(INodeTab& nonDrawables);
 };
@@ -399,11 +399,11 @@ ParamBlockDesc2 gPhysTerrainBk
         end,
 
     // Event Groups
-    plPhysicCoreComponent::kMemberGroups_DEAD, _T("memberGroups"), TYPE_INT,    0,0,
+    plPhysicCoreComponent::kMemberGroups_DEAD, _T("memberGroups"), TYPE_INT,    0, 0,
         p_default, plPhysicsGroups_DEAD::kStaticSimulated,
         end,
 
-    plPhysicCoreComponent::kBounceGroups_DEAD, _T("bounceGroups"), TYPE_INT,    0,0,
+    plPhysicCoreComponent::kBounceGroups_DEAD, _T("bounceGroups"), TYPE_INT,    0, 0,
         end,
 
     end
@@ -532,10 +532,10 @@ ParamBlockDesc2 gPhysInvisibleBk
         end,
 
     // Event Groups
-    plPhysicCoreComponent::kMemberGroups_DEAD, _T("memberGroups"), TYPE_INT,    0,0,
+    plPhysicCoreComponent::kMemberGroups_DEAD, _T("memberGroups"), TYPE_INT,    0, 0,
         p_default, plPhysicsGroups_DEAD::kStaticSimulated,
         end,
-    plPhysicCoreComponent::kBounceGroups_DEAD, _T("bounceGroups"), TYPE_INT,    0,0,
+    plPhysicCoreComponent::kBounceGroups_DEAD, _T("bounceGroups"), TYPE_INT,    0, 0,
         end,
 
     end
@@ -617,10 +617,10 @@ ParamBlockDesc2 gCameraOccludeBlock
         end,
 
     // Event Groups
-    plPhysicCoreComponent::kMemberGroups_DEAD, _T("memberGroups"), TYPE_INT,    0,0,
+    plPhysicCoreComponent::kMemberGroups_DEAD, _T("memberGroups"), TYPE_INT,    0, 0,
         end,
 
-    plPhysicCoreComponent::kBounceGroups_DEAD, _T("bounceGroups"), TYPE_INT,    0,0,
+    plPhysicCoreComponent::kBounceGroups_DEAD, _T("bounceGroups"), TYPE_INT,    0, 0,
         end,
 
     end
@@ -739,10 +739,10 @@ ParamBlockDesc2 gPhysSimpleBk
         end,
         
     // Event Groups
-    plPhysicCoreComponent::kMemberGroups_DEAD, _T("memberGroups"), TYPE_INT,    0,0,
+    plPhysicCoreComponent::kMemberGroups_DEAD, _T("memberGroups"), TYPE_INT,    0, 0,
         p_default, plPhysicsGroups_DEAD::kDynamicSimulated,
         end,
-    plPhysicCoreComponent::kBounceGroups_DEAD, _T("bounceGroups"), TYPE_INT,    0,0,
+    plPhysicCoreComponent::kBounceGroups_DEAD, _T("bounceGroups"), TYPE_INT,    0, 0,
         p_default,  plPhysicsGroups_DEAD::kStaticSimulated |
                     plPhysicsGroups_DEAD::kDynamicSimulated |
                     plPhysicsGroups_DEAD::kAnimated,
@@ -851,10 +851,10 @@ ParamBlockDesc2 gPhysBlockerBk
         end,
 
     // Event Groups
-    plPhysicCoreComponent::kMemberGroups_DEAD, _T("memberGroups"), TYPE_INT,    0,0,
+    plPhysicCoreComponent::kMemberGroups_DEAD, _T("memberGroups"), TYPE_INT,    0, 0,
         p_default, plPhysicsGroups_DEAD::kStaticSimulated,
         end,
-    plPhysicCoreComponent::kBounceGroups_DEAD, _T("bounceGroups"), TYPE_INT,    0,0,
+    plPhysicCoreComponent::kBounceGroups_DEAD, _T("bounceGroups"), TYPE_INT,    0, 0,
         end,
 
     plPhysicCoreComponent::kGroup, _T("group"),     TYPE_INT,       0, 0,
@@ -946,10 +946,10 @@ ParamBlockDesc2 gPhysWalkableBk
         end,
     
     // Event Groups
-    plPhysicCoreComponent::kMemberGroups_DEAD, _T("memberGroups"), TYPE_INT,    0,0,
+    plPhysicCoreComponent::kMemberGroups_DEAD, _T("memberGroups"), TYPE_INT,    0, 0,
         p_default, plPhysicsGroups_DEAD::kStaticSimulated,
         end,
-    plPhysicCoreComponent::kBounceGroups_DEAD, _T("bounceGroups"), TYPE_INT,    0,0,
+    plPhysicCoreComponent::kBounceGroups_DEAD, _T("bounceGroups"), TYPE_INT,    0, 0,
         end,
 
     end
@@ -1027,10 +1027,10 @@ ParamBlockDesc2 gPhysClimbableBk
         end,
     
     // Event Groups
-    plPhysicCoreComponent::kMemberGroups_DEAD, _T("memberGroups"), TYPE_INT,    0,0,
+    plPhysicCoreComponent::kMemberGroups_DEAD, _T("memberGroups"), TYPE_INT,    0, 0,
         p_default, plPhysicsGroups_DEAD::kStaticSimulated,
         end,
-    plPhysicCoreComponent::kBounceGroups_DEAD, _T("bounceGroups"), TYPE_INT,    0,0,
+    plPhysicCoreComponent::kBounceGroups_DEAD, _T("bounceGroups"), TYPE_INT,    0, 0,
         end,
 
     end
@@ -1161,9 +1161,9 @@ ParamBlockDesc2 gPhysSwimSurfaceBk
         end,
         
     // Event Groups
-    plPhysicCoreComponent::kMemberGroups_DEAD, _T("memberGroups"), TYPE_INT,    0,0,
+    plPhysicCoreComponent::kMemberGroups_DEAD, _T("memberGroups"), TYPE_INT,    0, 0,
         end,
-    plPhysicCoreComponent::kBounceGroups_DEAD, _T("bounceGroups"), TYPE_INT,    0,0,
+    plPhysicCoreComponent::kBounceGroups_DEAD, _T("bounceGroups"), TYPE_INT,    0, 0,
         end,
 
     plPhysicCoreComponent::kSwimCurrentType, _T("CurrentType"),     TYPE_INT,       0, 0,
@@ -1469,10 +1469,10 @@ ParamBlockDesc2 gPhysSwim3DBk
         end,
     
     // Event Groups
-    plPhysicCoreComponent::kMemberGroups_DEAD, _T("memberGroups"), TYPE_INT,    0,0,
+    plPhysicCoreComponent::kMemberGroups_DEAD, _T("memberGroups"), TYPE_INT,    0, 0,
         p_default, plPhysicsGroups_DEAD::kStaticSimulated,
         end,
-    plPhysicCoreComponent::kBounceGroups_DEAD, _T("bounceGroups"), TYPE_INT,    0,0,
+    plPhysicCoreComponent::kBounceGroups_DEAD, _T("bounceGroups"), TYPE_INT,    0, 0,
         end,
 
     end
@@ -1959,10 +1959,10 @@ public:
     bool PreConvert(plMaxNode *node, plErrorMsg *pErrMsg);
     virtual void CollectNonDrawables(INodeTab& nonDrawables) { AddTargetsToList(nonDrawables); }
 };
-CLASS_DESC(plRideAnimatedPhysicalComponent , gRideAnimatedPhysicalComponent, "RideAnimPhysReg",  "RideAnimatedPhysicalRegion", COMP_TYPE_PHYSICAL, Class_ID(0xaf305963, 0x63a246df));
+CLASS_DESC(plRideAnimatedPhysicalComponent, gRideAnimatedPhysicalComponent, "RideAnimPhysReg",  "RideAnimatedPhysicalRegion", COMP_TYPE_PHYSICAL, Class_ID(0xaf305963, 0x63a246df));
 ParamBlockDesc2 gSRideAnimatedPhysBk
 (
-plComponent::kBlkComp, _T("rideAnimated"), 0, &gRideAnimatedPhysicalComponent, P_AUTO_CONSTRUCT + P_AUTO_UI , plComponent::kRefComp,
+plComponent::kBlkComp, _T("rideAnimated"), 0, &gRideAnimatedPhysicalComponent, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 //Roll out
 
 IDD_COMP_RIDE_ANIMATED_PHYS, IDS_COMP_RIDE_ANIMATED_PHYS, 0, 0, NULL,

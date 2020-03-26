@@ -49,8 +49,8 @@ plLayerDepth::plLayerDepth()
     SetBlendFlags(hsGMatState::kBlendAdd);
     SetMiscFlags(hsGMatState::kMiscRestartPassHere | hsGMatState::kMiscTroubledLoner);
 
-    SetPreshadeColor(hsColorRGBA().Set(0,0,0,1.f));
-    SetRuntimeColor(hsColorRGBA().Set(0,0,0,1.f));
+    SetPreshadeColor(hsColorRGBA().Set(0, 0, 0, 1.f));
+    SetRuntimeColor(hsColorRGBA().Set(0, 0, 0, 1.f));
     SetAmbientColor(hsColorRGBA().Set(0.1f, 0.1f, 0.1f, 1.f));
     SetOpacity(1.f);
 

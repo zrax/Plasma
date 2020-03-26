@@ -100,10 +100,10 @@ hsAffineParts::hsAffineParts()
 //
 void hsAffineParts::Reset()
 {
-    fT.Set(0,0,0);
+    fT.Set(0, 0, 0);
     fQ.Identity();
     fU.Identity();
-    fK.Set(1,1,1);
+    fK.Set(1, 1, 1);
     fF = 1.0;
 }
 
@@ -152,7 +152,7 @@ void hsAffineParts::ComposeMatrix(hsMatrix44 *out) const
     if (fF==-1.0)
     {
         hsVector3 s;
-        s.Set(-1,-1,-1);
+        s.Set(-1, -1, -1);
         F.MakeScaleMat(&s);
     }
     else
@@ -274,7 +274,7 @@ void hsAffineParts::ComposeInverseMatrix(hsMatrix44 *out) const
     // Build scale factor matrix
     hsMatrix44 K;
     hsVector3 invK;
-    invK.Set(hsInvert(fK.fX),hsInvert(fK.fY),hsInvert(fK.fZ));
+    invK.Set(hsInvert(fK.fX), hsInvert(fK.fY), hsInvert(fK.fZ));
     K.MakeScaleMat(&invK);
 
     // Build Utranspose matrix
@@ -291,7 +291,7 @@ void hsAffineParts::ComposeInverseMatrix(hsMatrix44 *out) const
     if (fF==-1.0)
     {
         hsVector3 s;
-        s.Set(-1,-1,-1);
+        s.Set(-1, -1, -1);
         F.MakeScaleMat(&s);
     }
     else
@@ -357,7 +357,7 @@ void hsAffineParts::ComposeInverseMatrix(hsMatrix44 *out) const
     int i, j;
 
     hsVector3 invK;
-    invK.Set(hsInvert(fK.fX),hsInvert(fK.fY),hsInvert(fK.fZ));
+    invK.Set(hsInvert(fK.fX), hsInvert(fK.fY), hsInvert(fK.fZ));
     hsVector3 UK[3];
     for (i = 0; i < 3; i++)
     {
@@ -407,7 +407,7 @@ void hsAffineParts::SetFromInterp(const hsAffineParts &ap1, const hsAffineParts 
 
 #if 0
     // Debug
-    float rad1,rad2, rad3;
+    float rad1, rad2, rad3;
     hsVector3 axis1, axis2, axis3;
     k1->fQ.GetAngleAxis(&rad1, &axis1);
     k2->fQ.GetAngleAxis(&rad2, &axis2);

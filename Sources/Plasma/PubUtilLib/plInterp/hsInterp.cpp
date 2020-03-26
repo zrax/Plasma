@@ -207,7 +207,7 @@ void hsInterp::LinInterp(const hsMatrix44* mat1, const hsMatrix44* mat2, float t
         if (!(flags & kIgnorePartsPos))
         {
             // interp translation
-            hsPoint3 p1,p2,pOut;
+            hsPoint3 p1, p2, pOut;
             mat1->GetTranslate(&p1);
             mat2->GetTranslate(&p2);
             LinInterp(&p1, &p2, t, &pOut);

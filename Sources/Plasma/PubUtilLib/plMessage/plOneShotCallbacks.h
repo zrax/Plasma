@@ -59,7 +59,7 @@ public:
     {
     public:
         plOneShotCallback(const ST::string &marker, plKey &receiver, int16_t user) :
-          fMarker(marker), fReceiver(receiver) , fUser(user) {}
+          fMarker(marker), fReceiver(receiver), fUser(user) {}
 
         ST::string fMarker;
         plKey fReceiver;

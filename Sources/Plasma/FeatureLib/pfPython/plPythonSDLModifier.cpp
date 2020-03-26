@@ -420,7 +420,7 @@ void plPythonSDLModifier::IPythonVarToSDL(plStateDataRecord* state, const ST::st
         for (Py_ssize_t i = 0; i < count; i++) {
             PyObject* pyVarItem = PyTuple_GetItem(pyVar, i);
             if (pyVarItem)
-                IPythonVarIdxToSDL(var, i, type, pyVarItem,it->second.hintString);
+                IPythonVarIdxToSDL(var, i, type, pyVarItem, it->second.hintString);
         }
     }
 }
@@ -527,7 +527,7 @@ plPythonSDLModifier* plPythonSDLModifier::FindAgeSDL()
     // find the Age Global object
     plLocation loc = plKeyFinder::Instance().FindLocation(ageName, plAgeDescription::GetCommonPage(plAgeDescription::kGlobal));
     if (loc.IsValid()) {
-        plUoid oid(loc,plPythonFileMod::Index(), plPythonFileMod::kGlobalNameKonstant);
+        plUoid oid(loc, plPythonFileMod::Index(), plPythonFileMod::kGlobalNameKonstant);
         if (oid.IsValid()) {
             plKey key = hsgResMgr::ResMgr()->FindKey(oid);
 
@@ -568,9 +568,9 @@ plKey ExternFindAgeSDLTarget()
 plKey plPythonSDLModifier::FindAgeSDLTarget()
 {
     // find the Age Global object
-    plLocation loc = plKeyFinder::Instance().FindLocation(cyMisc::GetAgeName(),plAgeDescription::GetCommonPage(plAgeDescription::kGlobal));
+    plLocation loc = plKeyFinder::Instance().FindLocation(cyMisc::GetAgeName(), plAgeDescription::GetCommonPage(plAgeDescription::kGlobal));
     if (loc.IsValid()) {
-        plUoid oid(loc,plPythonFileMod::Index(), plPythonFileMod::kGlobalNameKonstant);
+        plUoid oid(loc, plPythonFileMod::Index(), plPythonFileMod::kGlobalNameKonstant);
         if (oid.IsValid()) {
             plKey key = hsgResMgr::ResMgr()->FindKey(oid);
 
@@ -650,10 +650,10 @@ void pySDLModifier::SetItemIdxImmediate(pySDLModifier& self, const ST::string& k
 
 void pySDLModifier::SetFlags(pySDLModifier& self, const ST::string& name, bool sendImmediate, bool skipOwnershipCheck)
 {
-    self.fRecord->SetFlags(name,sendImmediate,skipOwnershipCheck);
+    self.fRecord->SetFlags(name, sendImmediate, skipOwnershipCheck);
 }
 
 void pySDLModifier::SetTagString(pySDLModifier& self, const ST::string& name, const ST::string& tag)
 {
-    self.fRecord->SetTagString(name,tag);
+    self.fRecord->SetTagString(name, tag);
 }

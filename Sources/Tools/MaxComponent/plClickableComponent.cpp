@@ -214,7 +214,7 @@ bool plClickableComponent::SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg)
             // only if movable will it have mass (then it will keep track of movements in PhysX)
             if (clickNode->IsMovable() || clickNode->IsTMAnimatedRecur())
                 physProps->SetMass(1.0, clickNode, pErrMsg);
-            physProps->SetFriction(fCompPB->GetFloat(kClickableFriction),clickNode,pErrMsg);
+            physProps->SetFriction(fCompPB->GetFloat(kClickableFriction), clickNode, pErrMsg);
         }
         else
         {

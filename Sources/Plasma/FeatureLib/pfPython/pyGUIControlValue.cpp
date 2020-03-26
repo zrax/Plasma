@@ -132,7 +132,7 @@ void pyGUIControlValue::SetRange(float min, float max)
         // get the pointer to the modifier
         pfGUIValueCtrl* pvcmod = pfGUIValueCtrl::ConvertNoRef(fGCkey->ObjectIsLoaded());
         if (pvcmod)
-            pvcmod->SetRange(min,max);
+            pvcmod->SetRange(min, max);
     }
 }
 

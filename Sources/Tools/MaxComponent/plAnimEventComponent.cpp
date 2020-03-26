@@ -427,7 +427,7 @@ ParamBlockDesc2 gMtlEventBlock
         end,
     kMtlEnd,    _T("animEnd"),      TYPE_BOOL,          0, 0,
         end,
-    kMtlMarkers,_T("markers"),      TYPE_STRING_TAB, 0, 0, 0,
+    kMtlMarkers, _T("markers"),     TYPE_STRING_TAB, 0, 0, 0,
         end,
 
     end

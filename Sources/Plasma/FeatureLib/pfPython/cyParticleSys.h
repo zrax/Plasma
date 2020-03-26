@@ -62,7 +62,7 @@ protected:
 
     void    ISendParticleSysMsg(uint32_t param, float value);
 
-    cyParticleSys(const plKey sender=nil,const plKey recvr=nil);
+    cyParticleSys(const plKey sender=nil, const plKey recvr=nil);
 
 public:
     // required functions for PyObject interoperability

@@ -693,7 +693,7 @@ bool plAvatarInputInterface::IsEnterChatModeBound()
         const plKeyBinding &binding = fControlMap->GetBinding(i);
 
         const char* extString = binding.GetExtendedString();
-        if (extString && strcmp("Game.EnterChatMode",extString) == 0)
+        if (extString && strcmp("Game.EnterChatMode", extString) == 0)
         {
             if (binding.GetKey1() != plKeyCombo::kUnmapped)
                 return true;

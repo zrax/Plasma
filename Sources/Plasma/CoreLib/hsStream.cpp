@@ -291,7 +291,7 @@ bool  hsStream::Read4Bytes(void *pv)  // Virtual, faster version in sub classes
 
 bool  hsStream::Read12Bytes(void *buffer) // Reads 12 bytes, return true if success
 {
-    int knt = this->Read(12,buffer);
+    int knt = this->Read(12, buffer);
     if (knt != 12)
         return false;
     return true;
@@ -299,7 +299,7 @@ bool  hsStream::Read12Bytes(void *buffer) // Reads 12 bytes, return true if succ
 
 bool  hsStream::Read8Bytes(void *buffer)  // Reads 12 bytes, return true if success
 {
-    int knt = this->Read(8,buffer);
+    int knt = this->Read(8, buffer);
     if (knt !=8)
         return false;
     return true;
@@ -332,7 +332,7 @@ uint8_t hsStream::ReadByte()
 
 bool hsStream::AtEnd()
 {
-    hsAssert(0,"No hsStream::AtEnd() implemented for this stream class");
+    hsAssert(0, "No hsStream::AtEnd() implemented for this stream class");
     return false;
 }
 
@@ -398,7 +398,7 @@ bool hsStream::ReadLn(char *s, uint32_t maxLen, const char beginComment, const c
 
     while (true)
     {
-        while (!AtEnd() && strchr("\r\n",c = ReadByte()))
+        while (!AtEnd() && strchr("\r\n", c = ReadByte()))
             /* empty */;
 
         if (AtEnd())
@@ -414,7 +414,7 @@ bool hsStream::ReadLn(char *s, uint32_t maxLen, const char beginComment, const c
 
     s[0] = c;
     uint32_t k = 1;
-    while (!AtEnd() && !strchr("\r\n",c = ReadByte()))
+    while (!AtEnd() && !strchr("\r\n", c = ReadByte()))
     {
         if (k < maxLen)
             s[k++] = c;
@@ -1028,14 +1028,14 @@ hsQueueStream::~hsQueueStream()
 
 uint32_t hsQueueStream::Read(uint32_t byteCount, void * buffer)
 {
-    hsAssert(fWriteCursor < fSize,"hsQueueStream: WriteCursor out of range.");
-    hsAssert(fReadCursor < fSize,"hsQueueStream: ReadCursor out of range.");
+    hsAssert(fWriteCursor < fSize, "hsQueueStream: WriteCursor out of range.");
+    hsAssert(fReadCursor < fSize, "hsQueueStream: ReadCursor out of range.");
 
     int32_t limit, length, total;
     
     limit = fWriteCursor >= fReadCursor ? fWriteCursor : fSize;
     length = std::min(limit-fReadCursor, byteCount);
-    HSMemory::BlockMove(fQueue+fReadCursor,buffer,length);
+    HSMemory::BlockMove(fQueue+fReadCursor, buffer, length);
     fReadCursor += length;
     fReadCursor %= fSize;
     total = length;
@@ -1044,7 +1044,7 @@ uint32_t hsQueueStream::Read(uint32_t byteCount, void * buffer)
     {
         limit = fWriteCursor;
         length = std::min(limit, static_cast<int32_t>(byteCount)-length);
-        HSMemory::BlockMove(fQueue,static_cast<char*>(buffer)+total,length);
+        HSMemory::BlockMove(fQueue, static_cast<char*>(buffer)+total, length);
         fReadCursor = length;
         total += length;
     }
@@ -1054,13 +1054,13 @@ uint32_t hsQueueStream::Read(uint32_t byteCount, void * buffer)
 
 uint32_t hsQueueStream::Write(uint32_t byteCount, const void* buffer)
 {
-    hsAssert(fWriteCursor < fSize,"hsQueueStream: WriteCursor out of range.");
-    hsAssert(fReadCursor < fSize,"hsQueueStream: ReadCursor out of range.");
+    hsAssert(fWriteCursor < fSize, "hsQueueStream: WriteCursor out of range.");
+    hsAssert(fReadCursor < fSize, "hsQueueStream: ReadCursor out of range.");
 
     int32_t length;
 
     length = std::min(fSize-fWriteCursor, byteCount);
-    HSMemory::BlockMove(buffer,fQueue+fWriteCursor,length);
+    HSMemory::BlockMove(buffer, fQueue+fWriteCursor, length);
     if (fReadCursor > fWriteCursor)
     {
 #if 0
@@ -1075,7 +1075,7 @@ uint32_t hsQueueStream::Write(uint32_t byteCount, const void* buffer)
 
     if (length < byteCount)
     {
-        Write(byteCount - length,static_cast<const char*>(buffer)+length);
+        Write(byteCount - length, static_cast<const char*>(buffer)+length);
     }
 
     return byteCount;
@@ -1273,7 +1273,7 @@ uint32_t hsBufferedStream::Read(uint32_t bytes, void* buffer)
         if (bytes >= kBufferSize && fPosition % kBufferSize == 0)
         {
             uint32_t directReadSize = bytes - (bytes % kBufferSize);
-            hsAssert(ftell(fRef) % kBufferSize == 0 , "read buffer is not in alignment.");
+            hsAssert(ftell(fRef) % kBufferSize == 0, "read buffer is not in alignment.");
             int amtRead = ::fread(buffer, 1, directReadSize, fRef);
             fPosition += amtRead;
             numReadBytes += amtRead;
@@ -1288,7 +1288,7 @@ uint32_t hsBufferedStream::Read(uint32_t bytes, void* buffer)
         // If we've got bytes left to read and we didn't pass the end of the file, buffer a new block
         if (bytes > 0 && fPosition < fFileSize)
         {
-            hsAssert(ftell(fRef) % kBufferSize == 0 , "read buffer is not in alignment.");
+            hsAssert(ftell(fRef) % kBufferSize == 0, "read buffer is not in alignment.");
             fBufferLen = ::fread(fBuffer, 1, kBufferSize, fRef);
 
 #ifdef HS_DEBUGGING

@@ -74,7 +74,7 @@ private:
 protected:
     uint32_t fLen;            // sent
 public:
-    plNetCommonMessage() : fLen(0),fMsgData(nil) {}
+    plNetCommonMessage() : fLen(0), fMsgData(nil) {}
     virtual ~plNetCommonMessage() { hsRefCnt_SafeUnRef(fMsgData); }
 
     // setters

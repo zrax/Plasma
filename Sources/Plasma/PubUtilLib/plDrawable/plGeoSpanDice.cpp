@@ -50,7 +50,7 @@ plGeoSpanDice::plGeoSpanDice()
 :   fMinFaces(0),
     fMaxFaces(0)
 {
-    fMaxSize.Set(0,0,0);
+    fMaxSize.Set(0, 0, 0);
 }
 
 plGeoSpanDice::~plGeoSpanDice()

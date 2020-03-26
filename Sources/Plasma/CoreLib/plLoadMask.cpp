@@ -84,7 +84,7 @@ void plLoadMask::Read(hsStream* s)
 {
     // read as packed byte
     uint8_t qc;
-    s->LogReadLE(&qc,"Quality|Capabilty");
+    s->LogReadLE(&qc, "Quality|Capabilty");
 
     fQuality[0] = (qc & 0xf0) >> 4;
     fQuality[1] = (qc & 0x0f);

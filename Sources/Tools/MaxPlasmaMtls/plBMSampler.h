@@ -78,9 +78,9 @@ protected:
 
     plBMSamplerData fData;
 
-    float u1,v1;
-    int bmw,bmh,clipx, clipy, cliph;
-    float fclipw,fcliph, fbmh, fbmw;
+    float u1, v1;
+    int bmw, bmh, clipx, clipy, cliph;
+    float fclipw, fcliph, fbmh, fbmw;
     bool fInitialized;
 
     plBMSampler() {}
@@ -89,10 +89,10 @@ public:
     plBMSampler(plPlasmaMAXLayer *layer, Bitmap *bm);
     int PlaceUV(ShadeContext& sc, float &u, float &v, int iu, int iv);
     void PlaceUVFilter(ShadeContext& sc, float &u, float &v, int iu, int iv);
-    AColor Sample(ShadeContext& sc, float u,float v);
-    AColor SampleFilter(ShadeContext& sc, float u,float v, float du, float dv);
-    //      float SampleMono(ShadeContext& sc, float u,float v);
-    //      float SampleMonoFilter(ShadeContext& sc, float u,float v, float du, float dv);
+    AColor Sample(ShadeContext& sc, float u, float v);
+    AColor SampleFilter(ShadeContext& sc, float u, float v, float du, float dv);
+    //      float SampleMono(ShadeContext& sc, float u, float v);
+    //      float SampleMonoFilter(ShadeContext& sc, float u, float v, float du, float dv);
 };
 
 #endif //_plBMSampler_h

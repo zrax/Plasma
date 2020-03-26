@@ -455,10 +455,10 @@ void plMipmap::IRecombineAlpha(plMipmap *alphaChannel)
 
 plMipmap *plMipmap::IReadRLEImage(hsStream *stream)
 {
-    uint32_t count,color;
+    uint32_t count, color;
     bool done = false;
 
-    plMipmap *retVal = new plMipmap(fWidth,fHeight,plMipmap::kARGB32Config,1);
+    plMipmap *retVal = new plMipmap(fWidth, fHeight, plMipmap::kARGB32Config, 1);
 
     uint32_t *curPos = (uint32_t*)retVal->fImage;
     uint32_t curLoc = 0;
@@ -490,7 +490,7 @@ plMipmap *plMipmap::IReadRLEImage(hsStream *stream)
 
 void plMipmap::IWriteRLEImage(hsStream *stream, plMipmap *mipmap)
 {
-    uint32_t count=0,color=0,curColor=0;
+    uint32_t count=0, color=0, curColor=0;
     uint32_t curPos = 0;
     uint32_t totalSize = mipmap->fLevelSizes[0]/4; // we only save the first mipmap level
 
@@ -556,26 +556,26 @@ void plMipmap::IWriteJPEGImage(hsStream *stream)
     uint8_t flags = 0;
 
     hsNullStream *nullStream = new hsNullStream();
-    IWriteRLEImage(nullStream,this);
+    IWriteRLEImage(nullStream, this);
     if (nullStream->GetBytesWritten() < 5120) // we use RLE if it can get the image size under 5k, otherwise we use JPEG
         flags |= kColorDataRLE;
     delete nullStream;
     nullStream = new hsNullStream();
-    IWriteRLEImage(nullStream,alpha);
+    IWriteRLEImage(nullStream, alpha);
     if (nullStream->GetBytesWritten() < 5120)
         flags |= kAlphaDataRLE;
     delete nullStream;
     stream->WriteByte(flags);
 
     if (flags & kColorDataRLE)
-        IWriteRLEImage(stream,this);
+        IWriteRLEImage(stream, this);
     else
     {
         plJPEG::Instance().SetWriteQuality(70);
         plJPEG::Instance().WriteToStream(stream, this);
     }
     if (flags & kAlphaDataRLE)
-        IWriteRLEImage(stream,alpha);
+        IWriteRLEImage(stream, alpha);
     else
     {
         plJPEG::Instance().SetWriteQuality(100);
@@ -1500,7 +1500,7 @@ void plMipmap::Filter(float sig)
     }
 }
 
-static void CopyPixels(uint32_t srcWidth, uint32_t srcHeight,void *srcPixels,
+static void CopyPixels(uint32_t srcWidth, uint32_t srcHeight, void *srcPixels,
                     uint32_t skipX, uint32_t skipY, uint32_t dstFormat,
                     void * &destPixels, uint32_t copyOptions)
 {
@@ -1561,11 +1561,11 @@ uint32_t plMipmap::CopyOutPixels(uint32_t destXSize, uint32_t destYSize,
     int skipX = fWidth/destXSize - 1;
     int skipY = fHeight/destYSize - 1;
 
-    hsAssert(!fCurrLevel,"Mip Map not at level 0");
+    hsAssert(!fCurrLevel, "Mip Map not at level 0");
 
     for (i = 0; i < (fNumLevels - fCurrLevel); i++)
     {
-        CopyPixels(fWidth >> i , fHeight >> i, GetLevelPtr(i), skipX, skipY,
+        CopyPixels(fWidth >> i, fHeight >> i, GetLevelPtr(i), skipX, skipY,
                         dstFormat, destPixels, copyOptions);
     }
 

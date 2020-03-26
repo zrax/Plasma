@@ -225,7 +225,7 @@ ParamBlockDesc2 gVolumeGadgetBlock
         p_default, plSimDefs::kHullBounds,
         end,
 
-    kVolumeReportGroups_DEAD, _T("reportGroups"), TYPE_INT, 0,0,
+    kVolumeReportGroups_DEAD, _T("reportGroups"), TYPE_INT, 0, 0,
         end,
 
     kVolumeEnabled,     _T("enabled"),      TYPE_BOOL,          0, 0,

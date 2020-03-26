@@ -229,7 +229,7 @@ public:
 //
 //
 //
-int HSExport2::DoExport(const TCHAR *name,ExpInterface *ei,Interface *gi, BOOL suppressPrompts, DWORD options)
+int HSExport2::DoExport(const TCHAR *name, ExpInterface *ei, Interface *gi, BOOL suppressPrompts, DWORD options)
 {
     BOOL backupEnabled = gi->AutoBackupEnabled();
     gi->EnableAutoBackup(FALSE);
@@ -365,7 +365,7 @@ int HSExport2::DoExport(const TCHAR *name,ExpInterface *ei,Interface *gi, BOOL s
     // Write a log entry to the Db file name for now
     //----------------------------------------------
     hsUNIXStream dbLog;
-    dbLog.Open(name,"at");
+    dbLog.Open(name, "at");
     char str[256];
     exportTime = (timeGetTime() - exportTime) / 1000;
     snprintf(str, arrsize(str), "Export from Max File \"%s\" on %02d/%02d/%4d took %d:%02d\n",

@@ -124,8 +124,8 @@ protected:
     {
         float    fT;
         float    fArcLenDelta;   // arc len distance from prev sample point (array entry)
-        ArcLenDeltaInfo(float t, float del) : fT(t),fArcLenDelta(del) {}
-        ArcLenDeltaInfo() : fT(0),fArcLenDelta(0) {}
+        ArcLenDeltaInfo(float t, float del) : fT(t), fArcLenDelta(del) {}
+        ArcLenDeltaInfo() : fT(0), fArcLenDelta(0) {}
     };
     hsTArray<ArcLenDeltaInfo>   fArcLenDeltas;
 public:

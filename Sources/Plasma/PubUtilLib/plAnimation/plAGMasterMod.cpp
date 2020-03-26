@@ -252,7 +252,7 @@ void plAGMasterMod::ApplyAnimations(double time, float elapsed)
     
     AdvanceAnimsToTime(time);
 
-    plProfile_EndLap(ApplyAnimation,this->GetKey()->GetUoid().GetObjectName().c_str());
+    plProfile_EndLap(ApplyAnimation, this->GetKey()->GetUoid().GetObjectName().c_str());
 }
 
 void plAGMasterMod::AdvanceAnimsToTime(double time)

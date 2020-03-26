@@ -87,7 +87,7 @@ bool plExportLogErrorMsg::Show()
 {
     if (GetBogus())
     {
-        IWriteErrorFile(GetLabel(),GetMsg());
+        IWriteErrorFile(GetLabel(), GetMsg());
     }
     return GetBogus();
 }
@@ -95,7 +95,7 @@ bool plExportLogErrorMsg::Ask()
 {
     if (GetBogus())
     {
-        IWriteErrorFile(GetLabel(),GetMsg());
+        IWriteErrorFile(GetLabel(), GetMsg());
     }
     return false;
 }
@@ -105,7 +105,7 @@ bool plExportLogErrorMsg::CheckAndAsk()
     if (GetBogus())
     {
         strncat(GetMsg(), " - File corruption possible!", 255);
-        IWriteErrorFile(GetLabel(),GetMsg());
+        IWriteErrorFile(GetLabel(), GetMsg());
     }
     return GetBogus();
 }
@@ -114,7 +114,7 @@ bool plExportLogErrorMsg::CheckAskOrCancel()
 {
     if (GetBogus())
     {
-        IWriteErrorFile(GetLabel(),GetMsg());
+        IWriteErrorFile(GetLabel(), GetMsg());
     }
     return false;
 }
@@ -137,7 +137,7 @@ bool plExportLogErrorMsg::Check()
     {
         // ... how many ways can you say something is bad?
         strncat(GetMsg(), " !Output File Corrupt!", 255);
-        IWriteErrorFile(GetLabel(),GetMsg());
+        IWriteErrorFile(GetLabel(), GetMsg());
         IDebugThrow();
     }
 
@@ -152,7 +152,7 @@ void plExportLogErrorMsg::Quit()
     if (GetBogus())
     {
         strncat(GetMsg(), " -- Quit! (must be real bad!)", 255);
-        IWriteErrorFile(GetLabel(),GetMsg());
+        IWriteErrorFile(GetLabel(), GetMsg());
         SetBogus(false);
         hsThrow(*this);
     }
@@ -180,7 +180,7 @@ void plExportLogErrorMsg::IWriteErrorFile(const char* label, const char* msg)
 
    // Check to see if we are running an export server
    // If so, then pass the update on to the export server
-   GUP* exportServerGup = OpenGupPlugIn(Class_ID(470000004,99));
+   GUP* exportServerGup = OpenGupPlugIn(Class_ID(470000004, 99));
    if (exportServerGup)
    {
       exportServerGup->Control(-5);  // means next control will be error msg

@@ -168,7 +168,7 @@ plRTProjDirLight::plRTProjDirLight()
     fClassDesc = plRTProjDirLightDesc::GetDesc();
     fClassDesc->MakeAutoParamBlocks(this);
 
-    fLightPB->SetValue(kLightColor, 0,  Color(255,255,255));
+    fLightPB->SetValue(kLightColor, 0,  Color(255, 255, 255));
     SetHSVColor(0, Point3(255, 255, 255));
     
     fTex = nil;

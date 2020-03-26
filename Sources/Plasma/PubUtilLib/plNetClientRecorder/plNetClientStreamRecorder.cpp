@@ -159,7 +159,7 @@ void plNetClientStreamRecorder::RecordMsg(plNetMessage* msg, double secs)
     if (!fRecordStream)
         return;
 
-    if (IProcessRecordMsg(msg,secs))
+    if (IProcessRecordMsg(msg, secs))
     {
         fRecordStream->WriteLEDouble(secs - fPlaybackTimeOffset);
         GetResMgr()->WriteCreatableVersion(fRecordStream, msg);

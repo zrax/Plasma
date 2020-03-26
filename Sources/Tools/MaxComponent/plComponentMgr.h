@@ -71,9 +71,9 @@ public:
     static plComponentMgr &Inst();
 
     // Required Max functions
-    virtual void BeginEditParams(Interface *ip,IUtil *iu) {}
-    virtual void EndEditParams(Interface *ip,IUtil *iu) {}
-    virtual void SelectionSetChanged(Interface *ip,IUtil *iu) {}
+    virtual void BeginEditParams(Interface *ip, IUtil *iu) {}
+    virtual void EndEditParams(Interface *ip, IUtil *iu) {}
+    virtual void SelectionSetChanged(Interface *ip, IUtil *iu) {}
     virtual void DeleteThis() {}
 
     virtual uint32_t Count();

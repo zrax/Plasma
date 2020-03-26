@@ -299,10 +299,10 @@ void    plDXTextFont::SaveStates()
     fDevice->SetTransform(D3DTS_VIEW, &d3dIdentityMatrix);
     D3DXMATRIX  mat;
     mat = d3dIdentityMatrix;
-    mat(0,0) = 2.0f / (float)fPipe->Width();
-    mat(1,1) = -2.0f / (float)fPipe->Height();
-    mat(3,0) = -1.0;
-    mat(3,1) = 1.0;
+    mat(0, 0) = 2.0f / (float)fPipe->Width();
+    mat(1, 1) = -2.0f / (float)fPipe->Height();
+    mat(3, 0) = -1.0;
+    mat(3, 1) = 1.0;
     fDevice->SetTransform(D3DTS_PROJECTION, &mat);
 }
 

@@ -804,7 +804,7 @@ void plCompoundController::Interp(float time, hsScalarTriple* result, plControll
 
 void plCompoundController::Interp(float time, hsQuat* result, plControllerCacheInfo *cache) const
 {
-    hsEuler eul(0,0,0,EulOrdXYZs);
+    hsEuler eul(0, 0, 0, EulOrdXYZs);
 
     fXController->Interp(time, &eul.fX, (cache ? cache->fSubControllers[0] : nil));
     fYController->Interp(time, &eul.fY, (cache ? cache->fSubControllers[1] : nil));

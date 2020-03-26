@@ -107,7 +107,7 @@ ParamBlockDesc2 gLightMapBk
     
         kMapInitColor, _T("Initial map color"), TYPE_RGBA, 0, 0,
         p_ui, TYPE_COLORSWATCH,         IDC_COMP_LIGHTMAP_COLOR,
-        p_default, Color(0,0,0),
+        p_default, Color(0, 0, 0),
         end,
 
         kCompress,  _T("Compress"), TYPE_BOOL,      0, 0,

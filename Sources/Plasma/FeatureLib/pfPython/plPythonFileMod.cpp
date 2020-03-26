@@ -184,7 +184,7 @@ const char* plPythonFileMod::fFunctionNames[] =
     "BeginAgeUnLoad",       // kfunc_OnBeginAgeLoad,
     "OnMovieEvent",         // kfunc_OnMovieEvent,
     "OnScreenCaptureDone",  // kfunc_OnScreenCaptureDone,
-    "OnClimbingBlockerEvent",// kFunc_OnClimbingBlockerEvent,
+    "OnClimbingBlockerEvent", // kFunc_OnClimbingBlockerEvent,
     "OnAvatarSpawn",        // kFunc_OnAvatarSpawn
     "OnAccountUpdate",      // kFunc_OnAccountUpdate
     "gotPublicAgeList",     // kfunc_gotPublicAgeList
@@ -335,7 +335,7 @@ plPythonFileMod::~plPythonFileMod()
             hsStatusMessageF("Module %s removed from python dictionary", fModuleName.c_str());
             PyDict_DelItemString(modules, fModuleName.c_str());
         } else {
-            hsStatusMessageF("Module %s not found in python dictionary. Already removed?",fModuleName.c_str());
+            hsStatusMessageF("Module %s not found in python dictionary. Already removed?", fModuleName.c_str());
         }
     }
 }
@@ -565,7 +565,7 @@ void plPythonFileMod::AddTarget(plSceneObject* sobj)
 
             // next we need to:
             //  - create instance of class
-            PyObject* getInst = PythonInterface::GetModuleItem("glue_getInst",fModule);
+            PyObject* getInst = PythonInterface::GetModuleItem("glue_getInst", fModule);
             fInstance = nullptr;
             if (getInst && PyCallable_Check(getInst)) {
                 fInstance = PyObject_CallFunction(getInst, nullptr);
@@ -612,7 +612,7 @@ void plPythonFileMod::AddTarget(plSceneObject* sobj)
 
             //  - set the parameters
             PyObject* setParams = PythonInterface::GetModuleItem("glue_setParam", fModule);
-            PyObject* check_isNamed = PythonInterface::GetModuleItem("glue_isNamedAttribute",fModule);
+            PyObject* check_isNamed = PythonInterface::GetModuleItem("glue_isNamedAttribute", fModule);
             if (setParams && PyCallable_Check(setParams)) {
                 // loop throught the parameters and set them by id
                 // (will need to create the appropiate Python object for each type)
@@ -874,7 +874,7 @@ ST::string plPythonFileMod::IMakeModuleName(const plSceneObject* sobj)
 //
 void plPythonFileMod::ISetKeyValue(const plKey& key, int32_t id)
 {
-    PyObject* setParams = PythonInterface::GetModuleItem("glue_setParam",fModule);
+    PyObject* setParams = PythonInterface::GetModuleItem("glue_setParam", fModule);
 
     if (setParams && PyCallable_Check(setParams)) {
         if (key) {
@@ -926,7 +926,7 @@ void plPythonFileMod::IFindActivatorAndAdd(const ST::string& activatorName, int3
     if (!activatorName.empty()) {
         std::vector<plKey> keylist;
         const plLocation& loc = GetKey()->GetUoid().GetLocation();
-        plKeyFinder::Instance().ReallyStupidActivatorSearch(activatorName,keylist, loc);
+        plKeyFinder::Instance().ReallyStupidActivatorSearch(activatorName, keylist, loc);
 
         for (const auto& key : keylist) {
             plPythonParameter parm(id);

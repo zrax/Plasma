@@ -111,7 +111,7 @@ void plInputEventMsg::WriteVersion(hsStream* s, hsResMgr* mgr)
 plControlEventMsg::plControlEventMsg() :
     fCmd(nil)
 {
-    fTurnToPt.Set(0,0,0);
+    fTurnToPt.Set(0, 0, 0);
     fControlPct = 1.0f;
     SetBCastFlag(plMessage::kPropagateToModifiers);
     SetBCastFlag(plMessage::kBCastByType, false);
@@ -122,7 +122,7 @@ plControlEventMsg::plControlEventMsg(const plKey &s,
             const double* t) :
     fCmd(nil)
 {
-    fTurnToPt.Set(0,0,0);
+    fTurnToPt.Set(0, 0, 0);
     fControlPct = 1.0f;
     SetBCastFlag(plMessage::kBCastByType, false);
     SetBCastFlag(plMessage::kPropagateToModifiers);
@@ -248,7 +248,7 @@ plDebugKeyEventMsg::~plDebugKeyEventMsg()
 }
 
 
-plMouseEventMsg::plMouseEventMsg() : fXPos(0.0f),fYPos(0.0f),fDX(0.0f),fDY(0.0f),fButton(0)
+plMouseEventMsg::plMouseEventMsg() : fXPos(0.0f), fYPos(0.0f), fDX(0.0f), fDY(0.0f), fButton(0)
 {
 }
 

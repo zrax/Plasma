@@ -73,7 +73,7 @@ class BaseObjLight : public ObjLightDesc
     public:
         Color intensCol;    // intens*color
         Color shadColor;
-        float contrast,kA,kB,diffSoft;
+        float contrast, kA, kB, diffSoft;
         int decayType;
         BOOL diffSoften;
         float decayRadius;
@@ -82,7 +82,7 @@ class BaseObjLight : public ObjLightDesc
         void DeleteThis() { delete this; }
         int Update(TimeValue t, const RendContext& rc, RenderGlobalContext * rgc, BOOL shadows, BOOL shadowGeomChanged);
         void UpdateGlobalLightLevel(Color globLightLevel) { intensCol = ls.intens*ls.color*globLightLevel; }
-        virtual Color AttenuateIllum(ShadeContext& sc,Point3 p,Color &colStep,Point3 &dp,int filt, float ldp, float &distAtten, AttenRanges &ranges) { return Color(0,0,0); }
+        virtual Color AttenuateIllum(ShadeContext& sc, Point3 p, Color &colStep, Point3 &dp, int filt, float ldp, float &distAtten, AttenRanges &ranges) { return Color(0, 0, 0); }
         virtual BOOL UseAtten()=0;
         virtual BOOL IsFacingLight(Point3 &dir) { return FALSE; }
         virtual int LightType()=0;
@@ -107,7 +107,7 @@ class OmniLight : public BaseObjLight
     Texmap *projMap;
     BOOL needMultiple;
     BOOL genCanDoOmni;
-    float zfac, xscale, yscale, fov, sz2,size,sizeClip,sampSize,sampSize2;
+    float zfac, xscale, yscale, fov, sz2, size, sizeClip, sampSize, sampSize2;
     public:
         OmniLight(INode *inode, BOOL forceShadowBuf);
         ~OmniLight();
@@ -125,8 +125,8 @@ class SpotLight: public BaseObjLight
     BOOL projector; //, shadowRay, overshoot;
     float hot_cos, fall_cos, fall_tan, fall_sin;
     float hotpct, ihotpct;
-    float zfac, xscale,yscale, fov, sz2, curve;
-    float out_range,in_range, range_span;
+    float zfac, xscale, yscale, fov, sz2, curve;
+    float out_range, in_range, range_span;
     Point2 rectv0, rectv1;
     Texmap* projMap;
     public:
@@ -144,11 +144,11 @@ class SpotLight: public BaseObjLight
 class DirLight : public BaseObjLight
 {
     Point3 lightDir;  // light direction in render space
-    //BOOL projector;//,overshoot;
+    //BOOL projector;//, overshoot;
     float hotsz, fallsz, fallsq;
     float xscale, yscale, sz2, curve;
-    float out_range,in_range, range_span;
-    float hotpct,ihotpct;
+    float out_range, in_range, range_span;
+    float hotpct, ihotpct;
     float aspect;
     float sw2, sh2;
     Texmap* projMap;

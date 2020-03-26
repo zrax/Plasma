@@ -1083,7 +1083,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nC
     // If another instance is running, exit.  We'll automatically release our
     // lock on the mutex when our process exits
     HANDLE hOneInstance = CreateMutex(nil, FALSE, "UruExplorer");
-    if (WaitForSingleObject(hOneInstance,0) != WAIT_OBJECT_0)
+    if (WaitForSingleObject(hOneInstance, 0) != WAIT_OBJECT_0)
     {
         switch (plLocalization::GetLanguage())
         {
@@ -1230,6 +1230,6 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nC
 }
 
 /* Enable themes in Windows XP and later */
-#pragma comment(linker,"\"/manifestdependency:type='win32' \
+#pragma comment(linker, "\"/manifestdependency:type='win32' \
 name='Microsoft.Windows.Common-Controls' version='6.0.0.0' \
 processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")

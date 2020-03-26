@@ -70,7 +70,7 @@ private:
 protected:
     pySceneObject();
     pySceneObject(pyKey& objkey, pyKey& selfkey);
-    pySceneObject(plKey objkey,pyKey& selfkey);
+    pySceneObject(plKey objkey, pyKey& selfkey);
     pySceneObject(plKey objkey);
 
 public:

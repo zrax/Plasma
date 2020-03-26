@@ -396,9 +396,9 @@ void plClothingMtl::SetDiffuse(Color c, TimeValue t) {}
 void plClothingMtl::SetSpecular(Color c, TimeValue t) {}
 void plClothingMtl::SetShininess(float v, TimeValue t) {}
                 
-Color plClothingMtl::GetAmbient(int mtlNum, BOOL backFace)  { return Color(0,0,0); }
-Color plClothingMtl::GetDiffuse(int mtlNum, BOOL backFace)  { return Color(0,0,0); }
-Color plClothingMtl::GetSpecular(int mtlNum, BOOL backFace) { return Color(0,0,0); }
+Color plClothingMtl::GetAmbient(int mtlNum, BOOL backFace)  { return Color(0, 0, 0); }
+Color plClothingMtl::GetDiffuse(int mtlNum, BOOL backFace)  { return Color(0, 0, 0); }
+Color plClothingMtl::GetSpecular(int mtlNum, BOOL backFace) { return Color(0, 0, 0); }
 
 float plClothingMtl::GetXParency(int mtlNum, BOOL backFace)
 {

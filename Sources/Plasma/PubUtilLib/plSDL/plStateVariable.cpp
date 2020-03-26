@@ -92,7 +92,7 @@ public:
     void* fData;
     int fDataLen;
 
-    plSDLCreatableStub(uint16_t classIndex, int len) : fClassIndex(classIndex),fData(nil),fDataLen(len) {}
+    plSDLCreatableStub(uint16_t classIndex, int len) : fClassIndex(classIndex), fData(nil), fDataLen(len) {}
     ~plSDLCreatableStub() { delete[] (char*)fData; }
 
     const char*         ClassName() const { return "SDLCreatable";  }
@@ -521,7 +521,7 @@ bool plSimpleStateVariable::IConvertFromRGB(plVarDescriptor::Type newType)
     case plVarDescriptor::kRGBA:
         {
             // rgb to rgba
-            int i,j;
+            int i, j;
             float* newF = new float[fVar.GetCount()*4];     // make more space
             for (j=0; j<fVar.GetCount(); j++)
             {
@@ -537,7 +537,7 @@ bool plSimpleStateVariable::IConvertFromRGB(plVarDescriptor::Type newType)
     case plVarDescriptor::kRGBA8:
         {
             // rgb to rgba8
-            int i,j;
+            int i, j;
             uint8_t * newB = new uint8_t [fVar.GetCount()*4];     // make more space
             for (j=0; j<fVar.GetCount(); j++)
             {
@@ -553,7 +553,7 @@ bool plSimpleStateVariable::IConvertFromRGB(plVarDescriptor::Type newType)
     case plVarDescriptor::kRGB8:
         {
             // rgb to rgb8
-            int i,j;
+            int i, j;
             uint8_t * newB = new uint8_t [fVar.GetCount()*3];     // make space
             for (j=0; j<fVar.GetCount(); j++)
             {
@@ -578,7 +578,7 @@ bool plSimpleStateVariable::IConvertFromRGB8(plVarDescriptor::Type newType)
     case plVarDescriptor::kRGBA:
         {
             // rgb8 to rgba
-            int i,j;
+            int i, j;
             float* newF = new float[fVar.GetCount()*4];     // make more space
             for (j=0; j<fVar.GetCount(); j++)
             {
@@ -594,7 +594,7 @@ bool plSimpleStateVariable::IConvertFromRGB8(plVarDescriptor::Type newType)
     case plVarDescriptor::kRGB:
         {
             // rgb8 to rgb
-            int i,j;
+            int i, j;
             float* newF = new float[fVar.GetCount()*3];     // make more space
             for (j=0; j<fVar.GetCount(); j++)
             {
@@ -609,7 +609,7 @@ bool plSimpleStateVariable::IConvertFromRGB8(plVarDescriptor::Type newType)
     case plVarDescriptor::kRGBA8:
         {
             // rgb8 to rgba8
-            int i,j;
+            int i, j;
             uint8_t * newB = new uint8_t [fVar.GetCount()*4];     // make more space
             for (j=0; j<fVar.GetCount(); j++)
             {
@@ -638,7 +638,7 @@ bool plSimpleStateVariable::IConvertFromRGBA(plVarDescriptor::Type newType)
     case plVarDescriptor::kRGB:
         {
             // rgba to rgb
-            int i,j;
+            int i, j;
             float* newF = new float[fVar.GetCount()*3];     // make less space
             for (j=0; j<fVar.GetCount(); j++)
             {
@@ -653,7 +653,7 @@ bool plSimpleStateVariable::IConvertFromRGBA(plVarDescriptor::Type newType)
     case plVarDescriptor::kRGB8:
         {
             // rgba to rgb8
-            int i,j;
+            int i, j;
             uint8_t* newB = new uint8_t[fVar.GetCount()*3];       // make less space
             for (j=0; j<fVar.GetCount(); j++)
             {
@@ -668,7 +668,7 @@ bool plSimpleStateVariable::IConvertFromRGBA(plVarDescriptor::Type newType)
     case plVarDescriptor::kRGBA8:
         {
             // rgba to rgba8
-            int i,j;
+            int i, j;
             uint8_t* newBy = new uint8_t [fVar.GetCount()*4];     // make less space
             for (j=0; j<fVar.GetCount(); j++)
             {
@@ -696,7 +696,7 @@ bool plSimpleStateVariable::IConvertFromRGBA8(plVarDescriptor::Type newType)
     case plVarDescriptor::kRGB:
         {
             // rgba8 to rgb
-            int i,j;
+            int i, j;
             float* newF = new float[fVar.GetCount()*3];     // make less space
             for (j=0; j<fVar.GetCount(); j++)
             {
@@ -711,7 +711,7 @@ bool plSimpleStateVariable::IConvertFromRGBA8(plVarDescriptor::Type newType)
     case plVarDescriptor::kRGB8:
         {
             // rgba8 to rgb8
-            int i,j;
+            int i, j;
             uint8_t* newB = new uint8_t[fVar.GetCount()*3];       // make less space
             for (j=0; j<fVar.GetCount(); j++)
             {
@@ -726,7 +726,7 @@ bool plSimpleStateVariable::IConvertFromRGBA8(plVarDescriptor::Type newType)
     case plVarDescriptor::kRGBA:
         {
             // rgba8 to rgba
-            int i,j;
+            int i, j;
             float* newF = new float[fVar.GetCount()*4];     // make less space
             for (j=0; j<fVar.GetCount(); j++)
             {
@@ -2216,7 +2216,7 @@ bool plSimpleStateVariable::operator==(const plSimpleStateVariable &other) const
         EQ_CHECK(plVarDescriptor::kByte, fBy)
     case plVarDescriptor::kString32:
         for (i=0; i<cnt; i++)
-            if (stricmp(fS32[i],other.fS32[i]))
+            if (stricmp(fS32[i], other.fS32[i]))
                 return false;
         break;
     default:
@@ -2495,7 +2495,7 @@ void plSDStateVariable::CopyFrom(plSDStateVariable* other, uint32_t writeOptions
     Alloc(other->GetSDVarDescriptor(), other->GetCount());
     int i;
     for (i=0; i<other->GetCount(); i++)
-        fDataRecList[i]->CopyFrom(*other->GetStateDataRecord(i),writeOptions);
+        fDataRecList[i]->CopyFrom(*other->GetStateDataRecord(i), writeOptions);
 }
 
 //

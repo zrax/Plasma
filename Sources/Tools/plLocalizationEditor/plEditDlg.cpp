@@ -88,8 +88,8 @@ EditDialog::EditDialog()
     connect(fUI->fExitAction, SIGNAL(triggered()), SLOT(close()));
     connect(fUI->fAboutAction, &QAction::triggered, std::bind(&IAboutDialog, this));
 
-    connect(fUI->fLocalizationTree, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
-            SLOT(LocPathChanged(QTreeWidgetItem*,QTreeWidgetItem*)));
+    connect(fUI->fLocalizationTree, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)),
+            SLOT(LocPathChanged(QTreeWidgetItem*, QTreeWidgetItem*)));
 
     connect(fUI->fAddButton, SIGNAL(clicked()), SLOT(AddClicked()));
     connect(fUI->fDeleteButton, SIGNAL(clicked()), SLOT(DeleteClicked()));

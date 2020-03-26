@@ -48,7 +48,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "pnMessage/plProxyDrawMsg.h"
 
 plOccluderProxy::plOccluderProxy()
-:   plProxyGen(hsColorRGBA().Set(0.2f,0.2f,0.8f,1.f), hsColorRGBA().Set(1.f,0.5f,0.5f,1.f), 0.5f),
+:   plProxyGen(hsColorRGBA().Set(0.2f, 0.2f, 0.8f, 1.f), hsColorRGBA().Set(1.f, 0.5f, 0.5f, 1.f), 0.5f),
     fOwner(nil)
 {
 }

@@ -70,7 +70,7 @@ int plTcpSocket::SetNoDelay()
 {
     int  nodel = 1;
     int ret1;
-    ret1 = setsockopt(fSocket, IPPROTO_TCP, TCP_NODELAY,(char *)&nodel, sizeof(nodel));
+    ret1 = setsockopt(fSocket, IPPROTO_TCP, TCP_NODELAY, (char *)&nodel, sizeof(nodel));
     
     if (ret1 != 0)
         return -1;
@@ -85,7 +85,7 @@ int plTcpSocket::SetLinger(int intervalSecs)
     linger  ll;
     ll.l_linger = intervalSecs;
     ll.l_onoff = intervalSecs?1:0;
-    int ret1 = setsockopt(fSocket, SOL_SOCKET, SO_LINGER, (const char *)&ll,sizeof(linger));
+    int ret1 = setsockopt(fSocket, SOL_SOCKET, SO_LINGER, (const char *)&ll, sizeof(linger));
     if (ret1 != 0)
         return -1;
     return 0;
@@ -133,7 +133,7 @@ bool plTcpSocket::ActiveOpenNonBlocking(plNetAddress & addr)
 //  + bytes written
 int plTcpSocket::SendData(const char * data, int size)
 {
-    return plNet::Write(fSocket,data,size);
+    return plNet::Write(fSocket, data, size);
 }
 
 
@@ -145,11 +145,11 @@ int plTcpSocket::RecvData(char * data, int len)
 {
     plFdSet fdset;
     fdset.SetForSocket(*this);
-    fdset.WaitForRead(false,fRecvTimeOut);
+    fdset.WaitForRead(false, fRecvTimeOut);
     if (fdset.IsErrFor(*this))
         return -1;
     if (fdset.IsSetFor(*this))
-        return plNet::Read(fSocket,data,len);   // returns -1 on error
+        return plNet::Read(fSocket, data, len);   // returns -1 on error
     else
         return -2;
 };

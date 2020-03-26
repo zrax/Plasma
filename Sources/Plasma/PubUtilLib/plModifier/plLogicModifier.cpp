@@ -245,7 +245,7 @@ void plLogicModifier::Read(hsStream* stream, hsResMgr* mgr)
     for (i = 0; i < n; i++)
     {
         refMsg = new plCondRefMsg(GetKey(), i);
-        mgr->ReadKeyNotifyMe(stream,refMsg, plRefFlags::kActiveRef);
+        mgr->ReadKeyNotifyMe(stream, refMsg, plRefFlags::kActiveRef);
     }
     fMyCursor = stream->ReadLE32();
 }

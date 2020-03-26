@@ -90,7 +90,7 @@ static ParamBlockDesc2  RTSpotLightBlk
         end,
         
         plRTSpotLight::kLightColor, _T("LightColor"),           TYPE_RGBA,  P_ANIMATABLE, IDS_DS_LIGHTCOL,
-            p_default, Color(255,255,255),
+            p_default, Color(255, 255, 255),
             p_ui, plRTSpotLight::kLightMap1,            TYPE_COLORSWATCH,       IDC_LIGHT_COLOR,
             end,
 
@@ -100,8 +100,8 @@ static ParamBlockDesc2  RTSpotLightBlk
             p_ui, plRTSpotLight::kLightMap1,        TYPE_SINGLECHEKBOX, IDC_AFFECT_SPECULAR,
             end,
 
-        plRTSpotLight::kSpecularColorSwatch,_T("SpecularColor"),    TYPE_RGBA,  P_ANIMATABLE, IDS_DS_SPECCOL,
-            p_default, Color(255,255,255),
+        plRTSpotLight::kSpecularColorSwatch, _T("SpecularColor"),    TYPE_RGBA,  P_ANIMATABLE, IDS_DS_SPECCOL,
+            p_default, Color(255, 255, 255),
             p_ui, plRTSpotLight::kLightMap1,            TYPE_COLORSWATCH,       IDC_LIGHT_COLOR_SPECULAR,
             end,
 
@@ -109,7 +109,7 @@ static ParamBlockDesc2  RTSpotLightBlk
             p_range, -250.0, 250.0,
             p_default, 1.0,
             p_ui, plRTSpotLight::kLightMap1,            TYPE_SPINNER,   EDITTYPE_FLOAT,
-            IDC_LMULT,IDC_LMULTSPINNER, .05f,
+            IDC_LMULT, IDC_LMULTSPINNER, .05f,
             end,
 
         /// Rollout 2 - Attenuation Parameters
@@ -117,7 +117,7 @@ static ParamBlockDesc2  RTSpotLightBlk
         plRTSpotLight::kUseAttenuationBool,     _T("AttenOnBool"),      TYPE_BOOL,  0, IDS_DS_USEFARATTEN,
             p_default, TRUE,
             p_ui, plRTSpotLight::kLightMap2,        TYPE_SINGLECHEKBOX, IDC_LIGHT_ATTENBOOL,
-            p_enable_ctrls, 2, plRTSpotLight::kAttenMaxFalloffEdit,plRTSpotLight::kAttenTypeRadio,
+            p_enable_ctrls, 2, plRTSpotLight::kAttenMaxFalloffEdit, plRTSpotLight::kAttenTypeRadio,
             end,
 
         plRTSpotLight::kAttenMaxFalloffEdit,        _T("MaxFalloffEdit"),       TYPE_FLOAT, P_ANIMATABLE, IDS_DS_ATTENSTARTNEAR,
@@ -225,7 +225,7 @@ static ParamBlockDesc2  RTOmniLightBlk
             end,
         
         plRTOmniLight::kLightColor, _T("LightColor"),           TYPE_RGBA,  P_ANIMATABLE, IDS_DS_LIGHTCOL,
-            p_default, Color(255,255,255),
+            p_default, Color(255, 255, 255),
             p_ui, plRTOmniLight::kLightMap1,            TYPE_COLORSWATCH,       IDC_LIGHT_COLOR,
             end,
 
@@ -234,8 +234,8 @@ static ParamBlockDesc2  RTOmniLightBlk
             p_ui, plRTOmniLight::kLightMap1,        TYPE_SINGLECHEKBOX, IDC_AFFECT_SPECULAR,
             end,
 
-        plRTOmniLight::kSpecularColorSwatch,_T("SpecularColor"),    TYPE_RGBA,  P_ANIMATABLE, IDS_DS_SPECCOL,
-            p_default, Color(255,255,255),
+        plRTOmniLight::kSpecularColorSwatch, _T("SpecularColor"),    TYPE_RGBA,  P_ANIMATABLE, IDS_DS_SPECCOL,
+            p_default, Color(255, 255, 255),
             p_ui, plRTOmniLight::kLightMap1,            TYPE_COLORSWATCH,       IDC_LIGHT_COLOR_SPECULAR,
             end,
 
@@ -244,7 +244,7 @@ static ParamBlockDesc2  RTOmniLightBlk
             p_range, -250.0, 250.0,
             p_default, 1.0,
             p_ui, plRTOmniLight::kLightMap1,            TYPE_SPINNER,   EDITTYPE_POS_FLOAT,
-            IDC_LMULT,IDC_LMULTSPINNER, .05f,
+            IDC_LMULT, IDC_LMULTSPINNER, .05f,
             end,
 
 
@@ -310,7 +310,7 @@ static ParamBlockDesc2  RTTDirLightBlk
         end,
         
         plRTDirLight::kLightColor,  _T("LightColor"),           TYPE_RGBA,  P_ANIMATABLE, IDS_DS_LIGHTCOL,
-            p_default, Color(255,255,255),
+            p_default, Color(255, 255, 255),
             p_ui, plRTDirLight::kLightMap1,         TYPE_COLORSWATCH,       IDC_LIGHT_COLOR,
             end,
 
@@ -319,8 +319,8 @@ static ParamBlockDesc2  RTTDirLightBlk
             p_ui, plRTDirLight::kLightMap1,     TYPE_SINGLECHEKBOX, IDC_AFFECT_SPECULAR,
             end,
 
-        plRTDirLight::kSpecularColorSwatch,_T("SpecularColor"), TYPE_RGBA,  P_ANIMATABLE, IDS_DS_SPECCOL,
-            p_default, Color(255,255,255),
+        plRTDirLight::kSpecularColorSwatch, _T("SpecularColor"), TYPE_RGBA,  P_ANIMATABLE, IDS_DS_SPECCOL,
+            p_default, Color(255, 255, 255),
             p_ui, plRTDirLight::kLightMap1,         TYPE_COLORSWATCH,       IDC_LIGHT_COLOR_SPECULAR,
             end,
 
@@ -328,7 +328,7 @@ static ParamBlockDesc2  RTTDirLightBlk
             p_range, -250.0, 250.0,
             p_default, 1.0,
             p_ui, plRTDirLight::kLightMap1,         TYPE_SPINNER,   EDITTYPE_FLOAT,
-            IDC_LMULT,IDC_LMULTSPINNER, .05f,
+            IDC_LMULT, IDC_LMULTSPINNER, .05f,
             end,
 
     end

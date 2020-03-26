@@ -54,7 +54,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 //============================================================================
 // BEGIN PACKED DATA STRUCTURES
 //============================================================================
-#pragma pack(push,1)
+#pragma pack(push, 1)
 
 // kNetProtocolSrv2Score messages
 enum {

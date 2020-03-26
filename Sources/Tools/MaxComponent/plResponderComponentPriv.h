@@ -62,8 +62,8 @@ public:
     plResponderComponent();
 
     bool SetupProperties(plMaxNode* node, plErrorMsg* pErrMsg);
-    bool PreConvert(plMaxNode *node,plErrorMsg *pErrMsg);
-    bool Convert(plMaxNode *node,plErrorMsg *pErrMsg);
+    bool PreConvert(plMaxNode *node, plErrorMsg *pErrMsg);
+    bool Convert(plMaxNode *node, plErrorMsg *pErrMsg);
     bool DeInit(plMaxNode *node, plErrorMsg *pErrMsg);
 
     // All classes derived from plResponderComponent can be picked from the activator component,

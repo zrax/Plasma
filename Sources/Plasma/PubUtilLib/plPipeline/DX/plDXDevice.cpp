@@ -80,25 +80,25 @@ D3DXMATRIX& IMatrix44ToD3DMatrix(D3DXMATRIX& dst, const hsMatrix44& src)
     }
     else
     {
-        dst(0,0) = src.fMap[0][0];
-        dst(1,0) = src.fMap[0][1];
-        dst(2,0) = src.fMap[0][2];
-        dst(3,0) = src.fMap[0][3];
+        dst(0, 0) = src.fMap[0][0];
+        dst(1, 0) = src.fMap[0][1];
+        dst(2, 0) = src.fMap[0][2];
+        dst(3, 0) = src.fMap[0][3];
 
-        dst(0,1) = src.fMap[1][0];
-        dst(1,1) = src.fMap[1][1];
-        dst(2,1) = src.fMap[1][2];
-        dst(3,1) = src.fMap[1][3];
+        dst(0, 1) = src.fMap[1][0];
+        dst(1, 1) = src.fMap[1][1];
+        dst(2, 1) = src.fMap[1][2];
+        dst(3, 1) = src.fMap[1][3];
 
-        dst(0,2) = src.fMap[2][0];
-        dst(1,2) = src.fMap[2][1];
-        dst(2,2) = src.fMap[2][2];
-        dst(3,2) = src.fMap[2][3];
+        dst(0, 2) = src.fMap[2][0];
+        dst(1, 2) = src.fMap[2][1];
+        dst(2, 2) = src.fMap[2][2];
+        dst(3, 2) = src.fMap[2][3];
 
-        dst(0,3) = src.fMap[3][0];
-        dst(1,3) = src.fMap[3][1];
-        dst(2,3) = src.fMap[3][2];
-        dst(3,3) = src.fMap[3][3];
+        dst(0, 3) = src.fMap[3][0];
+        dst(1, 3) = src.fMap[3][1];
+        dst(2, 3) = src.fMap[3][2];
+        dst(3, 3) = src.fMap[3][3];
     }
 
     return dst;

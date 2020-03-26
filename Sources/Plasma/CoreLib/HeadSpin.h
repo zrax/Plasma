@@ -364,12 +364,12 @@ int hsMessageBoxWithOwner(hsWindowHndl owner, const char* message, const char* c
 int hsMessageBoxWithOwner(hsWindowHndl owner, const wchar_t* message, const wchar_t* caption, int kind, int icon=hsMessageBoxIconAsterisk);
 
 // flag testing / clearing
-#define hsCheckBits(f,c) ((f & c) == c)
-#define hsTestBits(f,b)  ((f) & (b))
-#define hsSetBits(f,b)   ((f) |= (b))
-#define hsClearBits(f,b) ((f) &= ~(b))
-#define hsToggleBits(f,b) ((f) ^= (b))
-#define hsChangeBits(f,b,t) (t ? hsSetBits(f,b) : hsClearBits(f,b))
+#define hsCheckBits(f, c) ((f & c) == c)
+#define hsTestBits(f, b)  ((f) & (b))
+#define hsSetBits(f, b)   ((f) |= (b))
+#define hsClearBits(f, b) ((f) &= ~(b))
+#define hsToggleBits(f, b) ((f) ^= (b))
+#define hsChangeBits(f, b, t) (t ? hsSetBits(f, b) : hsClearBits(f, b))
 
 
 #if HS_BUILD_FOR_WIN32

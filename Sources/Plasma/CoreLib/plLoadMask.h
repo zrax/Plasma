@@ -91,7 +91,7 @@ public:
     uint8_t   GetQualityMask(int cap) const { return fQuality[cap]; }
 
     plLoadMask&     SetMask(uint8_t lo, uint8_t hi) { fQuality[0] = lo; fQuality[1] = hi; return *this; }
-    plLoadMask&     SetNever() { return SetMask(0,0); }
+    plLoadMask&     SetNever() { return SetMask(0, 0); }
     plLoadMask&     SetAlways() { return SetMask(uint8_t(-1), uint8_t(-1)); }
 
     plLoadMask& operator|=(const plLoadMask& m) { fMask |= m.fMask; return *this; }

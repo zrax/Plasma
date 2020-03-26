@@ -78,7 +78,7 @@ static_assert(kNumGateKeeper2CliMessages <= 0xFFFF, "GateKeeper2Cli message type
 //============================================================================
 // BEGIN PACKED DATA STRUCTURES
 //============================================================================
-#pragma pack(push,1)
+#pragma pack(push, 1)
 
 
 /*****************************************************************************

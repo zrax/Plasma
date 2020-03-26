@@ -922,7 +922,7 @@ void plNotifyMsg::Write(hsStream* stream, hsResMgr* mgr)
         int i;
         for (i=0; i < numberEDs; i++)
         {
-            fEvents[i]->Write(stream,mgr);
+            fEvents[i]->Write(stream, mgr);
         }
     }
 

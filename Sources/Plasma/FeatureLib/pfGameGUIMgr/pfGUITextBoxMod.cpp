@@ -230,7 +230,7 @@ void    pfGUITextBoxMod::SetText(const wchar_t *text)
     if (text)
     {
         fText = new wchar_t[wcslen(text)+1];
-        wcscpy(fText,text);
+        wcscpy(fText, text);
     }
     else
         fText = nil;

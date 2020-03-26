@@ -377,7 +377,7 @@ bool plFilterInheritComp::SetMaxInherit(plMaxNodeBase* targ)
     if (targ)
     {
         targ->GetTMController()->SetInheritanceFlags(mask, true);
-        targ->GetTMController()->NotifyDependents(FOREVER,0,REFMSG_CHANGE);
+        targ->GetTMController()->NotifyDependents(FOREVER, 0, REFMSG_CHANGE);
     }
 
     return true;
@@ -412,7 +412,7 @@ bool plFilterInheritComp::SetMaxInherit()
         if (targ)
         {
             targ->GetTMController()->SetInheritanceFlags(mask, true);
-            targ->GetTMController()->NotifyDependents(FOREVER,0,REFMSG_CHANGE);
+            targ->GetTMController()->NotifyDependents(FOREVER, 0, REFMSG_CHANGE);
         }
     }
     return true;
@@ -424,7 +424,7 @@ bool plFilterInheritComp::KillMaxInherit(plMaxNodeBase* targ)
     DWORD mask = ~0;
 
     targ->GetTMController()->SetInheritanceFlags(mask, true);
-    targ->GetTMController()->NotifyDependents(FOREVER,0,REFMSG_CHANGE);
+    targ->GetTMController()->NotifyDependents(FOREVER, 0, REFMSG_CHANGE);
 
     return true;
 }

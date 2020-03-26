@@ -101,7 +101,7 @@ enum hsGMatShadeFlags {
     kShadeNoProjectors      = 0x2,          // projector
     kShadeEnvironMap        = 0x4,          // dev, load
     kShadeVertexShade       = 0x20,         // dev
-    kShadeNoShade           = 0x40,         // view,dev
+    kShadeNoShade           = 0x40,         // view, dev
     kShadeBlack             = kShadeNoShade,
     kShadeSpecular          = 0x80,         // view, dev
     //kShadeNoFog               = 0x100,        // dev
@@ -128,7 +128,7 @@ enum hsGMatZFlags {
 enum hsGMatMiscFlags {
     kMiscWireFrame          = 0x1,          // dev (running out of bits)
     kMiscDrawMeshOutlines   = 0x2,          // dev, currently unimplemented
-    kMiscTwoSided           = 0x4,          // view,dev
+    kMiscTwoSided           = 0x4,          // view, dev
     kMiscDrawAsSplats       = 0x8,          // dev? bwt
     kMiscAdjustPlane        = 0x10,
     kMiscAdjustCylinder     = 0x20,

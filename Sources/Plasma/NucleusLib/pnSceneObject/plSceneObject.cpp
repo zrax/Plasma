@@ -139,7 +139,7 @@ void plSceneObject::Read(hsStream* stream, hsResMgr* mgr)
     for (i = nOldMods; i < nOldMods+nNewMods; i++)
     {
         refMsg = new plObjRefMsg(GetKey(), plRefMsg::kOnCreate, i, plObjRefMsg::kModifier);
-        mgr->ReadKeyNotifyMe(stream,refMsg, plRefFlags::kActiveRef);
+        mgr->ReadKeyNotifyMe(stream, refMsg, plRefFlags::kActiveRef);
     }
 
     plKey nodeKey = mgr->ReadKey(stream);
@@ -169,7 +169,7 @@ void plSceneObject::Write(hsStream* stream, hsResMgr* mgr)
 
     stream->WriteLE32(fModifiers.GetCount());
     for (i = 0; i < fModifiers.GetCount(); i++)
-        mgr->WriteKey(stream,fModifiers[i]);
+        mgr->WriteKey(stream, fModifiers[i]);
 
     mgr->WriteKey(stream, fSceneNode);
 }

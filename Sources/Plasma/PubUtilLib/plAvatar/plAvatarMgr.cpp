@@ -916,10 +916,10 @@ void plAvatarMgr::PointToDniCoordinate(hsPoint3 pt, plDniCoordinateInfo* ret)
             {
                 plRandom rnd;
                 rnd.SetSeed((int)(hsTimer::GetSeconds()));
-                rnd.RandRangeI(1,999);
-                ret->SetHSpans(rnd.RandRangeI(1,999));
-                ret->SetVSpans(rnd.RandRangeI(1,999));
-                ret->SetTorans(rnd.RandRangeI(1,62500));
+                rnd.RandRangeI(1, 999);
+                ret->SetHSpans(rnd.RandRangeI(1, 999));
+                ret->SetVSpans(rnd.RandRangeI(1, 999));
+                ret->SetTorans(rnd.RandRangeI(1, 62500));
             }
             break;
         case plMaintainersMarkerModifier::kRepaired:

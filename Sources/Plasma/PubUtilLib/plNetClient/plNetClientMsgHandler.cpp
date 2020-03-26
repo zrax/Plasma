@@ -102,7 +102,7 @@ int plNetClientMsgHandler::PeekMsg(plNetMessage * netMsg)
     if (netMsg->GetNetCoreMsg())    // && !netMsg->Peeked())    // not needed
     {
         cnt = netMsg->PeekBuffer(netMsg->GetNetCoreMsg()->GetData(), netMsg->GetNetCoreMsg()->GetLen());
-        hsAssert(cnt,"0 length message");
+        hsAssert(cnt, "0 length message");
     }
     return cnt;
 }
@@ -159,12 +159,12 @@ int plNetClientMsgHandler::ReceiveMsg(plNetMessage *& netMsg)
 
 ////////////////////////////////////////////////////////////////////
 
-MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgTerminated)
+MSG_HANDLER_DEFN(plNetClientMsgHandler, plNetMsgTerminated)
 {
     return hsOK;
 }
 
-MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgGroupOwner)
+MSG_HANDLER_DEFN(plNetClientMsgHandler, plNetMsgGroupOwner)
 {
     plNetClientMgr* nc = IGetNetClientMgr();
     plNetMsgGroupOwner* m = plNetMsgGroupOwner::ConvertNoRef(netMsg);
@@ -200,7 +200,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgGroupOwner)
 
 
 
-MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgSDLState)
+MSG_HANDLER_DEFN(plNetClientMsgHandler, plNetMsgSDLState)
 {
     plNetClientMgr* nc = IGetNetClientMgr();
     plNetMsgSDLState* m = plNetMsgSDLState::ConvertNoRef(netMsg);
@@ -295,7 +295,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgSDLState)
     return hsOK;
 }
 
-MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgGameMessage)
+MSG_HANDLER_DEFN(plNetClientMsgHandler, plNetMsgGameMessage)
 {
     plNetClientMgr* nc = IGetNetClientMgr();
     plNetMsgGameMessage* m = plNetMsgGameMessage::ConvertNoRef(netMsg);
@@ -388,7 +388,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgGameMessage)
     return hsFail;
 }
 
-MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgVoice)
+MSG_HANDLER_DEFN(plNetClientMsgHandler, plNetMsgVoice)
 {
     plNetClientMgr* nc = IGetNetClientMgr();
     plNetMsgVoice* m = plNetMsgVoice::ConvertNoRef(netMsg);
@@ -444,7 +444,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgVoice)
 }
 
 
-MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgMembersList)
+MSG_HANDLER_DEFN(plNetClientMsgHandler, plNetMsgMembersList)
 {
     plNetClientMgr* nc = IGetNetClientMgr();
     plNetMsgMembersList* m = plNetMsgMembersList::ConvertNoRef(netMsg);
@@ -485,7 +485,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgMembersList)
     return hsOK;
 }
 
-MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgMemberUpdate)
+MSG_HANDLER_DEFN(plNetClientMsgHandler, plNetMsgMemberUpdate)
 {
     plNetClientMgr* nc = IGetNetClientMgr();
     plNetMsgMemberUpdate* m = plNetMsgMemberUpdate::ConvertNoRef(netMsg);
@@ -533,7 +533,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgMemberUpdate)
     return hsOK;
 }
 
-MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgListenListUpdate)
+MSG_HANDLER_DEFN(plNetClientMsgHandler, plNetMsgListenListUpdate)
 {
     plNetClientMgr* nc = IGetNetClientMgr();
     plNetMsgListenListUpdate* m = plNetMsgListenListUpdate::ConvertNoRef(netMsg);
@@ -572,7 +572,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgListenListUpdate)
    return hsOK;
 }
 
-MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgInitialAgeStateSent)
+MSG_HANDLER_DEFN(plNetClientMsgHandler, plNetMsgInitialAgeStateSent)
 {
     plNetClientMgr * nc = IGetNetClientMgr();
     plNetMsgInitialAgeStateSent* msg = plNetMsgInitialAgeStateSent::ConvertNoRef(netMsg);

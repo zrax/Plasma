@@ -147,7 +147,7 @@ Interval plParticleMtl::Validity(TimeValue t)
     }
 */
 //  float u;
-//  fPBlock->GetValue(pb_spin,t,u,valid);
+//  fPBlock->GetValue(pb_spin, t, u, valid);
     return valid;
 #else // mf horse
     const char* name = GetName();
@@ -370,9 +370,9 @@ void plParticleMtl::SetDiffuse(Color c, TimeValue t) {}
 void plParticleMtl::SetSpecular(Color c, TimeValue t) {}
 void plParticleMtl::SetShininess(float v, TimeValue t) {}
                 
-Color plParticleMtl::GetAmbient(int mtlNum, BOOL backFace)  { return Color(0,0,0); }
-Color plParticleMtl::GetDiffuse(int mtlNum, BOOL backFace)  { return Color(0,0,0); }
-Color plParticleMtl::GetSpecular(int mtlNum, BOOL backFace) { return Color(0,0,0); }
+Color plParticleMtl::GetAmbient(int mtlNum, BOOL backFace)  { return Color(0, 0, 0); }
+Color plParticleMtl::GetDiffuse(int mtlNum, BOOL backFace)  { return Color(0, 0, 0); }
+Color plParticleMtl::GetSpecular(int mtlNum, BOOL backFace) { return Color(0, 0, 0); }
 
 float plParticleMtl::GetXParency(int mtlNum, BOOL backFace)
 {
@@ -398,7 +398,7 @@ void plParticleMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallba
                 mtl->texture[i].textHandle = texHandle[i]->GetHandle();
                 Texmap *tx = (*maps)[useSubForTex[i]].map;
                 cb.GetGfxTexInfoFromTexmap(t, mtl->texture[i], tx);
-                SetTexOps(mtl,i,texOpsType[i]);
+                SetTexOps(mtl, i, texOpsType[i]);
                 }
             }
         return;
@@ -441,7 +441,7 @@ void plParticleMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallba
         if (ti.tiling[0]==GW_TEX_NO_TILING||ti.tiling[1]==GW_TEX_NO_TILING)
             needDecal = TRUE;
         op = needDecal?TXOP_ALPHABLEND:TXOP_MODULATE;
-        bmi[0] = tx[0]->GetVPDisplayDIB(t,cb,valid,FALSE);
+        bmi[0] = tx[0]->GetVPDisplayDIB(t, cb, valid, FALSE);
         if (bmi[0]) {
             texHandleValid &= valid;
             useSubForTex[0] = diffChan;
@@ -453,14 +453,14 @@ void plParticleMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallba
     if (tx[1]) {
         cb.GetGfxTexInfoFromTexmap(t, mtl->texture[ntx], tx[1]);
         if (nsupport>ntx) {
-            bmi[1] = tx[1]->GetVPDisplayDIB(t,cb,valid,TRUE);
+            bmi[1] = tx[1]->GetVPDisplayDIB(t, cb, valid, TRUE);
             if (bmi[1]) {
                 texHandleValid &= valid;
-                StuffAlpha(bmi[1], (*maps)[opacChan].amount, GetOpacity(t),ntx?whiteCol:pShader->GetDiffuseClr(t));
+                StuffAlpha(bmi[1], (*maps)[opacChan].amount, GetOpacity(t), ntx?whiteCol:pShader->GetDiffuseClr(t));
                 texHandle[ntx] = cb.MakeHandle(bmi[1]);
                 bmi[1] = NULL;
                 mtl->texture[ntx].textHandle = texHandle[ntx]->GetHandle();
-                SetTexOps(mtl,ntx,TXOP_OPACITY);
+                SetTexOps(mtl, ntx, TXOP_OPACITY);
                 useSubForTex[ntx] = opacChan;
                 ntx++;
                 }
@@ -468,9 +468,9 @@ void plParticleMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallba
         else {
             if (!needDecal) {
                 TextureInfo ti;
-//              if (SameUV(mtl->texture[0],mtl->texture[1])) {
+//              if (SameUV(mtl->texture[0], mtl->texture[1])) {
                     // Not really correct to combine channels for different UV's but what the heck.
-                    bmi[1] = tx[1]->GetVPDisplayDIB(t,cb,valid,TRUE, forceW, forceH);
+                    bmi[1] = tx[1]->GetVPDisplayDIB(t, cb, valid, TRUE, forceW, forceH);
                     if (bmi[1]) {
                         texHandleValid &= valid;
                         StuffAlphaInto(bmi[1], bmi[0], (*maps)[opacChan].amount, GetOpacity(t));
@@ -486,7 +486,7 @@ void plParticleMtl::SetupGfxMultiMaps(TimeValue t, Material *mtl, MtlMakerCallba
         texHandle[0] = cb.MakeHandle(bmi[0]);
         bmi[0] = NULL;
         mtl->texture[0].textHandle = texHandle[0]->GetHandle();
-        SetTexOps(mtl,0,op);
+        SetTexOps(mtl, 0, op);
         }
     mtl->texture.SetCount(ntx);
     numTexHandlesUsed = ntx;

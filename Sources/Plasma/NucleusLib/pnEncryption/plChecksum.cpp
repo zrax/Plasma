@@ -96,7 +96,7 @@ static uint8_t IHexCharToInt(char c)
 
 plChecksum::plChecksum(unsigned int bufsize, const char* buffer)
 {
-    unsigned int wndsz = GetWindowSize(),i = 0;
+    unsigned int wndsz = GetWindowSize(), i = 0;
     fSum = 0;
 
     const char* bufferAbsEnd = buffer + bufsize;

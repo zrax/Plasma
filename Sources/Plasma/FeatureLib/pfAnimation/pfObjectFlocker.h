@@ -198,10 +198,10 @@ public:
     float ResetSmoothedCurvature(float value = 0);
 
     hsVector3 SmoothedAcceleration() { return fSmoothedAcceleration; }
-    hsVector3 ResetSmoothedAcceleration(const hsVector3 &value = hsVector3(0,0,0));
+    hsVector3 ResetSmoothedAcceleration(const hsVector3 &value = hsVector3(0, 0, 0));
 
     hsPoint3 SmoothedPosition() { return fSmoothedPosition; }
-    hsPoint3 ResetSmoothedPosition(const hsPoint3 &value = hsPoint3(0,0,0));
+    hsPoint3 ResetSmoothedPosition(const hsPoint3 &value = hsPoint3(0, 0, 0));
 
     float Radius() const { return fRadius; }
     float SetRadius(float radius) { return fRadius = radius; }

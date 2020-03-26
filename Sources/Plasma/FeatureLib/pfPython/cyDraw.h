@@ -61,7 +61,7 @@ protected:
     hsTArray<plKey> fRecvr;
     bool            fNetForce;
 
-    cyDraw(plKey sender=nil,const plKey recvr=nil);
+    cyDraw(plKey sender=nil, const plKey recvr=nil);
 
 public:
     virtual ~cyDraw() { }

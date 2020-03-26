@@ -297,7 +297,7 @@ void plMouseDevice::AddNameToCursor(const ST::string& name)
     if (fInstance && !name.empty())
     {
         plDebugText     &txt = plDebugText::Instance();
-        txt.DrawString(fInstance->fWXPos + 12 ,fInstance->fWYPos - 7,name);
+        txt.DrawString(fInstance->fWXPos + 12, fInstance->fWYPos - 7, name);
     }
 }
 void plMouseDevice::AddCCRToCursor()
@@ -314,8 +314,8 @@ void plMouseDevice::AddIDNumToCursor(uint32_t idNum)
     {
         plDebugText     &txt = plDebugText::Instance();
         char str[256];
-        sprintf(str, "%d",idNum);
-        txt.DrawString(fInstance->fWXPos + 12 ,fInstance->fWYPos + 3,str);
+        sprintf(str, "%d", idNum);
+        txt.DrawString(fInstance->fWXPos + 12, fInstance->fWYPos + 3, str);
     }
 }
         
@@ -331,7 +331,7 @@ void plMouseDevice::SetCursorX(float x)
                           (fYPos * 2.0f) - 1.0f);
 
 //  plDebugText     &txt = plDebugText::Instance();
-//  txt.DrawString(fWXPos + 20,fWYPos - 5,"test");
+//  txt.DrawString(fWXPos + 20, fWYPos - 5, "test");
 
 }
 void plMouseDevice::SetCursorY(float y)
@@ -345,7 +345,7 @@ void plMouseDevice::SetCursorY(float y)
                           (y * 2.0f) - 1.0f);
 
 //  plDebugText     &txt = plDebugText::Instance();
-//  txt.DrawString(fWXPos + 20,fWYPos - 10,"test");
+//  txt.DrawString(fWXPos + 20, fWYPos - 10, "test");
 
 }
 

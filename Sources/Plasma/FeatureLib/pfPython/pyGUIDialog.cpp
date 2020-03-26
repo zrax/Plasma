@@ -245,7 +245,7 @@ PyObject* pyGUIDialog::GetControl(uint32_t idx)
 
     // if we got here then there must have been an error
     char errmsg[256];
-    sprintf(errmsg,"Index %d not found in GUIDialog %s",idx,GetName());
+    sprintf(errmsg, "Index %d not found in GUIDialog %s", idx, GetName());
     PyErr_SetString(PyExc_KeyError, errmsg);
     PYTHON_RETURN_ERROR;
 }
@@ -312,7 +312,7 @@ PyObject* pyGUIDialog::GetControlFromTag(uint32_t tagID)
 
     // if we got here then there must have been an error
     char errmsg[256];
-    sprintf(errmsg,"TagID %d not found in GUIDialog %s",tagID,GetName());
+    sprintf(errmsg, "TagID %d not found in GUIDialog %s", tagID, GetName());
     PyErr_SetString(PyExc_KeyError, errmsg);
     PYTHON_RETURN_ERROR;
 }
@@ -326,7 +326,7 @@ PyObject* pyGUIDialog::GetForeColor()
         if (pdmod)
         {
             pfGUIColorScheme* color = pdmod->GetColorScheme();
-            return pyColor::New(color->fForeColor.r,color->fForeColor.g,color->fForeColor.b,color->fForeColor.a);
+            return pyColor::New(color->fForeColor.r, color->fForeColor.g, color->fForeColor.b, color->fForeColor.a);
         }
     }
     PYTHON_RETURN_NONE;
@@ -340,7 +340,7 @@ PyObject* pyGUIDialog::GetSelColor()
         if (pdmod)
         {
             pfGUIColorScheme* color = pdmod->GetColorScheme();
-            return pyColor::New(color->fSelForeColor.r,color->fSelForeColor.g,color->fSelForeColor.b,color->fSelForeColor.a);
+            return pyColor::New(color->fSelForeColor.r, color->fSelForeColor.g, color->fSelForeColor.b, color->fSelForeColor.a);
         }
     }
     PYTHON_RETURN_NONE;
@@ -354,7 +354,7 @@ PyObject* pyGUIDialog::GetBackColor()
         if (pdmod)
         {
             pfGUIColorScheme* color = pdmod->GetColorScheme();
-            return pyColor::New(color->fBackColor.r,color->fBackColor.g,color->fBackColor.b,color->fBackColor.a);
+            return pyColor::New(color->fBackColor.r, color->fBackColor.g, color->fBackColor.b, color->fBackColor.a);
         }
     }
     PYTHON_RETURN_NONE;
@@ -368,7 +368,7 @@ PyObject* pyGUIDialog::GetBackSelColor()
         if (pdmod)
         {
             pfGUIColorScheme* color = pdmod->GetColorScheme();
-            return pyColor::New(color->fSelBackColor.r,color->fSelBackColor.g,color->fSelBackColor.b,color->fSelBackColor.a);
+            return pyColor::New(color->fSelBackColor.r, color->fSelBackColor.g, color->fSelBackColor.b, color->fSelBackColor.a);
         }
     }
     PYTHON_RETURN_NONE;

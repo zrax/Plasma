@@ -53,7 +53,7 @@ public:
     // Range [0x010000..0xffffff] - For blending objects (typically sorted amongst each other)
     // The minor bits denote a slight difference in draw order. For example, a decal wants
     // to be drawn after the opaque object it is applied to, but hopefully not very long after.
-    // The avatar gets a render priority of kDefRendMajorLevel,kAvatarRendMinorLevel. This puts
+    // The avatar gets a render priority of kDefRendMajorLevel, kAvatarRendMinorLevel. This puts
     // it in the group of normal opaque objects with no render dependencies, but with the maximum
     // permitted minor level. So it will be drawn after the opaque background, and the opaque background's
     // decals, but before the first thing with a render dependency on the background (e.g. plants).

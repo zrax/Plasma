@@ -403,14 +403,14 @@ plPseudoLinkAnimTriggerMsg::plPseudoLinkAnimTriggerMsg(bool forward, plKey avata
 
 void plPseudoLinkAnimTriggerMsg::Read(hsStream* stream, hsResMgr* mgr)
 {
-    plMessage::IMsgRead(stream,mgr);
+    plMessage::IMsgRead(stream, mgr);
     fForward = stream->ReadBool();
     fAvatarKey = mgr->ReadKey(stream);
 }
 
 void plPseudoLinkAnimTriggerMsg::Write(hsStream* stream, hsResMgr* mgr)
 {
-    plMessage::IMsgWrite(stream,mgr);
+    plMessage::IMsgWrite(stream, mgr);
     stream->WriteBool(fForward);
     mgr->WriteKey(stream, fAvatarKey);
 }
@@ -422,12 +422,12 @@ void plPseudoLinkAnimTriggerMsg::Write(hsStream* stream, hsResMgr* mgr)
 
 void plPseudoLinkAnimCallbackMsg::Read(hsStream* stream, hsResMgr* mgr)
 {
-    plMessage::IMsgRead(stream,mgr);
+    plMessage::IMsgRead(stream, mgr);
     mgr->WriteKey(stream, fAvatarKey);
 }
 
 void plPseudoLinkAnimCallbackMsg::Write(hsStream* stream, hsResMgr* mgr)
 {
-    plMessage::IMsgWrite(stream,mgr);
+    plMessage::IMsgWrite(stream, mgr);
     mgr->WriteKey(stream, fAvatarKey);
 }

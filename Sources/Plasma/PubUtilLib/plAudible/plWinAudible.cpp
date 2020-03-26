@@ -260,7 +260,7 @@ plAudible& plWinAudible::SetTransform(const hsMatrix44& l2w, const hsMatrix44& w
         if (fSoundObjs[index] != nil)
         {
             fSoundObjs[index]->SetPosition(pos);
-            fSoundObjs[index]->SetConeOrientation(v.fX,v.fY,v.fZ);
+            fSoundObjs[index]->SetConeOrientation(v.fX, v.fY, v.fZ);
         }
     }
     else
@@ -269,7 +269,7 @@ plAudible& plWinAudible::SetTransform(const hsMatrix44& l2w, const hsMatrix44& w
         {
             if (fSoundObjs[i] != nil)
             {
-                fSoundObjs[i]->SetConeOrientation(v.fX,v.fY,v.fZ);
+                fSoundObjs[i]->SetConeOrientation(v.fX, v.fY, v.fZ);
                 fSoundObjs[i]->SetPosition(pos);
             }
         }
@@ -328,18 +328,18 @@ void plWinAudible::Stop(int index)
     SND_APPLY_LOOP(index, Stop(), ;);
 }
 
-void plWinAudible::SetMin(const float m,int index)
+void plWinAudible::SetMin(const float m, int index)
 {
     SND_APPLY_LOOP(index, SetMin((int)m), ;);
 }
 
-void plWinAudible::SetMax(const float m,int index)
+void plWinAudible::SetMax(const float m, int index)
 {
     SND_APPLY_LOOP(index, SetMax((int)m), ;);
 }
 
 // Takes a 0-1.f as the volume (platform independent)
-void    plWinAudible::SetVolume(const float volume,int index)
+void    plWinAudible::SetVolume(const float volume, int index)
 {
     SND_APPLY_LOOP(index, SetVolume(volume), ;);
 }
@@ -377,7 +377,7 @@ float plWinAudible::GetMax(int index) const
     return (float)(fSoundObjs[index]->GetMax());
 }
 
-void plWinAudible::SetVelocity(const hsVector3 vel,int index)
+void plWinAudible::SetVelocity(const hsVector3 vel, int index)
 {
     SND_APPLY_LOOP(index, SetVelocity(vel), ;);
 }
@@ -392,7 +392,7 @@ hsPoint3 plWinAudible::GetPosition(int index)
     return (fSoundObjs[index]->GetPosition());
 }
 
-void plWinAudible::SetLooping(bool loop,int index)
+void plWinAudible::SetLooping(bool loop, int index)
 {
     SND_APPLY_LOOP(index, SetProperty(plSound::kPropLooping, loop), ;);
 }
@@ -754,7 +754,7 @@ plAudible& pl2WayWinAudible::SetTransform(const hsMatrix44& l2w, const hsMatrix4
     return (*this);
 }
 
-void pl2WayWinAudible::SetVelocity(const hsVector3 vel,int index)
+void pl2WayWinAudible::SetVelocity(const hsVector3 vel, int index)
 {
     plWinAudible::SetVelocity(vel, index);
     if (fVoicePlayer)
@@ -764,7 +764,7 @@ void pl2WayWinAudible::SetVelocity(const hsVector3 vel,int index)
 void pl2WayWinAudible::SetTalkIcon(int index, uint32_t str)
 {
     if (fVoicePlayer)
-        fVoicePlayer->SetTalkIcon(index,str);
+        fVoicePlayer->SetTalkIcon(index, str);
 }
 
 void pl2WayWinAudible::ClearTalkIcon()

@@ -311,7 +311,7 @@ bool plConvert::Convert(hsTArray<plMaxNode*>& nodes)
     if (IOK())
         retVal = ConvertList(nodes, &plMaxNode::FirstComponentPass,      fpErrorMsg, fSettings);
     if (IOK())
-        retVal = ConvertList(nodes, &plMaxNode::MakeController,          fpErrorMsg,fSettings);
+        retVal = ConvertList(nodes, &plMaxNode::MakeController,          fpErrorMsg, fSettings);
     if (IOK())
         retVal = ConvertList(nodes, &plMaxNode::MakeCoordinateInterface, fpErrorMsg, fSettings);// must be before mesh
     if (IOK())

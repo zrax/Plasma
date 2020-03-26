@@ -365,7 +365,7 @@ protected:
     typedef std::map<ST::string, float> MarkerMap;
     MarkerMap fMarkers;
 
-    typedef std::map<ST::string, std::pair<float,float> > LoopMap;
+    typedef std::map<ST::string, std::pair<float, float>> LoopMap;
     LoopMap fLoops;
 
     typedef std::vector<float> ScalarMap;

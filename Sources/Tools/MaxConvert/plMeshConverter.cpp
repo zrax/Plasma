@@ -602,7 +602,7 @@ bool    plMeshConverter::CreateSpans(plMaxNode *node, hsTArray<plGeometrySpan *>
         // OTM used in generating normals.
         Matrix3 otm = node->GetOTM();
         Matrix3 invOtm = Inverse(otm);
-        invOtm.SetTrans(Point3(0,0,0));
+        invOtm.SetTrans(Point3(0, 0, 0));
         invOtm.ValidateFlags();
 
         // If we use a composite on this object, we don't want to export the illumination channel.
@@ -1082,7 +1082,7 @@ bool    plMeshConverter::CreateSpans(plMaxNode *node, hsTArray<plGeometrySpan *>
                     if (fErrorMsg->Set(fWarnBadNormals, node->GetName(), fWarnBadNormalsMsg).CheckAskOrCancel())
                         fWarnBadNormals = false;
                     fErrorMsg->Set(false);
-                    normals[0].Set(0,0,1.f);
+                    normals[0].Set(0, 0, 1.f);
                     normals[1] = normals[2] = normals[0];
                 }
 
@@ -1293,7 +1293,7 @@ bool    plMeshConverter::CreateSpans(plMaxNode *node, hsTArray<plGeometrySpan *>
                 plConst(int) kAutoMinFaces(1000);
                 plGeoSpanDice dice;
                 dice.SetMaxFaces(kAutoMaxFaces);
-                dice.SetMaxSize(hsPoint3(kAutoMaxSize,kAutoMaxSize,kAutoMaxSize));
+                dice.SetMaxSize(hsPoint3(kAutoMaxSize, kAutoMaxSize, kAutoMaxSize));
                 dice.SetMinFaces(kAutoMinFaces);
                 dice.Dice(spanArray);
             }
@@ -1826,7 +1826,7 @@ Point3 plMeshConverter::IGetUvGradient(plMaxNode* node,
                                         Mesh *mesh, int faceIdx,
                                         int iUV) // 0 = uvw.x, 1 = uv2.y
 {
-    Point3 uvwOut(0,0,0);
+    Point3 uvwOut(0, 0, 0);
     if (bmpUvwSrc < 0)
         return uvwOut; // Not Error.
 
@@ -1948,7 +1948,7 @@ void    plMeshConverter::IGetUVTransform(plMaxNode *node, Mtl *mtl, Matrix3 *uvT
 #ifndef NDEBUG
     CStr className;
     texMap->GetClassName(className);
-    if (strcmp(className,"Bitmap") && strcmp(className,"Plasma Layer") && strcmp(className,"Plasma Layer Dbg."))
+    if (strcmp(className, "Bitmap") && strcmp(className, "Plasma Layer") && strcmp(className, "Plasma Layer Dbg."))
         return;
 
     char txtFileName[256];

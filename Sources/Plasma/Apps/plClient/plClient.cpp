@@ -154,7 +154,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 #define MSG_LOADING_BAR
 
-// static hsVector3 gAbsDown(0,0,-1.f);
+// static hsVector3 gAbsDown(0, 0, -1.f);
 
 static plDispatchBase* gDisp = nil;
 static plTimerCallbackManager* gTimerMgr = nil;
@@ -443,7 +443,7 @@ bool plClient::InitPipeline()
 
     if (!devSel.GetDefault(&dmr))
     {
-        hsMessageBox("No suitable rendering devices found.","Plasma", hsMessageBoxNormal, hsMessageBoxIconError);
+        hsMessageBox("No suitable rendering devices found.", "Plasma", hsMessageBoxNormal, hsMessageBoxIconError);
         return true;
     }
 
@@ -511,9 +511,9 @@ bool plClient::InitPipeline()
     hsPoint3 from, at;
     from.Set(0, 0, 10.f);
     at.Set(0, 20.f, 10.f);
-    up.Set(0,0,-1.f);
+    up.Set(0, 0, -1.f);
     hsMatrix44 cam;
-    cam.MakeCamera(&from,&at,&up);
+    cam.MakeCamera(&from, &at, &up);
 
     float   yon = 500.0f;
 

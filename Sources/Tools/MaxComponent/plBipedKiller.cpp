@@ -132,7 +132,7 @@ void RemoveBiped(INode *bipRoot, Interface *theInterface)
     ClassDirectory* classDir=&dllDir->ClassDir();
 
     ClassDesc* rotCtrl = classDir->FindClass(SClass_ID(CTRL_ROTATION_CLASS_ID),
-                                Class_ID(TCBINTERP_ROTATION_CLASS_ID,0));  // was Class_ID(LININTERP_ROTATION_CLASS_ID,0));
+                                Class_ID(TCBINTERP_ROTATION_CLASS_ID, 0));  // was Class_ID(LININTERP_ROTATION_CLASS_ID, 0));
 
     ClassDesc* posCtrl = classDir->FindClass(SClass_ID(CTRL_POSITION_CLASS_ID),
                                     Class_ID(LININTERP_POSITION_CLASS_ID, 0));
@@ -472,22 +472,22 @@ void FreeMotionSamples(plSampleVec *samples)
 int LimitTransform(INode* node, Matrix3* nodeTM)
 {
 /* NOT sure if we want to support this functionality: probably eventually.
-    bool32 noRotX=false,noRotY=false,noRotZ=false;
-    bool32 noRot=gUserPropMgr.UserPropExists(node,"BEHNoRot") || MatWrite::HasToken(node->GetName(), "norot");
+    bool32 noRotX=false, noRotY=false, noRotZ=false;
+    bool32 noRot=gUserPropMgr.UserPropExists(node, "BEHNoRot") || MatWrite::HasToken(node->GetName(), "norot");
     if (!noRot)
     {
-        noRotX=gUserPropMgr.UserPropExists(node,"BEHNoRotX") || MatWrite::HasToken(node->GetName(), "norotx");
-        noRotY=gUserPropMgr.UserPropExists(node,"BEHNoRotY") || MatWrite::HasToken(node->GetName(), "noroty");
-        noRotZ=gUserPropMgr.UserPropExists(node,"BEHNoRotZ") || MatWrite::HasToken(node->GetName(), "norotz");
+        noRotX=gUserPropMgr.UserPropExists(node, "BEHNoRotX") || MatWrite::HasToken(node->GetName(), "norotx");
+        noRotY=gUserPropMgr.UserPropExists(node, "BEHNoRotY") || MatWrite::HasToken(node->GetName(), "noroty");
+        noRotZ=gUserPropMgr.UserPropExists(node, "BEHNoRotZ") || MatWrite::HasToken(node->GetName(), "norotz");
     }
 
-    bool32 noTransX=false,noTransY=false,noTransZ=false;
-    bool32 noTrans=gUserPropMgr.UserPropExists(node,"BEHNoTrans") || MatWrite::HasToken(node->GetName(), "notrans");
+    bool32 noTransX=false, noTransY=false, noTransZ=false;
+    bool32 noTrans=gUserPropMgr.UserPropExists(node, "BEHNoTrans") || MatWrite::HasToken(node->GetName(), "notrans");
     if (!noTrans)
     {
-        noTransX=gUserPropMgr.UserPropExists(node,"BEHNoTransX") || MatWrite::HasToken(node->GetName(), "notransx");
-        noTransY=gUserPropMgr.UserPropExists(node,"BEHNoTransY") || MatWrite::HasToken(node->GetName(), "notransy");
-        noTransZ=gUserPropMgr.UserPropExists(node,"BEHNoTransZ") || MatWrite::HasToken(node->GetName(), "notransz");
+        noTransX=gUserPropMgr.UserPropExists(node, "BEHNoTransX") || MatWrite::HasToken(node->GetName(), "notransx");
+        noTransY=gUserPropMgr.UserPropExists(node, "BEHNoTransY") || MatWrite::HasToken(node->GetName(), "notransy");
+        noTransZ=gUserPropMgr.UserPropExists(node, "BEHNoTransZ") || MatWrite::HasToken(node->GetName(), "notransz");
     }
 
     if (noRot || noTrans ||

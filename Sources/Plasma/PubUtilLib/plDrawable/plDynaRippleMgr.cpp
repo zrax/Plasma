@@ -102,8 +102,8 @@ int plDynaRippleMgr::INewDecal()
 
 plDynaRippleMgr::plDynaRippleMgr()
 :
-    fInitUVW(1.f,1.f,1.f),
-    fFinalUVW(1.f,1.f,1.f)
+    fInitUVW(1.f, 1.f, 1.f),
+    fFinalUVW(1.f, 1.f, 1.f)
 {
     fPartIDs.SetCount(kNumPrintIDs);
     int i;

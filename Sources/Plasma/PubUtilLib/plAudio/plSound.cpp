@@ -1441,7 +1441,7 @@ plDrawableSpans* plSound::CreateProxy(const hsMatrix44& l2w, hsGMaterial* mat, h
     else
     {
         myDraw = plDrawableGenerator::GenerateSphericalDrawable(
-            hsPoint3(0,0,0),
+            hsPoint3(0, 0, 0),
             (float)GetMin(),
             mat,
             l2w,
@@ -1451,7 +1451,7 @@ plDrawableSpans* plSound::CreateProxy(const hsMatrix44& l2w, hsGMaterial* mat, h
             myDraw);
 
         myDraw = plDrawableGenerator::GenerateSphericalDrawable(
-            hsPoint3(0,0,0),
+            hsPoint3(0, 0, 0),
             (float)GetMax(),
             mat,
             l2w,

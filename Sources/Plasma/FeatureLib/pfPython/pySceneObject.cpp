@@ -112,7 +112,7 @@ pySceneObject::pySceneObject(pyKey& objkey, pyKey& selfkey)
     fNetForce = false;
 }
 
-pySceneObject::pySceneObject(plKey objkey,pyKey& selfkey)
+pySceneObject::pySceneObject(plKey objkey, pyKey& selfkey)
 {
     // make sure these are created
     fDraw = cyDraw::New();
@@ -235,7 +235,7 @@ PyObject* pySceneObject::findObj(const ST::string& name)
     {
         if (name == fSceneObjects[i]->GetName())
         {
-            pSobj = pySceneObject::New(fSceneObjects[i],fPyMod);
+            pSobj = pySceneObject::New(fSceneObjects[i], fPyMod);
             break;
         }
     }
@@ -403,7 +403,7 @@ void pySceneObject::SetTransform(pyMatrix44& l2w, pyMatrix44& w2l)
         // referring to multiple objects, so the first one in the list will do.)
         plSceneObject* obj = plSceneObject::ConvertNoRef(fSceneObjects[0]->ObjectIsLoaded());
         if (obj)
-            obj->SetTransform(l2w.fMatrix,w2l.fMatrix);
+            obj->SetTransform(l2w.fMatrix, w2l.fMatrix);
     }
 }
 
@@ -433,7 +433,7 @@ PyObject* pySceneObject::GetWorldPosition()
         }
     }
     // if we couldn't find any sceneobject or a coordinate interface
-    return pyPoint3::New(hsPoint3(0,0,0));
+    return pyPoint3::New(hsPoint3(0, 0, 0));
 }
 
 //
@@ -462,7 +462,7 @@ PyObject* pySceneObject::GetViewVector()
         }
     }
     // if we couldn't find any sceneobject or a coordinate interface
-    return pyVector3::New(hsVector3(0,0,0));
+    return pyVector3::New(hsVector3(0, 0, 0));
 }
 
 //
@@ -491,7 +491,7 @@ PyObject* pySceneObject::GetUpVector()
         }
     }
     // if we couldn't find any sceneobject or a coordinate interface
-    return pyVector3::New(hsVector3(0,0,0));
+    return pyVector3::New(hsVector3(0, 0, 0));
 }
 
 //
@@ -520,7 +520,7 @@ PyObject* pySceneObject::GetRightVector()
         }
     }
     // if we couldn't find any sceneobject or a coordinate interface
-    return pyVector3::New(hsVector3(0,0,0));
+    return pyVector3::New(hsVector3(0, 0, 0));
 }
 
 //
@@ -585,7 +585,7 @@ PyObject* pySceneObject::GetAvatarVelocity()
     }
 
     // if we couldn't find any sceneobject that had an avatar mod then this ain't an avatar
-    return pyVector3::New(hsVector3(0,0,0));
+    return pyVector3::New(hsVector3(0, 0, 0));
 }
 
 

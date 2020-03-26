@@ -55,7 +55,7 @@ class plExcludeRegionComponent : public plPhysicCoreComponent
 protected:
     bool fIsValid;
 
-    typedef std::map<plMaxNode*,plKey> XRegionKeys;
+    typedef std::map<plMaxNode*, plKey> XRegionKeys;
     XRegionKeys fXRegionKeys;
 
 public:

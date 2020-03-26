@@ -387,7 +387,7 @@ bool    pfGUIControlMod::PointInBounds(const hsPoint3 &point)
 
             for (i = 1; i < fBoundsPoints.GetCount() - 1; i++)
             {
-                // Test the triangle (0,i,i+1)
+                // Test the triangle (0, i, i+1)
                 if (PointInTriangle(fBoundsPoints[0], fBoundsPoints[i], fBoundsPoints[i + 1], point))
                     return true;
             }

@@ -132,7 +132,7 @@ bool pyStream::WriteLines(const std::vector<std::string> & lines)
         for (i=0; i<lines.size(); i++)
         {
             std::string element = lines[i];
-            fStream->Write(element.length(),element.c_str());
+            fStream->Write(element.length(), element.c_str());
         }
         return true;
     }

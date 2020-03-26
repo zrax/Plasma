@@ -54,7 +54,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 /** These enums are used to indicate which parameters are ignorable and can
     be overridden.
-    We can't use the "PhysFlags," below, for this, because those only cover boolean properties.
+    We can't use the "PhysFlags", below, for this, because those only cover boolean properties.
     *** We should use the same enum for both and just not worry that some of the enums aren't
         usable as "ignore" flags, -- the readability & simplification gain would be worth it. */
 enum CanIgnore

@@ -99,7 +99,7 @@ bool plPickingDetector::MsgReceive(plMessage* msg)
 
             pMsg->SetSender(GetKey());
             plgDispatch::MsgSend(pMsg);
-            hsStatusMessageF("%s sending activate message to %s\n",GetKey()->GetName().c_str(), fReceivers[i]->GetName().c_str());
+            hsStatusMessageF("%s sending activate message to %s\n", GetKey()->GetName().c_str(), fReceivers[i]->GetName().c_str());
         }
     }
 

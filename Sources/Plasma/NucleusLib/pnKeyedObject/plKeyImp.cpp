@@ -91,7 +91,7 @@ plKeyImp::plKeyImp() :
 #endif
 }
 
-plKeyImp::plKeyImp(plUoid u, uint32_t pos,uint32_t len):
+plKeyImp::plKeyImp(plUoid u, uint32_t pos, uint32_t len):
     fUoid(u),
     fObjectPtr(nil),
     fStartPos(pos),

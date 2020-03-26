@@ -83,9 +83,9 @@ protected:
     static int32_t    IGetLocalTimeZoneOffset();
 
 public:
-    plUnifiedTime() : fSecs(0),fMicros(0), fMode(kGmt) { }      // set ToEpoch() at start
+    plUnifiedTime() : fSecs(0), fMicros(0), fMode(kGmt) { }      // set ToEpoch() at start
     plUnifiedTime(double secsDouble) { SetSecsDouble(secsDouble); }
-    plUnifiedTime(plUnifiedTime_CtorNow,int mode=kLocal);
+    plUnifiedTime(plUnifiedTime_CtorNow, int mode=kLocal);
     plUnifiedTime(const timeval & tv);
     plUnifiedTime(int mode, const struct tm & src);
     plUnifiedTime(time_t t);

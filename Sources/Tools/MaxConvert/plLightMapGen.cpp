@@ -185,7 +185,7 @@ bool plLightMapGen::Open(Interface* ip, TimeValue t, bool forceRegen)
             NOTIFY_PRE_RENDERFRAME
             );
 
-        fRenderer = (Renderer*)CreateInstance(RENDERER_CLASS_ID, Class_ID(SREND_CLASS_ID,0));
+        fRenderer = (Renderer*)CreateInstance(RENDERER_CLASS_ID, Class_ID(SREND_CLASS_ID, 0));
 
         ViewParams vp;
         vp.prevAffineTM = Matrix3(true);
@@ -215,7 +215,7 @@ bool plLightMapGen::Open(Interface* ip, TimeValue t, bool forceRegen)
         frp.regxmax = 1;
         frp.regymin = 0;
         frp.regymax = 1;
-        frp.blowupCenter = Point2(0.5f,0.5f);
+        frp.blowupCenter = Point2(0.5f, 0.5f);
         frp.blowupFactor = Point2(1.f, 1.f);
 
         BitmapInfo bminfo;
@@ -494,7 +494,7 @@ bool plLightMapGen::IShadeSpan(plMaxNode* node, const hsMatrix44& l2w, const hsM
                 multColor *= dif;   // We like to use kVertexNonPreshaded for lightmapped objects, which needs the runtime diffuse folded in
                 multColor.a *= opacity;
             }
-            addColor.Set(0,0,0,0);
+            addColor.Set(0, 0, 0, 0);
             span.StuffVertex(i, &multColor, &addColor);
         }
         if (span.fInstanceRefs)
@@ -513,7 +513,7 @@ bool plLightMapGen::IShadeSpan(plMaxNode* node, const hsMatrix44& l2w, const hsM
         {
             hsColorRGBA multColor, addColor;
             span.ExtractInitColor(i, &multColor, &addColor);
-            addColor.Set(0,0,0,0);
+            addColor.Set(0, 0, 0, 0);
             span.StuffVertex(i, &multColor, &addColor);
         }
         return true;
@@ -667,7 +667,7 @@ bool plLightMapGen::IShadeFace(plMaxNode* node, const hsMatrix44& l2w, const hsM
 
     }
 
-    Color amb(0,0,0);
+    Color amb(0, 0, 0);
 
     return IShadeVerts(ctx, amb, pt, norm, uv, bitmap);
 }
@@ -862,7 +862,7 @@ hsBounds3Ext plLightMapGen::IGetBoundsLightSpace(INode* node, INode* liNode)
 
     Box3 box;
 
-    if (obj->ClassID() == Class_ID(DUMMY_CLASS_ID,0))
+    if (obj->ClassID() == Class_ID(DUMMY_CLASS_ID, 0))
     {
         DummyObject* dummy = (DummyObject*)obj;
         box = dummy->GetBox();

@@ -53,7 +53,7 @@ struct hsMatrix44;
 class hsQuat {
 
 public:
-    float fX,fY,fZ,fW;
+    float fX, fY, fZ, fW;
 
     // Constructors
     hsQuat() {}
@@ -80,7 +80,7 @@ public:
     const float& operator[](int i) const { return (&fX)[i]; }
 
     // Unary operators
-    hsQuat operator-() const { return (hsQuat(-fX,-fY,-fZ,-fW)); }
+    hsQuat operator-() const { return (hsQuat(-fX, -fY, -fZ, -fW)); }
     hsQuat operator+() const { return *this; }
 
     // Comparison
@@ -95,16 +95,16 @@ public:
     float Magnitude();
     float MagnitudeSquared();
     hsQuat Conjugate() const
-        { return hsQuat(-fX,-fY,-fZ,fW); }
+        { return hsQuat(-fX, -fY, -fZ, fW); }
     hsQuat Inverse() const;
     // Binary operators
     hsQuat operator-(const hsQuat&) const;
     hsQuat operator+(const hsQuat&) const;
     hsQuat operator*(const hsQuat&) const;
     hsQuat operator*(float f) const
-        { return hsQuat(fX*f,fY*f,fZ*f,fW*f); }
+        { return hsQuat(fX*f, fY*f, fZ*f, fW*f); }
     hsQuat operator/(float f) const
-        { return hsQuat(fX/f,fY/f,fZ/f,fW/f); }
+        { return hsQuat(fX/f, fY/f, fZ/f, fW/f); }
     hsQuat operator/(const hsQuat&) const;
 
     float Dot(const hsQuat &q2) const

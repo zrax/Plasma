@@ -192,7 +192,7 @@ void plSceneInputInterface::IHalfFadeAvatar(bool out)
 void plSceneInputInterface::ResetClickableState()
 {
     if (fLastClicked != nil)
-        ISetLastClicked(nil, hsPoint3(0,0,0));
+        ISetLastClicked(nil, hsPoint3(0, 0, 0));
     
     ClearClickableMap();
     fCurrentClickable = nil;
@@ -1063,7 +1063,7 @@ bool plSceneInputInterface::InterpretInputEvent(plInputEventMsg *pMsg)
             if (fLastClicked != nil)
             {
                 fButtonState &= ~kLeftButtonDown;
-                ISetLastClicked(nil, hsPoint3(0,0,0));
+                ISetLastClicked(nil, hsPoint3(0, 0, 0));
                 
                 return true;
             }
@@ -1125,7 +1125,7 @@ void plSceneInputInterface::ISendOfferNotification(plKey& offeree, int ID, bool 
     {
         pMsg->SetBCastFlag(plMessage::kNetPropagate);
         pMsg->SetBCastFlag(plMessage::kNetForce);
-        pMsg->SetBCastFlag(plMessage::kLocalPropagate,false);
+        pMsg->SetBCastFlag(plMessage::kLocalPropagate, false);
         pMsg->AddNetReceiver(offereeID);
         pMsg->Send();
     }
@@ -1166,7 +1166,7 @@ void    plSceneInputInterface::IRequestLOSCheck(float xPos, float yPos, int ID)
 
     hsPoint3 endPos, startPos;
     
-    fPipe->ScreenToWorldPoint(1,0, &x, &y, 10000, 0, &endPos);
+    fPipe->ScreenToWorldPoint(1, 0, &x, &y, 10000, 0, &endPos);
     startPos = fPipe->GetViewPositionWorld();
 
     // move the start pos out a little to avoid backing up against physical objects...
@@ -1210,7 +1210,7 @@ bool    plSceneInputInterface::IWorldPosMovedSinceLastLOSCheck()
     if (!(startPos == fLastStartPt))
         return true;
 
-    fPipe->ScreenToWorldPoint(1,0, &x, &y, 10000, 0, &endPos);
+    fPipe->ScreenToWorldPoint(1, 0, &x, &y, 10000, 0, &endPos);
     if (!(endPos == fLastEndPt))
         return true;
 

@@ -240,7 +240,7 @@ void pyGUIControlEditBox::SetLastKeyCapture(uint32_t key, uint32_t modifiers)
         // get the pointer to the modifier
         pfGUIEditBoxMod* pebmod = pfGUIEditBoxMod::ConvertNoRef(fGCkey->ObjectIsLoaded());
         if (pebmod)
-            pebmod->SetLastKeyCapture(key,(uint8_t)modifiers);
+            pebmod->SetLastKeyCapture(key, (uint8_t)modifiers);
     }
 }
 

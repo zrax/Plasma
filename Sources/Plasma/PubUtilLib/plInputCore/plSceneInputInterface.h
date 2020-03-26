@@ -76,7 +76,7 @@ class plSceneInputInterface : public plInputInterface
         bool    fClickability;
         plKey   fCurrentClickable, fLastClicked, fCurrentClickableLogicMod;
         hsPoint3 fCurrentClickPoint;
-        bool    fCurrClickIsAvatar, fLastClickIsAvatar,fFadedLocalAvatar;
+        bool    fCurrClickIsAvatar, fLastClickIsAvatar, fFadedLocalAvatar;
         bool fPendingLink;
 
         int     fBookMode; // are we in offer book mode?

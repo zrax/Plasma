@@ -70,9 +70,9 @@ plBlower::plBlower()
     fMaxOffsetDist(kInitialMaxOffDist),
     fAccumTime(0)
 {
-    fRestPos.Set(0,0,0);
-    fLocalRestPos.Set(0,0,0);
-    fCurrDel.Set(0,0,0);
+    fRestPos.Set(0, 0, 0);
+    fLocalRestPos.Set(0, 0, 0);
+    fCurrDel.Set(0, 0, 0);
 
     fDirection.Set(fRandom.RandMinusOneToOne(), fRandom.RandMinusOneToOne(), 0);
     hsFastMath::NormalizeAppr(fDirection);

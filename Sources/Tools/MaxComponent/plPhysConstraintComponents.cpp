@@ -144,7 +144,7 @@ plPhysConstraintAccessor gPhysConstraintAccessor;
       
         member functions:
             
-            GetParamVals(plMaxNode *pNode,plErrorMsg *pErrMsg)
+            GetParamVals(plMaxNode *pNode, plErrorMsg *pErrMsg)
             PreConvert(plMaxNode *node, plErrorMsg *pErrMsg);
         
             \sa plPhysDetectorComponent(), DeleteThis(), GetParamVals(), PreConvert(), Convert(), MaybeMakeLocal() and FixUpPhysical()
@@ -237,7 +237,7 @@ ParamBlockDesc2 gPhysHingeConstraintBk
     plComponent::kBlkComp, _T("Hinge Constraint"), 0, &gPhysHingeConstDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     //Roll out
-    IDD_COMP_PHYS_HINGE_CONSTRAINT, IDS_COMP_PHYS_HINGE_CONSTRAINTS, 0, 0, NULL,//&gPhysCoreComponentProc,
+    IDD_COMP_PHYS_HINGE_CONSTRAINT, IDS_COMP_PHYS_HINGE_CONSTRAINTS, 0, 0, NULL, //&gPhysCoreComponentProc,
     
     // params
 
@@ -337,7 +337,7 @@ plPhysHingeConstraintComponent::plPhysHingeConstraintComponent()
 //
 
 
-bool plPhysHingeConstraintComponent::GetParamVals(plMaxNode *node,plErrorMsg *pErrMsg)
+bool plPhysHingeConstraintComponent::GetParamVals(plMaxNode *node, plErrorMsg *pErrMsg)
 {
     return true;
 }
@@ -441,7 +441,7 @@ bool plPhysHingeConstraintComponent::Convert(plMaxNode *node, plErrorMsg *pErrMs
 
 
         if (fCompPB->GetFloat(kFriction))
-            HMod->SetHCFriction(0,fCompPB->GetFloat(kFriction));
+            HMod->SetHCFriction(0, fCompPB->GetFloat(kFriction));
 
         //Grab the pivot point from the child translate
         hsPoint3 PP = node->GetLocalToWorld44().GetTranslate();
@@ -905,7 +905,7 @@ ParamBlockDesc2 gPhysSSConstraintBk
     plComponent::kBlkComp, _T("Strong Spring Constraint"), 0, &gPhysStrongSpringConstDesc, P_AUTO_CONSTRUCT + P_AUTO_UI, plComponent::kRefComp,
 
     //Roll out
-    IDD_COMP_PHYS_SS_CONSTRAINT, IDS_COMP_PHYS_SS_CONSTRAINTS, 0, 0, NULL,//&gPhysCoreComponentProc,
+    IDD_COMP_PHYS_SS_CONSTRAINT, IDS_COMP_PHYS_SS_CONSTRAINTS, 0, 0, NULL, //&gPhysCoreComponentProc,
     
     // params
 
@@ -969,7 +969,7 @@ plStrongSpringConstraintComponent::plStrongSpringConstraintComponent()
 extern PlasmaToHavokQuat(Havok::Quaternion &a, hsQuat &b);
 
 
-bool plStrongSpringConstraintComponent::GetParamVals(plMaxNode *node,plErrorMsg *pErrMsg)
+bool plStrongSpringConstraintComponent::GetParamVals(plMaxNode *node, plErrorMsg *pErrMsg)
 {
 
 
@@ -1058,7 +1058,7 @@ bool plStrongSpringConstraintComponent::Convert(plMaxNode *node, plErrorMsg *pEr
 
         plKey ParentKey  = nil;
         if (fCompPB->GetINode(kParent))
-            if (((plMaxNode*)fCompPB->GetINode(kParent))->CanConvert() && (obj->ClassID() == Class_ID(DUMMY_CLASS_ID,0) || obj->SuperClassID() == GEOMOBJECT_CLASS_ID))
+            if (((plMaxNode*)fCompPB->GetINode(kParent))->CanConvert() && (obj->ClassID() == Class_ID(DUMMY_CLASS_ID, 0) || obj->SuperClassID() == GEOMOBJECT_CLASS_ID))
             {
                 plMaxNode* ParentNode = (plMaxNode*)fCompPB->GetINode(kParent);
                 ParentKey = ParentNode->GetKey();

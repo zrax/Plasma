@@ -54,7 +54,7 @@ class plResponderModifier : public plSingleModifier
 {
     friend class plResponderSDLModifier;
 protected:
-    typedef std::map<int8_t,int8_t> WaitToCmd;
+    typedef std::map<int8_t, int8_t> WaitToCmd;
 
     class plResponderCmd
     {

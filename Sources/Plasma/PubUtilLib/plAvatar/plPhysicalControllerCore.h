@@ -113,7 +113,7 @@ public:
     virtual void SetLinearVelocitySim(const hsVector3& linearVel) = 0;
 
     // Sweep the controller path from startPos through endPos
-    virtual int SweepControllerPath(const hsPoint3& startPos,const hsPoint3& endPos, bool vsDynamics, bool vsStatics,
+    virtual int SweepControllerPath(const hsPoint3& startPos, const hsPoint3& endPos, bool vsDynamics, bool vsStatics,
         uint32_t& vsSimGroups, std::vector<plControllerSweepRecord>& hits) = 0;
 
     // any clean up for the controller should go here

@@ -150,8 +150,8 @@ plVirtualCam1::plVirtualCam1()
     fTransitionCamera = new plCameraModifier1;
     fTransitionCamera->RegisterAs(kTransitionCamera_KEY);
     // set initial view position
-    fOutputPos.Set(100,100,100);
-    fOutputPOA.Set(0,0,0);
+    fOutputPos.Set(100, 100, 100);
+    fOutputPOA.Set(0, 0, 0);
     fEffectPlate = nil;
     fFreezeCounter = 0;
     fFadeCounter = 0;
@@ -277,7 +277,7 @@ void plVirtualCam1::SetOffset(float x, float y, float z)
     plCameraModifier1* pCam = plVirtualCam1::Instance()->GetCurrentCamera();
     if (!pCam)
         return;
-    hsVector3 pt(x,y,z);
+    hsVector3 pt(x, y, z);
     if (plCameraBrain1_Avatar::ConvertNoRef(pCam->GetBrain()))
         ((plCameraBrain1_Avatar*)(pCam->GetBrain()))->SetOffset(pt);
 }
@@ -496,7 +496,7 @@ void plVirtualCam1::SetCutNextTrans()
 
 void plVirtualCam1::SetRender(bool render)
 {
-    fFlags.SetBit(kRender,render);
+    fFlags.SetBit(kRender, render);
     if (render)
     {
         #ifdef STATUS_LOG
@@ -702,7 +702,7 @@ void plVirtualCam1::AdjustForInput()
     hsMatrix44 m;
     
     hsVector3 v1(fOutputPOA - fOutputPos);
-    hsVector3 v2(0,0,1);
+    hsVector3 v2(0, 0, 1);
     v1.Normalize();
     hsVector3 up = (v2 % v1) % v1;
 
@@ -833,7 +833,7 @@ void plVirtualCam1::Output()
         return;
     }
     // construct output matrix
-    hsVector3 abUp(0,0,1);
+    hsVector3 abUp(0, 0, 1);
     hsVector3 view(fOutputPos - fOutputPOA);
     view.Normalize();
     // Now passing in Up for up parameter to MakeCamera. Negates sense of up. mf_flip_up - mf
@@ -842,15 +842,15 @@ void plVirtualCam1::Output()
         up = -GetCurrentCamera()->GetTarget()->GetCoordinateInterface()->GetLocalToWorld().GetAxis(hsMatrix44::kView);
     
     fOutputUp = up;
-    targetMatrix.MakeCamera(&fOutputPos,&fOutputPOA, &up);
+    targetMatrix.MakeCamera(&fOutputPos, &fOutputPOA, &up);
     targetMatrix.GetInverse(&inverse);
     fPipe->SetWorldToCamera(targetMatrix, inverse);
     if (HasFlags(kSetFOV)) // are we changing the field of view?
         SetOutputFOV();
 /*  if (foutLog)
     {
-        fprintf(foutLog, "output pos %f %f %f\n", fOutputPos.fX,fOutputPos.fY,fOutputPos.fZ);
-        fprintf(foutLog, "output poa %f %f %f\n", fOutputPOA.fX,fOutputPOA.fY,fOutputPOA.fZ);
+        fprintf(foutLog, "output pos %f %f %f\n", fOutputPos.fX, fOutputPos.fY, fOutputPos.fZ);
+        fprintf(foutLog, "output poa %f %f %f\n", fOutputPOA.fX, fOutputPOA.fY, fOutputPOA.fZ);
         fprintf(foutLog, "\n");
     }   */
 }
@@ -1430,9 +1430,9 @@ void plVirtualCam1::CreateDefaultCamera(plSceneObject* subject)
         pMod->SetFOVw(90.0f);
         pMod->SetFOVh(66.7f);
         // set up the brain and to be first-person
-        hsVector3 pt(0,0.0f,5.5);
+        hsVector3 pt(0, 0.0f, 5.5);
         pBrain->SetOffset(pt);
-        pt.Set(0,-10,5.5);
+        pt.Set(0, -10, 5.5);
         pBrain->SetPOAOffset(pt);
         pBrain->SetZPanLimit(0.872f); //radians, == 50 degrees as Decreed By Rand!
         pBrain->SetXPanLimit(0.872f);
@@ -1470,7 +1470,7 @@ void plVirtualCam1::CreateDefaultCamera(plSceneObject* subject)
         // set up the brain and to be third-person
         hsVector3 ptx(0, 15, 10);
         pBrainx->SetOffset(ptx);
-        ptx.Set(0,0,5.5);
+        ptx.Set(0, 0, 5.5);
         pBrainx->SetPOAOffset(ptx);
         pBrainx->SetZPanLimit(0.872f);
         pBrainx->SetXPanLimit(0.872f);
@@ -1623,7 +1623,7 @@ void plVirtualCam1::PushCamera(plCameraModifier1* pCam, bool bDefault)
                 StartTransition(pTrans);
                 delete(pTrans);
 #ifdef STATUS_LOG
-                camLog->AddLine("Performing stock track transition between {} and {}",fPrevCam->GetKeyName(), pCam->GetKeyName());
+                camLog->AddLine("Performing stock track transition between {} and {}", fPrevCam->GetKeyName(), pCam->GetKeyName());
 #endif
             }
             else
@@ -1636,7 +1636,7 @@ void plVirtualCam1::PushCamera(plCameraModifier1* pCam, bool bDefault)
                 StartTransition(pTrans);
                 delete(pTrans);
 #ifdef STATUS_LOG
-                camLog->AddLine("Performing stock cut transition between {} and {}",fPrevCam->GetKeyName(), pCam->GetKeyName()));
+                camLog->AddLine("Performing stock cut transition between {} and {}", fPrevCam->GetKeyName(), pCam->GetKeyName()));
 #endif
             }
         }
@@ -1647,7 +1647,7 @@ void plVirtualCam1::PushCamera(plCameraModifier1* pCam, bool bDefault)
             AddCameraToStack(pCam);
             StartTransition(pTrans);
 #ifdef STATUS_LOG
-            camLog->AddLine("Performing custom transition between {} and {}",fPrevCam->GetKeyName(), pCam->GetKeyName());
+            camLog->AddLine("Performing custom transition between {} and {}", fPrevCam->GetKeyName(), pCam->GetKeyName());
 #endif
 
         }
@@ -1657,7 +1657,7 @@ void plVirtualCam1::PushCamera(plCameraModifier1* pCam, bool bDefault)
         // just push it on, since we have a python camera present.
         AddCameraToStack(pCam);
 #ifdef STATUS_LOG
-        camLog->AddLine("No transition between {} and {}, python camera is currently displaying",fPrevCam->GetKeyName(), pCam->GetKeyName());
+        camLog->AddLine("No transition between {} and {}, python camera is currently displaying", fPrevCam->GetKeyName(), pCam->GetKeyName());
 #endif
     }
     // make this the default camera if that's what we want...
@@ -1837,7 +1837,7 @@ void plVirtualCam1::StartTransition(CamTrans* transition)
 
 #ifdef STATUS_LOG
     if (fPrevCam->GetKey() && pCam->GetKey())
-        camLog->AddLine("Starting Camera Transition from {} to {}",fPrevCam->GetKeyName(), pCam->GetKeyName());
+        camLog->AddLine("Starting Camera Transition from {} to {}", fPrevCam->GetKeyName(), pCam->GetKeyName());
 #endif
     
     if ( (fPythonOverride && plCameraBrain1_Avatar::ConvertNoRef(fPythonOverride->GetBrain())) ||
@@ -2059,7 +2059,7 @@ void plVirtualCam1::IHandleCameraStatusLog(plCameraModifier1* pMod, int action)
         if (plCameraBrain1_Fixed::ConvertNoRef(pBrain))
         {
             camLog->AddLine("Brain type Fixed");
-            camLog->AddLine("POAOffset {f} {f} {f}", pBrain->GetPOAOffset().fX,pBrain->GetPOAOffset().fY,pBrain->GetPOAOffset().fZ);
+            camLog->AddLine("POAOffset {f} {f} {f}", pBrain->GetPOAOffset().fX, pBrain->GetPOAOffset().fY, pBrain->GetPOAOffset().fZ);
         }
         else
         if (plCameraBrain1_FirstPerson::ConvertNoRef(pBrain))
@@ -2071,7 +2071,7 @@ void plVirtualCam1::IHandleCameraStatusLog(plCameraModifier1* pMod, int action)
         {
             camLog->AddLine("Brain type 3rd Person");
         }
-        camLog->AddLine("FOV {f}",pMod->GetFOVw());
+        camLog->AddLine("FOV {f}", pMod->GetFOVw());
         camLog->AddLine("..");
     }
 #endif

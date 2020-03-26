@@ -51,18 +51,18 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "pnKeyedObject/hsKeyedObject.h"
 #include "pnKeyedObject/plUoid.h"
 
-#define plVerifyConditionRet(NetApp,cond,ret,str)   \
+#define plVerifyConditionRet(NetApp, cond, ret, str)   \
     do {    \
         if (!(cond)) {  \
             char * _str_ = str; \
             (NetApp)->ErrorMsg(_str_);  \
-            hsAssert(cond,_str_);   \
+            hsAssert(cond, _str_);   \
             return ret; \
         }   \
     } while (0)
 
-#define plVerifyCondition(NetApp,cond,str)  \
-    plVerifyConditionRet(NetApp,cond,hsFail,str)
+#define plVerifyCondition(NetApp, cond, str)  \
+    plVerifyConditionRet(NetApp, cond, hsFail, str)
 
 
 class plNetMember;
@@ -196,7 +196,7 @@ public:
         kLaunchedFromSetup,                 // set if we were launched from the setup program
         kCCRVaultConnected,                 // set if we've connected to the CCR vault
         kNetClientCommInited,               // set if the netClientComm interface has been initialized
-        kNeedToSendInitialAgeStateLoadedMsg,// internal use only, when we need to send plInitialAgeStateLoadedMsg
+        kNeedToSendInitialAgeStateLoadedMsg, // internal use only, when we need to send plInitialAgeStateLoadedMsg
         kNeedToSendAgeLoadedMsg,
         kDemoMode,                          // set if this is a demo - limited play
         kNeedInitialAgeStateCount,          // the server must tell us how many age states to expect

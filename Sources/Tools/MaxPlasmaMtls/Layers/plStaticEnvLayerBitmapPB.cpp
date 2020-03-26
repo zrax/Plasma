@@ -395,7 +395,7 @@ static SELBitmapDlgProc gSELBitmapDlgProc;
 
 static ParamBlockDesc2 gBitmapParamBlk
 (
-    plStaticEnvLayer::kBlkBitmap, _T("bitmap"),  0, GetStaticEnvLayerDesc(),//NULL,
+    plStaticEnvLayer::kBlkBitmap, _T("bitmap"),  0, GetStaticEnvLayerDesc(), //NULL,
     P_AUTO_CONSTRUCT + P_AUTO_UI, plStaticEnvLayer::kRefBitmap,
 
     IDD_STATIC_ENVMAP_LAYER, IDS_STATIC_ENVMAP_LAYER_TEX, 0, 0, &gSELBitmapDlgProc,
@@ -435,7 +435,7 @@ static ParamBlockDesc2 gBitmapParamBlk
         end,
 
     // Texture Quality
-    plStaticEnvLayer::kBmpNonCompressed,    _T("nonCompressed"),TYPE_BOOL,      0, 0,
+    plStaticEnvLayer::kBmpNonCompressed,    _T("nonCompressed"), TYPE_BOOL,      0, 0,
         p_ui,           TYPE_SINGLECHEKBOX, IDC_FORCE_NONCOMPRESSED,
         end,
     plStaticEnvLayer::kBmpScaling,      _T("scaling"),      TYPE_INT,       0, 0,
@@ -458,7 +458,7 @@ static ParamBlockDesc2 gBitmapParamBlk
                             plStaticEnvLayer::kBmpDetailStartOpac, plStaticEnvLayer::kBmpDetailStopOpac,
         end,
 
-    plStaticEnvLayer::kBmpDetailStartSize,_T("dropOffStart"),   TYPE_INT,   0, 0,
+    plStaticEnvLayer::kBmpDetailStartSize, _T("dropOffStart"),   TYPE_INT,   0, 0,
         p_ui,           TYPE_SPINNER, EDITTYPE_INT, IDC_DETAIL_START_SIZE_EDIT, IDC_DETAIL_START_SIZE_SPIN, 0.4,
         p_range,        0, 100,
         p_default,      0,
@@ -506,7 +506,7 @@ static ParamBlockDesc2 gBitmapParamBlk
     plStaticEnvLayer::kBmpLastTextureSize,  _T("lastTextureSize"),  TYPE_INT,       0, 0,
         end,
     
-    plStaticEnvLayer::kBmpRefract,  _T("refract"),TYPE_BOOL,        0, 0,
+    plStaticEnvLayer::kBmpRefract,  _T("refract"), TYPE_BOOL,        0, 0,
         p_ui,           TYPE_SINGLECHEKBOX, IDC_REFRACT,
         end,
 

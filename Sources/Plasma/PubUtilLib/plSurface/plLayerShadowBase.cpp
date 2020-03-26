@@ -55,10 +55,10 @@ plLayerLightBase::plLayerLightBase()
     fState->Reset();
     
     fAmbientColor = new hsColorRGBA;
-    fAmbientColor->Set(0,0,0,1.f);
+    fAmbientColor->Set(0, 0, 0, 1.f);
 
     fPreshadeColor = new hsColorRGBA;
-    fPreshadeColor->Set(0,0,0,1.f);
+    fPreshadeColor->Set(0, 0, 0, 1.f);
 }
 
 plLayerLightBase::~plLayerLightBase()
@@ -118,10 +118,10 @@ plLayerShadowBase::plLayerShadowBase()
     fState->Reset();
     
     fAmbientColor = new hsColorRGBA;
-    fAmbientColor->Set(0,0,0,1.f);
+    fAmbientColor->Set(0, 0, 0, 1.f);
 
     fPreshadeColor = new hsColorRGBA;
-    fPreshadeColor->Set(0,0,0,1.f);
+    fPreshadeColor->Set(0, 0, 0, 1.f);
 }
 
 plLayerShadowBase::~plLayerShadowBase()

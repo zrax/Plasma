@@ -64,7 +64,7 @@ int controlsInit = FALSE;
 // like rendering.  Therefore developers need to be careful what they
 // do inside this function.  In the code below, note how after the DLL is
 // loaded the first time only a few statements are executed.
-BOOL WINAPI DllMain(HINSTANCE hinstDLL,ULONG fdwReason,LPVOID lpvReserved)
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, ULONG fdwReason, LPVOID lpvReserved)
 {
     hInstance = hinstDLL;               // Hang on to this DLL's instance handle.
 

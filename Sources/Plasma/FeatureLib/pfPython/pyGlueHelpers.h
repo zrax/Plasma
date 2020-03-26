@@ -214,7 +214,7 @@ PYTHON_TYPE_START(pythonClassName) \
     0,                                  /* tp_dictoffset */ \
     PYTHON_DEFAULT_INIT(pythonClassName),   /* tp_init */ \
     0,                                  /* tp_alloc */ \
-    PYTHON_DEFAULT_NEW(pythonClassName),/* tp_new */ \
+    PYTHON_DEFAULT_NEW(pythonClassName), /* tp_new */ \
 PYTHON_TYPE_END
 
 // default compare/rich compare function name
@@ -283,7 +283,7 @@ PYTHON_TYPE_END
     0,                                  /* tp_dictoffset */ \
     PYTHON_DEFAULT_INIT(pythonClassName),   /* tp_init */ \
     0,                                  /* tp_alloc */ \
-    PYTHON_DEFAULT_NEW(pythonClassName),/* tp_new */ \
+    PYTHON_DEFAULT_NEW(pythonClassName), /* tp_new */ \
 PYTHON_TYPE_END
 
 // for conviencence when we just need a base class
@@ -326,7 +326,7 @@ PYTHON_TYPE_START(pythonClassName) \
     0,                                  /* tp_dictoffset */ \
     PYTHON_DEFAULT_INIT(pythonClassName),   /* tp_init */ \
     0,                                  /* tp_alloc */ \
-    PYTHON_DEFAULT_NEW(pythonClassName),/* tp_new */ \
+    PYTHON_DEFAULT_NEW(pythonClassName), /* tp_new */ \
 PYTHON_TYPE_END
 
 // small macros so that the type object can be accessed outside the glue file (for subclassing)

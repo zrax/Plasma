@@ -143,7 +143,7 @@ class pfGUIMultiLineEditCtrl : public pfGUIControlMod
         };
         uint8_t       fFontFlagsSet;
 
-        int     fTopMargin,fLeftMargin,fBottomMargin,fRightMargin;
+        int     fTopMargin, fLeftMargin, fBottomMargin, fRightMargin;
 
         void    IMoveCursor(Direction dir);
         void    IMoveCursorTo(int32_t position);    // Updates selection
@@ -255,7 +255,7 @@ class pfGUIMultiLineEditCtrl : public pfGUIControlMod
         
         void    SetScrollEnable(bool state);
 
-        void    ForceUpdate() { /*IRecalcLineStarts(0,true);*/ IUpdateLineStarts(); IUpdate(); }
+        void    ForceUpdate() { /*IRecalcLineStarts(0, true);*/ IUpdateLineStarts(); IUpdate(); }
 
         void    SetNext(pfGUIMultiLineEditCtrl *newNext);
         void    ClearNext();

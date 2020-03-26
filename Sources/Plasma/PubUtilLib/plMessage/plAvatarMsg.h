@@ -405,7 +405,7 @@ public:
     uint32_t fType;
     bool state;
     
-    plAvatarBehaviorNotifyMsg() : fType(0),state(false) {}
+    plAvatarBehaviorNotifyMsg() : fType(0), state(false) {}
     
     CLASSNAME_REGISTER(plAvatarBehaviorNotifyMsg);
     GETINTERFACE_ANY(plAvatarBehaviorNotifyMsg, plMessage);

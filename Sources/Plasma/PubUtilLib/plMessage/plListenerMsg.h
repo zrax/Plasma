@@ -57,10 +57,10 @@ protected:
 
 public:
     plListenerMsg() : plMessage(nil, nil, nil),
-                        fPos(0,0,0),
-                        fDir(0,1.f,0),
-                        fUp(0,0,1.f),
-                        fVel(0,0,0)
+                        fPos(0, 0, 0),
+                        fDir(0, 1.f, 0),
+                        fUp(0, 0, 1.f),
+                        fVel(0, 0, 0)
             { SetBCastFlag(kBCastByExactType); }
 
     ~plListenerMsg() {}

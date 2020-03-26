@@ -48,13 +48,13 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 plRideAnimatedPhysMsg::plRideAnimatedPhysMsg()
 :fRegion(nil)
-,fEntering(false)
+, fEntering(false)
 {
 }
 plRideAnimatedPhysMsg::plRideAnimatedPhysMsg(const plKey &sender, const plKey &receiver, bool entering, plKey regionKey)
 : plMessage(sender, receiver, nil)
-,fRegion(regionKey)
-,fEntering(entering)
+, fRegion(regionKey)
+, fEntering(entering)
 {
 }
 

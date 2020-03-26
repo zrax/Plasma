@@ -107,7 +107,7 @@ void plExcludeRegionModifier::Write(hsStream* stream, hsResMgr* mgr)
     stream->WriteLE32(numPoints);
     for (int i = 0; i < numPoints; i++)
     {
-        mgr->WriteKey(stream,fSafePoints[i]);
+        mgr->WriteKey(stream, fSafePoints[i]);
     }
     stream->WriteBool(fSeek);
     stream->WriteLEScalar(fSeekTime);
@@ -166,12 +166,12 @@ bool plExcludeRegionModifier::MsgReceive(plMessage* msg)
     {
         if (collideMsg->fEntering)
         {
-            //plDetectorLog::Special("Avatar enter exclude region {}",GetKeyName());
+            //plDetectorLog::Special("Avatar enter exclude region {}", GetKeyName());
             fContainedAvatars.Append(collideMsg->fOtherKey);
         }
         else
         {
-            //plDetectorLog::Special("Avatar exit exclude region {}",GetKeyName());
+            //plDetectorLog::Special("Avatar exit exclude region {}", GetKeyName());
             int idx = fContainedAvatars.Find(collideMsg->fOtherKey);
             if (idx != fContainedAvatars.kMissingIndex)
                 fContainedAvatars.Remove(idx);

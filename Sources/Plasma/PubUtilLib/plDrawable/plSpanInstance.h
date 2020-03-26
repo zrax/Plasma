@@ -260,9 +260,9 @@ public:
                 int((*fPos101010 >> 10) & 0x3f) * fEncoding.fPosScale,
                 int((*fPos101010 >> 20) & 0x3f) * fEncoding.fPosScale);
         case plSpanEncoding::kPos008:
-            return hsVector3(0,0, *fPos888 * fEncoding.fPosScale);
+            return hsVector3(0, 0, *fPos888 * fEncoding.fPosScale);
         }
-        return hsVector3(0,0,0);
+        return hsVector3(0, 0, 0);
     };
     hsPoint3 Position(const hsPoint3& p) const
     {

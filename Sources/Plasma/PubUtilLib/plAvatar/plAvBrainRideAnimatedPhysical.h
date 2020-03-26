@@ -50,7 +50,7 @@ public:
     };
     CLASSNAME_REGISTER(plAvBrainRideAnimatedPhysical);
     GETINTERFACE_ANY(plAvBrainRideAnimatedPhysical, plArmatureBrain);
-    plAvBrainRideAnimatedPhysical() : plAvBrainHuman(false),fMode(kWalking) {};
+    plAvBrainRideAnimatedPhysical() : plAvBrainHuman(false), fMode(kWalking) {};
     ~plAvBrainRideAnimatedPhysical();
     virtual void Activate(plArmatureModBase *avMod);
     virtual void Deactivate();

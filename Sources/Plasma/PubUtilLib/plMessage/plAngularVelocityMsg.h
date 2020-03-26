@@ -47,9 +47,9 @@ public:
     // pass-through constructors
     plAngularVelocityMsg() : plSimulationMsg() {};
     plAngularVelocityMsg (const plKey &sender, const plKey &receiver, const double *time)
-        : plSimulationMsg(sender,receiver, time), fAngularVelocity(0.0f,0.0f,0.0f) {};
+        : plSimulationMsg(sender, receiver, time), fAngularVelocity(0.0f, 0.0f, 0.0f) {};
     CLASSNAME_REGISTER(plAngularVelocityMsg);
-    GETINTERFACE_ANY(plAngularVelocityMsg , plSimulationMsg);
+    GETINTERFACE_ANY(plAngularVelocityMsg, plSimulationMsg);
     void AngularVelocity(hsVector3& vel) { fAngularVelocity=vel; }
     const hsVector3& AngularVelocity() { return fAngularVelocity; }
 protected:

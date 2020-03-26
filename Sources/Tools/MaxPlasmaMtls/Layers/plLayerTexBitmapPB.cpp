@@ -256,7 +256,7 @@ public:
                     //layer->IChanged();
                     //BitmapInfo *bi = &layer->GetPBBitmap()->bi;
                     
-                    bmSelectBtn = GetICustButton(GetDlgItem(hWnd,IDC_LAYER_NAME));
+                    bmSelectBtn = GetICustButton(GetDlgItem(hWnd, IDC_LAYER_NAME));
                     PBBitmap *pbbm = layer->GetPBBitmap();
                     bmSelectBtn->SetText(pbbm != nil ? (TCHAR*)pbbm->bi.Filename() : "");
                     ReleaseICustButton(bmSelectBtn);
@@ -410,7 +410,7 @@ static BitmapDlgProc gBitmapDlgProc;
 
 static ParamBlockDesc2 gBitmapParamBlk
 (
-    plLayerTex::kBlkBitmap, _T("bitmap"),  0, GetLayerTexDesc(),//NULL,
+    plLayerTex::kBlkBitmap, _T("bitmap"),  0, GetLayerTexDesc(), //NULL,
     P_AUTO_CONSTRUCT + P_AUTO_UI, plLayerTex::kRefBitmap,
 
     IDD_LAYER_TEX, IDS_LAYER_TEX, 0, 0, &gBitmapDlgProc,
@@ -432,7 +432,7 @@ static ParamBlockDesc2 gBitmapParamBlk
     kBmpCropPlace,      _T("cropPlace"), TYPE_INT,      0, 0,
         p_default,      0,
         p_range,        0,  1,
-        p_ui,           TYPE_RADIO, 2,  IDC_BM_CROP,IDC_BM_PLACE,
+        p_ui,           TYPE_RADIO, 2,  IDC_BM_CROP, IDC_BM_PLACE,
         end,
     kBmpClipU,          _T("clipU"),    TYPE_FLOAT,     P_ANIMATABLE, IDS_BITMAP_CLIPU,
         p_default,      0.0,
@@ -474,7 +474,7 @@ static ParamBlockDesc2 gBitmapParamBlk
         end,
 
     // Texture Quality
-    kBmpNonCompressed,  _T("nonCompressed"),TYPE_BOOL,      0, 0,
+    kBmpNonCompressed,  _T("nonCompressed"), TYPE_BOOL,      0, 0,
         p_ui,           TYPE_SINGLECHEKBOX, IDC_FORCE_NONCOMPRESSED,
         end,
     kBmpScaling,        _T("scaling"),      TYPE_INT,       0, 0,
@@ -516,7 +516,7 @@ static ParamBlockDesc2 gBitmapParamBlk
         p_accessor,     &bmtex_accessor,
         end,
 
-    kBmpDetailStartSize,_T("dropOffStart"), TYPE_INT,   0, 0,
+    kBmpDetailStartSize, _T("dropOffStart"), TYPE_INT,   0, 0,
         p_ui,           TYPE_SPINNER, EDITTYPE_INT, IDC_DETAIL_START_SIZE_EDIT, IDC_DETAIL_START_SIZE_SPIN, 0.4,
         p_range,        0, 100,
         p_default,      0,

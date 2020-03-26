@@ -96,7 +96,7 @@ void plNetTransport::IRemoveMember(plNetTransportMember* mbr)
     // remove member from subscription lists
     IUnSubscribeToAllChannelGrps(mbr);
 
-    plMembersList::iterator it=std::find(fMembers.begin(),fMembers.end(),mbr);
+    plMembersList::iterator it=std::find(fMembers.begin(), fMembers.end(), mbr);
 
     // remove member from master list
     fMembers.erase(it);
@@ -320,7 +320,7 @@ void plNetTransport::DumpState()
         for (j=0; j<mList->size(); j++)
         {
             plNetTransportMember * mbr = (*mList)[j];
-            hsLogEntry(nc->DebugMsg("\t\tMbr {}\n",(*mList)[j]->AsString()));
+            hsLogEntry(nc->DebugMsg("\t\tMbr {}\n", (*mList)[j]->AsString()));
         }
     }
 
@@ -329,7 +329,7 @@ void plNetTransport::DumpState()
     {
         plNetTransportMember * mbr = GetMember(i);
         hsLogEntry (nc->DebugMsg("\tMbr {}, name={}, plyrID={}, subs={}",
-            i,mbr->AsString(),mbr->GetPlayerID(),mbr->GetNumSubscriptions()));
+            i, mbr->AsString(), mbr->GetPlayerID(), mbr->GetNumSubscriptions()));
         int j;
         for (j=0; j<mbr->GetNumSubscriptions(); j++)
         {

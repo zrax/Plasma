@@ -209,7 +209,7 @@ public:
     //
     //  STATUS     : Depreciated. Use plNetLinkingMgr or pyNetLinkingMgr instead.
     //
-/// static void LinkToAge(pyKey &selfkey, const char *AgeName,const char *SpawnPointName);
+/// static void LinkToAge(pyKey &selfkey, const char *AgeName, const char *SpawnPointName);
 
     /////////////////////////////////////////////////////////////////////////////
     //
@@ -568,7 +568,7 @@ public:
     //  PURPOSE    : Send a petition to the CCR for help or questions
     //
     static void SendPetitionToCCR(const char* message);
-    static void SendPetitionToCCRI(const char* message, uint8_t reason,const char* title);
+    static void SendPetitionToCCRI(const char* message, uint8_t reason, const char* title);
 
     /////////////////////////////////////////////////////////////////////////////
     //
@@ -577,7 +577,7 @@ public:
     //
     //  PURPOSE    : Send a petition to the CCR for help or questions
     //
-    static void SendChatToCCR(const char* message,int32_t CCRPlayerID);
+    static void SendChatToCCR(const char* message, int32_t CCRPlayerID);
 
     /////////////////////////////////////////////////////////////////////////////
     //
@@ -859,7 +859,7 @@ public:
     //////////////////////////////////////////////////////////////////////////////
     //
     // Function   : Set a python object to be called back after a certain amount of time.
-    //              Python object should have this method: def onAlarm(self,context)
+    //              Python object should have this method: def onAlarm(self, context)
     //
     // PURPOSE    : script can trigger itself over time w/o having to specify it in the dataset.
     //

@@ -297,14 +297,14 @@ void plAVIWriterImp::IFillStreamInfo(AVISTREAMINFO* inf, plPipeline* pipeline)
     inf->dwRate = kFramesPerSec;
 
     SetRect(&inf->rcFrame,
-            0,0,
+            0, 0,
             pipeline->Width(),
             pipeline->Height());
 }
 
 void plAVIWriterImp::IFillBitmapInfo(BITMAPINFOHEADER* inf, plPipeline* pipeline)
 {
-    memset(inf,0,sizeof(BITMAPINFOHEADER));
+    memset(inf, 0, sizeof(BITMAPINFOHEADER));
     inf->biSize = sizeof(BITMAPINFOHEADER);
     inf->biPlanes = 1;
     inf->biBitCount = 32;
@@ -330,7 +330,7 @@ bool plAVIWriterImp::ICaptureFrame(plPipeline* pipeline)
     err = AVIStreamWrite(fCompressedHandle,
                          int(time),
                          1,
-                         (LPBYTE)frame.GetAddr32(0,0),
+                         (LPBYTE)frame.GetAddr32(0, 0),
                          frame.GetTotalSize(),
                          AVIIF_KEYFRAME,
                          NULL,

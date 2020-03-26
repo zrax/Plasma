@@ -431,7 +431,7 @@ plAGChannel * plMatrixBlend::Detach(plAGChannel *remove)
     plAGChannel *result = this;
 
     // it's possible that the incoming channel could reside down *all* of our
-    // branches (it's a graph, not a tree,) so we always pass down all limbs
+    // branches (it's a graph, not a tree), so we always pass down all limbs
     fChannelBias = plScalarChannel::ConvertNoRef(fChannelBias->Detach(remove));
     fChannelA = plMatrixChannel::ConvertNoRef(fChannelA->Detach(remove));
     fChannelB = plMatrixChannel::ConvertNoRef(fChannelB->Detach(remove));
@@ -852,7 +852,7 @@ void plMatrixDelayedCorrectionApplicator::IApply(const plAGModifier *mod, double
 // ------
 void plMatrixDifferenceApp::Reset(double time)
 {
-    hsAssert(fChannel,"Missing input channel when resetting.");
+    hsAssert(fChannel, "Missing input channel when resetting.");
     if (fChannel)
     {
         plMatrixChannel *matChan = plMatrixChannel::ConvertNoRef(fChannel);

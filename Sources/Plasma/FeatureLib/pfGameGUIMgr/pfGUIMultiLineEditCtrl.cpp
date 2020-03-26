@@ -609,7 +609,7 @@ uint32_t  pfGUIMultiLineEditCtrl::IRenderLine(uint16_t x, uint16_t y, int32_t st
                 // Read style and switch to that one
                 IReadStyleCode(pos, currStyle);
                 if (!dontRender)
-                    fDynTextMap->SetFont(fFontFace, fFontSize  , GetColorScheme()->fFontFlags | currStyle,
+                    fDynTextMap->SetFont(fFontFace, fFontSize, GetColorScheme()->fFontFlags | currStyle,
                                             HasFlag(kXparentBgnd) ? false : true);
             }
             else if (buffer[pos] == L'\n')
@@ -1522,7 +1522,7 @@ void    pfGUIMultiLineEditCtrl::SetBuffer(const uint8_t *codedText, uint32_t len
     uint16_t *convertedText = new uint16_t[length];
     for (int32_t curChar = 0; curChar < length; curChar++)
         convertedText[curChar] = (uint16_t)codedText[curChar];
-    SetBuffer(convertedText,length);
+    SetBuffer(convertedText, length);
     delete [] convertedText;
 }
 
@@ -1531,7 +1531,7 @@ void    pfGUIMultiLineEditCtrl::SetBuffer(const uint16_t *codedText, uint32_t le
     // recursively call back to the first control and set it
     if (fPrevCtrl)
     {
-        fPrevCtrl->SetBuffer(codedText,length);
+        fPrevCtrl->SetBuffer(codedText, length);
         IUpdateBuffer();
     }
     else // we are the first control, so set our buffer
@@ -1753,7 +1753,7 @@ void    pfGUIMultiLineEditCtrl::SetGlobalStartLine(int32_t line)
     else
     {
         fScrollPos = line;
-        IRecalcLineStarts(fScrollPos,true);
+        IRecalcLineStarts(fScrollPos, true);
     }
 }
 
@@ -1811,7 +1811,7 @@ void pfGUIMultiLineEditCtrl::SetMargins(int top, int left, int bottom, int right
     fLeftMargin = left;
     fBottomMargin = bottom;
     fRightMargin = right;
-    IRecalcLineStarts(0,false);
+    IRecalcLineStarts(0, false);
 }
 
 void pfGUIMultiLineEditCtrl::IHitEndOfControlList(int32_t cursorPos)
@@ -1866,7 +1866,7 @@ bool pfGUIMultiLineEditCtrl::ShowingBeginningOfBuffer()
 // are we showing the end of the buffer? (controls after us are too far down)
 bool pfGUIMultiLineEditCtrl::ShowingEndOfBuffer()
 {
-    //IRecalcLineStarts(0,true); // This function gets called a lot from the journal book, so IRecalcLineStarts() REALLY slows things
+    //IRecalcLineStarts(0, true); // This function gets called a lot from the journal book, so IRecalcLineStarts() REALLY slows things
     // down if we're looking at a large amount of text, hopefully we can mess with the existing line starts for now without issue
     if (GetLastVisibleLine() >= fLineStarts.GetCount())
         return true;

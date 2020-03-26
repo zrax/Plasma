@@ -55,7 +55,7 @@ struct hsMatrix44;
 // Making your own ProxyGen suitable for visualizing class YourObject.
 //
 // Derive YourObjectProxy() from ProxyGen.
-// YourObjectProxy() should set fProxyMsgType and the colors fAmbient,fColor, either
+// YourObjectProxy() should set fProxyMsgType and the colors fAmbient, fColor, either
 //      in the constructor or in Init().
 // Implement IGetNode() (see below).
 // Implement ICreateProxy() (see below).

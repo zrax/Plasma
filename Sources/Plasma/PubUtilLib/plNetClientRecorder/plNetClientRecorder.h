@@ -70,7 +70,7 @@ public:
     virtual ~plNetClientRecorder();
 
     virtual bool BeginRecording(const char* recName) = 0;
-    virtual bool BeginPlayback(const char* recName) { hsAssert(false,"plNetClientRecording: Playback not supported"); return false; }
+    virtual bool BeginPlayback(const char* recName) { hsAssert(false, "plNetClientRecording: Playback not supported"); return false; }
 
     // Recording functions
     virtual bool IsRecordableMsg(plNetMessage* msg) const;
@@ -80,9 +80,9 @@ public:
 
     // Playback functions
     double GetTime();
-    virtual bool IsQueueEmpty() { hsAssert(false,"plNetClientRecording: Playback not supported"); return true; }
-    virtual plNetMessage* GetNextMessage() { hsAssert(false,"plNetClientRecording: Playback not supported"); return nil; }
-    virtual double GetNextMessageTimeDelta() { hsAssert(false,"plNetClientRecording: Playback not supported"); return 0; }
+    virtual bool IsQueueEmpty() { hsAssert(false, "plNetClientRecording: Playback not supported"); return true; }
+    virtual plNetMessage* GetNextMessage() { hsAssert(false, "plNetClientRecording: Playback not supported"); return nil; }
+    virtual double GetNextMessageTimeDelta() { hsAssert(false, "plNetClientRecording: Playback not supported"); return 0; }
 };
 
 class plNetClientLoggingRecorder : public plNetClientRecorder
@@ -166,7 +166,7 @@ protected:
 
 public:
     plNetClientStreamAndStatsRecorder(plNetClientStreamRecorder* streamrec, plNetClientStatsRecorder* statrec) :
-      plNetClientRecorder(nil),fStreamRecorder(streamrec), fStatsRecorder(statrec) {}
+      plNetClientRecorder(nil), fStreamRecorder(streamrec), fStatsRecorder(statrec) {}
       ~plNetClientStreamAndStatsRecorder() { delete fStreamRecorder; delete fStatsRecorder; }
 
     bool BeginRecording(const char* recName) { return fStreamRecorder->BeginRecording(recName) && fStatsRecorder->BeginRecording(recName); }
@@ -174,8 +174,8 @@ public:
     
     // Recording functions
     bool IsRecordableMsg(plNetMessage* msg) const { return fStreamRecorder->IsRecordableMsg(msg) || fStatsRecorder->IsRecordableMsg(msg); }
-    void RecordMsg(plNetMessage* msg, double secs) { fStreamRecorder->RecordMsg(msg,secs); fStatsRecorder->RecordMsg(msg,secs); }
-    void RecordLinkMsg(plLinkToAgeMsg* linkMsg, double secs) { fStreamRecorder->RecordLinkMsg(linkMsg,secs); fStatsRecorder->RecordLinkMsg(linkMsg,secs); }
+    void RecordMsg(plNetMessage* msg, double secs) { fStreamRecorder->RecordMsg(msg, secs); fStatsRecorder->RecordMsg(msg, secs); }
+    void RecordLinkMsg(plLinkToAgeMsg* linkMsg, double secs) { fStreamRecorder->RecordLinkMsg(linkMsg, secs); fStatsRecorder->RecordLinkMsg(linkMsg, secs); }
     void RecordAgeLoadedMsg(plAgeLoadedMsg* ageLoadedMsg) { fStreamRecorder->RecordAgeLoadedMsg(ageLoadedMsg); fStatsRecorder->RecordAgeLoadedMsg(ageLoadedMsg); }
 
     // Playback functions

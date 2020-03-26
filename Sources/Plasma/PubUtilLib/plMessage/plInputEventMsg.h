@@ -249,11 +249,11 @@ public:
     int     fWx;
     
     plIMouseXEventMsg() :
-    fX(0),fWx(0) {}
+    fX(0), fWx(0) {}
     plIMouseXEventMsg(const plKey &s,
                     const plKey &r,
                     const double* t) :
-    fX(0),fWx(0) {}
+    fX(0), fWx(0) {}
     ~plIMouseXEventMsg() {}
 
     CLASSNAME_REGISTER(plIMouseXEventMsg);
@@ -282,11 +282,11 @@ public:
     int     fWy;
 
     plIMouseYEventMsg() :
-    fY(0),fWy(0) {}
+    fY(0), fWy(0) {}
     plIMouseYEventMsg(const plKey &s,
                     const plKey &r,
                     const double* t) :
-    fY(0),fWy(0) {}
+    fY(0), fWy(0) {}
     ~plIMouseYEventMsg() {}
 
     CLASSNAME_REGISTER(plIMouseYEventMsg);

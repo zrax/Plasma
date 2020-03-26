@@ -60,27 +60,27 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 class plExportLogErrorMsg : public plErrorMsg {
 public:
     plExportLogErrorMsg(const char* efile, const char* label, const char* msg) : plErrorMsg(label, msg)
-        { strncpy(fErrfile_name,efile,ERROR_LOGFILE_NAME_LEN-1); fErrfile=nil; }
+        { strncpy(fErrfile_name, efile, ERROR_LOGFILE_NAME_LEN-1); fErrfile=nil; }
     plExportLogErrorMsg(const char* efile, bool bogus = false) : plErrorMsg(bogus)
-        { strncpy(fErrfile_name,efile,ERROR_LOGFILE_NAME_LEN-1); fErrfile=nil; }
+        { strncpy(fErrfile_name, efile, ERROR_LOGFILE_NAME_LEN-1); fErrfile=nil; }
     plExportLogErrorMsg(const char* efile, bool bogus, const char* label, const char* msg)
         : plErrorMsg(bogus, label, msg)
-            { strncpy(fErrfile_name,efile,ERROR_LOGFILE_NAME_LEN-1); fErrfile=nil; }
+            { strncpy(fErrfile_name, efile, ERROR_LOGFILE_NAME_LEN-1); fErrfile=nil; }
     plExportLogErrorMsg(const char* efile, bool bogus, const char* label, const char* format, const char* str)
         : plErrorMsg(bogus, label, format, str)
-            { strncpy(fErrfile_name,efile,ERROR_LOGFILE_NAME_LEN-1); fErrfile=nil; }
+            { strncpy(fErrfile_name, efile, ERROR_LOGFILE_NAME_LEN-1); fErrfile=nil; }
     plExportLogErrorMsg(const char* efile, bool bogus, const char* label, const char* format, const char* str1, const char* str2)
         : plErrorMsg(bogus, label, format, str1, str2)
-            { strncpy(fErrfile_name,efile,ERROR_LOGFILE_NAME_LEN-1); fErrfile=nil; }
+            { strncpy(fErrfile_name, efile, ERROR_LOGFILE_NAME_LEN-1); fErrfile=nil; }
     plExportLogErrorMsg(const char* efile, bool bogus, const char* label, const char* format, int n)
         : plErrorMsg(bogus, label, format, n)
-            { strncpy(fErrfile_name,efile,ERROR_LOGFILE_NAME_LEN-1); fErrfile=nil; }
+            { strncpy(fErrfile_name, efile, ERROR_LOGFILE_NAME_LEN-1); fErrfile=nil; }
     plExportLogErrorMsg(const char* efile, bool bogus, const char* label, const char* format, int n, int m)
         : plErrorMsg(bogus, label, format, n, m)
-            { strncpy(fErrfile_name,efile,ERROR_LOGFILE_NAME_LEN-1); fErrfile=nil; }
+            { strncpy(fErrfile_name, efile, ERROR_LOGFILE_NAME_LEN-1); fErrfile=nil; }
     plExportLogErrorMsg(const char* efile, bool bogus, const char* label, const char* format, float f)
         : plErrorMsg(bogus, label, format, f)
-            { strncpy(fErrfile_name,efile,ERROR_LOGFILE_NAME_LEN-1); fErrfile=nil; }
+            { strncpy(fErrfile_name, efile, ERROR_LOGFILE_NAME_LEN-1); fErrfile=nil; }
     ~plExportLogErrorMsg();
 
     virtual bool Ask(); // if b is true and user says yes to displayed query, return true, else false
@@ -150,20 +150,20 @@ public:
 
 class plExportLogErrorDbg : public plExportLogErrorMsg {
 public:
-    plExportLogErrorDbg(const char* label, const char* msg) : plExportLogErrorMsg("",label, msg) { }
-    plExportLogErrorDbg(bool bogus = true) : plExportLogErrorMsg("",bogus) { }
+    plExportLogErrorDbg(const char* label, const char* msg) : plExportLogErrorMsg("", label, msg) { }
+    plExportLogErrorDbg(bool bogus = true) : plExportLogErrorMsg("", bogus) { }
     plExportLogErrorDbg(bool bogus, const char* label, const char* msg)
-        : plExportLogErrorMsg("",bogus, label, msg) { }
+        : plExportLogErrorMsg("", bogus, label, msg) { }
     plExportLogErrorDbg(bool bogus, const char* label, const char* format, const char* str)
-        : plExportLogErrorMsg("",bogus, label, format, str) { }
+        : plExportLogErrorMsg("", bogus, label, format, str) { }
     plExportLogErrorDbg(bool bogus, const char* label, const char* format, const char* str1, const char* str2)
-        : plExportLogErrorMsg("",bogus, label, format, str1, str2) { }
+        : plExportLogErrorMsg("", bogus, label, format, str1, str2) { }
     plExportLogErrorDbg(bool bogus, const char* label, const char* format, int n)
-        : plExportLogErrorMsg("",bogus, label, format, n) { }
+        : plExportLogErrorMsg("", bogus, label, format, n) { }
     plExportLogErrorDbg(bool bogus, const char* label, const char* format, int n, int m)
-        : plExportLogErrorMsg("",bogus, label, format, n, m) { }
+        : plExportLogErrorMsg("", bogus, label, format, n, m) { }
     plExportLogErrorDbg(bool bogus, const char* label, const char* format, float f)
-        : plExportLogErrorMsg("",bogus, label, format, f) { }
+        : plExportLogErrorMsg("", bogus, label, format, f) { }
 };
 
 #endif // keep them as exactly the same as errormessage

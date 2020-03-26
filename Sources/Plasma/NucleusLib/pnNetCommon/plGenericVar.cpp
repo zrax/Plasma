@@ -254,7 +254,7 @@ ST::string plGenericType::GetAsString() const
     case kNone :
         break;
     default:
-        hsAssert(false,"plGenericType::GetAsString unknown type");
+        hsAssert(false, "plGenericType::GetAsString unknown type");
     }
 
     return ST::null;

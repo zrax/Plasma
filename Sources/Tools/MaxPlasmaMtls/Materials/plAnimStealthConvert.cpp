@@ -101,7 +101,7 @@ static int GetMatAnimModKey(Mtl* mtl, plMaxNodeBase* node, const ST::string& seg
     //if (begin < 0)
     //  begin = 0;
 
-    if (mtl->ClassID() == Class_ID(MULTI_CLASS_ID,0))
+    if (mtl->ClassID() == Class_ID(MULTI_CLASS_ID, 0))
     {
         for (i = 0; i < mtl->NumSubMtls(); i++)
             retVal += GetMatAnimModKey(mtl->GetSubMtl(i), node, segName, keys);

@@ -581,7 +581,7 @@ void plSynchedObject::AddToSDLVolatileList(const ST::string& sdlName)
 {
     if (!sdlName.empty())
     {
-        if (IFindInSDLStateList(fSDLVolatileList,sdlName)==fSDLVolatileList.end())
+        if (IFindInSDLStateList(fSDLVolatileList, sdlName)==fSDLVolatileList.end())
         {
             fSDLVolatileList.push_back(sdlName); // Don't dupe sdlName, std::string will copy
             fSynchFlags |= kHasVolatileState;
@@ -591,7 +591,7 @@ void plSynchedObject::AddToSDLVolatileList(const ST::string& sdlName)
 
 void plSynchedObject::RemoveFromSDLVolatileList(const ST::string& sdlName)
 {
-    SDLStateList::const_iterator it=IFindInSDLStateList(fSDLVolatileList,sdlName);
+    SDLStateList::const_iterator it=IFindInSDLStateList(fSDLVolatileList, sdlName);
     if (it != fSDLVolatileList.end())
     {
         fSDLVolatileList.erase(fSDLVolatileList.begin()+(it-fSDLVolatileList.begin()));
@@ -608,7 +608,7 @@ bool plSynchedObject::IsInSDLVolatileList(const ST::string& sdlName) const
     if ((fSynchFlags & kHasVolatileState) == 0)
         return false;
 
-    SDLStateList::const_iterator it=IFindInSDLStateList(fSDLVolatileList,sdlName);
+    SDLStateList::const_iterator it=IFindInSDLStateList(fSDLVolatileList, sdlName);
     return (it != fSDLVolatileList.end());
 }
 

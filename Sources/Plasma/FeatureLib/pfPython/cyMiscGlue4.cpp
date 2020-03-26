@@ -111,7 +111,7 @@ PYTHON_GLOBAL_METHOD_DEFINITION(PtGetNumParticles, args, "Params: key\nKey is th
 
 PYTHON_GLOBAL_METHOD_DEFINITION(PtSetParticleOffset, args, "Params: x,y,z,particlesys\nSets the particlesys particle system's offset")
 {
-    float x,y,z;
+    float x, y, z;
     PyObject* keyObj = NULL;
     if (!PyArg_ParseTuple(args, "fffO", &x, &y, &z, &keyObj))
     {
@@ -132,7 +132,7 @@ PYTHON_GLOBAL_METHOD_DEFINITION(PtSetLightValue, args, "Params: key,name,r,g,b,a
 {
     PyObject* keyObj = NULL;
     PyObject* nameObj = NULL;
-    float r,g,b,a;
+    float r, g, b, a;
     if (!PyArg_ParseTuple(args, "OOffff", &keyObj, &nameObj, &r, &g, &b, &a))
     {
         PyErr_SetString(PyExc_TypeError, "PtSetLightValue expects a ptKey, a string, and four floats");

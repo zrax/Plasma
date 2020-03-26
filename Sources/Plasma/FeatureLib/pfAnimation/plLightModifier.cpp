@@ -120,19 +120,19 @@ void plLightModifier::IApplyDynamic()
     {
         if (fColorCtl)
         {
-            col.Set(0,0,0,1.f);
+            col.Set(0, 0, 0, 1.f);
             fColorCtl->Interp(fCurrentTime, &col);
             fLight->SetDiffuse(col);
         }
         if (fAmbientCtl)
         {
-            col.Set(0,0,0,1.f);
+            col.Set(0, 0, 0, 1.f);
             fAmbientCtl->Interp(fCurrentTime, &col);
             fLight->SetAmbient(col);
         }
         if (fSpecularCtl)
         {
-            col.Set(0,0,0,1.f);
+            col.Set(0, 0, 0, 1.f);
             fSpecularCtl->Interp(fCurrentTime, &col);
             fLight->SetSpecular(col);
         }

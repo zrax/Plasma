@@ -107,7 +107,7 @@ public:
 
     BOOL IsEmpty() const { return fRoot < 0; }
 
-    static Box3 NonFade() { return Box3(Point3(0,0,0), Point3(0,0,0)); }
+    static Box3 NonFade() { return Box3(Point3(0, 0, 0), Point3(0, 0, 0)); }
 
     void HarvestBox(const Box3& box, Tab<int32_t>& out) const;
 

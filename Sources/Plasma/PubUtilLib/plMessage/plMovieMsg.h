@@ -117,8 +117,8 @@ public:
 
     plMovieMsg& MakeDefault()
     {
-        SetCenter(0,0);
-        SetScale(1.f,1.f);
+        SetCenter(0, 0);
+        SetScale(1.f, 1.f);
         SetColor(1.f, 1.f, 1.f, 1.f);
         SetFadeInSecs(0);
         SetFadeInColor(0, 0, 0, 0);
@@ -163,20 +163,20 @@ public:
     // Color is mostly useful for alpha fade up and down.
     const hsColorRGBA& GetColor() const { return fColor; }
     plMovieMsg& SetColor(const hsColorRGBA& c) { fColor = c; return *this; }
-    plMovieMsg& SetColor(float r, float g, float b, float a) { fColor.Set(r,g,b,a); return *this; }
+    plMovieMsg& SetColor(float r, float g, float b, float a) { fColor.Set(r, g, b, a); return *this; }
     plMovieMsg& SetOpacity(float a) { return SetColor(1.f, 1.f, 1.f, a); }
 
     // Or the auto matic fades
     const hsColorRGBA& GetFadeInColor() const { return fFadeInColor; }
     plMovieMsg& SetFadeInColor(const hsColorRGBA& c) { fFadeInColor = c; return *this; }
-    plMovieMsg& SetFadeInColor(float r, float g, float b, float a) { fFadeInColor.Set(r,g,b,a); return *this; }
+    plMovieMsg& SetFadeInColor(float r, float g, float b, float a) { fFadeInColor.Set(r, g, b, a); return *this; }
 
     float GetFadeInSecs() const { return fFadeInSecs; }
     plMovieMsg& SetFadeInSecs(float s) { fFadeInSecs = s; return *this; }
 
     const hsColorRGBA& GetFadeOutColor() const { return fFadeOutColor; }
     plMovieMsg& SetFadeOutColor(const hsColorRGBA& c) { fFadeOutColor = c; return *this; }
-    plMovieMsg& SetFadeOutColor(float r, float g, float b, float a) { fFadeOutColor.Set(r,g,b,a); return *this; }
+    plMovieMsg& SetFadeOutColor(float r, float g, float b, float a) { fFadeOutColor.Set(r, g, b, a); return *this; }
 
     float GetFadeOutSecs() const { return fFadeOutSecs; }
     plMovieMsg& SetFadeOutSecs(float s) { fFadeOutSecs = s; return *this; }

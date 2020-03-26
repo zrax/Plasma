@@ -140,7 +140,7 @@ Interval plCompositeMtl::Validity(TimeValue t)
     }
 */
 //  float u;
-//  fPBlock->GetValue(pb_spin,t,u,valid);
+//  fPBlock->GetValue(pb_spin, t, u, valid);
     return valid;
 }
 
@@ -411,9 +411,9 @@ void plCompositeMtl::SetDiffuse(Color c, TimeValue t) {}
 void plCompositeMtl::SetSpecular(Color c, TimeValue t) {}
 void plCompositeMtl::SetShininess(float v, TimeValue t) {}
                 
-Color plCompositeMtl::GetAmbient(int mtlNum, BOOL backFace) { return Color(0,0,0); }
-Color plCompositeMtl::GetDiffuse(int mtlNum, BOOL backFace) { return Color(0,0,0); }
-Color plCompositeMtl::GetSpecular(int mtlNum, BOOL backFace)    { return Color(0,0,0); }
+Color plCompositeMtl::GetAmbient(int mtlNum, BOOL backFace) { return Color(0, 0, 0); }
+Color plCompositeMtl::GetDiffuse(int mtlNum, BOOL backFace) { return Color(0, 0, 0); }
+Color plCompositeMtl::GetSpecular(int mtlNum, BOOL backFace)    { return Color(0, 0, 0); }
 float plCompositeMtl::GetXParency(int mtlNum, BOOL backFace)    { return 0.0f; }
 float plCompositeMtl::GetShininess(int mtlNum, BOOL backFace)   { return 0.0f; }
 float plCompositeMtl::GetShinStr(int mtlNum, BOOL backFace) { return 0.0f; }

@@ -153,7 +153,7 @@ void plPipelineViewSettings::MakeOcclusionSnap()
         lay->SetZFlags(hsGMatState::kZNoZWrite);
         lay->SetPreshadeColor(hsColorRGBA().Set(1.f, 0.5f, 0.5f, 1.f));
         lay->SetRuntimeColor(hsColorRGBA().Set(1.f, 0.5f, 0.5f, 1.f));
-        lay->SetAmbientColor(hsColorRGBA().Set(0,0,0,1.f));
+        lay->SetAmbientColor(hsColorRGBA().Set(0, 0, 0, 1.f));
         lay->SetOpacity(0.5f);
         lay->SetBlendFlags(lay->GetBlendFlags() | hsGMatState::kBlendAlpha);
 

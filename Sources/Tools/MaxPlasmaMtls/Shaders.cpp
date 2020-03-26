@@ -62,7 +62,7 @@ static Shader *shaders[3] = {
         &blinnShader,
 };
 
-AColor black(0.0f,0.0f,0.0f,0.0f);
+AColor black(0.0f, 0.0f, 0.0f, 0.0f);
 
 //===========================================================================
 // Useful functions...
@@ -87,7 +87,7 @@ float CompK(float f0) {
 }
 
 float fres_metal(float c, float k) {
-    float b,rpl, rpp,c2;
+    float b, rpl, rpp, c2;
     b = k*k + 1.0f;
     c2 = c*c;
     rpl = (b*c2-2*c+1)/(b*c2+2*c+1);
@@ -111,7 +111,7 @@ void PhongShader::Illum(ShadeContext &sc, SIllumParams &ip) {
         l = sc.Light(i);
         register float NL, diffCoef;
         Point3 L;
-        if (l->Illuminate(sc,ip.N,lightCol,L,NL,diffCoef)) {
+        if (l->Illuminate(sc, ip.N, lightCol, L, NL, diffCoef)) {
             // diffuse
             if (NL<=0.0f)
                 continue;
@@ -119,7 +119,7 @@ void PhongShader::Illum(ShadeContext &sc, SIllumParams &ip) {
                 ip.diffIllum += diffCoef*lightCol;
             if (is_shiny&&l->affectSpecular) {
                 // specular (Phong)
-                float c = DotProd(L,R);
+                float c = DotProd(L, R);
                 if (c>0.0f) {
                     if (ip.softThresh!=0.0&&diffCoef<ip.softThresh) {
                         float r = diffCoef/ip.softThresh;
@@ -150,7 +150,7 @@ void hsMaxShader::Illum(ShadeContext &sc, SIllumParams &ip) {
         l = sc.Light(i);
         register float NL, diffCoef;
         Point3 L;
-        if (l->Illuminate(sc,ip.N,lightCol,L,NL,diffCoef)) {
+        if (l->Illuminate(sc, ip.N, lightCol, L, NL, diffCoef)) {
             // diffuse
             if (NL<=0.0f)
                 continue;
@@ -158,7 +158,7 @@ void hsMaxShader::Illum(ShadeContext &sc, SIllumParams &ip) {
                 ip.diffIllum += diffCoef*lightCol;
             if (is_shiny&&l->affectSpecular) {
                 // specular
-                float c = DotProd(L,R);
+                float c = DotProd(L, R);
                 if (c>0.0f) {
                     c = (float)pow((double)c, (double)ip.ph_exp); // could use table lookup for speed
                     ip.specIllum += c*ip.sh_str*lightCol;
@@ -184,7 +184,7 @@ void BlinnShader::Illum(ShadeContext &sc, SIllumParams &ip) {
         l = sc.Light(i);
         register float NL, diffCoef;
         Point3 L;
-        if (l->Illuminate(sc,ip.N,lightCol,L,NL,diffCoef)) {
+        if (l->Illuminate(sc, ip.N, lightCol, L, NL, diffCoef)) {
             // diffuse
             if (NL<=0.0f)
                 continue;
@@ -195,7 +195,7 @@ void BlinnShader::Illum(ShadeContext &sc, SIllumParams &ip) {
             // specular (Phong)
             if (is_shiny&&l->affectSpecular) {
                 Point3 H = FNormalize(L-ip.V);
-                float c = DotProd(ip.N,H);
+                float c = DotProd(ip.N, H);
                 if (c>0.0f) {
                     if (ip.softThresh!=0.0&&diffCoef<ip.softThresh) {
                         c *= Soften(diffCoef/ip.softThresh);
@@ -217,13 +217,13 @@ void MetalShader::Illum(ShadeContext &sc, SIllumParams &ip) {
     LightDesc *l;
     Color lightCol;
     BOOL gotKav = FALSE;
-    float kav, fav0, m2inv,NV;
+    float kav, fav0, m2inv, NV;
     
     //IPoint2 sp = sc.ScreenCoord();
     
     BOOL is_shiny;
     if (ip.sh_str>0.0f) {
-        NV = -DotProd(ip.N,ip.V);  // N dot V: view vector is TOWARDS us.
+        NV = -DotProd(ip.N, ip.V);  // N dot V: view vector is TOWARDS us.
         is_shiny = 1;
         float r = 1.0f-ip.shine;
         if (r==0.0f) r = .00001f;
@@ -238,7 +238,7 @@ void MetalShader::Illum(ShadeContext &sc, SIllumParams &ip) {
         register float NL, diffCoef;
         Point3 L;
         
-        if (!l->Illuminate(sc,ip.N,lightCol,L,NL,diffCoef))
+        if (!l->Illuminate(sc, ip.N, lightCol, L, NL, diffCoef))
             continue;
         
         // diffuse
@@ -247,7 +247,7 @@ void MetalShader::Illum(ShadeContext &sc, SIllumParams &ip) {
         
         if (is_shiny&&l->affectSpecular) { // SPECULAR
             Color fcol;
-            float LH,NH,VH;
+            float LH, NH, VH;
             float sec2;  // Was double?? TBD
             Point3 H;
             
@@ -255,10 +255,10 @@ void MetalShader::Illum(ShadeContext &sc, SIllumParams &ip) {
             
             H = FNormalize(L-ip.V);
             
-            LH = DotProd(L,H);  // cos(phi)
-            NH = DotProd(ip.N,H);  // cos(alpha)
+            LH = DotProd(L, H);  // cos(phi)
+            NH = DotProd(ip.N, H);  // cos(alpha)
             if (NH==0.0f) continue;
-            VH = -DotProd(ip.V,H);
+            VH = -DotProd(ip.V, H);
             
             // compute geometrical attenuation factor
             float G = (NV<NL)? (2.0f*NV*NH/VH): (2.0f*NL*NH/VH);
@@ -272,9 +272,9 @@ void MetalShader::Illum(ShadeContext &sc, SIllumParams &ip) {
                     gotKav = TRUE;
                 }
                 
-                float fav = fres_metal(LH,kav);
+                float fav = fres_metal(LH, kav);
                 float t = (fav-fav0)/(1.0f-fav0);
-                fcol = (1.0f-t)*ip.diff + Color(t,t,t);
+                fcol = (1.0f-t)*ip.diff + Color(t, t, t);
                 
                 // Beckman distribution  (from Cook-Torrance paper)
                 sec2 = 1.0f/(NH*NH);  // 1/sqr(cos)

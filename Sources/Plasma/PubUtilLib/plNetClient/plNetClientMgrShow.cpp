@@ -64,7 +64,7 @@ void plNetClientMgr::IShowLists()
     plNetLinkingMgr * lm = plNetLinkingMgr::GetInstance();
     plDebugText     &txt = plDebugText::Instance();
 
-    int y,x,i;
+    int y, x, i;
     const int yOff=10, xOff=300, startY=70, startX=10;
     char str[256];
 
@@ -79,19 +79,19 @@ void plNetClientMgr::IShowLists()
         GetPlayerName().c_str(), GetPlayerID(), 0,
         IsPeerToPeer(), GetJoinOrder(), 0,
         pos.fX, pos.fY, pos.fZ);
-    txt.DrawString(x,y,str,255,255,255,255);
+    txt.DrawString(x, y, str, 255, 255, 255, 255);
     SetFlagsBit(kSendingVoice, 0);
     SetFlagsBit(kSendingActions, 0);
 
     y+=yOff;
     sprintf(str, "   Server=%s ILIAS=%d", "foo",
         IsLoadingInitialAgeState());
-    txt.DrawString(x,y,str,255,255,255,255);
+    txt.DrawString(x, y, str, 255, 255, 255, 255);
     
     // MEMBERS
     y+=yOff;
     int baseY=y;
-    txt.DrawString(x,y,"   Members",255,255,255,255,plDebugText::kStyleBold);
+    txt.DrawString(x, y, "   Members", 255, 255, 255, 255, plDebugText::kStyleBold);
     y+=yOff;
     plNetTransportMember** members=nil;
     fTransport.GetMemberListDistSorted(members);
@@ -108,7 +108,7 @@ void plNetClientMgr::IShowLists()
             mbr->AsString().c_str(),
             mbr->IsPeerToPeer(),
             mbr->GetDistSq() != FLT_MAX ? sqrt(mbr->GetDistSq()) :-1.f);
-        txt.DrawString(x,y,str);
+        txt.DrawString(x, y, str);
         y+=yOff;
         mbr->SetTransportFlags(mbr->GetTransportFlags() &
             ~(plNetTransportMember::kSendingVoice|plNetTransportMember::kSendingActions));
@@ -119,24 +119,24 @@ void plNetClientMgr::IShowLists()
     // LISTENLIST
     x+=xOff;
     y=baseY;
-    txt.DrawString(x,y,"ListenList",255,255,255,255,plDebugText::kStyleBold);
+    txt.DrawString(x, y, "ListenList", 255, 255, 255, 255, plDebugText::kStyleBold);
     y+=yOff;
     for (i=0; i<GetListenList()->GetNumMembers(); i++)
     {
         sprintf(str, "name=%s", GetListenList()->GetMember(i)->AsString().c_str());
-        txt.DrawString(x,y,str);
+        txt.DrawString(x, y, str);
         y+=yOff;
     }
 
     // TALKLIST
     x+=xOff;
     y=baseY;
-    txt.DrawString(x,y,"TalkList",255,255,255,255,plDebugText::kStyleBold);
+    txt.DrawString(x, y, "TalkList", 255, 255, 255, 255, plDebugText::kStyleBold);
     y+=yOff;
     for (i=0; i<GetTalkList()->GetNumMembers(); i++)
     {
         sprintf(str, "name=%s", GetTalkList()->GetMember(i)->AsString().c_str());
-        txt.DrawString(x,y,str);
+        txt.DrawString(x, y, str);
         y+=yOff;
     }
 }
@@ -149,13 +149,13 @@ void plNetClientMgr::IShowRooms()
 {
     plDebugText     &txt = plDebugText::Instance();
 
-    int y,x;
+    int y, x;
     const int yOff=10, xOff=300, startY=70, startX=10;
 
     // OWNEDLIST
     x=startX;
     y=startY;
-    txt.DrawString(x,y,"RoomsOwned",255,255,255,255,plDebugText::kStyleBold);
+    txt.DrawString(x, y, "RoomsOwned", 255, 255, 255, 255, plDebugText::kStyleBold);
     y+=yOff;
     std::set<plNetClientGroups::OwnedGroup>::iterator it=GetNetGroups()->fGroups.begin();
     for (; it != GetNetGroups()->fGroups.end(); it++)
@@ -170,7 +170,7 @@ void plNetClientMgr::IShowRooms()
     // NOTOWNEDLIST
     x+=xOff;
     y=startY;
-    txt.DrawString(x,y,"RoomsNotOwned",255,255,255,255,plDebugText::kStyleBold);
+    txt.DrawString(x, y, "RoomsNotOwned", 255, 255, 255, 255, plDebugText::kStyleBold);
     y+=yOff;
     it=GetNetGroups()->fGroups.begin();
     for (; it != GetNetGroups()->fGroups.end(); it++)
@@ -304,7 +304,7 @@ void plNetClientMgr::IShowAvatars()
     plDebugText     &txt = plDebugText::Instance();
     txt.SetFont("Courier New", 6);
 
-    int y,x,i;
+    int y, x, i;
     const int yOff=10, xOff=285, startY=100, startX=10;
     char str[256];
 
@@ -316,7 +316,7 @@ void plNetClientMgr::IShowAvatars()
     hsVector3 ori = (player ? player->GetLocalToWorld() * hsVector3(0, -1, 0) : hsVector3(0, 0, 0));
     sprintf(str, "%s: pos(%.2f, %.2f, %.2f) ori(%.2f, %.2f, %.2f)",
             GetPlayerName().c_str(), pos.fX, pos.fY, pos.fZ, ori.fX, ori.fY, ori.fZ);
-    txt.DrawString(x,y,str,255,255,255,255);
+    txt.DrawString(x, y, str, 255, 255, 255, 255);
 
 
     if (player)
@@ -334,7 +334,7 @@ void plNetClientMgr::IShowAvatars()
                 hsVector3 ori = (pObj ? pObj->GetLocalToWorld() * hsVector3(0, -1, 0) : hsVector3(0, 0, 0));
                 sprintf(str, "%s: pos(%.2f, %.2f, %.2f) ori(%.2f, %.2f, %.2f)",
                         pObj->GetKeyName().c_str(), pos.fX, pos.fY, pos.fZ, ori.fX, ori.fY, ori.fZ);
-                txt.DrawString(x,y,str,255,255,255,255);
+                txt.DrawString(x, y, str, 255, 255, 255, 255);
             }
         }
     }
@@ -359,7 +359,7 @@ void plNetClientMgr::IShowAvatars()
 
         sprintf(str, "%s: pos(%.2f, %.2f, %.2f) ori(%.2f, %.2f, %.2f)",
                 mbr->AsString().c_str(), pos.fX, pos.fY, pos.fZ, ori.fX, ori.fY, ori.fZ);
-        txt.DrawString(x,y,str);
+        txt.DrawString(x, y, str);
         y+=yOff;
 
         if (player)
@@ -377,7 +377,7 @@ void plNetClientMgr::IShowAvatars()
                     hsVector3 ori = (pObj ? pObj->GetLocalToWorld() * hsVector3(0, -1, 0) : hsVector3(0, 0, 0));
                     sprintf(str, "%s: pos(%.2f, %.2f, %.2f) ori(%.2f, %.2f, %.2f)",
                             pObj->GetKeyName().c_str(), pos.fX, pos.fY, pos.fZ, ori.fX, ori.fY, ori.fZ);
-                    txt.DrawString(x,y,str,255,255,255,255);
+                    txt.DrawString(x, y, str, 255, 255, 255, 255);
                 }
             }
         }

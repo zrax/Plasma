@@ -111,7 +111,7 @@ void hsQuat::GetAngleAxis(float *rad, hsVector3 *axis) const
         axis->Set(fX*invS, fY*invS, fZ*invS);
     }
     else
-        axis->Set(0,0,0);
+        axis->Set(0, 0, 0);
 }
 
 //
@@ -407,7 +407,7 @@ hsQuat hsQuat::QuatFromMatrix44(const hsMatrix44& mat)
         if (mat.fMap[Z][Z] > mat.fMap[h][h])
             h = Z;
         switch (h) {
-#define caseMacro(i,j,k,I,J,K) \
+#define caseMacro(i, j, k, I, J, K) \
         case I:\
         s = float(sqrt((mat.fMap[I][I] - (mat.fMap[J][J]+mat.fMap[K][K])) + 1.f)); \
         qu.i = 0.5f * s; \
@@ -416,9 +416,9 @@ hsQuat hsQuat::QuatFromMatrix44(const hsMatrix44& mat)
         qu.k = (mat.fMap[K][I] + mat.fMap[I][K]) * s; \
         qu.fW = (mat.fMap[K][J] - mat.fMap[J][K]) * s; \
         break
-        caseMacro(fX,fY,fZ,X,Y,Z);
-        caseMacro(fY,fZ,fX,Y,Z,X);
-        caseMacro(fZ,fX,fY,Z,X,Y);
+        caseMacro(fX, fY, fZ, X, Y, Z);
+        caseMacro(fY, fZ, fX, Y, Z, X);
+        caseMacro(fZ, fX, fY, Z, X, Y);
         }
     }
     return (qu);

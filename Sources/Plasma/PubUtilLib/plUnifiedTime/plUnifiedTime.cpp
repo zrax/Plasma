@@ -66,7 +66,7 @@ bool plUnifiedTime::SetFromWinFileTime(const FILETIME ft)
 {
     // FILETIME resolution seems to be 0.01 sec
 
-    __int64 ff,ffsecs;
+    __int64 ff, ffsecs;
     ff = *(__int64*)(&ft);
     ffsecs = ff/(__int64)10000000;
 
@@ -134,7 +134,7 @@ struct tm * plUnifiedTime::IGetTime(const time_t * timer) const
     return tm;
 }
 
-plUnifiedTime::plUnifiedTime(plUnifiedTime_CtorNow,int mode)
+plUnifiedTime::plUnifiedTime(plUnifiedTime_CtorNow, int mode)
 {
     SetMode((Mode)mode);
     ToCurrentTime();
@@ -168,13 +168,13 @@ plUnifiedTime::plUnifiedTime(unsigned long t)
 plUnifiedTime::plUnifiedTime(int year, int month, int day, int hour, int min, int sec, unsigned long usec, int dst)
 :   fMode(kGmt)
 {
-    SetTime(year,month,day,hour,min,sec,usec,dst);
+    SetTime(year, month, day, hour, min, sec, usec, dst);
 }
 
 plUnifiedTime::plUnifiedTime(int mode, const char * buf, const char * fmt)
 :   fMode((Mode)mode)
 {
-    FromString(buf,fmt);
+    FromString(buf, fmt);
 }
 
 plUnifiedTime::plUnifiedTime(const plUnifiedTime & src)
@@ -242,8 +242,8 @@ const plUnifiedTime & plUnifiedTime::operator=(const struct tm & src)
 void plUnifiedTime::SetSecsDouble(double secs)
 {
     hsAssert(secs>=0, "plUnifiedTime::SetSecsDouble negative time");
-    double x,y;
-    x = modf(secs,&y);
+    double x, y;
+    x = modf(secs, &y);
     fSecs = (time_t)y;
     fMicros = (uint32_t)(x*1000000);
 }
@@ -376,9 +376,9 @@ void plUnifiedTime::Read(hsStream* s)
 {
     s->LogSubStreamStart("UnifiedTime");
     uint32_t secs;
-    s->LogReadLE(&secs,"Seconds");
+    s->LogReadLE(&secs, "Seconds");
     fSecs = (time_t)secs;
-    s->LogReadLE(&fMicros,"MicroSeconds");
+    s->LogReadLE(&fMicros, "MicroSeconds");
     s->LogSubStreamEnd();
     // preserve fMode
 }

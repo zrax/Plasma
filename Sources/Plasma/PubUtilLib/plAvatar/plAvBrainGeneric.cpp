@@ -175,7 +175,7 @@ void plAvBrainGeneric::Activate(plArmatureModBase *avMod)
     float initialBlend = useFadeIn ? 0.0f : 1.0f;
 
     if (GetType() == kEmote)
-        ((plArmatureMod*)avMod)->SendBehaviorNotify(plHBehavior::kBehaviorTypeEmote,true);
+        ((plArmatureMod*)avMod)->SendBehaviorNotify(plHBehavior::kBehaviorTypeEmote, true);
     double worldTime = hsTimer::GetSysSeconds();
 
     if (fMoveMode == kMoveRelative || fMoveMode == kMoveAbsolute)
@@ -481,7 +481,7 @@ bool plAvBrainGeneric::ISwitchStages(int oldStageNum, int newStageNum, float del
 {
 #ifdef DEBUG_MULTISTAGE
     char sbuf[256];
-    sprintf(sbuf,"ISwitchStage - old=%d new=%d (fCurStage=%d)",oldStageNum,newStageNum,fCurStage);
+    sprintf(sbuf, "ISwitchStage - old=%d new=%d (fCurStage=%d)", oldStageNum, newStageNum, fCurStage);
     plAvatarMgr::GetInstance()->GetLog()->AddLine(sbuf);
 #endif
     if (oldStageNum != newStageNum) {
@@ -602,7 +602,7 @@ bool plAvBrainGeneric::IHandleGenBrainMsg(const plAvBrainGenericMsg *msg)
             int wantStage = msg->fWhichStage;
 #ifdef DEBUG_MULTISTAGE
             char sbuf[256];
-            sprintf(sbuf,"GenericMsg - Goto Stage %d (oldstage %d)",wantStage,fCurStage);
+            sprintf(sbuf, "GenericMsg - Goto Stage %d (oldstage %d)", wantStage, fCurStage);
             plAvatarMgr::GetInstance()->GetLog()->AddLine(sbuf);
 #endif
             if (wantStage == -1) {
@@ -624,7 +624,7 @@ bool plAvBrainGeneric::IHandleGenBrainMsg(const plAvBrainGenericMsg *msg)
             int wantStage = fCurStage + 1;
 #ifdef DEBUG_MULTISTAGE
             char sbuf[256];
-            sprintf(sbuf,"GenericMsg - Next Stage %d (oldstage %d)",wantStage,fCurStage);
+            sprintf(sbuf, "GenericMsg - Next Stage %d (oldstage %d)", wantStage, fCurStage);
             plAvatarMgr::GetInstance()->GetLog()->AddLine(sbuf);
 #endif
             if (wantStage == fStages->size())
@@ -642,7 +642,7 @@ bool plAvBrainGeneric::IHandleGenBrainMsg(const plAvBrainGenericMsg *msg)
             int wantStage = fCurStage - 1;
 #ifdef DEBUG_MULTISTAGE
             char sbuf[256];
-            sprintf(sbuf,"GenericMsg - PrevStage %d (oldstage %d)",wantStage,fCurStage);
+            sprintf(sbuf, "GenericMsg - PrevStage %d (oldstage %d)", wantStage, fCurStage);
             plAvatarMgr::GetInstance()->GetLog()->AddLine(sbuf);
 #endif
             if (wantStage < 0)
@@ -659,7 +659,7 @@ bool plAvBrainGeneric::IHandleGenBrainMsg(const plAvBrainGenericMsg *msg)
 #ifdef DEBUG_MULTISTAGE
         {
             char sbuf[256];
-            sprintf(sbuf,"GenericMsg - Unknown command %d ",msg->fType);
+            sprintf(sbuf, "GenericMsg - Unknown command %d ", msg->fType);
             plAvatarMgr::GetInstance()->GetLog()->AddLine(sbuf);
         }
 #endif

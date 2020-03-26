@@ -256,7 +256,7 @@ protected:
 public:
     plSynchedValueFriend() : fSynchedObject(nil) { }
     // this is explicit so it won't be invoked instead of operator()=
-    explicit plSynchedValueFriend(const T& v) : plSynchedValue<T>(v),fSynchedObject(nil)  { }
+    explicit plSynchedValueFriend(const T& v) : plSynchedValue<T>(v), fSynchedObject(nil) { }
     plSynchedValueFriend(const plSynchedValueFriend<T>& pRHS) : plSynchedValue<T>(pRHS)
     { fSynchedObject = pRHS.fSynchedObject; }
     ~plSynchedValueFriend()

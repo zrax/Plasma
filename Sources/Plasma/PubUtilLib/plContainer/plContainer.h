@@ -47,7 +47,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 template < class T >
 class plDataContainerT
 {
-    typedef std::map<uint32_t,T*> Items;
+    typedef std::map<uint32_t, T*> Items;
     Items       fItems;
     uint32_t      fNextKey;
 public:

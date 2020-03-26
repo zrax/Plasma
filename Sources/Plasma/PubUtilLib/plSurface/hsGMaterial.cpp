@@ -248,7 +248,7 @@ void hsGMaterial::Write(hsStream *stream, hsResMgr *group)
     int iLay;
     for (iLay = 0; iLay < GetNumLayers(); iLay++)
     {
-        group->WriteKey(stream,GetLayer(iLay));
+        group->WriteKey(stream, GetLayer(iLay));
     }
     for (iLay = 0; iLay < GetNumPiggyBacks(); iLay++)
     {

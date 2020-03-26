@@ -270,7 +270,7 @@ PyObject* pyGUIPopUpMenu::GetForeColor()
     kGetMenuPtr(nil);
 
     pfGUIColorScheme* color = menu->GetColorScheme();
-    return pyColor::New(color->fForeColor.r,color->fForeColor.g,color->fForeColor.b,color->fForeColor.a);
+    return pyColor::New(color->fForeColor.r, color->fForeColor.g, color->fForeColor.b, color->fForeColor.a);
 }
 
 PyObject* pyGUIPopUpMenu::GetSelColor()
@@ -278,7 +278,7 @@ PyObject* pyGUIPopUpMenu::GetSelColor()
     kGetMenuPtr(nil);
 
     pfGUIColorScheme* color = menu->GetColorScheme();
-    return pyColor::New(color->fSelForeColor.r,color->fSelForeColor.g,color->fSelForeColor.b,color->fSelForeColor.a);
+    return pyColor::New(color->fSelForeColor.r, color->fSelForeColor.g, color->fSelForeColor.b, color->fSelForeColor.a);
 }
 
 PyObject* pyGUIPopUpMenu::GetBackColor()
@@ -286,7 +286,7 @@ PyObject* pyGUIPopUpMenu::GetBackColor()
     kGetMenuPtr(nil);
 
     pfGUIColorScheme* color = menu->GetColorScheme();
-    return pyColor::New(color->fBackColor.r,color->fBackColor.g,color->fBackColor.b,color->fBackColor.a);
+    return pyColor::New(color->fBackColor.r, color->fBackColor.g, color->fBackColor.b, color->fBackColor.a);
 }
 
 PyObject* pyGUIPopUpMenu::GetBackSelColor()
@@ -294,7 +294,7 @@ PyObject* pyGUIPopUpMenu::GetBackSelColor()
     kGetMenuPtr(nil);
 
     pfGUIColorScheme* color = menu->GetColorScheme();
-    return pyColor::New(color->fSelBackColor.r,color->fSelBackColor.g,color->fSelBackColor.b,color->fSelBackColor.a);
+    return pyColor::New(color->fSelBackColor.r, color->fSelBackColor.g, color->fSelBackColor.b, color->fSelBackColor.a);
 }
 
     // set color scheme
@@ -361,7 +361,7 @@ void pyGUIPopUpMenu::SetBackSelColor(float r, float g, float b, float a)
 void    pyGUIPopUpMenu::AddConsoleCmdItem(const char *name, const char *consoleCmd)
 {
     wchar_t *wName = hsStringToWString(name);
-    AddConsoleCmdItemW(wName,consoleCmd);
+    AddConsoleCmdItemW(wName, consoleCmd);
     delete [] wName;
 }
 
@@ -387,7 +387,7 @@ void    pyGUIPopUpMenu::AddNotifyItemW(std::wstring name)
 void    pyGUIPopUpMenu::AddSubMenuItem(const char *name, pyGUIPopUpMenu &subMenu)
 {
     wchar_t *wName = hsStringToWString(name);
-    AddSubMenuItemW(wName,subMenu);
+    AddSubMenuItemW(wName, subMenu);
     delete [] wName;
 }
 

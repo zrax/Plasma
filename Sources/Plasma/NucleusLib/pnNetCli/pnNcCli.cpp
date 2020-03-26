@@ -617,7 +617,7 @@ namespace Connect {
 *
 ***/
 
-#pragma pack(push,1)
+#pragma pack(push, 1)
 enum {
     kNetCliCli2SrvConnect,
     kNetCliSrv2CliEncrypt,

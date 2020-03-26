@@ -50,19 +50,19 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 /******* Matrix Preliminaries *******/
 
 /** Fill out 3x3 matrix to 4x4 **/
-#define mat_pad(A) (A[W][X]=A[X][W]=A[W][Y]=A[Y][W]=A[W][Z]=A[Z][W]=0,A[W][W]=1)
+#define mat_pad(A) (A[W][X]=A[X][W]=A[W][Y]=A[Y][W]=A[W][Z]=A[Z][W]=0, A[W][W]=1)
 
 /** Copy nxn matrix A to C using "gets" for assignment **/
-#define mat_copy(C,gets,A,n) {int i,j; for (i=0;i<n;i++) for (j=0;j<n;j++)\
-    C[i][j] gets (A[i][j]);}
+#define mat_copy(C, gets, A, n) { int i, j; for (i=0; i<n; i++) for (j=0; j<n; j++) \
+    C[i][j] gets (A[i][j]); }
 
 /** Copy transpose of nxn matrix A to C using "gets" for assignment **/
-#define mat_tpose(AT,gets,A,n) {int i,j; for (i=0;i<n;i++) for (j=0;j<n;j++)\
-    AT[i][j] gets (A[j][i]);}
+#define mat_tpose(AT, gets, A, n) { int i, j; for (i=0; i<n; i++) for (j=0; j<n; j++) \
+    AT[i][j] gets (A[j][i]); }
 
 /** Assign nxn matrix C the element-wise combination of A and B using "op" **/
-#define mat_binop(C,gets,A,op,B,n) {int i,j; for (i=0;i<n;i++) for (j=0;j<n;j++)\
-    C[i][j] gets (A[i][j]) op (B[i][j]);}
+#define mat_binop(C, gets, A, op, B, n) { int i, j; for (i=0; i<n; i++) for (j=0; j<n; j++) \
+    C[i][j] gets (A[i][j]) op (B[i][j]); }
 
 /** Multiply the upper left 3x3 parts of A and B to get AB **/
 void mat_mult(const HMatrix A, const HMatrix B, HMatrix AB)
@@ -160,7 +160,7 @@ gemQuat Qt_FromMatrix(HMatrix mat)
         if (mat[Y][Y] > mat[X][X]) h = Y;
         if (mat[Z][Z] > mat[h][h]) h = Z;
         switch (h) {
-#define caseMacro(i,j,k,I,J,K) \
+#define caseMacro(i, j, k, I, J, K) \
         case I:\
         s = sqrt((mat[I][I] - (mat[J][J]+mat[K][K])) + mat[W][W]);\
         qu.i = static_cast<float>(s*0.5);\
@@ -169,9 +169,9 @@ gemQuat Qt_FromMatrix(HMatrix mat)
         qu.k = static_cast<float>((mat[K][I] + mat[I][K]) * s);\
         qu.w = static_cast<float>((mat[K][J] - mat[J][K]) * s);\
         break
-        caseMacro(x,y,z,X,Y,Z);
-        caseMacro(y,z,x,Y,Z,X);
-        caseMacro(z,x,y,Z,X,Y);
+        caseMacro(x, y, z, X, Y, Z);
+        caseMacro(y, z, x, Y, Z, X);
+        caseMacro(z, x, y, Z, X, Y);
         }
     }
     if (mat[W][W] != 1.0) qu = Qt_Scale(qu, static_cast<float>(1/sqrt(mat[W][W])));
@@ -179,7 +179,7 @@ gemQuat Qt_FromMatrix(HMatrix mat)
 }
 /******* Decomp Auxiliaries *******/
 
-static HMatrix mat_id = {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}};
+static HMatrix mat_id = { {1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1} };
 
 /** Compute either the 1 or infinity norm of M, depending on tpose **/
 float mat_norm(HMatrix M, int tpose)
@@ -245,7 +245,7 @@ void do_rank1(HMatrix M, HMatrix Q)
 {
     float v1[3], v2[3], s;
     int col;
-    mat_copy(Q,=,mat_id,4);
+    mat_copy(Q, =, mat_id, 4);
     /* If rank(M) is 1, we should find a non-zero column in M */
     col = find_max_col(M);
     if (col<0) return; /* Rank is 0 */
@@ -298,7 +298,7 @@ float polar_decomp(const HMatrix M, HMatrix Q, HMatrix S)
     HMatrix Mk, MadjTk, Ek;
     float det, M_one, M_inf, MadjT_one, MadjT_inf, E_one, gamma, g1, g2;
     int i, j;
-    mat_tpose(Mk,=,M,3);
+    mat_tpose(Mk, =, M, 3);
     M_one = norm_one(Mk);  M_inf = norm_inf(Mk);
     do {
     adjoint_transpose(Mk, MadjTk);
@@ -308,13 +308,13 @@ float polar_decomp(const HMatrix M, HMatrix Q, HMatrix S)
     gamma = static_cast<float>(sqrt(sqrt((MadjT_one*MadjT_inf)/(M_one*M_inf))/fabs(det)));
     g1 = gamma*0.5f;
     g2 = 0.5f/(gamma*det);
-    mat_copy(Ek,=,Mk,3);
-    mat_binop(Mk,=,g1*Mk,+,g2*MadjTk,3);
-    mat_copy(Ek,-=,Mk,3);
+    mat_copy(Ek, =, Mk, 3);
+    mat_binop(Mk, =, g1*Mk, +, g2*MadjTk, 3);
+    mat_copy(Ek, -=, Mk, 3);
     E_one = norm_one(Ek);
     M_one = norm_one(Mk);  M_inf = norm_inf(Mk);
     } while (E_one>(M_one*TOL));
-    mat_tpose(Q,=,Mk,3); mat_pad(Q);
+    mat_tpose(Q, =, Mk, 3); mat_pad(Q);
     mat_mult(Mk, M, S);  mat_pad(S);
     for (i=0; i<3; i++) for (j=i; j<3; j++)
     S[i][j] = S[j][i] = 0.5f*(S[i][j]+S[j][i]);
@@ -347,11 +347,11 @@ float polar_decomp(const HMatrix M, HMatrix Q, HMatrix S)
 HVect spect_decomp(HMatrix S, HMatrix U)
 {
     HVect kv;
-    double Diag[3],OffD[3]; /* OffD is off-diag (by omitted index) */
-    double g,h,fabsh,fabsOffDi,t,theta,c,s,tau,ta,OffDq,a,b;
-    static char nxt[] = {Y,Z,X};
+    double Diag[3], OffD[3]; /* OffD is off-diag (by omitted index) */
+    double g, h, fabsh, fabsOffDi, t, theta, c, s, tau, ta, OffDq, a, b;
+    static char nxt[] = {Y, Z, X};
     int sweep, i, j;
-    mat_copy(U,=,mat_id,4);
+    mat_copy(U, =, mat_id, 4);
     Diag[X] = S[X][X]; Diag[Y] = S[Y][Y]; Diag[Z] = S[Z][Z];
     OffD[X] = S[Y][Z]; OffD[Y] = S[Z][X]; OffD[Z] = S[X][Y];
     for (sweep=20; sweep>0; sweep--) {
@@ -405,9 +405,9 @@ HVect spect_decomp(HMatrix S, HMatrix U)
 gemQuat snuggle(gemQuat q, HVect *k)
 {
 #define SQRTHALF (0.7071067811865475244f)
-#define sgn(n,v)    ((n)?-(v):(v))
-#define swap(a,i,j) { a[3]=a[i]; a[i]=a[j]; a[j]=a[3]; }
-#define cycle(a,p)  if (p) { a[3]=a[0]; a[0]=a[1]; a[1]=a[2]; a[2]=a[3]; }\
+#define sgn(n, v)    ((n)?-(v):(v))
+#define swap(a, i, j) { a[3]=a[i]; a[i]=a[j]; a[j]=a[3]; }
+#define cycle(a, p)  if (p) { a[3]=a[0]; a[0]=a[1]; a[1]=a[2]; a[2]=a[3]; }\
             else   { a[3]=a[2]; a[2]=a[1]; a[1]=a[0]; a[0]=a[3]; }
     gemQuat p;
     float ka[4];
@@ -419,18 +419,18 @@ gemQuat snuggle(gemQuat q, HVect *k)
     gemQuat qtoz, qp;
     unsigned neg[3], win;
     double mag[3], t;
-    static gemQuat qxtoz = {0,SQRTHALF,0,SQRTHALF};
-    static gemQuat qytoz = {SQRTHALF,0,0,SQRTHALF};
-    static gemQuat qppmm = { 0.5, 0.5,-0.5,-0.5};
-    static gemQuat qpppp = { 0.5, 0.5, 0.5, 0.5};
-    static gemQuat qmpmm = {-0.5, 0.5,-0.5,-0.5};
-    static gemQuat qpppm = { 0.5, 0.5, 0.5,-0.5};
-    static gemQuat q0001 = { 0.0, 0.0, 0.0, 1.0};
-    static gemQuat q1000 = { 1.0, 0.0, 0.0, 0.0};
+    static gemQuat qxtoz = { 0, SQRTHALF, 0, SQRTHALF };
+    static gemQuat qytoz = { SQRTHALF, 0, 0, SQRTHALF };
+    static gemQuat qppmm = { 0.5, 0.5,-0.5,-0.5 };
+    static gemQuat qpppp = { 0.5, 0.5, 0.5, 0.5 };
+    static gemQuat qmpmm = {-0.5, 0.5,-0.5,-0.5 };
+    static gemQuat qpppm = { 0.5, 0.5, 0.5,-0.5 };
+    static gemQuat q0001 = { 0.0, 0.0, 0.0, 1.0 };
+    static gemQuat q1000 = { 1.0, 0.0, 0.0, 0.0 };
     switch (turn) {
     default: return (Qt_Conj(q));
-    case X: q = Qt_Mul(q, qtoz = qxtoz); swap(ka,X,Z) break;
-    case Y: q = Qt_Mul(q, qtoz = qytoz); swap(ka,Y,Z) break;
+    case X: q = Qt_Mul(q, qtoz = qxtoz); swap(ka, X, Z) break;
+    case Y: q = Qt_Mul(q, qtoz = qytoz); swap(ka, Y, Z) break;
     case Z: qtoz = q0001; break;
     }
     q = Qt_Conj(q);
@@ -442,12 +442,12 @@ gemQuat snuggle(gemQuat q, HVect *k)
     else           { if (mag[1]>mag[2]) win = 1; else win = 2; }
     switch (win) {
     case 0: if (neg[0]) p = q1000; else p = q0001; break;
-    case 1: if (neg[1]) p = qppmm; else p = qpppp; cycle(ka,0) break;
-    case 2: if (neg[2]) p = qmpmm; else p = qpppm; cycle(ka,1) break;
+    case 1: if (neg[1]) p = qppmm; else p = qpppp; cycle(ka, 0) break;
+    case 2: if (neg[2]) p = qmpmm; else p = qpppm; cycle(ka, 1) break;
     }
     qp = Qt_Mul(q, p);
     t = sqrt(mag[win]+0.5);
-    p = Qt_Mul(p, Qt_(0.0,0.0,static_cast<float>(-qp.z/t),static_cast<float>(qp.w/t)));
+    p = Qt_Mul(p, Qt_(0.0, 0.0, static_cast<float>(-qp.z/t), static_cast<float>(qp.w/t)));
     p = Qt_Mul(qtoz, Qt_Conj(p));
     } else {
     float qa[4], pa[4];
@@ -472,16 +472,16 @@ gemQuat snuggle(gemQuat q, HVect *k)
     if (all>two) {
         if (all>big) {/*all*/
         { int i; for (i=0; i<4; i++) pa[i] = static_cast<float>(sgn(neg[i], 0.5)); }
-        cycle(ka,par)
-        } else { /*big*/ pa[hi] = static_cast<float>(sgn(neg[hi],1.0)); }
+        cycle(ka, par)
+        } else { /*big*/ pa[hi] = static_cast<float>(sgn(neg[hi], 1.0)); }
     } else {
         if (two>big) {/*two*/
-        pa[hi] = static_cast<float>(sgn(neg[hi],SQRTHALF));
+        pa[hi] = static_cast<float>(sgn(neg[hi], SQRTHALF));
         pa[lo] = static_cast<float>(sgn(neg[lo], SQRTHALF));
         if (lo>hi) { hi ^= lo; lo ^= hi; hi ^= lo; }
         if (hi==W) { hi = "\001\002\000"[lo]; lo = 3-hi-lo; }
-        swap(ka,hi,lo)
-        } else { /*big*/ pa[hi] = static_cast<float>(sgn(neg[hi],1.0)); }
+        swap(ka, hi, lo)
+        } else { /*big*/ pa[hi] = static_cast<float>(sgn(neg[hi], 1.0)); }
     }
     p.x = -pa[0]; p.y = -pa[1]; p.z = -pa[2]; p.w = pa[3];
     }
@@ -516,7 +516,7 @@ void decomp_affine(const HMatrix A, gemAffineParts *parts)
     parts->t = Qt_(A[X][W], A[Y][W], A[Z][W], 0);
     det = polar_decomp(A, Q, S);
     if (det<0.0) {
-    mat_copy(Q,=,-Q,3);
+    mat_copy(Q, =, -Q, 3);
     parts->f = -1;
     } else parts->f = 1;
     parts->q = Qt_FromMatrix(Q);

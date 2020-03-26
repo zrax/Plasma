@@ -242,12 +242,12 @@ float pfVehicle::ResetSmoothedCurvature(float value /* = 0 */)
     return fSmoothedCurvature = fCurvature = value;
 }
 
-hsVector3 pfVehicle::ResetSmoothedAcceleration(const hsVector3 &value /* = hsVector3(0,0,0) */)
+hsVector3 pfVehicle::ResetSmoothedAcceleration(const hsVector3 &value /* = hsVector3(0, 0, 0) */)
 {
     return fSmoothedAcceleration = value;
 }
 
-hsPoint3 pfVehicle::ResetSmoothedPosition(const hsPoint3 &value /* = hsPoint3(0,0,0) */)
+hsPoint3 pfVehicle::ResetSmoothedPosition(const hsPoint3 &value /* = hsPoint3(0, 0, 0) */)
 {
     return fSmoothedPosition = value;
 }
@@ -364,7 +364,7 @@ hsVector3 pfVehicle::AdjustRawSteeringForce(const hsVector3 &force, const float 
 {
     const float maxAdjustedSpeed = 0.2f * MaxSpeed();
 
-    if ((Speed() > maxAdjustedSpeed) || (force == hsVector3(0,0,0)))
+    if ((Speed() > maxAdjustedSpeed) || (force == hsVector3(0, 0, 0)))
         return force; // no adjustment needed if they are going above 20% of max speed
     else
     {
@@ -405,7 +405,7 @@ void pfBoidGoal::Update(plSceneObject *goal, float deltaTime)
     {
         fLastPos = fCurPos = goal->GetLocalToWorld().GetTranslate();
         fSpeed = 0;
-        fForward.Set(1,0,0); // make a unit vector, it shouldn't matter that it's incorrect as this is only for one frame
+        fForward.Set(1, 0, 0); // make a unit vector, it shouldn't matter that it's incorrect as this is only for one frame
         fHasLastPos = true;
         return;
     }

@@ -87,7 +87,7 @@ bool plNetAddress::SetPort(uint16_t port)
 
 void plNetAddress::Clear()
 {
-    memset(&fAddr,0,sizeof(fAddr));
+    memset(&fAddr, 0, sizeof(fAddr));
     fAddr.sin_family = AF_INET;
     fAddr.sin_addr.s_addr = INADDR_ANY;
 }
@@ -123,7 +123,7 @@ bool plNetAddress::SetHost(const ST::string& hostname)
 
 bool plNetAddress::SetHost(uint32_t addr)
 {
-    memcpy(&fAddr.sin_addr, &addr,sizeof(addr));
+    memcpy(&fAddr.sin_addr, &addr, sizeof(addr));
     fAddr.sin_family = AF_INET;
     return true;
 }

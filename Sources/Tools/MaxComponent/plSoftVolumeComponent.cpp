@@ -433,7 +433,7 @@ bool plSoftVolComponent::SetupProperties(plMaxNode *pNode,  plErrorMsg *errMsg)
         return true;
     }
 
-    if (obj->ClassID() == Class_ID(DUMMY_CLASS_ID,0))
+    if (obj->ClassID() == Class_ID(DUMMY_CLASS_ID, 0))
     {
         fValid = true;
     }
@@ -495,7 +495,7 @@ plKey plSoftVolComponent::ICreateFromNode(plMaxNodeBase* pNode)
     // Go ahead and make it here, so it'll be available for aggregaters in the Convert pass
     Object *obj = pNode->EvalWorldState(TimeValue(0)).obj;
 
-    if (obj->ClassID() == Class_ID(DUMMY_CLASS_ID,0))
+    if (obj->ClassID() == Class_ID(DUMMY_CLASS_ID, 0))
     {
         return ICreateFromDummyObject(pNode, obj);
     }

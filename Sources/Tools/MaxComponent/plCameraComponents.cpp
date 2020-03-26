@@ -740,7 +740,7 @@ bool plCameraBaseComponent::SetupProperties(plMaxNode* pNode, plErrorMsg* pErrMs
     fModKeys.clear();
     bool ValidNode = IsValidNodeType(pNode);
     if (!ValidNode) {
-        if (pErrMsg->Set(true, "Invalid Camera Object", "The camera %s is not a 'Max Target Camera type'.  This camera will be disabled..\nKill the export?",((INode*)pNode)->GetName()).Ask())
+        if (pErrMsg->Set(true, "Invalid Camera Object", "The camera %s is not a 'Max Target Camera type'.  This camera will be disabled..\nKill the export?", ((INode*)pNode)->GetName()).Ask())
                 pErrMsg->Set(true, "", "");
         else
                 pErrMsg->Set(false); // Don't want to abort
@@ -1355,9 +1355,9 @@ bool plAutoCamComponent::PreConvert(plMaxNode *pNode, plErrorMsg *pErrMsg)
     pMsg->SetRef((hsKeyedObject*)pBrain);
     plConvert::Instance().AddMessageToQueue(pMsg);
     hsVector3 pt;
-    pt.Set(fCompPB->GetFloat(kAutoCamOffX),fCompPB->GetFloat(kAutoCamOffY),fCompPB->GetFloat(kAutoCamOffZ));
+    pt.Set(fCompPB->GetFloat(kAutoCamOffX), fCompPB->GetFloat(kAutoCamOffY), fCompPB->GetFloat(kAutoCamOffZ));
     pBrain->SetOffset(pt);
-    pt.Set(fCompPB->GetFloat(kAutoPOAOffX),fCompPB->GetFloat(kAutoPOAOffY),fCompPB->GetFloat(kAutoPOAOffZ));
+    pt.Set(fCompPB->GetFloat(kAutoPOAOffX), fCompPB->GetFloat(kAutoPOAOffY), fCompPB->GetFloat(kAutoPOAOffZ));
     pBrain->SetPOAOffset(pt);
     if (fCompPB->GetInt(kAutoCamPosWorldspace))
         pBrain->SetFlags(plCameraBrain1::kWorldspacePos);
@@ -1518,9 +1518,9 @@ bool plFPCamComponent::PreConvert(plMaxNode *pNode, plErrorMsg *pErrMsg)
     plConvert::Instance().AddMessageToQueue(pMsg2);
 
     hsVector3 pt;
-    pt.Set(fCompPB->GetFloat(kFPCamOffX),fCompPB->GetFloat(kFPCamOffY),fCompPB->GetFloat(kFPCamOffZ));
+    pt.Set(fCompPB->GetFloat(kFPCamOffX), fCompPB->GetFloat(kFPCamOffY), fCompPB->GetFloat(kFPCamOffZ));
     pBrain->SetOffset(pt);
-    pt.Set(fCompPB->GetFloat(kFPCamPOAOffX),fCompPB->GetFloat(kFPCamPOAOffY),fCompPB->GetFloat(kFPCamPOAOffZ));
+    pt.Set(fCompPB->GetFloat(kFPCamPOAOffX), fCompPB->GetFloat(kFPCamPOAOffY), fCompPB->GetFloat(kFPCamPOAOffZ));
     pBrain->SetPOAOffset(pt);
     
     // We want a local Avatar POA for this brain
@@ -2309,9 +2309,9 @@ bool plFollowCamComponent::PreConvert(plMaxNode *pNode, plErrorMsg *pErrMsg)
     pMsg->SetRef((hsKeyedObject*)pBrain);
     plConvert::Instance().AddMessageToQueue(pMsg);
     hsVector3 pt;
-    pt.Set(fCompPB->GetFloat(kFollowCamOffX),fCompPB->GetFloat(kFollowCamOffY),fCompPB->GetFloat(kFollowCamOffZ));
+    pt.Set(fCompPB->GetFloat(kFollowCamOffX), fCompPB->GetFloat(kFollowCamOffY), fCompPB->GetFloat(kFollowCamOffZ));
     pBrain->SetOffset(pt);
-    pt.Set(fCompPB->GetFloat(kFollowPOAOffX),fCompPB->GetFloat(kFollowPOAOffY),fCompPB->GetFloat(kFollowPOAOffZ));
+    pt.Set(fCompPB->GetFloat(kFollowPOAOffX), fCompPB->GetFloat(kFollowPOAOffY), fCompPB->GetFloat(kFollowPOAOffZ));
     pBrain->SetPOAOffset(pt);
     if (fCompPB->GetInt(kFollowCamPosWorldspace))
         pBrain->SetFlags(plCameraBrain1::kWorldspacePos);
@@ -2332,7 +2332,7 @@ bool plFollowCamComponent::PreConvert(plMaxNode *pNode, plErrorMsg *pErrMsg)
 
     if (!ISetPOA(pNode, pBrain, pErrMsg))
     {
-        if (pErrMsg->Set(true, "Invalid Object Follow Camera", "The camera %s does NOT have an Object POA to go with its Object Follow Cam Component.  This camera will be disabled..\nKill the export?",((INode*)pNode)->GetName()).Ask())
+        if (pErrMsg->Set(true, "Invalid Object Follow Camera", "The camera %s does NOT have an Object POA to go with its Object Follow Cam Component.  This camera will be disabled..\nKill the export?", ((INode*)pNode)->GetName()).Ask())
                 pErrMsg->Set(true, "", "");
         else
                 pErrMsg->Set(false); // Don't want to abort

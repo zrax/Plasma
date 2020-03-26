@@ -55,7 +55,7 @@ static uint8_t Clip(int32_t val) {
 
 #define YG 74 /* static_cast<int8>(1.164 * 64 + 0.5) */
 
-#define UB 127 /* min(63,static_cast<int8>(2.018 * 64)) */
+#define UB 127 /* min(63, static_cast<int8>(2.018 * 64)) */
 #define UG -25 /* static_cast<int8>(-0.391 * 64 - 0.5) */
 #define UR 0
 

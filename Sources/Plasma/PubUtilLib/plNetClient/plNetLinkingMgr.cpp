@@ -306,7 +306,7 @@ plNetLinkingMgr * plNetLinkingMgr::GetInstance()
 void plNetLinkingMgr::SetEnabled(bool b)
 {
     plNetClientMgr * nc = plNetClientMgr::GetInstance();
-    hsLogEntry(nc->DebugMsg("plNetLinkingMgr: {} -> {}", fLinkingEnabled?"Enabled":"Disabled",b?"Enabled":"Disabled"));
+    hsLogEntry(nc->DebugMsg("plNetLinkingMgr: {} -> {}", fLinkingEnabled?"Enabled":"Disabled", b?"Enabled":"Disabled"));
     fLinkingEnabled = b;
 }
 

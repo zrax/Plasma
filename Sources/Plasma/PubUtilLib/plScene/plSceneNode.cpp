@@ -126,7 +126,7 @@ void plSceneNode::Write(hsStream* s, hsResMgr* mgr)
 
     s->WriteLE32(fSceneObjects.size());
     for (i = 0; i < fSceneObjects.size(); i++)
-        mgr->WriteKey(s,fSceneObjects[i]);
+        mgr->WriteKey(s, fSceneObjects[i]);
 
     s->WriteLE32(fGenericPool.size());
     for (i = 0; i < fGenericPool.size(); i++)

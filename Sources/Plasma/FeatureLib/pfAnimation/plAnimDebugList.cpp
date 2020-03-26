@@ -101,7 +101,7 @@ void plAnimDebugList::ShowReport()
 
     plDebugText     &txt = plDebugText::Instance();
 
-    int y,x,i,j;
+    int y, x, i, j;
     const int yOff=10, startY=40, startX=10;
     ST::string str;
 

@@ -1142,7 +1142,7 @@ void plAgeDescInterface::ISaveCurAge(const plFileName &path, bool checkSeqNum)
     HWND hTime = GetDlgItem(fhDlg, IDC_TIME);
     SYSTEMTIME tst = {0};
     DateTime_GetSystemtime(hTime, &tst);
-    aged.SetStart(dst.wYear,dst.wMonth,dst.wDay,tst.wHour,tst.wMinute,tst.wSecond);
+    aged.SetStart(dst.wYear, dst.wMonth, dst.wDay, tst.wHour, tst.wMinute, tst.wSecond);
     aged.SetDayLength(fSpin->GetFVal());
     aged.SetMaxCapacity(fCapSpin->GetIVal());
     if (checkSeqNum)
@@ -1227,7 +1227,7 @@ void plAgeDescInterface::ILoadAge(const plFileName &path, bool checkSeqNum)
     SYSTEMTIME st;
 
     HWND hTime = GetDlgItem(fhDlg, IDC_TIME);
-    memset(&st,0, sizeof(st));
+    memset(&st, 0, sizeof(st));
     st.wYear = 2000;
     st.wMonth = 1;
     st.wDay = 1;
@@ -1238,7 +1238,7 @@ void plAgeDescInterface::ILoadAge(const plFileName &path, bool checkSeqNum)
 
     
     HWND hDate = GetDlgItem(fhDlg, IDC_DATE);
-    memset(&st,0, sizeof(st));
+    memset(&st, 0, sizeof(st));
     st.wMonth = aged.GetStartMonth();
     st.wDay = aged.GetStartDay();
     st.wYear = aged.GetStartYear();

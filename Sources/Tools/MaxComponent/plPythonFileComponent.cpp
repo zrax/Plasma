@@ -379,7 +379,7 @@ bool plPythonFileComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
                 int numcomps = param->GetCount(pb);
                 for (int j=0; j< numcomps; j++)
                 {
-                    plComponentBase *comp = param->GetComponent(pb,j);
+                    plComponentBase *comp = param->GetComponent(pb, j);
                     if (comp)
                         comp->AddReceiverKey(modKey);
                 }
@@ -393,7 +393,7 @@ bool plPythonFileComponent::PreConvert(plMaxNode *node, plErrorMsg *pErrMsg)
                 int numcomps = param->GetCount(pb);
                 for (int j=0; j< numcomps; j++)
                 {
-                    plComponentBase *comp = param->GetComponent(pb,j);
+                    plComponentBase *comp = param->GetComponent(pb, j);
                     if (comp && comp->ClassID() == GUI_DIALOG_COMP_CLASS_ID)
                     {
                         // convert the comp to a GUIDialog component, so we can talk to it
@@ -480,8 +480,8 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                 if (!found_atleast_one_good_one)
                 {
                     char buf[512];
-                    sprintf(buf,"The sceneobject attribute (ID=%d) that was selected in %s PythonFile, somehow does not exist!?",
-                                pyParam.fID,this->GetINode()->GetName());
+                    sprintf(buf, "The sceneobject attribute (ID=%d) that was selected in %s PythonFile, somehow does not exist!?",
+                                pyParam.fID, this->GetINode()->GetName());
                     pErrMsg->Set(true, "PythonFile Warning", buf).Show();
                     pErrMsg->Set(false);
                 }
@@ -510,8 +510,8 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                         if (!found_atleast_one_good_one)
                         {
                             char buf[512];
-                            sprintf(buf,"The responder attribute %s that was selected in %s PythonFile, somehow does not exist!?",
-                                        comp->GetINode()->GetName(),this->GetINode()->GetName());
+                            sprintf(buf, "The responder attribute %s that was selected in %s PythonFile, somehow does not exist!?",
+                                        comp->GetINode()->GetName(), this->GetINode()->GetName());
                             pErrMsg->Set(true, "PythonFile Warning", buf).Show();
                             pErrMsg->Set(false);
                         }
@@ -599,8 +599,8 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                             if (pyParam.fObjectKey == nil)
                             {
                                 char buf[512];
-                                sprintf(buf,"The GUIDialog attribute %s that was selected in %s PythonFile, somehow does not exist!?",
-                                            comp->GetINode()->GetName(),this->GetINode()->GetName());
+                                sprintf(buf, "The GUIDialog attribute %s that was selected in %s PythonFile, somehow does not exist!?",
+                                            comp->GetINode()->GetName(), this->GetINode()->GetName());
                                 pErrMsg->Set(true, "PythonFile Warning", buf).Show();
                                 pErrMsg->Set(false);
                             }
@@ -629,8 +629,8 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                             if (pyParam.fObjectKey == nil)
                             {
                                 char buf[512];
-                                sprintf(buf,"The GUIPopUpMenu attribute %s that was selected in %s PythonFile, somehow does not exist!?",
-                                            comp->GetINode()->GetName(),this->GetINode()->GetName());
+                                sprintf(buf, "The GUIPopUpMenu attribute %s that was selected in %s PythonFile, somehow does not exist!?",
+                                            comp->GetINode()->GetName(), this->GetINode()->GetName());
                                 pErrMsg->Set(true, "PythonFile Warning", buf).Show();
                                 pErrMsg->Set(false);
                             }
@@ -659,8 +659,8 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                             if (pyParam.fObjectKey == nil)
                             {
                                 char buf[512];
-                                sprintf(buf,"The GUISkin attribute %s that was selected in %s PythonFile, somehow does not exist!?",
-                                            comp->GetINode()->GetName(),this->GetINode()->GetName());
+                                sprintf(buf, "The GUISkin attribute %s that was selected in %s PythonFile, somehow does not exist!?",
+                                            comp->GetINode()->GetName(), this->GetINode()->GetName());
                                 pErrMsg->Set(true, "PythonFile Warning", buf).Show();
                                 pErrMsg->Set(false);
                             }
@@ -701,11 +701,11 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                             // there is zero or more than one node attached to this exclude region
                             char buf[512];
                             if (number_of_real_targets_found == 0)
-                                sprintf(buf,"The ExcludeRegion %s that was selected as an attribute in %s PythonFile, has no scene nodes attached.",
-                                            comp->GetINode()->GetName(),this->GetINode()->GetName());
+                                sprintf(buf, "The ExcludeRegion %s that was selected as an attribute in %s PythonFile, has no scene nodes attached.",
+                                            comp->GetINode()->GetName(), this->GetINode()->GetName());
                             else
-                                sprintf(buf,"The ExcludeRegion %s that was selected as an attribute in %s PythonFile, has more than one scene node attached (using first one found).",
-                                            comp->GetINode()->GetName(),this->GetINode()->GetName());
+                                sprintf(buf, "The ExcludeRegion %s that was selected as an attribute in %s PythonFile, has more than one scene node attached (using first one found).",
+                                            comp->GetINode()->GetName(), this->GetINode()->GetName());
 
                             pErrMsg->Set(true, "PythonFile Warning", buf).Show();
                             pErrMsg->Set(false);
@@ -841,7 +841,7 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                         int j;
                         for (j=0; j<comp->NumTargets(); j++)
                         {
-                            plKey behKey = OneShotComp::GetOneShotKey(comp,(plMaxNode*)(comp->GetTarget(j)));
+                            plKey behKey = OneShotComp::GetOneShotKey(comp, (plMaxNode*)(comp->GetTarget(j)));
                             if (behKey != nil)
                             {
                                 // only get one real target, just count the rest
@@ -860,7 +860,7 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                         int j;
                         for (j=0; j<comp->NumTargets(); j++)
                         {
-                            plKey behKey = MultiStageBeh::GetMultiStageBehKey(comp,(plMaxNode*)(comp->GetTarget(j)));
+                            plKey behKey = MultiStageBeh::GetMultiStageBehKey(comp, (plMaxNode*)(comp->GetTarget(j)));
                             if (behKey != nil)
                             {
                                 // only get one real target, just count the rest
@@ -878,11 +878,11 @@ bool plPythonFileComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
                         // there is zero or more than one node attached to this exclude region
                         char buf[512];
                         if (number_of_real_targets_found == 0)
-                            sprintf(buf,"The Behavior component %s that was selected as an attribute in %s PythonFile, has no scene nodes attached.",
-                                        comp->GetINode()->GetName(),this->GetINode()->GetName());
+                            sprintf(buf, "The Behavior component %s that was selected as an attribute in %s PythonFile, has no scene nodes attached.",
+                                        comp->GetINode()->GetName(), this->GetINode()->GetName());
                         else
-                            sprintf(buf,"The Behavior component %s that was selected as an attribute in %s PythonFile, has more than one scene node attached (using first one found).",
-                                        comp->GetINode()->GetName(),this->GetINode()->GetName());
+                            sprintf(buf, "The Behavior component %s that was selected as an attribute in %s PythonFile, has more than one scene node attached (using first one found).",
+                                        comp->GetINode()->GetName(), this->GetINode()->GetName());
 
                         pErrMsg->Set(true, "PythonFile Warning", buf).Show();
                         pErrMsg->Set(false);

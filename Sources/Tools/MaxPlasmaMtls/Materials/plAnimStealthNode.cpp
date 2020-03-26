@@ -139,7 +139,7 @@ static plEaseAccessor sEaseAccessor(plAnimStealthNode::kBlockPB, plAnimStealthNo
 
 ParamBlockDesc2 plAnimStealthNode::sAnimStealthPB
 (
-    kBlockPB, _T("animStealth"), IDS_STEALTH_NAME, GetStealthClassDesc(),//NULL,
+    kBlockPB, _T("animStealth"), IDS_STEALTH_NAME, GetStealthClassDesc(), //NULL,
                                         P_AUTO_CONSTRUCT + P_AUTO_UI, kRefParamBlock,
 
     // UI
@@ -351,12 +351,12 @@ void plAnimStealthNode::FreeCaches()
 
 void plAnimStealthNode::GetLocalBoundBox(TimeValue t, INode *node, ViewExp *vpt, Box3 &box)
 {
-    box.MakeCube(Point3(0,0,0), 0);
+    box.MakeCube(Point3(0, 0, 0), 0);
 }
 
 void plAnimStealthNode::GetWorldBoundBox(TimeValue t, INode *node, ViewExp *vpt, Box3 &box)
 {
-    box.MakeCube(Point3(0,0,0), 0);
+    box.MakeCube(Point3(0, 0, 0), 0);
 }
 
 int plAnimStealthNode::Display(TimeValue t, INode *node, ViewExp *vpt, int flags)
@@ -451,7 +451,7 @@ bool        plAnimStealthNode::IsParentUsedInScene()
         if (item->SuperClassID() == BASENODE_CLASS_ID && !CanConvertToStealth((INode *)(item)))
             return true;        // Horray, a node has a ref to us!
 
-        else if (item->ClassID() == Class_ID(MULTI_CLASS_ID,0))
+        else if (item->ClassID() == Class_ID(MULTI_CLASS_ID, 0))
         {
             // Multi-sub, run the refs on that guy (we only go one up)
             Mtl *multisub = (Mtl *)item;

@@ -347,7 +347,7 @@ int  pfConsoleCmdGroup::IterateCommands(pfConsoleCmdIterator* t, int depth)
     cmd = this->GetFirstCommand();
     while (cmd)
     {
-        t->ProcessCmd(cmd,depth);
+        t->ProcessCmd(cmd, depth);
         cmd = cmd->GetNext();
     }
 

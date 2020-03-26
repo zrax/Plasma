@@ -148,7 +148,7 @@ bool hsConverterUtils::AutoStartDynamics(INode *node)
 {
     hsGuardBegin("hsConverterUtils::AutoStartDynamics");
 
-    return (gUserPropMgr.UserPropExists(node,"AutoStart") || gUserPropMgr.UserPropExists(node,"aud"));
+    return (gUserPropMgr.UserPropExists(node, "AutoStart") || gUserPropMgr.UserPropExists(node, "aud"));
     hsGuardEnd;
 }
 
@@ -156,7 +156,7 @@ bool hsConverterUtils::RandomStartDynamics(INode *node)
 {
     hsGuardBegin("hsConverterUtils::RandomStartDynamics");
 
-    return (gUserPropMgr.UserPropExists(node,"RandomStart"));
+    return (gUserPropMgr.UserPropExists(node, "RandomStart"));
     hsGuardEnd;
 }
 
@@ -300,7 +300,7 @@ char *hsConverterUtils::MangleRefWithRoom(char *mangName, const char *nodeName, 
     }
 
     if (!*nodeName)
-        return hsStrcpy(mangName,nodeName);
+        return hsStrcpy(mangName, nodeName);
 
     // doesn't want to be mangled
     if (('.' == nodeName[0])&&('.' == nodeName[1]))
@@ -365,7 +365,7 @@ bool hsConverterUtils::IsMangled(const char *name)
     hsGuardBegin("hsConverterUtils::IsMangled");
 
     char mang[255];
-    return !strcmp(name,MangleReference(mang,name));
+    return !strcmp(name, MangleReference(mang, name));
     hsGuardEnd;
 }
 
@@ -374,20 +374,20 @@ char *hsConverterUtils::UnMangleReference(char *dest, const char *name)
 {
     hsGuardBegin("hsConverterUtils::IsMangled");
 
-    char *u = strstr((char*)name,"..");
+    char *u = strstr((char*)name, "..");
     if (u)
     {
         u+=2;
-        strcpy(dest,u);
+        strcpy(dest, u);
     }
     else if (!IsMangled(name))
     {
-        strcpy(dest,"..");
-        strcat(dest,name);
+        strcpy(dest, "..");
+        strcat(dest, name);
     }
     else
     {
-        strcpy(dest,name);
+        strcpy(dest, name);
     }
 
     return dest;
@@ -399,15 +399,15 @@ char* hsConverterUtils::StripMangledReference(char* dest, const char* name)
 {
     hsGuardBegin("hsConverterUtils::StripMangledReference");
 
-    char *u = strstr((char*)name,"..");
+    char *u = strstr((char*)name, "..");
     if (u)
     {
         u+=2;
-        strcpy(dest,u);
+        strcpy(dest, u);
     }
     else
     {
-        strcpy(dest,name);
+        strcpy(dest, name);
     }
 
     return dest;
@@ -569,7 +569,7 @@ bool hsConverterUtils::CacheNode::operator==(const CacheNode& other) const
     const char* k1 = GetName();
     const char* k2 = other.GetName();
     if (other.fCaseSensitive || fCaseSensitive)
-        return !strcmp(k1,k2);
+        return !strcmp(k1, k2);
     else
-        return !_stricmp(k1,k2);
+        return !_stricmp(k1, k2);
 }

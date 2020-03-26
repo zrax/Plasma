@@ -79,7 +79,7 @@ public:
 
     bool SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg);
     bool PreConvert(plMaxNode *node, plErrorMsg *pErrMsg);
-    bool Convert(plMaxNode* node,plErrorMsg *pErrMsg);
+    bool Convert(plMaxNode* node, plErrorMsg *pErrMsg);
 
 private:
     // per-instance registry of all the modifiers that were created by this component

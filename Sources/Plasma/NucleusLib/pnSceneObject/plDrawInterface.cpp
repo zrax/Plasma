@@ -155,7 +155,7 @@ void plDrawInterface::Read(hsStream* s, hsResMgr* mgr)
         fDrawableIndices[i] = s->ReadLE32();
 
         plIntRefMsg* refMsg = new plIntRefMsg(GetKey(), plRefMsg::kOnCreate, i, plIntRefMsg::kDrawable);
-        mgr->ReadKeyNotifyMe(s,refMsg, plRefFlags::kActiveRef);
+        mgr->ReadKeyNotifyMe(s, refMsg, plRefFlags::kActiveRef);
     }
 
     int nReg = s->ReadLE32();

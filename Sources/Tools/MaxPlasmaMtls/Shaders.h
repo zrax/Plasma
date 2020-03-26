@@ -93,11 +93,11 @@ public:
     void Illum(ShadeContext &sc, SIllumParams &ip);
     void AffectReflMap(ShadeContext &sc, SIllumParams &ip, Color &rcol) { rcol *= ip.spec; };
     void SetShininess(float shininess, float shineStr) {
-        fs = (float)pow(2.0,shininess*10.0);
+        fs = (float)pow(2.0, shininess*10.0);
         shin_str = shineStr;
     }
     float EvalHilite(float x) {
-        return shin_str*(float)pow((double)cos(x*M_PI),(double)fs);
+        return shin_str*(float)pow((double)cos(x*M_PI), (double)fs);
     }
 };
 
@@ -112,11 +112,11 @@ public:
     void Illum(ShadeContext &sc, SIllumParams &ip);
     void AffectReflMap(ShadeContext &sc, SIllumParams &ip, Color &rcol) { rcol *= ip.spec; };
     void SetShininess(float shininess, float shineStr) {
-        fs = (float)pow(2.0,shininess*10.0);
+        fs = (float)pow(2.0, shininess*10.0);
         shin_str = shineStr;
     }
     float EvalHilite(float x) {
-        return shin_str*(float)pow((double)cos(x*M_PI),(double)fs);
+        return shin_str*(float)pow((double)cos(x*M_PI), (double)fs);
     }
 };
 
@@ -144,11 +144,11 @@ public:
     void Illum(ShadeContext &sc, SIllumParams &ip);
     void AffectReflMap(ShadeContext &sc, SIllumParams &ip, Color &rcol) { rcol *= ip.spec; };
     void SetShininess(float shininess, float shineStr) {
-        fs = (float)pow(2.0,shininess*10.0);
+        fs = (float)pow(2.0, shininess*10.0);
         shin_str = shineStr;
     }
     float EvalHilite(float x) {
-        return shin_str*(float)pow((double)cos(x*M_PI),(double)fs);
+        return shin_str*(float)pow((double)cos(x*M_PI), (double)fs);
     }
 };
 

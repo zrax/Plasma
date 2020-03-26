@@ -51,12 +51,12 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 hsVector3   plAudibleNull::GetVelocity(int index) const
 {
-    hsVector3 ret(0,0,0);
+    hsVector3 ret(0, 0, 0);
     return (ret);
 }
 hsPoint3    plAudibleNull::GetPosition(int index)
 {
-    hsPoint3 ret(0,0,0);
+    hsPoint3 ret(0, 0, 0);
     return (ret);
 }
 

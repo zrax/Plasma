@@ -73,7 +73,7 @@ const unsigned kAsyncSocketBufferSize   = 1460;
 *
 ***/
 
-#pragma pack(push,1)
+#pragma pack(push, 1)
 struct AsyncSocketConnectPacket {
     uint8_t     connType;
     uint16_t    hdrBytes;

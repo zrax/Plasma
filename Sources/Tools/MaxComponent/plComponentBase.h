@@ -165,7 +165,7 @@ public:
     int NumRefs();
     RefTargetHandle GetReference(int i);
     void SetReference(int i, RefTargetHandle rtarg);
-    RefResult NotifyRefChanged(Interval changeInt,RefTargetHandle hTarget, PartID& partID, RefMessage message);
+    RefResult NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message);
     
     // allow retreival of our paramblock from other plug-ins
     // and the max core
@@ -340,7 +340,7 @@ public:
 **
 **                  P_AUTO_UI
 **                          Indicates this block supports automatic UI rollout management in calls to
-**                          ClassDesc2::BeginEditParams(), ClassDesc2::EndEditParams(),ClassDesc2::CreateParamDlg(),
+**                          ClassDesc2::BeginEditParams(), ClassDesc2::EndEditParams(), ClassDesc2::CreateParamDlg(),
 **                          ClassDesc2::CreateParamDialog(), etc.
 **
 *8                          The <auto_ui_parammap_specs> must be supplied in the descriptor constructor.

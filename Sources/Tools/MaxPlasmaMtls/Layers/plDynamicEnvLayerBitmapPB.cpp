@@ -260,7 +260,7 @@ static ParamBlockDesc2 gBitmapParamBlk
     plDynamicEnvLayer::kBmpLastTextureSize, _T("lastTextureSize"),  TYPE_INT,       0, 0,
         end,
 
-    plDynamicEnvLayer::kBmpRefract, _T("refract"),TYPE_BOOL,        0, 0,
+    plDynamicEnvLayer::kBmpRefract, _T("refract"), TYPE_BOOL,        0, 0,
         p_ui,           TYPE_SINGLECHEKBOX, IDC_REFRACT,
         end,
 

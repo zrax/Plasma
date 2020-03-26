@@ -273,7 +273,7 @@ public:
     virtual hsVector3                   GetViewAcrossWorld() const = 0;
     virtual hsVector3                   GetViewUpWorld() const = 0;
     virtual hsVector3                   GetViewDirWorld() const = 0;
-    virtual void                        GetViewAxesWorld(hsVector3 axes[3] /* ac,up,at */) const = 0;
+    virtual void                        GetViewAxesWorld(hsVector3 axes[3] /* ac, up, at */) const = 0;
 
     virtual void                        GetFOV(float& fovX, float& fovY) const = 0;
     virtual void                        SetFOV(float fovX, float fovY) = 0;

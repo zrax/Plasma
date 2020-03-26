@@ -97,7 +97,7 @@ void plBMSampler::PlaceUVFilter(ShadeContext &sc, float &u, float &v, int iu, in
     v = (v-fData.fClipV)/fData.fClipH;
 }
 
-AColor plBMSampler::Sample(ShadeContext& sc, float u,float v)
+AColor plBMSampler::Sample(ShadeContext& sc, float u, float v)
 {
     AColor none(0.0f, 0.0f, 0.0f, 0.0f);
 
@@ -105,16 +105,16 @@ AColor plBMSampler::Sample(ShadeContext& sc, float u,float v)
         return none;
 
     BMM_Color_64 c;
-    int x,y;
-    float fu,fv, intpart;
+    int x, y;
+    float fu, fv, intpart;
     fu = std::modf(u, &intpart);
     fv = 1.0f - std::modf(v, &intpart);
     if (fData.fEnableCrop)
     {
         if (fData.fCropPlacement)
         {
-            if (!PlaceUV(sc,fu, fv, int(u), int(v)))
-                return AColor(0,0,0,0);
+            if (!PlaceUV(sc, fu, fv, int(u), int(v)))
+                return AColor(0, 0, 0, 0);
             x = (int)(fu*fbmw+0.5f);
             y = (int)(fv*fbmh+0.5f);
         }
@@ -129,7 +129,7 @@ AColor plBMSampler::Sample(ShadeContext& sc, float u,float v)
         x = (int)(fu*fbmw+0.5f);
         y = (int)(fv*fbmh+0.5f);
     }
-    fBM->GetLinearPixels(x,y,1,&c);
+    fBM->GetLinearPixels(x, y, 1, &c);
     switch (fData.fAlphaSource)
     {
     case plBMSamplerData::kDiscard:
@@ -147,7 +147,7 @@ AColor plBMSampler::Sample(ShadeContext& sc, float u,float v)
 }
 
 
-AColor plBMSampler::SampleFilter(ShadeContext& sc, float u,float v, float du, float dv)
+AColor plBMSampler::SampleFilter(ShadeContext& sc, float u, float v, float du, float dv)
 {
     AColor none(0.0f, 0.0f, 0.0f, 0.0f);
 
@@ -164,7 +164,7 @@ AColor plBMSampler::SampleFilter(ShadeContext& sc, float u,float v, float du, fl
     {
         if (fData.fCropPlacement)
         {
-            PlaceUVFilter(sc,fu, fv, int(u), int(v));
+            PlaceUVFilter(sc, fu, fv, int(u), int(v));
             du /= fData.fClipW;
             dv /= fData.fClipH;
             float du2 = 0.5f*du;
@@ -180,7 +180,7 @@ AColor plBMSampler::SampleFilter(ShadeContext& sc, float u,float v, float du, fl
             if (ub>1.0f) { ub=1.0f; clip = 1; }
             if (va<0.0f) { va=0.0f; clip = 1; }
             if (vb>1.0f) { vb=1.0f; clip = 1; }
-            fBM->GetFiltered(fu,fv,du,dv,&c);
+            fBM->GetFiltered(fu, fv, du, dv, &c);
             switch (fData.fAlphaSource)
             {
             case plBMSamplerData::kDiscard:
@@ -204,11 +204,11 @@ AColor plBMSampler::SampleFilter(ShadeContext& sc, float u,float v, float du, fl
             fv = (fData.fClipV + fData.fClipH*fv);
             du *= fData.fClipW;
             dv *= fData.fClipH;
-            fBM->GetFiltered(fu,fv,du,dv,&c);
+            fBM->GetFiltered(fu, fv, du, dv, &c);
         }
     }
     else
-        fBM->GetFiltered(fu,fv,du,dv,&c);
+        fBM->GetFiltered(fu, fv, du, dv, &c);
 
     switch (fData.fAlphaSource)
     {

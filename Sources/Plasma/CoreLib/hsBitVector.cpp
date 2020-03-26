@@ -115,14 +115,14 @@ void hsBitVector::Read(hsStream* s)
 {
     Reset();
 
-    s->LogReadLE(&fNumBitVectors,"NumBitVectors");
+    s->LogReadLE(&fNumBitVectors, "NumBitVectors");
     if (fNumBitVectors)
     {
         delete [] fBitVectors;
         fBitVectors = new uint32_t[fNumBitVectors];
         int i;
         for (i = 0; i < fNumBitVectors; i++)
-            s->LogReadLE(&fBitVectors[i],"BitVector");
+            s->LogReadLE(&fBitVectors[i], "BitVector");
     }
 }
 

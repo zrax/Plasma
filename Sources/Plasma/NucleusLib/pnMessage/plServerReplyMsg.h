@@ -74,7 +74,7 @@ public:
     bool GetWasDelayed() const { return fWasDelayed; }
 
     plServerReplyMsg() : fType(kUnInit), fWasDelayed(false) { }
-    plServerReplyMsg(const plKey &s, const plKey &r, const double* t) : plMessage(s,r,t), fType(kUnInit), fWasDelayed(false) { }
+    plServerReplyMsg(const plKey &s, const plKey &r, const double* t) : plMessage(s, r, t), fType(kUnInit), fWasDelayed(false) { }
 
     CLASSNAME_REGISTER(plServerReplyMsg);
     GETINTERFACE_ANY(plServerReplyMsg, plMessage);

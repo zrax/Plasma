@@ -138,7 +138,7 @@ public:
 
     plClientRefMsg(): fType(-1), fWhich(-1) {};
 
-    plClientRefMsg(const plKey &r, uint8_t refMsgFlags, int8_t which , int8_t type)
+    plClientRefMsg(const plKey &r, uint8_t refMsgFlags, int8_t which, int8_t type)
         : plRefMsg(r, refMsgFlags), fType(type), fWhich(which) {}
 
 

@@ -375,7 +375,7 @@ void plInputInterfaceMgr::ForceCursorHidden(bool requestedState)
         fForceCursorHiddenCount--;
 
 // this happens way too often to leave in
-//      hsAssert(fForceCursorHiddenCount>=0,"ForceCursorHidded: unhiding more times than hidden");
+//      hsAssert(fForceCursorHiddenCount>=0, "ForceCursorHidded: unhiding more times than hidden");
 
 #define OnlyHideCursorOnLast
 #ifdef OnlyHideCursorOnLast

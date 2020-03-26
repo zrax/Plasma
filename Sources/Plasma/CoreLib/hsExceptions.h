@@ -88,13 +88,13 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////////
 
-#define hsThrow(a) { hsAssert(0,#a); throw a; }
+#define hsThrow(a) { hsAssert(0, #a); throw a; }
 
 inline void hsThrowIfNilParam(const void* p)
 {
     if (p == nil)
     {
-        hsAssert(0,"hsNilParamException");
+        hsAssert(0, "hsNilParamException");
         throw hsNilParamException();
     }
 }
@@ -103,7 +103,7 @@ inline void hsThrowIfBadParam(bool trueIfBadParam)
 {
     if (trueIfBadParam)
     {
-        hsAssert(0,"hsBadParamException");
+        hsAssert(0, "hsBadParamException");
         throw hsBadParamException();
     }
 }
@@ -112,7 +112,7 @@ inline void hsThrowIfOSErr(long osErr)
 {
     if (osErr != 0)
     {
-        hsAssert(0,"hsOSException");
+        hsAssert(0, "hsOSException");
         throw hsOSException(osErr);
     }
 }
@@ -121,7 +121,7 @@ inline void hsThrowIfTrue(bool condition)
 {
     if (condition)
     {
-        hsAssert(0,"hsThrowIfTrue");
+        hsAssert(0, "hsThrowIfTrue");
         throw hsInternalException();
     }
 }
@@ -130,7 +130,7 @@ inline void hsThrowIfFalse(bool condition)
 {
     if (condition == false)
     {
-        hsAssert(0,"hsThrowIfFalse");
+        hsAssert(0, "hsThrowIfFalse");
         throw hsInternalException();
     }
 }
@@ -139,7 +139,7 @@ inline void hsThrowIfTrue(bool condition, const char message[])
 {
     if (condition)
     {
-        hsAssert(0,message);
+        hsAssert(0, message);
         throw message;
     }
 }
@@ -148,7 +148,7 @@ inline void hsThrowIfFalse(bool condition, const char message[])
 {
     if (condition == false)
     {
-        hsAssert(0,message);
+        hsAssert(0, message);
         throw message;
     }
 }

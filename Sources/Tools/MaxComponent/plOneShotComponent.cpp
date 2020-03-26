@@ -92,7 +92,7 @@ public:
     // of properties on the MaxNode, as it's still indeterminant.
     bool SetupProperties(plMaxNode *node, plErrorMsg *pErrMsg);
     bool PreConvert(plMaxNode *node, plErrorMsg *pErrMsg);
-    bool Convert(plMaxNode* node,plErrorMsg *pErrMsg);
+    bool Convert(plMaxNode* node, plErrorMsg *pErrMsg);
 
     plKey GetOneShotKey(plMaxNode *node);
 

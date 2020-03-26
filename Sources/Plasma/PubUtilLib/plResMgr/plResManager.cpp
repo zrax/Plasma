@@ -113,7 +113,7 @@ plResManager::plResManager():
 plResManager::~plResManager()
 {
     // verify shutDown
-    hsAssert(!fInited,"ResMgr not shutdown");
+    hsAssert(!fInited, "ResMgr not shutdown");
 }
 
 bool plResManager::IInit()
@@ -622,7 +622,7 @@ bool plResManager::AddViaNotify(const plKey &key, plRefMsg* msg, plRefFlags::Typ
         return false;
     }
 
-    ((plKeyImp*)key)->SetupNotify(msg,flags);
+    ((plKeyImp*)key)->SetupNotify(msg, flags);
     
     if (flags != plRefFlags::kPassiveRef)
     {
@@ -709,7 +709,7 @@ plKey plResManager::ReadKeyNotifyMe(hsStream* stream, plRefMsg* msg, plRefFlags:
         return nil;
     }
 
-    ((plKeyImp*)key)->SetupNotify(msg,flags);
+    ((plKeyImp*)key)->SetupNotify(msg, flags);
 
     hsKeyedObject* ko = key->ObjectIsLoaded();
 

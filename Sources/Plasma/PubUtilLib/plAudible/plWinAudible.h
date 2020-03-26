@@ -82,28 +82,28 @@ public:
     void        Stop(int index = -1);
     void        FastForwardPlay(int index = -1);
     void        FastForwardToggle(int index = -1);
-    void        SetMin(const float m,int index = -1); // sets minimum falloff distance
-    void        SetMax(const float m,int index = -1); // sets maximum falloff distance
+    void        SetMin(const float m, int index = -1); // sets minimum falloff distance
+    void        SetMax(const float m, int index = -1); // sets maximum falloff distance
     void        SetPosition(const hsPoint3 p, int index = -1);
     float    GetMin(int index = -1) const;
     float    GetMax(int index = -1) const;
-    virtual void SetVelocity(const hsVector3 vel,int index = -1);
+    virtual void SetVelocity(const hsVector3 vel, int index = -1);
     hsVector3   GetVelocity(int index = -1) const;
     hsPoint3    GetPosition(int index = -1);
-    void        SetLooping(bool loop,int index = -1); // sets continuous loop or stops looping
+    void        SetLooping(bool loop, int index = -1); // sets continuous loop or stops looping
     bool        IsPlaying(int index = -1);
     void        SetTime(double t, int index = -1);
-    void        SetOuterVol(const int v,int index = -1); // volume for the outer cone (if applicable)
-    void        SetConeAngles(int inner, int outer,int index = -1);
+    void        SetOuterVol(const int v, int index = -1); // volume for the outer cone (if applicable)
+    void        SetConeAngles(int inner, int outer, int index = -1);
     void        RemoveCallbacks(plSoundMsg* pMsg);
     void        AddCallbacks(plSoundMsg* pMsg);
-    bool        AddSound(plSound *pSnd, int index,bool is3D);
+    bool        AddSound(plSound *pSnd, int index, bool is3D);
     int         AddSoundFromResource(plSound *pSnd, void* addr, int32_t size, bool is3D);
     virtual void        GetStatus(plSoundMsg* pMsg);
     virtual int         GetNumSounds() const { return fSoundObjs.Count(); }
     virtual plSound*    GetSound(int i) const;
     virtual int         GetSoundIndex(const char *keyname) const;
-    virtual void        SetVolume(const float volume,int index = -1);
+    virtual void        SetVolume(const float volume, int index = -1);
     virtual void        SetMuted(bool muted, int index = -1);
     virtual void        ToggleMuted(int index = -1);
     virtual void        SetTalkIcon(int index, uint32_t str) { }
@@ -153,7 +153,7 @@ public:
     virtual void PlayNetworkedSpeech(const char* addr, int32_t size, int numFrames, unsigned char flags);
     
     virtual plAudible& SetTransform(const hsMatrix44& l2w, const hsMatrix44& w2l, int index = -1);
-    virtual void SetVelocity(const hsVector3 vel,int index = -1);
+    virtual void SetVelocity(const hsVector3 vel, int index = -1);
     virtual void SetTalkIcon(int index, uint32_t str);
     virtual void ClearTalkIcon();
 

@@ -62,10 +62,10 @@ enum QuatPart
 void hsEuler::GetQuat(hsQuat* qu)
 {
     double a[3], ti, tj, th, ci, cj, ch, si, sj, sh, cc, cs, sc, ss;
-    int i,j,k,h,n,s,f;
+    int i, j, k, h, n, s, f;
 
     hsEuler ea=*this;   // copy
-    EulGetOrd(ea.fOrder,i,j,k,h,n,s,f);
+    EulGetOrd(ea.fOrder, i, j, k, h, n, s, f);
     if (f==EulFrmR)
     {
         float t = ea.fX; ea.fX = ea.fZ; ea.fZ = t;
@@ -103,10 +103,10 @@ void hsEuler::GetQuat(hsQuat* qu)
 void hsEuler::GetMatrix44(hsMatrix44* mat)
 {
     double ti, tj, th, ci, cj, ch, si, sj, sh, cc, cs, sc, ss;
-    int i,j,k,h,n,s,f;
+    int i, j, k, h, n, s, f;
 
     hsEuler ea=*this;   // copy
-    EulGetOrd(ea.fOrder,i,j,k,h,n,s,f);
+    EulGetOrd(ea.fOrder, i, j, k, h, n, s, f);
     if (f==EulFrmR)
     {
         float t = ea.fX; ea.fX = ea.fZ; ea.fZ = t;
@@ -156,9 +156,9 @@ void hsEuler::GetMatrix44(hsMatrix44* mat)
 //
 void hsEuler::SetFromMatrix44(const hsMatrix44* mat, uint32_t order)
 {
-    int i,j,k,h,n,s,f;
+    int i, j, k, h, n, s, f;
 
-    EulGetOrd(order,i,j,k,h,n,s,f);
+    EulGetOrd(order, i, j, k, h, n, s, f);
     if (s==EulRepYes)
     {
         double sy = sqrt(mat->fMap[i][j]*mat->fMap[i][j] + mat->fMap[i][k]*mat->fMap[i][k]);

@@ -970,7 +970,7 @@ void plClothingOutfit::IUpdate()
     DirtySynchState(kSDLClothing, 0);
     
     plArmatureMod * avMod = plAvatarMgr::GetInstance()->GetLocalAvatar();
-    hsAssert(avMod,"plArmatureMod not found for local player");
+    hsAssert(avMod, "plArmatureMod not found for local player");
     if (avMod->GetClothingOutfit()==this)
     {
         // Let the GUI know we changed clothes

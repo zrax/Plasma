@@ -80,7 +80,7 @@ public:
         kAgeTimeOfDay,  // float which is automatically set to the current age time of day (0-1)
         
         // the following are a vector of floats
-        kVector3=50,// atomicCount=3
+        kVector3=50, // atomicCount=3
         kPoint3,    // atomicCount=3
         kRGB,       // atomicCount=3
         kRGBA,      // atomicCount=4

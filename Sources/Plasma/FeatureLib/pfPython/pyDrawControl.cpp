@@ -63,7 +63,7 @@ void pyDrawControl::SetGamma2(float gamma)
 {
 #ifndef BUILDING_PYPLASMA
     char command[256];
-    sprintf(command,"Graphics.Renderer.Gamma2 %f",gamma);
+    sprintf(command, "Graphics.Renderer.Gamma2 %f", gamma);
     // create message to send to the console
     plControlEventMsg* pMsg = new plControlEventMsg;
     pMsg->SetBCastFlag(plMessage::kBCastByType);

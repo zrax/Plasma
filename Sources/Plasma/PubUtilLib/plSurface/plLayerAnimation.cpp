@@ -326,7 +326,7 @@ void plLayerAnimation::Read(hsStream* s, hsResMgr* mgr)
                                     // the anim resetting to start now.
         fTimeConvert.SetCurrentAnimTime(0, true);
     }
-    Eval(hsTimer::GetSysSeconds(),0,0);
+    Eval(hsTimer::GetSysSeconds(), 0, 0);
 
     // add sdl modifier
     delete fLayerSDLMod;
@@ -412,7 +412,7 @@ void plLayerAnimation::DefaultAnimation()
     IMakeUniformLength();
     fTimeConvert.SetBegin(0);
     fTimeConvert.SetEnd(fLength);
-    fTimeConvert.SetLoopPoints(0,fLength);
+    fTimeConvert.SetLoopPoints(0, fLength);
     fTimeConvert.Loop();
     fTimeConvert.Start();
 }

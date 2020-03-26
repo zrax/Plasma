@@ -6660,7 +6660,7 @@ void plDXPipeline::ISetBumpMatrices(const plLayerInterface* layer, const plSpan*
 
 
     hsPoint3 spanPos = span->fWorldBounds.GetCenter();
-    hsVector3 liDir(0,0,0);
+    hsVector3 liDir(0, 0, 0);
     int i;
     const hsTArray<plLightInfo*>& spanLights = span->GetLightList(false);
     float maxStrength = 0;
@@ -8076,25 +8076,25 @@ D3DXMATRIX&     plDXPipeline::IMatrix44ToD3DMatrix(D3DXMATRIX& dst, const hsMatr
     }
     else
     {
-        dst(0,0) = src.fMap[0][0];
-        dst(1,0) = src.fMap[0][1];
-        dst(2,0) = src.fMap[0][2];
-        dst(3,0) = src.fMap[0][3];
+        dst(0, 0) = src.fMap[0][0];
+        dst(1, 0) = src.fMap[0][1];
+        dst(2, 0) = src.fMap[0][2];
+        dst(3, 0) = src.fMap[0][3];
 
-        dst(0,1) = src.fMap[1][0];
-        dst(1,1) = src.fMap[1][1];
-        dst(2,1) = src.fMap[1][2];
-        dst(3,1) = src.fMap[1][3];
+        dst(0, 1) = src.fMap[1][0];
+        dst(1, 1) = src.fMap[1][1];
+        dst(2, 1) = src.fMap[1][2];
+        dst(3, 1) = src.fMap[1][3];
 
-        dst(0,2) = src.fMap[2][0];
-        dst(1,2) = src.fMap[2][1];
-        dst(2,2) = src.fMap[2][2];
-        dst(3,2) = src.fMap[2][3];
+        dst(0, 2) = src.fMap[2][0];
+        dst(1, 2) = src.fMap[2][1];
+        dst(2, 2) = src.fMap[2][2];
+        dst(3, 2) = src.fMap[2][3];
 
-        dst(0,3) = src.fMap[3][0];
-        dst(1,3) = src.fMap[3][1];
-        dst(2,3) = src.fMap[3][2];
-        dst(3,3) = src.fMap[3][3];
+        dst(0, 3) = src.fMap[3][0];
+        dst(1, 3) = src.fMap[3][1];
+        dst(2, 3) = src.fMap[3][2];
+        dst(3, 3) = src.fMap[3][3];
     }
 
     return dst;
@@ -8726,7 +8726,7 @@ bool plDXPipeline::CheckResources()
 // a new age.
 void plDXPipeline::LoadResources()
 {
-    hsStatusMessageF("Begin Device Reload t=%f",hsTimer::GetSeconds());
+    hsStatusMessageF("Begin Device Reload t=%f", hsTimer::GetSeconds());
     plNetClientApp::StaticDebugMsg("Begin Device Reload");
 
     // Just to be safe.
@@ -8784,7 +8784,7 @@ void plDXPipeline::LoadResources()
 
     plProfile_IncCount(PipeReload, 1);
 
-    hsStatusMessageF("End Device Reload t=%f",hsTimer::GetSeconds());
+    hsStatusMessageF("End Device Reload t=%f", hsTimer::GetSeconds());
     plNetClientApp::StaticDebugMsg("End Device Reload");
 }
 
@@ -9970,11 +9970,11 @@ void    plDXPipeline::IDrawPlate(plPlate *plate)
     IMatrix44ToD3DMatrix(mat, plate->GetTransform());
     fD3DDevice->SetTransform(D3DTS_WORLD, &mat);
     mat = d3dIdentityMatrix;
-    mat(1,1) = -1.0f;
-    mat(2,2) = 2.0f;
-    mat(2,3) = 1.0f;
-    mat(3,2) = -2.0f;
-    mat(3,3) = 0.0f;
+    mat(1, 1) = -1.0f;
+    mat(2, 2) = 2.0f;
+    mat(2, 3) = 1.0f;
+    mat(3, 2) = -2.0f;
+    mat(3, 3) = 0.0f;
 
     IPushPiggyBacks(material);
 
@@ -10526,7 +10526,7 @@ void plDXPipeline::IRenderBlurFromShadowMap(plRenderTarget* scratchRT, plRenderT
     fD3DDevice->SetTextureStageState(nSamplesPerPass, D3DTSS_COLOROP, D3DTOP_DISABLE);
     fD3DDevice->SetTextureStageState(nSamplesPerPass, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
 
-    // N offsets are { (-1,-1), (1, -1), (1, 1), (-1, 1) } * offsetScale / size, with
+    // N offsets are { (-1, -1), (1, -1), (1, 1), (-1, 1) } * offsetScale / size, with
     // useful offsetScales probably going from 0.5 to 1.5, but we'll just have
     // to experiment and see. Larger values likely to require more than the current
     // 4 samples
@@ -10557,8 +10557,8 @@ void plDXPipeline::IRenderBlurFromShadowMap(plRenderTarget* scratchRT, plRenderT
         for (j = 0; j < nSamplesPerPass; j++)
         {
             D3DXMATRIX offXfm = d3dIdentityMatrix;
-            offXfm(2,0) = offsets[iSample].fU * offsetScale.fU;
-            offXfm(2,1) = offsets[iSample].fV * offsetScale.fV;
+            offXfm(2, 0) = offsets[iSample].fU * offsetScale.fU;
+            offXfm(2, 1) = offsets[iSample].fV * offsetScale.fV;
             fD3DDevice->SetTransform(sTextureStages[j], &offXfm);
             fLayerTransform[j] = true;
             
@@ -10742,8 +10742,8 @@ bool plDXPipeline::ICreateBlurVBuffers()
         if (which < 0)
             continue;
 
-        // positions are { (-0.5,-0.5,0,1), (w-0.5,-0.5,0,1), (w-0.5,h-0.5,0,1), (-0.5,h-0.5,0,1) }
-        // UVs are { (0,0), (1,0), (1,1), (0,1) }
+        // positions are { (-0.5, -0.5, 0, 1), (w-0.5, -0.5, 0, 1), (w-0.5, h-0.5, 0, 1), (-0.5, h-0.5, 0, 1) }
+        // UVs are { (0, 0), (1, 0), (1, 1), (0, 1) }
         // So we won't have to bother with indices, we'll put them in as
         // p1, p2, p0, p3 and render tristrip
 

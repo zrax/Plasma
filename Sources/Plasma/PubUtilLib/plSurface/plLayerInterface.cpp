@@ -331,7 +331,7 @@ void plLayerInterface::Read(hsStream* s, hsResMgr* mgr)
     plSynchedObject::Read(s, mgr);
 
     plLayRefMsg* refMsg = new plLayRefMsg(GetKey(), plRefMsg::kOnCreate, 0, plLayRefMsg::kUnderLay);
-    plKey key = mgr->ReadKeyNotifyMe(s,refMsg, plRefFlags::kActiveRef);
+    plKey key = mgr->ReadKeyNotifyMe(s, refMsg, plRefFlags::kActiveRef);
     if (key && !fUnderLay)
         Attach(plLayer::DefaultLayer());
 

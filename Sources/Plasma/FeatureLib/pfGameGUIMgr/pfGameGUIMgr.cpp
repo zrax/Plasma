@@ -236,7 +236,7 @@ void    pfGameGUIMgr::IAddDlgToList(hsKeyedObject *obj)
             {
                 if (strcmp(fDialogToSetKeyOf[i]->GetName(), mod->GetName()) == 0)
                 {
-                    SetDialogToNotify(mod,fDialogToSetKeyOf[i]->GetKey());
+                    SetDialogToNotify(mod, fDialogToSetKeyOf[i]->GetKey());
                     // now remove this entry... we did it
                     delete fDialogToSetKeyOf[i];
                     fDialogToSetKeyOf.Remove(i);
@@ -323,7 +323,7 @@ void    pfGameGUIMgr::LoadDialog(const char *name, plKey recvrKey, const char *a
         }
         if (!alreadyLoaded)
         {
-            pfDialogNameSetKey* pDNSK = new pfDialogNameSetKey(name,recvrKey);
+            pfDialogNameSetKey* pDNSK = new pfDialogNameSetKey(name, recvrKey);
             fDialogToSetKeyOf.Append(pDNSK);
         }
     }

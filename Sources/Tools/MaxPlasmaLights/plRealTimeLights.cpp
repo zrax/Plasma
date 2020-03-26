@@ -162,7 +162,7 @@ static LightDlgProc gLiteDlgProc;
 #define COS_45 0.7071067f
 #define COS_45_2X 1.4142136f
 
-static float stepFactor[] = {50.0f,80.0f,140.0f};
+static float stepFactor[] = {50.0f, 80.0f, 140.0f};
 #define MAXSTEPS 1000
 
 
@@ -173,10 +173,10 @@ BaseObjLight::BaseObjLight(INode *n) : ObjLightDesc(n)
     gl = (os.obj->GetInterface(I_MAXSCRIPTPLUGIN) != NULL) ? (plRTLightBase*)os.obj->GetReference(0) : (plRTLightBase*)os.obj;  // JBW 4/7/99
 }
 
-static Color blackCol(0,0,0);
+static Color blackCol(0, 0, 0);
 
 int BaseObjLight::Update(TimeValue t, const RendContext& rc, RenderGlobalContext * rgc, BOOL shadows, BOOL shadowGeomChanged) {
-    ObjLightDesc::Update(t,rc,rgc,shadows,shadowGeomChanged);
+    ObjLightDesc::Update(t, rc, rgc, shadows, shadowGeomChanged);
     intensCol = ls.intens*ls.color*rc.GlobalLightLevel();
     ObjectState os = inode->EvalWorldState(t);
     plRTLightBase* lob = (plRTLightBase *)os.obj;
@@ -222,11 +222,11 @@ int OmniLight::UpdateViewDepParams(const Matrix3& worldToCam) {
 
 static Point3 MapToDir(Point3 p, int k) {
     switch (k) {
-        case 0: return Point3( p.z, p.y, -p.x); // +X
-        case 1: return Point3(-p.z, p.y,  p.x); // -X
-        case 2: return Point3( p.x, p.z, -p.y); // +Y
-        case 3: return Point3( p.x,-p.z,  p.y); // -Y
-        case 4: return Point3(-p.x, p.y, -p.z); // +Z
+        case 0: return Point3( p.z,  p.y, -p.x); // +X
+        case 1: return Point3(-p.z,  p.y,  p.x); // -X
+        case 2: return Point3( p.x,  p.z, -p.y); // +Y
+        case 3: return Point3( p.x, -p.z,  p.y); // -Y
+        case 4: return Point3(-p.x,  p.y, -p.z); // +Z
         case 5: return p;                        // -Z
         }
     return p;
@@ -252,7 +252,7 @@ static int WhichDir(Point3 &p) {
 int OmniLight::Update(TimeValue t, const RendContext & rc,
         RenderGlobalContext *rgc, BOOL shadows, BOOL shadowGeomChanged)
 {
-    BaseObjLight::Update(t,rc,rgc,shadows,shadowGeomChanged);
+    BaseObjLight::Update(t, rc, rgc, shadows, shadowGeomChanged);
 
     ObjectState os = inode->EvalWorldState(t);
     LightObject* lob = (LightObject *)os.obj;
@@ -269,7 +269,7 @@ int OmniLight::Update(TimeValue t, const RendContext & rc,
     //projector =  gl->GetProjector();
     //if (projector) {
     //  projMap = gl->GetProjMap();
-    //  if (projMap) projMap->Update(t,FOREVER);
+    //  if (projMap) projMap->Update(t, FOREVER);
     //}
 
     return res;
@@ -295,7 +295,7 @@ SpotLight::SpotLight(INode *inode, BOOL forceShadowBuf):BaseObjLight(inode)
 int SpotLight::Update(TimeValue t, const RendContext &rc, RenderGlobalContext *rgc, BOOL shadows, BOOL shadowGeomChanged)
 {
     int res = 1;
-    BaseObjLight::Update(t,rc,rgc,shadows, shadowGeomChanged);
+    BaseObjLight::Update(t, rc, rgc, shadows, shadowGeomChanged);
 
     float hs = DegToRad(ls.hotsize);
     float fs = DegToRad(ls.fallsize);
@@ -335,7 +335,7 @@ int SpotLight::Update(TimeValue t, const RendContext &rc, RenderGlobalContext *r
     Interval v;
     if (projector) {
         projMap = gl->GetProjMap();
-        if (projMap) projMap->Update(t,v);
+        if (projMap) projMap->Update(t, v);
     }
 
     return res;
@@ -366,7 +366,7 @@ int DirLight::Update(TimeValue t, const RendContext &rc,
         RenderGlobalContext *rgc, BOOL shadows, BOOL shadowGeomChanged)
 {
     int res = 1;
-    BaseObjLight::Update(t,rc,rgc,shadows,shadowGeomChanged);
+    BaseObjLight::Update(t, rc, rgc, shadows, shadowGeomChanged);
     hotsz = ls.hotsize;
     fallsz = ls.fallsize;
     fallsq = fallsz*fallsz;
@@ -384,7 +384,7 @@ int DirLight::Update(TimeValue t, const RendContext &rc,
 
     //if (projector) {
     //      projMap = gl->GetProjMap();
-    //      if (projMap) projMap->Update(t,FOREVER);
+    //      if (projMap) projMap->Update(t, FOREVER);
     //  }
     return res;
 };
@@ -418,7 +418,7 @@ plRTOmniLight::plRTOmniLight()
     fClassDesc = plRTOmniLightDesc::GetDesc();
     fClassDesc->MakeAutoParamBlocks(this);
 
-    fLightPB->SetValue(kLightColor, 0,  Color(255,255,255));
+    fLightPB->SetValue(kLightColor, 0,  Color(255, 255, 255));
     SetHSVColor(0, Point3(255, 255, 255));
     
     fTex = NULL;
@@ -593,7 +593,7 @@ plRTSpotLight::plRTSpotLight()
     fClassDesc = plRTSpotLightDesc::GetDesc();
     fClassDesc->MakeAutoParamBlocks(this);
 
-    fLightPB->SetValue(kLightColor, 0,  Color(255,255,255));
+    fLightPB->SetValue(kLightColor, 0,  Color(255, 255, 255));
     SetHSVColor(0, Point3(255, 255, 255));
     
     fTex = NULL;
@@ -622,7 +622,7 @@ Texmap  *plRTSpotLight::GetProjMap()
     if (!fLightPB->GetInt(kUseProjectorBool))
         return nil;
 
-    Interval valid = Interval(0,0);
+    Interval valid = Interval(0, 0);
     if (!GetTex())
     {
         if (fLightPB->GetInt(kUseProjectorBool))
@@ -799,7 +799,7 @@ plRTDirLight::plRTDirLight()
     fClassDesc = plRTDirLightDesc::GetDesc();
     fClassDesc->MakeAutoParamBlocks(this);
 
-    fLightPB->SetValue(kLightColor, 0,  Color(255,255,255));
+    fLightPB->SetValue(kLightColor, 0,  Color(255, 255, 255));
     SetHSVColor(0, Point3(255, 255, 255));
     
     fTex = NULL;

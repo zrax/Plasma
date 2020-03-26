@@ -98,8 +98,8 @@ class plMaxNodeTab : public Tab<plMaxNode*>
 class plMaxNode : public plMaxNodeBase
 {
 public:
-    bool DoRecur(PMaxNodeFunc p,plErrorMsg *, plConvertSettings *, plExportProgressBar*);
-    bool DoAllRecur(PMaxNodeFunc p,plErrorMsg *, plConvertSettings *, plExportProgressBar*);
+    bool DoRecur(PMaxNodeFunc p, plErrorMsg *, plConvertSettings *, plExportProgressBar*);
+    bool DoAllRecur(PMaxNodeFunc p, plErrorMsg *, plConvertSettings *, plExportProgressBar*);
 
     // DoRecur takes one of the following functions
     bool ConvertValidate              (plErrorMsg *, plConvertSettings *);
@@ -202,7 +202,7 @@ protected:
     void            IGetRTLightColors(plLightInfo* liInfo, IParamBlock2* ProperPB);
     void            IGetRTLightAttenuation(plOmniLightInfo* liInfo, IParamBlock2* ProperPB);
     // RunTime Light animation builders
-    bool            IGetRTLightAttenValues(IParamBlock2* ProperPB, float& attenConst, float& attenLinear, float& attenQuadratic,float &attenCutoff);
+    bool            IGetRTLightAttenValues(IParamBlock2* ProperPB, float& attenConst, float& attenLinear, float& attenQuadratic, float &attenCutoff);
     void            IAdjustRTColorByIntensity(plController* ctl, IParamBlock2* ProperPB);
     bool            IAttachRTLightModifier(plLightModifier* liMod);
 

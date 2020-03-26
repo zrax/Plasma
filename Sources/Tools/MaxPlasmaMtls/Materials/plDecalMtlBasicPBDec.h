@@ -70,7 +70,7 @@ protected:
         LoadLockButtons();
 
         ICustButton *iBut = GetICustButton(hButton);
-        iBut->SetImage(hLockButtons,0,1,0,1,16,15);
+        iBut->SetImage(hLockButtons, 0, 1, 0, 1, 16, 15);
         iBut->SetType(CBT_CHECK);
         ReleaseICustButton(iBut);
     }
@@ -101,7 +101,7 @@ static DecalBasicDlgProc gDecalBasicDlgProc;
 
 static ParamBlockDesc2 gDecalBasicPB
 (
-    plDecalMtl::kBlkBasic, _T("basic"), IDS_PASS_BASIC, GetDecalMtlDesc(),//NULL,
+    plDecalMtl::kBlkBasic, _T("basic"), IDS_PASS_BASIC, GetDecalMtlDesc(), //NULL,
     P_AUTO_CONSTRUCT + P_AUTO_UI, plDecalMtl::kRefBasic,
 
     // UI
@@ -118,13 +118,13 @@ static ParamBlockDesc2 gDecalBasicPB
         end,
     kDecalBasColor,     _T("color"),        TYPE_RGBA,          P_ANIMATABLE, IDS_BASIC_COLOR,
         p_ui,           TYPE_COLORSWATCH, IDC_LAYER_COLOR,
-        p_default,      Color(1,1,1),
+        p_default,      Color(1, 1, 1),
         p_accessor,     &basicAccessor,
         end,
 
     kDecalBasRunColor,      _T("runtimeColor"),     TYPE_RGBA,          P_ANIMATABLE, IDS_BASIC_RUNCOLOR,
         p_ui,           TYPE_COLORSWATCH, IDC_LAYER_RUNCOLOR,
-        p_default,      Color(1,1,1),
+        p_default,      Color(1, 1, 1),
         p_accessor,     &basicAccessor,
         end,
     kDecalBasDiffuseLock,   _T("diffuseLock"),  TYPE_BOOL,          0, 0,
@@ -155,7 +155,7 @@ static ParamBlockDesc2 gDecalBasicPB
         end,
     kDecalBasSpecColor, _T("specularColor"),        TYPE_RGBA,          P_ANIMATABLE, IDS_BASIC_SPECCOLOR,
         p_ui,           TYPE_COLORSWATCH, IDC_LAYER_SPECCOLOR,
-        p_default,      Color(0,0,0),
+        p_default,      Color(0, 0, 0),
         end,
 
     // OBSOLETE--here so we can upgrade it to color if necessary

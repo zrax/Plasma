@@ -81,8 +81,8 @@ fResetAnimOnPop(false),
 fInSubLastUpdate(false),
 fUpdateBrainTarget(false)
 {
-    fFrom.Set(0,0,0);
-    fAt.Set(0,1,0);
+    fFrom.Set(0, 0, 0);
+    fAt.Set(0, 1, 0);
 }
 
 
@@ -499,7 +499,7 @@ void plCameraModifier1::SetTransform(hsPoint3 at)
         return;
     hsMatrix44 l2w;
     hsMatrix44 w2l;
-    hsVector3 up(0,0,1);
+    hsVector3 up(0, 0, 1);
     l2w.Make(&fFrom, &at, &up);
     l2w.GetInverse(&w2l);
     IGetTargetCoordinateInterface(0)->SetTransform(l2w, w2l);

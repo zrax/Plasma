@@ -112,10 +112,10 @@ void plSocket::SetSocket(SOCKET sck)
             Close();
         fSocket = sck;
         if (fTimeoutsSet & kRecvTimeoutSet)
-            setsockopt(fSocket, SOL_SOCKET, (int)SO_RCVTIMEO,(const char*)&fRecvTimeOut,sizeof(fRecvTimeOut));
+            setsockopt(fSocket, SOL_SOCKET, (int)SO_RCVTIMEO, (const char*)&fRecvTimeOut, sizeof(fRecvTimeOut));
 
         if (fTimeoutsSet & kSendTimeoutSet)
-            setsockopt(fSocket, SOL_SOCKET, (int)SO_SNDTIMEO,(const char*)&fSendTimeOut,sizeof(fSendTimeOut));
+            setsockopt(fSocket, SOL_SOCKET, (int)SO_SNDTIMEO, (const char*)&fSendTimeOut, sizeof(fSendTimeOut));
 
         IGetTimeOutsFromSocket();
     }
@@ -137,11 +137,11 @@ void plSocket::SetBlocking(bool value)
 #ifdef BSDBLOCK
 // NOTE: Bsd does this a little differently, using fcntl()
 #error "BSDBLOCK: This code needs to be verified right now. Don't assume it will work at all."
-    int flags = fcntl(fSocket,F_GETFL,val);
+    int flags = fcntl(fSocket, F_GETFL, val);
     flags = flags |O_NONBLOCK;
-    fcntl(fSocket,F_SETFL,flags);
+    fcntl(fSocket, F_SETFL, flags);
 #else
-    plNet::Ioctl(fSocket,FIONBIO,&val);
+    plNet::Ioctl(fSocket, FIONBIO, &val);
 #endif
 }
 
@@ -151,7 +151,7 @@ bool plSocket::IsBlocking()
 #ifdef BSDBLOCK
 #error "BSDBLOCK: TODO: IsBlocking() for bsd."
 #else
-    int ans = plNet::Ioctl(fSocket,FIONBIO,nullptr);
+    int ans = plNet::Ioctl(fSocket, FIONBIO, nullptr);
     return (ans!=0);
 #endif
 }
@@ -170,7 +170,7 @@ int plSocket::SetSendTimeOut(unsigned int milliSecs/* =0 */)
 
     if (fSocket != kBadSocket)
     {
-        if (setsockopt(fSocket, SOL_SOCKET, (int)SO_SNDTIMEO,(const char*)&fSendTimeOut,sizeof(fSendTimeOut)) != 0)
+        if (setsockopt(fSocket, SOL_SOCKET, (int)SO_SNDTIMEO, (const char*)&fSendTimeOut, sizeof(fSendTimeOut)) != 0)
             return -1;
     }
 
@@ -184,7 +184,7 @@ int plSocket::SetRecvTimeOut(unsigned int milliSecs/* =0 */)
 
     if (fSocket != kBadSocket)
     {
-        if (setsockopt(fSocket, SOL_SOCKET, (int)SO_RCVTIMEO,(const char*)&fRecvTimeOut,sizeof(fRecvTimeOut)) != 0)
+        if (setsockopt(fSocket, SOL_SOCKET, (int)SO_RCVTIMEO, (const char*)&fRecvTimeOut, sizeof(fRecvTimeOut)) != 0)
             return -1;
     }
 
@@ -199,10 +199,10 @@ int plSocket::IGetTimeOutsFromSocket()
     {
         socklen_t sizeval;
         sizeval = sizeof(rtimeoutval);
-        if (getsockopt(fSocket, SOL_SOCKET, (int)SO_RCVTIMEO,(char*)&rtimeoutval,&sizeval) != 0)
+        if (getsockopt(fSocket, SOL_SOCKET, (int)SO_RCVTIMEO, (char*)&rtimeoutval, &sizeval) != 0)
             return -1;
         sizeval = sizeof(stimeoutval);
-        if (getsockopt(fSocket, SOL_SOCKET, (int)SO_SNDTIMEO,(char*)&stimeoutval,&sizeval) != 0)
+        if (getsockopt(fSocket, SOL_SOCKET, (int)SO_SNDTIMEO, (char*)&stimeoutval, &sizeval) != 0)
             return -1;
         fRecvTimeOut = rtimeoutval;
         fSendTimeOut = stimeoutval;

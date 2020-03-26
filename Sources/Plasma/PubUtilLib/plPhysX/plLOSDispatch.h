@@ -49,7 +49,7 @@ struct hsMatrix44;
     to the appropriate solvers, which can vary depending on such
     criteria as which subworld the player is currently in.
     Eventually we will have more variants of requests, such as
-    "search all subworlds," etc.  */
+    "search all subworlds", etc.  */
 class plLOSDispatch : public hsKeyedObject
 {
 public:

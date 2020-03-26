@@ -95,7 +95,7 @@ plVoiceRecorder::plVoiceRecorder()
 
     plPlateManager::Instance().CreatePlate(&fTalkIcon);
     fTalkIcon->CreateFromResource(TALKING);
-    fTalkIcon->SetPosition(-0.9,-0.9);
+    fTalkIcon->SetPosition(-0.9, -0.9);
     fTalkIcon->SetSize(0.064, 0.064, true);
     fTalkIcon->SetVisible(false);
 }
@@ -134,7 +134,7 @@ void plVoiceRecorder::IncreaseRecordingThreshhold()
     plDebugText &txt = plDebugText::Instance();
     char str[256];
     sprintf(str, "RecordThreshhold %f\n", fRecordThreshhold);
-    txt.DrawString(400,300,str);
+    txt.DrawString(400, 300, str);
 }
 
 void plVoiceRecorder::DecreaseRecordingThreshhold()
@@ -146,7 +146,7 @@ void plVoiceRecorder::DecreaseRecordingThreshhold()
     plDebugText &txt = plDebugText::Instance();
     char str[256];
     sprintf(str, "RecordThreshhold %f\n", fRecordThreshhold);
-    txt.DrawString(400,300,str);
+    txt.DrawString(400, 300, str);
 }
 
 void plVoiceRecorder::SetSampleRate(uint32_t rate)
@@ -245,7 +245,7 @@ void plVoiceRecorder::DrawTalkIcon(bool b)
         plPlateManager::Instance().CreatePlate(&fTalkIcon);
         if (fTalkIcon) {
             fTalkIcon->CreateFromResource(TALKING);
-            fTalkIcon->SetPosition(-0.9,-0.9);
+            fTalkIcon->SetPosition(-0.9, -0.9);
             fTalkIcon->SetSize(0.064, 0.064, true);
             fTalkIcon->SetVisible(false);
         }

@@ -312,7 +312,7 @@ void plClusterGroup::SetVisible(bool visible)
     {
         plDrawableSpans *drawable = plDrawableSpans::ConvertNoRef(fDrawable->ObjectIsLoaded());
         if (drawable)
-            drawable->SetProperty(0,!visible); // property 0 is the disable drawing property
+            drawable->SetProperty(0, !visible); // property 0 is the disable drawing property
     }
 }
 

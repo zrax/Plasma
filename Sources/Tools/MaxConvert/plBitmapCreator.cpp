@@ -309,7 +309,7 @@ int plBitmapCreator::IResampBitmap(Bitmap *bm, plMipmap &hBitmap)
 #endif // COLOR_BLACK_WHITE
     hBitmap.fFlags &= ~(plMipmap::kAlphaBitFlag | plMipmap::kAlphaChannelFlag);
 
-    int y,x;
+    int y, x;
     float scaleY, scaleX;
     hsRGBAColor32  *dstColor;
     dstColor = (hsRGBAColor32*)hBitmap.fImage;
@@ -331,12 +331,12 @@ int plBitmapCreator::IResampBitmap(Bitmap *bm, plMipmap &hBitmap)
             iy = (int)t;
             fracY = t-iy;
 
-            int ret = storage->GetPixels(ix,iy,1,&c64_00);
+            int ret = storage->GetPixels(ix, iy, 1, &c64_00);
 // FIXME
 //          fErrorMsg->Set(ret == 0, "ResampBitmap", "Failure getting pixels %dX%d", x, y).Check();
-            ret = storage->GetPixels(ix+1,iy,1,&c64_10);
-            ret = storage->GetPixels(ix,iy+1,1,&c64_01);
-            ret = storage->GetPixels(ix+1,iy+1,1,&c64_11);
+            ret = storage->GetPixels(ix+1, iy, 1, &c64_10);
+            ret = storage->GetPixels(ix, iy+1, 1, &c64_01);
+            ret = storage->GetPixels(ix+1, iy+1, 1, &c64_11);
 
             dstColor->r = (unsigned char)(255.0 / 65535.0
                 * ( c64_00.r * (1.f - fracX) * (1.f - fracY)
@@ -403,7 +403,7 @@ int plBitmapCreator::ICopyBitmap(Bitmap *bm, plMipmap &hBitmap)
 #endif // COLOR_BLACK_WHITE
     hBitmap.fFlags &= ~(plMipmap::kAlphaBitFlag | plMipmap::kAlphaChannelFlag);
 
-    int y,x;
+    int y, x;
     hsRGBAColor32  *dstColor;
     dstColor = (hsRGBAColor32*)hBitmap.fImage;
 
@@ -412,7 +412,7 @@ int plBitmapCreator::ICopyBitmap(Bitmap *bm, plMipmap &hBitmap)
         for (x = 0; x < hBitmap.fWidth; x++)
         {
             BMM_Color_64 c64;
-            int ret = storage->GetPixels(x,y,1,&c64);
+            int ret = storage->GetPixels(x, y, 1, &c64);
 // FIXME
 //          fErrorMsg->Set(ret == 0, "CopyBitmap", "Failure getting pixels %dX%d", x, y).Check();
 

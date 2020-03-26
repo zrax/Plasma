@@ -77,7 +77,7 @@ void plExportProgressBar::Start(char *name, uint32_t steps)
     fInterface->ProgressEnd();
     fInterface->ProgressStart(name, TRUE, ProgressDummyFunc, nil);
    
-   GUP* exportServerGup = OpenGupPlugIn(Class_ID(470000004,99));
+   GUP* exportServerGup = OpenGupPlugIn(Class_ID(470000004, 99));
    if (exportServerGup && name)
    {
       exportServerGup->Control(-3); // means next control will be progress task
@@ -91,7 +91,7 @@ bool plExportProgressBar::Update(char *name, uint32_t inc)
 
    // Check to see if we are running an export server
    // If so, then pass the update on to the export server
-   GUP* exportServerGup = OpenGupPlugIn(Class_ID(470000004,99));
+   GUP* exportServerGup = OpenGupPlugIn(Class_ID(470000004, 99));
    if (exportServerGup)
    {
       exportServerGup->Control(-2);  // means next control will be progress pct

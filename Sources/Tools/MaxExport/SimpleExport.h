@@ -69,7 +69,7 @@ public:
     const TCHAR *   OtherMessage2();            // Other message #2
     unsigned int    Version();                  // Version number * 100 (i.e. v3.01 = 301)
     void            ShowAbout(HWND hWnd);       // Show DLL's "About..." box
-    virtual int     DoExport(const TCHAR *name,ExpInterface *ei,Interface *i, BOOL suppressPrompts=FALSE, DWORD options=0);
+    virtual int     DoExport(const TCHAR *name, ExpInterface *ei, Interface *i, BOOL suppressPrompts=FALSE, DWORD options=0);
 
     const char*         GetName()                   { return fName; }
 

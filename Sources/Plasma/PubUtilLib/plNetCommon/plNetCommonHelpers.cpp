@@ -68,7 +68,7 @@ void plNetCoreStatsSummary::Read(hsStream* s, hsResMgr*)
 {
     uint8_t streamVer;
     s->ReadLE(&streamVer);
-    hsAssert(streamVer==StreamVersion,"plNetCoreStatsSummary invalid stream version.");
+    hsAssert(streamVer==StreamVersion, "plNetCoreStatsSummary invalid stream version.");
     s->ReadLE(&fULBitsPS);
     s->ReadLE(&fDLBitsPS);
     s->ReadLE(&fULPeakBitsPS);
@@ -141,7 +141,7 @@ void plCreatableListHelper::RemoveItem(uint16_t id, bool unManageItem)
     plCreatable * item = GetItem(id);
     if (!item)
         return;
-    std::vector<plCreatable*>::iterator ii = std::find(fManagedItems.begin(),fManagedItems.end(), item);
+    std::vector<plCreatable*>::iterator ii = std::find(fManagedItems.begin(), fManagedItems.end(), item);
     if (ii!=fManagedItems.end())
     {
         if (!unManageItem)
@@ -153,12 +153,12 @@ void plCreatableListHelper::RemoveItem(uint16_t id, bool unManageItem)
 
 plCreatable * plCreatableListHelper::GetItem(uint16_t id, bool unManageItem/*=false */) const
 {
-    std::map<uint16_t,plCreatable*>::const_iterator it=fItems.find(id);
+    std::map<uint16_t, plCreatable*>::const_iterator it=fItems.find(id);
     if (it!=fItems.end())
     {
         if (unManageItem)
         {
-            std::vector<plCreatable*>::iterator ii = std::find(fManagedItems.begin(),fManagedItems.end(), it->second);
+            std::vector<plCreatable*>::iterator ii = std::find(fManagedItems.begin(), fManagedItems.end(), it->second);
             if (ii!=fManagedItems.end())
                 fManagedItems.erase(ii);
         }
@@ -267,7 +267,7 @@ void plCreatableListHelper::Read(hsStream* s, hsResMgr* mgr)
         ram.ReadLE(&id);
         ram.ReadLE(&classIdx);
         plCreatable * object = plFactory::Create(classIdx);
-        hsAssert(object,"plCreatableListHelper: Failed to create plCreatable object (invalid class index?)");
+        hsAssert(object, "plCreatableListHelper: Failed to create plCreatable object (invalid class index?)");
         if (object)
         {
             fManagedItems.push_back(object);
@@ -285,7 +285,7 @@ void plCreatableListHelper::Write(hsStream* s, hsResMgr* mgr)
         hsRAMStream ram;
         uint16_t nItems = fItems.size();
         ram.WriteLE(nItems);
-        for (std::map<uint16_t,plCreatable*>::iterator ii=fItems.begin(); ii!=fItems.end(); ++ii)
+        for (std::map<uint16_t, plCreatable*>::iterator ii=fItems.begin(); ii!=fItems.end(); ++ii)
         {
             uint16_t id = ii->first;
             plCreatable * item = ii->second;
@@ -347,15 +347,15 @@ void plCreatableListHelper::Write(hsStream* s, hsResMgr* mgr)
 
 void plCreatableListHelper::GetItemsAsVec(std::vector<plCreatable*>& out)
 {
-    for (std::map<uint16_t,plCreatable*>::iterator ii=fItems.begin(); ii!=fItems.end(); ++ii)
+    for (std::map<uint16_t, plCreatable*>::iterator ii=fItems.begin(); ii!=fItems.end(); ++ii)
     {
         out.push_back(ii->second);
     }
 }
 
-void plCreatableListHelper::GetItems(std::map<uint16_t,plCreatable*>& out)
+void plCreatableListHelper::GetItems(std::map<uint16_t, plCreatable*>& out)
 {
-    for (std::map<uint16_t,plCreatable*>::iterator ii=fItems.begin(); ii!=fItems.end(); ++ii)
+    for (std::map<uint16_t, plCreatable*>::iterator ii=fItems.begin(); ii!=fItems.end(); ++ii)
     {
         out[ii->first] = ii->second;
     }

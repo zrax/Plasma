@@ -78,7 +78,7 @@ public:
    
    // read and write to hsStream
    void Write(hsStream *s) const { fId.Write(s); s->WriteLE(fFlags); }
-   void Read(hsStream *s) { fId.Read(s); s->LogReadLE(&fFlags,"GroupId Flags"); }
+   void Read(hsStream *s) { fId.Read(s); s->LogReadLE(&fFlags, "GroupId Flags"); }
 };
 
 namespace plNetGroup

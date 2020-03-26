@@ -56,9 +56,9 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 *
 ***/
 
-#define PRIORITY_TIME(class)            TPriorityTime< class >
+#define PRIORITY_TIME(class)            TPriorityTime<class>
 
-#define PRIQDECL(class,priority,field)  TPriorityQueueDecl< class,priority,offsetof(class,field) >
+#define PRIQDECL(class, priority, field) TPriorityQueueDecl<class, priority, offsetof(class, field)>
 
 
 /****************************************************************************
@@ -111,30 +111,30 @@ private:
     int m_linkOffset;
     TArray<C *> m_array;
 
-    friend class TBasePriority<C,P>;
+    friend class TBasePriority<C, P>;
 };
 
 //===========================================================================
 template<class C, class P>
-inline C * const & TPriorityQueue<C,P>::operator[] (unsigned index) const {
+inline C * const & TPriorityQueue<C, P>::operator[] (unsigned index) const {
     return m_array[index];
 }
 
 //===========================================================================
 template<class C, class P>
-inline TPriorityQueue<C,P>::TPriorityQueue () :
+inline TPriorityQueue<C, P>::TPriorityQueue () :
     m_linkOffset(LINK_OFFSET_UNINIT) {
 }
 
 //===========================================================================
 template<class C, class P>
-inline TPriorityQueue<C,P>::~TPriorityQueue () {
+inline TPriorityQueue<C, P>::~TPriorityQueue () {
     UnlinkAll();
 }
 
 //===========================================================================
 template<class C, class P>
-inline void TPriorityQueue<C,P>::Clear () {
+inline void TPriorityQueue<C, P>::Clear () {
 
     // Deleting an object could cause other objects in the queue to be deleted
     // so we can't make any assumptions about indices or counts of items in the array
@@ -146,17 +146,17 @@ inline void TPriorityQueue<C,P>::Clear () {
 
 //===========================================================================
 template<class C, class P>
-inline unsigned TPriorityQueue<C,P>::Count () const {
+inline unsigned TPriorityQueue<C, P>::Count () const {
     return m_array.Count();
 }
 
 //===========================================================================
 template<class C, class P>
-C * TPriorityQueue<C,P>::Delete (C * object) {
+C * TPriorityQueue<C, P>::Delete (C * object) {
 
     // get the object's priority queue and position
     P * priority = Priority(object);
-    const TPriorityQueue<C,P> * queue = priority->GetLink();
+    const TPriorityQueue<C, P> * queue = priority->GetLink();
     unsigned index = priority->GetIndex();
 
     // delete the object
@@ -172,7 +172,7 @@ C * TPriorityQueue<C,P>::Delete (C * object) {
 
 //===========================================================================
 template<class C, class P>
-C * TPriorityQueue<C,P>::Dequeue () {
+C * TPriorityQueue<C, P>::Dequeue () {
     if (!m_array.Count())
         return nil;
     C * value = m_array[0];
@@ -182,7 +182,7 @@ C * TPriorityQueue<C,P>::Dequeue () {
 
 //===========================================================================
 template<class C, class P>
-void TPriorityQueue<C,P>::Enqueue (C * object) {
+void TPriorityQueue<C, P>::Enqueue (C * object) {
     P * priority = Priority(object);
 
     // Verify that the object is not already linked into a priority queue.
@@ -210,45 +210,45 @@ void TPriorityQueue<C,P>::Enqueue (C * object) {
 
 //===========================================================================
 template<class C, class P>
-inline unsigned TPriorityQueue<C,P>::IndexChild (unsigned index) const {
+inline unsigned TPriorityQueue<C, P>::IndexChild (unsigned index) const {
     return (index << 1) + 1;
 }
 
 //===========================================================================
 template<class C, class P>
-inline unsigned TPriorityQueue<C,P>::IndexParent (unsigned index) const {
+inline unsigned TPriorityQueue<C, P>::IndexParent (unsigned index) const {
     return (index - 1) >> 1;
 }
 
 //===========================================================================
 template<class C, class P>
-inline void TPriorityQueue<C,P>::Link (unsigned index) {
+inline void TPriorityQueue<C, P>::Link (unsigned index) {
     Priority(m_array[index])->Link(this, index);
 }
 
 //===========================================================================
 template<class C, class P>
-inline P * TPriorityQueue<C,P>::Priority (C * object) {
+inline P * TPriorityQueue<C, P>::Priority (C * object) {
     ASSERT(m_linkOffset != LINK_OFFSET_UNINIT);
     return (P *)((uint8_t *)object + m_linkOffset);
 }
 
 //===========================================================================
 template<class C, class P>
-inline P const * TPriorityQueue<C,P>::Priority (C const * object) const {
+inline P const * TPriorityQueue<C, P>::Priority (C const * object) const {
     ASSERT(m_linkOffset != LINK_OFFSET_UNINIT);
     return (P const *)((uint8_t const *)object + m_linkOffset);
 }
 
 //===========================================================================
 template<class C, class P>
-inline C * const * TPriorityQueue<C,P>::Ptr () const {
+inline C * const * TPriorityQueue<C, P>::Ptr () const {
     return m_array.Ptr();
 }
 
 //===========================================================================
 template<class C, class P>
-void TPriorityQueue<C,P>::Remove (unsigned index) {
+void TPriorityQueue<C, P>::Remove (unsigned index) {
 
     // reset the priority link fields
     Unlink(index);
@@ -303,32 +303,32 @@ void TPriorityQueue<C,P>::Remove (unsigned index) {
 
 //===========================================================================
 template<class C, class P>
-inline C * TPriorityQueue<C,P>::Root () const {
+inline C * TPriorityQueue<C, P>::Root () const {
     return m_array.Count() ? m_array[0] : nil;
 }
 
 //===========================================================================
 template<class C, class P>
-inline void TPriorityQueue<C,P>::SetLinkOffset (int offset) {
+inline void TPriorityQueue<C, P>::SetLinkOffset (int offset) {
     ASSERT(m_linkOffset == LINK_OFFSET_UNINIT);
     m_linkOffset = offset;
 }
 
 //===========================================================================
 template<class C, class P>
-inline C * const * TPriorityQueue<C,P>::Term () const {
+inline C * const * TPriorityQueue<C, P>::Term () const {
     return m_array.Term();
 }
 
 //===========================================================================
 template<class C, class P>
-inline void TPriorityQueue<C,P>::Unlink (unsigned index) {
+inline void TPriorityQueue<C, P>::Unlink (unsigned index) {
     Priority(m_array[index])->Link(nil, 0);
 }
 
 //===========================================================================
 template<class C, class P>
-inline void TPriorityQueue<C,P>::UnlinkAll () {
+inline void TPriorityQueue<C, P>::UnlinkAll () {
     for (unsigned loop = m_array.Count(); loop--; )
         Unlink(loop);
     m_array.ZeroCount();
@@ -342,7 +342,7 @@ inline void TPriorityQueue<C,P>::UnlinkAll () {
 ***/
 
 template<class C, class P, int linkOffset>
-class TPriorityQueueDecl : public TPriorityQueue<C,P> {
+class TPriorityQueueDecl : public TPriorityQueue<C, P> {
 public:
     TPriorityQueueDecl () { this->SetLinkOffset(linkOffset); }
 };
@@ -372,30 +372,30 @@ protected:
     void Relink ();
 
 private:
-    void Link (TPriorityQueue<C,P> * queue, unsigned index);
-    const TPriorityQueue<C,P> * GetLink () const { return m_queue; }
+    void Link (TPriorityQueue<C, P> * queue, unsigned index);
+    const TPriorityQueue<C, P> * GetLink () const { return m_queue; }
     unsigned GetIndex () const { return m_index; }
 
 private:
-    TPriorityQueue<C,P> * m_queue;
+    TPriorityQueue<C, P> * m_queue;
     unsigned              m_index;
 
-    friend class TPriorityQueue<C,P>;
+    friend class TPriorityQueue<C, P>;
 };
 
 //===========================================================================
 template<class C, class P>
-inline void TBasePriority<C,P>::Link (TPriorityQueue<C,P> * queue, unsigned index) {
+inline void TBasePriority<C, P>::Link (TPriorityQueue<C, P> * queue, unsigned index) {
     m_queue = queue;
     m_index = index;
 }
 
 //===========================================================================
 template<class C, class P>
-void TBasePriority<C,P>::Relink () {
+void TBasePriority<C, P>::Relink () {
 
     // cache m_queue, since m_queue->Remove() will set it to nil
-    TPriorityQueue<C,P> * queue = m_queue;
+    TPriorityQueue<C, P> * queue = m_queue;
     if (!queue)
         return;
     C * object = (*queue)[m_index];

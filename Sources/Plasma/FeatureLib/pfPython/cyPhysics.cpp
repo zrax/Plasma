@@ -317,7 +317,7 @@ void cyPhysics::Move(pyVector3& direction, float distance)
                     // else just use the coordinate interface
                     hsMatrix44 w2l;
                     target_matrix.GetInverse(&w2l);
-                    obj->SetTransform(target_matrix,w2l);
+                    obj->SetTransform(target_matrix, w2l);
                 }
             }
             else
@@ -387,7 +387,7 @@ void cyPhysics::Rotate(float rad, pyVector3& axis)
                     // else just use the coordinate interface
                     hsMatrix44 w2l;
                     target_matrix.GetInverse(&w2l);
-                    obj->SetTransform(target_matrix,w2l);
+                    obj->SetTransform(target_matrix, w2l);
                 }
             }
             else

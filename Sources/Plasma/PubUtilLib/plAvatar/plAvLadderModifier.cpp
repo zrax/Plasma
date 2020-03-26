@@ -87,7 +87,7 @@ plAvLadderMod::plAvLadderMod()
   fLoops(0),
   fEnabled(true),
   fAvatarInBox(false),
-  fLadderView(0,0,0),
+  fLadderView(0, 0, 0),
   fAvatarMounting(false)
 {
     fTarget = nil;

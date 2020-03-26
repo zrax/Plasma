@@ -152,10 +152,10 @@ class plRTProjDirLight : public plRTLightBase
 
         // To get using-light-as-camera-viewport to work
         virtual int             GetSpotShape() { return RECT_LIGHT; }
-        virtual float           GetAspect(TimeValue t, Interval &valid = Interval(0,0));
-        virtual float           GetFallsize(TimeValue t, Interval &valid = Interval(0,0));
+        virtual float           GetAspect(TimeValue t, Interval &valid = Interval(0, 0));
+        virtual float           GetFallsize(TimeValue t, Interval &valid = Interval(0, 0));
         virtual int             Type() { return DIR_LIGHT; }
-        virtual float           GetTDist(TimeValue t, Interval &valid = Interval(0,0));
+        virtual float           GetTDist(TimeValue t, Interval &valid = Interval(0, 0));
         virtual void            SetFallsize(TimeValue time, float f);
 
         RefResult               EvalLightState(TimeValue t, Interval& valid, LightState *ls);

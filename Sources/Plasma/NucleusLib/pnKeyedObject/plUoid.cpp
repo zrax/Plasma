@@ -174,10 +174,10 @@ void plUoid::Read(hsStream* s)
     // conditional cloneIDs read
     if (contents & kHasCloneIDs)
     {
-        s->LogReadLE(&fCloneID ,"CloneID");
+        s->LogReadLE(&fCloneID, "CloneID");
         uint16_t dummy;
         s->LogReadLE(&dummy, "dummy"); // To avoid breaking format
-        s->LogReadLE(&fClonePlayerID ,"ClonePlayerID");
+        s->LogReadLE(&fClonePlayerID, "ClonePlayerID");
     }
     else
     {

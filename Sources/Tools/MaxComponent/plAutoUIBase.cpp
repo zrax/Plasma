@@ -270,7 +270,7 @@ void plAutoUIBase::AddPickGUIDialogButton(int16_t id, const char *scriptName, co
     fDesc->AddParam(id, scriptNameNew, TYPE_INODE, 0, 0,
         end,
         end);
-    plAutoUIParam* param = new plPickSingleComponentButtonParam(id, name,plAutoUIParam::kTypeGUIDialog,GUI_DIALOG_COMP_CLASS_ID);
+    plAutoUIParam* param = new plPickSingleComponentButtonParam(id, name, plAutoUIParam::kTypeGUIDialog, GUI_DIALOG_COMP_CLASS_ID);
     param->SetVisInfo(vid, vstates);
     fParams.push_back(param);
 }
@@ -378,7 +378,7 @@ void plAutoUIBase::AddPickGUIPopUpMenuButton(int16_t id, const char *scriptName,
     fDesc->AddParam(id, scriptNameNew, TYPE_INODE, 0, 0,
         end,
         end);
-    plAutoUIParam* param = new plPickSingleComponentButtonParam(id, name,plAutoUIParam::kTypeGUIPopUpMenu,GUI_MENUANCHOR_CLASSID);
+    plAutoUIParam* param = new plPickSingleComponentButtonParam(id, name, plAutoUIParam::kTypeGUIPopUpMenu, GUI_MENUANCHOR_CLASSID);
     param->SetVisInfo(vid, vstates);
     fParams.push_back(param);
 }
@@ -390,7 +390,7 @@ void plAutoUIBase::AddPickGUISkinButton(int16_t id, const char *scriptName, cons
     fDesc->AddParam(id, scriptNameNew, TYPE_INODE, 0, 0,
         end,
         end);
-    plAutoUIParam* param = new plPickSingleComponentButtonParam(id, name,plAutoUIParam::kTypeGUISkin,GUI_SKIN_CLASSID);
+    plAutoUIParam* param = new plPickSingleComponentButtonParam(id, name, plAutoUIParam::kTypeGUISkin, GUI_SKIN_CLASSID);
     param->SetVisInfo(vid, vstates);
     fParams.push_back(param);
 }

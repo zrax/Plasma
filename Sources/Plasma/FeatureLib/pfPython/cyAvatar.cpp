@@ -268,7 +268,7 @@ void cyAvatar::RunBehavior(pyKey &behKey, bool netForce, bool netProp)
             // need to recreate all the events in the new message by Adding them
             if (fRecvr.Count() > 0 && fRecvr[0] != nil)
             {
-                pNMsg->AddPickEvent((plKey)fRecvr[0], nil, true, hsPoint3(0,0,0));
+                pNMsg->AddPickEvent((plKey)fRecvr[0], nil, true, hsPoint3(0, 0, 0));
             }
 
             // add receivers
@@ -322,7 +322,7 @@ void cyAvatar::RunBehaviorAndReply(pyKey& behKey, pyKey& replyKey, bool netForce
         // need to recreate all the events in the new message by Adding them
         if (fRecvr.Count() > 0 && fRecvr[0] != nil)
         {
-            pNMsg->AddPickEvent((plKey)fRecvr[0], nil, true, hsPoint3(0,0,0));
+            pNMsg->AddPickEvent((plKey)fRecvr[0], nil, true, hsPoint3(0, 0, 0));
         }
 
         // add receivers
@@ -553,7 +553,7 @@ void cyAvatar::Seek(pyKey &seekKey, float duration, bool usePhysics)
     {
         // create message
         plAvSeekMsg* pMsg = new plAvSeekMsg(
-            (plKey)fSender,nil, seekKey.getKey(),duration,usePhysics);
+            (plKey)fSender, nil, seekKey.getKey(), duration, usePhysics);
 
         // check if this needs to be network forced to all clients
         if (fNetForce)
@@ -813,7 +813,7 @@ std::vector<PyObject*> cyAvatar::GetWardrobeClothingList()
 //
 //  PURPOSE    : To add a clothing item to the avatar's wardrobe (closet)
 //
-void cyAvatar::AddWardrobeClothingItem(const ST::string& clothing_name,pyColor& tint1,pyColor& tint2)
+void cyAvatar::AddWardrobeClothingItem(const ST::string& clothing_name, pyColor& tint1, pyColor& tint2)
 {
     plClothingItem *item = plClothingMgr::GetClothingMgr()->FindItemByName(clothing_name);
     if (item)
@@ -1014,7 +1014,7 @@ PyObject* cyAvatar::GetMatchingClothingItem(const ST::string& clothing_name)
 //
 bool cyAvatar::WearClothingItem(const ST::string& clothing_name)
 {
-    return WearClothingItemU(clothing_name,true);
+    return WearClothingItemU(clothing_name, true);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1027,7 +1027,7 @@ bool cyAvatar::WearClothingItem(const ST::string& clothing_name)
 //
 bool cyAvatar::RemoveClothingItem(const ST::string& clothing_name)
 {
-    return RemoveClothingItemU(clothing_name,true);
+    return RemoveClothingItemU(clothing_name, true);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1039,7 +1039,7 @@ bool cyAvatar::RemoveClothingItem(const ST::string& clothing_name)
 //
 bool cyAvatar::TintClothingItem(const ST::string& clothing_name, pyColor& tint)
 {
-    return TintClothingItemU(clothing_name,tint,true);
+    return TintClothingItemU(clothing_name, tint, true);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1053,7 +1053,7 @@ bool cyAvatar::TintClothingItem(const ST::string& clothing_name, pyColor& tint)
 //
 bool cyAvatar::TintClothingItemLayer(const ST::string& clothing_name, pyColor& tint, uint8_t layer)
 {
-    return TintClothingItemLayerU(clothing_name,tint,layer,true);
+    return TintClothingItemLayerU(clothing_name, tint, layer, true);
 }
 
 
@@ -1115,9 +1115,9 @@ bool cyAvatar::RemoveClothingItemU(const ST::string& clothing_name, bool update)
             if (avMod && item)
             {
                 if (fNetForce)
-                    avMod->GetClothingOutfit()->RemoveItem(item,update,true);
+                    avMod->GetClothingOutfit()->RemoveItem(item, update, true);
                 else
-                    avMod->GetClothingOutfit()->RemoveItem(item,update);
+                    avMod->GetClothingOutfit()->RemoveItem(item, update);
                 return true;
             }
         }
@@ -1148,7 +1148,7 @@ bool cyAvatar::TintClothingItemU(const ST::string& clothing_name, pyColor& tint,
 
             if (avMod && item)
             {
-                avMod->GetClothingOutfit()->TintItem(item, tint.getRed(),tint.getGreen(),tint.getBlue(),update,true,fNetForce,true,plClothingElement::kLayerTint1);
+                avMod->GetClothingOutfit()->TintItem(item, tint.getRed(), tint.getGreen(), tint.getBlue(), update, true, fNetForce, true, plClothingElement::kLayerTint1);
                 return true;
             }
         }
@@ -1186,7 +1186,7 @@ bool cyAvatar::TintClothingItemLayerU(const ST::string& clothing_name, pyColor& 
                     layer = plClothingElement::kLayerTint2;
                 else
                     layer = plClothingElement::kLayerTint1;
-                avMod->GetClothingOutfit()->TintItem(item, tint.getRed(),tint.getGreen(),tint.getBlue(),update,true,fNetForce,true,layer);
+                avMod->GetClothingOutfit()->TintItem(item, tint.getRed(), tint.getGreen(), tint.getBlue(), update, true, fNetForce, true, layer);
                 return true;
             }
         }
@@ -1265,7 +1265,7 @@ PyObject* cyAvatar::GetTintClothingItemL(const ST::string& clothing_name, uint8_
                     layer = plClothingElement::kLayerTint2;
                 else
                     layer = plClothingElement::kLayerTint1;
-                hsColorRGBA tint = avMod->GetClothingOutfit()->GetItemTint(item,layer);
+                hsColorRGBA tint = avMod->GetClothingOutfit()->GetItemTint(item, layer);
                 return pyColor::New(tint);
             }
         }
@@ -1286,7 +1286,7 @@ PyObject* cyAvatar::GetTintClothingItemL(const ST::string& clothing_name, uint8_
 //
 void cyAvatar::TintSkin(pyColor& tint)
 {
-    TintSkinU(tint,true);
+    TintSkinU(tint, true);
 }
 
 
@@ -1307,7 +1307,7 @@ void cyAvatar::TintSkinU(pyColor& tint, bool update)
         if (so != nil)
         {
             avMod = (plArmatureMod*)so->GetModifierByType(plArmatureMod::Index());
-            avMod->GetClothingOutfit()->TintSkin(tint.getRed(),tint.getGreen(),tint.getBlue(),update,true);
+            avMod->GetClothingOutfit()->TintSkin(tint.getRed(), tint.getGreen(), tint.getBlue(), update, true);
         }
     }
 }
@@ -1453,8 +1453,8 @@ float cyAvatar::GetMorph(const ST::string& clothing_name, uint8_t layer)
     float wgtPlus;
     float wgtMinus;
 
-    wgtPlus = seq->GetWeight(layer,0,meshKey);
-    wgtMinus = seq->GetWeight(layer,1,meshKey);
+    wgtPlus = seq->GetWeight(layer, 0, meshKey);
+    wgtMinus = seq->GetWeight(layer, 1, meshKey);
 
     if (wgtPlus > 0)
         return wgtPlus;

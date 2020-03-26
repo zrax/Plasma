@@ -71,7 +71,7 @@ plLineFollowMod::plLineFollowMod()
     fOffsetClamp(0),
     fSpeedClamp(0)
 {
-    fSearchPos.Set(0,0,0);
+    fSearchPos.Set(0, 0, 0);
 }
 
 plLineFollowMod::~plLineFollowMod()
@@ -389,7 +389,7 @@ bool plLineFollowMod::IOffsetTargetTransform(hsMatrix44& tgtXfm)
         out *= fOffset;
     }
     else
-        out.Set(0,0,0);
+        out.Set(0, 0, 0);
 
     if (fFollowFlags & kForceToLine)
     {
@@ -635,7 +635,7 @@ fCurrentTime(0.0f),
 fTargetTime(0.0f),
 fFarthest(false)
 {
-    fGoal.Set(0,0,0);
+    fGoal.Set(0, 0, 0);
 }
 
 plRailCameraMod::~plRailCameraMod()

@@ -45,7 +45,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 pyColor::pyColor(float r, float g, float b, float a)
 {
-    fColor.Set(r, g, b ,a);
+    fColor.Set(r, g, b, a);
 }
 
 pyColor::pyColor(hsColorRGBA color)

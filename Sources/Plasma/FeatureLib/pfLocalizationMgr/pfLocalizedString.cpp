@@ -182,7 +182,7 @@ void pfLocalizedString::IUpdatePlainText()
         else
         {
             // Escape special characters.
-            ss << curTextBlock.fText.replace("\\","\\\\").replace("%","\\%");
+            ss << curTextBlock.fText.replace("\\", "\\\\").replace("%", "\\%");
         }
     }
     fPlainTextRep = ss.to_string();

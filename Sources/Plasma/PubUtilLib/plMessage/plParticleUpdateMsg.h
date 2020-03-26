@@ -176,7 +176,7 @@ public:
     // Local only
     virtual void Read(hsStream *stream, hsResMgr *mgr)
     {
-        plMessage::IMsgRead(stream,mgr);
+        plMessage::IMsgRead(stream, mgr);
         fNumToKill = stream->ReadLEScalar();
         fTimeLeft = stream->ReadLEScalar();
         stream->ReadLE(&fFlags);

@@ -122,7 +122,7 @@ void plCreatableStream::Read(hsStream* stream, hsResMgr* mgr)
     fStream.Rewind();
 
     uint32_t len;
-    stream->LogReadLE(&len,"CreatableStream Len");
+    stream->LogReadLE(&len, "CreatableStream Len");
 
     uint8_t* buf = new uint8_t[len];
     stream->LogRead(len, (void*)buf, "CreatableStream Data");

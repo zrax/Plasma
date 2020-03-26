@@ -184,7 +184,7 @@ static void INetErrorCallback (
             // fmt
             "Network error %u, %S.\n"
             "protocol: %S\n"
-            ,// values
+            , // values
             error,
             NetErrorToString(error),
             NetProtocolToString(protocol)

@@ -53,7 +53,7 @@ class plNilView : public View
     
 public:
     
-    Point2 ViewToScreen(Point3 p) { return Point2(p.x,p.y); }
+    Point2 ViewToScreen(Point3 p) { return Point2(p.x, p.y); }
     
     plNilView()
     {
@@ -88,7 +88,7 @@ plRenderInstance::plRenderInstance()
     normalObjToCam.IdentityMatrix();
     camToObj.IdentityMatrix();
     obBox.Init();
-    center = Point3(0,0,0);
+    center = Point3(0, 0, 0);
     radsq = 0;
 }
 
@@ -291,7 +291,7 @@ Mtl* plRenderInstance::GetMtl(int fnum)
 
     if (TestFlag(INST_MTL_BYFACE))
     {
-        if (mtl->ClassID() != Class_ID(MULTI_CLASS_ID,0))
+        if (mtl->ClassID() != Class_ID(MULTI_CLASS_ID, 0))
             return mtl;
 
         Face* f = &mesh->faces[fnum];

@@ -133,7 +133,7 @@ void pyNotify::AddPickEvent(bool enabled, pyKey* other, pyKey* self, pyPoint3 hi
 
 void pyNotify::AddControlKeyEvent(int32_t key, bool down)
 {
-    fBuildMsg.AddControlKeyEvent(key,down);
+    fBuildMsg.AddControlKeyEvent(key, down);
 }
 
 void pyNotify::AddVarNumber(const char* name, float number)
@@ -166,7 +166,7 @@ void pyNotify::AddFacingEvent(bool enabled, pyKey* other, pyKey* self, float dot
 void pyNotify::AddContainerEvent(bool entering, pyKey* contained, pyKey* container)
 {
     fBuildMsg.AddContainerEvent(container ? container->getKey() : plKey(),
-                                    contained ? contained->getKey() : plKey() ,
+                                    contained ? contained->getKey() : plKey(),
                                     entering);
 }
 
@@ -196,7 +196,7 @@ void pyNotify::Send()
     if (fNetPropagate)
         pNMsg->SetBCastFlag(plMessage::kNetPropagate);
     else
-        pNMsg->SetBCastFlag(plMessage::kNetPropagate,false);
+        pNMsg->SetBCastFlag(plMessage::kNetPropagate, false);
     // set whether this should be forced over the network (ignoring net-cascading)
     if (fNetForce)
         pNMsg->SetBCastFlag(plMessage::kNetForce);

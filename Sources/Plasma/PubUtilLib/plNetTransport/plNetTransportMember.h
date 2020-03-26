@@ -74,9 +74,9 @@ public:
     GETINTERFACE_ANY(plNetTransportMember, plNetMember);
 
     plNetTransportMember() : fAvatarKey(nil),
-        fTransportFlags(0),fPlayerID(0),fDistSq(-1),fCCRLevel(0) {}
+        fTransportFlags(0), fPlayerID(0), fDistSq(-1), fCCRLevel(0) {}
     plNetTransportMember(plNetApp* na) : plNetMember(na),
-        fAvatarKey(nil),fTransportFlags(0),fPlayerID(0),fDistSq(-1),fCCRLevel(0) {}
+        fAvatarKey(nil), fTransportFlags(0), fPlayerID(0), fDistSq(-1), fCCRLevel(0) {}
     ~plNetTransportMember() {}
 
     void SetDistSq(float s) { fDistSq=s; }

@@ -79,9 +79,9 @@ class plTextFont
 
             plFontVertex& operator=(const int zero)
             {
-                fPoint.Set(0,0,0);
+                fPoint.Set(0, 0, 0);
                 fColor = 0;
-                fUV.Set(0,0,0);
+                fUV.Set(0, 0, 0);
 
                 return *this;
             }

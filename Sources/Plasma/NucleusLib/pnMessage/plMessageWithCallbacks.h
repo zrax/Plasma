@@ -59,7 +59,7 @@ private:
     hsTArray<plMessage*>        fCallbacks;
 public:
     plMessageWithCallbacks() {}
-    plMessageWithCallbacks(const plKey &s, const plKey &r, const double* t) : plMessage(s,r,t) {}
+    plMessageWithCallbacks(const plKey &s, const plKey &r, const double* t) : plMessage(s, r, t) {}
     ~plMessageWithCallbacks();
 
     CLASSNAME_REGISTER(plMessageWithCallbacks);

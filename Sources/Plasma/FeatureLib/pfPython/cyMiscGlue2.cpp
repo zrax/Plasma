@@ -480,7 +480,7 @@ void cyMisc::AddPlasmaMethods2(std::vector<PyMethodDef> &methods)
 void cyMisc::AddPlasmaConstantsClasses(PyObject *m)
 {
     PYTHON_ENUM_START(PtCCRPetitionType);
-    PYTHON_ENUM_ELEMENT(PtCCRPetitionType, kGeneralHelp,plNetCommon::PetitionTypes::kGeneralHelp);
+    PYTHON_ENUM_ELEMENT(PtCCRPetitionType, kGeneralHelp, plNetCommon::PetitionTypes::kGeneralHelp);
     PYTHON_ENUM_ELEMENT(PtCCRPetitionType, kBug,        plNetCommon::PetitionTypes::kBug);
     PYTHON_ENUM_ELEMENT(PtCCRPetitionType, kFeedback,   plNetCommon::PetitionTypes::kFeedback);
     PYTHON_ENUM_ELEMENT(PtCCRPetitionType, kExploit,    plNetCommon::PetitionTypes::kExploit);

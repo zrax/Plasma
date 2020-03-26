@@ -68,7 +68,7 @@ float hsScalarTriple::Magnitude() const
 void hsScalarTriple::Read(hsStream *stream)
 {
     
-    // DANGER for speed read directly into these variables...ASSUMES fX,fY, and fZ are in contiguous order (PBG)
+    // DANGER for speed read directly into these variables...ASSUMES fX, fY, and fZ are in contiguous order (PBG)
     stream->Read12Bytes(&fX);
 }
 

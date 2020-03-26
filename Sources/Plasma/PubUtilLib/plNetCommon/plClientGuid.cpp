@@ -47,13 +47,13 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 plClientGuid::plClientGuid()
 :fPlayerID(0)
-,fCCRLevel(0)
-,fFlags(0)
-,fProtectedLogin(false)
-,fBuildType(plNetCommon::BuildType::kUnknown)
-,fSrcAddr(0)
-,fSrcPort(0)
-,fReserved(false)
+, fCCRLevel(0)
+, fFlags(0)
+, fProtectedLogin(false)
+, fBuildType(plNetCommon::BuildType::kUnknown)
+, fSrcAddr(0)
+, fSrcPort(0)
+, fReserved(false)
 {
     fAccountUUID.Clear();
 }
@@ -303,33 +303,33 @@ ST::string plClientGuid::AsLogString() const
 void plClientGuid::Read(hsStream * s, hsResMgr* mgr)
 {
     s->LogSubStreamStart("push me");
-    s->LogReadLE(&fFlags,"Flags");
+    s->LogReadLE(&fFlags, "Flags");
     if (IsFlagSet(kAccountUUID))
     {
         s->LogSubStreamPushDesc("AcctUUID");
         fAccountUUID.Read(s);
     }
     if (IsFlagSet(kPlayerID))
-        s->LogReadLE(&fPlayerID,"PlayerID");
+        s->LogReadLE(&fPlayerID, "PlayerID");
     else if (IsFlagSet(kTempPlayerID))
-        s->LogReadLE(&fPlayerID,"TempPlayerID");
+        s->LogReadLE(&fPlayerID, "TempPlayerID");
     if (IsFlagSet(kPlayerName))
     {
         s->LogSubStreamPushDesc("PlayerName");
         plMsgStdStringHelper::Peek(fPlayerName, s);
     }
     if (IsFlagSet(kCCRLevel))
-        s->LogReadLE(&fCCRLevel,"CCRLevel");
+        s->LogReadLE(&fCCRLevel, "CCRLevel");
     if (IsFlagSet(kProtectedLogin))
-        s->LogReadLE(&fProtectedLogin,"ProtectedLogin");
+        s->LogReadLE(&fProtectedLogin, "ProtectedLogin");
     if (IsFlagSet(kBuildType))
-        s->LogReadLE(&fBuildType,"BuildType");
+        s->LogReadLE(&fBuildType, "BuildType");
     if (IsFlagSet(kSrcAddr))
-        s->LogReadLE(&fSrcAddr,"SrcAddr");
+        s->LogReadLE(&fSrcAddr, "SrcAddr");
     if (IsFlagSet(kSrcPort))
-        s->LogReadLE(&fSrcPort,"SrcPort");
+        s->LogReadLE(&fSrcPort, "SrcPort");
     if (IsFlagSet(kReserved))
-        s->LogReadLE(&fReserved,"Reserved");
+        s->LogReadLE(&fReserved, "Reserved");
     if (IsFlagSet(kClientKey))
     {
         s->LogSubStreamPushDesc("ClientKey");

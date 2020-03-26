@@ -150,7 +150,7 @@ inline void plCutter::ISetPosNorm(float parm, const plCutoutVtx& inVtx, const pl
 //
 // For the lower cases, we're looking for the point where Dot(pos, fDir) - fDist = 0.
 // Starting with p = outVtx + parm * (inVtx - outVtx) and Dot(p, fDir) == fDist, we get:
-// parm = (fDist - Dot(fDir,outVtx.fPos)) / (Dot(fDir, invVtx.fPos) - Dot(fDir, outVtx.fPos))
+// parm = (fDist - Dot(fDir, outVtx.fPos)) / (Dot(fDir, invVtx.fPos) - Dot(fDir, outVtx.fPos))
 //
 // UVW = Dot(fDir, fPos) - fDist
 // Dot(fDir, fPos) = UVW + fDist
@@ -1073,24 +1073,24 @@ void TestCutter(const plKey& key, const hsVector3& size, const hsPoint3& pos)
             dst[xx].fVerts.SetCount(4);
             
             dst[xx].fVerts[0].fPos = corner;
-            dst[xx].fVerts[0].fNorm.Set(0,0,1.f);
-            dst[xx].fVerts[0].fUVW.Set(0,0,0);
+            dst[xx].fVerts[0].fNorm.Set(0, 0, 1.f);
+            dst[xx].fVerts[0].fUVW.Set(0, 0, 0);
 
             dst[xx].fVerts[1].fPos = corner;
             dst[xx].fVerts[1].fPos += ax[iAx];
-            dst[xx].fVerts[1].fNorm.Set(0,0,1.f);
-            dst[xx].fVerts[1].fUVW.Set(1,0,0);
+            dst[xx].fVerts[1].fNorm.Set(0, 0, 1.f);
+            dst[xx].fVerts[1].fUVW.Set(1, 0, 0);
 
             dst[xx].fVerts[2].fPos = corner;
             dst[xx].fVerts[2].fPos += ax[iAx];
             dst[xx].fVerts[2].fPos += ax[jAx];
-            dst[xx].fVerts[2].fNorm.Set(0,0,1.f);
-            dst[xx].fVerts[2].fUVW.Set(1.f,1.f,0);
+            dst[xx].fVerts[2].fNorm.Set(0, 0, 1.f);
+            dst[xx].fVerts[2].fUVW.Set(1.f, 1.f, 0);
 
             dst[xx].fVerts[3].fPos = corner;
             dst[xx].fVerts[3].fPos += ax[jAx];
-            dst[xx].fVerts[3].fNorm.Set(0,0,1.f);
-            dst[xx].fVerts[3].fUVW.Set(0,1.f,0);
+            dst[xx].fVerts[3].fNorm.Set(0, 0, 1.f);
+            dst[xx].fVerts[3].fUVW.Set(0, 1.f, 0);
 
             iAx++;
             jAx = iAx > 1 ? 0 : iAx+1;
@@ -1108,24 +1108,24 @@ void TestCutter(const plKey& key, const hsVector3& size, const hsPoint3& pos)
             dst[xx].fVerts.SetCount(4);
             
             dst[xx].fVerts[0].fPos = corner;
-            dst[xx].fVerts[0].fNorm.Set(0,0,1.f);
-            dst[xx].fVerts[0].fUVW.Set(0,0,0);
+            dst[xx].fVerts[0].fNorm.Set(0, 0, 1.f);
+            dst[xx].fVerts[0].fUVW.Set(0, 0, 0);
 
             dst[xx].fVerts[3].fPos = corner;
             dst[xx].fVerts[3].fPos += ax[iAx];
-            dst[xx].fVerts[3].fNorm.Set(0,0,1.f);
-            dst[xx].fVerts[3].fUVW.Set(1.f,0,0);
+            dst[xx].fVerts[3].fNorm.Set(0, 0, 1.f);
+            dst[xx].fVerts[3].fUVW.Set(1.f, 0, 0);
 
             dst[xx].fVerts[2].fPos = corner;
             dst[xx].fVerts[2].fPos += ax[iAx];
             dst[xx].fVerts[2].fPos += ax[jAx];
-            dst[xx].fVerts[2].fNorm.Set(0,0,1.f);
-            dst[xx].fVerts[2].fUVW.Set(1.f,1.f,0);
+            dst[xx].fVerts[2].fNorm.Set(0, 0, 1.f);
+            dst[xx].fVerts[2].fUVW.Set(1.f, 1.f, 0);
 
             dst[xx].fVerts[1].fPos = corner;
             dst[xx].fVerts[1].fPos += ax[jAx];
-            dst[xx].fVerts[1].fNorm.Set(0,0,1.f);
-            dst[xx].fVerts[1].fUVW.Set(0,1.f,0);
+            dst[xx].fVerts[1].fNorm.Set(0, 0, 1.f);
+            dst[xx].fVerts[1].fUVW.Set(0, 1.f, 0);
 
             iAx++;
             jAx = iAx > 1 ? 0 : iAx+1;

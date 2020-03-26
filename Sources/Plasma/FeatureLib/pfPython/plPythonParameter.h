@@ -153,7 +153,7 @@ public:
                 SetToSceneObject(other.fObjectKey);
                 break;
             case kSceneObjectList:
-                SetToSceneObject(other.fObjectKey,true);
+                SetToSceneObject(other.fObjectKey, true);
                 break;
             case kActivatorList:
                 SetToActivator(other.fObjectKey);

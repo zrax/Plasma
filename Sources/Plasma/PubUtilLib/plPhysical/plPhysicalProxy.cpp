@@ -50,7 +50,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #include "plSurface/plLayer.h"
 
 plPhysicalProxy::plPhysicalProxy()
-:   plProxyGen(hsColorRGBA().Set(0,0,0,1.f), hsColorRGBA().Set(1.f,0.8f,0.2f,1.f), 0.5f),
+:   plProxyGen(hsColorRGBA().Set(0, 0, 0, 1.f), hsColorRGBA().Set(1.f, 0.8f, 0.2f, 1.f), 0.5f),
     fOwner(nil)
 {
 }
@@ -105,7 +105,7 @@ plDrawableSpans* plPhysicalProxy::ICreateProxy(hsGMaterial* mat, hsTArray<uint32
     }
     if (fController)
     {
-        return fController->CreateProxy(mat,idx,addTo);
+        return fController->CreateProxy(mat, idx, addTo);
     }
     return nil;
 }

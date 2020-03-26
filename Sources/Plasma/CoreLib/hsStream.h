@@ -96,7 +96,7 @@ public:
 
 #ifdef STREAM_LOGGER
     // Logging Reads & Skips
-    virtual uint32_t  LogRead(uint32_t byteCount, void * buffer, const char* desc) { return Read(byteCount,buffer); }
+    virtual uint32_t  LogRead(uint32_t byteCount, void * buffer, const char* desc) { return Read(byteCount, buffer); }
     virtual char*   LogReadSafeString() { return ReadSafeString(); }
     virtual char*   LogReadSafeStringLong() { return ReadSafeStringLong(); }
     virtual void    LogSkip(uint32_t deltaByteCount, const char* desc) { Skip(deltaByteCount); }
@@ -180,8 +180,8 @@ public:
     virtual void    LogReadLEArray(int count, uint32_t values[], const char* desc) { this->ReadLE(count, values); }
                 // End LogReadLEs
 #endif
-    void            WriteLE(bool value) { this->Write(1,&value); }
-    void            WriteLE(uint8_t value) { this->Write(1,&value); }
+    void            WriteLE(bool value) { this->Write(1, &value); }
+    void            WriteLE(uint8_t value) { this->Write(1, &value); }
     void            WriteLE(int count, const uint8_t values[]) { this->Write(count, values); }
     void            WriteLE(uint16_t value) { this->WriteLE16(value); }
     void            WriteLE(int count, const uint16_t values[]) { this->WriteLE16(count, values); }
@@ -209,9 +209,9 @@ public:
     virtual void    LogReadLEArray(int count, int values[], const char* desc) { this->ReadLE(count, (uint32_t*)values); }
                 // End LogReadLEs
 #endif
-    void            WriteLE(int8_t value) { this->Write(1,&value); }
+    void            WriteLE(int8_t value) { this->Write(1, &value); }
     void            WriteLE(int count, const int8_t values[]) { this->Write(count, values); }
-    void            WriteLE(char value) { this->Write(1,(uint8_t*)&value); }
+    void            WriteLE(char value) { this->Write(1, (uint8_t*)&value); }
     void            WriteLE(int count, const char values[]) { this->Write(count, (uint8_t*)values); }
     void            WriteLE(int16_t value) { this->WriteLE16((uint16_t)value); }
     void            WriteLE(int count, const int16_t values[]) { this->WriteLE16(count, (uint16_t*)values); }

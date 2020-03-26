@@ -109,7 +109,7 @@ bool plOneShotMod::MsgReceive(plMessage* msg)
         plKey myKey = GetKey();
         plKey objKey = GetTarget(0)->GetKey();
         plKey avKey = oneShotMsg->fPlayerKey;
-        hsAssert(avKey,"The avatar key is missing in the one shot!");
+        hsAssert(avKey, "The avatar key is missing in the one shot!");
 
         if (avKey)
         {

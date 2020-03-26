@@ -140,7 +140,7 @@ void plMultipassMtlDlg::SetTime(TimeValue t)
     {
         curTime = t;
         Interval v;
-        fMtl->Update(ip->GetTime(),v);
+        fMtl->Update(ip->GetTime(), v);
         LoadDialog();
         IUpdateMtlDisplay();
     }
@@ -183,7 +183,7 @@ BOOL plMultipassMtlDlg::ForwardProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM l
             return FALSE;
     }
 
-    return theDlg->LayerPanelProc(hDlg,msg,wParam,lParam);
+    return theDlg->LayerPanelProc(hDlg, msg, wParam, lParam);
 }
 
 
@@ -254,7 +254,7 @@ BOOL plMultipassMtlDlg::LayerPanelProc(HWND hDlg, UINT msg, WPARAM wParam, LPARA
             {
                 if (id == kLayerID[i].activeID)
                 {
-//                  fMtl->EnableMap(i,GetCheckBox(hwndDlg, id));
+//                  fMtl->EnableMap(i, GetCheckBox(hwndDlg, id));
                     bool checked = SendMessage(GetDlgItem(hDlg, id), BM_GETCHECK, 0, 0) == BST_CHECKED;
                     fPBlock->SetValue(kMultOn, curTime, checked, i);
                     return TRUE;

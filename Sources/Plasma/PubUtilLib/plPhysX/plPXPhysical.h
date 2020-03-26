@@ -170,7 +170,7 @@ public:
 
     virtual void SetHitForce(const hsVector3& force, const hsPoint3& pos) { fWeWereHit=true; fHitForce = force; fHitPos = pos; }
     virtual void ApplyHitForce();
-    virtual void ResetHitForce() { fWeWereHit=false; fHitForce.Set(0,0,0); fHitPos.Set(0,0,0); }
+    virtual void ResetHitForce() { fWeWereHit=false; fHitForce.Set(0, 0, 0); fHitPos.Set(0, 0, 0); }
 
     virtual void GetSyncState(hsPoint3& pos, hsQuat& rot, hsVector3& linV, hsVector3& angV);
     virtual void SetSyncState(hsPoint3* pos, hsQuat* rot, hsVector3* linV, hsVector3* angV);

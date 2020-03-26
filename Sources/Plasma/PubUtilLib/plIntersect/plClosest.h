@@ -71,7 +71,7 @@ enum plClosestClampFlags
                             uint32_t clamp);                              // Clamp on ends of segment (use Lower1/Upper1)
 
     // Return clamp flags for where clamped
-    static uint32_t PointsOnLines(const hsPoint3& p0, const hsVector3& v0,// First line
+    static uint32_t PointsOnLines(const hsPoint3& p0, const hsVector3& v0, // First line
                               const hsPoint3& p1, const hsVector3& v1,  // Second line
                               hsPoint3& cp0,                            // Output closest on line0 to line1
                               hsPoint3& cp1,                            // Output closest on line1 to line0

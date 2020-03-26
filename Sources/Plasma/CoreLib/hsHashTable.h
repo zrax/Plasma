@@ -80,8 +80,8 @@ public:
 
     typedef hsHashTableIterator<T> iterator;
 
-    iterator begin()    { return iterator(&fItemList,fItemList.Count()-1); }
-    iterator end()      { return iterator(&fItemList,0); }
+    iterator begin()    { return iterator(&fItemList, fItemList.Count()-1); }
+    iterator end()      { return iterator(&fItemList, 0); }
     void clear();
 
     uint32_t count()          { return fItemList.Count()-1; }
@@ -117,7 +117,7 @@ fCollisionCount(0)
 {
     fItemList.SetCount(1);
     fHashTable = new uint32_t[fSize];
-    memset(fHashTable,0,fSize*sizeof(uint32_t));
+    memset(fHashTable, 0, fSize*sizeof(uint32_t));
 }
 
 template <class T>
@@ -138,7 +138,7 @@ void hsHashTable<T>::clear()
 template <class T>
 void hsHashTable<T>::insert(T& item)
 {
-    hsAssert(fClearList.Count() < fSize,"Hash table overflow!  Increase the table size.");
+    hsAssert(fClearList.Count() < fSize, "Hash table overflow!  Increase the table size.");
     uint32_t h = item.GetHash();
     h %= fSize;
     while (uint32_t it = fHashTable[h])
@@ -181,7 +181,7 @@ hsHashTableIterator<T> hsHashTable<T>::find(const T& item)
     {
         if (fItemList[it] == item)
         {
-            return iterator(&fItemList,it);
+            return iterator(&fItemList, it);
         }
         h += fCollisionStep;
         h %= fSize;
@@ -193,7 +193,7 @@ hsHashTableIterator<T> hsHashTable<T>::find(const T& item)
 template <class T>
 hsHashTableIterator<T> hsHashTable<T>::GetItem(uint32_t i)
 {
-    return iterator(&fItemList,i+1);
+    return iterator(&fItemList, i+1);
 }
 
 #endif // _hsHashTable_Included_

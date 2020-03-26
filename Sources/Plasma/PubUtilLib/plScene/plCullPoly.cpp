@@ -60,7 +60,7 @@ plCullPoly& plCullPoly::InitFromVerts(uint32_t f)
     hsFastMath::Normalize(fNorm);
     fDist = -(fNorm.InnerProduct(fVerts[0]));
 
-    fCenter.Set(0,0,0);
+    fCenter.Set(0, 0, 0);
     int i;
     for (i = 0; i < fVerts.GetCount(); i++)
     {

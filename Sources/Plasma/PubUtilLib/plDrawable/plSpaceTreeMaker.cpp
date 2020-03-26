@@ -435,9 +435,9 @@ int32_t plSpaceTreeMaker::AddLeaf(const hsBounds3Ext& worldBnd, bool disable)
 #define MF_DO_3D
 
 #ifdef MF_DO_RAND
-#define MF_SETPOINT(pt,a,b,c) pt.Set(rand()/32767.f, rand()/32767.f, rand()/32767.f)
+#define MF_SETPOINT(pt, a, b, c) pt.Set(rand()/32767.f, rand()/32767.f, rand()/32767.f)
 #else // MF_DO_RAND
-#define MF_SETPOINT(pt,a,b,c) pt.Set(a,b,c)
+#define MF_SETPOINT(pt, a, b, c) pt.Set(a, b, c)
 #endif // MF_DO_RAND
 void plSpaceTreeMaker::TestTree()
 {
@@ -484,7 +484,7 @@ void plSpaceTreeMaker::TestTree()
     sphere.SetRadius(0.2);
     sphere.SetTransform(liX, invLiX);
     
-    tree->SetViewPos(*hsPoint3().Set(0,0,0));
+    tree->SetViewPos(*hsPoint3().Set(0, 0, 0));
 
     plConeIsect cone;
     cone.SetAngle(M_PI*0.25f);
@@ -663,10 +663,10 @@ int16_t plSpaceTreeMaker::IMakeSpaceTreeRecur(plSpacePrepNode* sub, plSpaceTree*
 
     if (!sub->fChildren[0])
     {
-        hsAssert(!sub->fChildren[1] , "Unsupported unbalance of tree");
+        hsAssert(!sub->fChildren[1], "Unsupported unbalance of tree");
         return nodeIdx;
     }
-    hsAssert(sub->fChildren[1] , "Unsupported unbalance of tree");
+    hsAssert(sub->fChildren[1], "Unsupported unbalance of tree");
 
     tree->fTree[nodeIdx].fChildren[0] = IMakeSpaceTreeRecur(sub->fChildren[0], tree, targetLevel, currLevel+1);
     tree->fTree[tree->fTree[nodeIdx].fChildren[0]].fParent = nodeIdx;

@@ -89,7 +89,7 @@ public:
         kShadeSoftShadow        = 0x1,          // view, dev
             kShadeNoProjectors      = 0x2,          // projector
             kShadeVertexShade       = 0x20,         // dev
-            kShadeNoShade           = 0x40,         // view,dev
+            kShadeNoShade           = 0x40,         // view, dev
             kShadeBlack             = kShadeNoShade,
             kShadeSpecular          = 0x80,         // view, dev
             kShadeNoFog             = 0x100,        // dev
@@ -104,7 +104,7 @@ public:
     enum hsMatMiscFlags {
         kMiscWireFrame          = 0x1,          // dev (running out of bits)
             kMiscDrawMeshOutlines   = 0x2,          // dev, currently unimplemented
-            kMiscTwoSided           = 0x4,          // view,dev
+            kMiscTwoSided           = 0x4,          // view, dev
             kMiscDrawAsSplats       = 0x8,          // dev? bwt
             kMiscMipMap             = 0x10,
             kMiscUseBitmap          = 0x20,

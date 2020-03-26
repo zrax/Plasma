@@ -589,7 +589,7 @@ bool plClosest::PointBetweenBoxes(const hsPoint3& aCorner,
 
 
     int tNext = 0;
-    int k,l;
+    int k, l;
     for (k = 0; k < 3; k++)
     {
         for (l = 0; l < 3; l++)

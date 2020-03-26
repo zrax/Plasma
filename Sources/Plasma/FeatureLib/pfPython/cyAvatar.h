@@ -78,7 +78,7 @@ protected:
 
 protected:
     cyAvatar() {}
-    cyAvatar(plKey sender,plKey recvr=nil);
+    cyAvatar(plKey sender, plKey recvr=nil);
 
 public:
     virtual ~cyAvatar() { }
@@ -177,7 +177,7 @@ public:
     //
     //  PURPOSE    : To add a clothing item to the avatar's wardrobe (closet)
     //
-    virtual void AddWardrobeClothingItem(const ST::string& clothing_name,pyColor& tint1,pyColor& tint2);
+    virtual void AddWardrobeClothingItem(const ST::string& clothing_name, pyColor& tint1, pyColor& tint2);
     
     
     /////////////////////////////////////////////////////////////////////////////

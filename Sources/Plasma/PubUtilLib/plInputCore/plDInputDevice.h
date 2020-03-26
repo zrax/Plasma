@@ -59,7 +59,7 @@ public:
     virtual void Update(DIDEVICEOBJECTDATA* js);
 
 protected:
-    float fX,fY;
+    float fX, fY;
 };
 
 

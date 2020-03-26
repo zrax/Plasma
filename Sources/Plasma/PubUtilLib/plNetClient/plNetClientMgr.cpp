@@ -1384,7 +1384,7 @@ plUoid plNetClientMgr::GetAgeSDLObjectUoid(const ST::string& ageName) const
         return fAgeSDLObjectKey->GetUoid();
 
     // if age is loaded
-    plLocation loc = plKeyFinder::Instance().FindLocation(ageName,plAgeDescription::GetCommonPage(plAgeDescription::kGlobal));
+    plLocation loc = plKeyFinder::Instance().FindLocation(ageName, plAgeDescription::GetCommonPage(plAgeDescription::kGlobal));
     if (!loc.IsValid())
     {
         // check current age des

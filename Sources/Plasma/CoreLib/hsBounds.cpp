@@ -86,7 +86,7 @@ void hsBounds3::Transform(const hsMatrix44 *mat)
         this->GetCorners(corners);
         
         mat->MapPoints(8, corners);
-        this->Reset(8,corners);
+        this->Reset(8, corners);
         fBounds3Flags &= ~kCenterValid;
     }
 }
@@ -379,18 +379,18 @@ void hsBounds3::MakeTriMesh(hsGTriMesh* tMesh, uint32_t triFlags, hsPoint3* corn
 
 
     static int verts[maxNew * 3] = {
-    /* -Y */    6,2,3,
-    /* -Y */    6,3,7,
-    /* Y  */    5,1,0,
-    /* Y  */    5,0,4,
-    /* -X */    7,3,1,
-    /* -X */    7,1,5,
-    /* X  */    4,0,2,
-    /* X  */    4,2,6,
-    /* Z  */    3,0,1,
-    /* Z  */    3,2,0,
-    /* -Z */    7,4,6,
-    /* -Z */    7,5,4
+    /* -Y */    6, 2, 3,
+    /* -Y */    6, 3, 7,
+    /* Y  */    5, 1, 0,
+    /* Y  */    5, 0, 4,
+    /* -X */    7, 3, 1,
+    /* -X */    7, 1, 5,
+    /* X  */    4, 0, 2,
+    /* X  */    4, 2, 6,
+    /* Z  */    3, 0, 1,
+    /* Z  */    3, 2, 0,
+    /* -Z */    7, 4, 6,
+    /* -Z */    7, 5, 4
     };
     int v=0;
     for (; triNum < maxNew; triNum++)
@@ -399,7 +399,7 @@ void hsBounds3::MakeTriMesh(hsGTriMesh* tMesh, uint32_t triFlags, hsPoint3* corn
         tri->Zero();
         tri->fFlags |= triFlags;
         tMesh->SetTriangle(triNum, tri);
-        tri->SetQuickMeshVerts(verts[v + 0],verts[v + 1],verts[v + 2]);
+        tri->SetQuickMeshVerts(verts[v + 0], verts[v + 1], verts[v + 2]);
         v += 3;
     }
     tMesh->SetTrianglePointers();
@@ -460,7 +460,7 @@ float hsBounds3::ClosestPointToInfiniteLine(const hsPoint3* p, const hsVector3* 
 {
     float magSq = v->MagnitudeSquared();
     float t = 0.f;
-    hsPoint3 origin(0,0,0);
+    hsPoint3 origin(0, 0, 0);
     if (magSq < hsBounds::kRealSmall)
     {
         *out = origin;
@@ -742,7 +742,7 @@ void hsBounds3Ext::IMakeSphere() const
         else
         {
             hsVector3 accum;
-            accum.Set(0,0,0);
+            accum.Set(0, 0, 0);
             int i;
             for (i = 0; i < 3; i++)
             {
@@ -1618,7 +1618,7 @@ bool hsBounds3Ext::ISectBB(const hsBounds3Ext &other, const hsVector3 &myVel, hs
     {
         // now do a weighted average of the axes
         hsAssert(totDepth > 0, "nobody home");
-        norm.Set(0,0,0);
+        norm.Set(0, 0, 0);
         for (i =0; i < 6; i++)
         {
             if (tstDepths[i] > 0)
@@ -1964,7 +1964,7 @@ bool hsBounds3Ext::ISectTriBB(hsBounds3Tri &tri, const hsVector3 &myVel, hsHitIn
     if (depth <= 0)
         return false;
 
-    //  printf("ATTRIBUTE triBnd addr %x\n",&tri.fNormal);  /* Takashi Nakata TEST Add */
+    //  printf("ATTRIBUTE triBnd addr %x\n", &tri.fNormal);  /* Takashi Nakata TEST Add */
     hit->Set(this, &tri, &norm, depth);
 
     return hit->fDepth > hsBounds::kRealSmall;
@@ -2488,7 +2488,7 @@ bool hsBounds3Ext::ISectCone(const hsPoint3* from, const hsPoint3* at, float rad
     float partRadius = radius/len * dist;
     if (distSq - fRadius*fRadius - partRadius*partRadius >= 0)
     {
-        hsVector3 rayToCenter(&fCenter,&onLine);
+        hsVector3 rayToCenter(&fCenter, &onLine);
         rayToCenter.Normalize();
 
         hsPoint3 atEdge = *at + rayToCenter*radius;
@@ -2521,7 +2521,7 @@ bool hsBounds3Ext::ISectCone(const hsPoint3* from, const hsPoint3* at, float rad
         for (i = 0; i < 3; i++)
         {
             ClosestPointToInfiniteLine(at, &fAxes[i], &onLine);
-            hsVector3 atLine(&onLine,at);
+            hsVector3 atLine(&onLine, at);
             atLine.Normalize();
             hsPoint3 atEdge = *at + atLine * radius;
 
@@ -2549,8 +2549,8 @@ bool hsBounds3Ext::ISectCone(const hsPoint3* from, const hsPoint3* at, float rad
 
 bool hsBounds3Ext::ISectRayBS(const hsPoint3& from, const hsPoint3& to, hsPoint3& at) const
 {
-    hsVector3 c2f(&from,&GetCenter());
-    hsVector3 f2t(&to,&from);
+    hsVector3 c2f(&from, &GetCenter());
+    hsVector3 f2t(&to, &from);
     float a = f2t.MagnitudeSquared();
     float b = 2 * (c2f.InnerProduct(f2t));
     float c = c2f.MagnitudeSquared() - GetRadius()*GetRadius();
@@ -2981,10 +2981,10 @@ bool hsBounds3Tri::ISectCone(const hsPoint3& from, const hsPoint3& to, float cos
         return false;
     if ( (d0 < dt || d1 < dt) &&
          (d0 > dt || d1 > dt) &&
-         ClosestTriPoint(&from, &at, &hsVector3(&to,&from)))
+         ClosestTriPoint(&from, &at, &hsVector3(&to, &from)))
          return true;
 
-    hsVector3 av(&to,&from);
+    hsVector3 av(&to, &from);
     float distASq = av.MagnitudeSquared();
     float radiusSq = distASq * (1-cosThetaSq)/cosThetaSq;
 
@@ -3004,7 +3004,7 @@ bool hsBounds3Tri::ISectCone(const hsPoint3& from, const hsPoint3& to, float cos
         if (hsVector3(&onLine, &fVerts[i]).MagnitudeSquared() >= radiusSq)
             continue;
 
-        hsVector3 bv(&fVerts[i],&from);
+        hsVector3 bv(&fVerts[i], &from);
 
         float distBSq = bv.MagnitudeSquared();
 

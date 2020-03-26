@@ -86,7 +86,7 @@ static_assert(kNumGame2CliMessages <= 0xFFFF, "Game2Cli message types overflow u
 //============================================================================
 // BEGIN PACKED DATA STRUCTURES
 //============================================================================
-#pragma pack(push,1)
+#pragma pack(push, 1)
 
 
 /*****************************************************************************

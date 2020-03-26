@@ -238,7 +238,7 @@ void hsStatusMessage(const char* message)
     gHSStatusProc(message);
   } else {
 #if HS_BUILD_FOR_UNIX
-    printf("%s",message);
+    printf("%s", message);
     int len = strlen(message);
     if (len>0 && message[len-1]!='\n')
         printf("\n");
@@ -261,8 +261,8 @@ void hsStatusMessageV(const char * fmt, va_list args)
 void hsStatusMessageF(const char * fmt, ...)
 {
     va_list args;
-    va_start(args,fmt);
-    hsStatusMessageV(fmt,args);
+    va_start(args, fmt);
+    hsStatusMessageV(fmt, args);
     va_end(args);
 }
 
@@ -403,12 +403,12 @@ int hsMessageBoxWithOwner(hsWindowHndl owner, const wchar_t* message, const wcha
 
 int hsMessageBox(const char* message, const char* caption, int kind, int icon)
 {
-    return hsMessageBoxWithOwner((hsWindowHndl)nil,message,caption,kind,icon);
+    return hsMessageBoxWithOwner((hsWindowHndl)nil, message, caption, kind, icon);
 }
 
 int hsMessageBox(const wchar_t* message, const wchar_t* caption, int kind, int icon)
 {
-    return hsMessageBoxWithOwner((hsWindowHndl)nil,message,caption,kind,icon);
+    return hsMessageBoxWithOwner((hsWindowHndl)nil, message, caption, kind, icon);
 }
 
 /**************************************/

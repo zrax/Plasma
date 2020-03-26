@@ -61,7 +61,7 @@ static uint32_t SecsSinceUNIXEpoch()
 {
     FILETIME ft;
     GetSystemTimeAsFileTime(&ft);   /* 100 ns blocks since 01-Jan-1641 */
-    __int64 ff,ffsecs;
+    __int64 ff, ffsecs;
     ff = *(__int64*)(&ft);
     ffsecs = ff/(__int64)10000000;
     return (uint32_t)(ffsecs-MAGICWINDOWSOFFSET);
@@ -115,15 +115,15 @@ plServerGuid& plServerGuid::operator=(const plServerGuid & rhs)
 
 bool operator==(const plServerGuid & X, const plServerGuid & Y)
 {
-    return memcmp(X.N,Y.N,plServerGuid::kGuidBytes)==0;
+    return memcmp(X.N, Y.N, plServerGuid::kGuidBytes)==0;
 }
 bool operator!=(const plServerGuid & X, const plServerGuid & Y)
 {
-    return memcmp(X.N,Y.N,plServerGuid::kGuidBytes)!=0;
+    return memcmp(X.N, Y.N, plServerGuid::kGuidBytes)!=0;
 }
 bool operator<(const plServerGuid & X, const plServerGuid & Y)
 {
-    return memcmp(X.N,Y.N,plServerGuid::kGuidBytes)<0;
+    return memcmp(X.N, Y.N, plServerGuid::kGuidBytes)<0;
 }
 
 
@@ -151,7 +151,7 @@ bool plServerGuid::IsEqualTo(const plServerGuid * other) const
 const char * plServerGuid::AsString() const
 {
     static char str[kGuidBytes*2+1];
-    sprintf(str,"%02X%02X%02X%02X%02X%02X%02X%02X",N[0],N[1],N[2],N[3],N[4],N[5],N[6],N[7]);
+    sprintf(str, "%02X%02X%02X%02X%02X%02X%02X%02X", N[0], N[1], N[2], N[3], N[4], N[5], N[6], N[7]);
     return str;
 }
 
@@ -159,7 +159,7 @@ std::string plServerGuid::AsStdString() const
 {
     std::string str;
     str.resize(kGuidBytes*2+1);
-    int n = sprintf(const_cast<char*>(str.data()),"%02X%02X%02X%02X%02X%02X%02X%02X",N[0],N[1],N[2],N[3],N[4],N[5],N[6],N[7]);
+    int n = sprintf(const_cast<char*>(str.data()), "%02X%02X%02X%02X%02X%02X%02X%02X", N[0], N[1], N[2], N[3], N[4], N[5], N[6], N[7]);
     str.resize(n);
     return str;
 }
@@ -217,31 +217,31 @@ void plServerGuid::Read(hsStream * s, hsResMgr*)
 {
     s->LogSubStreamStart("push me");
     s->LogSubStreamPushDesc("plServerGuid");
-    plMsgCArrayHelper::Peek(N,kGuidBytes,s);
+    plMsgCArrayHelper::Peek(N, kGuidBytes, s);
     s->LogSubStreamEnd();
 }
 
 void plServerGuid::Write(hsStream * s, hsResMgr*)
 {
-    plMsgCArrayHelper::Poke(N,kGuidBytes,s);
+    plMsgCArrayHelper::Poke(N, kGuidBytes, s);
 }
 
 void plServerGuid::CopyFrom(const plServerGuid & other)
 {
-    memcpy(N,other.N,kGuidBytes);
+    memcpy(N, other.N, kGuidBytes);
 }
 
 void plServerGuid::CopyFrom(const plServerGuid * other)
 {
     if (other)
-        memcpy(N,other->N,kGuidBytes);
+        memcpy(N, other->N, kGuidBytes);
     else
         Clear();
 }
 
 void plServerGuid::Clear()
 {
-    memset(N,0,kGuidBytes);
+    memset(N, 0, kGuidBytes);
 }
 
 void plServerGuid::SetGuidSeed(uint32_t seed)
@@ -265,7 +265,7 @@ plServerGuid plServerGuid::GenerateGuid()
     if (!fGuidSeed)
     {
         hsStatusMessage("fGuidSeed not set yet. Cannot generate a reliable guid! Setting fGuidSeed=getpid().");
-//      hsAssert(fGuidSeed,"fGuidSeed not set yet. Cannot generate a reliable guid.\nIgnoring this assert will set fGuidSeed=getpid().");
+//      hsAssert(fGuidSeed, "fGuidSeed not set yet. Cannot generate a reliable guid.\nIgnoring this assert will set fGuidSeed=getpid().");
         fGuidSeed = getpid();
     }
 

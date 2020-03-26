@@ -770,7 +770,7 @@ PF_CONSOLE_CMD(Net_Vault,      // groupName
                "") // helpString
 {
     bool in = VaultAmOwnerOfCurrentAge();
-    pfConsolePrintF(PrintString,"You are {}an owner of the current age", in ? "" : "not ");
+    pfConsolePrintF(PrintString, "You are {}an owner of the current age", in ? "" : "not ");
 }
 PF_CONSOLE_CMD(Net_Vault,      // groupName
                AmCzarOfCurrentAge,      // fxnName

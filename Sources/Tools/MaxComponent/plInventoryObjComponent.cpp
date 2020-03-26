@@ -135,7 +135,7 @@ ParamBlockDesc2 gInventoryObjBlock
         p_ui,   TYPE_SINGLECHEKBOX, IDC_COMP_INV_OBJECT_RESPAWNBOOL,
         end,
     
-    kConsumableCheckbx , _T("TemporaryObject"), TYPE_BOOL,      0, 0,
+    kConsumableCheckbx, _T("TemporaryObject"), TYPE_BOOL,      0, 0,
         p_default,  FALSE,
         p_enable_ctrls, 1, kLifeSpan,
         p_ui,   TYPE_SINGLECHEKBOX, IDC_COMP_INV_OBJECT_CONSUMABLE,

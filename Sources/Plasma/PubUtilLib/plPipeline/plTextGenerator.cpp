@@ -344,7 +344,7 @@ void    plTextGenerator::SetTextColor(hsColorRGBA &color, bool blockRGB)
 void    plTextGenerator::DrawString(uint16_t x, uint16_t y, const char *text)
 {
     wchar_t *wText = hsStringToWString(text);
-    DrawString(x,y,wText);
+    DrawString(x, y, wText);
     delete [] wText;
 }
 
@@ -363,7 +363,7 @@ void    plTextGenerator::DrawString(uint16_t x, uint16_t y, const wchar_t *text)
 void    plTextGenerator::DrawClippedString(int16_t x, int16_t y, const char *text, uint16_t width, uint16_t height)
 {
     wchar_t *wText = hsStringToWString(text);
-    DrawClippedString(x,y,wText,width,height);
+    DrawClippedString(x, y, wText, width, height);
     delete [] wText;
 }
 
@@ -385,7 +385,7 @@ void    plTextGenerator::DrawClippedString(int16_t x, int16_t y, const wchar_t *
 void    plTextGenerator::DrawClippedString(int16_t x, int16_t y, const char *text, uint16_t clipX, uint16_t clipY, uint16_t width, uint16_t height)
 {
     wchar_t *wText = hsStringToWString(text);
-    DrawClippedString(x,y,wText,clipX,clipY,width,height);
+    DrawClippedString(x, y, wText, clipX, clipY, width, height);
     delete [] wText;
 }
 
@@ -407,7 +407,7 @@ void    plTextGenerator::DrawClippedString(int16_t x, int16_t y, const wchar_t *
 void    plTextGenerator::DrawWrappedString(uint16_t x, uint16_t y, const char *text, uint16_t width, uint16_t height)
 {
     wchar_t *wText = hsStringToWString(text);
-    DrawWrappedString(x,y,wText,width,height);
+    DrawWrappedString(x, y, wText, width, height);
     delete [] wText;
 }
 
@@ -434,7 +434,7 @@ void    plTextGenerator::DrawWrappedString(uint16_t x, uint16_t y, const wchar_t
 uint16_t      plTextGenerator::CalcStringWidth(const char *text, uint16_t *height)
 {
     wchar_t *wText = hsStringToWString(text);
-    uint16_t retVal = CalcStringWidth(wText,height);
+    uint16_t retVal = CalcStringWidth(wText, height);
     delete [] wText;
     return retVal;
 }
@@ -460,7 +460,7 @@ uint16_t      plTextGenerator::CalcStringWidth(const wchar_t *text, uint16_t *he
 void    plTextGenerator::CalcWrappedStringSize(const char *text, uint16_t *width, uint16_t *height)
 {
     wchar_t *wText = hsStringToWString(text);
-    CalcWrappedStringSize(wText,width,height);
+    CalcWrappedStringSize(wText, width, height);
     delete [] wText;
 }
 

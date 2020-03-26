@@ -127,7 +127,7 @@ plMaxNodeData *plMaxNodeBase::GetMaxNodeData()
     return nil;
 }
 
-#define GetMD   plMaxNodeData *pMD = GetMaxNodeData(); //hsAssert(pMD,"Missing MaxNodeData");   // Get MaxNode Data
+#define GetMD   plMaxNodeData *pMD = GetMaxNodeData(); //hsAssert(pMD, "Missing MaxNodeData");   // Get MaxNode Data
 
 plKey           plMaxNodeBase::GetKey()             { GetMD; return (pMD) ? pMD->GetKey() : nil;        }
 plSceneObject*  plMaxNodeBase::GetSceneObject()     { GetMD; return (pMD) ? pMD->GetSceneObject() : nil; }
@@ -173,7 +173,7 @@ bool            plMaxNodeBase::GetParticleRelated() { GetMD; return (pMD) ? pMD-
 uint32_t        plMaxNodeBase::GetSoundIdxCounter() { GetMD; return (pMD) ? pMD->GetSoundIdxCounter() : 0; }
 plSceneObject*  plMaxNodeBase::GetAvatarSO()            { GetMD; return (pMD) ? pMD->GetAvatarSO() : nil; }
 BOOL            plMaxNodeBase::HasFade()                { GetMD; return (pMD) ? pMD->HasFade() : false; }
-Box3            plMaxNodeBase::GetFade()                { GetMD; return (pMD) ? pMD->GetFade() : Box3(Point3(0,0,0), Point3(0,0,0)); }
+Box3            plMaxNodeBase::GetFade()                { GetMD; return (pMD) ? pMD->GetFade() : Box3(Point3(0, 0, 0), Point3(0, 0, 0)); }
 bool            plMaxNodeBase::GetDup2Sided()           { GetMD; return (pMD) ? pMD->GetDup2Sided() : false; }
 bool            plMaxNodeBase::GetRadiateNorms()        { GetMD; return (pMD) ? pMD->GetRadiateNorms() : false; }
 BOOL            plMaxNodeBase::HasNormalChan()          { GetMD; return (pMD) ? pMD->HasNormalChan() : false; }
@@ -354,7 +354,7 @@ bool plMaxNodeBase::CanConvert(bool recalculate)
     if (obj)
     {
         if  (  obj->CanConvertToType(triObjectClassID)      // MeshObjs are accepted here
-            || obj->ClassID() == Class_ID(DUMMY_CLASS_ID,0) // Dummy boxes are accepted here
+            || obj->ClassID() == Class_ID(DUMMY_CLASS_ID, 0) // Dummy boxes are accepted here
             || obj->SuperClassID() == CAMERA_CLASS_ID       // All Camera types are accepted here
             || obj->ClassID() == Class_ID(UTILITY_CLASS_ID, 0)      // All Camera targets are accepted here
             || (   obj->ClassID() ==  RTOMNI_LIGHT_CLASSID
@@ -822,7 +822,7 @@ bool plMaxNodeBase::Contains(const Point3& worldPt)
     Matrix3 w2l = Inverse(l2w);
     Point3 pt = w2l * worldPt;
 
-    if (obj->ClassID() == Class_ID(DUMMY_CLASS_ID,0))
+    if (obj->ClassID() == Class_ID(DUMMY_CLASS_ID, 0))
     {
         DummyObject* dummy = (DummyObject*)obj;
         Box3 bnd = dummy->GetBox();
@@ -904,7 +904,7 @@ float plMaxNodeBase::RegionPriority()
 
     Matrix3 l2w = GetObjectTM(currTime);
 
-    if (obj->ClassID() == Class_ID(DUMMY_CLASS_ID,0))
+    if (obj->ClassID() == Class_ID(DUMMY_CLASS_ID, 0))
     {
         DummyObject* dummy = (DummyObject*)obj;
         Box3 bnd = dummy->GetBox();

@@ -551,7 +551,7 @@ PYTHON_GLOBAL_METHOD_DEFINITION(PtTransferParticlesToObject, args, "Params: objF
 
 PYTHON_GLOBAL_METHOD_DEFINITION(PtSetParticleDissentPoint, args, "Params: x, y, z, particlesys\nSets the dissent point of the particlesys to x,y,z")
 {
-    float x,y,z;
+    float x, y, z;
     PyObject* keyObj = NULL;
     if (!PyArg_ParseTuple(args, "fffO", &x, &y, &z, &keyObj))
     {

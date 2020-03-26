@@ -105,11 +105,11 @@ public:
         kGhostChkBx,                /*!< Ghost Enum value, inserted in v1.*/
         kNotifyCollisionsChkBx_DEAD,        /*!< Collision Report Enum value, inserted in v1.*/
         kStartForceX,               /*!< Start Force X Enum value, inserted in v1.*/
-        kStartForceY,               /*!< Start Force Y Enum value,inserted in v1.*/
-        kStartForceZ,               /*!< Start Force Z Enum value,inserted in v1.*/
-        kStartTorqueX,              /*!< Start Torque X Enum value,inserted in v1.*/
-        kStartTorqueY,              /*!< Start Torque Y Enum value,inserted in v1.*/
-        kStartTorqueZ,              /*!< Start Torque Z Enum value,inserted in v1.*/
+        kStartForceY,               /*!< Start Force Y Enum value, inserted in v1.*/
+        kStartForceZ,               /*!< Start Force Z Enum value, inserted in v1.*/
+        kStartTorqueX,              /*!< Start Torque X Enum value, inserted in v1.*/
+        kStartTorqueY,              /*!< Start Torque Y Enum value, inserted in v1.*/
+        kStartTorqueZ,              /*!< Start Torque Z Enum value, inserted in v1.*/
         kBoundCondRadio,            /*!< Bounding State Enum value, inserted in v1.*/
         kDynamicChkBx,              /*!< Dynamic State Enum value, inserted in v1, Removed in v2.*/
         kWeight,                    /*!< Weight Enum value, inserted in v1.*/

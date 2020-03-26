@@ -133,11 +133,11 @@ void WritePythonFile(const plFileName &fileName, const plFileName &path, hsStrea
 
             // next we need to:
             //  - create instance of class
-            PyObject* getID = PythonInterface::GetModuleItem("glue_getBlockID",fModule);
+            PyObject* getID = PythonInterface::GetModuleItem("glue_getBlockID", fModule);
             bool foundID = false;
             if (getID!=nil && PyCallable_Check(getID))
             {
-                PyObject* id = PyObject_CallFunction(getID,nil);
+                PyObject* id = PyObject_CallFunction(getID, nil);
                 if (id && PyInt_Check(id))
                     foundID = true;
             }
@@ -160,7 +160,7 @@ void WritePythonFile(const plFileName &fileName, const plFileName &path, hsStrea
                     //   skip the CRs
                 }
                 pythonCode = PythonInterface::CompileString(code, fileName);
-                hsAssert(pythonCode,"Not sure why this didn't compile the second time???");
+                hsAssert(pythonCode, "Not sure why this didn't compile the second time???");
                 ST::printf(out, "an import file ");
             }
             else
@@ -185,7 +185,7 @@ void WritePythonFile(const plFileName &fileName, const plFileName &path, hsStrea
     {
         int32_t size;
         char* pycode;
-        PythonInterface::DumpObject(pythonCode,&pycode,&size);
+        PythonInterface::DumpObject(pythonCode, &pycode, &size);
 
         ST::printf(out, "\n");
 

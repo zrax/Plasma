@@ -230,7 +230,7 @@ void plMaxBoneMap::SortBones()
 
     // Look ma! An n^2 bubble sort!
     // (It's a 1-time thing for an array of less than 100 items. Speed is not essential here)
-    int i,j;
+    int i, j;
     for (i = 0; i < fNumBones; i++)
     {
         bool swap = false;
@@ -265,7 +265,7 @@ plKey plMaxNode::AddModifier(plModifier *pMod, const ST::string& name)
     return modKey;
 }
 
-bool plMaxNode::DoRecur(PMaxNodeFunc pDoFunction,plErrorMsg *pErrMsg, plConvertSettings *settings,plExportProgressBar*bar)
+bool plMaxNode::DoRecur(PMaxNodeFunc pDoFunction, plErrorMsg *pErrMsg, plConvertSettings *settings, plExportProgressBar*bar)
 {
 #ifdef HS_DEBUGGING
     const char *tmpName = GetName();
@@ -295,7 +295,7 @@ bool plMaxNode::DoRecur(PMaxNodeFunc pDoFunction,plErrorMsg *pErrMsg, plConvertS
 
 // This is the same as DoRecur except that it ignores the canconvert field.  We
 // need this for things like clearing the old data, where we need to ignore the old value.
-bool plMaxNode::DoAllRecur(PMaxNodeFunc pDoFunction,plErrorMsg *pErrMsg, plConvertSettings *settings,plExportProgressBar*bar)
+bool plMaxNode::DoAllRecur(PMaxNodeFunc pDoFunction, plErrorMsg *pErrMsg, plConvertSettings *settings, plExportProgressBar*bar)
 {
 #ifdef HS_DEBUGGING
     const char *tmpName = GetName();
@@ -438,8 +438,8 @@ void plMaxNode::CheckSynchOptions(plSynchedObject* so)
         //////////////////////////////////////////////////////////////////////////
         // TEMP - remove
         //
-        TSTR sdata,sdataList[128];
-        int i,num;
+        TSTR sdata, sdataList[128];
+        int i, num;
 
         //
         // check for LocalOnly or DontPersist props
@@ -718,7 +718,7 @@ bool plMaxNode::MakePhysical(plErrorMsg *pErrMsg, plConvertSettings *settings)
             if (group == plSimDefs::kGroupDetector)
             {
                 // try converting to a convex hull mesh
-                recipe.meshStream = plPhysXCooking::CookHull(mesh.fNumVerts, mesh.fVerts,false);
+                recipe.meshStream = plPhysXCooking::CookHull(mesh.fNumVerts, mesh.fVerts, false);
                 if (recipe.meshStream)
                 {
                     plPXStream pxs(recipe.meshStream);
@@ -796,7 +796,7 @@ bool plMaxNode::MakePhysical(plErrorMsg *pErrMsg, plConvertSettings *settings)
             }
             else
             {
-                recipe.meshStream = plPhysXCooking::CookHull(mesh.fNumVerts, mesh.fVerts,false);
+                recipe.meshStream = plPhysXCooking::CookHull(mesh.fNumVerts, mesh.fVerts, false);
                 if (!recipe.meshStream)
                 {
                     pErrMsg->Set(true, "Physics Error", "Convex hull creation failed for physical %s", GetName()).Show();
@@ -856,7 +856,7 @@ bool plMaxNode::MakePhysical(plErrorMsg *pErrMsg, plConvertSettings *settings)
     hsgResMgr::ResMgr()->AddViaNotify(pSiKey, new plObjRefMsg(GetKey(), plRefMsg::kOnCreate, 0, plObjRefMsg::kInterface), plRefFlags::kActiveRef);
 
     // add the physical to the simulation interface
-    hsgResMgr::ResMgr()->AddViaNotify(physKey , new plIntRefMsg(pSiKey, plRefMsg::kOnCreate, 0, plIntRefMsg::kPhysical), plRefFlags::kActiveRef);
+    hsgResMgr::ResMgr()->AddViaNotify(physKey, new plIntRefMsg(pSiKey, plRefMsg::kOnCreate, 0, plIntRefMsg::kPhysical), plRefFlags::kActiveRef);
 
     return true;
 }
@@ -909,7 +909,7 @@ bool plMaxNode::MakeCoordinateInterface(plErrorMsg *pErrMsg, plConvertSettings *
         ST::string pName = pNodeKey->GetName();
         plLocation nodeLoc = GetLocation();
 
-        plKey pCiKey = hsgResMgr::ResMgr()->NewKey(pName, ci,nodeLoc, GetLoadMask());
+        plKey pCiKey = hsgResMgr::ResMgr()->NewKey(pName, ci, nodeLoc, GetLoadMask());
         ci->SetLocalToParent(loc2Par, par2Loc);
 
         bool usesPhysics = GetPhysicalProps()->IsUsed();
@@ -952,13 +952,13 @@ bool plMaxNode::MakeModifiers(plErrorMsg *pErrMsg, plConvertSettings *settings)
             {
                 pMod->SetFlag(plViewFaceModifier::kScale);
                 TSTR sdata;
-                GetUserPropString("VFScale",sdata);
+                GetUserPropString("VFScale", sdata);
                 hsStringTokenizer toker;
                 toker.Reset(sdata, hsConverterUtils::fTagSeps);
                 int nGot = 0;
                 char* token;
                 hsVector3 scale;
-                scale.Set(1.f,1.f,1.f);
+                scale.Set(1.f, 1.f, 1.f);
                 while ((nGot < 3) && (token = toker.next()))
                 {
                     switch (nGot)
@@ -997,7 +997,7 @@ bool plMaxNode::MakeParentOrRoomConnection(plErrorMsg *pErrMsg, plConvertSetting
     {
         plKey parKey = GetParentKey();
         plCoordinateInterface* ci = const_cast <plCoordinateInterface*> (pso->GetCoordinateInterface());
-        hsAssert(ci,"Missing CI");
+        hsAssert(ci, "Missing CI");
 
 
         plIntRefMsg* msg = new plIntRefMsg(parKey, plRefMsg::kOnCreate, -1, plIntRefMsg::kChildObject);
@@ -2463,15 +2463,15 @@ void plMaxNode::IGetLightColors(plLightInfo* liInfo, LightObject* light, LightSt
 
     color *= intensity;
 
-    liInfo->SetAmbient(hsColorRGBA().Set(0,0,0,1.f));
+    liInfo->SetAmbient(hsColorRGBA().Set(0, 0, 0, 1.f));
     if (ls.affectDiffuse)
         liInfo->SetDiffuse(hsColorRGBA().Set(color.x, color.y, color.z, intensity));
     else
-        liInfo->SetDiffuse(hsColorRGBA().Set(0,0,0,intensity));
+        liInfo->SetDiffuse(hsColorRGBA().Set(0, 0, 0, intensity));
     if (ls.affectSpecular)
         liInfo->SetSpecular(hsColorRGBA().Set(color.x, color.y, color.z, intensity));
     else
-        liInfo->SetSpecular(hsColorRGBA().Set(0,0,0,intensity));
+        liInfo->SetSpecular(hsColorRGBA().Set(0, 0, 0, intensity));
 
 }
 
@@ -2484,18 +2484,18 @@ void plMaxNode::IGetRTLightColors(plLightInfo* liInfo, IParamBlock2* ProperPB)
 
     color *= intensity;
 
-    liInfo->SetAmbient(hsColorRGBA().Set(0,0,0,1.f));
+    liInfo->SetAmbient(hsColorRGBA().Set(0, 0, 0, 1.f));
     if (ProperPB->GetInt(plRTLightBase::kAffectDiffuse, timeVal))
         liInfo->SetDiffuse(hsColorRGBA().Set(color.x, color.y, color.z, intensity));
     else
-        liInfo->SetDiffuse(hsColorRGBA().Set(0,0,0,intensity));
+        liInfo->SetDiffuse(hsColorRGBA().Set(0, 0, 0, intensity));
     if (ProperPB->GetInt(plRTLightBase::kSpec, timeVal)) //ls.affectSpecular)
     {
         Color spec = ProperPB->GetColor(plRTLightBase::kSpecularColorSwatch);
         liInfo->SetSpecular(hsColorRGBA().Set(spec.r, spec.g, spec.b, intensity));
     }
     else
-        liInfo->SetSpecular(hsColorRGBA().Set(0,0,0,intensity));
+        liInfo->SetSpecular(hsColorRGBA().Set(0, 0, 0, intensity));
 }
 
 void plMaxNode::IGetCone(plSpotLightInfo* liInfo, LightObject* light, LightState& ls)
@@ -2531,9 +2531,9 @@ plLightInfo* plMaxNode::IMakeSpot(plErrorMsg* pErrMsg, plConvertSettings* settin
 {
     TimeValue timeVal = hsConverterUtils::Instance().GetTime(GetInterface());
     Object *obj = EvalWorldState(timeVal).obj;
-    LightObject *light = (LightObject*)obj->ConvertToType(timeVal, Class_ID(SPOT_LIGHT_CLASS_ID,0));
+    LightObject *light = (LightObject*)obj->ConvertToType(timeVal, Class_ID(SPOT_LIGHT_CLASS_ID, 0));
     if (!light)
-        light = (LightObject*)obj->ConvertToType(timeVal, Class_ID(FSPOT_LIGHT_CLASS_ID,0));
+        light = (LightObject*)obj->ConvertToType(timeVal, Class_ID(FSPOT_LIGHT_CLASS_ID, 0));
 
     LightState ls;
     if (!(REF_SUCCEED == light->EvalLightState(timeVal, Interval(timeVal, timeVal), &ls)))
@@ -2562,7 +2562,7 @@ plLightInfo* plMaxNode::IMakeOmni(plErrorMsg* pErrMsg, plConvertSettings* settin
 
     Object *obj = EvalWorldState(timeVal).obj;
     LightObject *light = (LightObject*)obj->ConvertToType(timeVal,
-        Class_ID(OMNI_LIGHT_CLASS_ID,0));
+        Class_ID(OMNI_LIGHT_CLASS_ID, 0));
 
     LightState ls;
     if (!(REF_SUCCEED == light->EvalLightState(timeVal, Interval(timeVal, timeVal), &ls)))
@@ -2588,9 +2588,9 @@ plLightInfo* plMaxNode::IMakeDirectional(plErrorMsg* pErrMsg, plConvertSettings*
     TimeValue timeVal = hsConverterUtils::Instance().GetTime(GetInterface());
 
     Object *obj = EvalWorldState(timeVal).obj;
-    LightObject *light = (LightObject*)obj->ConvertToType(timeVal, Class_ID(DIR_LIGHT_CLASS_ID,0));
+    LightObject *light = (LightObject*)obj->ConvertToType(timeVal, Class_ID(DIR_LIGHT_CLASS_ID, 0));
     if (!light)
-        light = (LightObject*)obj->ConvertToType(timeVal, Class_ID(TDIR_LIGHT_CLASS_ID,0));
+        light = (LightObject*)obj->ConvertToType(timeVal, Class_ID(TDIR_LIGHT_CLASS_ID, 0));
 
     LightState ls;
     if (!(REF_SUCCEED == light->EvalLightState(timeVal, Interval(timeVal, timeVal), &ls)))
@@ -2647,9 +2647,9 @@ plLightInfo* plMaxNode::IMakeRTSpot(plErrorMsg* pErrMsg, plConvertSettings* sett
     if (!ThisObjPB->GetInt(plRTLightBase::kLightOn))
         spot->SetProperty(plLightInfo::kDisable, true);
 
-    IGetRTLightColors(spot,ThisObjPB);
+    IGetRTLightColors(spot, ThisObjPB);
 
-    IGetRTLightAttenuation(spot,ThisObjPB);
+    IGetRTLightAttenuation(spot, ThisObjPB);
 
     IGetRTCone(spot, ThisObjPB);
 

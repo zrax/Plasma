@@ -503,7 +503,7 @@ bool plClickDragComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         //      }
         //      if (!bHasPhys)
         //      {
-        //          pErrMsg->Set(true, "WARNING", "Object %s listed as draggable component proxy physical for %s but has NO physical component.\n  Please attach a proxyTerrain componet!\n Export will continue but this gadget will not function",pProxyNode->GetName(), ((INode*)node)->GetName()).Show();
+        //          pErrMsg->Set(true, "WARNING", "Object %s listed as draggable component proxy physical for %s but has NO physical component.\n  Please attach a proxyTerrain componet!\n Export will continue but this gadget will not function", pProxyNode->GetName(), ((INode*)node)->GetName()).Show();
         //          pErrMsg->Set(false);
         //      }
         
@@ -550,7 +550,7 @@ bool plClickDragComponent::Convert(plMaxNode *node, plErrorMsg *pErrMsg)
         //      }
         //      if (!bHasPhys)
         //      {
-        //          pErrMsg->Set(true, "WARNING", "Object %s listed as draggable component detector region for %s but has NO physical detector component!\n  Please attach a detector componet.\n Export will continue but this gadget will not function",((INode*)pProxyRegNode)->GetName(), ((INode*)node)->GetName()).Show();
+        //          pErrMsg->Set(true, "WARNING", "Object %s listed as draggable component detector region for %s but has NO physical detector component!\n  Please attach a detector componet.\n Export will continue but this gadget will not function", ((INode*)pProxyRegNode)->GetName(), ((INode*)node)->GetName()).Show();
         //          pErrMsg->Set(false);
         //      }
         

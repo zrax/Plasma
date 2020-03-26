@@ -60,16 +60,16 @@ class plCameraConfig
 public:
 
     plCameraConfig() :
-    fAccel(0),fDecel(0),
-    fVel(0),fFPAccel(0),
-    fFPDecel(0),fFPVel(0),
-    fFOVw(0),fFOVh(0),fType(0),fWorldspace(false) { fOffset.Set(0,0,0); }
+    fAccel(0), fDecel(0),
+    fVel(0), fFPAccel(0),
+    fFPDecel(0), fFPVel(0),
+    fFOVw(0), fFOVh(0), fType(0), fWorldspace(false) { fOffset.Set(0, 0, 0); }
     
     plCameraConfig(int flags) :
-    fAccel(0),fDecel(0),
-    fVel(0),fFPAccel(0),
-    fFPDecel(0),fFPVel(0),
-    fFOVw(0),fFOVh(0),fType(0),fWorldspace(false) { fType |= flags; fOffset.Set(0,0,0); }
+    fAccel(0), fDecel(0),
+    fVel(0), fFPAccel(0),
+    fFPDecel(0), fFPVel(0),
+    fFOVw(0), fFOVh(0), fType(0), fWorldspace(false) { fType |= flags; fOffset.Set(0, 0, 0); }
 
 
     enum
@@ -245,10 +245,10 @@ public:
     bool GetEnable() const { return fEnable; }
     bool GetDisable() const { return fDisable; }
 
-    plIfaceFadeAvatarMsg() : fEnable(false),fDisable(false) { }
+    plIfaceFadeAvatarMsg() : fEnable(false), fDisable(false) { }
     plIfaceFadeAvatarMsg(const plKey &s,
                     const plKey &r,
-                    const double* t): fEnable(false),fDisable(false) { }
+                    const double* t): fEnable(false), fDisable(false) { }
     
     CLASSNAME_REGISTER(plIfaceFadeAvatarMsg);
     GETINTERFACE_ANY(plIfaceFadeAvatarMsg, plMessage);

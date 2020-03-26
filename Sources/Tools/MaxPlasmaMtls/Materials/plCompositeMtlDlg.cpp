@@ -132,7 +132,7 @@ void plCompositeMtlDlg::SetTime(TimeValue t)
     {
         curTime = t;
         Interval v;
-        fMtl->Update(ip->GetTime(),v);
+        fMtl->Update(ip->GetTime(), v);
         LoadDialog();
         IUpdateMtlDisplay();
     }
@@ -175,7 +175,7 @@ BOOL plCompositeMtlDlg::ForwardProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM l
             return FALSE;
     }
 
-    return theDlg->LayerPanelProc(hDlg,msg,wParam,lParam);
+    return theDlg->LayerPanelProc(hDlg, msg, wParam, lParam);
 }
 
 

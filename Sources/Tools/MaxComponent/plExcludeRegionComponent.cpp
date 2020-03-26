@@ -86,7 +86,7 @@ ParamBlockDesc2 gExcludeRegionBlock
         end,
 
     kXRegionSmartSeek,  _T("smartSeek"), TYPE_BOOL,             0, 0,
-        p_ui,           TYPE_SINGLECHEKBOX, IDC_SMARTSEEK   ,
+        p_ui,           TYPE_SINGLECHEKBOX, IDC_SMARTSEEK,
         end,
 
     kXRegionBlockCameras,   _T("blockCameras"), TYPE_BOOL,              0, 0,

@@ -674,9 +674,9 @@ public:
     virtual void ProcessCmd(pfConsoleCmd* c, int depth)
     {
 
-        if (strncmp("SampleCmd",c->GetName(), 9) != 0)
+        if (strncmp("SampleCmd", c->GetName(), 9) != 0)
         {
-            fprintf(fFile, "<p><em>%s </em><br />%s </p>\n",c->GetSignature(),
+            fprintf(fFile, "<p><em>%s </em><br />%s </p>\n", c->GetSignature(),
                     c->GetHelp());
         }
     }
@@ -686,7 +686,7 @@ public:
         {
             fprintf(fFile, "<p><strong><h%s>Command %sGroup %s </strong></h%s></p>\n",
                 (depth > 0) ? "3" : "2",
-                (depth > 0) ? "Sub" :"" ,
+                (depth > 0) ? "Sub" :"",
                 g->GetName(),
 				(depth > 0) ? "3" : "2");
         }
@@ -700,13 +700,13 @@ class BriefDocGenIterator : public pfConsoleCmdIterator
     char fGrpName[200];
 
 public:
-    BriefDocGenIterator(FILE *f) { fFile = f; strcpy(fGrpName,""); }
+    BriefDocGenIterator(FILE *f) { fFile = f; strcpy(fGrpName, ""); }
     virtual void ProcessCmd(pfConsoleCmd* c, int depth)
     {
 
-        if (strncmp("SampleCmd",c->GetName(), 9) != 0)
+        if (strncmp("SampleCmd", c->GetName(), 9) != 0)
         {
-                fprintf(fFile, "<em>%s.%s </em> - %s <br />\n",fGrpName,c->GetSignature(),
+                fprintf(fFile, "<em>%s.%s </em> - %s <br />\n", fGrpName, c->GetSignature(),
                         c->GetHelp());
         }
     }
@@ -722,8 +722,8 @@ public:
                 pfConsoleCmdGroup *parentGrp;
                 parentGrp = g->GetParent();
                 strcpy(fGrpName, parentGrp->GetName());
-                strcat(fGrpName,".");
-                strcat(fGrpName,g->GetName());
+                strcat(fGrpName, ".");
+                strcat(fGrpName, g->GetName());
             }
 
         }
@@ -742,7 +742,7 @@ PF_CONSOLE_CMD(Console, CreateDocumentation, "string fileName",
     FILE *f;
 
 
-    f = fopen(params[0],"wt");
+    f = fopen(params[0], "wt");
     if (f == nil)
     {
         PrintString("Couldn't Open File");
@@ -773,7 +773,7 @@ PF_CONSOLE_CMD(Console, CreateBriefDocumentation, "string fileName",
     FILE *f;
 
 
-    f = fopen(params[0],"wt");
+    f = fopen(params[0], "wt");
     if (f == nil)
     {
         PrintString("Couldn't Open File");
@@ -2727,7 +2727,7 @@ PF_CONSOLE_CMD(Camera,     // groupName
     plKey fLOS1 = hsgResMgr::ResMgr()->FindKey(pU1);
     if (fLOS1)
     {
-        plVirtualCam1::SetFOV(x,y);
+        plVirtualCam1::SetFOV(x, y);
         return;
     }
 }
@@ -2955,7 +2955,7 @@ static void ResponderSendTrigger(plKey responderKey, int responderState, bool fa
 
     // Setup the event data in case this is a OneShot responder that needs it
     plKey playerKey = plNetClientMgr::GetInstance()->GetLocalPlayerKey();
-    msg->AddPickEvent(playerKey, nil, true, hsPoint3(0,0,0));
+    msg->AddPickEvent(playerKey, nil, true, hsPoint3(0, 0, 0));
 
     if (responderState != -1)
         msg->AddResponderStateEvent(responderState);
@@ -4260,8 +4260,8 @@ PF_CONSOLE_CMD(Access,
     float wgtPlus;
     float wgtMinus;
 
-    wgtPlus = seq->GetWeight(iLay,0,meshKey);
-    wgtMinus = seq->GetWeight(iLay,1,meshKey);
+    wgtPlus = seq->GetWeight(iLay, 0, meshKey);
+    wgtMinus = seq->GetWeight(iLay, 1, meshKey);
 
     float val = wgtPlus - wgtMinus;
 
@@ -5479,7 +5479,7 @@ PF_CONSOLE_CMD(Physics, ShowExternal, "", "Display a snapshot of the world as Ha
 
 //PF_CONSOLE_CMD(Physics, SetGravity, "float fpsps", "Set gravity in feet per second per second.")
 //{
-//  plSimulationMgr::GetInstance()->SetGravity(0,0,params[0]);
+//  plSimulationMgr::GetInstance()->SetGravity(0, 0, params[0]);
 //}
 
 PF_CONSOLE_CMD(Physics, ApplyForce, "string Object, float x, float y, float z", "Apply a force to a scene object at its center of mass.")
@@ -6503,7 +6503,7 @@ PF_CONSOLE_CMD(Clothing,
         {
             plPlateManager::Instance().CreatePlate(&avatarTargetTexturePlate);
             avatarTargetTexturePlate->SetMaterial(avMod->GetClothingOutfit()->fMaterial);
-            avatarTargetTexturePlate->SetPosition(0,0);
+            avatarTargetTexturePlate->SetPosition(0, 0);
             avatarTargetTexturePlate->SetSize(1.9, 1.9);
             avatarTargetTexturePlate->SetVisible(true);
         }
@@ -6698,7 +6698,7 @@ PF_CONSOLE_CMD(Python,
     // now evaluate this mess they made
     PyObject* mymod = PythonInterface::FindModule("__main__");
 
-    PythonInterface::RunString("import xCheat;xc=[x for x in dir(xCheat) if not x.startswith('_')]\nfor i in range((len(xc)/4)+1): print xc[i*4:(i*4)+4]\n",mymod);
+    PythonInterface::RunString("import xCheat;xc=[x for x in dir(xCheat) if not x.startswith('_')]\nfor i in range((len(xc)/4)+1): print xc[i*4:(i*4)+4]\n", mymod);
     std::string output;
     // get the messages
     PythonInterface::getOutputAndReset(&output);
@@ -6715,7 +6715,7 @@ PF_CONSOLE_GROUP(Demo)
 
 PF_CONSOLE_CMD(Demo, RecordNet, "string recType, string recName", "Records a network demo (must be set in an ini file)")
 {
-    if (plNetClientMgr::GetInstance()->RecordMsgs(params[0],params[1]))
+    if (plNetClientMgr::GetInstance()->RecordMsgs(params[0], params[1]))
         PrintString("Recording Started");
     else
         PrintString("Recording Failed");

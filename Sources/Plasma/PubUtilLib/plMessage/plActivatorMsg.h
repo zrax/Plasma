@@ -53,7 +53,7 @@ class hsResMgr;
 class plActivatorMsg : public plMessage
 {
 
-    void IReset() { fPickedObj=fHiteeObj=fHitterObj=nil; fTriggerType=0; fHitPoint.Set(0,0,0); }
+    void IReset() { fPickedObj=fHiteeObj=fHitterObj=nil; fTriggerType=0; fHitPoint.Set(0, 0, 0); }
 public:
     plActivatorMsg() { IReset(); }
     plActivatorMsg(const plKey &s,

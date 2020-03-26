@@ -35,14 +35,14 @@ void hsGMatState::Clear(const hsGMatState& state)
 void hsGMatState::Composite(const hsGMatState& want, const hsGMatState& on, const hsGMatState& off)
 {
     fBlendFlags = want.fBlendFlags & ~off.fBlendFlags;
-    if( !(fBlendFlags & (kBlendMask & ~(kBlendAlpha|kBlendAntiAlias))) )
+    if (!(fBlendFlags & (kBlendMask & ~(kBlendAlpha|kBlendAntiAlias))))
         fBlendFlags |= on.fBlendFlags;
 
     fClampFlags = (want.fClampFlags | on.fClampFlags) & ~off.fClampFlags;
     
     fShadeFlags = (want.fShadeFlags | on.fShadeFlags) & ~off.fShadeFlags;
 #if 0 // This restriction is only valid for glide - handle in glideDevice
-    if( fBlendFlags & (kBlendAntiAlias | kBlendAlpha) )
+    if (fBlendFlags & (kBlendAntiAlias | kBlendAlpha))
         fShadeFlags &= ~(kShadeSpecularAlpha | kShadeSpecularHighlight);
 #endif // This restriction is only valid for glide - handle in glideDevice
 

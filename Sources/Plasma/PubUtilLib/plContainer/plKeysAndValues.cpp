@@ -127,14 +127,14 @@ bool plKeysAndValues::AddValue(const ST::string & key, double value, KAddValueMo
 bool plKeysAndValues::AddValues(const ST::string & key, const std::vector<ST::string> & values, KAddValueMode mode)
 {
     for (int i=0; i<values.size(); i++)
-        AddValue(key,values[i],mode);
+        AddValue(key, values[i], mode);
     return true;
 }
 
 bool plKeysAndValues::SetValue(const ST::string & key, const ST::string & value)
 {
     fKeys[key].clear();
-    return AddValue(key,value);
+    return AddValue(key, value);
 }
 
 bool plKeysAndValues::SetValue(const ST::string & key, int value)
@@ -221,7 +221,7 @@ void plKeysAndValues::Read(hsStream * s)
             value.allocate(strlen);
             s->Read(strlen, value.data());
             // for now, only single value for key on stream is allowed.
-            SetValue(key,value);
+            SetValue(key, value);
         }
     }
 }
@@ -231,23 +231,23 @@ void plKeysAndValues::Write(hsStream * s)
     // write nkeys
     s->WriteLE((uint16_t)fKeys.size());
     // iterate through keys
-    Keys::const_iterator ki,ke;
-    GetKeyIterators(ki,ke);
+    Keys::const_iterator ki, ke;
+    GetKeyIterators(ki, ke);
     for (; ki!=ke; ++ki)
     {
         // write key string
         s->WriteLE((uint16_t)ki->first.size());
-        s->Write(ki->first.size(),ki->first.c_str());
+        s->Write(ki->first.size(), ki->first.c_str());
         // write nvalues for this key
         s->WriteLE((uint16_t)ki->second.size());
         // iterate through values for this key
-        Values::const_iterator vi,ve;
-        GetValueIterators(ki->first,vi,ve);
+        Values::const_iterator vi, ve;
+        GetValueIterators(ki->first, vi, ve);
         for (; vi!=ve; ++vi)
         {
             // write value string
             s->WriteLE((uint16_t)vi->size());
-            s->Write(vi->size(),vi->c_str());
+            s->Write(vi->size(), vi->c_str());
         }
     }
 }

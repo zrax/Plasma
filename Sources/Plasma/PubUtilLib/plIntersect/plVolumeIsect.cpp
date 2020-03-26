@@ -53,7 +53,7 @@ static const float kDefLength = 5.f;
 plSphereIsect::plSphereIsect()
 :   fRadius(1.f)
 {
-    fCenter.Set(0,0,0);
+    fCenter.Set(0, 0, 0);
     int i;
     for (i = 0; i < 3; i++)
     {
@@ -680,7 +680,7 @@ void plConvexIsect::AddPlaneUnchecked(const hsVector3& n, float dist)
 {
     SinglePlane plane;
     plane.fNorm = n;
-    plane.fPos.Set(0,0,0);
+    plane.fPos.Set(0, 0, 0);
     plane.fDist = dist;
 
     fPlanes.Append(plane);

@@ -1054,7 +1054,7 @@ void PythonInterface::initPython()
         Py_INCREF(sys_dict);
         if (stdOut != nil)
         {
-            if (PyDict_SetItemString(sys_dict,"stdout", stdOut))
+            if (PyDict_SetItemString(sys_dict, "stdout", stdOut))
                 dbgLog->AddLine("Could not redirect stdout, Python output may not appear in the log\n");
         }
         else
@@ -1062,7 +1062,7 @@ void PythonInterface::initPython()
         
         if (stdErr != nil)
         {
-            if (!PyDict_SetItemString(sys_dict,"stderr", stdErr))
+            if (!PyDict_SetItemString(sys_dict, "stderr", stdErr))
             {
                 bool dontLog = false;
 
@@ -1070,7 +1070,7 @@ void PythonInterface::initPython()
                 PyObject* stdErrExceptHook = PyObject_GetAttrString(stdErr, "excepthook");
                 if (stdErrExceptHook)
                 {
-                    if (!PyCallable_Check(stdErrExceptHook) || PyDict_SetItemString(sys_dict,"excepthook", stdErrExceptHook))
+                    if (!PyCallable_Check(stdErrExceptHook) || PyDict_SetItemString(sys_dict, "excepthook", stdErrExceptHook))
                     {
                         dbgLog->AddLine("Could not redirect excepthook, Python error output will not get to the log server\n");
                         dontLog = true;
@@ -1132,7 +1132,7 @@ void PythonInterface::initPython()
         }
 
         // set the path to be this one
-        if (PyDict_SetItemString(sys_dict,"path",path_list))
+        if (PyDict_SetItemString(sys_dict, "path", path_list))
         {
             Py_DECREF(sys_dict);
             Py_DECREF(path_list);
@@ -1587,7 +1587,7 @@ void PythonInterface::debugTimeSlice()
     if (dbgSlice != nil)
     {
         // then send it the new text
-        PyObject* retVal = PyObject_CallFunction(dbgSlice,nil);
+        PyObject* retVal = PyObject_CallFunction(dbgSlice, nil);
         if (retVal == nil)
         {
             // for some reason this function didn't, remember that and not call it again
@@ -1720,7 +1720,7 @@ PyObject* PythonInterface::FindModule(const char* module)
 //
 //  PURPOSE    : Test to see if the module name is unique
 //
-//  Returns    : True if unique , otherwise returns False
+//  Returns    : True if unique, otherwise returns False
 //
 bool PythonInterface::IsModuleNameUnique(const ST::string& module)
 {

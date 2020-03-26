@@ -1192,7 +1192,7 @@ INode* plDistribComponent::IMakeOne(plDistribInstTab& nodes)
         outNode->SetNodeTM(TimeValue(0), l2w);
         outNode->CopyProperties(nodes[0].fNode);
         outNode->SetMtl(nodes[0].fNode->GetMtl());
-        outNode->SetObjOffsetPos(Point3(0,0,0));
+        outNode->SetObjOffsetPos(Point3(0, 0, 0));
         Quat identQuat;
         identQuat.Identity();
         outNode->SetObjOffsetRot(identQuat);
@@ -1223,7 +1223,7 @@ Box3 plDistribComponent::GetFade()
     }
     else
     {
-        pmin.Set(0.f,0.f,0.f);
+        pmin.Set(0.f, 0.f, 0.f);
     }
 
     Point3 pmax;

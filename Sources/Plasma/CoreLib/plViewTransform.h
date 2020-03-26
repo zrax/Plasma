@@ -221,7 +221,7 @@ public:
 
     // Convenience to move from one space to another.
     // Screen means pixels - Default is mapping NDC -> [0..1]. Z value of pixel is NDC Z.
-    // NDC is the ([-1..1],[-1..1],[0..1]) Normalized device coordinates.
+    // NDC is the ([-1..1], [-1..1], [0..1]) Normalized device coordinates.
     // Camera is camera space.
     // World is world space.
     // Past that, you're on your own.
