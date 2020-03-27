@@ -228,7 +228,8 @@ public:
     // for hsBitVector
     bool32 IsBitSet(uint32_t which) const { return fValue.IsBitSet(which); }
     bool32 SetBit(uint32_t which, bool32 on = true)
-    {   bool32 bitSet = IsBitSet(which);
+    {
+        bool32 bitSet = IsBitSet(which);
         if ((on && !bitSet) || (!on && bitSet))
             DirtyIfNecessary();
         return fValue.SetBit(which, on);

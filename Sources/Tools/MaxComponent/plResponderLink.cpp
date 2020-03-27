@@ -1032,7 +1032,8 @@ plMessage *plResponderCmdXRegion::CreateMsg(plMaxNode* node, plErrorMsg *pErrMsg
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 enum
-{   kCameraObj,
+{
+    kCameraObj,
     kPopCamera,
 };
 

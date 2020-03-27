@@ -211,7 +211,7 @@ public:
     void    GetFogApproxStarts(float &expApprox, float &exp2Approx) const { expApprox = fFogExpApproxStart;
                                                                             exp2Approx = fFogExp2ApproxStart; }
     void    SetFogApproxStarts(float exp, float exp2) { fFogExpApproxStart = exp;
-                                                                fFogExp2ApproxStart = exp2; }
+                                                        fFogExp2ApproxStart = exp2; }
 
     float   GetFogEndBias() const { return fFogEndBias; }
     void    SetFogEndBias(float rating) { fFogEndBias = rating; }

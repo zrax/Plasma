@@ -89,7 +89,8 @@ void hsDlistNode::RemoveNode()
     fdestroyed++;
 /*
     if (!NodeKnt)
-    {   fpFirst = 0;
+    {
+        fpFirst = 0;
         fpLast = 0;
         return;
     }
@@ -234,7 +235,8 @@ hsTArrayBase::hsTArrayBase():fUseCount(0), fTotalCount(0)
 hsTArrayBase::~hsTArrayBase()
 {
     if (self)
-    {   self->RemoveNode();
+    {
+        self->RemoveNode();
         delete self;
     }
     else
@@ -253,7 +255,8 @@ hsLargeArrayBase::hsLargeArrayBase():fUseCount(0), fTotalCount(0)
 hsLargeArrayBase::~hsLargeArrayBase()
 {
     if (self)
-    {   self->RemoveNode();
+    {
+        self->RemoveNode();
         delete self;
     }
     else

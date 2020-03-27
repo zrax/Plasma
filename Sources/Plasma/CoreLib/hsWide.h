@@ -129,7 +129,8 @@ inline hsWide* hsWide::Add(int32_t scaler)
     if (scaler >= 0)
         WIDE_ADDPOS(fHi, fLo, scaler);
     else
-    {   scaler = -scaler;
+    {
+        scaler = -scaler;
         if (fLo < uint32_t(scaler))
             fHi--;
         fLo -= scaler;

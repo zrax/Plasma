@@ -90,7 +90,8 @@ void HSMemory::Clear(void* m, uint32_t byteLen)
     uint8_t*  memStop = mem + byteLen;
 
     if (byteLen > 8)
-    {   while (uintptr_t(mem) & 3)
+    {
+        while (uintptr_t(mem) & 3)
             *mem++ = 0;
         
         uint32_t* mem32 = (uint32_t*)mem;
@@ -149,7 +150,8 @@ void hsChunkAllocator::Reset()
     hsPrivateChunk* chunk = fChunk;
 
     while (chunk)
-    {   hsPrivateChunk* next = chunk->fNext;
+    {
+        hsPrivateChunk* next = chunk->fNext;
         HSMemory::Delete(chunk);
         chunk = next;
     }
@@ -167,7 +169,8 @@ void* hsChunkAllocator::Allocate(uint32_t size, const void* data)
     void*   addr;
 
     if (fChunk == nil || fChunk->fAvailableSize < size)
-    {   if (size > fChunkSize)
+    {
+        if (size > fChunkSize)
             fChunkSize = size;
         fChunk = hsPrivateChunk::NewPrivateChunk(fChunk, fChunkSize);
         hsDebugCode(fChunkCount += 1;)
@@ -279,11 +282,13 @@ hsAppender::~hsAppender()
 uint32_t hsAppender::CopyInto(void* data) const
 {
     if (data)
-    {   const hsAppenderHead*   head = fFirstBlock;
+    {
+        const hsAppenderHead*   head = fFirstBlock;
         hsDebugCode(uint32_t totalSize = 0;)
 
         while (head != nil)
-        {   uint32_t  size = head->GetSize();
+        {
+            uint32_t  size = head->GetSize();
             HSMemory::BlockMove(head->GetFirst(), data, size);
             
             data = (char*)data + size;
@@ -300,7 +305,8 @@ void hsAppender::Reset()
     hsAppenderHead* head = fFirstBlock;
 
     while (head != nil)
-    {   hsAppenderHead* next = head->fNext;
+    {
+        hsAppenderHead* next = head->fNext;
         HSMemory::Delete(head);
         head = next;
     }
@@ -313,7 +319,8 @@ void hsAppender::Reset()
 void* hsAppender::PushHead()
 {
     if (fFirstBlock == nil)
-    {   fFirstBlock = hsAppenderHead::NewPrepend(fElemSize, fElemCount, nil);
+    {
+        fFirstBlock = hsAppenderHead::NewPrepend(fElemSize, fElemCount, nil);
         fLastBlock      = fFirstBlock;
     }
     else if (fFirstBlock->CanPrepend() == false)
@@ -346,7 +353,8 @@ bool hsAppender::PopHead(void* data)
     fCount -= 1;
 
     if (fFirstBlock->PopHead(fElemSize, data))
-    {   hsAppenderHead* next = fFirstBlock->fNext;
+    {
+        hsAppenderHead* next = fFirstBlock->fNext;
         if (next)
             next->fPrev = nil;
         HSMemory::Delete(fFirstBlock);
@@ -365,12 +373,14 @@ int hsAppender::PopHead(int count, void* data)
     int origCount = fCount;
 
     while (fCount > 0)
-    {   int size = fFirstBlock->GetSize();
+    {
+        int size = fFirstBlock->GetSize();
         if (size > sizeNeeded)
             size = sizeNeeded;
 
         if (fFirstBlock->PopHead(size, data))
-        {   hsAppenderHead* next = fFirstBlock->fNext;
+        {
+            hsAppenderHead* next = fFirstBlock->fNext;
             if (next)
                 next->fPrev = nil;
             HSMemory::Delete(fFirstBlock);
@@ -391,11 +401,13 @@ int hsAppender::PopHead(int count, void* data)
 void* hsAppender::PushTail()
 {
     if (fFirstBlock == nil)
-    {   fFirstBlock = hsAppenderHead::NewAppend(fElemSize, fElemCount, nil);
+    {
+        fFirstBlock = hsAppenderHead::NewAppend(fElemSize, fElemCount, nil);
         fLastBlock      = fFirstBlock;
     }
     else if (fLastBlock->CanAppend() == false)
-    {   fLastBlock->fNext   = hsAppenderHead::NewAppend(fElemSize, fElemCount, fLastBlock);
+    {
+        fLastBlock->fNext   = hsAppenderHead::NewAppend(fElemSize, fElemCount, fLastBlock);
         fLastBlock      = fLastBlock->fNext;
     }
     
@@ -417,13 +429,16 @@ void hsAppender::PushTail(int count, const void* data)
     int sizeNeeded = count * fElemSize;
 
     while (sizeNeeded > 0)
-    {   if (fFirstBlock == nil)
-        {   hsAssert(fCount == 0, "uninited count");
+    {
+        if (fFirstBlock == nil)
+        {
+            hsAssert(fCount == 0, "uninited count");
             fFirstBlock = hsAppenderHead::NewAppend(fElemSize, fElemCount, nil);
             fLastBlock      = fFirstBlock;
         }
         else if (fLastBlock->CanAppend() == false)
-        {   fLastBlock->fNext   = hsAppenderHead::NewAppend(fElemSize, fElemCount, fLastBlock);
+        {
+            fLastBlock->fNext   = hsAppenderHead::NewAppend(fElemSize, fElemCount, fLastBlock);
             fLastBlock      = fLastBlock->fNext;
         }
 
@@ -434,7 +449,8 @@ void hsAppender::PushTail(int count, const void* data)
         void*   dst = fLastBlock->Append(size);
 
         if (data)
-        {   HSMemory::BlockMove(data, dst, size);
+        {
+            HSMemory::BlockMove(data, dst, size);
             data = (char*)data + size;
         }
         sizeNeeded -= size;
@@ -458,7 +474,8 @@ bool hsAppender::PopTail(void* data)
     fCount -= 1;
 
     if (fLastBlock->PopTail(fElemSize, data))
-    {   hsAppenderHead* prev = fLastBlock->fPrev;
+    {
+        hsAppenderHead* prev = fLastBlock->fPrev;
         if (prev)
             prev->fNext = nil;
         HSMemory::Delete(fLastBlock);
@@ -482,7 +499,8 @@ void hsAppenderIterator::ResetToHead(const hsAppender* list)
     fCurrBlock = nil;
 
     if (fAppender)
-    {   fCurrBlock = fAppender->fFirstBlock;
+    {
+        fCurrBlock = fAppender->fFirstBlock;
         if (fCurrBlock)
             fCurrItem = fCurrBlock->GetFirst();
     }
@@ -494,7 +512,8 @@ void hsAppenderIterator::ResetToTail(const hsAppender* list)
     fCurrBlock = nil;
 
     if (fAppender)
-    {   fCurrBlock = fAppender->fLastBlock;
+    {
+        fCurrBlock = fAppender->fLastBlock;
         if (fCurrBlock)
             fCurrItem = fCurrBlock->GetLast(fAppender->fElemSize);
     }
@@ -505,15 +524,18 @@ void* hsAppenderIterator::Next()
     void*   item = nil;
 
     if (fCurrBlock)
-    {   item = fCurrItem;
+    {
+        item = fCurrItem;
         fCurrItem = (char*)fCurrItem + fAppender->fElemSize;
         if (fCurrItem == fCurrBlock->GetBottom())
-        {   fCurrBlock = fCurrBlock->fNext;
+        {
+            fCurrBlock = fCurrBlock->fNext;
             if (fCurrBlock)
                 fCurrItem = fCurrBlock->GetFirst();
         }
         else if (fCurrItem == fCurrBlock->GetStop())
-        {   hsAssert(fCurrBlock->fNext == nil, "oops");
+        {
+            hsAssert(fCurrBlock->fNext == nil, "oops");
             fCurrBlock = nil;
         }
     }
@@ -524,7 +546,8 @@ bool hsAppenderIterator::Next(void* data)
 {
     void*   addr = this->Next();
     if (addr)
-    {   if (data)
+    {
+        if (data)
             HSMemory::BlockMove(addr, data, fAppender->fElemSize);
         return true;
     }
@@ -536,7 +559,8 @@ int hsAppenderIterator::Next(int count, void* data)
     int origCount = count;
     
     while (count > 0 && this->Next(data))
-    {   if (data)
+    {
+        if (data)
             data = (void*)((char*)data + fAppender->fElemSize);
         count -= 1;
     }
@@ -548,15 +572,18 @@ void* hsAppenderIterator::Prev()
     void*   item = nil;
 
     if (fCurrBlock)
-    {   item = fCurrItem;
+    {
+        item = fCurrItem;
         fCurrItem = (char*)fCurrItem - fAppender->fElemSize;
         if (item == fCurrBlock->GetTop())
-        {   fCurrBlock = fCurrBlock->fPrev;
+        {
+            fCurrBlock = fCurrBlock->fPrev;
             if (fCurrBlock)
                 fCurrItem = fCurrBlock->GetLast(fAppender->fElemSize);
         }
         else if (item == fCurrBlock->GetFirst())
-        {   hsAssert(fCurrBlock->fPrev == nil, "oops");
+        {
+            hsAssert(fCurrBlock->fPrev == nil, "oops");
             fCurrBlock = nil;
         }
     }
@@ -567,7 +594,8 @@ bool hsAppenderIterator::Prev(void* data)
 {
     void*   addr = this->Prev();
     if (addr)
-    {   if (data)
+    {
+        if (data)
             HSMemory::BlockMove(addr, data, fAppender->fElemSize);
         return true;
     }
@@ -787,7 +815,8 @@ static  _CrtMemBlockHeader *cmbh_last;  // Remember this header for next increme
             snprintf(fnm, arrsize(fnm), "Reports\\%s", "ROOMS.txt");
  
             if (first)
-            {   DumpLogFile = fopen(fnm, "w");    // first time clobber the old
+            {
+                DumpLogFile = fopen(fnm, "w");    // first time clobber the old
                 if (DumpLogFile)
                     fprintf(DumpLogFile, "Filename              Memory-Used(K)       RunningTotal\n");//  \tAllocation Calls \n");
                 first = 0;
@@ -795,7 +824,8 @@ static  _CrtMemBlockHeader *cmbh_last;  // Remember this header for next increme
             else
                 DumpLogFile = fopen(fnm, "a+");
             if (DumpLogFile)
-            {   fprintf(DumpLogFile, "%s ", nm);
+            {
+                fprintf(DumpLogFile, "%s ", nm);
                 int len = strlen(nm);
                 GrandTotal += (uint32_t)(normsize+500)/1000;
 

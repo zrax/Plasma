@@ -194,7 +194,8 @@ plKey plKeyFinder::StupidSearch(const ST::string & age, const ST::string & rm,
 
     uint16_t ty = classType;
     if (ty == maxClasses)   // error
-    {   fLastError = kInvalidClass;
+    {
+        fLastError = kInvalidClass;
         return nil;
     }
 

@@ -157,9 +157,11 @@ void    plGenericType::Read(hsStream* s)
         fS=s->ReadSafeString();
         break;
     case kBool:
-        {int8_t b;
-        s->ReadLE(&b);
-        fB = b?true:false;}
+        {
+            int8_t b;
+            s->ReadLE(&b);
+            fB = b?true:false;
+        }
         break;
     case kChar:
         s->ReadLE(&fC);
@@ -192,8 +194,10 @@ void    plGenericType::Write(hsStream* s)
         s->WriteSafeString(fS);
         break;
     case kBool:
-        {int8_t b = fB?1:0;
-        s->WriteLE(b);}
+        {
+            int8_t b = fB?1:0;
+            s->WriteLE(b);
+        }
         break;
     case kChar:
         s->WriteLE(fC);

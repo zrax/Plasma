@@ -1260,7 +1260,8 @@ bool plCameraBrain1_Avatar::MsgReceive(plMessage* msg)
             if (!behNotifymsg->state)
             {
                 if (fFlags.IsBitSet(kFalling))
-                {   plVirtualCam1::Instance()->ClearFlags(plVirtualCam1::kFalling);
+                {
+                    plVirtualCam1::Instance()->ClearFlags(plVirtualCam1::kFalling);
                     fFlags.ClearBit(kFalling);
                 }
                 else

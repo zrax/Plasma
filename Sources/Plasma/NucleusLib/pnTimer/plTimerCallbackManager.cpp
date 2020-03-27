@@ -111,7 +111,8 @@ bool plTimerCallbackManager::CancelCallback(plTimerCallback* pTimer)
     for (int i = 0; i < fCallbacks.Count(); i++)
     {
         if (fCallbacks[i] == pTimer)
-        {   fCallbacks.Remove(i);
+        {
+            fCallbacks.Remove(i);
             return true;
         }
     }

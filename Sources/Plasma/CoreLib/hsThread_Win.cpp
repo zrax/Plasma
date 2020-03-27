@@ -69,7 +69,8 @@ bool hsGlobalSemaphore::Wait(hsMilliseconds timeToWait)
     if (result == WAIT_OBJECT_0)
         return true;
     else
-    {   hsThrowIfFalse(result == WAIT_TIMEOUT);
+    {
+        hsThrowIfFalse(result == WAIT_TIMEOUT);
         return false;
     }
 }

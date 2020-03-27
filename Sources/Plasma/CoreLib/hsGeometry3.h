@@ -216,8 +216,10 @@ struct hsVector3 : public hsScalarTriple {
                 }
 
 //  hsVector3 &Sub(const hsPoint3& s, const hsPoint3& t)
-//  {   Set(s.fX - t.fX, s.fY - t.fY, s.fZ - t.fZ);
-//          return *this; };
+//  {
+//      Set(s.fX - t.fX, s.fY - t.fY, s.fZ - t.fZ);
+//      return *this;
+//  }
     friend inline hsVector3 operator+(const hsVector3& s, const hsVector3& t);
     friend inline hsVector3 operator-(const hsVector3& s, const hsVector3& t);
     friend inline hsVector3 operator-(const hsVector3& s);

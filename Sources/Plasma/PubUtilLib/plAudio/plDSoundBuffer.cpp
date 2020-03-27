@@ -431,7 +431,8 @@ bool plDSoundBuffer::StreamingFillBuffer(plAudioFileReader *stream)
             }
 
             if (!finished)
-            {   unsigned int size = stream->NumBytesLeft() < STREAM_BUFFER_SIZE ? stream->NumBytesLeft() : STREAM_BUFFER_SIZE;
+            {
+                unsigned int size = stream->NumBytesLeft() < STREAM_BUFFER_SIZE ? stream->NumBytesLeft() : STREAM_BUFFER_SIZE;
                 stream->Read(size, data);
 
                 ALenum format = IGetALFormat(fBufferDesc->fBitsPerSample, fBufferDesc->fNumChannels);

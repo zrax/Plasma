@@ -417,14 +417,16 @@ static void FetchRefOwners (
     unsigned                    refCount
 ) {
     TArray<unsigned> ownerIds;
-    {   for (unsigned i = 0; i < refCount; ++i)
+    {
+        for (unsigned i = 0; i < refCount; ++i)
             if (unsigned ownerId = refs[i].ownerId)
                 ownerIds.Add(ownerId);
     }
     QSORT(unsigned, ownerIds.Ptr(), ownerIds.Count(), elem1 < elem2);
     hsRef<RelVaultNode> templateNode = new RelVaultNode;
     templateNode->SetNodeType(plVault::kNodeType_PlayerInfo);
-    {   unsigned prevId = 0;
+    {
+        unsigned prevId = 0;
         for (unsigned i = 0; i < ownerIds.Count(); ++i) {
             if (ownerIds[i] != prevId) {
                 prevId = ownerIds[i];

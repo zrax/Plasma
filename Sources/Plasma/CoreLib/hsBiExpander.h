@@ -189,7 +189,8 @@ template <class T>
 int32_t hsExpander<T>::Get(int32_t index, int32_t count, T data[]) const
 {
     if (count > 0)
-    {   hsThrowIfNilParam(data);
+    {
+        hsThrowIfNilParam(data);
         hsThrowIfBadParam((index < 0)||(index >= fNumPost));
 
         if (index + count > fNumPost)
@@ -406,7 +407,8 @@ template <class T>
 int32_t hsBiExpander<T>::Get(int32_t index, int32_t count, T data[]) const
 {
     if (count > 0)
-    {   hsThrowIfNilParam(data);
+    {
+        hsThrowIfNilParam(data);
         hsThrowIfBadParam((index < -fNumPre)||(index >= fNumPost));
 
         if (index + count > fNumPost)

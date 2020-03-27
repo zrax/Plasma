@@ -641,7 +641,8 @@ void SetPhysAnimRecurse(plMaxNode *node, plErrorMsg *pErrMsg)
         return;
 
     if (HasPhysicalComponent(node, false))
-    {   char* debugName = node->GetName();
+    {
+        char* debugName = node->GetName();
         node->GetPhysicalProps()->SetPhysAnim(true, node, pErrMsg);
     }
     int i;

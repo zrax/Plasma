@@ -135,8 +135,7 @@ protected:
     ST::string fAnimName;
 
 private:
-    void IInit() { fBlend = fAmp = 0;
-                   fAnimName=ST::null; }
+    void IInit() { fBlend = fAmp = 0; fAnimName=ST::null; }
 public:
     plAGCmdMsg()
         : plMessage(nil, nil, nil) { IInit(); }

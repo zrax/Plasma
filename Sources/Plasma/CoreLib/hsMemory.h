@@ -86,7 +86,8 @@ public:
     uint8_t* GetMem(uint32_t length)
     {
         if (length > fLength)
-        {   if (fMem != fMemBuffer)
+        {
+            if (fMem != fMemBuffer)
                 delete[] fMem;
             fMem = new uint8_t[length];
             fLength = length;

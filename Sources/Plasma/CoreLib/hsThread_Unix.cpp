@@ -136,13 +136,16 @@ bool hsGlobalSemaphore::Wait(hsMilliseconds timeToWait)
     hsThrowIfOSErr(status);
 
     if (timeToWait == kPosInfinity32)
-    {   while (fCounter == 0)
-        {   status = ::pthread_cond_wait(&fPCond, &fPMutex);
+    {
+        while (fCounter == 0)
+        {
+            status = ::pthread_cond_wait(&fPCond, &fPMutex);
             hsThrowIfOSErr(status);
         }
     }
     else
-    {   timespec spec;
+    {
+        timespec spec;
         int  result;
 
         result = ::clock_gettime(CLOCK_REALTIME, &spec);
@@ -151,14 +154,17 @@ bool hsGlobalSemaphore::Wait(hsMilliseconds timeToWait)
         spec.tv_sec += timeToWait / 1000;
         spec.tv_nsec += (timeToWait % 1000) * 1000 * 1000;
         while (spec.tv_nsec >= 1000 * 1000 * 1000)
-        {   spec.tv_sec += 1;
+        {
+            spec.tv_sec += 1;
             spec.tv_nsec -= 1000 * 1000 * 1000;
         }
 
         while (fCounter == 0)
-        {   status = ::pthread_cond_timedwait(&fPCond, &fPMutex, &spec);
+        {
+            status = ::pthread_cond_timedwait(&fPCond, &fPMutex, &spec);
             if (status == ETIMEDOUT)
-            {   retVal = false;
+            {
+                retVal = false;
                 goto EXIT;
             }
             hsThrowIfOSErr(status);
