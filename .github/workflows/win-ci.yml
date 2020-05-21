@@ -1,0 +1,77 @@
+name: Windows-CI
+on: [push, pull_request]
+
+jobs:
+  build:
+    # Held back to ensure MSVC 2017 comaptibility
+    runs-on: windows-2016
+    strategy:
+      matrix:
+        config: [Debug, Release]
+        client_type: [Internal, External]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Qt5
+      uses: jurplel/install-qt-action@v2
+      with:
+        arch: win32_msvc2017
+        version: 5.12.8
+    - name: Fetch dependencies
+      run: |
+        $devlibs_nonfree_url = "http://guildofwriters.org/cwe/vs2015-appveyor-min.7z"
+        $devlibs_url = "https://github.com/H-uru/PlasmaPrefix/releases/download/2020.05.13/devlibs.zip"
+
+        if (!(Test-Path -PathType Container build)) {
+          Write-Host "Creating build folder... " -noNewLine
+          New-Item -ItemType directory build | Out-Null
+          Write-Host "OK" -foregroundColor Green
+        }
+        Set-Location build
+        $path = (Get-Location).Path
+
+        if (!(Test-Path -PathType Container devlibs)) {
+          Write-Host "Downloading development libraries... " -noNewLine
+          Invoke-WebRequest $devlibs_nonfree_url -OutFile devlibs-nonfree.7z
+          Invoke-WebRequest $devlibs_url -OutFile devlibs.zip
+          Write-Host "OK" -foregroundColor Green
+
+          Write-Host "Extracting development libraries... " -noNewLine
+          New-Item -ItemType directory devlibs | Out-Null
+          $shell_app = New-Object -com shell.application
+          Set-Location devlibs
+          7z x $path + "\devlibs-nonfree.7z" -p${{ secrets.devlibsKey }}
+          Set-Location $path
+          $dest = $shell_app.namespace($path + "\devlibs")
+          $zip  = $shell_app.namespace($path + "\devlibs.zip")
+          $dest.CopyHere($zip.items(), 0x14)
+          Write-Host "OK" -foregroundColor Green
+
+          #Write-Host "Installing Python modules... " -noNewLine
+          #Invoke-WebRequest "http://ftp.gnome.org/pub/GNOME/binaries/win32/pygtk/2.24/pygtk-all-in-one-2.24.2.win32-py2.7.msi" -OutFile pygtk-all-in-one-2.24.2.win32-py2.7.msi
+          #Start-Process msiexec -ArgumentList "/i pygtk-all-in-one-2.24.2.win32-py2.7.msi TRANSFORMS=devlibs\EnableRSVG.mst TARGETDIR=C:\Python27 /qn /norestart" -wait
+          #C:\Python27\python.exe -m pip install -q Pillow 2> $null
+          #Write-Host "OK" -foregroundColor Green
+        }
+
+    - name: Build Plasma
+      run: |
+        Set-Location build
+        $path = (Get-Location).Path
+        $Env:Path = $Env:Path + ";" + $path + "\devlibs\bin"
+
+        If ("${{ matrix.client_type }}" -eq "External") {
+          $Env:PLASMA_EXTERNAL_RELEASE = "ON"
+        }
+
+        $prefix = "$path\devlibs"
+        If ("${{ matrix.config }}" -eq "Debug") {
+          $prefix = "$path\devlibs\debug;$prefix"
+        }
+        cmake -Wno-dev -DCMAKE_PREFIX_PATH="$prefix" -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=bin `
+          -DPHYSX_SDK_PATH=devlibs\PhysX -DQt5_DIR=C:\Qt\$Env:QT_VER\msvc2017\lib\cmake\Qt5 `
+          -DPLASMA_EXTERNAL_RELEASE="$Env:PLASMA_EXTERNAL_RELEASE" -DPLASMA_BUILD_TESTS=ON `
+          -DPLASMA_BUILD_TOOLS=ON -DPLASMA_BUILD_RESOURCE_DAT=ON ..
+
+        cmake --build . --config "${{ matrix.config }}"
+        cmake --build . --config "${{ matrix.config }}" --target test
